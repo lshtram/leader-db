@@ -1,0 +1,54 @@
+# World Bank World Development Indicators (WDI) indicator catalog
+#
+# Source: World Bank WDI v2 API, https://api.worldbank.org/v2/
+# License: CC BY 4.0 International per the World Bank Terms of Use for Datasets
+#   (https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets)
+# Citation: World Bank. 2024. World Development Indicators. Washington, D.C.:
+#   The World Bank. https://data.worldbank.org/
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which WDI indicators are read
+# in Stage 2. Every Stage 2 WDI adapter call resolves its raw_column from
+# this file. Adding/removing an indicator here is the only change needed to
+# widen or narrow the WDI ingestion for the prototype.
+#
+# Architecture design: docs/architecture/wdi.md §2.4
+#
+# Scale conventions used in this catalog:
+#   absolute           — absolute counts (e.g. population)
+#   usd_current        — current-US$ dollar figures
+#   usd_constant_2015  — constant-2015-US$ figures (inflation-adjusted)
+#   usd_constant_2017_intl  — constant-2017-international-$ (PPP-adjusted)
+#   percent            — percentage values on 0–100 scale
+#   per_1000           — rates per 1,000 (e.g. mortality per 1,000 live births)
+#   index_0_1          — normalized indices (e.g. Gini on 0–1 scale)
+#   years              — life-expectancy years
+#   ratio              — dimensionless ratios (e.g. school enrollment ratio)
+#
+# All 14 indicators normalize to 0-1 in Stage 5 (the normalized_scale_target
+# column is documentation for the score modules, not a Stage 2 transformation).
+#
+# NOTE on indicator codes: WDI v2 uses NE.EXP.GNFS.ZS and NE.IMP.GNFS.ZS
+# (not NV.EXP.TOTL.ZS / NV.IMP.TOTL.ZS which return "Invalid value").
+# The raw_column values below reflect the actual WDI v2 API codes.
+#
+# NOTE on NV.IMP.TOTL.ZS direction: marked higher_is_better=True for the
+# prototype (import capacity correlates with economic health). The Phase D
+# score module may flip this if chronic trade deficits are interpreted as
+# adverse. Confirm with user or defer to score module.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+wdi_population,SP.POP.TOTL,economic_wellbeing,absolute,0-1,True,persons,Total population; denominator for per-capita metrics and country_years.population
+wdi_gdp_current_usd,NY.GDP.MKTP.CD,economic_wellbeing,usd_current,0-1,True,USD,GDP at market prices in current USD; country_years.gdp_current_usd column
+wdi_gdp_per_capita,NY.GDP.PCAP.CD,economic_wellbeing,usd_current,0-1,True,USD per capita,GDP per capita (market exchange rate); headline economic well-being metric
+wdi_gdp_constant_2015_usd,NY.GDP.MKTP.KD,economic_wellbeing,usd_constant_2015,0-1,True,USD 2015,GDP at constant 2015 USD; inflation-adjusted for cross-year comparison
+wdi_gdp_per_capita_ppp_constant_2017,NY.GDP.PCAP.PP.KD,economic_wellbeing,usd_constant_2017_intl,0-1,True,intl $ 2017,GDP per capita at PPP (constant 2017 international $); cross-country purchasing-power metric
+wdi_gni_per_capita_atlas,NY.GNP.PCAP.CD,economic_wellbeing,usd_current,0-1,True,USD per capita,GNI per capita (Atlas method); World Bank lending-classification denominator
+wdi_exports_pct_gdp,NE.EXP.GNFS.ZS,economic_wellbeing,percent,0-1,True,% of GDP,Exports of goods and services as share of GDP; trade openness signal
+wdi_imports_pct_gdp,NE.IMP.GNFS.ZS,economic_wellbeing,percent,0-1,True,% of GDP,Imports of goods and services as share of GDP; open-economy signal (see catalog header note on direction)
+wdi_fdi_inflows_current_usd,BX.KLT.DINV.CD.WD,economic_wellbeing,usd_current,0-1,True,USD,Foreign direct investment net inflows (BoP, current USD); capital openness signal
+wdi_life_expectancy_at_birth,SP.DYN.LE00.IN,social_wellbeing,years,0-1,True,years,Life expectancy at birth (total, years); headline social well-being metric
+wdi_literacy_rate_adult,SE.ADT.LITR.ZS,social_wellbeing,percent,0-1,True,% of people 15+,Adult literacy rate; coverage begins 1990 for most countries
+wdi_secondary_school_enrollment,SE.SEC.ENRR,social_wellbeing,percent,0-1,True,% gross,Secondary school enrollment (gross %); can exceed 100 due to over-age students
+wdi_under5_mortality_per_1000,SH.DYN.MORT,social_wellbeing,per_1000,0-1,False,per 1k live births,Under-5 mortality rate; inverse direction (lower = better)
+wdi_gini_index,SI.POV.GINI,social_wellbeing,index_0_1,0-1,False,0-1,Gini index of income inequality; inverse direction (lower = less inequality)

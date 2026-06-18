@@ -1,0 +1,89 @@
+# Political Terror Scale (PTS) indicator catalog
+#
+# Source: Political Terror Scale (PTS), https://www.politicalterrorscale.org/
+#   URL (verified 2026-06-18): https://www.politicalterrorscale.org/Data/Files/PTS-2025.xlsx
+# Version: PTS-2025 (data 1976-2024, 49 years, ~10,531 country-year rows)
+# License: free academic use; cite Wood, Gibney, et al.
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which PTS indicators are
+# read in Stage 2. Every Stage 2 PTS adapter call resolves its
+# raw_column from this file. Adding/removing an indicator here is the
+# only change needed to widen or narrow the PTS ingestion for the prototype.
+#
+# Architecture design: docs/architecture/pts.md §3
+#
+# --- 3-INDICATOR CHOICE ---
+# The PTS xlsx carries 3 parallel score columns (PTS_A from Amnesty
+# International, PTS_H from Human Rights Watch, PTS_S from US State
+# Department). The catalog extracts all 3 as 3 separate indicators
+# (not collapsed to a single worst-of-three score). The justification
+# is in the design doc §3: cross-source comparison at Stage 12 needs
+# the 3-way granularity (UCDP one-sided and V-Dem repression each
+# contribute 2 indicators; PTS contributes 3; the Stage 12 cross-
+# source comparison reads all 6 indicators and computes agreement
+# per-indicator, not per-source).
+#
+# All 3 indicators share these catalog metadata:
+#   raw_scale        = "ordinal"        # 1-5 ordinal scale
+#   normalized_scale_target = "0-10"    # inverted: 5 (worst terror) -> 0, 1 (least) -> 10
+#   higher_is_better = "0"              # more terror = worse (the 0-10 score is inverted)
+#   unit             = "pts_score"
+#   rating_category  = "domestic_violence"
+#
+# --- SCORE INVERSION (PTS -> 0-10) ---
+# The raw PTS scale is 1-5 where 1 = least terror (best) and 5 = most
+# terror (worst). The pipeline's scoring convention inverts this:
+# higher normalized score = less terror (better). The mapping is:
+#   PTS 1 -> 10/10 (least terror)
+#   PTS 2 -> 7.5/10
+#   PTS 3 -> 5.0/10
+#   PTS 4 -> 2.5/10
+#   PTS 5 -> 0/10  (most terror)
+# The inversion is the Stage 5 score module's responsibility; Stage 2
+# only writes the raw 1-5 value to source_observations.normalized_value
+# and preserves the "higher_is_better=0" flag so the score module
+# inverts the direction. This is the same pattern as the SIPRI-milex
+# higher_is_better=False indicators (more spending = worse peace).
+#
+# --- MISSING-DATA CONVENTION ---
+# The xlsx carries TWO independent signals per cell:
+#   PTS_X (str 'NA' or int 1-5) -- the raw score
+#   NA_Status_X (int 0/66/77/88/99) -- the provenance flag
+# Stage 2 applies the precedence rule: NA_Status takes precedence
+# over PTS_X. A cell is "valid data" iff NA_Status_X == 0. The
+# 4-case sentinel matrix is in the design doc §6.
+#
+# The raw_value audit column preserves the literal cell text:
+#   - int 1-5 cells with NA_Status=0: raw_value = str(int)  (e.g., "3")
+#   - 'NA' cells with NA_Status != 0: raw_value = "NA"
+#   - int cells with NA_Status != 0: raw_value = str(int)  (audit shows the published value; Stage 5 sees the NA_Status and skips)
+#   - 'NA' cells with NA_Status=0 (the inconsistency case): raw_value = "NA" + warning logged
+#
+# --- REGION CODES ---
+# The xlsx uses 7 single-region codes plus 1 multi-region anomaly
+# (verified live 2026-06-18; see design doc §6.4):
+#   eap (East Asia & Pacific), eca (Europe & Central Asia),
+#   lac (Latin America & Caribbean), mena (Middle East & North Africa),
+#   na (North America), sa (South Asia), ssa (Sub-Saharan Africa)
+# Plus the data anomaly 'mena, ssa' (a 2-region cell appearing 49
+# times for the African Union in 1976-2024; treated as a data entry
+# error and passed through verbatim to source_observations.notes).
+# These are the World Bank country-and-lending-groups codes; they
+# do NOT match the 6-code list in the metadata.json (which was an
+# approximation). The architect flags this drift for the developer
+# to correct in the same commit as the adapter lands (mirror the
+# WGI "1996-2023" -> "1996-2022" docs fix pattern).
+#
+# --- COUNTRY ID COLUMNS ---
+# The xlsx carries 4 ID columns per row (COW_Code_A 3-letter alphabetic,
+# COW_Code_N numeric, WordBank_Code_A 3-letter alphabetic, UN_Code_N
+# numeric). Stage 2 uses COW_Code_A as the primary source_row_reference
+# suffix (matching V-Dem's country_text_id join pattern). Stage 3
+# (country match) resolves the COW code to ISO3 via the canonical
+# country table.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+pts_amnesty_score,PTS_A,domestic_violence,ordinal,0-10,0,pts_score,Political Terror Scale from Amnesty International reports (1-5 scale; higher = more political terror). One of 3 parallel PTS scores per country-year. Cross-validates UCDP one-sided fatalities and V-Dem v2csreprss for the domestic_violence category.
+pts_human_rights_watch_score,PTS_H,domestic_violence,ordinal,0-10,0,pts_score,Political Terror Scale from Human Rights Watch reports (1-5 scale; higher = more political terror). One of 3 parallel PTS scores per country-year. Less coverage than PTS_A (HRW has fewer country-years coded; NA_Status=88 'not coded' is common).
+pts_state_dept_score,PTS_S,domestic_violence,ordinal,0-10,0,pts_score,Political Terror Scale from US State Department human rights reports (1-5 scale; higher = more political terror). One of 3 parallel PTS scores per country-year. Highest coverage of the 3 (State reports cover nearly all countries every year).

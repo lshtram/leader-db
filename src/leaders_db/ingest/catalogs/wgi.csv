@@ -1,0 +1,46 @@
+# World Bank Worldwide Governance Indicators (WGI) indicator catalog
+#
+# Source: World Bank WGI xlsx, https://info.worldbank.org/governance/wgi/
+# License: CC BY 4.0 International per the World Bank Terms of Use for Datasets
+#   (https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets)
+# Citation: World Bank. 2023. Worldwide Governance Indicators. Washington, D.C.:
+#   The World Bank. https://info.worldbank.org/governance/wgi/
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which WGI indicators are read
+# in Stage 2. Every Stage 2 WGI adapter call resolves its raw_column from
+# this file. Adding/removing an indicator here is the only change needed to
+# widen or narrow the WGI ingestion for the prototype.
+#
+# Architecture design: docs/architecture/wgi.md §2.4
+#
+# Indicator naming quirk: the WGI xlsx sheet "Political StabilityNoViolence"
+# has a literal space between "Stability" and "NoViolence". The catalog
+# preserves that space verbatim (it is the live sheet name).
+#
+# Year coverage: the WGI xlsx is biennial for 1996-2002 (5 measurements)
+# and annual for 2003-2022 (20 measurements). The Stage 5 score module's
+# `temporal_fit` component treats the biennial gap as no penalty per the
+# WGI convention; do not interpret the missing 1997, 1999, 2001 cells as
+# coverage gaps.
+#
+# Missing-data convention: the WGI xlsx uses the Excel literal string
+# "#N/A" (not -999, not NaN, not empty). The Stage 2 read coerces "#N/A"
+# to NaN in the wide frame and to NULL in source_observations.normalized_value;
+# raw_value preserves the literal "#N/A" for the audit trail.
+#
+# Scale: WGI Estimate is a z-score-like number on approximately -2.5
+# (weak) to +2.5 (strong). All 6 indicators normalize to 0-1 in Stage 5.
+# All 6 are higher_is_better=True (higher Estimate = better governance).
+# The "ControlofCorruption" indicator is mapped to the integrity category
+# per docs/source-vetting-report.md §3.6 (cross-validation for
+# Transparency International CPI and V-Dem corruption); the other 5
+# indicators live in effectiveness.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+wgi_voice_and_accountability,VoiceandAccountability,effectiveness,z_score,0-1,True,z_score,Voice and Accountability: extent to which citizens can participate in selecting their government, plus freedom of expression, association, and free media
+wgi_political_stability,Political StabilityNoViolence,effectiveness,z_score,0-1,True,z_score,Political Stability and Absence of Violence/Terrorism: perceptions of likelihood of political instability and/or politically-motivated violence
+wgi_government_effectiveness,GovernmentEffectiveness,effectiveness,z_score,0-1,True,z_score,Government Effectiveness: quality of public services, civil service, policy formulation and implementation, and credibility of government commitment
+wgi_regulatory_quality,RegulatoryQuality,effectiveness,z_score,0-1,True,z_score,Regulatory Quality: ability of government to formulate and implement sound policies and regulations that permit and promote private-sector development
+wgi_rule_of_law,RuleofLaw,effectiveness,z_score,0-1,True,z_score,Rule of Law: extent to which agents have confidence in and abide by the rules of society (property rights, police, courts)
+wgi_control_of_corruption,ControlofCorruption,integrity,z_score,0-1,True,z_score,Control of Corruption: extent to which public power is exercised for private gain; cross-validates TI CPI and V-Dem corruption

@@ -1,0 +1,68 @@
+# SIPRI Military Expenditure Database indicator catalog
+#
+# Source: SIPRI Milex xlsx, https://www.sipri.org/databases/milex
+#   URL (verified 2026-06-18):
+#   https://www.sipri.org/sites/default/files/SIPRI-Milex-data-1949-2025_v1.2.xlsx
+# Version: v1.2 (1949-2025, "© SIPRI 2026")
+# License: free academic with attribution; cite the dataset version.
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which SIPRI milex indicators
+# are read in Stage 2. Every Stage 2 SIPRI milex adapter call resolves its
+# raw_column from this file. Adding/removing an indicator here is the only
+# change needed to widen or narrow the SIPRI milex ingestion for the prototype.
+#
+# Architecture design: docs/architecture/sipri_milex.md §3.4
+#
+# --- MISSING-DATA CONVENTION ---
+# The SIPRI xlsx uses three missing-value tokens in year cells:
+#
+#   "..."  — data unavailable for this country/year (the measurement exists
+#            but SIPRI does not have it). Treated as NULL in normalized_value;
+#            raw_value preserves the literal "..." for the audit trail.
+#
+#   "xxx"  — country did not exist or was not independent during this year
+#            (e.g. Nigeria in 1949, Ukraine in 1918). Treated as NULL in
+#            normalized_value; raw_value preserves the literal "xxx" so a
+#            reviewer can distinguish "data unavailable" from "country
+#            did not exist".
+#
+#   ""     — empty cell (rare; appears in some region/sub-region rows and
+#            occasionally in country rows where SIPRI has not yet released a
+#            number). Treated as NULL in normalized_value; raw_value
+#            preserves the literal "" (empty string).
+#
+# The Stage 2 adapter coerces all three to Python None / pandas NaN in the
+# wide frame and to NULL in source_observations.normalized_value.
+#
+# --- REGION DENYLIST ---
+# The SIPRI xlsx data rows interleave region/sub-region labels with country
+# names. The following labels are NOT countries and are filtered out by the
+# Stage 2 adapter (via _SIPRI_MILEX_REGION_LABELS in sipri_milex_io.py):
+#
+#   Africa, North Africa, sub-Saharan Africa,
+#   Americas, Central America and the Caribbean, North America, South America,
+#   Asia & Oceania, Central Asia, East Asia, South Asia, South East Asia, Oceania,
+#   Europe, Eastern Europe, Central and Western Europe,
+#   Middle East,
+#   World
+#
+# The fixture exercises 2 of these ("Africa", "Americas"); the full denylist
+# covers all 16 labels found in the live xlsx.
+#
+# --- SHEET HEADER-ROW VARIATION ---
+# The xlsx header row position varies per sheet (the Stage 2 adapter detects
+# it dynamically by scanning for the first row where col 0 = "Country"):
+#
+#   Share of GDP                → header at row 6
+#   Constant (2024) US$        → header at row 6
+#   Per capita                 → header at row 7
+#   Share of Govt. spending    → header at row 8
+#
+# The fixture mirrors this per-sheet layout.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+sipri_milex_share_of_gdp,Share of GDP,international_peace,percent,0-1,False,percent_of_gdp,Military expenditure as a percentage of gross domestic product. Most-cited SIPRI milex indicator; captures the share of the economy devoted to military spending. Cross-validates UCDP state-based indicators (more spending = more conflict preparedness). Higher = more militarized economy = worse peace signal.
+sipri_milex_per_capita,Per capita,international_peace,usd_per_capita,0-1,False,usd_per_capita,Military expenditure per capita in current US$. Normalizes spending to population size; comparable across countries of different sizes. Higher = more military burden per citizen = worse peace signal.
+sipri_milex_constant_usd,Constant (2024) US$,international_peace,usd_millions,0-1,False,usd_millions_2024,Military expenditure in millions of constant (2024) US$. Real-terms scale, cross-time comparable. Captures absolute level of military investment. Higher = larger military establishment = worse peace signal.
+sipri_milex_share_of_govt_spending,Share of Govt. spending,international_peace,percent,0-1,False,percent_of_govt_spending,Military expenditure as a percentage of total government spending. Captures the political priority of military spending within the fiscal envelope. Higher = more military in the budget = worse peace signal.

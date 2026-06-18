@@ -1,0 +1,54 @@
+# UCDP Georeferenced Event Dataset (GED) 23.1 indicator catalog
+#
+# Source: UCDP GED 23.1 CSV zip, https://ucdp.uu.se/downloads/ged/ged231-csv.zip
+# License: free academic; cite UCDP per https://ucdp.uu.se/terms-of-use/
+# Citation: Davies, Shawn, Garounis, Nicholas, Sollenberg, Ralph, and
+#   Allansson, Marie (2023). UCDP Georeferenced Event Dataset (GED) 23.1.
+#   Uppsala Conflict Data Program. https://ucdp.uu.se/downloads/
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which UCDP indicators are
+# read in Stage 2. Every Stage 2 UCDP adapter call resolves its aggregation
+# from this file. Adding/removing an indicator here is the only change needed
+# to widen or narrow the UCDP ingestion for the prototype.
+#
+# Architecture design: docs/architecture/ucdp.md §2.4
+#
+# Aggregation strategy:
+#   The UCDP GED is an event-level dataset (316,818 rows in v23.1).
+#   Stage 2 aggregates events to country-year by type_of_violence:
+#     - type=1: state-based conflict (two organized groups, at least one a state)
+#     - type=2: non-state conflict (two non-state groups) — NOT on the catalog
+#     - type=3: one-sided violence (state/organized group vs civilians)
+#   For each country-year, two statistics are derived:
+#     - event_count: count of events after the type filter
+#     - best: sum of the UCDP 'best' fatalities estimate column
+#   The 'best' column is UCDP's point estimate of total deaths (the sum of
+#   deaths_a + deaths_b + deaths_civilians + deaths_unknown when all four are
+#   known; UCDP's best-estimate methodology fills gaps using high/low bounds).
+#
+# Internationalized conflict filter (the gwnob column):
+#   UCDP populates the 'gwnob' column (Gleditsch-Ward state number for side_b)
+#   when side_b is a foreign state. A non-null gwnob marks a cross-border
+#   event. Live probe of v23.1 shows gwnob is non-null for 6,150 of 227,509
+#   state-based events (2.7%) — the genuine internationalized subset.
+#   Filter for ucdp_intl_* indicators: type_of_violence == 1 AND gwnob.notna()
+#
+# Convention for extending this catalog:
+#   Add one row per new indicator. The 'filter_logic' column holds the pandas
+#   query string used at read time; the 'raw_column' field holds the semantic
+#   aggregation ('event_count' = count rows, 'best' = sum best column).
+#   Do not invent new raw_column values without updating ucdp_io.py.
+#
+# Scale:
+#   All 6 indicators normalize to 0-1 in Stage 5 (the score module handles
+#   the log-transform for fatalities). All 6 have higher_is_better=False
+#   (more violence = worse rating).
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description,filter_logic
+ucdp_state_based_events,event_count,international_peace,count,0-1,0,events,Number of state-based violent events (government vs non-state or inter-state) per country-year. Higher = more armed conflict.,type_of_violence == 1
+ucdp_state_based_fatalities,best,international_peace,deaths,0-1,0,deaths,Total deaths in state-based events per country-year (UCDP best estimate). Higher = more lethal armed conflict.,type_of_violence == 1
+ucdp_intl_events,event_count,international_peace,count,0-1,0,events,Number of state-based events involving a foreign state (cross-border / internationalized). Subset of state-based. Higher = more internationalized conflict.,type_of_violence == 1 and gwnob.notna()
+ucdp_intl_fatalities,best,international_peace,deaths,0-1,0,deaths,Total deaths in internationalized state-based events per country-year. Subset of state-based fatalities.,type_of_violence == 1 and gwnob.notna()
+ucdp_onesided_events,event_count,domestic_violence,count,0-1,0,events,Number of one-sided violence events (government or organized group vs civilians) per country-year. Higher = more state-perpetrated violence against civilians.,type_of_violence == 3
+ucdp_onesided_fatalities,best,domestic_violence,deaths,0-1,0,deaths,Total deaths in one-sided violence events per country-year. Higher = more lethal state-perpetrated civilian violence.,type_of_violence == 3

@@ -1,0 +1,62 @@
+# Pipeline run config for the first prototype (target year 2023).
+#
+# This file is the source of truth for a normal run. CLI flags may override
+# individual values for one-off diagnostics, but the resolved config used
+# by a run is persisted under data/logs/<run-id>/run_config.yaml for
+# reproducibility. See docs/coding-guidelines.md "Configuration-Driven Runs".
+
+project:
+  name: leaders-db-prototype-2023
+  target_year: 2023
+  description: First-prototype run targeting the client's 2023 leader matrix.
+
+database:
+  url: sqlite:///data/catalog/leaders_db.sqlite
+  echo_sql: false
+
+# Source selection. Flags default to False — the runner is explicit about
+# which sources it wants, so a run is reproducible from this file alone.
+sources:
+  client_existing: true
+  archigos: true
+  leader_survival: true
+  reign: true
+  vdem: true
+  freedom_house: true
+  world_bank_wdi: true
+  world_bank_wgi: true
+  transparency_cpi: true
+  ucdp: true
+  cow_mid: false
+  political_terror_scale: true
+  cirights: true
+  sipri: true
+  fas: true
+  nti: true
+
+# Scoring run parameters.
+scoring:
+  # The four prototype-required categories from requirement §16. Add more
+  # categories here as Phase C/E lands new per-category score modules.
+  categories:
+    - political_freedom
+    - economic_wellbeing
+    - corruption
+    - domestic_violence
+  # Items whose system_proposed_score differs from client_score by more
+  # than this integer go to the manual-review queue (REQ-REV-002).
+  high_delta_threshold: 2
+  # Below this confidence, items go to the manual-review queue (REQ-REV-002).
+  manual_review_confidence_cutoff: 60
+
+# LLM adapter. Disabled by default — the package runs end-to-end with a
+# deterministic stub. Flip to enabled: true and set a real provider once
+# Phase B (source vetting) and Phase C (data acquisition) confirm the
+# rest of the pipeline is wired correctly.
+llm:
+  enabled: false
+  provider: stub
+  model: stub
+  api_key_env: LEADERSDB_LLM_API_KEY
+  base_url: null
+  timeout_s: 60

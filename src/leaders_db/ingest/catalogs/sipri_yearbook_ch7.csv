@@ -1,0 +1,64 @@
+# SIPRI Yearbook Chapter 7 — World Nuclear Forces indicator catalog
+#
+# Source: SIPRI Yearbook 2024, Chapter 7: World Nuclear Forces
+#   PDF: https://www.sipri.org/sites/default/files/YB24%2007%20WNF.pdf
+#   Version: YB24 07 WNF.pdf (97 pages, PDF 1.6, data: January 2024)
+#   License: free academic with attribution; cite the Yearbook edition.
+#   Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which SIPRI Yearbook Ch.7
+# indicators are read in Stage 2. Every Stage 2 adapter call resolves its
+# raw_column from this file. Adding/removing an indicator here is the only
+# change needed to widen or narrow the SIPRI Yearbook Ch.7 ingestion.
+#
+# Architecture design: docs/architecture/sipri_yearbook_ch7.md §3.4
+#
+# --- MISSING-DATA / ANNOTATION CONVENTION ---
+# The SIPRI Yearbook Table 7.1 uses three special tokens in numeric cells:
+#
+#   "–"  (U+2013 EN DASH) — nil or a negligible value (per Table 7.1 legend).
+#       Treated as 0 in normalized_value; raw_value preserves the literal "–"
+#       for the audit trail so a reviewer can distinguish "truly zero retired
+#       warheads" from "unknown retired warheads".
+#
+#   ".." (two ASCII FULL STOP characters) — not applicable or not available
+#       (per Table 7.1 legend). Treated as NULL in normalized_value;
+#       raw_value preserves the literal ".." for the audit trail.
+#
+#   "c. <num> [letter]" (e.g., "c. 24 j") — SIPRI's "circa" annotation:
+#       an approximate warhead count with a footnote letter referring to
+#       SIPRI's notes. The leading "c. " prefix and the footnote letter
+#       suffix are stripped before parsing the integer; the parsed integer
+#       becomes normalized_value. The raw_value preserves the full original
+#       cell string (e.g., "c. 24 j") for the audit trail.
+#
+# --- COUNTRY DENYLIST ---
+# The Table 7.1 in the PDF contains one aggregate row ("Total") that is NOT
+# a country. The Stage 2 adapter filters it via _SIPRI_YEARBOOK_CH7_NON_COUNTRY_LABELS
+# (frozenset containing "Total" and "World"). Only the 9 nuclear-armed state
+# rows reach the wide frame. The fixture exercises this with the "Total" row.
+#
+# --- 3-INDICATOR CHOICE ---
+# Table 7.1 has 5 numeric columns: Deployed, Stored, Stockpile total, Retired,
+# Total inventory. The catalog extracts 3 of these:
+#
+#   total_inventory — Total inventory column. The headline count of all
+#       warheads (deployed + stored + retired awaiting dismantlement).
+#
+#   deployed — Military stockpile / Deployed column. The count of warheads
+#       in operational deployment (on missiles or at operational bases).
+#
+#   retired — Retired warheads column. The count of warheads awaiting
+#       dismantlement (the disarmament pipeline). higher_is_better=False
+#       because more retired = more disarmament activity = better peace
+#       signal (per the score module's inversion convention).
+#
+# The Stored and Stockpile total columns are derived (Stored = Stockpile
+# total - Deployed; Stockpile total = Deployed + Stored) and are not
+# extracted as independent indicators. They can be recomputed by the
+# score module if needed.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+sipri_yearbook_ch7_nuclear_warheads_total_inventory,total_inventory,nuclear,count,0-1,True,warheads,Total inventory of nuclear warheads (deployed + stored + retired awaiting dismantlement). The headline SIPRI Yearbook Ch.7 figure; captures the absolute size of a state's nuclear arsenal. Higher = bigger arsenal = more nuclear capability.
+sipri_yearbook_ch7_nuclear_warheads_deployed,deployed,nuclear,count,0-1,True,warheads,Number of nuclear warheads in operational deployment (on missiles or at operational bases). The "ready to use" count; captures operational nuclear readiness. Higher = more operationally alert warheads.
+sipri_yearbook_ch7_nuclear_warheads_retired,retired,nuclear,count,0-1,False,warheads,Number of nuclear warheads awaiting dismantlement (the disarmament pipeline). Higher = more warheads in retirement = more disarmament activity (inverted: higher retired = better peace score per the Stage 5 score module convention).

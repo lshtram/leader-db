@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leaders-db"
+version = "0.1.0"
+description = "AI-agent data collection and validation system for the Leaders Database"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "leaders-db contributors" },
+]
+requires-python = ">=3.11"
+dependencies = [
+    # Data wrangling
+    "pandas>=2.2",
+    "pyarrow>=15",
+    # Excel / Word input formats used by the client dataset
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+    # Database (SQLite for the prototype; PostgreSQL supported later)
+    "sqlalchemy>=2.0",
+    # Schemas and config validation
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    # CLI
+    "typer>=0.12",
+    # .env loader
+    "python-dotenv>=1.0",
+    # HTTP for external dataset downloads
+    "requests>=2.31",
+    # PDF parsing (SIPRI Yearbook Ch.7 — first PDF-based source)
+    "pdfplumber>=0.11",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+    # Test fixture PDF generation (SIPRI Yearbook Ch.7 fixture builder)
+    "reportlab>=4.0",
+]
+llm = [
+    # Strict JSON-output LLM adapter. Optional; the package runs without it.
+    # OpenAI-compatible by default; swap implementations via the llm/ package boundary.
+]
+duckdb = [
+    # Optional analytical engine for the data lake (mirrors vfactor's approach).
+    "duckdb>=1.1",
+]
+
+[project.scripts]
+leaders-db = "leaders_db.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "PL", "RUF"]
+ignore = [
+    "PLR0913",  # too many arguments (acceptable for Pydantic models and config)
+    "PLR2004",  # magic value used in comparison (acceptable in domain formulas)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["PLR2004"]
+"src/leaders_db/db/migrations/**/*.py" = ["E", "F", "W", "I", "B", "UP", "PL", "RUF"]

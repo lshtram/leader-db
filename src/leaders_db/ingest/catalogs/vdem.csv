@@ -1,0 +1,81 @@
+# V-Dem (Varieties of Democracy) indicator catalog
+#
+# This file is the single source of truth for which V-Dem columns are
+# read in Stage 2. Every Stage 2 V-Dem adapter call resolves its
+# `raw_column` list from this file. Adding/removing an indicator here
+# is the only change needed to widen or narrow the V-Dem ingestion.
+#
+# Source: V-Dem Institute, v16 (2026), downloaded from
+#   https://v-dem.net/data/the-v-dem-dataset/country-year-v-dem-fullothers-v16/
+# SHA-256 of the downloaded zip: 4fcd51c81923f11c23f01a2d43918712aeeffc6f04947e4cfc415c9c2f345cf7
+# Citation: see docs/source-attributions.md (verbatim from suggested_citation.pdf).
+#
+# Scale conventions in V-Dem v16 (verified against data/raw/vdem/codebook.pdf):
+#   - The v2x_* main indices are Interval, low-to-high, on a 0-1 scale
+#     (higher = more of the construct).
+#   - The * (no suffix) versions of type-C variables like v2csreprss and
+#     v2clkill are the Bayesian Measurement Model point estimates. They
+#     are continuous and CAN be negative (the survey scale is 0-4, but
+#     the estimate is on an unbounded latent scale). Example: v2csreprss
+#     estimates range roughly -3.72 to +3.18 per the codebook.
+#   - The *_ord suffix (e.g. v2clsocgrp_ord) is the ordinalized survey
+#     value, on the 0-4 scale.
+#   - v2x_mpi and v2x_regime are both interval/categorical:
+#       * v2x_mpi is the "Multiplicative polyarchy index" on a 0-1 scale
+#         (Interval, low to high).
+#       * v2x_regime is the regime classifier (0=closed autocracy,
+#         1=electoral autocracy, 2=electoral democracy, 3=liberal
+#         democracy), integer 0-3.
+#   - Missing-value sentinel: any value <= -999.0 is treated as missing.
+#     This is the V-Dem convention; other negative values on the
+#     continuous C-type estimates are LEGITIMATE data, not sentinels.
+#     See src/leaders_db/ingest/vdem_db.py::_coerce_float for the rule.
+#
+# Direction conventions used by the Stage 5 score modules:
+#   - `higher_is_better=1` -- the indicator value maps directly to "more
+#     good" (e.g., v2x_polyarchy: higher polyarchy = more political
+#     freedom).
+#   - `higher_is_better=0` -- the indicator must be inverted before
+#     scoring (e.g., v2x_corr: higher = more corruption = lower
+#     integrity).
+#
+# Rating categories are the 8 from requirement §4. V-Dem does not cover
+# Economic, Nuclear, or International peace; those categories are
+# filled by other Stage 2 sources (WDI/PWT, FAS/SIPRI YB, UCDP/SIPRI
+# milex).
+#
+# When extending this file:
+#   1. Confirm the column exists in the V-Dem v16 CSV header.
+#   2. Pick a `variable_name` of the form `vdem_<short>` that does not
+#      collide with the existing entries.
+#   3. Set `rating_category` to one of the 8 (see docs/source-vetting-report.md §11).
+#   4. Set `raw_scale` correctly (see scale conventions above; the most
+#      common mistake is `0-4` for the * (no suffix) version of a type-C
+#      variable, which is actually continuous).
+#   5. Set `higher_is_better` correctly.
+#   6. Update the corresponding `add_obs` row count in the V-Dem test
+#      fixture and the row-count assertion in tests/test_ingest_vdem.py.
+
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+vdem_v2x_polyarchy,v2x_polyarchy,political_freedom,0-1,0-1,1,index,Electoral Democracy Index
+vdem_v2x_libdem,v2x_libdem,political_freedom,0-1,0-1,1,index,Liberal Democracy Index
+vdem_v2x_freexp,v2x_freexp,political_freedom,0-1,0-1,1,index,Freedom of Expression
+vdem_v2x_frassoc_thick,v2x_frassoc_thick,political_freedom,0-1,0-1,1,index,Freedom of Association (thick)
+vdem_v2x_suffr,v2x_suffr,political_freedom,0-1,0-1,1,index,Equal Suffrage
+vdem_v2x_rule,v2x_rule,political_freedom,0-1,0-1,1,index,Rule of Law
+vdem_v2x_civlib,v2x_civlib,political_freedom,0-1,0-1,1,index,Civil Liberties
+vdem_v2x_corr,v2x_corr,integrity,0-1,0-1,0,index,Political Corruption Index (higher = more corrupt)
+vdem_v2x_execorr,v2x_execorr,integrity,0-1,0-1,0,index,Executive Corruption Index (higher = more corrupt)
+vdem_v2x_pubcorr,v2x_pubcorr,integrity,0-1,0-1,0,index,Public Sector Corruption Index (higher = more corrupt)
+vdem_v2x_jucon,v2x_jucon,effectiveness,0-1,0-1,1,index,Judicial Constraints on the Executive
+vdem_v2xlg_legcon,v2xlg_legcon,effectiveness,0-1,0-1,1,index,Legislative Constraints on the Executive
+vdem_v2x_accountability,v2x_accountability,effectiveness,0-1,0-1,1,index,Vertical Accountability Index
+vdem_v2x_mpi,v2x_mpi,effectiveness,0-1,0-1,1,index,Multiplicative Polyarchy Index (0-1 interval)
+vdem_v2x_regime,v2x_regime,effectiveness,0-3,0-1,1,regime_code,Regime classifier (0=closed autocracy, 1=electoral autocracy, 2=electoral democracy, 3=liberal democracy)
+vdem_v2x_clphy,v2x_clphy,domestic_violence,0-1,0-1,1,index,Physical Violence Index (higher = less violence)
+vdem_v2x_clpol,v2x_clpol,domestic_violence,0-1,0-1,1,index,Political Civil Liberties
+vdem_v2x_clpriv,v2x_clpriv,domestic_violence,0-1,0-1,1,index,Private Civil Liberties
+vdem_v2csreprss,v2csreprss,domestic_violence,continuous,0-1,0,index,CSO Repression (point estimate; continuous; can be negative)
+vdem_v2clkill,v2clkill,domestic_violence,continuous,0-1,0,index,Political Killings (point estimate; continuous; can be negative)
+vdem_v2x_egal,v2x_egal,social_wellbeing,0-1,0-1,1,index,Egalitarian Component Index
+vdem_v2clsocgrp_ord,v2clsocgrp_ord,social_wellbeing,0-4,0-1,1,index,Social Group Equality in Access (ordinalized survey value, 0-4)

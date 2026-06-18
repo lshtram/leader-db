@@ -1,0 +1,131 @@
+# Data Sources
+
+The per-source registry for `data/raw/<source>/`. Each source gets its own folder and a `metadata.json` capturing provenance, license, version, download date, and ingestion status. Required by REQ-LAKE-002.
+
+## Conventions
+
+- One folder per source: `data/raw/<source_key>/`.
+- Folder names are lowercase snake_case matching the import module (`src/leaders_db/ingest/<source_key>.py`).
+- `metadata.json` shape is the example from `top-level-requirements.md` §5:
+
+```json
+{
+  "source_name": "V-Dem",
+  "source_version": "v16",
+  "download_date": "YYYY-MM-DD",
+  "coverage": "country-year",
+  "years_available": "varies by country",
+  "license_note": "check source terms",
+  "local_files": ["vdem_country_year_v16.csv"],
+  "ingestion_status": "downloaded",
+  "source_url": "https://www.v-dem.net/",
+  "checksum_sha256": "..."
+}
+```
+
+- `ingestion_status` is one of `pending`, `downloaded`, `ingested`, `unavailable`, `blocked_login`, `blocked_permission`, `parse_failed`.
+
+## Priority Source Registry (requirement §6)
+
+**Updated 2026-06-18 with Phase B addenda.** The "Verdict" column reflects the per-source verdict. The Phase B report (`source-vetting-report.md`) is restructured by **rating category** to make the "at least 2 sources per category" rule visible.
+
+Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ deferred.
+
+### Leader identity sources
+
+| Source key | Verdict | Description | Coverage | Notes |
+|---|---|---|---|---|
+| `archigos` | ⚠️ | Archigos dataset on political leaders | 1875–2015 (8-year gap) | free academic; Stata `.dta`; useful historical backstop only. |
+| `leader_survival` | ⚠️ | Leader Survival (PLT post-1789) | 1789–2022 (1-year gap) | free academic; Demscore H-DATA v5 (March 2025). Best of the three. |
+| `reign` | ⚠️ | Rulers, Elections, and Irregular Governance (REIGN) | 1950–2021-08 (frozen) | free academic; GitHub-hosted snapshot. Monthly updates ceased Aug 2021. |
+| `wikidata_heads_of_state_government` | ✅ | Wikidata WikiProject Heads of state and government (SPARQL) | 1789–current (daily-updated) | CC0 1.0. **Primary 2023 source** — fills the gap. |
+| `wikipedia_search_extract` | ✅ | Wikipedia Action API (search + extract) | all years | CC BY-SA 4.0. Narrative context for LLM rationale. |
+| `cia_world_leaders` | ❌ | CIA World Factbook World Leaders | retired | The CIA World Factbook and its World Leaders page were retired in 2025. |
+| `client_existing` | n/a | The client's manually built 2023 matrix (validation/test reference only; not an evidence source) | 2023 | local xlsx; see `data/raw/client_existing/metadata.json`. |
+
+### Political freedom sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `vdem` | ✅ | Varieties of Democracy (V-Dem) | **v16 (March 2026) is on disk** at `data/raw/vdem/`. |
+| `polity_v` | ✅ | Polity V dataset | Direct `.sav` file from inscrdata.html; 1800–2018, 167 countries. **Fallback to Freedom House for 2023.** |
+| `rsf_press_freedom` | ✅ | Reporters Without Borders World Press Freedom Index | Annual CSVs on disk at `data/raw/rsf_press_freedom/`: 2002–2010 and 2012–2026. Direct `2011.csv` is absent; RSF publishes a combined 2011/2012 edition represented by the 2012 file. Use as a press/media-freedom sub-signal, not a full political-freedom replacement. |
+| `freedom_house` | ⚠️ | Freedom House Freedom in the World | FIW data is gated behind an email request. **User handling; email sent, awaiting response.** |
+
+### Economic sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `world_bank_wdi` | ✅ | World Bank World Development Indicators | Free API; 2023 data confirmed. |
+| `pwt` | ✅ | Penn World Table 10.01 | Free xlsx, 6.5MB; 183 economies, PPP-based; cross-validates WDI. |
+| `imf_weo` | ❌ | IMF World Economic Outlook | Akamai bot challenge (403). User can fetch manually if needed. |
+
+### Social well-being sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `undp_hdi` | ✅ | UNDP Human Development Index (HDR 2023-24) | Direct CSV at `https://hdr.undp.org/sites/default/files/2023-24_HDR/HDR23-24_Composite_indices_complete_time_series.csv`; 207 countries, 1990–2022. |
+| `world_bank_wdi_social` | ✅ | WDI health / education / inequality indicators | Subset of `world_bank_wdi`. |
+| `who_gho_api` | ✅ | WHO Global Health Observatory (OData) | Free OData API; ~2000 indicators, including `WHOSIS_000001` (life expectancy). |
+
+### Governance / effectiveness sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `world_bank_wgi` | ✅ | World Bank Worldwide Governance Indicators | Free xlsx + API; 2023 data confirmed. |
+| `vdem_governance` | ✅ | V-Dem governance sub-indicators | Subset of `vdem` (already on disk). |
+| `bti` | ✅ | Bertelsmann BTI Governance Index | Cumulative xlsx (`BTI_2006-2026_Scores.xlsx`) on disk at `data/raw/bti/`. 12 biennial editions × 137–159 countries × 123 columns. **For 2023, use the `BTI 2024` sheet** (covers 2022–2023). See `data/raw/bti/metadata.json`. |
+
+### Corruption / integrity sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `transparency_cpi` | ⚠️ | Transparency International Corruption Perceptions Index | Site OK; direct xlsx is CDN-gated. **Adapter must scrape the HTML report** or request an API key. |
+| `world_bank_wgi_corruption` | ✅ | WGI Control of Corruption (subset of `world_bank_wgi`) | Same download as `world_bank_wgi`. |
+| `vdem_corruption` | ✅ | V-Dem corruption variables | Subset of `vdem` (already on disk). |
+
+### Conflict / international aggression sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `ucdp` | ✅ | Uppsala Conflict Data Program | Free 25.4MB zip; 1989-2022 data confirmed (the 23.1 release year is 2023; the data ends at 2022). Stage 2 adapter aggregates event-level data to country-year. **Primary international-conflict source** (replaces COW MID, which is blocked). |
+| `cow_mid` | ❌ | Correlates of War Militarized Interstate Disputes | SSL cert issue in this environment + data ends 2014. `blocked`. |
+| `sipri_milex` | ✅ | Stockholm International Peace Research Institute (milex) | Direct xlsx download; 1949–2025. |
+| `sipri_yearbook_ch7` | ✅ | SIPRI Yearbook Chapter 7: World Nuclear Forces (PDF) | 717KB; cross-checks FAS for nuclear arsenal facts. |
+
+### Domestic repression / violence sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `political_terror_scale` | ✅ | Political Terror Scale | Direct file at `/Data/Files/PTS-2025.xlsx`; 1976–2025 coverage. |
+| `cirights` | ⚠️ | CIRIGHTS Physical Integrity Rights | User-managed. v3.12.10.24 (Dec 2024) placed manually because `cirights.org` is DNS-unreachable from this environment. 207 countries × 1981–2022. **1-year gap to 2023** (use 2022 as proxy). See `data/raw/cirights/metadata.json`. |
+| `acled_ucdp_osv` | ✅ | UCDP one-sided violence (subset of `ucdp`) | Same download as `ucdp`. |
+
+### Nuclear / global responsibility sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `fas` | ⚠️ | Federation of American Scientists nuclear notebook | Free; HTML scrape required. Adapter will use a curated whitelist of country pages. |
+| `sipri_yearbook_ch7` | ✅ | SIPRI Yearbook Chapter 7: World Nuclear Forces (PDF) | 717KB; cross-checks FAS for nuclear arsenal facts. |
+| `nti` | ❌ | Nuclear Threat Initiative country profiles | Cloudflare 403. |
+
+## Source Authority And Specificity Tables
+
+These cross-source tables live in `data/metadata/` and are loaded at runtime:
+
+- `source_authority_table.csv` — numeric authority weight per source per indicator family (per §11 source_authority_score).
+- `country_aliases.csv` — alias-to-ISO3 mapping built up across ingests.
+- `indicator_catalog.csv` — canonical `(category, indicator_name)` definitions referenced by Stage 5.
+
+The system must **not** invent authority weights in a one-off script. Add or change weights only by editing `data/metadata/source_authority_table.csv` and recording the change in `docs/reviews/`.
+
+## Adding a new source
+
+1. Create `data/raw/<source_key>/` with a placeholder `metadata.json` (`ingestion_status: pending`).
+2. Add a module `src/leaders_db/ingest/<source_key>.py` with a `download_<source_key>()` and `ingest_<source_key>()` entrypoint.
+3. Add a CLI command if it is a new top-level source (`leaders-db ingest-source --source <source_key>`).
+4. Update this file's registry table.
+5. Add tests under `tests/test_ingest_<source_key>.py`.
+6. Update `docs/requirements-core.md` with any new REQ-* lines.
+
+See [`AGENTS.md`](../AGENTS.md) §3 (read before edit) and the always-on rules #1–#6 for the surrounding discipline.
