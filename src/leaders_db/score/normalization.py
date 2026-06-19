@@ -47,7 +47,7 @@ def normalize_0_1_to_0_10(x: float) -> int:
     >>> normalize_0_1_to_0_10(0.55)
     6
     """
-    return clamp_int_0_10(int(round(x * 10)))
+    return clamp_int_0_10(round(x * 10))
 
 
 def normalize_0_10_to_0_1(x: int | float) -> float:

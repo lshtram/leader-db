@@ -1,8 +1,8 @@
 # AGENTS.md — leaders-db Agent Rules
 
-This file tells AI agents how to operate in this repository. **Read it first** whenever you open this workspace, then read [`docs/workplan.md`](docs/workplan.md) and [`docs/top-level-requirements.md`](docs/top-level-requirements.md).
+This file tells AI agents how to operate in this repository. **Read it first** whenever you open this workspace, then read [`docs/workplan.md`](docs/workplan.md) and [`docs/req/top-level-requirements.md`](docs/req/top-level-requirements.md).
 
-The authoritative product brief is **`docs/top-level-requirements.md`**. The stage numbering in this file (Stage 0–15) refers to the pipeline stages defined there in §8.
+The authoritative product brief is **`docs/req/top-level-requirements.md`**. The stage numbering in this file (Stage 0–15) refers to the pipeline stages defined there in §8.
 
 ---
 
@@ -24,10 +24,10 @@ This is a research prototype, not a live service, and not a political-judgment p
 
 Read in this order before doing any non-trivial work:
 
-1. [`docs/top-level-requirements.md`](docs/top-level-requirements.md) — product brief, §1–18. The numbering of pipeline stages in this AGENTS.md follows §8 there.
+1. [`docs/req/top-level-requirements.md`](docs/req/top-level-requirements.md) — product brief, §1–18. The numbering of pipeline stages in this AGENTS.md follows §8 there.
 2. [`docs/workplan.md`](docs/workplan.md) — current status, active phase, next steps.
 3. [`docs/architecture.md`](docs/architecture.md) — system design and module boundaries.
-4. [`docs/requirements-core.md`](docs/requirements-core.md) — the locally tracked REQ-* / NFR-* baseline derived from the brief.
+4. [`docs/req/requirements-core.md`](docs/req/requirements-core.md) — the locally tracked REQ-* / NFR-* baseline derived from the brief.
 5. [`docs/coding-guidelines.md`](docs/coding-guidelines.md) — style, banned patterns, review checklist.
 6. [`docs/data-sources.md`](docs/data-sources.md) — the per-source registry for `data/raw/<source>/`.
 7. [`docs/local-data-store.md`](docs/local-data-store.md) — the data-lake folder rules.
@@ -45,7 +45,7 @@ Use this mode unless the user explicitly asks for TDD, a formal review gate, or 
 - Make minimal, surgical changes — touch only what the request requires.
 - Add or update focused `pytest` coverage that defines the completed work.
 - Run the smallest meaningful verification command first, usually `pytest -q` or a single test file.
-- Keep `docs/workplan.md`, `docs/architecture.md`, and `docs/requirements-core.md` in sync.
+- Keep `docs/workplan.md`, `docs/architecture.md`, and `docs/req/requirements-core.md` in sync.
 
 ### 3.2 TDD Mode — only when explicitly requested
 
@@ -75,7 +75,7 @@ For localized corrections that do not change product behavior broadly:
 ### 3.4 Exploration / Documentation Mode
 
 - Prefer read-and-report unless edits are explicitly requested.
-- Keep `docs/workplan.md`, `docs/architecture.md`, and `docs/requirements-core.md` consistent.
+- Keep `docs/workplan.md`, `docs/architecture.md`, and `docs/req/requirements-core.md` consistent.
 - Cite source URLs in `docs/data-sources.md` for any new external dataset.
 
 ### 3.5 Debug Mode
@@ -109,19 +109,19 @@ These apply in every mode, every session:
 
 | Document | Purpose |
 |---|---|
-| [`docs/top-level-requirements.md`](docs/top-level-requirements.md) | Authoritative product brief (the "what") |
+| [`docs/req/top-level-requirements.md`](docs/req/top-level-requirements.md) | Authoritative product brief (the "what") |
 | [`docs/workplan.md`](docs/workplan.md) | Current status, active phase, next steps, done history |
 | [`docs/architecture.md`](docs/architecture.md) | System design, module boundaries, data flow |
 | [`docs/coding-guidelines.md`](docs/coding-guidelines.md) | Style, banned patterns, D2 review checklist |
 | [`docs/operational-hygiene.md`](docs/operational-hygiene.md) | Cleanup-coherence + review discipline (Always-On Rules #13, #14) |
 | [`docs/source-attributions.md`](docs/source-attributions.md) | Every source + what we extract + license + citation + attribution text (Always-On Rule #15) |
-| [`docs/requirements-core.md`](docs/requirements-core.md) | Locally tracked REQ-* / NFR-* baseline |
+| [`docs/req/requirements-core.md`](docs/req/requirements-core.md) | Locally tracked REQ-* / NFR-* baseline |
 | [`docs/data-sources.md`](docs/data-sources.md) | Per-source registry: URL, version, license, coverage |
 | [`docs/local-data-store.md`](docs/local-data-store.md) | `data/raw` vs `data/processed` vs `data/catalog` rules |
 | [`docs/database-schema.md`](docs/database-schema.md) | The 11-table prototype schema |
 | [`docs/source-vetting-plan.md`](docs/source-vetting-plan.md) | Phase B: per-source paywall/license/availability probe plan |
 | [`docs/reviews/`](docs/reviews/) | Reviewer gate outputs (initially empty) |
-| [`configs/](../configs/) | YAML run configs, starting with `prototype-2023.yaml` |
+| [`configs/`](configs/) | YAML run configs, starting with `prototype-2023.yaml` |
 | `~/.config/opencode/dev-process.md` | Canonical TDD cycle (only when user says "TDD") |
 
 ## 6. Current Project Structure
@@ -273,7 +273,7 @@ Run `leaders-db --help` for the live list as stages ship.
 ## 9. Picking Up Mid-Project
 
 1. Read [`docs/workplan.md`](docs/workplan.md) (current status) and the latest `Done History` entry.
-2. Re-read [`docs/top-level-requirements.md`](docs/top-level-requirements.md) §8 (pipeline stages) and §16 (acceptance criteria) to anchor the next step.
+2. Re-read [`docs/req/top-level-requirements.md`](docs/req/top-level-requirements.md) §8 (pipeline stages) and §16 (acceptance criteria) to anchor the next step.
 3. Inspect `data/raw/`, `data/processed/`, and `research/` before assuming a clean slate.
 4. Run `pytest -q` to confirm the baseline is green.
 5. Identify which pipeline stage the active work belongs to (Stage 0–15) and resume from there.

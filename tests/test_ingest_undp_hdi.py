@@ -183,7 +183,7 @@ def _init_test_db(database_url: str) -> None:
 def test_load_indicator_catalog_has_five_specs(
     undp_hdi_catalog_path: Path,
 ) -> None:
-    """The checked-in catalog has exactly 5 indicators (matches undp_hdi.md §3)."""
+    """The checked-in catalog has exactly 5 indicators (matches undp-hdi.md §3)."""
     assert load_undp_hdi_catalog is not None, "undp_hdi_io module not implemented"
     specs = load_undp_hdi_catalog(undp_hdi_catalog_path)
     assert len(specs) == 5, f"Expected 5 indicators, got {len(specs)}"

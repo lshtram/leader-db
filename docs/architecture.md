@@ -1,168 +1,658 @@
 # Architecture — Leaders Database Prototype
 
-This document defines the system design. The authoritative product brief is [`top-level-requirements.md`](top-level-requirements.md); section numbers below reference that document.
+This document defines the system design. The authoritative product brief is
+[`req/top-level-requirements.md`](req/top-level-requirements.md); section numbers below
+reference that document.
 
 ## Purpose
 
-A local-first Python research prototype that consolidates structured external datasets, the client's manually built 2023 matrix, and rule-based/LLM-assisted analysis into a confidence-scored, auditable database of world political leaders and their category ratings. The client matrix is treated as a *validation/test reference*, not ground truth and not an evidence source — the system is designed to *reproduce, challenge, explain, and validate* it against independent external data. (§3)
+`leaders-db` is a local-first Python research prototype that builds an auditable,
+confidence-scored database of political leaders and category ratings. It is
+designed to reproduce, challenge, explain, and validate the customer's existing
+2023 matrix against independent external evidence.
+
+The customer/client matrix is a **validation/test reference only**. It is not
+ground truth, not an evidence source, and never contributes to source agreement,
+source authority, factual claims, leader identity, or category scoring.
 
 ## Scope
 
-**In scope (§2):** one target year at a time, initially 2023; countries above the client's population threshold; the actual ruler or dominant ruling figure per country-year; external indicators per scoring category; provisional category scores; client-matrix comparison; structured relational database; locally cached raw downloads; full source provenance; per-item confidence scores; manual-review flags.
+**In scope (§2):** one target year at a time, initially 2023; countries above the
+client's population threshold; actual ruler or dominant ruling figure per
+country-year; external indicators per scoring category; evidence-bundle based
+provisional category scores; confidence scores; client-matrix comparison;
+manual-review queue; source provenance; reproducible local data lake.
 
-**Out of scope (for the first prototype):** years before 1900 (graceful degradation); production webapp; multilingual UI; live LLM research from scratch (the design §18 explicitly rejects this).
+**Out of scope for first prototype:** production webapp, multilingual UI, years
+before 1900, and unconstrained online LLM browsing as a default scoring path.
+LLM-assisted research may be added as an explicitly gated escalation path only
+after structured-data and constrained-adjudication paths are testable.
 
-## High-Level Architecture
+---
+
+## Architectural Principle: Ratings Are Evidence Bundles
+
+A category rating is **not** produced from one raw number. The production target
+is:
+
+```text
+country + year + ruler + category
+    -> expected source set
+    -> available observations
+    -> missing observations
+    -> normalized comparable signals
+    -> deterministic score proposal
+    -> confidence + disagreement analysis
+    -> optional LLM adjudication/research escalation
+    -> system_proposed_score + rationale + review status
+```
+
+Every generated score must be explainable as:
+
+1. Which sources were expected for this category?
+2. Which source files/API endpoints were actually used?
+3. Which raw rows/cells/columns produced each indicator value?
+4. Which expected indicators were missing and why?
+5. How were raw values normalized and direction-adjusted?
+6. How were normalized indicators combined into the proposed 1-10 score?
+7. How much did sources agree or conflict?
+8. Was the data direct-year, proxy-year, stale, or unavailable?
+9. Was an LLM used? If yes, what evidence was it given, what did it return, and
+   did it perform gated external research?
+10. Why is human review required or not required?
+
+The current `vertical_slice_2023` is only a thin proof of DB/output plumbing. It
+uses single-source formulas for `social_wellbeing` and `integrity`; this document
+defines the intended main pipeline that replaces those provisional formulas.
+
+---
+
+## High-Level Pipeline
 
 ```mermaid
 flowchart LR
     subgraph inputs[Inputs]
-        Client["Client 2023 matrix\n(xlsx)"]
-        External["External structured sources\n(Archigos, REIGN, V-Dem, ...)"]
-        LLM[("LLM adapter\noptional")]
+        Client["Client/customer 2023 matrix\nvalidation reference only"]
+        RawSources["Structured external datasets\nV-Dem, WDI/WGI, UCDP, SIPRI, PTS, ..."]
+        OptionalWeb["Optional external research\nLLM escalation only"]
     end
 
     subgraph lake[Local Data Lake]
-        Raw["data/raw/&lt;source&gt;/"]
-        Processed["data/processed/"]
-        Outputs["data/outputs/"]
+        Raw["data/raw/<source>/\nimmutable files + metadata.json"]
+        Processed["data/processed/<source>/\nnormalized parquet/csv"]
+        Outputs["data/outputs/\nreports, review queues"]
     end
 
-    subgraph db[("SQLite / PostgreSQL")]
-        Tables["11 tables per §7"]
+    subgraph db[(SQLite / PostgreSQL)]
+        Sources["sources"]
+        Observations["source_observations"]
+        RulerYears["ruler_years"]
+        Scores["ruler_scores"]
+        Validation["validation_results"]
     end
 
-    subgraph pipeline[Pipeline — Stages 0–15]
+    subgraph stages[Stages 0-15]
         S0["Stage 0\nsource availability"]
-        S1["Stage 1\nclient ingest"]
-        S2["Stage 2\nexternal ingest"]
-        S3["Stage 3\ncountry match"]
-        S4["Stage 4\nleader resolve"]
-        S5["Stage 5\nindicator extract"]
-        S6_8["Stages 6–8\nnormalize / align"]
-        S9_11["Stages 9–11\nscore + confidence"]
-        S12_15["Stages 12–15\ncompare / review / report"]
+        S1["Stage 1\nclient reference loader"]
+        S2["Stage 2\nsource adapters"]
+        S3["Stage 3\ncountry matching"]
+        S4["Stage 4\nleader resolution"]
+        S5["Stage 5\nevidence bundle builder"]
+        S6["Stage 6-8\nnormalize/align/quality"]
+        S9["Stage 9-10\ndeterministic scorers"]
+        S11["Stage 11\nconfidence engine"]
+        LLM["LLM adjudicator\noptional escalation"]
+        S12["Stage 12\nclient comparison"]
+        S14["Stage 14\nmanual review queue"]
+        S15["Stage 15\nsummary/export"]
     end
 
     Client --> Raw
-    External --> Raw
+    RawSources --> Raw
     Raw --> S0
     Raw --> S1
     Raw --> S2
-    S1 --> Tables
-    S2 --> Tables
-    S3 --> Tables
-    S4 --> Tables
-    S5 --> Tables
-    S6_8 --> S9_11
-    S9_11 --> Tables
-    S9_11 -. "ambiguous only" .-> LLM
-    S12_15 --> Outputs
-    S12_15 --> Tables
+    S2 --> Processed
+    S2 --> Sources
+    S2 --> Observations
+    S1 --> RulerYears
+    S3 --> Observations
+    S3 --> RulerYears
+    S4 --> RulerYears
+    Observations --> S5
+    RulerYears --> S5
+    S5 --> S6 --> S9 --> S11
+    S11 --> Scores
+    S11 --> Validation
+    S11 -. "low confidence / conflict / missingness" .-> LLM
+    OptionalWeb -. "gated only" .-> LLM
+    LLM -. "adjudication result" .-> S11
+    Scores --> S12 --> S14 --> S15 --> Outputs
+    Validation --> S14
 ```
 
-## Core Components
+---
+
+## Evidence Bundle Pipeline
+
+```mermaid
+flowchart TD
+    A["Category request\ncountry/year/ruler/category"] --> B["CategorySourcePlan\nexpected sources + indicators"]
+    B --> C["Observation query\nsource_observations"]
+    C --> D["Available observations"]
+    C --> E["Missing observations"]
+    D --> F["Normalize values\nscale + direction + units"]
+    E --> G["Missingness model\ncoverage + reason + penalty"]
+    F --> H["Source agreement analysis"]
+    G --> H
+    H --> I["Deterministic category scorer"]
+    I --> J["Confidence engine"]
+    J --> K{"Escalation needed?"}
+    K -- "no" --> L["Persist score + rationale"]
+    K -- "yes" --> M["LLM adjudication\nstrict JSON"]
+    M --> N{"External research allowed?"}
+    N -- "no" --> L
+    N -- "yes, gated" --> O["Cited research snippets"]
+    O --> M
+    L --> P["Manual review queue / report"]
+```
+
+The category scorer must never silently average incompatible indicators. It must
+carry every raw observation, normalized value, source weight, missing value, and
+disagreement into the rationale and confidence components.
+
+---
+
+## Core Runtime Components
 
 | Component | Module(s) | Stage(s) | Responsibility |
+|---|---|---:|---|
+| CLI surface | `src/leaders_db/cli.py` | — | Human-facing commands. Must stay thin: load config, call importable seams, print outputs. |
+| Run config | `src/leaders_db/config.py`, `configs/*.yaml` | — | Target year, source selection, scoring categories, LLM mode. |
+| Path layer | `src/leaders_db/paths.py` | — | Data-lake path helpers (`raw_dir`, `processed_dir`, `outputs_dir`, ...). |
+| Database | `src/leaders_db/db/` | — | SQLAlchemy engine/session/models and migrations. |
+| Source availability | `src/leaders_db/ingest/source_availability.py` | 0 | Probe/source availability reports. |
+| Client reference loader | `src/leaders_db/ingest/client_matrix.py` | 1 | Load customer matrix as validation reference only. Must not create independent source evidence. |
+| Source adapters | `src/leaders_db/ingest/<source>*.py` | 2 | Read one external source, normalize raw rows to `source_observations`, write processed parquet/manifest. |
+| Adapter registry | `src/leaders_db/ingest/__init__.py` | 2 | `STAGE2_ADAPTERS` dispatch table consumed by the CLI. |
+| Indicator catalogs | `src/leaders_db/ingest/catalogs/<source>.csv` | 2/5 | Source-specific mapping from raw field to canonical `variable_name`, category, direction, unit, scale. |
+| Country normalization | `src/leaders_db/normalize/countries.py`, `src/leaders_db/resolve/country_match.py` | 3 | ISO3 matching and alias handling. |
+| Leader resolution | `src/leaders_db/resolve/leader_resolver.py` | 4 | Actual-ruler selection from independent leader sources. |
+| Evidence bundle builder | `src/leaders_db/resolve/indicators.py` or future `src/leaders_db/score/evidence.py` | 5 | Build a per-country/year/category bundle of expected, available, missing, and proxy observations. |
+| Normalization layer | `src/leaders_db/score/normalization.py` plus category helpers | 6-8 | Convert heterogeneous raw values to comparable 0-1 or 0-10 signals with direction. |
+| Category scorers | `src/leaders_db/score/<category>.py` (plus private `<category>_*` helpers under the same package) | 9-10 | Deterministic scoring from evidence bundles into `system_proposed_score`. Re-exported from `src/leaders_db/score/__init__.py` so the Stage 9 pipeline imports the scorer through the package root. |
+| Category scorer dispatch | `src/leaders_db/score/dispatch.py` | 9 | The single registry mapping `category_key` → scorer function (`_SCORERS`). Adding a category is one line; `get_category_scorer` raises `ValueError` for unsupported keys. |
+| Stage 9 orchestration seam | `src/leaders_db/score/stage9.py` | 9 | `score_category_for_country(session, *, country_iso3, year, category_key, leader_name=None)` composes the Stage 5 bundle builder and the Stage 9 dispatcher. Read-only; no `ruler_scores` persistence (deferred until Stage 4 lands). |
+| Confidence engine | `src/leaders_db/score/confidence.py` | 11 | Fixed formula and component score calculation. |
+| LLM adapter | `src/leaders_db/llm/{caller,schemas}.py` | 10/11 escalation | Strict JSON adjudication; optional gated external research later. |
+| Comparison | `src/leaders_db/validate/comparison.py` | 12 | Client-vs-system deltas; client remains validation reference only. |
+| Manual review queue | `src/leaders_db/validate/manual_review_queue.py` | 14 | Prioritized low-confidence/conflict/missingness/high-delta cases. |
+| Summary report | `src/leaders_db/validate/summary_report.py` | 15 | Markdown/CSV exports with source attribution. |
+
+---
+
+## Source Location and Traceability Convention
+
+Every implemented source must have a complete source-location trail. If a source
+is vetted but not implemented, the developer must fill the `raw path` and
+`locator` fields when the source lands.
+
+For each source, the following must exist or be explicitly marked `not yet
+implemented`:
+
+| Artifact | Required location / rule |
+|---|---|
+| Raw source files | `data/raw/<source>/` (gitignored content, immutable after download). |
+| Raw metadata | `data/raw/<source>/metadata.json` (URL, version, license, checksum, coverage, local file names). |
+| Source docs | `docs/data-sources.md`, `docs/source-attributions.md`, and if complex `docs/architecture/<source>.md`. |
+| Indicator catalog | `src/leaders_db/ingest/catalogs/<source>.csv`. This is the contract for raw columns, category, scale, direction, unit, description. |
+| Adapter orchestrator | `src/leaders_db/ingest/<source>.py` public `ingest_<source>()`. |
+| Reader/parser modules | `src/leaders_db/ingest/<source>_*.py` as needed (`*_csv.py`, `*_xlsx.py`, `*_pdf.py`, `*_http.py`, `*_db.py`, helpers). |
+| Processed output | `data/processed/<source>/<source>_country_year.parquet` or source-specific equivalent. |
+| Run manifest | `data/processed/<source>/<source>_run_manifest.json`. |
+| DB rows | `sources` and `source_observations`; `source_row_reference` must identify the raw row/cell/source key, e.g. `undp_hdi:MEX`, `wgi:MEX`, `pts:MEX`. |
+| Tests | `tests/test_ingest_<source>.py` and fixtures under `tests/fixtures/<source>/`. |
+
+### Source Locator Table
+
+This table is the main handoff between architecture and implementation. `raw
+locator` is how a developer or reviewer finds the exact source cell/row that
+produced a number.
+
+| Source key | Status | Raw path / endpoint | Catalog | Adapter entry | Raw locator pattern |
+|---|---|---|---|---|---|
+| `vdem` | implemented | `data/raw/vdem/V-Dem-CY-Full+Others-v16.csv` | `src/leaders_db/ingest/catalogs/vdem.csv` | `STAGE2_ADAPTERS["vdem"]` | `country_text_id=<ISO3>`, `year=<year>`, raw column from catalog. |
+| `world_bank_wdi` | implemented | World Bank WDI v2 API cache under `data/raw/world_bank_wdi/cache/<year>/<indicator>.json` | `src/leaders_db/ingest/catalogs/wdi.csv` | `STAGE2_ADAPTERS["world_bank_wdi"]` | API record `countryiso3code=<ISO3>`, `date=<year>`, indicator code from catalog. |
+| `world_bank_wgi` | implemented | `data/raw/world_bank_wgi/wgidataset.xlsx` | `src/leaders_db/ingest/catalogs/wgi.csv` | `STAGE2_ADAPTERS["world_bank_wgi"]` | Sheet = catalog `raw_column`; row `Code=<ISO3>`; `Estimate` column for year. |
+| `pwt` | vetted, **adapter blocked on raw bundle** (2026-06-18) | `data/raw/pwt/pwt100.xlsx` **required, not yet staged**; candidate copy at `tmp/source-vetting-evidence/pwt100.xlsx` (Phase B scratch, gitignored — not a Stage 2 input per `docs/local-data-store.md`) | not yet created | currently `None` (no code per "do not write production adapter code that guesses") | Row `countrycode=<ISO3>`; columns `rgdpe`/`rgdpo`/`pop`/`emp`/`avh`/`hc`/`ccon`/`cda`/`ctfp`/`rkna`/`rtfpna` (catalog TBD once the raw xlsx is staged and the catalog author walks the live column set). |
+| `undp_hdi` | implemented | `data/raw/undp_hdi/HDR23-24_Composite_indices_complete_time_series.csv` | `src/leaders_db/ingest/catalogs/undp_hdi.csv` | `STAGE2_ADAPTERS["undp_hdi"]` | Row `iso3=<ISO3>`; column `{raw_column}_{year}`, e.g. `hdi_2022`. |
+| `who_gho_api` | implemented | WHO GHO OData v1 API (`https://ghoapi.azureedge.net/api/`) with a local verbatim JSON cache under `data/raw/who_gho_api/cache/<year>/<IndicatorCode>.json` | `src/leaders_db/ingest/catalogs/who_gho_api.csv` | `STAGE2_ADAPTERS["who_gho_api"]` | API record `IndicatorCode=<raw_column>`, `SpatialDimType=COUNTRY`, `SpatialDim=<ISO3>`, `TimeDim=<year>`, `Dim1` per catalog ``dim1_filter`` (``SEX_BTSX`` for SEX-disaggregated indicators, empty for immunization indicators). |
+| `pts` | implemented | `data/raw/political_terror_scale/PTS-2025.xlsx` | `src/leaders_db/ingest/catalogs/pts.csv` | `STAGE2_ADAPTERS["pts"]` | Row country/COW/World Bank code; columns `PTS_A/H/S` and `NA_Status_A/H/S`. |
+| `ucdp` | implemented in code, raw not staged in current checkout | `data/raw/ucdp/<ged zip>` when available | `src/leaders_db/ingest/catalogs/ucdp.csv` | `STAGE2_ADAPTERS["ucdp"]` | Event rows filtered by catalog `filter_logic`; aggregate by country-year. |
+| `sipri_milex` | implemented in code, raw not staged in current checkout | `data/raw/sipri_milex/<xlsx>` or configured SIPRI folder when available | `src/leaders_db/ingest/catalogs/sipri_milex.csv` | `STAGE2_ADAPTERS["sipri_milex"]` | Sheet = catalog `raw_column`; row country; year column. |
+| `sipri_yearbook_ch7` | implemented in code, raw not staged in current checkout | `data/raw/sipri_yearbook_ch7/<pdf>` or configured SIPRI folder when available | `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` | `STAGE2_ADAPTERS["sipri_yearbook_ch7"]` | PDF Table 7.1 country row; raw column from catalog. |
+| `archigos` | implemented (2026-06-19) | `data/raw/archigos/Archigos_4.1_stata14.dta` | `src/leaders_db/ingest/catalogs/archigos.csv` | `STAGE2_ADAPTERS["archigos"]` | Stata 14 `.dta` row `obsid=<obsid>`; one ``source_observations`` row per (leader-spell, catalog ``raw_column``) pair, ``source_row_reference`` = ``archigos:<obsid>:<year>:<raw_column>``. The Stage 2 adapter writes one observation row per leader-spell, keyed by the spell's start year. |
+| `reign` | implemented (2026-06-19) | `data/raw/reign/REIGN_2021_8.csv` | `src/leaders_db/ingest/catalogs/reign.csv` | `STAGE2_ADAPTERS["reign"]` | GitHub raw CSV row keyed by ``(country, year, month)``; one ``source_observations`` row per (leader-month-row, catalog ``raw_column``) pair, ``source_row_reference`` = ``reign:<country_token>:<leader>:<year>:<month>:<raw_column>``. |
+| `leader_survival` | vetted, **adapter blocked on Demscore email gate** (2026-06-19) | `data/raw/leader_survival/` exists but contains only a placeholder ``.gitkeep``; H-DATA v5 (March 2025) has a manual form/email/gender gate, not yet staged. | not yet created | currently `None` | Once data lands: row leader-spell; raw columns from the future catalog (`leader`, `startdate`, `enddate`, `gender`, `biographical background`, ...). Per AGENTS.md Always-On Rule #6 the adapter is not implemented until the data is placed. |
+| `cirights` | implemented (2026-06-19) | `data/raw/cirights/cirights_v3.12.10.24.xlsx` (user-managed, v3.12.10.24, 1981-2022) | `src/leaders_db/ingest/catalogs/cirights.csv` | `STAGE2_ADAPTERS["cirights"]` | Single xlsx sheet ``Sheet1``; row keyed by ``(country, year)``; ``source_row_reference`` = ``cirights:<country_token>:<year>:<raw_column>``. The Stage 2 adapter maps a ``year=2023`` request to the 2022 proxy (1-year gap) and records the proxy in the run manifest. |
+| `transparency_cpi` | implemented | `data/raw/transparency_cpi/transparency_cpi_2023.csv` (HDX-mirrored CSV; publisher URL `https://www.transparency.org/en/cpi/2023`) | `src/leaders_db/ingest/catalogs/transparency_cpi.csv` | `STAGE2_ADAPTERS["transparency_cpi"]` | HDX CSV row ``country,iso3,region,year,score,rank,sources,standardError,lowerCi,upperCi``; ``source_row_reference`` = ``transparency_cpi:<raw_column>:<iso3>``. |
+| `fas` | implemented | `data/raw/fas/fas_status.html` (FAS consolidated status page snapshot; publisher URL `https://programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html`) | `src/leaders_db/ingest/catalogs/fas.csv` | `STAGE2_ADAPTERS["fas"]` | HTML ``<table id="table1">`` country rows (Russia, United States, France, China, United Kingdom, Israel, Pakistan, India, North Korea); ``source_row_reference`` = ``fas:<raw_column>:<country>``. The consolidated snapshot year (2014 as of probe 2026-06-19) is recorded in the run manifest; Stage 11 penalises the temporal-fit gap to 2023. |
+| `bti` | implemented (2026-06-19) | `data/raw/bti/BTI_2006-2026_Scores.xlsx` | `src/leaders_db/ingest/catalogs/bti.csv` | `STAGE2_ADAPTERS["bti"]` | Multi-sheet xlsx (one sheet per BTI edition 2006-2026). For 2023, the adapter uses the `BTI 2024` sheet (covers 2022-2023) via the ``sheet_for_year()`` helper. Row keyed by country; ``source_row_reference`` = ``bti:<country>``. |
+| `rsf_press_freedom` | implemented (2026-06-19) | 24 annual CSVs under `data/raw/rsf_press_freedom/rsf_press_freedom_<year>.csv` (2002-2010, 2012-2026; 2011 direct CSV is absent) | `src/leaders_db/ingest/catalogs/rsf_press_freedom.csv` | `STAGE2_ADAPTERS["rsf_press_freedom"]` | Semicolon-delimited annual CSV with comma decimal separator; BOM-first / cp1252-fallback encoding detection. Pre-2022 schema (16-col wide format with ``Score N`` / ``Rank N``) and 2022+ schema (22-26 cols with 5 component-context columns) both handled. ``source_row_reference`` = ``rsf_press_freedom:<raw_column>:<iso3>``. |
+| `polity_v` | **blocked: local raw missing** | checked: `data/raw/polity_v/` does **not** exist; no `.sav` file present anywhere in the project. Only Phase B evidence is the cached download page `tmp/source-vetting-evidence/polity-inscrdata-page.html` (41KB HTML), which lists the canonical SPSS URL `http://www.systemicpeace.org/inscr/p5v2018.sav` but is **not** the data file. | to be created | currently `None` (in `STAGE2_ADAPTERS`) | Once file lands: row country/year; raw columns from the future catalog (`polity`, `polity2`, `polity2x`, `democ`, `autoc`, `durab`, `xrcomp`, `xropen`, `xconst`, `parreg`, `parcomp`, `polity` components). Phase C adapter cannot be implemented until raw file is placed locally (per AGENTS.md Always-On Rule #6: never invent fixtures). |
+| `wikidata_heads_of_state_government` | implemented (2026-06-19) | Wikidata SPARQL endpoint `https://query.wikidata.org/sparql` (CC0 1.0) with a local verbatim JSON cache under `data/raw/wikidata_heads_of_state_government/cache/<cache_key>.json` | `src/leaders_db/ingest/catalogs/wikidata_heads_of_state_government.csv` | `STAGE2_ADAPTERS["wikidata_heads_of_state_government"]` | SPARQL ``?headOfState p:P39 ?statement`` pattern; ``source_row_reference`` = ``wikidata:<country_qid>:<office_qid>:<person_qid>:<statement_hash>``. The verbatim SPARQL JSON is the ``source_observations.raw_value`` audit trail; ``normalized_value`` is NULL (QID is a reference, not a number). |
+| `wikipedia_search_extract` | implemented (2026-06-19) | Wikipedia Action API `https://en.wikipedia.org/w/api.php` (CC BY-SA 4.0) with a local verbatim JSON cache under `data/raw/wikipedia_search_extract/cache/<cache_key>.json` | `src/leaders_db/ingest/catalogs/wikipedia_search_extract.csv` | `STAGE2_ADAPTERS["wikipedia_search_extract"]` | Action API ``extracts`` / ``search`` response; ``source_row_reference`` = ``wikipedia:<variable_name>:<hint>`` (e.g. ``wikipedia:wikipedia_extract_lead:<pageid>:<title>``). Stage 2 input contract: explicit ``queries=`` list (do not browse / score). |
+
+When a developer implements one of the `adapter needed` rows, they must update
+this table or the relevant `docs/architecture/<source>.md` with the exact raw
+file name and locator pattern in the same commit.
+
+---
+
+## Category Source Plans
+
+Each rating category has an expected source set. The scorer can run with partial
+coverage, but missing expected sources must be represented in the evidence
+bundle and penalize confidence.
+
+| Category | Primary structured sources | Current implementation state | Notes |
 |---|---|---|---|
-| CLI surface | `src/leaders_db/cli.py` | — | Typer CLI exposing every Stage 0–15 command. |
-| Run config | `src/leaders_db/config.py` | — | Pydantic config + YAML loading from `configs/*.yaml`. |
-| Path layer | `src/leaders_db/paths.py` | — | Data-lake path helpers (`raw_dir`, `processed_dir`, ...). |
-| Database | `src/leaders_db/db/` | — | SQLAlchemy engine, ORM models, DDL migration. |
-| Source availability | `src/leaders_db/ingest/source_availability.py` | 0 | Probe whether each priority dataset is downloadable; emit report. |
-| Client ingest | `src/leaders_db/ingest/client_matrix.py` | 1 | Extract `countries`, `leaders`, `ruler_years`, category scores from client xlsx. |
-| External ingest | `src/leaders_db/ingest/{archigos,reign,leader_survival,vdem,...}.py` + `external.py` | 2 | One adapter per source; writes to `source_observations`. |
-| Country normalization | `src/leaders_db/normalize/countries.py` | 3 | ISO3 primary key, alias table, historical-name handling. |
-| Leader resolution | `src/leaders_db/resolve/leader_resolver.py` | 4 | Pull candidates from multiple sources; assign `match_status` per §4 rules. |
-| Indicator extraction | `src/leaders_db/resolve/indicators.py` | 5 | Per-category indicator bundles per ruler-year. |
-| Category scoring | `src/leaders_db/score/{political_freedom,corruption,economic,domestic_violence,peace,nuclear}.py` | 9–10 | Convert indicator bundles to 0–10 scores. |
-| Confidence | `src/leaders_db/score/confidence.py` | 11 | Fixed formula `0.35/0.25/0.25/0.15`; band labels per §11. |
-| Comparison | `src/leaders_db/validate/comparison.py` | 12 | Client vs system per category; deltas; summary metrics. |
-| Manual review queue | `src/leaders_db/validate/manual_review_queue.py` | 14 | Prioritized queue per §14 priority order. |
-| Summary report | `src/leaders_db/validate/summary_report.py` | 15 | Markdown summary + CSV exports per §12. |
-| LLM adapter | `src/leaders_db/llm/{caller,schemas}.py` | — | Strict JSON contract per §10. Used only for ambiguity. |
-| Export | `src/leaders_db/export/{csv_writer,markdown_report}.py` | — | Writes under `data/outputs/`. |
+| `nuclear` | SIPRI Yearbook Ch.7, FAS | Both adapters implemented (Phase C.6, Phase C.10) | Non-nuclear countries need an explicit scorer rule: `not_applicable`, zero-arsenal, or manual review. Do not invent. |
+| `international_peace` | UCDP state/internationalized conflict, SIPRI milex | Both adapters implemented (Phase C.4, Phase C.5) | Requires event aggregation, fatality transforms, and military-burden normalization. |
+| `domestic_violence` | PTS, UCDP one-sided violence, V-Dem repression, CIRIGHTS | All four sources wired (Phase C.7 PTS, C.4 UCDP, C.1 V-Dem, C.10 CIRIGHTS) | Strong candidate for first full evidence-bundle test because it has direct, missing, and conflicting indicators. |
+| `political_freedom` | V-Dem, Polity V, RSF, Freedom House if provided | V-Dem, RSF, Wikidata HoS/HoG implemented (Phase C.1, C.10); **Polity V adapter blocked — local raw file missing (2026-06-19)** | Must compare democracy indices, press freedom, civil liberties; client matrix not evidence. Wikidata provides the 2023+ leader reference. |
+| `economic_wellbeing` | WDI, PWT, IMF if user-managed | WDI implemented (Phase C.2); **PWT adapter blocked on raw bundle (2026-06-19)** | Requires cross-country scaling and careful outlier handling. |
+| `social_wellbeing` | UNDP HDI, WDI social, WHO GHO | All three sources implemented (Phase C.2, C.8, C.9); deterministic scorer implemented (Phase D.1) | Per-source plan at `src/leaders_db/score/category_plans/social_wellbeing.py`; deterministic scorer at `src/leaders_db/score/social_wellbeing.py` (facade) + private `_social_wellbeing_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 5-group weighted average (HDI anchor 0.40, health 0.20, education 0.15, income 0.15, inequality 0.10). The scorer is review-safe: client-matrix sources are stripped at the boundary as defence-in-depth; the minimum-viable gate counts distinct sources of **usable** observations (normalized_value not None, in-plan variable, non-client source) so a source whose row arrived but did not normalize cannot by itself clear the threshold. |
+| `integrity` | TI CPI, WGI Control of Corruption, V-Dem corruption | WGI, V-Dem, and TI CPI all implemented (Phase C.3, C.1, C.10) | Must handle direction inversion: V-Dem corruption higher = worse; WGI higher = better. |
+| `effectiveness` | WGI governance indicators, BTI, V-Dem constraints/accountability | WGI, V-Dem, and BTI all implemented (Phase C.3, C.1, C.10) | Requires distinguishing democratic constraints from technocratic/governance capacity. |
+
+---
+
+## Evidence Bundle Contract
+
+The production scorer should use an explicit object model (Pydantic or typed
+dataclasses) rather than passing loose dictionaries. Proposed contract:
+
+```python
+class CategorySourcePlan:
+    category_key: str
+    expected_sources: tuple[str, ...]
+    expected_indicators: tuple[IndicatorSpec, ...]
+    minimum_viable_sources: int
+    preferred_direct_year: int
+    allowed_proxy_years: tuple[int, ...]
+    default_source_weights: tuple[tuple[str, float], ...]
+    sparse_data_policy: Literal["provisional_score", "insufficient_data"]
+
+class IndicatorSpec:
+    variable_name: str
+    source_key: str
+    role: Literal["required", "preferred", "fallback"]
+    direction: Literal["higher_is_better", "lower_is_better"]
+    weight: float
+
+class EvidenceObservation:
+    source_key: str
+    source_name: str
+    variable_name: str
+    raw_value: str | None
+    numeric_value: float | None
+    normalized_value: float | None
+    unit: str | None
+    direction: Literal["higher_is_better", "lower_is_better"]
+    observation_year: int | None
+    target_year: int
+    temporal_kind: Literal["direct", "proxy", "stale", "not_available"]
+    source_row_reference: str | None
+    authority_score: int
+    specificity_score: int
+    notes: str | None
+
+class MissingObservation:
+    source_key: str
+    variable_name: str
+    reason: Literal[
+        "source_not_implemented",
+        "raw_file_absent",
+        "country_row_absent",
+        "target_year_absent",
+        "indicator_null",
+        "not_applicable",
+        "blocked_or_paywalled",
+        "excluded_by_config",
+    ]
+    severity: Literal["optional", "important", "primary"]
+
+class CategoryEvidenceBundle:
+    country_iso3: str
+    country_name: str
+    leader_name: str | None
+    year: int
+    category_key: str
+    source_plan: CategorySourcePlan
+    observations: tuple[EvidenceObservation, ...]
+    missing: tuple[MissingObservation, ...]
+    category_metadata: Mapping[str, str]
+```
+
+The evidence contract is implemented under `src/leaders_db/score/evidence*.py`.
+The Stage 5 DB builder lives in `src/leaders_db/resolve/indicators.py`, with
+focused helper modules `indicators_sources.py`, `indicators_collection.py`, and
+`indicators_selection.py`. Category plans for the first implemented Stage 5
+bundle categories live in `src/leaders_db/score/source_plans.py`.
+
+`IndicatorSpec.source_key` is mandatory for production category plans. It is the
+canonical owner of that variable (for example, `vdem_v2x_corr` is owned by
+`vdem`, not by WGI or Transparency CPI). The bundle builder scopes each
+indicator query to its owning source. A row with the right `variable_name` under
+the wrong source is ignored and the indicator is reported missing for its owning
+source. This prevents cross-source contamination and keeps every
+`EvidenceObservation.source_key` and `MissingObservation.source_key` auditable.
+
+---
+
+## Normalization and Deterministic Scoring
+
+Stage 6-10 converts heterogeneous raw data into a category score.
+
+```mermaid
+flowchart LR
+    Raw["Raw values\ncounts, z-scores, indices, percentages"] --> Scale["Scale normalization\n0-1 comparable signal"]
+    Scale --> Direction["Direction normalization\nhigher = better"]
+    Direction --> Winsor["Outlier / log transform\nwhere category requires"]
+    Winsor --> Weight["Indicator/source weights"]
+    Weight --> Score["Category score\n1-10 or 0-10"]
+    Score --> Rationale["Rationale + audit trail"]
+```
+
+Rules:
+
+- Stage 2 preserves raw values and light numeric coercion; it does **not** hide
+  source-specific meaning.
+- Stage 5 builds bundles and records missing/proxy/stale indicators.
+- Stage 6 normalizes scale and direction.
+- Stage 9 category scorers apply category-specific rubrics and weights.
+- Score modules must never silently drop a conflicting source; conflict affects
+  source agreement and often manual review.
+- If fewer than the category's minimum viable sources are available, the scorer
+  either emits a low-confidence provisional score or `insufficient_data`, per the
+  category plan.
+
+---
+
+## Confidence and Missingness
+
+Implemented confidence formula in `src/leaders_db/score/confidence.py`:
+
+```text
+confidence = 0.35 * agreement
+           + 0.25 * authority
+           + 0.25 * specificity
+           + 0.15 * temporal_fit
+```
+
+The component derivation should become evidence-bundle based:
+
+| Component | Meaning | Examples |
+|---|---|---|
+| `agreement` | How consistent are independent sources after normalization? | high when V-Dem/WGI/TI all point same direction; low when sources conflict. |
+| `authority` | Weighted quality of available sources, excluding the client matrix. | WDI/WGI/UNDP/V-Dem high; ad hoc web snippets lower. |
+| `specificity` | How directly the observation measures the country/year/ruler/category. | ruler-specific > country-year > regional proxy > narrative evidence. |
+| `temporal_fit` | Whether evidence is direct-year, proxy-year, stale, or absent. | 2023 direct = high; 2022 proxy = medium-high; 2018 for 2023 = lower. |
+
+Missingness is not an error by itself. It is part of confidence and review
+status. The system must distinguish:
+
+- source not implemented yet;
+- raw file absent;
+- source has no country row;
+- source has country row but no target year;
+- source has target year but missing/null indicator;
+- country did not exist / not applicable;
+- source blocked/paywalled/user-managed.
+- source intentionally excluded by run configuration.
+
+---
+
+## LLM Adjudication and External Research
+
+The LLM is an escalation layer, not the default scorer.
+
+### Level 1 — constrained adjudication
+
+Use this first. Trigger when structured scoring has low confidence, conflicting
+sources, severe missingness, ruler ambiguity, or high client delta. The LLM sees
+only the assembled evidence bundle, category rubric, and strict JSON schema. It
+must not browse or invent facts.
+
+### Level 2 — gated external research
+
+Only after Level 1 is implemented and reviewed, the system may allow an LLM or
+agent to look for additional papers/articles/web sources. This must be explicit
+in config and captured in the output. External research output is stored as
+cited evidence snippets, not as untraceable model memory.
+
+```mermaid
+flowchart TD
+    A["Deterministic score result"] --> B{"Escalation trigger?"}
+    B -- "no" --> C["Persist deterministic result"]
+    B -- "yes" --> D["Constrained LLM adjudication\nprovided bundle only"]
+    D --> E{"Still insufficient?\nexternal research enabled?"}
+    E -- "no" --> F["Persist LLM adjudication\nwith manual review"]
+    E -- "yes" --> G["Search/read cited sources"]
+    G --> H["Append evidence snippets\nURL + quote + relevance"]
+    H --> D
+```
+
+Forbidden in all LLM modes:
+
+- replacing structured datasets with model opinion;
+- citing sources not actually provided or fetched;
+- counting the client matrix as evidence;
+- silently resolving leader identity;
+- publishing an LLM score without strict JSON validation and provenance.
+
+---
 
 ## Database Schema
 
-The 11-table schema from §7 is the source of truth and lives in [`docs/database-schema.md`](docs/database-schema.md). The SQL DDL is at [`src/leaders_db/db/migrations/0001_initial.sql`](../src/leaders_db/db/migrations/0001_initial.sql); ORM models at [`src/leaders_db/db/models.py`](../src/leaders_db/db/models.py).
+The 11-table schema from §7 is the source of truth and lives in
+[`database-schema.md`](database-schema.md). SQL DDL is at
+[`src/leaders_db/db/migrations/0001_initial.sql`](../src/leaders_db/db/migrations/0001_initial.sql);
+ORM models are at [`src/leaders_db/db/models.py`](../src/leaders_db/db/models.py).
 
-Critical invariants the schema enforces:
+Critical invariants:
 
-- **Client matrix is preserved as a reference dataset.** `ruler_scores` always carries `client_score`, `system_proposed_score`, `final_score`, and `score_delta_vs_client` separately. (§3, §9, §12)
-- **Client matrix is not evidence.** It is never counted as a source supporting leader identity, factual claims, category scores, `source_agreement`, or `source_authority`; it is loaded only for tests, validation, comparison, deltas, and manual-review triggers. (§3)
-- **Source provenance is mandatory.** `source_observations` carries `(source_id, country_id, leader_id, year, variable_name, raw_value, normalized_value, unit, source_row_reference, confidence)`.
-- **No silent overwrite.** `final_score` is set only by the manual-review workflow or by an explicit `accept` action; the system never replaces `client_score` with `system_proposed_score` automatically.
+- `ruler_scores` keeps `client_score`, `system_proposed_score`, `final_score`,
+  and `score_delta_vs_client` separate.
+- The client matrix is not evidence and is never counted in
+  `source_observations`, source agreement, or source authority.
+- `source_observations` carries raw value, normalized value, source row
+  reference, country/leader/year where applicable, and source provenance.
+- `validation_results` records confidence components and validation status.
+- `final_score` is set only by manual review or explicit accept workflow.
+
+Future schema additions may be needed for durable evidence bundles, missingness,
+LLM adjudication records, and external research snippets. Until then, outputs can
+materialize them as JSON/CSV under `data/outputs/` and as `validation_note` text.
+
+---
 
 ## Local Data Lake
 
-See [`docs/local-data-store.md`](docs/local-data-store.md). Folder rules:
+See [`local-data-store.md`](local-data-store.md). Folder rules:
 
 - `data/raw/<source>/` is immutable; each folder carries a `metadata.json`.
-- `data/processed/` is deterministic normalized output (parquet/csv); re-runs are idempotent.
-- `data/interim/` is mid-pipeline scratch (joined frames before scoring).
-- `data/outputs/` is the public interface — reports, validation CSVs, manual-review queue.
+- `data/processed/` is deterministic normalized output; re-runs are idempotent.
+- `data/interim/` is mid-pipeline scratch (evidence bundles before scoring).
+- `data/outputs/` is the public interface — reports, validation CSVs,
+  manual-review queue, score explanations.
 - `data/logs/` is per-run logs.
-- `data/metadata/` is cross-source catalog metadata (aliases, authority table).
-- `research/` is derived exploratory analyses and leader memos (gitignored).
+- `data/metadata/` is cross-source metadata such as country aliases and source
+  authority tables.
 
-## Confidence Scoring
+---
 
-Implemented as a fixed formula in `src/leaders_db/score/confidence.py`:
+## Pipeline Verification Plan From Current State
 
-```
-confidence = 0.35 * agreement + 0.25 * authority + 0.25 * specificity + 0.15 * temporal_fit
-```
+Before activating the full client scope, we should run targeted pipeline checks
+that exercise both happy paths and hard cases. These are the cases to build next.
 
-with the component ranges and band labels per §11. **Do not** invent a different weighting in a one-off script. (Always-on rule #10 in [`AGENTS.md`](../AGENTS.md).)
+### Case A — all data exists for a simple category
 
-## LLM Use
+- **Goal:** prove evidence bundle -> normalization -> deterministic scorer ->
+  confidence -> outputs.
+- **Candidate:** Mexico 2023 `social_wellbeing` using UNDP HDI + WDI social.
+- **Current prerequisites:** implemented (`undp_hdi`, `world_bank_wdi`).
+- **Expected behavior:** direct WDI 2023 + UNDP 2022 proxy produce a score, a
+  proxy note, and confidence penalty.
 
-The LLM is invoked **only** for ambiguous interpretation (form-vs-actual ruler, brief rationale text, evidence summarization) per §10. Every LLM scoring call must include the country, year, leader candidate, category, structured indicators, client score/note (if available), up to three evidence snippets, rubric description, and the required output JSON schema. Output is validated against the Pydantic schema in `src/leaders_db/llm/schemas.py` before being persisted.
+### Case B — many indicators, mixed directions
 
-Forbidden: inventing scores without sources; replacing structured datasets; citing sources not given; silently resolving ambiguous leader identity; fetching large datasets repeatedly when local data exists. (§10, §18)
+- **Goal:** prove direction normalization and weighted combining.
+- **Candidate:** Mexico 2023 `integrity` using WGI Control of Corruption + V-Dem
+  corruption indicators.
+- **Current prerequisites:** implemented (`world_bank_wgi`, `vdem`).
+- **Expected behavior:** WGI higher = better; V-Dem corruption higher = worse;
+  scorer must invert V-Dem and record agreement/disagreement.
+
+### Case C — missing primary source but useful secondary source
+
+- **Goal:** prove missingness does not kill the run and confidence drops.
+- **Candidate:** `political_freedom` before RSF/Polity/Freedom House adapters are
+  implemented, using V-Dem only.
+- **Current prerequisites:** V-Dem implemented; RSF raw exists but adapter needed.
+- **Expected behavior:** provisional score or `insufficient_data` per category
+  threshold; missing RSF/Polity/Freedom House recorded.
+
+### Case D — source conflict
+
+- **Goal:** prove disagreement detection and manual-review routing.
+- **Candidate:** `domestic_violence` using PTS + V-Dem repression + CIRIGHTS
+  once CIRIGHTS adapter lands.
+- **Current prerequisites:** PTS and V-Dem implemented; CIRIGHTS raw on disk,
+  adapter needed.
+- **Expected behavior:** conflicting indicators reduce agreement score and raise
+  manual review.
+
+### Case E — aggregation source
+
+- **Goal:** prove event-level data aggregates correctly before scoring.
+- **Candidate:** `international_peace` using UCDP event counts/fatalities.
+- **Current prerequisites:** UCDP adapter code exists; raw file needs staging or
+  reacquisition in this checkout.
+- **Expected behavior:** event rows aggregate to country-year observations; zero
+  events are distinguishable from missing raw data.
+
+### Case F — not applicable / sparse category
+
+- **Goal:** define nuclear behavior for non-nuclear and nuclear states.
+- **Candidate:** Mexico vs USA/China/Russia `nuclear`.
+- **Current prerequisites:** SIPRI Yearbook Ch.7 adapter code exists; FAS adapter
+  needed for cross-validation.
+- **Expected behavior:** non-nuclear country should be explicit
+  `not_applicable` or zero-arsenal by rule, not invented by accident; nuclear
+  states require manual review if only one source is present.
+
+### Case G — stale/proxy historical data
+
+- **Goal:** prove temporal-fit penalties.
+- **Candidate:** a country/category where only 2022 data exists for 2023, or
+  Polity V 2018 used as a stale political-freedom backstop.
+- **Current prerequisites:** UNDP HDI proxy path exists; Polity adapter needed.
+- **Expected behavior:** score may be produced, but temporal fit and review
+  status reflect staleness.
+
+### Case H — LLM constrained adjudication
+
+- **Goal:** prove strict JSON LLM use without browsing.
+- **Candidate:** a low-confidence/conflict `integrity` or `domestic_violence`
+  evidence bundle.
+- **Current prerequisites:** evidence bundle object, deterministic scorer, LLM
+  schema extension if needed.
+- **Expected behavior:** LLM receives only bundle/rubric/snippets, returns JSON,
+  and output records `llm_used=true` plus review reason.
+
+### Case I — gated LLM external research
+
+- **Goal:** future proof only after Case H passes.
+- **Candidate:** source-thin historical leader/category case.
+- **Current prerequisites:** explicit config flag, citation capture, web-search
+  evidence model, reviewer gate.
+- **Expected behavior:** external snippets have URLs, quotes/claims, relevance,
+  and are not treated as equivalent to structured datasets.
+
+### Recommended next build order
+
+From the current project state, the fastest path to checking the pipeline fully
+is:
+
+1. Implement the evidence bundle contract for `social_wellbeing` and `integrity`.
+2. Add deterministic scorers for those two categories using already implemented
+   UNDP/WDI/WGI/V-Dem data.
+3. Add bundle-level missingness/confidence output.
+4. Extend the vertical slice or create a new `run-pipeline-smoke` command that
+   exercises Cases A-C.
+5. Implement one missing adapter that adds a genuinely new challenge:
+   `rsf_press_freedom` for political freedom or `cirights` for domestic violence.
+6. Add conflict/missingness tests (Cases D/G).
+7. Only then add constrained LLM adjudication (Case H).
+8. Defer gated web research (Case I) until the structured and constrained LLM
+   paths are stable and reviewed.
+
+---
 
 ## Historical-Year Handling
 
-Older years degrade gracefully (§13). The pipeline must:
+Older years degrade gracefully (§13): fewer sources, more proxy/stale data,
+lower temporal fit, higher manual-review priority, and more `not_available`
+fields. The pipeline records absence explicitly and never fills historical gaps
+with invented values.
 
-- carry forward `not_available` rather than invent data;
-- lower confidence even when indicators are present (temporal-fit penalties);
-- raise manual-review priority for thin indicator bundles;
-- record, never overwrite, the absence of data.
+Years before 1900 are out of scope for the first prototype.
 
-Years before 1900 are explicitly out of scope for the first prototype.
+---
 
 ## Cross-Cutting Concerns
 
-- **Reproducibility:** every run is determined by `configs/<name>.yaml` plus the contents of `data/raw/` and `data/processed/`. Run metadata is logged under `data/logs/<run-id>/`.
-- **Idempotency:** re-running any stage must produce the same outputs without re-downloading source files that are already in `data/raw/<source>/` with a valid `metadata.json`.
-- **Logging:** per-stage progress and warnings go to `data/logs/`. The CLI uses Typer + Python `logging` with a level controlled by `--verbose` / `--quiet`.
-- **Tests:** every implemented stage must include a smoke test plus one boundary test that fails if the production wiring is removed (per AGENTS rule #6).
+- **Reproducibility:** every run is determined by config plus `data/raw/`,
+  source metadata, indicator catalogs, and code version.
+- **Idempotency:** re-running stages with the same source files produces the
+  same observations and score outputs.
+- **Auditability:** every score must trace back to source observations and raw
+  locators.
+- **Attribution:** every public output includes relevant blocks from
+  `docs/source-attributions.md`.
+- **Tests:** each implemented stage needs unit tests and at least one boundary
+  test that fails if the production wiring is removed.
+
+---
 
 ## Acceptance Criteria
 
-The first prototype is successful when, per §16:
+The first prototype is successful when, per §16 and the expanded architecture:
 
-- it can load the client's 2023 matrix;
-- it can download/ingest local copies of the priority datasets;
+- it loads the client's 2023 matrix as validation reference only;
+- it ingests local copies of the priority datasets used in the smoke scope;
 - it normalizes countries and years;
-- it resolves 2023 rulers for at least 50 countries (preferably all client-scored countries);
-- it compares system-selected rulers against the client's leaders;
-- it generates provisional scores for at least four categories (political freedom, economic well-being, integrity/corruption, domestic violence/repression);
-- it produces confidence scores for every generated item;
-- it produces a manual-review queue;
-- it produces a summary report;
-- it keeps all raw source data and transformed data reproducible;
+- it resolves 2023 rulers for at least 50 countries (preferably all client-scored
+  countries);
+- it builds category evidence bundles with available/missing/proxy indicators;
+- it generates provisional scores for at least four categories using multi-source
+  evidence where available;
+- it produces confidence components and final confidence for every generated
+  item;
+- it identifies source disagreement, missingness, stale data, and high deltas;
+- it produces a manual-review queue and summary report;
 - it avoids silent overwriting of client values;
 - it avoids unsupported LLM-generated facts.
 
 ## Phase Order
 
-Work is split into five sequential phases (see [`docs/workplan.md`](workplan.md) for the active-phase indicator):
+Work is split into five sequential phases (see [`workplan.md`](workplan.md)):
 
-- **A. Infrastructure** — package, CLI, schema, paths, configs, smoke tests, data lake folders, client bundle.
-- **B. Source vetting** — per-source probe of availability, paywall, license, coverage, format. No Stage 2 ingest is written until a source passes vetting.
-- **C. Data acquisition** — Stage 0–2 ingest adapters, one per vetted source.
-- **D. Testing** — pytest coverage including boundary tests; one end-to-end smoke run on a single country-year.
-- **E. Activation** — Stage 3–15 on the full client 2023 scope.
+- **A. Infrastructure** — package, CLI, schema, paths, configs, data lake.
+- **B. Source vetting** — source availability/license/coverage probe.
+- **C. Data acquisition** — Stage 0-2 source adapters.
+- **D. Testing** — coverage, boundary tests, smoke pipeline cases.
+- **E. Activation** — Stage 3-15 on the full client 2023 scope.

@@ -1027,9 +1027,9 @@ The existing `architecture.md` already lists SIPRI Yearbook Ch.7 as one of the p
 
 The developer adds `pdfplumber>=0.11` to `[project] dependencies` (a runtime dep, since the Stage 2 adapter needs it to read the PDF) and `reportlab>=4.0` to `[project.optional-dependencies] dev` (a test-only dep, since the test fixture-generation helper needs it). Both additions are in the same commit as the adapter lands.
 
-### `docs/requirements-core.md` — no change required
+### `docs/req/requirements-core.md` — no change required
 
-The existing `nuclear` category in `docs/requirements-core.md` already lists SIPRI Yearbook Ch.7 as the source; the new adapter does not change the requirement set, only the implementation.
+The existing `nuclear` category in `docs/req/requirements-core.md` already lists SIPRI Yearbook Ch.7 as the source; the new adapter does not change the requirement set, only the implementation.
 
 ---
 

@@ -1745,16 +1745,17 @@ def test_timeseries_has_rows_for_all_years_countries_categories(
         rows = list(reader)
         fieldnames = reader.fieldnames or []
 
-    required_columns = {
+    expected_columns = [
         "iso3", "country", "year", "category_key",
         "system_proposed_score", "source_variable",
         "source_year", "source_raw_value", "source_kind",
         "confidence_score", "note",
-    }
-    missing = required_columns - set(fieldnames)
-    assert not missing, (
-        f"time-series CSV missing required columns: {sorted(missing)}. "
-        f"Got columns: {fieldnames}"
+    ]
+    assert fieldnames == expected_columns, (
+        "time-series CSV must remain source-only. It must not grow "
+        "client-comparison or leader-identity columns such as client_score, "
+        "score_delta_vs_client, or leader. "
+        f"Expected {expected_columns}, got {fieldnames}"
     )
 
     expected_count = (
@@ -1908,7 +1909,11 @@ def test_non_2023_years_do_not_create_db_rows(
         f"{validation_count}. The multi-year feature must not widen the "
         "DB write scope."
     )
-    assert years_in_db == [TARGET_YEAR], (
+    # The slice writes one ruler_year per scoped country (3 rows here),
+    # each at year=2023. Set-equality asserts the regression we care about
+    # ("no non-2023 years leak into ruler_years") without conflating it
+    # with the unrelated row-count assertion above.
+    assert set(years_in_db) == {TARGET_YEAR}, (
         f"ruler_years must be 2023-only, got year(s)={years_in_db!r}"
     )
 

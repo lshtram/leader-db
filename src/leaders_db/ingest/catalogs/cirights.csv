@@ -1,0 +1,92 @@
+# CIRIGHTS (CIRI Human Rights Data Project) indicator catalog
+#
+# Source: CIRI Human Rights Data Project v3.12.10.24,
+#   https://www.cirights.org/
+#   URL (verified 2026-06-17, file user-managed):
+#   data/raw/cirights/cirights_v3.12.10.24.xlsx
+# Version: v3.12.10.24 (data 1981-2022, 207 countries, ~7,931 country-year rows)
+# License: free academic; cite Cingranelli, Richards, and Crepaz (2024).
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which CIRIGHTS indicators
+# are read in Stage 2. Every Stage 2 CIRIGHTS adapter call resolves its
+# `raw_column` from this file. Adding/removing an indicator here is the
+# only change needed to widen or narrow the CIRIGHTS ingestion for the
+# prototype.
+#
+# --- 7-INDICATOR CHOICE ---
+# The CIRIGHTS xlsx carries 48 indicator/ID columns. The catalog narrows
+# the read to the 7 indicators that the codebook v2.8.27.23 calls out as
+# the "Physical Integrity Rights" (PIR) construct, the "Repression
+# Index" (an 8-component additive index of which PIR's 4 components are
+# a subset), and the "Civil and Political Rights Index" (a 3-component
+# additive index of assn+speech+rel_free). The 4 component indicators
+# (Disappearances, Extrajudicial Killings, Political Imprisonment,
+# Torture) are the basis of PIR. Per docs/architecture/undp-hdi.md
+# §11, the worker-rights / human-trafficking / women's-rights columns
+# have shorter coverage and are NOT extracted by the Stage 2 adapter.
+#
+# All 7 indicators share these catalog metadata:
+#   rating_category     = "domestic_violence"
+#   normalized_scale_target = "0-10"
+#   higher_is_better    = 1
+#   unit                = "cirights_score" (ordinal 0-N; see per-row scale)
+#
+# --- SCALE / DIRECTION (from the CIRIGHTS codebook v2.8.27.23 §"Human
+# Rights Indices") ---
+# CIRIGHTS indices use an "interval, low-to-high, HIGHER = MORE RIGHTS"
+# convention. This is the opposite of what the column names might
+# suggest (e.g. "Repression Index" with a high value sounds like "lots
+# of repression"). Per the codebook:
+#
+#   physint_sum is an additive index of disap + kill + polpris + tort.
+#     Range 0-8. HIGHER = MORE rights respect.
+#   repression_sum is an additive index of disap + kill + polpris + tort
+#     + trial_p + assn + speech + rel_free. Range 0-17. HIGHER = LESS
+#     repression.
+#   civpol_sum is an additive index of assn + speech + rel_free. Range
+#     0-6. HIGHER = MORE rights respect.
+#   disap, kill, polpris, tort each 0-2 ordinal: 0 = occurred
+#     frequently, 1 = occurred occasionally, 2 = have not occurred /
+#     unreported. HIGHER = FEWER violations.
+#
+# So all 7 catalog indicators are `higher_is_better=1`; the Stage 5
+# score module reads them as "higher = better" with no direction
+# inversion. This is verified live 2026-06-18 against the real
+# data/raw/cirights/cirights_v3.12.10.24.xlsx.
+#
+# --- MISSING-DATA CONVENTION ---
+# The xlsx uses empty cells (openpyxl reads as None) for missing
+# observations. There is no "#N/A" or "NA" sentinel string. The
+# Stage 2 reader treats empty cells as missing; the wide frame holds
+# pandas NA (Int64 nullable dtype) for missing cells; the
+# source_observations row is SKIPPED (per the rule "do not invent
+# missing values"). The raw_value audit column is the empty string
+# for missing cells.
+#
+# --- COUNTRY KEY ---
+# The xlsx carries a single "country" column (display name) per row.
+# The CIRI/COW/Polity/UN codes are present in the same row but are NOT
+# the Stage 2 source_row_reference suffix. Stage 3 (country match)
+# resolves the display name + COW code to ISO3 via the canonical
+# country table. For now, source_row_reference uses the country
+# display name (with URL-safe substitution) so the audit trail is
+# locatable: `cirights:<country>:<year>:<raw_column>`. Stage 3 can
+# post-process this to ISO3 in a later iteration.
+#
+# --- TARGET-YEAR PROXY (year=2023 -> 2022) ---
+# CIRIGHTS coverage ends 2022 (per metadata.json and the live xlsx).
+# For the prototype target year 2023, the orchestrator reads 2022
+# data and records the proxy in the run manifest. The mapping is the
+# same 1-year-gap pattern as UNDP HDI and Leader Survival. See the
+# CIRIGHTS_ATTRIBUTION / CIRIGHTS_PROXY constants in cirights_io.py
+# and the orchestrator docstring for the full audit-trail contract.
+#
+variable_name,raw_column,category,higher_is_better,raw_scale,normalized_scale_target,unit,description
+cirights_physint,Physical Integrity Rights Index,domestic_violence,1,0-8,0-10,cirights_sum,Additive index of Disappearances + Extrajudicial Killings + Political Imprisonment + Torture; range 0-8; higher = greater respect for physical integrity rights. Cross-validates UCDP one-sided fatalities and V-Dem v2clkill for the domestic_violence category.
+cirights_repression,Repression Index,domestic_violence,1,0-17,0-10,cirights_sum,Additive index of Disappearances + Extrajudicial Killings + Political Imprisonment + Torture + Fair Trial + Assembly + Speech + Religious Freedom; range 0-17; higher = less repression. Cross-validates CIRIGHTS physint and V-Dem v2csreprss.
+cirights_civpol,Civil and Political Rights Index,domestic_violence,1,0-6,0-10,cirights_sum,Additive index of Freedom of Assembly and Association + Freedom of Speech + Religious Freedom; range 0-6; higher = greater civil and political rights. Cross-validates V-Dem v2x_civlib and v2x_freexp.
+cirights_disap,Disappearances,domestic_violence,1,0-2,0-10,cirights_ordinal,Political disappearances (cases in which people have disappeared, agents of the state are likely responsible, and political motivation is likely). Ordinal 0-2: 0 = have occurred frequently, 1 = have occurred occasionally, 2 = have not occurred / unreported. Higher = fewer violations. One of 4 component indicators that feed the Physical Integrity Rights Index.
+cirights_kill,Extrajudicial Killings,domestic_violence,1,0-2,0-10,cirights_ordinal,Extrajudicial killings (killings by government officials without due process of law, or by private groups if instigated by a government). Ordinal 0-2: 0 = practiced frequently, 1 = practiced occasionally, 2 = have not occurred / unreported. Higher = fewer violations. One of 4 component indicators that feed the Physical Integrity Rights Index.
+cirights_polpris,Political Imprisonment,domestic_violence,1,0-2,0-10,cirights_ordinal,Political imprisonment (imprisonment of people due to their political views or activities). Ordinal 0-2: 0 = have occurred frequently, 1 = have occurred occasionally, 2 = have not occurred / unreported. Higher = fewer violations. One of 4 component indicators that feed the Physical Integrity Rights Index.
+cirights_tort,Torture,domestic_violence,1,0-2,0-10,cirights_ordinal,Torture (deliberate, systematic infliction of physical or psychological pain by state agents). Ordinal 0-2: 0 = practiced frequently, 1 = practiced occasionally, 2 = have not occurred / unreported. Higher = fewer violations. One of 4 component indicators that feed the Physical Integrity Rights Index.

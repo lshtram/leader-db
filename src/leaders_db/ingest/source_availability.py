@@ -33,4 +33,4 @@ def check_all_sources(year: int) -> dict[str, str]:
     )
 
 
-__all__ = ["check_all_sources", "PRIORITY_SOURCES", "outputs_dir"]
+__all__ = ["PRIORITY_SOURCES", "check_all_sources", "outputs_dir"]

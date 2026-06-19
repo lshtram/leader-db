@@ -30,7 +30,7 @@ app = typer.Typer(
     name="leaders-db",
     help=(
         "Leaders Database prototype — AI-agent data collection and validation "
-        "system. See `docs/top-level-requirements.md` §8 for the full pipeline."
+        "system. See `docs/req/top-level-requirements.md` §8 for the full pipeline."
     ),
     no_args_is_help=True,
     add_completion=False,
@@ -139,7 +139,7 @@ def ingest_client_matrix(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 1: load the client's existing matrix as the reference dataset."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 1] ingest client matrix for year {year}")
     _not_implemented_yet(
         "ingest/client_matrix.py",
@@ -159,6 +159,18 @@ def ingest_source(
     year: int = typer.Option(
         None, "--year", "-y", help="Filter to a single year (default: all years in the source)"
     ),
+    query: list[str] | None = typer.Option(
+        None,
+        "--query",
+        "-q",
+        help=(
+            "Wikipedia Action API query / topic. Repeat the flag for "
+            "multiple queries (e.g. --query 'Joe Biden' --query 'AMLO'). "
+            "Required when --source is 'wikipedia_search_extract' "
+            "(the adapter does not browse; queries are the deterministic "
+            "input contract per AGENTS.md). Ignored for every other source."
+        ),
+    ),
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 2: ingest one external source into ``data/processed/<source>/``.
@@ -169,6 +181,15 @@ def ingest_source(
 
     Sources without an entry fall through to the standard "not implemented
     yet" message so the CLI surface stays enumerable in ``--help``.
+
+    Most adapters accept ``year=`` and ignore it if the source is a
+    single-snapshot (FAS) or all-years (WDI). The Wikipedia Action API
+    adapter is the exception: its input contract is a list of
+    ``queries=`` (the orchestrator never browses). Pass one or more
+    ``--query`` values when ``--source wikipedia_search_extract``; if
+    none are given, the CLI fails fast with a clear Typer error rather
+    than surfacing the opaque ``TypeError`` from passing ``year=`` to a
+    queries-only adapter.
     """
     from .ingest import STAGE2_ADAPTERS
 
@@ -195,13 +216,36 @@ def ingest_source(
         )
         return
 
-    # Use the config's target year if the user did not pass --year.
-    effective_year = year if year is not None else cfg.project.target_year
-    typer.echo(f"[Stage 2] ingest source: {source} (year={effective_year})")
-
-    # Adapters accept ``year`` as a kwarg when they support filtering;
-    # they all do. Pass it through unconditionally.
-    result = adapter(year=effective_year)
+    # Wikipedia Action API is the only adapter whose CLI input contract
+    # is "explicit queries" (the helper does NOT browse). Fail with a
+    # clear, actionable Typer error rather than letting the
+    # ``adapter(year=...)`` call surface a TypeError. Other adapters
+    # take ``year=`` and ignore unknown kwargs (or accept them silently
+    # via **kwargs); this branch keeps them on the unchanged path.
+    if source == "wikipedia_search_extract":
+        if not query:
+            raise typer.BadParameter(
+                "--source wikipedia_search_extract requires one or more "
+                "--query values (e.g. --query 'Joe Biden'). "
+                "The adapter does not browse; queries are the "
+                "deterministic input contract."
+            )
+        typer.echo(
+            f"[Stage 2] ingest source: {source} "
+            f"(queries={list(query)})"
+        )
+        result = adapter(queries=list(query))
+    else:
+        # Use the config's target year if the user did not pass --year.
+        effective_year = (
+            year if year is not None else cfg.project.target_year
+        )
+        typer.echo(
+            f"[Stage 2] ingest source: {source} (year={effective_year})"
+        )
+        # Adapters accept ``year`` as a kwarg when they support
+        # filtering; they all do. Pass it through unconditionally.
+        result = adapter(year=effective_year)
 
     # Print the adapter's result summary. Adapters return a Pydantic
     # ``IngestResult`` (or equivalent) that carries the attribution
@@ -238,7 +282,7 @@ def match_countries(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 3: build the country-matching layer (ISO3 primary, alias table)."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo("[Stage 3] match countries")
     _not_implemented_yet("resolve/country_match.py", "Phase E.")
 
@@ -254,7 +298,7 @@ def resolve_leaders(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 4: resolve the actual ruler per country-year for the target year."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 4] resolve leaders for year {year}")
     _not_implemented_yet("resolve/leader_resolver.py", "Phase E.")
 
@@ -270,7 +314,7 @@ def extract_indicators(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 5: extract per-category indicator bundles per ruler-year."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 5] extract indicators for year {year}")
     _not_implemented_yet("resolve/indicators.py", "Phase E.")
 
@@ -286,10 +330,108 @@ def score_category(
     category: str = typer.Option(
         ..., "--category", help="One of: political_freedom, economic_wellbeing, ..."
     ),
+    country: str | None = typer.Option(
+        None,
+        "--country",
+        "--country-iso3",
+        help=(
+            "Optional ISO3 of a single country (e.g. MEX). When supplied "
+            "(together with --category social_wellbeing) the command "
+            "runs the Stage 9 production seam against the configured "
+            "DB and prints a concise score summary. Unsupported "
+            "categories fail with a clear error listing the supported "
+            "set; omit --country to keep the batch not-implemented "
+            "placeholder (Phase E)."
+        ),
+    ),
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
-    """Stage 9–10: score one category for one year."""
+    """Stage 9–10: score one category for one year.
+
+    With ``--country <ISO3>`` the command runs the **narrow single-
+    country read-only Stage 9 seam** (only ``social_wellbeing`` is
+    wired as a deterministic scorer today). It opens a session on
+    the configured DB, builds the Stage 5 evidence bundle for the
+    requested (country, year, category), and prints a concise result
+    summary (country/year/category/score or insufficient-data,
+    human_review_required, flags, observed/expected counts). No
+    ``ruler_scores`` row is persisted in this step — that wiring is
+    a follow-on once the Stage 4 leader resolver lands.
+
+    Without ``--country`` the command prints the existing batch
+    "not implemented yet" placeholder; full multi-country / multi-
+    year scoring is a Phase E item.
+    """
     cfg = _safe_load_config(config)
+
+    # Single-country production path. Only the registered categories
+    # in ``leaders_db.score.dispatch`` are accepted; unsupported
+    # categories fail fast with a typer.BadParameter listing the
+    # supported set so the user can pick the right category without
+    # reading the package source.
+    if country is not None:
+        from .db.session import session_scope
+        from .score.dispatch import supported_score_categories
+        from .score.stage9 import score_category_for_country
+
+        iso3 = country.strip().upper()
+        supported = supported_score_categories()
+        if category not in supported:
+            raise typer.BadParameter(
+                f"unsupported category {category!r}. Supported categories: "
+                f"[{', '.join(supported)}]."
+            )
+
+        typer.echo(
+            f"[Stage 9] score category {category!r} for country "
+            f"{iso3} year {year}"
+        )
+
+        try:
+            with session_scope(cfg.database.url) as session:
+                result = score_category_for_country(
+                    session,
+                    country_iso3=iso3,
+                    year=year,
+                    category_key=category,
+                )
+        except ValueError as exc:
+            # Surface the underlying ``ValueError`` (unknown country /
+            # unknown category) as a typer.BadParameter so the user
+            # sees a clear error rather than a Python traceback. The
+            # dispatcher's error message already lists the supported
+            # categories for the unsupported-category case; for the
+            # unknown-country case the bundle builder names the
+            # missing ISO3.
+            raise typer.BadParameter(str(exc)) from exc
+
+        typer.echo(f"  country:           {result.iso3}")
+        typer.echo(f"  category:          {result.category_key}")
+        typer.echo(f"  year:              {result.year}")
+        if result.is_insufficient_data:
+            typer.echo("  score:             insufficient_data")
+        else:
+            assert result.system_proposed_score_1_10 is not None
+            assert result.normalized_score_0_1 is not None
+            typer.echo(
+                f"  score:             {result.system_proposed_score_1_10}/10 "
+                f"(normalized={result.normalized_score_0_1:.4f})"
+            )
+        if result.missingness is not None:
+            typer.echo(
+                f"  observed/expected: "
+                f"{result.missingness.total_observed}/"
+                f"{result.missingness.total_expected}"
+            )
+        typer.echo(f"  human_review:      {result.human_review_required}")
+        if result.review_flags:
+            flags_str = ", ".join(flag.value for flag in result.review_flags)
+            typer.echo(f"  review_flags:      {flags_str}")
+        typer.echo(
+            f"  observation_refs:  {len(result.observation_refs)}"
+        )
+        return
+
     typer.echo(f"[Stage 9] score category {category!r} for year {year}")
     _not_implemented_yet(
         f"score/{category}.py",
@@ -321,7 +463,7 @@ def compute_confidence(
     command persists results to ``ruler_scores.confidence_score`` and
     ``validation_results``.
     """
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 11] compute confidence for year {year}")
     _not_implemented_yet(
         "score/confidence.py (formula is implemented; stage wiring is Phase E)",
@@ -340,7 +482,7 @@ def compare_vs_client(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 12: compare system output against the client matrix."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 12] compare vs client for year {year}")
     _not_implemented_yet("validate/comparison.py", "Phase E.")
 
@@ -351,7 +493,7 @@ def build_review_queue(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 14: build the manual-review queue with §14 priority ordering."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 14] build manual-review queue for year {year}")
     _not_implemented_yet("validate/manual_review_queue.py", "Phase E.")
 
@@ -362,7 +504,7 @@ def summary_report(
     config: Path = typer.Option(default_config_path(), "--config", "-c"),
 ) -> None:
     """Stage 15: produce the summary report and validation CSVs."""
-    cfg = _safe_load_config(config)
+    _safe_load_config(config)
     typer.echo(f"[Stage 15] summary report for year {year}")
     _not_implemented_yet("validate/summary_report.py", "Phase E.")
 
@@ -385,6 +527,17 @@ def run_vertical_slice_2023(
         "social_wellbeing,integrity",
         "--categories",
         help="Comma-separated category keys to score.",
+    ),
+    years: str | None = typer.Option(
+        None,
+        "--years",
+        help=(
+            "Optional comma-separated year list for a multi-year "
+            "source-only time-series CSV (e.g. 2020,2021,2022,2023). "
+            "When set, the orchestrator additionally writes "
+            "data/outputs/vertical_slice_2023/vertical_slice_timeseries.csv. "
+            "DB writes remain 2023-only regardless."
+        ),
     ),
     run_adapters: bool = typer.Option(
         True,
@@ -418,15 +571,23 @@ def run_vertical_slice_2023(
     ``social_wellbeing`` and ``integrity`` with provisional formulas and
     writes the three output files under
     ``data/outputs/vertical_slice_2023/``.
+
+    When ``--years`` is provided, an additional source-only multi-year
+    time-series CSV is written. The DB (ruler_years / ruler_scores /
+    validation_results) stays 2023-only.
     """
     cfg = _safe_load_config(config)
     iso3_scope = tuple(c.strip().upper() for c in countries.split(",") if c.strip())
     category_scope = tuple(c.strip() for c in categories.split(",") if c.strip())
+    years_tuple: tuple[int, ...] = (
+        _parse_years_flag(years) if years else ()
+    )
 
     typer.echo(
         f"[vertical_slice_2023] target_year={cfg.project.target_year} "
         f"countries={iso3_scope} categories={category_scope} "
-        f"run_adapters={run_adapters}"
+        f"run_adapters={run_adapters} "
+        f"years={years_tuple or '(2023-only)'}"
     )
 
     # Local import keeps the CLI lean — only the slice command pays the
@@ -440,6 +601,7 @@ def run_vertical_slice_2023(
         run_adapters=run_adapters,
         database_url=database_url,
         client_xlsx=client_xlsx,
+        years=years_tuple or None,
     )
 
     typer.echo("Done. Summary:")
@@ -450,6 +612,12 @@ def run_vertical_slice_2023(
     typer.echo(f"  score_rows_written:    {result.score_rows_written}")
     typer.echo(f"  validation_rows_written: {result.validation_rows_written}")
     typer.echo(f"  sources_used:          {', '.join(result.sources_used) or '(none)'}")
+    if result.timeseries_years:
+        typer.echo(
+            f"  timeseries_years:      {result.timeseries_years} "
+            f"(rows={result.timeseries_rows_written})"
+        )
+        typer.echo(f"  timeseries_csv_path:   {result.timeseries_csv_path}")
     if result.skipped:
         typer.echo("  skipped:")
         for iso3, cat, reason in result.skipped:
@@ -479,6 +647,34 @@ def _safe_load_config(path: Path) -> RunConfig:
         )
         return RunConfig()
     return load_config(path)
+
+
+def _parse_years_flag(value: str) -> tuple[int, ...]:
+    """Parse a ``--years`` value like ``"2020,2021,2022,2023"``.
+
+    Duplicates are dropped, the order is preserved (the orchestrator
+    sorts the tuple for stability), and an empty string after parsing
+    is treated as "no years requested" (returns an empty tuple). A
+    non-integer component raises :class:`typer.BadParameter` so the
+    caller sees a clear, actionable error.
+    """
+    parts = [chunk.strip() for chunk in value.split(",")]
+    parts = [chunk for chunk in parts if chunk]
+    parsed: list[int] = []
+    seen: set[int] = set()
+    for chunk in parts:
+        try:
+            year = int(chunk)
+        except ValueError as exc:
+            raise typer.BadParameter(
+                f"--years must be a comma-separated list of integers "
+                f"(e.g. 2020,2021,2022,2023); got {chunk!r}"
+            ) from exc
+        if year in seen:
+            continue
+        seen.add(year)
+        parsed.append(year)
+    return tuple(parsed)
 
 
 def _not_implemented_yet(module: str, note: str = "") -> None:

@@ -1194,9 +1194,9 @@ No new project dependencies. PTS uses the same `openpyxl` / `pandas` / `pyarrow`
 
 The `notes` field is updated to reflect the live-data region codes (replacing the 6-code approximation with the 7 single-region codes + the `'mena, ssa'` anomaly). The other fields (`coverage_start_year: 1976`, `coverage_end_year: 2024`, `sha256`, `source_url`, `license`) are unchanged.
 
-### `docs/requirements-core.md` — no change required
+### `docs/req/requirements-core.md` — no change required
 
-The existing `domestic_violence` category in `docs/requirements-core.md` already lists PTS as the third source (alongside UCDP and V-Dem); the new adapter does not change the requirement set, only the implementation.
+The existing `domestic_violence` category in `docs/req/requirements-core.md` already lists PTS as the third source (alongside UCDP and V-Dem); the new adapter does not change the requirement set, only the implementation.
 
 ---
 

@@ -813,7 +813,7 @@ def test_stage2_adapters_dispatch_table(wdi_source_key: str) -> None:
         "leader_survival", "transparency_cpi", "fas",
         "wikidata_heads_of_state_government", "wikipedia_search_extract",
         "freedom_house", "imf_weo", "cow_mid", "cirights",
-        "nti", "bti", "cia_world_leaders",
+        "nti", "bti", "cia_world_leaders", "rsf_press_freedom",
     }
     assert set(STAGE2_ADAPTERS.keys()) == expected_keys
 

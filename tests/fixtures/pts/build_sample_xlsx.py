@@ -30,14 +30,19 @@ import openpyxl
 
 
 def main() -> None:
-    src_path = Path("data/raw/political_terror_scale/PTS-2025.xlsx")
+    # First try the conventional location (run from repo root); fall back
+    # to the project-root absolute path computed from this file's location.
+    # ``__file__`` is tests/fixtures/pts/build_sample_xlsx.py, so
+    # ``parents[3]`` is the project root (tests/fixtures/pts/ → tests/ → /
+    # → <project_root>). The previous ``parents[2]`` resolved under
+    # ``tests/`` and silently produced a wrong path; this is the
+    # corrected fallback.
+    project_root = Path(__file__).resolve().parents[3]
+    src_path = project_root / "data" / "raw" / "political_terror_scale" / "PTS-2025.xlsx"
     if not src_path.exists():
-        src_path = (
-            Path(__file__).resolve().parents[2]
-            / "data"
-            / "raw"
-            / "political_terror_scale"
-            / "PTS-2025.xlsx"
+        raise FileNotFoundError(
+            f"Source PTS xlsx not found: {src_path}. "
+            "Stage data/raw/political_terror_scale/PTS-2025.xlsx first."
         )
     dst_path = Path(__file__).resolve().parent / "sample.xlsx"
 

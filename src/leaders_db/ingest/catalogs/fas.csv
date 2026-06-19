@@ -1,0 +1,91 @@
+# FAS Nuclear Notebook indicator catalog
+#
+# This file is the single source of truth for which FAS
+# (Federation of American Scientists) Nuclear Notebook indicators
+# the Stage 2 adapter reads. The prototype narrows to the 5
+# indicators on the canonical "Status of World Nuclear Forces"
+# table at
+# https://programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html.
+#
+# Source: Federation of American Scientists, Nuclear Information
+#   Project (Hans Kristensen, Matt Korda, et al.).
+#   Publisher URL: https://fas.org/issues/nuclear-weapons/
+#   Page URL:
+#     https://programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html
+# License: free; cite FAS per docs/source-attributions.md.
+# Citation: Federation of American Scientists. Nuclear Notebook.
+#   https://fas.org/issues/nuclear-weapons/
+# Attribution text (Always-On Rule #15): "FAS Nuclear Notebook
+#   (Federation of American Scientists)."
+#
+# Columns in this catalog:
+#   - variable_name      : canonical Stage 2 / score-module name
+#   - raw_column         : the FAS HTML table column header (the
+#                          consolidated table uses multi-line
+#                          headers with <br>; the reader parses
+#                          both lines)
+#   - rating_category     : one of the 8 rating categories from §4
+#                          (nuclear = nuclear arsenal facts)
+#   - raw_scale          : number of warheads (count, integer)
+#   - normalized_scale_target : 0-10 (the score modules' default
+#                              scale; the deterministic scorer
+#                              applies log scaling for arsenal
+#                              counts)
+#   - higher_is_better   : 1 = lower arsenal = better (per the
+#                          nuclear responsibility category
+#                          semantics), 0 otherwise. We use
+#                          higher_is_better=0 because
+#                          operational_strategic / stockpile /
+#                          total_inventory grow as a country
+#                          accumulates warheads; the scoring
+#                          module inverts via the
+#                          ``higher_is_better=0`` convention.
+#   - unit               : the unit string surfaced to users
+#   - description        : human-readable description for the
+#                          Stage 15 summary report
+#
+# Sentinel handling:
+#   - The FAS table uses literal ``"n.a."`` for not-applicable
+#     cells and ``"?"`` for unknown. The reader maps both to
+#     None (``normalized_value`` is NaN, ``raw_value`` preserves
+#     the literal).
+#   - The FAS table uses ranges (e.g. ``"100-120"`` for
+#     Pakistan). The reader takes the midpoint and preserves the
+#     literal in ``raw_value``.
+#   - Numbers carry footnote-letter suffixes (e.g. ``"1,600a"``
+#     with a footnote ``a`` that links to the table's note
+#     block). The reader strips the letter.
+#   - The ``"<10"`` sentinel (North Korea total inventory) maps
+#     to the integer 10 (the upper bound) per the FAS convention
+#     "less than 10".
+#
+# Year coverage:
+#   - The consolidated FAS snapshot page is dated 2014-04-30 (per
+#     its <meta name="date"> and the page's footer "Current
+#     update: April 30, 2014"). The Stage 2 adapter ingests the
+#     snapshot year as documented in the page's metadata; the
+#     snapshot year is recorded in the run manifest as the
+#     freshness stamp. Per-country guides (nuke.fas.org/guide/<country>/)
+#     are updated more frequently but the consolidated table is
+#     the canonical FAS-Nuclear-Notebook summary cited by SIPRI.
+#   - The Stage 11 confidence engine penalises the temporal-fit
+#     gap between the FAS snapshot year and the prototype's
+#     target year (2023). This is a known limitation recorded in
+#     metadata + manifest; it is not a blocker for the
+#     integrity of the data (the snapshot values are the
+#     authoritative FAS estimates for that year).
+#
+# When extending this file:
+#   - Add a row per additional FAS table column (e.g. deployed
+#     vs reserve counts for a future revision).
+#   - Update the per-row count assertions in
+#     tests/test_ingest_fas.py if the row count changes.
+#   - Update the Stage 9 / 10 score modules to consume the new
+#     variable_names.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+fas_operational_strategic,Operational Strategic,nuclear,warhead_count,0-10,0,warheads,Country's deployed strategic warheads (per FAS Status of World Nuclear Forces table); higher_is_better=0 because more deployed warheads = more nuclear risk
+fas_operational_nonstrategic,Operational Nonstrategic,nuclear,warhead_count,0-10,0,warheads,Country's deployed nonstrategic warheads (per FAS Status of World Nuclear Forces table); n.a. for most non-US states; higher_is_better=0
+fas_reserve_nondeployed,Reserve/Nondeployed,nuclear,warhead_count,0-10,0,warheads,Country's reserve / nondeployed warheads in central storage (per FAS Status of World Nuclear Forces table); higher_is_better=0
+fas_military_stockpile,Military Stockpile,nuclear,warhead_count,0-10,0,warheads,Country's total military stockpile (active + reserve; per FAS Status of World Nuclear Forces table); higher_is_better=0
+fas_total_inventory,Total Inventory,nuclear,warhead_count,0-10,0,warheads,Country's total nuclear inventory including retired awaiting dismantlement (per FAS Status of World Nuclear Forces table); higher_is_better=0

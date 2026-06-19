@@ -55,6 +55,7 @@ def gather_inputs(
     country_id: int,
     category_key: str,
     target_year: int,
+    exact_year: int | None = None,
 ) -> ScoreInputs | None:
     """Look up the source observation needed to score one category.
 
@@ -66,11 +67,48 @@ def gather_inputs(
     back to the documented proxy year (typically 2022). The proxy is
     surfaced on the :class:`ScoreInputs` so the orchestrator can record
     a temporal-fit penalty and a proxy note in the output.
+
+    When ``exact_year`` is provided, the lookup is constrained to that
+    single year (no proxy fallback) and the returned
+    :class:`ScoreInputs` always reports ``is_proxy=False``. This is used
+    by the multi-year source-only time-series output where rows for
+    ``year < target_year`` must use the exact source observation
+    year (or be omitted if missing), not a proxy year.
     """
     spec = CATEGORY_INPUT_MAP.get(category_key)
     if spec is None:
         return None
     variable_name, preferred_year, fallback_year = spec
+
+    if exact_year is not None:
+        # Exact-year lookup for the multi-year time-series output. No
+        # proxy fallback: pre-2023 rows must use the literal source
+        # year or be omitted from the output entirely.
+        obs = session.execute(
+            select(SourceObservation).where(
+                SourceObservation.country_id == country_id,
+                SourceObservation.variable_name == variable_name,
+                SourceObservation.year == exact_year,
+            )
+        ).scalars().first()
+        if obs is not None:
+            raw_value = _coerce_float(obs.raw_value)
+            return ScoreInputs(
+                category_key=category_key,
+                variable_name=variable_name,
+                raw_value=raw_value,
+                normalized_value=obs.normalized_value,
+                source_year=exact_year,
+                is_proxy=False,
+            )
+        return ScoreInputs(
+            category_key=category_key,
+            variable_name=variable_name,
+            raw_value=None,
+            normalized_value=None,
+            source_year=None,
+            is_proxy=False,
+        )
 
     # Prefer the target year, then fall back to the proxy year.
     for candidate_year, is_proxy in (

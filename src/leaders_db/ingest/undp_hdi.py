@@ -157,7 +157,7 @@ def ingest_undp_hdi(
         proxy_year_semantics = (
             f"year={UNDP_HDI_PROXY_REQUESTED_YEAR} -> "
             f"data_year={UNDP_HDI_PROXY_YEAR} (1-year-gap proxy, "
-            "per docs/architecture/undp_hdi.md §4 + CIRIGHTS / "
+            "per docs/architecture/undp-hdi.md §4 + CIRIGHTS / "
             "Leader Survival pattern)"
         )
 

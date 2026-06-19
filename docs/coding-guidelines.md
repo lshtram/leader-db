@@ -37,7 +37,7 @@ These apply to the Python package under `src/leaders_db/`. The goal is a reprodu
 
 ## Data And Schema
 
-- The canonical leader/ruler/score schema lives in [`docs/database-schema.md`](docs/database-schema.md) and `src/leaders_db/db/models.py`. Treat those as the source of truth.
+- The canonical leader/ruler/score schema lives in [`database-schema.md`](database-schema.md) and `src/leaders_db/db/models.py`. Treat those as the source of truth.
 - Use ISO3 (`countries.iso3`) as the primary country key. Use `leader_aliases` for name variants.
 - Preserve raw values, normalized values, and source provenance separately. Never overwrite `client_score` or `client_matrix_leader_name`.
 - Validate required columns, year ranges, duplicate `(country_id, year)` keys, missing `iso3`, and invalid scores at module boundaries.
@@ -95,7 +95,7 @@ The fixed weights are normative. See [`src/leaders_db/score/confidence.py`](../s
 
 ## Documentation
 
-- Keep `docs/workplan.md`, `docs/architecture.md`, and `docs/requirements-core.md` synchronized.
+- Keep `docs/workplan.md`, `docs/architecture.md`, and `docs/req/requirements-core.md` synchronized.
 - Use lowercase-kebab-case names for documentation files.
 - Add `docs/testing-guide-<module>.md` only for formal TDD/reviewed modules or substantial manual workflows.
 - Document new config fields with their purpose, defaults, and reproducibility implications.

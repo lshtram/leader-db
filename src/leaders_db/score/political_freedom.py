@@ -60,4 +60,4 @@ def rationale_for(
     return None
 
 
-__all__ = ["score_political_freedom", "rationale_for"]
+__all__ = ["rationale_for", "score_political_freedom"]

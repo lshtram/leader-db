@@ -15,6 +15,10 @@ pipeline. The slice:
 6. Computes provisional scores for the scoped categories.
 7. Writes ``ruler_scores`` and ``validation_results``.
 8. Writes ``data/outputs/vertical_slice_2023/*.csv|*.md``.
+9. When ``years=`` is provided, additionally writes the source-only
+   multi-year ``vertical_slice_timeseries.csv``. The DB writes
+   (``ruler_years`` / ``ruler_scores`` / ``validation_results``)
+   remain 2023-only — the multi-year extension is output-only.
 
 The orchestrator is idempotent: re-running it keeps countries,
 country_years, leaders, score_categories, and Stage 2
@@ -39,6 +43,7 @@ from ..db.models import Country
 from ..db.session import default_sqlite_url, session_scope
 from ..ingest import undp_hdi, wgi
 from ..paths import project_root, raw_dir
+from ..score.confidence import ConfidenceInputs, compute_confidence
 from .constants import (
     DEFAULT_CATEGORIES,
     DEFAULT_COUNTRIES,
@@ -52,9 +57,11 @@ from .countries_seeding import (
 from .outputs import (
     ComparisonRow,
     ScoreRow,
+    TimeseriesRow,
     write_comparison_csv,
     write_scores_csv,
     write_summary_md,
+    write_timeseries_csv,
 )
 from .parser import ClientSliceRow, load_vertical_slice_client_rows
 from .persistence import (
@@ -102,6 +109,13 @@ class VerticalSliceResult(BaseModel):
     skipped: tuple[tuple[str, str, str], ...] = Field(default_factory=tuple)
     sources_used: tuple[str, ...] = Field(default_factory=tuple)
     client_xlsx_path: Path
+    # Multi-year extension: populated only when the caller passed a
+    # ``years=`` sequence (or the ``--years`` CLI flag). ``None`` means
+    # the orchestrator did not write a time-series CSV; tests assert
+    # file existence directly against the canonical path.
+    timeseries_years: tuple[int, ...] = Field(default_factory=tuple)
+    timeseries_csv_path: Path | None = None
+    timeseries_rows_written: int = Field(default=0, ge=0)
 
 
 # ---------------------------------------------------------------------------
@@ -117,6 +131,7 @@ def run_vertical_slice_2023(
     run_adapters: bool = True,
     database_url: str | None = None,
     client_xlsx: Path | None = None,
+    years: Sequence[int] | None = None,
 ) -> VerticalSliceResult:
     """Run the 2023 vertical slice end-to-end.
 
@@ -136,12 +151,22 @@ def run_vertical_slice_2023(
             :mod:`leaders_db.db.session`.
         client_xlsx: override the client xlsx path. Defaults to the
             first xlsx found under ``data/raw/client_existing/``.
+        years: optional sequence of years to surface as a source-only
+            multi-year time-series in
+            ``data/outputs/vertical_slice_2023/vertical_slice_timeseries.csv``.
+            ``None`` (the default) preserves the original 2023-only
+            behaviour: no time-series CSV is written. The DB writes
+            (``ruler_years`` / ``ruler_scores`` /
+            ``validation_results``) stay 2023-only regardless.
 
     Returns:
         A :class:`VerticalSliceResult` with row counts and output paths.
     """
     iso3_scope = tuple(c.upper() for c in (countries or DEFAULT_COUNTRIES))
     category_scope = tuple(categories or DEFAULT_CATEGORIES)
+    timeseries_years = (
+        tuple(sorted({int(year) for year in years})) if years else ()
+    )
     target_year = config.project.target_year
     # Prefer the explicit ``database_url``; otherwise honor the env-var
     # override (``LEADERSDB_PROJECT_ROOT``) via :func:`default_sqlite_url`
@@ -242,6 +267,21 @@ def run_vertical_slice_2023(
             target_year=target_year,
         )
 
+        # Multi-year source-only time-series rows. Computed inside the
+        # session so the SourceObservation joins use the same session as
+        # the 2023 write path. The DB itself stays 2023-only: this loop
+        # only produces in-memory rows for the CSV writer.
+        timeseries_rows: list[TimeseriesRow] = []
+        if timeseries_years:
+            timeseries_rows = _compute_timeseries_rows(
+                session,
+                client_rows=client_rows,
+                country_ids=country_ids,
+                category_scope=category_scope,
+                target_year=target_year,
+                years=timeseries_years,
+            )
+
     output_root = _project_root()
     scores_path = write_scores_csv(score_rows, root=output_root)
     comparison_path = write_comparison_csv(comparison_rows, root=output_root)
@@ -256,7 +296,12 @@ def run_vertical_slice_2023(
         proxy_year_count=proxy_year_count,
         skipped=skipped,
         root=output_root,
+        timeseries_years=timeseries_years or None,
     )
+
+    timeseries_path: Path | None = None
+    if timeseries_years:
+        timeseries_path = write_timeseries_csv(timeseries_rows, root=output_root)
 
     return VerticalSliceResult(
         target_year=target_year,
@@ -274,6 +319,9 @@ def run_vertical_slice_2023(
         skipped=tuple(skipped),
         sources_used=tuple(sorted(sources_used)),
         client_xlsx_path=resolved_xlsx,
+        timeseries_years=timeseries_years,
+        timeseries_csv_path=timeseries_path,
+        timeseries_rows_written=len(timeseries_rows),
     )
 
 
@@ -414,6 +462,126 @@ def _compute_scores(
         direct_year_count,
         proxy_year_count,
         sources_used,
+    )
+
+
+def _compute_timeseries_rows(
+    session: Session,
+    *,
+    client_rows: list[ClientSliceRow],
+    country_ids: dict[str, int],
+    category_scope: Sequence[str],
+    target_year: int,
+    years: Sequence[int],
+) -> list[TimeseriesRow]:
+    """Build the multi-year source-only time-series rows.
+
+    Source-only output: no client comparison column, no DB writes. The
+    row generation rules per the architecture doc §8 proxy-fallback
+    policy:
+
+    - For ``year == target_year``: use the same proxy-aware lookup as
+      the 2023 path (``preferred_year`` then ``fallback_year``). The
+      row's ``source_kind`` is ``'proxy'`` when a fallback year was
+      used, ``'direct'`` otherwise.
+    - For ``year != target_year``: require an exact-year observation.
+      If no observation is present, the row is omitted from the
+      output (the slice never invents scores).
+    """
+    rows: list[TimeseriesRow] = []
+    country_label_by_iso3: dict[str, str] = {}
+    for client_row in client_rows:
+        country = session.execute(
+            select(Country).where(Country.id == country_ids[client_row.iso3])
+        ).scalar_one()
+        country_label_by_iso3[client_row.iso3] = country.country_name
+
+    for year in years:
+        is_target_year = year == target_year
+        for client_row in client_rows:
+            iso3 = client_row.iso3
+            country_label = country_label_by_iso3[iso3]
+            for category_key in category_scope:
+                if is_target_year:
+                    inputs = gather_inputs(
+                        session,
+                        country_id=country_ids[iso3],
+                        category_key=category_key,
+                        target_year=target_year,
+                    )
+                else:
+                    inputs = gather_inputs(
+                        session,
+                        country_id=country_ids[iso3],
+                        category_key=category_key,
+                        target_year=year,
+                        exact_year=year,
+                    )
+                if inputs is None:
+                    continue  # category not in slice scope
+                if inputs.source_year is None:
+                    # No direct observation for the requested year and
+                    # no proxy fallback applies. Per the contract, omit
+                    # the row instead of inventing one.
+                    continue
+
+                score = score_one(inputs)
+                if score.skip_reason is not None:
+                    continue  # could not compute; omit
+
+                source_kind = "proxy" if score.is_proxy else "direct"
+                note = _timeseries_note(
+                    year=year,
+                    source_year=score.source_year,
+                    source_kind=source_kind,
+                    variable_name=inputs.variable_name,
+                )
+                rows.append(TimeseriesRow(
+                    iso3=iso3,
+                    country=country_label,
+                    year=year,
+                    category_key=category_key,
+                    system_proposed_score=score.system_proposed_score,
+                    source_variable=inputs.variable_name,
+                    source_year=score.source_year,
+                    source_raw_value=score.raw_value_str,
+                    source_kind=source_kind,
+                    confidence_score=_timeseries_confidence(score),
+                    note=note,
+                ))
+    return rows
+
+
+def _timeseries_note(
+    *,
+    year: int,
+    source_year: int | None,
+    source_kind: str,
+    variable_name: str,
+) -> str:
+    """Compose the human-readable ``note`` for a time-series row."""
+    if source_kind == "proxy":
+        return (
+            f"proxy: variable={variable_name}; "
+            f"source_year={source_year} -> year={year}"
+        )
+    return (
+        f"direct: variable={variable_name}; source_year={source_year}; "
+        f"year={year}"
+    )
+
+
+def _timeseries_confidence(score: ScoreResult) -> int | None:
+    """Return the fixed-weight final confidence for a time-series score."""
+    if score.skip_reason is not None:
+        return None
+    return compute_confidence(
+        ConfidenceInputs(
+            agreement=score.confidence_agreement,
+            authority=score.confidence_authority,
+            specificity=score.confidence_specificity,
+            temporal_fit=score.confidence_temporal_fit,
+        )
     )
 
 

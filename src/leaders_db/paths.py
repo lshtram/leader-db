@@ -11,8 +11,8 @@ materialize state.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from .env import _project_root
 
@@ -27,22 +27,44 @@ METADATA_DIR = "metadata"
 
 # The priority source folders must exist for the data lake to be considered
 # initialized (see ``init_data_lake`` in ``cli.py``).
+#
+# This list is a superset that matches the keys consumed by
+# :data:`leaders_db.ingest.STAGE2_ADAPTERS` plus the legacy ``client_existing``
+# folder. SIPRI is split into ``sipri_milex`` and ``sipri_yearbook_ch7`` in
+# the Stage 2 dispatch table; PTS is registered under ``pts`` in the
+# dispatch table but the on-disk folder is ``political_terror_scale`` (the
+# source name). ``init_data_lake`` creates all of these on a clean checkout.
 PRIORITY_SOURCES: tuple[str, ...] = (
+    # Client 2023 validation/reference bundle (always present).
     "client_existing",
+    # Implemented Stage 2 adapters (raw + metadata on disk; see
+    # ``docs/source-vetting-report.md`` and ``docs/source-attributions.md``).
     "archigos",
-    "leader_survival",
+    "bti",
+    "cirights",
+    "fas",
+    "political_terror_scale",  # Stage 2 dispatch key is ``pts``; raw folder uses the source name.
     "reign",
-    "vdem",
-    "freedom_house",
-    "world_bank_wdi",
-    "world_bank_wgi",
+    "rsf_press_freedom",
+    "sipri_milex",
+    "sipri_yearbook_ch7",
     "transparency_cpi",
     "ucdp",
+    "undp_hdi",
+    "vdem",
+    "who_gho_api",
+    "wikidata_heads_of_state_government",
+    "wikipedia_search_extract",
+    "world_bank_wdi",
+    "world_bank_wgi",
+    # Blocked on raw bundle (raw file not staged locally).
+    "leader_survival",
+    "polity_v",
+    "pwt",
+    # User-managed / blocked (no code until files are placed locally).
     "cow_mid",
-    "political_terror_scale",
-    "cirights",
-    "sipri",
-    "fas",
+    "freedom_house",
+    "imf_weo",
     "nti",
 )
 

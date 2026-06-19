@@ -1,4 +1,5 @@
-"""Scoring module — category scoring and the fixed confidence formula.
+"""Scoring module — category scoring, evidence bundles, and the fixed
+confidence formula.
 
 Confidence is normative (REQ-CONF-001, requirement §11):
 
@@ -16,10 +17,38 @@ Per-category scoring modules live next to this file:
 - ``nuclear.py``             — FAS + SIPRI nuclear + NTI (lighter module)
 
 Each per-category module is a stub during Phase A (infrastructure).
+The Stage 5 evidence bundle contract lives in :mod:`leaders_db.score.evidence`.
+The Stage 9-10 scoring result contract lives in
+:mod:`leaders_db.score.results` (frozen typed payload shared by every
+per-category scorer).
 """
 
 from __future__ import annotations
 
+from .confidence import (
+    ConfidenceInputs,
+    ConfidenceWeights,
+    compute_confidence,
+    default_weights,
+)
+from .dispatch import (
+    get_category_scorer,
+    score_category_bundle,
+    supported_score_categories,
+)
+from .evidence import (
+    CategoryEvidenceBundle,
+    CategorySourcePlan,
+    Direction,
+    EvidenceObservation,
+    IndicatorRole,
+    IndicatorSpec,
+    MissingObservation,
+    MissingReason,
+    MissingSeverity,
+    SparseDataPolicy,
+    TemporalKind,
+)
 from .normalization import (
     clamp01,
     clamp_int_0_10,
@@ -27,21 +56,49 @@ from .normalization import (
     normalize_0_10_to_0_1,
     normalize_pct_to_0_1,
 )
-from .confidence import (
-    ConfidenceInputs,
-    ConfidenceWeights,
-    compute_confidence,
-    default_weights,
+from .results import (
+    MissingnessSummary,
+    ReviewFlag,
+    ScoreComponent,
+    ScoreObservationRef,
+    ScoreResult,
 )
+from .social_wellbeing import (
+    CATEGORY_KEY,
+    score_social_wellbeing,
+)
+from .stage9 import score_category_for_country
 
 __all__ = [
+    "CATEGORY_KEY",
+    "CategoryEvidenceBundle",
+    "CategorySourcePlan",
+    "ConfidenceInputs",
+    "ConfidenceWeights",
+    "Direction",
+    "EvidenceObservation",
+    "IndicatorRole",
+    "IndicatorSpec",
+    "MissingObservation",
+    "MissingReason",
+    "MissingSeverity",
+    "MissingnessSummary",
+    "ReviewFlag",
+    "ScoreComponent",
+    "ScoreObservationRef",
+    "ScoreResult",
+    "SparseDataPolicy",
+    "TemporalKind",
     "clamp01",
     "clamp_int_0_10",
+    "compute_confidence",
+    "default_weights",
+    "get_category_scorer",
     "normalize_0_1_to_0_10",
     "normalize_0_10_to_0_1",
     "normalize_pct_to_0_1",
-    "ConfidenceInputs",
-    "ConfidenceWeights",
-    "compute_confidence",
-    "default_weights",
+    "score_category_bundle",
+    "score_category_for_country",
+    "score_social_wellbeing",
+    "supported_score_categories",
 ]

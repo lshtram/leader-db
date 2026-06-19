@@ -141,6 +141,18 @@ Each raw dataset folder should contain:
 * ingestion status
 * any known coverage limits
 
+Every implemented source must also have a source-location trail that lets a
+developer, reviewer, or future auditor find the exact raw value used in a score:
+
+* raw path or endpoint
+* source metadata file
+* indicator catalog entry
+* adapter entrypoint
+* processed output path and run manifest
+* database `source_observations` rows
+* raw row/cell/API/document locator
+* tests and fixtures that prove the mapping
+
 Example metadata file:
 
 ```json
@@ -175,7 +187,9 @@ Fallback/auxiliary sources:
 * CIA World Leaders for current/recent leaders
 * Rulers.org
 * Wikidata/Wikipedia
-* Client matrix
+
+The client matrix is not a leader-identity source. Its leader names are loaded
+only as the validation reference used for comparison and manual-review flags.
 
 ### Political freedom sources
 
@@ -517,7 +531,23 @@ outputs/leader_resolution_2023.csv
 
 ### Stage 5 — Indicator extraction
 
-For each ruler-year, collect relevant country-year indicators.
+For each ruler-year and category, collect an **evidence bundle**, not just one
+raw number. The evidence bundle is the contract between ingestion, scoring,
+confidence, LLM adjudication, and manual review.
+
+Each category evidence bundle should include:
+
+* country, year, ruler, and category
+* the category source plan: required/preferred/fallback indicators and weights
+* expected sources and indicators
+* available observations with source, variable name, raw value, unit, direction,
+  scale, year, and raw locator
+* missing observations with a reason (`source_not_implemented`, `raw_file_absent`,
+  `country_row_absent`, `target_year_absent`, `indicator_null`, `not_applicable`,
+  `blocked_or_paywalled`, `excluded_by_config`)
+* proxy or stale observations, including the year-gap and reason they are allowed
+* normalized comparable signals where available
+* notes needed for source-agreement, authority, specificity, and temporal-fit confidence
 
 Example indicators:
 
@@ -574,18 +604,32 @@ Effectiveness:
 
 ## 9. Score-generation logic
 
-The system should generate provisional scores. It should not overwrite the client score.
+The system should generate provisional scores from category evidence bundles. It
+should not overwrite the client score.
+
+A production score is not a trivial conversion such as `0.781 -> 7.8`. Each
+category scorer should take multiple expected indicators where available,
+normalize them, handle missing or stale indicators explicitly, and combine the
+evidence according to a transparent category-specific rubric.
 
 For each category:
 
-1. Collect indicator bundle.
-2. Convert indicators to a normalized 0–1 or 1–10 scale.
-3. Apply category rubric.
-4. Generate proposed score.
-5. Compare with client score.
-6. Calculate delta.
-7. Create rationale.
-8. Flag high-delta cases for review.
+1. Load the category source plan.
+2. Build the evidence bundle from expected, available, missing, proxy, and stale observations.
+3. Convert raw indicators to normalized comparable signals, including direction adjustment.
+4. Apply the category rubric and weights.
+5. Generate proposed score or `insufficient_data`.
+6. Calculate confidence from source agreement, source authority, evidence specificity, and temporal fit.
+7. Compare with client score.
+8. Calculate delta.
+9. Create rationale with source and missingness notes.
+10. Flag high-delta, low-confidence, missing-primary-source, and source-conflict cases for review.
+
+Scorers must not silently average incompatible indicators or drop conflicting
+sources. Conflict and missingness are part of the output and confidence score.
+The current vertical-slice single-source formulas are only plumbing checks; the
+main pipeline should replace them with evidence-bundle based scorers before broad
+category validation is treated as meaningful.
 
 ### Score output example
 
@@ -620,6 +664,8 @@ LLM calls should be used only where structured data is insufficient.
 * Compare client notes with external evidence.
 * Identify whether a score requires human review.
 * Extract structured claims from a limited set of provided text snippets.
+* Adjudicate a low-confidence evidence bundle using the strict JSON schema.
+* Later, if explicitly enabled, search for and summarize additional cited papers/articles as evidence snippets.
 
 ### Bad uses of LLM
 
@@ -628,6 +674,7 @@ LLM calls should be used only where structured data is insufficient.
 * Citing sources it has not been given.
 * Making final academic judgments without review.
 * Fetching large datasets repeatedly when local data exists.
+* Performing live web research as the default scoring path.
 * Silently resolving ambiguous leader identity.
 
 ### LLM input requirements
@@ -638,12 +685,26 @@ Each LLM scoring call must include:
 * year
 * leader candidate
 * category
-* relevant structured indicators
+* the assembled evidence bundle or relevant structured indicators
 * client score if available
 * client note if available
 * up to three evidence snippets
 * rubric description
 * required output JSON schema
+
+### LLM levels
+
+Level 1 is constrained adjudication. It may be triggered by low confidence,
+source conflict, severe missingness, ambiguous ruler identity, or high delta vs
+client reference. It receives only the evidence bundle, rubric, and provided
+snippets. It must not browse or rely on undocumented facts.
+
+Level 2 is gated external research. It may be added only after Level 1 is stable
+and reviewed, and only behind an explicit config flag. Any new external research
+must be stored as cited snippets with URL or bibliographic reference,
+quote/claim text, retrieval date, relevance, source type, and provenance. These
+snippets support adjudication and human review; they do not become equivalent to
+structured datasets.
 
 ### Required LLM output format
 
@@ -712,6 +773,16 @@ confidence =
 * 40: near period but not exact
 * 20: long-term historical context only
 * 0: wrong period
+
+Missingness must be visible in confidence. If a category source plan expected a
+primary source but the source is absent, blocked, lacks the country, lacks the
+target year, or has a null indicator, the confidence calculation and review
+status should reflect that fact. The system must not hide missingness by scoring
+only the available indicators.
+
+The client matrix must never improve any confidence component. It is used only
+for comparison, regression validation, delta calculation, and manual-review
+prioritization.
 
 Confidence bands:
 

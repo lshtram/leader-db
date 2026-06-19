@@ -120,7 +120,7 @@ def _init_test_db(database_url: str) -> None:
 
 
 def test_load_indicator_catalog_returns_4_specs(sipri_milex_catalog_path: Path) -> None:
-    """The checked-in catalog has 4 indicators (matches sipri_milex.md §3.4 spec)."""
+    """The checked-in catalog has 4 indicators (matches sipri-milex.md §3.4 spec)."""
     specs = load_indicator_catalog(sipri_milex_catalog_path)
     assert len(specs) == 4, f"Expected 4 indicators, got {len(specs)}"
     assert all(s.variable_name and s.raw_column for s in specs)
@@ -190,7 +190,7 @@ def test_catalog_sheet_names_match_sipri_release(sipri_milex_catalog_path: Path)
 
 
 def test_catalog_variable_names_match_design(sipri_milex_catalog_path: Path) -> None:
-    """The 4 variable_name values are exactly the names in sipri_milex.md §3.4."""
+    """The 4 variable_name values are exactly the names in sipri-milex.md §3.4."""
     specs = load_indicator_catalog(sipri_milex_catalog_path)
     names = {s.variable_name for s in specs}
     expected = {
@@ -641,7 +641,7 @@ def test_write_sipri_milex_observations_handles_xxx_missing(
     wb = openpyxl.load_workbook(modified_xlsx)
     ws = wb["Share of Govt. spending"]
     # The fixture's Share of Govt. spending sheet has 4 columns:
-    # (Country, Notes, 2022, 2023). Per the design (sipri_milex.md
+    # (Country, Notes, 2022, 2023). Per the design (sipri-milex.md
     # §3.4), the real xlsx adds a "Reporting year" column at col 2,
     # so years would be at cols 3 and 4. The test fixture omits
     # that column, so we use col 3 to reach the 2023 year cell.
@@ -836,7 +836,7 @@ def test_ingest_sipri_milex_result_carries_regions_and_country_count(
 def test_ingest_sipri_milex_result_field_count(
     sipri_milex_xlsx_dir: Path, sipri_milex_catalog_path: Path, database_url: str,
 ) -> None:
-    """SipriMilexIngestResult has exactly 8 fields (matches sipri_milex.md §3.3 spec)."""
+    """SipriMilexIngestResult has exactly 8 fields (matches sipri-milex.md §3.3 spec)."""
     fields = SipriMilexIngestResult.model_fields
     assert len(fields) == 8, (
         f"SipriMilexIngestResult should have 8 fields, got {len(fields)}: {list(fields.keys())}"
@@ -930,7 +930,7 @@ def test_stage2_adapters_dispatch_table() -> None:
         "leader_survival", "transparency_cpi", "fas",
         "wikidata_heads_of_state_government", "wikipedia_search_extract",
         "freedom_house", "imf_weo", "cow_mid", "cirights",
-        "nti", "bti", "cia_world_leaders",
+        "nti", "bti", "cia_world_leaders", "rsf_press_freedom",
     }
     assert set(STAGE2_ADAPTERS.keys()) == expected_keys
 
@@ -948,7 +948,7 @@ def test_cli_ingest_source_rejects_unknown() -> None:
 
 
 def test_sipri_milex_module_public_surface() -> None:
-    """The sipri_milex module exports the items in __all__ from sipri_milex.md §3.3."""
+    """The sipri_milex module exports the items in __all__ from sipri-milex.md §3.3."""
     assert hasattr(sipri_milex, "SIPRI_MILEX_ATTRIBUTION")
     assert hasattr(sipri_milex, "SIPRI_MILEX_SOURCE_KEY")
     assert hasattr(sipri_milex, "IndicatorSpec")

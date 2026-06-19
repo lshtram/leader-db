@@ -18,12 +18,12 @@ import pytest
 
 from leaders_db.llm.schemas import ScoreBand
 from leaders_db.score.confidence import (
-    ConfidenceInputs,
-    ConfidenceWeights,
     WEIGHT_AGREEMENT,
     WEIGHT_AUTHORITY,
     WEIGHT_SPECIFICITY,
     WEIGHT_TEMPORAL_FIT,
+    ConfidenceInputs,
+    ConfidenceWeights,
     compute_confidence,
     default_weights,
 )
@@ -45,12 +45,16 @@ def test_module_constants_match_section_11() -> None:
 
 
 def test_all_max_components_give_confidence_100() -> None:
-    out = compute_confidence(ConfidenceInputs(agreement=100, authority=100, specificity=100, temporal_fit=100))
+    out = compute_confidence(
+        ConfidenceInputs(agreement=100, authority=100, specificity=100, temporal_fit=100)
+    )
     assert out == 100
 
 
 def test_all_zero_components_give_confidence_0() -> None:
-    out = compute_confidence(ConfidenceInputs(agreement=0, authority=0, specificity=0, temporal_fit=0))
+    out = compute_confidence(
+        ConfidenceInputs(agreement=0, authority=0, specificity=0, temporal_fit=0)
+    )
     assert out == 0
 
 

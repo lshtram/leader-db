@@ -1,0 +1,80 @@
+# Archigos (Goemans, Gleditsch, and Chiozza 2009) indicator catalog
+#
+# Source: Archigos v4.1, Stata 14 .dta file,
+#   https://www.rochester.edu/college/faculty/hgoemans/Archigos_4.1_stata14.dta
+# Version: v4.1 (final, updated 31 December 2015)
+# License: free academic; cite Goemans, Gleditsch, and Chiozza 2009.
+# Attribution: see docs/source-attributions.md (per-source "archigos" entry).
+#
+# This file is the single source of truth for which Archigos columns are
+# read in Stage 2. Every Stage 2 Archigos adapter call resolves its
+# `raw_column` list from this file. Adding/removing an indicator here is
+# the only change needed to widen or narrow the Archigos ingestion.
+#
+# --- STRUCTURE OF ARCHIVOS v4.1 ---
+# Archigos is **leader-spell** data: 1 row per leader's tenure, 3,409
+# spells across 189 country-codes from 1840 to 2015. The Stage 2
+# adapter writes one source_observations row per (leader-spell,
+# identity-column) pair, keyed by the spell's start year. The 28
+# columns in the raw .dta include:
+#
+#   - obsid, leadid, ccode (COW numeric), idacr (3-letter code)
+#   - leader, startdate, enddate (string YYYY-MM-DD)
+#   - entry, exit, exitcode, prevtimesinoffice, posttenurefate
+#   - gender, yrborn, yrdied
+#   - borndate, deathdate
+#   - dbpediauri, numentry, numexit, numexitcode, numposttenurefate
+#   - fties, ftcur
+#
+# The catalog below narrows the 28 columns to the 6 most-useful
+# identity columns. Each catalog row defines a Stage 2 variable with
+# the conventional `higher_is_better=0` (these are identity fields,
+# not indicator scores; no scoring direction applies). The score
+# modules in Stage 9-10 do NOT consume these observations directly;
+# the Stage 4 leader resolver (not implemented in this phase)
+# uses them to identify the actual ruler per (country, year).
+#
+# --- COUNTRY KEY ---
+# Archigos uses `idacr` (a 3-letter acronym, NOT always ISO3; e.g.
+# `AUH`, `BFO`, `BUI` are historical entities without ISO3 codes)
+# and `ccode` (numeric COW). The Stage 2 source_row_reference uses
+# `idacr` (the more human-readable form) so the audit trail is
+# locatable. Stage 3 (country match) resolves idacr to ISO3.
+#
+# --- YEAR ASSIGNMENT ---
+# For each leader-spell, the Stage 2 adapter writes observations
+# keyed by the spell's **start year** (the year extracted from the
+# `startdate` column as `int(startdate[:4])`). The end year is
+# recorded as a separate variable (`archigos_tenure_end_year`)
+# with its own source_row_reference suffix. This keeps the
+# (country, year, variable) source_observations schema simple
+# while preserving the spell's full date range as separate
+# variables for Stage 4.
+#
+# --- MISSING-DATA CONVENTION ---
+# Archigos has a single missing-data sentinel: the literal string
+# `"."` (Stata's standard missing) appears in some optional date
+# columns. The Stage 2 reader treats `"."` and empty string as
+# missing; the source_observations row is SKIPPED for that variable
+# (per the rule "do not invent missing values"). The raw_value
+# audit column is the original cell text.
+#
+# --- GENDER COERCION ---
+# `gender` carries `M` or `F` (verified live 2026-06-19). The
+# Stage 2 reader normalizes `M` -> 1, `F` -> 2 for normalized_value;
+# raw_value is the verbatim letter.
+#
+# --- DATE COERCION ---
+# `startdate` and `enddate` are stored as Stata %td (days since
+# 1960-01-01) which pyreadstat reads as Python `datetime.date`
+# objects. The Stage 2 reader formats them back to `YYYY-MM-DD`
+# strings for raw_value and to a decimal year (e.g. 1869-03-04 ->
+# 1869 + (31 + 28 + 3)/365 = 1869.169) for normalized_value.
+
+variable_name,raw_column,category,higher_is_better,raw_scale,normalized_scale_target,unit,description
+archigos_leader_name,leader,leader_identity,0,text,text,leader_name,Leader display name as recorded in Archigos. raw_value preserved verbatim (e.g. "Grant", "Hayes", "Garfield"); normalized_value NULL (text field).
+archigos_tenure_start_date,startdate,leader_identity,0,YYYY-MM-DD,year_decimal,date,Start date of the leader's tenure. raw_value = YYYY-MM-DD string; normalized_value = decimal year (start year + (day-of-year - 1) / 365).
+archigos_tenure_end_date,enddate,leader_identity,0,YYYY-MM-DD,year_decimal,date,End date of the leader's tenure (the day they left office). raw_value = YYYY-MM-DD string; normalized_value = decimal year.
+archigos_entry_type,entry,leader_identity,0,categorical,code,entry_code,How the leader entered office. raw_value preserved verbatim from the .dta (one of: Regular, Irregular, Foreign Imposition, Unknown); normalized_value = ordinal code (1=Regular, 2=Irregular, 3=Foreign Imposition, 4=Unknown).
+archigos_exit_type,exit,leader_identity,0,categorical,code,exit_code,How the leader exited office. raw_value preserved verbatim (one of: Regular, Irregular, Natural Death, Still in Office, Retired Due to Ill Health, Foreign, Suicide, Unknown); normalized_value = ordinal code mapped to the same set.
+archigos_gender,gender,leader_identity,0,M|F,1|2,gender_code,Leader's gender. raw_value preserved verbatim (M or F); normalized_value = 1 (M) or 2 (F).

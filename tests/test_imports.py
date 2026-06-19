@@ -14,15 +14,15 @@ def test_package_imports() -> None:
 
 def test_all_subpackages_import() -> None:
     # Each subpackage must be importable without raising.
-    import leaders_db.cli  # noqa: F401
-    import leaders_db.config  # noqa: F401
-    import leaders_db.db  # noqa: F401
-    import leaders_db.env  # noqa: F401
-    import leaders_db.export  # noqa: F401
-    import leaders_db.ingest  # noqa: F401
-    import leaders_db.llm  # noqa: F401
-    import leaders_db.normalize  # noqa: F401
-    import leaders_db.paths  # noqa: F401
-    import leaders_db.resolve  # noqa: F401
-    import leaders_db.score  # noqa: F401
+    import leaders_db.cli
+    import leaders_db.config
+    import leaders_db.db
+    import leaders_db.env
+    import leaders_db.export
+    import leaders_db.ingest
+    import leaders_db.llm
+    import leaders_db.normalize
+    import leaders_db.paths
+    import leaders_db.resolve
+    import leaders_db.score
     import leaders_db.validate  # noqa: F401

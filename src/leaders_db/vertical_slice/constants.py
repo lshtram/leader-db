@@ -105,6 +105,10 @@ OUTPUT_DIR_NAME: Final[str] = "vertical_slice_2023"
 OUTPUT_SCORES_CSV: Final[str] = "vertical_slice_scores.csv"
 OUTPUT_COMPARISON_CSV: Final[str] = "vertical_slice_comparison.csv"
 OUTPUT_SUMMARY_MD: Final[str] = "vertical_slice_summary.md"
+# Multi-year source-only time-series CSV. Written only when the caller passes
+# a ``years=`` sequence (or the ``--years`` CLI flag). This file is the
+# source-of-truth for the multi-year extension; the DB rows remain 2023-only.
+OUTPUT_TIMESERIES_CSV: Final[str] = "vertical_slice_timeseries.csv"
 
 
 def placeholder_date_for(year_started: int | None, target_year: int) -> date:
@@ -138,6 +142,7 @@ __all__ = [
     "OUTPUT_DIR_NAME",
     "OUTPUT_SCORES_CSV",
     "OUTPUT_SUMMARY_MD",
+    "OUTPUT_TIMESERIES_CSV",
     "SLICE_INCLUSION_REASON",
     "SLICE_ISO3_BY_CLIENT_NAME",
     "SLICE_NOTE_PREFIX",

@@ -12,8 +12,8 @@ if its filename is already recorded in the ``schema_migrations`` table.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
@@ -102,9 +102,8 @@ def _split_sql(sql: str) -> list[str]:
         if stripped.startswith("--"):
             continue
         # Also drop any trailing inline comment.
-        if "--" in line:
-            line = line.split("--", 1)[0]
-        cleaned_lines.append(line)
+        uncommented_line = line.split("--", 1)[0] if "--" in line else line
+        cleaned_lines.append(uncommented_line)
 
     cleaned = "\n".join(cleaned_lines)
     statements: list[str] = []

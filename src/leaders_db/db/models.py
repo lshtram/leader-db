@@ -21,7 +21,6 @@ Conventions:
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Optional
 
 from sqlalchemy import (
     Boolean,
@@ -57,13 +56,13 @@ class Country(Base):
     iso3: Mapped[str] = mapped_column(String(3), nullable=False, unique=True)
     country_name: Mapped[str] = mapped_column(String, nullable=False)
     country_name_normalized: Mapped[str] = mapped_column(String, nullable=False)
-    region: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    region: Mapped[str | None] = mapped_column(String, nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    country_years: Mapped[list["CountryYear"]] = relationship(back_populates="country")
-    ruler_spells: Mapped[list["RulerSpell"]] = relationship(back_populates="country")
-    ruler_years: Mapped[list["RulerYear"]] = relationship(back_populates="country")
-    source_observations: Mapped[list["SourceObservation"]] = relationship(
+    country_years: Mapped[list[CountryYear]] = relationship(back_populates="country")
+    ruler_spells: Mapped[list[RulerSpell]] = relationship(back_populates="country")
+    ruler_years: Mapped[list[RulerYear]] = relationship(back_populates="country")
+    source_observations: Mapped[list[SourceObservation]] = relationship(
         back_populates="country"
     )
 
@@ -79,12 +78,12 @@ class CountryYear(Base):
         ForeignKey("countries.id"), nullable=False
     )
     year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    population: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    gdp_current_usd: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    gdp_per_capita: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    population: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    gdp_current_usd: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    gdp_per_capita: Mapped[float | None] = mapped_column(Float, nullable=True)
     included_in_project: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    inclusion_reason: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    source_confidence: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
+    inclusion_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    source_confidence: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
 
     country: Mapped[Country] = relationship(back_populates="country_years")
 
@@ -97,15 +96,15 @@ class Leader(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     full_name: Mapped[str] = mapped_column(String, nullable=False)
     normalized_name: Mapped[str] = mapped_column(String, nullable=False)
-    birth_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
-    death_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
-    gender: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    birth_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    death_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    gender: Mapped[str | None] = mapped_column(String, nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    aliases: Mapped[list["LeaderAlias"]] = relationship(back_populates="leader")
-    ruler_spells: Mapped[list["RulerSpell"]] = relationship(back_populates="leader")
-    ruler_years: Mapped[list["RulerYear"]] = relationship(back_populates="leader")
-    source_observations: Mapped[list["SourceObservation"]] = relationship(
+    aliases: Mapped[list[LeaderAlias]] = relationship(back_populates="leader")
+    ruler_spells: Mapped[list[RulerSpell]] = relationship(back_populates="leader")
+    ruler_years: Mapped[list[RulerYear]] = relationship(back_populates="leader")
+    source_observations: Mapped[list[SourceObservation]] = relationship(
         back_populates="leader"
     )
 
@@ -131,13 +130,13 @@ class Source(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     source_name: Mapped[str] = mapped_column(String, nullable=False)
     source_type: Mapped[str] = mapped_column(String, nullable=False)
-    source_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    version: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    license_note: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    download_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
-    coverage_start_year: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    coverage_end_year: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    version: Mapped[str | None] = mapped_column(String, nullable=True)
+    license_note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    download_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    coverage_start_year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    coverage_end_year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 class ScoreCategory(Base):
@@ -148,10 +147,10 @@ class ScoreCategory(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     category_key: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     category_name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    rubric_low: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    rubric_mid: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    rubric_high: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    rubric_low: Mapped[str | None] = mapped_column(Text, nullable=True)
+    rubric_mid: Mapped[str | None] = mapped_column(Text, nullable=True)
+    rubric_high: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 # ---------------------------------------------------------------------------
@@ -167,17 +166,17 @@ class RulerSpell(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     leader_id: Mapped[int] = mapped_column(ForeignKey("leaders.id"), nullable=False)
     country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"), nullable=False)
-    office_title: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    office_title: Mapped[str | None] = mapped_column(String, nullable=True)
     start_date: Mapped[date] = mapped_column(Date, nullable=False)
-    end_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    end_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     source_dataset: Mapped[str] = mapped_column(String, nullable=False)
     is_actual_ruler: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     is_formal_leader: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    rule_type: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    rule_type: Mapped[str | None] = mapped_column(String, nullable=True)
     shared_rule_flag: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     disputed_rule_flag: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    confidence_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    confidence_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     leader: Mapped[Leader] = relationship(back_populates="ruler_spells")
     country: Mapped[Country] = relationship(back_populates="ruler_spells")
@@ -195,24 +194,24 @@ class RulerYear(Base):
     leader_id: Mapped[int] = mapped_column(ForeignKey("leaders.id"), nullable=False)
     country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"), nullable=False)
     year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    ruler_spell_id: Mapped[Optional[int]] = mapped_column(
+    ruler_spell_id: Mapped[int | None] = mapped_column(
         ForeignKey("ruler_spells.id"), nullable=True
     )
-    actual_ruler_status: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    client_matrix_leader_name: Mapped[Optional[str]] = mapped_column(
+    actual_ruler_status: Mapped[str | None] = mapped_column(String, nullable=True)
+    client_matrix_leader_name: Mapped[str | None] = mapped_column(
         String, nullable=True
     )
-    system_selected_leader_name: Mapped[Optional[str]] = mapped_column(
+    system_selected_leader_name: Mapped[str | None] = mapped_column(
         String, nullable=True
     )
-    match_status: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    confidence_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    review_status: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    review_note: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    match_status: Mapped[str | None] = mapped_column(String, nullable=True)
+    confidence_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    review_status: Mapped[str | None] = mapped_column(String, nullable=True)
+    review_note: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     leader: Mapped[Leader] = relationship(back_populates="ruler_years")
     country: Mapped[Country] = relationship(back_populates="ruler_years")
-    ruler_scores: Mapped[list["RulerScore"]] = relationship(back_populates="ruler_year")
+    ruler_scores: Mapped[list[RulerScore]] = relationship(back_populates="ruler_year")
 
 
 class RulerScore(Base):
@@ -230,15 +229,15 @@ class RulerScore(Base):
     category_id: Mapped[int] = mapped_column(
         ForeignKey("score_categories.id"), nullable=False
     )
-    client_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    system_proposed_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    final_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    score_delta_vs_client: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    confidence_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    source_agreement: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    client_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    system_proposed_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    final_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    score_delta_vs_client: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    confidence_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    source_agreement: Mapped[str | None] = mapped_column(String, nullable=True)
     human_review_required: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    rationale_short: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    review_status: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    rationale_short: Mapped[str | None] = mapped_column(Text, nullable=True)
+    review_status: Mapped[str | None] = mapped_column(String, nullable=True)
 
     ruler_year: Mapped[RulerYear] = relationship(back_populates="ruler_scores")
 
@@ -254,26 +253,26 @@ class SourceObservation(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     source_id: Mapped[int] = mapped_column(ForeignKey("sources.id"), nullable=False)
-    country_id: Mapped[Optional[int]] = mapped_column(
+    country_id: Mapped[int | None] = mapped_column(
         ForeignKey("countries.id"), nullable=True
     )
-    leader_id: Mapped[Optional[int]] = mapped_column(
+    leader_id: Mapped[int | None] = mapped_column(
         ForeignKey("leaders.id"), nullable=True
     )
-    year: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
+    year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
     variable_name: Mapped[str] = mapped_column(String, nullable=False)
-    raw_value: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    normalized_value: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
-    unit: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    source_row_reference: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    confidence: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    raw_value: Mapped[str | None] = mapped_column(Text, nullable=True)
+    normalized_value: Mapped[float | None] = mapped_column(Float, nullable=True)
+    unit: Mapped[str | None] = mapped_column(String, nullable=True)
+    source_row_reference: Mapped[str | None] = mapped_column(Text, nullable=True)
+    confidence: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=datetime.utcnow
     )
 
-    country: Mapped[Optional[Country]] = relationship(back_populates="source_observations")
-    leader: Mapped[Optional[Leader]] = relationship(back_populates="source_observations")
+    country: Mapped[Country | None] = relationship(back_populates="source_observations")
+    leader: Mapped[Leader | None] = relationship(back_populates="source_observations")
 
 
 class ValidationResult(Base):
@@ -284,14 +283,14 @@ class ValidationResult(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     item_type: Mapped[str] = mapped_column(String, nullable=False)
     item_id: Mapped[int] = mapped_column(Integer, nullable=False)
-    validation_status: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    source_count: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    source_agreement_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    source_authority_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    temporal_fit_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    specificity_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    final_confidence_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
-    validation_note: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    validation_status: Mapped[str | None] = mapped_column(String, nullable=True)
+    source_count: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    source_agreement_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    source_authority_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    temporal_fit_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    specificity_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    final_confidence_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    validation_note: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 __all__ = [
@@ -300,11 +299,11 @@ __all__ = [
     "CountryYear",
     "Leader",
     "LeaderAlias",
-    "Source",
-    "ScoreCategory",
+    "RulerScore",
     "RulerSpell",
     "RulerYear",
-    "RulerScore",
+    "ScoreCategory",
+    "Source",
     "SourceObservation",
     "ValidationResult",
 ]

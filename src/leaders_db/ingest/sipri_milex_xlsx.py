@@ -221,7 +221,7 @@ def read_sipri_milex(
     """Read SIPRI milex from the xlsx and pivot to wide format.
 
     Steps (full description in
-    ``docs/architecture/sipri_milex.md`` §3.3):
+    ``docs/architecture/sipri-milex.md`` §3.3):
 
     1. Load the catalog.
     2. Open the xlsx at ``xlsx_path`` (default: data-lake path).

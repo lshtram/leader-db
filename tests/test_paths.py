@@ -20,27 +20,42 @@ from leaders_db.paths import PRIORITY_SOURCES, ensure_data_lake_readme
 
 
 def test_priority_sources_present() -> None:
-    expected = {
+    # ``PRIORITY_SOURCES`` is the data-lake folder list. It must be a
+    # superset of the ``STAGE2_ADAPTERS`` dispatch keys plus the legacy
+    # ``client_existing`` folder. The PTS Stage 2 dispatch key is
+    # ``pts`` but the on-disk folder is ``political_terror_scale``;
+    # SIPRI is split into ``sipri_milex`` and ``sipri_yearbook_ch7``.
+    expected_in_dirs = {
         "client_existing",
+        # Implemented Stage 2 adapters.
         "archigos",
-        "leader_survival",
+        "bti",
+        "cirights",
+        "fas",
+        "political_terror_scale",
         "reign",
-        "vdem",
-        "freedom_house",
-        "world_bank_wdi",
-        "world_bank_wgi",
+        "rsf_press_freedom",
+        "sipri_milex",
+        "sipri_yearbook_ch7",
         "transparency_cpi",
         "ucdp",
+        "undp_hdi",
+        "vdem",
+        "who_gho_api",
+        "wikidata_heads_of_state_government",
+        "wikipedia_search_extract",
+        "world_bank_wdi",
+        "world_bank_wgi",
+        # Blocked on raw bundle.
+        "leader_survival",
+        "polity_v",
+        "pwt",
+        # User-managed / blocked (no code until files are placed).
         "cow_mid",
-        "pts",
-        "cirights",
-        "sipri",
-        "fas",
+        "freedom_house",
+        "imf_weo",
         "nti",
     }
-    # ``pts`` is registered under ``political_terror_scale`` in the data
-    # lake but the ingest module is ``pts`` — keep the alias documented.
-    expected_in_dirs = expected - {"pts"} | {"political_terror_scale"}
     assert set(PRIORITY_SOURCES) == expected_in_dirs
 
 

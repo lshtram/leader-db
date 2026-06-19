@@ -74,7 +74,7 @@ def update_source_metadata(source_key: str, **changes: Any) -> dict[str, Any]:
     return meta
 
 
-def atomic_write_parquet(source_key: str, table_name: str, df: "Any") -> Path:
+def atomic_write_parquet(source_key: str, table_name: str, df: Any) -> Path:
     """Atomically write a DataFrame to ``data/processed/<source>/<table>.parquet``.
 
     The write happens to a temp file in the same directory and is renamed
@@ -95,7 +95,7 @@ def atomic_write_parquet(source_key: str, table_name: str, df: "Any") -> Path:
     return target
 
 
-def atomic_write_csv(source_key: str, table_name: str, df: "Any") -> Path:
+def atomic_write_csv(source_key: str, table_name: str, df: Any) -> Path:
     """Atomically write a DataFrame to ``data/processed/<source>/<table>.csv``."""
     processed_dir(source_key).mkdir(parents=True, exist_ok=True)
     target = processed_dir(source_key) / f"{table_name}.csv"
@@ -118,8 +118,8 @@ def atomic_write_csv(source_key: str, table_name: str, df: "Any") -> Path:
 
 
 __all__ = [
+    "atomic_write_csv",
+    "atomic_write_parquet",
     "ensure_source_metadata",
     "update_source_metadata",
-    "atomic_write_parquet",
-    "atomic_write_csv",
 ]

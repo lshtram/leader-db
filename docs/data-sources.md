@@ -6,7 +6,7 @@ The per-source registry for `data/raw/<source>/`. Each source gets its own folde
 
 - One folder per source: `data/raw/<source_key>/`.
 - Folder names are lowercase snake_case matching the import module (`src/leaders_db/ingest/<source_key>.py`).
-- `metadata.json` shape is the example from `top-level-requirements.md` §5:
+- `metadata.json` shape is the example from `req/top-level-requirements.md` §5:
 
 ```json
 {
@@ -80,7 +80,7 @@ Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ defe
 
 | Source key | Verdict | Description | Notes |
 |---|---|---|---|
-| `transparency_cpi` | ⚠️ | Transparency International Corruption Perceptions Index | Site OK; direct xlsx is CDN-gated. **Adapter must scrape the HTML report** or request an API key. |
+| `transparency_cpi` | ⚠️ | Transparency International Corruption Perceptions Index | Stage 2 adapter downloads the canonical per-year CSV from the OCHA HDX mirror (`data.humdata.org/dataset/<uuid>/resource/<ruuid>/download/global_cpi_<year>.csv`); the direct xlsx download from transparency.org is CDN-gated. The publisher is Transparency International; HDX is the durable mirror. For the prototype's 2023 target year, 180 countries + per-country score / rank / sources / standardError / lowerCi / upperCi / region are extracted. |
 | `world_bank_wgi_corruption` | ✅ | WGI Control of Corruption (subset of `world_bank_wgi`) | Same download as `world_bank_wgi`. |
 | `vdem_corruption` | ✅ | V-Dem corruption variables | Subset of `vdem` (already on disk). |
 
@@ -105,7 +105,7 @@ Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ defe
 
 | Source key | Verdict | Description | Notes |
 |---|---|---|---|
-| `fas` | ⚠️ | Federation of American Scientists nuclear notebook | Free; HTML scrape required. Adapter will use a curated whitelist of country pages. |
+| `fas` | ⚠️ | Federation of American Scientists nuclear notebook | Stage 2 adapter scrapes the consolidated "Status of World Nuclear Forces" page (`programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html`), a single parseable HTML `<table id="table1">` with all 9 nuclear-armed states. Per-country guides (nuke.fas.org/guide/<country>/) are table-of-contents landing pages; the consolidated status table is the canonical FAS-Nuclear-Notebook summary cited by SIPRI Yearbook Ch.7. **Snapshot freshness caveat:** the consolidated page's `<meta name="date">` element is dated 2014-04-30 as of probe (2026-06-19); the page is updated "continuously" per FAS but the consolidated snapshot has not changed. Stage 11 confidence penalises the temporal-fit gap between the snapshot year and the prototype's target year (2023). |
 | `sipri_yearbook_ch7` | ✅ | SIPRI Yearbook Chapter 7: World Nuclear Forces (PDF) | 717KB; cross-checks FAS for nuclear arsenal facts. |
 | `nti` | ❌ | Nuclear Threat Initiative country profiles | Cloudflare 403. |
 
@@ -115,7 +115,7 @@ These cross-source tables live in `data/metadata/` and are loaded at runtime:
 
 - `source_authority_table.csv` — numeric authority weight per source per indicator family (per §11 source_authority_score).
 - `country_aliases.csv` — alias-to-ISO3 mapping built up across ingests.
-- `indicator_catalog.csv` — canonical `(category, indicator_name)` definitions referenced by Stage 5.
+- `indicator_catalog.csv` — obsolete draft location. The canonical Stage 5 contracts are the committed per-source catalogs in `src/leaders_db/ingest/catalogs/<source>.csv` plus the category source plans in `src/leaders_db/score/source_plans.py`. Any consolidated metadata file should be generated from those contracts, not edited as an independent source of truth.
 
 The system must **not** invent authority weights in a one-off script. Add or change weights only by editing `data/metadata/source_authority_table.csv` and recording the change in `docs/reviews/`.
 
@@ -126,6 +126,6 @@ The system must **not** invent authority weights in a one-off script. Add or cha
 3. Add a CLI command if it is a new top-level source (`leaders-db ingest-source --source <source_key>`).
 4. Update this file's registry table.
 5. Add tests under `tests/test_ingest_<source_key>.py`.
-6. Update `docs/requirements-core.md` with any new REQ-* lines.
+6. Update `docs/req/requirements-core.md` with any new REQ-* lines.
 
 See [`AGENTS.md`](../AGENTS.md) §3 (read before edit) and the always-on rules #1–#6 for the surrounding discipline.

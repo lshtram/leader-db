@@ -1,0 +1,75 @@
+# Wikidata WikiProject Heads of state and government -- indicator catalog
+#
+# This file is the single source of truth for which Wikidata "head of
+# state" / "head of government" offices the Stage 2 adapter queries.
+# Adding/removing an office here is the only change needed to widen or
+# narrow the ingestion.
+#
+# Source: Wikidata SPARQL endpoint at https://query.wikidata.org/sparql
+# License: CC0 1.0 (Public Domain Dedication). Cite per
+#   docs/source-attributions.md.
+#
+# Important design notes:
+# - These rows are NOT rating indicators. They are leader-identity
+#   reference observations for downstream Stage 4 (leader resolver).
+#   The rating_category column is therefore the pseudo-category
+#   "leader_identity" (not one of the 8 scoring categories from
+#   requirement §4) so a Stage 5 evidence builder can recognise the
+#   catalog row as a leader-reference source rather than a scoring
+#   input.
+# - raw_column is the Wikidata office QID: Q30461 (head of state) or
+#   Q22857062 (head of government). The Stage 2 orchestrator builds
+#   a SPARQL query per office QID and persists the verbatim API
+#   response.
+# - raw_scale is "qid_list" because each office + country can
+#   produce multiple holder rows over time (different leaders) --
+#   the SPARQL response is a list of (country QID, person QID,
+#   start date, end date) tuples.
+# - normalized_value is NULL (a leader reference is a QID, not a
+#   number).
+# - higher_is_better=1 by convention (a populated office is more
+#   useful than an empty one) but this has no scoring impact -- it
+#   is metadata only.
+# - unit is "qid" -- the cell value is a Wikidata Q-identifier
+#   string.
+# - country_id and leader_id are NULL at Stage 2 -- Stage 3 maps the
+#   country QID to our countries table (ISO3), and Stage 4 maps the
+#   person QID to a canonical leaders row.
+#
+# SPARQL query semantics (per-office, all countries or a
+# country_qids subset):
+#   SELECT ?country ?countryLabel ?person ?personLabel
+#          ?office ?officeLabel ?start ?end ?statement WHERE {
+#     VALUES ?office { wd:Q30461 wd:Q22857062 }
+#     VALUES ?country { wd:Q30 wd:Q96 ... }
+#     { ?person wdt:P39 wd:Q30461 . }
+#     UNION
+#     { ?person wdt:P39 wd:Q22857062 . }
+#     ?person wdt:P27 ?country .
+#     ?person p:P39 ?statement .
+#     ?statement ps:P39 ?office .
+#     ?statement pq:P580 ?start .
+#     OPTIONAL { ?statement pq:P582 ?end }
+#     SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+#   }
+# The country-of-citizenship (wdt:P27) on the person is more
+# reliably populated than the equivalent qualifier on the P39
+# statement, so the query links via the person item.
+#
+# When extending this file:
+#   1. Verify the office QID exists in Wikidata (e.g. via the entity
+#      page). Q30461 = head of state; Q22857062 = head of
+#      government; Q45371 = head of state government (where
+#      distinct); additional leadership QIDs can be added.
+#   2. Pick a variable_name of the form
+#      wikidata_<office_slug>_held that does not collide with
+#      existing entries.
+#   3. Set unit="qid", raw_scale="qid_list", higher_is_better=1.
+#   4. Update the SPARQL query VALUES list in the orchestrator's
+#      ``build_head_of_state_government_query()`` if you want the
+#      new office fetched automatically; otherwise the orchestrator's
+#      office loop will pick it up from the catalog.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+wikidata_head_of_state_held,Q30461,leader_identity,qid_list,qid_list,1,qid,Wikidata "head of state" office (Q30461) - position held (P39) by a person, with start/end qualifiers
+wikidata_head_of_government_held,Q22857062,leader_identity,qid_list,qid_list,1,qid,Wikidata "head of government" office (Q22857062) - position held (P39) by a person, with start/end qualifiers

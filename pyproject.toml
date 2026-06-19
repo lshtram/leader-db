@@ -32,6 +32,8 @@ dependencies = [
     "requests>=2.31",
     # PDF parsing (SIPRI Yearbook Ch.7 — first PDF-based source)
     "pdfplumber>=0.11",
+    # Stata .dta reader (Archigos — first Stata-based source)
+    "pyreadstat>=1.3",
 ]
 
 [project.optional-dependencies]
@@ -69,10 +71,29 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "PL", "RUF"]
 ignore = [
+    "B008",  # Typer commands intentionally use Option()/Argument() defaults
+    "PLC0415",  # local imports are used to keep optional/CLI-heavy imports lazy
     "PLR0913",  # too many arguments (acceptable for Pydantic models and config)
     "PLR2004",  # magic value used in comparison (acceptable in domain formulas)
+    "PLW0603",  # env loader uses a small module-level loaded flag intentionally
+    "RUF001",  # source docs/fixtures intentionally contain Unicode punctuation
+    "RUF002",  # source docs/fixtures intentionally contain Unicode punctuation
+    "RUF003",  # source docs/fixtures intentionally contain Unicode punctuation
+    "UP042",  # keep str+Enum for Pydantic/schema compatibility in this prototype
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["PLR2004"]
+"tests/fixtures/**/*.py" = ["PLR0915", "PLR2004"]
 "src/leaders_db/db/migrations/**/*.py" = ["E", "F", "W", "I", "B", "UP", "PL", "RUF"]
+"src/leaders_db/ingest/archigos*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913", "PLC0415"]
+"src/leaders_db/ingest/cirights*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913"]
+"src/leaders_db/ingest/cirights_db_helpers.py" = ["PLR0911"]
+"src/leaders_db/ingest/pts_xlsx*.py" = ["PLR0911", "PLR0912", "PLR0915"]
+"src/leaders_db/ingest/reign*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913", "PLC0415"]
+"src/leaders_db/ingest/wgi*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913"]
+"src/leaders_db/ingest/sipri_yearbook_ch7*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913"]
+"src/leaders_db/ingest/transparency_cpi*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913", "PLC0415"]
+"src/leaders_db/ingest/fas*.py" = ["PLR0911", "PLR0912", "PLR0915", "PLR0913", "PLC0415"]
+"tests/test_ingest_transparency_cpi.py" = ["E402"]
+"tests/test_ingest_fas.py" = ["E402"]

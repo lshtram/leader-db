@@ -23,14 +23,24 @@ from collections.abc import Callable
 from typing import Any
 
 from . import (
+    archigos,
+    bti,
+    cirights,
+    fas,
     pts,
+    reign,
+    rsf_press_freedom,
     sipri_milex,
     sipri_yearbook_ch7,
+    transparency_cpi,
     ucdp,
     undp_hdi,
     vdem,
     wdi,
     wgi,
+    who_gho_api,
+    wikidata_heads_of_state_government,
+    wikipedia_search_extract,
 )
 
 #: Registry of implemented Stage 2 adapters.
@@ -39,36 +49,50 @@ from . import (
 #: ``(**kwargs) -> result``). ``None`` marks a source whose adapter is
 #: not implemented yet; the CLI will print the standard stub message.
 STAGE2_ADAPTERS: dict[str, Callable[..., Any] | None] = {
-    # Implemented adapters
+    # Implemented adapters (vetted_ok or vetted_with_caveats, provenance
+    # metadata present in data/raw/<source> or a documented alias folder;
+    # some raw bundles remain user-managed while fixture/provenance tests
+    # cover the adapter contract). Indicator catalog, orchestrator, tests,
+    # and CLI dispatch are shipped for each non-None entry.
     "vdem": vdem.ingest_vdem,
     "world_bank_wdi": wdi.ingest_wdi,
     "world_bank_wgi": wgi.ingest_wgi,
     "ucdp": ucdp.ingest_ucdp,
-    # Adapters gated on Phase B sign-off + Stage 2 build (Phase C,
-    # second batch per docs/workplan.md "Phase C execution order").
-    # Each entry becomes a real import as its adapter lands.
     "sipri_milex": sipri_milex.ingest_sipri_milex,
     "sipri_yearbook_ch7": sipri_yearbook_ch7.ingest_sipri_yearbook_ch7,
     "pts": pts.ingest_pts,
     "undp_hdi": undp_hdi.ingest_undp_hdi,
-    "who_gho_api": None,
+    "who_gho_api": who_gho_api.ingest_who_gho_api,
+    "archigos": archigos.ingest_archigos,
+    "reign": reign.ingest_reign,
+    "cirights": cirights.ingest_cirights,
+    "transparency_cpi": transparency_cpi.ingest_transparency_cpi,
+    "fas": fas.ingest_fas,
+    "bti": bti.ingest_bti,
+    "rsf_press_freedom": rsf_press_freedom.ingest_rsf_press_freedom,
+    "wikidata_heads_of_state_government": (
+        wikidata_heads_of_state_government.ingest_wikidata_heads_of_state_government
+    ),
+    "wikipedia_search_extract": (
+        wikipedia_search_extract.ingest_wikipedia_search_extract
+    ),
+    # Blocked on raw bundle (raw file not staged locally; per Always-On
+    # Rule #6 we never invent fixtures). Adapters will be implemented in
+    # Phase C.10+ once the user stages ``p5v2018.sav`` / ``pwt100.xlsx``
+    # at ``data/raw/<source>/`` with a ``metadata.json``.
     "polity_v": None,
     "pwt": None,
-    "archigos": None,
-    "reign": None,
+    # Demscore H-DATA v5 has a manual form/email/gender gate; raw file
+    # is not staged in this environment (data/raw/leader_survival/ has
+    # only a placeholder ``.gitkeep``). No code until the user stages
+    # the data.
     "leader_survival": None,
-    "transparency_cpi": None,
-    "fas": None,
-    "wikidata_heads_of_state_government": None,
-    "wikipedia_search_extract": None,
     # User-managed (no code until files are placed)
     "freedom_house": None,
     "imf_weo": None,
     # Blocked / deferred (no code)
     "cow_mid": None,
-    "cirights": None,
     "nti": None,
-    "bti": None,
     "cia_world_leaders": None,
 }
 

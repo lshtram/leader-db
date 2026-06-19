@@ -6,7 +6,7 @@
 >
 > **For in-progress vetting findings** (which sources are still being probed, what we considered and rejected), see [`docs/source-vetting-worksheet.md`](source-vetting-worksheet.md).
 >
-> **For the final sign-off** (the version reviewed by the user and the gate for Phase C), see [`docs/source-vetting-report.md`](source-vetting-report.md) — under construction.
+> **For the final sign-off** (the version reviewed by the user and the gate for Phase C), see [`docs/source-vetting-report.md`](source-vetting-report.md) — signed off 2026-06-17 21:00; living addenda continue to amend it as new sources are vetted or re-probed.
 
 ---
 
@@ -80,7 +80,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `transparency_cpi` — Transparency International CPI, 1995–2023
 
-- **What we extract:** annual CPI score per country. (HTML scrape of the report page; the direct xlsx is CDN-gated.)
+- **What we extract:** annual CPI score per country. (CSV mirrored via the OCHA Humanitarian Data Exchange (HDX); the canonical Transparency International xlsx download is CDN-gated per the source-vetting report §3.6, so the durable HDX-mirrored CSV is the production provenance. Stage 2 normalizes the HDX CSV to a narrow parquet and persists the verbatim cell as `source_observations.raw_value` for audit.)
 - **License:** free for non-commercial use with attribution; cite Transparency International.
 - **Citation:**
   > Transparency International. 2023. *Corruption Perceptions Index 2023*. Berlin: Transparency International. https://www.transparency.org/en/cpi/2023
@@ -104,7 +104,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `cirights` — CIRI Human Rights Data Project, 1981–2022
 
-- **What we extract:** the **Physical Integrity Rights Index** plus its four component indicators (Disappearances, Extrajudicial Killings, Political Imprisonment, Torture), the Repression Index, and the broader Civil and Political Rights Index. Per-country-year, 207 countries. Feeds the domestic-violence / repression category.
+- **What we extract:** the **Physical Integrity Rights Index** plus its four component indicators (Disappearances, Extrajudicial Killings, Political Imprisonment, Torture), the Repression Index, and the broader Civil and Political Rights Index — 7 catalog indicators total per the catalog at `src/leaders_db/ingest/catalogs/cirights.csv`. Per-country-year, 207 countries. Feeds the domestic-violence / repression category. The 2023 prototype uses 2022 as proxy (1-year gap) and records the proxy in the run manifest.
 - **What we don't use:** the worker-rights law/practice columns (1994+) and the human-trafficking columns (1998+) and the Overall Human Rights Score / Women's Social Rights columns (2005+) for the 2023 prototype — they have shorter coverage and are not on the indicator catalog. Can be added in a later iteration.
 - **License:** free academic; cite Cingranelli, Richards, and Crepaz. User-managed: file placed at `data/raw/cirights/` because the project site is not programmatically reachable from this environment.
 - **Citation:**
@@ -113,7 +113,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `fas` — Federation of American Scientists nuclear notebook
 
-- **What we extract:** for the ~9 nuclear-armed states, a curated whitelist of country pages with arsenal descriptions and dates. (HTML scrape.)
+- **What we extract:** for the ~9 nuclear-armed states, the consolidated FAS "Status of World Nuclear Forces" page (`https://programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html`) — a single HTML table with 5 indicator columns (Operational Strategic, Operational Nonstrategic, Reserve/Nondeployed, Military Stockpile, Total Inventory). The page is updated "continuously" per FAS but the consolidated snapshot is dated 2014-04-30 as of probe; the parsed snapshot year is recorded in the run manifest as the freshness stamp. Stage 11 confidence penalises the temporal-fit gap between the FAS snapshot year and the prototype's target year (2023). Per-country guides (nuke.fas.org/guide/<country>/) are updated more frequently; the consolidated status page is the canonical FAS Nuclear Notebook summary cited by SIPRI Yearbook Ch.7.
 - **License:** free; cite FAS.
 - **Citation:**
   > Federation of American Scientists. *Nuclear Notebook*. https://fas.org/issues/nuclear-weapons/
@@ -143,7 +143,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `undp_hdi` — UNDP Human Development Index (HDR 2023-24)
 
-- **What we extract:** HDI (the composite), life expectancy at birth, expected years of schooling, mean years of schooling, GNI per capita. Per-country-year. Inequality-adjusted HDI, Gender Development Index, and Gender Inequality Index are present in the source CSV but are **not** extracted by the Stage 2 adapter (they are excluded per `docs/architecture/undp_hdi.md` §3 + §11).
+- **What we extract:** HDI (the composite), life expectancy at birth, expected years of schooling, mean years of schooling, GNI per capita. Per-country-year. Inequality-adjusted HDI, Gender Development Index, and Gender Inequality Index are present in the source CSV but are **not** extracted by the Stage 2 adapter (they are excluded per `docs/architecture/undp-hdi.md` §3 + §11).
 - **License:** free; cite UNDP.
 - **Citation:**
   > UNDP. 2024. *Human Development Report 2023-2024*. United Nations Development Programme. https://hdr.undp.org/

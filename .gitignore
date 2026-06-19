@@ -44,22 +44,24 @@ tmp/
 
 # Local data lake — inputs and derived artifacts are not committed in v1.
 # The folder skeletons and README files are committed; the data itself is not.
-data/raw/client_existing/*.xlsx
-data/raw/client_existing/*.docx
-data/raw/client_existing/*.xlsx.lock
-data/raw/client_existing/*.docx.lock
-data/raw/*/*.xlsx
-data/raw/*/*.xls
-data/raw/*/*.csv
-data/raw/*/*.csv.gz
-data/raw/*/*.zip
-data/raw/*/*.dta
-data/raw/*/*.sav
-data/raw/*/*.parquet
-data/raw/*/*.json
+# Recursive globs (`/**/`) cover every per-source subfolder plus arbitrary
+# nesting for archival layouts (e.g. `data/raw/<source>/<archive>/<file>.csv`).
+data/raw/**/*.xlsx
+data/raw/**/*.xls
+data/raw/**/*.docx
+data/raw/**/*.docx.lock
+data/raw/**/*.csv
+data/raw/**/*.csv.gz
+data/raw/**/*.tsv
+data/raw/**/*.zip
+data/raw/**/*.dta
+data/raw/**/*.sav
+data/raw/**/*.parquet
 data/raw/**/*.json
-data/raw/*/*.pdf
-data/raw/*/*.xml
+data/raw/**/*.pdf
+data/raw/**/*.xml
+data/raw/**/*.html
+data/raw/**/*.htm
 data/processed/**/*.csv
 data/processed/**/*.parquet
 data/processed/**/*.json
@@ -69,8 +71,14 @@ data/outputs/**/*.csv
 data/outputs/**/*.md
 data/outputs/**/*.json
 data/outputs/**/*.html
-data/logs/*.log
-data/metadata/*.json
+# Recursive log + metadata artifacts. Per-source placeholders
+# (.gitkeep, README.md) remain committed so the data-lake skeleton
+# is reproducible from a clean checkout; the per-run artifacts inside
+# data/logs/ and data/metadata/ are not.
+data/logs/**
+!data/logs/.gitkeep
+data/metadata/**
+!data/metadata/.gitkeep
 
 # Research outputs are derived artifacts
 research/**/*.csv

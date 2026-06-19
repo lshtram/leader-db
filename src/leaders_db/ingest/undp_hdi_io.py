@@ -84,7 +84,7 @@ _PROCESSED_PARQUET_NAME: str = "undp_hdi_country_year.parquet"
 
 #: Source file encoding. UTF-8 fails on country names with diacritics
 #: (e.g. ``Côte d'Ivoire``, ``São Tomé``); latin-1 is the canonical
-#: encoding per ``docs/architecture/undp_hdi.md`` §2.
+#: encoding per ``docs/architecture/undp-hdi.md`` §2.
 UNDP_HDI_ENCODING: str = "latin-1"
 
 #: Static columns preserved from the wide frame (per architecture §2).
@@ -264,7 +264,7 @@ def default_csv_path() -> Path:
     Resolves to
     ``<project_root>/data/raw/undp_hdi/HDR23-24_Composite_indices_complete_time_series.csv``.
     Raises :class:`FileNotFoundError` if the file is missing (per the
-    design contract in ``docs/architecture/undp_hdi.md`` §2); the
+    design contract in ``docs/architecture/undp-hdi.md`` §2); the
     adapter expects the user to have downloaded the CSV via the
     project's download workflow first.
     """

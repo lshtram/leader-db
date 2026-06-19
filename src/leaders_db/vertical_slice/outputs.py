@@ -6,9 +6,15 @@ Produces three files under ``data/outputs/vertical_slice_2023/``:
 - ``vertical_slice_comparison.csv``
 - ``vertical_slice_summary.md``
 
-All three carry the source attribution for UNDP HDI and WGI (per
+When the caller passes a ``years=`` sequence, a fourth source-only file
+is also written:
+
+- ``vertical_slice_timeseries.csv``
+
+All four carry the source attribution for UNDP HDI and WGI (per
 Always-On Rule #15) and an explicit "provisional / not final scoring"
-caveat (architecture doc §1 + §9).
+caveat (architecture doc §1 + §9). The summary explicitly states that
+the client comparison is 2023-only when multi-year output is requested.
 """
 
 from __future__ import annotations
@@ -26,6 +32,7 @@ from .constants import (
     OUTPUT_DIR_NAME,
     OUTPUT_SCORES_CSV,
     OUTPUT_SUMMARY_MD,
+    OUTPUT_TIMESERIES_CSV,
     SLICE_NOTE_PREFIX,
     UNDP_HDI_ATTRIBUTION,
     WGI_ATTRIBUTION,
@@ -71,6 +78,29 @@ class ComparisonRow:
     rationale_short: str
 
 
+@dataclass(frozen=True)
+class TimeseriesRow:
+    """One row in ``vertical_slice_timeseries.csv`` (multi-year source-only).
+
+    Source-only output: there is no client comparison column. The DB
+    rows (``ruler_years`` / ``ruler_scores`` / ``validation_results``)
+    remain 2023-only; this file is the source-of-truth for the
+    multi-year extension and never writes to the DB.
+    """
+
+    iso3: str
+    country: str
+    year: int
+    category_key: str
+    system_proposed_score: int | None
+    source_variable: str
+    source_year: int | None
+    source_raw_value: str | None
+    source_kind: str  # "direct" or "proxy"
+    confidence_score: int | None
+    note: str
+
+
 def output_dir(root: Path | None = None) -> Path:
     """Return the absolute path to the slice's output directory.
 
@@ -91,19 +121,26 @@ def output_dir(root: Path | None = None) -> Path:
     return target
 
 
-def output_paths(root: Path | None = None) -> tuple[Path, Path, Path]:
-    """Return the absolute paths of the three output files."""
+def output_paths(root: Path | None = None) -> tuple[Path, Path, Path, Path]:
+    """Return the absolute paths of the four output files.
+
+    The fourth path is the multi-year time-series CSV. It is only
+    written by the orchestrator when ``years=`` is provided; this
+    helper always returns the canonical path so callers can detect the
+    file's existence or absence.
+    """
     out_dir = output_dir(root)
     return (
         out_dir / OUTPUT_SCORES_CSV,
         out_dir / OUTPUT_COMPARISON_CSV,
         out_dir / OUTPUT_SUMMARY_MD,
+        out_dir / OUTPUT_TIMESERIES_CSV,
     )
 
 
 def write_scores_csv(rows: Iterable[ScoreRow], *, root: Path | None = None) -> Path:
     """Persist the per-score CSV. Returns the absolute path."""
-    path, _, _ = output_paths(root)
+    path, _, _, _ = output_paths(root)
     fieldnames = [
         "iso3", "country", "leader", "year", "category_key",
         "client_score", "system_proposed_score", "final_score",
@@ -122,7 +159,7 @@ def write_comparison_csv(
     rows: Iterable[ComparisonRow], *, root: Path | None = None
 ) -> Path:
     """Persist the per-(country, category) comparison CSV."""
-    _, path, _ = output_paths(root)
+    _, path, _, _ = output_paths(root)
     fieldnames = [
         "iso3", "country", "year", "category_key",
         "client_score", "system_proposed_score", "score_delta_vs_client",
@@ -134,6 +171,31 @@ def write_comparison_csv(
         writer.writeheader()
         for row in rows:
             writer.writerow(_comparison_row_to_dict(row))
+    return path
+
+
+def write_timeseries_csv(
+    rows: Iterable[TimeseriesRow], *, root: Path | None = None
+) -> Path:
+    """Persist the multi-year source-only time-series CSV.
+
+    One row per ``(year, country, category)`` tuple for which a source
+    observation was available. The file is the only place
+    multi-year ``system_proposed_score`` rows live; the DB remains
+    2023-only.
+    """
+    _, _, _, path = output_paths(root)
+    fieldnames = [
+        "iso3", "country", "year", "category_key",
+        "system_proposed_score", "source_variable",
+        "source_year", "source_raw_value", "source_kind",
+        "confidence_score", "note",
+    ]
+    with path.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow(_timeseries_row_to_dict(row))
     return path
 
 
@@ -149,9 +211,16 @@ def write_summary_md(
     proxy_year_count: int,
     skipped: list[tuple[str, str, str]],
     root: Path | None = None,
+    timeseries_years: tuple[int, ...] | None = None,
 ) -> Path:
-    """Persist the human-readable summary markdown."""
-    _, _, path = output_paths(root)
+    """Persist the human-readable summary markdown.
+
+    When ``timeseries_years`` is non-empty, the summary names every
+    requested year and states that the client comparison is 2023-only
+    (the multi-year extension is source-only and lives in
+    ``vertical_slice_timeseries.csv``).
+    """
+    _, _, path, _ = output_paths(root)
     timestamp = datetime.now(tz=UTC).isoformat(timespec="seconds")
     body = _render_summary(
         score_rows=score_rows,
@@ -164,6 +233,7 @@ def write_summary_md(
         proxy_year_count=proxy_year_count,
         skipped=skipped,
         timestamp=timestamp,
+        timeseries_years=timeseries_years,
     )
     path.write_text(body, encoding="utf-8")
     return path
@@ -181,6 +251,7 @@ def _render_summary(
     proxy_year_count: int,
     skipped: list[tuple[str, str, str]],
     timestamp: str,
+    timeseries_years: tuple[int, ...] | None,
 ) -> str:
     deltas: list[str] = []
     for row in score_rows:
@@ -212,6 +283,16 @@ def _render_summary(
         or "- (none)"
     )
 
+    timeseries_block = ""
+    if timeseries_years:
+        years_label = ", ".join(str(year) for year in timeseries_years)
+        timeseries_block = f"""- Time-series years requested: **{years_label}**
+- Caveat: client comparison is 2023-only — the multi-year extension is
+  source-only and is written to `vertical_slice_timeseries.csv`. The DB
+  (`ruler_years`, `ruler_scores`, `validation_results`) stays scoped to
+  the target year {target_year}.
+"""
+
     return f"""# Vertical slice 2023 — summary
 
 > **Provisional, experimental, not final scoring.** This output is a named
@@ -228,6 +309,7 @@ def _render_summary(
 - Sources used: `{", ".join(sources_used) if sources_used else "(none — all categories skipped)"}`
 - Direct-year observations: **{direct_year_count}**
 - Proxy-year observations (2022 -> {target_year}): **{proxy_year_count}**
+{timeseries_block}
 
 ## Country x category delta table
 
@@ -307,12 +389,36 @@ def _comparison_row_to_dict(row: ComparisonRow) -> dict[str, object]:
     }
 
 
+def _timeseries_row_to_dict(row: TimeseriesRow) -> dict[str, object]:
+    return {
+        "iso3": row.iso3,
+        "country": row.country,
+        "year": row.year,
+        "category_key": row.category_key,
+        "system_proposed_score": (
+            "" if row.system_proposed_score is None else row.system_proposed_score
+        ),
+        "source_variable": row.source_variable,
+        "source_year": "" if row.source_year is None else row.source_year,
+        "source_raw_value": (
+            "" if row.source_raw_value is None else row.source_raw_value
+        ),
+        "source_kind": row.source_kind,
+        "confidence_score": (
+            "" if row.confidence_score is None else row.confidence_score
+        ),
+        "note": row.note,
+    }
+
+
 __all__ = [
     "ComparisonRow",
     "ScoreRow",
+    "TimeseriesRow",
     "output_dir",
     "output_paths",
     "write_comparison_csv",
     "write_scores_csv",
     "write_summary_md",
+    "write_timeseries_csv",
 ]

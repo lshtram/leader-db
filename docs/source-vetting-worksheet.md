@@ -1,4 +1,4 @@
-# Source Vetting Worksheet — Phase B (in-progress)
+# Source Vetting Worksheet — Phase B (historical; living audit trail)
 
 This is the working document for Phase B. It records per-source findings
 as the agent researches each priority source. The final report at

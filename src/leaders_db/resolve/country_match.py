@@ -12,8 +12,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from ..paths import metadata_dir, outputs_dir
 from ..normalize import normalize_country_name, normalize_iso3
+from ..paths import metadata_dir, outputs_dir
 
 
 def build_alias_table(force: bool = False) -> Path:
@@ -44,4 +44,4 @@ def build_alias_table(force: bool = False) -> Path:
     return path
 
 
-__all__ = ["build_alias_table", "outputs_dir", "metadata_dir"]
+__all__ = ["build_alias_table", "metadata_dir", "outputs_dir"]

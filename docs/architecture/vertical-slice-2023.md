@@ -312,17 +312,31 @@ Required files:
      `score_delta_vs_client`, `confidence_score`, `source_variable`,
      `source_year`, `source_raw_value`, `review_status`, `rationale_short`.
 2. `vertical_slice_comparison.csv`
-   - one row per scoped `(country, category)`, including skipped/missing rows;
-   - columns include `validation_status`, `missing_reason`, `manual_review_required`.
-3. `vertical_slice_summary.md`
-   - purpose/scope statement;
-   - country/category count;
-   - source adapters reused/run;
-   - direct-vs-proxy year counts;
-   - score-delta table;
-   - skipped inputs;
-   - attribution block from `docs/source-attributions.md` for each source used;
-   - explicit caveat that this is not final scoring.
+    - one row per scoped `(country, category)`, including skipped/missing rows;
+    - columns include `validation_status`, `missing_reason`, `manual_review_required`.
+3. `vertical_slice_timeseries.csv`
+   - optional source-only multi-year table written when the caller supplies
+     `years` / `--years`;
+   - rows are one per available `(iso3, year, category)` source observation;
+   - required columns: `iso3`, `country`, `year`, `category_key`,
+     `system_proposed_score`, `source_variable`, `source_year`,
+     `source_raw_value`, `source_kind`, `confidence_score`, `note`;
+   - this file deliberately excludes client-comparison and leader-identity
+     columns (`client_score`, `score_delta_vs_client`, `leader`) because
+     client comparison and ruler-year seeding are 2023-only in this slice;
+   - for years before 2023, source observations must be exact-year/direct;
+     for 2023, the documented 2022 proxy is allowed and marked `proxy`.
+4. `vertical_slice_summary.md`
+    - purpose/scope statement;
+    - country/category count;
+    - source adapters reused/run;
+    - direct-vs-proxy year counts;
+    - requested time-series years, when supplied;
+    - score-delta table;
+    - skipped inputs;
+    - attribution block from `docs/source-attributions.md` for each source used;
+    - explicit caveat that this is not final scoring and that client comparison
+      is 2023-only when the multi-year source-only table is written.
 
 DB validation rows:
 
@@ -345,7 +359,8 @@ Recommended importable seam:
 
 ```text
 run_vertical_slice_2023(config: RunConfig, *, countries: Sequence[str] | None = None,
-                        categories: Sequence[str] | None = None) -> VerticalSliceResult
+                        categories: Sequence[str] | None = None,
+                        years: Sequence[int] | None = None) -> VerticalSliceResult
 ```
 
 Default `countries` should be `("MEX", "NGA", "USA")`; default `categories`
@@ -361,6 +376,7 @@ general pipeline activation, move them into config.
 - ruler years written;
 - score rows written;
 - validation rows written;
+- time-series years requested and rows written, when `years` is supplied;
 - output file paths;
 - warnings/skipped categories.
 
@@ -390,6 +406,10 @@ Minimum real-boundary proof:
 
 - one CLI test or smoke command must run `run-vertical-slice-2023` against an
   initialized temporary data lake and SQLite database;
+- one multi-year proof must run with a `years` scope such as
+  `2020,2021,2022,2023` and assert that `vertical_slice_timeseries.csv` is
+  source-only, while DB `ruler_years` / `ruler_scores` / `validation_results`
+  remain scoped to 2023;
 - one post-implementation manual/runtime smoke should use the real client xlsx
   and local raw source files for the three countries, writing the real
   `data/outputs/vertical_slice_2023/` artifacts.

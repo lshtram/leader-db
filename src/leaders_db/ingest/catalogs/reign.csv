@@ -1,0 +1,71 @@
+# REIGN (Bell 2016) indicator catalog
+#
+# Source: REIGN 2021-8 (final August 2021 release), GitHub raw CSV,
+#   https://raw.githubusercontent.com/OEFDataScience/REIGN.github.io/gh-pages/data_sets/REIGN_2021_8.csv
+# Version: 2021-8 (monthly updates ceased August 2021)
+# License: free academic; cite Bell 2016 (OEF Research).
+# Attribution: see docs/source-attributions.md (per-source "reign" entry).
+#
+# This file is the single source of truth for which REIGN columns are
+# read in Stage 2. Every Stage 2 REIGN adapter call resolves its
+# `raw_column` list from this file. Adding/removing an indicator here is
+# the only change needed to widen or narrow the REIGN ingestion.
+#
+# --- STRUCTURE OF REIGN 2021-8 ---
+# REIGN is **leader-month** data: 1 row per (country, year, month) for
+# 138,600 leader-month rows × 41 columns × 200 country-codes from
+# 1950 to 2021-08. The Stage 2 adapter writes one source_observations
+# row per (leader-month-row, identity-column) pair, keyed by the row's
+# year column. The 41 columns include:
+#
+#   - ccode (COW numeric), country, leader, year, month
+#   - elected, age, male, militarycareer, tenure_months
+#   - government, gov_democracy, dem_duration
+#   - anticipation, ref_ant, leg_ant, exec_ant, irreg_lead_ant
+#   - election_now, election_recent, leg_recent, exec_recent,
+#     lead_recent, ref_recent, direct_recent, indirect_recent,
+#     victory_recent, defeat_recent, change_recent, nochange_recent
+#   - delayed, lastelection, loss, irregular, political_violence,
+#     prev_conflict, pt_suc, pt_attempt, precip, couprisk, pctile_risk
+#
+# The catalog below narrows the 41 columns to the 8 most-useful
+# identity / governance columns. The Stage 2 adapter writes one
+# source_observations row per (leader-month-row, raw_column) pair.
+#
+# --- COUNTRY KEY ---
+# REIGN uses `country` (display name, e.g. "USA", "Trinidad & Tobago")
+# and `ccode` (numeric COW). The Stage 2 source_row_reference uses
+# the country display name URL-safe-substituted so the audit trail
+# is locatable. Stage 3 (country match) resolves display name to
+# ISO3.
+#
+# --- YEAR ASSIGNMENT ---
+# For each leader-month-row, the Stage 2 adapter writes observations
+# keyed by the row's `year` column (int). The `month` column is
+# preserved in source_row_reference (e.g. `reign:USA:Truman:1950:1:...`)
+# so the audit trail identifies the specific month.
+#
+# --- MISSING-DATA CONVENTION ---
+# REIGN uses pandas NaN for missing numeric values and empty string
+# for missing text values. The Stage 2 reader treats both as missing;
+# the source_observations row is SKIPPED for that variable.
+#
+# --- GENDER COERCION ---
+# `male` is 1 (male) or 0 (female). The Stage 2 reader preserves the
+# raw 0/1 value in raw_value and normalizes to 1/2 (1=M, 2=F) for
+# consistency with Archigos.
+#
+# --- NUMERIC COERCION ---
+# All REIGN numeric columns are float64 in the raw CSV. The Stage 2
+# reader preserves the float in raw_value and converts to a clean
+# float (NaN dropped) for normalized_value.
+
+variable_name,raw_column,category,higher_is_better,raw_scale,normalized_scale_target,unit,description
+reign_leader,leader,leader_identity,0,text,text,leader_name,Leader display name as recorded in REIGN. raw_value preserved verbatim (e.g. "Truman", "Eisenhower"); normalized_value NULL (text field).
+reign_government,government,leader_identity,0,categorical,text,regime_type,Regime type / government type as recorded in REIGN. raw_value preserved verbatim (e.g. "Presidential Democracy", "Military", "Parliamentary Democracy"); normalized_value NULL (text field).
+reign_elected,elected,leader_identity,0,0|1,0|1,elected_code,Whether the leader was elected (1) or not (0) at the start of the row. raw_value preserved; normalized_value = float.
+reign_age,age,leader_identity,0,years,years,age,Age of the leader at the row's (year, month). raw_value = float; normalized_value = float.
+reign_male,male,leader_identity,0,0|1,1|2,gender_code,Leader's gender (1=male, 0=female in the raw REIGN file). raw_value = float 0 or 1; normalized_value = 1 (male) or 2 (female) for consistency with Archigos.
+reign_tenure_months,tenure_months,leader_identity,0,months,months,months,Months the leader has been in office as of the row's (year, month). raw_value = float; normalized_value = float.
+reign_political_violence,political_violence,domestic_violence,0,continuous,continuous,violence_score,Political-violence index from REIGN (continuous; can be negative; from the OEF coup-risk model). raw_value = float; normalized_value = float. Cross-validates PTS for the domestic_violence category.
+reign_irregular,irregular,domestic_violence,0,continuous,continuous,irregular_score,Irregular-event score from REIGN (continuous; can be negative; from the OEF coup-risk model). raw_value = float; normalized_value = float. Cross-validates UCDP one-sided violence for the domestic_violence category.

@@ -70,4 +70,4 @@ def ingest_client_matrix(year: int) -> int:
     )
 
 
-__all__ = ["list_client_bundle_files", "read_client_metadata", "ingest_client_matrix"]
+__all__ = ["ingest_client_matrix", "list_client_bundle_files", "read_client_metadata"]

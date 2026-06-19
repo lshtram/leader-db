@@ -1,0 +1,47 @@
+# Wikipedia Action API (search + extract) -- indicator catalog
+#
+# This file is the single source of truth for which Wikipedia Action API
+# actions the Stage 2 adapter invokes. Adding/removing an action here is the
+# only change needed to widen or narrow the ingestion.
+#
+# Source: Wikipedia Action API at https://en.wikipedia.org/w/api.php
+# License: CC BY-SA 4.0 (article text); API responses per wiki terms of use.
+# Cite per docs/source-attributions.md.
+#
+# Important design notes:
+# - Wikipedia is a NARRATIVE-CONTEXT helper, NOT a scoring indicator. Stage 2
+#   here is a thin wrapper that takes an explicit list of queries/titles
+#   (queries=...) and persists the verbatim API response as the audit trail.
+#   The adapter does NOT browse, score, or do leader resolution -- those
+#   decisions are downstream (Stage 4 leader resolution, Stage 15 summary
+#   narrative).
+# - raw_column is the API action name ("extracts" or "search").
+# - raw_scale is "text" because each API call returns the article extract
+#   (plain text) or the search hit list.
+# - normalized_value is NULL (the extract is a string, not a number).
+# - higher_is_better=1 by convention but has no scoring impact.
+# - unit is "text" -- the cell value is the verbatim API response (text).
+# - country_id and leader_id are NULL at Stage 2; Stage 4 resolves the
+#   pageid/title to a country or leader when applicable.
+#
+# Per-task input contract:
+#   The orchestrator takes an explicit `queries` list (the input interface is
+#   deterministic; the adapter does NOT browse Wikipedia to discover leaders).
+#   Each query hits the action listed in raw_column:
+#     - raw_column="extracts"  -> action=query&prop=extracts&exintro=1&explaintext=1&titles=<query>
+#     - raw_column="search"    -> action=query&list=search&srsearch=<query>
+#   The verbatim API response is cached at
+#   data/raw/wikipedia_search_extract/cache/<cache_key>.json so re-runs skip
+#   HTTP.
+#
+# When extending this file:
+#   1. Pick an action the Action API exposes (prop=extracts, list=search, etc.)
+#      and verify the URL template.
+#   2. Pick a variable_name of the form wikipedia_<action>_<purpose> that does
+#      not collide with existing entries.
+#   3. Set unit="text", raw_scale="text", higher_is_better=1.
+#   4. Update the orchestrator's URL builder for the new action if needed.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+wikipedia_extract_lead,extracts,leader_identity,text,text,1,text,Wikipedia Action API extracts (prop=extracts, exintro=1, explaintext=1) - article lead/intro paragraph for a given title
+wikipedia_search_results,search,leader_identity,text,text,1,text,Wikipedia Action API search (list=search) - search hit list for a given srsearch query

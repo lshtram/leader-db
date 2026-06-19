@@ -85,7 +85,7 @@ Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-
 
 | Source | Verdict | Coverage | Why |
 |---|---|---|---|
-| `transparency_cpi` | ⚠️ `vetted_with_caveats` | 1995–2023 | Site OK; direct xlsx CDN-gated. Stage 2 must scrape HTML report. |
+| `transparency_cpi` | ⚠️ `vetted_with_caveats` | 1995–2023 | Stage 2 adapter implemented 2026-06-19. Direct xlsx CDN-gated; Stage 2 downloads the canonical CSV from the OCHA HDX mirror (`data.humdata.org`). The publisher remains Transparency International; HDX is the durable mirror. 180 countries for the 2023 release with score / rank / sources / standardError / lowerCi / upperCi / region extracted. |
 | `world_bank_wgi_corruption` | ✅ `vetted_ok` | 1996–2023 | Subset of WGI. |
 | `vdem_corruption` | ✅ `vetted_ok` | 1789–2025 | Subset of V-Dem. |
 
@@ -110,7 +110,7 @@ Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-
 
 | Source | Verdict | Coverage | Why |
 |---|---|---|---|
-| `fas` | ⚠️ `vetted_with_caveats` | ongoing | Status page works; country pages redirect. HTML scrape with whitelist. |
+| `fas` | ⚠️ `vetted_with_caveats` | ongoing | Stage 2 adapter implemented 2026-06-19. The consolidated "Status of World Nuclear Forces" page (`programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html`) returns a single parseable HTML `<table id="table1">` with all 9 nuclear-armed states + 5 numeric columns (Operational Strategic, Operational Nonstrategic, Reserve/Nondeployed, Military Stockpile, Total Inventory). The page's `<meta name="date">` element is 2014-04-30 as of probe (2026-06-19) — the snapshot year is recorded in the run manifest and Stage 11 confidence penalises the temporal-fit gap to 2023. Per-country guides (nuke.fas.org/guide/<country>/) are landing pages with little structured data; the consolidated snapshot is the canonical FAS-Nuclear-Notebook summary cited by SIPRI Yearbook Ch.7. |
 | `sipri_yearbook_ch7` | ✅ `vetted_ok` | annual | SIPRI Yearbook Ch.7: World Nuclear Forces (PDF), 717KB. **Cross-checks FAS for nuclear arsenal facts.** |
 | `nti` | ❌ `blocked` | ongoing | Cloudflare 403 even with browser UA. |
 
@@ -119,7 +119,7 @@ Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-
 | Verdict | Count | Sources |
 |---|---|---|
 | ✅ `vetted_ok` | 15 | `vdem`, `rsf_press_freedom`, `world_bank_wdi`, `pwt`, `undp_hdi`, `who_gho_api`, `world_bank_wgi`, `ucdp`, `sipri_milex`, `sipri_yearbook_ch7`, `pts`, `polity_v`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `bti` |
-| ⚠️ `vetted_with_caveats` / user-managed | 7 | `archigos`, `reign`, `leader_survival`, `transparency_cpi`, `fas`, `cirights` (user-managed), `freedom_house` (email request sent) |
+| ⚠️ `vetted_with_caveats` / user-managed | 7 | `archigos`, `reign`, `leader_survival`, `transparency_cpi` (adapter landed 2026-06-19, HDX mirror pattern), `fas` (adapter landed 2026-06-19, HTML scrape of consolidated status page), `cirights` (user-managed), `freedom_house` (email request sent) |
 | ❌ `blocked` | 4 | `cow_mid`, `cia_world_leaders`, `nti`, `imf_weo` |
 | ⏸️ `deferred` | 0 | (none) |
 
@@ -150,13 +150,13 @@ Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-
 | `undp_hdi` | Direct CSV at `https://hdr.undp.org/sites/default/files/2023-24_HDR/HDR23-24_Composite_indices_complete_time_series.csv`. 207 rows × wide format. |
 | `who_gho_api` | OData at `https://ghoapi.azureedge.net/api/`. Filter by indicator code (e.g., `WHOSIS_000001` for life expectancy). |
 | `ucdp` | UCDP uses GW (Gleditsch-Ward) country codes — needs a mapping table to ISO3. |
-| `transparency_cpi` | **HTML scrape**, not xlsx download (CDN-gated). Or request an API key. |
+| `transparency_cpi` | **HDX mirror download**, not xlsx (CDN-gated). Stage 2 adapter downloads the canonical per-year CSV from `data.humdata.org/dataset/<uuid>/resource/<ruuid>/download/global_cpi_<year>.csv` and parses 180 country rows with score / rank / sources / standardError / lowerCi / upperCi / region. |
 | `sipri_milex` | Discover the latest version at runtime; do not hard-code `v1.2`. |
 | `sipri_yearbook_ch7` | PDF text extraction needed. Chapter-specific URL: `https://www.sipri.org/sites/default/files/YB24%2007%20WNF.pdf` (verify each year). |
 | `pts` | Invert 1–5 scale (5 = most terror → 0 score; 1 = least terror → 10 score). |
 | `cirights` | User-managed. File placed at `data/raw/cirights/`. Coverage stops 2022 (1-year gap to 2023). Some "Laws" columns and Human Trafficking have shorter coverage (1994+, 1998+). For 2023, use 2022 as proxy and let the temporal-fit component of the confidence formula reflect the gap. |
 | `bti` | Multi-sheet xlsx with one sheet per BTI edition (2006–2026, biennial, 12 sheets). For 2023, use the `BTI 2024` sheet (covers 2022–2023). First column on each sheet is a multi-line "Regions:" label that must be skipped; data starts at row 2. ISO3 conversion required (BTI uses country names). |
-| `fas` | Curated whitelist of 9 nuclear-armed state slugs; follow 301 redirects to publication pages. |
+| `fas` | Single HTML `<table id="table1">` on the consolidated status page (`programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html`) with all 9 nuclear-armed states. Page snapshot dated 2014-04-30 per `<meta name="date">` (as of probe 2026-06-19); the snapshot year is recorded in the run manifest and Stage 11 confidence penalises the temporal-fit gap to 2023. Per-country pages mostly serve as table-of-contents. |
 | `wikidata_heads_of_state_government` | SPARQL query with `?headOfState p:P39 ?statement` pattern; translate Q-IDs to ISO3 via `wbgetentities`. |
 | `wikipedia_search_extract` | Use a descriptive User-Agent; respect the API's pagination; disambiguate by pageid. |
 | `client_existing` | Validation/reference artifact only. Never overwrite `client_score`; never count the client matrix as an independent source for evidence, scoring, source agreement, or source authority. |
@@ -179,35 +179,37 @@ Phase C (data acquisition) may begin once the following conditions are met:
 When Phase C begins, the following Stage 2 ingest modules can be implemented immediately:
 
 - **High priority (vetted_ok, on disk or trivial download):**
-  - `vdem` (already on disk!)
-  - `world_bank_wdi` (API)
-  - `world_bank_wgi` (xlsx + API)
-  - `pwt` (xlsx)
-  - `ucdp` (zip)
-  - `sipri_milex` (xlsx)
-  - `sipri_yearbook_ch7` (PDF)
-  - `pts` (xlsx)
-  - `undp_hdi` (CSV)
-  - `who_gho_api` (OData)
-  - `polity_v` (SPSS)
-  - `bti` (cumulative xlsx already on disk; multi-sheet, 12 biennial editions)
-  - `rsf_press_freedom` (annual CSVs already on disk; press/media-freedom sub-signal)
+  - `vdem` (already on disk; Phase C.1)
+  - `world_bank_wdi` (API; Phase C.2)
+  - `world_bank_wgi` (xlsx + API; Phase C.3)
+  - `pwt` (xlsx) — **adapter blocked on raw bundle** (see workplan Done History)
+  - `ucdp` (zip; Phase C.4)
+  - `sipri_milex` (xlsx; Phase C.5)
+  - `sipri_yearbook_ch7` (PDF; Phase C.6)
+  - `pts` (xlsx; Phase C.7)
+  - `undp_hdi` (CSV; Phase C.8)
+  - `who_gho_api` (OData; Phase C.9)
+  - `polity_v` (SPSS) — **adapter blocked on raw file** (see workplan Done History)
+  - `bti` (cumulative xlsx already on disk; multi-sheet, 12 biennial editions; **adapter landed 2026-06-19, see `src/leaders_db/ingest/bti*.py`**)
+  - `rsf_press_freedom` (annual CSVs already on disk; press/media-freedom sub-signal; **adapter landed 2026-06-19, see `src/leaders_db/ingest/rsf_press_freedom*.py`**)
 - **Medium priority (vetted_with_caveats, need careful adapter):**
-  - `archigos` (Stata)
-  - `reign` (large CSV, GitHub raw)
-  - `leader_survival` (Demscore download)
-  - `transparency_cpi` (HTML scrape)
-  - `fas` (HTML whitelist scrape)
-  - `cirights` (user-managed; v3.12.10.24 xlsx on disk, 1-year gap to 2023)
+  - `archigos` (Stata; **adapter landed 2026-06-19, see `src/leaders_db/ingest/archigos*.py`**)
+  - `reign` (large CSV, GitHub raw; **adapter landed 2026-06-19, see `src/leaders_db/ingest/reign*.py`**)
+  - `leader_survival` (Demscore download) — **adapter blocked on Demscore email gate** (see workplan Done History)
+  - `transparency_cpi` (HTML scrape — **adapter landed 2026-06-19 via HDX mirror**; see `src/leaders_db/ingest/transparency_cpi*.py`)
+  - `fas` (HTML whitelist scrape — **adapter landed 2026-06-19 via consolidated status page**; see `src/leaders_db/ingest/fas*.py`)
+  - `cirights` (user-managed; v3.12.10.24 xlsx on disk, 1-year gap to 2023; **adapter landed 2026-06-19, see `src/leaders_db/ingest/cirights*.py`**)
 - **Always-on helpers (not per-source adapters):**
-  - `wikidata_heads_of_state_government` (SPARQL)
-  - `wikipedia_search_extract` (Action API)
+  - `wikidata_heads_of_state_government` (SPARQL; **adapter landed 2026-06-19, see `src/leaders_db/ingest/wikidata_heads_of_state_government*.py`**)
+  - `wikipedia_search_extract` (Action API; **adapter landed 2026-06-19, see `src/leaders_db/ingest/wikipedia_search_extract*.py`**)
 - **User-managed (optional, pending user/provider response):**
   - `freedom_house` (email request sent)
 - **Blocked (do not implement):**
   - `cow_mid`, `cia_world_leaders`, `nti`, `imf_weo` (unless user fetches WEO manually)
 - **Deferred (when site recovers):**
   - (none)
+
+The Phase C.10 integration pass (2026-06-19) wired all 9 newly implemented orchestrators into the central `STAGE2_ADAPTERS` dispatch table in `src/leaders_db/ingest/__init__.py`. As of that pass, 18 of 26 source keys resolve to a real orchestrator; the remaining 3 (`polity_v`, `pwt`, `leader_survival`) are blocked on raw file placement, and 5 are user-managed/blocked/retired. The single source-of-truth principle is preserved: every CLI `--source <key>` argument resolves through the dispatch table, and removing the orchestrator entry causes the CLI to print the standard "not implemented yet" message.
 
 ## 9. Evidence files
 

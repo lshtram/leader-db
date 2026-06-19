@@ -1,4 +1,4 @@
-# Source Vetting Plan — Phase B
+# Source Vetting Plan — Phase B (historical; living audit trail)
 
 This plan gates **Phase C (data acquisition)**. No Stage 2 ingest adapter is written until its source's verdict in `data/outputs/source_vetting_report.{csv,md}` is `vetted_ok` or `vetted_with_caveats`.
 
@@ -222,7 +222,7 @@ The captured URL is committed to `docs/data-sources.md` only after step 1 succee
 
 - **It does not download any data.** Phase C does that.
 - **It does not implement any ingest adapter.** Adapters remain stubs.
-- **It does not change the priority source list.** Adding or removing sources is a requirements change (REQ-SRC-*) and must go through [`docs/requirements-core.md`](requirements-core.md) first.
+- **It does not change the priority source list.** Adding or removing sources is a requirements change (REQ-SRC-*) and must go through [`docs/req/requirements-core.md`](req/requirements-core.md) first.
 - **It does not write to `data/raw/<source>/` content.** The folders are empty (except for `client_existing`, which was filled during Phase A) and stay empty until Phase C.
 
 ## Done When

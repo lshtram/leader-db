@@ -126,7 +126,7 @@ def _init_test_db(database_url: str) -> None:
 def test_load_indicator_catalog_returns_3_specs(
     sipri_yearbook_ch7_catalog_path: Path,
 ) -> None:
-    """The checked-in catalog has 3 indicators (matches sipri_yearbook_ch7.md §3.4 spec)."""
+    """The checked-in catalog has 3 indicators (matches sipri-yearbook-ch7.md §3.4 spec)."""
     specs = load_indicator_catalog(sipri_yearbook_ch7_catalog_path)
     assert len(specs) == 3, f"Expected 3 indicators, got {len(specs)}"
     assert all(s.variable_name and s.raw_column for s in specs)
@@ -181,7 +181,7 @@ def test_indicator_spec_from_csv_row() -> None:
 def test_catalog_variable_names_match_design(
     sipri_yearbook_ch7_catalog_path: Path,
 ) -> None:
-    """The 3 variable_name values are exactly the names in sipri_yearbook_ch7.md §3.4."""
+    """The 3 variable_name values are exactly the names in sipri-yearbook-ch7.md §3.4."""
     specs = load_indicator_catalog(sipri_yearbook_ch7_catalog_path)
     names = {s.variable_name for s in specs}
     expected = {
@@ -213,7 +213,7 @@ def test_catalog_retired_is_higher_is_better_false(
     sipri_yearbook_ch7_catalog_path: Path,
 ) -> None:
     """The retired indicator's higher_is_better is False; the other two are True
-    (the disarmament-pipeline inversion per sipri_yearbook_ch7.md §3.4)."""
+    (the disarmament-pipeline inversion per sipri-yearbook-ch7.md §3.4)."""
     specs = load_indicator_catalog(sipri_yearbook_ch7_catalog_path)
     spec_map = {s.raw_column: s for s in specs}
     assert (
@@ -1062,7 +1062,7 @@ def test_ingest_sipri_yearbook_ch7_result_field_count(
     database_url: str,
 ) -> None:
     """SipriYearbookCh7IngestResult has exactly 8 fields (matches
-    sipri_yearbook_ch7.md §3.3 spec)."""
+    sipri-yearbook-ch7.md §3.3 spec)."""
     fields = SipriYearbookCh7IngestResult.model_fields
     assert len(fields) == 8, (
         f"SipriYearbookCh7IngestResult should have 8 fields, got {len(fields)}: "
@@ -1186,6 +1186,7 @@ def test_stage2_adapters_dispatch_table() -> None:
         "nti",
         "bti",
         "cia_world_leaders",
+        "rsf_press_freedom",
     }
     assert set(STAGE2_ADAPTERS.keys()) == expected_keys
 
@@ -1204,7 +1205,7 @@ def test_cli_ingest_source_rejects_unknown() -> None:
 
 def test_sipri_yearbook_ch7_module_public_surface() -> None:
     """The sipri_yearbook_ch7 module exports the items in __all__ from
-    sipri_yearbook_ch7.md §3.3."""
+    sipri-yearbook-ch7.md §3.3."""
     assert hasattr(sipri_yearbook_ch7, "SIPRI_YEARBOOK_CH7_ATTRIBUTION")
     assert hasattr(sipri_yearbook_ch7, "SIPRI_YEARBOOK_CH7_SOURCE_KEY")
     assert hasattr(sipri_yearbook_ch7, "IndicatorSpec")

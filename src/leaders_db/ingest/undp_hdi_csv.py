@@ -28,7 +28,7 @@ upsert, source_observations write, run manifest) live in
 that ties everything together lives in
 :mod:`leaders_db.ingest.undp_hdi`.
 
-UNDP HDI CSV layout (per ``docs/architecture/undp_hdi.md`` §2):
+UNDP HDI CSV layout (per ``docs/architecture/undp-hdi.md`` §2):
 
 - 206 countries x 1,076 columns, wide format, one row per
   country (10 aggregate regions with ``ZZ*`` iso3 prefixes are

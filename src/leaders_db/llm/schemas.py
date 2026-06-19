@@ -13,10 +13,8 @@ REQ-LLM-003 enumerates the required output fields.
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-
 
 # ---------------------------------------------------------------------------
 # Bands
@@ -84,8 +82,8 @@ class LLMScoreInput(BaseModel):
             "Strings, since we render heterogeneous numeric data into text."
         ),
     )
-    client_score: Optional[int] = Field(default=None, ge=0, le=10)
-    client_note: Optional[str] = Field(default=None, max_length=2000)
+    client_score: int | None = Field(default=None, ge=0, le=10)
+    client_note: str | None = Field(default=None, max_length=2000)
     evidence_snippets: list[EvidenceSnippet] = Field(
         default_factory=list,
         description="Up to three short text snippets from local sources.",

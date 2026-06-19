@@ -25,7 +25,7 @@ The fixture is intentionally small (4 countries x 2 years x 5
 prefixes) to keep the test suite fast, but the column shape matches
 the real bundle exactly: static columns first, then 10
 ``{prefix}_{year}`` columns. Per the architecture design contract
-(``docs/architecture/undp_hdi.md`` §8), the fixture must be a
+(``docs/architecture/undp-hdi.md`` §8), the fixture must be a
 real-format slice — not invented — so the wide-to-long narrow frame
 tests can exercise the real ``prefix_year`` column shape.
 

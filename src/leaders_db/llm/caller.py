@@ -25,7 +25,7 @@ import logging
 from typing import Protocol
 
 from ..config import LLMConfig
-from .schemas import LLMScoreInput, LLMScoreOutput, band_for_confidence
+from .schemas import LLMScoreInput, LLMScoreOutput
 
 _log = logging.getLogger(__name__)
 
@@ -117,4 +117,4 @@ def build_default_runner(cfg: LLMConfig) -> LLMRunner:
     )
 
 
-__all__ = ["LLMRunner", "StubRunner", "LLMUnavailableError", "build_default_runner"]
+__all__ = ["LLMRunner", "LLMUnavailableError", "StubRunner", "build_default_runner"]

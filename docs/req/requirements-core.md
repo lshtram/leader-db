@@ -34,6 +34,8 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 
 - **REQ-LAKE-001**: System shall maintain the `data/raw/<source>/`, `data/processed/`, `data/interim/`, `data/outputs/`, `data/logs/`, `data/metadata/` folder layout.
 - **REQ-LAKE-002**: Each `data/raw/<source>/` folder shall contain the original downloaded file and a `metadata.json` with source name, version, download date, source URL, license, checksum, ingestion status, coverage limits.
+- **REQ-LAKE-003**: Each implemented source shall have a complete source-location trail: raw path, metadata file, indicator catalog, adapter entrypoint, processed output location, run manifest, DB `source_observations` rows, source-row locator pattern, and tests/fixtures.
+- **REQ-LAKE-004**: Every source observation used in a score shall be traceable back to a raw row, cell, API record, or document locator; missing locator information shall block high-confidence scoring for that observation.
 
 ### Priority datasets (§6)
 
@@ -59,12 +61,18 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-STAGE-003**: Stage 2 shall provide one ingestion script per source, normalizing country names, ISO codes, and year fields, writing to `source_observations`, and logging missing or unmatched countries.
 - **REQ-STAGE-004**: Stage 3 shall use ISO3 as primary key, maintain a country alias table, handle historical country names and name changes, and never silently merge ambiguous countries.
 - **REQ-STAGE-005**: Stage 4 shall resolve the actual ruler per country-year using the match statuses from §4 (`exact_match`, `name_variant_match`, `different_formal_same_actual`, `multiple_possible_rulers`, `client_only`, `external_only`, `conflict_between_sources`, `manual_review_required`) and the rules from §4 (≥2 agreeing structured sources ⇒ high confidence; client vs structured disagreement ⇒ keep both and flag review; president+PM coexistence ⇒ actual-ruler decision via dataset coding and office power; junta/shared leadership ⇒ multiple leaders or composite).
-- **REQ-STAGE-006**: Stage 5 shall extract per-category indicator bundles per ruler-year from §5 examples.
+- **REQ-STAGE-006**: Stage 5 shall build per-category evidence bundles per ruler-year from the category source plan, including expected sources, available observations, missing observations, proxy/stale observations, not-applicable indicators, raw locators, normalized values, and category-specific metadata.
+- **REQ-STAGE-007**: Stage 5 shall distinguish missingness reasons, including source not implemented, raw file absent, country row absent, target year absent, indicator null, not applicable, blocked/paywalled, and intentionally excluded by configuration.
+- **REQ-STAGE-008**: Stages 6-10 shall normalize heterogeneous raw indicators into comparable signals, preserve direction and scale metadata, and combine multiple indicators through category-specific deterministic scoring functions rather than single-number pass-throughs.
 
 ### Score-generation logic (§9)
 
 - **REQ-SCORE-001**: System shall not overwrite the client score.
 - **REQ-SCORE-002**: For each category, system shall collect indicators, normalize to a 0–1 or 1–10 scale, apply the category rubric, generate the proposed score, compute the delta vs client, create a rationale, and flag high-delta cases for review.
+- **REQ-SCORE-003**: Each category scorer shall consume an explicit evidence bundle, not ad hoc database lookups or a single raw value, and shall emit the score, normalized indicator contributions, source weights, missingness notes, disagreement notes, and rationale.
+- **REQ-SCORE-004**: Category source plans shall define required, preferred, and fallback indicators; minimum viable source thresholds; default weights; directionality; accepted proxy-year rules; and whether sparse data should produce a low-confidence provisional score or `insufficient_data`.
+- **REQ-SCORE-005**: Scorers shall never silently average incompatible indicators or silently drop conflicting indicators. Conflicts shall reduce source agreement confidence and, when material, trigger manual review.
+- **REQ-SCORE-006**: The current vertical-slice single-source formulas are provisional plumbing checks only. The main pipeline shall replace them with evidence-bundle based scorers before broad category validation.
 
 ### LLM use (§10)
 
@@ -72,12 +80,18 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-LLM-002**: Each LLM scoring call shall include: country, year, leader candidate, category, relevant structured indicators, client score if available, client note if available, up to three evidence snippets, rubric description, required output JSON schema.
 - **REQ-LLM-003**: Required LLM output format shall be a JSON object with fields: `proposed_score` (int), `confidence` (int 0–100), `rationale` (str), `main_supporting_evidence` (list of str), `main_contradicting_evidence` (list of str), `human_review_required` (bool), `review_reason` (str).
 - **REQ-LLM-004**: LLM shall never invent scores, replace structured datasets, cite sources not given, silently resolve ambiguous leader identity, or fetch large datasets repeatedly when local data exists.
+- **REQ-LLM-005**: Level 1 LLM adjudication shall be constrained to the assembled evidence bundle, rubric, and provided snippets only; it shall not browse the web or use undocumented facts.
+- **REQ-LLM-006**: Level 2 external LLM research may be added only behind an explicit configuration flag after Level 1 is implemented and reviewed. Any externally researched claim shall be stored as a cited evidence snippet with URL or bibliographic reference, quote/claim text, retrieval date, relevance, and source type.
+- **REQ-LLM-007**: LLM outputs shall be treated as adjudication/rationale support and manual-review input, not as equivalent to structured datasets or a source-authority shortcut.
 
 ### Confidence score (§11)
 
 - **REQ-CONF-001**: System shall compute confidence as `0.35 * source_agreement_score + 0.25 * source_authority_score + 0.25 * evidence_specificity_score + 0.15 * temporal_fit_score`.
 - **REQ-CONF-002**: Component values shall follow the 0/20/40/60/80/100 scales from §11.
 - **REQ-CONF-003**: Confidence bands shall be 85–100 high, 70–84 good, 50–69 medium, 30–49 low, 0–29 unreliable/manual review.
+- **REQ-CONF-004**: Confidence components shall be derived from evidence bundles: source agreement from normalized indicator consistency, authority from available independent source quality, specificity from country/year/ruler/category fit, and temporal fit from direct-year/proxy/stale status.
+- **REQ-CONF-005**: Missing expected indicators shall affect confidence and review status according to the category source plan; missingness shall not be hidden by normalizing only the available indicators.
+- **REQ-CONF-006**: The client/customer matrix shall never improve source agreement, source authority, evidence specificity, or temporal-fit confidence components.
 
 ### Comparison against client 2023 matrix (§12)
 
@@ -114,6 +128,8 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-ACC-010**: First prototype shall keep all raw source data and transformed data reproducible.
 - **REQ-ACC-011**: First prototype shall avoid silent overwriting of client values.
 - **REQ-ACC-012**: First prototype shall avoid unsupported LLM-generated facts.
+- **REQ-ACC-013**: First evidence-bundle prototype shall prove at least one all/mostly-available case, one mixed-direction multi-indicator case, one missing-primary-source case, one source-conflict case, and one stale/proxy-year case before broad client-matrix validation is trusted.
+- **REQ-ACC-014**: First evidence-bundle prototype shall expose enough output detail for a reviewer to locate every contributing raw source value and every missing expected value for each generated score.
 
 ## Non-Functional Requirements
 
@@ -127,7 +143,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 
 ## Notes
 
-- Detailed architecture and rationale live in [`docs/architecture.md`](docs/architecture.md).
-- Schema details live in [`docs/database-schema.md`](docs/database-schema.md).
-- Per-source provenance lives in [`docs/data-sources.md`](docs/data-sources.md).
+- Detailed architecture and rationale live in [`../architecture.md`](../architecture.md).
+- Schema details live in [`../database-schema.md`](../database-schema.md).
+- Per-source provenance lives in [`../data-sources.md`](../data-sources.md).
 - Future modules may split this file into `requirements-<module>.md` files as surface area grows.

@@ -1,0 +1,95 @@
+# RSF World Press Freedom Index indicator catalog
+#
+# This file is the single source of truth for which RSF indicators are
+# read in Stage 2. Every Stage 2 RSF adapter call resolves its
+# `raw_column` from this file. Adding/removing an indicator here is the
+# only change needed to widen or narrow the RSF ingestion.
+#
+# Source: Reporters Without Borders (RSF) World Press Freedom Index,
+#   canonical page: https://rsf.org/en/index
+# Version: annual CSV series 2002-2026 (acquired 2026-06-18).
+# License: public dataset; cite Reporters Without Borders / Reporters
+#   sans frontières (see docs/source-attributions.md).
+# Direct 2011.csv is absent; RSF's combined 2011/2012 edition is
+# represented by the 2012 CSV (Year (N) = "2011-12").
+#
+# --- FILE NAMING CONVENTION ---
+# Each annual file is staged under
+# `data/raw/rsf_press_freedom/rsf_press_freedom_<year>.csv`. The
+# 24 files on disk cover 2002-2010 and 2012-2026.
+#
+# --- SEMICOLON DELIMITER + COMMA DECIMAL SEPARATOR ---
+# All RSF files use semicolon as the delimiter and "," as the decimal
+# separator (European convention), per metadata.json §format.
+#
+# --- ENCODING ---
+# Files from 2002 through ~2024 use `utf-8-sig` (with BOM).
+# Files from 2025 onward use `cp1252` (no BOM, contains Arabic/Persian
+#   country labels that are not representable in utf-8).
+# The CSV reader applies a BOM-then-cp1252 fallback (see
+# rsf_press_freedom_csv.py::_detect_encoding).
+#
+# --- COLUMN NAME VARIATION ACROSS YEARS ---
+# Per the metadata.json `header_groups`, the score column is named:
+#   - "Score N" for years 2002-2021 (16-col wide format)
+#   - "Score"   for years 2022-2024 (22-26 col wide format)
+#   - "Score 2025" / "Score 2026" for years 2025 / 2026
+# The rank column is named:
+#   - "Rank N" for years 2002-2021
+#   - "Rank"   for years 2022 onward
+# The component-context columns are present in 2022+ editions only:
+#   "Political Context", "Economic Context", "Legal Context",
+#   "Social Context", "Safety"
+# The catalog's `raw_column` is the LOGICAL name (e.g. "score",
+# "rank", "political_context"); the CSV reader resolves it to the
+# year-specific actual column at parse time.
+#
+# --- SCORE DIRECTION ---
+# RSF's score is inverted from a "freedom" framing: higher score =
+# better situation for press freedom (closer to a free press). The
+# pipeline's scoring convention requires `higher_is_better=1` for
+# "higher value = more good" -- so the score indicator is
+# higher_is_better=1.
+#
+# RSF's rank is the inverse: rank 1 = best country for press freedom;
+# rank ~180 = worst. The pipeline convention requires
+# `higher_is_better=0` for "lower value = more good" -- so the rank
+# indicator is higher_is_better=0.
+#
+# --- 2022 BLANK ROWS ---
+# The 2022 file contains 181 blank separator rows between data rows
+# (metadata.json: `nonempty_data_row_count=180`,
+# `blank_row_count_excluding_header=181`). The CSV reader drops
+# these blank rows during parse; the ISO column is the canonical
+# row-presence signal (a row with a non-empty ISO is a data row).
+#
+# --- 2011 FILE ABSENCE ---
+# There is no `rsf_press_freedom_2011.csv`. RSF's combined
+# 2011/2012 edition is represented by the 2012 CSV (Year (N) = "2011-12").
+# Year=2011 queries return an empty DataFrame (FileNotFoundError on
+# the path is the canonical signal).
+#
+# --- METHODOLOGY CHANGE AROUND 2022 ---
+# Pre-2022 scores used a different ordinal scale (e.g. 0, 0.5, 1.5,
+# 47.5, 72.67 in 2002-2021) than the post-2022 0-100 scale. Stage 2
+# preserves the raw cell text verbatim; the methodology normalization
+# is the Stage 5/6 score module's responsibility. The `raw_scale`
+# field reflects the post-2022 standard ("0-100"); the `description`
+# column flags the methodology change explicitly so downstream
+# consumers are not surprised.
+#
+# --- DIRECTION NOT FINAL ---
+# Per AGENTS.md Always-On Rule #7, Stage 2 only does "light numeric
+# coercion"; it does NOT final-score. The Stage 9-10 category scorers
+# apply direction normalization, scale normalization, and weighting.
+# This catalog preserves the raw direction flag so the score modules
+# can invert correctly.
+#
+variable_name,raw_column,category,higher_is_better,raw_scale,normalized_scale_target,unit,description
+rsf_press_freedom_score,score,political_freedom,1,0-100,0-10,index,RSF World Press Freedom Index annual country score. Higher = better situation for press freedom (0-100 scale post-2022; pre-2022 uses a smaller ordinal scale per the methodology change around the 2022 edition; raw cell preserved verbatim).
+rsf_press_freedom_rank,rank,political_freedom,0,ordinal,0-10,rank,RSF World Press Freedom Index annual country rank (1 = best, ~180 = worst). Lower rank number = better situation for press freedom.
+rsf_press_freedom_political_context,political_context,political_freedom,1,0-100,0-10,index,Political Context component score (2022+ editions only). Higher = better political context for press freedom.
+rsf_press_freedom_economic_context,economic_context,political_freedom,1,0-100,0-10,index,Economic Context component score (2022+ editions only). Higher = better economic context for press freedom.
+rsf_press_freedom_legal_context,legal_context,political_freedom,1,0-100,0-10,index,Legal Context component score (2022+ editions only). Higher = better legal context for press freedom.
+rsf_press_freedom_social_context,social_context,political_freedom,1,0-100,0-10,index,Social Context component score (2022+ editions only). Higher = better social/sociocultural context for press freedom.
+rsf_press_freedom_safety,safety,political_freedom,1,0-100,0-10,index,Safety component score (2022+ editions only). Higher = better safety environment for journalists.

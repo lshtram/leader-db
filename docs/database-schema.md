@@ -1,6 +1,6 @@
 # Database Schema — Prototype (v1)
 
-This document is the authoritative schema reference for the 11 prototype tables defined in [`top-level-requirements.md`](top-level-requirements.md) §7. The implementation lives in [`src/leaders_db/db/models.py`](../src/leaders_db/db/models.py) (SQLAlchemy 2.x ORM) and the canonical DDL at [`src/leaders_db/db/migrations/0001_initial.sql`](../src/leaders_db/db/migrations/0001_initial.sql). SQL DDL is checked in for clarity and as the schema change source of truth.
+This document is the authoritative schema reference for the 11 prototype tables defined in [`req/top-level-requirements.md`](req/top-level-requirements.md) §7. The implementation lives in [`src/leaders_db/db/models.py`](../src/leaders_db/db/models.py) (SQLAlchemy 2.x ORM) and the canonical DDL at [`src/leaders_db/db/migrations/0001_initial.sql`](../src/leaders_db/db/migrations/0001_initial.sql). SQL DDL is checked in for clarity and as the schema change source of truth.
 
 ## Conventions
 
@@ -113,7 +113,7 @@ UNIQUE(`leader_id`, `country_id`, `year`).
 
 ### `score_categories`
 
-Canonical list of scoring categories (the ten from §4).
+Canonical list of scoring categories. Requirement §4 enumerates ten categories in total: 8 active rating categories (nuclear responsibility, international peace, domestic safety, political freedom, economic well-being, social well-being, integrity, effectiveness) and 2 optional/deferred categories (power retention, global influence). The active set is the prototype's scoring scope; the optional categories may be populated in a later iteration.
 
 | Column | Type | Notes |
 |---|---|---|

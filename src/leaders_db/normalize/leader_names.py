@@ -12,7 +12,6 @@ from __future__ import annotations
 import re
 import unicodedata
 
-
 _DROP_PATTERN = re.compile(r"[^a-z0-9\s]")
 
 

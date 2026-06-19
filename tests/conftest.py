@@ -50,7 +50,7 @@ def isolated_data_lake(monkeypatch: pytest.MonkeyPatch) -> Iterator[Path]:
         from leaders_db import env as _env
         from leaders_db import paths as _paths
 
-        _env._LOADED = False  # noqa: SLF001 - test fixture only
+        _env._LOADED = False
         # Drop the resolved root from paths so the next call re-resolves.
         if hasattr(_paths, "_project_root_cached"):
             delattr(_paths, "_project_root_cached")
@@ -105,9 +105,9 @@ def copy_fixture(src: Path, dst: Path) -> Path:
 
 
 __all__ = [
-    "project_root",
-    "isolated_data_lake",
-    "database_url",
     "client_bundle_dir",
     "copy_fixture",
+    "database_url",
+    "isolated_data_lake",
+    "project_root",
 ]

@@ -286,7 +286,7 @@ def _build_raw_value_for_db(
        ``""``.
 
     This is the design contract from
-    ``docs/architecture/sipri_yearbook_ch7.md`` §3.3, which says
+    ``docs/architecture/sipri-yearbook-ch7.md`` §3.3, which says
     the audit trail "preserves the literal original cell for
     sentinels and the stringified int for numeric cells".
 

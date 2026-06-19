@@ -1,0 +1,66 @@
+# Transparency International CPI indicator catalog
+#
+# This file is the single source of truth for which Transparency
+# International CPI indicator(s) the Stage 2 adapter reads. The
+# prototype narrows CPI ingestion to a single indicator
+# (``cpi_score``) per the architecture §3 integrity category --
+# higher_is_better=1 (cleaner perception) and the raw 0-100 scale
+# is preserved for downstream normalization to 0-10 in Stage 9.
+#
+# Source: Transparency International, Corruption Perceptions Index.
+#   Publisher URL: https://www.transparency.org/en/cpi/2023
+#   HDX mirror URL (the canonical CSV download):
+#     https://data.humdata.org/dataset/
+#       fb4adde0-93d5-4ff9-befc-4a6916c1181b/
+#       resource/b2b0509d-299f-45f5-804f-a650d9597d2c/
+#       download/global_cpi_2023.csv
+# License: free for non-commercial use with attribution; cite
+#   Transparency International per docs/source-attributions.md.
+# Citation: Transparency International. 2023. Corruption Perceptions
+#   Index 2023. Berlin: Transparency International.
+#   https://www.transparency.org/en/cpi/2023
+# Attribution text (Always-On Rule #15): "Transparency International
+#   CPI 2023."
+#
+# Columns in this catalog:
+#   - variable_name      : canonical Stage 2 / score-module name
+#   - raw_column         : the source CSV column (the HDX CSV uses
+#                          ``score`` for the headline CPI score)
+#   - rating_category     : one of the 8 rating categories from §4
+#                          (integrity = perception-based corruption)
+#   - raw_scale          : 0-100 (per TI methodology since 2012)
+#   - normalized_scale_target : 0-10 (the score modules' default
+#                              scale; the deterministic scorer
+#                              divides by 10)
+#   - higher_is_better   : 1 (higher CPI score = cleaner = better)
+#   - unit               : the unit string surfaced to users
+#   - description        : human-readable description for the
+#                          Stage 15 summary report
+#
+# Sentinel handling:
+#   - The TI CPI 2023 dataset (via HDX) has 180 country rows.
+#     Every row has an integer 0-100 score. No missing-data
+#     sentinels are expected; if a future edition introduces one,
+#     the parser handles empty / ``NA`` strings as None.
+#
+# Year coverage:
+#   - The TI CPI is annual. For 2023 (the prototype's target year)
+#     the dataset covers 180 countries and territories. The HDX
+#     mirror exposes per-year CSVs and an ``all`` CSV; the
+#     adapter always uses the per-year CSV (``global_cpi_<year>.csv``)
+#     to keep the URL deterministic.
+#   - For historical years the same pattern applies; the catalog
+#     does not need to change.
+#
+# When extending this file:
+#   - Add a row per additional indicator (e.g. CPI rank, standard
+#     error, sources count). Each row maps a raw_column to a
+#     canonical variable_name.
+#   - Update the per-row count assertions in
+#     tests/test_ingest_transparency_cpi.py if the row count
+#     changes.
+#   - Update the Stage 9 / 10 score modules to consume the new
+#     variable_names.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+cpi_score,score,integrity,0-100,0-10,1,0-100 scale,Annual Corruption Perceptions Index score (0=highly corrupt, 100=very clean); higher_is_better because a higher CPI score indicates less perceived public-sector corruption.

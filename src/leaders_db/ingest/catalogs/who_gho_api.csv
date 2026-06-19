@@ -1,0 +1,89 @@
+# WHO Global Health Observatory (GHO) OData API indicator catalog
+#
+# This file is the single source of truth for which WHO GHO API
+# indicators are read in Stage 2. Every Stage 2 WHO GHO API adapter
+# call resolves its raw_column + dim1_filter from this file.
+# Adding/removing an indicator here is the only change needed to
+# widen or narrow the WHO GHO API ingestion.
+#
+# Source: WHO Global Health Observatory, OData API at
+#   https://ghoapi.azureedge.net/api/
+# License: open; cite WHO (see docs/source-attributions.md).
+# Citation: see docs/source-attributions.md (verbatim from the WHO GHO
+#   OData API documentation).
+#
+# Columns in this catalog (extended schema for the GHO API):
+#   - variable_name      : canonical Stage 2 / score-module name
+#   - raw_column         : WHO GHO API IndicatorCode (e.g. WHOSIS_000001)
+#   - rating_category     : one of the 8 rating categories from §4
+#   - raw_scale          : how the API emits the value
+#                          (years, per_1000, percent, index)
+#   - normalized_scale_target : the scale the score modules normalize to
+#                              (always 0-10 for the prototype)
+#   - higher_is_better   : 1 = higher raw value = better (e.g. life
+#                          expectancy), 0 = lower = better (e.g. child
+#                          mortality)
+#   - unit               : the unit string surfaced to users
+#   - dim1_filter        : the OData Dim1 filter to apply (or empty if
+#                          the indicator has no SEX disaggregation).
+#                          The default for SEX-disaggregated
+#                          indicators is "SEX_BTSX" (both-sexes
+#                          aggregate) so the Stage 2 frame is one
+#                          row per (country, year) and no SEX
+#                          multiplier is required downstream.
+#   - description        : human-readable description for the
+#                          Stage 15 summary report
+#
+# Indicator coverage:
+#   - All 5 indicators are in the social_wellbeing category.
+#   - The catalog picks the both-sexes aggregate for SEX-disaggregated
+#     indicators so the Stage 2 frame is one row per (country, year).
+#     Indicators that have no SEX disaggregation (the 3 WHS4_100/117/543
+#     immunization indicators) leave dim1_filter empty.
+#
+# Sentinel handling:
+#   - WHO GHO API represents missing numeric values as NumericValue=null
+#     in the JSON response. The reader converts null/None to None in
+#     the Stage 2 frame and to NaN in the wide format.
+#   - SpatialDimType other than COUNTRY (REGION, WORLDBANKINCOMEGROUP,
+#     GLOBAL) is filtered out at the read step (we want per-country
+#     observations only).
+#   - Some records have empty SpatialDim or non-3-letter codes
+#     (defensive filter).
+#
+# Year coverage:
+#   - The WHO GHO API is updated on a per-indicator basis; the latest
+#     data year varies. For the prototype's target year 2023, several
+#     indicators still have 2021 as the latest year. The orchestrator
+#     passes the caller-requested year through; if no records exist
+#     for that year the result is an empty Stage 2 frame (no
+#     observations, no error). The caller can request an earlier
+#     year explicitly if a proxy is desired.
+#   - This is the standard behavior for an API-backed source -- no
+#     silent overwrites, no invented values, no out-of-protocol
+#     proxies. The Stage 11 confidence engine penalises
+#     `not_available` cells.
+#
+# When extending this file:
+#   1. Verify the indicator code via
+#      ``curl -s https://ghoapi.azureedge.net/api/Indicator?$filter=...``
+#   2. If the indicator is SEX-disaggregated, set
+#      ``dim1_filter=SEX_BTSX`` (or a more specific Dim1 value if
+#      needed). If it has no SEX dimension, leave ``dim1_filter``
+#      empty.
+#   3. Pick a ``variable_name`` of the form ``who_gho_<short>`` that
+#      does not collide with the existing entries.
+#   4. Set ``rating_category`` to one of the 8 (see
+#      docs/source-vetting-report.md §11).
+#   5. Set ``higher_is_better`` correctly (life expectancy =
+#      higher is better; under-5 mortality = lower is better).
+#   6. Add a fixture cache file at
+#      ``tests/fixtures/who_gho_api/cache/<year>/<raw_column>.json``
+#      and update the test_ingest_who_gho_api.py row-count assertion.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,dim1_filter,description
+who_gho_life_expectancy,WHOSIS_000001,social_wellbeing,years,0-10,1,years,SEX_BTSX,Life expectancy at birth (both sexes, years); WHO GHO headline social-wellbeing metric
+who_gho_under5_mortality,MDG_0000000007,social_wellbeing,per_1000,0-10,0,per 1000 live births,SEX_BTSX,Under-five mortality rate (both sexes, probability of dying by age 5 per 1000 live births)
+who_gho_dtp3_immunization,WHS4_100,social_wellbeing,percent,0-10,1,% of 1-year-olds,,DTP3 immunization coverage among 1-year-olds (%); no SEX disaggregation
+who_gho_hepb3_immunization,WHS4_117,social_wellbeing,percent,0-10,1,% of 1-year-olds,,Hepatitis B3 (HepB3) immunization coverage among 1-year-olds (%); no SEX disaggregation
+who_gho_bcg_immunization,WHS4_543,social_wellbeing,percent,0-10,1,% of 1-year-olds,,BCG immunization coverage among 1-year-olds (%); no SEX disaggregation

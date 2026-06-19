@@ -2,7 +2,7 @@
 
 AI-agent data collection and validation system for the **Leaders Database** — a project that consolidates multiple ratings of world political leaders into a single auditable, confidence-scored, client-validated dataset.
 
-The authoritative product brief is [`docs/top-level-requirements.md`](docs/top-level-requirements.md). Implementation is staged; see [`docs/workplan.md`](docs/workplan.md) for current status and [`docs/architecture.md`](docs/architecture.md) for system design.
+The authoritative product brief is [`docs/req/top-level-requirements.md`](docs/req/top-level-requirements.md). Implementation is staged; see [`docs/workplan.md`](docs/workplan.md) for current status and [`docs/architecture.md`](docs/architecture.md) for system design.
 
 ## What this prototype does
 
@@ -28,11 +28,11 @@ pip install -e ".[dev,duckdb]"
 leaders-db init-data-lake
 leaders-db init-db
 
-# 4. Inspect a single CLI command (no implementation yet — surface only)
+# 4. Inspect the CLI surface
 leaders-db --help
 ```
 
-> **Status:** the package, CLI surface, database schema, confidence formula, source-vetting docs, and the first Stage 2 adapters are in place. Phase C data acquisition is underway one source at a time. Run `pytest` to verify the current implementation and `leaders-db --help` to enumerate the planned commands.
+> **Status:** the package, CLI surface, database schema, confidence formula, source-vetting docs, and 18 Stage 2 adapters are in place (Phase C.10 integration pass landed 2026-06-19). Phase C data acquisition continues one source at a time; downstream Stage 3–15 resolution, scoring, and reporting are still ahead. Run `pytest` to verify the current implementation and `leaders-db --help` to enumerate the planned commands.
 
 ## Stack
 
@@ -57,9 +57,9 @@ leaders-db/
 ├── README.md                # this file
 ├── pyproject.toml
 ├── .gitignore
-├── docs/                    # top-level-requirements, workplan, architecture,
-│                            # coding-guidelines, requirements-core, data-sources,
-│                            # local-data-store, database-schema, reviews/
+├── docs/                    # workplan, architecture, coding-guidelines,
+│   ├── req/                 # top-level-requirements, requirements-core
+│   └── reviews/             # review outputs
 ├── src/leaders_db/          # Python package
 │   ├── cli.py               # Typer CLI
 │   ├── config.py            # Pydantic run config
@@ -88,6 +88,23 @@ leaders-db/
 └── tmp/                     # scratch (gitignored)
 ```
 
+## Live smoke scripts
+
+`scripts/` contains one-off helpers that exercise the public API outside
+the pytest suite. They are **not** part of CI; they are gated by an env
+var (or interactive prompt) to prevent accidental API calls.
+
+| Script | Purpose | Gating |
+|---|---|---|
+| `scripts/init_data_lake.sh` | Create the data lake skeleton (`data/raw/<source>/`, etc.) for a fresh checkout. | none — safe |
+| `scripts/smoke_wikidata_wikipedia.py` | Live HTTP smoke for the Wikidata SPARQL and Wikipedia Action API Stage 2 adapters. Uses an isolated temp dir + temp SQLite (via `LEADERSDB_PROJECT_ROOT`); does **not** touch the production DB or parquet. | `LEADERSDB_SMOKE_YES=1` (else interactive y/N prompt) |
+
+Run a live smoke after a Stage 2 adapter lands:
+
+```bash
+LEADERSDB_SMOKE_YES=1 python scripts/smoke_wikidata_wikipedia.py
+```
+
 ## Important rules
 
 - **No silent overwrites and no client-as-source.** The client matrix is a validation/test reference only; it is not counted as an independent evidence source. The system records `client_score`, `system_proposed_score`, `final_score`, and `score_delta_vs_client` separately. See requirement §3, §9, §12.
@@ -99,16 +116,4 @@ leaders-db/
 
 MIT — see [`LICENSE`](LICENSE).
 
-External datasets keep their own licenses and citation requirements. The normative source-attribution record is [`docs/source-attributions.md`](docs/source-attributions.md); every public output must carry the relevant attribution block. Current source attribution texts include:
-
-- "V-Dem v16 (Coppedge et al. 2026)."
-- "World Bank WDI (World Bank 2024)."
-- "World Bank WGI (World Bank 2023)."
-- "BTI 2026 (Bertelsmann Stiftung 2026)."
-- "RSF World Press Freedom Index (Reporters Without Borders 2026)."
-- "UCDP GED 23.1 (Davies et al. 2023)."
-- "SIPRI milex (Stockholm International Peace Research Institute 2026)."
-- "SIPRI Yearbook 2024 Ch.7 (Stockholm International Peace Research Institute 2024)."
-- "Political Terror Scale (Wood, Gibney, et al.)."
-- "CIRI Human Rights Data Project v3.12.10.24 (Cingranelli, Richards, and Crepaz 2024)."
-- "Client-supplied 2023 matrix (internal; not for redistribution)."
+External datasets keep their own licenses and citation requirements. The normative source-attribution record is [`docs/source-attributions.md`](docs/source-attributions.md) — that file is the single source of truth and is kept in sync with every implemented Stage 2 adapter. Per AGENTS.md Always-On Rule #15, every public output (Stage 15 report, manual-review queue, exported CSV, run log, CLI end-of-run echo) must include the relevant attribution block; the doc carries the full per-source table, license notes, citations, and the exact attribution text for every source. The summary table in that file is the authoritative index of current sources — do not enumerate sources in this README (it would drift the moment a new source lands).

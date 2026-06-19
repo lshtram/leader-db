@@ -79,7 +79,7 @@ data/
 - Includes:
   - `country_aliases.csv` — built incrementally by Stage 3.
   - `source_authority_table.csv` — per-source authority weights per indicator family (§11).
-  - `indicator_catalog.csv` — canonical `(category, indicator_name)` definitions referenced by Stage 5.
+  - `indicator_catalog.csv` — obsolete draft location. Stage 5 now derives source-level indicator definitions from committed per-source catalogs under `src/leaders_db/ingest/catalogs/<source>.csv` and category-level source plans from `src/leaders_db/score/source_plans.py`. If a consolidated catalog is needed later, generate it from those code-owned contracts rather than treating `data/metadata/indicator_catalog.csv` as canonical.
 
 ## Git Policy
 
@@ -101,10 +101,10 @@ data/
 
 1. Create the folder `data/raw/<source_key>/` with a placeholder `metadata.json` (`ingestion_status: pending`).
 2. Implement `src/leaders_db/ingest/<source_key>.py`.
-3. Add the source to the registry in [`docs/data-sources.md`](docs/data-sources.md).
+3. Add the source to the registry in [`data-sources.md`](data-sources.md).
 4. Add a test under `tests/test_ingest_<source_key>.py` that uses a tiny fixture.
 5. Wire the CLI command in `src/leaders_db/cli.py` (it should already be enumerated — just point it at the new module).
-6. Update `docs/requirements-core.md` with any new REQ-* lines.
+6. Update `docs/req/requirements-core.md` with any new REQ-* lines.
 
 ## Adding a New Output
 

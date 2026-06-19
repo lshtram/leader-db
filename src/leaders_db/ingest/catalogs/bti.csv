@@ -1,0 +1,117 @@
+# Bertelsmann Transformation Index (BTI) indicator catalog
+#
+# Source: Bertelsmann Stiftung, BTI Transformation Index
+#   Cumulative xlsx at https://bti-project.org/en/downloads
+#   Local copy: data/raw/bti/BTI_2006-2026_Scores.xlsx
+# License: free; cite Bertelsmann Stiftung. Reprinted with permission per BTI terms of use.
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which BTI indicators are
+# read in Stage 2. Every Stage 2 BTI adapter call resolves its
+# raw_column from this file. Adding/removing an indicator here is the
+# only change needed to widen or narrow the BTI ingestion for the
+# prototype.
+#
+# --- EDITION-TO-YEAR MAPPING ---
+# BTI is a biennial expert-coded assessment. Each edition covers the
+# ~2-year period preceding its publication year (verified in the
+# metadata.json for BTI 2024 -> covers 2022-2023; same pattern holds
+# for the other editions). The Stage 2 adapter maps BTI editions to
+# the in-coverage year that matches the requested target year:
+#
+#   BTI 2026 -> covers 2024-2025 -> mapped target year 2025
+#   BTI 2024 -> covers 2022-2023 -> mapped target year 2023
+#   BTI 2022 -> covers 2020-2021 -> mapped target year 2021
+#   ... (every edition maps to YYYY - 1)
+#
+# For the prototype target year 2023, the adapter reads the
+# "BTI 2024" sheet (covering 2022-2023). The mapping is conservative:
+# if a future BTI release changes the coverage interval, only the
+# helper sheet_for_year() in bti_io.py needs updating.
+#
+# --- SHEET LAYOUT ---
+# Each BTI sheet has the same 123-column layout:
+#   col 0  : merged "Regions:\n1 | ..." multi-line label (skip)
+#   col 1  : integer region code (1-7)
+#   col 2  : ranking (numeric)
+#   col 3  : S | Status Index (composite)
+#   col 4  : SI | Democracy Status
+#   col 5-9 : Q1 | Stateness + Q1.1-Q1.4
+#   col 10-14 : Q2 | Political Participation + Q2.1-Q2.4
+#   ... (Q3-Q17 with sub-questions)
+#   col 50 : Ranking Governance Index
+#   col 51 : G | Governance Index (composite)
+#   col 52-58 : Q13 | Level of Difficulty + Q13.1-Q13.6
+#   col 59 : GII | Governance Performance (composite)
+#   col 60-63 : Q14 | Steering Capability + Q14.1-Q14.3
+#   col 64-67 : Q15 | Resource Efficiency + Q15.1-Q15.3
+#   col 68-73 : Q16 | Consensus-Building + Q16.1-Q16.5
+#   col 74-77 : Q17 | International Cooperation + Q17.1-Q17.3
+#   col 78+ : trend / category-classification columns (text)
+#
+# Stage 2 reads only the catalog's raw_column subset; the rest of the
+# columns are skipped to keep the frame narrow.
+#
+# --- 12-INDICATOR CHOICE ---
+# The catalog covers the 4 governance/effectiveness composites
+# (required by the deliverable spec) plus 8 representative question
+# fields from Q1-Q12 (1 composite per question, not the Qx.1-Qx.4
+# sub-questions). Specifically:
+#   - G | Governance Index     (effectiveness)
+#   - GII | Governance Performance (effectiveness)
+#   - S | Status Index         (political_freedom composite)
+#   - SI | Democracy Status    (political_freedom composite)
+#   - Q1-Q5 | political transformation questions (political_freedom)
+#   - Q6, Q7, Q11 | economic transformation questions (economic_wellbeing)
+#
+# All 12 indicators share:
+#   raw_scale = "1-10"          # BTI ordinal 1-10 (10 = best)
+#   normalized_scale_target = "0-10"  # 1 -> 1, 10 -> 10 (linear)
+#   higher_is_better = "1"      # BTI convention: 10 is best
+#   unit = "bti_score"
+#
+# The Q13 "Level of Difficulty" composite is intentionally excluded
+# from the catalog even though it lives on the same sheets: higher
+# Q13 means more difficulty (a constraint, not a quality signal), so
+# its direction is inverted relative to the other composites. Keeping
+# it out of the catalog for now avoids a per-source direction flag
+# (the Stage 5 score module can ingest it directly from the parquet
+# if/when a difficulty-adjusted rubric is built).
+#
+# --- MISSING-DATA CONVENTION ---
+# The BTI xlsx does not use an explicit missing token; missing cells
+# are blank (None). The Stage 2 reader filters rows by the country
+# column (col 0) and treats missing cells as NaN. The raw_value audit
+# trail preserves the original cell text for non-missing cells (the
+# integer or float the source published).
+#
+# --- HEADER QUIRK ---
+# The header row has a merged cell in col 0 carrying the multi-line
+# "Regions:\n1 | ..." label. The Stage 2 reader skips this cell and
+# reads the 4-comma-separated substrings of the label to build a
+# region_code -> region_name map (audit only; not used in scoring).
+# All indicator column headers in the xlsx are whitespace-padded (e.g.
+# "  S | Status Index"); the catalog preserves the verbatim header
+# strings so the read function can match them by direct equality.
+#
+# --- COUNTRY ID ---
+# The BTI xlsx carries country names only (no ISO3 column). The
+# Stage 2 reader writes the BTI display name to source_row_reference
+# as "bti:<country>" (e.g. "bti:Mexico") and leaves country_id NULL.
+# Stage 3 (country match) resolves the BTI display name to the
+# canonical ISO3 via the country alias table (same pattern as
+# SIPRI milex and V-Dem's pre-v13 country_text_id).
+#
+variable_name,raw_column,category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+bti_governance_index,  G | Governance Index,effectiveness,1-10,0-10,1,bti_score,Governance Index (G) — composite measure of governance performance: steering capability + resource efficiency + consensus-building + international cooperation. BTI 1-10 scale (10 = best).
+bti_governance_performance,  GII | Governance Performance,effectiveness,1-10,0-10,1,bti_score,Governance Performance (GII) — composite measure of governance quality: Q14-Q17 mean minus Q13 Level of Difficulty (difficulty-adjusted governance score). BTI 1-10 scale (10 = best).
+bti_status_index,  S | Status Index,political_freedom,1-10,0-10,1,bti_score,Status Index (S) — composite political transformation score: mean of Q1-Q5 (stateness, political participation, rule of law, stability of democratic institutions, political and social integration). BTI 1-10 scale (10 = best democracy status).
+bti_democracy_status,  SI | Democracy Status,political_freedom,1-10,0-10,1,bti_score,Democracy Status (SI) — composite democracy measure derived from S + Q7-Q12 economic indicators. BTI 1-10 scale (10 = best).
+bti_q1_stateness,  Q1 | Stateness,political_freedom,1-10,0-10,1,bti_score,Q1 Stateness — monopoly on the use of force, state identity, no interference of religious dogmas, basic administration. BTI 1-10 scale (10 = best).
+bti_q2_political_participation,  Q2 | Political Participation,political_freedom,1-10,0-10,1,bti_score,Q2 Political Participation — free and fair elections, effective power to govern, association/assembly rights, freedom of expression. BTI 1-10 scale (10 = best).
+bti_q3_rule_of_law,  Q3 | Rule of Law,political_freedom,1-10,0-10,1,bti_score,Q3 Rule of Law — separation of powers, independent judiciary, prosecution of office abuse, civil rights. BTI 1-10 scale (10 = best).
+bti_q4_democratic_institutions,  Q4 | Stability of Democratic Institutions,political_freedom,1-10,0-10,1,bti_score,Q4 Stability of Democratic Institutions — performance of + commitment to democratic institutions. BTI 1-10 scale (10 = best).
+bti_q5_political_social_integration,  Q5 | Political and Social Integration,political_freedom,1-10,0-10,1,bti_score,Q5 Political and Social Integration — party system, interest groups, approval of democracy, social capital. BTI 1-10 scale (10 = best).
+bti_q6_socioeconomic_development,  Q6 | Level of Socioeconomic Development,economic_wellbeing,1-10,0-10,1,bti_score,Q6 Level of Socioeconomic Development — socioeconomic barriers (poverty, inequality, education, health). BTI 1-10 scale (10 = best).
+bti_q7_market_competition,  Q7 | Organization of the Market and Competition,economic_wellbeing,1-10,0-10,1,bti_score,Q7 Organization of the Market and Competition — market organization, competition policy, foreign trade liberalization, banking system. BTI 1-10 scale (10 = best).
+bti_q11_economic_performance,  Q11 | Economic Performance,economic_wellbeing,1-10,0-10,1,bti_score,Q11 Economic Performance — output strength (GDP growth, inflation, unemployment). BTI 1-10 scale (10 = best).

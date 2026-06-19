@@ -259,7 +259,7 @@ def default_xlsx_path() -> Path:
     Resolves to
     ``<project_root>/data/raw/sipri_milex/SIPRI-Milex-data-1949-2025_v1.2.xlsx``.
     Raises :class:`FileNotFoundError` if the file is missing (per the
-    design contract in ``docs/architecture/sipri_milex.md`` §3.3); the
+    design contract in ``docs/architecture/sipri-milex.md`` §3.3); the
     adapter expects the user to have downloaded the xlsx via the
     project's download workflow first.
     """

@@ -27,7 +27,10 @@ WEIGHT_SPECIFICITY: float = 0.25
 WEIGHT_TEMPORAL_FIT: float = 0.15
 
 # Sanity invariant: weights must sum to 1.0 (a small epsilon handles float math).
-assert abs(WEIGHT_AGREEMENT + WEIGHT_AUTHORITY + WEIGHT_SPECIFICITY + WEIGHT_TEMPORAL_FIT - 1.0) < 1e-9
+assert (
+    abs(WEIGHT_AGREEMENT + WEIGHT_AUTHORITY + WEIGHT_SPECIFICITY + WEIGHT_TEMPORAL_FIT - 1.0)
+    < 1e-9
+)
 
 
 @dataclass(frozen=True)
