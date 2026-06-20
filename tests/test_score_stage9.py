@@ -11,6 +11,10 @@ then verify the seam returns the right shape.
 
 The tests fail if either the bundle builder or the dispatcher is
 removed — both are real production seams, not test-only stubs.
+
+The Stage 9 all-countries batch seam and CSV export helper live
+in :mod:`tests.test_score_stage9_batch` (a sibling test file to
+keep each module under the 400-line convention).
 """
 
 from __future__ import annotations
@@ -281,8 +285,8 @@ def test_score_category_for_country_unsupported_category_raises(
                 session,
                 country_iso3=COUNTRY_ISO3,
                 year=TARGET_YEAR,
-                category_key="political_freedom",
+                category_key="corruption",
             )
     message = str(excinfo.value)
-    assert "political_freedom" in message
+    assert "corruption" in message
     assert "social_wellbeing" in message

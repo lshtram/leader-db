@@ -51,6 +51,16 @@ def test_cli_lists_every_stage_command() -> None:
         assert cmd in help_result.stdout, f"missing command {cmd!r} in CLI help"
 
 
+def test_score_category_help_uses_dispatcher_registered_language() -> None:
+    """The scoring help must not hard-code stale supported categories."""
+    result = runner.invoke(app, ["score-category", "--help"])
+
+    assert result.exit_code == 0, result.stdout
+    assert "Stage 9 dispatcher" in result.stdout
+    assert "currently 'social_wellbeing'" not in result.stdout
+    assert "together with --category social_wellbeing" not in result.stdout
+
+
 def test_init_data_lake_runs(isolated_data_lake) -> None:
     result = runner.invoke(app, ["init-data-lake"])
     assert result.exit_code == 0, result.stdout
@@ -153,7 +163,7 @@ def test_score_category_with_country_unsupported_category_fails(
         [
             "score-category",
             "--category",
-            "political_freedom",
+            "corruption",
             "--year",
             "2023",
             "--country",
@@ -166,7 +176,7 @@ def test_score_category_with_country_unsupported_category_fails(
     # captures it and exits with a non-zero code (typically 2).
     assert result.exit_code != 0, result.stdout
     combined = result.stdout + (result.stderr or "")
-    assert "political_freedom" in combined
+    assert "corruption" in combined
     # The error must point at the supported set so the user can
     # pick the right category.
     assert "social_wellbeing" in combined

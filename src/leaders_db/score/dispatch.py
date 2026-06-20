@@ -37,17 +37,27 @@ Style invariants (per ``docs/coding-guidelines.md``):
 Scope
 -----
 
-Only ``social_wellbeing`` is registered today (the first per-category
-deterministic scorer, landed in Phase D.1). Wiring additional
-categories is a follow-on step that follows the same two-step
-recipe.
+``social_wellbeing`` (Phase D.1), ``integrity`` (Phase D.5),
+``effectiveness``, ``economic_wellbeing``,
+``political_freedom`` (Phase D.6), ``domestic_violence``
+(Phase D.7), ``international_peace`` (Phase D.8), and
+``nuclear`` (Phase D.9) are registered today. Wiring
+additional categories is a follow-on step that follows the
+same two-step recipe.
 """
 
 from __future__ import annotations
 
 from collections.abc import Callable
 
+from .domestic_violence import score_domestic_violence
+from .economic_wellbeing import score_economic_wellbeing
+from .effectiveness import score_effectiveness
 from .evidence import CategoryEvidenceBundle
+from .integrity import score_integrity
+from .international_peace import score_international_peace
+from .nuclear import score_nuclear
+from .political_freedom import score_political_freedom
 from .results import ScoreResult
 from .social_wellbeing import score_social_wellbeing
 
@@ -69,6 +79,13 @@ from .social_wellbeing import score_social_wellbeing
 # test fails if the entry is removed.
 _SCORERS: dict[str, Callable[[CategoryEvidenceBundle], ScoreResult]] = {
     "social_wellbeing": score_social_wellbeing,
+    "integrity": score_integrity,
+    "effectiveness": score_effectiveness,
+    "economic_wellbeing": score_economic_wellbeing,
+    "political_freedom": score_political_freedom,
+    "domestic_violence": score_domestic_violence,
+    "international_peace": score_international_peace,
+    "nuclear": score_nuclear,
 }
 
 
