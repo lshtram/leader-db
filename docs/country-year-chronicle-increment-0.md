@@ -270,9 +270,11 @@ Increment 1 is ready to start when these are accepted:
 
 ## 9. Recommended next work items
 
-1. Implement Increment 1 as an experimental, read-only CSV vertical slice with
-   tests and CLI boundary proof.
+1. ✅ Implement Increment 1 as an experimental, read-only CSV vertical slice with
+   tests and CLI boundary proof. Landed at `src/leaders_db/chronicle/` with the
+   `leaders-db run-country-year-chronicle` CLI command. See
+   [`country-year-chronicle-increment-1.md`](country-year-chronicle-increment-1.md)
+   for the full Increment 1 implementation notes.
 2. In parallel or immediately after, fix source hygiene for `pwt` and `polity_v`:
    add metadata and update blockers if the raw files are intended to be canonical.
-3. Vet Maddison Project Database 2023 for 1900-1949 GDP/population coverage.
-4. Vet a static country-area source.
+3. Vet a static country-area source.

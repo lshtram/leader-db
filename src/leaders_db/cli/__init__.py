@@ -23,6 +23,7 @@ and so per-stage implementation can land without touching the CLI.
 from __future__ import annotations
 
 from ._app import app, main_callback
+from .commands_chronicle import run_country_year_chronicle_cmd
 from .commands_scoring_category import _run_score_category_all_countries
 from .commands_scoring_other import compute_confidence, score_all
 
@@ -59,6 +60,7 @@ __all__ = [
     "main_callback",
     "match_countries",
     "resolve_leaders",
+    "run_country_year_chronicle_cmd",
     "run_vertical_slice_2023",
     "score_all",
     "summary_report",

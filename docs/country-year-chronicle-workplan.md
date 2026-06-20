@@ -252,11 +252,18 @@ Pilot country/state identities:
 - Soviet Union (`SUN`), modeled as a separate historical state identity
 - China / PRC / ROC handling (`CHN` first, with unresolved cases flagged)
 
+Status: **complete (2026-06-20)**. See [`country-year-chronicle-increment-1.md`](country-year-chronicle-increment-1.md) for the full implementation notes.
+
 Deliverables:
 
-1. Experimental module under `src/leaders_db/vertical_slice/country_year_chronicle.py`
-   or a dedicated `src/leaders_db/country_year/` package if the design stabilizes.
-2. CLI command, tentatively:
+1. ✅ New package `src/leaders_db/chronicle/` with 11 focused modules
+   (all ≤ 422 lines; the original 559-line `row_builder.py` was
+   safely split into `row_builder.py` plus three private helpers
+   `_formatters.py`, `_flags.py`, `_wdi_fields.py`):
+   `__init__.py`, `constants.py`, `sources.py`, `regime.py`,
+   `system_type.py`, `row_builder.py`, `csv_writer.py`, `runner.py`,
+   `_formatters.py`, `_flags.py`, `_wdi_fields.py`.
+2. ✅ CLI command:
 
    ```bash
    leaders-db run-country-year-chronicle \
@@ -266,16 +273,18 @@ Deliverables:
      --output data/outputs/country-year-chronicle/pilot.csv
    ```
 
-3. CSV output with source/proxy/confidence fields.
-4. Focused pytest coverage for row shape, source precedence, proxy flags,
-   regime/system classification, and CLI boundary wiring.
+3. ✅ CSV output with source/proxy/confidence fields, attribution
+   comment block, atomic write through tempfile + rename, and the
+   exact column order from Increment 0 §4.
+4. ✅ 124 focused pytest tests across 5 new test files.
 
 Exit criteria:
 
-- Pilot CSV writes deterministically.
-- Missing historical fields are flagged, not fabricated.
-- Source attribution block is present.
-- Tests and ruff pass.
+- ✅ Pilot CSV writes deterministically.
+- ✅ Missing historical fields are flagged, not fabricated.
+- ✅ Source attribution block is present (drift-guarded against
+  `docs/source-attributions.md`).
+- ✅ Tests and ruff pass.
 
 ### Increment 2 — all countries, reliable recent window
 
@@ -432,7 +441,7 @@ Recommended process:
 
 ## 13. Immediate next action
 
-Start **Increment 1** after user confirmation:
+Start **Increment 2** after user confirmation:
 
 1. Implement an experimental read-only CSV vertical slice for
    `USA,GBR,FRA,IND,RUS,SUN,CHN` over 1900-2026.
