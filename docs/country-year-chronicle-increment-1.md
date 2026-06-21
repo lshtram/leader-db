@@ -103,14 +103,20 @@ Defaults: ISO3 scope `USA,GBR,FRA,IND,RUS,SUN,CHN`; year window
 
 ## 5. Deferred to later increments
 
-- Ruler fields are emitted as empty placeholders with
-  `missing_ruler` (no full ruler resolver yet — Stage 4 work).
+- ~~Ruler fields are emitted as empty placeholders with
+  `missing_ruler` (no full ruler resolver yet — Stage 4 work).~~ —
+  **closed by Increment 2** (2026-06-21). See
+  [`country-year-chronicle-increment-2.md`](country-year-chronicle-increment-2.md)
+  for the Archigos + REIGN ruler resolver.
+- ~~Pre-1960 GDP/population is empty because the local WDI parquet
+  only contains 2022 today (full WDI re-run is a Stage 2/3 task,
+  not Increment 1).~~ — **closed by Increment 2** for the
+  Maddison-backed path (Maddison provides the historical real
+  economy signal for 1900-2022). WDI re-run for the recent window
+  is still deferred.
 - Country area and controlled-area fields are empty with
   `missing_area` and `controlled_area_not_modeled`.
-- Pre-1960 GDP/population is empty because the local WDI parquet only
-  contains 2022 today (full WDI re-run is a Stage 2/3 task, not
-  Increment 1).
-- All-countries extension (Increment 2).
+- All-countries extension (Increment 3 — was Increment 2).
 
 ## 6. Open follow-ups
 

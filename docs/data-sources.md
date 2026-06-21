@@ -38,6 +38,7 @@ Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ defe
 | `archigos` | ⚠️ | Archigos dataset on political leaders | 1875–2015 (8-year gap) | free academic; Stata `.dta`; useful historical backstop only. |
 | `leader_survival` | ⚠️ | Leader Survival (PLT post-1789) | 1789–2022 (1-year gap) | free academic; Demscore H-DATA v5 (March 2025). Best of the three. |
 | `reign` | ⚠️ | Rulers, Elections, and Irregular Governance (REIGN) | 1950–2021-08 (frozen) | free academic; GitHub-hosted snapshot. Monthly updates ceased Aug 2021. |
+| `soviet_leaders_curated` | ✅ | Soviet leaders curated (Wikipedia-anchored) | 1922-12-30 to 1991-12-25 | Hand-curated, versioned spell list at `data/raw/soviet_leaders_curated/soviet_leaders.csv`. Fills the SUN ruler gap that neither Archigos nor REIGN can resolve cleanly (merged Russian-Empire + USSR + RUS ccode). Transition years (1924, 1953, 1985) emit `multiple_rulers`. Underlying Wikipedia facts are not copyrightable; the curated CSV is a project artifact. |
 | `wikidata_heads_of_state_government` | ✅ | Wikidata WikiProject Heads of state and government (SPARQL) | 1789–current (daily-updated) | CC0 1.0. **Primary 2023 source** — fills the gap. |
 | `wikipedia_search_extract` | ✅ | Wikipedia Action API (search + extract) | all years | CC BY-SA 4.0. Narrative context for LLM rationale. |
 | `cia_world_leaders` | ❌ | CIA World Factbook World Leaders | retired | The CIA World Factbook and its World Leaders page were retired in 2025. |
@@ -60,6 +61,13 @@ Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ defe
 | `maddison_project` | ✅ | Maddison Project Database 2023 (Bolt and van Zanden 2024) | Canonical 4.9 MB xlsx is expected at `data/raw/maddison_project/mpd2023.xlsx` for real ingestion; raw file is not committed. 169 countries; covers 1–2022 (no 2023 data; **only year == 2023 target-year requests are proxied to 2022 per the documented 1-year-gap pattern** — years 2024+ are NOT silently backed by Maddison 2022; if WDI is missing those rows are blank with `missing_population` / `missing_gdp` flags). CC BY 4.0. **Provides the historical real-economy signal for the `economic_wellbeing` rating category.** Stage 2 adapter reads ONLY the `Full data` sheet and computes the derived total real GDP indicator (`gdppc * pop * 1000`) at row time when both cells are present. The Chronicle row builder uses Maddison for 1900-2022 and falls back to Maddison 2022 as the documented 1-year-gap proxy for year == 2023 only. |
 | `pwt` | ✅ | Penn World Table 10.01 | Free xlsx, 6.5MB; 183 economies, PPP-based; cross-validates WDI. |
 | `imf_weo` | ❌ | IMF World Economic Outlook | Akamai bot challenge (403). User can fetch manually if needed. |
+
+### Country-area sources
+
+| Source key | Verdict | Description | Notes |
+|---|---|---|---|
+| `cshapes` | ✅ | CShapes 2.0 (Schvitz et al. 2022) | 44.5 MB raw CSV at `data/raw/cshapes/CShapes-2.0.csv`; SHA-256 verified; gitignored per Always-On Rule #9. 1886-2019 coverage. CC BY-NC-SA 4.0. Provides `country_area_km2` per `(iso3, year)`. The Chronicle-side loader dispatches the GW 365 record (Russian Empire + USSR + RUS) to SUN (1922-1991) and RUS (1991+) via asymmetric containment rules. Years past coverage (2020+) are proxied from the most recent CShapes year and tagged with `area_proxy_year_used`. Imperial / controlled-area summing is NOT done by CShapes alone — the dependency-controller join is deferred per the Increment 4 work item. |
+| `icow_colonial` | ❌ | ICOW Colonial History (Hensel) | The canonical download URL (`http://www.paulhensel.org/icowcol/Data/colhist.zip`) returned HTTP 404 on 2026-06-21. Substitute decision: conservative `controlled_area_km2 = country_area_km2` fallback with the explicit `controlled_area_country_only` flag. If a working URL or alternative dependency-controller source is identified, the controlled-area summing is the Increment 4 work item. |
 
 ### Social well-being sources
 

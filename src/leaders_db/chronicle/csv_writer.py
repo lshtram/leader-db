@@ -17,6 +17,12 @@ The CSV writer accepts both ``str`` and ``int``/``float`` cell values;
 non-string values are coerced to their ``str`` representation with
 ``None`` and ``float('nan')`` normalized to empty strings (which the
 CSV reader will turn into empty cells).
+
+Increment 2 added the Maddison Project attribution line plus the
+Archigos / REIGN attribution lines (ruler resolver sources). The
+exact attribution text is sourced from
+:mod:`leaders_db.chronicle.source_constants` and is drift-guarded
+against :file:`docs/source-attributions.md`.
 """
 
 from __future__ import annotations
@@ -28,9 +34,14 @@ import tempfile
 from collections.abc import Iterable
 from pathlib import Path
 
-from .constants import (
-    CHRONICLE_CSV_COLUMNS,
+from .constants import CHRONICLE_CSV_COLUMNS
+from .source_constants import (
+    ARCHIGOS_ATTRIBUTION,
+    CSHAPES_ATTRIBUTION,
+    MADDISON_PROJECT_ATTRIBUTION,
+    REIGN_ATTRIBUTION,
     SIPRI_MILEX_ATTRIBUTION,
+    SOVIET_LEADERS_CURATED_ATTRIBUTION,
     VDEM_ATTRIBUTION,
     WDI_ATTRIBUTION,
 )
@@ -48,18 +59,30 @@ def build_attribution_comment_block(
     :file:`docs/source-attributions.md` §3.2). The block always opens
     with a one-line ``# Country-Year Chronicle pilot CSV`` header so a
     downstream consumer can detect the file format.
+
+    The source-specific attribution lines are emitted in
+    alphabetical order of the source key (the same order the runner
+    reports in ``sources_used``), so the CSV's leading comment
+    block is byte-identical across runs that touch the same sources.
     """
     lines: list[str] = ["# Country-Year Chronicle pilot CSV"]
     lines.append(
         "# Experimental vertical slice; do not treat as authoritative."
     )
+    source_attribution_map = {
+        "archigos": ARCHIGOS_ATTRIBUTION,
+        "cshapes": CSHAPES_ATTRIBUTION,
+        "maddison_project": MADDISON_PROJECT_ATTRIBUTION,
+        "reign": REIGN_ATTRIBUTION,
+        "sipri_milex": SIPRI_MILEX_ATTRIBUTION,
+        "soviet_leaders_curated": SOVIET_LEADERS_CURATED_ATTRIBUTION,
+        "vdem": VDEM_ATTRIBUTION,
+        "wdi": WDI_ATTRIBUTION,
+    }
     for source in sorted(set(sources_used)):
-        if source == "vdem":
-            lines.append(f"# {VDEM_ATTRIBUTION}")
-        elif source == "wdi":
-            lines.append(f"# {WDI_ATTRIBUTION}")
-        elif source == "sipri_milex":
-            lines.append(f"# {SIPRI_MILEX_ATTRIBUTION}")
+        attribution = source_attribution_map.get(source)
+        if attribution:
+            lines.append(f"# {attribution}")
     for line in extra_lines:
         if line:
             lines.append(f"# {line}")

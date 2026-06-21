@@ -1,9 +1,9 @@
-"""Constants and attribution strings for the Country-Year Chronicle slice.
+"""Constants for the Country-Year Chronicle slice.
 
-This module owns the slice-specific constants that the workplan
-labels as "stable domain schema values" — column names, source
-attribution text, the V-Dem regime mapping table, and the
-country-period mapping for the conservative system-type classifier.
+This module owns the slice-specific domain-schema constants that the
+workplan labels as "stable domain schema values" — column names, the
+V-Dem regime mapping table, and the country-period mapping for the
+conservative system-type classifier.
 
 Per :file:`docs/coding-guidelines.md` § "Hard-Coded Values", domain
 schema values are acceptable constants when documented and owned by
@@ -11,16 +11,58 @@ the relevant module. Research-changing values (target years, country
 lists, scoring weights) are NOT defined here; they come from the
 caller's CLI/config.
 
-Attribution text is intentionally duplicated from
-:file:`docs/source-attributions.md` because that doc is the
-normative source — the test
-``test_chronicle_attribution_matches_attributions_doc`` enforces that
-the strings here are byte-for-byte substrings of the doc.
+Per-source constants (attribution text, source-tag constants,
+per-source confidence values) live in
+:mod:`leaders_db.chronicle.source_constants` to keep this module
+focused on the schema. They are re-exported below for back-compat
+with callers that already import them from here.
 """
 
 from __future__ import annotations
 
 from typing import Final
+
+# Re-exports so the existing ``from leaders_db.chronicle.constants
+# import VDEM_ATTRIBUTION, ...`` calls keep working.
+from .source_constants import (
+    ARCHIGOS_ATTRIBUTION,
+    ARCHIGOS_DIRECT_CONFIDENCE,
+    CSHAPES_ATTRIBUTION,
+    CSHAPES_COVERAGE_END_YEAR,
+    CSHAPES_COVERAGE_START_YEAR,
+    CSHAPES_DIRECT_CONFIDENCE,
+    CSHAPES_GW_TO_ISO3,
+    CSHAPES_GW_YEAR_TO_ISO3,
+    CSHAPES_PROXY_CONFIDENCE,
+    MADDISON_DIRECT_CONFIDENCE,
+    MADDISON_PROJECT_ATTRIBUTION,
+    MADDISON_PROXY_CONFIDENCE,
+    MADDISON_PROXY_REQUESTED_YEAR,
+    MADDISON_PROXY_YEAR,
+    REIGN_ATTRIBUTION,
+    REIGN_DIRECT_CONFIDENCE,
+    REIGN_MULTI_LEADER_CONFIDENCE,
+    SIPRI_DIRECT_CONFIDENCE,
+    SIPRI_MILEX_ATTRIBUTION,
+    SOURCE_TAG_ARCHIGOS,
+    SOURCE_TAG_CSHAPES,
+    SOURCE_TAG_CURATED,
+    SOURCE_TAG_MADDISON,
+    SOURCE_TAG_NONE,
+    SOURCE_TAG_REIGN,
+    SOURCE_TAG_SIPRI,
+    SOURCE_TAG_SOVIET_LEADERS_CURATED,
+    SOURCE_TAG_VDEM,
+    SOURCE_TAG_WDI,
+    SOVIET_LEADERS_CURATED_ATTRIBUTION,
+    SOVIET_LEADERS_DIRECT_CONFIDENCE,
+    SOVIET_LEADERS_MULTI_LEADER_CONFIDENCE,
+    VDEM_ATTRIBUTION,
+    VDEM_DIRECT_CONFIDENCE,
+    VDEM_PROXY_CONFIDENCE,
+    WDI_ATTRIBUTION,
+    WDI_DIRECT_CONFIDENCE,
+)
 
 # ---------------------------------------------------------------------------
 # Output layout
@@ -220,30 +262,33 @@ FLAG_SOURCE_CONFLICT: Final[str] = "source_conflict"
 FLAG_PRE_EXISTENCE_GAP: Final[str] = "pre_existence_gap"
 FLAG_POST_EXISTENCE_GAP: Final[str] = "post_existence_gap"
 
+#: Increment 3 area / controlled-area flags.
+#:
+#: ``area_proxy_year_used`` — the country's area was copied from the
+#: most recent CShapes 2.0 year because the requested year is beyond
+#: CShapes coverage (currently 2020+). The row builder attaches this
+#: flag and records the proxy year in ``area_source_year_used``.
+FLAG_AREA_PROXY_YEAR_USED: Final[str] = "area_proxy_year_used"
+
+#: ``controlled_area_country_only`` — the ``controlled_area_km2``
+#: value equals the standard ``country_area_km2`` value because no
+#: dependency / imperial controller mapping was sourced for the row.
+#: Per the Increment 3 spec, this flag is added on top of
+#: ``controlled_area_not_modeled`` so the audit trail records both
+#: facts: (1) imperial summing is deferred, and (2) the
+#: controlled-area value is the same as the country territory.
+#: The flag must NOT be removed unless the controlled-area value
+#: actually includes controlled / dependent territories beyond the
+#: country unit for that row.
+FLAG_CONTROLLED_AREA_COUNTRY_ONLY: Final[str] = "controlled_area_country_only"
+
 # ---------------------------------------------------------------------------
 # Source attribution strings (per docs/source-attributions.md).
 # These are byte-identical substrings of the doc; the test
 # test_chronicle_attribution_matches_attributions_doc enforces it.
+# Per-source attributions live in source_constants.py and are
+# re-exported above for back-compat.
 # ---------------------------------------------------------------------------
-
-VDEM_ATTRIBUTION: Final[str] = (
-    "V-Dem v16 (Coppedge et al. 2026)."
-)
-
-WDI_ATTRIBUTION: Final[str] = (
-    "World Bank WDI (World Bank 2024)."
-)
-
-SIPRI_MILEX_ATTRIBUTION: Final[str] = (
-    "SIPRI milex (Stockholm International Peace Research Institute 2026)."
-)
-
-#: Canonical source key tags used in the per-field source columns.
-SOURCE_TAG_VDEM: Final[str] = "vdem"
-SOURCE_TAG_WDI: Final[str] = "wdi"
-SOURCE_TAG_SIPRI: Final[str] = "sipri_milex"
-SOURCE_TAG_CURATED: Final[str] = "cyc_curated"
-SOURCE_TAG_NONE: Final[str] = ""
 
 #: When a field cannot be populated from any vetted source we emit the
 #: sentinel below in the ``*_source`` column. The ``data_quality_flags``
@@ -252,30 +297,12 @@ SOURCE_NA: Final[str] = ""
 
 # ---------------------------------------------------------------------------
 # Source precedence (per Increment 0 §5).
+# Per-source confidence values live in source_constants.py and are
+# re-exported above for back-compat.
 # ---------------------------------------------------------------------------
 
-#: V-Dem regime values are scored at this confidence when they come
-#: directly from the raw V-Dem CSV for the exact requested year.
-VDEM_DIRECT_CONFIDENCE: Final[int] = 80
-
-#: V-Dem regime values copied from ``DEFAULT_PROXY_YEAR`` because the
-#: requested year is beyond V-Dem coverage are scored at this lower
-#: confidence.
-VDEM_PROXY_CONFIDENCE: Final[int] = 60
-
-#: WDI values copied from the processed parquet for the exact year are
-#: scored at this confidence.
-WDI_DIRECT_CONFIDENCE: Final[int] = 80
-
-#: SIPRI milex values from the processed parquet for the exact year are
-#: scored at this confidence.
-SIPRI_DIRECT_CONFIDENCE: Final[int] = 80
-
-#: Conservative confidence for placeholder ruler / area fields. They are
-#: always empty in Increment 1 so the confidence floor does not matter
-#: for the row builder, but we keep the constant so the CSV writes a
-#: non-empty ``ruler_confidence`` string for a downstream consumer that
-#: wants to filter on it.
+#: Conservative confidence for placeholder ruler / area fields. Used
+#: only when no source data is available.
 PLACEHOLDER_RULER_CONFIDENCE: Final[int] = 0
 
 # ---------------------------------------------------------------------------
@@ -373,9 +400,18 @@ COUNTRY_METADATA: Final[dict[str, dict[str, str]]] = {
 
 
 __all__ = [
+    "ARCHIGOS_ATTRIBUTION",
+    "ARCHIGOS_DIRECT_CONFIDENCE",
     "CHRONICLE_CSV_COLUMNS",
     "CHRONICLE_OUTPUT_DIR_NAME",
     "COUNTRY_METADATA",
+    "CSHAPES_ATTRIBUTION",
+    "CSHAPES_COVERAGE_END_YEAR",
+    "CSHAPES_COVERAGE_START_YEAR",
+    "CSHAPES_DIRECT_CONFIDENCE",
+    "CSHAPES_GW_TO_ISO3",
+    "CSHAPES_GW_YEAR_TO_ISO3",
+    "CSHAPES_PROXY_CONFIDENCE",
     "CURATED_SYSTEM_TYPE_CONFIDENCE",
     "DEFAULT_COUNTRIES",
     "DEFAULT_END_YEAR",
@@ -383,7 +419,9 @@ __all__ = [
     "DEFAULT_PROXY_YEAR",
     "DEFAULT_START_YEAR",
     "FALLBACK_SYSTEM_TYPE_CONFIDENCE",
+    "FLAG_AREA_PROXY_YEAR_USED",
     "FLAG_COLONIAL_STATUS_ISSUE",
+    "FLAG_CONTROLLED_AREA_COUNTRY_ONLY",
     "FLAG_CONTROLLED_AREA_NOT_MODELED",
     "FLAG_DISPUTED_RULE",
     "FLAG_MISSING_AREA",
@@ -400,16 +438,32 @@ __all__ = [
     "FLAG_SOURCE_CONFLICT",
     "FLAG_SUCCESSOR_STATE_ISSUE",
     "FLAG_SYSTEM_TYPE_LOW_CONFIDENCE",
+    "MADDISON_DIRECT_CONFIDENCE",
+    "MADDISON_PROJECT_ATTRIBUTION",
+    "MADDISON_PROXY_CONFIDENCE",
+    "MADDISON_PROXY_REQUESTED_YEAR",
+    "MADDISON_PROXY_YEAR",
     "PLACEHOLDER_RULER_CONFIDENCE",
     "REGIME_BUCKET_DEFAULT_SYSTEM_TYPE",
+    "REIGN_ATTRIBUTION",
+    "REIGN_DIRECT_CONFIDENCE",
+    "REIGN_MULTI_LEADER_CONFIDENCE",
     "SIPRI_DIRECT_CONFIDENCE",
     "SIPRI_MILEX_ATTRIBUTION",
     "SOURCE_NA",
+    "SOURCE_TAG_ARCHIGOS",
+    "SOURCE_TAG_CSHAPES",
     "SOURCE_TAG_CURATED",
+    "SOURCE_TAG_MADDISON",
     "SOURCE_TAG_NONE",
+    "SOURCE_TAG_REIGN",
     "SOURCE_TAG_SIPRI",
+    "SOURCE_TAG_SOVIET_LEADERS_CURATED",
     "SOURCE_TAG_VDEM",
     "SOURCE_TAG_WDI",
+    "SOVIET_LEADERS_CURATED_ATTRIBUTION",
+    "SOVIET_LEADERS_DIRECT_CONFIDENCE",
+    "SOVIET_LEADERS_MULTI_LEADER_CONFIDENCE",
     "SYSTEM_TYPE_COUNTRY_PERIODS",
     "VDEM_ATTRIBUTION",
     "VDEM_DIRECT_CONFIDENCE",

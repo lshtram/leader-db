@@ -17,6 +17,12 @@ Increment 0 plan in
 :file:`docs/country-year-chronicle-increment-0.md`. The command always
 writes an attribution comment block before the header per
 :file:`docs/source-attributions.md` §3.2.
+
+SQLite artifact. Pass ``--sqlite-output <PATH>`` to write a SQLite
+database to a custom path. When the flag is omitted, the command writes
+the SQLite artifact to the default path
+``<project_root>/data/outputs/country-year-chronicle/pilot.sqlite``.
+The CSV behavior is unchanged when ``--sqlite-output`` is not passed.
 """
 
 from __future__ import annotations
@@ -77,6 +83,17 @@ def _default_output_path() -> Path:
     )
 
 
+def _default_sqlite_output_path() -> Path:
+    """Return the canonical SQLite artifact default path.
+
+    Resolves to
+    ``<project_root>/data/outputs/country-year-chronicle/pilot.sqlite``
+    regardless of the caller's working directory.
+    """
+    from ..chronicle.sqlite_writer import default_sqlite_path
+    return default_sqlite_path()
+
+
 @app.command("run-country-year-chronicle")
 def run_country_year_chronicle_cmd(
     start_year: int = typer.Option(
@@ -108,6 +125,18 @@ def run_country_year_chronicle_cmd(
             f"{DEFAULT_OUTPUT_BASENAME}."
         ),
     ),
+    sqlite_output: Path | None = typer.Option(
+        None,
+        "--sqlite-output",
+        help=(
+            "Optional SQLite artifact path. When set, the runner writes "
+            "a SQLite database to the given path with the same row "
+            "contents (plus a ``source_attributions`` sidecar table). "
+            "If omitted, the default path "
+            "``<project_root>/data/outputs/country-year-chronicle/pilot.sqlite``"
+            " is used."
+        ),
+    ),
     allow_regime_proxy: bool = typer.Option(
         True,
         "--allow-regime-proxy/--no-allow-regime-proxy",
@@ -127,6 +156,14 @@ def run_country_year_chronicle_cmd(
     ``data_quality_flags``. See
     ``docs/country-year-chronicle-increment-0.md`` for the full
     contract.
+
+    Omit ``--sqlite-output`` for the default SQLite path,
+    ``<project_root>/data/outputs/country-year-chronicle/pilot.sqlite``.
+    Passing ``--sqlite-output <PATH>`` writes SQLite to that path.
+    The SQLite schema is a single ``country_year_chronicle``
+    table with TEXT / INTEGER / REAL columns matching the CSV field
+    names, plus a ``source_attributions`` sidecar table that mirrors
+    the attribution block from the CSV comment lines.
     """
     iso3_scope = _parse_iso3_scope(countries)
 
@@ -135,16 +172,22 @@ def run_country_year_chronicle_cmd(
             f"--start-year ({start_year}) must be <= --end-year ({end_year})"
         )
 
-    # Resolve the default output path lazily so that
+    # Resolve the default output paths lazily so that
     # ``LEADERSDB_PROJECT_ROOT`` overrides (e.g. the test fixture) are
     # honored at invocation time, not at module-import time.
     output_path = output if output is not None else _default_output_path()
+    sqlite_path = (
+        sqlite_output
+        if sqlite_output is not None
+        else _default_sqlite_output_path()
+    )
 
     typer.echo(
         f"[country_year_chronicle] year_window={start_year}-{end_year} "
         f"countries={','.join(iso3_scope)} "
         f"allow_regime_proxy={allow_regime_proxy} "
-        f"output={output_path}"
+        f"output={output_path} "
+        f"sqlite_output={sqlite_path}"
     )
 
     result: ChronicleResult = run_country_year_chronicle(
@@ -152,6 +195,7 @@ def run_country_year_chronicle_cmd(
         iso3_scope=iso3_scope,
         start_year=start_year,
         end_year=end_year,
+        sqlite_output_path=sqlite_path,
         allow_regime_proxy=allow_regime_proxy,
     )
 
@@ -162,6 +206,7 @@ def run_country_year_chronicle_cmd(
     typer.echo(f"  end_year:            {result.end_year}")
     typer.echo(f"  sources_used:        {', '.join(result.sources_used) or '(none)'}")
     typer.echo(f"  output_path:         {result.output_path}")
+    typer.echo(f"  sqlite_output_path:  {result.sqlite_output_path}")
     typer.echo(
         "Caveat: this is an experimental vertical slice — "
         "not the final scoring or the authoritative record."

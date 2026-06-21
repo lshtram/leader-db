@@ -28,6 +28,7 @@ from pathlib import Path
 import pandas as pd
 from typer.testing import CliRunner
 
+from leaders_db.chronicle.sqlite_writer import default_sqlite_path
 from leaders_db.cli import app
 
 # ---------------------------------------------------------------------------
@@ -131,6 +132,24 @@ def test_command_help_shows_documented_defaults() -> None:
     assert "allow-regime-proxy" in result.stdout
 
 
+def test_command_help_does_not_document_sqlite_opt_out() -> None:
+    """Help text should not claim ``--sqlite-output`` supports no-value
+    usage or opt-out behavior.
+
+    The historical blocker was a docs/help contract mismatch claiming
+    pass-without-value/empty flags; the actual command does not support
+    that mode.
+    """
+    result = runner.invoke(app, ["run-country-year-chronicle", "--help"])
+    assert result.exit_code == 0, result.stdout
+    help_text = result.stdout
+    assert "--sqlite-output" in help_text
+    assert "--sqlite-output <PATH>" in help_text
+    assert "with no value" not in help_text.lower()
+    assert "without an explicit path" not in help_text.lower()
+    assert "empty --sqlite-output" not in help_text.lower()
+
+
 # ---------------------------------------------------------------------------
 # CLI command execution
 # ---------------------------------------------------------------------------
@@ -155,6 +174,97 @@ def test_command_writes_csv_file(
     assert result.exit_code == 0, result.stdout
     assert output.is_file(), f"missing output file: {output}"
     assert output.stat().st_size > 0
+
+
+def test_command_default_writes_sqlite_to_canonical_path(
+    isolated_data_lake: Path, tmp_path: Path
+) -> None:
+    """Without ``--sqlite-output``, the default SQLite path is written."""
+    _seed_isolated_data_lake(isolated_data_lake)
+
+    output_csv = tmp_path / "pilot.csv"
+    expected_sqlite = default_sqlite_path(project_root=isolated_data_lake)
+    if expected_sqlite.exists():
+        expected_sqlite.unlink()
+
+    result = runner.invoke(
+        app,
+        [
+            "run-country-year-chronicle",
+            "--start-year",
+            "2024",
+            "--end-year",
+            "2024",
+            "--countries",
+            "USA",
+            "--output",
+            str(output_csv),
+        ],
+    )
+    assert result.exit_code == 0, result.stdout
+    assert output_csv.is_file()
+    assert expected_sqlite.is_file()
+
+
+def test_command_writes_sqlite_to_explicit_path_when_provided(
+    isolated_data_lake: Path, tmp_path: Path
+) -> None:
+    """Passing ``--sqlite-output <PATH>`` writes SQLite to that path."""
+    _seed_isolated_data_lake(isolated_data_lake)
+
+    explicit_sqlite = tmp_path / "explicit.sqlite"
+    output_csv = tmp_path / "pilot.csv"
+    default_sqlite = default_sqlite_path(project_root=isolated_data_lake)
+    if default_sqlite.exists():
+        default_sqlite.unlink()
+
+    result = runner.invoke(
+        app,
+        [
+            "run-country-year-chronicle",
+            "--start-year",
+            "2024",
+            "--end-year",
+            "2024",
+            "--countries",
+            "USA",
+            "--output",
+            str(output_csv),
+            "--sqlite-output",
+            str(explicit_sqlite),
+        ],
+    )
+    assert result.exit_code == 0, result.stdout
+    assert explicit_sqlite.is_file()
+    assert not default_sqlite.exists()
+
+
+def test_command_rejects_sqlite_output_without_value(
+    isolated_data_lake: Path, tmp_path: Path
+) -> None:
+    """Typer requires a value after ``--sqlite-output``; no-value mode is
+    unsupported."""
+    _seed_isolated_data_lake(isolated_data_lake)
+
+    output_csv = tmp_path / "pilot.csv"
+    result = runner.invoke(
+        app,
+        [
+            "run-country-year-chronicle",
+            "--start-year",
+            "2024",
+            "--end-year",
+            "2024",
+            "--countries",
+            "USA",
+            "--output",
+            str(output_csv),
+            "--sqlite-output",
+        ],
+    )
+    assert result.exit_code != 0, result.stdout
+    combined_output = result.stdout + result.stderr
+    assert "sqlite-output" in combined_output.lower()
 
 
 def test_command_writes_attribution_block(

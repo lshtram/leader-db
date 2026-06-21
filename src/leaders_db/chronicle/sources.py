@@ -21,6 +21,13 @@ consumes. The loaders are deliberately tiny:
   parquet uses country display names, not ISO3 codes; we keep a small
   ISO3->display-name map. Same caveat: only 2022 is available locally.
 
+The Maddison Project loader (:class:`MaddisonSource` +
+:func:`load_maddison_source`) lives in
+:mod:`leaders_db.chronicle._maddison_source` to keep this module
+focused on the WDI / SIPRI / V-Dem trio and under the 400-line
+convention. It is re-exported below for back-compat with callers
+that already import from here.
+
 All loaders are pure functions with no module-level mutable state, so
 the runner can instantiate them once and reuse them across rows.
 
@@ -38,10 +45,8 @@ from typing import Final
 
 import pandas as pd
 
-from .constants import (
-    DEFAULT_PROXY_YEAR,
-    VDEM_MAX_COVERED_YEAR,
-)
+from ._maddison_source import MaddisonSource, load_maddison_source
+from .constants import DEFAULT_PROXY_YEAR, VDEM_MAX_COVERED_YEAR
 
 _logger = logging.getLogger(__name__)
 
@@ -397,10 +402,12 @@ class RegimeSource:
 
 __all__ = [
     "SIPRI_NAME_BY_ISO3",
+    "MaddisonSource",
     "RegimeSource",
     "SipriSource",
     "VDemSource",
     "WdiSource",
+    "load_maddison_source",
     "load_sipri_source",
     "load_vdem_source",
     "load_wdi_source",

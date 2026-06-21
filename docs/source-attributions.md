@@ -210,6 +210,26 @@ Each source below is in active use by the pipeline. The table at the end of this
 - **Canonical download:** https://dataverse.nl/api/access/datafile/421302 (Excel).
 - **Canonical page:** https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023
 
+### `cshapes` — CShapes 2.0 (historical country boundaries and area, 1886–2019)
+
+- **What we extract:** country area (km²) per country-year, keyed by Gleditsch-Ward state code. The Chronicle row builder narrows the raw CSV to the pilot ISO3 set (USA, GBR, FRA, IND, RUS, SUN, CHN), dispatches the GW 365 record (Russian Empire + USSR + RUS) to SUN for 1922-1991 and RUS for 1992+, and emits `country_area_km2` per `(iso3, year)`. CShapes coverage ends in 2019; rows for 2020+ are proxied from the most recent CShapes year and tagged with `area_proxy_year_used`.
+- **What we don't use:** the `the_geom` / `cap_geom` WKT polygon columns (area only), dependency / colony rows (controlled-area summing is deferred per Increment 4), the COW-coded variant (only the GW-coded CSV is staged).
+- **License:** **CC BY-NC-SA 4.0 International** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0). Per CShapes 2.0 (Schvitz et al. 2022) terms; non-commercial redistribution requires attribution + share-alike.
+- **Citation:**
+  > Schvitz, Guy, Seraina Rüegger, Luc Girardin, Lars-Erik Cederman, Nils Weidmann, and Kristian Skrede Gleditsch. 2022. "Mapping The International System, 1886-2017: The CShapes 2.0 Dataset." Journal of Conflict Resolution 66(1): 144–61.
+- **Attribution text in reports:** "CShapes 2.0 (Schvitz et al. 2022), ETH Zurich ICR."
+- **Canonical download:** https://icr.ethz.ch/data/cshapes/CShapes-2.0.csv
+
+### `soviet_leaders_curated` — Soviet Union rulers (curated subset, Wikipedia-anchored)
+
+- **What we extract:** per-leader spells (start / end dates) for the Soviet Union identity (Lenin, Stalin, Malenkov, Khrushchev, Brezhnev, Andropov, Chernenko, Gorbachev), 1922-12-30 to 1991-12-25. Fills the SUN ruler gap that neither Archigos (ccode 365 is the merged Russian-Empire + USSR + RUS record) nor REIGN (monthly data for the same merged ccode) can resolve cleanly. The Chronicle resolver picks the leader with the most days in the requested year; transition years (1924, 1953, 1985) emit `multiple_rulers` and the lower `SOVIET_LEADERS_MULTI_LEADER_CONFIDENCE` confidence.
+- **What we don't use:** non-Soviet leaders (the CSV is SUN-only); the raw Wikipedia infobox / markup (only the curated spell list is loaded). The full Soviet leader records (every Politburo member, every Presidium chairman) are out of scope for the Increment 3 pilot — only the de facto leader (General Secretary / Premier) is populated.
+- **License:** The curated CSV is a project artifact; the underlying facts (leader names, dates) are derived from Wikipedia and are not copyrightable. Cite the source URLs in the metadata for downstream attribution.
+- **Citation:**
+  > Wikipedia contributors. "List of leaders of the Soviet Union." Wikipedia, The Free Encyclopedia. https://en.wikipedia.org/wiki/List_of_leaders_of_the_Soviet_Union (anchored 2026-06-21).
+- **Attribution text in reports:** "Soviet leaders (curated subset, Wikipedia 'List of leaders of the Soviet Union'), as of 2026-06-21."
+- **Anchor URLs:** https://en.wikipedia.org/wiki/List_of_leaders_of_the_Soviet_Union, https://en.wikipedia.org/wiki/General_Secretary_of_the_Communist_Party_of_the_Soviet_Union, https://en.wikipedia.org/wiki/Premier_of_the_Soviet_Union
+
 ### Generated text (LLM rationale, Stage 9–10 output)
 
 - The LLM is invoked only for ambiguous interpretation per REQ-LLM-001.
@@ -227,6 +247,8 @@ Each source below is in active use by the pipeline. The table at the end of this
 | `vdem` | political freedom, governance, corruption, repression, social well-being (subset) | 1789–2025 | free academic, DOI 10.23696/vdemds26 | "V-Dem v16 (Coppedge et al. 2026)." |
 | `world_bank_wdi` | economic indicators, social well-being (subset) | 1960–2023+ | CC BY 4.0 | "World Bank WDI (World Bank 2024)." |
 | `maddison_project` | historical economic indicators (GDP per capita, population, derived real GDP total) | 1–2022 | CC BY 4.0 | "Bolt, Jutta and Jan Luiten van Zanden (2024), 'Maddison style estimates of the evolution of the world economy: A new 2023 update', Journal of Economic Surveys, 1-41. DOI: 10.1111/joes.12618. Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)." |
+| `cshapes` | country area (km²) | 1886–2019 | CC BY-NC-SA 4.0 | "CShapes 2.0 (Schvitz et al. 2022), ETH Zurich ICR." |
+| `soviet_leaders_curated` | SUN ruler identity (de facto leader spells) | 1922-12-30 to 1991-12-25 | Wikipedia-anchored curated facts | "Soviet leaders (curated subset, Wikipedia 'List of leaders of the Soviet Union'), as of 2026-06-21." |
 | `pwt` | economic indicators (PPP) | 1950–2019 | free academic | "Penn World Table 10.01 (Feenstra, Inklaar, Timmer 2015)." |
 | `bti` | governance index, governance performance, status index, political/economic transformation questions | 2006–2026 (biennial) | free, cite Bertelsmann Stiftung | "BTI 2026 (Bertelsmann Stiftung 2026)." |
 | `world_bank_wgi` | governance indicators | 1996–2022 | CC BY 4.0 | "World Bank WGI (World Bank 2023)." |
@@ -389,6 +411,23 @@ V-Dem v16 (Coppedge et al. 2026).
 World Bank WDI (World Bank 2024).
   World Bank. 2024. World Development Indicators.
   https://data.worldbank.org/
+
+Bolt, Jutta and Jan Luiten van Zanden (2024), "Maddison style
+estimates of the evolution of the world economy: A new 2023 update",
+Journal of Economic Surveys, 1-41. DOI: 10.1111/joes.12618.
+Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+
+CShapes 2.0 (Schvitz et al. 2022).
+  Schvitz, Guy, Seraina Ruegger, Luc Girardin, Lars-Erik Cederman,
+  Nils Weidmann, and Kristian Skrede Gleditsch. 2022. "Mapping The
+  International System, 1886-2017: The CShapes 2.0 Dataset."
+  Journal of Conflict Resolution 66(1): 144-61.
+
+Soviet leaders (curated subset, Wikipedia 'List of leaders of the
+Soviet Union'), as of 2026-06-21.
+  Wikipedia contributors. "List of leaders of the Soviet Union."
+  Wikipedia, The Free Encyclopedia.
+  https://en.wikipedia.org/wiki/List_of_leaders_of_the_Soviet_Union
 
 World Bank WGI (World Bank 2023).
   World Bank. 2023. Worldwide Governance Indicators.

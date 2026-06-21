@@ -375,7 +375,10 @@ def _sample_row() -> dict[str, str]:
     row["gdp_source_year_used"] = "2023"
     row["data_quality_flags"] = "missing_ruler|missing_area|controlled_area_not_modeled"
     row["row_confidence"] = "65"
-    row["provenance_summary"] = "regime=vdem|wdi=yes|sipri=no|flags=missing_ruler,missing_area"
+    row["provenance_summary"] = (
+        "regime=vdem|wdi=yes|sipri=no|maddison=no|ruler=none"
+        "|flags=missing_ruler,missing_area"
+    )
     row["controlled_area_note"] = (
         "controlled_area not modeled in Increment 1; standard area empty "
         "pending a vetted static area source."
@@ -540,3 +543,294 @@ def test_nan_handling_helper_consistency() -> None:
     # Here we just confirm Python's behavior we rely on.
     assert math.isnan(float("nan"))
     assert repr(None) == "None"  # Confirm Python semantics so a refactor is intentional.
+
+
+# ---------------------------------------------------------------------------
+# Reviewer-blocker drift tests (Increment 2 sign-off)
+#
+# The Chronicle slice emits attribution comment lines via
+# :func:`leaders_db.chronicle.csv_writer.build_attribution_comment_block`.
+# Per Always-On Rule #15 every emitted line must be a substring of
+# ``docs/source-attributions.md``. The reviewer called out the
+# Maddison attribution in particular: the Chronicle constant must
+# be byte-identical to the canonical citation in the doc, not a
+# shorter abbreviation. The same drift guard covers Archigos and
+# REIGN (REIGN was a reviewer finding too).
+# ---------------------------------------------------------------------------
+
+
+def test_maddison_chronicle_attribution_matches_attributions_doc() -> None:
+    """Drift guard: the Chronicle ``MADDISON_PROJECT_ATTRIBUTION``
+    constant must appear verbatim in ``docs/source-attributions.md``.
+
+    This is the Increment 2 reviewer gate: the canonical
+    Maddison citation in the doc is the long
+    ``Bolt, Jutta and Jan Luiten van Zanden (2024), ...``
+    string. A Chronicle constant that uses a short
+    abbreviation will fail this test and force both to be
+    updated together.
+    """
+    from leaders_db.chronicle.source_constants import (
+        MADDISON_PROJECT_ATTRIBUTION,
+    )
+
+    doc = _read_source_attributions_doc()
+    assert MADDISON_PROJECT_ATTRIBUTION in doc, (
+        f"MADDISON_PROJECT_ATTRIBUTION constant is not in "
+        f"docs/source-attributions.md: {MADDISON_PROJECT_ATTRIBUTION!r}"
+    )
+
+
+def test_reign_chronicle_attribution_matches_attributions_doc() -> None:
+    """Drift guard: the Chronicle ``REIGN_ATTRIBUTION`` constant
+    must appear verbatim in ``docs/source-attributions.md``.
+
+    The doc says ``"REIGN dataset (Bell 2016), snapshot of
+    August 2021."`` and the Chronicle constant must match.
+    """
+    from leaders_db.chronicle.source_constants import (
+        REIGN_ATTRIBUTION,
+    )
+
+    doc = _read_source_attributions_doc()
+    assert REIGN_ATTRIBUTION in doc, (
+        f"REIGN_ATTRIBUTION constant is not in "
+        f"docs/source-attributions.md: {REIGN_ATTRIBUTION!r}"
+    )
+
+
+def test_archigos_chronicle_attribution_matches_attributions_doc() -> None:
+    """Drift guard: the Chronicle ``ARCHIGOS_ATTRIBUTION``
+    constant must appear verbatim in
+    ``docs/source-attributions.md``.
+    """
+    from leaders_db.chronicle.source_constants import (
+        ARCHIGOS_ATTRIBUTION,
+    )
+
+    doc = _read_source_attributions_doc()
+    assert ARCHIGOS_ATTRIBUTION in doc, (
+        f"ARCHIGOS_ATTRIBUTION constant is not in "
+        f"docs/source-attributions.md: {ARCHIGOS_ATTRIBUTION!r}"
+    )
+
+
+def test_build_attribution_block_emits_maddison_long_form() -> None:
+    """End-to-end check: the CSV writer's attribution comment
+    block emits the long-form Maddison attribution string when
+    the runner reports ``maddison_project`` in ``sources_used``.
+
+    This catches the bug where the constant is short but the doc
+    is long (or vice versa) -- the writer is the production
+    surface that downstream readers see.
+    """
+    from leaders_db.chronicle.source_constants import (
+        MADDISON_PROJECT_ATTRIBUTION,
+    )
+
+    lines = build_attribution_comment_block(
+        sources_used=["maddison_project"],
+    )
+    maddison_lines = [
+        line for line in lines if MADDISON_PROJECT_ATTRIBUTION in line
+    ]
+    assert len(maddison_lines) == 1, (
+        f"expected exactly one Maddison attribution line, got "
+        f"{len(maddison_lines)} in {lines!r}"
+    )
+    assert maddison_lines[0].startswith("# ")
+
+
+def test_build_attribution_block_emits_reign_canonical_form() -> None:
+    """End-to-end check: the CSV writer's attribution comment
+    block emits the canonical REIGN attribution string.
+    """
+    from leaders_db.chronicle.source_constants import (
+        REIGN_ATTRIBUTION,
+    )
+
+    lines = build_attribution_comment_block(sources_used=["reign"])
+    reign_lines = [line for line in lines if REIGN_ATTRIBUTION in line]
+    assert len(reign_lines) == 1
+    assert reign_lines[0].startswith("# ")
+
+
+def test_write_chronicle_csv_emits_maddison_long_form_in_file(
+    tmp_path: Path,
+) -> None:
+    """The literal CSV file (the production public output)
+    contains the long-form Maddison attribution string. This is
+    the ultimate reviewer-gate proof: a downstream consumer who
+    parses the CSV with pandas and looks at the leading comment
+    block sees the canonical Bolt and van Zanden (2024) text.
+    """
+    from leaders_db.chronicle.source_constants import (
+        MADDISON_PROJECT_ATTRIBUTION,
+    )
+
+    out = tmp_path / "pilot.csv"
+    write_chronicle_csv(
+        output_path=out,
+        rows=[_sample_row()],
+        sources_used=["maddison_project"],
+    )
+    text = out.read_text(encoding="utf-8")
+    assert MADDISON_PROJECT_ATTRIBUTION in text, (
+        "Maddison attribution line missing from the CSV file"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Reviewer-blocker drift tests (Increment 3 sign-off)
+#
+# Increment 3 adds two new sources to the Chronicle: CShapes 2.0
+# (country area) and the curated Soviet-leaders spell list (SUN
+# rulers). The drift-guard pattern is the same as for Maddison /
+# REIGN / Archigos: the canonical attribution constant must be a
+# substring of docs/source-attributions.md, the writer must emit
+# the canonical text in the leading comment block, and the
+# literal CSV file must contain the canonical text. The reviewer
+# gate is "no source ships without attribution".
+# ---------------------------------------------------------------------------
+
+
+def test_cshapes_chronicle_attribution_matches_attributions_doc() -> None:
+    """Drift guard: the Chronicle ``CSHAPES_ATTRIBUTION`` constant
+    must appear verbatim in ``docs/source-attributions.md``.
+    """
+    from leaders_db.chronicle.source_constants import (
+        CSHAPES_ATTRIBUTION,
+    )
+
+    doc = _read_source_attributions_doc()
+    assert CSHAPES_ATTRIBUTION in doc, (
+        f"CSHAPES_ATTRIBUTION constant is not in "
+        f"docs/source-attributions.md: {CSHAPES_ATTRIBUTION!r}"
+    )
+
+
+def test_soviet_leaders_curated_attribution_matches_attributions_doc() -> None:
+    """Drift guard: the ``SOVIET_LEADERS_CURATED_ATTRIBUTION``
+    constant must appear verbatim in
+    ``docs/source-attributions.md``.
+    """
+    from leaders_db.chronicle.source_constants import (
+        SOVIET_LEADERS_CURATED_ATTRIBUTION,
+    )
+
+    doc = _read_source_attributions_doc()
+    assert SOVIET_LEADERS_CURATED_ATTRIBUTION in doc, (
+        f"SOVIET_LEADERS_CURATED_ATTRIBUTION constant is not in "
+        f"docs/source-attributions.md: {SOVIET_LEADERS_CURATED_ATTRIBUTION!r}"
+    )
+
+
+def test_build_attribution_block_emits_cshapes_line() -> None:
+    """End-to-end: the CSV writer's attribution comment block
+    emits the canonical CShapes 2.0 attribution string.
+    """
+    from leaders_db.chronicle.source_constants import (
+        CSHAPES_ATTRIBUTION,
+    )
+
+    lines = build_attribution_comment_block(sources_used=["cshapes"])
+    cshapes_lines = [line for line in lines if CSHAPES_ATTRIBUTION in line]
+    assert len(cshapes_lines) == 1
+    assert cshapes_lines[0].startswith("# ")
+
+
+def test_build_attribution_block_emits_soviet_leaders_curated_line() -> None:
+    """End-to-end: the CSV writer's attribution comment block
+    emits the canonical Soviet-leaders curated attribution string.
+    """
+    from leaders_db.chronicle.source_constants import (
+        SOVIET_LEADERS_CURATED_ATTRIBUTION,
+    )
+
+    lines = build_attribution_comment_block(
+        sources_used=["soviet_leaders_curated"],
+    )
+    sun_lines = [
+        line for line in lines if SOVIET_LEADERS_CURATED_ATTRIBUTION in line
+    ]
+    assert len(sun_lines) == 1
+    assert sun_lines[0].startswith("# ")
+
+
+def test_write_chronicle_csv_emits_cshapes_line_in_file(
+    tmp_path: Path,
+) -> None:
+    """The literal CSV file (the production public output)
+    contains the canonical CShapes 2.0 attribution string when
+    the runner reports ``cshapes`` in ``sources_used``.
+    """
+    from leaders_db.chronicle.source_constants import (
+        CSHAPES_ATTRIBUTION,
+    )
+
+    out = tmp_path / "pilot.csv"
+    write_chronicle_csv(
+        output_path=out,
+        rows=[_sample_row()],
+        sources_used=["cshapes"],
+    )
+    text = out.read_text(encoding="utf-8")
+    assert CSHAPES_ATTRIBUTION in text
+
+
+def test_write_chronicle_csv_emits_soviet_leaders_curated_line_in_file(
+    tmp_path: Path,
+) -> None:
+    """The literal CSV file contains the canonical Soviet-leaders
+    attribution string when the runner reports
+    ``soviet_leaders_curated`` in ``sources_used``.
+    """
+    from leaders_db.chronicle.source_constants import (
+        SOVIET_LEADERS_CURATED_ATTRIBUTION,
+    )
+
+    out = tmp_path / "pilot.csv"
+    write_chronicle_csv(
+        output_path=out,
+        rows=[_sample_row()],
+        sources_used=["soviet_leaders_curated"],
+    )
+    text = out.read_text(encoding="utf-8")
+    assert SOVIET_LEADERS_CURATED_ATTRIBUTION in text
+
+
+def test_cshapes_source_tag_constant_value() -> None:
+    """The CShapes source-tag constant is the canonical
+    ``"cshapes"`` string. Downstream consumers (the row builder,
+    the runner's ``sources_used`` detection, the SQLite sidecar)
+    use this constant as the canonical tag.
+    """
+    from leaders_db.chronicle.source_constants import (
+        SOURCE_TAG_CSHAPES,
+    )
+
+    assert SOURCE_TAG_CSHAPES == "cshapes"
+
+
+def test_soviet_leaders_curated_source_tag_constant_value() -> None:
+    """The Soviet-leaders curated source-tag constant is the
+    canonical ``"soviet_leaders_curated"`` string.
+    """
+    from leaders_db.chronicle.source_constants import (
+        SOURCE_TAG_SOVIET_LEADERS_CURATED,
+    )
+
+    assert SOURCE_TAG_SOVIET_LEADERS_CURATED == "soviet_leaders_curated"
+
+
+def test_flag_constants_match_increment3_spec() -> None:
+    """The Increment 3 area / controlled-area flags are stable
+    constants and match the documented strings.
+    """
+    from leaders_db.chronicle.constants import (
+        FLAG_AREA_PROXY_YEAR_USED,
+        FLAG_CONTROLLED_AREA_COUNTRY_ONLY,
+    )
+
+    assert FLAG_AREA_PROXY_YEAR_USED == "area_proxy_year_used"
+    assert FLAG_CONTROLLED_AREA_COUNTRY_ONLY == "controlled_area_country_only"
