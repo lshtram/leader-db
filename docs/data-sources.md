@@ -57,6 +57,7 @@ Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ defe
 | Source key | Verdict | Description | Notes |
 |---|---|---|---|
 | `world_bank_wdi` | ✅ | World Bank World Development Indicators | Free API; 2023 data confirmed. |
+| `maddison_project` | ✅ | Maddison Project Database 2023 (Bolt and van Zanden 2024) | Canonical 4.9 MB xlsx is expected at `data/raw/maddison_project/mpd2023.xlsx` for real ingestion; raw file is not committed. 169 countries; covers 1–2022 (no 2023 data; **only year == 2023 target-year requests are proxied to 2022 per the documented 1-year-gap pattern** — years 2024+ are NOT silently backed by Maddison 2022; if WDI is missing those rows are blank with `missing_population` / `missing_gdp` flags). CC BY 4.0. **Provides the historical real-economy signal for the `economic_wellbeing` rating category.** Stage 2 adapter reads ONLY the `Full data` sheet and computes the derived total real GDP indicator (`gdppc * pop * 1000`) at row time when both cells are present. The Chronicle row builder uses Maddison for 1900-2022 and falls back to Maddison 2022 as the documented 1-year-gap proxy for year == 2023 only. |
 | `pwt` | ✅ | Penn World Table 10.01 | Free xlsx, 6.5MB; 183 economies, PPP-based; cross-validates WDI. |
 | `imf_weo` | ❌ | IMF World Economic Outlook | Akamai bot challenge (403). User can fetch manually if needed. |
 

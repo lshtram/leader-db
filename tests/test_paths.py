@@ -32,6 +32,7 @@ def test_priority_sources_present() -> None:
         "bti",
         "cirights",
         "fas",
+        "maddison_project",
         "political_terror_scale",
         "reign",
         "rsf_press_freedom",

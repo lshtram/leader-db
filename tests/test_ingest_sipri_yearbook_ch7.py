@@ -1187,6 +1187,7 @@ def test_stage2_adapters_dispatch_table() -> None:
         "bti",
         "cia_world_leaders",
         "rsf_press_freedom",
+        "maddison_project",
     }
     assert set(STAGE2_ADAPTERS.keys()) == expected_keys
 

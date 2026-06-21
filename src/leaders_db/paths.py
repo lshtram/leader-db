@@ -43,6 +43,7 @@ PRIORITY_SOURCES: tuple[str, ...] = (
     "bti",
     "cirights",
     "fas",
+    "maddison_project",
     "political_terror_scale",  # Stage 2 dispatch key is ``pts``; raw folder uses the source name.
     "reign",
     "rsf_press_freedom",

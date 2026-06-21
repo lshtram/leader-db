@@ -27,6 +27,7 @@ from . import (
     bti,
     cirights,
     fas,
+    maddison_project,
     pts,
     reign,
     rsf_press_freedom,
@@ -76,6 +77,7 @@ STAGE2_ADAPTERS: dict[str, Callable[..., Any] | None] = {
     "wikipedia_search_extract": (
         wikipedia_search_extract.ingest_wikipedia_search_extract
     ),
+    "maddison_project": maddison_project.ingest_maddison_project,
     # Blocked on raw bundle (raw file not staged locally; per Always-On
     # Rule #6 we never invent fixtures). Adapters will be implemented in
     # Phase C.10+ once the user stages ``p5v2018.sav`` / ``pwt100.xlsx``

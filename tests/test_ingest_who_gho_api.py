@@ -1186,6 +1186,7 @@ def test_stage2_adapters_dispatch_table(
         "wikidata_heads_of_state_government", "wikipedia_search_extract",
         "freedom_house", "imf_weo", "cow_mid", "cirights",
         "nti", "bti", "cia_world_leaders", "rsf_press_freedom",
+        "maddison_project",
     }
     assert set(STAGE2_ADAPTERS.keys()) == expected_keys
 

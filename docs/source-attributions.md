@@ -199,6 +199,17 @@ Each source below is in active use by the pipeline. The table at the end of this
   > Reporters Without Borders. 2026. *World Press Freedom Index*. Paris: Reporters Without Borders / Reporters sans frontières. https://rsf.org/en/index
 - **Attribution text in reports:** "RSF World Press Freedom Index (Reporters Without Borders 2026)."
 
+### `maddison_project` — Maddison Project Database 2023 (real-economy history, 1–2022)
+
+- **What we extract:** real GDP per capita (2011 international dollars, long-run comparable), population (thousands), and a DERIVED total real GDP indicator (`gdppc * pop * 1000`) computed by the Stage 2 adapter when both cells are present for the same country-year. Feeds the `economic_wellbeing` rating category.
+- **What we don't use:** pre-1 and post-2022 values (the 2023 release ends at 2022; 2023 target-year requests are proxied to 2022 per the CIRIGHTS / UNDP HDI / Leader Survival 1-year-gap pattern). Per-indicator wide tabs (GDPpc, Population, Regional data, Maddison original sources, Notes, Sources) are also not used — the Stage 2 contract reads ONLY the `Full data` sheet.
+- **License:** CC BY 4.0 International. Free academic + non-commercial; cite Bolt and van Zanden (2024) verbatim.
+- **Citation:**
+  > Bolt, Jutta and Jan Luiten van Zanden (2024), "Maddison style estimates of the evolution of the world economy: A new 2023 update", Journal of Economic Surveys, 1-41. DOI: 10.1111/joes.12618.
+- **Attribution text in reports:** "Bolt, Jutta and Jan Luiten van Zanden (2024), 'Maddison style estimates of the evolution of the world economy: A new 2023 update', Journal of Economic Surveys, 1-41. DOI: 10.1111/joes.12618. Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)."
+- **Canonical download:** https://dataverse.nl/api/access/datafile/421302 (Excel).
+- **Canonical page:** https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023
+
 ### Generated text (LLM rationale, Stage 9–10 output)
 
 - The LLM is invoked only for ambiguous interpretation per REQ-LLM-001.
@@ -215,6 +226,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 | `leader_survival` | leader identity (historical) | 1789–2022 | free academic | "Leader Survival (PLT post-1789) v5, H-DATA (Gerring et al. 2024)." |
 | `vdem` | political freedom, governance, corruption, repression, social well-being (subset) | 1789–2025 | free academic, DOI 10.23696/vdemds26 | "V-Dem v16 (Coppedge et al. 2026)." |
 | `world_bank_wdi` | economic indicators, social well-being (subset) | 1960–2023+ | CC BY 4.0 | "World Bank WDI (World Bank 2024)." |
+| `maddison_project` | historical economic indicators (GDP per capita, population, derived real GDP total) | 1–2022 | CC BY 4.0 | "Bolt, Jutta and Jan Luiten van Zanden (2024), 'Maddison style estimates of the evolution of the world economy: A new 2023 update', Journal of Economic Surveys, 1-41. DOI: 10.1111/joes.12618. Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)." |
 | `pwt` | economic indicators (PPP) | 1950–2019 | free academic | "Penn World Table 10.01 (Feenstra, Inklaar, Timmer 2015)." |
 | `bti` | governance index, governance performance, status index, political/economic transformation questions | 2006–2026 (biennial) | free, cite Bertelsmann Stiftung | "BTI 2026 (Bertelsmann Stiftung 2026)." |
 | `world_bank_wgi` | governance indicators | 1996–2022 | CC BY 4.0 | "World Bank WGI (World Bank 2023)." |
@@ -286,10 +298,10 @@ For each source below, the reason it was not used and the substitute decision.
 
 > Moved to "Sources In Use" on 2026-06-17 after the user placed the cumulative `BTI_2006-2026_Scores.xlsx` (and the codebook PDF) at `data/raw/bti/`. The original "site returning 500 errors" finding on `/en/reports` and `/en/data` was correct at probe time but the canonical downloads page `/en/downloads` is alive, and BTI 2026 ("Repression Meets Resistance") has been released. See Section 1 for the active entry.
 
-### `pwt_maddison` — historical economic source
+### `pwt_maddison` — superseded combined historical-economic candidate
 
-- **Status:** ⏸️ deferred.
-- **Why:** the Penn World Table (added in the second wave) covers the modern period. Maddison Project data is for the pre-1950 period, which is explicitly out of scope per REQ-HIST-002.
+- **Status:** 🟢 split into active / still-pending sources.
+- **Why:** the earlier combined placeholder bundled two distinct economic sources. Maddison Project Database 2023 is now adopted as `maddison_project` for historical real-economy coverage (see Section 1). Penn World Table remains tracked separately as `pwt`; its adapter is still blocked on source hygiene / raw file placement.
 
 ### `chicago_aisd` / `acled` — auxiliary violence sources
 

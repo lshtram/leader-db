@@ -1,0 +1,66 @@
+# Maddison Project Database 2023 indicator catalog
+#
+# Source: Bolt and van Zanden (2024), "Maddison style estimates of the
+#   evolution of the world economy: A new 2023 update", Journal of
+#   Economic Surveys, 1-41. DOI: 10.1111/joes.12618.
+# Canonical page: https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023
+# Direct download: https://dataverse.nl/api/access/datafile/421302 (Excel),
+#   https://dataverse.nl/api/access/datafile/421303 (Stata).
+# License: CC BY 4.0 International
+#   (https://creativecommons.org/licenses/by/4.0/)
+# Attribution: see docs/source-attributions.md
+#
+# This file is the single source of truth for which Maddison indicators
+# are read in Stage 2. Every Stage 2 maddison_project adapter call
+# resolves its raw_column from this file. Adding/removing an indicator
+# here is the only change needed to widen or narrow the Maddison
+# ingestion for the prototype.
+#
+# Sheet layout (verified live 2026-06-20): the Maddison 2023 release's
+# "Full data" sheet has 6 columns: countrycode, country, region, year,
+# gdppc, pop. The Stage 2 adapter reads ONLY the "Full data" sheet
+# (the GDPpc / Population sheets are the same data restructured as
+# wide-format per-indicator tabs).
+#
+# Year coverage: 1-2022 (no 2023 data in the 2023 release). For the
+# prototype target year 2023, the orchestrator maps to 2022 as proxy
+# (1-year-gap, per the cirights / undp_hdi / leader_survival pattern).
+# The proxy mapping is recorded in the run manifest.
+#
+# higher_is_better convention: 1 = "higher is better" (e.g. GDP per
+# capita), 0 = "must be inverted" (none of the three current Maddison
+# indicators are inverted -- the prototype's economic_wellbeing
+# category treats higher GDP / population as better). Mirrors the
+# WGI / V-Dem / BTI / CIRIGHTS catalog convention.
+#
+# Indicator semantics:
+# - gdppc: GDP per capita in 2011 international dollars (long-run
+#   comparable units). raw_scale = "2011_intl_dollars", unit = "2011
+#   international dollars". Higher is better.
+# - pop: population in thousands. raw_scale = "thousands", unit =
+#   "thousands". Higher is better.
+# - maddison_project_gdp_total_2011_intl_derived: DERIVED indicator
+#   computed as gdppc * pop * 1000 (the *1000 lifts pop from thousands
+#   to absolute persons). raw_column is the literal string
+#   "__derived_gdp_total__" so it can never collide with a real xlsx
+#   column; the Stage 2 read helper computes the value when both gdppc
+#   and pop are present for the same country-year (otherwise NULL).
+#   raw_scale = "derived_2011_intl_dollars", unit = "derived 2011
+#   international dollars" (the "derived" prefix makes the derivation
+#   provenance explicit so the Stage 6 normalizer and downstream
+#   scoring modules do not confuse it with a source-published total).
+#
+# Missing-data convention: the Maddison xlsx uses pandas NaN for both
+# gdppc and pop (109,778 NaN gdppc, 113,269 NaN pop, 107,864 both
+# NaN, in the live 4.9 MB bundle). The Stage 2 read coerces these to
+# NULL in source_observations.normalized_value; raw_value preserves
+# the literal "nan" so the audit trail records what pandas saw.
+# Per-country-year rows where BOTH gdppc and pop are NULL are still
+# written as a parquet row (one per non-null catalog indicator
+# counts as one observation). The derived GDP total is only emitted
+# when both gdppc and pop are non-NULL.
+#
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+maddison_project_gdp_per_capita_2011_intl,gdppc,economic_wellbeing,2011_intl_dollars,0-1,1,2011 international dollars,Real GDP per capita (2011 international dollars, long-run comparable). From Bolt and van Zanden (2024) Maddison Project Database 2023 release (Full data sheet).
+maddison_project_population_thousands,pop,economic_wellbeing,thousands,0-1,1,thousands,Population (thousands). From Bolt and van Zanden (2024) Maddison Project Database 2023 release (Full data sheet).
+maddison_project_gdp_total_2011_intl_derived,__derived_gdp_total__,economic_wellbeing,derived_2011_intl_dollars,0-1,1,derived 2011 international dollars,DERIVED real GDP total = gdppc * pop * 1000 (the *1000 lifts pop from thousands to absolute persons). Computed by the Stage 2 adapter when both gdppc and pop are non-NULL for the same country-year; raw_column is the literal sentinel string so it can never collide with a real xlsx column.
