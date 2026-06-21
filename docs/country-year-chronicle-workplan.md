@@ -35,8 +35,9 @@ country-year from 1900 through 2026:
 - where the gaps, proxy years, successor-state problems, colonial-status issues,
   or disputed-rule cases are.
 
-The first deliverable is a CSV-producing vertical slice. Database persistence can
-come later after the output contract stabilizes.
+The first deliverable was a CSV-producing vertical slice. Increment 2 added a
+SQLite companion artifact for queryable local output while keeping the Chronicle
+slice separate from the main prototype database schema.
 
 ## 3. Scope decisions accepted
 
@@ -94,14 +95,15 @@ additional-territory handling is a later phase with explicit provenance.
 
 ### 3.3 Start as an experimental vertical slice
 
-Do not start with a schema migration. First build a deterministic artifact under:
+Do not start with a schema migration. First build deterministic artifacts under:
 
 ```text
 data/outputs/country-year-chronicle/
 ```
 
-Once the shape and source behavior are proven, decide whether to add canonical DB
-tables or views.
+Increment 2 added `pilot.sqlite` as a generated companion artifact. A canonical
+database migration / table in the main prototype catalog remains deferred until
+the output contract and source behavior are stable.
 
 ## 4. Target output contract
 
@@ -415,7 +417,71 @@ Exit criteria:
 - ✅ `pytest -q` and `ruff check .` pass; production wiring
   proven end-to-end.
 
-### Increment 4 — all countries, reliable recent window
+### Increment 4 — controlled / imperial area design and source vetting
+
+Mode: design first with reviewer gate; implementation only after source and
+definition approval.
+
+Scope:
+
+- Define exactly what `controlled_area_km2` means: legal sovereignty,
+  dependency administration, occupation, protectorate, mandate, overseas
+  territory, or another documented rule.
+- Decide whether dependencies appear as their own rows, as metropole-owned area,
+  or both.
+- Identify and vet a dependency-controller source that can join to CShapes areas.
+  Candidate starting points: ICOW Colonial History / Issue Correlates of War,
+  COW Colonial/Dependency Contiguity, CShapes dependency attributes if a
+  controller field is available, or another auditable colonial/dependency source.
+- Produce a source decision memo before writing production code.
+
+Deliverables:
+
+1. `docs/country-year-chronicle-increment-4.md` with:
+   - controlled-area definition;
+   - included / excluded relationship types;
+   - source candidates, URLs, licenses, coverage, and failure modes;
+   - join design from dependency-controller records to CShapes area rows;
+   - examples for GBR, FRA, NLD, PRT, ESP, RUS/SUN where supported;
+   - decision on whether to implement in the same increment or split source
+     staging into Increment 5.
+2. If a source is accepted, stage it under `data/raw/<source>/` with
+   `metadata.json`, add `docs/data-sources.md` and
+   `docs/source-attributions.md` entries, and write focused loader tests.
+3. If no source is accepted, keep the Increment 3 country-only fallback and record
+   the blocker clearly.
+
+Exit criteria:
+
+- Controlled-area semantics are documented and review-approved.
+- At least one dependency-controller source is accepted or explicitly rejected
+  with evidence.
+- No implementation path requires invented colony/empire mappings.
+- Reviewer passes source attribution, provenance, and no-client-evidence checks.
+
+### Increment 5 — controlled / imperial area implementation
+
+Mode: TDD or fast path with reviewer gate, depending on Increment 4 source
+decision and join complexity.
+
+Deliverables:
+
+1. Implement the accepted dependency-controller loader / adapter.
+2. Join dependencies to CShapes area rows by year and controlled entity.
+3. Replace `controlled_area_km2 = country_area_km2` for supported metropole-years
+   with `country_area + supported dependent territory areas`.
+4. Preserve the Increment 3 fallback and `controlled_area_country_only` flag for
+   unsupported years.
+5. Add regression tests for at least GBR and FRA empire years, plus a modern
+   country-only row.
+
+Exit criteria:
+
+- Supported empire years have sourced controlled-area totals with clear notes.
+- Unsupported years remain explicitly flagged, not guessed.
+- Pilot CSV and SQLite regenerate with attribution and provenance intact.
+
+### Increment 6 — all countries, reliable recent window
 
 Mode: fast path with reviewer gate.
 
@@ -428,67 +494,21 @@ Scope:
   flags.
 - Add manual review report for rows with missing rulers, source conflicts, or
   successor-state issues.
-- Stage and integrate the ICOW Colonial History dataset (download URL is broken
-  on 2026-06-21; deferred to Increment 4 once a working URL or alternative
-  source is identified) for `controlled_area_km2` imperial / dependency summing.
 
 Deliverables:
 
 1. Replace hard-coded pilot list with configurable country selection.
-2. Write all-country recent-window CSV.
+2. Write all-country recent-window CSV and SQLite artifacts.
 3. Add summary artifact with row counts, missingness by field, and top data-quality
    flags.
 4. Add manual review report for rows with missing rulers, source conflicts, or
    successor-state issues.
-5. Stage ICOW or alternative dependency-controller source and integrate the
-   `controlled_area_km2` imperial / dependency summing.
 
 Exit criteria:
 
 - All-country `1960-2026` run completes locally.
 - Missingness report is understandable.
-- `controlled_area_km2` no longer uses the conservative fallback
-  for the GBR / FRA / NLD / etc. imperial eras.
 - Reviewer passes source attribution, provenance, and no-client-evidence checks.
-
-### Increment 3 — extend to 1900
-
-Mode: investigation plus implementation. Use TDD for any new adapter or canonical
-source integration.
-
-Deliverables:
-
-1. Vet and stage historical population/GDP source(s), likely Maddison / OWID / PWT
-   depending availability and licensing.
-2. Implement adapters only for vetted, locally staged sources.
-3. Extend run window to `1900-2026` for all countries where country-year existence
-   can be resolved.
-4. Add explicit handling for country transitions, e.g. USSR/Russia, Qing/ROC/PRC,
-   colonial independence years, Germany splits/reunification.
-
-Exit criteria:
-
-- Full-range CSV exists.
-- Pre-1960 coverage gaps are quantified.
-- Successor-state caveats are visible in output flags and summary.
-
-### Increment 4 — controlled / imperial area extension
-
-Mode: design first; likely TDD after requirements approval.
-
-Deliverables:
-
-1. Define legal/administrative meaning of `controlled_area_km2`.
-2. Decide whether colonies/dependencies appear as their own rows, metropole-owned
-   area, or both.
-3. Vet a historical territorial-control / empire-area source.
-4. Add controlled-area fields without overwriting standard country area.
-
-Exit criteria:
-
-- Controlled-area definition is documented.
-- Ambiguous empire/occupation cases carry notes and confidence.
-- Standard country-area output remains stable.
 
 ## 8. Suggested first labels and derivations
 
@@ -582,13 +602,13 @@ Recommended process:
 
 ## 13. Immediate next action
 
-Start **Increment 2** after user confirmation:
+Start **Increment 4 — controlled / imperial area design and source vetting**:
 
-1. Implement an experimental read-only CSV vertical slice for
-   `USA,GBR,FRA,IND,RUS,SUN,CHN` over 1900-2026.
-2. Use V-Dem first for political-regime buckets and WDI first for 1960+ economic
-   fields.
-3. Emit missing/proxy/source-gap flags rather than fabricating pre-1960 GDP,
-   missing area, or unresolved ruler data.
-4. Add tests for row shape, regime mapping, system-type fallback, source/proxy
-   flags, attribution block, and CLI boundary wiring.
+1. Write `docs/country-year-chronicle-increment-4.md` with the controlled-area
+   definition and source-decision matrix.
+2. Re-check ICOW / COW colonial-dependency source URLs and identify at least one
+   alternative if the canonical URL remains broken.
+3. Decide whether the implementation can source dependency-controller links
+   without hand-invented colony mappings.
+4. Bring the design through reviewer sign-off before changing production
+   controlled-area behavior.
