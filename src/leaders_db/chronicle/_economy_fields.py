@@ -35,15 +35,23 @@ downstream consumer does not have to special-case Maddison vs WDI.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 from ._formatters import coerce_float, coerce_int
 from .constants import (
+    EXISTS_STATUS_EXISTS,
+    EXISTS_STATUS_NOT_FORMED,
+    EXISTS_STATUS_SPLIT,
+    FLAG_POPULATION_INTERPOLATED,
+    FLAG_POPULATION_PROXY_YEAR_USED,
     MADDISON_PROXY_REQUESTED_YEAR,
     MADDISON_PROXY_YEAR,
     SOURCE_NA,
     SOURCE_TAG_MADDISON,
+    SOURCE_TAG_VDEM,
     SOURCE_TAG_WDI,
 )
-from .sources import MaddisonSource, WdiSource
+from .sources import MaddisonSource, VDemSource, WdiSource
 
 
 def populate_economy_fields(  # noqa: PLR0915
@@ -53,6 +61,7 @@ def populate_economy_fields(  # noqa: PLR0915
     year: int,
     wdi: WdiSource,
     maddison: MaddisonSource | None,
+    vdem: VDemSource | None = None,
 ) -> tuple[bool, bool, tuple[str, ...]]:
     """Populate the population / GDP / GDP-per-capita columns.
 
@@ -91,6 +100,9 @@ def populate_economy_fields(  # noqa: PLR0915
     wdi_gdp_current = wdi_values.get("gdp_current_usd")
     wdi_gdp_per_capita = wdi_values.get("gdp_per_capita")
     wdi_has_gdp = wdi_gdp_constant is not None or wdi_gdp_current is not None
+    vdem_population = None if vdem is None else vdem.population_lookup(iso3, year)
+    vdem_gdp = None if vdem is None else vdem.gdp_lookup(iso3, year)
+    economy_flags: tuple[str, ...] = ()
 
     # Decide which source wins for population.
     # Precedence: Maddison (1900-2022 direct, 2023 -> 2022 proxy)
@@ -158,6 +170,19 @@ def populate_economy_fields(  # noqa: PLR0915
         population_value = wdi_population
         population_source = SOURCE_TAG_WDI
         population_year_used = str(year)
+
+    if population_value is None and vdem_population is not None:
+        # Conservative coverage fallback for population only. V-Dem is
+        # already loaded for regime/ruler bridging and carries population
+        # fields with documented or empirically validated units. Non-exact
+        # V-Dem fills are surfaced in data_quality_flags below.
+        population_value = vdem_population.value
+        population_source = SOURCE_TAG_VDEM
+        population_year_used = str(vdem_population.source_year_used)
+        if vdem_population.method == "interpolated":
+            economy_flags = (*economy_flags, FLAG_POPULATION_INTERPOLATED)
+        elif vdem_population.method == "proxy":
+            economy_flags = (*economy_flags, FLAG_POPULATION_PROXY_YEAR_USED)
 
     has_population = population_value is not None
     row["population"] = coerce_float(population_value, decimals=0)
@@ -248,6 +273,16 @@ def populate_economy_fields(  # noqa: PLR0915
         gdp_source = SOURCE_TAG_WDI
         gdp_year_used = str(year)
 
+    if gdp_value is None and vdem_gdp is not None:
+        # V-Dem GDP is a Fariss et al. latent-variable estimate, not a
+        # Maddison/WDI currency-denominated GDP. It is useful for coverage
+        # but gets an explicit unit label so consumers do not compare it as
+        # dollars.
+        gdp_value = vdem_gdp.gdp
+        gdp_unit = "vdem_latent_gdp_units"
+        gdp_source = SOURCE_TAG_VDEM
+        gdp_year_used = str(vdem_gdp.source_year_used)
+
     has_gdp = gdp_value is not None
     row["gdp"] = coerce_float(gdp_value, decimals=0)
     row["gdp_unit"] = gdp_unit
@@ -287,6 +322,8 @@ def populate_economy_fields(  # noqa: PLR0915
         and year == MADDISON_PROXY_REQUESTED_YEAR
         and maddison_is_proxy
         and wdi_gdp_per_capita is None
+        and gdp_source == SOURCE_TAG_MADDISON
+        and population_source == SOURCE_TAG_MADDISON
     ):
         per_cap_value = maddison_gdppc
         per_cap_unit = "2011_intl_dollars"
@@ -295,10 +332,16 @@ def populate_economy_fields(  # noqa: PLR0915
         per_cap_value = wdi_gdp_per_capita
         per_cap_unit = "current_usd"
         per_cap_method = "wdi_direct"
+    elif vdem_gdp is not None and gdp_source == SOURCE_TAG_VDEM:
+        per_cap_value = vdem_gdp.gdppc
+        per_cap_unit = "vdem_latent_gdppc_units"
+        per_cap_method = "vdem_latent_direct"
     elif (
         gdp_value is not None
         and has_population
         and population_value is not None
+        and gdp_source == population_source
+        and gdp_source in {SOURCE_TAG_MADDISON, SOURCE_TAG_WDI}
     ):
         per_cap_value = gdp_value / population_value
         per_cap_unit = gdp_unit
@@ -308,14 +351,19 @@ def populate_economy_fields(  # noqa: PLR0915
     row["gdp_per_capita_unit"] = per_cap_unit
     row["gdp_per_capita_method"] = per_cap_method
 
-    return has_population, has_gdp, ()
+    return has_population, has_gdp, economy_flags
 
 
 # Re-export the helper at the public name so the row builder
 # imports a single function. The WDI-only helper stays in
 # ``_wdi_fields.py`` for any caller that wants the original
 # WDI-only path; the row builder now uses this module instead.
-__all__ = ["populate_economy_fields", "populate_economy_with_proxy"]
+__all__ = [
+    "RelevantGdpCoverage",
+    "populate_economy_fields",
+    "populate_economy_with_proxy",
+    "relevant_gdp_coverage",
+]
 
 
 def populate_economy_with_proxy(
@@ -325,10 +373,11 @@ def populate_economy_with_proxy(
     year: int,
     wdi: WdiSource,
     maddison: MaddisonSource | None,
-) -> tuple[bool, bool, bool]:
+    vdem: VDemSource | None = None,
+) -> tuple[bool, bool, bool, tuple[str, ...]]:
     """Populate economy fields and surface the Maddison proxy flag.
 
-    Returns ``(has_population, has_gdp, maddison_is_proxy)``. The
+    Returns ``(has_population, has_gdp, maddison_is_proxy, economy_flags)``. The
     proxy flag is plumbed out so the caller can add
     ``proxy_year_used`` to ``data_quality_flags`` whenever the
     Maddison 2022 1-year-gap proxy actually fired (year == 2023
@@ -336,12 +385,13 @@ def populate_economy_with_proxy(
     reused as a multi-year stale proxy, so this flag never fires
     for those years.
     """
-    has_population, has_gdp, _ = populate_economy_fields(
+    has_population, has_gdp, economy_flags = populate_economy_fields(
         row,
         iso3=iso3,
         year=year,
         wdi=wdi,
         maddison=maddison,
+        vdem=vdem,
     )
     maddison_is_proxy = (
         year == MADDISON_PROXY_REQUESTED_YEAR
@@ -351,4 +401,73 @@ def populate_economy_with_proxy(
             or row.get("gdp_source") == SOURCE_TAG_MADDISON
         )
     )
-    return has_population, has_gdp, maddison_is_proxy
+    return has_population, has_gdp, maddison_is_proxy, economy_flags
+
+
+# ---------------------------------------------------------------------------
+# Coverage metric helper
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class RelevantGdpCoverage:
+    """Relevant-denominator GDP coverage summary for a row list.
+
+    The relevant denominator for the Increment 5 + 6 GDP
+    coverage metric is **only** the rows whose
+    ``existence_status == "exists"``. Rows that are
+    ``not_formed`` (the country did not exist yet) or
+    ``split_or_dissolved`` (the country has been dissolved)
+    carry no GDP-relevant evidence and must NOT enter the
+    denominator. This helper applies that contract so the
+    coverage report can be reproduced byte-for-byte.
+    """
+
+    exists_total: int
+    exists_with_gdp: int
+    not_formed_excluded: int
+    split_or_dissolved_excluded: int
+
+    @property
+    def coverage_fraction(self) -> float:
+        """Return the coverage as a fraction in ``[0, 1]``."""
+        if self.exists_total == 0:
+            return 0.0
+        return self.exists_with_gdp / self.exists_total
+
+
+def relevant_gdp_coverage(
+    rows: list[dict[str, str]],
+) -> RelevantGdpCoverage:
+    """Compute the Increment 5 + 6 GDP coverage summary.
+
+    Parameters
+    ----------
+    rows:
+        Condensed rows carrying ``existence_status`` and
+        ``gdp`` (the two fields the metric reads). The
+        function tolerates missing or empty ``gdp`` values
+        (treated as "not covered") and missing
+        ``existence_status`` (treated as not-existing
+        exclusions).
+    """
+    exists_total = 0
+    exists_with_gdp = 0
+    not_formed_excluded = 0
+    split_or_dissolved_excluded = 0
+    for row in rows:
+        status = (row.get("existence_status") or "").strip()
+        if status == EXISTS_STATUS_EXISTS:
+            exists_total += 1
+            if (row.get("gdp") or "").strip():
+                exists_with_gdp += 1
+        elif status == EXISTS_STATUS_NOT_FORMED:
+            not_formed_excluded += 1
+        elif status == EXISTS_STATUS_SPLIT:
+            split_or_dissolved_excluded += 1
+    return RelevantGdpCoverage(
+        exists_total=exists_total,
+        exists_with_gdp=exists_with_gdp,
+        not_formed_excluded=not_formed_excluded,
+        split_or_dissolved_excluded=split_or_dissolved_excluded,
+    )

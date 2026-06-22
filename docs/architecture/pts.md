@@ -4,7 +4,7 @@
 > **Phase:** C.7 (data acquisition, seventh adapter, after V-Dem, WDI, WGI, UCDP, SIPRI milex, SIPRI Yearbook Ch.7).
 > **Target source key:** `pts`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"pts": None` stub with `pts.ingest_pts`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.8.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.8.
 > **Liveness verified:** 2026-06-18 — `https://www.politicalterrorscale.org/Data/Files/PTS-2025.xlsx` returns HTTP 200 with `Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`; the downloaded xlsx is **572,234 bytes (572 KB)**, contains 1 sheet named `PTS-2025`, 10,531 data rows × 14 columns + 1 header row. SHA-256: `6f4d1ccdda1d2fdce382a978922790390ce5f61ae9f4aefa1970e9ca8bd88832` (matches `data/raw/political_terror_scale/metadata.json`).
 > **Data-lake path mismatch (architect flag for the developer).** The `metadata.json` says the folder is `political_terror_scale/`, but the dispatch-table key is `pts`. The folder name (`political_terror_scale/`) is kept to preserve the downloaded bundle's name (no need to rename disk files); the source key (`pts`) is the CLI flag and the catalog filename. This is the same pattern as the other multi-word source keys (the folder is the human-readable bundle name; the source key is the dispatch key).
 
@@ -23,7 +23,7 @@ This document is the design contract for the PTS Stage 2 adapter. The test-build
 
 This is the Stage 2 adapter for the **Political Terror Scale (PTS)**, the academic standard for measuring state-perpetrated political terror and physical integrity abuses. It is the seventh Stage 2 adapter built (after V-Dem, WDI, WGI, UCDP, SIPRI milex, SIPRI Yearbook Ch.7).
 
-PTS contributes to the **`domestic_violence`** category per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.8. The category's three sources are:
+PTS contributes to the **`domestic_violence`** category per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.8. The category's three sources are:
 
 | Source | Indicators fed to `domestic_violence` |
 |---|---|
@@ -186,7 +186,7 @@ variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,highe
 >
 > 1. **Cross-source comparison richness.** Stage 12's compare-vs-client step reads all `domestic_violence` indicators across all 3 sources (UCDP's 2 + V-Dem's 3 + PTS's 3 = 8 indicators). Collapsing PTS to a single indicator would reduce the cross-source comparison's power and obscure the 3-way coder disagreement signal.
 >
-> 2. **Cross-validation with the source-vetting report.** Per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.8, PTS is listed as one source contributing 3 indicators to `domestic_violence` (matching UCDP's 2 + V-Dem's 3 per-indicator profile). Collapsing to 1 would be inconsistent with the report.
+> 2. **Cross-validation with the source-vetting report.** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.8, PTS is listed as one source contributing 3 indicators to `domestic_violence` (matching UCDP's 2 + V-Dem's 3 per-indicator profile). Collapsing to 1 would be inconsistent with the report.
 >
 > The 3-indicator choice is locked for the prototype. The user can extend to a 4th indicator (e.g., a PTS-derived "disagreement index") in a future iteration as a 1-row catalog addition.
 
@@ -1158,7 +1158,7 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 14 — Workplan / docs updates (for the project-manager)
 
-When the PTS adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting-report.md`, and `docs/data-sources.md`.
+When the PTS adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
@@ -1168,7 +1168,7 @@ When the PTS adapter lands and the reviewer signs off, the project-manager will 
 
 The `pts` entry in `docs/source-attributions.md` §1 is already correct and matches the `PTS_ATTRIBUTION` constant byte-for-byte. The developer does NOT update the doc; the drift-guard test confirms consistency.
 
-### `docs/source-vetting-report.md` — one minor update
+### `docs/source-vetting/report.md` — one minor update
 
 §3.8 ("Domestic violence / repression sources") `pts` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/pts.py`. 3 indicators under `domestic_violence`: pts_amnesty_score, pts_human_rights_watch_score, pts_state_dept_score. The xlsx is long-format (10,531 country-year rows × 14 columns); Stage 2 applies the 4-case NA_Status sentinel matrix. Stage 3 resolves the `COW_Code_A` to ISO3 via the country lookup table."
 

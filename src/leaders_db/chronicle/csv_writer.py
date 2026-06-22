@@ -44,6 +44,7 @@ from .source_constants import (
     SOVIET_LEADERS_CURATED_ATTRIBUTION,
     VDEM_ATTRIBUTION,
     WDI_ATTRIBUTION,
+    WIKIDATA_RECENT_RULERS_ATTRIBUTION,
 )
 
 
@@ -72,12 +73,14 @@ def build_attribution_comment_block(
     source_attribution_map = {
         "archigos": ARCHIGOS_ATTRIBUTION,
         "cshapes": CSHAPES_ATTRIBUTION,
+        "colonial_rule_placeholder": VDEM_ATTRIBUTION,
         "maddison_project": MADDISON_PROJECT_ATTRIBUTION,
         "reign": REIGN_ATTRIBUTION,
         "sipri_milex": SIPRI_MILEX_ATTRIBUTION,
         "soviet_leaders_curated": SOVIET_LEADERS_CURATED_ATTRIBUTION,
         "vdem": VDEM_ATTRIBUTION,
         "wdi": WDI_ATTRIBUTION,
+        "wikidata_recent_rulers": WIKIDATA_RECENT_RULERS_ATTRIBUTION,
     }
     for source in sorted(set(sources_used)):
         attribution = source_attribution_map.get(source)

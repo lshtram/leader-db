@@ -223,7 +223,7 @@ is later promoted into the main scoring pipeline.
 Mode: docs / investigation.
 
 Status: **complete**. Findings are recorded in
-[`country-year-chronicle-increment-0.md`](country-year-chronicle-increment-0.md).
+[`increment-0.md`](increment-0.md).
 
 Deliverables:
 
@@ -254,7 +254,7 @@ Pilot country/state identities:
 - Soviet Union (`SUN`), modeled as a separate historical state identity
 - China / PRC / ROC handling (`CHN` first, with unresolved cases flagged)
 
-Status: **complete (2026-06-20)**. See [`country-year-chronicle-increment-1.md`](country-year-chronicle-increment-1.md) for the full implementation notes.
+Status: **complete (2026-06-20)**. See [`increment-1.md`](increment-1.md) for the full implementation notes.
 
 Deliverables:
 
@@ -299,7 +299,7 @@ narrow provenance-aware ruler resolver (Archigos through 2015, REIGN
 builder so the pilot CSV carries real ruler identities and real
 historical Maddison-backed economy fields.
 
-Status: **complete (2026-06-21)**. See [`country-year-chronicle-increment-2.md`](country-year-chronicle-increment-2.md)
+Status: **complete (2026-06-21)**. See [`increment-2.md`](increment-2.md)
 for the full implementation notes.
 
 Deliverables:
@@ -362,7 +362,7 @@ remains deferred (no vetted dependency-controller mapping was
 staged in this pass).
 
 Status: **complete (2026-06-21)**. See
-[`country-year-chronicle-increment-3.md`](country-year-chronicle-increment-3.md)
+[`increment-3.md`](increment-3.md)
 for the full implementation notes.
 
 Deliverables:
@@ -422,7 +422,15 @@ Exit criteria:
 Mode: design first with reviewer gate; implementation only after source and
 definition approval.
 
-Scope:
+**Status: deferred per user request 2026-06-21.** The user asked to
+skip controlled-area modeling in this pass and focus on all-country
+scope + condensed CSV export (which shipped as Increment 5). The
+Increment 4 design plan at
+[`increment-4.md`](increment-4.md)
+remains the canonical reference for when this work resumes; no code
+or staged sources have changed.
+
+Scope (when resumed):
 
 - Define exactly what `controlled_area_km2` means: legal sovereignty,
   dependency administration, occupation, protectorate, mandate, overseas
@@ -435,16 +443,17 @@ Scope:
   controller field is available, or another auditable colonial/dependency source.
 - Produce a source decision memo before writing production code.
 
-Deliverables:
+Deliverables (when resumed):
 
-1. `docs/country-year-chronicle-increment-4.md` with:
+1. `docs/chronicle/increment-4.md` (already exists; remains
+   the design record) with:
    - controlled-area definition;
    - included / excluded relationship types;
    - source candidates, URLs, licenses, coverage, and failure modes;
    - join design from dependency-controller records to CShapes area rows;
    - examples for GBR, FRA, NLD, PRT, ESP, RUS/SUN where supported;
    - decision on whether to implement in the same increment or split source
-     staging into Increment 5.
+     staging into a follow-up increment.
 2. If a source is accepted, stage it under `data/raw/<source>/` with
    `metadata.json`, add `docs/data-sources.md` and
    `docs/source-attributions.md` entries, and write focused loader tests.
@@ -459,27 +468,90 @@ Exit criteria:
 - No implementation path requires invented colony/empire mappings.
 - Reviewer passes source attribution, provenance, and no-client-evidence checks.
 
-### Increment 5 — controlled / imperial area implementation
+### Increment 5 — all-country scope + condensed CSV export (COMPLETED 2026-06-21)
 
-Mode: TDD or fast path with reviewer gate, depending on Increment 4 source
-decision and join complexity.
+Mode: fast path with reviewer gate.
 
-Deliverables:
+Scope (per user request 2026-06-21): skip the controlled-area
+design pass and focus on (a) scaling the Chronicle database / output
+to all countries available in the analysis and (b) adding a
+condensed CSV with pure data only (no source / provenance /
+confidence / text columns).
 
-1. Implement the accepted dependency-controller loader / adapter.
-2. Join dependencies to CShapes area rows by year and controlled entity.
-3. Replace `controlled_area_km2 = country_area_km2` for supported metropole-years
-   with `country_area + supported dependent territory areas`.
-4. Preserve the Increment 3 fallback and `controlled_area_country_only` flag for
-   unsupported years.
-5. Add regression tests for at least GBR and FRA empire years, plus a modern
-   country-only row.
+Status: **complete (2026-06-21)**. See
+[`increment-5.md`](increment-5.md)
+for the full implementation notes.
+
+Deliverables (shipped):
+
+1. ✅ New `src/leaders_db/chronicle/country_scope.py` (228 lines) —
+   V-Dem-derived scope merged with the pilot historical identities,
+   filtered to valid 3-letter uppercase ISO3 codes, with the four
+   canonical `existence_status` labels (exists / not_formed /
+   split_or_dissolved / out_of_scope_unknown).
+2. ✅ New `src/leaders_db/chronicle/condensed_writer.py` (213 lines) —
+   `CONDENSED_CSV_COLUMNS` constant in the documented Increment 5
+   order; `build_condensed_rows` / `write_condensed_csv` produce the
+   condensed CSV atomically with the out-of-window rule.
+3. ✅ CLI extensions: `--countries all` derives the all-country scope
+   from V-Dem coverage; `--condensed-output <PATH>` writes the
+   condensed CSV to a custom path; `--no-condensed-output` disables
+   the condensed write. The CLI defaults to writing the condensed
+   CSV to `<project_root>/data/outputs/country-year-chronicle/condensed.csv`
+   for every run.
+4. ✅ Detailed CSV / SQLite behavior preserved end-to-end; existing
+   Increment 1-3 tests are unchanged.
+5. ✅ 24 new focused pytest tests in
+   `tests/test_chronicle_country_scope_and_condensed.py`. Full suite
+   green at 1,781 passed (was 1,757 at Increment 3 sign-off; +24 net).
+6. ✅ `ruff check .` clean; `git diff --check` clean.
 
 Exit criteria:
 
-- Supported empire years have sourced controlled-area totals with clear notes.
-- Unsupported years remain explicitly flagged, not guessed.
-- Pilot CSV and SQLite regenerate with attribution and provenance intact.
+- ✅ All-country scope (~200 ISO3 codes) runs end-to-end against the
+  local data lake for both 2020-2026 (1,421 condensed rows) and
+  1900-2026 (25,781 condensed rows).
+- ✅ Condensed CSV carries the documented 12-column order and
+  omits every source / provenance / confidence / text column.
+- ✅ Existence-status labels are produced for `not_formed`,
+  `exists`, and `split_or_dissolved` cases (the
+  `out_of_scope_unknown` label is reserved for future sources that
+  add countries without a defensible window; today every V-Dem
+  country has a defensible min / max year so the label is unused).
+- ✅ Detailed CSV / SQLite behavior unchanged.
+- ✅ Pilot historical identities (SUN, etc.) remain in scope via
+  the pilot metadata overlay.
+
+### Increment 6 — all countries, reliable recent window (original numbering)
+
+Mode: fast path with reviewer gate.
+
+Scope: see the original Increment 6 below — now subsumed by Increment 5.
+
+Original Increment 6 scope:
+
+- All resolvable country-years for `1960-2026`.
+- Prioritize WDI-supported fields and existing leader/regime sources.
+- Replace hard-coded pilot list with configurable country selection.
+- Add summary artifact with row counts, missingness by field, and top data-quality
+  flags.
+- Add manual review report for rows with missing rulers, source conflicts, or
+  successor-state issues.
+
+Deliverables (from original Increment 6):
+
+1. Replace hard-coded pilot list with configurable country selection. *(Shipped in Increment 5 via `--countries all`.)*
+2. Write all-country recent-window CSV and SQLite artifacts. *(Shipped in Increment 5.)*
+3. Add summary artifact with row counts, missingness by field, and top data-quality
+   flags.
+4. Add manual review report for rows with missing rulers, source conflicts, or
+   successor-state issues.
+
+Exit criteria (from original Increment 6):
+
+- All-country `1960-2026` run completes locally. *(Verified in Increment 5 for 2020-2026 and 1900-2026.)*
+- Missingness report is understandable.
+- Reviewer passes source attribution, provenance, and no-client-evidence checks.
 
 ### Increment 6 — all countries, reliable recent window
 
@@ -602,13 +674,17 @@ Recommended process:
 
 ## 13. Immediate next action
 
-Start **Increment 4 — controlled / imperial area design and source vetting**:
+Resume **Increment 4 — controlled / imperial area design and source vetting**
+(Increment 4 design plan at
+[`increment-4.md`](increment-4.md)
+already exists). Per user request 2026-06-21 Increment 5 (all-country
+scope + condensed CSV) shipped first; the controlled-area work
+remains deferred until the source decision can be made without
+inventing colonial mappings.
 
-1. Write `docs/country-year-chronicle-increment-4.md` with the controlled-area
-   definition and source-decision matrix.
-2. Re-check ICOW / COW colonial-dependency source URLs and identify at least one
+1. Re-check ICOW / COW colonial-dependency source URLs and identify at least one
    alternative if the canonical URL remains broken.
-3. Decide whether the implementation can source dependency-controller links
+2. Decide whether the implementation can source dependency-controller links
    without hand-invented colony mappings.
-4. Bring the design through reviewer sign-off before changing production
+3. Bring the design through reviewer sign-off before changing production
    controlled-area behavior.

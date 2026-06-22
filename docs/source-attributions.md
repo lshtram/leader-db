@@ -4,9 +4,9 @@
 >
 > **For URL and provenance details** (download links, checksums, file sizes), see [`docs/data-sources.md`](data-sources.md) and the per-source `data/raw/<source>/metadata.json`.
 >
-> **For in-progress vetting findings** (which sources are still being probed, what we considered and rejected), see [`docs/source-vetting-worksheet.md`](source-vetting-worksheet.md).
+> **For in-progress vetting findings** (which sources are still being probed, what we considered and rejected), see [`docs/source-vetting/worksheet.md`](source-vetting/worksheet.md).
 >
-> **For the final sign-off** (the version reviewed by the user and the gate for Phase C), see [`docs/source-vetting-report.md`](source-vetting-report.md) — signed off 2026-06-17 21:00; living addenda continue to amend it as new sources are vetted or re-probed.
+> **For the final sign-off** (the version reviewed by the user and the gate for Phase C), see [`docs/source-vetting/report.md`](source-vetting/report.md) — signed off 2026-06-17 21:00; living addenda continue to amend it as new sources are vetted or re-probed.
 
 ---
 
@@ -160,7 +160,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 ### `pwt` — Penn World Table 10.01
 
 - **What we extract:** real GDP, GDP per capita (PPP), capital stock, labor input, TFP. Per-country-year, 183 economies.
-- **License:** free; cite Feenstra, Inklaar, Timmer.
+- **License:** Creative Commons Attribution 4.0 International (CC BY 4.0); cite Feenstra, Inklaar, Timmer.
 - **Citation:**
   > Feenstra, Robert C., Robert Inklaar, and Marcel P. Timmer. 2015. "The Next Generation of the Penn World Table." *American Economic Review* 105(10): 3150–3182.
 - **Attribution text in reports:** "Penn World Table 10.01 (Feenstra, Inklaar, Timmer 2015)."
@@ -323,7 +323,7 @@ For each source below, the reason it was not used and the substitute decision.
 ### `pwt_maddison` — superseded combined historical-economic candidate
 
 - **Status:** 🟢 split into active / still-pending sources.
-- **Why:** the earlier combined placeholder bundled two distinct economic sources. Maddison Project Database 2023 is now adopted as `maddison_project` for historical real-economy coverage (see Section 1). Penn World Table remains tracked separately as `pwt`; its adapter is still blocked on source hygiene / raw file placement.
+- **Why:** the earlier combined placeholder bundled two distinct economic sources. Maddison Project Database 2023 is now adopted as `maddison_project` for historical real-economy coverage (see Section 1). Penn World Table remains tracked separately as `pwt`; its raw file and metadata are now staged, while the Stage 2 adapter is still pending.
 
 ### `chicago_aisd` / `acled` — auxiliary violence sources
 

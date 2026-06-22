@@ -25,6 +25,12 @@ Sources used:
   resolver picks the leader with the most days in the requested
   year; transition years (1924, 1953, 1985) emit
   ``multiple_rulers``.
+- Wikidata recent-rulers fallback — 2022-2026 (and any later
+  years). Archigos ends 2015 and REIGN ends 2021; the prototype
+  fills the 2022-2026 gap via a Wikidata SPARQL query against
+  the WikiProject Heads of state and government endpoint. The
+  Wikidata frame is the lowest-precedence source: Archigos and
+  REIGN rows are NEVER overridden for the years they cover.
 
 Per Increment 2 / Increment 3 contract:
 
@@ -37,15 +43,20 @@ Per Increment 2 / Increment 3 contract:
   monthly record is more accurate than Archigos's leader-spell
   representation).
 - For ``year > 2021``: both Archigos and REIGN have no data; the
-  resolver returns a missing-ruler result with the
-  ``missing_ruler`` flag carried by the row builder.
+  resolver consults the Wikidata recent-rulers frame as the
+  documented fallback (per Increment 6 — 2022-2026 ruler
+  coverage). If the Wikidata frame is empty (cache miss and
+  network unreachable) the resolver returns the missing-ruler
+  placeholder.
 
 The :class:`RulerResolver` is the single entry point. It is a
-thin layer over three caches (Archigos spells, REIGN leader-months,
-SUN curated spells) and the :class:`RulerResult` dataclass. The
-raw-file loaders themselves live in :mod:`._ruler_loader` (Archigos
-+ REIGN) and :mod:`._sun_ruler_loader` (SUN curated).
-"""
+thin layer over four caches (Archigos spells, REIGN leader-months,
+SUN curated spells, Wikidata recent-rulers long frame) and the
+:class:`RulerResult` dataclass. The raw-file loaders themselves
+live in :mod:`._ruler_loader` (Archigos + REIGN),
+:mod:`._sun_ruler_loader` (SUN curated), and
+:mod:`._wikidata_recent_rulers` (Wikidata recent-rulers adapter).
+    """
 
 from __future__ import annotations
 
@@ -64,6 +75,10 @@ from ._sun_ruler_loader import (
     default_sun_csv_path,
     load_sun_frame,
 )
+from ._wikidata_recent_rulers import (
+    WikidataRecentRulersSource,
+    load_wikidata_recent_rulers_source,
+)
 from .constants import SOURCE_NA
 from .source_constants import (
     ARCHIGOS_COVERAGE_END_YEAR,
@@ -75,8 +90,10 @@ from .source_constants import (
     SOURCE_TAG_ARCHIGOS,
     SOURCE_TAG_REIGN,
     SOURCE_TAG_SOVIET_LEADERS_CURATED,
+    SOURCE_TAG_WIKIDATA_RECENT_RULERS,
     SOVIET_LEADERS_DIRECT_CONFIDENCE,
     SOVIET_LEADERS_MULTI_LEADER_CONFIDENCE,
+    WIKIDATA_RECENT_RULERS_DIRECT_CONFIDENCE,
 )
 
 _logger = logging.getLogger(__name__)
@@ -130,13 +147,13 @@ class RulerResult:
 
 @dataclass(frozen=True)
 class RulerResolver:
-    """Resolver for one ``(iso3, year)`` pair using Archigos, REIGN, and SUN curated.
+    """Resolve one ``(iso3, year)`` pair from ruler source frames.
 
     The resolver caches the source frames (Archigos spells narrowed
     to the pilot ISO3 set, REIGN leader-months narrowed to the
-    same, SUN curated spells) so the per-row lookup is O(1) in a
-    dict. The class is immutable; instantiate once per runner
-    invocation.
+    same, SUN curated spells, Wikidata recent-rulers long frame)
+    so the per-row lookup is O(1) in a dict. The class is
+    immutable; instantiate once per runner invocation.
 
     Attributes:
         archigos_frame: ``pd.DataFrame`` with columns ``iso3``,
@@ -150,13 +167,20 @@ class RulerResolver:
             ``leader``, ``startdate``, ``enddate``, ``office``,
             ``ruler_title``, ``ruler_type`` for the Soviet Union
             identity. Empty if the raw curated CSV is missing.
+        wikidata_recent_source: Optional :class:`WikidataRecentRulersSource`
+            for the 2022-2026 (and later) fallback. ``None``
+            disables the fallback (the resolver then returns
+            missing for any year past REIGN coverage). When the
+            source's frame is empty (network failure, no cache),
+            the resolver still degrades to missing.
     """
 
     archigos_frame: pd.DataFrame = field(default_factory=pd.DataFrame)
     reign_frame: pd.DataFrame = field(default_factory=pd.DataFrame)
     sun_frame: pd.DataFrame = field(default_factory=pd.DataFrame)
+    wikidata_recent_source: WikidataRecentRulersSource | None = None
 
-    def resolve(self, iso3: str, year: int) -> RulerResult:
+    def resolve(self, iso3: str, year: int, *, cowcode: int | None = None) -> RulerResult:
         """Resolve the ruler for ``(iso3, year)``.
 
         Returns a :class:`RulerResult`. The helper honours the
@@ -171,7 +195,15 @@ class RulerResolver:
             and a record matches.
           - REIGN when ``REIGN_COVERAGE_START_YEAR <= year <=
             REIGN_COVERAGE_END_YEAR`` and a record matches.
+          - Wikidata recent-rulers fallback when ``year >
+            REIGN_COVERAGE_END_YEAR`` (the 2022-2026 gap) and the
+            frame has a matching ``(iso3, year)`` row.
           - Else :func:`RulerResult.missing`.
+
+        The Wikidata fallback is the LOWEST-precedence source;
+        Archigos and REIGN rows are NEVER overridden for the years
+        they cover, and SUN rows bypass Wikidata entirely (SUN
+        is a curated-only identity).
         """
         if iso3 == "SUN":
             hit = self._lookup_sun(year)
@@ -183,7 +215,7 @@ class RulerResolver:
             not self.archigos_frame.empty
             and year <= ARCHIGOS_COVERAGE_END_YEAR
         ):
-            hit = self._lookup_archigos(iso3, year)
+            hit = self._lookup_archigos(iso3, year, cowcode=cowcode)
             if hit is not None:
                 return hit
 
@@ -191,13 +223,24 @@ class RulerResolver:
             not self.reign_frame.empty
             and REIGN_COVERAGE_START_YEAR <= year <= REIGN_COVERAGE_END_YEAR
         ):
-            hit = self._lookup_reign(iso3, year)
+            hit = self._lookup_reign(iso3, year, cowcode=cowcode)
+            if hit is not None:
+                return hit
+
+        if (
+            self.wikidata_recent_source is not None
+            and not self.wikidata_recent_source.is_empty
+            and year > REIGN_COVERAGE_END_YEAR
+        ):
+            hit = self._lookup_wikidata_recent(iso3, year)
             if hit is not None:
                 return hit
 
         return RulerResult.missing(source_year_used=year)
 
-    def _lookup_archigos(self, iso3: str, year: int) -> RulerResult | None:
+    def _lookup_archigos(
+        self, iso3: str, year: int, *, cowcode: int | None = None
+    ) -> RulerResult | None:
         """Find the Archigos leader for ``(iso3, year)``."""
         start_year = pd.to_datetime(
             self.archigos_frame["startdate"], errors="coerce"
@@ -205,11 +248,11 @@ class RulerResolver:
         end_year = pd.to_datetime(
             self.archigos_frame["enddate"], errors="coerce"
         ).dt.year
-        mask = (
-            (self.archigos_frame["iso3"] == iso3)
-            & (start_year <= year)
-            & (end_year >= year)
-        )
+        if cowcode is not None and "ccode" in self.archigos_frame.columns:
+            country_mask = self.archigos_frame["ccode"] == cowcode
+        else:
+            country_mask = self.archigos_frame["iso3"] == iso3
+        mask = country_mask & (start_year <= year) & (end_year >= year)
         matches = self.archigos_frame.loc[mask]
         if matches.empty:
             return None
@@ -229,12 +272,15 @@ class RulerResolver:
             multiple_rulers=False,
         )
 
-    def _lookup_reign(self, iso3: str, year: int) -> RulerResult | None:
+    def _lookup_reign(
+        self, iso3: str, year: int, *, cowcode: int | None = None
+    ) -> RulerResult | None:
         """Find the REIGN leader with the most months for ``(iso3, year)``."""
-        mask = (
-            (self.reign_frame["iso3"] == iso3)
-            & (self.reign_frame["year"] == year)
-        )
+        if cowcode is not None and "ccode" in self.reign_frame.columns:
+            country_mask = self.reign_frame["ccode"] == cowcode
+        else:
+            country_mask = self.reign_frame["iso3"] == iso3
+        mask = country_mask & (self.reign_frame["year"] == year)
         rows = self.reign_frame.loc[mask]
         if rows.empty:
             return None
@@ -263,6 +309,40 @@ class RulerResolver:
             ruler_confidence=confidence,
             has_ruler=True,
             multiple_rulers=multiple_rulers,
+        )
+
+    def _lookup_wikidata_recent(
+        self, iso3: str, year: int
+    ) -> RulerResult | None:
+        """Find the Wikidata recent-rulers holder for ``(iso3, year)``.
+
+        The lookup delegates to
+        :class:`WikidataRecentRulersSource.resolve`, which applies
+        the documented office-precedence tie-break (head of
+        government > head of state) and the start-date / person-
+        label tie-break. Returns ``None`` when the source has no
+        matching row so the resolver's fallback chain can keep
+        searching.
+        """
+        source = self.wikidata_recent_source
+        if source is None or source.is_empty:
+            return None
+        hit = source.resolve(iso3, year)
+        if hit is None:
+            return None
+        person_label = hit.get("person_label", "").strip()
+        if not person_label:
+            return None
+        office_label = hit.get("office_label", "").strip()
+        return RulerResult(
+            ruler_name=person_label,
+            ruler_title=office_label,
+            ruler_type="",  # Wikidata office_label IS the title
+            ruler_source=SOURCE_TAG_WIKIDATA_RECENT_RULERS,
+            ruler_source_year_used=year,
+            ruler_confidence=WIKIDATA_RECENT_RULERS_DIRECT_CONFIDENCE,
+            has_ruler=True,
+            multiple_rulers=False,
         )
 
     def _lookup_sun(self, year: int) -> RulerResult | None:
@@ -366,15 +446,48 @@ def load_ruler_resolver(
     reign_csv_path=None,
     sun_csv_path=None,
     iso3_scope: tuple[str, ...] = (),
+    wikidata_recent_years: tuple[int, ...] = (),
+    wikidata_recent_cache_dir=None,
+    wikidata_recent_force_refresh: bool = False,
+    wikidata_recent_timeout: float = 60.0,
 ) -> RulerResolver:
-    """Load Archigos + REIGN + SUN curated into a :class:`RulerResolver`.
+    """Load Archigos + REIGN + SUN curated + Wikidata recent-rulers.
 
-    The loader is best-effort: when a source is missing (the raw
-    file is not staged or the COW->ISO3 mapping does not cover a
-    requested country) the helper logs a warning and returns a
-    resolver with an empty frame for that source. The resolver's
-    :func:`resolve` method then degrades gracefully (missing ruler).
-    """
+    The loader is best-effort: when a source is missing the helper
+    logs a warning and returns a resolver with an empty frame for
+    that source. The resolver's :func:`resolve` method then
+    degrades gracefully (missing ruler).
+
+    Args:
+        archigos_dta_path: Override path for the Archigos raw
+            ``.dta`` file.
+        reign_csv_path: Override path for the REIGN raw CSV.
+        sun_csv_path: Override path for the Soviet leaders
+            curated CSV.
+        iso3_scope: Tuple of ISO3 keys the Archigos + REIGN frames
+            should be narrowed to. SUN curated is not narrowed
+            (it only carries SUN).
+        wikidata_recent_years: Tuple of calendar years for which
+            the resolver should consult the Wikidata fallback.
+            Empty (the default) disables the fallback entirely so
+            older callers see no behaviour change. The CLI passes
+            every year past REIGN coverage so the fallback fires
+            for 2022-2026 (and any later year the user asks for).
+        wikidata_recent_cache_dir: Override cache directory for
+            the Wikidata SPARQL JSON cache.
+        wikidata_recent_force_refresh: When ``True``, re-download
+            the SPARQL JSON even when a cache file exists.
+            Defaults to ``False`` (cache-first, HTTP-fallback).
+        wikidata_recent_timeout: Per-request HTTP timeout in
+            seconds. Defaults to 60s.
+
+    When a source is missing (the raw file is not staged, the
+    COW->ISO3 mapping does not cover a requested country, the
+    SPARQL endpoint is unreachable) the helper logs a warning
+    and returns a resolver with an empty frame for that source.
+    The resolver's :func:`resolve` method then degrades gracefully
+    (missing ruler).
+"""
     iso3_set = set(iso3_scope)
     archigos_frame = load_archigos_frame(
         archigos_dta_path=archigos_dta_path,
@@ -385,10 +498,19 @@ def load_ruler_resolver(
         iso3_scope=iso3_set,
     )
     sun_frame = load_sun_frame(sun_csv_path=sun_csv_path)
+    wikidata_recent_source: WikidataRecentRulersSource | None = None
+    if wikidata_recent_years:
+        wikidata_recent_source = load_wikidata_recent_rulers_source(
+            years=tuple(int(y) for y in wikidata_recent_years),
+            cache_dir=wikidata_recent_cache_dir,
+            force_refresh=wikidata_recent_force_refresh,
+            timeout=wikidata_recent_timeout,
+        )
     return RulerResolver(
         archigos_frame=archigos_frame,
         reign_frame=reign_frame,
         sun_frame=sun_frame,
+        wikidata_recent_source=wikidata_recent_source,
     )
 
 

@@ -16,6 +16,12 @@ Public helpers:
   fallback (``controlled_area_km2 = country_area_km2``); returns the
   three flag bits the row builder forwards to
   :func:`assemble_flags`.
+
+Increment 5 (all-country condensed export): the existence-window
+check now falls back to the optional ``country_scope_entry``
+when the iso3 has no pilot metadata. The pilot metadata still
+wins for historical identities that V-Dem does not code
+separately (SUN).
 """
 
 from __future__ import annotations
@@ -23,6 +29,7 @@ from __future__ import annotations
 from ._area_source import CShapesSource
 from ._formatters import coerce_float, coerce_int, safe_int
 from .constants import COUNTRY_METADATA, SOURCE_NA
+from .country_scope import CountryScopeEntry
 
 
 def populate_area_placeholders(row: dict[str, str]) -> tuple[bool, bool, bool]:
@@ -48,6 +55,7 @@ def populate_area_fields(
     iso3: str,
     year: int,
     cshapes: CShapesSource | None,
+    country_scope_entry: CountryScopeEntry | None = None,
 ) -> tuple[bool, bool, bool]:
     """Populate the area / controlled-area columns from CShapes.
 
@@ -70,11 +78,24 @@ def populate_area_fields(
     that "SUN did not exist in 1921" so the row should not carry
     SUN's territory as a SUN-area value.
 
+    When the iso3 is NOT in the pilot metadata, the existence-
+    window check falls back to the optional
+    ``country_scope_entry`` so V-Dem-derived windows still
+    produce a blank area for years outside the source-backed
+    existence window.
+
     Returns ``(has_area, controlled_area_country_only, area_proxy_used)``.
     """
     metadata = COUNTRY_METADATA.get(iso3, {})
-    start_year = safe_int(metadata.get("start_year"))
-    end_year = safe_int(metadata.get("end_year"))
+    if "start_year" in metadata or "end_year" in metadata:
+        start_year = safe_int(metadata.get("start_year"))
+        end_year = safe_int(metadata.get("end_year"))
+    elif country_scope_entry is not None:
+        start_year = country_scope_entry.start_year
+        end_year = country_scope_entry.end_year
+    else:
+        start_year = None
+        end_year = None
     if start_year is not None and year < start_year:
         # Pre-existence gap; skip CShapes lookup and keep the
         # area placeholders. The pre_existence_gap flag is added

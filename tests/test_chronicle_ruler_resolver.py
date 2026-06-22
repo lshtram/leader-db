@@ -60,13 +60,44 @@ def _stub_vdem(year_to_regime: dict[tuple[str, int], float]) -> VDemSource:
                 "v2x_regime": regime,
                 "v2x_polyarchy": 0.5,
                 "v2x_libdem": 0.5,
+                "v2svindep": 1,
+                "COWcode": pd.NA,
             }
         )
     frame = pd.DataFrame(
         rows,
         columns=[
             "country_text_id", "year", "v2x_regime",
-            "v2x_polyarchy", "v2x_libdem",
+            "v2x_polyarchy", "v2x_libdem", "v2svindep", "COWcode",
+        ],
+    )
+    return VDemSource(raw_csv_path=_Stub(), frame=frame)  # type: ignore[arg-type]
+
+
+def _stub_vdem_with_cowcode(
+    rows_by_key: dict[tuple[str, int], tuple[float, int]],
+) -> VDemSource:
+    class _Stub:
+        pass
+
+    rows = []
+    for (iso3, year), (regime, cowcode) in rows_by_key.items():
+        rows.append(
+            {
+                "country_text_id": iso3,
+                "year": year,
+                "v2x_regime": regime,
+                "v2x_polyarchy": 0.5,
+                "v2x_libdem": 0.5,
+                "v2svindep": 1,
+                "COWcode": cowcode,
+            }
+        )
+    frame = pd.DataFrame(
+        rows,
+        columns=[
+            "country_text_id", "year", "v2x_regime",
+            "v2x_polyarchy", "v2x_libdem", "v2svindep", "COWcode",
         ],
     )
     return VDemSource(raw_csv_path=_Stub(), frame=frame)  # type: ignore[arg-type]
@@ -104,7 +135,7 @@ def _stub_sipri() -> SipriSource:
 
 def _archigos_frame(spells: list[dict[str, object]]) -> pd.DataFrame:
     """Build a fake Archigos frame for the resolver tests."""
-    return pd.DataFrame(spells, columns=["iso3", "leader", "startdate", "enddate"])
+    return pd.DataFrame(spells, columns=["iso3", "ccode", "leader", "startdate", "enddate"])
 
 
 def _reign_frame(
@@ -113,7 +144,7 @@ def _reign_frame(
     """Build a fake REIGN frame for the resolver tests."""
     return pd.DataFrame(
         rows,
-        columns=["iso3", "year", "month", "leader", "government"],
+        columns=["iso3", "ccode", "year", "month", "leader", "government"],
     )
 
 
@@ -168,6 +199,47 @@ def test_archigos_resolves_usa_1950_truman() -> None:
     assert result.has_ruler is True
     assert result.ruler_name == "Truman"
     assert result.ruler_source == SOURCE_TAG_ARCHIGOS
+
+
+def test_archigos_resolves_by_vdem_cowcode_when_iso3_unmapped() -> None:
+    """All-country runs can resolve V-Dem IDs through COWcode even
+    when the resolver frame lacks an ISO3 mapping for that identity.
+    """
+    archigos = _archigos_frame(
+        [
+            {
+                "iso3": pd.NA,
+                "ccode": 123,
+                "leader": "Mapped Leader",
+                "startdate": pd.Timestamp("1960-01-01"),
+                "enddate": pd.Timestamp("1970-12-31"),
+            },
+        ]
+    )
+    resolver = RulerResolver(archigos_frame=archigos)
+    result = resolver.resolve("ZZZ", 1965, cowcode=123)
+    assert result.has_ruler is True
+    assert result.ruler_name == "Mapped Leader"
+    assert result.ruler_source == SOURCE_TAG_ARCHIGOS
+
+
+def test_vdem_cowcode_lookup_falls_back_to_unambiguous_country_code() -> None:
+    """The COW bridge survives exact-year V-Dem gaps.
+
+    Poland 1939 is the motivating case: V-Dem may omit the exact
+    country-year around wartime interruption, but other POL rows still
+    identify the stable COW code 290 that Archigos uses.
+    """
+    vdem = _stub_vdem_with_cowcode({("POL", 1940): (1.0, 290)})
+    assert vdem.cowcode_lookup("POL", 1939) == 290
+
+
+def test_vdem_cowcode_lookup_does_not_guess_when_ambiguous() -> None:
+    """If one ISO3 maps to multiple COW codes, the fallback refuses to guess."""
+    vdem = _stub_vdem_with_cowcode(
+        {("ZZZ", 1938): (1.0, 111), ("ZZZ", 1940): (1.0, 222)}
+    )
+    assert vdem.cowcode_lookup("ZZZ", 1939) is None
 
 
 def test_reign_picks_leader_with_most_months() -> None:
@@ -347,6 +419,41 @@ def test_row_builder_drops_missing_ruler_flag_when_resolver_finds() -> None:
     assert row["ruler_confidence"] == str(ARCHIGOS_DIRECT_CONFIDENCE)
     flags = row["data_quality_flags"].split("|")
     assert FLAG_MISSING_RULER not in flags
+
+
+def test_row_builder_resolves_poland_1939_from_vdem_cowcode_fallback() -> None:
+    """POL 1939 resolves through the stable V-Dem ISO3->COW bridge.
+
+    The row's exact V-Dem country-year is absent, but another POL row
+    supplies COW code 290. The resolver then uses Archigos's COW-coded
+    spell instead of leaving the ruler blank.
+    """
+    archigos = _archigos_frame(
+        [
+            {
+                "iso3": pd.NA,
+                "ccode": 290,
+                "leader": "Smigly-Rydz",
+                "startdate": pd.Timestamp("1935-05-12"),
+                "enddate": pd.Timestamp("1939-09-18"),
+            },
+        ]
+    )
+    resolver = RulerResolver(archigos_frame=archigos)
+    rows = build_chronicle_rows(
+        iso3_scope=("POL",),
+        start_year=1939,
+        end_year=1939,
+        vdem=_stub_vdem_with_cowcode({("POL", 1940): (1.0, 290)}),
+        wdi=_stub_wdi([]),
+        sipri=_stub_sipri(),
+        maddison=None,
+        ruler_resolver=resolver,
+    )
+    row = rows[0]
+    assert row["ruler_name"] == "Smigly-Rydz"
+    assert row["ruler_source"] == SOURCE_TAG_ARCHIGOS
+    assert FLAG_MISSING_RULER not in row["data_quality_flags"].split("|")
 
 
 def test_row_builder_emits_multiple_rulers_flag() -> None:

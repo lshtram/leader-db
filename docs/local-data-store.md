@@ -65,6 +65,19 @@ data/
   - `outputs/validation_<year>_high_delta_cases.csv` (Stage 12)
   - `outputs/validation_<year>_manual_review_queue.csv` (Stage 14)
   - `outputs/llm_calls/<run-id>/` — every LLM request/response, for audit.
+- Subdirectories are required once a family has more than one artifact. Do not
+  let large runs accumulate unrelated files directly under `data/outputs/`.
+  Current grouping convention:
+  - `outputs/scoring/<year>/` — per-category score CSVs, indicator coverage,
+    missingness summaries, and category-specific country universes.
+  - `outputs/scorecards/<year>/` — cross-category scorecards, deltas, and
+    associated mismatch analysis.
+  - `outputs/source_coverage/` and `outputs/source_coverage_potential/` —
+    source coverage audits and planning outputs.
+  - `outputs/country-year-chronicle/` — CYC CSV/SQLite artifacts.
+  - `outputs/experiments/<slice-name>/` — explicitly experimental slices. The
+    legacy `outputs/vertical_slice_2023/` path may remain until code defaults are
+    migrated in a source-code pass.
 - File names use lowercase, kebab-or-snake as appropriate, year always 4 digits.
 
 ### `data/logs/`

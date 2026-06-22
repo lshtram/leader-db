@@ -4,7 +4,7 @@
 > **Phase:** C.4 (data acquisition, fourth adapter, after V-Dem, WDI, WGI).
 > **Target source key:** `ucdp`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"ucdp": None` stub with `ucdp.ingest_ucdp`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7.
 > **Liveness verified:** 2026-06-18 — `https://ucdp.uu.se/downloads/ged/ged231-csv.zip` returns HTTP 200 with `Content-Type: application/x-zip-compressed`, `Last-Modified: Tue, 06 Jun 2023 18:47:30 GMT`, downloaded zip is 26,587,114 bytes (25.4 MB). Inside the zip: `GEDEvent_v23_1.csv`, 228,682,471 bytes (218 MB uncompressed), **316,818 event rows** covering 1989–2022.
 
 This document is the design contract for the UCDP Stage 2 adapter. The test-builder writes tests against the public surface in §2.3; the developer implements against the same surface. The catalog spec in §2.4 is the only place where UCDP's indicator list is decided.
@@ -74,7 +74,7 @@ For each `(country, year)`, six indicators (the 6 in the catalog):
 5. `ucdp_intl_events` — count of `type_of_violence == 1` events where a foreign state is involved (filter documented in §2.6 below), per country-year.
 6. `ucdp_intl_fatalities` — `sum(best)` for the same filter, per country-year.
 
-> **Why exclude type 2 (non-state)?** Per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7–§3.8, UCDP serves two categories for the prototype: **international_peace** (state-based, type 1) and **domestic_violence** (one-sided, type 3). Non-state conflict (type 2) is not on the indicator catalog; it is not used by any of the 8 scoring categories. If a future iteration adds a "non-state violence" category, this is a 1-row catalog extension (one row for events, one for fatalities, with `raw_column = "type=2"` or similar).
+> **Why exclude type 2 (non-state)?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7–§3.8, UCDP serves two categories for the prototype: **international_peace** (state-based, type 1) and **domestic_violence** (one-sided, type 3). Non-state conflict (type 2) is not on the indicator catalog; it is not used by any of the 8 scoring categories. If a future iteration adds a "non-state violence" category, this is a 1-row catalog extension (one row for events, one for fatalities, with `raw_column = "type=2"` or similar).
 
 **Defer to a future iteration (kept in the CSV but not written to `source_observations`):**
 
@@ -536,7 +536,7 @@ variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,highe
 
 > **Why `higher_is_better=False` for all 6?** For all UCDP indicators, "more events" or "more deaths" = worse rating (more violence). The Stage 5 score module inverts the raw value (e.g., a country with 0 events scores 10/10; a country with 1000 events scores 0/10; the mapping is monotonic decreasing in the raw count). The `raw_scale` and `normalized_scale_target` columns capture the shape; `higher_is_better=False` tells the score module to invert.
 
-> **Why no `non-state` (type=2) indicator?** Per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7–§3.8, UCDP serves `international_peace` (type 1) and `domestic_violence` (type 3) for the prototype. Type 2 (non-state) is not in the 8 rating categories. Deferred.
+> **Why no `non-state` (type=2) indicator?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7–§3.8, UCDP serves `international_peace` (type 1) and `domestic_violence` (type 3) for the prototype. Type 2 (non-state) is not in the 8 rating categories. Deferred.
 
 > **`raw_column` is a semantic label, not a literal CSV column name.** The catalog's `raw_column` for the events indicators is a derived value (`event_count` — a count of rows after the type filter), not a single CSV column. The catalog's `raw_column` for the fatalities indicators is the literal CSV column `best`. The developer encodes this in the read function: for indicators with `raw_column == "event_count"`, the aggregation is `count`; for indicators with `raw_column == "best"`, the aggregation is `sum(best)`. A cleaner alternative is to have a separate `raw_aggregation` column in the catalog (`count` or `sum_best`); this is the WGI / V-Dem convention adapted for UCDP. **The developer picks one and is consistent.** The recommended approach: have a hidden `raw_aggregation` column in the catalog (third column after `raw_column`) that says `count` or `sum_best`. The catalog spec in §2.4 below is the source of truth.
 
@@ -705,7 +705,7 @@ The CSV inside the zip has a header in UCDP GED 23.1. Older UCDP releases (pre-v
 
 ### Year coverage drift (the 2023 release year, 2022 data year)
 
-The current release is "UCDP GED 23.1" (release year 2023) and contains data through **2022** (last data year). The [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7 says "1946–2023+" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1946–2023+" — both refer to the **release year + projection**, not the last data year. The actual data goes through 2022. **The developer updates the docs to "1989–2022" in the same commit as the adapter lands** (the GED 23.1 dataset covers 1989–2022, not 1946+; the earlier "1946+" coverage belongs to UCDP's older non-GED "UCDP/PRIO Armed Conflict Dataset" which is a separate product). Mirror the WGI "1996–2023" → "1996–2022" fix pattern from [`docs/architecture/wgi.md`](wgi.md) §2.8.
+The current release is "UCDP GED 23.1" (release year 2023) and contains data through **2022** (last data year). The [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7 says "1946–2023+" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1946–2023+" — both refer to the **release year + projection**, not the last data year. The actual data goes through 2022. **The developer updates the docs to "1989–2022" in the same commit as the adapter lands** (the GED 23.1 dataset covers 1989–2022, not 1946+; the earlier "1946+" coverage belongs to UCDP's older non-GED "UCDP/PRIO Armed Conflict Dataset" which is a separate product). Mirror the WGI "1996–2023" → "1996–2022" fix pattern from [`docs/architecture/wgi.md`](wgi.md) §2.8.
 
 > **Note on the 1946+ coverage discrepancy.** The Phase B source-vetting report said UCDP covers "1946–2023+", which is true of the older UCDP/PRIO conflict dataset (a separate, less granular product). The UCDP GED specifically starts in 1989. The developer should clarify in the coverage field that the GED starts at 1989 (the UCDP/PRIO dataset covers 1946+, but that is not the GED 23.1 we are reading). Update [`docs/data-sources.md`](../data-sources.md) and [`docs/source-attributions.md`](../source-attributions.md) accordingly.
 
@@ -783,7 +783,7 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 2.8 — Workplan / docs updates
 
-When the UCDP adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting-report.md`, and `docs/data-sources.md`.
+When the UCDP adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
@@ -799,7 +799,7 @@ The `ucdp` entry (§1) needs three changes in the same commit:
 
 The short-form attribution text in reports (`"UCDP GED 23.1 (Davies et al. 2023)."`) and the long-form citation stay the same.
 
-### `docs/source-vetting-report.md` — minor updates
+### `docs/source-vetting/report.md` — minor updates
 
 §3.7 ("Conflict / international aggression sources") `ucdp` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/ucdp.py`."
 

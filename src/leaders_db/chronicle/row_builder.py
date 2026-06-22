@@ -33,6 +33,10 @@ helpers live in focused sibling modules:
   (:func:`load_ruler_resolver`, :class:`RulerResolver`).
 - :mod:`._area_source` — CShapes 2.0 area loader
   (:class:`CShapesSource`, :func:`load_cshapes_source`).
+- :mod:`country_scope` — Increment 5 all-country scope metadata
+  (:class:`CountryScopeEntry`,
+  :func:`derive_country_scope`,
+  :func:`get_existence_status`).
 
 Increment 2 changes:
 
@@ -62,6 +66,18 @@ Increment 3 changes:
   on top of ``controlled_area_not_modeled`` so the audit trail
   records both facts.
 
+Increment 5 changes (all-country condensed export):
+
+- :func:`build_chronicle_rows` now accepts an optional
+  ``country_scope`` mapping (``iso3 -> CountryScopeEntry``).
+  When provided, the per-row identity / flag / area helpers use
+  the scope entry's ``start_year`` / ``end_year`` /
+  ``country_name`` for countries not in the pilot
+  :data:`COUNTRY_METADATA`.
+- The detailed CSV / SQLite behavior is preserved when the caller
+  does NOT pass a ``country_scope`` (existing pilot tests still
+  see the original behavior).
+
 Reviewer-gate follow-up (Increment 3):
 
 - The five ``_populate_*`` helper clusters were extracted into
@@ -88,12 +104,15 @@ from ._row_ruler import populate_ruler_fields
 from ._row_sipri import populate_sipri_fields
 from .constants import (
     DEFAULT_PROXY_YEAR,
+    FLAG_COLONIAL_RULE_PLACEHOLDER,
     FLAG_MULTIPLE_RULERS,
     FLAG_PROXY_YEAR_USED,
     SOURCE_TAG_SIPRI,
     VDEM_MAX_COVERED_YEAR,
 )
-from .ruler_resolver import RulerResolver
+from .country_scope import CountryScopeEntry
+from .ruler_resolver import RulerResolver, RulerResult
+from .source_constants import SOURCE_TAG_COLONIAL_RULE_PLACEHOLDER
 from .sources import (
     MaddisonSource,
     RegimeSource,
@@ -131,6 +150,7 @@ class _RowDeps:
     regime: RegimeSource
     regime_bucket: RegimeBucketResult
     system_type: SystemTypeResult
+    country_scope_entry: CountryScopeEntry | None = None
 
 
 def _build_one_row(
@@ -143,18 +163,43 @@ def _build_one_row(
     set, flag order) are enforced once.
     """
     row = empty_row_template()
-    populate_identity(row, iso3, year)
-    ruler = deps.ruler_resolver.resolve(iso3, year)
+    populate_identity(
+        row,
+        iso3,
+        year,
+        country_scope_entry=deps.country_scope_entry,
+    )
+    cowcode = deps.vdem.cowcode_lookup(iso3, year)
+    ruler = deps.ruler_resolver.resolve(iso3, year, cowcode=cowcode)
+    colonial_rule_placeholder = False
+    if (
+        not ruler.has_ruler
+        and deps.vdem.is_colonial_or_dependent_year(iso3, year)
+    ):
+        colonial_rule_placeholder = True
+        ruler = RulerResult(
+            ruler_name="colonial-rule",
+            ruler_title="",
+            ruler_type="",
+            ruler_source=SOURCE_TAG_COLONIAL_RULE_PLACEHOLDER,
+            ruler_source_year_used=year,
+            ruler_confidence=0,
+            has_ruler=True,
+            multiple_rulers=False,
+        )
     populate_ruler_fields(row, ruler)
     populate_regime(row, deps.regime_bucket)
     populate_system_type(row, deps.system_type)
 
-    has_population, has_gdp, maddison_is_proxy = populate_economy_with_proxy(
+    has_population, has_gdp, maddison_is_proxy, economy_flags = (
+        populate_economy_with_proxy(
         row,
         iso3=iso3,
         year=year,
         wdi=deps.wdi,
         maddison=deps.maddison,
+        vdem=deps.vdem,
+        )
     )
     has_maddison = bool(
         row.get("population_source") == "maddison_project"
@@ -165,12 +210,21 @@ def _build_one_row(
     has_sipri = populate_sipri_fields(row, sipri_values, year=year)
 
     has_area, controlled_area_country_only, area_proxy_used = (
-        populate_area_fields(row, iso3=iso3, year=year, cshapes=deps.cshapes)
+        populate_area_fields(
+            row,
+            iso3=iso3,
+            year=year,
+            cshapes=deps.cshapes,
+            country_scope_entry=deps.country_scope_entry,
+        )
     )
 
     extra_flags: tuple[str, ...] = ()
+    extra_flags = (*extra_flags, *economy_flags)
     if ruler.multiple_rulers:
         extra_flags = (*extra_flags, FLAG_MULTIPLE_RULERS)
+    if colonial_rule_placeholder:
+        extra_flags = (*extra_flags, FLAG_COLONIAL_RULE_PLACEHOLDER)
     if maddison_is_proxy:
         extra_flags = (*extra_flags, FLAG_PROXY_YEAR_USED)
     populate_provenance_and_flags(
@@ -204,6 +258,7 @@ def build_chronicle_rows(
     ruler_resolver: RulerResolver | None = None,
     cshapes: CShapesSource | None = None,
     allow_regime_proxy: bool = True,
+    country_scope: dict[str, CountryScopeEntry] | None = None,
 ) -> list[dict[str, str]]:
     """Build the full row list for the chronicle run.
 
@@ -246,6 +301,16 @@ def build_chronicle_rows(
         ``Unknown`` + ``regime_source_gap`` for any year beyond
         V-Dem's coverage regardless of how close the proxy year is.
         Defaults to True per Increment 0 §5.1.
+    country_scope:
+        Optional Increment 5 all-country scope. When provided the
+        row builder uses the per-country scope entry's
+        ``country_name`` / ``start_year`` / ``end_year`` for
+        countries that are not in the pilot
+        :data:`COUNTRY_METADATA`. Pilot metadata wins on conflicts
+        (preserves the SUN / RUS / IND semantics). When ``None``
+        (default) the row builder falls back to the pilot
+        metadata only, preserving the Increment 1-3 detailed CSV
+        behavior.
     """
     if start_year > end_year:
         raise ValueError(
@@ -260,6 +325,9 @@ def build_chronicle_rows(
 
     rows: list[dict[str, str]] = []
     for iso3 in iso3_scope:
+        scope_entry = (
+            country_scope.get(iso3) if country_scope is not None else None
+        )
         for year in range(start_year, end_year + 1):
             regime_source = RegimeSource.from_vdem_lookup(vdem, iso3, year)
             # If the caller did not opt in to the proxy, downgrade any
@@ -293,6 +361,7 @@ def build_chronicle_rows(
                 regime=regime_source,
                 regime_bucket=bucket,
                 system_type=system_type,
+                country_scope_entry=scope_entry,
             )
             rows.append(_build_one_row(iso3=iso3, year=year, deps=deps))
     return rows

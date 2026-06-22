@@ -2,7 +2,7 @@
 
 This plan gates **Phase C (data acquisition)**. No Stage 2 ingest adapter is written until its source's verdict in `data/outputs/source_vetting_report.{csv,md}` is `vetted_ok` or `vetted_with_caveats`.
 
-Phase A is complete: the package, CLI, schema, paths, configs, data-lake folders, and smoke tests are in place. The Phase A finish line is documented in [`workplan.md`](workplan.md). The 6 client-bundle files (5 xlsx + 1 docx) are staged under `data/raw/client_existing/` with a `metadata.json`.
+Phase A is complete: the package, CLI, schema, paths, configs, data-lake folders, and smoke tests are in place. The Phase A finish line is documented in [`workplan.md`](../workplan.md). The 6 client-bundle files (5 xlsx + 1 docx) are staged under `data/raw/client_existing/` with a `metadata.json`.
 
 The goal of Phase B is to replace "trust the §6 source list" with **evidence per source**: a row in the source-vetting report for each priority source that records whether the dataset is reachable, whether it requires a login, whether it requires payment, whether its license is compatible, whether it actually covers 2023, and whether its format is parseable. Anything that does not pass is blocked from being implemented until it does.
 
@@ -14,7 +14,7 @@ The Stage 0 / Stage 2 implementation in §8 lists priority sources, but it does 
 
 In scope:
 
-- The **14 external priority sources** listed in requirement §6. The client's own bundle (`client_existing`) is already on disk and is **not** re-vetted here — the relevant checks for the client bundle are documented in [`data-sources.md`](data-sources.md) and covered by the Stage 1 acceptance criteria.
+- The **14 external priority sources** listed in requirement §6. The client's own bundle (`client_existing`) is already on disk and is **not** re-vetted here — the relevant checks for the client bundle are documented in [`data-sources.md`](../data-sources.md) and covered by the Stage 1 acceptance criteria.
 - The decision to **replace** a source with a substitute when the canonical one fails vetting (e.g. switch V-Dem to V-Dem Lite if the full CSV is too large).
 - The decision to **drop** a source if no replacement is acceptable.
 - Probe results stored in a machine-readable CSV plus a human-readable Markdown report under `data/outputs/`.
@@ -222,9 +222,9 @@ The captured URL is committed to `docs/data-sources.md` only after step 1 succee
 
 - **It does not download any data.** Phase C does that.
 - **It does not implement any ingest adapter.** Adapters remain stubs.
-- **It does not change the priority source list.** Adding or removing sources is a requirements change (REQ-SRC-*) and must go through [`docs/req/requirements-core.md`](req/requirements-core.md) first.
+- **It does not change the priority source list.** Adding or removing sources is a requirements change (REQ-SRC-*) and must go through [`docs/req/requirements-core.md`](../req/requirements-core.md) first.
 - **It does not write to `data/raw/<source>/` content.** The folders are empty (except for `client_existing`, which was filled during Phase A) and stay empty until Phase C.
 
 ## Done When
 
-Phase B closes when the project-manager signs off on the source-vetting report and the workplan moves the active-phase indicator from **A** to **B** to **C**. The transition is recorded in [`workplan.md`](workplan.md)'s Done History.
+Phase B closes when the project-manager signs off on the source-vetting report and the workplan moves the active-phase indicator from **A** to **B** to **C**. The transition is recorded in [`workplan.md`](../workplan.md)'s Done History.

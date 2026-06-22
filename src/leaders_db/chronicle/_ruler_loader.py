@@ -61,7 +61,7 @@ def load_archigos_frame(
             path,
         )
         return pd.DataFrame(
-            columns=["iso3", "leader", "startdate", "enddate"]
+            columns=["iso3", "ccode", "leader", "startdate", "enddate"]
         )
     with warnings.catch_warnings():
         # The .dta uses cp1252-encoded leader names; pandas emits
@@ -74,12 +74,18 @@ def load_archigos_frame(
     cow_for_iso3 = {iso3: c for c, iso3 in ARCHIGOS_COW_TO_ISO3.items()}
     if iso3_scope:
         cow_set = {cow_for_iso3[i] for i in iso3_scope if i in cow_for_iso3}
+        # Pilot runs are fully covered by the hand-maintained COW->ISO3 map.
+        # All-country runs are not: they rely on V-Dem's per-row COWcode bridge.
+        # If the hand map covers only a small fraction of the requested scope,
+        # keep all Archigos COW rows so resolver.resolve(..., cowcode=...) can hit.
+        if len(cow_set) >= max(1, len(iso3_scope) // 2):
+            df = df[df["ccode"].isin(cow_set)].copy()
+        else:
+            df = df.copy()
     else:
-        cow_set = set(ARCHIGOS_COW_TO_ISO3.values())
-    df = df[df["ccode"].isin(cow_set)].copy()
+        df = df.copy()
     df["iso3"] = df["ccode"].map(ARCHIGOS_COW_TO_ISO3)
-    df = df.dropna(subset=["iso3"])
-    return df[["iso3", "leader", "startdate", "enddate"]].reset_index(drop=True)
+    return df[["iso3", "ccode", "leader", "startdate", "enddate"]].reset_index(drop=True)
 
 
 def load_reign_frame(
@@ -101,20 +107,22 @@ def load_reign_frame(
             path,
         )
         return pd.DataFrame(
-            columns=["iso3", "year", "month", "leader", "government"]
+            columns=["iso3", "ccode", "year", "month", "leader", "government"]
         )
     df = pd.read_csv(path, low_memory=False)
     cow_for_iso3 = {iso3: c for c, iso3 in REIGN_COW_TO_ISO3.items()}
     if iso3_scope:
         cow_set = {cow_for_iso3[i] for i in iso3_scope if i in cow_for_iso3}
+        if len(cow_set) >= max(1, len(iso3_scope) // 2):
+            df = df[df["ccode"].isin(cow_set)].copy()
+        else:
+            df = df.copy()
     else:
-        cow_set = set(REIGN_COW_TO_ISO3.values())
-    df = df[df["ccode"].isin(cow_set)].copy()
+        df = df.copy()
     df["iso3"] = df["ccode"].map(REIGN_COW_TO_ISO3)
-    df = df.dropna(subset=["iso3"])
     df["year"] = df["year"].astype("Int64").fillna(0).astype(int)
     df["month"] = df["month"].astype("Int64").fillna(0).astype(int)
-    return df[["iso3", "year", "month", "leader", "government"]].reset_index(drop=True)
+    return df[["iso3", "ccode", "year", "month", "leader", "government"]].reset_index(drop=True)
 
 
 __all__ = [

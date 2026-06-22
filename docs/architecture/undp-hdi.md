@@ -25,7 +25,7 @@ UNDP HDI supports `social_wellbeing` because it is the canonical cross-national 
 | SHA-256 | `d987af8fb17913d6c4b83e9e0e4bb23356166f606744e9818a28d06967a56eec` |
 | License/citation note | Free with attribution; canonical text in `docs/source-attributions.md` under `undp_hdi` |
 
-The source is `vetted_ok` in `docs/source-vetting-report.md` and is one of the social-wellbeing sources alongside WDI social indicators and WHO GHO API. The adapter must not download the file during Stage 2; it reads the staged local CSV and metadata.
+The source is `vetted_ok` in `docs/source-vetting/report.md` and is one of the social-wellbeing sources alongside WDI social indicators and WHO GHO API. The adapter must not download the file during Stage 2; it reads the staged local CSV and metadata.
 
 ## §3 Indicator catalog
 

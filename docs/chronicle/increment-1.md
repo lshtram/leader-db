@@ -6,9 +6,9 @@ Sub-project: **Country-Year Chronicle** (`cyc`)
 
 Scope: incremental implementation notes for Increment 1 (experimental
 read-only CSV vertical slice) per
-[`docs/country-year-chronicle-workplan.md`](country-year-chronicle-workplan.md)
+[`docs/chronicle/workplan.md`](workplan.md)
 §7 and the Increment 0 findings in
-[`docs/country-year-chronicle-increment-0.md`](country-year-chronicle-increment-0.md).
+[`docs/chronicle/increment-0.md`](increment-0.md).
 
 This document is intentionally concise. The full Increment 0 contract,
 column order, and taxonomy decisions remain authoritative in Increment 0;
@@ -106,7 +106,7 @@ Defaults: ISO3 scope `USA,GBR,FRA,IND,RUS,SUN,CHN`; year window
 - ~~Ruler fields are emitted as empty placeholders with
   `missing_ruler` (no full ruler resolver yet — Stage 4 work).~~ —
   **closed by Increment 2** (2026-06-21). See
-  [`country-year-chronicle-increment-2.md`](country-year-chronicle-increment-2.md)
+  [`increment-2.md`](increment-2.md)
   for the Archigos + REIGN ruler resolver.
 - ~~Pre-1960 GDP/population is empty because the local WDI parquet
   only contains 2022 today (full WDI re-run is a Stage 2/3 task,

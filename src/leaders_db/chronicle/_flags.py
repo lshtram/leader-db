@@ -10,8 +10,17 @@ combines three inputs:
 - field-level missing flags driven by the source lookup results.
 
 This module owns the assembly so the row builder can stay focused
-on row composition. The order is fixed; the CSV output is
+on per-row composition. The order is fixed; the CSV output is
 byte-identical across runs.
+
+Increment 5 (all-country condensed export): the assembler accepts
+an optional ``country_scope_entry``. When provided, the
+existence-window check (pre / post existence gap) uses the
+scope entry's ``start_year`` / ``end_year`` so all-country
+rows get the correct gap flags. The pilot
+:data:`COUNTRY_METADATA` keeps priority for the colonial-cutoff
+and ``country_status`` fields because the all-country scope
+does not redefine them.
 """
 
 from __future__ import annotations
@@ -32,6 +41,7 @@ from .constants import (
     FLAG_PRE_EXISTENCE_GAP,
     FLAG_SUCCESSOR_STATE_ISSUE,
 )
+from .country_scope import CountryScopeEntry
 from .regime import RegimeBucketResult
 from .system_type import SystemTypeResult
 
@@ -50,6 +60,7 @@ def assemble_flags(
     controlled_area_country_only: bool,
     area_proxy_used: bool,
     extra_flags: tuple[str, ...] = (),
+    country_scope_entry: CountryScopeEntry | None = None,
 ) -> tuple[str, ...]:
     """Build the deduplicated, deterministic flag tuple for one row.
 
@@ -86,8 +97,20 @@ def assemble_flags(
             seen.add(flag)
 
     metadata = COUNTRY_METADATA.get(iso3, {})
-    start_year = safe_int(metadata.get("start_year"))
-    end_year = safe_int(metadata.get("end_year"))
+    # The pilot metadata wins on start_year / end_year when present
+    # (preserves the SUN / RUS pilot semantics). When the iso3 is
+    # not in the pilot metadata, fall back to the all-country scope
+    # entry so V-Dem-derived windows still produce the right
+    # pre / post existence gap flags.
+    if "start_year" in metadata or "end_year" in metadata:
+        start_year = safe_int(metadata.get("start_year"))
+        end_year = safe_int(metadata.get("end_year"))
+    elif country_scope_entry is not None:
+        start_year = country_scope_entry.start_year
+        end_year = country_scope_entry.end_year
+    else:
+        start_year = None
+        end_year = None
     colonial_until = safe_int(metadata.get("colonial_status_until"))
     country_status = metadata.get("country_status", "")
 

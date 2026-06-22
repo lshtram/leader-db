@@ -7,7 +7,7 @@ Sub-project: **Country-Year Chronicle** (`cyc`)
 Scope: implementation notes for Increment 3 (SUN rulers via a
 curated, Wikipedia-anchored spell list + CShapes 2.0 country-area
 source + conservative `controlled_area_km2` fallback) per
-[`docs/country-year-chronicle-workplan.md`](country-year-chronicle-workplan.md)
+[`docs/chronicle/workplan.md`](workplan.md)
 §7 and the Increment 0/1/2 findings.
 
 This document records what shipped, what is deferred, and the
@@ -296,7 +296,7 @@ Increment 0/1/2 docs.
   Increment 3 pilot. The canonical dependency-controller
   source for the historical colonial period (ICOW Colonial
   History data v1.1) is documented in
-  [`docs/source-vetting-report.md`](source-vetting-report.md)
+  [`docs/source-vetting/report.md`](../source-vetting/report.md)
   but its download URL (`http://www.paulhensel.org/icowcol/Data/colhist.zip`)
   returned HTTP 404 on 2026-06-21 (the site has been reorganized
   to `data.icow.org/icowcol/` and the canonical redirect
@@ -344,7 +344,7 @@ sources_used: archigos, cshapes, maddison_project, reign,
 ```
 
 End-of-run coverage counts (see
-`docs/country-year-chronicle-increment-3.md` for the
+`docs/chronicle/increment-3.md` for the
 reproducible Python snippet):
 
 - Total rows: 889.
@@ -408,7 +408,7 @@ Notes on the carve-outs:
 
 - `constants.py` (476 lines) is the long-table / schema constants
   file that was already an explicit Increment-1 carve-out from the
-  400-line convention (see `country-year-chronicle-increment-1.md`
+  400-line convention (see `increment-1.md`
   §128).
 - `sources.py` (414 lines) is the legacy source facade that intentionally
   centralizes source class imports (`VDemSource`, `WdiSource`, `SipriSource`,

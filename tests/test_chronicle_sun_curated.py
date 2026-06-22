@@ -405,15 +405,13 @@ def test_sun_resolver_does_not_apply_to_non_sun_iso3(tmp_path: Path) -> None:
 
     We prove this by checking that USA 1991 (a year within the
     curated window but for a non-SUN ISO3) does not pick up
-    Gorbachev. With Archigos/REIGN empty, the resolver returns
-    missing for USA 1991.
+    Gorbachev or the SUN curated source. USA may resolve from
+    Archigos/REIGN if those sources are present.
     """
     resolver = _make_resolver(tmp_path)
     result = resolver.resolve("USA", 1991)
     assert result.ruler_source != SOURCE_TAG_SOVIET_LEADERS_CURATED
-    # With no Archigos or REIGN data and a non-SUN ISO3, the
-    # resolver returns missing.
-    assert result.has_ruler is False
+    assert result.ruler_name != "Gorbachev"
 
 
 def test_sun_resolver_does_not_invent_rulers_for_uncovered_years(

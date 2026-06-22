@@ -9,19 +9,41 @@ convention. See
 Public helpers:
 
 - :func:`populate_identity` — set the year / iso3 / country / status
-  columns from the country metadata.
+  columns from the country metadata (pilot or scope-derived).
 - :func:`derive_country_status` — compute ``country_status`` from the
   metadata + requested year (with the colonial-cutoff exception for
   identities like IND that span a colonial / independent transition).
+
+Increment 5 changes (all-country condensed export):
+
+- :func:`populate_identity` now accepts an optional
+  :class:`CountryScopeEntry` so the row builder can populate the
+  identity columns from the all-country scope (V-Dem coverage +
+  pilot historical identities) instead of the small
+  :data:`COUNTRY_METADATA` constant.
+- When the scope entry is provided the ``country_name`` comes from
+  the scope entry; otherwise the row falls back to the pilot
+  metadata and ultimately the ISO3 code.
+- The detailed CSV / SQLite behavior is preserved when the caller
+  does NOT pass a scope entry: existing pilot tests still see
+  ``country_name`` / ``country_status`` / ``region`` / ``subregion``
+  from :data:`COUNTRY_METADATA`.
 """
 
 from __future__ import annotations
 
 from ._formatters import coerce_int, safe_int
 from .constants import COUNTRY_METADATA
+from .country_scope import CountryScopeEntry
 
 
-def populate_identity(row: dict[str, str], iso3: str, year: int) -> None:
+def populate_identity(
+    row: dict[str, str],
+    iso3: str,
+    year: int,
+    *,
+    country_scope_entry: CountryScopeEntry | None = None,
+) -> None:
     """Populate year / iso3 / country metadata into the row in place.
 
     ``country_status`` is computed dynamically: when the country
@@ -32,12 +54,34 @@ def populate_identity(row: dict[str, str], iso3: str, year: int) -> None:
     keep IND's pre-1947 rows honest without duplicating the country
     record for British India — the same ISO3 spans both eras and the
     status flips at the documented cutoff.
+
+    When ``country_scope_entry`` is provided (the Increment 5
+    all-country path), the ``country_name`` comes from the scope
+    entry. ``country_status`` falls back to the pilot metadata's
+    static value (pilot identities with a colonial cutoff still
+    get the IND-style flip); non-pilot countries with no pilot
+    metadata default to ``unknown``. ``region`` / ``subregion`` are
+    not populated by the all-country scope (V-Dem does not supply
+    them); they are blank when no pilot metadata is available.
     """
-    metadata = COUNTRY_METADATA.get(iso3, {})
     row["year"] = coerce_int(year)
     row["iso3"] = iso3
-    row["country_name"] = metadata.get("country_name", iso3)
+    metadata = COUNTRY_METADATA.get(iso3, {})
+    if country_scope_entry is not None:
+        row["country_name"] = country_scope_entry.country_name or iso3
+    else:
+        row["country_name"] = metadata.get("country_name", iso3)
     row["country_status"] = derive_country_status(metadata, year)
+    if country_scope_entry is not None and iso3 not in COUNTRY_METADATA:
+        # The all-country path: keep the static ``unknown`` status
+        # for countries that have no pilot metadata. The pilot
+        # colonial-cutoff logic above already handled the pilot
+        # cases.
+        row["country_status"] = (
+            metadata.get("country_status", "unknown")
+            if metadata
+            else "unknown"
+        )
     row["region"] = metadata.get("region", "")
     row["subregion"] = metadata.get("subregion", "")
 

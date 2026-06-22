@@ -2,7 +2,7 @@
 
 > **Status: signed off; living source record.** This is the canonical Phase B deliverable. Phase C (data acquisition) is underway; addenda are recorded here as sources are recovered or newly adopted.
 >
-> The report is a clean summary of [`docs/source-vetting-worksheet.md`](source-vetting-worksheet.md) (the audit trail) and a by-rating-category view of the coverage. The attribution text per source is in [`docs/source-attributions.md`](source-attributions.md).
+> The report is a clean summary of [`docs/source-vetting/worksheet.md`](worksheet.md) (the audit trail) and a by-rating-category view of the coverage. The attribution text per source is in [`docs/source-attributions.md`](../source-attributions.md).
 >
 > **Updated 2026-06-18 (addenda):** CIRIGHTS and BTI are now on disk; RSF Worldwide Press Freedom Index annual CSVs were acquired and added as a political-freedom sub-signal. Freedom House remains user-managed, not programmatically blocked forever.
 
@@ -35,7 +35,7 @@ The 8 rating categories are from requirement §4. Each must have at least **two 
 
 ## 3. Per-source verdict (26 external source entries)
 
-Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-vetting-plan.md`](source-vetting-plan.md).
+Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-vetting/plan.md`](plan.md).
 
 ### 3.1 Leader identity (REQ-SRC-001)
 
@@ -182,7 +182,7 @@ When Phase C begins, the following Stage 2 ingest modules can be implemented imm
   - `vdem` (already on disk; Phase C.1)
   - `world_bank_wdi` (API; Phase C.2)
   - `world_bank_wgi` (xlsx + API; Phase C.3)
-  - `pwt` (xlsx) — **adapter blocked on raw bundle** (see workplan Done History)
+  - `pwt` (xlsx) — raw bundle and metadata are now staged (`data/raw/pwt/pwt1001.xlsx`); adapter pending under the shared-interface plan
   - `ucdp` (zip; Phase C.4)
   - `sipri_milex` (xlsx; Phase C.5)
   - `sipri_yearbook_ch7` (PDF; Phase C.6)
@@ -232,9 +232,9 @@ These are gitignored working files; they are evidence that the probes happened, 
 
 ## 10. Sign-off
 
-The user signed off on Phase B on 2026-06-17 and the workplan moved the active-phase indicator from **B** to **C**. This report now acts as a living source record; addenda such as CIRIGHTS, BTI, and RSF are reflected here and in [`docs/workplan.md`](workplan.md)'s Done History.
+The user signed off on Phase B on 2026-06-17 and the workplan moved the active-phase indicator from **B** to **C**. This report now acts as a living source record; addenda such as CIRIGHTS, BTI, and RSF are reflected here and in [`docs/workplan.md`](../workplan.md)'s Done History.
 
-If anything in this report is wrong (a wrong verdict, a missing source, a wrong replacement, a category under-served), fix it inline in `source-vetting-worksheet.md` and `source-attributions.md` before signing off — do not sign off and then patch.
+If anything in this report is wrong (a wrong verdict, a missing source, a wrong replacement, a category under-served), fix it inline in `worksheet.md` and `../source-attributions.md` before signing off — do not sign off and then patch.
 
 ## 11. The 8 rating categories — definitions and required sources
 

@@ -3,9 +3,12 @@
 The runner is the public Python entry point for the slice. It:
 
 1. Loads the V-Dem, WDI, SIPRI, Maddison, Archigos, REIGN, SUN
-   curated, and CShapes sources from the local data lake.
+   curated, and CShapes sources from the local data lake via
+   :mod:`leaders_db.chronicle._source_orchestration`.
 2. Builds the per-row data via :func:`build_chronicle_rows`.
 3. Writes the CSV via :func:`csv_writer.write_chronicle_csv`.
+4. (Increment 5, optional) Writes the condensed CSV via
+   :func:`condensed_writer.write_condensed_csv`.
 
 The function is the Python seam the CLI calls. Tests call it
 directly to drive the slice end-to-end without a CLI.
@@ -19,18 +22,36 @@ Increment 3 added CShapes 2.0 (country area, 1886-2019) and the
 curated Soviet-leaders spell list (SUN rulers, 1922-12-30 to
 1991-12-25). The runner is the single place that decides which
 sources are loaded for a given CLI invocation.
+
+Increment 5 added the all-country condensed export. The runner
+now accepts an optional ``country_scope`` mapping; when supplied
+the per-row identity / flag / area helpers use the scope entry's
+``start_year`` / ``end_year`` / ``country_name`` for countries
+that are not in the pilot :data:`COUNTRY_METADATA`. The detailed
+CSV / SQLite behavior is preserved when the caller does NOT pass
+a scope. A condensed CSV (Increment 5 column contract) is written
+alongside the detailed CSV whenever ``condensed_output_path`` is
+provided (or when the CLI's default opt-in resolves a path).
+
+Module size. The Increment 5 extensions pushed this file over
+the documented 440-line carve-out threshold. The source-loading
+and sources-used-detection helpers were extracted to
+:mod:`._source_orchestration` so the runner stays focused on the
+CLI seam + path discovery + output selection.
 """
 
 from __future__ import annotations
 
+import csv
 import logging
 from dataclasses import dataclass
 from pathlib import Path
 
-from ._area_source import (
-    default_cshapes_csv_path,
-    load_cshapes_source,
+from ._source_orchestration import (
+    detect_sources_used,
+    load_all_sources,
 )
+from .condensed_writer import write_condensed_csv
 from .constants import (
     CHRONICLE_OUTPUT_DIR_NAME,
     COUNTRY_METADATA,
@@ -39,20 +60,9 @@ from .constants import (
     DEFAULT_OUTPUT_BASENAME,
     DEFAULT_START_YEAR,
 )
+from .country_scope import CountryScopeEntry
 from .csv_writer import write_chronicle_csv
 from .row_builder import build_chronicle_rows
-from .ruler_resolver import (
-    default_archigos_dta_path,
-    default_reign_csv_path,
-    default_sun_csv_path,
-    load_ruler_resolver,
-)
-from .sources import (
-    load_maddison_source,
-    load_sipri_source,
-    load_vdem_source,
-    load_wdi_source,
-)
 from .sqlite_writer import write_chronicle_sqlite
 
 _logger = logging.getLogger(__name__)
@@ -80,6 +90,17 @@ class ChronicleResult:
             artifact. ``None`` when the caller did not pass
             ``sqlite_output_path`` and the CLI default did not
             opt in.
+        condensed_output_path: Optional resolved path to the
+            condensed CSV artifact (Increment 5). ``None`` when
+            the caller did not pass ``condensed_output_path``
+            and the CLI default did not opt in.
+        condensed_rows_written: Number of data rows in the
+            condensed CSV (equals ``rows_written`` for in-window
+            rows; out-of-window rows have only identity columns
+            populated, so the condensed file can carry more
+            rows than the detailed file when the all-country
+            scope is used). ``0`` when no condensed CSV was
+            written.
     """
 
     rows_written: int
@@ -90,6 +111,8 @@ class ChronicleResult:
     sources_used: tuple[str, ...]
     allow_regime_proxy: bool
     sqlite_output_path: Path | None = None
+    condensed_output_path: Path | None = None
+    condensed_rows_written: int = 0
 
     @property
     def attribution_block(self) -> str:
@@ -108,6 +131,7 @@ class ChronicleResult:
             SOVIET_LEADERS_CURATED_ATTRIBUTION,
             VDEM_ATTRIBUTION,
             WDI_ATTRIBUTION,
+            WIKIDATA_RECENT_RULERS_ATTRIBUTION,
         )
 
         parts: list[str] = []
@@ -128,6 +152,8 @@ class ChronicleResult:
                 parts.append(CSHAPES_ATTRIBUTION)
             elif tag == "soviet_leaders_curated":
                 parts.append(SOVIET_LEADERS_CURATED_ATTRIBUTION)
+            elif tag == "wikidata_recent_rulers":
+                parts.append(WIKIDATA_RECENT_RULERS_ATTRIBUTION)
         return " | ".join(parts)
 
 
@@ -148,6 +174,21 @@ def default_wdi_parquet_path() -> Path:
     from ..paths import processed_dir
 
     return processed_dir("world_bank_wdi") / "wdi_country_year.parquet"
+
+
+def default_wdi_cache_dir() -> Path:
+    """Return the canonical WDI v2 coverage-cache directory.
+
+    The directory is a snapshot of the WDI v2 API responses saved
+    by an out-of-band fetch (one JSON file per indicator +
+    window, e.g. ``NY.GDP.MKTP.KD_1960_2024.json``). The Chronicle
+    WDI loader reads it as exact country-year observations in
+    addition to the processed parquet, lifting recent-year
+    coverage from 2022-only to 1960-2024.
+    """
+    from ..paths import raw_dir
+
+    return raw_dir("world_bank_wdi") / "coverage_cache"
 
 
 def default_sipri_parquet_path() -> Path:
@@ -191,6 +232,7 @@ def run_country_year_chronicle(
     end_year: int = DEFAULT_END_YEAR,
     vdem_csv_path: Path | None = None,
     wdi_parquet_path: Path | None = None,
+    wdi_cache_dir: Path | None = None,
     sipri_parquet_path: Path | None = None,
     maddison_xlsx_path: Path | None = None,
     archigos_dta_path: Path | None = None,
@@ -199,6 +241,12 @@ def run_country_year_chronicle(
     cshapes_csv_path: Path | None = None,
     sqlite_output_path: Path | None = None,
     allow_regime_proxy: bool = True,
+    country_scope: dict[str, CountryScopeEntry] | None = None,
+    condensed_output_path: Path | None = None,
+    wikidata_recent_cache_dir: Path | None = None,
+    wikidata_recent_force_refresh: bool = False,
+    wikidata_recent_timeout: float = 60.0,
+    wikidata_recent_disabled: bool = False,
 ) -> ChronicleResult:
     """Run the Country-Year Chronicle slice end-to-end.
 
@@ -209,7 +257,10 @@ def run_country_year_chronicle(
         missing.
     iso3_scope:
         ISO3 keys to include. Defaults to the Increment 0 pilot set
-        (``USA, GBR, FRA, IND, RUS, SUN, CHN``).
+        (``USA, GBR, FRA, IND, RUS, SUN, CHN``). The runner validates
+        that every key is in either the pilot :data:`COUNTRY_METADATA`
+        or the caller-supplied ``country_scope`` so a typo in the CLI
+        cannot silently drop a country.
     start_year, end_year:
         Inclusive year window. The runner emits one row per
         ``(iso3, year)`` pair regardless of whether any source has
@@ -229,6 +280,25 @@ def run_country_year_chronicle(
         Pass an explicit ``Path`` to opt in.
     allow_regime_proxy:
         Forwarded to :func:`build_chronicle_rows`. Defaults to True.
+    country_scope:
+        Optional Increment 5 all-country scope. When provided the
+        row builder uses the per-country scope entry's
+        ``country_name`` / ``start_year`` / ``end_year`` for
+        countries that are not in the pilot
+        :data:`COUNTRY_METADATA`. The scope is also used by the
+        condensed writer to compute the ``existence_status`` per
+        row. When ``None`` (default) the runner falls back to
+        the pilot metadata only and skips the condensed CSV (the
+        condensed writer needs a scope to compute
+        ``existence_status``).
+    condensed_output_path:
+        Optional condensed CSV artifact path (Increment 5). When
+        provided the runner writes a condensed CSV alongside the
+        detailed CSV using the ``country_scope`` mapping. The
+        default CLI opt-in resolves to
+        ``<project_root>/data/outputs/country-year-chronicle/condensed.csv``;
+        callers that want to opt out should pass an explicit
+        sentinel (today the CLI exposes ``--no-condensed-output``).
 
     Returns
     -------
@@ -237,48 +307,74 @@ def run_country_year_chronicle(
         sources that contributed rows with non-empty values. When
         ``sqlite_output_path`` is provided, ``sqlite_output_path``
         on the result carries the resolved path (or ``None`` if
-        the SQLite write was skipped).
+        the SQLite write was skipped). When ``condensed_output_path``
+        is provided, ``condensed_output_path`` /
+        ``condensed_rows_written`` carry the resolved path /
+        row count.
     """
     # Validate scope early: any unknown ISO3 is a hard error so the
     # caller is told immediately instead of silently dropping it.
-    unknown = [iso3 for iso3 in iso3_scope if iso3 not in COUNTRY_METADATA]
+    # We accept iso3s that are in the pilot COUNTRY_METADATA OR in
+    # the caller-supplied country_scope (Increment 5 all-country
+    # path). When neither is provided we fall back to the pilot
+    # metadata only, which preserves the Increment 1-4 contract.
+    accepted_scope: set[str] = set(COUNTRY_METADATA)
+    if country_scope is not None:
+        accepted_scope |= set(country_scope)
+    unknown = [iso3 for iso3 in iso3_scope if iso3 not in accepted_scope]
     if unknown:
+        if country_scope is None:
+            raise ValueError(
+                f"Unknown ISO3 keys (not in COUNTRY_METADATA): {sorted(unknown)}"
+            )
         raise ValueError(
-            f"Unknown ISO3 keys (not in COUNTRY_METADATA): {sorted(unknown)}"
+            "Unknown ISO3 keys (not in country_scope or COUNTRY_METADATA): "
+            f"{sorted(unknown)}"
         )
 
-    vdem_csv_path = vdem_csv_path or default_vdem_csv_path()
-    wdi_parquet_path = wdi_parquet_path or default_wdi_parquet_path()
-    sipri_parquet_path = (
-        sipri_parquet_path or default_sipri_parquet_path()
+    # Resolve default paths. We resolve them once so the orchestrator
+    # body below can pass named keyword arguments to ``load_all_sources``.
+    from ._area_source import default_cshapes_csv_path
+    from ._ruler_loader import (
+        default_archigos_dta_path,
+        default_reign_csv_path,
     )
-    maddison_xlsx_path = (
-        maddison_xlsx_path or default_maddison_xlsx_path()
-    )
-    archigos_dta_path = (
-        archigos_dta_path or default_archigos_dta_path()
-    )
-    reign_csv_path = reign_csv_path or default_reign_csv_path()
-    sun_csv_path = sun_csv_path or default_sun_csv_path()
-    cshapes_csv_path = cshapes_csv_path or default_cshapes_csv_path()
+    from ._sun_ruler_loader import default_sun_csv_path
+
+    resolved_paths = {
+        "vdem_csv_path": vdem_csv_path or default_vdem_csv_path(),
+        "wdi_parquet_path": wdi_parquet_path or default_wdi_parquet_path(),
+        "wdi_cache_dir": wdi_cache_dir or default_wdi_cache_dir(),
+        "sipri_parquet_path": sipri_parquet_path or default_sipri_parquet_path(),
+        "maddison_xlsx_path": maddison_xlsx_path or default_maddison_xlsx_path(),
+        "archigos_dta_path": archigos_dta_path or default_archigos_dta_path(),
+        "reign_csv_path": reign_csv_path or default_reign_csv_path(),
+        "sun_csv_path": sun_csv_path or default_sun_csv_path(),
+        "cshapes_csv_path": cshapes_csv_path or default_cshapes_csv_path(),
+    }
+
+    # Compute the Wikidata recent-rulers year window. The fallback
+    # fires only for years past REIGN coverage (2022+) so historical
+    # years do not trigger an unnecessary SPARQL fetch. Pass an
+    # empty tuple when the caller disabled the fallback.
+    if wikidata_recent_disabled:
+        wikidata_recent_years: tuple[int, ...] = ()
+    else:
+        from .source_constants import REIGN_COVERAGE_END_YEAR
+
+        wikidata_recent_years = tuple(
+            y for y in range(start_year, end_year + 1)
+            if y > REIGN_COVERAGE_END_YEAR
+        )
 
     # Load sources.
-    vdem = load_vdem_source(raw_csv_path=vdem_csv_path, iso3_scope=iso3_scope)
-    wdi = load_wdi_source(parquet_path=wdi_parquet_path, iso3_scope=iso3_scope)
-    sipri = load_sipri_source(parquet_path=sipri_parquet_path, iso3_scope=iso3_scope)
-    maddison = load_maddison_source(
-        xlsx_path=maddison_xlsx_path,
+    loaded = load_all_sources(
         iso3_scope=iso3_scope,
-    )
-    ruler_resolver = load_ruler_resolver(
-        archigos_dta_path=archigos_dta_path,
-        reign_csv_path=reign_csv_path,
-        sun_csv_path=sun_csv_path,
-        iso3_scope=iso3_scope,
-    )
-    cshapes = load_cshapes_source(
-        csv_path=cshapes_csv_path,
-        iso3_scope=iso3_scope,
+        wikidata_recent_years=wikidata_recent_years,
+        wikidata_recent_cache_dir=wikidata_recent_cache_dir,
+        wikidata_recent_force_refresh=wikidata_recent_force_refresh,
+        wikidata_recent_timeout=wikidata_recent_timeout,
+        **resolved_paths,
     )
 
     # Build rows.
@@ -286,13 +382,14 @@ def run_country_year_chronicle(
         iso3_scope=iso3_scope,
         start_year=start_year,
         end_year=end_year,
-        vdem=vdem,
-        wdi=wdi,
-        sipri=sipri,
-        maddison=maddison,
-        ruler_resolver=ruler_resolver,
-        cshapes=cshapes,
+        vdem=loaded.vdem,
+        wdi=loaded.wdi,
+        sipri=loaded.sipri,
+        maddison=loaded.maddison,
+        ruler_resolver=loaded.ruler_resolver,
+        cshapes=loaded.cshapes,
         allow_regime_proxy=allow_regime_proxy,
+        country_scope=country_scope,
     )
 
     # Determine which sources contributed. We mark a source as used
@@ -301,12 +398,12 @@ def run_country_year_chronicle(
     # population, a SIPRI milex value, a Maddison gdppc, an Archigos
     # leader name, a REIGN leader name, a CShapes area, a SUN
     # curated ruler).
-    sources_used = _detect_sources_used(
+    sources_used = detect_sources_used(
         rows,
-        vdem_has_data=not vdem.frame.empty,
-        maddison_has_data=not maddison.frame.empty,
-        ruler_resolver=ruler_resolver,
-        cshapes_has_data=not cshapes.frame.empty,
+        vdem_has_data=not loaded.vdem.frame.empty,
+        maddison_has_data=not loaded.maddison.frame.empty,
+        ruler_resolver=loaded.ruler_resolver,
+        cshapes_has_data=loaded.cshapes is not None and not loaded.cshapes.frame.empty,
     )
 
     # Write CSV.
@@ -335,6 +432,30 @@ def run_country_year_chronicle(
             sources_used=sources_used,
         )
 
+    # Optional condensed CSV (Increment 5). The runner skips the
+    # condensed write when the caller did not supply a path AND
+    # did not supply a country scope; both are required for the
+    # condensed writer to produce sensible output.
+    resolved_condensed: Path | None = None
+    condensed_rows_written = 0
+    if condensed_output_path is not None:
+        if country_scope is None:
+            raise ValueError(
+                "condensed_output_path was provided but country_scope is "
+                "None; the condensed writer needs a scope to compute "
+                "existence_status. Pass country_scope=... or omit "
+                "condensed_output_path."
+            )
+        resolved_condensed = write_condensed_csv(
+            output_path=condensed_output_path,
+            detailed_rows=rows,
+            country_scope=country_scope,
+        )
+        # Re-read the condensed file to report the row count.
+        with resolved_condensed.open(newline="", encoding="utf-8") as _fh:
+            _reader = csv.DictReader(_fh)
+            condensed_rows_written = sum(1 for _ in _reader)
+
     return ChronicleResult(
         rows_written=len(rows),
         output_path=output_path,
@@ -344,77 +465,16 @@ def run_country_year_chronicle(
         sources_used=sources_used,
         allow_regime_proxy=allow_regime_proxy,
         sqlite_output_path=resolved_sqlite,
+        condensed_output_path=resolved_condensed,
+        condensed_rows_written=condensed_rows_written,
     )
-
-
-def _detect_sources_used(
-    rows: list[dict[str, str]],
-    *,
-    vdem_has_data: bool,
-    maddison_has_data: bool,
-    ruler_resolver,
-    cshapes_has_data: bool,
-) -> list[str]:
-    """Return the sorted list of source tags that contributed data.
-
-    V-Dem is included when the source V-Dem frame had any rows.
-    WDI / Maddison are included when any row's ``population`` or
-    ``gdp`` field is non-empty (and the source tag in the
-    per-row ``population_source`` / ``gdp_source`` matches).
-    SIPRI is included when any row's ``military_spend`` field is
-    non-empty. Archigos / REIGN / SUN curated are included when
-    the resolver actually returned a ruler name (i.e. the source
-    frame had records). CShapes is included when the source
-    frame had any rows for the requested ISO3 set.
-    """
-    used: set[str] = set()
-    if vdem_has_data:
-        used.add("vdem")
-    if maddison_has_data:
-        used.add("maddison_project")
-    if not ruler_resolver.archigos_frame.empty:
-        used.add("archigos")
-    if not ruler_resolver.reign_frame.empty:
-        used.add("reign")
-    if not ruler_resolver.sun_frame.empty:
-        used.add("soviet_leaders_curated")
-    if cshapes_has_data:
-        used.add("cshapes")
-    for row in rows:
-        pop_src = row.get("population_source", "")
-        gdp_src = row.get("gdp_source", "")
-        if pop_src == "maddison_project" or gdp_src == "maddison_project":
-            used.add("maddison_project")
-        if pop_src == "wdi" or gdp_src == "wdi":
-            used.add("wdi")
-        if row.get("military_spend"):
-            used.add("sipri_milex")
-        if row.get("ruler_source") == "archigos":
-            used.add("archigos")
-        if row.get("ruler_source") == "reign":
-            used.add("reign")
-        if row.get("ruler_source") == "soviet_leaders_curated":
-            used.add("soviet_leaders_curated")
-        if row.get("area_source") == "cshapes":
-            used.add("cshapes")
-        # A row with a V-Dem-derived regime bucket (anything other
-        # than empty source) also implies V-Dem was used, even if
-        # the raw frame was empty (the row builder can fall back to
-        # the polyarchy path).
-        if row.get("political_regime_source") == "vdem":
-            used.add("vdem")
-    return sorted(used)
 
 
 __all__ = [
     "ChronicleResult",
-    "default_archigos_dta_path",
-    "default_cshapes_csv_path",
     "default_maddison_xlsx_path",
     "default_output_path",
-    "default_reign_csv_path",
     "default_sipri_parquet_path",
-    "default_sun_csv_path",
     "default_vdem_csv_path",
     "default_wdi_parquet_path",
     "run_country_year_chronicle",

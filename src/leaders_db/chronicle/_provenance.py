@@ -30,6 +30,7 @@ from __future__ import annotations
 from ._flags import assemble_flags
 from ._formatters import coerce_int
 from .constants import SOURCE_TAG_MADDISON, SOURCE_TAG_WDI, WDI_DIRECT_CONFIDENCE
+from .country_scope import CountryScopeEntry
 from .regime import RegimeBucketResult
 from .system_type import SystemTypeResult
 
@@ -144,6 +145,7 @@ def populate_provenance_and_flags(
     controlled_area_country_only: bool,
     area_proxy_used: bool,
     extra_flags: tuple[str, ...] = (),
+    country_scope_entry: CountryScopeEntry | None = None,
 ) -> None:
     """Assemble flags, row_confidence, and provenance_summary, then write them.
 
@@ -152,6 +154,11 @@ def populate_provenance_and_flags(
     NOT from the ``has_population or has_gdp`` booleans. This is
     the audit-trail contract for the Increment 2 reviewer gate.
     Maddison alone populating a row does NOT make ``wdi=yes``.
+
+    The optional ``country_scope_entry`` (Increment 5) is forwarded
+    to :func:`assemble_flags` so all-country rows get the right
+    pre / post existence gap flags when the iso3 has no pilot
+    metadata.
     """
     flags = assemble_flags(
         iso3=iso3,
@@ -166,6 +173,7 @@ def populate_provenance_and_flags(
         controlled_area_country_only=controlled_area_country_only,
         area_proxy_used=area_proxy_used,
         extra_flags=extra_flags,
+        country_scope_entry=country_scope_entry,
     )
     wdi_hit = wdi_hit_from_row(row)
     row["data_quality_flags"] = "|".join(flags)

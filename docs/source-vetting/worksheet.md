@@ -2,7 +2,7 @@
 
 This is the working document for Phase B. It records per-source findings
 as the agent researches each priority source. The final report at
-`docs/source-vetting-report.md` is a clean summary of this worksheet.
+`docs/source-vetting/report.md` is a clean summary of this worksheet.
 
 Conventions:
 

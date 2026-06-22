@@ -78,6 +78,28 @@ SOVIET_LEADERS_CURATED_ATTRIBUTION: Final[str] = (
     "Soviet Union'), as of 2026-06-21."
 )
 
+#: Wikidata (CC0 1.0) attribution text used by the Chronicle
+#: recent-rulers fallback adapter. The verbatim text is the
+#: same string the Stage 2 Wikidata adapter uses (the upstream
+#: source is the same; the adapter differs). Drift-guarded by
+#: :func:`test_wikidata_recent_rulers_attribution_matches_attributions_doc`.
+#: Per AGENTS.md Always-On Rule #15, the byte-for-byte string is
+#: :data:`WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION` from
+#: the Stage 2 adapter; we re-export it here so the Chronicle
+#: constants module owns every per-source attribution text in
+#: one place.
+WIKIDATA_RECENT_RULERS_ATTRIBUTION: Final[str] = (
+    "Wikidata (CC0 1.0)."
+)
+
+#: Conservative confidence (0-100) for a Wikidata recent-rulers
+#: direct hit (the SPARQL query returned a holder with valid
+#: start / end dates covering the requested year). Lower than
+#: Archigos direct confidence because the Wikidata data is
+#: community-curated and the office vocabulary is broader than
+#: Archigos's leader-spell representation.
+WIKIDATA_RECENT_RULERS_DIRECT_CONFIDENCE: Final[int] = 60
+
 #: Archigos v4.1 country code (COW) -> ISO3 mapping for the
 #: pilot countries. Used by the ruler resolver to map raw
 #: Archigos / REIGN ``ccode`` cells into the project's ISO3
@@ -178,6 +200,8 @@ SOURCE_TAG_ARCHIGOS: Final[str] = "archigos"
 SOURCE_TAG_REIGN: Final[str] = "reign"
 SOURCE_TAG_CSHAPES: Final[str] = "cshapes"
 SOURCE_TAG_SOVIET_LEADERS_CURATED: Final[str] = "soviet_leaders_curated"
+SOURCE_TAG_WIKIDATA_RECENT_RULERS: Final[str] = "wikidata_recent_rulers"
+SOURCE_TAG_COLONIAL_RULE_PLACEHOLDER: Final[str] = "colonial_rule_placeholder"
 SOURCE_TAG_CURATED: Final[str] = "cyc_curated"
 SOURCE_TAG_NONE: Final[str] = ""
 
@@ -284,6 +308,7 @@ __all__ = [
     "SIPRI_DIRECT_CONFIDENCE",
     "SIPRI_MILEX_ATTRIBUTION",
     "SOURCE_TAG_ARCHIGOS",
+    "SOURCE_TAG_COLONIAL_RULE_PLACEHOLDER",
     "SOURCE_TAG_CSHAPES",
     "SOURCE_TAG_CURATED",
     "SOURCE_TAG_MADDISON",
@@ -293,6 +318,7 @@ __all__ = [
     "SOURCE_TAG_SOVIET_LEADERS_CURATED",
     "SOURCE_TAG_VDEM",
     "SOURCE_TAG_WDI",
+    "SOURCE_TAG_WIKIDATA_RECENT_RULERS",
     "SOVIET_LEADERS_CURATED_ATTRIBUTION",
     "SOVIET_LEADERS_DIRECT_CONFIDENCE",
     "SOVIET_LEADERS_MULTI_LEADER_CONFIDENCE",
@@ -301,4 +327,6 @@ __all__ = [
     "VDEM_PROXY_CONFIDENCE",
     "WDI_ATTRIBUTION",
     "WDI_DIRECT_CONFIDENCE",
+    "WIKIDATA_RECENT_RULERS_ATTRIBUTION",
+    "WIKIDATA_RECENT_RULERS_DIRECT_CONFIDENCE",
 ]

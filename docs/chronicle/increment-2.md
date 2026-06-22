@@ -6,7 +6,7 @@ Sub-project: **Country-Year Chronicle** (`cyc`)
 
 Scope: implementation notes for Increment 2 (Maddison-backed
 economy fields + provenance-aware ruler resolver) per
-[`docs/country-year-chronicle-workplan.md`](country-year-chronicle-workplan.md)
+[`docs/chronicle/workplan.md`](workplan.md)
 §7 and the Increment 0/1 findings.
 
 This document records what was shipped, what is deferred, and the

@@ -4,7 +4,7 @@
 > **Phase:** C.6 (data acquisition, sixth adapter, after V-Dem, WDI, WGI, UCDP, SIPRI milex).
 > **Target source key:** `sipri_yearbook_ch7`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"sipri_yearbook_ch7": None` stub with `sipri_yearbook_ch7.ingest_sipri_yearbook_ch7`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7.
 > **Liveness verified:** 2026-06-18 — `https://www.sipri.org/sites/default/files/YB24%2007%20WNF.pdf` returns HTTP 200 (717,102 bytes, 717 KB, PDF version 1.6, 97 pages, Adobe InDesign 19.4 source, title metadata: *"SIPRI Yearbook 2024, World nuclear forces 2023"*, authors: *"Kristensen, H. M. and Korda, M./SIPRI"*). The data table (Table 7.1) is on PDF page 1 (the first content page after the chapter overview). It covers **9 nuclear-armed states** as of January 2024, with 5 data columns (Deployed, Stored, Stockpile total, Retired warheads, Total inventory).
 
 This document is the design contract for the SIPRI Yearbook Ch.7 Stage 2 adapter. The test-builder writes tests against the public surface in §3.3; the developer implements against the same surface. The catalog spec in §3.4 is the only place where SIPRI Yearbook Ch.7's indicator list is decided.
@@ -121,7 +121,7 @@ For the prototype, all **3** catalog indicators are extracted, feeding the **1 r
 
 1. **`nuclear`** — 3 indicators: `sipri_yearbook_ch7_nuclear_warheads_total_inventory`, `sipri_yearbook_ch7_nuclear_warheads_deployed`, `sipri_yearbook_ch7_nuclear_warheads_retired`. All three feed the `nuclear` category (which is **only** served by this source; the other nuclear-related source, FAS, is the cross-validation source per requirement §6/§9).
 
-> **Why `nuclear` only, no other category?** Per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7, SIPRI Yearbook Ch.7 is the **only** source for the `nuclear` category. The 3 indicators all measure aspects of nuclear arsenals (total count, operational count, retirement pipeline) — all proxies for the same underlying signal ("how big is this state's nuclear arsenal?"). The FAS Nuclear Notebook (the other nuclear-related source) is used for cross-validation in the manual-review queue, not as a Stage 2 indicator source.
+> **Why `nuclear` only, no other category?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7, SIPRI Yearbook Ch.7 is the **only** source for the `nuclear` category. The 3 indicators all measure aspects of nuclear arsenals (total count, operational count, retirement pipeline) — all proxies for the same underlying signal ("how big is this state's nuclear arsenal?"). The FAS Nuclear Notebook (the other nuclear-related source) is used for cross-validation in the manual-review queue, not as a Stage 2 indicator source.
 
 The full per-indicator spec (raw column → canonical `variable_name`, scale, unit, category, one-line description) is in §3.4. The catalog CSV the developer will author lives at `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` (sibling to the adapter modules, per Phase C convention #1).
 
@@ -993,7 +993,7 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 3.8 — Workplan / docs updates
 
-When the SIPRI Yearbook Ch.7 adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md` (if needed), `docs/source-vetting-report.md`, and `docs/data-sources.md`.
+When the SIPRI Yearbook Ch.7 adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md` (if needed), `docs/source-vetting/report.md`, and `docs/data-sources.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
@@ -1005,7 +1005,7 @@ The `sipri_yearbook_ch7` entry in `docs/source-attributions.md` §1 is already c
 
 > **Cross-check the doc citation text before the test-builder writes `test_sipri_yearbook_ch7_attribution_matches_attributions_doc`.** The doc citation text is: `Stockholm International Peace Research Institute. 2024. "World Nuclear Forces." In SIPRI Yearbook 2024: Armaments, Disarmament and International Security. Oxford University Press.` The constant's text in §3.3 matches this verbatim. If the doc is updated in the future (e.g., a new Yearbook edition is released), the developer updates the constant in the same commit (the drift-guard test fails otherwise).
 
-### `docs/source-vetting-report.md` — one minor update
+### `docs/source-vetting/report.md` — one minor update
 
 §3.7 ("Conflict / international aggression sources") `sipri_yearbook_ch7` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/sipri_yearbook_ch7.py`. 3 indicators under `nuclear`: total_inventory, deployed, retired. The PDF has no ISO3 column; Stage 3 resolves the display name to ISO3 via `country_aliases.csv`. The PDF parser uses `pdfplumber`."
 

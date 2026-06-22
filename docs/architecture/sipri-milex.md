@@ -4,7 +4,7 @@
 > **Phase:** C.5 (data acquisition, fifth adapter, after V-Dem, WDI, WGI, UCDP).
 > **Target source key:** `sipri_milex`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"sipri_milex": None` stub with `sipri_milex.ingest_sipri_milex`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7.
 > **Liveness verified:** 2026-06-18 — `https://www.sipri.org/databases/milex` returns HTTP 200; the canonical xlsx `https://www.sipri.org/sites/default/files/SIPRI-Milex-data-1949-2025_v1.2.xlsx` downloads 922,552 bytes (922 KB) and unzips to a 10-sheet workbook covering 1949–2025 (77 years) for ~177 countries. The file's title bar reads "© SIPRI 2026".
 
 This document is the design contract for the SIPRI milex Stage 2 adapter. The test-builder writes tests against the public surface in §3.3; the developer implements against the same surface. The catalog spec in §3.4 is the only place where SIPRI milex's indicator list is decided.
@@ -162,7 +162,7 @@ For the prototype, all **4** catalog indicators are extracted, feeding the **1 r
 
 The full per-indicator spec (raw sheet name → canonical `variable_name`, scale, unit, category, one-line description) is in §3.4. The catalog CSV the developer will author lives at `src/leaders_db/ingest/catalogs/sipri_milex.csv` (sibling to the adapter modules, per Phase C convention #1).
 
-> **Why `international_peace` only, no other category?** Per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7 and §11, SIPRI milex is the 2nd source for the `international_peace` category (alongside UCDP). The 4 indicators all measure aspects of military expenditure (absolute, normalized to GDP, normalized to population, normalized to govt budget) — all proxies for the same underlying signal ("how much is this state arming?"). A 2nd source for the SIPRI milex is the SIPRI Yearbook Ch.7 (nuclear forces, a different category entirely — `nuclear`). For the `domestic_violence` category, SIPRI milex is **not** a source; UCDP one-sided and PTS and CIRIGHTS are the 3 cross-validation sources.
+> **Why `international_peace` only, no other category?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7 and §11, SIPRI milex is the 2nd source for the `international_peace` category (alongside UCDP). The 4 indicators all measure aspects of military expenditure (absolute, normalized to GDP, normalized to population, normalized to govt budget) — all proxies for the same underlying signal ("how much is this state arming?"). A 2nd source for the SIPRI milex is the SIPRI Yearbook Ch.7 (nuclear forces, a different category entirely — `nuclear`). For the `domestic_violence` category, SIPRI milex is **not** a source; UCDP one-sided and PTS and CIRIGHTS are the 3 cross-validation sources.
 
 ### Integration with downstream schema
 
@@ -877,7 +877,7 @@ Stage 3 has a `country_aliases` table that handles these. Stage 2's contract is 
 
 ### Coverage year drift (the 2026 release year, 2025 data year)
 
-The current release is the v1.2 update (release year 2026) and contains data through **2025** (last data year). The [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.7 says "1949–2025" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1949–2025" — both are correct. The actual data goes through 2025. **The developer does NOT need to fix the coverage field** (unlike WGI and UCDP, where the docs said "2023" / "2023+" but the data ends at 2022; SIPRI's docs say "1949–2025" and the data ends at 2025, so the docs are already correct).
+The current release is the v1.2 update (release year 2026) and contains data through **2025** (last data year). The [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7 says "1949–2025" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1949–2025" — both are correct. The actual data goes through 2025. **The developer does NOT need to fix the coverage field** (unlike WGI and UCDP, where the docs said "2023" / "2023+" but the data ends at 2022; SIPRI's docs say "1949–2025" and the data ends at 2025, so the docs are already correct).
 
 ### Per-cell read performance
 
@@ -933,7 +933,7 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 3.8 — Workplan / docs updates
 
-When the SIPRI milex adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting-report.md`, and `docs/data-sources.md`.
+When the SIPRI milex adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
@@ -950,7 +950,7 @@ The `sipri` entry (§1) needs **three changes in the same commit**:
 
 The Yearbook citation is unchanged (it lives in its own `sipri_yearbook_ch7` entry).
 
-### `docs/source-vetting-report.md` — one minor update
+### `docs/source-vetting/report.md` — one minor update
 
 §3.7 ("Conflict / international aggression sources") `sipri_milex` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/sipri_milex.py`. 4 indicators under `international_peace`: Share of GDP, Per capita, Constant (2024) US$, Share of Govt. spending. The xlsx has no ISO3 column; Stage 3 resolves the display name to ISO3 via `country_aliases.csv`."
 

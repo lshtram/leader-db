@@ -119,7 +119,7 @@ These apply in every mode, every session:
 | [`docs/data-sources.md`](docs/data-sources.md) | Per-source registry: URL, version, license, coverage |
 | [`docs/local-data-store.md`](docs/local-data-store.md) | `data/raw` vs `data/processed` vs `data/catalog` rules |
 | [`docs/database-schema.md`](docs/database-schema.md) | The 11-table prototype schema |
-| [`docs/source-vetting-plan.md`](docs/source-vetting-plan.md) | Phase B: per-source paywall/license/availability probe plan |
+| [`docs/source-vetting/plan.md`](docs/source-vetting/plan.md) | Phase B: per-source paywall/license/availability probe plan |
 | [`docs/reviews/`](docs/reviews/) | Reviewer gate outputs (initially empty) |
 | [`configs/`](configs/) | YAML run configs, starting with `prototype-2023.yaml` |
 | `~/.config/opencode/dev-process.md` | Canonical TDD cycle (only when user says "TDD") |

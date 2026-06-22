@@ -4,7 +4,7 @@
 > **Phase:** C.2 (data acquisition, second adapter, after V-Dem).
 > **Target source key:** `world_bank_wdi`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS`.
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting-report.md`](../source-vetting-report.md) §3.3.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.3.
 > **Liveness verified:** 2026-06-17 — `https://api.worldbank.org/v2/` returns HTTP 200 with valid JSON for `SP.POP.TOTL`, the indicator-list endpoint, and the country-list endpoint.
 
 This document is the design contract for the WDI Stage 2 adapter. The test-builder writes tests against the public surface in §2.3; the developer implements against the same surface. The catalog spec in §2.4 is the only place where WDI's indicator list is decided.
@@ -640,13 +640,13 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 2.8 — Workplan / docs updates
 
-When the WDI adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-vetting-report.md`.
+When the WDI adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-vetting/report.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
 > **Phase C.2 — WDI Stage 2 ingest landed (2026-06-18).** Second Stage 2 adapter implemented, end-to-end smoke for 2023 green. New test file `tests/test_ingest_wdi.py` covers catalog, read, write+DB, idempotency, attribution, and CLI dispatch (31 tests, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/wdi.csv` lists 14 WDI indicators across the 2 rating categories WDI actually serves (economic_wellbeing, social_wellbeing). Read pattern: one HTTP call per indicator (WDI v2 does not support multi-indicator queries), all 217 real countries at once (`per_page=32500`), cached verbatim as JSON under `data/raw/world_bank_wdi/cache/<year>/<CODE>.json`. Re-runs skip HTTP when the cache is present. Test fixture at `tests/fixtures/world_bank_wdi/cache/{2022,2023}/` is 5 countries × 2 years × 14 indicators = 140 (country, indicator, year) cells in 28 JSON files (real WDI response shape, no invented data). End-to-end run for 2023 produces 217 real countries × 14 indicators = 3,038 `source_observations` rows in <60 s. `STAGE2_ADAPTERS["world_bank_wdi"]` is now `wdi.ingest_wdi` in `src/leaders_db/ingest/__init__.py`. WDI attribution text aligned to the canonical citation in `docs/source-attributions.md`; the License field is updated to "CC BY 4.0" (was "World Bank Open Data"). Reviewer caught 1 blocker (duplicate `world_bank_wgi` dispatch key), 5 important (lint warnings, end-to-end test gap, docstring bug, design-doc code drift, missing confidence-NULL test), and 4 nits — all 8 fixed in a single iteration. **PASS on the second pass. Moving to WGI next per the priority list.**
 
-### `docs/source-vetting-report.md` — minor update
+### `docs/source-vetting/report.md` — minor update
 
 §6 ("Caveats the Stage 2 ingest must handle") gets one row updated:
 

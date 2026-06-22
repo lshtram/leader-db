@@ -45,6 +45,7 @@ from .source_constants import (
     SIPRI_DIRECT_CONFIDENCE,
     SIPRI_MILEX_ATTRIBUTION,
     SOURCE_TAG_ARCHIGOS,
+    SOURCE_TAG_COLONIAL_RULE_PLACEHOLDER,
     SOURCE_TAG_CSHAPES,
     SOURCE_TAG_CURATED,
     SOURCE_TAG_MADDISON,
@@ -62,6 +63,8 @@ from .source_constants import (
     VDEM_PROXY_CONFIDENCE,
     WDI_ATTRIBUTION,
     WDI_DIRECT_CONFIDENCE,
+    WIKIDATA_RECENT_RULERS_ATTRIBUTION,
+    WIKIDATA_RECENT_RULERS_DIRECT_CONFIDENCE,
 )
 
 # ---------------------------------------------------------------------------
@@ -238,6 +241,57 @@ CHRONICLE_CSV_COLUMNS: Final[tuple[str, ...]] = (
 )
 
 # ---------------------------------------------------------------------------
+# Condensed CSV column order (Increment 5)
+# ---------------------------------------------------------------------------
+#:
+#: The condensed export is a separate artifact from the detailed
+#: CSV. It deliberately omits every source / provenance /
+#: confidence / text / notes column so the file is small enough
+#: to scan by eye. The column order is the public contract; the
+#: condensed writer is REQUIRED to use this exact order. Adding
+#: a column is a contract change.
+#:
+#: Field mapping (detailed → condensed):
+#:
+#:   year                       <- year
+#:   iso3                       <- iso3
+#:   country                    <- country_name
+#:   existence_status           <- derived from scope (one of
+#:                                 EXISTS_STATUS_*)
+#:   ruler                      <- ruler_name (blank when missing)
+#:   political_regime           <- political_regime_bucket
+#:   system_type                <- system_type_primary
+#:   population                 <- population
+#:   gdp                        <- gdp
+#:   gdp_per_capita             <- gdp_per_capita
+#:   military_spend             <- military_spend
+#:   country_area_km2           <- country_area_km2
+#:
+#: Out-of-window rows (years before start_year or after end_year
+#: for the country's scope entry) emit ONLY year / iso3 /
+#: country / existence_status and leave the remaining columns
+#: blank. This is the documented Increment 5 condensed behavior.
+#:
+#: The detailed CSV / SQLite continue to emit the full column
+#: set; the condensed writer does not replace them.
+
+CONDENSED_CSV_COLUMNS: Final[tuple[str, ...]] = (
+    "year",
+    "iso3",
+    "country",
+    "existence_status",
+    "ruler",
+    "political_regime",
+    "system_type",
+    "population",
+    "gdp",
+    "gdp_per_capita",
+    "military_spend",
+    "country_area_km2",
+)
+
+
+# ---------------------------------------------------------------------------
 # Canonical data-quality flag values (Increment 0 §6).
 # ---------------------------------------------------------------------------
 
@@ -269,6 +323,8 @@ FLAG_POST_EXISTENCE_GAP: Final[str] = "post_existence_gap"
 #: CShapes coverage (currently 2020+). The row builder attaches this
 #: flag and records the proxy year in ``area_source_year_used``.
 FLAG_AREA_PROXY_YEAR_USED: Final[str] = "area_proxy_year_used"
+FLAG_POPULATION_INTERPOLATED: Final[str] = "population_interpolated"
+FLAG_POPULATION_PROXY_YEAR_USED: Final[str] = "population_proxy_year_used"
 
 #: ``controlled_area_country_only`` — the ``controlled_area_km2``
 #: value equals the standard ``country_area_km2`` value because no
@@ -281,6 +337,7 @@ FLAG_AREA_PROXY_YEAR_USED: Final[str] = "area_proxy_year_used"
 #: actually includes controlled / dependent territories beyond the
 #: country unit for that row.
 FLAG_CONTROLLED_AREA_COUNTRY_ONLY: Final[str] = "controlled_area_country_only"
+FLAG_COLONIAL_RULE_PLACEHOLDER: Final[str] = "colonial_rule_placeholder"
 
 # ---------------------------------------------------------------------------
 # Source attribution strings (per docs/source-attributions.md).
@@ -304,6 +361,38 @@ SOURCE_NA: Final[str] = ""
 #: Conservative confidence for placeholder ruler / area fields. Used
 #: only when no source data is available.
 PLACEHOLDER_RULER_CONFIDENCE: Final[int] = 0
+
+# ---------------------------------------------------------------------------
+# Existence-window labels (Increment 5 condensed export)
+# ---------------------------------------------------------------------------
+#:
+#: When the Chronicle runs over the full V-Dem country-year coverage
+#: (``--countries all``), some rows fall outside the country's
+#: source-backed existence window. The condensed export uses an
+#: explicit four-value ``existence_status`` instead of leaving the
+#: row blank. The labels below are the canonical values; the row
+#: builder / condensed writer are the only producers.
+#:
+#: - ``exists`` — the year is in the country's source-backed
+#:   existence window (``start_year <= year <= end_year``).
+#: - ``not_formed`` — the year is before the documented start
+#:   year (the country did not exist yet, by source).
+#: - ``split_or_dissolved`` — the year is after the documented
+#:   end year (the country has been split / dissolved / merged,
+#:   by source).
+#: - ``out_of_scope_unknown`` — the country is in the
+#:   all-country scope but neither V-Dem nor the pilot
+#:   :data:`COUNTRY_METADATA` could supply a defensible start /
+#:   end year. Today this label is unused (V-Dem supplies a
+#:   min/max year for every country_text_id it covers); the
+#:   label is reserved for future sources that may add countries
+#:   without a defensible window.
+
+EXISTS_STATUS_EXISTS: Final[str] = "exists"
+EXISTS_STATUS_NOT_FORMED: Final[str] = "not_formed"
+EXISTS_STATUS_SPLIT: Final[str] = "split_or_dissolved"
+EXISTS_STATUS_OUT_OF_SCOPE: Final[str] = "out_of_scope_unknown"
+
 
 # ---------------------------------------------------------------------------
 # Country display / status
@@ -404,6 +493,7 @@ __all__ = [
     "ARCHIGOS_DIRECT_CONFIDENCE",
     "CHRONICLE_CSV_COLUMNS",
     "CHRONICLE_OUTPUT_DIR_NAME",
+    "CONDENSED_CSV_COLUMNS",
     "COUNTRY_METADATA",
     "CSHAPES_ATTRIBUTION",
     "CSHAPES_COVERAGE_END_YEAR",
@@ -418,8 +508,13 @@ __all__ = [
     "DEFAULT_OUTPUT_BASENAME",
     "DEFAULT_PROXY_YEAR",
     "DEFAULT_START_YEAR",
+    "EXISTS_STATUS_EXISTS",
+    "EXISTS_STATUS_NOT_FORMED",
+    "EXISTS_STATUS_OUT_OF_SCOPE",
+    "EXISTS_STATUS_SPLIT",
     "FALLBACK_SYSTEM_TYPE_CONFIDENCE",
     "FLAG_AREA_PROXY_YEAR_USED",
+    "FLAG_COLONIAL_RULE_PLACEHOLDER",
     "FLAG_COLONIAL_STATUS_ISSUE",
     "FLAG_CONTROLLED_AREA_COUNTRY_ONLY",
     "FLAG_CONTROLLED_AREA_NOT_MODELED",
@@ -430,6 +525,8 @@ __all__ = [
     "FLAG_MISSING_POPULATION",
     "FLAG_MISSING_RULER",
     "FLAG_MULTIPLE_RULERS",
+    "FLAG_POPULATION_INTERPOLATED",
+    "FLAG_POPULATION_PROXY_YEAR_USED",
     "FLAG_POST_EXISTENCE_GAP",
     "FLAG_PRE_EXISTENCE_GAP",
     "FLAG_PROXY_YEAR_USED",
@@ -452,6 +549,7 @@ __all__ = [
     "SIPRI_MILEX_ATTRIBUTION",
     "SOURCE_NA",
     "SOURCE_TAG_ARCHIGOS",
+    "SOURCE_TAG_COLONIAL_RULE_PLACEHOLDER",
     "SOURCE_TAG_CSHAPES",
     "SOURCE_TAG_CURATED",
     "SOURCE_TAG_MADDISON",
@@ -473,4 +571,6 @@ __all__ = [
     "VDEM_REGIME_TO_BUCKET",
     "WDI_ATTRIBUTION",
     "WDI_DIRECT_CONFIDENCE",
+    "WIKIDATA_RECENT_RULERS_ATTRIBUTION",
+    "WIKIDATA_RECENT_RULERS_DIRECT_CONFIDENCE",
 ]
