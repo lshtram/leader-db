@@ -43,6 +43,7 @@ from .commands_validation import (
     compare_vs_client,
     summary_report,
 )
+from .commands_viz import viz_build_superset_db_cmd, viz_metrics_cmd, viz_query_cmd
 from .commands_vertical_slice import run_vertical_slice_2023
 
 __all__ = [
@@ -64,4 +65,7 @@ __all__ = [
     "run_vertical_slice_2023",
     "score_all",
     "summary_report",
+    "viz_build_superset_db_cmd",
+    "viz_metrics_cmd",
+    "viz_query_cmd",
 ]

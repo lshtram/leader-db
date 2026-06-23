@@ -1,0 +1,70 @@
+services:
+  superset-db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${SUPERSET_POSTGRES_DB:-superset}
+      POSTGRES_USER: ${SUPERSET_POSTGRES_USER:-superset}
+      POSTGRES_PASSWORD: ${SUPERSET_POSTGRES_PASSWORD:?set in infra/superset/superset.env}
+    volumes:
+      - superset-db:/var/lib/postgresql/data
+
+  superset-redis:
+    image: redis:7
+    restart: unless-stopped
+    volumes:
+      - superset-redis:/data
+
+  superset-init:
+    image: apache/superset:6.0.0
+    depends_on:
+      - superset-db
+      - superset-redis
+    env_file:
+      - superset.env
+    environment:
+      SUPERSET_METADATA_DB_URI: >-
+        postgresql+psycopg2://${SUPERSET_POSTGRES_USER:-superset}:${SUPERSET_POSTGRES_PASSWORD}@superset-db:5432/${SUPERSET_POSTGRES_DB:-superset}
+      REDIS_HOST: superset-redis
+      SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
+    volumes:
+      - ./superset_config.py:/app/pythonpath/superset_config.py:ro
+      - superset-home:/app/superset_home
+    command:
+      - /bin/sh
+      - -c
+      - |
+        superset db upgrade && \
+        superset fab create-admin \
+          --username "$${SUPERSET_ADMIN_USERNAME}" \
+          --firstname "$${SUPERSET_ADMIN_FIRSTNAME}" \
+          --lastname "$${SUPERSET_ADMIN_LASTNAME}" \
+          --email "$${SUPERSET_ADMIN_EMAIL}" \
+          --password "$${SUPERSET_ADMIN_PASSWORD}" || true && \
+        superset init
+
+  superset:
+    image: apache/superset:6.0.0
+    restart: unless-stopped
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+    env_file:
+      - superset.env
+    environment:
+      SUPERSET_METADATA_DB_URI: >-
+        postgresql+psycopg2://${SUPERSET_POSTGRES_USER:-superset}:${SUPERSET_POSTGRES_PASSWORD}@superset-db:5432/${SUPERSET_POSTGRES_DB:-superset}
+      REDIS_HOST: superset-redis
+      SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
+    ports:
+      - "127.0.0.1:8088:8088"
+    volumes:
+      - ./superset_config.py:/app/pythonpath/superset_config.py:ro
+      - ../../data/processed/viz/country-year-chronicle:/leaders-db-viz:ro
+      - superset-home:/app/superset_home
+    command: ["superset", "run", "-h", "0.0.0.0", "-p", "8088", "--with-threads"]
+
+volumes:
+  superset-db:
+  superset-home:
+  superset-redis:
