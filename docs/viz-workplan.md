@@ -172,9 +172,32 @@ Implemented local integration artifacts:
 
 ## Increment 5 — secure client access
 
-Status: **not started**
+Status: **implemented as safe activation package 2026-06-23; pending live Cloudflare credentials/email allowlist**
 
 - Cloudflare Tunnel route from `viz.chopsworkshop.com` to local Superset.
 - Cloudflare Access policy with explicit email allowlist.
 - Superset hardening: HTTPS through Cloudflare, strong local secret, no default
   credentials, `DEBUG=False`, secure sessions where applicable, read-only DB.
+
+Implemented safe activation artifacts:
+
+- `infra/cloudflare/docker-compose.yml` runs `cloudflared` without publishing any
+  inbound ports and expects a tunnel token from an ignored env file.
+- `infra/cloudflare/cloudflared.env.template` documents the required local
+  `TUNNEL_TOKEN`; the copied `cloudflared.env` is gitignored.
+- `infra/cloudflare/config.yml.template` provides an optional local-managed
+  tunnel config for `viz.chopsworkshop.com` with the required catch-all
+  `http_status:404` rule.
+- `docs/testing-guide-viz-cloudflare.md` documents the activation order:
+  create Cloudflare Access application and explicit email allowlist **before**
+  adding the public tunnel hostname route.
+- `tests/test_viz_cloudflare_templates.py` checks that templates do not publish
+  inbound ports, secret-bearing files are ignored, and the runbook preserves the
+  Access-before-route safety gate.
+
+Live activation still requires:
+
+- Cloudflare tunnel token from the account that manages `chopsworkshop.com`.
+- Final client/internal email allowlist.
+- Manual verification that non-allowlisted users see Cloudflare Access denial and
+  never reach Superset directly.

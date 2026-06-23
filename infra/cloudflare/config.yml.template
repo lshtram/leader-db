@@ -1,0 +1,15 @@
+# Optional local-managed cloudflared config.
+# Prefer the remotely-managed tunnel in docker-compose.yml for normal setup.
+# If using this file, copy it outside the repository or keep any credentials
+# file ignored; never commit tunnel UUIDs, credential JSON, or certs.
+
+tunnel: replace-with-tunnel-uuid-or-name
+credentials-file: /home/YOUR_USER/.cloudflared/replace-with-tunnel-uuid.json
+
+ingress:
+  - hostname: viz.chopsworkshop.com
+    service: http://localhost:8088
+    originRequest:
+      connectTimeout: 30s
+      noTLSVerify: false
+  - service: http_status:404

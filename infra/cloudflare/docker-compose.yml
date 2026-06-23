@@ -1,0 +1,17 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.6.1
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN:?set in infra/cloudflare/cloudflared.env}
+    env_file:
+      - cloudflared.env
+    extra_hosts:
+      # Lets the remotely-managed public hostname route target
+      # http://host.docker.internal:8088 on Linux as well as Docker Desktop.
+      - "host.docker.internal:host-gateway"
+    networks:
+      - cloudflared-egress
+
+networks:
+  cloudflared-egress:
+    driver: bridge
