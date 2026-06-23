@@ -48,7 +48,7 @@ PWT 10.01 covers 1950-2019. A request for ``year=2023`` produces
 zero observations AND a ``requested_year_out_of_coverage`` manifest
 warning. No 2019 -> 2023 stale-proxy fill is permitted -- this is
 the documented architectural decision per
-``docs/source-ingestion-plan.md`` and requirement §13
+``docs/sources/ingestion-plan.md`` and requirement §13
 ("no invented historical data; older years degrade gracefully").
 """
 
@@ -169,7 +169,7 @@ def _check_metadata_well_formed(
             return False, (
                 f"PWT readiness gate: metadata.json is missing "
                 f"required field '{field}'; per "
-                "docs/source-ingestion-plan.md §pwt, every PWT "
+                "docs/sources/ingestion-plan.md §pwt, every PWT "
                 "run must record this field."
             )
 
@@ -601,7 +601,7 @@ class PWTAdapter:
 # ---------------------------------------------------------------------------
 
 #: PWT 10.01 covers 1950-2019 per the canonical attribution block
-#: in ``docs/source-attributions.md`` and the live xlsx
+#: in ``docs/sources/attributions.md`` and the live xlsx
 #: inspection on 2026-06-22. Used to detect out-of-coverage
 #: requests (e.g. ``year=2023``) so the manifest warning can fire
 #: BEFORE any DB / parquet write.

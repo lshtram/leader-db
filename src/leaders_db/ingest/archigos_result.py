@@ -35,7 +35,7 @@ class ArchigosIngestResult(BaseModel):
     and ``indicators`` to print the end-of-run summary. Pydantic
     v2 models are the standard for any payload that crosses a
     file, CLI, provider, or artifact boundary
-    (``docs/coding-guidelines.md`` § Python Standards).
+    (``docs/process/coding-guidelines.md`` § Python Standards).
     """
 
     source_id: int = Field(

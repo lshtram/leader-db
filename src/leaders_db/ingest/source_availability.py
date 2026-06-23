@@ -14,7 +14,7 @@ Outputs:
 
 Phase B (source vetting) precedes Stage 0 implementation; see
 ``docs/workplan.md``. The runner will land here during Phase C once the
-probe checklist in ``docs/source-vetting-plan.md`` is finalized.
+probe checklist in ``docs/sources/vetting/plan.md`` is finalized.
 """
 
 from __future__ import annotations

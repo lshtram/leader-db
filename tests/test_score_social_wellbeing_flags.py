@@ -28,7 +28,7 @@ The happy-path tests live in
 :mod:`tests.test_score_social_wellbeing`. The client comparison
 delta test lives in :mod:`tests.test_score_social_wellbeing_client`.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

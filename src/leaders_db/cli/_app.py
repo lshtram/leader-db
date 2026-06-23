@@ -23,7 +23,7 @@ app = typer.Typer(
     name="leaders-db",
     help=(
         "Leaders Database prototype — AI-agent data collection and validation "
-        "system. See `docs/req/top-level-requirements.md` §8 for the full pipeline."
+        "system. See `docs/requirements/top-level-requirements.md` §8 for the full pipeline."
     ),
     no_args_is_help=True,
     add_completion=False,

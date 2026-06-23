@@ -104,7 +104,7 @@ Increment 4 is complete when:
 1. Controlled-area semantics are review-approved.
 2. At least one dependency-controller source is accepted or rejected with evidence.
 3. Source URLs, licenses, and attribution requirements are recorded in
-   `docs/data-sources.md` and `docs/source-attributions.md` if a source is staged.
+   `docs/sources/registry.md` and `docs/sources/attributions.md` if a source is staged.
 4. The implementation plan proves no client matrix, LLM, or hand-invented colony
    mappings are needed.
 5. Reviewer approves the design before production `controlled_area_km2` behavior

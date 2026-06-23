@@ -109,7 +109,7 @@ def register_fas_source(session: Session) -> int:
                 bundle_meta.get("license_note")
                 or (
                     "Free; cite Federation of American Scientists "
-                    "per docs/source-attributions.md."
+                    "per docs/sources/attributions.md."
                 )
             ),
             download_date=download_date_value,
@@ -119,7 +119,7 @@ def register_fas_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C. Indicator "
                 "catalog at "
                 "src/leaders_db/ingest/catalogs/fas.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text. The consolidated status page snapshot year "
                 "(e.g. 2014 for the live page) is recorded in the "
                 "run manifest; the Stage 11 confidence engine "

@@ -1,8 +1,8 @@
 """Leaders Database — AI-agent data collection and validation prototype.
 
 The package implements Stages 0–15 of the pipeline described in
-``docs/req/top-level-requirements.md`` §8. Module boundaries are normative; see
-``docs/architecture.md`` for the system design and ``docs/req/requirements-core.md``
+``docs/requirements/top-level-requirements.md`` §8. Module boundaries are normative; see
+``docs/architecture/overview.md`` for the system design and ``docs/requirements/core.md``
 for the locally tracked REQ-* / NFR-* baseline.
 
 The package is split into composition roots (CLI, config, env, paths),

@@ -28,7 +28,7 @@ The helpers (``_seed_mexico_political_freedom_bundle``,
 sibling :mod:`tests.test_score_stage9_political_freedom` so the
 seed shape stays single-sourced.
 
-Style invariants (per ``docs/coding-guidelines.md``): type hints,
+Style invariants (per ``docs/process/coding-guidelines.md``): type hints,
 no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

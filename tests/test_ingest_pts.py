@@ -895,14 +895,14 @@ def test_ingest_result_field_count(
 
 
 def test_pts_attribution_matches_attributions_doc() -> None:
-    """PTS_ATTRIBUTION is a substring of docs/source-attributions.md
+    """PTS_ATTRIBUTION is a substring of docs/sources/attributions.md
     (drift guard; Always-On Rule #15)."""
     assert PTS_ATTRIBUTION is not None, "pts_io module not implemented"
 
     doc_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert PTS_ATTRIBUTION in doc_text, (

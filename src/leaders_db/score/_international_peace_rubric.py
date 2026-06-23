@@ -53,7 +53,7 @@ the raw values to the 0..1 high-is-better scale so the scorer
 consumes a single 0..1 scale where 1 is "best" (i.e. more
 peace / less military burden).
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

@@ -14,7 +14,7 @@ This package provides the public surface for the Penn World Table
 - :data:`PWT_REQUIRED_IDENTITY_COLUMNS` -- the 4 identity columns
   the reader always validates.
 - :data:`PWT_ATTRIBUTION` -- the canonical citation block (Always-
-  On Rule #15; byte-identical to ``docs/source-attributions.md``).
+  On Rule #15; byte-identical to ``docs/sources/attributions.md``).
 - :class:`PWTAdapter` -- the production Stage 2 adapter class
   implementing the shared :class:`SourceAdapter` Protocol
   (:func:`check_ready` -> :func:`read` -> :func:`transform` ->
@@ -38,7 +38,7 @@ PWT year semantics
 ------------------
 
 PWT 10.01 covers 1950-2019 per the canonical citation block in
-``docs/source-attributions.md``. Per the source-ingestion-plan PWT
+``docs/sources/attributions.md``. Per the source-ingestion-plan PWT
 section and requirement §13 ("no invented historical data"), the
 adapter emits direct observed source-year rows only -- a request
 for ``year=2023`` produces zero observations AND a
@@ -61,7 +61,7 @@ PWT_METADATA_NAME: str = "metadata.json"
 PWT_DATA_SHEET_NAME: str = "Data"
 
 # The 11 catalog numeric columns the Stage 2 catalog drives
-# (per ``docs/source-ingestion-plan.md`` PWT section, verified
+# (per ``docs/sources/ingestion-plan.md`` PWT section, verified
 # against the live ``pwt1001.xlsx`` ``Data`` sheet on 2026-06-22).
 # Together with the 4 identity columns (countrycode, country,
 # currency_unit, year), the reader emits 15 columns total; only
@@ -88,7 +88,7 @@ PWT_REQUIRED_IDENTITY_COLUMNS: tuple[str, ...] = (
 )
 
 # Canonical PWT attribution text (matches the citation block in
-# ``docs/source-attributions.md`` §pwt -- Rule #15).
+# ``docs/sources/attributions.md`` §pwt -- Rule #15).
 PWT_ATTRIBUTION: str = (
     "Penn World Table 10.01 (Feenstra, Inklaar, Timmer 2015)."
 )

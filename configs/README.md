@@ -11,4 +11,4 @@ is ``configs/prototype-2023.yaml``; pass ``--config <path>`` to override.
 
 Each run is reproducible from its config + the contents of `data/raw/<source>/`
 + the contents of `data/processed/<source>/`. See
-`docs/local-data-store.md` for the data-lake layout.
+`docs/architecture/local-data-store.md` for the data-lake layout.

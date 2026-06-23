@@ -18,7 +18,7 @@ attribution. The Stage 2 adapter opens the xlsx with
 pivots long -> wide. No HTTP layer; the xlsx is staged locally.
 
 The adapter is split across four modules for clarity (each under
-the 400-line convention from ``docs/coding-guidelines.md``):
+the 400-line convention from ``docs/process/coding-guidelines.md``):
 
 - :mod:`leaders_db.ingest.pts_io` -- catalog, path helpers, parquet
   write. Owns :data:`PTS_ATTRIBUTION`, :data:`PTS_SOURCE_KEY`, the
@@ -61,7 +61,7 @@ the ``source_observations`` rows for the requested year(s) only.
 
 Per Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md``; if the attributions doc is updated,
+``docs/sources/attributions.md``; if the attributions doc is updated,
 the same change must be made here in the same commit. The
 :func:`test_pts_attribution_matches_attributions_doc` test enforces
 that the code and the doc are byte-for-byte consistent.
@@ -118,7 +118,7 @@ class PtsIngestResult(BaseModel):
     end-of-run summary. The manifest writer in :mod:`pts_db`
     consumes the same fields. Pydantic v2 models are the standard
     for any payload that crosses a file, CLI, provider, or artifact
-    boundary (``docs/coding-guidelines.md`` § Python Standards).
+    boundary (``docs/process/coding-guidelines.md`` § Python Standards).
 
     PTS-specific extras vs the WGI :class:`WGIIngestResult`:
 
@@ -236,7 +236,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches PTS data must include this block
     verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return PTS_ATTRIBUTION
 

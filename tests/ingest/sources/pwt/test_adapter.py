@@ -3,7 +3,7 @@
 This file covers the per-source PWT package's
 :class:`PWTAdapter` and the public-orchestrator surface
 (``ingest_pwt``). Tests are split per the
-``docs/source-ingestion-plan.md`` mirrored layout:
+``docs/sources/ingestion-plan.md`` mirrored layout:
 
 - ``test_adapter.py`` -- this file: PWTAdapter readiness gate,
   metadata validation, request-scoped ``raw_root``, and the
@@ -50,7 +50,7 @@ Coverage
   ``ready=False``; the production gate must name the missing
   field in the blocker.
 - The PWT attribution text is a substring of
-  ``docs/source-attributions.md`` (Rule #15 drift guard).
+  ``docs/sources/attributions.md`` (Rule #15 drift guard).
 """
 
 from __future__ import annotations
@@ -724,18 +724,18 @@ def test_pwt_register_source_uses_request_scoped_bundle_metadata(
 
 def test_pwt_attribution_matches_attributions_doc() -> None:
     """The PWT attribution text must be a substring of
-    ``docs/source-attributions.md`` (Rule #15 drift guard).
+    ``docs/sources/attributions.md`` (Rule #15 drift guard).
 
     PASS-ELIGIBLE: the stub's ``PWT_ATTRIBUTION`` constant
     matches the canonical citation block in
-    ``docs/source-attributions.md``. Drift guard.
+    ``docs/sources/attributions.md``. Drift guard.
     """
     from leaders_db.ingest.sources.pwt import PWT_ATTRIBUTION
 
     doc_path = (
         Path(__file__).resolve().parents[4]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_path = doc_path.resolve()
     doc_text = doc_path.read_text(encoding="utf-8")

@@ -9,7 +9,7 @@ import time; the new facade is the canonical implementation
 (:func:`leaders_db.score.international_peace.score_international_peace`)
 and is registered in :data:`leaders_db.score.dispatch._SCORERS`.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

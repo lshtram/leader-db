@@ -1,6 +1,6 @@
 # Local Data Store
 
-The project is local-first. We use a small data lake on disk plus a SQLite catalog, not a service. Layer rules below are normative; changes require updating this file plus the Always-On rules in [`AGENTS.md`](../AGENTS.md).
+The project is local-first. We use a small data lake on disk plus a SQLite catalog, not a service. Layer rules below are normative; changes require updating this file plus the Always-On rules in [`AGENTS.md`](../../AGENTS.md).
 
 ## Folder Layout
 
@@ -114,10 +114,10 @@ data/
 
 1. Create the folder `data/raw/<source_key>/` with a placeholder `metadata.json` (`ingestion_status: pending`).
 2. Implement `src/leaders_db/ingest/<source_key>.py`.
-3. Add the source to the registry in [`data-sources.md`](data-sources.md).
+3. Add the source to the registry in [`docs/sources/registry.md`](../sources/registry.md).
 4. Add a test under `tests/test_ingest_<source_key>.py` that uses a tiny fixture.
 5. Wire the CLI command in `src/leaders_db/cli.py` (it should already be enumerated — just point it at the new module).
-6. Update `docs/req/requirements-core.md` with any new REQ-* lines.
+6. Update `docs/requirements/core.md` with any new REQ-* lines.
 
 ## Adding a New Output
 

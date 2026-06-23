@@ -4,7 +4,7 @@ The plan enumerates the canonical sources and indicators for the
 "Global nuclear responsibility / global existential responsibility"
 category from requirement §4. Per requirement §6 the canonical
 sources are FAS and SIPRI Yearbook Ch.7; NTI is blocked
-(Cloudflare 403 per ``docs/source-vetting-report.md`` §11) so it
+(Cloudflare 403 per ``docs/sources/vetting/report.md`` §11) so it
 is not in the plan. The plan widens once NTI is unblocked.
 
 Variable names match the per-source catalogs:

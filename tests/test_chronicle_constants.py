@@ -130,33 +130,33 @@ def test_csv_columns_are_unique() -> None:
 def _read_source_attributions_doc() -> str:
     """Read the source-attributions doc from the project root."""
     repo_root = Path(__file__).resolve().parents[1]
-    doc_path = repo_root / "docs" / "source-attributions.md"
+    doc_path = repo_root / "docs" / "sources/attributions.md"
     return doc_path.read_text(encoding="utf-8")
 
 
 def test_vdem_attribution_matches_attributions_doc() -> None:
-    """VDEM_ATTRIBUTION is a substring of docs/source-attributions.md."""
+    """VDEM_ATTRIBUTION is a substring of docs/sources/attributions.md."""
     doc = _read_source_attributions_doc()
     assert VDEM_ATTRIBUTION in doc, (
-        f"{VDEM_ATTRIBUTION!r} is not in docs/source-attributions.md; "
+        f"{VDEM_ATTRIBUTION!r} is not in docs/sources/attributions.md; "
         "update the doc and the constant together per Rule #15."
     )
 
 
 def test_wdi_attribution_matches_attributions_doc() -> None:
-    """WDI_ATTRIBUTION is a substring of docs/source-attributions.md."""
+    """WDI_ATTRIBUTION is a substring of docs/sources/attributions.md."""
     doc = _read_source_attributions_doc()
     assert WDI_ATTRIBUTION in doc, (
-        f"{WDI_ATTRIBUTION!r} is not in docs/source-attributions.md; "
+        f"{WDI_ATTRIBUTION!r} is not in docs/sources/attributions.md; "
         "update the doc and the constant together per Rule #15."
     )
 
 
 def test_sipri_attribution_matches_attributions_doc() -> None:
-    """SIPRI_MILEX_ATTRIBUTION is a substring of docs/source-attributions.md."""
+    """SIPRI_MILEX_ATTRIBUTION is a substring of docs/sources/attributions.md."""
     doc = _read_source_attributions_doc()
     assert SIPRI_MILEX_ATTRIBUTION in doc, (
-        f"{SIPRI_MILEX_ATTRIBUTION!r} is not in docs/source-attributions.md; "
+        f"{SIPRI_MILEX_ATTRIBUTION!r} is not in docs/sources/attributions.md; "
         "update the doc and the constant together per Rule #15."
     )
 
@@ -551,7 +551,7 @@ def test_nan_handling_helper_consistency() -> None:
 # The Chronicle slice emits attribution comment lines via
 # :func:`leaders_db.chronicle.csv_writer.build_attribution_comment_block`.
 # Per Always-On Rule #15 every emitted line must be a substring of
-# ``docs/source-attributions.md``. The reviewer called out the
+# ``docs/sources/attributions.md``. The reviewer called out the
 # Maddison attribution in particular: the Chronicle constant must
 # be byte-identical to the canonical citation in the doc, not a
 # shorter abbreviation. The same drift guard covers Archigos and
@@ -561,7 +561,7 @@ def test_nan_handling_helper_consistency() -> None:
 
 def test_maddison_chronicle_attribution_matches_attributions_doc() -> None:
     """Drift guard: the Chronicle ``MADDISON_PROJECT_ATTRIBUTION``
-    constant must appear verbatim in ``docs/source-attributions.md``.
+    constant must appear verbatim in ``docs/sources/attributions.md``.
 
     This is the Increment 2 reviewer gate: the canonical
     Maddison citation in the doc is the long
@@ -577,13 +577,13 @@ def test_maddison_chronicle_attribution_matches_attributions_doc() -> None:
     doc = _read_source_attributions_doc()
     assert MADDISON_PROJECT_ATTRIBUTION in doc, (
         f"MADDISON_PROJECT_ATTRIBUTION constant is not in "
-        f"docs/source-attributions.md: {MADDISON_PROJECT_ATTRIBUTION!r}"
+        f"docs/sources/attributions.md: {MADDISON_PROJECT_ATTRIBUTION!r}"
     )
 
 
 def test_reign_chronicle_attribution_matches_attributions_doc() -> None:
     """Drift guard: the Chronicle ``REIGN_ATTRIBUTION`` constant
-    must appear verbatim in ``docs/source-attributions.md``.
+    must appear verbatim in ``docs/sources/attributions.md``.
 
     The doc says ``"REIGN dataset (Bell 2016), snapshot of
     August 2021."`` and the Chronicle constant must match.
@@ -595,14 +595,14 @@ def test_reign_chronicle_attribution_matches_attributions_doc() -> None:
     doc = _read_source_attributions_doc()
     assert REIGN_ATTRIBUTION in doc, (
         f"REIGN_ATTRIBUTION constant is not in "
-        f"docs/source-attributions.md: {REIGN_ATTRIBUTION!r}"
+        f"docs/sources/attributions.md: {REIGN_ATTRIBUTION!r}"
     )
 
 
 def test_archigos_chronicle_attribution_matches_attributions_doc() -> None:
     """Drift guard: the Chronicle ``ARCHIGOS_ATTRIBUTION``
     constant must appear verbatim in
-    ``docs/source-attributions.md``.
+    ``docs/sources/attributions.md``.
     """
     from leaders_db.chronicle.source_constants import (
         ARCHIGOS_ATTRIBUTION,
@@ -611,7 +611,7 @@ def test_archigos_chronicle_attribution_matches_attributions_doc() -> None:
     doc = _read_source_attributions_doc()
     assert ARCHIGOS_ATTRIBUTION in doc, (
         f"ARCHIGOS_ATTRIBUTION constant is not in "
-        f"docs/source-attributions.md: {ARCHIGOS_ATTRIBUTION!r}"
+        f"docs/sources/attributions.md: {ARCHIGOS_ATTRIBUTION!r}"
     )
 
 
@@ -687,7 +687,7 @@ def test_write_chronicle_csv_emits_maddison_long_form_in_file(
 # (country area) and the curated Soviet-leaders spell list (SUN
 # rulers). The drift-guard pattern is the same as for Maddison /
 # REIGN / Archigos: the canonical attribution constant must be a
-# substring of docs/source-attributions.md, the writer must emit
+# substring of docs/sources/attributions.md, the writer must emit
 # the canonical text in the leading comment block, and the
 # literal CSV file must contain the canonical text. The reviewer
 # gate is "no source ships without attribution".
@@ -696,7 +696,7 @@ def test_write_chronicle_csv_emits_maddison_long_form_in_file(
 
 def test_cshapes_chronicle_attribution_matches_attributions_doc() -> None:
     """Drift guard: the Chronicle ``CSHAPES_ATTRIBUTION`` constant
-    must appear verbatim in ``docs/source-attributions.md``.
+    must appear verbatim in ``docs/sources/attributions.md``.
     """
     from leaders_db.chronicle.source_constants import (
         CSHAPES_ATTRIBUTION,
@@ -705,14 +705,14 @@ def test_cshapes_chronicle_attribution_matches_attributions_doc() -> None:
     doc = _read_source_attributions_doc()
     assert CSHAPES_ATTRIBUTION in doc, (
         f"CSHAPES_ATTRIBUTION constant is not in "
-        f"docs/source-attributions.md: {CSHAPES_ATTRIBUTION!r}"
+        f"docs/sources/attributions.md: {CSHAPES_ATTRIBUTION!r}"
     )
 
 
 def test_soviet_leaders_curated_attribution_matches_attributions_doc() -> None:
     """Drift guard: the ``SOVIET_LEADERS_CURATED_ATTRIBUTION``
     constant must appear verbatim in
-    ``docs/source-attributions.md``.
+    ``docs/sources/attributions.md``.
     """
     from leaders_db.chronicle.source_constants import (
         SOVIET_LEADERS_CURATED_ATTRIBUTION,
@@ -721,7 +721,7 @@ def test_soviet_leaders_curated_attribution_matches_attributions_doc() -> None:
     doc = _read_source_attributions_doc()
     assert SOVIET_LEADERS_CURATED_ATTRIBUTION in doc, (
         f"SOVIET_LEADERS_CURATED_ATTRIBUTION constant is not in "
-        f"docs/source-attributions.md: {SOVIET_LEADERS_CURATED_ATTRIBUTION!r}"
+        f"docs/sources/attributions.md: {SOVIET_LEADERS_CURATED_ATTRIBUTION!r}"
     )
 
 

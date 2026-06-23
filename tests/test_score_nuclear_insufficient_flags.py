@@ -32,7 +32,7 @@ contamination regressions for the scored path). This file is
 the focused sibling for the insufficient-data branch so the
 existing siblings stay under the 400-line convention.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

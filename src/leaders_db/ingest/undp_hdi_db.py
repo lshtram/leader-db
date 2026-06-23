@@ -132,7 +132,7 @@ def register_undp_hdi_source(session: Session) -> int:
                 bundle_meta.get("license")
                 or (
                     "Free with attribution; cite UNDP (see "
-                    "docs/source-attributions.md)."
+                    "docs/sources/attributions.md)."
                 ),
             ),
             download_date=download_date_value,
@@ -142,7 +142,7 @@ def register_undp_hdi_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C.8. "
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/undp_hdi.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text. Year 2023 requests are proxied to 2022 data "
                 "(1-year-gap, per CIRIGHTS / Leader Survival "
                 "pattern)."

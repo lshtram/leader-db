@@ -334,7 +334,7 @@ Required files:
     - requested time-series years, when supplied;
     - score-delta table;
     - skipped inputs;
-    - attribution block from `docs/source-attributions.md` for each source used;
+    - attribution block from `docs/sources/attributions.md` for each source used;
     - explicit caveat that this is not final scoring and that client comparison
       is 2023-only when the multi-year source-only table is written.
 

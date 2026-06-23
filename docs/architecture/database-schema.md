@@ -1,6 +1,6 @@
 # Database Schema — Prototype (v1)
 
-This document is the authoritative schema reference for the 11 prototype tables defined in [`req/top-level-requirements.md`](req/top-level-requirements.md) §7. The implementation lives in [`src/leaders_db/db/models.py`](../src/leaders_db/db/models.py) (SQLAlchemy 2.x ORM) and the canonical DDL at [`src/leaders_db/db/migrations/0001_initial.sql`](../src/leaders_db/db/migrations/0001_initial.sql). SQL DDL is checked in for clarity and as the schema change source of truth.
+This document is the authoritative schema reference for the 11 prototype tables defined in [`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md) §7. The implementation lives in [`src/leaders_db/db/models.py`](../../src/leaders_db/db/models.py) (SQLAlchemy 2.x ORM) and the canonical DDL at [`src/leaders_db/db/migrations/0001_initial.sql`](../../src/leaders_db/db/migrations/0001_initial.sql). SQL DDL is checked in for clarity and as the schema change source of truth.
 
 ## Conventions
 

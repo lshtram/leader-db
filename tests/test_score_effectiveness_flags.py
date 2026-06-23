@@ -25,7 +25,7 @@ These tests pin the **flag-detection** behaviour of
 The happy-path tests live in
 :mod:`tests.test_score_effectiveness`.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints on test parameters.
 No ``print()``, no ``TODO(debug)``, no scratch code.
 """

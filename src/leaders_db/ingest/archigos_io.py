@@ -43,7 +43,7 @@ added in Phase C for this source.
 
 Per Always-On Rule #15, the :data:`ARCHIGOS_ATTRIBUTION` constant is
 byte-identical to the per-source entry in
-``docs/source-attributions.md`` §1 ``archigos``. The
+``docs/sources/attributions.md`` §1 ``archigos``. The
 :func:`test_archigos_attribution_matches_attributions_doc` test
 enforces the byte-for-byte consistency.
 """
@@ -69,14 +69,14 @@ from ..paths import processed_dir, raw_dir
 ARCHIGOS_SOURCE_KEY: str = "archigos"
 
 #: Stable Archigos attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (archigos entry). This constant
+#: ``docs/sources/attributions.md`` (archigos entry). This constant
 #: must be a substring of that doc; the
 #: :func:`test_archigos_attribution_matches_attributions_doc` test
 #: enforces byte-for-byte consistency (Always-On Rule #15). The
 #: constant lives here to break the import cycle: ``archigos_db``
 #: imports it from us, and ``archigos`` re-exports it. The exact
 #: string matches the per-source entry in
-#: ``docs/source-attributions.md` §1 ``archigos`` (the Stage 15
+#: ``docs/sources/attributions.md` §1 ``archigos`` (the Stage 15
 #: "Attribution text in reports" line).
 ARCHIGOS_ATTRIBUTION: str = (
     "Archigos v4.1 (Goemans, Gleditsch, and Chiozza 2009)."
@@ -262,7 +262,7 @@ def default_dta_path() -> Path:
     Raises :class:`FileNotFoundError` if the file is missing; the
     adapter expects the user to have downloaded the .dta via the
     project's download workflow first (per
-    ``docs/local-data-store.md`` § "Adding a New Source").
+    ``docs/architecture/local-data-store.md`` § "Adding a New Source").
     """
     path = raw_dir(ARCHIGOS_SOURCE_KEY) / _RAW_DTA_NAME
     if not path.is_file():

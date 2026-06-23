@@ -66,7 +66,7 @@ _logger = logging.getLogger(__name__)
 BTI_SOURCE_KEY: str = "bti"
 
 #: Stable BTI attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (bti section); this constant must
+#: ``docs/sources/attributions.md`` (bti section); this constant must
 #: be byte-identical to the "Attribution text in reports" line there
 #: (the short form, NOT the full citation). The
 #: :func:`test_bti_attribution_matches_attributions_doc` test enforces
@@ -247,7 +247,7 @@ def default_xlsx_path() -> Path:
 
     Resolves to ``<project_root>/data/raw/bti/BTI_2006-2026_Scores.xlsx``.
     Raises ``FileNotFoundError`` if the file is missing (per the
-    design contract in ``docs/local-data-store.md``); the adapter
+    design contract in ``docs/architecture/local-data-store.md``); the adapter
     expects the user to have placed the cumulative xlsx via the
     project's download workflow first.
     """

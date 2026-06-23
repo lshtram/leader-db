@@ -55,12 +55,12 @@ builder at module load time without creating a cycle (the package
 root ``leaders_db.score`` eagerly imports this module, and the
 test suite imports ``leaders_db.resolve.indicators`` first).
 We therefore use a function-local deferred import per
-:doc:`docs/coding-guidelines.md` §"Python Standards" ("keep imports
+:doc:`docs/process/coding-guidelines.md` §"Python Standards" ("keep imports
 local only when they avoid optional dependency costs or isolate
 CLI-only behavior") — the cycle-avoidance case is the documented
 exception.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

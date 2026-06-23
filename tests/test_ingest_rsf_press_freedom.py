@@ -33,7 +33,7 @@ RSF is structurally distinct from every prior adapter:
   framing).
 - It targets the ``political_freedom`` rating category exclusively
   (RSF is a press/media-freedom sub-signal per
-  ``docs/source-vetting-report.md`` §3.2).
+  ``docs/sources/vetting/report.md`` §3.2).
 
 Tests use 3 small real-format fixtures under
 ``tests/fixtures/rsf_press_freedom/``:
@@ -830,14 +830,14 @@ def test_parquet_metadata_carries_attribution_and_source_key(
 
 def test_rsf_press_freedom_attribution_matches_attributions_doc() -> None:
     """``RSF_PRESS_FREEDOM_ATTRIBUTION`` is a substring of
-    ``docs/source-attributions.md`` (drift guard per Rule #15).
+    ``docs/sources/attributions.md`` (drift guard per Rule #15).
     """
     assert RSF_PRESS_FREEDOM_ATTRIBUTION is not None, (
         "rsf_press_freedom_io module not implemented"
     )
     doc_path = (
         Path(__file__).resolve().parents[1]
-        / "docs" / "source-attributions.md"
+        / "docs" / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert RSF_PRESS_FREEDOM_ATTRIBUTION in doc_text, (

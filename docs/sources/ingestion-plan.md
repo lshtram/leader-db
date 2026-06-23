@@ -1,6 +1,14 @@
 # Source Ingestion Plan
 
-This document is the implementation backlog and interface plan for adding the remaining and future data-source ingestion paths. It complements [`data-sources.md`](data-sources.md), [`source-vetting/report.md`](source-vetting/report.md), and the Stage 2 source-location rules in [`architecture.md`](architecture.md#source-location-and-traceability-convention).
+> **Prototype / legacy reference (updated 2026-06-23):** This document records
+> the source-by-source plan that guided the prototype `src/leaders_db/ingest/`
+> work and the PWT shared-adapter experiment. Future source-interface work is
+> governed by [`docs/architecture/sources.md`](../architecture/sources.md) and
+> [`docs/requirements/sources.md`](../requirements/sources.md). Treat the
+> sections below as historical/prototype guidance unless explicitly carried
+> forward into the new `leaders_db.sources` architecture.
+
+This document is the historical implementation backlog and prototype interface plan for the earlier Stage 2 source-ingestion path. It complements [`docs/sources/registry.md`](registry.md), [`docs/sources/vetting/report.md`](vetting/report.md), and the Stage 2 source-location rules in [`docs/architecture/overview.md`](../architecture/overview.md#source-location-and-traceability-convention), but it is subordinate to the new source-system architecture for future work.
 
 ## Goals
 
@@ -159,8 +167,8 @@ Each source is one slice. A slice is complete only when all items below are done
    - Use tiny real-format fixtures; no invented historical data.
    - Test reader validation, transform semantics, raw locator generation, proxy/stale-year handling, DB writes, manifest, idempotent rerun, and CLI/registry boundary.
 5. **Docs**
-   - Update `docs/data-sources.md`, `docs/architecture.md` locator table or source-specific architecture doc, `docs/source-attributions.md`, and `docs/workplan.md` status.
-   - Update `docs/req/requirements-core.md` only if adding/changing a requirement.
+   - Update `docs/sources/registry.md`, `docs/architecture/overview.md` locator table or source-specific architecture doc, `docs/sources/attributions.md`, and `docs/workplan.md` status.
+   - Update `docs/requirements/core.md` only if adding/changing a requirement.
 6. **Verification**
    - Run affected tests first.
    - Run `ruff` on changed Python files when code is changed.
@@ -484,6 +492,9 @@ These should not be implemented before a source-specific design note and reviewe
 
 ## Recommended execution order
 
+This section is retained as prototype history. The authoritative execution order
+for the clean source-system reset begins in [`docs/architecture/sources.md`](../architecture/sources.md#9-first-milestones).
+
 PWT is already implemented and wired (shared `SourceAdapter` Protocol + production per-source package + CLI dispatch wiring), so the remaining sequence now starts with the next priorities below:
 
 1. Implement `polity_v` once source hygiene is complete.
@@ -499,7 +510,7 @@ PWT is already implemented and wired (shared `SourceAdapter` Protocol + producti
 
 Use this checklist before marking any source complete:
 
-- [ ] Source has a vetted registry row in `docs/data-sources.md`.
+- [ ] Source has a vetted registry row in `docs/sources/registry.md`.
 - [ ] `data/raw/<source_key>/metadata.json` exists and has checksum/license/source URL/version/coverage.
 - [ ] Source package lives under `src/leaders_db/ingest/sources/<source_key>/` or has a documented migration exception.
 - [ ] Catalog exists and is source-owned.

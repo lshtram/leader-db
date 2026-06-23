@@ -29,7 +29,7 @@ canonical writer for downstream exports; this helper is the
 Stage 9 batch-specific row builder.
 
 Per AGENTS.md rule #15 ("carry source attribution forward in
-every public output") and ``docs/source-attributions.md`` §3.2
+every public output") and ``docs/sources/attributions.md`` §3.2
 / §3.6, the CSV opens with one ``# Attribution: <text>``
 comment line per contributing source (per
 :data:`leaders_db.score._attributions.CATEGORY_SOURCE_ATTRIBUTIONS`)
@@ -41,7 +41,7 @@ that wants to skip the comment block reads with
 ``csv.reader`` and discards the leading rows whose first
 cell starts with ``#``, or uses ``pandas.read_csv(..., comment="#")``.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

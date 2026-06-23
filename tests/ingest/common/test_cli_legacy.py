@@ -5,7 +5,7 @@ table (every existing source key must remain callable) and
 the CLI boundary regression guards
 (``wikipedia_search_extract --query``).
 
-Per the ``docs/source-ingestion-plan.md`` mirrored layout
+Per the ``docs/sources/ingestion-plan.md`` mirrored layout
 (see the Increment A design), the tests for the legacy
 dispatch + CLI boundary live in
 ``tests/ingest/common/test_cli_legacy.py``.

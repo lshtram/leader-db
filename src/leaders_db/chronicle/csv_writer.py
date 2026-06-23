@@ -22,7 +22,7 @@ Increment 2 added the Maddison Project attribution line plus the
 Archigos / REIGN attribution lines (ruler resolver sources). The
 exact attribution text is sourced from
 :mod:`leaders_db.chronicle.source_constants` and is drift-guarded
-against :file:`docs/source-attributions.md`.
+against :file:`docs/sources/attributions.md`.
 """
 
 from __future__ import annotations
@@ -57,7 +57,7 @@ def build_attribution_comment_block(
 
     Each line is a complete CSV cell that begins with ``#`` (per the
     project's manual-review-queue convention in
-    :file:`docs/source-attributions.md` §3.2). The block always opens
+    :file:`docs/sources/attributions.md` §3.2). The block always opens
     with a one-line ``# Country-Year Chronicle pilot CSV`` header so a
     downstream consumer can detect the file format.
 

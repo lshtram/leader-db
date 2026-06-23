@@ -44,7 +44,7 @@ identity-column) pair, keyed by the row's year column.
 
 Per Always-On Rule #15, the :data:`REIGN_ATTRIBUTION` constant is
 byte-identical to the per-source entry in
-``docs/source-attributions.md`` §1 ``reign``. The
+``docs/sources/attributions.md`` §1 ``reign``. The
 :func:`test_reign_attribution_matches_attributions_doc` test
 enforces the byte-for-byte consistency.
 """
@@ -77,14 +77,14 @@ from ..paths import processed_dir, raw_dir
 REIGN_SOURCE_KEY: str = "reign"
 
 #: Stable REIGN attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (reign entry). This constant must
+#: ``docs/sources/attributions.md`` (reign entry). This constant must
 #: be a substring of that doc; the
 #: :func:`test_reign_attribution_matches_attributions_doc` test
 #: enforces byte-for-byte consistency (Always-On Rule #15). The
 #: constant lives here to break the import cycle: ``reign_db``
 #: imports it from us, and ``reign`` re-exports it. The exact
 #: string matches the per-source entry in
-#: ``docs/source-attributions.md` §1 ``reign`` (the Stage 15
+#: ``docs/sources/attributions.md` §1 ``reign`` (the Stage 15
 #: "Attribution text in reports" line).
 REIGN_ATTRIBUTION: str = (
     "REIGN dataset (Bell 2016), snapshot of August 2021."
@@ -302,7 +302,7 @@ def default_csv_path() -> Path:
     :class:`FileNotFoundError` if the file is missing; the
     adapter expects the user to have downloaded the CSV via the
     project's download workflow first (per
-    ``docs/local-data-store.md`` § "Adding a New Source").
+    ``docs/architecture/local-data-store.md`` § "Adding a New Source").
     """
     path = raw_dir(REIGN_SOURCE_KEY) / _RAW_CSV_NAME
     if not path.is_file():

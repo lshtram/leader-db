@@ -20,7 +20,7 @@ level by :func:`leaders_db.score.source_plans.canonical_source_key`
 and therefore cannot appear in the bundle even when a
 ``SourceObservation`` row points at one (requirement §3, §9, §12).
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public function parameter and return.

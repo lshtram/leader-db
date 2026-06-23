@@ -110,7 +110,7 @@ def register_who_gho_api_source(session: Session) -> int:
                 bundle_meta.get("license_note")
                 or (
                     "Open; cite WHO Global Health Observatory per "
-                    "docs/source-attributions.md."
+                    "docs/sources/attributions.md."
                 )
             ),
             download_date=download_date_value,
@@ -120,7 +120,7 @@ def register_who_gho_api_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C. Indicator "
                 "catalog at "
                 "src/leaders_db/ingest/catalogs/who_gho_api.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text. WHO GHO OData API is JSON-backed (OData 4.0, "
                 "Azure, public, no auth) with a per-indicator "
                 "data-freshness profile (no fixed coverage window)."

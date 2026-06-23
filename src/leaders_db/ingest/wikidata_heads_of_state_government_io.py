@@ -47,7 +47,7 @@ The Stage 2 contract:
 
 Per AGENTS.md Always-On Rule #15, the attribution text returned by
 :func:`wikidata_heads_of_state_government.attribution` is the exact
-wording from ``docs/source-attributions.md``; the
+wording from ``docs/sources/attributions.md``; the
 :func:`test_wikidata_heads_of_state_government_attribution_matches_attributions_doc`
 test enforces byte-for-byte consistency.
 """
@@ -79,7 +79,7 @@ WIKIDATA_HEADS_OF_STATE_GOVERNMENT_SOURCE_KEY: str = (
 )
 
 #: Stable Wikidata attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (wikidata_heads_of_state_government
+#: ``docs/sources/attributions.md`` (wikidata_heads_of_state_government
 #: section, lines 122-128 + the citation-cheat-sheet summary table
 #: row). This constant must be a substring of that doc; the
 #: :func:`test_wikidata_heads_of_state_government_attribution_matches_attributions_doc`

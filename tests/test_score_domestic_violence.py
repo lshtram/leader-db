@@ -22,7 +22,7 @@ data branch flag derivation lives in
 Client-contamination regression tests live in
 :mod:`tests.test_score_domestic_violence_remediation`.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

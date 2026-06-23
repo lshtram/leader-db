@@ -81,7 +81,7 @@ scorer therefore explicitly handles two population groups:
   data" / REQ-HIST-002 spirit called out in the source-plan
   docstring.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

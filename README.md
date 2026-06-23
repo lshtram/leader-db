@@ -2,7 +2,7 @@
 
 AI-agent data collection and validation system for the **Leaders Database** — a project that consolidates multiple ratings of world political leaders into a single auditable, confidence-scored, client-validated dataset.
 
-The authoritative product brief is [`docs/req/top-level-requirements.md`](docs/req/top-level-requirements.md). Implementation is staged; see [`docs/workplan.md`](docs/workplan.md) for current status and [`docs/architecture.md`](docs/architecture.md) for system design.
+The authoritative product brief is [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md). Implementation is staged; see [`docs/workplan.md`](docs/workplan.md) for current status and [`docs/architecture/overview.md`](docs/architecture/overview.md) for system design.
 
 ## What this prototype does
 
@@ -57,9 +57,14 @@ leaders-db/
 ├── README.md                # this file
 ├── pyproject.toml
 ├── .gitignore
-├── docs/                    # workplan, architecture, coding-guidelines,
-│   ├── req/                 # top-level-requirements, requirements-core
-│   └── reviews/             # review outputs
+├── docs/                    # documentation index + top-level workplans
+│   ├── architecture/         # system design, schema, data-store, source designs
+│   ├── requirements/         # product, core, and source-system requirements
+│   ├── sources/              # source registry, attributions, vetting, ingestion plan
+│   ├── process/              # coding guidelines and operational hygiene
+│   ├── chronicle/            # Country-Year Chronicle plans and increment notes
+│   ├── methodology/          # ranking and evaluation methodology
+│   └── reviews/              # review outputs
 ├── src/leaders_db/          # Python package
 │   ├── cli.py               # Typer CLI
 │   ├── config.py            # Pydantic run config
@@ -116,4 +121,4 @@ LEADERSDB_SMOKE_YES=1 python scripts/smoke_wikidata_wikipedia.py
 
 MIT — see [`LICENSE`](LICENSE).
 
-External datasets keep their own licenses and citation requirements. The normative source-attribution record is [`docs/source-attributions.md`](docs/source-attributions.md) — that file is the single source of truth and is kept in sync with every implemented Stage 2 adapter. Per AGENTS.md Always-On Rule #15, every public output (Stage 15 report, manual-review queue, exported CSV, run log, CLI end-of-run echo) must include the relevant attribution block; the doc carries the full per-source table, license notes, citations, and the exact attribution text for every source. The summary table in that file is the authoritative index of current sources — do not enumerate sources in this README (it would drift the moment a new source lands).
+External datasets keep their own licenses and citation requirements. The normative source-attribution record is [`docs/sources/attributions.md`](docs/sources/attributions.md) — that file is the single source of truth and is kept in sync with every implemented Stage 2 adapter. Per AGENTS.md Always-On Rule #15, every public output (Stage 15 report, manual-review queue, exported CSV, run log, CLI end-of-run echo) must include the relevant attribution block; the doc carries the full per-source table, license notes, citations, and the exact attribution text for every source. The summary table in that file is the authoritative index of current sources — do not enumerate sources in this README (it would drift the moment a new source lands).

@@ -4,10 +4,10 @@ This document consolidates two always-on rules that govern how work happens
 in this repository:
 
 - **Cleanup & coherence** — no junk, no slop, no stale files after any
-  operation (Always-On Rule #13 in [`AGENTS.md`](../AGENTS.md)).
+  operation (Always-On Rule #13 in [`AGENTS.md`](../../AGENTS.md)).
 - **Review discipline** — full code review after every code-bearing change,
   findings fixed in place, never deferred to "later in the project"
-  (Always-On Rule #14 in [`AGENTS.md`](../AGENTS.md)).
+  (Always-On Rule #14 in [`AGENTS.md`](../../AGENTS.md)).
 
 Both rules are non-negotiable. They apply to every agent session, every
 mode (Pragmatic Implementation, TDD, Quick Fix, Exploration, Debug),
@@ -142,7 +142,7 @@ with the rest of the project.
 
 After the code is written, before the next task begins:
 
-1. **Self-review against [`docs/coding-guidelines.md`](coding-guidelines.md).**
+1. **Self-review against [`docs/process/coding-guidelines.md`](coding-guidelines.md).**
    Walk the D2 review checklist at the bottom of that document.
    Findings are fixed in place, not deferred.
 2. **Run the affected tests.** `pytest -q` for a quick pass; the
@@ -182,7 +182,7 @@ After the code is written, before the next task begins:
 write code
    |
    v
-self-review against docs/coding-guidelines.md
+self-review against docs/process/coding-guidelines.md
    |
    v
 run tests + ruff
@@ -252,15 +252,15 @@ find . -name 'TODO(debug)' -not -path './.venv/*'  # nothing in src/ or tests/
 .venv/bin/ruff check src tests
 
 # 4. Self-review walkthrough
-# (mental walk of docs/coding-guidelines.md D2 review checklist)
+# (mental walk of docs/process/coding-guidelines.md D2 review checklist)
 ```
 
 If any check fails, fix the failure before committing.
 
 ## Where to record operational decisions
 
-- A reusable pattern: add it to [`docs/coding-guidelines.md`](coding-guidelines.md).
+- A reusable pattern: add it to [`docs/process/coding-guidelines.md`](coding-guidelines.md).
 - A reviewer finding that recurs: add it to the D2 review checklist
-  in [`docs/coding-guidelines.md`](coding-guidelines.md).
-- A new operational rule: add it here and reference from [`AGENTS.md`](../AGENTS.md).
-- A phase-level operational decision: add it to [`docs/workplan.md`](workplan.md).
+  in [`docs/process/coding-guidelines.md`](coding-guidelines.md).
+- A new operational rule: add it here and reference from [`AGENTS.md`](../../AGENTS.md).
+- A phase-level operational decision: add it to [`docs/workplan.md`](../workplan.md).

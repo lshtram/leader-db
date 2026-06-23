@@ -169,7 +169,7 @@ SAMPLE_ROWS: tuple[SAMPLE_ROW_TYPE, ...] = (
 
 # The 4 identity + 11 catalog columns the Stage 2 reader validates
 # + emits into the wide Data-sheet-shaped DataFrame (per
-# ``docs/source-ingestion-plan.md`` PWT section, verified against
+# ``docs/sources/ingestion-plan.md`` PWT section, verified against
 # the live ``pwt1001.xlsx`` ``Data`` sheet on 2026-06-22). The
 # 11 catalog columns are the canonical numeric indicators the
 # Stage 2 plan calls out; the live workbook carries additional

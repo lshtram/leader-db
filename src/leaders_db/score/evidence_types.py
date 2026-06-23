@@ -17,7 +17,7 @@ That keeps the vocabulary reusable from the per-row observation types
 and the plan type, and lets the bundle module own its imports of
 this module without risking a cycle.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - Type hints on every public field and method.
 - ``from __future__ import annotations`` for forward-reference safety.
@@ -74,7 +74,7 @@ class MissingReason(str, Enum):
     """Why an expected observation is missing from the bundle.
 
     The eight values enumerate the missingness cases called out in
-    REQ-STAGE-007 and ``docs/architecture.md`` §"Confidence and
+    REQ-STAGE-007 and ``docs/architecture/overview.md`` §"Confidence and
     Missingness". Distinguishing these is part of confidence — a
     ``not_applicable`` is not the same failure mode as ``blocked_or_paywalled``
     or ``source_not_implemented``.

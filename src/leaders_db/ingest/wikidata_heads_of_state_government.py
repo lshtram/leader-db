@@ -56,7 +56,7 @@ the ``source_observations`` rows for the requested year(s) only.
 
 Per AGENTS.md Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md``; the
+``docs/sources/attributions.md``; the
 :func:`test_wikidata_heads_of_state_government_attribution_matches_attributions_doc`
 test enforces byte-for-byte consistency.
 
@@ -131,7 +131,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches Wikidata data must include this
     block verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION
 

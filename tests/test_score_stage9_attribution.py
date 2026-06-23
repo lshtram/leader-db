@@ -3,13 +3,13 @@
 The all-countries CSV is an exported artifact under
 ``data/outputs/``; per AGENTS.md rule #15 ("carry source
 attribution forward in every public output") and
-``docs/source-attributions.md`` §3.2 / §3.6, the writer must
+``docs/sources/attributions.md`` §3.2 / §3.6, the writer must
 carry the source attribution block for the contributing
 sources as a ``# Attribution: <text>`` comment block at the
 top of the file. The block is the small but contractually
 important glue between the score module and the docs — without
 it a downstream consumer cannot answer "where did these numbers
-come from?" without re-reading ``docs/source-attributions.md``.
+come from?" without re-reading ``docs/sources/attributions.md``.
 
 Scope
 -----
@@ -48,7 +48,7 @@ The tests cover:
 
 - the :func:`build_attribution_comment_lines` helper emits one
   line per expected source and the text is byte-for-byte equal
-  to the ``docs/source-attributions.md`` strings;
+  to the ``docs/sources/attributions.md`` strings;
 - the helper returns ``()`` for unknown / empty categories and
   never emits the ``client_existing`` attribution (AGENTS.md
   rule #6).
@@ -86,7 +86,7 @@ def test_attribution_helper_attribution_text_matches_doc() -> None:
     """The attribution text is byte-for-byte equal to the doc strings.
 
     The helper is the glue between the score module and
-    ``docs/source-attributions.md``; if the helper's text drifts
+    ``docs/sources/attributions.md``; if the helper's text drifts
     from the doc a downstream consumer cannot rely on grep. This
     test pins the exact substring of every line so a future
     edit in either place is caught at the next ``pytest`` run.
@@ -242,7 +242,7 @@ def test_attribution_helper_unknown_category_returns_empty_tuple() -> None:
 def test_attribution_helper_omits_client_existing() -> None:
     """The block never includes the ``client_existing`` attribution.
 
-    Per AGENTS.md rule #6 and ``docs/source-attributions.md``
+    Per AGENTS.md rule #6 and ``docs/sources/attributions.md``
     §3.1, the client 2023 matrix is the validation reference and
     must not appear in the source agreement / source authority /
     source attribution of any deterministic output. The block

@@ -4,7 +4,7 @@
 > **Phase:** C.7 (data acquisition, seventh adapter, after V-Dem, WDI, WGI, UCDP, SIPRI milex, SIPRI Yearbook Ch.7).
 > **Target source key:** `pts`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"pts": None` stub with `pts.ingest_pts`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.8.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.8.
 > **Liveness verified:** 2026-06-18 — `https://www.politicalterrorscale.org/Data/Files/PTS-2025.xlsx` returns HTTP 200 with `Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`; the downloaded xlsx is **572,234 bytes (572 KB)**, contains 1 sheet named `PTS-2025`, 10,531 data rows × 14 columns + 1 header row. SHA-256: `6f4d1ccdda1d2fdce382a978922790390ce5f61ae9f4aefa1970e9ca8bd88832` (matches `data/raw/political_terror_scale/metadata.json`).
 > **Data-lake path mismatch (architect flag for the developer).** The `metadata.json` says the folder is `political_terror_scale/`, but the dispatch-table key is `pts`. The folder name (`political_terror_scale/`) is kept to preserve the downloaded bundle's name (no need to rename disk files); the source key (`pts`) is the CLI flag and the catalog filename. This is the same pattern as the other multi-word source keys (the folder is the human-readable bundle name; the source key is the dispatch key).
 
@@ -23,7 +23,7 @@ This document is the design contract for the PTS Stage 2 adapter. The test-build
 
 This is the Stage 2 adapter for the **Political Terror Scale (PTS)**, the academic standard for measuring state-perpetrated political terror and physical integrity abuses. It is the seventh Stage 2 adapter built (after V-Dem, WDI, WGI, UCDP, SIPRI milex, SIPRI Yearbook Ch.7).
 
-PTS contributes to the **`domestic_violence`** category per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.8. The category's three sources are:
+PTS contributes to the **`domestic_violence`** category per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.8. The category's three sources are:
 
 | Source | Indicators fed to `domestic_violence` |
 |---|---|
@@ -134,7 +134,7 @@ None of the PTS indicators populate the `country_years` table directly (those co
 
 ### License
 
-PTS is distributed under **free academic use with attribution**. The canonical citation is the one in [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `pts`:
+PTS is distributed under **free academic use with attribution**. The canonical citation is the one in [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `pts`:
 
 > Wood, Reed M., Mark Gibney, and others. *The Political Terror Scale (PTS)*. https://www.politicalterrorscale.org/
 
@@ -144,7 +144,7 @@ The drift-guard test `test_pts_attribution_matches_attributions_doc` (§8.5) enf
 
 - Indicator catalog: `src/leaders_db/ingest/catalogs/pts.csv` (to be authored from §3).
 - Per-source `metadata.json`: `data/raw/political_terror_scale/metadata.json` (already on disk; see §11 #17 for the region-code drift fix).
-- Attribution: `docs/source-attributions.md` §1 entry for `pts`.
+- Attribution: `docs/sources/attributions.md` §1 entry for `pts`.
 
 ---
 
@@ -186,7 +186,7 @@ variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,highe
 >
 > 1. **Cross-source comparison richness.** Stage 12's compare-vs-client step reads all `domestic_violence` indicators across all 3 sources (UCDP's 2 + V-Dem's 3 + PTS's 3 = 8 indicators). Collapsing PTS to a single indicator would reduce the cross-source comparison's power and obscure the 3-way coder disagreement signal.
 >
-> 2. **Cross-validation with the source-vetting report.** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.8, PTS is listed as one source contributing 3 indicators to `domestic_violence` (matching UCDP's 2 + V-Dem's 3 per-indicator profile). Collapsing to 1 would be inconsistent with the report.
+> 2. **Cross-validation with the source-vetting report.** Per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.8, PTS is listed as one source contributing 3 indicators to `domestic_violence` (matching UCDP's 2 + V-Dem's 3 per-indicator profile). Collapsing to 1 would be inconsistent with the report.
 >
 > The 3-indicator choice is locked for the prototype. The user can extend to a 4th indicator (e.g., a PTS-derived "disagreement index") in a future iteration as a 1-row catalog addition.
 
@@ -275,7 +275,7 @@ The data flow is a **single linear pass** through the xlsx (streaming via `openp
 
 ## 5 — Module structure (WGI-style 4-module split with xlsx reader)
 
-PTS is structurally closer to **WGI** (one local xlsx, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache) or UCDP (event-level aggregation). The WGI 4-module split (`wgi.py` / `wgi_io.py` / `wgi_xlsx.py` / `wgi_db.py`) plus an optional `wgi_db_helpers.py` is the template. PTS splits into **4 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from [`docs/coding-guidelines.md`](../coding-guidelines.md):
+PTS is structurally closer to **WGI** (one local xlsx, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache) or UCDP (event-level aggregation). The WGI 4-module split (`wgi.py` / `wgi_io.py` / `wgi_xlsx.py` / `wgi_db.py`) plus an optional `wgi_db_helpers.py` is the template. PTS splits into **4 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from [`docs/process/coding-guidelines.md`](../process/coding-guidelines.md):
 
 | File | Responsibility | Approx LoC target |
 |---|---|---|
@@ -507,7 +507,7 @@ The test file will be `tests/test_ingest_pts.py`. The fixture will be `tests/fix
 
 | Test name | What it asserts | Fixture |
 |---|---|---|
-| `test_pts_attribution_matches_attributions_doc` | `PTS_ATTRIBUTION` is a substring of `docs/source-attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc`, WGI's `test_wgi_attribution_matches_attributions_doc`, UCDP's `test_ucdp_attribution_matches_attributions_doc`, SIPRI milex's `test_sipri_milex_attribution_matches_attributions_doc`, and SIPRI Yearbook Ch.7's `test_sipri_yearbook_ch7_attribution_matches_attributions_doc`). | project root |
+| `test_pts_attribution_matches_attributions_doc` | `PTS_ATTRIBUTION` is a substring of `docs/sources/attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc`, WGI's `test_wgi_attribution_matches_attributions_doc`, UCDP's `test_ucdp_attribution_matches_attributions_doc`, SIPRI milex's `test_sipri_milex_attribution_matches_attributions_doc`, and SIPRI Yearbook Ch.7's `test_sipri_yearbook_ch7_attribution_matches_attributions_doc`). | project root |
 
 ### §8.6 — Test fixture shape (the contract for the test-builder)
 
@@ -598,7 +598,7 @@ PTS_ATTRIBUTION: str = (
 )
 ```
 
-The exact citation text. Lives in `pts_io` to break the import cycle. The canonical long-form lives in [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `pts`; the drift-guard test `test_pts_attribution_matches_attributions_doc` (§8.5) enforces byte-for-byte consistency. **The text above is byte-identical to the citation in the doc; the developer copies it verbatim into the constant.**
+The exact citation text. Lives in `pts_io` to break the import cycle. The canonical long-form lives in [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `pts`; the drift-guard test `test_pts_attribution_matches_attributions_doc` (§8.5) enforces byte-for-byte consistency. **The text above is byte-identical to the citation in the doc; the developer copies it verbatim into the constant.**
 
 ```python
 #: Default location of the indicator catalog.
@@ -994,7 +994,7 @@ Phase C.7 is done when **all** of the following are true:
 - [ ] `tests/fixtures/pts/sample.xlsx` exists, is created by slicing the real `PTS-2025.xlsx` (not hand-authored), and is <50 KB.
 - [ ] `pytest -q tests/test_ingest_pts.py` passes (all green).
 - [ ] `pytest -q` passes for the full suite (no regressions in the prior 252 tests).
-- [ ] `PTS_ATTRIBUTION` is byte-identical to the citation in `docs/source-attributions.md` §1 (drift-guard test green).
+- [ ] `PTS_ATTRIBUTION` is byte-identical to the citation in `docs/sources/attributions.md` §1 (drift-guard test green).
 - [ ] No new project dependencies added to `pyproject.toml` (PTS uses the same deps as WGI: `openpyxl`, `pandas`, `pyarrow`, `pydantic`, `sqlalchemy`).
 - [ ] `ruff check` passes on all new modules.
 - [ ] No `print()` calls in `src/leaders_db/ingest/pts*.py` (use `logging`; the orchestrator prints the result JSON to stdout ONLY at CLI end-of-run via the `cli.py` boundary, like V-Dem does).
@@ -1003,7 +1003,7 @@ Phase C.7 is done when **all** of the following are true:
 - [ ] The `metadata.json` in `data/raw/political_terror_scale/` is updated to reflect the live-data region codes (7 single-region codes + the `'mena, ssa'` anomaly) per Constraint #17.
 - [ ] The run-manifest at `data/processed/pts/pts_run_manifest.json` is written on every orchestrator call.
 - [ ] Manual smoke against the real 572 KB xlsx for `year=2023` produces 215 country rows × 3 indicators = ~462 `source_observations` rows (summed across 3 indicators). Recorded in `docs/testing-guide-stage2-pts.md`.
-- [ ] D2 review (per [`docs/coding-guidelines.md`](../coding-guidelines.md) review checklist) passes with no blockers.
+- [ ] D2 review (per [`docs/process/coding-guidelines.md`](../process/coding-guidelines.md) review checklist) passes with no blockers.
 
 ---
 
@@ -1060,7 +1060,7 @@ No silent defaults. The `_coerce_pts_value` helper explicitly handles each case.
 
 ### #5 — Drift-guard test (Constraint #5)
 
-`test_pts_attribution_matches_attributions_doc` (§8.5) asserts `PTS_ATTRIBUTION` is a substring of `docs/source-attributions.md`. The test reads `docs/source-attributions.md` as text and asserts the constant is present (byte-for-byte). This is the WGI / UCDP / SIPRI milex / SIPRI Yearbook Ch.7 pattern.
+`test_pts_attribution_matches_attributions_doc` (§8.5) asserts `PTS_ATTRIBUTION` is a substring of `docs/sources/attributions.md`. The test reads `docs/sources/attributions.md` as text and asserts the constant is present (byte-for-byte). This is the WGI / UCDP / SIPRI milex / SIPRI Yearbook Ch.7 pattern.
 
 ### #6 — No `print()` in `src/` (Constraint #6)
 
@@ -1158,17 +1158,17 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 14 — Workplan / docs updates (for the project-manager)
 
-When the PTS adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
+When the PTS adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/sources/attributions.md`, `docs/sources/vetting/report.md`, and `docs/sources/registry.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
-> **Phase C.7 — PTS Stage 2 ingest landed (DATE).** Seventh Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_pts.py` (~280 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/pts.csv` lists 3 PTS indicators (pts_amnesty_score, pts_human_rights_watch_score, pts_state_dept_score), all under `domestic_violence` (cross-validation source for UCDP one-sided and V-Dem repression). Read pattern: open the 572 KB `PTS-2025.xlsx` with `openpyxl.read_only=True`, walk the single sheet (1 sheet, 10,531 rows × 14 columns), apply the 4-case sentinel matrix (NA_Status takes precedence over PTS_X; case 4 inconsistency is logged + dropped), pivot long → wide. The wide frame is ~200 country-year rows × 3 indicator columns for `year=2023`. Test fixture at `tests/fixtures/pts/sample.xlsx` is a 2-country × 2-year slice of the real xlsx (4 rows + 1 inconsistency row + 1 NA_Status=88 row; created by `build_sample_xlsx.py` which slices the real file with `openpyxl`). End-to-end run against the real 572 KB xlsx for `year=2023` produces 215 country rows × 3 indicators = ~462 `source_observations` rows (summed across 3 indicators). The `PTS_ATTRIBUTION` constant is byte-identical to the citation in `docs/source-attributions.md` (drift-guard test added). No new project dependencies. The `metadata.json` is updated to reflect the live-data region codes (7 single-region codes + the `'mena, ssa'` anomaly, replacing the 6-code approximation in the original metadata). `STAGE2_ADAPTERS["pts"]` is now `pts.ingest_pts` in `src/leaders_db/ingest/__init__.py`. PTS follows the WGI 4-module split (`pts.py` / `pts_io.py` / `pts_xlsx.py` / `pts_db.py`). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to the next adapter per the priority list.**
+> **Phase C.7 — PTS Stage 2 ingest landed (DATE).** Seventh Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_pts.py` (~280 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/pts.csv` lists 3 PTS indicators (pts_amnesty_score, pts_human_rights_watch_score, pts_state_dept_score), all under `domestic_violence` (cross-validation source for UCDP one-sided and V-Dem repression). Read pattern: open the 572 KB `PTS-2025.xlsx` with `openpyxl.read_only=True`, walk the single sheet (1 sheet, 10,531 rows × 14 columns), apply the 4-case sentinel matrix (NA_Status takes precedence over PTS_X; case 4 inconsistency is logged + dropped), pivot long → wide. The wide frame is ~200 country-year rows × 3 indicator columns for `year=2023`. Test fixture at `tests/fixtures/pts/sample.xlsx` is a 2-country × 2-year slice of the real xlsx (4 rows + 1 inconsistency row + 1 NA_Status=88 row; created by `build_sample_xlsx.py` which slices the real file with `openpyxl`). End-to-end run against the real 572 KB xlsx for `year=2023` produces 215 country rows × 3 indicators = ~462 `source_observations` rows (summed across 3 indicators). The `PTS_ATTRIBUTION` constant is byte-identical to the citation in `docs/sources/attributions.md` (drift-guard test added). No new project dependencies. The `metadata.json` is updated to reflect the live-data region codes (7 single-region codes + the `'mena, ssa'` anomaly, replacing the 6-code approximation in the original metadata). `STAGE2_ADAPTERS["pts"]` is now `pts.ingest_pts` in `src/leaders_db/ingest/__init__.py`. PTS follows the WGI 4-module split (`pts.py` / `pts_io.py` / `pts_xlsx.py` / `pts_db.py`). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to the next adapter per the priority list.**
 
-### `docs/source-attributions.md` — no change required
+### `docs/sources/attributions.md` — no change required
 
-The `pts` entry in `docs/source-attributions.md` §1 is already correct and matches the `PTS_ATTRIBUTION` constant byte-for-byte. The developer does NOT update the doc; the drift-guard test confirms consistency.
+The `pts` entry in `docs/sources/attributions.md` §1 is already correct and matches the `PTS_ATTRIBUTION` constant byte-for-byte. The developer does NOT update the doc; the drift-guard test confirms consistency.
 
-### `docs/source-vetting/report.md` — one minor update
+### `docs/sources/vetting/report.md` — one minor update
 
 §3.8 ("Domestic violence / repression sources") `pts` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/pts.py`. 3 indicators under `domestic_violence`: pts_amnesty_score, pts_human_rights_watch_score, pts_state_dept_score. The xlsx is long-format (10,531 country-year rows × 14 columns); Stage 2 applies the 4-case NA_Status sentinel matrix. Stage 3 resolves the `COW_Code_A` to ISO3 via the country lookup table."
 
@@ -1178,13 +1178,13 @@ The `pts` entry in `docs/source-attributions.md` §1 is already correct and matc
 |---|---|
 | `pts` | (was) "Free academic; cite Wood, Gibney, et al." → (now) "**The xlsx uses a 2-signal sentinel pattern: `PTS_X` (int 1-5 or str `'NA'`) AND `NA_Status_X` (int 0/66/77/88/99). The Stage 2 read applies a 4-case precedence rule: NA_Status takes precedence over PTS_X. Cases: (1) `int 1-5 + NA_Status=0` → valid; (2) `int 1-5 + NA_Status != 0` → drop; (3) `'NA' + NA_Status != 0` → drop; (4) `'NA' + NA_Status=0` → drop + warning (the inconsistency case, rare but observed in the live xlsx). The `raw_value` audit trail preserves the literal `'NA'` string or the stringified int. The xlsx uses 7 World Bank country-and-lending-groups region codes (`eap`/`eca`/`lac`/`mena`/`na`/`sa`/`ssa`) plus 1 data anomaly (`'mena, ssa'`, 49 rows for the African Union); the anomaly is passed through verbatim to `source_observations.notes`. The xlsx gives 4 ID columns per row; Stage 2 uses `COW_Code_A` as the primary `source_row_reference` suffix (`pts:<COW_Code_A>`, e.g., `pts:USA`). Stage 3 resolves the COW code to ISO3 via the country lookup table. All 5 NA_Status codes are present in the live data; the constant `_PTS_NA_STATUS_CODES = frozenset({0, 66, 77, 88, 99})` is the canonical set.**" |
 
-### `docs/data-sources.md` — one update
+### `docs/sources/registry.md` — one update
 
 The existing `pts` row says "xlsx; 572 KB; 1 sheet; 10,531 rows × 14 columns; ~200 countries × 49 years (1976-2024); free academic with attribution." Update to: "xlsx download; 572 KB; 1 sheet (`PTS-2025`); 10,531 country-year rows × 14 columns; 3 PTS scores (Amnesty, HRW, State) per row; 5 NA_Status codes per row; 7 World Bank region codes (eap, eca, lac, mena, na, sa, ssa) plus 1 data anomaly (`mena, ssa`); Stage 2 adapter landed."
 
-### `docs/architecture.md` — no change required
+### `docs/architecture/overview.md` — no change required
 
-The existing `architecture.md` already lists PTS as one of the per-source Stage 2 adapters (the "Domestic violence / repression sources" section). No structural change is needed.
+The existing `docs/architecture/overview.md` already lists PTS as one of the per-source Stage 2 adapters (the "Domestic violence / repression sources" section). No structural change is needed.
 
 ### `pyproject.toml` — no change required
 
@@ -1194,9 +1194,9 @@ No new project dependencies. PTS uses the same `openpyxl` / `pandas` / `pyarrow`
 
 The `notes` field is updated to reflect the live-data region codes (replacing the 6-code approximation with the 7 single-region codes + the `'mena, ssa'` anomaly). The other fields (`coverage_start_year: 1976`, `coverage_end_year: 2024`, `sha256`, `source_url`, `license`) are unchanged.
 
-### `docs/req/requirements-core.md` — no change required
+### `docs/requirements/core.md` — no change required
 
-The existing `domestic_violence` category in `docs/req/requirements-core.md` already lists PTS as the third source (alongside UCDP and V-Dem); the new adapter does not change the requirement set, only the implementation.
+The existing `domestic_violence` category in `docs/requirements/core.md` already lists PTS as the third source (alongside UCDP and V-Dem); the new adapter does not change the requirement set, only the implementation.
 
 ---
 
@@ -1277,7 +1277,7 @@ The SIPRI milex adapter is the closest xlsx-read analog. The lessons are:
 
 3. **The 8-field IngestResult pattern.** SIPRI Yearbook Ch.7 has 8 fields (6 from WGI + 2 source-specific extras). PTS also has 8 fields (6 from WGI + 2 source-specific extras). The end-to-end test asserts all 8.
 
-4. **The drift-guard test pattern.** SIPRI Yearbook Ch.7's `test_sipri_yearbook_ch7_attribution_matches_attributions_doc` is the model for PTS's `test_pts_attribution_matches_attributions_doc`. Both assert the constant is a substring of `docs/source-attributions.md`.
+4. **The drift-guard test pattern.** SIPRI Yearbook Ch.7's `test_sipri_yearbook_ch7_attribution_matches_attributions_doc` is the model for PTS's `test_pts_attribution_matches_attributions_doc`. Both assert the constant is a substring of `docs/sources/attributions.md`.
 
 ### Source-of-truth principle (the prompt's specific instruction)
 

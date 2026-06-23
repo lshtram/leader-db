@@ -961,10 +961,10 @@ def test_db_writers_source_row_reference_uses_iso3(
 
 def test_undp_hdi_attribution_matches_attributions_doc() -> None:
     """``UNDP_HDI_ATTRIBUTION`` is a substring of
-    ``docs/source-attributions.md`` (drift guard per Rule #15).
+    ``docs/sources/attributions.md`` (drift guard per Rule #15).
     """
     assert UNDP_HDI_ATTRIBUTION is not None, "undp_hdi_io module not implemented"
-    doc_path = Path(__file__).resolve().parents[1] / "docs" / "source-attributions.md"
+    doc_path = Path(__file__).resolve().parents[1] / "docs" / "sources/attributions.md"
     doc_text = doc_path.read_text(encoding="utf-8")
     assert UNDP_HDI_ATTRIBUTION in doc_text, (
         f"UNDP_HDI_ATTRIBUTION not found in {doc_path}. Update both in the same commit (Rule #15)."
@@ -1342,7 +1342,7 @@ def test_cli_ingest_source_runs_undp_hdi(
             f"(Rule #15 echo); got: {result.output!r}"
         )
         # The exact attribution text must be echoed (the constant
-        # is the substring from docs/source-attributions.md). This
+        # is the substring from docs/sources/attributions.md). This
         # catches both stubs that skip the adapter AND adapters
         # that paraphrase the attribution text.
         assert UNDP_HDI_ATTRIBUTION in result.output, (

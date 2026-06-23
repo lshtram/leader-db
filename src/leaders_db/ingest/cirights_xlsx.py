@@ -85,7 +85,7 @@ def read_xlsx_to_wide_dataframe(
     ``_empty_wide`` helper live in
     :mod:`leaders_db.ingest.cirights_xlsx_pivot` to keep this
     module under the 400-line convention from
-    :file:`docs/coding-guidelines.md`.
+    :file:`docs/process/coding-guidelines.md`.
 
     Args:
         xlsx_path: absolute path to the CIRIGHTS xlsx.

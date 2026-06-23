@@ -606,14 +606,14 @@ def test_attribution_matches_constant() -> None:
 
 
 def test_vdem_attribution_matches_attributions_doc() -> None:
-    """The constant is a substring of ``docs/source-attributions.md`` (drift guard).
+    """The constant is a substring of ``docs/sources/attributions.md`` (drift guard).
 
     This is the Rule #15 contract: the code's attribution text and the
     doc's citation text are byte-for-byte consistent. If the doc is
     updated (e.g. a new V-Dem version is released), update
     ``VDEM_ATTRIBUTION`` in the same commit.
     """
-    doc_path = Path(__file__).resolve().parents[1] / "docs" / "source-attributions.md"
+    doc_path = Path(__file__).resolve().parents[1] / "docs" / "sources/attributions.md"
     doc_text = doc_path.read_text(encoding="utf-8")
     # The code constant must be a substring of the doc. The doc may
     # include additional text (e.g. the "And:" Measurement Model paper);

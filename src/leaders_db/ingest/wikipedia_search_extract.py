@@ -64,7 +64,7 @@ have ``year=NULL``).
 
 Per AGENTS.md Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md``; the
+``docs/sources/attributions.md``; the
 :func:`test_wikipedia_search_extract_attribution_matches_attributions_doc`
 test enforces byte-for-byte consistency.
 
@@ -152,7 +152,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches Wikipedia data must include this
     block verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return WIKIPEDIA_SEARCH_EXTRACT_ATTRIBUTION
 

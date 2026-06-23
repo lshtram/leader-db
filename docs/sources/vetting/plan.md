@@ -2,7 +2,7 @@
 
 This plan gates **Phase C (data acquisition)**. No Stage 2 ingest adapter is written until its source's verdict in `data/outputs/source_vetting_report.{csv,md}` is `vetted_ok` or `vetted_with_caveats`.
 
-Phase A is complete: the package, CLI, schema, paths, configs, data-lake folders, and smoke tests are in place. The Phase A finish line is documented in [`workplan.md`](../workplan.md). The 6 client-bundle files (5 xlsx + 1 docx) are staged under `data/raw/client_existing/` with a `metadata.json`.
+Phase A is complete: the package, CLI, schema, paths, configs, data-lake folders, and smoke tests are in place. The Phase A finish line is documented in [`docs/workplan.md`](../../workplan.md). The 6 client-bundle files (5 xlsx + 1 docx) are staged under `data/raw/client_existing/` with a `metadata.json`.
 
 The goal of Phase B is to replace "trust the §6 source list" with **evidence per source**: a row in the source-vetting report for each priority source that records whether the dataset is reachable, whether it requires a login, whether it requires payment, whether its license is compatible, whether it actually covers 2023, and whether its format is parseable. Anything that does not pass is blocked from being implemented until it does.
 
@@ -14,7 +14,7 @@ The Stage 0 / Stage 2 implementation in §8 lists priority sources, but it does 
 
 In scope:
 
-- The **14 external priority sources** listed in requirement §6. The client's own bundle (`client_existing`) is already on disk and is **not** re-vetted here — the relevant checks for the client bundle are documented in [`data-sources.md`](../data-sources.md) and covered by the Stage 1 acceptance criteria.
+- The **14 external priority sources** listed in requirement §6. The client's own bundle (`client_existing`) is already on disk and is **not** re-vetted here — the relevant checks for the client bundle are documented in [`docs/sources/registry.md`](../registry.md) and covered by the Stage 1 acceptance criteria.
 - The decision to **replace** a source with a substitute when the canonical one fails vetting (e.g. switch V-Dem to V-Dem Lite if the full CSV is too large).
 - The decision to **drop** a source if no replacement is acceptable.
 - Probe results stored in a machine-readable CSV plus a human-readable Markdown report under `data/outputs/`.
@@ -121,7 +121,7 @@ The table below is the canonical Phase B probe plan. Each row records:
 
 ## URL Freshness Rule
 
-Before committing any URL into `docs/data-sources.md`, the probe runner must hit the URL once during Phase B and confirm:
+Before committing any URL into `docs/sources/registry.md`, the probe runner must hit the URL once during Phase B and confirm:
 
 - The URL returns 2xx.
 - The response body identifies the dataset unambiguously (title, version, year).
@@ -199,8 +199,8 @@ Phase B is complete when:
 1. Every priority source in §6 has a row in `source_vetting_report.csv`.
 2. Every row has a non-empty `verdict` (`vetted_ok` / `vetted_with_caveats` / `blocked` / `replace`).
 3. The Markdown report is human-readable and any human reviewers agree with the verdicts.
-4. For every `vetted_ok` or `vetted_with_caveats` source, the canonical URL is recorded in `docs/data-sources.md`.
-5. For every `blocked` source, the blocker is documented in `docs/data-sources.md` (and the workplan records the re-probe date).
+4. For every `vetted_ok` or `vetted_with_caveats` source, the canonical URL is recorded in `docs/sources/registry.md`.
+5. For every `blocked` source, the blocker is documented in `docs/sources/registry.md` (and the workplan records the re-probe date).
 6. For every `replace` verdict, the substitute has been probed and its verdict is the one used going forward.
 7. The `metadata.json` placeholder for each `data/raw/<source>/` is updated with the probed `source_url`.
 
@@ -216,15 +216,15 @@ Before adding any URL into the table above, the Phase B agent (or a human review
 4. Record the published coverage range from the source's documentation.
 5. Note any required registration, CAPTCHA, or institutional login.
 
-The captured URL is committed to `docs/data-sources.md` only after step 1 succeeds without authentication. Any URL that does not pass step 1 is moved to a `Blocked URLs — Re-probe Schedule` section at the bottom of `docs/data-sources.md`.
+The captured URL is committed to `docs/sources/registry.md` only after step 1 succeeds without authentication. Any URL that does not pass step 1 is moved to a `Blocked URLs — Re-probe Schedule` section at the bottom of `docs/sources/registry.md`.
 
 ## What Phase B Does Not Do
 
 - **It does not download any data.** Phase C does that.
 - **It does not implement any ingest adapter.** Adapters remain stubs.
-- **It does not change the priority source list.** Adding or removing sources is a requirements change (REQ-SRC-*) and must go through [`docs/req/requirements-core.md`](../req/requirements-core.md) first.
+- **It does not change the priority source list.** Adding or removing sources is a requirements change (REQ-SRC-*) and must go through [`docs/requirements/core.md`](../../requirements/core.md) first.
 - **It does not write to `data/raw/<source>/` content.** The folders are empty (except for `client_existing`, which was filled during Phase A) and stay empty until Phase C.
 
 ## Done When
 
-Phase B closes when the project-manager signs off on the source-vetting report and the workplan moves the active-phase indicator from **A** to **B** to **C**. The transition is recorded in [`workplan.md`](../workplan.md)'s Done History.
+Phase B closes when the project-manager signs off on the source-vetting report and the workplan moves the active-phase indicator from **A** to **B** to **C**. The transition is recorded in [`docs/workplan.md`](../../workplan.md)'s Done History.

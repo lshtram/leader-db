@@ -4,7 +4,7 @@
 > **Phase:** C.2 (data acquisition, second adapter, after V-Dem).
 > **Target source key:** `world_bank_wdi`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS`.
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.3.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.3.
 > **Liveness verified:** 2026-06-17 — `https://api.worldbank.org/v2/` returns HTTP 200 with valid JSON for `SP.POP.TOTL`, the indicator-list endpoint, and the country-list endpoint.
 
 This document is the design contract for the WDI Stage 2 adapter. The test-builder writes tests against the public surface in §2.3; the developer implements against the same surface. The catalog spec in §2.4 is the only place where WDI's indicator list is decided.
@@ -46,9 +46,9 @@ The World Bank distributes its datasets under **Creative Commons Attribution 4.0
 
 > The World Bank: Dataset name: Data source (if known).
 
-The current `docs/source-attributions.md` entry paraphrases the license as "World Bank Open Data license; free for any use with attribution." That paraphrase is acceptable as a short form; the canonical long-form citation that the code carries (per the V-Dem pattern in `VDEM_ATTRIBUTION`) is the full bibliographic citation. See §2.3 for the constant.
+The current `docs/sources/attributions.md` entry paraphrases the license as "World Bank Open Data license; free for any use with attribution." That paraphrase is acceptable as a short form; the canonical long-form citation that the code carries (per the V-Dem pattern in `VDEM_ATTRIBUTION`) is the full bibliographic citation. See §2.3 for the constant.
 
-> **Note for the developer:** while implementing, also update the `world_bank_wdi` entry in `docs/source-attributions.md` to mention "CC BY 4.0" in the `License` field (it currently says "World Bank Open Data"). The license clarification is a one-line addition; deferring it is forbidden by AGENTS.md Always-On Rule #15.
+> **Note for the developer:** while implementing, also update the `world_bank_wdi` entry in `docs/sources/attributions.md` to mention "CC BY 4.0" in the `License` field (it currently says "World Bank Open Data"). The license clarification is a one-line addition; deferring it is forbidden by AGENTS.md Always-On Rule #15.
 
 ### Coverage and indicator universe
 
@@ -88,13 +88,13 @@ The remaining 11 indicators live in `source_observations` and are consumed by th
 
 - Indicator catalog: `src/leaders_db/ingest/catalogs/wdi.csv` (to be authored from §2.4).
 - Per-source `metadata.json`: `data/raw/world_bank_wdi/metadata.json` (to be written when the first successful fetch happens).
-- Attribution: `docs/source-attributions.md` §1 entry for `world_bank_wdi`.
+- Attribution: `docs/sources/attributions.md` §1 entry for `world_bank_wdi`.
 
 ---
 
 ## 2.2 — Module structure (follow the V-Dem split)
 
-The convention from the Phase C workplan and the V-Dem implementation is **three sibling files per source** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/coding-guidelines.md`:
+The convention from the Phase C workplan and the V-Dem implementation is **three sibling files per source** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/process/coding-guidelines.md`:
 
 | File | Responsibility | Approx LoC target |
 |---|---|---|
@@ -154,7 +154,7 @@ WDI_ATTRIBUTION: str = (
 )
 ```
 
-The exact citation text. Lives in `wdi_io` to break the import cycle. The canonical long-form lives in `docs/source-attributions.md`; the drift-guard test (§2.5) enforces byte-for-byte consistency.
+The exact citation text. Lives in `wdi_io` to break the import cycle. The canonical long-form lives in `docs/sources/attributions.md`; the drift-guard test (§2.5) enforces byte-for-byte consistency.
 
 ### Indicator catalog (in `wdi_io.py`)
 
@@ -547,7 +547,7 @@ The test plan covers the 5 Phase C convention #5 categories (catalog, read, writ
 |---|---|---|
 | `test_write_run_manifest` | The manifest is JSON next to the parquet, includes `attribution`, `source_id`, `observation_rows`, `years`, `indicators`. | `isolated_data_lake` |
 | `test_attribution_matches_constant` | `wdi.attribution() == WDI_ATTRIBUTION`; contains `"World Bank"`, `"2024"`, `"WDI"`, `"CC BY 4.0"`. | — |
-| `test_wdi_attribution_matches_attributions_doc` | `WDI_ATTRIBUTION` is a substring of `docs/source-attributions.md` (drift guard, same pattern as V-Dem's). | project root |
+| `test_wdi_attribution_matches_attributions_doc` | `WDI_ATTRIBUTION` is a substring of `docs/sources/attributions.md` (drift guard, same pattern as V-Dem's). | project root |
 
 ### CLI dispatch
 
@@ -610,7 +610,7 @@ The `cache_dir` defaults to `raw_dir("world_bank_wdi") / "cache"`. The `isolated
 
 ### License drift
 
-The license is CC BY 4.0 (verified live on the terms-of-use page). The current `docs/source-attributions.md` says "World Bank Open Data license". **Handling:** the developer updates the attributions file to add "CC BY 4.0" to the License field of the WDI entry, in the same commit as the WDI adapter. The drift-guard test (`test_wdi_attribution_matches_attributions_doc`) covers the long-form citation; the short-form "World Bank WDI (World Bank 2024)" stays the same.
+The license is CC BY 4.0 (verified live on the terms-of-use page). The current `docs/sources/attributions.md` says "World Bank Open Data license". **Handling:** the developer updates the attributions file to add "CC BY 4.0" to the License field of the WDI entry, in the same commit as the WDI adapter. The drift-guard test (`test_wdi_attribution_matches_attributions_doc`) covers the long-form citation; the short-form "World Bank WDI (World Bank 2024)" stays the same.
 
 ---
 
@@ -640,13 +640,13 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 2.8 — Workplan / docs updates
 
-When the WDI adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-vetting/report.md`.
+When the WDI adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/sources/vetting/report.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
-> **Phase C.2 — WDI Stage 2 ingest landed (2026-06-18).** Second Stage 2 adapter implemented, end-to-end smoke for 2023 green. New test file `tests/test_ingest_wdi.py` covers catalog, read, write+DB, idempotency, attribution, and CLI dispatch (31 tests, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/wdi.csv` lists 14 WDI indicators across the 2 rating categories WDI actually serves (economic_wellbeing, social_wellbeing). Read pattern: one HTTP call per indicator (WDI v2 does not support multi-indicator queries), all 217 real countries at once (`per_page=32500`), cached verbatim as JSON under `data/raw/world_bank_wdi/cache/<year>/<CODE>.json`. Re-runs skip HTTP when the cache is present. Test fixture at `tests/fixtures/world_bank_wdi/cache/{2022,2023}/` is 5 countries × 2 years × 14 indicators = 140 (country, indicator, year) cells in 28 JSON files (real WDI response shape, no invented data). End-to-end run for 2023 produces 217 real countries × 14 indicators = 3,038 `source_observations` rows in <60 s. `STAGE2_ADAPTERS["world_bank_wdi"]` is now `wdi.ingest_wdi` in `src/leaders_db/ingest/__init__.py`. WDI attribution text aligned to the canonical citation in `docs/source-attributions.md`; the License field is updated to "CC BY 4.0" (was "World Bank Open Data"). Reviewer caught 1 blocker (duplicate `world_bank_wgi` dispatch key), 5 important (lint warnings, end-to-end test gap, docstring bug, design-doc code drift, missing confidence-NULL test), and 4 nits — all 8 fixed in a single iteration. **PASS on the second pass. Moving to WGI next per the priority list.**
+> **Phase C.2 — WDI Stage 2 ingest landed (2026-06-18).** Second Stage 2 adapter implemented, end-to-end smoke for 2023 green. New test file `tests/test_ingest_wdi.py` covers catalog, read, write+DB, idempotency, attribution, and CLI dispatch (31 tests, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/wdi.csv` lists 14 WDI indicators across the 2 rating categories WDI actually serves (economic_wellbeing, social_wellbeing). Read pattern: one HTTP call per indicator (WDI v2 does not support multi-indicator queries), all 217 real countries at once (`per_page=32500`), cached verbatim as JSON under `data/raw/world_bank_wdi/cache/<year>/<CODE>.json`. Re-runs skip HTTP when the cache is present. Test fixture at `tests/fixtures/world_bank_wdi/cache/{2022,2023}/` is 5 countries × 2 years × 14 indicators = 140 (country, indicator, year) cells in 28 JSON files (real WDI response shape, no invented data). End-to-end run for 2023 produces 217 real countries × 14 indicators = 3,038 `source_observations` rows in <60 s. `STAGE2_ADAPTERS["world_bank_wdi"]` is now `wdi.ingest_wdi` in `src/leaders_db/ingest/__init__.py`. WDI attribution text aligned to the canonical citation in `docs/sources/attributions.md`; the License field is updated to "CC BY 4.0" (was "World Bank Open Data"). Reviewer caught 1 blocker (duplicate `world_bank_wgi` dispatch key), 5 important (lint warnings, end-to-end test gap, docstring bug, design-doc code drift, missing confidence-NULL test), and 4 nits — all 8 fixed in a single iteration. **PASS on the second pass. Moving to WGI next per the priority list.**
 
-### `docs/source-vetting/report.md` — minor update
+### `docs/sources/vetting/report.md` — minor update
 
 §6 ("Caveats the Stage 2 ingest must handle") gets one row updated:
 
@@ -656,7 +656,7 @@ When the WDI adapter lands and the reviewer signs off, the project-manager will 
 
 The §3.3 row (Economic sources) gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/wdi.py`."
 
-### `docs/source-attributions.md` — License field update
+### `docs/sources/attributions.md` — License field update
 
 The `world_bank_wdi` entry's License line changes from:
 > License: World Bank Open Data license; free for any use with attribution.
@@ -665,9 +665,9 @@ to:
 
 The short-form attribution text in reports (`"World Bank WDI (World Bank 2024)."`) and the long-form citation stay the same.
 
-### `docs/architecture.md` — no change required
+### `docs/architecture/overview.md` — no change required
 
-The existing `architecture.md` already lists WDI as one of the per-source Stage 2 adapters (the WDI placeholder is in the Stage 2 component row). No structural change is needed.
+The existing `docs/architecture/overview.md` already lists WDI as one of the per-source Stage 2 adapters (the WDI placeholder is in the Stage 2 component row). No structural change is needed.
 
 ---
 

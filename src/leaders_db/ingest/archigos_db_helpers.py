@@ -54,7 +54,7 @@ def _read_archigos_bundle_metadata() -> dict[str, object]:
     """Read the Archigos bundle ``metadata.json``.
 
     Looks at ``data/raw/archigos/metadata.json`` (per the
-    data-lake rules in ``docs/local-data-store.md``). Returns an
+    data-lake rules in ``docs/architecture/local-data-store.md``). Returns an
     empty dict if the file is missing -- the DB writer treats
     missing fields as "no update" (the existing row's value is
     kept).

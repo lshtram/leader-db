@@ -1219,7 +1219,7 @@ def test_wikidata_attribution_matches_attributions_doc() -> None:
     doc_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert (

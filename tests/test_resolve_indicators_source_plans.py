@@ -70,7 +70,7 @@ from leaders_db.score.source_plans import (
 )
 
 # The 8 rating categories from requirement §4
-# (docs/req/top-level-requirements.md §4).
+# (docs/requirements/top-level-requirements.md §4).
 ALL_EIGHT_CATEGORIES: tuple[str, ...] = (
     "nuclear",
     "international_peace",

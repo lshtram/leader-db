@@ -102,7 +102,7 @@ def register_sipri_yearbook_ch7_source(session: Session) -> int:
             notes=(
                 "Stage 2 adapter implemented in Phase C. See "
                 "src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv "
-                "and docs/source-attributions.md. First PDF-based "
+                "and docs/sources/attributions.md. First PDF-based "
                 "source; the PDF parser uses pdfplumber and reads "
                 "Table 7.1 on the first content page of the "
                 "YB24 07 WNF.pdf."

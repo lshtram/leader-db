@@ -44,7 +44,7 @@ The tests cover:
 - parent directories are created if missing;
 - the atomic-rename pattern leaves no temp file behind.
 
-Style invariants (per ``docs/coding-guidelines.md``): type hints,
+Style invariants (per ``docs/process/coding-guidelines.md``): type hints,
 no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

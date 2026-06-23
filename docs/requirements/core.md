@@ -143,7 +143,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 
 ## Notes
 
-- Detailed architecture and rationale live in [`../architecture.md`](../architecture.md).
-- Schema details live in [`../database-schema.md`](../database-schema.md).
-- Per-source provenance lives in [`../data-sources.md`](../data-sources.md).
+- Detailed architecture and rationale live in [`../architecture/overview.md`](../architecture/overview.md).
+- Schema details live in [`../architecture/database-schema.md`](../architecture/database-schema.md).
+- Per-source provenance lives in [`../sources/registry.md`](../sources/registry.md).
 - Future modules may split this file into `requirements-<module>.md` files as surface area grows.

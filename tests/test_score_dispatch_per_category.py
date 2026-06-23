@@ -44,7 +44,7 @@ unsupported-category error contract). The split mirrors the
 per-category test files: facade + private-modules + focused
 sibling tests, no ``__init__`` orchestrator.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

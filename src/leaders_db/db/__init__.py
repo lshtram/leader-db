@@ -7,7 +7,7 @@ Module map:
 - ``models``  — declarative ORM models for ``countries``, ``leaders``, etc.
 - ``migrations/0001_initial.sql`` — canonical DDL, checked in for clarity.
 
-The canonical schema is normative: see ``docs/database-schema.md``. Schema
+The canonical schema is normative: see ``docs/architecture/database-schema.md``. Schema
 changes require a new migration file under ``migrations/`` plus an
 update to ``models`` in the same commit.
 """

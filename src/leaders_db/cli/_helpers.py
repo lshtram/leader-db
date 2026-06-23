@@ -15,7 +15,7 @@ The three helpers cover the cross-stage concerns:
   deduplicated tuple of integers, raising :class:`typer.BadParameter`
   on a non-integer component.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public function parameter and return.

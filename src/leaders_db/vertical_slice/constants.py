@@ -72,7 +72,7 @@ CATEGORY_INPUT_MAP: Final[dict[str, tuple[str, int, int]]] = {
 
 # Per-source attribution blocks the slice ships in its public output.
 # Pulled from :mod:`docs.source-attributions` per Always-On Rule #15.
-# Wording must stay aligned with ``docs/source-attributions.md``.
+# Wording must stay aligned with ``docs/sources/attributions.md``.
 UNDP_HDI_ATTRIBUTION: Final[str] = (
     "UNDP. 2024. *Human Development Report 2023-2024*. "
     "United Nations Development Programme. https://hdr.undp.org/"

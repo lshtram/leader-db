@@ -104,7 +104,7 @@ def register_bti_source(session: Session) -> int:
             notes=(
                 "Stage 2 adapter implemented in Phase C. Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/bti.csv. See "
-                "docs/source-attributions.md for the exact citation text. "
+                "docs/sources/attributions.md for the exact citation text. "
                 "BTI is biennial; each edition covers ~2 years preceding "
                 "publication (e.g. BTI 2024 -> 2022-2023)."
             ),

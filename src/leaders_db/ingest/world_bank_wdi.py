@@ -18,7 +18,7 @@ the dispatch table.
 
 Per AGENTS.md Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md``; if the attributions doc is updated,
+``docs/sources/attributions.md``; if the attributions doc is updated,
 the same change must be made here in the same commit.
 """
 

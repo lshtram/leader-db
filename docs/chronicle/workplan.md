@@ -174,7 +174,7 @@ provenance_summary
 ```
 
 All public outputs must carry the applicable source-attribution block, matching
-the normative text in `docs/source-attributions.md`.
+the normative text in `docs/sources/attributions.md`.
 
 ## 5. Source strategy
 
@@ -230,8 +230,8 @@ Deliverables:
 1. Confirm final output columns and label taxonomy.
 2. Inventory existing processed data that can support CYC immediately.
 3. Identify source gaps for 1900-1959 population/GDP and country area.
-4. Add any new external datasets to `docs/data-sources.md` and
-   `docs/source-attributions.md` only after vetting.
+4. Add any new external datasets to `docs/sources/registry.md` and
+   `docs/sources/attributions.md` only after vetting.
 
 Exit criteria:
 
@@ -285,7 +285,7 @@ Exit criteria:
 - ✅ Pilot CSV writes deterministically.
 - ✅ Missing historical fields are flagged, not fabricated.
 - ✅ Source attribution block is present (drift-guarded against
-  `docs/source-attributions.md`).
+  `docs/sources/attributions.md`).
 - ✅ Tests and ruff pass.
 
 ### Increment 2 — Maddison + ruler resolver (COMPLETED 2026-06-21)
@@ -341,7 +341,7 @@ Exit criteria:
 - ✅ Pilot CSV writes deterministically.
 - ✅ Missing historical fields are flagged, not fabricated.
 - ✅ Source attribution block is present (drift-guarded against
-  `docs/source-attributions.md`).
+  `docs/sources/attributions.md`).
 - ✅ Tests and ruff pass.
 - ✅ Maddison 2023 -> 2022 proxy is documented + tested.
 - ✅ Ruler resolver uses no client matrix and no LLM (drift guards in
@@ -388,7 +388,7 @@ Deliverables:
    `FLAG_AREA_PROXY_YEAR_USED` and
    `FLAG_CONTROLLED_AREA_COUNTRY_ONLY`.
 6. ✅ CSV writer attribution map and SQLite sidecar map updated.
-7. ✅ `docs/source-attributions.md` updated with the new Section
+7. ✅ `docs/sources/attributions.md` updated with the new Section
    1 entries (CShapes 2.0, Soviet leaders curated) plus the
    summary table rows.
 8. ✅ 48 new focused pytest tests (18 SUN curated + 18 CShapes
@@ -455,8 +455,8 @@ Deliverables (when resumed):
    - decision on whether to implement in the same increment or split source
      staging into a follow-up increment.
 2. If a source is accepted, stage it under `data/raw/<source>/` with
-   `metadata.json`, add `docs/data-sources.md` and
-   `docs/source-attributions.md` entries, and write focused loader tests.
+   `metadata.json`, add `docs/sources/registry.md` and
+   `docs/sources/attributions.md` entries, and write focused loader tests.
 3. If no source is accepted, keep the Increment 3 country-only fallback and record
    the blocker clearly.
 

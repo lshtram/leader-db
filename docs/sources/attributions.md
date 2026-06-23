@@ -2,11 +2,11 @@
 
 > **This file is the durable record of every data source the project has used or considered using.** It is normative: every Stage 15 report, manual-review queue, exported CSV, and LLM rationale must include the attribution block from this file. The pipeline must never publish output without attribution.
 >
-> **For URL and provenance details** (download links, checksums, file sizes), see [`docs/data-sources.md`](data-sources.md) and the per-source `data/raw/<source>/metadata.json`.
+> **For URL and provenance details** (download links, checksums, file sizes), see [`docs/sources/registry.md`](registry.md) and the per-source `data/raw/<source>/metadata.json`.
 >
-> **For in-progress vetting findings** (which sources are still being probed, what we considered and rejected), see [`docs/source-vetting/worksheet.md`](source-vetting/worksheet.md).
+> **For in-progress vetting findings** (which sources are still being probed, what we considered and rejected), see [`docs/sources/vetting/worksheet.md`](vetting/worksheet.md).
 >
-> **For the final sign-off** (the version reviewed by the user and the gate for Phase C), see [`docs/source-vetting/report.md`](source-vetting/report.md) — signed off 2026-06-17 21:00; living addenda continue to amend it as new sources are vetted or re-probed.
+> **For the final sign-off** (the version reviewed by the user and the gate for Phase C), see [`docs/sources/vetting/report.md`](vetting/report.md) — signed off 2026-06-17 21:00; living addenda continue to amend it as new sources are vetted or re-probed.
 
 ---
 
@@ -493,7 +493,7 @@ When the pipeline gains a new external source:
 2. Add a row to Section 1 of this file: what we extract, what we don't, license, citation, attribution text.
 3. Update the Stage 15 report template to include the new attribution line.
 4. Update `README.md`'s License & Attribution section.
-5. Update `docs/data-sources.md` with the verified URL.
+5. Update `docs/sources/registry.md` with the verified URL.
 6. Add a test that the new attribution text appears in the report.
 
 When a source is rejected, add a row to Section 2 with the reason and the substitute decision.

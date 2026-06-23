@@ -4,7 +4,7 @@
 > **Phase:** C.5 (data acquisition, fifth adapter, after V-Dem, WDI, WGI, UCDP).
 > **Target source key:** `sipri_milex`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"sipri_milex": None` stub with `sipri_milex.ingest_sipri_milex`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7.
 > **Liveness verified:** 2026-06-18 — `https://www.sipri.org/databases/milex` returns HTTP 200; the canonical xlsx `https://www.sipri.org/sites/default/files/SIPRI-Milex-data-1949-2025_v1.2.xlsx` downloads 922,552 bytes (922 KB) and unzips to a 10-sheet workbook covering 1949–2025 (77 years) for ~177 countries. The file's title bar reads "© SIPRI 2026".
 
 This document is the design contract for the SIPRI milex Stage 2 adapter. The test-builder writes tests against the public surface in §3.3; the developer implements against the same surface. The catalog spec in §3.4 is the only place where SIPRI milex's indicator list is decided.
@@ -162,7 +162,7 @@ For the prototype, all **4** catalog indicators are extracted, feeding the **1 r
 
 The full per-indicator spec (raw sheet name → canonical `variable_name`, scale, unit, category, one-line description) is in §3.4. The catalog CSV the developer will author lives at `src/leaders_db/ingest/catalogs/sipri_milex.csv` (sibling to the adapter modules, per Phase C convention #1).
 
-> **Why `international_peace` only, no other category?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7 and §11, SIPRI milex is the 2nd source for the `international_peace` category (alongside UCDP). The 4 indicators all measure aspects of military expenditure (absolute, normalized to GDP, normalized to population, normalized to govt budget) — all proxies for the same underlying signal ("how much is this state arming?"). A 2nd source for the SIPRI milex is the SIPRI Yearbook Ch.7 (nuclear forces, a different category entirely — `nuclear`). For the `domestic_violence` category, SIPRI milex is **not** a source; UCDP one-sided and PTS and CIRIGHTS are the 3 cross-validation sources.
+> **Why `international_peace` only, no other category?** Per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7 and §11, SIPRI milex is the 2nd source for the `international_peace` category (alongside UCDP). The 4 indicators all measure aspects of military expenditure (absolute, normalized to GDP, normalized to population, normalized to govt budget) — all proxies for the same underlying signal ("how much is this state arming?"). A 2nd source for the SIPRI milex is the SIPRI Yearbook Ch.7 (nuclear forces, a different category entirely — `nuclear`). For the `domestic_violence` category, SIPRI milex is **not** a source; UCDP one-sided and PTS and CIRIGHTS are the 3 cross-validation sources.
 
 ### Integration with downstream schema
 
@@ -170,9 +170,9 @@ None of the SIPRI milex indicators populate the `country_years` table directly (
 
 ### License
 
-The SIPRI milex data is distributed under a **free academic license with attribution**. SIPRI's [Terms of Use for the Milex Database](https://www.sipri.org/databases/milex) require citation of the dataset version. The canonical long-form attribution text for SIPRI milex is the citation block in [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `sipri` (and is the `SIPRI_MILEX_ATTRIBUTION` constant — see §3.3).
+The SIPRI milex data is distributed under a **free academic license with attribution**. SIPRI's [Terms of Use for the Milex Database](https://www.sipri.org/databases/milex) require citation of the dataset version. The canonical long-form attribution text for SIPRI milex is the citation block in [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `sipri` (and is the `SIPRI_MILEX_ATTRIBUTION` constant — see §3.3).
 
-> **Note for the developer — the SIPRI Yearbook entry is NOT the right attribution for SIPRI milex.** The current [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `sipri` cites the *SIPRI Yearbook 2024* (the nuclear-forces chapter). The SIPRI milex data comes from the SIPRI website (the xlsx), NOT the Yearbook. The Yearbook has its own entry (`sipri_yearbook_ch7`) further down. The developer **must update the SIPRI milex citation in `docs/source-attributions.md`** to refer to the milex dataset specifically, in the same commit as the adapter lands (mirroring the WGI license-clarification fix pattern from [`docs/architecture/wgi.md`](wgi.md) §2.8 and the WGI 1996–2023 → 1996–2022 coverage fix). Suggested wording (TBD with the user):
+> **Note for the developer — the SIPRI Yearbook entry is NOT the right attribution for SIPRI milex.** The current [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `sipri` cites the *SIPRI Yearbook 2024* (the nuclear-forces chapter). The SIPRI milex data comes from the SIPRI website (the xlsx), NOT the Yearbook. The Yearbook has its own entry (`sipri_yearbook_ch7`) further down. The developer **must update the SIPRI milex citation in `docs/sources/attributions.md`** to refer to the milex dataset specifically, in the same commit as the adapter lands (mirroring the WGI license-clarification fix pattern from [`docs/architecture/wgi.md`](wgi.md) §2.8 and the WGI 1996–2023 → 1996–2022 coverage fix). Suggested wording (TBD with the user):
 >
 > ```
 > Stockholm International Peace Research Institute. 2026. SIPRI Military Expenditure Database. https://www.sipri.org/databases/milex
@@ -184,13 +184,13 @@ The SIPRI milex data is distributed under a **free academic license with attribu
 
 - Indicator catalog: `src/leaders_db/ingest/catalogs/sipri_milex.csv` (to be authored from §3.4).
 - Per-source `metadata.json`: `data/raw/sipri_milex/metadata.json` (to be written when the first successful read happens).
-- Attribution: `docs/source-attributions.md` §1 entry for `sipri` (to be updated to the milex-specific citation in the same commit as the adapter lands — see "Note for the developer" above).
+- Attribution: `docs/sources/attributions.md` §1 entry for `sipri` (to be updated to the milex-specific citation in the same commit as the adapter lands — see "Note for the developer" above).
 
 ---
 
 ## 3.2 — Module structure (V-Dem / WGI-style, 4 modules)
 
-SIPRI milex is structurally closer to WGI (one local xlsx, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache). The WGI 5-module split (`wgi.py` / `wgi_io.py` / `wgi_xlsx.py` / `wgi_db.py` / `wgi_db_helpers.py`) is the template. The SIPRI milex module splits into **4 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/coding-guidelines.md`:
+SIPRI milex is structurally closer to WGI (one local xlsx, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache). The WGI 5-module split (`wgi.py` / `wgi_io.py` / `wgi_xlsx.py` / `wgi_db.py` / `wgi_db_helpers.py`) is the template. The SIPRI milex module splits into **4 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/process/coding-guidelines.md`:
 
 | File | Responsibility | Approx LoC target |
 |---|---|---|
@@ -253,7 +253,7 @@ SIPRI_MILEX_ATTRIBUTION: str = (
 )
 ```
 
-The exact citation text. Lives in `sipri_milex_io` to break the import cycle. The canonical long-form lives in `docs/source-attributions.md`; the drift-guard test (§3.5) enforces byte-for-byte consistency. The year is `2026` (the v1.2 release year, matching the "© SIPRI 2026" attribution in the xlsx itself). **The developer confirms this attribution text with the user before implementation** — see "Open questions" in §3.6.
+The exact citation text. Lives in `sipri_milex_io` to break the import cycle. The canonical long-form lives in `docs/sources/attributions.md`; the drift-guard test (§3.5) enforces byte-for-byte consistency. The year is `2026` (the v1.2 release year, matching the "© SIPRI 2026" attribution in the xlsx itself). **The developer confirms this attribution text with the user before implementation** — see "Open questions" in §3.6.
 
 ```python
 #: Default location of the indicator catalog. Lives here so
@@ -786,7 +786,7 @@ The test plan covers the 5 Phase C convention #5 categories (catalog, read, writ
 |---|---|---|
 | `test_write_run_manifest` | The manifest is JSON next to the parquet, includes `attribution`, `source_id`, `observation_rows`, `years`, `indicators`, `regions_covered`, `country_count`. | `isolated_data_lake` |
 | `test_attribution_matches_constant` | `sipri_milex.attribution() == SIPRI_MILEX_ATTRIBUTION`; contains `"SIPRI"`, `"2026"`, `"Milex"`, `"Military Expenditure"`. | — |
-| `test_sipri_milex_attribution_matches_attributions_doc` | `SIPRI_MILEX_ATTRIBUTION` is a substring of `docs/source-attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc`, WGI's `test_wgi_attribution_matches_attributions_doc`, and UCDP's `test_ucdp_attribution_matches_attributions_doc`). | project root |
+| `test_sipri_milex_attribution_matches_attributions_doc` | `SIPRI_MILEX_ATTRIBUTION` is a substring of `docs/sources/attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc`, WGI's `test_wgi_attribution_matches_attributions_doc`, and UCDP's `test_ucdp_attribution_matches_attributions_doc`). | project root |
 
 ### CLI dispatch
 
@@ -877,7 +877,7 @@ Stage 3 has a `country_aliases` table that handles these. Stage 2's contract is 
 
 ### Coverage year drift (the 2026 release year, 2025 data year)
 
-The current release is the v1.2 update (release year 2026) and contains data through **2025** (last data year). The [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7 says "1949–2025" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1949–2025" — both are correct. The actual data goes through 2025. **The developer does NOT need to fix the coverage field** (unlike WGI and UCDP, where the docs said "2023" / "2023+" but the data ends at 2022; SIPRI's docs say "1949–2025" and the data ends at 2025, so the docs are already correct).
+The current release is the v1.2 update (release year 2026) and contains data through **2025** (last data year). The [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7 says "1949–2025" and the [`docs/sources/attributions.md`](../sources/attributions.md) summary table says "1949–2025" — both are correct. The actual data goes through 2025. **The developer does NOT need to fix the coverage field** (unlike WGI and UCDP, where the docs said "2023" / "2023+" but the data ends at 2022; SIPRI's docs say "1949–2025" and the data ends at 2025, so the docs are already correct).
 
 ### Per-cell read performance
 
@@ -933,13 +933,13 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 3.8 — Workplan / docs updates
 
-When the SIPRI milex adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
+When the SIPRI milex adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/sources/attributions.md`, `docs/sources/vetting/report.md`, and `docs/sources/registry.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
-> **Phase C.5 — SIPRI milex Stage 2 ingest landed (DATE).** Fifth Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_sipri_milex.py` (~205 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/sipri_milex.csv` lists 4 SIPRI milex indicators (Share of GDP, Per capita, Constant (2024) US$, Share of Govt. spending), all under `international_peace`. Read pattern: open the 922 KB `SIPRI-Milex-data-1949-2025_v1.2.xlsx` with `openpyxl.read_only=True`, walk the 4 catalog sheets, **detect the header row dynamically** (per-sheet positions vary: 6, 7, or 8), filter out the 15 region/sub-region labels (the SIPRI equivalent of WGI's "no aggregate codes" denylist), coerce the 3 missing-value tokens (`"..."`, `"xxx"`, `""`) to `None`, pivot long → wide. SIPRI milex is the **first Stage 2 adapter without an ISO3 column**: the wide frame's `country` column carries the raw display name (e.g. `"Mexico"`, `"Türkiye"`), and Stage 3 resolves it to ISO3 via `country_aliases.csv`. Test fixture at `tests/fixtures/sipri_milex/sample.xlsx` is a 5-country × 2-year × 4-indicator real-format SIPRI xlsx authored with openpyxl (40 indicator cells, 1 `"..."` cell + 1 `"xxx"` cell to exercise the missing-value paths, 2 region-label rows in each data sheet to exercise the region filter). End-to-end run for `year=2023` produces ~177 real countries × 4 indicators = ~708 `source_observations` rows in <3 s. The `SIPRI_MILEX_ATTRIBUTION` constant is byte-identical to the citation in `docs/source-attributions.md` (drift-guard test added). The `docs/source-attributions.md` SIPRI entry is updated to refer to the **milex dataset specifically** (not the SIPRI Yearbook) — same drift-fix pattern as WGI's license-clarification and UCDP's coverage-year fix. `STAGE2_ADAPTERS["sipri_milex"]` is now `sipri_milex.ingest_sipri_milex` in `src/leaders_db/ingest/__init__.py`. SIPRI milex follows the WGI 4-module split (no `sipri_milex_http.py` since SIPRI has no HTTP layer; no `sipri_milex_db_helpers.py` since the missing-value coercion is concise enough to live in `sipri_milex_db.py`). The `SipriMilexIngestResult` carries 2 extra fields vs WGI: `regions_covered` (a sorted list of the region labels found in the input) and `country_count` (SIPRI-milex-specific equivalents of UCDP's `events_total` / `events_filtered` for the region-row filter audit trail). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to <next source> per the priority list.**
+> **Phase C.5 — SIPRI milex Stage 2 ingest landed (DATE).** Fifth Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_sipri_milex.py` (~205 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/sipri_milex.csv` lists 4 SIPRI milex indicators (Share of GDP, Per capita, Constant (2024) US$, Share of Govt. spending), all under `international_peace`. Read pattern: open the 922 KB `SIPRI-Milex-data-1949-2025_v1.2.xlsx` with `openpyxl.read_only=True`, walk the 4 catalog sheets, **detect the header row dynamically** (per-sheet positions vary: 6, 7, or 8), filter out the 15 region/sub-region labels (the SIPRI equivalent of WGI's "no aggregate codes" denylist), coerce the 3 missing-value tokens (`"..."`, `"xxx"`, `""`) to `None`, pivot long → wide. SIPRI milex is the **first Stage 2 adapter without an ISO3 column**: the wide frame's `country` column carries the raw display name (e.g. `"Mexico"`, `"Türkiye"`), and Stage 3 resolves it to ISO3 via `country_aliases.csv`. Test fixture at `tests/fixtures/sipri_milex/sample.xlsx` is a 5-country × 2-year × 4-indicator real-format SIPRI xlsx authored with openpyxl (40 indicator cells, 1 `"..."` cell + 1 `"xxx"` cell to exercise the missing-value paths, 2 region-label rows in each data sheet to exercise the region filter). End-to-end run for `year=2023` produces ~177 real countries × 4 indicators = ~708 `source_observations` rows in <3 s. The `SIPRI_MILEX_ATTRIBUTION` constant is byte-identical to the citation in `docs/sources/attributions.md` (drift-guard test added). The `docs/sources/attributions.md` SIPRI entry is updated to refer to the **milex dataset specifically** (not the SIPRI Yearbook) — same drift-fix pattern as WGI's license-clarification and UCDP's coverage-year fix. `STAGE2_ADAPTERS["sipri_milex"]` is now `sipri_milex.ingest_sipri_milex` in `src/leaders_db/ingest/__init__.py`. SIPRI milex follows the WGI 4-module split (no `sipri_milex_http.py` since SIPRI has no HTTP layer; no `sipri_milex_db_helpers.py` since the missing-value coercion is concise enough to live in `sipri_milex_db.py`). The `SipriMilexIngestResult` carries 2 extra fields vs WGI: `regions_covered` (a sorted list of the region labels found in the input) and `country_count` (SIPRI-milex-specific equivalents of UCDP's `events_total` / `events_filtered` for the region-row filter audit trail). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to <next source> per the priority list.**
 
-### `docs/source-attributions.md` — three updates in the SIPRI entry
+### `docs/sources/attributions.md` — three updates in the SIPRI entry
 
 The `sipri` entry (§1) needs **three changes in the same commit**:
 
@@ -950,7 +950,7 @@ The `sipri` entry (§1) needs **three changes in the same commit**:
 
 The Yearbook citation is unchanged (it lives in its own `sipri_yearbook_ch7` entry).
 
-### `docs/source-vetting/report.md` — one minor update
+### `docs/sources/vetting/report.md` — one minor update
 
 §3.7 ("Conflict / international aggression sources") `sipri_milex` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/sipri_milex.py`. 4 indicators under `international_peace`: Share of GDP, Per capita, Constant (2024) US$, Share of Govt. spending. The xlsx has no ISO3 column; Stage 3 resolves the display name to ISO3 via `country_aliases.csv`."
 
@@ -960,13 +960,13 @@ The Yearbook citation is unchanged (it lives in its own `sipri_yearbook_ch7` ent
 |---|---|
 | `sipri_milex` | (was) "Discover the latest version at runtime; do not hard-code `v1.2`." → (now) "**The xlsx has 5 data sheets; the Stage 2 adapter reads 4 of them (Share of GDP, Per capita, Constant (2024) US$, Share of Govt. spending). The `Current US$` sheet is deferred (5th candidate indicator). The header row position varies per sheet (6, 7, or 8) and is detected dynamically by scanning for the first row where col 0 is 'Country'. The xlsx interleaves 15 region/sub-region labels with the 177 country names in the data rows; the Stage 2 adapter filters out the regions by name (the `_SIPRI_MILEX_REGION_LABELS` frozenset). The xlsx uses 3 missing-value tokens: `'...'` (data unavailable), `'xxx'` (country did not exist / not independent), and `''` (empty). All three are coerced to `NULL` in `source_observations.normalized_value`; `raw_value` preserves the literal token for the audit trail. The xlsx has no ISO3 column; the Stage 2 adapter stores the raw display name in `source_row_reference` as `sipri_milex:<display_name>` and leaves `country_id` NULL for Stage 3 to fill via `country_aliases.csv`.**" |
 
-### `docs/data-sources.md` — one update
+### `docs/sources/registry.md` — one update
 
 The existing `sipri_milex` row says "Direct xlsx download; 1949–2025." Update to: "Direct xlsx download; 1949–2025; 922 KB; 10 sheets; 5 data sheets; 4 catalog indicators under `international_peace` (Share of GDP, Per capita, Constant (2024) US$, Share of Govt. spending). The xlsx has no ISO3 column; Stage 3 resolves the display name to ISO3 via `country_aliases.csv`. Stage 2 adapter landed."
 
-### `docs/architecture.md` — no change required
+### `docs/architecture/overview.md` — no change required
 
-The existing `architecture.md` already lists SIPRI milex as one of the per-source Stage 2 adapters (the "Conflict / international aggression sources" section). No structural change is needed.
+The existing `docs/architecture/overview.md` already lists SIPRI milex as one of the per-source Stage 2 adapters (the "Conflict / international aggression sources" section). No structural change is needed.
 
 ---
 
@@ -1037,7 +1037,7 @@ The `df.attrs["events_total"]` and `df.attrs["events_filtered"]` pattern from UC
 
 ## Open questions for the developer
 
-1. **SIPRI milex attribution text (the major open question).** The current [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `sipri` cites the *SIPRI Yearbook 2024* (the nuclear-forces chapter). The SIPRI milex data comes from the SIPRI website, NOT the Yearbook. The design proposes the attribution text:
+1. **SIPRI milex attribution text (the major open question).** The current [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `sipri` cites the *SIPRI Yearbook 2024* (the nuclear-forces chapter). The SIPRI milex data comes from the SIPRI website, NOT the Yearbook. The design proposes the attribution text:
    > Stockholm International Peace Research Institute. 2026. SIPRI Military Expenditure Database. https://www.sipri.org/databases/milex
    > Short-form: "SIPRI milex (Stockholm International Peace Research Institute 2026)."
 

@@ -12,10 +12,10 @@ mirror (data.humdata.org), which preserves the verbatim
 Transparency International release. The publisher remains
 Transparency International; the attribution text in
 :data:`TRANSPARENCY_CPI_ATTRIBUTION` is the canonical wording
-from ``docs/source-attributions.md``.
+from ``docs/sources/attributions.md``.
 
 The adapter is split across six modules for clarity (each under
-the 400-line convention from :file:`docs/coding-guidelines.md`):
+the 400-line convention from :file:`docs/process/coding-guidelines.md`):
 
 - :mod:`leaders_db.ingest.transparency_cpi_io` -- catalog,
   paths, parquet write, attribution constant.
@@ -66,7 +66,7 @@ re-inserts the ``source_observations`` rows for the requested
 year(s) only.
 
 Per Rule #15, the attribution text returned by :func:`attribution`
-is the exact wording from ``docs/source-attributions.md`; the
+is the exact wording from ``docs/sources/attributions.md`; the
 :func:`test_transparency_cpi_attribution_matches_attributions_doc`
 test enforces that the code and the doc are byte-for-byte
 consistent.
@@ -127,7 +127,7 @@ def attribution() -> str:
     15 report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches Transparency International CPI
     data must include this block verbatim. The exact wording is
-    the one in ``docs/source-attributions.md``; do not
+    the one in ``docs/sources/attributions.md``; do not
     paraphrase.
     """
     return TRANSPARENCY_CPI_ATTRIBUTION

@@ -189,11 +189,11 @@ def test_archigos_attribution_constant() -> None:
 
 def test_archigos_attribution_matches_attributions_doc() -> None:
     """Drift-guard: the ``ARCHIGOS_ATTRIBUTION`` constant must appear
-    verbatim in ``docs/source-attributions.md`` (Always-On Rule #15).
+    verbatim in ``docs/sources/attributions.md`` (Always-On Rule #15).
     """
     _require_archigos()
     project_root = Path(__file__).resolve().parents[1]
-    attributions_path = project_root / "docs" / "source-attributions.md"
+    attributions_path = project_root / "docs" / "sources/attributions.md"
     if not attributions_path.is_file():
         pytest.skip(
             f"Attributions doc not found at {attributions_path}"
@@ -201,7 +201,7 @@ def test_archigos_attribution_matches_attributions_doc() -> None:
     attributions_text = attributions_path.read_text(encoding="utf-8")
     assert ARCHIGOS_ATTRIBUTION in attributions_text, (
         f"ARCHIGOS_ATTRIBUTION constant is not in "
-        f"docs/source-attributions.md: {ARCHIGOS_ATTRIBUTION!r}"
+        f"docs/sources/attributions.md: {ARCHIGOS_ATTRIBUTION!r}"
     )
 
 
@@ -625,7 +625,7 @@ def test_archigos_ingest_end_to_end(
     # Also copy a minimal metadata.json so the bundle-metadata
     # reader does not return an empty dict (this is the
     # "downloaded" status transition documented in
-    # ``docs/local-data-store.md``).
+    # ``docs/architecture/local-data-store.md``).
     (target_dta_dir / "metadata.json").write_text(
         json.dumps(
             {

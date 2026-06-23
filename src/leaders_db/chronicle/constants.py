@@ -5,7 +5,7 @@ workplan labels as "stable domain schema values" — column names, the
 V-Dem regime mapping table, and the country-period mapping for the
 conservative system-type classifier.
 
-Per :file:`docs/coding-guidelines.md` § "Hard-Coded Values", domain
+Per :file:`docs/process/coding-guidelines.md` § "Hard-Coded Values", domain
 schema values are acceptable constants when documented and owned by
 the relevant module. Research-changing values (target years, country
 lists, scoring weights) are NOT defined here; they come from the
@@ -340,7 +340,7 @@ FLAG_CONTROLLED_AREA_COUNTRY_ONLY: Final[str] = "controlled_area_country_only"
 FLAG_COLONIAL_RULE_PLACEHOLDER: Final[str] = "colonial_rule_placeholder"
 
 # ---------------------------------------------------------------------------
-# Source attribution strings (per docs/source-attributions.md).
+# Source attribution strings (per docs/sources/attributions.md).
 # These are byte-identical substrings of the doc; the test
 # test_chronicle_attribution_matches_attributions_doc enforces it.
 # Per-source attributions live in source_constants.py and are

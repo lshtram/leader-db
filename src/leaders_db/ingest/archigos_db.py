@@ -128,7 +128,7 @@ def register_archigos_source(session: Session) -> int:
                 bundle_meta.get("license_note")
                 or (
                     "Free academic; cite Goemans, Gleditsch, and "
-                    "Chiozza 2009 (see docs/source-attributions.md)."
+                    "Chiozza 2009 (see docs/sources/attributions.md)."
                 ),
             ),
             download_date=download_date_value,
@@ -138,7 +138,7 @@ def register_archigos_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C.10. "
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/archigos.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text. Archigos v4.1 is leader-spell data (3,409 "
                 "spells, 1840-2015); the Stage 2 adapter writes one "
                 "source_observations row per (leader-spell, "

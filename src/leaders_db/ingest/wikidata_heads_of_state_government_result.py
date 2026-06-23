@@ -14,7 +14,7 @@ Fields: 9 total -- ``source_id``, ``parquet_path``,
 
 Pydantic v2 models are the standard for any payload that crosses a
 file, CLI, provider, or artifact boundary
-(:file:`docs/coding-guidelines.md` § Python Standards).
+(:file:`docs/process/coding-guidelines.md` § Python Standards).
 """
 
 from __future__ import annotations

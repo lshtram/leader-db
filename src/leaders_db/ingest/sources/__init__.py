@@ -1,6 +1,6 @@
 """Stage 2 -- per-source adapter packages.
 
-Per the shared-interface plan in ``docs/source-ingestion-plan.md``
+Per the shared-interface plan in ``docs/sources/ingestion-plan.md``
 each Stage 2 source lives in its own subpackage:
 
     leaders_db.ingest.sources.<source_key>/__init__.py

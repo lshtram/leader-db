@@ -52,7 +52,7 @@ Defaults: ISO3 scope `USA,GBR,FRA,IND,RUS,SUN,CHN`; year window
 - **Atomic write** through `tempfile` + `os.replace`; no partial files
   in `data/outputs/` after a failed run.
 - **Attribution block** is the leading `#` comment lines. Each line is
-  a byte-for-byte substring of `docs/source-attributions.md` §1
+  a byte-for-byte substring of `docs/sources/attributions.md` §1
   (drift-guarded by `test_vdem_attribution_matches_attributions_doc`,
   `test_wdi_attribution_matches_attributions_doc`, and
   `test_sipri_attribution_matches_attributions_doc`).

@@ -33,7 +33,7 @@ from .evidence_types import Direction, MissingReason, MissingSeverity, TemporalK
 class EvidenceObservation:
     """One structured-dataset observation inside an evidence bundle.
 
-    Aligns with ``docs/architecture.md`` §"Evidence Bundle Contract"
+    Aligns with ``docs/architecture/overview.md`` §"Evidence Bundle Contract"
     (``EvidenceObservation`` block) and REQ-LAKE-004 ("every source
     observation used in a score shall be traceable back to a raw row,
     cell, API record, or document locator; missing locator information
@@ -76,7 +76,7 @@ class EvidenceObservation:
         to ``target_year``.
     source_row_reference:
         Raw locator per the source's locator convention (see
-        ``docs/architecture.md`` §"Source Locator Table"). ``None`` when
+        ``docs/architecture/overview.md`` §"Source Locator Table"). ``None`` when
         the locator is unavailable; :attr:`has_locator` returns False in
         that case and the observation cannot be the basis for a
         high-confidence contribution (REQ-LAKE-004).
@@ -150,7 +150,7 @@ class EvidenceObservation:
 class MissingObservation:
     """One expected observation that the bundle does not contain.
 
-    Aligns with ``docs/architecture.md`` §"Evidence Bundle Contract"
+    Aligns with ``docs/architecture/overview.md`` §"Evidence Bundle Contract"
     (``MissingObservation`` block) and REQ-STAGE-007 ("Stage 5 shall
     distinguish missingness reasons, including source not implemented,
     raw file absent, country row absent, target year absent, indicator

@@ -17,7 +17,7 @@ The Stage 2 adapter narrows the 48 indicator/ID columns to the 7
 Physical Integrity Rights + Repression + Civil-Political Rights
 indices documented in the catalog
 (``src/leaders_db/ingest/catalogs/cirights.csv``). Per the
-``docs/source-attributions.md`` cirights entry, all 7 indicators
+``docs/sources/attributions.md`` cirights entry, all 7 indicators
 follow the CIRIGHTS "higher = greater rights respect" convention
 (``higher_is_better=1``). The CIRIGHTS codebook v2.8.27.23 §"Human
 Rights Indices" makes this explicit: the additive indices "range
@@ -846,7 +846,7 @@ def test_db_writers_parquet_written_with_metadata(
 
 def test_cirights_attribution_matches_attributions_doc() -> None:
     """CIRIGHTS_ATTRIBUTION is a substring of
-    docs/source-attributions.md (drift guard; Always-On Rule #15).
+    docs/sources/attributions.md (drift guard; Always-On Rule #15).
     The exact wording is the ``cirights`` Stage 15 "Attribution
     text in reports" line in the document.
     """
@@ -857,7 +857,7 @@ def test_cirights_attribution_matches_attributions_doc() -> None:
     doc_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert CIRIGHTS_ATTRIBUTION in doc_text, (

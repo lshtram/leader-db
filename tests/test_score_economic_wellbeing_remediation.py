@@ -36,7 +36,7 @@ pattern:
   LOW_CONFIDENCE / INSUFFICIENT_DATA) and the
   ``human_review_required`` invariant.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

@@ -62,7 +62,7 @@ _logger = logging.getLogger(__name__)
 PTS_SOURCE_KEY: str = "pts"
 
 #: Stable PTS attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (§1, ``pts`` entry). This constant
+#: ``docs/sources/attributions.md`` (§1, ``pts`` entry). This constant
 #: must be a substring of that doc; the
 #: :func:`test_pts_attribution_matches_attributions_doc` test enforces
 #: byte-for-byte consistency (Always-On Rule #15). The constant lives

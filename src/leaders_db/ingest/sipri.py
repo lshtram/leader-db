@@ -24,7 +24,7 @@ single canonical source key; callers should use the two specific
 source keys (``sipri_milex``, ``sipri_yearbook_ch7``) directly.
 Per AGENTS.md Always-On Rule #15, the attribution texts returned
 by :func:`attribution_milex` and :func:`attribution_yearbook_ch7`
-are the exact wordings from ``docs/source-attributions.md``.
+are the exact wordings from ``docs/sources/attributions.md``.
 """
 
 from __future__ import annotations
@@ -55,7 +55,7 @@ def attribution() -> str:
     that cites both ``sipri_milex`` and ``sipri_yearbook_ch7`` can
     carry a single combined block. Per AGENTS.md Always-On Rule #15,
     the per-subdataset wording is the exact text from
-    ``docs/source-attributions.md``.
+    ``docs/sources/attributions.md``.
     """
     return f"{SIPRI_MILEX_ATTRIBUTION} {SIPRI_YEARBOOK_CH7_ATTRIBUTION}"
 

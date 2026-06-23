@@ -37,7 +37,7 @@ class IngestRequest(BaseModel):
     The :attr:`source_key` is the canonical key (matches the
     ``STAGE2_ADAPTERS`` dispatch table + the ``data/raw/<key>/``
     folder). The ``year`` / ``years`` pair follows the contract
-    spelled out in ``docs/source-ingestion-plan.md``: callers may
+    spelled out in ``docs/sources/ingestion-plan.md``: callers may
     set EITHER ``year`` (a single year filter) OR ``years`` (a
     tuple of years to include), but NOT both inconsistently. The
     cross-field validator below rejects ``year not in years``
@@ -67,7 +67,7 @@ class IngestRequest(BaseModel):
       ``False``).
     - :attr:`allow_network`: when ``False``, adapters that would
       otherwise reach the network raise (default: ``False``;
-      Stage 2 is local-first per ``docs/local-data-store.md``).
+      Stage 2 is local-first per ``docs/architecture/local-data-store.md``).
     """
 
     source_key: str
@@ -174,7 +174,7 @@ class NormalizedSourceFrame:
     """Canonical long-format frame returned by ``SourceAdapter.transform``.
 
     Every adapter must emit the long-frame shape documented in
-    ``docs/source-ingestion-plan.md`` (one row per
+    ``docs/sources/ingestion-plan.md`` (one row per
     ``(iso3, year, variable_name)`` triple, with the source's
     attribution in file-level metadata). The :attr:`rows`
     payload is the in-memory long-format DataFrame; the registry
@@ -208,7 +208,7 @@ class IngestResult(BaseModel):
       (Rule #15) the runner surfaces in the CLI end-of-run
       echo. ``None`` for sources that have not set an
       attribution; the test suite enforces the canonical
-      ``source-attributions.md`` drift guard.
+      ``sources/attributions.md`` drift guard.
     - :attr:`warnings` -- a tuple of structured warning dicts
       (e.g. ``{"code": "requested_year_out_of_coverage", ...}``)
       the runner surfaces in the CLI end-of-run echo. The

@@ -18,7 +18,7 @@ contamination live in the sibling file
 :mod:`tests.test_score_political_freedom_components`. Flag-detection
 tests live in :mod:`tests.test_score_political_freedom_flags`.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

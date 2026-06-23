@@ -12,7 +12,7 @@ catalog indicators (total_inventory, deployed, retired) for the
 9 nuclear-armed states.
 
 The adapter is split across five modules for clarity (each under
-the 400-line convention from :file:`docs/coding-guidelines.md`):
+the 400-line convention from :file:`docs/process/coding-guidelines.md`):
 
 - :mod:`leaders_db.ingest.sipri_yearbook_ch7_io` -- catalog, path
   helpers, parquet write, read orchestrator. Owns
@@ -79,7 +79,7 @@ re-inserts the ``source_observations`` rows for the requested
 year(s) only.
 
 Per Rule #15, the attribution text returned by :func:`attribution`
-is the exact wording from ``docs/source-attributions.md`; if the
+is the exact wording from ``docs/sources/attributions.md`; if the
 attributions doc is updated, the same change must be made here in
 the same commit. The
 :func:`test_sipri_yearbook_ch7_attribution_matches_attributions_doc`
@@ -241,7 +241,7 @@ def attribution() -> str:
     15 report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches SIPRI Yearbook Ch.7 data must
     include this block verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return SIPRI_YEARBOOK_CH7_ATTRIBUTION
 

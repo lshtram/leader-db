@@ -3,7 +3,7 @@
 This module owns the per-source constants that the row builder,
 the source loaders, and the CSV writer share:
 
-- attribution text strings (per ``docs/source-attributions.md``);
+- attribution text strings (per ``docs/sources/attributions.md``);
 - canonical source key tags used in the per-field ``*_source``
   columns;
 - per-source confidence values (direct + proxy / multi-leader
@@ -20,7 +20,7 @@ from __future__ import annotations
 from typing import Final
 
 # ---------------------------------------------------------------------------
-# Source attribution strings (per docs/source-attributions.md).
+# Source attribution strings (per docs/sources/attributions.md).
 # These are byte-identical substrings of the doc; the test
 # ``test_chronicle_attribution_matches_attributions_doc`` enforces it.
 # ---------------------------------------------------------------------------
@@ -38,7 +38,7 @@ SIPRI_MILEX_ATTRIBUTION: Final[str] = (
 )
 
 #: Maddison Project attribution text. Must be byte-identical to
-#: ``docs/source-attributions.md`` §1 ``maddison_project`` (the
+#: ``docs/sources/attributions.md`` §1 ``maddison_project`` (the
 #: "Attribution text in reports" line). Drift-guarded by
 #: :func:`test_maddison_chronicle_attribution_matches_attributions_doc`.
 MADDISON_PROJECT_ATTRIBUTION: Final[str] = (
@@ -54,7 +54,7 @@ ARCHIGOS_ATTRIBUTION: Final[str] = (
 )
 
 #: REIGN attribution text. Must be byte-identical to
-#: ``docs/source-attributions.md`` §1 ``reign`` (the
+#: ``docs/sources/attributions.md`` §1 ``reign`` (the
 #: "Attribution text in reports" line). Drift-guarded by
 #: :func:`test_reign_chronicle_attribution_matches_attributions_doc`.
 REIGN_ATTRIBUTION: Final[str] = (
@@ -62,7 +62,7 @@ REIGN_ATTRIBUTION: Final[str] = (
 )
 
 #: CShapes 2.0 attribution text. Must be byte-identical to
-#: ``docs/source-attributions.md`` §1 ``cshapes`` (the
+#: ``docs/sources/attributions.md`` §1 ``cshapes`` (the
 #: "Attribution text in reports" line). Drift-guarded by
 #: :func:`test_cshapes_chronicle_attribution_matches_attributions_doc`.
 CSHAPES_ATTRIBUTION: Final[str] = (
@@ -70,7 +70,7 @@ CSHAPES_ATTRIBUTION: Final[str] = (
 )
 
 #: Soviet leaders (curated, Wikipedia-anchored) attribution text.
-#: Must be byte-identical to ``docs/source-attributions.md`` §1
+#: Must be byte-identical to ``docs/sources/attributions.md`` §1
 #: ``soviet_leaders_curated``. Drift-guarded by
 #: :func:`test_soviet_leaders_curated_attribution_matches_attributions_doc`.
 SOVIET_LEADERS_CURATED_ATTRIBUTION: Final[str] = (

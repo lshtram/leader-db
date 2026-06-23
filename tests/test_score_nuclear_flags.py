@@ -35,7 +35,7 @@ rationale wording) lives in
 
 The happy-path tests live in :mod:`tests.test_score_nuclear`.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 ``from __future__ import annotations`` for forward-reference
 safety. Type hints on test parameters. No ``print()``, no
 ``TODO(debug)``, no scratch code.

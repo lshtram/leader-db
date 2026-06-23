@@ -14,8 +14,8 @@ columns. It is a validation reference only, not a scoring source.
 
 - Current category source plans live in `src/leaders_db/score/category_plans/`.
 - Current scorer group weights live in `src/leaders_db/score/_*_rubric.py`.
-- Current source coverage and caveats live in `docs/source-vetting/report.md` and
-  `docs/data-sources.md`.
+- Current source coverage and caveats live in `docs/sources/vetting/report.md` and
+  `docs/sources/registry.md`.
 - Some vetted sources are not yet in the operational Stage 9 plans because their
   Stage 2 adapters or raw-bundle hygiene are blocked. They are still listed here
   where relevant as future coverage.

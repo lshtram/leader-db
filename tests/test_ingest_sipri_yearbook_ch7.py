@@ -1132,7 +1132,7 @@ def test_attribution_matches_constant() -> None:
 
 
 def test_sipri_yearbook_ch7_attribution_matches_attributions_doc() -> None:
-    """SIPRI_YEARBOOK_CH7_ATTRIBUTION is a substring of docs/source-attributions.md
+    """SIPRI_YEARBOOK_CH7_ATTRIBUTION is a substring of docs/sources/attributions.md
     (drift guard, same pattern as V-Dem, WGI, UCDP, SIPRI milex).
 
     Per AGENTS.md Always-On Rule #15, the code's attribution text and the
@@ -1140,7 +1140,7 @@ def test_sipri_yearbook_ch7_attribution_matches_attributions_doc() -> None:
     both must be updated in the same commit.
     """
     doc_path = (
-        Path(__file__).resolve().parents[1] / "docs" / "source-attributions.md"
+        Path(__file__).resolve().parents[1] / "docs" / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert SIPRI_YEARBOOK_CH7_ATTRIBUTION in doc_text, (

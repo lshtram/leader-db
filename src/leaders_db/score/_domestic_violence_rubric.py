@@ -60,7 +60,7 @@ fatalities); V-Dem civil-liberties / repression indicators are
 the 4th-source cross-check (5 indicators: 3 liberties + 2
 repression point estimates).
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

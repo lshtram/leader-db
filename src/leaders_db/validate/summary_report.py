@@ -1,7 +1,7 @@
 """Stage 15 — summary report (requirement §8, REQ-CMP-003).
 
 Markdown summary plus the CSV exports listed in
-``docs/architecture.md``. The summary includes the §12 metrics
+``docs/architecture/overview.md``. The summary includes the §12 metrics
 (countries processed, exact/alias match counts, conflicts, missing
 external records, average score delta, highest and lowest agreement
 categories, high/low confidence counts, manual-review count).

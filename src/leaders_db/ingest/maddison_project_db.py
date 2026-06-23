@@ -116,7 +116,7 @@ def register_maddison_project_source(session: Session) -> int:
                 or bundle_meta.get("license")
                 or (
                     "CC BY 4.0 International; cite Bolt and van "
-                    "Zanden 2024 per docs/source-attributions.md."
+                    "Zanden 2024 per docs/sources/attributions.md."
                 ),
             ),
             download_date=download_date_value,
@@ -126,7 +126,7 @@ def register_maddison_project_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C.11. "
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/maddison_project.csv. "
-                "See docs/source-attributions.md for the exact "
+                "See docs/sources/attributions.md for the exact "
                 "citation text. Year 2023 requests are proxied to "
                 "2022 data (1-year-gap, per CIRIGHTS / UNDP HDI / "
                 "Leader Survival pattern). The GDP total indicator "

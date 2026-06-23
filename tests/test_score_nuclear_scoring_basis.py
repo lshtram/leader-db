@@ -36,7 +36,7 @@ test surface follows the same pattern:
   "non-FAS / non-SIPRI source carrying expected nuclear
   variable must not invent a numeric score").
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

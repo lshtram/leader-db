@@ -4,13 +4,13 @@ all-countries batch seam.
 The all-countries CSV is an exported artifact under
 ``data/outputs/``; per AGENTS.md rule #15 ("carry source
 attribution forward in every public output") and
-``docs/source-attributions.md`` §3.2 / §3.6, the writer must
+``docs/sources/attributions.md`` §3.2 / §3.6, the writer must
 carry the source attribution block for the contributing
 sources as a ``# Attribution: <text>`` comment block at the
 top of the file. The block is the small but contractually
 important glue between the score module and the docs — without
 it a downstream consumer cannot answer "where did these numbers
-come from?" without re-reading ``docs/source-attributions.md``.
+come from?" without re-reading ``docs/sources/attributions.md``.
 
 Scope
 -----

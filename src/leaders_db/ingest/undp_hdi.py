@@ -41,7 +41,7 @@ manifest.
 
 Per Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md``; the
+``docs/sources/attributions.md``; the
 :func:`test_undp_hdi_attribution_matches_attributions_doc` test
 enforces that the code and the doc are byte-for-byte consistent.
 """
@@ -94,7 +94,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI end-of-
     run echo) that touches UNDP HDI data must include this block
     verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return UNDP_HDI_ATTRIBUTION
 

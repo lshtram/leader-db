@@ -57,7 +57,7 @@ from ..paths import processed_dir, raw_dir
 UNDP_HDI_SOURCE_KEY: str = "undp_hdi"
 
 #: Stable UNDP HDI attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (undp_hdi entry). This constant must
+#: ``docs/sources/attributions.md`` (undp_hdi entry). This constant must
 #: be a substring of that doc; the
 #: :func:`test_undp_hdi_attribution_matches_attributions_doc` test
 #: enforces byte-for-byte consistency (Always-On Rule #15). The

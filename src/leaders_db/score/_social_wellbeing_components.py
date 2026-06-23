@@ -19,7 +19,7 @@ the insufficient-data path:
 - :func:`build_observation_ref` — the per-observation
   :class:`~leaders_db.score.results.ScoreObservationRef`.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

@@ -33,7 +33,7 @@ Increment 0/1/2 docs.
   historical facts; the curated CSV is a project artifact placed
   under `data/raw/`). The new source key is
   `soviet_leaders_curated` and the canonical attribution text
-  is recorded in `docs/source-attributions.md` §1.
+  is recorded in `docs/sources/attributions.md` §1.
 
 - **CShapes 2.0 country-area source.** New module
   `src/leaders_db/chronicle/_area_source.py` reads the raw CSV
@@ -142,7 +142,7 @@ Increment 0/1/2 docs.
   partial files in `data/outputs/` after a failed run.
 - **Attribution block** is the leading `#` comment lines.
   Each line is a byte-for-byte substring of
-  `docs/source-attributions.md` (drift-guarded by the
+  `docs/sources/attributions.md` (drift-guarded by the
   `test_chronicle_constants` test file).
 
 ## 3. SUN curated source hygiene
@@ -296,7 +296,7 @@ Increment 0/1/2 docs.
   Increment 3 pilot. The canonical dependency-controller
   source for the historical colonial period (ICOW Colonial
   History data v1.1) is documented in
-  [`docs/source-vetting/report.md`](../source-vetting/report.md)
+  [`docs/sources/vetting/report.md`](../sources/vetting/report.md)
   but its download URL (`http://www.paulhensel.org/icowcol/Data/colhist.zip`)
   returned HTTP 404 on 2026-06-21 (the site has been reorganized
   to `data.icow.org/icowcol/` and the canonical redirect

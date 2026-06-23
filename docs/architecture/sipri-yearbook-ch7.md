@@ -4,7 +4,7 @@
 > **Phase:** C.6 (data acquisition, sixth adapter, after V-Dem, WDI, WGI, UCDP, SIPRI milex).
 > **Target source key:** `sipri_yearbook_ch7`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"sipri_yearbook_ch7": None` stub with `sipri_yearbook_ch7.ingest_sipri_yearbook_ch7`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7.
 > **Liveness verified:** 2026-06-18 — `https://www.sipri.org/sites/default/files/YB24%2007%20WNF.pdf` returns HTTP 200 (717,102 bytes, 717 KB, PDF version 1.6, 97 pages, Adobe InDesign 19.4 source, title metadata: *"SIPRI Yearbook 2024, World nuclear forces 2023"*, authors: *"Kristensen, H. M. and Korda, M./SIPRI"*). The data table (Table 7.1) is on PDF page 1 (the first content page after the chapter overview). It covers **9 nuclear-armed states** as of January 2024, with 5 data columns (Deployed, Stored, Stockpile total, Retired warheads, Total inventory).
 
 This document is the design contract for the SIPRI Yearbook Ch.7 Stage 2 adapter. The test-builder writes tests against the public surface in §3.3; the developer implements against the same surface. The catalog spec in §3.4 is the only place where SIPRI Yearbook Ch.7's indicator list is decided.
@@ -121,7 +121,7 @@ For the prototype, all **3** catalog indicators are extracted, feeding the **1 r
 
 1. **`nuclear`** — 3 indicators: `sipri_yearbook_ch7_nuclear_warheads_total_inventory`, `sipri_yearbook_ch7_nuclear_warheads_deployed`, `sipri_yearbook_ch7_nuclear_warheads_retired`. All three feed the `nuclear` category (which is **only** served by this source; the other nuclear-related source, FAS, is the cross-validation source per requirement §6/§9).
 
-> **Why `nuclear` only, no other category?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7, SIPRI Yearbook Ch.7 is the **only** source for the `nuclear` category. The 3 indicators all measure aspects of nuclear arsenals (total count, operational count, retirement pipeline) — all proxies for the same underlying signal ("how big is this state's nuclear arsenal?"). The FAS Nuclear Notebook (the other nuclear-related source) is used for cross-validation in the manual-review queue, not as a Stage 2 indicator source.
+> **Why `nuclear` only, no other category?** Per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7, SIPRI Yearbook Ch.7 is the **only** source for the `nuclear` category. The 3 indicators all measure aspects of nuclear arsenals (total count, operational count, retirement pipeline) — all proxies for the same underlying signal ("how big is this state's nuclear arsenal?"). The FAS Nuclear Notebook (the other nuclear-related source) is used for cross-validation in the manual-review queue, not as a Stage 2 indicator source.
 
 The full per-indicator spec (raw column → canonical `variable_name`, scale, unit, category, one-line description) is in §3.4. The catalog CSV the developer will author lives at `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` (sibling to the adapter modules, per Phase C convention #1).
 
@@ -131,13 +131,13 @@ None of the SIPRI Yearbook Ch.7 indicators populate the `country_years` table di
 
 ### License
 
-The SIPRI Yearbook Ch.7 is distributed under a **free academic license with attribution**. The canonical long-form attribution text is the citation block in [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `sipri_yearbook_ch7` (and is the `SIPRI_YEARBOOK_CH7_ATTRIBUTION` constant — see §3.3). The drift-guard test `test_sipri_yearbook_ch7_attribution_matches_attributions_doc` (§3.5) enforces byte-for-byte consistency.
+The SIPRI Yearbook Ch.7 is distributed under a **free academic license with attribution**. The canonical long-form attribution text is the citation block in [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `sipri_yearbook_ch7` (and is the `SIPRI_YEARBOOK_CH7_ATTRIBUTION` constant — see §3.3). The drift-guard test `test_sipri_yearbook_ch7_attribution_matches_attributions_doc` (§3.5) enforces byte-for-byte consistency.
 
 ### Cited artifacts
 
 - Indicator catalog: `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` (to be authored from §3.4).
 - Per-source `metadata.json`: `data/raw/sipri_yearbook_ch7/metadata.json` (to be written when the first successful read happens).
-- Attribution: `docs/source-attributions.md` §1 entry for `sipri_yearbook_ch7` (already present in the doc; the constant is byte-identical to the citation in §1).
+- Attribution: `docs/sources/attributions.md` §1 entry for `sipri_yearbook_ch7` (already present in the doc; the constant is byte-identical to the citation in §1).
 - PDF parser module: `src/leaders_db/ingest/sipri_yearbook_ch7_pdf.py` (new — the first PDF parser in the pipeline).
 
 ---
@@ -146,7 +146,7 @@ The SIPRI Yearbook Ch.7 is distributed under a **free academic license with attr
 
 SIPRI Yearbook Ch.7 is structurally closer to WGI / SIPRI milex (one local file, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache) or UCDP (event-level aggregation). The WGI 5-module split + SIPRI milex 5-module split are the template. The new piece is the PDF parser: a thin wrapper around `pdfplumber` that takes a PDF path and returns the canonical list-of-dicts (one dict per country row).
 
-The SIPRI Yearbook Ch.7 module splits into **5 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/coding-guidelines.md`:
+The SIPRI Yearbook Ch.7 module splits into **5 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/process/coding-guidelines.md`:
 
 | File | Responsibility | Approx LoC target |
 |---|---|---|
@@ -224,7 +224,7 @@ SIPRI_YEARBOOK_CH7_ATTRIBUTION: str = (
 )
 ```
 
-The exact citation text. Lives in `sipri_yearbook_ch7_io` to break the import cycle. The canonical long-form lives in `docs/source-attributions.md` §1 entry for `sipri_yearbook_ch7`; the drift-guard test (§3.5) enforces byte-for-byte consistency. **The text above is byte-identical to the citation in the doc; the developer copies it verbatim into the constant.** The single quote / double quote convention: the doc uses double quotes around `"World Nuclear Forces."`; the Python string uses a single-quote outer wrapper and double-quote inner literal to match the doc's text exactly. (The doc's full citation text: `Stockholm International Peace Research Institute. 2024. "World Nuclear Forces." In SIPRI Yearbook 2024: Armaments, Disarmament and International Security. Oxford University Press.`)
+The exact citation text. Lives in `sipri_yearbook_ch7_io` to break the import cycle. The canonical long-form lives in `docs/sources/attributions.md` §1 entry for `sipri_yearbook_ch7`; the drift-guard test (§3.5) enforces byte-for-byte consistency. **The text above is byte-identical to the citation in the doc; the developer copies it verbatim into the constant.** The single quote / double quote convention: the doc uses double quotes around `"World Nuclear Forces."`; the Python string uses a single-quote outer wrapper and double-quote inner literal to match the doc's text exactly. (The doc's full citation text: `Stockholm International Peace Research Institute. 2024. "World Nuclear Forces." In SIPRI Yearbook 2024: Armaments, Disarmament and International Security. Oxford University Press.`)
 
 ```python
 #: Default location of the indicator catalog. Lives here so
@@ -826,7 +826,7 @@ The test plan covers the 5 Phase C convention #5 categories (catalog, read, writ
 |---|---|---|
 | `test_write_run_manifest` | The manifest is JSON next to the parquet, includes `attribution`, `source_id`, `observation_rows`, `years`, `indicators`, `pdf_pages_total`, `snapshot_year`. | `isolated_data_lake` |
 | `test_attribution_matches_constant` | `sipri_yearbook_ch7.attribution() == SIPRI_YEARBOOK_CH7_ATTRIBUTION`; contains `"SIPRI"`, `"2024"`, `"World Nuclear Forces"`, `"Yearbook 2024"`, `"Oxford University Press"`. | — |
-| `test_sipri_yearbook_ch7_attribution_matches_attributions_doc` | `SIPRI_YEARBOOK_CH7_ATTRIBUTION` is a substring of `docs/source-attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc`, WGI's `test_wgi_attribution_matches_attributions_doc`, UCDP's `test_ucdp_attribution_matches_attributions_doc`, and SIPRI milex's `test_sipri_milex_attribution_matches_attributions_doc`). | project root |
+| `test_sipri_yearbook_ch7_attribution_matches_attributions_doc` | `SIPRI_YEARBOOK_CH7_ATTRIBUTION` is a substring of `docs/sources/attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc`, WGI's `test_wgi_attribution_matches_attributions_doc`, UCDP's `test_ucdp_attribution_matches_attributions_doc`, and SIPRI milex's `test_sipri_milex_attribution_matches_attributions_doc`). | project root |
 
 ### CLI dispatch
 
@@ -933,7 +933,7 @@ The Yearbook Ch.7 data is a **point-in-time snapshot** (January 2024). The Stage
 
 ### Coverage year drift (the 2024 release year, 2024 data year)
 
-The current release is the SIPRI Yearbook 2024 (Ch.7), and the data is the January 2024 snapshot. The [`docs/source-attributions.md`](../source-attributions.md) summary table says "annual" for the coverage — which is correct (the Yearbook is annual, but each Yearbook is a 1-year snapshot). **The developer does NOT need to fix the coverage field** (the doc is already correct). The catalog's `_RAW_PDF_NAME = "YB24 07 WNF.pdf"` and the `version="YB2024 (data: January 2024)"` in `register_sipri_yearbook_ch7_source` are the version-locked identifiers.
+The current release is the SIPRI Yearbook 2024 (Ch.7), and the data is the January 2024 snapshot. The [`docs/sources/attributions.md`](../sources/attributions.md) summary table says "annual" for the coverage — which is correct (the Yearbook is annual, but each Yearbook is a 1-year snapshot). **The developer does NOT need to fix the coverage field** (the doc is already correct). The catalog's `_RAW_PDF_NAME = "YB24 07 WNF.pdf"` and the `version="YB2024 (data: January 2024)"` in `register_sipri_yearbook_ch7_source` are the version-locked identifiers.
 
 ### Per-cell read performance
 
@@ -993,19 +993,19 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 3.8 — Workplan / docs updates
 
-When the SIPRI Yearbook Ch.7 adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md` (if needed), `docs/source-vetting/report.md`, and `docs/data-sources.md`.
+When the SIPRI Yearbook Ch.7 adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/sources/attributions.md` (if needed), `docs/sources/vetting/report.md`, and `docs/sources/registry.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
-> **Phase C.6 — SIPRI Yearbook Ch.7 Stage 2 ingest landed (DATE).** Sixth Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~35 new tests in `tests/test_ingest_sipri_yearbook_ch7.py` (~252 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` lists 3 SIPRI Yearbook Ch.7 indicators (total_inventory, deployed, retired), all under `nuclear`. **First PDF source in the pipeline** — the adapter uses `pdfplumber` to extract Table 7.1 from the 717 KB `YB24 07 WNF.pdf` (97-page PDF). The PDF parser lives in a new module `sipri_yearbook_ch7_pdf.py` (the only structurally new piece vs the WGI / UCDP / SIPRI milex pattern). The read function extracts the table from the first content page, filters the 1 aggregate row (`Total`), coerces 3 sentinels (`–` for nil, `..` for not-applicable, `c. <num> [letter]` for annotated numerics with footnote letters), strips the footnote letter suffix, recomputes the derived totals (`stockpile_total = deployed + stored`, `total_inventory = stockpile_total + retired`) as a sanity check, and pivots long → wide. The wide frame is 9 country-year rows × 3 indicator columns for the real PDF (1 snapshot year, 2024). SIPRI Yearbook Ch.7 is the **only source for the `nuclear` category** (per the source-vetting report §3.7). Test fixture at `tests/fixtures/sipri_yearbook_ch7/sample.pdf` is a 1-page real-format SIPRI Yearbook Ch.7 PDF authored with `reportlab` (5 countries × 1 year × 3 indicators = 15 indicator cells, 1 `–` cell, 1 `..` cell, 1 `c. 24 j` cell, 1 aggregate `Total` row filtered out). End-to-end run against the real 717 KB PDF produces 9 real countries × 3 indicators = 27 `source_observations` rows in < 1 s. The `SIPRI_YEARBOOK_CH7_ATTRIBUTION` constant is byte-identical to the citation in `docs/source-attributions.md` (drift-guard test added). The `pdfplumber>=0.11` dependency is added to `[project] dependencies` in `pyproject.toml`; the `reportlab>=4.0` test fixture helper dep is added to `[project.optional-dependencies] dev`. `STAGE2_ADAPTERS["sipri_yearbook_ch7"]` is now `sipri_yearbook_ch7.ingest_sipri_yearbook_ch7` in `src/leaders_db/ingest/__init__.py`. SIPRI Yearbook Ch.7 follows the WGI / SIPRI milex 5-module split with the new `sipri_yearbook_ch7_pdf.py` module for the PDF parser. **Moving to PTS next per the priority list.**
+> **Phase C.6 — SIPRI Yearbook Ch.7 Stage 2 ingest landed (DATE).** Sixth Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~35 new tests in `tests/test_ingest_sipri_yearbook_ch7.py` (~252 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` lists 3 SIPRI Yearbook Ch.7 indicators (total_inventory, deployed, retired), all under `nuclear`. **First PDF source in the pipeline** — the adapter uses `pdfplumber` to extract Table 7.1 from the 717 KB `YB24 07 WNF.pdf` (97-page PDF). The PDF parser lives in a new module `sipri_yearbook_ch7_pdf.py` (the only structurally new piece vs the WGI / UCDP / SIPRI milex pattern). The read function extracts the table from the first content page, filters the 1 aggregate row (`Total`), coerces 3 sentinels (`–` for nil, `..` for not-applicable, `c. <num> [letter]` for annotated numerics with footnote letters), strips the footnote letter suffix, recomputes the derived totals (`stockpile_total = deployed + stored`, `total_inventory = stockpile_total + retired`) as a sanity check, and pivots long → wide. The wide frame is 9 country-year rows × 3 indicator columns for the real PDF (1 snapshot year, 2024). SIPRI Yearbook Ch.7 is the **only source for the `nuclear` category** (per the source-vetting report §3.7). Test fixture at `tests/fixtures/sipri_yearbook_ch7/sample.pdf` is a 1-page real-format SIPRI Yearbook Ch.7 PDF authored with `reportlab` (5 countries × 1 year × 3 indicators = 15 indicator cells, 1 `–` cell, 1 `..` cell, 1 `c. 24 j` cell, 1 aggregate `Total` row filtered out). End-to-end run against the real 717 KB PDF produces 9 real countries × 3 indicators = 27 `source_observations` rows in < 1 s. The `SIPRI_YEARBOOK_CH7_ATTRIBUTION` constant is byte-identical to the citation in `docs/sources/attributions.md` (drift-guard test added). The `pdfplumber>=0.11` dependency is added to `[project] dependencies` in `pyproject.toml`; the `reportlab>=4.0` test fixture helper dep is added to `[project.optional-dependencies] dev`. `STAGE2_ADAPTERS["sipri_yearbook_ch7"]` is now `sipri_yearbook_ch7.ingest_sipri_yearbook_ch7` in `src/leaders_db/ingest/__init__.py`. SIPRI Yearbook Ch.7 follows the WGI / SIPRI milex 5-module split with the new `sipri_yearbook_ch7_pdf.py` module for the PDF parser. **Moving to PTS next per the priority list.**
 
-### `docs/source-attributions.md` — no change required
+### `docs/sources/attributions.md` — no change required
 
-The `sipri_yearbook_ch7` entry in `docs/source-attributions.md` §1 is already correct and matches the `SIPRI_YEARBOOK_CH7_ATTRIBUTION` constant byte-for-byte. The developer does NOT update the doc; the drift-guard test confirms consistency.
+The `sipri_yearbook_ch7` entry in `docs/sources/attributions.md` §1 is already correct and matches the `SIPRI_YEARBOOK_CH7_ATTRIBUTION` constant byte-for-byte. The developer does NOT update the doc; the drift-guard test confirms consistency.
 
 > **Cross-check the doc citation text before the test-builder writes `test_sipri_yearbook_ch7_attribution_matches_attributions_doc`.** The doc citation text is: `Stockholm International Peace Research Institute. 2024. "World Nuclear Forces." In SIPRI Yearbook 2024: Armaments, Disarmament and International Security. Oxford University Press.` The constant's text in §3.3 matches this verbatim. If the doc is updated in the future (e.g., a new Yearbook edition is released), the developer updates the constant in the same commit (the drift-guard test fails otherwise).
 
-### `docs/source-vetting/report.md` — one minor update
+### `docs/sources/vetting/report.md` — one minor update
 
 §3.7 ("Conflict / international aggression sources") `sipri_yearbook_ch7` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/sipri_yearbook_ch7.py`. 3 indicators under `nuclear`: total_inventory, deployed, retired. The PDF has no ISO3 column; Stage 3 resolves the display name to ISO3 via `country_aliases.csv`. The PDF parser uses `pdfplumber`."
 
@@ -1015,21 +1015,21 @@ The `sipri_yearbook_ch7` entry in `docs/source-attributions.md` §1 is already c
 |---|---|
 | `sipri_yearbook_ch7` | (was) "Discover the latest version at runtime; do not hard-code `YB24 07 WNF.pdf`." → (now) "**The PDF is 97 pages; the Stage 2 adapter reads only Table 7.1 on the first content page. The PDF parser uses `pdfplumber.extract_table()` with the `lines` strategy (most robust for Adobe InDesign-rendered tables); it falls back to the `text` strategy if `lines` returns 0 tables. The Table 7.1 has 3 missing-value tokens: `'–'` (U+2013, en-dash; nil or negligible value, coerced to `0`), `'..'` (two ASCII dots; not applicable or not available, coerced to `None`), and the `'c. <num> [letter]'` annotation pattern (e.g., `'c. 24 j'` for China's deployed warheads; the `c.` prefix and footnote letter are stripped, the integer is parsed). The `raw_value` audit trail preserves the literal original cell (including the `c.` prefix and footnote letter). The 1 aggregate row (`Total`) is filtered out by the `_SIPRI_YEARBOOK_CH7_NON_COUNTRY_LABELS` denylist. The PDF has no ISO3 column; the Stage 2 adapter stores the raw display name in `source_row_reference` as `sipri_yearbook_ch7:<display_name>` and leaves `country_id` NULL for Stage 3 to fill via `country_aliases.csv`.**" |
 
-### `docs/data-sources.md` — one update
+### `docs/sources/registry.md` — one update
 
 The existing `sipri_yearbook_ch7` row says "PDF; 717 KB; 1 chapter; 9 countries." Update to: "PDF download; 717 KB; 97 pages; 14 tables (Table 7.1 is the only one extracted); 9 nuclear-armed states; 3 catalog indicators under `nuclear` (total_inventory, deployed, retired). The PDF has no ISO3 column; Stage 3 resolves the display name to ISO3 via `country_aliases.csv`. Stage 2 adapter landed."
 
-### `docs/architecture.md` — no change required
+### `docs/architecture/overview.md` — no change required
 
-The existing `architecture.md` already lists SIPRI Yearbook Ch.7 as one of the per-source Stage 2 adapters (the "Conflict / international aggression sources" section). No structural change is needed.
+The existing `docs/architecture/overview.md` already lists SIPRI Yearbook Ch.7 as one of the per-source Stage 2 adapters (the "Conflict / international aggression sources" section). No structural change is needed.
 
 ### `pyproject.toml` — two new dependencies
 
 The developer adds `pdfplumber>=0.11` to `[project] dependencies` (a runtime dep, since the Stage 2 adapter needs it to read the PDF) and `reportlab>=4.0` to `[project.optional-dependencies] dev` (a test-only dep, since the test fixture-generation helper needs it). Both additions are in the same commit as the adapter lands.
 
-### `docs/req/requirements-core.md` — no change required
+### `docs/requirements/core.md` — no change required
 
-The existing `nuclear` category in `docs/req/requirements-core.md` already lists SIPRI Yearbook Ch.7 as the source; the new adapter does not change the requirement set, only the implementation.
+The existing `nuclear` category in `docs/requirements/core.md` already lists SIPRI Yearbook Ch.7 as the source; the new adapter does not change the requirement set, only the implementation.
 
 ---
 
@@ -1118,7 +1118,7 @@ The PDF parser is the first PDF source in the pipeline. The test fixture (`tests
 
 ## Open questions for the developer
 
-1. **SIPRI Yearbook Ch.7 attribution text (the major open question).** The current [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `sipri_yearbook_ch7` cites the Yearbook 2024. The design proposes the attribution text:
+1. **SIPRI Yearbook Ch.7 attribution text (the major open question).** The current [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `sipri_yearbook_ch7` cites the Yearbook 2024. The design proposes the attribution text:
    > Stockholm International Peace Research Institute. 2024. "World Nuclear Forces." In SIPRI Yearbook 2024: Armaments, Disarmament and International Security. Oxford University Press.
    > Short-form: "SIPRI Yearbook 2024 Ch.7 (Stockholm International Peace Research Institute 2024)."
 

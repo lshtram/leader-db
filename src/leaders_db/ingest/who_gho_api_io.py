@@ -85,7 +85,7 @@ _logger = logging.getLogger(__name__)
 WHO_GHO_API_SOURCE_KEY: str = "who_gho_api"
 
 #: Stable WHO GHO API attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (``who_gho_api`` section, lines
+#: ``docs/sources/attributions.md`` (``who_gho_api`` section, lines
 #: 177-183 + the citation-cheat-sheet summary table row). This
 #: constant must be a substring of that doc; the
 #: :func:`test_who_gho_api_attribution_matches_attributions_doc`

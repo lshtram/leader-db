@@ -1,6 +1,6 @@
 """SQLAlchemy 2.x ORM models for the 11 prototype tables.
 
-The schema is normative; see ``docs/database-schema.md`` and the canonical
+The schema is normative; see ``docs/architecture/database-schema.md`` and the canonical
 DDL at ``migrations/0001_initial.sql``. These models are the application-
 side mirror — column names, types, nullability, and uniqueness constraints
 must stay aligned with the DDL.

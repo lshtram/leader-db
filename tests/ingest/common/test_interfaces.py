@@ -15,7 +15,7 @@ This file covers the typed contract exposed by
   (``check_ready`` / ``read`` / ``transform`` / ``write`` /
   ``ingest``) including the request-scoped ``check_ready``.
 
-Per the ``docs/source-ingestion-plan.md`` mirrored layout
+Per the ``docs/sources/ingestion-plan.md`` mirrored layout
 (see the Increment A design), the tests for the new shared
 Stage 2 interface live in
 ``tests/ingest/common/test_interfaces.py``; the registry
@@ -225,7 +225,7 @@ def test_ingest_request_force_refresh_default_false_and_true() -> None:
 
 def test_ingest_request_allow_network_default_false_and_true() -> None:
     """``allow_network`` defaults to ``False`` (Stage 2 is
-    local-first per ``docs/local-data-store.md``); setting it to
+    local-first per ``docs/architecture/local-data-store.md``); setting it to
     ``True`` is preserved.
 
     PASS-ELIGIBLE.
@@ -466,7 +466,7 @@ def test_source_readiness_ready_carries_attribution() -> None:
 
     Contract: when ``ready=True`` the readiness payload surfaces
     enough provenance to attribute downstream output (e.g. the
-    canonical citation text from ``docs/source-attributions.md``).
+    canonical citation text from ``docs/sources/attributions.md``).
 
     PASS-ELIGIBLE.
     """

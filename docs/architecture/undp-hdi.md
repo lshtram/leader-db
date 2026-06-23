@@ -23,9 +23,9 @@ UNDP HDI supports `social_wellbeing` because it is the canonical cross-national 
 | Region codes | `SA`, `ECA`, `AS`, `SSA`, `LAC`, `EAP` |
 | HDI code values | `Low`, `Medium`, `High`, `Very High` |
 | SHA-256 | `d987af8fb17913d6c4b83e9e0e4bb23356166f606744e9818a28d06967a56eec` |
-| License/citation note | Free with attribution; canonical text in `docs/source-attributions.md` under `undp_hdi` |
+| License/citation note | Free with attribution; canonical text in `docs/sources/attributions.md` under `undp_hdi` |
 
-The source is `vetted_ok` in `docs/source-vetting/report.md` and is one of the social-wellbeing sources alongside WDI social indicators and WHO GHO API. The adapter must not download the file during Stage 2; it reads the staged local CSV and metadata.
+The source is `vetted_ok` in `docs/sources/vetting/report.md` and is one of the social-wellbeing sources alongside WDI social indicators and WHO GHO API. The adapter must not download the file during Stage 2; it reads the staged local CSV and metadata.
 
 ## §3 Indicator catalog
 
@@ -115,7 +115,7 @@ The test-builder should write about 38 tests across 9 categories. The fixture `t
 2. CSV reader tests (6): reads latin-1 diacritics; configured encoding avoids UTF-8 failure; missing CSV raises `FileNotFoundError`; missing static column raises `ValueError`; unknown region/`hdicode` warns and preserves row; expected prefix missing raises actionable error.
 3. Wide-to-long narrow frame tests (7): `pd.melt` shape is correct; final-underscore `{prefix}_{year}` parsing works; only 5 catalog prefixes remain; 2022-only rank metadata is dropped; years are `int`; empty cells are debug/drop; `country`, `region`, and `hdicode` metadata is preserved.
 4. DB writer tests (6): source registration is idempotent; observation row count equals non-empty cells; `source_row_reference` uses `undp_hdi:<iso3>`; `country_id` and `confidence` are `NULL`; rerun is idempotent by source/year scope; run manifest records `year_window`, attribution, source key, row counts, and proxy-year semantics.
-5. Attribution drift-guard (2): attribution constant appears in `docs/source-attributions.md`; parquet metadata carries attribution and source key.
+5. Attribution drift-guard (2): attribution constant appears in `docs/sources/attributions.md`; parquet metadata carries attribution and source key.
 6. End-to-end real-file smoke (3): gated real-file smoke for `year=2022` produces about 1,035 potential rows before empty drops; `year=2023` uses 2022 proxy semantics; `year=None` covers 1990-2022 and five indicators without modifying raw files.
 7. Orchestrator tests (4): `ingest_undp_hdi()` writes parquet, DB rows, and manifest; year filter works; result fields are sorted and stable; consecutive runs are idempotent.
 8. CLI/dispatch tests (3): `STAGE2_ADAPTERS["undp_hdi"] is undp_hdi.ingest_undp_hdi`; no duplicate dispatch key; `leaders-db ingest-source --source undp_hdi` follows the real dispatch path.
@@ -161,7 +161,7 @@ The orchestrator should re-export the public test seams needed by `tests/test_in
 4. Exact raw column prefixes are `hdi`, `le`, `eys`, `mys`, `gnipc`.
 5. Variables are catalog-driven, not hard-coded in DB writes.
 6. No silent country normalization; `iso3` and `country` are preserved.
-7. Source attribution drift guard matches `docs/source-attributions.md`.
+7. Source attribution drift guard matches `docs/sources/attributions.md`.
 8. Module line caps are respected.
 9. PTS split trigger lesson is applied before `undp_hdi_db.py` grows past 350 lines.
 10. Defensive constants are wired for encoding, static columns, region codes, HDI code values, and expected prefixes.
@@ -193,7 +193,7 @@ If the import block already groups implemented adapters, add `undp_hdi` to that 
 
 When implementation and review land, update `docs/workplan.md` Done History with Phase C.8 details: test count, module split and line counts, real-file smoke row counts, fixture provenance, dispatch wiring, attribution guard, and reviewer result.
 
-Check `docs/source-attributions.md` before implementation. If the existing `undp_hdi` citation is missing or differs from the adapter constant, update the docs and the drift-guard expectation in the same commit. If a manual testing guide is created later, name it `docs/testing-guide-undp-hdi.md` and record the real-file smoke command and row counts.
+Check `docs/sources/attributions.md` before implementation. If the existing `undp_hdi` citation is missing or differs from the adapter constant, update the docs and the drift-guard expectation in the same commit. If a manual testing guide is created later, name it `docs/testing-guide-undp-hdi.md` and record the real-file smoke command and row counts.
 
 ## §15 Lessons from prior reviews
 

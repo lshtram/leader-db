@@ -7,7 +7,7 @@ dispatches a registered ``SourceAdapter`` in the order
 ``check_ready -> read -> transform -> write`` and short-
 circuits on ``ready=False``.
 
-Per the ``docs/source-ingestion-plan.md`` mirrored layout
+Per the ``docs/sources/ingestion-plan.md`` mirrored layout
 (see the Increment A design), the tests for the registry
 live in ``tests/ingest/common/test_registry.py``; the
 interface tests live in
@@ -46,7 +46,7 @@ class _RecordingFakeAdapter:
     the order of method calls.
 
     Implements the contract documented in
-    ``docs/source-ingestion-plan.md``:
+    ``docs/sources/ingestion-plan.md``:
 
     - ``check_ready(request) -> SourceReadiness``
     - ``read(request) -> RawSourceBundle``
@@ -123,7 +123,7 @@ class _RecordingFakeAdapter:
         adapter instance and return the :class:`IngestResult`.
 
         The Phase A stub protocol documents this method (see
-        ``docs/source-ingestion-plan.md``); the registry runner
+        ``docs/sources/ingestion-plan.md``); the registry runner
         is the primary entry point, but ``adapter.ingest(request)``
         is the convenience path for callers that already hold an
         adapter reference.

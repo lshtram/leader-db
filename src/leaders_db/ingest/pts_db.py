@@ -117,7 +117,7 @@ def register_pts_source(session: Session) -> int:
                 bundle_meta.get("license")
                 or (
                     "Free academic use with attribution; cite Wood, "
-                    "Gibney, et al. (see docs/source-attributions.md)."
+                    "Gibney, et al. (see docs/sources/attributions.md)."
                 )
             ),
             download_date=download_date_value,
@@ -127,7 +127,7 @@ def register_pts_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C. Indicator "
                 "catalog at "
                 "src/leaders_db/ingest/catalogs/pts.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text."
             ),
         )

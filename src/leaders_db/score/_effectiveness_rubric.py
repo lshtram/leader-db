@@ -38,7 +38,7 @@ Group              Variables                                           Group wei
                    composites
 ================== =================================================== ==================
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

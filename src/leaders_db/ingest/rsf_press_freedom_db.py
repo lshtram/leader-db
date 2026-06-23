@@ -170,7 +170,7 @@ def register_rsf_press_freedom_source(session: Session) -> int:
                     "Public RSF World Press Freedom Index data; "
                     "cite Reporters Without Borders / Reporters "
                     "sans frontières (see "
-                    "docs/source-attributions.md)."
+                    "docs/sources/attributions.md)."
                 ),
             ),
             download_date=download_date_value,
@@ -180,7 +180,7 @@ def register_rsf_press_freedom_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C. "
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/rsf_press_freedom.csv. "
-                "See docs/source-attributions.md for the exact "
+                "See docs/sources/attributions.md for the exact "
                 "citation text. Pre/post-2022 schema break: pre-2022 "
                 "files (2002-2021) do not carry the 5 "
                 "component-context columns (Political Context / "

@@ -63,7 +63,7 @@ _logger = logging.getLogger(__name__)
 SIPRI_MILEX_SOURCE_KEY: str = "sipri_milex"
 
 #: Stable SIPRI milex attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (sipri section). This constant must
+#: ``docs/sources/attributions.md`` (sipri section). This constant must
 #: be a substring of that doc; the
 #: :func:`test_sipri_milex_attribution_matches_attributions_doc` test
 #: enforces byte-for-byte consistency. The constant lives here to

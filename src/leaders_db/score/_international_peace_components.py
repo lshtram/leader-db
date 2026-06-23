@@ -25,7 +25,7 @@ and the insufficient-data path:
 - :func:`filter_excluded_observations` — the defence-in-depth
   client-source re-filter at the scorer boundary.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

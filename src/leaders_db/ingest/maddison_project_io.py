@@ -69,7 +69,7 @@ _logger = logging.getLogger(__name__)
 MADDISON_PROJECT_SOURCE_KEY: str = "maddison_project"
 
 #: Stable Maddison Project Database 2023 attribution block. The
-#: canonical text lives in ``docs/source-attributions.md``
+#: canonical text lives in ``docs/sources/attributions.md``
 #: (maddison_project section). This constant must be a substring of
 #: that doc; the
 #: :func:`test_maddison_project_attribution_matches_attributions_doc`
@@ -271,7 +271,7 @@ def default_xlsx_path() -> Path:
     Resolves to
     ``<project_root>/data/raw/maddison_project/mpd2023.xlsx``.
     Raises :class:`FileNotFoundError` if the file is missing (per the
-    design contract in ``docs/local-data-store.md``); the adapter
+    design contract in ``docs/architecture/local-data-store.md``); the adapter
     expects the user to have downloaded the xlsx via the project's
     download workflow first.
     """

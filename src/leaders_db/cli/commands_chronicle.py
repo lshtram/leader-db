@@ -16,7 +16,7 @@ The default ISO3 scope, year window, and output path match the
 Increment 0 plan in
 :file:`docs/country-year-chronicle-increment-0.md`. The command always
 writes an attribution comment block before the header per
-:file:`docs/source-attributions.md` §3.2.
+:file:`docs/sources/attributions.md` §3.2.
 
 SQLite artifact. Pass ``--sqlite-output <PATH>`` to write a SQLite
 database to a custom path. When the flag is omitted, the command writes

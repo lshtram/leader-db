@@ -125,7 +125,7 @@ def register_cirights_source(session: Session) -> int:
                 or (
                     "Free academic use with attribution; cite "
                     "Cingranelli, Richards, and Crepaz (2024). See "
-                    "docs/source-attributions.md for the exact "
+                    "docs/sources/attributions.md for the exact "
                     "citation text."
                 )
             ),
@@ -136,7 +136,7 @@ def register_cirights_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C. Indicator "
                 "catalog at "
                 "src/leaders_db/ingest/catalogs/cirights.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text. Coverage ends 2022; 2023 requests are "
                 "proxied to 2022 (1-year-gap, same pattern as UNDP "
                 "HDI and Leader Survival)."

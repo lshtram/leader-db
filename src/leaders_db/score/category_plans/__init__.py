@@ -1,7 +1,7 @@
 """Category source plans for the per-category rating modules.
 
 This subpackage contains one :class:`CategorySourcePlan` per
-rating category from requirement §4 (``docs/req/top-level-requirements.md``
+rating category from requirement §4 (``docs/requirements/top-level-requirements.md``
 §4). The full list of categories the prototype ships:
 
 - :data:`NUCLEAR_PLAN`
@@ -29,7 +29,7 @@ Each per-category module declares:
 - the ``<CATEGORY>_PLAN`` constant — the
   :class:`CategorySourcePlan` instance for the category.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - No mutable defaults; no ``print()``, no ``TODO(debug)``, no scratch.

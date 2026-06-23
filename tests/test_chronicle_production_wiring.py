@@ -439,7 +439,7 @@ def test_runner_csv_attribution_block_is_byte_identical_to_doc(
 ) -> None:
     """End-to-end attribution drift guard: the attribution
     comment block in the CSV (the public output) is byte-for-byte
-    a substring of ``docs/source-attributions.md``.
+    a substring of ``docs/sources/attributions.md``.
 
     This is the production-wiring companion to the constant
     drift tests in ``test_chronicle_constants.py``: it verifies
@@ -465,7 +465,7 @@ def test_runner_csv_attribution_block_is_byte_identical_to_doc(
     doc_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
 
@@ -496,5 +496,5 @@ def test_runner_csv_attribution_block_is_byte_identical_to_doc(
         text_after_hash = line[2:]
         assert text_after_hash in doc_text, (
             f"Attribution line {text_after_hash!r} (from CSV "
-            f"comment block) is not in docs/source-attributions.md."
+            f"comment block) is not in docs/sources/attributions.md."
         )

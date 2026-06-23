@@ -30,7 +30,7 @@ Module layout
 
 The implementation is split across focused modules so each file
 stays close to the 400-line convention
-(``docs/coding-guidelines.md`` §"Modularity") and the formula
+(``docs/process/coding-guidelines.md`` §"Modularity") and the formula
 pieces are independently auditable. See the private sibling
 modules ``_social_wellbeing_{rubric,components,flags}.py``
 in this package for the per-piece details; the public import
@@ -166,7 +166,7 @@ the deterministic scoring to populate
 :attr:`ScoreResult.score_delta_vs_client` — see the comparison
 stage and AGENTS.md always-on rule #6.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.
@@ -257,7 +257,7 @@ def score_social_wellbeing(
     # observations is the review-safe behavior (the reviewer sees
     # the rest of the result and can audit the contamination
     # upstream). See AGENTS.md always-on rule #6 and
-    # ``docs/architecture.md`` §"Client matrix invariants".
+    # ``docs/architecture/overview.md`` §"Client matrix invariants".
     # ------------------------------------------------------------------
     scoring_observations = _filter_excluded_observations(
         bundle.observations

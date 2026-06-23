@@ -28,7 +28,7 @@ The owning source key flows through to
 the manual-review queue and audit trail point at the source that
 should have produced the row.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public function parameter and return.

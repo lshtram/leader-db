@@ -54,7 +54,7 @@ _logger = logging.getLogger(__name__)
 WGI_SOURCE_KEY: str = "world_bank_wgi"
 
 #: Stable WGI attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (world_bank_wgi section). This
+#: ``docs/sources/attributions.md`` (world_bank_wgi section). This
 #: constant must be a substring of that doc; the
 #: :func:`test_wgi_attribution_matches_attributions_doc` test enforces
 #: byte-for-byte consistency. The constant lives here to break the

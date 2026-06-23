@@ -42,7 +42,7 @@ _logger = logging.getLogger(__name__)
 # parquet name, parquet file-level metadata keys, the non-country
 # denylist, the snapshot-year regex, and the default snapshot
 # year. The attribution block is byte-for-byte equal to the
-# citation in docs/source-attributions.md (drift-guard test).
+# citation in docs/sources/attributions.md (drift-guard test).
 SIPRI_YEARBOOK_CH7_SOURCE_KEY: str = "sipri_yearbook_ch7"
 SIPRI_YEARBOOK_CH7_ATTRIBUTION: str = (
     'Stockholm International Peace Research Institute. 2024. '

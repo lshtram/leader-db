@@ -48,7 +48,7 @@ def read_client_metadata() -> dict[str, object]:
 
     Raises :class:`FileNotFoundError` if the file is absent. The returned
     dict is the raw JSON; call sites should validate it against the
-    ``SourceMetadata`` shape described in ``docs/data-sources.md``.
+    ``SourceMetadata`` shape described in ``docs/sources/registry.md``.
     """
     import json
 

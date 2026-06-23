@@ -55,7 +55,7 @@ def _read_reign_bundle_metadata() -> dict[str, object]:
     """Read the REIGN bundle ``metadata.json``.
 
     Looks at ``data/raw/reign/metadata.json`` (per the data-lake
-    rules in ``docs/local-data-store.md``). Returns an empty
+    rules in ``docs/architecture/local-data-store.md``). Returns an empty
     dict if the file is missing -- the DB writer treats missing
     fields as "no update" (the existing row's value is kept).
 

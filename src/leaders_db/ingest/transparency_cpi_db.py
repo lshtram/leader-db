@@ -129,7 +129,7 @@ def register_transparency_cpi_source(session: Session) -> int:
                 or (
                     "Free for non-commercial use with attribution; "
                     "cite Transparency International per "
-                    "docs/source-attributions.md."
+                    "docs/sources/attributions.md."
                 )
             ),
             download_date=download_date_value,
@@ -139,7 +139,7 @@ def register_transparency_cpi_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C. Indicator "
                 "catalog at "
                 "src/leaders_db/ingest/catalogs/transparency_cpi.csv. "
-                "See docs/source-attributions.md for the exact "
+                "See docs/sources/attributions.md for the exact "
                 "citation text. The direct xlsx download from "
                 "transparency.org is CDN-gated; the adapter "
                 "downloads the canonical CSV from the OCHA HDX "

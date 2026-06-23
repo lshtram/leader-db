@@ -57,7 +57,7 @@ _logger = logging.getLogger(__name__)
 UCDP_SOURCE_KEY: str = "ucdp"
 
 #: Stable UCDP attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (ucdp section). This constant must
+#: ``docs/sources/attributions.md`` (ucdp section). This constant must
 #: be a substring of that doc; the
 #: :func:`test_ucdp_attribution_matches_attributions_doc` test enforces
 #: byte-for-byte consistency. The constant lives here to break the

@@ -3,7 +3,7 @@
 This module holds the UCDP indicator catalog dataclass and CSV
 loader. It is split out of :mod:`ucdp_io` to keep the IO module
 under the 400-line convention from
-:file:`docs/coding-guidelines.md`. The catalog is the single source
+:file:`docs/process/coding-guidelines.md`. The catalog is the single source
 of truth for which UCDP indicators are read in Stage 2; every Stage 2
 UCDP call resolves its indicator list from this file.
 

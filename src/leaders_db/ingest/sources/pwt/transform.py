@@ -21,7 +21,7 @@ owns:
       ``pwt:Data:<iso3>:<year>:<raw_column>``
     - ``temporal_kind`` -- always ``"observed"`` for PWT (the source
       emits direct observed source-year rows only -- per
-      ``docs/source-ingestion-plan.md`` PWT section, no proxy /
+      ``docs/sources/ingestion-plan.md`` PWT section, no proxy /
       stale-fill / derivation is permitted)
     - ``attribution`` -- the canonical PWT citation text
       (Always-On Rule #15)
@@ -34,8 +34,8 @@ request for ``year=2023`` is filtered upstream (the reader returns
 no rows for 2023 because the workbook has no 2023 data), and the
 adapter surfaces a ``requested_year_out_of_coverage`` manifest
 warning. There is no 2019 -> 2023 stale-proxy path; this is a
-deliberate architectural decision per ``docs/source-ingestion-plan.md``
-and ``docs/req/top-level-requirements.md`` §13 ("no invented
+deliberate architectural decision per ``docs/sources/ingestion-plan.md``
+and ``docs/requirements/top-level-requirements.md`` §13 ("no invented
 historical data; older years degrade gracefully").
 
 Missing-cell emission rule
@@ -93,8 +93,8 @@ from typing import Any
 import pandas as pd
 
 # Canonical long-format columns (per
-# ``docs/source-ingestion-plan.md`` and the
-# ``docs/req/requirements-core.md`` schema).
+# ``docs/sources/ingestion-plan.md`` and the
+# ``docs/requirements/core.md`` schema).
 _LONG_COLUMNS: tuple[str, ...] = (
     "iso3",
     "year",
@@ -109,7 +109,7 @@ _LONG_COLUMNS: tuple[str, ...] = (
 
 #: The canonical PWT attribution text. Mirrors ``PWT_ATTRIBUTION``
 #: in ``__init__.py`` and the citation block in
-#: ``docs/source-attributions.md`` (Always-On Rule #15). Defined
+#: ``docs/sources/attributions.md`` (Always-On Rule #15). Defined
 #: locally so the transform module can be imported without
 #: triggering the package ``__init__`` cycle.
 PWT_ATTRIBUTION: str = (

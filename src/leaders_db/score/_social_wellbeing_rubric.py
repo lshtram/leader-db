@@ -31,7 +31,7 @@ Group              Variables                            Group weight
    social protection V-Dem egalitarian indicators
 ================== =================================== ==================
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

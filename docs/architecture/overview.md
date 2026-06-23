@@ -1,7 +1,7 @@
 # Architecture — Leaders Database Prototype
 
 This document defines the system design. The authoritative product brief is
-[`req/top-level-requirements.md`](req/top-level-requirements.md); section numbers below
+[`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md); section numbers below
 reference that document.
 
 ## Purpose
@@ -27,6 +27,11 @@ manual-review queue; source provenance; reproducible local data lake.
 before 1900, and unconstrained online LLM browsing as a default scoring path.
 LLM-assisted research may be added as an explicitly gated escalation path only
 after structured-data and constrained-adjudication paths are testable.
+
+The future source-ingestion architecture is now tracked separately in
+[`sources.md`](sources.md). That document defines the
+new `leaders_db.sources` subsystem that will replace prototype source ingestion
+over time while keeping existing capabilities available as legacy/reference code.
 
 ---
 
@@ -185,7 +190,7 @@ disagreement into the rationale and confidence components.
 | Stage 9 orchestration seam | `src/leaders_db/score/stage9.py` | 9 | `score_category_for_country(session, *, country_iso3, year, category_key, leader_name=None)` composes the Stage 5 bundle builder and the Stage 9 dispatcher. Read-only; no `ruler_scores` persistence (deferred until Stage 4 lands). |
 | Stage 9 all-countries batch seam | `src/leaders_db/score/stage9.py` | 9 | `score_category_for_all_countries(session, *, year, category_key)` iterates the `countries` table in `iso3` order and delegates each row to the per-country seam; countries whose bundle is below the plan's minimum-viable threshold return a clean `is_insufficient_data=True` `ScoreResult` rather than being dropped. Read-only. The canonical reusable pattern for per-category vertical slices — the 2022 `social_wellbeing_2022_scores.csv` is the first instance. |
 | Stage 9 batch CSV writer | `src/leaders_db/score/_stage9_csv.py` (`write_score_results_csv`, `SCORE_RESULTS_CSV_COLUMNS`; re-exported through `src/leaders_db/score/stage9.py`) | 9 | Pandas-free atomic-rename CSV writer. One row per `ScoreResult`. Insufficient-data rows write the literal `"NA"` sentinel for the score pair and pipe-separated `review_flags`. Header columns cover the missingness-investigation contract (`observed_count`, `expected_count`, `missing_count`, `missing_primary_count`, `observation_ref_count`, `rationale_short`). Per AGENTS.md rule #15 the file opens with a `# Attribution: <text>` comment block (one line per contributing source) before the stable `SCORE_RESULTS_CSV_COLUMNS` header; consumers parse with `csv.reader` and skip rows whose first cell starts with `#`, or use `pandas.read_csv(..., comment="#")`. The module is split out of `stage9.py` so the per-country / per-batch seam stays under the 400-line convention; the public import path `from leaders_db.score.stage9 import write_score_results_csv` is stable across the split. |
-| Stage 9 CSV attribution mapping | `src/leaders_db/score/_attributions.py` | 9 | Single source of truth for which external sources a Stage 9 public-output CSV must declare in its `# Attribution: <text>` comment block. `CATEGORY_SOURCE_ATTRIBUTIONS` maps `category_key` → tuple of `(source_key, attribution_text)`; `build_attribution_comment_lines(category_key)` returns the comment lines. Texts are byte-for-byte equal to the "Attribution text in reports" strings in `docs/source-attributions.md` §1 (drift-guarded by `tests/test_score_stage9_attribution.py`). `client_existing` is never included (AGENTS.md rule #6). |
+| Stage 9 CSV attribution mapping | `src/leaders_db/score/_attributions.py` | 9 | Single source of truth for which external sources a Stage 9 public-output CSV must declare in its `# Attribution: <text>` comment block. `CATEGORY_SOURCE_ATTRIBUTIONS` maps `category_key` → tuple of `(source_key, attribution_text)`; `build_attribution_comment_lines(category_key)` returns the comment lines. Texts are byte-for-byte equal to the "Attribution text in reports" strings in `docs/sources/attributions.md` §1 (drift-guarded by `tests/test_score_stage9_attribution.py`). `client_existing` is never included (AGENTS.md rule #6). |
 | Confidence engine | `src/leaders_db/score/confidence.py` | 11 | Fixed formula and component score calculation. |
 | LLM adapter | `src/leaders_db/llm/{caller,schemas}.py` | 10/11 escalation | Strict JSON adjudication; optional gated external research later. |
 | Comparison | `src/leaders_db/validate/comparison.py` | 12 | Client-vs-system deltas; client remains validation reference only. |
@@ -207,7 +212,7 @@ implemented`:
 |---|---|
 | Raw source files | `data/raw/<source>/` (gitignored content, immutable after download). |
 | Raw metadata | `data/raw/<source>/metadata.json` (URL, version, license, checksum, coverage, local file names). |
-| Source docs | `docs/data-sources.md`, `docs/source-attributions.md`, and if complex `docs/architecture/<source>.md`. |
+| Source docs | `docs/sources/registry.md`, `docs/sources/attributions.md`, and if complex `docs/architecture/<source>.md`. |
 | Indicator catalog | `src/leaders_db/ingest/catalogs/<source>.csv`. This is the contract for raw columns, category, scale, direction, unit, description. |
 | Adapter orchestrator | `src/leaders_db/ingest/<source>.py` public `ingest_<source>()`. |
 | Reader/parser modules | `src/leaders_db/ingest/<source>_*.py` as needed (`*_csv.py`, `*_xlsx.py`, `*_pdf.py`, `*_http.py`, `*_db.py`, helpers). |
@@ -462,8 +467,8 @@ Forbidden in all LLM modes:
 
 The 11-table schema from §7 is the source of truth and lives in
 [`database-schema.md`](database-schema.md). SQL DDL is at
-[`src/leaders_db/db/migrations/0001_initial.sql`](../src/leaders_db/db/migrations/0001_initial.sql);
-ORM models are at [`src/leaders_db/db/models.py`](../src/leaders_db/db/models.py).
+[`src/leaders_db/db/migrations/0001_initial.sql`](../../src/leaders_db/db/migrations/0001_initial.sql);
+ORM models are at [`src/leaders_db/db/models.py`](../../src/leaders_db/db/models.py).
 
 Critical invariants:
 
@@ -635,7 +640,7 @@ Years before 1900 are out of scope for the first prototype.
 - **Auditability:** every score must trace back to source observations and raw
   locators.
 - **Attribution:** every public output includes relevant blocks from
-  `docs/source-attributions.md`.
+  `docs/sources/attributions.md`.
 - **Tests:** each implemented stage needs unit tests and at least one boundary
   test that fails if the production wiring is removed.
 
@@ -662,7 +667,7 @@ The first prototype is successful when, per §16 and the expanded architecture:
 
 ## Phase Order
 
-Work is split into five sequential phases (see [`workplan.md`](workplan.md)):
+Work is split into five sequential phases (see [`../workplan.md`](../workplan.md)):
 
 - **A. Infrastructure** — package, CLI, schema, paths, configs, data lake.
 - **B. Source vetting** — source availability/license/coverage probe.

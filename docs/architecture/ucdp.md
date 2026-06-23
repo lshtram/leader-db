@@ -4,7 +4,7 @@
 > **Phase:** C.4 (data acquisition, fourth adapter, after V-Dem, WDI, WGI).
 > **Target source key:** `ucdp`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS` (replace the existing `"ucdp": None` stub with `ucdp.ingest_ucdp`).
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7.
 > **Liveness verified:** 2026-06-18 — `https://ucdp.uu.se/downloads/ged/ged231-csv.zip` returns HTTP 200 with `Content-Type: application/x-zip-compressed`, `Last-Modified: Tue, 06 Jun 2023 18:47:30 GMT`, downloaded zip is 26,587,114 bytes (25.4 MB). Inside the zip: `GEDEvent_v23_1.csv`, 228,682,471 bytes (218 MB uncompressed), **316,818 event rows** covering 1989–2022.
 
 This document is the design contract for the UCDP Stage 2 adapter. The test-builder writes tests against the public surface in §2.3; the developer implements against the same surface. The catalog spec in §2.4 is the only place where UCDP's indicator list is decided.
@@ -74,7 +74,7 @@ For each `(country, year)`, six indicators (the 6 in the catalog):
 5. `ucdp_intl_events` — count of `type_of_violence == 1` events where a foreign state is involved (filter documented in §2.6 below), per country-year.
 6. `ucdp_intl_fatalities` — `sum(best)` for the same filter, per country-year.
 
-> **Why exclude type 2 (non-state)?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7–§3.8, UCDP serves two categories for the prototype: **international_peace** (state-based, type 1) and **domestic_violence** (one-sided, type 3). Non-state conflict (type 2) is not on the indicator catalog; it is not used by any of the 8 scoring categories. If a future iteration adds a "non-state violence" category, this is a 1-row catalog extension (one row for events, one for fatalities, with `raw_column = "type=2"` or similar).
+> **Why exclude type 2 (non-state)?** Per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7–§3.8, UCDP serves two categories for the prototype: **international_peace** (state-based, type 1) and **domestic_violence** (one-sided, type 3). Non-state conflict (type 2) is not on the indicator catalog; it is not used by any of the 8 scoring categories. If a future iteration adds a "non-state violence" category, this is a 1-row catalog extension (one row for events, one for fatalities, with `raw_column = "type=2"` or similar).
 
 **Defer to a future iteration (kept in the CSV but not written to `source_observations`):**
 
@@ -100,19 +100,19 @@ None of the UCDP indicators populate the `country_years` table directly (those c
 
 ### License
 
-The UCDP dataset is distributed under a **free academic license with attribution**. The UCDP Terms of Use (https://ucdp.uu.se/terms-of-use/) require citation of the dataset version. The canonical long-form attribution text is the citation block in [`docs/source-attributions.md`](../source-attributions.md) §1 entry for `ucdp` (and is the `UCDP_ATTRIBUTION` constant — see §2.3).
+The UCDP dataset is distributed under a **free academic license with attribution**. The UCDP Terms of Use (https://ucdp.uu.se/terms-of-use/) require citation of the dataset version. The canonical long-form attribution text is the citation block in [`docs/sources/attributions.md`](../sources/attributions.md) §1 entry for `ucdp` (and is the `UCDP_ATTRIBUTION` constant — see §2.3).
 
 ### Cited artifacts
 
 - Indicator catalog: `src/leaders_db/ingest/catalogs/ucdp.csv` (to be authored from §2.4).
 - Per-source `metadata.json`: `data/raw/ucdp/metadata.json` (to be written when the first successful read happens).
-- Attribution: `docs/source-attributions.md` §1 entry for `ucdp`.
+- Attribution: `docs/sources/attributions.md` §1 entry for `ucdp`.
 
 ---
 
 ## 2.2 — Module structure (V-Dem-style with zip extraction)
 
-UCDP is structurally closer to WGI (one local file, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache). The WGI 5-module split (`wgi.py` / `wgi_io.py` / `wgi_xlsx.py` / `wgi_db.py` / `wgi_db_helpers.py`) is the template. The UCDP module splits into **4 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/coding-guidelines.md`:
+UCDP is structurally closer to WGI (one local file, no network, no HTTP layer) than to WDI (per-indicator HTTP, JSON cache). The WGI 5-module split (`wgi.py` / `wgi_io.py` / `wgi_xlsx.py` / `wgi_db.py` / `wgi_db_helpers.py`) is the template. The UCDP module splits into **4 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/process/coding-guidelines.md`:
 
 | File | Responsibility | Approx LoC target |
 |---|---|---|
@@ -166,7 +166,7 @@ UCDP_ATTRIBUTION: str = (
 )
 ```
 
-The exact citation text. Lives in `ucdp_io` to break the import cycle. The canonical long-form lives in `docs/source-attributions.md`; the drift-guard test (§2.5) enforces byte-for-byte consistency.
+The exact citation text. Lives in `ucdp_io` to break the import cycle. The canonical long-form lives in `docs/sources/attributions.md`; the drift-guard test (§2.5) enforces byte-for-byte consistency.
 
 ```python
 #: Default location of the indicator catalog. Lives here so
@@ -536,7 +536,7 @@ variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,highe
 
 > **Why `higher_is_better=False` for all 6?** For all UCDP indicators, "more events" or "more deaths" = worse rating (more violence). The Stage 5 score module inverts the raw value (e.g., a country with 0 events scores 10/10; a country with 1000 events scores 0/10; the mapping is monotonic decreasing in the raw count). The `raw_scale` and `normalized_scale_target` columns capture the shape; `higher_is_better=False` tells the score module to invert.
 
-> **Why no `non-state` (type=2) indicator?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7–§3.8, UCDP serves `international_peace` (type 1) and `domestic_violence` (type 3) for the prototype. Type 2 (non-state) is not in the 8 rating categories. Deferred.
+> **Why no `non-state` (type=2) indicator?** Per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7–§3.8, UCDP serves `international_peace` (type 1) and `domestic_violence` (type 3) for the prototype. Type 2 (non-state) is not in the 8 rating categories. Deferred.
 
 > **`raw_column` is a semantic label, not a literal CSV column name.** The catalog's `raw_column` for the events indicators is a derived value (`event_count` — a count of rows after the type filter), not a single CSV column. The catalog's `raw_column` for the fatalities indicators is the literal CSV column `best`. The developer encodes this in the read function: for indicators with `raw_column == "event_count"`, the aggregation is `count`; for indicators with `raw_column == "best"`, the aggregation is `sum(best)`. A cleaner alternative is to have a separate `raw_aggregation` column in the catalog (`count` or `sum_best`); this is the WGI / V-Dem convention adapted for UCDP. **The developer picks one and is consistent.** The recommended approach: have a hidden `raw_aggregation` column in the catalog (third column after `raw_column`) that says `count` or `sum_best`. The catalog spec in §2.4 below is the source of truth.
 
@@ -636,7 +636,7 @@ The test plan covers the 5 Phase C convention #5 categories (catalog, read, writ
 |---|---|---|
 | `test_write_run_manifest` | The manifest is JSON next to the parquet, includes `attribution`, `source_id`, `observation_rows`, `years`, `indicators`, `events_total`, `events_filtered`. | `isolated_data_lake` |
 | `test_attribution_matches_constant` | `ucdp.attribution() == UCDP_ATTRIBUTION`; contains `"UCDP"`, `"2023"`, `"Davies"`, `"Georeferenced"`, `"Uppsala"`. | — |
-| `test_ucdp_attribution_matches_attributions_doc` | `UCDP_ATTRIBUTION` is a substring of `docs/source-attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc` and WGI's `test_wgi_attribution_matches_attributions_doc`). | project root |
+| `test_ucdp_attribution_matches_attributions_doc` | `UCDP_ATTRIBUTION` is a substring of `docs/sources/attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc` and WGI's `test_wgi_attribution_matches_attributions_doc`). | project root |
 
 ### CLI dispatch
 
@@ -667,7 +667,7 @@ The manual smoke is gated on a real on-disk zip (the user downloads it via `curl
 
 UCDP's `country_id` is UCDP's own numeric ID (range 2–940, 124 distinct values), NOT ISO3. Examples: `70` = Mexico, `540` = Angola, `700` = Afghanistan, `811` = Cambodia (Kampuchea). The Stage 2 adapter **stores the raw UCDP `country_id` in `source_row_reference`** as `"ucdp:<country_id>"` and **leaves `country_id` NULL** in `source_observations`. Stage 3 (country match) resolves the UCDP `country_id` to ISO3 via a lookup table that does not yet exist; the lookup is a future Stage 3 deliverable (it is NOT part of the UCDP Stage 2 adapter). Same pattern as V-Dem: V-Dem's `country_text_id` (COW code) is also stored verbatim in `source_row_reference`, with `country_id` left NULL for Stage 3.
 
-The lookup table will live at `data/metadata/ucdp_country_iso3.csv` (per the data-sources.md "Source Authority And Specificity Tables" section) and will be loaded by Stage 3. Stage 2 does not depend on it.
+The lookup table will live at `data/metadata/ucdp_country_iso3.csv` (per the `docs/sources/registry.md` "Source Authority And Specificity Tables" section) and will be loaded by Stage 3. Stage 2 does not depend on it.
 
 ### Internationalized conflict filter (the major open question for the developer)
 
@@ -705,9 +705,9 @@ The CSV inside the zip has a header in UCDP GED 23.1. Older UCDP releases (pre-v
 
 ### Year coverage drift (the 2023 release year, 2022 data year)
 
-The current release is "UCDP GED 23.1" (release year 2023) and contains data through **2022** (last data year). The [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.7 says "1946–2023+" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1946–2023+" — both refer to the **release year + projection**, not the last data year. The actual data goes through 2022. **The developer updates the docs to "1989–2022" in the same commit as the adapter lands** (the GED 23.1 dataset covers 1989–2022, not 1946+; the earlier "1946+" coverage belongs to UCDP's older non-GED "UCDP/PRIO Armed Conflict Dataset" which is a separate product). Mirror the WGI "1996–2023" → "1996–2022" fix pattern from [`docs/architecture/wgi.md`](wgi.md) §2.8.
+The current release is "UCDP GED 23.1" (release year 2023) and contains data through **2022** (last data year). The [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.7 says "1946–2023+" and the [`docs/sources/attributions.md`](../sources/attributions.md) summary table says "1946–2023+" — both refer to the **release year + projection**, not the last data year. The actual data goes through 2022. **The developer updates the docs to "1989–2022" in the same commit as the adapter lands** (the GED 23.1 dataset covers 1989–2022, not 1946+; the earlier "1946+" coverage belongs to UCDP's older non-GED "UCDP/PRIO Armed Conflict Dataset" which is a separate product). Mirror the WGI "1996–2023" → "1996–2022" fix pattern from [`docs/architecture/wgi.md`](wgi.md) §2.8.
 
-> **Note on the 1946+ coverage discrepancy.** The Phase B source-vetting report said UCDP covers "1946–2023+", which is true of the older UCDP/PRIO conflict dataset (a separate, less granular product). The UCDP GED specifically starts in 1989. The developer should clarify in the coverage field that the GED starts at 1989 (the UCDP/PRIO dataset covers 1946+, but that is not the GED 23.1 we are reading). Update [`docs/data-sources.md`](../data-sources.md) and [`docs/source-attributions.md`](../source-attributions.md) accordingly.
+> **Note on the 1946+ coverage discrepancy.** The Phase B source-vetting report said UCDP covers "1946–2023+", which is true of the older UCDP/PRIO conflict dataset (a separate, less granular product). The UCDP GED specifically starts in 1989. The developer should clarify in the coverage field that the GED starts at 1989 (the UCDP/PRIO dataset covers 1946+, but that is not the GED 23.1 we are reading). Update [`docs/sources/registry.md`](../sources/registry.md) and [`docs/sources/attributions.md`](../sources/attributions.md) accordingly.
 
 ### Missing-data convention: no sentinels
 
@@ -783,13 +783,13 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 2.8 — Workplan / docs updates
 
-When the UCDP adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
+When the UCDP adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/sources/attributions.md`, `docs/sources/vetting/report.md`, and `docs/sources/registry.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
-> **Phase C.4 — UCDP Stage 2 ingest landed (DATE).** Fourth Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_ucdp.py` (~175 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/ucdp.csv` lists 6 UCDP indicators across the 2 rating categories UCDP serves (4 under `international_peace`: `ucdp_state_based_events`, `ucdp_state_based_fatalities`, `ucdp_intl_events`, `ucdp_intl_fatalities`; 2 under `domestic_violence`: `ucdp_onesided_events`, `ucdp_onesided_fatalities`). Read pattern: open the 25.4 MB `ged231-csv.zip` with `zipfile.ZipFile`, stream-read the 218 MB CSV (using `usecols` to limit to 8 columns), aggregate events to country-year (`groupby(country_id, year, type_of_violence)` + filter for `ucdp_intl_*`), pivot long → wide. UCDP is the **first Stage 2 adapter that requires aggregation** (V-Dem, WDI, WGI all read country-year directly; UCDP starts at event-level). Test fixture at `tests/fixtures/ucdp/sample.zip` is a real-format UCDP zip (20 events, 5 countries × 2 years × multiple event types) authored with `zipfile.ZipFile` + `csv`. End-to-end run for `year=2022` produces N country-year rows × 6 indicators. The `UCDP_ATTRIBUTION` constant is byte-identical to the citation in `docs/source-attributions.md` (drift-guard test added). Coverage field updated from "1946–2023+" to "1989–2022" (the GED 23.1 dataset starts at 1989, not 1946 — the 1946+ coverage belongs to UCDP's separate non-GED product). `STAGE2_ADAPTERS["ucdp"]` is now `ucdp.ingest_ucdp` in `src/leaders_db/ingest/__init__.py`. UCDP follows the WGI 4-module split (no `ucdp_http.py` since UCDP has no HTTP layer; no `ucdp_aggregate.py` since aggregation is ~50 lines and fits in `ucdp_io.py`). The UCDP `IngestResult` carries 2 extra fields vs WGI: `events_total` and `events_filtered` (UCDP-specific equivalents of WDI's `indicators_cached` / `indicators_fetched`). The "internationalized conflict" filter (for `ucdp_intl_*`) uses `gwnob` not null (the prompt's `*_new_id != country_id` filter was verified to match 99.99% of state-based events in the live data and was rejected as a no-op; the developer confirms with user before implementing). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to (next source) per the priority list.**
+> **Phase C.4 — UCDP Stage 2 ingest landed (DATE).** Fourth Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_ucdp.py` (~175 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/ucdp.csv` lists 6 UCDP indicators across the 2 rating categories UCDP serves (4 under `international_peace`: `ucdp_state_based_events`, `ucdp_state_based_fatalities`, `ucdp_intl_events`, `ucdp_intl_fatalities`; 2 under `domestic_violence`: `ucdp_onesided_events`, `ucdp_onesided_fatalities`). Read pattern: open the 25.4 MB `ged231-csv.zip` with `zipfile.ZipFile`, stream-read the 218 MB CSV (using `usecols` to limit to 8 columns), aggregate events to country-year (`groupby(country_id, year, type_of_violence)` + filter for `ucdp_intl_*`), pivot long → wide. UCDP is the **first Stage 2 adapter that requires aggregation** (V-Dem, WDI, WGI all read country-year directly; UCDP starts at event-level). Test fixture at `tests/fixtures/ucdp/sample.zip` is a real-format UCDP zip (20 events, 5 countries × 2 years × multiple event types) authored with `zipfile.ZipFile` + `csv`. End-to-end run for `year=2022` produces N country-year rows × 6 indicators. The `UCDP_ATTRIBUTION` constant is byte-identical to the citation in `docs/sources/attributions.md` (drift-guard test added). Coverage field updated from "1946–2023+" to "1989–2022" (the GED 23.1 dataset starts at 1989, not 1946 — the 1946+ coverage belongs to UCDP's separate non-GED product). `STAGE2_ADAPTERS["ucdp"]` is now `ucdp.ingest_ucdp` in `src/leaders_db/ingest/__init__.py`. UCDP follows the WGI 4-module split (no `ucdp_http.py` since UCDP has no HTTP layer; no `ucdp_aggregate.py` since aggregation is ~50 lines and fits in `ucdp_io.py`). The UCDP `IngestResult` carries 2 extra fields vs WGI: `events_total` and `events_filtered` (UCDP-specific equivalents of WDI's `indicators_cached` / `indicators_fetched`). The "internationalized conflict" filter (for `ucdp_intl_*`) uses `gwnob` not null (the prompt's `*_new_id != country_id` filter was verified to match 99.99% of state-based events in the live data and was rejected as a no-op; the developer confirms with user before implementing). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to (next source) per the priority list.**
 
-### `docs/source-attributions.md` — three updates in the UCDP entry
+### `docs/sources/attributions.md` — three updates in the UCDP entry
 
 The `ucdp` entry (§1) needs three changes in the same commit:
 
@@ -799,7 +799,7 @@ The `ucdp` entry (§1) needs three changes in the same commit:
 
 The short-form attribution text in reports (`"UCDP GED 23.1 (Davies et al. 2023)."`) and the long-form citation stay the same.
 
-### `docs/source-vetting/report.md` — minor updates
+### `docs/sources/vetting/report.md` — minor updates
 
 §3.7 ("Conflict / international aggression sources") `ucdp` row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/ucdp.py`."
 
@@ -811,13 +811,13 @@ The short-form attribution text in reports (`"UCDP GED 23.1 (Davies et al. 2023)
 |---|---|
 | `ucdp` | (was) "UCDP uses GW (Gleditsch-Ward) country codes — needs a mapping table to ISO3." → (now) "**UCDP uses its own numeric country IDs (2-940, not ISO3); Stage 2 stores the raw UCDP `country_id` in `source_row_reference` as `ucdp:<id>` and leaves `country_id` NULL. Stage 3 resolves the UCDP `country_id` to ISO3 via `data/metadata/ucdp_country_iso3.csv` (a future Stage 3 deliverable). The fatalities column is `best` (not `best_est` — the prompt's `best_est` reference is incorrect; the actual UCDP GED 23.1 column is `best`). The internationalized conflict filter for the `ucdp_intl_*` indicators uses `gwnob` not null (the Gleditsch-Ward state number for side_b), per the standard UCDP definition of internationalized internal armed conflict. The '1946–2023+' coverage claim in the source-vetting report is for UCDP's separate non-GED conflict dataset; the UCDP GED 23.1 specifically covers 1989–2022.**" |
 
-### `docs/data-sources.md` — one update
+### `docs/sources/registry.md` — one update
 
 The existing `ucdp` row says "Free 26MB zip; 2023 data confirmed. **Primary international-conflict source** (replaces COW MID, which is blocked)." Update to: "Free 25.4MB zip; 1989-2022 data confirmed (the 23.1 release year is 2023; the data ends at 2022). **Primary international-conflict source** (replaces COW MID, which is blocked). Stage 2 adapter aggregates event-level data to country-year."
 
-### `docs/architecture.md` — no change required
+### `docs/architecture/overview.md` — no change required
 
-The existing `architecture.md` already lists UCDP as one of the per-source Stage 2 adapters. No structural change is needed.
+The existing `docs/architecture/overview.md` already lists UCDP as one of the per-source Stage 2 adapters. No structural change is needed.
 
 ---
 

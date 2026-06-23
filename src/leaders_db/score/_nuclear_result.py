@@ -48,7 +48,7 @@ so a contaminated bundle cannot inflate
 decided the insufficient-data gate fires — this helper does
 not re-evaluate the gate.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

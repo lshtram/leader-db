@@ -2,7 +2,7 @@
 
 All on-disk layout decisions live here so the rest of the package does not
 hard-code ``"data/raw"`` or similar strings. The layout itself is normative
-and documented in ``docs/local-data-store.md``.
+and documented in ``docs/architecture/local-data-store.md``.
 
 Convention: every helper returns a :class:`pathlib.Path`; functions that
 "create if missing" are explicit (``ensure_*``) so read paths never silently
@@ -17,7 +17,7 @@ from pathlib import Path
 from .env import _project_root
 
 # Folder names are stable; if you change them here, update
-# docs/local-data-store.md and the .gitignore at the project root.
+# docs/architecture/local-data-store.md and the .gitignore at the project root.
 RAW_DIR = "raw"
 PROCESSED_DIR = "processed"
 INTERIM_DIR = "interim"
@@ -38,7 +38,7 @@ PRIORITY_SOURCES: tuple[str, ...] = (
     # Client 2023 validation/reference bundle (always present).
     "client_existing",
     # Implemented Stage 2 adapters (raw + metadata on disk; see
-    # ``docs/source-vetting-report.md`` and ``docs/source-attributions.md``).
+    # ``docs/sources/vetting/report.md`` and ``docs/sources/attributions.md``).
     "archigos",
     "bti",
     "cirights",
@@ -172,7 +172,9 @@ def ensure_data_lake_readme() -> Path:
 
     body = (
         "# Local data lake\n\n"
-        "This folder is governed by [`docs/local-data-store.md`](../docs/local-data-store.md).\n"
+        "This folder is governed by "
+        "[`docs/architecture/local-data-store.md`]"
+        "(../docs/architecture/local-data-store.md).\n"
         "Layout:\n\n"
         "- `raw/<source>/` — immutable downloaded files + per-source `metadata.json`.\n"
         "- `processed/` — deterministic normalized parquet/csv.\n"

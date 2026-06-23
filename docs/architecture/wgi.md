@@ -4,7 +4,7 @@
 > **Phase:** C.3 (data acquisition, third adapter, after V-Dem and WDI).
 > **Target source key:** `world_bank_wgi`.
 > **Wiring in:** `src/leaders_db/ingest/__init__.py::STAGE2_ADAPTERS`.
-> **Source verdict:** ✅ `vetted_ok` per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.5.
+> **Source verdict:** ✅ `vetted_ok` per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.5.
 > **Liveness verified:** 2026-06-17 — `https://www.worldbank.org/content/dam/sites/govindicators/doc/wgidataset.xlsx` returns HTTP 200 with `Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`, `Last-Modified: Tue, 14 Nov 2023 19:05:37 GMT`, downloaded xlsx is 2,106,620 bytes (2.1 MB).
 
 This document is the design contract for the WGI Stage 2 adapter. The test-builder writes tests against the public surface in §2.3; the developer implements against the same surface. The catalog spec in §2.4 is the only place where WGI's indicator list is decided.
@@ -24,7 +24,7 @@ This document is the design contract for the WGI Stage 2 adapter. The test-build
 | Release cadence | annual; the current release is "The Worldwide Governance Indicators, 2023 Update" (per the xlsx's `Introduction` sheet cell F2) |
 | Local storage | `data/raw/world_bank_wgi/wgidataset.xlsx`; `metadata.json` alongside |
 
-> **Why xlsx, not API?** WGI also exposes a JSON API at `https://api.worldbank.org/v2/sources/3/` (per [`docs/source-vetting/report.md`](../source-vetting/report.md) §6 caveats). For the prototype, the xlsx is the canonical input: the read pattern is "download one xlsx once a year, slice it by indicator × year" — no per-indicator HTTP API, no pagination, no rate limiting. The WGI xlsx is **structurally closer to V-Dem** (one local file, no network) than to WDI (per-indicator HTTP, JSON cache). This is the reason the WGI module splits into 3 files (V-Dem pattern), not 4 (WDI pattern).
+> **Why xlsx, not API?** WGI also exposes a JSON API at `https://api.worldbank.org/v2/sources/3/` (per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §6 caveats). For the prototype, the xlsx is the canonical input: the read pattern is "download one xlsx once a year, slice it by indicator × year" — no per-indicator HTTP API, no pagination, no rate limiting. The WGI xlsx is **structurally closer to V-Dem** (one local file, no network) than to WDI (per-indicator HTTP, JSON cache). This is the reason the WGI module splits into 3 files (V-Dem pattern), not 4 (WDI pattern).
 >
 > The WGI API is left as a fallback for users who want a live single-cell query without downloading the whole bundle. The Stage 2 adapter does not need it.
 
@@ -77,7 +77,7 @@ Row 16..229: country data — 214 countries
 2021, 2022
 ```
 
-Note: **biennial 1996–2002 (5 measurements), annual 2003–2022 (20 measurements) = 24 years total.** The data ends at **2022** in the current release ("2023 Update"), not 2023 — the year in the title is the release year, not the data year. This is a slight drift from the `1996–2023` listed in [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.5 and [`docs/source-attributions.md`](../source-attributions.md) §1; the developer will correct the Coverage field to "1996–2022" in the same commit as the adapter lands.
+Note: **biennial 1996–2002 (5 measurements), annual 2003–2022 (20 measurements) = 24 years total.** The data ends at **2022** in the current release ("2023 Update"), not 2023 — the year in the title is the release year, not the data year. This is a slight drift from the `1996–2023` listed in [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.5 and [`docs/sources/attributions.md`](../sources/attributions.md) §1; the developer will correct the Coverage field to "1996–2022" in the same commit as the adapter lands.
 
 **Missing-data convention:** WGI uses the Excel literal string **`"#N/A"`** (with the slash, no spaces) in cells where the country-year is not measured. Live probe found 966 `#N/A` cells in just the `VoiceandAccountability` sheet (out of 214 countries × 144 stats × 6 indicator sheets = ~185,000 cells; ~0.5% are missing). There are **no empty cells, no `-999` sentinels, no pandas NaN** in the WGI xlsx. The Stage 2 adapter must coerce `#N/A` to `None` for the `source_observations.normalized_value` column. The `raw_value` audit trail preserves the literal `"#N/A"` string per the V-Dem/WDI convention.
 
@@ -115,7 +115,7 @@ This narrowing is **user decision needed** (see §"Open questions" below): the u
 For the prototype, all 6 WGI indicators are extracted, feeding the **2 rating categories** WGI serves per the source-vetting report:
 
 1. **`effectiveness`** (governance) — 5 indicators: Voice and Accountability, Political Stability, Government Effectiveness, Regulatory Quality, Rule of Law.
-2. **`integrity`** (corruption cross-validation) — 1 indicator: Control of Corruption. WGI's `Control of Corruption` is also listed in [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.6 as a cross-validation source for the integrity / corruption category (alongside TI CPI and V-Dem corruption).
+2. **`integrity`** (corruption cross-validation) — 1 indicator: Control of Corruption. WGI's `Control of Corruption` is also listed in [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.6 as a cross-validation source for the integrity / corruption category (alongside TI CPI and V-Dem corruption).
 
 The full per-indicator spec (sheet name → canonical `variable_name`, scale, unit, category, one-line description) is in §2.4. The catalog CSV the developer will author lives at `src/leaders_db/ingest/catalogs/wgi.csv` (sibling to the adapter modules, per Phase C convention #1).
 
@@ -129,7 +129,7 @@ The World Bank distributes its datasets (including WGI) under **Creative Commons
 
 > The World Bank: Dataset name: Data source (if known).
 
-The current `docs/source-attributions.md` entry for `world_bank_wgi` says "World Bank Open Data license" — a slight drift from the canonical CC BY 4.0 wording. The developer updates the License field in the same commit as the adapter lands (mirroring the WDI license clarification that was done at WDI implementation time; see [`docs/architecture/wdi.md`](wdi.md) §2.1 "Note for the developer" and §2.8).
+The current `docs/sources/attributions.md` entry for `world_bank_wgi` says "World Bank Open Data license" — a slight drift from the canonical CC BY 4.0 wording. The developer updates the License field in the same commit as the adapter lands (mirroring the WDI license clarification that was done at WDI implementation time; see [`docs/architecture/wdi.md`](wdi.md) §2.1 "Note for the developer" and §2.8).
 
 The short-form attribution text that goes into the Stage 15 report is unchanged: `"World Bank WGI (World Bank 2023)."` The long-form citation that the code carries (per the V-Dem pattern in `VDEM_ATTRIBUTION` and the WDI pattern in `WDI_ATTRIBUTION`) is the full bibliographic citation. See §2.3 for the constant.
 
@@ -137,13 +137,13 @@ The short-form attribution text that goes into the Stage 15 report is unchanged:
 
 - Indicator catalog: `src/leaders_db/ingest/catalogs/wgi.csv` (to be authored from §2.4).
 - Per-source `metadata.json`: `data/raw/world_bank_wgi/metadata.json` (to be written when the first successful read happens).
-- Attribution: `docs/source-attributions.md` §1 entry for `world_bank_wgi`.
+- Attribution: `docs/sources/attributions.md` §1 entry for `world_bank_wgi`.
 
 ---
 
 ## 2.2 — Module structure (V-Dem-style, 3 modules)
 
-WGI is structurally closer to V-Dem (one local file, no network) than to WDI (per-indicator HTTP, JSON cache). The WGI module splits into **3 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/coding-guidelines.md`:
+WGI is structurally closer to V-Dem (one local file, no network) than to WDI (per-indicator HTTP, JSON cache). The WGI module splits into **3 sibling files** under `src/leaders_db/ingest/`, each under the 400-line convention from `docs/process/coding-guidelines.md`:
 
 | File | Responsibility | Approx LoC target |
 |---|---|---|
@@ -195,7 +195,7 @@ WGI_ATTRIBUTION: str = (
 )
 ```
 
-The exact citation text. Lives in `wgi_io` to break the import cycle. The canonical long-form lives in `docs/source-attributions.md`; the drift-guard test (§2.5) enforces byte-for-byte consistency. The year is `2023` (the release year) to match the existing short-form attribution `"World Bank WGI (World Bank 2023)."` in [`docs/source-attributions.md`](../source-attributions.md) §1; the data covers 1996–2022 but the citation's `2023` refers to the World Bank's release year, not the latest data year.
+The exact citation text. Lives in `wgi_io` to break the import cycle. The canonical long-form lives in `docs/sources/attributions.md`; the drift-guard test (§2.5) enforces byte-for-byte consistency. The year is `2023` (the release year) to match the existing short-form attribution `"World Bank WGI (World Bank 2023)."` in [`docs/sources/attributions.md`](../sources/attributions.md) §1; the data covers 1996–2022 but the citation's `2023` refers to the World Bank's release year, not the latest data year.
 
 ```python
 #: Map of variable_name -> xlsx sheet name. The catalog's
@@ -526,7 +526,7 @@ variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,highe
 | 5 | `RuleofLaw` | `wgi_rule_of_law` | `effectiveness` | `z_score` | `z_score` | `True` | Extent to which agents have confidence in and abide by the rules of society (property rights, police, courts). |
 | 6 | `ControlofCorruption` | `wgi_control_of_corruption` | `integrity` | `z_score` | `z_score` | `True` | Extent to which public power is exercised for private gain, including petty and grand corruption. Cross-validates TI CPI for the integrity category. |
 
-> **Why `integrity` for `Control of Corruption` only?** Per [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.5–§3.6, the WGI bundle as a whole is classified under "Effectiveness / governance", but the `Control of Corruption` indicator is also listed separately as a cross-validation source for the "Integrity / corruption" category (alongside TI CPI and V-Dem corruption). One indicator → one category in the catalog (matching the V-Dem convention), so `Control of Corruption` lives under `integrity`; the Stage 5 score module for `effectiveness` can still consult the indicator via the `variable_name` if it wants to use the corruption signal as an inverse proxy for governance quality. The other 5 indicators stay in `effectiveness`.
+> **Why `integrity` for `Control of Corruption` only?** Per [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.5–§3.6, the WGI bundle as a whole is classified under "Effectiveness / governance", but the `Control of Corruption` indicator is also listed separately as a cross-validation source for the "Integrity / corruption" category (alongside TI CPI and V-Dem corruption). One indicator → one category in the catalog (matching the V-Dem convention), so `Control of Corruption` lives under `integrity`; the Stage 5 score module for `effectiveness` can still consult the indicator via the `variable_name` if it wants to use the corruption signal as an inverse proxy for governance quality. The other 5 indicators stay in `effectiveness`.
 
 > **Why `higher_is_better=True` for all 6?** WGI scores are z-score-like governance performance estimates on an approximately -2.5 (weak) to 2.5 (strong) scale. Higher Estimate = better governance. The `raw_scale = "z_score"` tag captures the scale; `unit = "z_score"` is documentation for Stage 5 normalization. The `normalized_scale_target = "0-1"` is the Stage 5 contract (linear remap of the z-score to 0–1).
 
@@ -611,7 +611,7 @@ The test plan covers the 5 Phase C convention #5 categories (catalog, read, writ
 |---|---|---|
 | `test_write_run_manifest` | The manifest is JSON next to the parquet, includes `attribution`, `source_id`, `observation_rows`, `years`, `indicators`. | `isolated_data_lake` |
 | `test_attribution_matches_constant` | `wgi.attribution() == WGI_ATTRIBUTION`; contains `"World Bank"`, `"2023"`, `"WGI"`, `"CC BY 4.0"`. | — |
-| `test_wgi_attribution_matches_attributions_doc` | `WGI_ATTRIBUTION` is a substring of `docs/source-attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc` and WDI's `test_wdi_attribution_matches_attributions_doc`). | project root |
+| `test_wgi_attribution_matches_attributions_doc` | `WGI_ATTRIBUTION` is a substring of `docs/sources/attributions.md` (drift guard, same pattern as V-Dem's `test_vdem_attribution_matches_attributions_doc` and WDI's `test_wdi_attribution_matches_attributions_doc`). | project root |
 
 ### CLI dispatch
 
@@ -672,11 +672,11 @@ Stage 3 has a `country_aliases` table that handles these. Stage 2's contract is 
 
 ### Year coverage drift (2023 in docs, 2022 in xlsx)
 
-The current xlsx release is the "2023 Update" (release year) and contains data through **2022** (last data year). The [`docs/source-vetting/report.md`](../source-vetting/report.md) §3.5 says "1996–2023" and the [`docs/source-attributions.md`](../source-attributions.md) summary table says "1996–2023" — both refer to the **release year**, not the last data year. The actual data goes through 2022. **The developer updates the docs to "1996–2022" in the same commit as the adapter lands** (similar to the WDI license clarification that was done at WDI implementation time; see §2.8). The Stage 2 `WGIIngestResult.years` for a `year=None` run will be the 24 distinct years 1996, 1998, ..., 2022.
+The current xlsx release is the "2023 Update" (release year) and contains data through **2022** (last data year). The [`docs/sources/vetting/report.md`](../sources/vetting/report.md) §3.5 says "1996–2023" and the [`docs/sources/attributions.md`](../sources/attributions.md) summary table says "1996–2023" — both refer to the **release year**, not the last data year. The actual data goes through 2022. **The developer updates the docs to "1996–2022" in the same commit as the adapter lands** (similar to the WDI license clarification that was done at WDI implementation time; see §2.8). The Stage 2 `WGIIngestResult.years` for a `year=None` run will be the 24 distinct years 1996, 1998, ..., 2022.
 
 ### Biennial then annual
 
-The WGI xlsx is biennial for 1996–2002 (5 measurements: 1996, 1998, 2000, 2002) and annual for 2003–2022 (20 measurements). The Stage 2 read function does not need to special-case this — it just iterates the year-to-column map from row 14. The Stage 11 confidence module's `temporal_fit` component will apply the per-year penalty per the historical-year handling in `docs/architecture.md` (older years = more uncertainty, no penalty for the biennial gap per se).
+The WGI xlsx is biennial for 1996–2002 (5 measurements: 1996, 1998, 2000, 2002) and annual for 2003–2022 (20 measurements). The Stage 2 read function does not need to special-case this — it just iterates the year-to-column map from row 14. The Stage 11 confidence module's `temporal_fit` component will apply the per-year penalty per the historical-year handling in `docs/architecture/overview.md` (older years = more uncertainty, no penalty for the biennial gap per se).
 
 ### Indicator deprecation
 
@@ -696,7 +696,7 @@ The `xlsx_path` defaults to `raw_dir("world_bank_wgi") / "wgidataset.xlsx"`. The
 
 ### License drift (apply the WDI fix pattern)
 
-The current `docs/source-attributions.md` says "World Bank Open Data license" for WGI. The canonical World Bank license is CC BY 4.0 (verified live on the terms-of-use page). **The developer updates the License field to "CC BY 4.0 International" in the same commit as the WGI adapter lands** (mirroring the WDI license clarification that was done at WDI implementation time). The drift-guard test (`test_wgi_attribution_matches_attributions_doc`) covers the long-form citation; the short-form "World Bank WGI (World Bank 2023)" stays the same.
+The current `docs/sources/attributions.md` says "World Bank Open Data license" for WGI. The canonical World Bank license is CC BY 4.0 (verified live on the terms-of-use page). **The developer updates the License field to "CC BY 4.0 International" in the same commit as the WGI adapter lands** (mirroring the WDI license clarification that was done at WDI implementation time). The drift-guard test (`test_wgi_attribution_matches_attributions_doc`) covers the long-form citation; the short-form "World Bank WGI (World Bank 2023)" stays the same.
 
 ### `obs_status` and other per-cell metadata
 
@@ -732,13 +732,13 @@ The `__all__` does not need to change. No CLI code change is needed — the CLI 
 
 ## 2.8 — Workplan / docs updates
 
-When the WGI adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/source-attributions.md`, `docs/source-vetting/report.md`, and `docs/data-sources.md`.
+When the WGI adapter lands and the reviewer signs off, the project-manager will add the following entries to `docs/workplan.md` (Done History) and update `docs/sources/attributions.md`, `docs/sources/vetting/report.md`, and `docs/sources/registry.md`.
 
 ### `docs/workplan.md` — new Done History entry
 
-> **Phase C.3 — WGI Stage 2 ingest landed (2026-06-18).** Third Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_wgi.py` (~140 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/wgi.csv` lists 6 WGI indicators across the 2 rating categories WGI serves (5 under `effectiveness`: Voice and Accountability, Political Stability, Government Effectiveness, Regulatory Quality, Rule of Law; 1 under `integrity`: Control of Corruption). Read pattern: open the 2.1 MB `wgidataset.xlsx` with `openpyxl.read_only=True`, walk the 6 indicator sheets (one per WGI dimension), extract the `Estimate` cell for each (country, year), pivot long → wide. No HTTP layer; no per-year cache; no aggregate-code denylist (WGI is country-only, unlike WDI). Test fixture at `tests/fixtures/world_bank_wgi/sample.xlsx` is a 5-country × 2-year × 6-indicator real-format WGI xlsx authored with openpyxl (60 Estimate cells, 1 `#N/A` cell to exercise the missing-value path). End-to-end run for `year=2022` produces 214 real countries × 6 indicators = 1,284 `source_observations` rows in <5 s. The `WGI_ATTRIBUTION` constant is byte-identical to the citation in `docs/source-attributions.md` (drift-guard test added). License field in the WGI entry of `docs/source-attributions.md` updated from "World Bank Open Data" to "CC BY 4.0 International" (drift fix, same pattern as WDI). Coverage field updated from "1996–2023" to "1996–2022" (the actual data ends at 2022; "2023" in the docs refers to the release year, not the latest data year). `STAGE2_ADAPTERS["world_bank_wgi"]` is now `wgi.ingest_wgi` in `src/leaders_db/ingest/__init__.py`. WGI follows the V-Dem 3-module split (no `wgi_http.py` since WGI has no HTTP layer). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to UCDP next per the priority list.**
+> **Phase C.3 — WGI Stage 2 ingest landed (2026-06-18).** Third Stage 2 adapter implemented via the architect → test-builder → developer → reviewer pipeline. ~30 new tests in `tests/test_ingest_wgi.py` (~140 total, all passing). Indicator catalog at `src/leaders_db/ingest/catalogs/wgi.csv` lists 6 WGI indicators across the 2 rating categories WGI serves (5 under `effectiveness`: Voice and Accountability, Political Stability, Government Effectiveness, Regulatory Quality, Rule of Law; 1 under `integrity`: Control of Corruption). Read pattern: open the 2.1 MB `wgidataset.xlsx` with `openpyxl.read_only=True`, walk the 6 indicator sheets (one per WGI dimension), extract the `Estimate` cell for each (country, year), pivot long → wide. No HTTP layer; no per-year cache; no aggregate-code denylist (WGI is country-only, unlike WDI). Test fixture at `tests/fixtures/world_bank_wgi/sample.xlsx` is a 5-country × 2-year × 6-indicator real-format WGI xlsx authored with openpyxl (60 Estimate cells, 1 `#N/A` cell to exercise the missing-value path). End-to-end run for `year=2022` produces 214 real countries × 6 indicators = 1,284 `source_observations` rows in <5 s. The `WGI_ATTRIBUTION` constant is byte-identical to the citation in `docs/sources/attributions.md` (drift-guard test added). License field in the WGI entry of `docs/sources/attributions.md` updated from "World Bank Open Data" to "CC BY 4.0 International" (drift fix, same pattern as WDI). Coverage field updated from "1996–2023" to "1996–2022" (the actual data ends at 2022; "2023" in the docs refers to the release year, not the latest data year). `STAGE2_ADAPTERS["world_bank_wgi"]` is now `wgi.ingest_wgi` in `src/leaders_db/ingest/__init__.py`. WGI follows the V-Dem 3-module split (no `wgi_http.py` since WGI has no HTTP layer). Reviewer caught N blockers, M important, K nits — all fixed in a single iteration. **PASS on the second pass. Moving to UCDP next per the priority list.**
 
-### `docs/source-attributions.md` — three updates in the WGI entry
+### `docs/sources/attributions.md` — three updates in the WGI entry
 
 The `world_bank_wgi` entry (§1) needs three changes in the same commit:
 
@@ -748,7 +748,7 @@ The `world_bank_wgi` entry (§1) needs three changes in the same commit:
 
 The short-form attribution text in reports (`"World Bank WGI (World Bank 2023)."`) and the long-form citation stay the same.
 
-### `docs/source-vetting/report.md` — minor updates
+### `docs/sources/vetting/report.md` — minor updates
 
 §3.5 ("Governance / effectiveness sources") row gets a one-line note: "Stage 2 adapter landed; see `src/leaders_db/ingest/wgi.py`."
 
@@ -758,13 +758,13 @@ The short-form attribution text in reports (`"World Bank WGI (World Bank 2023)."
 |---|---|
 | `world_bank_wgi` | (was) "Use the `wgidataset.xlsx` file; the standard WGI API endpoint is `sources/3`, not `/v2/indicators`." → (now) "**Use the `wgidataset.xlsx` file only (one xlsx per annual release; no per-indicator HTTP API for the prototype). The xlsx is country-only — no aggregate-code denylist needed (unlike WDI). Missing-data convention is the literal string `'#N/A'`, not `-999` and not `null` (unlike V-Dem and WDI respectively). The current release is 'The Worldwide Governance Indicators, 2023 Update' (data through 2022).**" |
 
-### `docs/data-sources.md` — no change required
+### `docs/sources/registry.md` — no change required
 
 The existing WGI row already says "Free xlsx + API; 2023 data confirmed." The "xlsx + API" wording is fine; the Stage 2 adapter uses the xlsx only and the API is left as a fallback. No change required unless the user wants a more explicit statement.
 
-### `docs/architecture.md` — no change required
+### `docs/architecture/overview.md` — no change required
 
-The existing `architecture.md` already lists WGI as one of the per-source Stage 2 adapters. No structural change is needed.
+The existing `docs/architecture/overview.md` already lists WGI as one of the per-source Stage 2 adapters. No structural change is needed.
 
 ---
 
@@ -794,7 +794,7 @@ These are the 8 WDI review findings and the V-Dem findings. Apply them to WGI fr
 - **Aim for <400 lines per module.** The WGI modules are expected to land at ~180–220, ~280–340, ~280–340 (under 400). If a module exceeds 400, split further.
 - **Pydantic `WGIIngestResult`** for the CLI boundary (already in §2.3).
 - **The drift-guard test `test_wgi_attribution_matches_attributions_doc` is mandatory.**
-- **Update `docs/source-attributions.md` with the canonical WGI attribution text in the same commit as the constant** (Rule #15). This includes the License field clarification (CC BY 4.0) and the Coverage field correction (1996–2022).
+- **Update `docs/sources/attributions.md` with the canonical WGI attribution text in the same commit as the constant** (Rule #15). This includes the License field clarification (CC BY 4.0) and the Coverage field correction (1996–2022).
 
 ### V-Dem-specific lessons to apply
 

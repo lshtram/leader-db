@@ -26,7 +26,7 @@ pin the cross-cutting contract at the dispatcher boundary:
 - silently renaming a category key without updating the registry
   makes the supported-list test fail.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

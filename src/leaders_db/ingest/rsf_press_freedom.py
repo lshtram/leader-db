@@ -28,7 +28,7 @@ names differ across years; the catalog's logical ``raw_column`` is
 resolved to the year-specific actual column at parse time).
 
 The adapter is split across seven modules for clarity (each under
-the 400-line convention from ``docs/coding-guidelines.md``):
+the 400-line convention from ``docs/process/coding-guidelines.md``):
 
 - :mod:`leaders_db.ingest.rsf_press_freedom_io` -- catalog, path
   helpers, named constants (encoding fallbacks, column variants per
@@ -86,7 +86,7 @@ The orchestrator is idempotent: re-running it deletes and re-inserts
 the ``source_observations`` rows for the requested year(s) only.
 
 Per Rule #15, the attribution text returned by :func:`attribution`
-is the exact wording from ``docs/source-attributions.md``; if the
+is the exact wording from ``docs/sources/attributions.md``; if the
 attributions doc is updated, the same change must be made here in
 the same commit. The
 :func:`test_rsf_press_freedom_attribution_matches_attributions_doc`
@@ -136,7 +136,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI end-of-
     run echo) that touches RSF data must include this block
     verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return RSF_PRESS_FREEDOM_ATTRIBUTION
 

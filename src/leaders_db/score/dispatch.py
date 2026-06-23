@@ -26,7 +26,7 @@ that lists the supported categories and the extension point
 (``_SCORERS`` in this module), so a Stage 9 caller gets a
 self-explanatory failure rather than a bare ``KeyError``.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

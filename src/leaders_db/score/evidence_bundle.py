@@ -1,7 +1,7 @@
 """The :class:`CategoryEvidenceBundle` — the full Stage 5 evidence
 bundle for one country/year/category.
 
-Aligns with ``docs/architecture.md`` §"Evidence Bundle Contract"
+Aligns with ``docs/architecture/overview.md`` §"Evidence Bundle Contract"
 (``CategoryEvidenceBundle`` block) and REQ-STAGE-006/007. The bundle
 is the single object a Stage 9-10 category scorer consumes; it carries
 every expected source, every available observation with its raw

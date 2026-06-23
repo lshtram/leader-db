@@ -12,7 +12,7 @@ attribution per the BTI terms of use.
 The attribution text returned by :func:`attribution` is the
 **short form** ``"BTI 2026 (Bertelsmann Stiftung 2026)."`` -- the
 canonical "Attribution text in reports" line in
-``docs/source-attributions.md``. This deviates from the V-Dem / WGI
+``docs/sources/attributions.md``. This deviates from the V-Dem / WGI
 convention (which uses the long citation form) and matches the BTI
 section of the attributions doc exactly. The full citation is the
 BTI citation block in the same doc.
@@ -64,7 +64,7 @@ inserts the ``source_observations`` rows for the requested year(s)
 only.
 
 Per Rule #15, the attribution text returned by :func:`attribution` is
-the exact wording from ``docs/source-attributions.md``; if the
+the exact wording from ``docs/sources/attributions.md``; if the
 attributions doc is updated, the same change must be made here in
 the same commit. The
 :func:`test_bti_attribution_matches_attributions_doc` test enforces
@@ -120,7 +120,7 @@ class BtiIngestResult(BaseModel):
     manifest writer in :mod:`bti_db` also consumes the same fields.
     Pydantic v2 models are the standard for any payload that
     crosses a file, CLI, provider, or artifact boundary
-    (:file:`docs/coding-guidelines.md` § Python Standards).
+    (:file:`docs/process/coding-guidelines.md` § Python Standards).
 
     Carries the resolved edition sheet name + covered interval so
     the CLI can print the proxy/source-edition semantics without
@@ -197,7 +197,7 @@ def attribution() -> str:
     Per AGENTS.md Always-On Rule #15, every public output (Stage 15
     report, manual-review queue, exported CSV, run log, CLI end-of-run
     echo) that touches BTI data must include this block verbatim. The
-    exact wording is the one in ``docs/source-attributions.md``; do
+    exact wording is the one in ``docs/sources/attributions.md``; do
     not paraphrase.
     """
     return BTI_ATTRIBUTION

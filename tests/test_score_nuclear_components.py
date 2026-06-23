@@ -33,7 +33,7 @@ detection helpers)). The test surface follows the same pattern:
   + derived flags + the nuclear-specific "non-nuclear / no
   nuclear-source evidence" rationale wording).
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

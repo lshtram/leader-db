@@ -162,7 +162,7 @@ human_review_required — so a contaminated client observation
 cannot influence any artefact even if a contaminated bundle
 reaches the scorer. See AGENTS.md always-on rule #6.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.
@@ -236,7 +236,7 @@ def score_international_peace(bundle: CategoryEvidenceBundle) -> ScoreResult:
     # (``EXCLUDED_SOURCE_KEYS``); we re-filter here so a contaminated
     # bundle (hand-built or piped from a future stage that forgets
     # the upstream rule) cannot influence any downstream artefact.
-    # See AGENTS.md always-on rule #6 and ``docs/architecture.md``
+    # See AGENTS.md always-on rule #6 and ``docs/architecture/overview.md``
     # §"Client matrix invariants".
     scoring_observations = filter_excluded_observations(bundle.observations)
 

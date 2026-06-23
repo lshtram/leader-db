@@ -69,7 +69,7 @@ _COLUMNS: tuple[str, ...] = (
 
 # The raw capture from the HDX mirror (verbatim response). Default
 # points at the project-scoped ``tmp/`` folder (gitignored per
-# ``docs/local-data-store.md``); pass an explicit path to override.
+# ``docs/architecture/local-data-store.md``); pass an explicit path to override.
 _PROJECT_ROOT: Path = Path(__file__).resolve().parents[3]
 _RAW_CAPTURE: Path = (
     _PROJECT_ROOT / "tmp" / "source-vetting-evidence" / "global_cpi_2023.csv"

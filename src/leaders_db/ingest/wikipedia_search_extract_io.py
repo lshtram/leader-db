@@ -48,7 +48,7 @@ The Stage 2 contract:
 
 Per AGENTS.md Always-On Rule #15, the attribution text returned by
 :func:`wikipedia_search_extract.attribution` is the exact wording
-from ``docs/source-attributions.md``; the
+from ``docs/sources/attributions.md``; the
 :func:`test_wikipedia_search_extract_attribution_matches_attributions_doc`
 test enforces byte-for-byte consistency.
 
@@ -87,7 +87,7 @@ _logger = logging.getLogger(__name__)
 WIKIPEDIA_SEARCH_EXTRACT_SOURCE_KEY: str = "wikipedia_search_extract"
 
 #: Stable Wikipedia attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (wikipedia_search_extract section,
+#: ``docs/sources/attributions.md`` (wikipedia_search_extract section,
 #: lines 130-136 + the citation-cheat-sheet summary table row).
 #: This constant must be a substring of that doc; the
 #: :func:`test_wikipedia_search_extract_attribution_matches_attributions_doc`

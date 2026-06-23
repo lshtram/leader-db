@@ -128,7 +128,7 @@ def register_reign_source(session: Session) -> int:
                 bundle_meta.get("license_note")
                 or (
                     "Free academic; cite Bell 2016 (OEF Research) "
-                    "(see docs/source-attributions.md)."
+                    "(see docs/sources/attributions.md)."
                 ),
             ),
             download_date=download_date_value,
@@ -138,7 +138,7 @@ def register_reign_source(session: Session) -> int:
                 "Stage 2 adapter implemented in Phase C.10. "
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/reign.csv. See "
-                "docs/source-attributions.md for the exact citation "
+                "docs/sources/attributions.md for the exact citation "
                 "text. REIGN 2021-8 is leader-month data (138,600 "
                 "leader-month rows, 1950-2021-08); the Stage 2 "
                 "adapter writes one source_observations row per "

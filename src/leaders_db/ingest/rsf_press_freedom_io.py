@@ -64,7 +64,7 @@ RSF is structurally distinct from every prior Stage 2 adapter:
   the RSF methodology inverts the natural "freedom" framing).
 - It targets the ``political_freedom`` rating category exclusively
   (RSF is a press/media-freedom sub-signal per
-  ``docs/source-vetting-report.md`` §3.2).
+  ``docs/sources/vetting/report.md`` §3.2).
 """
 
 from __future__ import annotations
@@ -86,7 +86,7 @@ from ..paths import processed_dir, raw_dir
 RSF_PRESS_FREEDOM_SOURCE_KEY: str = "rsf_press_freedom"
 
 #: Stable RSF attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (§1, ``rsf_press_freedom`` entry,
+#: ``docs/sources/attributions.md`` (§1, ``rsf_press_freedom`` entry,
 #: attribution text in the Summary table). This constant must be a
 #: substring of that doc; the
 #: :func:`test_rsf_press_freedom_attribution_matches_attributions_doc`

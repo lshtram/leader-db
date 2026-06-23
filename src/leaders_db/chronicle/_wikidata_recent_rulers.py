@@ -6,7 +6,7 @@ respectively, leaving 2022-2026 rulers missing from the Country-Year
 Chronicle output. The Wikidata SPARQL endpoint
 (``https://query.wikidata.org/sparql``, CC0 1.0) covers every modern
 country for every year and is the documented prototype backstop for
-the gap (per ``docs/source-attributions.md`` §1
+the gap (per ``docs/sources/attributions.md`` §1
 ``wikidata_heads_of_state_government``).
 
 The module is deliberately narrow:

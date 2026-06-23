@@ -10,7 +10,7 @@ Covers the full Phase C.10 contract for ``transparency_cpi``:
 6. DB writes (sources + source_observations + manifest).
 7. Idempotency (re-running deletes + re-inserts the same rows).
 8. Direct orchestrator (one call, all pieces wired).
-9. Attribution drift guard (code == docs/source-attributions.md).
+9. Attribution drift guard (code == docs/sources/attributions.md).
 10. Process boundary: changes to production wiring (URL
    builder, DB writer, manifest writer, dispatch table) cause
    observable failure in tests.
@@ -660,7 +660,7 @@ def test_ingest_transparency_cpi_missing_year_raises(
 
 
 def test_transparency_cpi_attribution_matches_attributions_doc() -> None:
-    """The code attribution text is byte-identical to docs/source-attributions.md.
+    """The code attribution text is byte-identical to docs/sources/attributions.md.
 
     Strengthens the drift guard: in addition to verifying that the
     attribution string appears 3+ times in the doc (section + cheat
@@ -678,7 +678,7 @@ def test_transparency_cpi_attribution_matches_attributions_doc() -> None:
     doc_path = (
         Path(__file__).resolve().parent.parent
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     assert doc_path.is_file(), (
         f"Source attributions doc not found: {doc_path}"
@@ -693,7 +693,7 @@ def test_transparency_cpi_attribution_matches_attributions_doc() -> None:
     )
     matches = pattern.findall(doc_text)
     assert len(matches) >= 3, (
-        "Expected >=3 occurrences in source-attributions.md "
+        "Expected >=3 occurrences in sources/attributions.md "
         "(section + cheat-sheet + summary table); got "
         f"{len(matches)}"
     )
@@ -725,7 +725,7 @@ def test_transparency_cpi_attribution_matches_attributions_doc() -> None:
         re.DOTALL,
     )
     assert section_match is not None, (
-        "transparency_cpi section not found in source-attributions.md"
+        "transparency_cpi section not found in sources/attributions.md"
     )
     section_text = section_match.group(0)
     assert "HDX" in section_text or "hdx" in section_text, (

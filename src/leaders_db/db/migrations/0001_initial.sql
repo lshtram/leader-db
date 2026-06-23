@@ -5,7 +5,7 @@
 --
 -- Database engine: SQLite (prototype). PostgreSQL-compatible. ``MONEY`` and
 -- other dialect-specific types are avoided in favor of ``INTEGER``, ``REAL``,
--- and ``TEXT``. See docs/database-schema.md.
+-- and ``TEXT``. See docs/architecture/database-schema.md.
 
 -- ---------------------------------------------------------------------------
 -- Reference / dimension tables

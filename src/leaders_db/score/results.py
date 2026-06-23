@@ -43,7 +43,7 @@ Immutability contract (mirrors ``evidence_plan.py``):
 - No mutable defaults. Module-level ``_EMPTY_*`` sentinels are immutable
   tuples shared across instances.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public field and method.
@@ -382,7 +382,7 @@ class ScoreResult:
         category keys in requirement §4.
     iso3:
         Country ISO3 code (the canonical country key per
-        ``docs/coding-guidelines.md``).
+        ``docs/process/coding-guidelines.md``).
     year:
         Target year the result is computed for (e.g. ``2023``).
         Must be in 1900..2100 to match the evidence contract.

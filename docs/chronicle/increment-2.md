@@ -70,7 +70,7 @@ Increment 0/1 docs.
 
 - **CSV writer** emits the Maddison + Archigos + REIGN
   attribution lines (alphabetical order, byte-identical to
-  `docs/source-attributions.md`). Drift guard lives in the
+  `docs/sources/attributions.md`). Drift guard lives in the
   Maddison Stage 2 test
   `test_maddison_project_attribution_matches_attributions_doc`.
 
@@ -116,7 +116,7 @@ Increment 0/1 docs.
   partial files in `data/outputs/` after a failed run.
 - **Attribution block** is the leading `#` comment lines.
   Each line is a byte-for-byte substring of
-  `docs/source-attributions.md` (drift-guarded by the
+  `docs/sources/attributions.md` (drift-guarded by the
   Maddison Stage 2 test).
 
 ## 3. Maddison source hygiene
@@ -125,7 +125,7 @@ Increment 0/1 docs.
   locally with the canonical SHA-256 of `mpd2023.xlsx`
   (`ecc5916ca12789b983fc4be437f8a354bbf4291323605324ac3e0aea4c57cbb6`).
   The bundle file `mpd2023.xlsx` (4.9 MB) is gitignored per
-  Always-On Rule #9 + `docs/local-data-store.md`.
+  Always-On Rule #9 + `docs/architecture/local-data-store.md`.
 - `STAGE2_ADAPTERS["maddison_project"]` is wired to
   `maddison_project.ingest_maddison_project`; the CLI command
   `leaders-db ingest-source --source maddison_project` runs the
@@ -238,7 +238,7 @@ Increment 0/1 docs.
   the real Maddison xlsx fixture + Archigos .dta fixture +
   REIGN csv fixture via the production loader chain;
   `sources_used` includes all three; CSV comment block is
-  byte-identical to the canonical `docs/source-attributions.md`
+  byte-identical to the canonical `docs/sources/attributions.md`
   strings; 3-country x 3-year smoke.
 
 - 13 tests in `tests/test_chronicle_sqlite.py` (NEW;
@@ -255,7 +255,7 @@ Increment 0/1 docs.
   attribution text): the canonical Chronicle constants
   (`MADDISON_PROJECT_ATTRIBUTION`, `REIGN_ATTRIBUTION`,
   `ARCHIGOS_ATTRIBUTION`) must each be a byte-identical
-  substring of `docs/source-attributions.md`; the CSV writer
+  substring of `docs/sources/attributions.md`; the CSV writer
   must emit the canonical text in the leading comment block;
   the literal CSV file produced by the runner must contain
   the canonical text.

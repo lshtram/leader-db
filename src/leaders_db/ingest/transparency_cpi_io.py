@@ -68,7 +68,7 @@ _logger = logging.getLogger(__name__)
 TRANSPARENCY_CPI_SOURCE_KEY: str = "transparency_cpi"
 
 #: Stable Transparency International CPI attribution block. The
-#: canonical text lives in ``docs/source-attributions.md``
+#: canonical text lives in ``docs/sources/attributions.md``
 #: (transparency_cpi section, lines 81-87 + the citation-cheat-sheet
 #: summary table row). This constant must be a substring of that
 #: doc; the

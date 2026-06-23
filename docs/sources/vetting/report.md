@@ -2,7 +2,7 @@
 
 > **Status: signed off; living source record.** This is the canonical Phase B deliverable. Phase C (data acquisition) is underway; addenda are recorded here as sources are recovered or newly adopted.
 >
-> The report is a clean summary of [`docs/source-vetting/worksheet.md`](worksheet.md) (the audit trail) and a by-rating-category view of the coverage. The attribution text per source is in [`docs/source-attributions.md`](../source-attributions.md).
+> The report is a clean summary of [`docs/sources/vetting/worksheet.md`](worksheet.md) (the audit trail) and a by-rating-category view of the coverage. The attribution text per source is in [`docs/sources/attributions.md`](../attributions.md).
 >
 > **Updated 2026-06-18 (addenda):** CIRIGHTS and BTI are now on disk; RSF Worldwide Press Freedom Index annual CSVs were acquired and added as a political-freedom sub-signal. Freedom House remains user-managed, not programmatically blocked forever.
 
@@ -35,7 +35,7 @@ The 8 rating categories are from requirement §4. Each must have at least **two 
 
 ## 3. Per-source verdict (26 external source entries)
 
-Verdicts are derived from the 10-check Phase B probe checklist in [`docs/source-vetting/plan.md`](plan.md).
+Verdicts are derived from the 10-check Phase B probe checklist in [`docs/sources/vetting/plan.md`](plan.md).
 
 ### 3.1 Leader identity (REQ-SRC-001)
 
@@ -167,11 +167,11 @@ Phase C (data acquisition) may begin once the following conditions are met:
 
 - [x] Every priority source has a row in this report with a verdict.
 - [x] Every rating category has at least 2 distinct datasets.
-- [x] Every `vetted_ok` / `vetted_with_caveats` source has a canonical URL in `docs/data-sources.md`.
-- [x] Every `blocked` source has a documented blocker in `docs/data-sources.md`.
+- [x] Every `vetted_ok` / `vetted_with_caveats` source has a canonical URL in `docs/sources/registry.md`.
+- [x] Every `blocked` source has a documented blocker in `docs/sources/registry.md`.
 - [x] Every `metadata.json` placeholder is updated with the verified `source_url`.
 - [x] The V-Dem v16 file is on disk with SHA-256 captured.
-- [x] Every per-source attribution block is captured in `docs/source-attributions.md` with citation text and license.
+- [x] Every per-source attribution block is captured in `docs/sources/attributions.md` with citation text and license.
 - [x] **User sign-off on this report** — signed off 2026-06-17; later addenda remain living updates.
 
 ## 8. Phase C implications
@@ -232,9 +232,9 @@ These are gitignored working files; they are evidence that the probes happened, 
 
 ## 10. Sign-off
 
-The user signed off on Phase B on 2026-06-17 and the workplan moved the active-phase indicator from **B** to **C**. This report now acts as a living source record; addenda such as CIRIGHTS, BTI, and RSF are reflected here and in [`docs/workplan.md`](../workplan.md)'s Done History.
+The user signed off on Phase B on 2026-06-17 and the workplan moved the active-phase indicator from **B** to **C**. This report now acts as a living source record; addenda such as CIRIGHTS, BTI, and RSF are reflected here and in [`docs/workplan.md`](../../workplan.md)'s Done History.
 
-If anything in this report is wrong (a wrong verdict, a missing source, a wrong replacement, a category under-served), fix it inline in `worksheet.md` and `../source-attributions.md` before signing off — do not sign off and then patch.
+If anything in this report is wrong (a wrong verdict, a missing source, a wrong replacement, a category under-served), fix it inline in `worksheet.md` and `../attributions.md` before signing off — do not sign off and then patch.
 
 ## 11. The 8 rating categories — definitions and required sources
 

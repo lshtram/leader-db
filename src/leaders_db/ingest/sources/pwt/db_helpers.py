@@ -230,7 +230,7 @@ def register_pwt_source(
                 or (
                     "Creative Commons Attribution 4.0 International "
                     "(CC BY 4.0); cite Feenstra, Inklaar, Timmer "
-                    "2015 per docs/source-attributions.md."
+                    "2015 per docs/sources/attributions.md."
                 ),
             ),
             coverage_start_year=1950,
@@ -239,7 +239,7 @@ def register_pwt_source(
                 "Stage 2 adapter implemented in Phase C.12 "
                 "(Penn World Table 10.01). Indicator catalog at "
                 "src/leaders_db/ingest/sources/pwt/catalog.csv. "
-                "See docs/source-attributions.md for the exact "
+                "See docs/sources/attributions.md for the exact "
                 "citation text. PWT 10.01 covers 1950-2019; "
                 "year=2023 requests produce zero observations + "
                 "a requested_year_out_of_coverage manifest "

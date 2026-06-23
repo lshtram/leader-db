@@ -98,7 +98,7 @@ def register_wgi_source(session: Session) -> int:
             notes=(
                 "Stage 2 adapter implemented in Phase C. Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/wgi.csv. See "
-                "docs/source-attributions.md for the exact citation text."
+                "docs/sources/attributions.md for the exact citation text."
             ),
         )
         session.add(row)

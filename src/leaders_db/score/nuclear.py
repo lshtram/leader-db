@@ -174,7 +174,7 @@ observation cannot influence any artefact even if a
 contaminated bundle reaches the scorer. See AGENTS.md
 always-on rule #6.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

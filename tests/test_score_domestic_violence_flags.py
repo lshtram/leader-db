@@ -31,7 +31,7 @@ in :mod:`tests.test_score_domestic_violence_insufficient_flags`.
 The happy-path tests live in
 :mod:`tests.test_score_domestic_violence`.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

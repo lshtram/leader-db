@@ -1,7 +1,7 @@
 """The :class:`CategorySourcePlan` — the expected source set for one
 rating category (Stage 5 input).
 
-Aligns with ``docs/architecture.md`` §"Evidence Bundle Contract"
+Aligns with ``docs/architecture/overview.md`` §"Evidence Bundle Contract"
 (``CategorySourcePlan`` block) and REQ-SCORE-004 ("category source
 plans shall define required, preferred, and fallback indicators;
 minimum viable source thresholds; default weights; directionality;

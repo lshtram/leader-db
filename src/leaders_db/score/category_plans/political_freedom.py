@@ -5,7 +5,7 @@ The plan enumerates the canonical sources and indicators for the
 requirement §4. Per requirement §6 the canonical sources are V-Dem
 (531-indicator expert-coded), Polity V (1800-2018), and RSF
 press freedom. Freedom House is "user-managed" (per
-``docs/source-vetting-report.md`` §3.4) and Polity V is "yet to be
+``docs/sources/vetting/report.md`` §3.4) and Polity V is "yet to be
 implemented" in Stage 2; the plan ships with V-Dem + RSF + BTI
 (Bertelsmann Transformation Index) until the remaining Stage 2
 adapters land. BTI is the third source because its 7 political-

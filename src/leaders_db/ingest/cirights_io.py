@@ -99,14 +99,14 @@ _logger = logging.getLogger(__name__)
 CIRIGHTS_SOURCE_KEY: str = "cirights"
 
 #: Stable CIRIGHTS attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (cirights entry). This constant
+#: ``docs/sources/attributions.md`` (cirights entry). This constant
 #: must be a substring of that doc; the
 #: :func:`test_cirights_attribution_matches_attributions_doc` test
 #: enforces byte-for-byte consistency (Always-On Rule #15). The
 #: constant lives here to break the import cycle: ``cirights_db``
 #: imports it from us, and ``cirights`` re-exports it. The exact
 #: string matches the per-source entry in
-#: ``docs/source-attributions.md` §1 ``cirights`` (the Stage 15
+#: ``docs/sources/attributions.md` §1 ``cirights`` (the Stage 15
 #: "Attribution text in reports" line).
 CIRIGHTS_ATTRIBUTION: str = (
     "CIRI Human Rights Data Project v3.12.10.24 "

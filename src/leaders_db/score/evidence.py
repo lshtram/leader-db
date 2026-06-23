@@ -42,7 +42,7 @@ the other ten public names) keeps working unchanged across the split.
 
 Why frozen dataclasses (not Pydantic):
 
-- The architecture document (``docs/architecture.md`` §"Evidence Bundle
+- The architecture document (``docs/architecture/overview.md`` §"Evidence Bundle
   Contract") says "Pydantic or typed dataclasses". The ``score/`` package
   already uses ``@dataclass(frozen=True)`` for internal typed payloads
   (see ``confidence.py``); the strict Pydantic boundary in this codebase
@@ -68,7 +68,7 @@ Immutability contract (REQ-NFR-AUDIT-001, REQ-SCORE-004):
   mutation of the caller's container cannot leak into the bundle. Item
   assignment on the bundle's metadata raises ``TypeError``.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - Type hints on every public field and method.
 - ``from __future__ import annotations`` for forward-reference safety.

@@ -7,7 +7,7 @@ political freedom deterministic scorer. The facade in
 :func:`detect_flags`, and :func:`build_rationale` to assemble the
 :class:`~leaders_db.score.results.ScoreResult` payload.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

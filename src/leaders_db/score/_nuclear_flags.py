@@ -42,7 +42,7 @@ imply a numeric score on this path (the contract requires
 ``system_proposed_score_1_10 is None``; a non-nuclear state
 must never receive an invented numeric score).
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.

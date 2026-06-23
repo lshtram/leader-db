@@ -103,7 +103,7 @@ def register_sipri_milex_source(session: Session) -> int:
             notes=(
                 "Stage 2 adapter implemented in Phase C. See "
                 "src/leaders_db/ingest/catalogs/sipri_milex.csv and "
-                "docs/source-attributions.md."
+                "docs/sources/attributions.md."
             ),
         )
         session.add(row)

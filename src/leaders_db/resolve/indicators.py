@@ -33,7 +33,7 @@ seam. It:
    :func:`leaders_db.score.source_plans.canonical_source_key`.
    Client 2023 matrix sources are excluded at the name level and
    can never appear in the bundle (requirement §3, §9, §12;
-   ``docs/architecture.md`` §"Client matrix invariants").
+   ``docs/architecture/overview.md`` §"Client matrix invariants").
 3. For each expected indicator, queries
    ``source_observations`` joined to ``sources`` and
    ``countries`` (via the canonical ORM models) **scoped to the
@@ -97,7 +97,7 @@ The legacy ``data/metadata/indicator_catalog.csv`` path mentioned
 in earlier drafts is **not** the canonical location; it should be
 re-derived from the per-source catalogs when Phase E lands.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public function parameter and return.

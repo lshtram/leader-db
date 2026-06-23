@@ -42,7 +42,7 @@ was inserted first. Tests in
 deterministic contract by inserting tied candidates in different
 orders and asserting the same selected row.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public function parameter and return.

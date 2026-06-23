@@ -28,7 +28,7 @@ Scope
 -----
 
 The prototype ships plans for **all 8** categories from requirement
-§4 (``docs/req/top-level-requirements.md`` §4):
+§4 (``docs/requirements/top-level-requirements.md`` §4):
 
 1. ``nuclear`` — FAS nuclear forces + SIPRI Yearbook Ch.7.
 2. ``international_peace`` — UCDP state-based events/fatalities +
@@ -72,7 +72,7 @@ Client-supplied sources — the 2023 matrix the client sent us, staged
 under ``data/raw/client_existing/`` — are **explicitly excluded**:
 the matrix is the reference for validation, not an independent
 source of structured evidence (requirement §3, §9, §12;
-``docs/architecture.md`` §"Client matrix invariants"). The
+``docs/architecture/overview.md`` §"Client matrix invariants"). The
 exclusion has two layers (defense in depth):
 
 1. The source key is in :data:`EXCLUDED_SOURCE_KEYS`.
@@ -108,7 +108,7 @@ silently dropped, and ``vdem_v2x_corr`` is flagged as
 declared; adding a new indicator means declaring both the
 variable name and the owning source.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Public functions carry type hints on every parameter and return.
@@ -198,7 +198,7 @@ EXCLUDED_SOURCE_NAME_SUBSTRINGS: tuple[str, ...] = ("client",)
 #: but not premium" — sources passed the source-vetting report but
 #: we are not yet making a per-source claim. A future phase may
 #: replace this with a per-source override dict derived from
-#: ``docs/source-vetting-report.md``.
+#: ``docs/sources/vetting/report.md``.
 DEFAULT_AUTHORITY_SCORE: int = 70
 
 #: Conservative default specificity score (component 3 of the §11

@@ -1,6 +1,6 @@
 # Local data lake
 
-This folder is governed by [`docs/local-data-store.md`](../docs/local-data-store.md).
+This folder is governed by [`docs/architecture/local-data-store.md`](../docs/architecture/local-data-store.md).
 Layout:
 
 - `raw/<source>/` — immutable downloaded files + per-source `metadata.json`.

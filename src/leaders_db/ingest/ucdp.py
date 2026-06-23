@@ -11,12 +11,12 @@ adapter that requires aggregation logic.
 UCDP is distributed under a free academic license per the
 `UCDP Terms of Use <https://ucdp.uu.se/terms-of-use/>`_. The canonical
 attribution text is the citation block in
-:file:`docs/source-attributions.md` (ucdp section), exposed as the
+:file:`docs/sources/attributions.md` (ucdp section), exposed as the
 :data:`UCDP_ATTRIBUTION` constant (re-exported from
 :mod:`leaders_db.ingest.ucdp_io`).
 
 The adapter is split across four modules for clarity (each under the
-400-line convention from :file:`docs/coding-guidelines.md`):
+400-line convention from :file:`docs/process/coding-guidelines.md`):
 
 - :mod:`leaders_db.ingest.ucdp_io` -- catalog, zip read, parquet
   write. Owns :data:`UCDP_ATTRIBUTION`, :data:`UCDP_SOURCE_KEY`, the
@@ -63,7 +63,7 @@ The orchestrator is idempotent: re-running it deletes and re-inserts
 the ``source_observations`` rows for the requested year(s) only.
 
 Per Rule #15, the attribution text returned by :func:`attribution` is
-the exact wording from ``docs/source-attributions.md``; if the
+the exact wording from ``docs/sources/attributions.md``; if the
 attributions doc is updated, the same change must be made here in
 the same commit. The
 :func:`test_ucdp_attribution_matches_attributions_doc` test enforces
@@ -186,7 +186,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches UCDP data must include this block
     verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return UCDP_ATTRIBUTION
 

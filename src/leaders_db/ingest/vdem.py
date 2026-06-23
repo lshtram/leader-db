@@ -6,7 +6,7 @@ country-year rows per version, 4618 columns) and released annually under
 a free academic license.
 
 The adapter is split across three modules for clarity (each under the
-400-line convention from :file:`docs/coding-guidelines.md`):
+400-line convention from :file:`docs/process/coding-guidelines.md`):
 
 - :mod:`leaders_db.ingest.vdem_io`     -- catalog, CSV read, parquet write.
 - :mod:`leaders_db.ingest.vdem_db`     -- source/observation DB writes,
@@ -41,7 +41,7 @@ The orchestrator is idempotent: re-running it deletes and re-inserts
 the ``source_observations`` rows for the requested year(s).
 
 Per Rule #15, the attribution text returned by :func:`attribution` is
-the exact wording from ``docs/source-attributions.md``; if the
+the exact wording from ``docs/sources/attributions.md``; if the
 attributions doc is updated, the same change must be made here in the
 same commit. The :func:`test_vdem_attribution_matches_attributions_doc`
 test enforces that the code and the doc are byte-for-byte consistent.
@@ -89,7 +89,7 @@ class IngestResult(BaseModel):
     manifest writer in :mod:`vdem_db` also consumes the same fields.
     Pydantic v2 models are the standard for any payload that crosses
     a file, CLI, provider, or artifact boundary
-    (:file:`docs/coding-guidelines.md` § Python Standards).
+    (:file:`docs/process/coding-guidelines.md` § Python Standards).
     """
 
     source_id: int = Field(..., ge=1, description="The ``sources.id`` row created/updated.")
@@ -134,7 +134,7 @@ def attribution() -> str:
     Per AGENTS.md Always-On Rule #15, every public output (Stage 15
     report, manual-review queue, exported CSV, run log, CLI end-of-run
     echo) that touches V-Dem data must include this block verbatim. The
-    exact wording is the one in ``docs/source-attributions.md``; do not
+    exact wording is the one in ``docs/sources/attributions.md``; do not
     paraphrase.
     """
     return VDEM_ATTRIBUTION

@@ -659,7 +659,7 @@ def test_ingest_maddison_project_result_carries_attribution(
 
 def test_maddison_project_attribution_matches_attributions_doc() -> None:
     """The attribution text must be a substring of
-    ``docs/source-attributions.md`` (drift guard, Rule #15).
+    ``docs/sources/attributions.md`` (drift guard, Rule #15).
 
     If the source-attribution wording changes in the doc but the
     module-level constant does not, this test fails -- forcing
@@ -668,7 +668,7 @@ def test_maddison_project_attribution_matches_attributions_doc() -> None:
     doc_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert maddison_project.MADDISON_PROJECT_ATTRIBUTION in doc_text, (

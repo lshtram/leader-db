@@ -4,11 +4,11 @@ all-countries CSV writer.
 The mapping below is the **single source of truth** for which
 external sources a Stage 9 public-output CSV must declare under
 its `# Attribution: ...` comment block (per AGENTS.md rule #15 and
-``docs/source-attributions.md`` §3.2 / §3.6). The mapping is
+``docs/sources/attributions.md`` §3.2 / §3.6). The mapping is
 normative:
 
 - The ``attribution_text`` strings are the **"Attribution text in
-  reports"** strings from ``docs/source-attributions.md`` §1,
+  reports"** strings from ``docs/sources/attributions.md`` §1,
   byte-for-byte. Do NOT paraphrase or invent — the doc is the
   canonical reference.
 - The keys in each category's tuple are the canonical source keys
@@ -20,7 +20,7 @@ normative:
   <leaders_db.score.category_plans.integrity.INTEGRITY_PLAN>`).
 - ``client_existing`` is **never** listed. The client 2023 matrix
   is the validation reference, not an evidence source (always-on
-  rule #6, ``docs/source-attributions.md`` §3.1: the
+  rule #6, ``docs/sources/attributions.md`` §3.1: the
   ``client_existing`` line is included only for reports that quote
   or compare against client values).
 
@@ -41,7 +41,7 @@ other module changes are needed because the writer
 this mapping through the :func:`build_attribution_comment_lines`
 helper.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference
   safety.
@@ -58,7 +58,7 @@ from typing import Final
 # Comment line prefix
 # ---------------------------------------------------------------------------
 #
-# Per ``docs/source-attributions.md`` §3.2 the manual-review queue
+# Per ``docs/sources/attributions.md`` §3.2 the manual-review queue
 # CSV uses a ``# Sources: ...`` comment line; we adopt the same
 # prefix for the Stage 9 all-countries CSV so any downstream
 # consumer can treat both files the same way (skip lines starting

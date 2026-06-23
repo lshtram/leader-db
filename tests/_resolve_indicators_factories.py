@@ -20,7 +20,7 @@ helpers re-use an existing row when one is already present).
 The leading underscore in the module name keeps pytest from
 collecting it as a test file.
 
-Style invariants (per ``docs/coding-guidelines.md``):
+Style invariants (per ``docs/process/coding-guidelines.md``):
 
 - ``from __future__ import annotations`` for forward-reference safety.
 - Type hints on every public helper parameter and return.

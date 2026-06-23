@@ -186,7 +186,7 @@ def _build_chronicle_insert_sql(table_name: str) -> tuple[str, tuple[str, ...]]:
 #: sidecar table. This is the byte-for-byte canonical mapping; the
 #: drift-guard tests in :mod:`tests.test_chronicle_constants`
 #: confirm each line is a substring of
-#: ``docs/source-attributions.md``.
+#: ``docs/sources/attributions.md``.
 SOURCE_ATTRIBUTIONS: dict[str, str] = {
     "archigos": ARCHIGOS_ATTRIBUTION,
     "cshapes": CSHAPES_ATTRIBUTION,

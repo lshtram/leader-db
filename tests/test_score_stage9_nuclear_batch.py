@@ -19,7 +19,7 @@ The companion unit test for the same contract (without the CSV
 layer) lives in :mod:`tests.test_score_nuclear_insufficient_flags`
 under the focused-file convention.
 
-Style invariants (per ``docs/coding-guidelines.md``): type
+Style invariants (per ``docs/process/coding-guidelines.md``): type
 hints, no ``print()``, no ``TODO(debug)``, no scratch code.
 """
 

@@ -2,7 +2,7 @@
 
 This is the working document for Phase B. It records per-source findings
 as the agent researches each priority source. The final report at
-`docs/source-vetting/report.md` is a clean summary of this worksheet.
+`docs/sources/vetting/report.md` is a clean summary of this worksheet.
 
 Conventions:
 
@@ -588,7 +588,7 @@ The CIA World Factbook and its World Leaders page have been retired. The link `h
 - File: `data/raw/vdem/V-Dem-CY-FullOthers-v16_csv.zip` (26.8MB)
 - Unzipped: `V-Dem-CY-Full+Others-v16.csv` (388MB)
 - 28,093 rows × 202 countries, year range 1789–2025, **179 country-year rows for 2023** specifically.
-- Suggested citation captured from the included `suggested_citation.pdf`; see `docs/source-attributions.md`.
+- Suggested citation captured from the included `suggested_citation.pdf`; see `docs/sources/attributions.md`.
 
 ### 2026-06-17 — Wikidata SPARQL verified
 

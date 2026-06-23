@@ -10,7 +10,7 @@ Physical Integrity Rights (PIR) + Repression + Civil-Political
 Rights indices documented in the catalog.
 
 The adapter is split across four modules for clarity (each under
-the 400-line convention from :file:`docs/coding-guidelines.md`):
+the 400-line convention from :file:`docs/process/coding-guidelines.md`):
 
 - :mod:`leaders_db.ingest.cirights_io` -- catalog, path helpers,
   parquet write, read orchestrator. Owns :data:`CIRIGHTS_ATTRIBUTION`,
@@ -88,7 +88,7 @@ constants in :mod:`cirights_io`; the manifest records the
 
 Per Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md`; if the attributions doc is updated,
+``docs/sources/attributions.md`; if the attributions doc is updated,
 the same change must be made here in the same commit. The
 :func:`test_cirights_attribution_matches_attributions_doc` test
 enforces that the code and the doc are byte-for-byte consistent.
@@ -160,7 +160,7 @@ class CirightsIngestResult(BaseModel):
     end-of-run summary. The manifest writer in :mod:`cirights_db`
     consumes the same fields. Pydantic v2 models are the standard
     for any payload that crosses a file, CLI, provider, or artifact
-    boundary (``docs/coding-guidelines.md`` § Python Standards).
+    boundary (``docs/process/coding-guidelines.md`` § Python Standards).
 
     Same shape as the WGI :class:`WGIIngestResult`, the SIPRI
     Yearbook Ch.7 :class:`SipriYearbookCh7IngestResult`, the PTS
@@ -268,7 +268,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI
     end-of-run echo) that touches CIRIGHTS data must include this
     block verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return CIRIGHTS_ATTRIBUTION
 
@@ -348,7 +348,7 @@ def ingest_cirights(
         proxy_year_semantics = (
             f"year={CIRIGHTS_PROXY_REQUESTED_YEAR} -> "
             f"data_year={CIRIGHTS_PROXY_YEAR} (1-year-gap proxy, "
-            "per docs/source-vetting-report.md §3.8 + the same "
+            "per docs/sources/vetting/report.md §3.8 + the same "
             "pattern as UNDP HDI and Leader Survival)"
         )
 

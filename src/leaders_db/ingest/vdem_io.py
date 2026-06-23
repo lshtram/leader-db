@@ -36,7 +36,7 @@ _logger = logging.getLogger(__name__)
 VDEM_SOURCE_KEY = "vdem"
 
 #: Stable V-Dem attribution block. The canonical text lives in
-#: ``docs/source-attributions.md`` (V-Dem section). This constant must
+#: ``docs/sources/attributions.md`` (V-Dem section). This constant must
 #: be a substring of that doc; the
 #: :func:`test_vdem_attribution_matches_attributions_doc` test enforces
 #: the byte-for-byte consistency. The constant lives in ``vdem_io`` to

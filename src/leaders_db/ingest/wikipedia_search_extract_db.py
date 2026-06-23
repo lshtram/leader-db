@@ -135,7 +135,7 @@ def register_wikipedia_search_extract_source(session: Session) -> int:
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/"
                 "wikipedia_search_extract.csv. See "
-                "docs/source-attributions.md for the exact "
+                "docs/sources/attributions.md for the exact "
                 "attribution text. Wikipedia Action API is "
                 "JSON-backed (no auth, public) with a mandatory "
                 "descriptive User-Agent header per the Wikimedia "

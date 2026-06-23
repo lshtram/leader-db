@@ -131,7 +131,7 @@ def register_wikidata_heads_of_state_government_source(
                 "Indicator catalog at "
                 "src/leaders_db/ingest/catalogs/"
                 "wikidata_heads_of_state_government.csv. See "
-                "docs/source-attributions.md for the exact "
+                "docs/sources/attributions.md for the exact "
                 "attribution text. Wikidata SPARQL endpoint is "
                 "JSON-backed (CC0 1.0, public, no auth) with a "
                 "mandatory descriptive User-Agent header per the "

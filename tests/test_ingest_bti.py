@@ -810,7 +810,7 @@ def test_attribution_matches_constant() -> None:
     Per the deliverable spec, the attribution text must be the **short
     form** ``"BTI 2026 (Bertelsmann Stiftung 2026)."`` -- the canonical
     "Attribution text in reports" line in
-    ``docs/source-attributions.md`` (not the long citation form).
+    ``docs/sources/attributions.md`` (not the long citation form).
     """
     assert bti.attribution() == bti.BTI_ATTRIBUTION
     assert bti.attribution() == "BTI 2026 (Bertelsmann Stiftung 2026)."
@@ -819,14 +819,14 @@ def test_attribution_matches_constant() -> None:
 
 
 def test_bti_attribution_matches_attributions_doc() -> None:
-    """BTI_ATTRIBUTION is byte-identical to the citation in docs/source-attributions.md.
+    """BTI_ATTRIBUTION is byte-identical to the citation in docs/sources/attributions.md.
 
     Per AGENTS.md Always-On Rule #15, the code's attribution text and
     the doc's citation text must be byte-for-byte consistent. If
     either changes, both must be updated in the same commit.
     """
     doc_path = (
-        Path(__file__).resolve().parents[1] / "docs" / "source-attributions.md"
+        Path(__file__).resolve().parents[1] / "docs" / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert bti.BTI_ATTRIBUTION in doc_text, (

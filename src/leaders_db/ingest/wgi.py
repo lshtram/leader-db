@@ -44,7 +44,7 @@ The orchestrator is idempotent: re-running it deletes and re-inserts
 the ``source_observations`` rows for the requested year(s) only.
 
 Per Rule #15, the attribution text returned by :func:`attribution` is
-the exact wording from ``docs/source-attributions.md``; if the
+the exact wording from ``docs/sources/attributions.md``; if the
 attributions doc is updated, the same change must be made here in
 the same commit. The
 :func:`test_wgi_attribution_matches_attributions_doc` test enforces
@@ -96,7 +96,7 @@ class WGIIngestResult(BaseModel):
     manifest writer in :mod:`wgi_db` also consumes the same fields.
     Pydantic v2 models are the standard for any payload that crosses
     a file, CLI, provider, or artifact boundary
-    (:file:`docs/coding-guidelines.md` § Python Standards).
+    (:file:`docs/process/coding-guidelines.md` § Python Standards).
 
     Unlike the WDI :class:`wdi.WDIIngestResult`, this model does not
     carry ``indicators_cached`` / ``indicators_fetched`` because WGI
@@ -148,7 +148,7 @@ def attribution() -> str:
     Per AGENTS.md Always-On Rule #15, every public output (Stage 15
     report, manual-review queue, exported CSV, run log, CLI end-of-run
     echo) that touches WGI data must include this block verbatim. The
-    exact wording is the one in ``docs/source-attributions.md``; do not
+    exact wording is the one in ``docs/sources/attributions.md``; do not
     paraphrase.
     """
     return WGI_ATTRIBUTION

@@ -66,7 +66,7 @@ only.
 
 Per Always-On Rule #15, the attribution text returned by
 :func:`attribution` is the exact wording from
-``docs/source-attributions.md``; the
+``docs/sources/attributions.md``; the
 :func:`test_maddison_project_attribution_matches_attributions_doc`
 test enforces byte-for-byte consistency.
 """
@@ -120,7 +120,7 @@ class MaddisonProjectIngestResult(BaseModel):
     The manifest writer in :mod:`maddison_project_db` also
     consumes the same fields. Pydantic v2 models are the standard
     for any payload that crosses a file, CLI, provider, or
-    artifact boundary (``docs/coding-guidelines.md`` § Python
+    artifact boundary (``docs/process/coding-guidelines.md`` § Python
     Standards).
 
     Carries the ``year_window`` so the CLI can print the proxy /
@@ -216,7 +216,7 @@ def attribution() -> str:
     report, manual-review queue, exported CSV, run log, CLI end-of-
     run echo) that touches Maddison Project data must include this
     block verbatim. The exact wording is the one in
-    ``docs/source-attributions.md``; do not paraphrase.
+    ``docs/sources/attributions.md``; do not paraphrase.
     """
     return MADDISON_PROJECT_ATTRIBUTION
 

@@ -6,7 +6,7 @@ The per-source registry for `data/raw/<source>/`. Each source gets its own folde
 
 - One folder per source: `data/raw/<source_key>/`.
 - Folder names are lowercase snake_case matching the import module (`src/leaders_db/ingest/<source_key>.py`).
-- `metadata.json` shape is the example from `req/top-level-requirements.md` §5:
+- `metadata.json` shape is the example from `requirements/top-level-requirements.md` §5:
 
 ```json
 {
@@ -28,11 +28,15 @@ The per-source registry for `data/raw/<source>/`. Each source gets its own folde
   - **Using now**: sources with implemented or planned Stage 2 ingestion for current prototype scoring.
   - **Need / future**: sources identified by the question-bank design as necessary to answer uncovered or weakly covered questions; not yet vetted or implemented.
   - **Blocked / user-managed**: sources that are useful but need manual acquisition, permissions, or a substitute.
-- The source-by-source implementation backlog and modular adapter interface plan lives in [`source-ingestion-plan.md`](source-ingestion-plan.md).
+- Historical/prototype source-by-source implementation notes live in
+  [`ingestion-plan.md`](ingestion-plan.md). Future source-interface
+  work is governed by the clean source architecture in
+  [`../architecture/sources.md`](../architecture/sources.md) and the testable
+  requirements in [`../requirements/sources.md`](../requirements/sources.md).
 
 ## Priority Source Registry (requirement §6)
 
-**Updated 2026-06-21 with ranking-question gap addenda.** The "Verdict" column reflects the per-source verdict. The Phase B report (`source-vetting/report.md`) is restructured by **rating category** to make the "at least 2 sources per category" rule visible. Future rows in this file are intentionally allowed: they track sources we now know we need, even before Phase B-style vetting and Stage 2 implementation.
+**Updated 2026-06-21 with ranking-question gap addenda.** The "Verdict" column reflects the per-source verdict. The Phase B report (`sources/vetting/report.md`) is restructured by **rating category** to make the "at least 2 sources per category" rule visible. Future rows in this file are intentionally allowed: they track sources we now know we need, even before Phase B-style vetting and Stage 2 implementation.
 
 Verdicts: ✅ vetted_ok / ⚠️ vetted_with_caveats / ❌ blocked / ⏸️ deferred.
 
@@ -166,11 +170,17 @@ The system must **not** invent authority weights in a one-off script. Add or cha
 
 ## Adding a new source
 
+The steps below describe the legacy/prototype Stage 2 path. For new work, prefer
+the `leaders_db.sources` path defined in [`../architecture/sources.md`](../architecture/sources.md)
+and [`../requirements/sources.md`](../requirements/sources.md). Keep this
+legacy checklist only when maintaining or comparing old `src/leaders_db/ingest/`
+adapters.
+
 1. Create `data/raw/<source_key>/` with a placeholder `metadata.json` (`ingestion_status: pending`).
 2. Add a module `src/leaders_db/ingest/<source_key>.py` with a `download_<source_key>()` and `ingest_<source_key>()` entrypoint.
 3. Add a CLI command if it is a new top-level source (`leaders-db ingest-source --source <source_key>`).
 4. Update this file's registry table.
 5. Add tests under `tests/test_ingest_<source_key>.py`.
-6. Update `docs/req/requirements-core.md` with any new REQ-* lines.
+6. Update `docs/requirements/core.md` with any new REQ-* lines.
 
-See [`AGENTS.md`](../AGENTS.md) §3 (read before edit) and the always-on rules #1–#6 for the surrounding discipline.
+See [`AGENTS.md`](../../AGENTS.md) §3 (read before edit) and the always-on rules #1–#6 for the surrounding discipline.

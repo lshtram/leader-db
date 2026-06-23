@@ -898,14 +898,14 @@ def test_attribution_matches_constant() -> None:
 
 
 def test_sipri_milex_attribution_matches_attributions_doc() -> None:
-    """SIPRI_MILEX_ATTRIBUTION is a substring of docs/source-attributions.md (drift guard).
+    """SIPRI_MILEX_ATTRIBUTION is a substring of docs/sources/attributions.md (drift guard).
 
     Per AGENTS.md Always-On Rule #15, the code's attribution text and the
     doc's citation text must be byte-for-byte consistent. If either changes,
     both must be updated in the same commit.
     """
     doc_path = (
-        Path(__file__).resolve().parents[1] / "docs" / "source-attributions.md"
+        Path(__file__).resolve().parents[1] / "docs" / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert SIPRI_MILEX_ATTRIBUTION in doc_text, (

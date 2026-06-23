@@ -1212,7 +1212,7 @@ def test_attribution_matches_constant() -> None:
 
 
 def test_wikipedia_attribution_matches_attributions_doc() -> None:
-    """``WIKIPEDIA_SEARCH_EXTRACT_ATTRIBUTION`` is a substring of ``docs/source-attributions.md``.
+    """``WIKIPEDIA_SEARCH_EXTRACT_ATTRIBUTION`` is a substring of ``docs/sources/attributions.md``.
 
     Per AGENTS.md Always-On Rule #15, the code's attribution text
     and the doc's citation text must be byte-for-byte consistent.
@@ -1220,7 +1220,7 @@ def test_wikipedia_attribution_matches_attributions_doc() -> None:
     doc_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
-        / "source-attributions.md"
+        / "sources/attributions.md"
     )
     doc_text = doc_path.read_text(encoding="utf-8")
     assert (
