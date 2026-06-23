@@ -33,6 +33,7 @@ from . import (
     rsf_press_freedom,
     sipri_milex,
     sipri_yearbook_ch7,
+    sources,
     transparency_cpi,
     ucdp,
     undp_hdi,
@@ -80,10 +81,14 @@ STAGE2_ADAPTERS: dict[str, Callable[..., Any] | None] = {
     "maddison_project": maddison_project.ingest_maddison_project,
     # Blocked on raw bundle (raw file not staged locally; per Always-On
     # Rule #6 we never invent fixtures). Adapters will be implemented in
-    # Phase C.10+ once the user stages ``p5v2018.sav`` / ``pwt100.xlsx``
+    # Phase C.10+ once the user stages ``p5v2018.sav`` /
     # at ``data/raw/<source>/`` with a ``metadata.json``.
     "polity_v": None,
-    "pwt": None,
+    # PWT 10.01 Stage 2 adapter (Phase C.12). Source-hygiene complete;
+    # shared ``SourceAdapter`` Protocol + per-source package layout
+    # implemented (src/leaders_db/ingest/sources/pwt/). The dispatch
+    # entry delegates to the package's public ``ingest_pwt`` orchestrator.
+    "pwt": sources.pwt.ingest_pwt,
     # Demscore H-DATA v5 has a manual form/email/gender gate; raw file
     # is not staged in this environment (data/raw/leader_survival/ has
     # only a placeholder ``.gitkeep``). No code until the user stages

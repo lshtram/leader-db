@@ -159,7 +159,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `pwt` — Penn World Table 10.01
 
-- **What we extract:** real GDP, GDP per capita (PPP), capital stock, labor input, TFP. Per-country-year, 183 economies.
+- **What we extract:** real GDP expenditure-side (`rgdpe`) and output-side (`rgdpo`) at chained PPPs, population (`pop`), employment (`emp`), average annual hours worked (`avh`), human capital index (`hc`), real consumption (`ccon`), capital depreciation (`cda`), TFP (`ctfp`, `rtfpna`), and capital stock (`rkna`). Per-country-year, 183 economies.
 - **License:** Creative Commons Attribution 4.0 International (CC BY 4.0); cite Feenstra, Inklaar, Timmer.
 - **Citation:**
   > Feenstra, Robert C., Robert Inklaar, and Marcel P. Timmer. 2015. "The Next Generation of the Penn World Table." *American Economic Review* 105(10): 3150–3182.
@@ -322,8 +322,8 @@ For each source below, the reason it was not used and the substitute decision.
 
 ### `pwt_maddison` — superseded combined historical-economic candidate
 
-- **Status:** 🟢 split into active / still-pending sources.
-- **Why:** the earlier combined placeholder bundled two distinct economic sources. Maddison Project Database 2023 is now adopted as `maddison_project` for historical real-economy coverage (see Section 1). Penn World Table remains tracked separately as `pwt`; its raw file and metadata are now staged, while the Stage 2 adapter is still pending.
+- **Status:** 🟢 split into active sources.
+- **Why:** the earlier combined placeholder bundled two distinct economic sources. Maddison Project Database 2023 is now adopted as `maddison_project` for historical real-economy coverage (see Section 1). Penn World Table is now adopted as `pwt` (see Section 1); its raw file and metadata are staged and the Stage 2 adapter is implemented + wired (`STAGE2_ADAPTERS["pwt"]` -> `leaders_db.ingest.sources.pwt.ingest_pwt`).
 
 ### `chicago_aisd` / `acled` — auxiliary violence sources
 

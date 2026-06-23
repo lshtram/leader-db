@@ -1,0 +1,42 @@
+# Penn World Table 10.01 indicator catalog
+#
+# Source: Feenstra, Robert C., Robert Inklaar, and Marcel P. Timmer (2015),
+#   "The Next Generation of the Penn World Table", American Economic Review
+#   105(10): 3150-3182. DOI: 10.1257/aer.20130954.
+# Canonical page: https://www.rug.nl/ggdc/productivity/pwt/pwt-releases/pwt1001
+# Direct download: https://www.rug.nl/ggdc/productivity/pwt/pwt-releases/pwt1001
+# License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+#   (https://creativecommons.org/licenses/by/4.0/)
+# Attribution: see docs/source-attributions.md §pwt
+#
+# This file is the single source of truth for which PWT indicators are
+# read in Stage 2. Every Stage 2 pwt adapter call resolves its
+# ``raw_column`` from this file. Adding/removing an indicator here is the
+# only change needed to widen or narrow the PWT ingestion for the
+# prototype. The Stage 2 transform MUST be catalog-driven: it emits one
+# long row per (countrycode, year, raw_column) triple where ``raw_column``
+# is listed below; raw columns in the xlsx that are NOT in this file
+# are dropped (not promoted to derived / per-capita / share rows --
+# Rule #8 "no invented historical data" + architecture §PWT).
+#
+# The fixture at tests/fixtures/pwt/sample.xlsx mirrors these 11 catalog
+# columns on the Data sheet's header row. The reader test asserts
+# that the wide DataFrame carries exactly these 11 columns (plus the 4
+# identity columns).
+#
+# Sheet layout (verified live 2026-06-22 against data/raw/pwt/pwt1001.xlsx):
+# the PWT 10.01 release's "Data" sheet has 50+ columns; this catalog
+# selects the 11 numeric indicators the prototype uses for the
+# economic_wellbeing / international_peace scoring categories.
+variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
+pwt_real_gdp_expenditure_side,rgdpe,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Real GDP at chained PPPs (expenditure side). National accounts benchmark."
+pwt_real_gdp_output_side,rgdpo,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Real GDP at chained PPPs (output side). Cross-check of rgdpe."
+pwt_population,pop,economic_wellbeing,thousands_persons,0-1,1,thousands_persons,"Population (in thousands). Denominator for per-capita derivations."
+pwt_employment,emp,economic_wellbeing,thousands_persons,0-1,1,thousands_persons,"Number of persons engaged (in thousands). Labor input."
+pwt_average_annual_hours_worked,avh,economic_wellbeing,annual_hours_per_worker,0-1,1,annual_hours_per_worker,"Average annual hours worked by persons engaged. Total labor input = emp * avh."
+pwt_human_capital_index,hc,economic_wellbeing,index_0_to_10,0-1,1,index_0_to_10,"Human capital index based on years of schooling and returns to education. PWT 10.01 (Feenstra et al. 2015) quality dimension."
+pwt_real_consumption,ccon,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Real consumption of households + government + non-profits. Demand-side GDP cross-check."
+pwt_capital_depreciation,cda,economic_wellbeing,2017_USD_millions,0-1,0,million_2017_USD,"Capital depreciation (in 2017 USD). Subset of gross capital formation."
+pwt_tfp_ctfp,ctfp,economic_wellbeing,index_2017=1,0-1,1,index_2017=1,"Total factor productivity (TFP) level at current PPPs. PWT 10.01 productivity measure."
+pwt_capital_stock,rkna,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Capital stock (in 2017 USD). Net capital at chained PPPs."
+pwt_tfp_at_constant_national_prices,rtfpna,economic_wellbeing,index_2017=1,0-1,1,index_2017=1,"TFP at constant national prices (TFP level). Direct TFP measure without PPP conversion."

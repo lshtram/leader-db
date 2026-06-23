@@ -78,7 +78,7 @@ Every source adapter should present the same public contract to the registry. Th
 class SourceAdapter(Protocol):
     source_key: str
 
-    def check_ready(self) -> SourceReadiness: ...
+    def check_ready(self, request: IngestRequest) -> SourceReadiness: ...
     def read(self, request: IngestRequest) -> RawSourceBundle: ...
     def transform(self, bundle: RawSourceBundle, request: IngestRequest) -> NormalizedSourceFrame: ...
     def write(self, frame: NormalizedSourceFrame, request: IngestRequest) -> IngestResult: ...
@@ -191,7 +191,14 @@ Done when: a new source can be added by creating `ingest/sources/<source_key>/` 
 
 #### `pwt`
 
-Status: vetted; source hygiene complete enough to start adapter work; adapter not yet implemented.
+Status: implemented and wired (Phase B Increment B +
+Increment B reviewer feedback remediation). The PWT 10.01
+adapter is the first concrete proof of the shared
+``SourceAdapter`` Protocol; ``STAGE2_ADAPTERS['pwt']``
+delegates to ``leaders_db.ingest.sources.pwt.ingest_pwt``,
+and the per-source package layout
+(``src/leaders_db/ingest/sources/pwt/``) is the reference
+implementation future per-source slices mirror.
 
 Why first: highest-value economic cross-check; xlsx shape should be tractable and complements WDI/Maddison.
 
@@ -201,10 +208,61 @@ Source hygiene now recorded:
 - Metadata: `data/raw/pwt/metadata.json` with SHA-256 `bf2b66c5fd8b465870eeab8bbfa3a57e73253a3236a933286259efbbb5fb67a2`, source URL, CC BY 4.0 license note, local file name, coverage, and `ingestion_status: downloaded`.
 - Local workbook inspection confirms sheets `Info`, `Legend`, and `Data`; adapter must read only the `Data` sheet.
 
-Registration gate:
+Registration gate (now satisfied):
 
-- Keep `STAGE2_ADAPTERS["pwt"]` as `None` until tests prove the metadata gate, reader, transform, DB write, manifest, attribution, and CLI boundary.
-- After tests pass, replace the `None` entry with a shim that builds an `IngestRequest` and delegates to the new registry. Do not make PWT appear runnable in the CLI before that point.
+- ``STAGE2_ADAPTERS['pwt']`` is wired to the per-source
+  ``ingest_pwt`` orchestrator (see ``src/leaders_db/ingest/__init__.py``
+  for the dispatch entry). The CLI
+  (``leaders-db ingest-source --source pwt``) reaches the
+  production adapter through this dispatch entry.
+- The shared ``SourceAdapter`` Protocol registry
+  (``src/leaders_db/ingest/registry.py``) is opt-in: the
+  registry runner (``registry.ingest_source``) requires an
+  explicit ``register('pwt', PWTAdapter())`` call before
+  the key resolves. The CLI uses ``STAGE2_ADAPTERS``
+  directly (no registry registration needed). Both paths
+  drive the SAME per-source adapter class
+  (``PWTAdapter``) through the SAME
+  ``check_ready -> read -> transform -> write`` pipeline;
+  the registry is the shared-protocol seam for callers
+  that hold a registry key, the CLI dispatch table is the
+  legacy function-call seam.
+- The readiness gate
+  (``PWTAdapter.check_ready(request)``) validates the
+  bundle's ``metadata.json`` and ``pwt1001.xlsx`` BEFORE the
+  reader opens the workbook; the gate recomputes the
+  ``pwt1001.xlsx`` SHA-256 and refuses to run if it disagrees
+  with the ``checksum_sha256`` metadata field. The gate
+  honors the request-scoped ``IngestRequest.raw_root``
+  override so the registry runner can drive the adapter
+  against a custom bundle location without changing CLI
+  flow.
+- The writer
+  (``PWTAdapter.write(frame, request)``) is idempotent by
+  request-scoped year(s): the DB write block runs
+  unconditionally (including when the transformed frame is
+  empty due to an out-of-coverage request such as
+  ``year=2023``), so a corrective re-run cleans up any
+  pre-existing stale ``source_observations`` rows for the
+  requested year(s) AND upserts the PWT ``sources`` row.
+  The cleanup pass is ALSO scoped to ``request.country_filter``
+  when supplied (per Phase B Increment B second-pass reviewer
+  feedback): a corrective ``country_filter=('USA',)``
+  re-run cannot accidentally delete MEX / SWE rows that the
+  request did not scope.
+- The convenience path
+  (``PWTAdapter.ingest(request)`` and
+  ``ingest_pwt(...)``) drives the SAME request through
+  ``check_ready -> read -> transform -> write``; every
+  request-scoped field (``raw_root``, ``processed_root``,
+  ``database_url``, ``year``/``years``, ``country_filter``,
+  ``parquet_path``, ``catalog_path``, ...) is honored
+  end-to-end. The convenience orchestrator converts the
+  public overrides (``xlsx_path``, ``parquet_path``,
+  ``catalog_path``, ``database_url``, ``processed_root``,
+  ``year``) into request fields so the convenience path and
+  the registry runner produce identical artifacts at the
+  requested locations.
 
 Adapter plan:
 
@@ -426,18 +484,16 @@ These should not be implemented before a source-specific design note and reviewe
 
 ## Recommended execution order
 
-Before starting code-bearing implementation, isolate the current working tree so the shared-interface/PWT diff is reviewable on its own. The repository currently has unrelated Chronicle/source-vetting/doc changes; those must be committed, stashed, reverted, or otherwise separated before Increment A or B code begins.
+PWT is already implemented and wired (shared `SourceAdapter` Protocol + production per-source package + CLI dispatch wiring), so the remaining sequence now starts with the next priorities below:
 
-1. Build shared `SourceAdapter` interface and package skeleton support.
-2. Implement `pwt` once source hygiene is complete.
-3. Implement `polity_v` once source hygiene is complete.
-4. Implement `leader_survival` after the user stages Demscore data.
-5. Implement `freedom_house` if/when user stages FIW data.
-6. Vet and implement `world_bank_poverty_inequality_platform`.
-7. Vet and implement `ilo_labor_statistics`.
-8. Vet and implement `sipri_arms_transfers`.
-9. Vet and implement `unoda_treaties`, `ctbto_treaty_status`, and `iaea_additional_protocol_status` as the first nuclear-restraint tranche.
-10. Design separately for narrative/proxy/promise-to-results sources.
+1. Implement `polity_v` once source hygiene is complete.
+2. Implement `leader_survival` after the user stages Demscore data.
+3. Implement `freedom_house` if/when user stages FIW data.
+4. Vet and implement `world_bank_poverty_inequality_platform`.
+5. Vet and implement `ilo_labor_statistics`.
+6. Vet and implement `sipri_arms_transfers`.
+7. Vet and implement `unoda_treaties`, `ctbto_treaty_status`, and `iaea_additional_protocol_status` as the first nuclear-restraint tranche.
+8. Design separately for narrative/proxy/promise-to-results sources.
 
 ## Source-slice acceptance checklist
 
