@@ -1,11 +1,13 @@
 # Testing Guide — Unified Source Interface
 
-This guide covers the first `leaders_db.sources` interface slice: the clean source
+This guide covers the `leaders_db.sources` interface slice: the clean source
 package boundary, registry seam, minimal runner dispatch, query protocol, and
 legacy-access separation. The PWT 10.01 adapter under
 `src/leaders_db/sources/adapters/pwt/` is the first source rebuilt under this
-interface and is the proof-of-pattern for future migrations
-(see `docs/architecture/sources.md` §7.1 and `docs/workplan.md`).
+interface and the Maddison Project Database 2023 adapter under
+`src/leaders_db/sources/adapters/maddison_project/` is the second.
+See `docs/architecture/sources.md` §7.1 and `docs/workplan.md` for the
+migration history.
 
 ## Automated checks
 
@@ -53,6 +55,40 @@ Verifies:
   (call order verified via the `_SpyPWTAdapter` wrapper);
 - canonical metadata `source_version="10.01"` propagates consistently to
   `RawAsset.version` and every emitted `NormalizedObservation.source_version`.
+
+The Maddison Project Database 2023 slice adds the source-specific
+coverage semantics on top of the shared contract:
+
+- the Maddison adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes the canonical Maddison Project
+  2023 static metadata (source_id `maddison_project`, default version
+  `2023`, attribution_key `maddison_project`, dataset type, 1-2022
+  coverage hint, `economic_country_year` observation family, canonical
+  Maddison Project homepage URL);
+- `SourceIngestRunner.run(request)` drives Maddison end-to-end through
+  the new registry against a fixture `raw_root` and produces
+  `NormalizedObservation` records (21 fixture observations
+  round-tripped);
+- the runner does not consult legacy `STAGE2_ADAPTERS` even when the
+  legacy `maddison_project` slot is monkeypatched to a tracker;
+- `years=(2023,)` triggers the documented 1-year-gap proxy mapping
+  to 2022 data: every emitted observation carries the `proxy_year`
+  quality flag plus `requested_year=2023` / `proxy_source_year=2022`
+  in its `extension` payload, and the result envelope surfaces a
+  structured `maddison_project_proxy_year` warning naming the
+  mapping;
+- `years=(2024,)` (out of coverage) emits zero observations plus a
+  structured `YEAR_ABSENT` warning -- no multi-year stale-proxy fill
+  (SRC-COV-002 / SRC-COV-003);
+- `years=` / `countries=` filters are honored; `leaders=` emits an
+  `unsupported_filter` warning;
+- the readiness-failure tests for missing `metadata.json`, missing
+  `mpd2023.xlsx`, `checksum_sha256` mismatch, missing metadata
+  `source_version`, and mismatched metadata `source_version` each
+  prove the runner short-circuits before `read_raw` / `transform`;
+- canonical metadata `source_version="2023"` propagates consistently
+  to `RawAsset.version` and every emitted
+  `NormalizedObservation.source_version`.
 
 Run focused lint for this slice:
 
@@ -113,6 +149,7 @@ Expected: a positive adapter count and `True` for `pwt`.
   validation beyond the current contract envelope.
 - New CLI commands under `leaders-db sources ...`.
 - Moving or deleting legacy `src/leaders_db/ingest/` code.
-- The second / third / ... clean source migrations (Maddison, WDI, WGI,
-  V-Dem, ...). PWT is the proof-of-pattern; future migrations follow the
-  same `src/leaders_db/sources/adapters/<slug>/` layout.
+- The third / fourth / ... clean source migrations (WDI, WGI, V-Dem,
+  ...). PWT and Maddison Project are the proof-of-pattern; future
+  migrations follow the same `src/leaders_db/sources/adapters/<slug>/`
+  layout.

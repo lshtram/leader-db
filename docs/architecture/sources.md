@@ -546,7 +546,34 @@ large legacy move as its own mechanical, reviewed commit.
    `register_pwt(registry)` factories and does NOT auto-register on import
    (§10.1).
 5. **Second/third adapters.** Rebuild Maddison and WDI/WGI to prove the design
-   across different source shapes.
+   across different source shapes. **Maddison Project Database 2023 landed
+   (2026-06-24)** as the second clean-source migration under
+   `src/leaders_db/sources/adapters/maddison_project/`. The adapter
+   implements the full `SourceAdapter` Protocol and reuses the legacy
+   reader under `leaders_db.ingest.maddison_project_xlsx` via lazy imports;
+   the package import does NOT pull in `leaders_db.ingest`
+   (`tests/sources/test_maddison_project_adapter.py::test_maddison_project_adapter_module_does_not_import_legacy_ingest_at_import`).
+   The runner end-to-end contract is proven by
+   `test_maddison_project_runner_produces_normalized_observations`
+   (21 fixture observations round-tripped) and
+   `test_maddison_project_runner_does_not_consult_legacy_stage2_adapters`
+   (monkeypatched legacy `STAGE2_ADAPTERS["maddison_project"]` tracker
+   is never invoked). Source-specific year semantics: Maddison 2023
+   release ends at 2022; a request for `years=(2023,)` triggers the
+   documented 1-year-gap proxy mapping to 2022 data and surfaces a
+   structured `maddison_project_proxy_year` warning on the readiness
+   envelope plus the `proxy_year` quality flag and the
+   `requested_year` / `proxy_source_year` extension fields on every
+   emitted observation; a request for `years=(2024,)` (or any year
+   beyond 2022) emits zero observations plus a structured `YEAR_ABSENT`
+   warning -- no multi-year stale-proxy fill (SRC-COV-002 / SRC-COV-003).
+   The canonical version `"2023"` propagates consistently to
+   `RawAsset.version` and every emitted
+   `NormalizedObservation.source_version`. The runner still returns
+   `manifest=None`; no persistence, DB writes, or manifest writing
+   landed. The package exposes explicit
+   `create_maddison_project_adapter()` / `register_maddison_project(registry)`
+   factories and does NOT auto-register on import (§10.1).
 6. **CLI transition.** Add `leaders-db sources ...` commands and begin retiring
    `STAGE2_ADAPTERS`.
 
