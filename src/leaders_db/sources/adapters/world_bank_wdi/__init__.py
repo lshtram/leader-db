@@ -4,11 +4,11 @@ This package hosts the third source rebuilt under the clean
 ``leaders_db.sources`` interface (docs/architecture/sources.md
 §7.1 priority 3 and docs/requirements/sources.md §12 SRC-MIG-005),
 after the PWT 10.01 and Maddison Project Database 2023 adapters.
-The adapter deliberately wraps the existing legacy reader /
-catalog loader under :mod:`leaders_db.ingest.wdi_io` and
-:mod:`leaders_db.ingest.wdi` so the canonical WDI parsing logic
-is reused without duplication; the legacy ingest package is
-imported lazily inside adapter methods only so the
+The adapter reads staged cache files through the local
+cache-only path and does not invoke the legacy reader or HTTP
+path for supported policies. It reuses the legacy catalog
+loader under :mod:`leaders_db.ingest.wdi_io` for schema
+compatibility only; imports are lazy so the
 ``leaders_db.sources`` package boundary documented in
 docs/architecture/sources.md §10.1 is preserved.
 

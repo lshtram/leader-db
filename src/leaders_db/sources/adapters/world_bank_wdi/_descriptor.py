@@ -22,7 +22,7 @@ Source-type semantics
 The descriptor advertises ``source_type="api"`` per
 ``docs/architecture/sources.md`` §5.2: WDI's canonical access path
 is the World Bank API v2 endpoint, augmented by a per-(year,
-indicator) JSON cache the adapter consults first. The legacy
+indicator) JSON cache the adapter consults first. The staged
 ``data/raw/world_bank_wdi/metadata.json`` carries
 ``source_version="World Bank API v2; cached indicator responses"``
 to make the API/cache-backed provenance explicit. The unified
@@ -58,7 +58,7 @@ WORLD_BANK_WDI_SOURCE_KEY: str = "world_bank_wdi"
 # Canonical metadata + cache file names. ``metadata.json`` is
 # always at the bundle root; the cache root lives at
 # ``cache/`` (per ``data/raw/world_bank_wdi/metadata.json``). The
-# legacy ``local_files`` field is ``["cache/"]`` to record the
+# metadata ``local_files`` field is ``["cache/"]`` to record the
 # presence of the cache directory.
 WORLD_BANK_WDI_METADATA_NAME: str = "metadata.json"
 WORLD_BANK_WDI_CACHE_DIR_NAME: str = "cache"
@@ -89,7 +89,7 @@ WORLD_BANK_WDI_COVERAGE_END_YEAR: int | None = None
 # We use the API root (not the data.worldbank.org homepage) in
 # the descriptor because the API is the canonical access path;
 # the user-facing data portal is recorded separately in the
-# legacy ``WDI_ATTRIBUTION`` citation.
+# ``WDI_ATTRIBUTION`` citation.
 WORLD_BANK_WDI_HOMEPAGE_URL: str = "https://api.worldbank.org/v2/"
 
 # Attribution key + canonical text. The text is byte-identical to
@@ -145,8 +145,8 @@ def build_world_bank_wdi_descriptor() -> SourceDescriptor:
     """Build the canonical World Bank WDI :class:`SourceDescriptor`.
 
     The descriptor is the static metadata the registry exposes for
-    source discovery (SRC-ID-003). The values mirror the legacy
-    Stage 2 constants + the canonical citation block in
+    source discovery (SRC-ID-003). The values mirror the
+    canonical catalog and citation block in
     ``docs/sources/attributions.md`` (Rule #15).
 
     The descriptor advertises ``source_type="api"`` and

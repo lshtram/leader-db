@@ -574,16 +574,18 @@ large legacy move as its own mechanical, reviewed commit.
     landed. The package exposes explicit
     `create_maddison_project_adapter()` / `register_maddison_project(registry)`
     factories and does NOT auto-register on import (§10.1).
-  6. **Third clean-source migration landed (2026-06-24) — World Bank WDI under
-     `src/leaders_db/sources/adapters/world_bank_wdi/`.** WDI is
-     the third source rebuilt under the new `leaders_db.sources`
-     interface (docs/architecture/sources.md §7.1 priority 3,
-     docs/requirements/sources.md §12 SRC-MIG-005), after PWT
-     10.01 and Maddison Project Database 2023. The new package
-     implements the full `SourceAdapter` Protocol and reuses
-     the legacy reader / catalog loader under
-     `leaders_db.ingest.wdi_io` via lazy imports; the package
-     import does NOT pull in `leaders_db.ingest`
+6. **Third clean-source migration landed (2026-06-24) — World Bank WDI under
+   `src/leaders_db/sources/adapters/world_bank_wdi/`.** WDI is
+   the third source rebuilt under the new `leaders_db.sources`
+   interface (docs/architecture/sources.md §7.1 priority 3,
+   docs/requirements/sources.md §12 SRC-MIG-005), after PWT
+   10.01 and Maddison Project Database 2023. The new package
+   implements the full `SourceAdapter` Protocol and uses a cache-only
+    read path in the unified adapter package; the legacy HTTP flow
+    is not consulted for supported policies. Legacy imports from
+   `leaders_db.ingest.wdi_io` are limited to lazy catalog-resolution
+   and attribution compatibility seams, so the package import does
+   NOT pull in `leaders_db.ingest`
      (`tests/sources/test_world_bank_wdi_adapter.py::test_wdi_adapter_module_does_not_import_legacy_ingest_at_import`
      + the import-boundary submodule list in
      `tests/sources/test_import_boundary.py`). The runner
@@ -610,26 +612,26 @@ large legacy move as its own mechanical, reviewed commit.
      this slice**: for `cache_policy="offline_only"` /
      `"prefer_cache"` with explicit `years=`, missing or
      incomplete cache fails readiness with a structured
-     `network_cache_unavailable` / `missing_raw` error before
-     `read_raw` / `transform` are called (per
+      `network_cache_unavailable` / `missing_raw` error before
+      `read_raw` / `transform` are called (per
      `docs/requirements/sources.md` §11 SRC-TYPE-002 -- API
      sources use cache policy). `cache_policy="refresh"` /
      `"no_cache"` is NOT supported by the unified WDI
      adapter in this slice: it fails readiness with a
      structured `unsupported_cache_policy` error because
-     `WDIAdapter.read_raw` never invokes the network
-     regardless of the request's `cache_policy` -- the unified
-     adapter uses a local cache-only read path
-     (`_read_cached_wdi_responses` in `_transform.py`,
-     `_enumerate_cache_files` in `_readiness.py`) that reads
-     the staged per-(year, indicator) JSON cache files directly
-     and mirrors the legacy
-     `leaders_db.ingest.wdi_http.parse_wdi_payload` /
-     `leaders_db.ingest.wdi_io.read_wdi` long-to-wide pivot
-     just enough for the cache-only contract. For `years=None`
+      `WDIAdapter.read_raw` never invokes the network
+      regardless of the request's `cache_policy` -- the unified
+      adapter uses a local cache-only read path
+       (`_read_cached_wdi_responses` in `_cache_reader.py`,
+       re-exported from `_transform.py` for compatibility, and
+       `_enumerate_cache_files` in `_readiness.py`) that reads staged
+       per-(year, indicator) JSON cache files directly. For compatibility,
+       legacy imports are used only for catalog-attribution wiring, not
+       for no-network parsing or read execution flow.
+      For `years=None`
      the readiness gate enumerates the cache root and refuses
-     to dispatch if any discovered cache file is malformed
-     (would force the legacy read_wdi fallback into HTTP);
+to dispatch if any discovered cache file is malformed (to preserve
+the cache-only contract);
      for explicit `years=` the gate refuses missing /
      incomplete / corrupt cache BEFORE `read_raw` /
      `transform` are called (per the comprehensive cache-policy

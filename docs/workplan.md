@@ -182,8 +182,10 @@ docs/requirements/sources.md §12 SRC-MIG-005), after the PWT
 10.01 and Maddison Project Database 2023 adapters. The new package
 is a thin adapter that implements the canonical `SourceAdapter`
 Protocol (`descriptor` + `check_ready` + `read_raw` + `transform`)
-and reuses the legacy reader / catalog loader under
-`leaders_db.ingest.wdi_io` via lazy imports so the package
+and uses a local cache-only reader in the unified package; the legacy
+HTTP flow is not used for supported policies.
+Legacy imports from `leaders_db.ingest.wdi_io` are limited to lazy
+catalog-resolution and attribution compatibility seams, so package
 boundary is preserved (`tests/sources/test_world_bank_wdi_adapter.py`
 asserts `import leaders_db.sources.adapters.world_bank_wdi` does
 NOT pull in `leaders_db.ingest`; the canonical import-boundary
@@ -194,8 +196,8 @@ new package exposes explicit `create_world_bank_wdi_adapter()`
 and `register_world_bank_wdi(registry)` factories and does NOT
 auto-register on import (per docs/architecture/sources.md §10.1).
 The new adapter honors the full request scope: `years=` and
-`countries=` filter the wide-format DataFrame (after the legacy
-reader returns the full frame with `year=None`); `leaders=`
+`countries=` filter the cache-reader wide-format frame (`year=None`
+before filtering); `leaders=`
 emits a structured `unsupported_filter` warning; `years=` outside
 the documented 1960+ coverage envelope emits zero observations
 + a `year_absent` warning -- no stale-proxy fill (SRC-COV-002 /
@@ -240,15 +242,15 @@ fails readiness with a structured `unsupported_cache_policy`
 error because `WDIAdapter.read_raw` never invokes the network
 regardless of `request.cache_policy` -- the unified adapter
 uses a local cache-only read path (`_read_cached_wdi_responses`
-in `_transform.py`, `_enumerate_cache_files` in `_readiness.py`)
-that reads the staged per-(year, indicator) JSON cache files
-directly and mirrors the legacy
-`leaders_db.ingest.wdi_http.parse_wdi_payload` /
-`leaders_db.ingest.wdi_io.read_wdi` long-to-wide pivot just
-enough for the cache-only contract. For `years=None` the
+ in `_cache_reader.py`, re-exported from `_transform.py` for
+compatibility, and `_enumerate_cache_files` in `_readiness.py`)
+ that reads the staged per-(year, indicator) JSON cache files
+directly and converts each cached WDI payload into the local
+wide-format row layout required by the unified transform layer
+for the cache-only contract. For `years=None` the
 readiness gate enumerates the cache root and refuses to
-dispatch if any discovered cache file is malformed (would
-force the legacy read_wdi fallback into HTTP); for explicit
+dispatch if any discovered cache file is malformed (to preserve
+the cache-only contract); for explicit
 `years=` the gate refuses missing / incomplete / corrupt cache
 BEFORE `read_raw` / `transform` are called (per the
 comprehensive cache-policy remediation). The bundle metadata's

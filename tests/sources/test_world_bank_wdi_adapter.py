@@ -5,10 +5,12 @@ The World Bank WDI adapter is the third source rebuilt under the
 clean ``leaders_db.sources`` interface
 (docs/architecture/sources.md §7.1 priority 3,
 docs/requirements/sources.md §12 SRC-MIG-005), after the PWT
-10.01 and Maddison Project Database 2023 adapters. The legacy
-WDI reader / catalog loader under ``leaders_db.ingest.wdi_io``
-is reused internally via lazy imports -- the package boundary
-at docs/architecture/sources.md §10.1 is preserved.
+10.01 and Maddison Project Database 2023 adapters. The unified
+adapter now uses a local cache-only ``read_raw`` path and does not
+reuse the legacy reader / HTTP path for supported policies.
+Legacy imports from ``leaders_db.ingest.wdi_io`` remain only for
+lazy catalog-resolution and attribution-compatibility seams;
+docs/architecture/sources.md §10.1 is preserved.
 
 Tests cover the documented slice acceptance criteria:
 
@@ -24,11 +26,11 @@ Tests cover the documented slice acceptance criteria:
   new registry against a fixture ``raw_root`` and produce
   :class:`NormalizedObservation` records (125 fixture
   observations round-tripped for the unfiltered run; 61 for
-  ``years=(2023,)``; 24 for ``countries=('USA',)``; 12 for
+  ``years=(2023,)``; 25 for ``countries=('USA',)``; 12 for
   ``years=(2023,) + countries=('USA',)``).
 - The new runner path does NOT consult the legacy
-  ``STAGE2_ADAPTERS`` dispatch table (the adapter internally
-  reuses legacy parsing modules, but dispatch is registry-based).
+   ``STAGE2_ADAPTERS`` dispatch table (legacy helpers are only used for
+   catalog-resolution / attribution compatibility seams, not dispatch).
 - ``years=`` and ``countries=`` filters are honored and surface
   correct observation counts.
 - ``years=(<1960,)`` returns zero observations plus a structured
@@ -56,13 +58,12 @@ Tests cover the documented slice acceptance criteria:
 
 PASS-ELIGIBLE rationale
 -----------------------
-The legacy WDI reader / catalog loader are well-tested via the
-existing ``tests/test_ingest_wdi.py`` suite. The tests in this
-file prove that the new ``leaders_db.sources.adapters.world_bank_wdi``
-adapter wraps the legacy parsing logic behind the unified
-``SourceAdapter`` Protocol while preserving the
-package-isolation contract -- they are PASS-ELIGIBLE because the
-adapter implementation lands in the same change set.
+The canonical WDI metadata and cache-path behavior are covered by the
+existing ``tests/test_ingest_wdi.py`` suite. The tests in this file prove
+that the new ``leaders_db.sources.adapters.world_bank_wdi`` adapter uses the
+local cache-only read path under the unified ``SourceAdapter`` Protocol and
+preserves the package-isolation contract -- they are PASS-ELIGIBLE because
+the adapter implementation lands in the same change set.
 """
 
 from __future__ import annotations
@@ -1642,11 +1643,11 @@ def test_wdi_refresh_cache_policy_fails_readiness_and_blocks_runner(
     refuses to dispatch.
 
     The unified WDI adapter is offline / cache-only in this
-    slice: ``WDIAdapter.read_raw`` always passes
-    ``force_refresh=False`` and ``year=None`` to the legacy
-    reader. A request that opts in to ``refresh`` would
-    overclaim network I/O that the adapter never performs, so
-    the gate refuses.
+    slice: ``read_world_bank_wdi_cache`` resolves explicit catalog
+    work items, reads the staged cache files directly, and drives
+    the same local pivoting path without invoking any HTTP layer.
+    A request that opts in to ``refresh`` would overclaim network
+    I/O that the adapter never performs, so the gate refuses.
     """
     from leaders_db.sources import (
         InMemorySourceRegistry,
@@ -1843,11 +1844,11 @@ def _install_http_sentinels(monkeypatch: pytest.MonkeyPatch) -> tuple[list[str],
     except ImportError:
         # The legacy module is not in ``sys.modules`` yet (e.g. the
         # import-boundary tests purged it). Patch the lazy-loaded
-        # attribute on the consumer too so the legacy read_wdi path
+        # attribute on the consumer too so any legacy compatibility seam
         # cannot accidentally find the unpatched function. This is
         # belt-and-braces: the unified adapter does NOT call the
-        # legacy read_wdi path for cache-only reads, so this branch
-        # only matters for tests that exercise the legacy seam.
+        # legacy network path for cache-only reads, so this branch
+        # only matters for tests that exercise legacy compatibility seams.
         try:
             from leaders_db.ingest import wdi_io as _wdi_io
             monkeypatch.setattr(
@@ -2058,9 +2059,9 @@ def test_wdi_corrupt_cached_json_blocks_readiness_for_discovered_files(
     prefer readiness block for explicit years and clear
     warning/error for discovered cache files." The unified WDI
     adapter takes the strongest stance: corrupt discovered
-    files block readiness (a corrupt file would force the
-    legacy read_wdi fallback into HTTP, which the unified
-    adapter refuses for supported policies).
+    files block readiness (a corrupt file would otherwise require a
+    legacy-style fallback into HTTP, which the unified adapter refuses
+    for supported policies).
 
     The test stages ONE valid cache file + ONE corrupt cache
     file (invalid JSON). The HTTP sentinels are installed
@@ -2775,17 +2776,10 @@ def test_wdi_adapter_module_does_not_import_legacy_ingest_at_import(
         f"code lazily inside methods only (SRC-MIG-007). "
         f"Found: {legacy_top_level}"
     )
-    # Sanity: at least one nested lazy import must exist
-    # (else the adapter would not work; the legacy reader /
-    # catalog loader are reused).
-    assert any(
-        "from leaders_db.ingest.wdi_io" in entry
-        for entry in legacy_nested
-    ), (
-        f"{module_path} must contain at least one nested lazy "
-        f"import from leaders_db.ingest.wdi_io.*; got "
-        f"{legacy_nested}"
-    )
+    # It is acceptable for the adapter module to avoid importing
+    # legacy ingest symbols entirely; legacy compatibility seams
+    # are exercised through narrow helper modules and documented
+    # import-boundary tests elsewhere in this suite.
 
 
 def test_wdi_package_import_does_not_register_legacy_wdi() -> None:
