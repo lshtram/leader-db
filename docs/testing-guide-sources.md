@@ -124,10 +124,18 @@ contract:
   `network_cache_unavailable` / `missing_raw` error BEFORE `read_raw` /
   `transform` are called; the new runner is offline / cache-first by
   default and never silently hits the network;
-- `cache_policy="refresh"` / `"no_cache"` opts in to the legacy HTTP
-  path (not exercised by tests);
-- `years=None` skips the cache gate so the runner can enumerate all
-  available years at read time (SRC-REQ-003);
+- `cache_policy="refresh"` / `"no_cache"` is NOT supported by the
+  unified WDI adapter in this slice: it fails readiness with a
+  structured `unsupported_cache_policy` error BEFORE
+  `read_raw` / `transform` are called. The unified adapter is
+  offline / cache-only; `WDIAdapter.read_raw` never invokes the
+  network. Use `cache_policy="offline_only"` / `"prefer_cache"`
+  and stage the per-(year, indicator) JSON cache to refresh data.
+- `years=None` skips the cache-directory gate (the readiness
+  envelope accepts all-available-years semantics) but the
+  `unsupported_cache_policy` gate still fires for
+  `cache_policy="refresh"` / `"no_cache"` so callers cannot
+  bypass it with `years=None`;
 - `years=` outside the 1960+ coverage envelope emits zero observations
   plus a structured `YEAR_ABSENT` warning -- no stale-proxy fill
   (SRC-COV-002 / SRC-COV-003);
@@ -137,6 +145,15 @@ contract:
   missing metadata `source_version`, mismatched metadata
   `source_version`, and unsupported request `source_version` each
   prove the runner short-circuits before `read_raw` / `transform`;
+- the readiness-failure tests for the three `checksum_sha256`
+  shapes (missing field, `null` without / with a non-actionable
+  `checksum_note`, invalid hex / dict shape) each prove the
+  runner short-circuits before `read_raw` / `transform` with a
+  structured `missing_metadata` error;
+- the readiness-failure tests for `cache_policy="refresh"` /
+  `"no_cache"` (with and without explicit `years=`) each prove
+  the runner short-circuits with a structured
+  `unsupported_cache_policy` error;
 - the canonical metadata `source_version="World Bank API v2; cached
   indicator responses"` propagates consistently to
   `RawAsset.version` and every emitted
@@ -144,10 +161,51 @@ contract:
 - the per-observation `RawLocator` carries the cache file path +
   `api_endpoint` template + `json_pointer` so downstream audit code
   can resolve the canonical WDI v2 URL for each (year, indicator,
-  country) row;
+  country) row; the pointer is `"/1/<numeric_index>"` and the
+  `test_wdi_observation_json_pointer_resolves` test opens the
+  referenced cache JSON, resolves the pointer, and asserts it
+  points at the matching record;
 - the per-observation `extension` payload carries the raw WDI
   indicator code (e.g. `NY.GDP.MKTP.CD`) as `wdi_raw_indicator_code`,
-  plus the canonical attribution text (Rule #15).
+  plus the canonical attribution text (Rule #15);
+- the cache-policy remediation tests prove the unified WDI adapter
+  is provably no-network under supported cache policies
+  (`offline_only` / `prefer_cache`) for both `years=None`
+  (all-available-years) and explicit-`years=` requests:
+  - `test_wdi_offline_only_no_year_filter_partial_cache_does_not_hit_network`
+    and
+    `test_wdi_prefer_cache_no_year_filter_partial_cache_does_not_hit_network`
+    drive `SourceIngestRunner` against a staged incomplete cache
+    (only SP.POP.TOTL present), with HTTP sentinels installed on
+    `leaders_db.ingest.wdi_http.fetch_wdi_payload` AND
+    `requests.get`. Both sentinels remain uninvoked; the runner
+    emits observations ONLY for the staged indicator;
+  - `test_wdi_offline_only_no_year_filter_empty_cache_does_not_hit_network`
+    drives the runner against an empty cache directory with
+    `cache_policy="offline_only"` + `years=None`; no HTTP is
+    invoked and the runner emits zero observations
+    (all-available-years semantics);
+  - `test_wdi_corrupt_cached_json_blocks_readiness_for_discovered_files`
+    and `test_wdi_corrupt_cached_json_blocks_readiness_for_explicit_years`
+    drive the runner with a staged corrupt (invalid JSON) cache
+    file; readiness fails with a structured `missing_raw` error
+    naming the offending file BEFORE `read_raw` / `transform` are
+    called. No HTTP sentinel is invoked;
+  - `test_wdi_explicit_year_partial_cache_blocks_readiness_and_skips_runner`
+    drives the runner with `years=(2023,)` + staged incomplete
+    cache; readiness fails with `missing_raw` and the runner
+    short-circuits. No HTTP sentinel is invoked;
+  - `test_wdi_unsupported_cache_policy_no_year_filter_does_not_hit_network`
+    drives the runner with `cache_policy="refresh"` +
+    `years=None`; readiness fails with `unsupported_cache_policy`
+    and the runner short-circuits. No HTTP sentinel is invoked.
+
+  The cache-policy remediation is the second reviewer pass on the
+  same no-network contract (the first pass only covered explicit
+  years + missing/incomplete cache; the second pass extends the
+  contract to `years=None` partial-cache / corrupt-cache /
+  empty-cache scenarios and adds HTTP-sentinel production-path
+  tests).
 
 Optional legacy compatibility smoke:
 

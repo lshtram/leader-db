@@ -104,6 +104,46 @@ WDI_TEST_SUPPORTED_FAMILIES: tuple[str, ...] = (
     WDI_TEST_FAMILY_SOCIAL,
 )
 
+# Sentinel types so ``_stage_wdi_bundle`` can distinguish
+# "leave the field as the canonical default" from "drop the
+# field entirely" (missing-field blocker) and from "set an
+# explicit custom value". Plain ``None`` is reserved for the
+# canonical null-checksum path because the staged WDI bundle
+# documents ``checksum_sha256: null`` + a
+# ``checksum_note`` as the canonical API/cache shape.
+class _UnsetType:
+    """Sentinel: the staging helper should keep the default value."""
+
+    _instance: _UnsetType | None = None
+
+    def __new__(cls) -> _UnsetType:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __repr__(self) -> str:  # pragma: no cover - debug aid
+        return "<UNSET>"
+
+
+_UNSET: _UnsetType = _UnsetType()
+
+
+class _OmitChecksumType:
+    """Sentinel: drop the ``checksum_sha256`` field entirely."""
+
+    _instance: _OmitChecksumType | None = None
+
+    def __new__(cls) -> _OmitChecksumType:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __repr__(self) -> str:  # pragma: no cover - debug aid
+        return "<OMIT_CHECKSUM>"
+
+
+_OMIT_CHECKSUM: _OmitChecksumType = _OmitChecksumType()
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -152,6 +192,8 @@ def _stage_wdi_bundle(
     include_cache: bool = True,
     omit_cache_dir: bool = False,
     include_indicator: str | None = None,
+    checksum_sha256: Any | _UnsetType = _UNSET,
+    checksum_note: str | _UnsetType = _UNSET,
 ) -> Path:
     """Stage the canonical WDI fixture bundle under ``raw_root/world_bank_wdi``.
 
@@ -173,6 +215,17 @@ def _stage_wdi_bundle(
     - ``include_indicator``: when set, copy ONLY the named
       indicator's cache file (used to test incomplete-cache
       blockers).
+    - ``checksum_sha256``: override the canonical
+      ``checksum_sha256`` field. Default (``_UNSET``) keeps
+      the staged metadata's ``null`` value; pass an explicit
+      value to test readiness branches (non-null hex, dict,
+      invalid shape, etc.). Use the sentinel
+      :class:`_OMIT_CHECKSUM` to drop the field entirely
+      and exercise the missing-field blocker.
+    - ``checksum_note``: override the canonical
+      ``checksum_note`` field. Default keeps the canonical
+      per-response note; pass an empty string or a vague
+      note to exercise the rationale blocker.
 
     The fixture has 14 indicators x 2 years (2022, 2023); the
     legacy Stage 2 tests document the full set in
@@ -208,7 +261,27 @@ def _stage_wdi_bundle(
             elif src_year_dir.exists():
                 shutil.copytree(src_year_dir, dst_year_dir)
 
-    payload = {
+    # Canonical checksum defaults mirror the staged
+    # ``data/raw/world_bank_wdi/metadata.json`` so existing
+    # tests do not need to thread the new parameters.
+    if isinstance(checksum_sha256, _UnsetType):
+        canonical_checksum_sha256: Any = None
+    elif isinstance(checksum_sha256, _OmitChecksumType):
+        canonical_checksum_sha256 = _OMIT_CHECKSUM
+    else:
+        canonical_checksum_sha256 = checksum_sha256
+    if isinstance(checksum_note, _UnsetType):
+        canonical_checksum_note: str = (
+            "API-backed source with per-response JSON cache "
+            f"files under {WDI_TEST_FIXTURE_CACHE_NAME}/"
+            "<year>/<indicator>.json; checksums are managed per "
+            "cached response by the adapter/test fixtures rather "
+            "than as one bundle checksum."
+        )
+    else:
+        canonical_checksum_note = checksum_note
+
+    payload: dict[str, Any] = {
         "source_name": "World Bank WDI",
         "source_version": source_version,
         "download_date": "2026-06-24",
@@ -229,17 +302,17 @@ def _stage_wdi_bundle(
         "ingestion_status": "downloaded",
         "source_url": WDI_TEST_HOMEPAGE_URL,
         # API source: per-response cache, not bundle checksum.
-        "checksum_sha256": None,
-        "checksum_note": (
-            "API-backed source with per-response JSON cache "
-            f"files under {WDI_TEST_FIXTURE_CACHE_NAME}/"
-            "<year>/<indicator>.json; checksums are managed per "
-            "cached response by the adapter/test fixtures rather "
-            "than as one bundle checksum."
-        ),
+        "checksum_sha256": canonical_checksum_sha256,
+        "checksum_note": canonical_checksum_note,
         "adapter": "leaders_db.ingest.wdi.ingest_wdi",
         "attribution": "World Bank WDI (World Bank 2024).",
     }
+    if canonical_checksum_sha256 is _OMIT_CHECKSUM:
+        # Drop the field entirely so the missing-field
+        # blocker fires (the readiness gate treats absence
+        # and explicit ``null`` differently for
+        # ``checksum_sha256``).
+        payload.pop("checksum_sha256")
     (bundle_dir / WDI_TEST_METADATA_NAME).write_text(
         json.dumps(payload, indent=2), encoding="utf-8",
     )
@@ -1196,6 +1269,1281 @@ def test_wdi_missing_metadata_fails_readiness_and_blocks_runner(
     _assert_runner_does_not_progress(registry, request, spy)
 
 
+# ---------------------------------------------------------------------------
+# Checksum rationale (Blocker 1)
+#
+# The unified WDI adapter is API / cache-backed; per
+# ``docs/requirements/sources.md`` §6 SRC-PROV-002 the
+# ``checksum_sha256`` is required but may legitimately be
+# ``null`` when the staged metadata pairs the null with a
+# ``checksum_note`` that documents the per-response /
+# per-cached-response / API cache contract. The readiness
+# gate refuses:
+# - a missing ``checksum_sha256`` field entirely;
+# - a ``null`` checksum without an actionable note;
+# - a non-null checksum whose shape does not validate
+#   (bad hex, dict with non-string value, etc.).
+# ---------------------------------------------------------------------------
+
+
+def test_wdi_missing_checksum_field_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """A bundle whose ``metadata.json`` has no
+    ``checksum_sha256`` field at all fails readiness with a
+    structured ``missing_metadata`` error.
+
+    The required-fields blocker must name ``checksum_sha256``
+    in the error message so a developer can fix the upstream
+    issue without reading source code.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root, checksum_sha256=_OMIT_CHECKSUM)
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="missing_metadata",
+        expected_substring="checksum_sha256",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+def test_wdi_null_checksum_without_note_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256: null`` and no
+    ``checksum_note`` (or a note that does not document the
+    per-response API/cache contract) fails readiness.
+
+    A null checksum with no rationale is indistinguishable
+    from a forgotten checksum, so the gate refuses it.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root, checksum_note="")
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="missing_metadata",
+        expected_substring="checksum",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+def test_wdi_null_checksum_with_vague_note_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256: null`` and a non-empty
+    but non-actionable ``checksum_note`` (no API / cache /
+    per-response / checksum keyword) fails readiness.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(
+        raw_root,
+        checksum_note=(
+            "TODO: re-evaluate when the upstream publishes a "
+            "single bundle hash."
+        ),
+    )
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="missing_metadata",
+        expected_substring="checksum",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+def test_wdi_null_checksum_with_actionable_note_passes_readiness(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256: null`` and an
+    actionable ``checksum_note`` (the canonical WDI shape)
+    passes readiness so the runner can proceed to
+    ``read_raw`` / ``transform``.
+
+    This is the positive control: the canonical
+    ``data/raw/world_bank_wdi/metadata.json`` ships with
+    this exact shape and the existing fixture stages it
+    (see ``_stage_wdi_bundle``'s default ``checksum_note``).
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    # Default ``checksum_sha256=None`` + canonical
+    # ``checksum_note`` (mentions API / cache /
+    # per-response / checksum) is the staged WDI shape.
+    _stage_wdi_bundle(raw_root)
+
+    real_adapter = create_world_bank_wdi_adapter()
+    registry = InMemorySourceRegistry()
+    registry.register(real_adapter)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+    result = runner.run(request)
+    assert result.readiness.ready is True
+    assert len(result.observations) == 61
+
+
+def test_wdi_flat_hex_checksum_passes_readiness(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256: "<64-char hex>"`` (the
+    flat-string shape that PWT and Maddison also accept)
+    passes readiness without needing a ``checksum_note``.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(
+        raw_root,
+        checksum_sha256="0" * 64,
+    )
+
+    real_adapter = create_world_bank_wdi_adapter()
+    registry = InMemorySourceRegistry()
+    registry.register(real_adapter)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+    result = runner.run(request)
+    assert result.readiness.ready is True
+    assert len(result.observations) == 61
+
+
+def test_wdi_per_file_checksum_dict_passes_readiness(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256: {<file>: <64-char hex>}``
+    (the per-file dict shape) passes readiness.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(
+        raw_root,
+        checksum_sha256={
+            "cache/2022/SP.POP.TOTL.json": "1" * 64,
+            "cache/2023/SP.POP.TOTL.json": "2" * 64,
+        },
+    )
+
+    real_adapter = create_world_bank_wdi_adapter()
+    registry = InMemorySourceRegistry()
+    registry.register(real_adapter)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+    result = runner.run(request)
+    assert result.readiness.ready is True
+    assert len(result.observations) == 61
+
+
+def test_wdi_invalid_hex_checksum_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256`` set to a non-64-char
+    string fails readiness with a structured
+    ``missing_metadata`` error.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    # 63 chars -- one short of the documented SHA-256 length.
+    _stage_wdi_bundle(
+        raw_root, checksum_sha256="a" * 63,
+    )
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="missing_metadata",
+        expected_substring="checksum",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+def test_wdi_invalid_dict_checksum_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """A bundle with ``checksum_sha256`` set to a dict whose
+    value is not a 64-char hex string fails readiness.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(
+        raw_root,
+        checksum_sha256={
+            "cache/2022/SP.POP.TOTL.json": 12345,  # not a hex string
+        },
+    )
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="missing_metadata",
+        expected_substring="checksum",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+# ---------------------------------------------------------------------------
+# Cache-policy semantics (Blocker 2)
+#
+# The unified WDI adapter is offline / cache-only in this
+# slice; ``cache_policy="refresh"`` / ``"no_cache"`` are NOT
+# supported because the production ``WDIAdapter.read_raw`` path
+# never invokes the network. The readiness gate fails both
+# with a structured ``unsupported_cache_policy`` error.
+# ---------------------------------------------------------------------------
+
+
+def test_wdi_refresh_cache_policy_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """``cache_policy="refresh"`` fails readiness with a
+    structured ``unsupported_cache_policy`` error; the runner
+    refuses to dispatch.
+
+    The unified WDI adapter is offline / cache-only in this
+    slice: ``WDIAdapter.read_raw`` always passes
+    ``force_refresh=False`` and ``year=None`` to the legacy
+    reader. A request that opts in to ``refresh`` would
+    overclaim network I/O that the adapter never performs, so
+    the gate refuses.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root)
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+        cache_policy="refresh",
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="unsupported_cache_policy",
+        expected_substring="refresh",
+    )
+    # The error must explicitly say the adapter is offline /
+    # cache-only so a developer does not assume the
+    # ``refresh`` opt-in hit the network.
+    assert "offline" in readiness.errors[0].message.lower(), (
+        "unsupported_cache_policy message must say the "
+        "adapter is offline / cache-only; got "
+        f"{readiness.errors[0].message!r}"
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+def test_wdi_no_cache_policy_fails_readiness_and_blocks_runner(
+    tmp_path: Path,
+) -> None:
+    """``cache_policy="no_cache"`` fails readiness with a
+    structured ``unsupported_cache_policy`` error; the runner
+    refuses to dispatch.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root)
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+        cache_policy="no_cache",
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="unsupported_cache_policy",
+        expected_substring="no_cache",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+def test_wdi_refresh_cache_policy_fails_readiness_without_year_filter(
+    tmp_path: Path,
+) -> None:
+    """``cache_policy="refresh"`` is rejected even when
+    ``years=None`` so callers cannot bypass the
+    unsupported-policy gate with all-years semantics.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root, include_cache=False)
+
+    real_adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(real_adapter)
+    registry = InMemorySourceRegistry()
+    registry.register(spy)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        cache_policy="refresh",
+    )
+
+    readiness = spy.check_ready(request)
+    _assert_readiness_error_envelope(
+        readiness,
+        expected_code="unsupported_cache_policy",
+        expected_substring="refresh",
+    )
+
+    _assert_runner_does_not_progress(registry, request, spy)
+
+
+# ---------------------------------------------------------------------------
+# Cache-policy remediation: no-network contract under supported policies
+#
+# Comprehensive remediation for the cache-policy blocker (second
+# occurrence). The tests in this section prove that the unified WDI
+# adapter path is provably no-network under
+# ``cache_policy="offline_only"`` / ``"prefer_cache"`` -- including
+# the ``years=None`` all-available-years branch -- by patching the
+# legacy HTTP call (``leaders_db.ingest.wdi_http.fetch_wdi_payload``
+# AND ``requests.get``) to raise if invoked, then driving the
+# production ``SourceIngestRunner`` against a staged incomplete /
+# corrupt cache. The contract:
+#
+# 1. Explicit ``years=`` with missing or incomplete cache, or with a
+#    corrupt required cache file, MUST fail readiness with a
+#    structured ``missing_raw`` / ``network_cache_unavailable``
+#    error BEFORE ``read_raw`` / ``transform`` are called (the
+#    existing ``test_wdi_missing_cache_dir_fails_readiness_for_explicit_years``
+#    and ``test_wdi_incomplete_cache_fails_readiness_for_explicit_years``
+#    cover the missing / incomplete branches; the new tests cover the
+#    corrupt-file branch and the no-network invariant).
+#
+# 2. ``years=None`` with a partial / discovered cache MUST NOT hit
+#    the network under supported policies. The cache-only read path
+#    reads only the ``(year, indicator)`` pairs that are present on
+#    disk; the test confirms that with a staged incomplete cache the
+#    adapter reads only the staged files (no HTTP) and that readiness
+#    blocks on a corrupt discovered file (also no HTTP).
+#
+# The HTTP sentinel monkeypatches
+# :func:`leaders_db.ingest.wdi_http.fetch_wdi_payload` and
+# :func:`requests.get` to raise ``AssertionError`` if either is
+# called. The patches are scoped to the test via ``monkeypatch`` so
+# they cannot leak across tests.
+# ---------------------------------------------------------------------------
+
+
+def _install_http_sentinels(monkeypatch: pytest.MonkeyPatch) -> tuple[list[str], list[str]]:
+    """Patch the legacy HTTP layer + ``requests.get`` to fail if invoked.
+
+    Returns ``(fetch_calls, requests_get_calls)`` -- the lists record
+    any invocation attempt so the test can prove the sentinels were
+    never reached. The ``monkeypatch`` fixture reverts the patches at
+    test teardown.
+    """
+    fetch_calls: list[str] = []
+    requests_get_calls: list[str] = []
+
+    def _fetch_sentinel(*args: Any, **kwargs: Any) -> Any:
+        fetch_calls.append(f"fetch_wdi_payload({args!r}, {kwargs!r})")
+        raise AssertionError(
+            "fetch_wdi_payload must NOT be called when cache_policy is "
+            "'offline_only' / 'prefer_cache' and readiness passed; the "
+            "unified WDI adapter is offline / cache-only in this slice."
+        )
+
+    def _requests_get_sentinel(*args: Any, **kwargs: Any) -> Any:
+        requests_get_calls.append(f"requests.get({args!r}, {kwargs!r})")
+        raise AssertionError(
+            "requests.get must NOT be called by the unified WDI adapter "
+            "under supported cache policies; the cache-only read path "
+            "never falls through to HTTP."
+        )
+
+    # Lazy-import the modules we patch so the import-boundary tests
+    # (which purge ``leaders_db.*`` from ``sys.modules``) are not
+    # disrupted. The patches are scoped to the ``monkeypatch`` fixture
+    # and only take effect when these modules are actually loaded --
+    # which is exactly the production path the tests are exercising.
+    try:
+        from leaders_db.ingest import wdi_http as _wdi_http
+        monkeypatch.setattr(_wdi_http, "fetch_wdi_payload", _fetch_sentinel)
+    except ImportError:
+        # The legacy module is not in ``sys.modules`` yet (e.g. the
+        # import-boundary tests purged it). Patch the lazy-loaded
+        # attribute on the consumer too so the legacy read_wdi path
+        # cannot accidentally find the unpatched function. This is
+        # belt-and-braces: the unified adapter does NOT call the
+        # legacy read_wdi path for cache-only reads, so this branch
+        # only matters for tests that exercise the legacy seam.
+        try:
+            from leaders_db.ingest import wdi_io as _wdi_io
+            monkeypatch.setattr(
+                _wdi_io, "fetch_wdi_payload", _fetch_sentinel,
+            )
+        except ImportError:
+            pass
+
+    try:
+        import requests as _requests
+        monkeypatch.setattr(_requests, "get", _requests_get_sentinel)
+    except ImportError:
+        # ``requests`` is a hard dependency of the legacy WDI HTTP
+        # layer; if it is missing the production path is not
+        # importable anyway. The sentinel install is a best-effort
+        # defense in depth -- the readiness gate is the primary
+        # no-network contract.
+        pass
+
+    return fetch_calls, requests_get_calls
+
+
+def test_wdi_offline_only_no_year_filter_partial_cache_does_not_hit_network(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``cache_policy="offline_only"`` + ``years=None`` against a
+    staged INCOMPLETE cache produces observations ONLY from the
+    available cache files and never invokes the network.
+
+    Comprehensive remediation for the cache-policy blocker:
+    ``WDIAdapter.read_raw`` MUST NOT call the legacy HTTP layer or
+    ``requests.get`` when readiness passes under supported cache
+    policies -- even when the staged cache is incomplete (some
+    indicator files missing, some indicator files present).
+
+    The test stages ONE indicator's cache file (SP.POP.TOTL) for
+    BOTH 2022 and 2023 -- 13 of the 14 catalog indicators are
+    missing from the cache. With ``years=None``, the unified
+    adapter's local cache-only read path
+    (:func:`_read_cached_wdi_responses`) reads the 2 present
+    cache files (2 years x 1 indicator = 2 long frames) and
+    produces a wide frame with one indicator column. The
+    transform layer emits one observation per non-NaN cell
+    (5 real countries x 1 indicator x 2 years = 10 cells, minus
+    any nulls; the fixture's 2022 + 2023 SP.POP.TOTL files
+    cover all 5 countries for both years so 10 observations).
+
+    The HTTP sentinels (``fetch_wdi_payload`` + ``requests.get``)
+    are installed before ``runner.run(request)`` runs. If the
+    adapter falls through to HTTP for the missing indicators,
+    either sentinel raises ``AssertionError`` and the test
+    fails. The post-condition asserts the sentinel lists are
+    empty so a regression to HTTP is caught immediately.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    # Stage ONLY SP.POP.TOTL for both years. The other 13 catalog
+    # indicators are absent; the cache-only read path must NOT
+    # ask the legacy HTTP layer to fetch them.
+    _stage_wdi_bundle(raw_root, include_indicator="SP.POP.TOTL")
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    registry.register(create_world_bank_wdi_adapter())
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        cache_policy="offline_only",
+        # ``years=None``: all-available-years semantics per
+        # SRC-REQ-003; the cache-only path enumerates whatever
+        # cache files exist on disk and reads them directly.
+    )
+
+    result = runner.run(request)
+
+    # Sentinel invariant: no HTTP, ever.
+    assert fetch_calls == [], (
+        "fetch_wdi_payload was invoked under cache_policy="
+        f"'offline_only' with years=None + incomplete cache; "
+        f"calls observed: {fetch_calls!r}. The unified WDI "
+        f"adapter must be offline / cache-only and read only "
+        f"the staged cache files."
+    )
+    assert requests_get_calls == [], (
+        "requests.get was invoked under cache_policy="
+        f"'offline_only' with years=None + incomplete cache; "
+        f"calls observed: {requests_get_calls!r}. The unified "
+        f"WDI adapter must never fall through to HTTP."
+    )
+
+    # Behavior: readiness passes (all available cache files
+    # are valid), and the runner emits observations ONLY for
+    # the staged indicator (SP.POP.TOTL -> wdi_population).
+    assert result.readiness.ready is True, (
+        "readiness must pass when staged cache files are all "
+        "valid (even if the cache is partial); readiness blocks "
+        "only on missing / malformed artifacts, not on "
+        "incompleteness for years=None. got errors="
+        f"{result.readiness.errors!r}"
+    )
+
+    # Indicator codes surface in observations ONLY for the
+    # staged indicator. 5 countries x 1 indicator x 2 years =
+    # 10 observations if all cells are non-null. The fixture's
+    # SP.POP.TOTL cache files have non-null values for all 5
+    # countries in both years, so the expected count is 10.
+    indicator_codes = {
+        obs.indicator_code for obs in result.observations
+    }
+    assert indicator_codes == {"wdi_population"}, (
+        "with only SP.POP.TOTL staged, every emitted observation "
+        "must map to the wdi_population variable; got "
+        f"{indicator_codes!r}"
+    )
+    assert len(result.observations) == 10, (
+        "expected 10 observations (5 countries x 1 indicator x "
+        f"2 years); got {len(result.observations)}"
+    )
+
+
+def test_wdi_prefer_cache_no_year_filter_partial_cache_does_not_hit_network(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``cache_policy="prefer_cache"`` + ``years=None`` against a
+    staged INCOMPLETE cache produces observations ONLY from the
+    available cache files and never invokes the network.
+
+    Symmetric to the ``offline_only`` test above. The
+    ``prefer_cache`` policy is the documented default for API
+    sources per ``docs/requirements/sources.md`` §11 SRC-TYPE-002;
+    the test proves the adapter is offline / cache-only under
+    that policy too. The HTTP sentinels ensure no HTTP call is
+    made even when the cache is missing indicators that the
+    catalog defines.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root, include_indicator="SP.POP.TOTL")
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    registry.register(create_world_bank_wdi_adapter())
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        cache_policy="prefer_cache",
+    )
+
+    result = runner.run(request)
+
+    assert fetch_calls == [], (
+        "fetch_wdi_payload was invoked under cache_policy="
+        f"'prefer_cache' with years=None + incomplete cache; "
+        f"calls observed: {fetch_calls!r}"
+    )
+    assert requests_get_calls == [], (
+        "requests.get was invoked under cache_policy="
+        f"'prefer_cache' with years=None + incomplete cache; "
+        f"calls observed: {requests_get_calls!r}"
+    )
+
+    assert result.readiness.ready is True
+    indicator_codes = {
+        obs.indicator_code for obs in result.observations
+    }
+    assert indicator_codes == {"wdi_population"}
+    assert len(result.observations) == 10
+
+
+def test_wdi_corrupt_cached_json_blocks_readiness_for_discovered_files(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``years=None`` + a discovered cache file that is corrupt
+    JSON fails readiness with a structured ``missing_raw`` error
+    BEFORE ``read_raw`` is called.
+
+    Comprehensive remediation requirement #4: "Corrupt/malformed
+    cache files must not silently trigger HTTP under supported
+    policies. Either readiness blocks with actionable error or
+    the cache-only read path skips/flags them without network;
+    prefer readiness block for explicit years and clear
+    warning/error for discovered cache files." The unified WDI
+    adapter takes the strongest stance: corrupt discovered
+    files block readiness (a corrupt file would force the
+    legacy read_wdi fallback into HTTP, which the unified
+    adapter refuses for supported policies).
+
+    The test stages ONE valid cache file + ONE corrupt cache
+    file (invalid JSON). The HTTP sentinels are installed
+    before the readiness call; even if readiness somehow let
+    the corrupt file through, no HTTP would be invoked --
+    readiness blocks first.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root, include_indicator="SP.POP.TOTL")
+    # Inject a corrupt file: same year as the valid file, but
+    # the JSON is malformed. The cache-only read path / the
+    # readiness gate must refuse this rather than silently
+    # trigger HTTP.
+    corrupt_file = (
+        raw_root / "world_bank_wdi" / "cache" / "2023" / "NY.GDP.MKTP.CD.json"
+    )
+    corrupt_file.parent.mkdir(parents=True, exist_ok=True)
+    corrupt_file.write_text("{this is not valid json", encoding="utf-8")
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(adapter)
+    registry.register(spy)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        cache_policy="offline_only",
+    )
+
+    readiness = spy.check_ready(request)
+    assert readiness.ready is False, (
+        "corrupt discovered cache file MUST fail readiness; "
+        "the unified WDI adapter refuses to fall through to "
+        "HTTP for malformed cache entries. got errors="
+        f"{readiness.errors!r}"
+    )
+    error_codes = [err.code for err in readiness.errors]
+    assert "missing_raw" in error_codes, (
+        "corrupt discovered cache file must fail readiness "
+        f"with missing_raw; got codes {error_codes!r}"
+    )
+    # The blocker message must mention the corrupt file path so
+    # a developer can repair or re-stage it.
+    err_message = readiness.errors[0].message
+    assert str(corrupt_file) in err_message or corrupt_file.name in err_message, (
+        "corrupt-file blocker message must name the offending "
+        f"file path; got {err_message!r}"
+    )
+
+    # Lifecycle ordering proof: runner never reaches read_raw /
+    # transform when readiness blocks.
+    with pytest.raises(RuntimeError) as exc_info:
+        runner.run(request)
+    assert "world_bank_wdi" in str(exc_info.value).lower()
+    assert "read_raw" not in spy.calls
+    assert "transform" not in spy.calls
+
+    # Sentinel invariant: readiness blocked before any HTTP
+    # could have been attempted.
+    assert fetch_calls == []
+    assert requests_get_calls == []
+
+
+def test_wdi_corrupt_cached_json_blocks_readiness_for_explicit_years(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``years=(2023,)`` with a corrupt required cache file
+    fails readiness with a structured ``missing_raw`` error and
+    the runner does not progress to ``read_raw`` / ``transform``.
+
+    Per the comprehensive remediation requirement #4 (explicit
+    years branch): corrupt required cache files block readiness
+    rather than triggering an HTTP fallback under supported
+    policies. This test is the production-path HTTP sentinel
+    variant of the explicit-year cache-completeness tests.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root)
+    # Corrupt ONE of the required 2023 indicator files. The
+    # readiness gate validates every catalog indicator's
+    # cache file for the explicit requested year, so this
+    # must block.
+    corrupt_file = (
+        raw_root / "world_bank_wdi" / "cache" / "2023" / "NY.GDP.MKTP.CD.json"
+    )
+    corrupt_file.write_text("{not valid json", encoding="utf-8")
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(adapter)
+    registry.register(spy)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+        cache_policy="offline_only",
+    )
+
+    readiness = spy.check_ready(request)
+    assert readiness.ready is False
+    error_codes = [err.code for err in readiness.errors]
+    assert "missing_raw" in error_codes
+    err_message = readiness.errors[0].message
+    assert (
+        str(corrupt_file) in err_message or corrupt_file.name in err_message
+    ), (
+        "corrupt-required-file blocker must name the offending "
+        f"file; got {err_message!r}"
+    )
+
+    with pytest.raises(RuntimeError):
+        runner.run(request)
+    assert "read_raw" not in spy.calls
+    assert "transform" not in spy.calls
+
+    assert fetch_calls == []
+    assert requests_get_calls == []
+
+
+def test_wdi_explicit_year_partial_cache_blocks_readiness_and_skips_runner(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``years=(2023,)`` + staged incomplete cache (only one
+    indicator file present) fails readiness; the runner refuses
+    to dispatch; no HTTP is invoked.
+
+    Production-path HTTP sentinel variant of the existing
+    ``test_wdi_incomplete_cache_fails_readiness_for_explicit_years``
+    test. The new test asserts the no-network invariant in
+    addition to the readiness-blocker contract: even if a future
+    regression caused ``read_raw`` to be invoked after a missing
+    cache file, the HTTP sentinels would catch it before the
+    cache-only read path could silently fall through to HTTP.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root, include_indicator="SP.POP.TOTL")
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(adapter)
+    registry.register(spy)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+        cache_policy="offline_only",
+    )
+
+    readiness = spy.check_ready(request)
+    assert readiness.ready is False
+    error_codes = [err.code for err in readiness.errors]
+    assert "missing_raw" in error_codes
+
+    with pytest.raises(RuntimeError):
+        runner.run(request)
+    assert "read_raw" not in spy.calls
+    assert "transform" not in spy.calls
+
+    assert fetch_calls == []
+    assert requests_get_calls == []
+
+
+def test_wdi_offline_only_no_year_filter_empty_cache_does_not_hit_network(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``cache_policy="offline_only"`` + ``years=None`` against
+    an EMPTY cache directory (no year subdirs) returns zero
+    observations and never invokes the network.
+
+    Backstop: the existing
+    ``test_wdi_no_year_filter_passes_readiness_without_cache_check``
+    covers ``cache_dir missing entirely``; this test covers the
+    empty-but-present cache directory case. The HTTP sentinel
+    asserts the production path is provably no-network even when
+    the cache root exists with no year subdirectories.
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root)
+    # Create the cache dir but leave it empty (no year
+    # subdirectories).
+    (raw_root / "world_bank_wdi" / "cache").mkdir(parents=True, exist_ok=True)
+    # Remove any pre-existing year subdirs to keep the case
+    # clean. The staging helper may have copied fixture files;
+    # remove them so this test exercises the truly empty case.
+    cache_root = raw_root / "world_bank_wdi" / "cache"
+    for child in cache_root.iterdir():
+        if child.is_dir():
+            shutil.rmtree(child)
+        else:
+            child.unlink()
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    registry.register(create_world_bank_wdi_adapter())
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        cache_policy="offline_only",
+    )
+
+    result = runner.run(request)
+
+    assert fetch_calls == []
+    assert requests_get_calls == []
+
+    assert result.readiness.ready is True
+    assert result.observations == (), (
+        "empty cache + years=None must emit zero observations "
+        "(all-available-years semantics; nothing in cache to read)"
+    )
+
+
+def test_wdi_unsupported_cache_policy_no_year_filter_does_not_hit_network(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """``cache_policy="refresh"`` + ``years=None`` fails readiness
+    with ``unsupported_cache_policy``; the runner does not
+    progress; no HTTP is invoked.
+
+    Defense in depth: the existing
+    ``test_wdi_refresh_cache_policy_fails_readiness_without_year_filter``
+    proves the blocker fires; the HTTP sentinel here proves that
+    even if a future regression bypassed the gate, the
+    production path would still refuse to fall through to HTTP
+    (the cache-only read path does not consult the legacy
+    HTTP layer regardless of cache_policy).
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root)
+
+    fetch_calls, requests_get_calls = _install_http_sentinels(monkeypatch)
+
+    registry = InMemorySourceRegistry()
+    adapter = create_world_bank_wdi_adapter()
+    spy = _SpyWDIAdapter(adapter)
+    registry.register(spy)
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        cache_policy="refresh",
+    )
+
+    readiness = spy.check_ready(request)
+    assert readiness.ready is False
+    error_codes = [err.code for err in readiness.errors]
+    assert "unsupported_cache_policy" in error_codes
+
+    with pytest.raises(RuntimeError):
+        runner.run(request)
+    assert "read_raw" not in spy.calls
+    assert "transform" not in spy.calls
+
+    assert fetch_calls == []
+    assert requests_get_calls == []
+
+
+# ---------------------------------------------------------------------------
+# JSON pointer resolvability (Blocker 3)
+#
+# The WDI v2 cache file is a 2-element list
+# ``[metadata, data]``; each ``data[i]`` is a country record
+# carrying ``countryiso3code``, ``date``, and ``value``. The
+# canonical raw-locator JSON pointer is ``/1/<numeric_index>``
+# so audit code can re-parse the cache file and recover the
+# matching record byte-for-byte.
+# ---------------------------------------------------------------------------
+
+
+def test_wdi_observation_json_pointer_resolves(
+    tmp_path: Path,
+) -> None:
+    """Every emitted observation's
+    ``raw_locator.json_pointer`` resolves to the underlying
+    cache record.
+
+    Concretely:
+
+    - the pointer is the ``/1/<numeric_index>`` shape
+      (NOT ``/1/{iso3}``);
+    - opening the cache file at the observation's
+      ``raw_locator.path`` and evaluating the pointer with a
+      JSON-pointer resolver returns a record whose
+      ``countryiso3code``, ``date``, and ``indicator`` ID
+      match the observation's country, year, and raw
+      indicator code;
+    - the underlying record's ``value`` matches the
+      observation's ``value`` (NaN gaps are excluded so the
+      observation could not exist for a missing cell).
+
+    The test exercises the ``USA 2023 wdi_population`` cell
+    because the fixture's 2023 SP.POP.TOTL cache file puts
+    USA at index 1 (MEX=0, USA=1, SWE=2, ...).
+    """
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.world_bank_wdi import (
+        create_world_bank_wdi_adapter,
+    )
+
+    raw_root = tmp_path / "raw"
+    _stage_wdi_bundle(raw_root)
+
+    registry = InMemorySourceRegistry()
+    registry.register(create_world_bank_wdi_adapter())
+    runner = SourceIngestRunner(registry=registry)
+
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="world_bank_wdi"),
+        raw_root=raw_root,
+        years=(2023,),
+        countries=("USA",),
+    )
+    result = runner.run(request)
+    assert result.readiness.ready is True
+    assert result.observations, "expected at least one observation"
+
+    # Find the USA / 2023 / wdi_population observation (the
+    # SP.POP.TOTL raw indicator maps to wdi_population via
+    # the canonical catalog).
+    pop_observation = next(
+        obs for obs in result.observations
+        if obs.country_code == "USA"
+        and obs.year == 2023
+        and obs.indicator_code == "wdi_population"
+    )
+    raw_indicator_code = pop_observation.extension[
+        "wdi_raw_indicator_code"
+    ]
+    assert raw_indicator_code == "SP.POP.TOTL"
+    pointer = pop_observation.raw_locator.json_pointer
+    cache_path_str = pop_observation.raw_locator.path
+    assert pointer is not None, (
+        "raw_locator.json_pointer must be set; got None"
+    )
+    assert pointer.startswith("/1/"), (
+        f"JSON pointer must be /1/<numeric_index> shape, "
+        f"got {pointer!r}"
+    )
+    # The pointer must NOT be the legacy ``/1/{iso3}`` shape
+    # (Blocker 3: the cache file's data array is indexed
+    # numerically, not by ISO3 key).
+    assert pointer != "/1/USA", (
+        f"JSON pointer must NOT be the legacy /1/{{iso3}} "
+        f"shape (cache data array is numeric); got {pointer!r}"
+    )
+    # Resolve the pointer against the cache file.
+    assert cache_path_str is not None
+    cache_path = Path(cache_path_str)
+    assert cache_path.is_file(), (
+        f"raw_locator.path must point at a real cache file; "
+        f"got {cache_path}"
+    )
+    payload = json.loads(cache_path.read_text(encoding="utf-8"))
+    # Parse the pointer "/1/<index>" into a list segment.
+    segments = pointer.lstrip("/").split("/")
+    assert len(segments) == 2
+    assert segments[0] == "1"
+    numeric_index = int(segments[1])
+    record = payload[1][numeric_index]
+    assert record["countryiso3code"] == pop_observation.country_code
+    assert record["date"] == str(pop_observation.year)
+    assert record["indicator"]["id"] == raw_indicator_code
+    assert record["value"] == pop_observation.value, (
+        "resolved cache record value must match the "
+        "observation's value; otherwise the pointer is not "
+        f"pointing at the right row. record={record!r}, "
+        f"observation.value={pop_observation.value!r}"
+    )
+
+
+def test_wdi_load_wdi_cache_index_handles_missing_file() -> None:
+    """The ``load_wdi_cache_index`` helper returns ``None``
+    when the cache file is missing so the transform falls
+    back to a structured ``/1/{iso3}`` placeholder rather
+    than silently emitting an empty pointer.
+    """
+    from leaders_db.sources.adapters.world_bank_wdi._transform import (
+        load_wdi_cache_index,
+    )
+
+    assert load_wdi_cache_index(Path("/nonexistent/cache.json")) is None
+
+
+def test_wdi_load_wdi_cache_index_handles_malformed_json(
+    tmp_path: Path,
+) -> None:
+    """``load_wdi_cache_index`` returns ``None`` when the
+    cache file is not valid JSON or not the documented
+    2-element list shape, so the transform never crashes on
+    a malformed cache.
+    """
+    from leaders_db.sources.adapters.world_bank_wdi._transform import (
+        load_wdi_cache_index,
+    )
+
+    bad_json = tmp_path / "bad.json"
+    bad_json.write_text("{not valid json", encoding="utf-8")
+    assert load_wdi_cache_index(bad_json) is None
+
+    wrong_shape = tmp_path / "wrong_shape.json"
+    wrong_shape.write_text(json.dumps({"a": 1}), encoding="utf-8")
+    assert load_wdi_cache_index(wrong_shape) is None
+
+    no_data_list = tmp_path / "no_data_list.json"
+    no_data_list.write_text(json.dumps([{"a": 1}, "not a list"]), encoding="utf-8")
+    assert load_wdi_cache_index(no_data_list) is None
+
+
 def test_wdi_missing_metadata_source_version_fails_readiness_and_blocks_runner(
     tmp_path: Path,
 ) -> None:
@@ -1505,8 +2853,11 @@ __all__ = [
     "test_wdi_attribution_text_matches_legacy_constant",
     "test_wdi_cache_complete_passes_readiness_with_explicit_years",
     "test_wdi_combined_year_and_country_filter",
+    "test_wdi_corrupt_cached_json_blocks_readiness_for_discovered_files",
+    "test_wdi_corrupt_cached_json_blocks_readiness_for_explicit_years",
     "test_wdi_country_filter_is_applied",
     "test_wdi_descriptor_exposes_documented_static_metadata",
+    "test_wdi_explicit_year_partial_cache_blocks_readiness_and_skips_runner",
     "test_wdi_incomplete_cache_fails_readiness_for_explicit_years",
     "test_wdi_leader_filter_emits_unsupported_filter_warning",
     "test_wdi_mismatched_metadata_source_version_fails_readiness_and_blocks_runner",
@@ -1514,11 +2865,15 @@ __all__ = [
     "test_wdi_missing_metadata_fails_readiness_and_blocks_runner",
     "test_wdi_missing_metadata_source_version_fails_readiness_and_blocks_runner",
     "test_wdi_no_year_filter_passes_readiness_without_cache_check",
+    "test_wdi_offline_only_no_year_filter_empty_cache_does_not_hit_network",
+    "test_wdi_offline_only_no_year_filter_partial_cache_does_not_hit_network",
     "test_wdi_out_of_coverage_year_returns_zero_and_warning",
     "test_wdi_package_import_does_not_register_legacy_wdi",
+    "test_wdi_prefer_cache_no_year_filter_partial_cache_does_not_hit_network",
     "test_wdi_register_helper_registers_against_explicit_registry",
     "test_wdi_runner_does_not_consult_legacy_stage2_adapters",
     "test_wdi_runner_produces_normalized_observations",
+    "test_wdi_unsupported_cache_policy_no_year_filter_does_not_hit_network",
     "test_wdi_unsupported_source_version_fails_readiness_with_actionable_error",
     "test_wdi_year_filter_is_applied",
 ]

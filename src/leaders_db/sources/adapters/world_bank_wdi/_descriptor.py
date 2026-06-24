@@ -124,8 +124,10 @@ WORLD_BANK_WDI_SUPPORTED_FAMILIES: tuple[str, ...] = (
 # Default cache policy for WDI in the new runner. ``offline_only``
 # is the documented safe default: WDI is API-backed but the new
 # runner must not surprise a test or production call with network
-# I/O. Callers that want network refresh must explicitly set
-# ``cache_policy="refresh"`` or ``"no_cache"`` on the request.
+# I/O. ``cache_policy="refresh"`` / ``"no_cache"`` is NOT
+# supported by the unified WDI adapter in this slice -- the
+# readiness gate refuses both with a structured
+# ``unsupported_cache_policy`` error.
 WORLD_BANK_WDI_DEFAULT_CACHE_POLICY: str = "offline_only"
 
 # JSON pointer prefix for entries inside the WDI v2 2-element

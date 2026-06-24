@@ -228,21 +228,48 @@ the canonical WDI v2 API base URL
 `requires_network=True`, coverage hint 1960-present, and
 supported observation families `("economic_country_year",
 "social_country_year")`. The adapter is **offline / cache-first
-by default**: for `cache_policy="offline_only"` /
-`"prefer_cache"` with explicit `years=`, missing or incomplete
-cache fails readiness with a structured `network_cache_unavailable`
-/ `missing_raw` error BEFORE `read_raw` / `transform` are called
-(per `docs/requirements/sources.md` §11 SRC-TYPE-002 -- API
-sources use cache policy); `cache_policy="refresh"` /
-`"no_cache"` opts in to the legacy HTTP path (not exercised by
-tests in this slice). The bundle metadata's `checksum_sha256`
-may be `null` with a `checksum_note` documenting that checksums
-are managed per cached response, NOT as a single bundle checksum
-(API-backed source). Per-observation `RawLocator` carries the
-cache file path + `api_endpoint` template + `json_pointer` so
-downstream audit code can resolve the canonical WDI v2 URL for
-each (year, indicator, country) row; per-row `extension` fields
-carry the raw WDI indicator code (e.g. `NY.GDP.MKTP.CD`) as
+by default and offline-only in this slice**: for
+`cache_policy="offline_only"` / `"prefer_cache"` with explicit
+`years=`, missing or incomplete cache fails readiness with a
+structured `network_cache_unavailable` / `missing_raw` error
+BEFORE `read_raw` / `transform` are called (per
+`docs/requirements/sources.md` §11 SRC-TYPE-002 -- API sources
+use cache policy). `cache_policy="refresh"` / `"no_cache"` is
+NOT supported by the unified WDI adapter in this slice: it
+fails readiness with a structured `unsupported_cache_policy`
+error because `WDIAdapter.read_raw` never invokes the network
+regardless of `request.cache_policy` -- the unified adapter
+uses a local cache-only read path (`_read_cached_wdi_responses`
+in `_transform.py`, `_enumerate_cache_files` in `_readiness.py`)
+that reads the staged per-(year, indicator) JSON cache files
+directly and mirrors the legacy
+`leaders_db.ingest.wdi_http.parse_wdi_payload` /
+`leaders_db.ingest.wdi_io.read_wdi` long-to-wide pivot just
+enough for the cache-only contract. For `years=None` the
+readiness gate enumerates the cache root and refuses to
+dispatch if any discovered cache file is malformed (would
+force the legacy read_wdi fallback into HTTP); for explicit
+`years=` the gate refuses missing / incomplete / corrupt cache
+BEFORE `read_raw` / `transform` are called (per the
+comprehensive cache-policy remediation). The bundle metadata's
+`checksum_sha256` is REQUIRED and accepts three shapes: (a)
+`null` paired with a non-empty `checksum_note` mentioning the
+API / cache / per-response / checksum contract (canonical WDI
+shape); (b) a 64-character hex SHA-256 string (flat-bundle);
+(c) a per-file dict mapping file names to 64-character hex
+SHA-256 strings. Missing `checksum_sha256`, `null` without an
+actionable `checksum_note`, or a non-null shape that does not
+validate all fail readiness with a structured
+`missing_metadata` error. Per-observation `RawLocator` carries
+the cache file path + `api_endpoint` template + `json_pointer`
+so downstream audit code can resolve the canonical WDI v2 URL
+for each (year, indicator, country) row; the pointer is
+`"/1/<numeric_index>"` (the data list under `payload[1]` is
+indexed numerically in the WDI v2 response), computed by the
+`load_wdi_cache_index` helper in `_transform.py` so audit code
+can re-parse the cache file and recover the matching record
+byte-for-byte; per-row `extension` fields carry the raw WDI
+indicator code (e.g. `NY.GDP.MKTP.CD`) as
 `wdi_raw_indicator_code`, the cache year, and the canonical
 attribution text (Rule #15). No persistence, manifest, or DB
 writes landed; the runner still returns `manifest=None`. The

@@ -8,6 +8,7 @@ COUNTRY_ABSENT = "country_absent"
 YEAR_ABSENT = "year_absent"
 INDICATOR_NULL = "indicator_null"
 UNSUPPORTED_FILTER = "unsupported_filter"
+UNSUPPORTED_CACHE_POLICY = "unsupported_cache_policy"
 MANUAL_GATE = "manual_gate"
 NETWORK_CACHE_UNAVAILABLE = "network_cache_unavailable"
 SOURCE_NOT_IMPLEMENTED = "source_not_implemented"
@@ -20,6 +21,7 @@ __all__ = [
     "MISSING_RAW",
     "NETWORK_CACHE_UNAVAILABLE",
     "SOURCE_NOT_IMPLEMENTED",
+    "UNSUPPORTED_CACHE_POLICY",
     "UNSUPPORTED_FILTER",
     "YEAR_ABSENT",
 ]

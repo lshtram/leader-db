@@ -79,10 +79,16 @@ use cache policy):
   requested year lacks a complete indicator cache. The legacy
   HTTP layer is never invoked. This is the documented safe
   default -- the new runner is offline / cache-first.
-- ``refresh`` / ``no_cache``: the cache-availability gate is a
-  no-op so the legacy HTTP path can run (not exercised by tests
-  in this slice; production callers that opt in accept that
-  the new adapter may hit the network on ``read_raw``).
+- ``refresh`` / ``no_cache``: NOT supported by the unified WDI
+  adapter in this slice. ``check_cache_availability`` fails
+  readiness with the structured ``unsupported_cache_policy``
+  code because ``WDIAdapter.read_raw`` never invokes the
+  network -- the legacy HTTP path is intentionally not
+  wired through the unified runner. Callers that need
+  fresh data must stage the per-(year, indicator) JSON cache
+  under ``<raw_root>/world_bank_wdi/cache/<year>/<CODE>.json``
+  and re-run with ``cache_policy='offline_only'`` or
+  ``'prefer_cache'``.
 
 Year semantics
 --------------
@@ -111,7 +117,7 @@ helpers. All four modules honor the package-isolation contract
 from __future__ import annotations
 
 import json
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any
 
@@ -132,18 +138,24 @@ from leaders_db.sources.warnings import (
 
 from ._descriptor import (
     WORLD_BANK_WDI_CACHE_DIR_NAME,
+    WORLD_BANK_WDI_COVERAGE_START_YEAR,
     WORLD_BANK_WDI_DEFAULT_VERSION,
     WORLD_BANK_WDI_HOMEPAGE_URL,
     WORLD_BANK_WDI_SOURCE_KEY,
     build_world_bank_wdi_descriptor,
 )
 from ._readiness import (
+    _enumerate_cache_files,
     check_cache_availability,
     check_metadata_well_formed,
     check_source_version,
     collect_request_scoping_warnings,
 )
-from ._transform import emit_world_bank_wdi_observations
+from ._transform import (
+    _read_cached_wdi_responses,
+    emit_world_bank_wdi_observations,
+    load_wdi_cache_index,
+)
 
 # ---------------------------------------------------------------------------
 # Path + metadata helpers
@@ -272,8 +284,13 @@ class WDIAdapter:
            is ``"offline_only"`` / ``"prefer_cache"`` AND the
            cache directory is missing or any requested year
            lacks a complete indicator cache. For
-           ``"refresh"`` / ``"no_cache"`` the gate is a no-op
-           so the legacy HTTP path can run.
+           ``"refresh"`` / ``"no_cache"`` the gate fails
+           readiness with the structured
+           ``unsupported_cache_policy`` error because the
+           unified WDI adapter is offline / cache-only in
+           this slice -- there is no production path that
+           wires ``force_refresh=True`` or HTTP re-fetch into
+           ``WDIAdapter.read_raw``.
 
         Two request-scoping warning classes (NOT blockers)
         surface on ``ReadinessResult.warnings``:
@@ -408,48 +425,116 @@ class WDIAdapter:
         """Open the staged per-(year, indicator) JSON cache and
         return the wide-format DataFrame.
 
-        Lazy-imports the legacy reader so the unified package
-        boundary is preserved. The wide-format DataFrame (one
-        row per ``(iso3, year)`` with one column per catalog
-        indicator) is carried in :attr:`RawReadResult.payload`
-        under ``"wide_df"`` for the transform layer. The
-        ``read_raw`` call does NOT apply request year / country
-        filters -- the transform layer does that on the wide
-        frame so the request-scoping semantics stay in one
-        place.
+        The unified WDI adapter is offline / cache-only in this
+        slice: ``read_raw`` NEVER invokes the network. It uses
+        the local :func:`_read_cached_wdi_responses` cache-only
+        read path (mirrors the legacy
+        :func:`leaders_db.ingest.wdi_io.read_wdi` /
+        :func:`leaders_db.ingest.wdi_http.parse_wdi_payload`
+        parsing just enough for the staged per-(year, indicator)
+        JSON cache, but with no HTTP fallback). The legacy
+        :func:`read_wdi` falls through to HTTP on missing /
+        corrupt cache files; the local path deliberately does
+        not.
+
+        For ``years=None`` (all-available-years semantics per
+        SRC-REQ-003), the function enumerates the cache root for
+        valid ``(year, indicator)`` JSON files via the readiness
+        gate's :func:`_enumerate_cache_files` helper and reads
+        exactly those ``(year, indicator)`` pairs through the
+        cache-only path. For explicit ``years=``, the readiness
+        gate has already validated that every catalog indicator
+        has a complete, valid cache file under each requested
+        year dir; ``read_raw`` then reads those exact files.
+
+        The wide-format DataFrame (one row per ``(iso3, year)``
+        with one column per catalog ``variable_name``) is carried
+        in :attr:`RawReadResult.payload` under ``"wide_df"`` for
+        the transform layer. The ``read_raw`` call does NOT
+        apply request year / country filters -- the transform
+        layer does that on the wide frame so the
+        request-scoping semantics stay in one place.
 
         The :class:`RawAsset` describes the cache root as one
         logical asset; per-observation locators carry the
         specific cache file path + json_pointer.
         """
-        # Lazy import: keeps ``leaders_db.sources`` importable
-        # without ``leaders_db.ingest`` (docs/architecture/sources.md
-        # §10.1 + docs/requirements/sources.md §12 SRC-MIG-007).
-        from leaders_db.ingest.wdi_io import read_wdi as _legacy_read_wdi
-
         cache_root = _cache_dir(request)
-        # Pass ``year=None`` so the legacy reader returns the
-        # full wide-format frame (all years present in the
-        # cache). The transform layer applies request year /
-        # country filters so the request-scoping semantics
-        # stay in one place.
-        wide_df = _legacy_read_wdi(
-            year=None,
-            cache_dir=cache_root,
-            catalog_path=None,
-            # ``force_refresh=False`` so the cache-first path is
-            # taken. The new runner does not invoke the network
-            # in this slice; production callers that opt in to
-            # ``cache_policy="refresh"`` / ``"no_cache"`` accept
-            # that the legacy HTTP layer may run.
-            force_refresh=False,
-            request_timeout=30.0,
+
+        # Resolve the catalog spec mapping so the cache-only read
+        # path can rename raw WDI codes (``SP.POP.TOTL``) to
+        # canonical variable names (``wdi_population``). Lazy
+        # import to preserve the package boundary
+        # (docs/architecture/sources.md §10.1).
+        spec_by_variable_name: Mapping[str, Any] | None = None
+        try:
+            spec_by_variable_name = _resolve_spec_by_variable_name(
+                catalog_path=None,
+            )
+        except FileNotFoundError:
+            # The catalog gate already fired in ``check_ready``
+            # so this branch is defensive: ``read_raw`` is only
+            # reachable when the readiness gate passed, which
+            # requires the catalog to be present. If the catalog
+            # disappeared between ``check_ready`` and
+            # ``read_raw`` (race), fall back to raw-code columns
+            # so the read path still works without the network.
+            spec_by_variable_name = None
+
+        # For ``years=None``, enumerate the cache files via the
+        # readiness-gate helper so the read path operates on
+        # exactly the validated ``(year, indicator)`` pairs
+        # (no opportunistic file discovery that could miss a
+        # file the gate did not inspect). The enumeration is
+        # idempotent and fast (one ``iterdir`` per year dir +
+        # one ``json.loads`` per file); we deliberately do not
+        # cache it across calls because the cache may have
+        # changed between ``check_ready`` and ``read_raw``.
+        if not request.years:
+            discovered_pairs, _malformed = _enumerate_cache_files(
+                cache_root,
+            )
+        else:
+            # Explicit ``years=``: the readiness gate has
+            # already validated that every catalog indicator has
+            # a complete, valid cache file under each requested
+            # year dir. Enumerate the (year, catalog_indicator)
+            # pairs directly so the read path is deterministic
+            # and does not need to re-validate shape. We do NOT
+            # request a re-enumeration here because the catalog
+            # names ARE the file names per the canonical WDI
+            # cache layout (``<year>/<CODE>.json`` where CODE is
+            # the catalog's ``raw_column``).
+            discovered_pairs = []
+            for year in request.years:
+                year_int = int(year)
+                if year_int < WORLD_BANK_WDI_COVERAGE_START_YEAR:
+                    continue
+                year_dir = cache_root / str(year_int)
+                if not year_dir.is_dir():
+                    continue
+                for code in _resolve_indicator_codes_from_catalog(
+                    catalog_path=None,
+                ):
+                    cache_file = year_dir / f"{code}.json"
+                    if cache_file.is_file():
+                        discovered_pairs.append(
+                            (year_int, code, cache_file),
+                        )
+
+        wide_df = _read_cached_wdi_responses(
+            cache_root,
+            years=request.years,
+            discovered_pairs=discovered_pairs or None,
+            spec_by_variable_name=spec_by_variable_name,
         )
         metadata = _read_metadata_payload(_metadata_path(request))
 
-        # Surface the cached/fetched counts the legacy reader
+        # Surface the cached/fetched counts the local read path
         # attached to ``df.attrs`` so the result envelope
-        # carries them for downstream audits.
+        # carries them for downstream audits. ``indicators_fetched``
+        # is always 0 because the cache-only read path never
+        # invokes the network.
         indicators_cached = int(
             getattr(wide_df, "attrs", {}).get("indicators_cached", 0),
         )
@@ -477,6 +562,7 @@ class WDIAdapter:
                 "cache_root": cache_root,
                 "indicators_cached": indicators_cached,
                 "indicators_fetched": indicators_fetched,
+                "discovered_pairs": tuple(discovered_pairs),
             },
             warnings=(),
         )
@@ -497,6 +583,16 @@ class WDIAdapter:
         observations (no stale-proxy fill); the readiness
         envelope already surfaced the ``YEAR_ABSENT`` warning
         per offending year.
+
+        Pre-computes a ``(year, raw_indicator_code) ->
+        {countryiso3code: numeric_index}`` map by reading each
+        cache file once via :func:`load_wdi_cache_index`. The
+        map lets the transform layer stamp each emitted
+        observation's ``raw_locator.json_pointer`` with a
+        real ``/1/<numeric_index>`` value so audit code can
+        resolve the pointer to the underlying cache record
+        byte-for-byte (per
+        ``docs/requirements/sources.md`` §6 SRC-PROV-001).
         """
         if not isinstance(raw.payload, dict):
             raise ValueError(
@@ -561,9 +657,54 @@ class WDIAdapter:
             catalog_path=None,
         )
 
+        # Pre-compute the (year, raw_indicator_code) cache
+        # index map so the transform can stamp each
+        # observation with a real ``/1/<numeric_index>``
+        # JSON pointer. We enumerate the (year, indicator)
+        # pairs that survive the filter; for every pair we
+        # look up the catalog ``raw_column`` (the WDI v2
+        # indicator code) and load the cache file once.
+        # Missing / malformed cache files yield ``None`` so
+        # the transform falls back to the documented
+        # ``/1/{iso3}`` placeholder pointer (no silent
+        # corruption of the audit envelope).
+        cache_index_by_year_indicator: dict[
+            tuple[int, str], dict[str, int] | None
+        ] = {}
+        if (
+            isinstance(cache_root_value, Path)
+            and not filtered_df.empty
+        ):
+            for column_name in filtered_df.columns:
+                if column_name in {"iso3", "year"}:
+                    continue
+                spec = spec_by_variable_name.get(column_name)
+                raw_indicator_code = (
+                    getattr(spec, "raw_column", None) or column_name
+                )
+                for year_int in (
+                    int(y) for y in filtered_df["year"].unique()
+                ):
+                    key = (year_int, raw_indicator_code)
+                    if key in cache_index_by_year_indicator:
+                        continue
+                    cache_file = (
+                        cache_root_value
+                        / str(year_int)
+                        / f"{raw_indicator_code}.json"
+                    )
+                    cache_index_by_year_indicator[key] = (
+                        load_wdi_cache_index(cache_file)
+                    )
+
         return emit_world_bank_wdi_observations(
             filtered_df, request, cache_root_value,
             spec_by_variable_name,
+            cache_index_by_year_indicator=(
+                cache_index_by_year_indicator
+                if cache_index_by_year_indicator
+                else None
+            ),
         )
 
 
