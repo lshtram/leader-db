@@ -567,15 +567,72 @@ large legacy move as its own mechanical, reviewed commit.
    emitted observation; a request for `years=(2024,)` (or any year
    beyond 2022) emits zero observations plus a structured `YEAR_ABSENT`
    warning -- no multi-year stale-proxy fill (SRC-COV-002 / SRC-COV-003).
-   The canonical version `"2023"` propagates consistently to
-   `RawAsset.version` and every emitted
-   `NormalizedObservation.source_version`. The runner still returns
-   `manifest=None`; no persistence, DB writes, or manifest writing
-   landed. The package exposes explicit
-   `create_maddison_project_adapter()` / `register_maddison_project(registry)`
-   factories and does NOT auto-register on import (§10.1).
-6. **CLI transition.** Add `leaders-db sources ...` commands and begin retiring
-   `STAGE2_ADAPTERS`.
+    The canonical version `"2023"` propagates consistently to
+    `RawAsset.version` and every emitted
+    `NormalizedObservation.source_version`. The runner still returns
+    `manifest=None`; no persistence, DB writes, or manifest writing
+    landed. The package exposes explicit
+    `create_maddison_project_adapter()` / `register_maddison_project(registry)`
+    factories and does NOT auto-register on import (§10.1).
+ 6. **Third clean-source migration landed (2026-06-24) — World Bank WDI under
+    `src/leaders_db/sources/adapters/world_bank_wdi/`.** WDI is
+    the third source rebuilt under the new `leaders_db.sources`
+    interface (docs/architecture/sources.md §7.1 priority 3,
+    docs/requirements/sources.md §12 SRC-MIG-005), after PWT
+    10.01 and Maddison Project Database 2023. The new package
+    implements the full `SourceAdapter` Protocol and reuses
+    the legacy reader / catalog loader under
+    `leaders_db.ingest.wdi_io` via lazy imports; the package
+    import does NOT pull in `leaders_db.ingest`
+    (`tests/sources/test_world_bank_wdi_adapter.py::test_wdi_adapter_module_does_not_import_legacy_ingest_at_import`
+    + the import-boundary submodule list in
+    `tests/sources/test_import_boundary.py`). The runner
+    end-to-end contract is proven by
+    `test_wdi_runner_produces_normalized_observations` (125
+    fixture observations round-tripped for the unfiltered run;
+    61 for `years=(2023,)`, 25 for `countries=('USA',)`, 12
+    for `years=(2023,) + countries=('USA',)`) and
+    `test_wdi_runner_does_not_consult_legacy_stage2_adapters`
+    (monkeypatched legacy `STAGE2_ADAPTERS["world_bank_wdi"]`
+    tracker is never invoked). The WDI descriptor exposes
+    `source_id="world_bank_wdi"`,
+    `default_version="World Bank API v2; cached indicator
+    responses"` (matches the staged bundle's metadata.json
+    byte-for-byte), `attribution_key="world_bank_wdi"`,
+    `source_type="api"`, `requires_network=True`, coverage
+    hint 1960-present, and supported observation families
+    `("economic_country_year", "social_country_year")`. The
+    canonical `"World Bank API v2; cached indicator
+    responses"` version propagates consistently to
+    `RawAsset.version` and every emitted
+    `NormalizedObservation.source_version`. The adapter is
+    **offline / cache-first by default**: for
+    `cache_policy="offline_only"` / `"prefer_cache"` with
+    explicit `years=`, missing or incomplete cache fails
+    readiness with a structured `network_cache_unavailable`
+    / `missing_raw` error before `read_raw` / `transform`
+    are called (per
+    `docs/requirements/sources.md` §11 SRC-TYPE-002 -- API
+    sources use cache policy); `cache_policy="refresh"` /
+    `"no_cache"` opts in to the legacy HTTP path (not
+    exercised by tests in this slice). The bundle metadata's
+    `checksum_sha256` may be `null` with a `checksum_note`
+    documenting that checksums are managed per cached
+    response, NOT as a single bundle checksum (API-backed
+    source). Per-observation `RawLocator` carries the cache
+    file path + `api_endpoint` template + `json_pointer` so
+    downstream audit code can resolve the canonical WDI v2
+    URL for each (year, indicator, country) row. Per-row
+    `extension` fields carry the raw WDI indicator code
+    (`wdi_raw_indicator_code`), the cache year, and the
+    canonical attribution text (Rule #15). The runner still
+    returns `manifest=None`; no persistence, DB writes, or
+    manifest writing landed. The package exposes explicit
+    `create_world_bank_wdi_adapter()` /
+    `register_world_bank_wdi(registry)` factories and does
+    NOT auto-register on import (§10.1).
+ 7. **CLI transition.** Add `leaders-db sources ...` commands and begin retiring
+    `STAGE2_ADAPTERS`.
 
 ---
 

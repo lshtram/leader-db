@@ -4,10 +4,12 @@ This guide covers the `leaders_db.sources` interface slice: the clean source
 package boundary, registry seam, minimal runner dispatch, query protocol, and
 legacy-access separation. The PWT 10.01 adapter under
 `src/leaders_db/sources/adapters/pwt/` is the first source rebuilt under this
-interface and the Maddison Project Database 2023 adapter under
-`src/leaders_db/sources/adapters/maddison_project/` is the second.
-See `docs/architecture/sources.md` §7.1 and `docs/workplan.md` for the
-migration history.
+interface, the Maddison Project Database 2023 adapter under
+`src/leaders_db/sources/adapters/maddison_project/` is the second, and the
+World Bank WDI adapter under
+`src/leaders_db/sources/adapters/world_bank_wdi/` is the third (API/cache-
+backed source). See `docs/architecture/sources.md` §7.1 and `docs/workplan.md`
+for the migration history.
 
 ## Automated checks
 
@@ -99,6 +101,54 @@ ruff check src/leaders_db/sources tests/sources docs/requirements/sources.md doc
 Verifies formatting/import/static-analysis hygiene for the new package, source
 tests, and source-interface docs touched by this slice.
 
+The World Bank WDI slice (third clean-source migration, API/cache-backed)
+adds the source-specific cache-policy semantics on top of the shared
+contract:
+
+- the WDI adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes the canonical WDI static metadata
+  (source_id `world_bank_wdi`, default version `"World Bank API v2;
+  cached indicator responses"`, attribution_key `"world_bank_wdi"`, api
+  type, 1960-present coverage hint, both `economic_country_year` and
+  `social_country_year` observation families, WDI v2 API homepage URL,
+  requires_network=True);
+- `SourceIngestRunner.run(request)` drives WDI end-to-end through the
+  new registry against a fixture `raw_root` and produces
+  `NormalizedObservation` records (125 fixture observations round-tripped
+  for the unfiltered run; 61 for `years=(2023,)`; 25 for
+  `countries=('USA',)`; 12 for `years=(2023,) + countries=('USA',)`);
+- the runner does not consult legacy `STAGE2_ADAPTERS` even when the
+  legacy `world_bank_wdi` slot is monkeypatched to a tracker;
+- `cache_policy="offline_only"` / `"prefer_cache"` with explicit `years=`
+  and missing / incomplete cache fails readiness with a structured
+  `network_cache_unavailable` / `missing_raw` error BEFORE `read_raw` /
+  `transform` are called; the new runner is offline / cache-first by
+  default and never silently hits the network;
+- `cache_policy="refresh"` / `"no_cache"` opts in to the legacy HTTP
+  path (not exercised by tests);
+- `years=None` skips the cache gate so the runner can enumerate all
+  available years at read time (SRC-REQ-003);
+- `years=` outside the 1960+ coverage envelope emits zero observations
+  plus a structured `YEAR_ABSENT` warning -- no stale-proxy fill
+  (SRC-COV-002 / SRC-COV-003);
+- `years=` / `countries=` filters are honored; `leaders=` emits an
+  `unsupported_filter` warning;
+- the readiness-failure tests for missing `metadata.json`,
+  missing metadata `source_version`, mismatched metadata
+  `source_version`, and unsupported request `source_version` each
+  prove the runner short-circuits before `read_raw` / `transform`;
+- the canonical metadata `source_version="World Bank API v2; cached
+  indicator responses"` propagates consistently to
+  `RawAsset.version` and every emitted
+  `NormalizedObservation.source_version`;
+- the per-observation `RawLocator` carries the cache file path +
+  `api_endpoint` template + `json_pointer` so downstream audit code
+  can resolve the canonical WDI v2 URL for each (year, indicator,
+  country) row;
+- the per-observation `extension` payload carries the raw WDI
+  indicator code (e.g. `NY.GDP.MKTP.CD`) as `wdi_raw_indicator_code`,
+  plus the canonical attribution text (Rule #15).
+
 Optional legacy compatibility smoke:
 
 ```bash
@@ -108,7 +158,15 @@ pytest -q tests/ingest
 Verifies the existing legacy ingestion tests remain green after source-interface
 changes. The PWT-specific legacy suite
 (`tests/ingest/sources/pwt/`) is the regression guard for the legacy
-`STAGE2_ADAPTERS["pwt"]` path and must keep passing unchanged.
+`STAGE2_ADAPTERS["pwt"]` path and must keep passing unchanged. The
+WDI legacy suite (`tests/test_ingest_wdi.py`) is the regression guard
+for the legacy `STAGE2_ADAPTERS["world_bank_wdi"]` path; the new
+`tests/sources/test_world_bank_wdi_adapter.py` slice asserts that
+the legacy `STAGE2_ADAPTERS["world_bank_wdi"]` slot is never invoked
+by the new runner (`test_wdi_runner_does_not_consult_legacy_stage2_adapters`)
+and that the legacy constant `WDI_ATTRIBUTION` is byte-identical to
+the new `WORLD_BANK_WDI_ATTRIBUTION_TEXT`
+(`test_wdi_attribution_text_matches_legacy_constant`).
 
 ## Manual / boundary checks
 
@@ -149,7 +207,8 @@ Expected: a positive adapter count and `True` for `pwt`.
   validation beyond the current contract envelope.
 - New CLI commands under `leaders-db sources ...`.
 - Moving or deleting legacy `src/leaders_db/ingest/` code.
-- The third / fourth / ... clean source migrations (WDI, WGI, V-Dem,
-  ...). PWT and Maddison Project are the proof-of-pattern; future
-  migrations follow the same `src/leaders_db/sources/adapters/<slug>/`
-  layout.
+- The fourth / fifth / ... clean source migrations (WGI, V-Dem,
+  ...). PWT, Maddison Project, and World Bank WDI are the
+  proof-of-pattern across dataset (PWT), historical xlsx (Maddison),
+  and API/cache (WDI) source shapes; future migrations follow the
+  same `src/leaders_db/sources/adapters/<slug>/` layout.

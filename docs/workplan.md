@@ -174,6 +174,81 @@ the readiness gate matches the staged metadata. The next migration
 slice candidates are WDI (priority 3), WGI (priority 4), V-Dem
 (priority 5), per docs/architecture/sources.md §7.1.
 
+**Third clean-source migration landed (2026-06-24) — World Bank WDI under
+`leaders_db.sources.adapters.world_bank_wdi`.** WDI is the third
+source rebuilt under the new `leaders_db.sources` interface
+(docs/architecture/sources.md §7.1 priority 3,
+docs/requirements/sources.md §12 SRC-MIG-005), after the PWT
+10.01 and Maddison Project Database 2023 adapters. The new package
+is a thin adapter that implements the canonical `SourceAdapter`
+Protocol (`descriptor` + `check_ready` + `read_raw` + `transform`)
+and reuses the legacy reader / catalog loader under
+`leaders_db.ingest.wdi_io` via lazy imports so the package
+boundary is preserved (`tests/sources/test_world_bank_wdi_adapter.py`
+asserts `import leaders_db.sources.adapters.world_bank_wdi` does
+NOT pull in `leaders_db.ingest`; the canonical import-boundary
+submodule list in `tests/sources/test_import_boundary.py` now
+iterates the new submodule as well). The legacy
+`STAGE2_ADAPTERS["world_bank_wdi"]` entry remains unchanged -- the
+new package exposes explicit `create_world_bank_wdi_adapter()`
+and `register_world_bank_wdi(registry)` factories and does NOT
+auto-register on import (per docs/architecture/sources.md §10.1).
+The new adapter honors the full request scope: `years=` and
+`countries=` filter the wide-format DataFrame (after the legacy
+reader returns the full frame with `year=None`); `leaders=`
+emits a structured `unsupported_filter` warning; `years=` outside
+the documented 1960+ coverage envelope emits zero observations
++ a `year_absent` warning -- no stale-proxy fill (SRC-COV-002 /
+SRC-COV-003). A mismatched `source_version=` (e.g. `"World Bank
+API v1"` against a canonical WDI bundle whose metadata records
+`"World Bank API v2; cached indicator responses"`) FAILS
+readiness with a structured `unsupported_version` error per
+`docs/requirements/sources.md` §3 SRC-REQ-009 -- the runner raises
+`RuntimeError` before calling `read_raw` / `transform`, so the
+legacy bundle metadata cannot be silently overwritten by an
+unsupported version stamp. The runner also validates the staged
+bundle's metadata `source_version`: missing or mismatched metadata
+versions fail readiness, and the canonical `"World Bank API v2;
+cached indicator responses"` value propagates consistently to
+`RawAsset.version` and every emitted
+`NormalizedObservation.source_version`. The runner end-to-end
+contract is proven by
+`tests/sources/test_world_bank_wdi_adapter.py::test_wdi_runner_produces_normalized_observations`
+(125 fixture observations round-tripped for the unfiltered run;
+61 for `years=(2023,)`, 25 for `countries=('USA',)`, 12 for
+`years=(2023,) + countries=('USA',)`) and
+`test_wdi_runner_does_not_consult_legacy_stage2_adapters`
+(monkeypatched `STAGE2_ADAPTERS["world_bank_wdi"]` tracker is
+never invoked). The WDI descriptor exposes
+`source_id="world_bank_wdi"`,
+`default_version="World Bank API v2; cached indicator responses"`,
+the canonical WDI v2 API base URL
+(`https://api.worldbank.org/v2/`),
+`attribution_key="world_bank_wdi"`, `source_type="api"`,
+`requires_network=True`, coverage hint 1960-present, and
+supported observation families `("economic_country_year",
+"social_country_year")`. The adapter is **offline / cache-first
+by default**: for `cache_policy="offline_only"` /
+`"prefer_cache"` with explicit `years=`, missing or incomplete
+cache fails readiness with a structured `network_cache_unavailable`
+/ `missing_raw` error BEFORE `read_raw` / `transform` are called
+(per `docs/requirements/sources.md` §11 SRC-TYPE-002 -- API
+sources use cache policy); `cache_policy="refresh"` /
+`"no_cache"` opts in to the legacy HTTP path (not exercised by
+tests in this slice). The bundle metadata's `checksum_sha256`
+may be `null` with a `checksum_note` documenting that checksums
+are managed per cached response, NOT as a single bundle checksum
+(API-backed source). Per-observation `RawLocator` carries the
+cache file path + `api_endpoint` template + `json_pointer` so
+downstream audit code can resolve the canonical WDI v2 URL for
+each (year, indicator, country) row; per-row `extension` fields
+carry the raw WDI indicator code (e.g. `NY.GDP.MKTP.CD`) as
+`wdi_raw_indicator_code`, the cache year, and the canonical
+attribution text (Rule #15). No persistence, manifest, or DB
+writes landed; the runner still returns `manifest=None`. The
+next migration slice candidates are WGI (priority 4), V-Dem
+(priority 5), per docs/architecture/sources.md §7.1.
+
 **Planned vertical slice: Country-Year Chronicle (`cyc`).** A new longitudinal country-year profile slice is planned in [`docs/chronicle/workplan.md`](chronicle/workplan.md). It targets `country × year` records for 1900-2026 with ruler, political regime bucket, system/ideology classification, population, GDP, military spend, area, provenance, confidence, and data-quality flags. Increment 0 source inventory / CSV contract findings are complete in [`docs/chronicle/increment-0.md`](chronicle/increment-0.md), and Increment 1 pilot implementation is complete. **Increment 2 is complete (2026-06-21) — Maddison-backed economy fields + provenance-aware ruler resolver (Archigos + REIGN, no client matrix, no LLM) shipped together; see [`docs/chronicle/increment-2.md`](chronicle/increment-2.md). Increment 3 is complete (2026-06-21) — SUN rulers (Wikipedia-anchored curated spell list) + CShapes 2.0 country-area source + conservative `controlled_area_km2` fallback with the explicit `controlled_area_country_only` flag; see [`docs/chronicle/increment-3.md`](chronicle/increment-3.md). Increment 4 (controlled / imperial area design pass) is explicitly DEFERRED per user request 2026-06-21. Increment 5 is complete (2026-06-21) — all-country scope (~200 ISO3 codes derived from V-Dem coverage + pilot historical identity overlay) + condensed CSV export with the documented Increment 5 column set and the four-label `existence_status` (exists / not_formed / split_or_dissolved / out_of_scope_unknown); see [`docs/chronicle/increment-5.md`](chronicle/increment-5.md).** The next CYC action is the controlled / imperial area design pass (originally Increment 4 in the workplan).
 
 **CYC ruler-gap note (2026-06-21):** Per user direction, colonial/dependent country-years are temporarily filled with the literal `colonial-rule` when V-Dem's `v2svindep` independence indicator is `0` and no specific ruler source resolves. This is a coarse placeholder only. The open methodological question — whether these rows should eventually carry local colonial governors, metropole/imperial heads of state, separate `local_ruler` / `sovereign_ruler` fields, or a non-sovereign status rather than a ruler — is deferred and must be resolved before treating colonial-era ruler rows as authoritative.
