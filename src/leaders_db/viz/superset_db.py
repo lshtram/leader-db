@@ -14,6 +14,9 @@ VIZ_SUPERSET_DB_BASENAME = "superset_viz.sqlite"
 
 VIZ_CSV_TABLES: tuple[tuple[str, str, bool], ...] = (
     ("viz_country_year_metrics.csv", "viz_country_year_metrics", True),
+    ("viz_country_year_growth.csv", "viz_country_year_growth", False),
+    ("viz_regime_year_aggregates.csv", "viz_regime_year_aggregates", False),
+    ("viz_country_latest_metrics.csv", "viz_country_latest_metrics", False),
     ("viz_metric_catalog.csv", "viz_metric_catalog", False),
     ("viz_regime_year_population.csv", "viz_regime_year_population", False),
     ("viz_source_coverage.csv", "viz_source_coverage", False),

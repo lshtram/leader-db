@@ -18,6 +18,7 @@ from ..viz.query_spec import (
     QuerySpec,
 )
 from ..viz.superset_db import build_superset_sqlite_db
+from ..viz.superset_growth_tables import build_growth_tables
 from ._app import app
 
 
@@ -119,6 +120,54 @@ def viz_build_superset_db_cmd(
     )
 
 
+@app.command("viz-build-growth-tables")
+def viz_build_growth_tables_cmd(
+    data_dir: Path | None = typer.Option(
+        None,
+        "--data-dir",
+        help=(
+            "Directory containing viz_country_year_metrics.csv. Defaults to "
+            "data/processed/viz/country-year-chronicle under the project root."
+        ),
+    ),
+    rebuild_db: bool = typer.Option(
+        True,
+        "--rebuild-db/--no-rebuild-db",
+        help=(
+            "After writing the derived CSVs, also rebuild the Superset "
+            "SQLite DB so the new tables are visible to dashboards."
+        ),
+    ),
+) -> None:
+    """Build the derived CSV tables and refresh the Superset SQLite DB.
+
+    Produces three derived CSVs (country-year growth, regime-year
+    aggregates, country-latest leaderboard) on top of the canonical
+    ``viz_country_year_metrics.csv`` and, by default, rebuilds the
+    Superset-facing SQLite artifact so the new tables are visible.
+    """
+    from ..viz.superset_db import (
+        build_superset_sqlite_db as _build_superset_sqlite_db,
+    )
+    from ..viz.superset_db import (
+        default_viz_data_dir,
+    )
+
+    resolved_data_dir = data_dir if data_dir is not None else default_viz_data_dir()
+    result = build_growth_tables(data_dir=resolved_data_dir)
+    typer.echo(
+        f"wrote derived tables under {result.output_dir}:\n"
+        f"  {result.growth_csv.name}: {result.growth_rows} rows\n"
+        f"  {result.regime_aggregates_csv.name}: {result.regime_aggregates_rows} rows\n"
+        f"  {result.country_latest_csv.name}: {result.country_latest_rows} rows"
+    )
+    if rebuild_db:
+        db_result = _build_superset_sqlite_db(data_dir=resolved_data_dir)
+        typer.echo(f"rebuilt Superset SQLite DB: {db_result.output_path}")
+        for table_name in db_result.tables_written:
+            typer.echo(f"  {table_name}: {db_result.rows_by_table[table_name]} rows")
+
+
 def _load_query_spec(path: Path) -> QuerySpec:
     if not path.is_file():
         raise typer.BadParameter(f"query spec does not exist: {path}")
@@ -178,4 +227,9 @@ def _normalize_query_spec_payload(raw: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
-__all__ = ["viz_build_superset_db_cmd", "viz_metrics_cmd", "viz_query_cmd"]
+__all__ = [
+    "viz_build_growth_tables_cmd",
+    "viz_build_superset_db_cmd",
+    "viz_metrics_cmd",
+    "viz_query_cmd",
+]

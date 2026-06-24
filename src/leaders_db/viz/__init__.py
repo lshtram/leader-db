@@ -27,6 +27,13 @@ from .superset_db import (
     default_superset_db_path,
     default_viz_data_dir,
 )
+from .superset_growth_tables import (
+    GrowthTableBuildResult,
+    build_country_latest_metrics,
+    build_country_year_growth,
+    build_growth_tables,
+    build_regime_year_aggregates,
+)
 
 __all__ = [
     "VIZ_OUTPUT_REQUIRED_COLUMNS",
@@ -35,6 +42,7 @@ __all__ = [
     "CsvVizDataProvider",
     "FilterOperator",
     "FilterSpec",
+    "GrowthTableBuildResult",
     "MetricDefinition",
     "QuerySpec",
     "SupersetDbBuildResult",
@@ -43,6 +51,10 @@ __all__ = [
     "TransformSpec",
     "VizDataProvider",
     "VizGrain",
+    "build_country_latest_metrics",
+    "build_country_year_growth",
+    "build_growth_tables",
+    "build_regime_year_aggregates",
     "build_superset_sqlite_db",
     "default_superset_db_path",
     "default_viz_data_dir",
