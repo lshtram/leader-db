@@ -64,12 +64,56 @@ now satisfies the full Phase B contract:
   are explicitly deferred to a later phase. The runner's `SourceIngestResult.manifest`
   is `None` and the no-legacy-dispatch test guards the boundary.
 
-Current verification: `pytest -q tests/sources` passes 84 tests
+Current verification: `pytest -q tests/sources` passes 105 tests
 (`tests/sources/test_contracts.py` 41, `test_import_boundary.py` 5,
 `test_legacy_compatibility.py` 7, `test_query.py` 14, `test_registry.py` 13,
-`test_runner.py` 4) with **zero failures** and no NON-PASS-ELIGIBLE entries.
-`ruff check src/leaders_db/sources tests/sources docs/requirements/sources.md docs/architecture/sources.md`
-is clean.
+`test_runner.py` 4, `test_pwt_adapter.py` 21) with **zero failures** and no
+NON-PASS-ELIGIBLE entries. `ruff check src/leaders_db/sources tests/sources
+docs/requirements/sources.md docs/architecture/sources.md` is clean.
+
+**First clean-source migration landed (2026-06-23) — PWT under
+`leaders_db.sources.adapters.pwt`.** The PWT 10.01 source is the
+first source rebuilt under the new `leaders_db.sources` interface
+(docs/architecture/sources.md §7.1 priority 1, docs/requirements/sources.md
+§12 SRC-MIG-005). The new package is a thin adapter that
+implements the canonical `SourceAdapter` Protocol
+(`descriptor` + `check_ready` + `read_raw` + `transform`) and
+reuses the legacy reader / transform under
+`leaders_db.ingest.sources.pwt` via lazy imports so the package
+boundary is preserved (`tests/sources/test_pwt_adapter.py`
+asserts `import leaders_db.sources.adapters.pwt` does NOT pull in
+`leaders_db.ingest`). The legacy `STAGE2_ADAPTERS["pwt"]` entry
+remains unchanged -- the new package exposes explicit
+`create_pwt_adapter()` and `register_pwt(registry)` factories and
+does NOT auto-register on import (per
+docs/architecture/sources.md §10.1). The new adapter honors the
+full request scope: `years=` and `countries=` filter the
+long-format DataFrame; `leaders=` emits a structured
+`UNSUPPORTED_FILTER` warning; `years=2023` (out-of-coverage)
+emits zero observations + a `year_absent` warning (no stale-proxy
+fill, SRC-COV-002 / SRC-COV-003); a mismatched `source_version=`
+(e.g. `"9.99"` against a canonical PWT 10.01 bundle) FAILS
+readiness with a structured `unsupported_version` error per
+`docs/requirements/sources.md` §3 SRC-REQ-009 -- the runner
+raises `RuntimeError` before calling `read_raw` / `transform`,
+so the legacy bundle metadata cannot be silently overwritten
+by an unsupported version stamp. The runner
+also validates the staged bundle's metadata `source_version`: missing or
+mismatched metadata versions fail readiness, and the canonical `10.01` value
+propagates consistently to `RawAsset.version` and every emitted
+`NormalizedObservation.source_version`. The runner
+end-to-end contract is proven by
+`tests/sources/test_pwt_adapter.py::test_pwt_runner_produces_normalized_observations`
+(17 fixture observations round-tripped) and
+`tests/sources/test_pwt_adapter.py::test_pwt_runner_does_not_consult_legacy_stage2_adapters`
+(monkeypatched `STAGE2_ADAPTERS["pwt"]` tracker is never invoked).
+The PWT descriptor exposes `source_id="pwt"`, `default_version="10.01"`,
+the canonical PWT 10.01 homepage URL, `attribution_key="pwt"`,
+coverage hint 1950-2019, and the `economic_country_year` observation
+family. No persistence, manifest, or DB writes landed; the
+runner still returns `manifest=None`. The next migration slice
+candidates are Maddison (priority 2), WDI (priority 3), WGI
+(priority 4), per docs/architecture/sources.md §7.1.
 
 **Planned vertical slice: Country-Year Chronicle (`cyc`).** A new longitudinal country-year profile slice is planned in [`docs/chronicle/workplan.md`](chronicle/workplan.md). It targets `country × year` records for 1900-2026 with ruler, political regime bucket, system/ideology classification, population, GDP, military spend, area, provenance, confidence, and data-quality flags. Increment 0 source inventory / CSV contract findings are complete in [`docs/chronicle/increment-0.md`](chronicle/increment-0.md), and Increment 1 pilot implementation is complete. **Increment 2 is complete (2026-06-21) — Maddison-backed economy fields + provenance-aware ruler resolver (Archigos + REIGN, no client matrix, no LLM) shipped together; see [`docs/chronicle/increment-2.md`](chronicle/increment-2.md). Increment 3 is complete (2026-06-21) — SUN rulers (Wikipedia-anchored curated spell list) + CShapes 2.0 country-area source + conservative `controlled_area_km2` fallback with the explicit `controlled_area_country_only` flag; see [`docs/chronicle/increment-3.md`](chronicle/increment-3.md). Increment 4 (controlled / imperial area design pass) is explicitly DEFERRED per user request 2026-06-21. Increment 5 is complete (2026-06-21) — all-country scope (~200 ISO3 codes derived from V-Dem coverage + pilot historical identity overlay) + condensed CSV export with the documented Increment 5 column set and the four-label `existence_status` (exists / not_formed / split_or_dissolved / out_of_scope_unknown); see [`docs/chronicle/increment-5.md`](chronicle/increment-5.md).** The next CYC action is the controlled / imperial area design pass (originally Increment 4 in the workplan).
 

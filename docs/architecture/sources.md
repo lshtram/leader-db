@@ -531,6 +531,20 @@ large legacy move as its own mechanical, reviewed commit.
    manifests, persistence, query, and warning/error code stubs.
 3. **Contract tests.** Write failing tests that define the shared contract.
 4. **First clean adapter.** Rebuild PWT under `leaders_db.sources.adapters.pwt`.
+   **Landed (2026-06-23)** as a thin adapter that implements the
+   `SourceAdapter` Protocol (`descriptor` + `check_ready` + `read_raw` +
+   `transform`) and reuses the legacy reader / transform via lazy
+   imports. The package import does NOT pull in `leaders_db.ingest`
+   (verified by `tests/sources/test_pwt_adapter.py::test_pwt_adapter_module_does_not_import_legacy_ingest_at_import`).
+   The runner end-to-end contract is verified by
+   `tests/sources/test_pwt_adapter.py::test_pwt_runner_produces_normalized_observations`
+   (17 fixture observations round-tripped) and
+   `test_pwt_runner_does_not_consult_legacy_stage2_adapters` (legacy
+   `STAGE2_ADAPTERS["pwt"]` tracker is never invoked). No persistence,
+   manifest, or DB writes landed; the runner still returns `manifest=None`.
+   The package exposes explicit `create_pwt_adapter()` /
+   `register_pwt(registry)` factories and does NOT auto-register on import
+   (§10.1).
 5. **Second/third adapters.** Rebuild Maddison and WDI/WGI to prove the design
    across different source shapes.
 6. **CLI transition.** Add `leaders-db sources ...` commands and begin retiring
