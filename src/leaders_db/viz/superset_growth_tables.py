@@ -34,6 +34,9 @@ SOURCE_FACT_FILENAME = "viz_country_year_metrics.csv"
 
 GROWTH_COLUMNS: tuple[str, ...] = (
     "metric_id",
+    "metric_unit",
+    "metric_source",
+    "metric_method",
     "year_date",
     "year",
     "country_iso3",
@@ -51,6 +54,7 @@ GROWTH_COLUMNS: tuple[str, ...] = (
 REGIME_AGGREGATES_COLUMNS: tuple[str, ...] = (
     "year",
     "metric_id",
+    "metric_unit",
     "political_regime_bucket",
     "political_regime",
     "n_countries",
@@ -158,13 +162,32 @@ def build_country_year_growth(fact: pd.DataFrame) -> pd.DataFrame:
     if missing:
         raise ValueError(f"Fact frame is missing required columns: {sorted(missing)}.")
 
-    work = fact[list(required)].copy()
-    work = work.sort_values(["country_iso3", "metric_id", "year"]).reset_index(drop=True)
+    optional = [
+        column
+        for column in ("metric_unit", "metric_source", "metric_method")
+        if column in fact.columns
+    ]
+    work = fact[[*list(required), *optional]].copy()
+    for column in ("metric_unit", "metric_source", "metric_method"):
+        if column not in work.columns:
+            work[column] = ""
+        work[column] = work[column].fillna("")
+    continuity_keys = [
+        "country_iso3",
+        "metric_id",
+        "metric_unit",
+        "metric_source",
+        "metric_method",
+    ]
+    work = work.sort_values([*continuity_keys, "year"]).reset_index(drop=True)
 
-    grouped = work.groupby(["country_iso3", "metric_id"], sort=False)
+    grouped = work.groupby(continuity_keys, sort=False, dropna=False)
+    prev_year = grouped["year"].shift(1)
     work["prev_value"] = grouped["value"].shift(1)
     work["yoy_abs_change"] = work["value"] - work["prev_value"]
     work["yoy_pct_growth"] = _safe_pct_growth(work["value"], work["prev_value"])
+    consecutive = (work["year"] - prev_year) == 1
+    work.loc[~consecutive, ["prev_value", "yoy_abs_change", "yoy_pct_growth"]] = float("nan")
     work["decade"] = (work["year"] // 10) * 10
     return work[list(GROWTH_COLUMNS)]
 
@@ -188,6 +211,9 @@ def build_regime_year_aggregates(
     if growth is None:
         growth = build_country_year_growth(fact)
     work = fact.dropna(subset=["value"]).copy()
+    if "metric_unit" not in work.columns:
+        work["metric_unit"] = ""
+    work["metric_unit"] = work["metric_unit"].fillna("")
     work["_pop"] = (
         work["metric_id"].eq("chronicle.population").astype(float) * work["value"]
     )
@@ -204,6 +230,7 @@ def build_regime_year_aggregates(
     country_yoy = growth.dropna(subset=["yoy_pct_growth"])[
         [
             "metric_id",
+            "metric_unit",
             "year",
             "country_iso3",
             "political_regime",
@@ -219,14 +246,16 @@ def build_regime_year_aggregates(
             else "political_regime"
         )
         yoy_mean = (
-            country_yoy.groupby(["year", "metric_id", yoy_group_key], sort=False)["yoy_pct_growth"]
+            country_yoy.groupby(
+                ["year", "metric_id", "metric_unit", yoy_group_key], sort=False
+            )["yoy_pct_growth"]
             .mean()
             .reset_index()
             .rename(columns={"yoy_pct_growth": "mean_yoy_pct_growth"})
         )
         return df.merge(
             yoy_mean,
-            on=["year", "metric_id", yoy_group_key],
+            on=["year", "metric_id", "metric_unit", yoy_group_key],
             how="left",
         )
 
@@ -235,7 +264,13 @@ def build_regime_year_aggregates(
 
     combined = pd.concat([bucket_agg, regime_agg], ignore_index=True, sort=False)
     combined = combined.sort_values(
-        ["year", "metric_id", "political_regime_bucket", "political_regime"]
+        [
+            "year",
+            "metric_id",
+            "metric_unit",
+            "political_regime_bucket",
+            "political_regime",
+        ]
     ).reset_index(drop=True)
     for col in REGIME_AGGREGATES_COLUMNS:
         if col not in combined.columns:
@@ -257,7 +292,9 @@ def _aggregate_by(
     work = work.assign(
         _weighted_value=work["value"] * work["_country_pop"].fillna(0)
     )
-    groups = work.groupby(["year", "metric_id", group_col], sort=False, dropna=False)
+    groups = work.groupby(
+        ["year", "metric_id", "metric_unit", group_col], sort=False, dropna=False
+    )
     agg = groups.agg(
         n_countries=("country_iso3", "nunique"),
         mean_value=("value", "mean"),
@@ -281,7 +318,7 @@ def _aggregate_by(
         agg["political_regime_bucket"] = ""
 
     agg["prev_mean_value"] = agg.groupby(
-        ["metric_id", group_col], sort=False
+        ["metric_id", "metric_unit", group_col], sort=False
     )["mean_value"].shift(1)
 
     agg = agg.drop(columns=["_weighted_sum", "_pop_sum"])
@@ -289,6 +326,7 @@ def _aggregate_by(
         [
             "year",
             "metric_id",
+            "metric_unit",
             "political_regime_bucket",
             "political_regime",
             "n_countries",

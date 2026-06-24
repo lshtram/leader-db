@@ -180,6 +180,100 @@ def test_build_country_year_growth_computes_yoy(tmp_path: Path) -> None:
     assert aaa.iloc[1]["decade"] == 2020
 
 
+def test_build_country_year_growth_breaks_on_unit_switch() -> None:
+    fact = pd.DataFrame(
+        [
+            {
+                "metric_id": "chronicle.gdp",
+                "metric_unit": "vdem_latent_gdp_units",
+                "metric_source": "vdem",
+                "metric_method": "",
+                "year_date": pd.Timestamp("2020-01-01"),
+                "year": 2020,
+                "country_iso3": "AAA",
+                "country_name": "Aaa",
+                "political_regime": "Full democracy",
+                "political_regime_bucket": "democracy",
+                "existence_status": "exists",
+                "value": 10.0,
+            },
+            {
+                "metric_id": "chronicle.gdp",
+                "metric_unit": "2011_intl_dollars",
+                "metric_source": "maddison_project",
+                "metric_method": "",
+                "year_date": pd.Timestamp("2021-01-01"),
+                "year": 2021,
+                "country_iso3": "AAA",
+                "country_name": "Aaa",
+                "political_regime": "Full democracy",
+                "political_regime_bucket": "democracy",
+                "existence_status": "exists",
+                "value": 10000.0,
+            },
+            {
+                "metric_id": "chronicle.gdp",
+                "metric_unit": "2011_intl_dollars",
+                "metric_source": "maddison_project",
+                "metric_method": "",
+                "year_date": pd.Timestamp("2022-01-01"),
+                "year": 2022,
+                "country_iso3": "AAA",
+                "country_name": "Aaa",
+                "political_regime": "Full democracy",
+                "political_regime_bucket": "democracy",
+                "existence_status": "exists",
+                "value": 11000.0,
+            },
+        ]
+    )
+    rows = build_country_year_growth(fact).sort_values("year").reset_index(drop=True)
+
+    assert pd.isna(rows.loc[0, "yoy_pct_growth"])
+    assert pd.isna(rows.loc[1, "yoy_pct_growth"])
+    assert rows.loc[2, "prev_value"] == pytest.approx(10000.0)
+    assert rows.loc[2, "yoy_pct_growth"] == pytest.approx(0.10)
+
+
+def test_build_country_year_growth_breaks_on_year_gap() -> None:
+    fact = pd.DataFrame(
+        [
+            {
+                "metric_id": "chronicle.population",
+                "metric_unit": "persons",
+                "metric_source": "vdem",
+                "metric_method": "",
+                "year_date": pd.Timestamp("1971-01-01"),
+                "year": 1971,
+                "country_iso3": "QAT",
+                "country_name": "Qatar",
+                "political_regime": "Authoritarian",
+                "political_regime_bucket": "non_democracy",
+                "existence_status": "exists",
+                "value": 24921.0,
+            },
+            {
+                "metric_id": "chronicle.population",
+                "metric_unit": "persons",
+                "metric_source": "vdem",
+                "metric_method": "",
+                "year_date": pd.Timestamp("2024-01-01"),
+                "year": 2024,
+                "country_iso3": "QAT",
+                "country_name": "Qatar",
+                "political_regime": "Authoritarian",
+                "political_regime_bucket": "non_democracy",
+                "existence_status": "exists",
+                "value": 2857822.0,
+            },
+        ]
+    )
+    rows = build_country_year_growth(fact).sort_values("year").reset_index(drop=True)
+
+    assert pd.isna(rows.loc[1, "prev_value"])
+    assert pd.isna(rows.loc[1, "yoy_pct_growth"])
+
+
 def test_build_regime_year_aggregates_emits_two_granularities() -> None:
     fact = _fact_dataframe()
     growth = build_country_year_growth(fact)
