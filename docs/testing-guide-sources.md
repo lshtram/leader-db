@@ -470,16 +470,140 @@ contract:
   metadata checksum / version / license / coverage
   fields BEFORE `read_raw` / `transform` are called.
 - **With V-Dem landed, the unified source interface
-  covers the four structured source families needed for
-  a complete 1900-2026 inquiry** (PWT + Maddison =
-  historical economy; WDI = current economy; WGI =
-  governance; V-Dem = political regime / repression /
-  corruption / social well-being). The next major
-  milestone is a vertical-slice investigation that runs
-  from these source adapters through
-  `InMemoryEvidenceRepository`, semantic concepts /
-  evidence bundles, scoring or analysis logic, and a
-  documented answer with provenance.
+    covers the four structured source families needed for
+    a complete 1900-2026 inquiry** (PWT + Maddison =
+    historical economy; WDI = current economy; WGI =
+    governance; V-Dem = political regime / repression /
+    corruption / social well-being). The next major
+    milestone is a vertical-slice investigation that runs
+    from these source adapters through
+    `InMemoryEvidenceRepository`, semantic concepts /
+    evidence bundles, scoring or analysis logic, and a
+    documented answer with provenance.
+
+The UCDP slice (sixth clean-source migration, event-level
+/ local-file) adds the source-specific event-level
+aggregation + aggregate locator convention contract on
+top of the shared contract:
+
+- the UCDP adapter descriptor is registerable / listable
+  through the `InMemorySourceRegistry` and exposes the
+  canonical UCDP static metadata (source_id `ucdp`,
+  default version `"GED 23.1"`, attribution_key `"ucdp"`,
+  dataset type, 1989-2022 coverage hint, two observation
+  families (`international_peace_country_year`,
+  `domestic_violence_country_year`), UCDP downloads
+  homepage URL (`https://ucdp.uu.se/downloads/`),
+  `requires_network=False`);
+- `SourceIngestRunner.run(request)` drives UCDP
+  end-to-end through the new registry against a fixture
+  `raw_root` and produces `NormalizedObservation` records
+  (60 fixture observations round-tripped -- 5 countries x
+  2 years x 6 indicators after event-level aggregation of
+  the 22-event fixture);
+- the runner does not consult legacy `STAGE2_ADAPTERS`
+  even when the legacy `ucdp` slot is monkeypatched to a
+  tracker;
+- the request `countries=` filter applies as an exact
+  match against the UCDP `country_id` integer (NOT ISO3) --
+  `test_ucdp_country_filter_is_applied` drives the runner
+  with `countries=('645',)` and verifies the 12 Iraq
+  observations round-trip; `test_ucdp_iso3_country_filter_produces_zero_observations`
+  drives the runner with `countries=('IRQ',)` and verifies
+  zero observations (callers who want to filter by ISO3
+  must use the legacy path or Stage 3 country match to
+  resolve first);
+- `years=(2023,)` and `years=(1988,)` (out of coverage)
+  emit zero observations plus a structured `YEAR_ABSENT`
+  warning -- no stale-proxy fill (SRC-COV-002 /
+  SRC-COV-003);
+- `years=` and `countries=` filters are honored;
+  `leaders=` emits a structured `unsupported_filter`
+  warning;
+- the readiness-failure tests for missing `metadata.json`,
+  missing `ged231-csv.zip`, missing required field
+  (`source_url`), mismatched metadata `source_version`,
+  and unsupported request `source_version` each prove
+  the runner short-circuits before `read_raw` /
+  `transform`;
+- the readiness gate accepts the canonical UCDP bundle
+  metadata shape (`local_files=[]` /
+  `checksum_sha256=null` /
+  `ingestion_status="pending"`, the staged
+  `data/raw/ucdp/metadata.json` shape) ONLY when the
+  canonical `ged231-csv.zip` is staged on disk alongside
+  the metadata. The canonical UCDP bundle metadata
+  carries `local_files=[]` and `checksum_sha256=null` --
+  a deliberately minimal shape so the operator can update
+  the metadata once the zip is staged. The mandatory
+  readiness requirement is on raw-file presence: the gate
+  returns `ready=False` with a structured `missing_raw`
+  error if `ged231-csv.zip` is not staged on disk,
+  regardless of the metadata's `local_files` /
+  `checksum_sha256` shape. A metadata-only bundle (no
+  staged zip) is intentionally NOT runner-ready -- it has
+  value for readiness-only inspection (validating metadata
+  shape, schema migrations, sanity-checking
+  `expected_local_files` annotations) but the runner
+  raises `RuntimeError` BEFORE `read_raw` / `transform`.
+  `test_ucdp_empty_shape_bundle_is_not_runner_ready`
+  drives the readiness gate against the canonical
+  empty-shape metadata (no staged zip) and asserts the
+  readiness envelope is NOT ready with a structured
+  `missing_raw` error; `test_ucdp_metadata_only_without_zip_blocks_runner_short_circuit`
+  drives the runner end-to-end against the same
+  metadata-only bundle via a `_SpyUCDPAdapter` wrapper and
+  asserts the runner short-circuits BEFORE `read_raw` /
+  `transform` (the call list stays `["check_ready"]`).
+  `test_ucdp_checksum_mismatch_fails_readiness` drives
+  the readiness gate against a staged zip with a
+  deliberately wrong checksum and asserts the readiness
+  gate fires the UCDP-specific `ucdp_checksum_mismatch`
+  error code;
+- the canonical metadata `source_version="GED 23.1"`
+  propagates consistently to `RawAsset.version` and every
+  emitted `NormalizedObservation.source_version`;
+- per-observation `RawLocator` carries the staged zip
+  path + the catalog `variable_name` (e.g.
+  `ucdp_state_based_events`); `row_number` is intentionally
+  `None` because UCDP is event-level data and the legacy
+  wide frame loses the event row index through the
+  long-to-wide pivot -- the unified transform never
+  fabricates locators. The aggregate locator convention is
+  carried on the `transform_locator.rule_id` (`ucdp:<country_id>:<year>:<variable_name>`)
+  and the `quality_flags` tuple
+  (`ucdp_aggregated_from_events`);
+- per-observation `extension` carries the canonical UCDP
+  attribution text (Rule #15), the
+  `source_row_reference="ucdp:<country_id>"` pattern
+  (matching the legacy Stage 2 DB writer), the
+  `ucdp_country_id`, `ucdp_rating_category`,
+  `ucdp_raw_column`, `ucdp_filter_logic`,
+  `ucdp_events_total` / `ucdp_events_filtered`, `raw_value`
+  (audit-trail string), and the `raw_scale` /
+  `higher_is_better` / `normalized_scale_target`
+  direction hints;
+- the legacy `UCDP_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/ucdp_io.py` is byte-identical to
+  the new `UCDP_ATTRIBUTION_TEXT`
+  (`test_ucdp_attribution_text_matches_attributions_doc`
+  asserts byte-identity AND that the unified text is a
+  substring of `docs/sources/attributions.md`);
+- the UCDP unified path is local-file only
+  (`requires_network=False`, no HTTP layer in the new
+  package). The runner NEVER invokes the network. The
+  readiness gate validates the staged `ged231-csv.zip`
+  (mandatory raw-file presence -- a missing zip fires
+  `missing_raw`) and the metadata checksum / version /
+  license / coverage fields BEFORE `read_raw` /
+  `transform` are called.
+- **With UCDP landed, the unified source interface now
+  covers the first event-level source family**: PWT +
+  Maddison = historical economy; WDI = current economy;
+  WGI = governance; V-Dem = political regime / repression
+  / corruption / social well-being; UCDP = organized
+  conflict / one-sided violence (event-level aggregations
+  to country-year).
 
 ## Manual / boundary checks
 
@@ -493,13 +617,14 @@ import sys
 importlib.import_module("leaders_db.sources.adapters.pwt")
 importlib.import_module("leaders_db.sources.adapters.world_bank_wgi")
 importlib.import_module("leaders_db.sources.adapters.vdem")
+importlib.import_module("leaders_db.sources.adapters.ucdp")
 leaked = sorted(name for name in sys.modules if name.startswith("leaders_db.ingest"))
 print(leaked)
 assert leaked == []
 PY
 ```
 
-Expected: `[]`. The PWT, WGI, and V-Dem adapter modules import cleanly
+Expected: `[]`. The PWT, WGI, V-Dem, and UCDP adapter modules import cleanly
 without pulling in the legacy ingest package.
 
 Use the explicit lazy bridge only when legacy access is needed:
@@ -522,11 +647,12 @@ Expected: a positive adapter count and `True` for `pwt`.
   validation beyond the current contract envelope.
 - New CLI commands under `leaders-db sources ...`.
 - Moving or deleting legacy `src/leaders_db/ingest/` code.
-- The sixth / seventh / ... clean source migrations
+- The seventh / eighth / ... clean source migrations
   (transparency_cpi, rsf_press_freedom, bti, ...). PWT,
-  Maddison Project, World Bank WDI, World Bank WGI, and
-  V-Dem are the proof-of-pattern across dataset (PWT),
+  Maddison Project, World Bank WDI, World Bank WGI, V-Dem,
+  and UCDP are the proof-of-pattern across dataset (PWT),
   historical xlsx (Maddison), API/cache (WDI),
-  local-file governance xlsx (WGI), and large local CSV
-  (V-Dem) source shapes; future migrations follow the
+  local-file governance xlsx (WGI), large local CSV
+  (V-Dem), and event-level zip (UCDP) source shapes;
+  future migrations follow the
   same `src/leaders_db/sources/adapters/<slug>/` layout.

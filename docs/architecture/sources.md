@@ -1032,12 +1032,190 @@ the cache-only contract);
      analysis logic, and a documented answer with
      provenance. The runner still returns `manifest=None`;
      no persistence, DB writes, or manifest writing
-     landed. The package exposes explicit
+landed. The package exposes explicit
      `create_vdem_adapter()` /
      `register_vdem(registry)` factories and does NOT
      auto-register on import (§10.1).
-  9. **CLI transition.** Add `leaders-db sources ...` commands and begin retiring
-     `STAGE2_ADAPTERS`.
+   9. **Sixth clean-source migration landed (2026-06-25) — UCDP GED 23.1 under
+      `src/leaders_db/sources/adapters/ucdp/`.** UCDP is
+      the sixth source rebuilt under the clean
+      `leaders_db.sources` interface
+      (docs/architecture/sources.md §7.1 priority 11,
+      docs/requirements/sources.md §12 SRC-MIG-005),
+      after PWT 10.01, Maddison Project Database 2023,
+      World Bank WDI, World Bank WGI, and V-Dem. UCDP is
+      structurally distinct from the prior five
+      clean-source migrations: PWT / Maddison / WDI / WGI
+      / V-Dem are country-year tables, while UCDP GED is
+      an **event-level** dataset (316,818 events in
+      v23.1) shipped as a 25.4 MB zip with one 218 MB
+      CSV. The unified adapter aggregates events to
+      country-year by `type_of_violence` (1 =
+      state-based, 3 = one-sided) and the cross-border
+      filter (`type=1 AND gwnob.notna()` for the
+      internationalized subset) before the long-to-wide
+      pivot. UCDP is local-file only (no HTTP layer in
+      the new package; `requires_network=False`); the
+      descriptor advertises `source_type="dataset"`. The
+      new package implements the full `SourceAdapter`
+      Protocol (`descriptor` + `check_ready` +
+      `read_raw` + `transform`) and reuses the legacy
+      reader / event-level aggregator under
+      `leaders_db.ingest.ucdp_io` and
+      `leaders_db.ingest.ucdp_aggregate` via lazy
+      imports so the package boundary documented in
+      docs/architecture/sources.md §10.1 is preserved;
+      the package import does NOT pull in
+      `leaders_db.ingest`
+      (`tests/sources/test_ucdp_adapter.py::test_ucdp_adapter_module_does_not_import_legacy_ingest_at_import`
+      + the import-boundary submodule list in
+      `tests/sources/test_import_boundary.py`). The
+      legacy `STAGE2_ADAPTERS["ucdp"]` entry remains
+      unchanged -- the new package exposes explicit
+      `create_ucdp_adapter()` / `register_ucdp(registry)`
+      factories and does NOT auto-register on import
+      (per docs/architecture/sources.md §10.1). The
+      request `countries=` filter applies as an exact
+      match against the UCDP `country_id` integer (NOT
+      ISO3) -- callers who want to filter by ISO3 must
+      use the legacy path or Stage 3 country match to
+      resolve first; `leaders=` emits a structured
+      `unsupported_filter` warning; `years=(2023,)` or
+      `years=(1988,)` (out of coverage) emit zero
+      observations plus a structured `year_absent`
+      warning -- no stale-proxy fill (SRC-COV-002 /
+      SRC-COV-003). A mismatched `source_version=` (e.g.
+      `"9999"` against a canonical UCDP bundle whose
+      metadata records `"GED 23.1"`) FAILS readiness
+      with a structured `unsupported_version` error per
+      docs/requirements/sources.md §3 SRC-REQ-009 -- the
+      runner raises `RuntimeError` before calling
+      `read_raw` / `transform`, so the legacy bundle
+      metadata cannot be silently overwritten by an
+      unsupported version stamp. The runner also
+      validates the staged bundle's metadata
+      `source_version`: missing or mismatched metadata
+      versions fail readiness, and the canonical
+      `"GED 23.1"` value propagates consistently to
+      `RawAsset.version` and every emitted
+      `NormalizedObservation.source_version`. The
+      bundle metadata's `checksum_sha256` accepts the
+      canonical empty-bundle shape (`null` paired with
+      `ingestion_status="pending"`, the staged
+      `data/raw/ucdp/metadata.json` shape) OR a
+      64-character hex SHA-256 string (when the zip is
+      staged). A non-null, non-hex-64-character
+      `checksum_sha256` fails readiness with a
+      structured `missing_metadata` error; a mismatched
+      zip SHA-256 fails readiness with the UCDP-specific
+      `ucdp_checksum_mismatch` code. The zip is hashed only
+      for local integrity verification when metadata supplies
+      a checksum; the audit chain is preserved via the canonical
+      attribution text (Rule #15). The runner end-to-end contract is
+      proven by
+      `tests/sources/test_ucdp_adapter.py::test_ucdp_runner_produces_normalized_observations`
+      (60 fixture observations round-tripped -- 5
+      countries x 2 years x 6 indicators after
+      event-level aggregation of the 22-event fixture)
+      and
+      `test_ucdp_runner_does_not_consult_legacy_stage2_adapters`
+      (monkeypatched legacy `STAGE2_ADAPTERS["ucdp"]`
+      tracker is never invoked). The UCDP descriptor
+      exposes `source_id="ucdp"`, `default_version="GED
+      23.1"`, the canonical UCDP downloads page
+      (`https://ucdp.uu.se/downloads/`),
+      `attribution_key="ucdp"`, coverage hint 1989-2022,
+      two observation families
+      (`international_peace_country_year` for the 4
+      state-based indicators +
+      `domestic_violence_country_year` for the 2
+      one-sided indicators), `source_type="dataset"`,
+      and `requires_network=False`. Per-observation
+      `RawLocator` carries the staged zip path + the
+      catalog `variable_name` (e.g.
+      `ucdp_state_based_events`); `row_number` is
+      intentionally `None` because UCDP is event-level
+      data and the legacy wide frame loses the event row
+      index through the long-to-wide pivot -- the
+      unified transform never fabricates locators. The
+      per-observation `quality_flags` carries the
+      `ucdp_aggregated_from_events` flag so downstream
+      audit code can recognize the aggregate locator
+      convention. Per-observation `extension` carries
+      the canonical UCDP attribution text (Rule #15),
+      the `source_row_reference="ucdp:<country_id>"`
+      pattern (matching the legacy Stage 2 DB writer),
+      the `ucdp_country_id`, `ucdp_rating_category`,
+      `ucdp_raw_column`, `ucdp_filter_logic`, the
+      `ucdp_events_total` / `ucdp_events_filtered`
+      (carried from `df.attrs` onto every observation),
+      `raw_value` (audit-trail string), and the
+      `raw_scale` / `higher_is_better` /
+      `normalized_scale_target` direction hints. The
+      new `UCDP_ATTRIBUTION_TEXT` constant is
+      byte-identical to the legacy `UCDP_ATTRIBUTION`
+      constant in `src/leaders_db/ingest/ucdp_io.py` and
+      to the `ucdp` section in
+      `docs/sources/attributions.md`;
+      `test_ucdp_attribution_text_matches_attributions_doc`
+      enforces byte-identity (drift guard). 28 focused
+      tests in `tests/sources/test_ucdp_adapter.py`
+      cover the full slice acceptance criteria
+      (descriptor / factory / registry / runner /
+      request-scoping / out-of-coverage /
+      readiness-failure / unsupported-version /
+      metadata-only-bundle-not-runner-ready /
+      runner-short-circuit-on-missing-zip /
+      canonical-version-propagation / ISO3-vs-country-id
+      / aggregate-locator-quality-flag / rule-id-pattern
+      / indicator-codes / import-boundary /
+      STAGE2_ADAPTERS-no-touch). Module sizes:
+      `__init__.py` 180 lines, `_descriptor.py` 231
+      lines, `_metadata_validators.py` 400 lines,
+      `_readiness.py` 332 lines, `_catalog.py` 136
+      lines, `_constants.py` 35 lines,
+      `_missing_values.py` 81 lines,
+      `_observation_builder.py` 249 lines, `_raw_read.py`
+      208 lines, `_pipeline.py` 197 lines,
+      `_transform.py` 230 lines, and `adapter.py` 394
+      lines; no UCDP production-module carve-out is
+      needed. The UCDP unified path is local-file only
+      (`requires_network=False`, no HTTP layer in the
+      new package); the canonical bundle metadata
+      ships with `local_files=[]` / `checksum_sha256=null`
+      / `ingestion_status="pending"` -- a deliberately
+      minimal shape so the operator can update the
+      metadata once the zip is staged. The mandatory
+      readiness requirement is on raw-file presence:
+      the gate returns `ready=False` with a structured
+      `missing_raw` error if `ged231-csv.zip` is not
+      staged on disk, regardless of the metadata's
+      `local_files` / `checksum_sha256` shape. A
+      metadata-only bundle (no staged zip) is
+      intentionally NOT runner-ready -- the runner
+      raises `RuntimeError` BEFORE `read_raw` /
+      `transform`. The metadata-only bundle still has
+      value for readiness-only inspection (validating
+      metadata shape, schema migrations, sanity-checking
+      `expected_local_files` annotations) but the
+      readiness envelope is NOT ready until the zip is
+      staged. The new package does NOT implement
+      manifest writing, processed-file persistence, or
+      DB writes; the runner still returns
+      `manifest=None`. The package exposes
+      explicit `create_ucdp_adapter()` /
+      `register_ucdp(registry)` factories and does NOT
+      auto-register on import (§10.1). **With UCDP
+      landed, the unified source interface now covers
+      the first event-level source family** (PWT +
+      Maddison = historical economy; WDI = current
+      economy; WGI = governance; V-Dem = political
+      regime / repression / corruption / social
+      well-being; UCDP = organized conflict / one-sided
+      violence -- event-level aggregations to
+      country-year).
+  10. **CLI transition.** Add `leaders-db sources ...` commands and begin retiring
+      `STAGE2_ADAPTERS`.
 
 ---
 
