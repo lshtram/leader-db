@@ -207,6 +207,91 @@ contract:
   empty-cache scenarios and adds HTTP-sentinel production-path
   tests).
 
+The semantic concept-catalog slice (`leaders_db.sources.concepts`) should add
+focused tests under `tests/sources` for the query-time normalization layer:
+
+- `list_concepts()` exposes stable keys such as `gdp_per_capita`, `population`,
+  and `gdp_total` without importing legacy `leaders_db.ingest`;
+- `resolve_concept(concept_key)` returns source-specific direct mappings, and
+  `resolve_concept(concept_key, source_id=...)` narrows to one source;
+- WDI and Maddison fixture observations extract direct `gdp_per_capita` /
+  `population` concept rows while preserving original indicator codes;
+- PWT fixture observations derive `gdp_per_capita` from
+  `pwt_real_gdp_output_side / pwt_population`;
+- derived concept rows carry input observation ids/provenance and an explicit
+  derivation marker / quality flag;
+- unknown concept keys and unsupported concept/source pairs raise actionable
+  errors;
+- concept extraction consumes only provided `NormalizedObservation` records (or
+  an in-memory `EvidenceRepository` fake result) and does not read raw files,
+  call adapters, rerun ingestion, write manifests, or consult the client matrix
+  as evidence;
+- the PWT derivation scope key includes `year` so the same country with valid
+  2018 AND 2019 inputs emits two distinct derived rows (one per country-year);
+- the PWT derivation requires both inputs to share the same non-empty
+  `source_version` -- missing or mismatched `source_version` produces zero
+  derived rows and surfaces a structured `concept_missing_source_version`
+  warning on the diagnostic helper's `warnings` tuple;
+- the diagnostic helper `extract_concept_result` surfaces every per-scope
+  derived-mapping drop reason with a stable per-failure-mode code
+  (`concept_missing_numerator`, `concept_missing_denominator`,
+  `concept_ambiguous_pair`, `concept_non_numeric_numerator`,
+  `concept_non_numeric_denominator`, `concept_zero_denominator`,
+  `concept_missing_source_version`, `concept_pair_year_mismatch`) AND every
+  per-row direct-mapping `missing_value` warning. The convenience
+  `extract_concept` wrapper returns only the observations tuple so the minimal
+  public API stays flat.
+
+The in-memory evidence-repository slice (`InMemoryEvidenceRepository`,
+in `src/leaders_db/sources/query.py`, re-exported from the
+`leaders_db.sources` package root) should add focused tests under
+`tests/sources/test_query_repository.py` for the read-only query seam:
+
+- the in-memory repository satisfies the runtime-checkable
+  `EvidenceRepository` `Protocol` (`isinstance(repository,
+  EvidenceRepository)` is True) and is importable from the
+  `leaders_db.sources` package root;
+- the constructor copies `observations` / `manifests` / `attributions`
+  into internal tuples so caller-owned lists are not mutated and the
+  same sequences can be reused after construction;
+- every filter dimension (`source_ids`, `observation_families`,
+  `indicator_codes`, `years`, `countries`, `leaders`) is honored;
+  `None` returns the unfiltered stream; an empty tuple `()` returns
+  no observations for that dimension; the input observation order is
+  preserved in the result tuple;
+- the `leaders` filter matches against either `leader_id` or
+  `leader_name`, so callers can query by either dimension until
+  leader IDs are stable;
+- `get_manifest(source_id, run_id="...")` performs an exact
+  `(slug, run_id)` lookup and raises `KeyError` for unknown run ids;
+- `get_manifest(source_id)` returns the only manifest when exactly
+  one is stored, and raises `KeyError` naming the available run ids
+  when multiple manifests exist for the same source;
+- `get_manifest` raises `KeyError` with an actionable message when
+  no manifest is stored for the requested source;
+- `get_attributions` returns attributions in the requested
+  `source_ids` order and silently skips sources without a stored
+  attribution;
+- the in-memory repository never imports `leaders_db.ingest`,
+  never instantiates `SourceIngestRunner`, never calls source
+  adapters, and never opens raw files: the tests monkeypatch
+  `SourceIngestRunner.__init__` and `Path.open` /
+  `Path.read_text` / `Path.read_bytes` as sentinels and assert
+  they are never invoked; the canonical import-boundary submodule
+  list in `tests/sources/test_import_boundary.py` covers
+  `leaders_db.sources.query`;
+- the integration with the concept catalog: synthetic WDI /
+  Maddison / PWT observations are loaded into the repository,
+  queried via `EvidenceQuery`, and the filtered subset is fed into
+  `extract_concept` / `extract_concept_result` to verify that the
+  repository wires end-to-end with the concept layer without
+  re-running ingestion.
+
+The existing `tests/sources/test_query.py` (Phase B `Protocol` /
+`EvidenceQuery` contract tests) keeps passing unchanged: the in-memory
+repository is the first concrete implementation of the existing
+`EvidenceRepository` Protocol and does not change the contract.
+
 Optional legacy compatibility smoke:
 
 ```bash

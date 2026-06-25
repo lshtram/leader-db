@@ -73,7 +73,8 @@ src/leaders_db/sources/
 ├── coverage.py           # coverage reports and out-of-coverage helpers
 ├── warnings.py           # warning/error code constants
 ├── cache.py              # API/cache policy helpers
-├── query.py              # EvidenceRepository research/query interface
+├── query.py              # EvidenceRepository Protocol + InMemoryEvidenceRepository
+├── concepts.py           # semantic concept catalog over observations
 ├── cli.py                # new `leaders-db sources ...` commands
 └── adapters/
     └── <source_slug>/
@@ -356,6 +357,152 @@ class EvidenceRepository(Protocol):
 
 Scorers, validation reports, manual review, and research tools should depend on
 this query interface instead of calling source adapters directly.
+
+The first concrete repository implementation is
+`InMemoryEvidenceRepository` (also in `src/leaders_db/sources/query.py`,
+re-exported from the `leaders_db.sources` package root). It is the canonical
+read-only, deterministic, no-I/O seam for downstream consumers in this slice:
+
+- The constructor accepts three sequences -- `observations`,
+  `manifests`, and `attributions` -- and copies each into an internal
+  tuple so the caller-owned lists are never mutated.
+- `query_observations(query)` filters the stored observations by every
+  documented filter (`source_ids`, `observation_families`,
+  `indicator_codes`, `years`, `countries`, `leaders`) and preserves the
+  input observation order in the result. A `None` filter value means
+  "unfiltered"; an empty tuple `()` is a deliberate filter that returns
+  no observations for that dimension (natural membership semantics).
+  `source_ids` match against the stored `SourceId.slug`; `leaders`
+  match against either `leader_id` or `leader_name` so callers can
+  query by either dimension until leader IDs are stable.
+- `get_manifest(source_id, run_id=None)` returns the matching manifest.
+  If `run_id` is provided, it is the exact `(slug, run_id)` lookup. If
+  `run_id` is `None` and exactly one manifest is stored for the source,
+  that manifest is returned. If multiple manifests exist for the same
+  source and `run_id` is `None`, the call raises `KeyError` with an
+  actionable message naming the source slug and the available run ids
+  so the caller can pass an explicit run id instead of guessing. A
+  missing manifest raises `KeyError` naming the source slug and the
+  known run ids.
+- `get_attributions(source_ids)` returns attributions in the order of
+  the requested `source_ids` argument; sources without a stored
+  attribution are silently skipped (matching the documented
+  contract for the prior `_FakeEvidenceRepository` test fake).
+
+The repository never imports `leaders_db.ingest`, never instantiates
+`SourceIngestRunner`, never calls source adapters, and never reads raw
+files. It is intended for tests, research scripts, and concept-extraction
+flows that already hold materialized observation / manifest /
+attribution records in memory. Future repository implementations
+(e.g., a SQLite- or processed-parquet-backed reader) will live alongside
+this one and implement the same `EvidenceRepository` Protocol without
+breaking existing callers.
+
+The five `EvidenceQuery.include_*` flags (`include_raw_locators`,
+`include_warnings`, `include_quality_flags`, `include_attribution`,
+`include_manifests`) are currently **advisory** in the in-memory
+implementation: the repository always returns the full stored
+observation including its locators, warnings, quality flags, and any
+attached metadata. The flags exist on the contract so a future
+materialization step can honor them without changing the
+`EvidenceRepository` surface; future persistence-backed repositories
+may strip the optional fields when a caller asks for lighter rows.
+Tests and docs must not assume that the flags actually mutate the
+returned rows in this slice.
+
+### 5.8 Semantic concept catalog
+
+The source system also exposes a small semantic indicator concept layer in
+`leaders_db.sources.concepts`. It sits above `NormalizedObservation` and below
+scoring/research code. Its purpose is to let analysts and scorers ask for stable
+cross-source concepts such as `gdp_per_capita`, `population`, or `gdp_total`
+without memorizing source-specific indicator strings such as
+`wdi_gdp_per_capita_ppp_constant_2017` or
+`maddison_project_gdp_per_capita_2011_intl`.
+
+Concepts do **not** replace adapter indicator codes. Source-specific
+`NormalizedObservation.indicator_code` values remain preserved for audit,
+provenance, cataloging, and source-specific analysis. A concept is an alias or a
+recipe over existing normalized observations; it is not a new evidence source and
+must not count independently for source agreement.
+
+Minimal public API sketch:
+
+```python
+def list_concepts() -> Sequence[ConceptDescriptor]: ...
+
+def resolve_concept(
+    concept_key: str,
+    source_id: SourceId | str | None = None,
+) -> Sequence[ConceptMapping]: ...
+
+def extract_concept(
+    observations: Sequence[NormalizedObservation],
+    concept_key: str,
+    source_id: SourceId | str | None = None,
+) -> Sequence[ConceptObservation]: ...
+
+def extract_concept_result(
+    observations: Sequence[NormalizedObservation],
+    concept_key: str,
+    source_id: SourceId | str | None = None,
+) -> ConceptExtractionResult: ...
+```
+
+`resolve_concept` returns the source-specific direct mappings and derivation
+recipes for a stable key. `extract_concept` works over already-loaded
+`NormalizedObservation` records, typically from `EvidenceRepository`; it does
+not read raw files, rerun ingestion, write processed files, or mutate source
+records.
+
+`extract_concept_result` is the diagnostic helper that returns a
+`ConceptExtractionResult` dataclass with two tuple fields -- `observations`
+(same shape as `extract_concept`) plus `warnings` (a tuple of
+`SourceWarning` records aggregating every per-row direct-mapping diagnostic
+AND every per-scope derived-mapping drop reason). The convenience
+`extract_concept` wrapper returns only the observations tuple so the minimal
+public API stays flat; callers that need structured diagnostics for
+missing / ambiguous / non-numeric / zero / missing-source-version /
+mismatched-year inputs use `extract_concept_result`.
+
+Concept mappings may be direct aliases, for example:
+
+- `gdp_per_capita` from WDI GDP-per-capita indicators.
+- `gdp_per_capita` from Maddison Project `gdppc`-derived observations.
+- `population` from WDI or Maddison population observations.
+
+Concept mappings may also be simple derivation recipes when all inputs are
+already normalized observations from the same source/entity/year. For example,
+PWT may expose:
+
+```text
+gdp_per_capita = pwt_real_gdp_output_side / pwt_population
+```
+
+Derived concept outputs must carry provenance to every input observation id and
+locator, preserve the source id and source version, and include an explicit
+quality flag / derivation marker such as `derived_concept` plus the recipe key.
+If any required input is missing, non-numeric, zero where division would be
+undefined, ambiguous for the requested (source_id, country, year, leader)
+scope, or carrying a missing / mismatched `source_version` stamp, extraction
+returns no derived concept row for that scope and surfaces a structured
+`SourceWarning` via the diagnostic helper. The derivation scope key
+includes `year` so a single country with valid 2018 AND 2019 inputs produces
+two distinct scopes (one derived row per country-year) rather than collapsing
+into one ambiguous multi-year bucket; `source_version` is intentionally
+checked inside the scope once both sides are paired so mismatched versions
+still surface the missing-source-version diagnostic.
+
+The diagnostic helper uses stable per-failure-mode warning codes (e.g.
+`concept_missing_numerator`, `concept_missing_denominator`,
+`concept_ambiguous_pair`, `concept_non_numeric_numerator`,
+`concept_non_numeric_denominator`, `concept_zero_denominator`,
+`concept_missing_source_version`, `concept_pair_year_mismatch`) so callers
+can branch on actionable codes rather than parsing message strings.
+
+This layer is query/analysis-time normalization only. It does not mutate source
+ingestion output, does not persist a new canonical observation table yet, and
+does not introduce CLI commands in the current slice.
 
 ---
 

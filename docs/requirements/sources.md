@@ -188,6 +188,103 @@ prototype code under `src/leaders_db/ingest/` is legacy unless explicitly migrat
 - **SRC-QUERY-004:** Evidence queries shall not rerun ingestion.
 - **SRC-QUERY-005:** Evidence queries shall not read raw files directly except in
   explicitly documented diagnostic tooling.
+- **SRC-QUERY-006:** The source system shall expose a concrete in-memory
+  `InMemoryEvidenceRepository` that implements the `EvidenceRepository`
+  Protocol so tests, research scripts, and concept-extraction flows can
+  query already-materialized evidence without re-running ingestion or
+  reading raw files. The implementation lives in
+  `src/leaders_db/sources/query.py` and is re-exported from the
+  `leaders_db.sources` package root.
+- **SRC-QUERY-007:** The in-memory repository constructor shall accept three
+  sequences -- `observations`, `manifests`, `attributions` -- and shall
+  copy each into an internal tuple so the caller-owned lists are never
+  mutated.
+- **SRC-QUERY-008:** `query_observations` shall filter by `source_ids`,
+  `observation_families`, `indicator_codes`, `years`, `countries`, and
+  `leaders`. A `None` filter value shall mean "unfiltered"; an empty
+  tuple `()` shall mean "no observations match that dimension". The
+  repository shall match `source_ids` against the stored
+  `SourceId.slug`, shall match `leaders` against either `leader_id` or
+  `leader_name` so callers can query by either dimension until leader
+  IDs are stable, and shall preserve the input observation order in
+  the result tuple.
+- **SRC-QUERY-009:** `get_manifest` shall resolve an exact `(source_id.slug,
+  run_id)` lookup when `run_id` is provided; when `run_id` is `None`,
+  the repository shall return the stored manifest for the source if
+  exactly one exists, and shall raise `KeyError` with an actionable
+  message naming the available run ids if multiple manifests exist for
+  the same source. A missing manifest shall raise `KeyError` naming the
+  source slug and the known run ids.
+- **SRC-QUERY-010:** `get_attributions` shall return attributions in the
+  order of the requested `source_ids` argument; sources without a
+  stored attribution shall be silently skipped (matching the documented
+  prior `_FakeEvidenceRepository` contract).
+- **SRC-QUERY-011:** The in-memory repository shall never import
+  `leaders_db.ingest`, never instantiate `SourceIngestRunner`, never
+  call source adapters, never read raw files, and never write
+  processed/DB output. Tests shall enforce this boundary via
+  monkeypatched `SourceIngestRunner.__init__` + `Path.open` /
+  `Path.read_*` sentinels and via the import-boundary submodule list
+  in `tests/sources/test_import_boundary.py`.
+- **SRC-QUERY-012:** The five `EvidenceQuery.include_*` flags
+  (`include_raw_locators`, `include_warnings`,
+  `include_quality_flags`, `include_attribution`,
+  `include_manifests`) are advisory in the in-memory implementation:
+  the repository always returns the full stored observation. The
+  flags exist on the contract so a future materialization step or
+  persistence-backed repository can honor them without changing the
+  `EvidenceRepository` surface.
+
+---
+
+## 10A. Semantic Concepts
+
+- **SRC-CONCEPT-001:** The source system shall expose stable semantic concept
+  keys for common cross-source indicators needed by analysts/scorers, starting
+  with `gdp_per_capita`, `population`, and `gdp_total`.
+- **SRC-CONCEPT-002:** Concept mappings shall preserve source-specific
+  `NormalizedObservation.indicator_code` values; concepts are aliases or recipes
+  over observations, not replacements for adapter indicator catalogs.
+- **SRC-CONCEPT-003:** The concept catalog shall support resolving a concept key
+  globally or for a specific `source_id`.
+- **SRC-CONCEPT-004:** Direct concept mappings shall cover the WDI and Maddison
+  economic observations used in the three-source experiment.
+- **SRC-CONCEPT-005:** Derivation recipes shall support simple arithmetic over
+  same-source, same-entity, same-year normalized observations, including PWT
+  `gdp_per_capita = pwt_real_gdp_output_side / pwt_population`.
+- **SRC-CONCEPT-006:** Derived concept results shall carry provenance to every
+  input observation and shall include an explicit derivation marker or quality
+  flag.
+- **SRC-CONCEPT-007:** Concept extraction shall operate only on provided
+  normalized observations or an evidence-query result; it shall not read raw
+  files, call source adapters, rerun ingestion, or write processed/DB output.
+- **SRC-CONCEPT-008:** Unknown concept keys and unsupported concept/source
+  combinations shall fail with actionable errors rather than returning silent
+  empty or guessed mappings.
+- **SRC-CONCEPT-009:** Missing, non-numeric, ambiguous, or divide-by-zero inputs
+  in a derivation shall produce no derived value for that scope and shall surface
+  a structured warning.
+- **SRC-CONCEPT-010:** The client matrix shall not be mapped as concept evidence;
+  if queried through this layer, it remains validation-only and excluded from
+  source agreement.
+- **SRC-CONCEPT-011:** Derived concept scope keys shall include ``year`` so a
+  single country with multiple valid years produces one derived row per
+  country-year, never an ambiguous multi-year aggregate.
+- **SRC-CONCEPT-012:** A derived concept shall require both inputs to share the
+  same non-empty ``source_version``; missing or mismatched ``source_version``
+  shall produce no derived row for that scope and shall surface a structured
+  warning. ``source_version`` is checked inside the (country, year) scope, not
+  as part of the scope key, so mismatched versions surface the
+  missing-source-version diagnostic.
+- **SRC-CONCEPT-013:** The catalog shall expose a documented diagnostic helper
+  (``extract_concept_result``) that returns the emitted observations PLUS the
+  aggregated structured warnings raised by per-row direct-mapping diagnostics
+  AND per-scope derived-mapping drop reasons (missing numerator / denominator,
+  ambiguous pair, non-numeric numerator / denominator, zero denominator,
+  missing / mismatched ``source_version``, defensive year mismatch). The
+  convenience ``extract_concept`` wrapper returns only the observations tuple
+  so the minimal public API stays flat; both signatures share the same
+  underlying extract logic.
 
 ---
 

@@ -31,7 +31,7 @@ from .contracts import (
     TransformLocator,
     ValidationResult,
 )
-from .query import EvidenceRepository
+from .query import EvidenceRepository, InMemoryEvidenceRepository
 from .registry import InMemorySourceRegistry, SourceRegistry
 from .runner import SourceIngestRunner
 
@@ -40,6 +40,7 @@ __all__ = [
     "CoverageHint",
     "EvidenceQuery",
     "EvidenceRepository",
+    "InMemoryEvidenceRepository",
     "InMemorySourceRegistry",
     "NormalizedObservation",
     "RawAsset",

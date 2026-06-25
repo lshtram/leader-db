@@ -39,6 +39,113 @@ requirements, and a plain-English guide are tracked in
 [`docs/sources/system-explained.md`](sources/system-explained.md). Existing source
 capabilities remain available as legacy/reference code until migrated.
 
+**Source concept-catalog slice landed (2026-06-24) — semantic indicator
+catalog under `leaders_db.sources.concepts`.** A real-life
+experiment using PWT, Maddison, and WDI through the new source
+interface showed that cross-source analysis still required too much
+manual indicator-name knowledge (for example WDI/Maddison
+GDP-per-capita strings and PWT GDP-per-capita derivation from
+output-side real GDP + population). The follow-up slice adds a
+small query/analysis-time normalization layer above
+`NormalizedObservation` and below scoring/research code so callers
+can ask for stable concepts like `gdp_per_capita`, `population`,
+and `gdp_total` while preserving source-specific indicator codes
+and provenance
+([`docs/architecture/sources.md`](architecture/sources.md) §5.8 +
+[`docs/requirements/sources.md`](requirements/sources.md) §10A
+SRC-CONCEPT-001..010). The package ships under
+`src/leaders_db/sources/concepts/` as a focused sub-package
+(`__init__.py` re-exports the public API; `_dataclasses.py`,
+`_catalog.py`, `_direct.py`, `_derived.py`, and `_api.py` split the
+dataclasses, the static catalog data, the direct + derived
+extraction helpers, and the public functions respectively; all six
+modules stay under the 400-line convention). The slice exposes:
+
+- Stable concept keys (`gdp_per_capita`, `population`, `gdp_total`)
+  via `list_concepts()`.
+- Source-specific mappings via `resolve_concept(concept_key,
+  source_id=None)` covering WDI direct
+  (`wdi_gdp_per_capita` + `wdi_gdp_per_capita_ppp_constant_2017`,
+  `wdi_population`, `wdi_gdp_current_usd` +
+  `wdi_gdp_constant_2015_usd`), Maddison direct
+  (`maddison_project_gdp_per_capita_2011_intl`,
+  `maddison_project_population_thousands`, and the already-derived
+  `maddison_project_gdp_total_2011_intl_derived`), and PWT direct
+  + derived
+  (`pwt_population`, `pwt_real_gdp_output_side` +
+  `pwt_real_gdp_expenditure_side`, and the derived
+  `gdp_per_capita = pwt_real_gdp_output_side / pwt_population`
+  recipe carrying the `derived_concept` quality flag and the
+  `pwt_gdp_per_capita_via_rgdpo_over_pop` recipe key in
+  `extension`).
+- `extract_concept(observations, concept_key, source_id=None)`
+  returns a `tuple[ConceptObservation, ...]` over the provided
+  observations only -- the catalog never reads raw files, calls
+  source adapters, instantiates `SourceIngestRunner`, or imports
+  `leaders_db.ingest`. The boundary is enforced by:
+  1. AST inspection of every concept subpackage source file
+     (`test_concepts_module_does_not_import_legacy_ingest_at_import`).
+  2. The canonical import-boundary submodule list in
+     `tests/sources/test_import_boundary.py::test_sources_submodules_do_not_import_legacy_ingest`
+     now includes `leaders_db.sources.concepts` and its five
+     focused submodules.
+  3. A monkeypatched `SourceIngestRunner.__init__` sentinel +
+     `Path.open` sentinel inside the catalog tests
+     (`test_extract_concept_does_not_call_adapters_or_runners` +
+     `test_extract_concept_does_not_read_raw_files`).
+- A documented diagnostic helper `extract_concept_result(...)`
+  returns a `ConceptExtractionResult` dataclass carrying the
+  emitted observations PLUS the aggregated structured
+  `SourceWarning` records raised by per-row direct-mapping
+  diagnostics (the existing `missing_value` warning) AND
+  per-scope derived-mapping drop reasons (the eight new
+  per-failure-mode codes: `concept_missing_numerator`,
+  `concept_missing_denominator`, `concept_ambiguous_pair`,
+  `concept_non_numeric_numerator`,
+  `concept_non_numeric_denominator`, `concept_zero_denominator`,
+  `concept_missing_source_version`,
+  `concept_pair_year_mismatch`). The convenience `extract_concept`
+  wrapper returns only the observations tuple so the minimal
+  public API stays flat. Per
+  `docs/architecture/sources.md` §5.8 / `docs/requirements/sources.md`
+  §10A SRC-CONCEPT-013.
+- Two actionable custom exceptions:
+  `UnknownConceptError` (unknown concept key names the known keys
+  in its message) and `UnsupportedConceptSourceError` (unknown
+  concept/source pair names the supported sources). Both inherit
+  from a common `ConceptCatalogError(ValueError)` base.
+- The PWT derived recipe refuses to silently guess: missing
+  numerator, missing denominator, ambiguous pair (multiple
+  numerators or denominators per scope), year mismatch, non-numeric
+  values, zero denominator, NaN / inf denominator, and missing or
+  mismatched `source_version` each return zero rows for the
+  affected scope rather than emitting a fabricated value. The
+  derivation scope key includes `year` (SRC-CONCEPT-011) so the
+  same country with valid 2018 AND 2019 inputs yields TWO derived
+  rows (one per country-year) instead of collapsing into an
+  ambiguous multi-year bucket; `source_version` is checked inside
+  the (country, year) scope (SRC-CONCEPT-012) so mismatched
+  versions still surface the `concept_missing_source_version`
+  diagnostic.
+- Direct mappings surface a structured `missing_value` warning on
+  rows whose input observation has a missing / non-numeric value
+  -- the row itself is emitted with `value=None` and
+  `value_type="missing"` (NOT dropped) so the analyst can see the
+  upstream gap without losing the observation id / locator. The
+  warning message correctly reflects this: "row is emitted with
+  value=None and value_type='missing' so the analyst can see the
+  upstream gap without losing the observation id / locator".
+- `client_existing` is intentionally absent from the catalog; every
+  concept raised against the client matrix raises
+  `UnsupportedConceptSourceError` per SRC-CONCEPT-010.
+- An integration-style test
+  (`test_concepts_extract_gdp_per_capita_from_real_runner_output`)
+  drives the canonical `SourceIngestRunner` against staged WDI /
+  Maddison / PWT bundles and feeds the emitted observations
+  through `extract_concept` to prove the catalog wires end-to-end
+  with the migrated adapters. 33 focused tests landed in
+  `tests/sources/test_concepts.py`.
+
 **Source-system Phase C/D result (2026-06-23):** The Phase B
 reviewer-blocker remediation is complete end-to-end. Production code in
 `src/leaders_db/sources/registry.py` and `src/leaders_db/sources/runner.py`
@@ -64,13 +171,113 @@ now satisfies the full Phase B contract:
   are explicitly deferred to a later phase. The runner's `SourceIngestResult.manifest`
   is `None` and the no-legacy-dispatch test guards the boundary.
 
-Current verification: `pytest -q tests/sources` passes 127 tests
+Current verification: `pytest -q tests/sources` passes 205 tests
 (`tests/sources/test_contracts.py` 41, `test_import_boundary.py` 5,
 `test_legacy_compatibility.py` 7, `test_query.py` 14, `test_registry.py` 13,
-`test_runner.py` 4, `test_pwt_adapter.py` 21, `test_maddison_project_adapter.py` 22)
+`test_runner.py` 4, `test_pwt_adapter.py` 21,
+`test_maddison_project_adapter.py` 22,
+`test_world_bank_wdi_adapter.py` 45,
+`test_concepts.py` 33)
 with **zero failures** and no NON-PASS-ELIGIBLE entries.
 `ruff check src/leaders_db/sources tests/sources
 docs/requirements/sources.md docs/architecture/sources.md` is clean.
+
+**Concept-catalog carve-out (2026-06-25):** The diagnostic-helper
+refactor (per the reviewer-blocker remediation: year-scoped
+grouping, structured ``SourceWarning`` surface, source_version
+provenance gate) added a focused sibling helper
+`src/leaders_db/sources/concepts/_derived_reasons.py` (~482 lines)
+that owns per-scope drop-reason construction for the derivation
+helpers. The carve-out is intentional: the verbose diagnostic
+messages + structured `context` dicts are part of the documented
+"no silent data invention" contract and trimming them would weaken
+the forensic value of the diagnostic helper. The rest of the
+concept sub-package stays under the 400-line convention
+(`_derived.py` 331, `_catalog.py` 337, `_api.py` 303,
+`_dataclasses.py` 246, `_direct.py` 160, `__init__.py` 164). The
+canonical import-boundary submodule list in
+`tests/sources/test_import_boundary.py` and the AST inspection
+list in `test_concepts_module_does_not_import_legacy_ingest_at_import`
+both now include `leaders_db.sources.concepts._derived_reasons`.
+
+**In-memory `EvidenceRepository` slice landed (2026-06-25) — first
+concrete `InMemoryEvidenceRepository` in
+`src/leaders_db/sources/query.py`.** The Phase B
+`EvidenceRepository` `Protocol` and `EvidenceQuery` dataclass shipped
+with a small `_FakeEvidenceRepository` test fake inside
+`tests/sources/test_query.py` that returned everything it was given,
+recorded every call, and skipped filter semantics. That fake was
+adequate to pin the no-ingestion / no-raw-read boundary for the
+Protocol surface, but it did not satisfy
+[`docs/requirements/sources.md`](requirements/sources.md) §10
+SRC-QUERY-002 (filter semantics), §10 SRC-QUERY-003 (include flags),
+or any of the documented filter dimensions for real consumers. With
+the concept catalog landed (2026-06-24), concept-extraction flows
+that source observations from `EvidenceRepository` need a real
+filtering implementation behind the Protocol -- not another ad hoc
+per-test fake.
+
+The new `InMemoryEvidenceRepository` is the canonical
+implementation that downstream consumers can pick up by importing
+`from leaders_db.sources import InMemoryEvidenceRepository`. It is:
+
+- **Read-only and deterministic.** The constructor accepts three
+  sequences (`observations`, `manifests`, `attributions`) and copies
+  each into an internal tuple so the caller-owned lists are never
+  mutated. There is no I/O: no raw reads, no adapter calls, no
+  `SourceIngestRunner` instantiation, no processed/DB writes, no
+  `leaders_db.ingest` import. The repository boundary is enforced
+  by (a) the canonical import-boundary submodule list in
+  `tests/sources/test_import_boundary.py`, (b) the AST inspection
+  list in `test_concepts_module_does_not_import_legacy_ingest_at_import`,
+  and (c) monkeypatched `SourceIngestRunner.__init__` +
+  `Path.open` / `Path.read_text` / `Path.read_bytes` sentinels in
+  the new `tests/sources/test_query_repository.py` tests.
+- **Filter-honoring.** Every documented filter dimension is honored
+  with the documented semantics: `None` is "unfiltered"; an empty
+  tuple `()` is "no observations match that dimension"; the input
+  observation order is preserved in the result tuple;
+  `source_ids` match against `SourceId.slug`; `leaders` match
+  against either `leader_id` or `leader_name` so callers can query
+  by either dimension until leader IDs are stable. The four
+  `EvidenceQuery.include_*` flags are **advisory** in this slice
+  (the repository always returns the full stored observation);
+  future persistence-backed repositories can honor them without
+  changing the `EvidenceRepository` surface.
+- **Manifest-lookup by `(slug, run_id)` with an explicit-`run_id`
+  preference.** `get_manifest(source_id, run_id=...)` performs an
+  exact `(slug, run_id)` lookup; `get_manifest(source_id)` returns
+  the only stored manifest for that source if exactly one exists,
+  and raises `KeyError` with an actionable message naming the
+  available run ids if multiple manifests exist for the same
+  source (the slice prefers explicit ambiguity over silent
+  picking). A missing manifest always raises `KeyError` naming
+  the source slug and the known run ids.
+- **Attribution-lookup preserves request order and skips missing.**
+  `get_attributions(source_ids)` returns attributions in the order
+  of the requested `source_ids` argument; sources without a stored
+  attribution are silently skipped, matching the documented
+  `_FakeEvidenceRepository` contract.
+- **Concept-catalog integration.** Synthetic WDI / Maddison / PWT
+  observations are loaded into the repository, queried via
+  `EvidenceQuery`, and the filtered subset is fed into
+  `extract_concept` / `extract_concept_result` to verify the
+  repository wires end-to-end with the concept layer without
+  re-running ingestion. The new
+  `tests/sources/test_query_repository.py` carries the focused
+  tests for every filter dimension, every manifest/attribution
+  error path, every boundary sentinel, and the concept
+  integration; `tests/sources/test_query.py` is unchanged
+  because the `EvidenceRepository` `Protocol` surface and the
+  `EvidenceQuery` dataclass are unchanged.
+
+The slice ships with **zero** changes to the `EvidenceRepository`
+`Protocol`, the `EvidenceQuery` dataclass, the contract tests in
+`tests/sources/test_query.py`, the concept catalog, or the runner /
+registry / adapter paths. It is a pure implementation addition: a
+real concrete repository that downstream scorers, validators, and
+research tools can depend on, instead of repeating the private test
+fake across modules.
 
 **First clean-source migration landed (2026-06-23) — PWT under
 `leaders_db.sources.adapters.pwt`.** The PWT 10.01 source is the
