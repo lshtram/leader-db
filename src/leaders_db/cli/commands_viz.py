@@ -168,6 +168,163 @@ def viz_build_growth_tables_cmd(
             typer.echo(f"  {table_name}: {db_result.rows_by_table[table_name]} rows")
 
 
+@app.command("viz-run-investigation-slice")
+def viz_run_investigation_slice_cmd(
+    question: str = typer.Option(
+        ...,
+        "--question",
+        help=(
+            "Constrained investigation question key. Supported: "
+            "gdp-per-capita-major-powers."
+        ),
+    ),
+    countries: str | None = typer.Option(
+        None,
+        "--countries",
+        help=(
+            "Comma-separated ISO-3 country codes. When omitted, the "
+            "slice uses the canonical country list for the question."
+        ),
+    ),
+    start_year: int = typer.Option(
+        1950,
+        "--start-year",
+        help="Inclusive start year for the slice scope.",
+    ),
+    end_year: int = typer.Option(
+        2023,
+        "--end-year",
+        help="Inclusive end year for the slice scope.",
+    ),
+    raw_root: Path = typer.Option(
+        Path("data/raw"),
+        "--raw-root",
+        help=(
+            "Root directory containing the per-source raw bundles "
+            "(data/raw/<source>/)."
+        ),
+    ),
+    data_dir: Path | None = typer.Option(
+        None,
+        "--data-dir",
+        help=(
+            "Directory where the slice writes its CSV/HTML outputs "
+            "and where the Superset SQLite artifact is rebuilt. "
+            "Defaults to data/processed/viz/country-year-chronicle."
+        ),
+    ),
+    superset_db: Path | None = typer.Option(
+        None,
+        "--superset-db",
+        help=(
+            "Override the Superset SQLite output path. Defaults to "
+            "<data-dir>/superset_viz.sqlite."
+        ),
+    ),
+    no_rebuild_superset_db: bool = typer.Option(
+        False,
+        "--no-rebuild-superset-db",
+        help=(
+            "Skip rebuilding the Superset SQLite artifact after the "
+            "slice finishes. Useful when the caller plans to run "
+            "``viz-build-superset-db`` separately."
+        ),
+    ),
+) -> None:
+    """Run a constrained investigation question through the source architecture.
+
+    The slice wires PWT, Maddison, and WDI through the unified
+    :class:`SourceIngestRunner`, extracts the
+    ``gdp_per_capita`` concept across all three sources via the
+    semantic catalog, writes a chart-ready long-form CSV and a
+    deterministic static HTML+SVG line chart, and (by default)
+    refreshes the read-only Superset-facing SQLite artifact so the
+    new table is visible to local Superset dashboards.
+
+    Supported ``--question`` keys are restricted to a small registry
+    in :mod:`leaders_db.viz.investigation_slice`; unknown keys fail
+    fast rather than silently producing an empty artefact.
+    """
+    # Map the documented kebab-case CLI form to the canonical
+    # underscore form the module exposes.
+    question_key = question.replace("-", "_")
+    resolved_countries: tuple[str, ...]
+    if countries is None:
+        # Lazy import: keeps the CLI option metadata surface cheap.
+        from ..viz.investigation_slice import SUPPORTED_QUESTIONS
+
+        if question_key not in SUPPORTED_QUESTIONS:
+            typer.echo(
+                f"Unknown question {question!r}; supported: "
+                f"{list(SUPPORTED_QUESTIONS)}",
+                err=True,
+            )
+            raise typer.Exit(code=2)
+        resolved_countries = SUPPORTED_QUESTIONS[question_key].display_countries
+    else:
+        resolved_countries = tuple(
+            code.strip().upper() for code in countries.split(",")
+            if code.strip()
+        )
+
+    # Lazy import: keeps the existing command dispatch lightweight
+    # and preserves the package boundary.
+    from ..viz.investigation_slice import (
+        InvestigationSliceRequest,
+        UnknownInvestigationQuestionError,
+        run_investigation_slice,
+    )
+    from ..viz.superset_db import default_viz_data_dir
+
+    resolved_data_dir = (
+        data_dir if data_dir is not None else default_viz_data_dir()
+    )
+
+    slice_request = InvestigationSliceRequest(
+        question_key=question_key,
+        countries=resolved_countries,
+        start_year=start_year,
+        end_year=end_year,
+        raw_root=raw_root,
+        data_dir=resolved_data_dir,
+        superset_db_path=superset_db,
+        rebuild_superset_db=not no_rebuild_superset_db,
+    )
+
+    try:
+        result = run_investigation_slice(slice_request)
+    except UnknownInvestigationQuestionError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=2) from exc
+    except RuntimeError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=3) from exc
+
+    typer.echo(
+        f"slice {result.question.question_key!r} for "
+        f"{result.countries} ({result.start_year}-{result.end_year}):"
+    )
+    typer.echo(f"  concept rows: {result.total_concept_rows}")
+    for row in result.source_coverage:
+        typer.echo(
+            f"  source {row.source_id}: requested={row.requested} "
+            f"emitted={row.emitted} ready={row.readiness_ready} "
+            f"warnings={len(row.warnings)}"
+        )
+    typer.echo(f"  csv: {result.csv_path}")
+    typer.echo(f"  html: {result.html_path}")
+    if result.superset_db_path is not None:
+        typer.echo(
+            f"  superset sqlite: {result.superset_db_path} "
+            f"(tables: {', '.join(result.superset_db_tables)})"
+        )
+    else:
+        typer.echo(
+            "  superset sqlite: skipped (viz_country_year_metrics.csv "
+            "not present; run a chronicle build first)"
+        )
+
+
 def _load_query_spec(path: Path) -> QuerySpec:
     if not path.is_file():
         raise typer.BadParameter(f"query spec does not exist: {path}")
@@ -232,4 +389,5 @@ __all__ = [
     "viz_build_superset_db_cmd",
     "viz_metrics_cmd",
     "viz_query_cmd",
+    "viz_run_investigation_slice_cmd",
 ]

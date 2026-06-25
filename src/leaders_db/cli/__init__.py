@@ -49,6 +49,7 @@ from .commands_viz import (
     viz_build_superset_db_cmd,
     viz_metrics_cmd,
     viz_query_cmd,
+    viz_run_investigation_slice_cmd,
 )
 
 __all__ = [
@@ -74,4 +75,5 @@ __all__ = [
     "viz_build_superset_db_cmd",
     "viz_metrics_cmd",
     "viz_query_cmd",
+    "viz_run_investigation_slice_cmd",
 ]

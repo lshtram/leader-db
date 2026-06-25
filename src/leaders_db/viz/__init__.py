@@ -3,6 +3,17 @@
 from __future__ import annotations
 
 from .executor import CsvVizDataProvider, VizDataProvider, execute_query
+from .investigation_slice import (
+    INVESTIGATION_CSV_COLUMNS,
+    SUPPORTED_QUESTION_KEYS,
+    SUPPORTED_QUESTIONS,
+    InvestigationQuestion,
+    InvestigationSliceRequest,
+    InvestigationSliceResult,
+    SourceCoverageRow,
+    UnknownInvestigationQuestionError,
+    run_investigation_slice,
+)
 from .metrics import (
     MetricDefinition,
     get_metric_registry,
@@ -36,6 +47,9 @@ from .superset_growth_tables import (
 )
 
 __all__ = [
+    "INVESTIGATION_CSV_COLUMNS",
+    "SUPPORTED_QUESTIONS",
+    "SUPPORTED_QUESTION_KEYS",
     "VIZ_OUTPUT_REQUIRED_COLUMNS",
     "AggregationKind",
     "AggregationSpec",
@@ -43,12 +57,17 @@ __all__ = [
     "FilterOperator",
     "FilterSpec",
     "GrowthTableBuildResult",
+    "InvestigationQuestion",
+    "InvestigationSliceRequest",
+    "InvestigationSliceResult",
     "MetricDefinition",
     "QuerySpec",
+    "SourceCoverageRow",
     "SupersetDbBuildResult",
     "TimeRange",
     "TransformKind",
     "TransformSpec",
+    "UnknownInvestigationQuestionError",
     "VizDataProvider",
     "VizGrain",
     "build_country_latest_metrics",
@@ -62,4 +81,5 @@ __all__ = [
     "get_metric_registry",
     "initial_metric_definitions",
     "lookup_metric",
+    "run_investigation_slice",
 ]

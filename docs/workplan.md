@@ -11,14 +11,14 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
 - Strict LLM input/output Pydantic schemas in `src/leaders_db/llm/schemas.py` per requirement §10.
 - The client 2023 source bundle moved into `data/raw/client_existing/` with a `metadata.json`.
 - **20 reviewed Stage 2 adapters wired into `STAGE2_ADAPTERS`**: `vdem`, `world_bank_wdi`, `world_bank_wgi`, `ucdp`, `sipri_milex`, `sipri_yearbook_ch7`, `pts`, `undp_hdi`, `who_gho_api`, `archigos`, `reign`, `cirights`, `transparency_cpi`, `fas`, `bti`, `rsf_press_freedom`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `maddison_project`, `pwt`. The dispatch table is the single registry consumed by `leaders-db ingest-source --source <key>`. PWT 10.01 is the first per-source adapter built on the new shared `SourceAdapter` Protocol (`src/leaders_db/ingest/sources/pwt/`) — see the `pwt` Active blocker entry below for implementation + reviewer follow-up status.
-- Source-adapter development for the highest-priority batch has landed; downstream Stage 3–15 work and the next tranche of Stage 2 adapters are the next milestones: Polity V still needs source hygiene, and Leader Survival still needs the Demscore email-gated raw data. PWT is now implemented and wired.
-- **Visualization workplan approved and Increments 1–4 complete/reviewed (2026-06-23):** `docs/viz-workplan.md` tracks the hybrid `leaders_db.viz` semantic layer + Apache Superset dashboard plan. The core abstraction is `viz_country_year_metrics` + `viz_metric_catalog` plus a generic semantic query layer; `viz_regime_year_population` is explicitly a cached example/proof query, not a bespoke-table pattern for every metric. Increment 3 adds generic agent CLI access through `leaders-db viz-metrics` and `leaders-db viz-query`. Increment 4 adds local Superset compose/config plus `leaders-db viz-build-superset-db`, which builds the read-only SQLite analytic artifact mounted into Superset. The next visualization action is Increment 5: secure client access via Cloudflare Tunnel/Access for `viz.chopsworkshop.com`.
+- Source-adapter development for the highest-priority batch has landed; downstream Stage 3–15 work and the next tranche of Stage 2 adapters are the next milestones: **Freedom House FIW 2026 is now staged locally and ready for a future clean `leaders_db.sources` interface**, Polity V still needs source hygiene, and Leader Survival still needs the Demscore email-gated raw data. PWT is now implemented and wired.
+- **Visualization workplan approved and Increments 1–4 complete/reviewed (2026-06-23):** `docs/viz-workplan.md` tracks the hybrid `leaders_db.viz` semantic layer + Apache Superset dashboard plan. The core abstraction is `viz_country_year_metrics` + `viz_metric_catalog` plus a generic semantic query layer; `viz_regime_year_population` is explicitly a cached example/proof query, not a bespoke-table pattern for every metric. Increment 3 adds generic agent CLI access through `leaders-db viz-metrics` and `leaders-db viz-query`. Increment 4 adds local Superset compose/config plus `leaders-db viz-build-superset-db`, which builds the read-only SQLite analytic artifact mounted into Superset. The next visualization action is Increment 5: secure client access via Cloudflare Tunnel/Access for `viz.chopsworkshop.com`. **Increment 6 landed 2026-06-25 — investigation-slice vertical slice** (`viz-run-investigation-slice`) wires the updated source architecture (PWT + Maddison + WDI through the unified `SourceIngestRunner`) to a constrained `gdp_per_capita` concept extraction, writes a chart-ready CSV + dependency-free HTML+SVG line chart, and refreshes the Superset SQLite artifact when the canonical core CSV is present (skipping the rebuild cleanly when it is absent). The chart groups by `(country_code, source_id, series_label)` and renders one polyline per indicator-or-recipe series with legend labels `"{country_code} \u00b7 {source_slug} \u00b7 {series_label}"`, so values from different sources or same-source indicators for the same country/year are never chained into a single misleading time-series line. See `docs/viz-workplan.md` §Increment 6 and `docs/testing-guide-viz-superset.md` §Investigation-slice smoke check for the run-book.
 
 The prototype has **not yet** implemented the full Stage 3–15 resolution, scoring, validation, and report-generation pipeline. Phase C currently focuses on source acquisition and Stage 2 normalized observations. **First deterministic scorer landed: `social_wellbeing`** — see the Phase D.1 entry below. **Stage 9 narrow single-country read-only seam landed** — see the Phase D.2 entry. The next round focuses on the evidence-bundle contract for the remaining categories, the Stage 3/4 leader resolver, and the per-category scorers that are not yet implemented.
 
 Concrete numbers (as of 2026-06-20):
 
-- Source-bundle coverage on disk: `vdem`, WDI/WGI evidence, SIPRI, PTS, UNDP HDI, WHO GHO (cache), CIRIGHTS, BTI, RSF (24 annual CSVs), Archigos, REIGN, transparency_cpi, fas, wikidata_heads_of_state_government (cache), wikipedia_search_extract (cache), PWT 10.01 (`data/raw/pwt/pwt1001.xlsx` + metadata, **adapter implemented + wired**), and the client bundle. `maddison_project` is implemented and fixture-proven, with the canonical upstream xlsx expected at `data/raw/maddison_project/mpd2023.xlsx` for real production ingestion. The 2 remaining unimplemented rows are now: `polity_v` (still blocked on source hygiene) and `leader_survival` (blocked on raw data). `pwt` is implemented and wired.
+- Source-bundle coverage on disk: `vdem`, WDI/WGI evidence, SIPRI, PTS, UNDP HDI, WHO GHO (cache), CIRIGHTS, BTI, RSF (24 annual CSVs), **Freedom House FIW 2026** (`data/raw/freedom_house/` with three user-managed/restricted workbooks; raw database must not be published, derived public results are allowed unless the data itself would become public), Archigos, REIGN, transparency_cpi, fas, wikidata_heads_of_state_government (cache), wikipedia_search_extract (cache), PWT 10.01 (`data/raw/pwt/pwt1001.xlsx` + metadata, **adapter implemented + wired**), and the client bundle. `maddison_project` is implemented and fixture-proven, with the canonical upstream xlsx expected at `data/raw/maddison_project/mpd2023.xlsx` for real production ingestion. The remaining unimplemented/source-interface rows now include: `freedom_house` (raw staged; clean interface planned), `polity_v` (still blocked on source hygiene), and `leader_survival` (blocked on raw data). `pwt` is implemented and wired.
 - 0 client 2023 rows ingested into `processed/client_2023_matrix_normalized.csv` (Stage 1 not run).
 - 0 leader-year rows in `ruler_years` (Stage 4 not run).
 - 1 run config in `configs/prototype-2023.yaml` (target year = 2023).
@@ -26,7 +26,9 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT: 20 implemented (the 20 above) + 4 user-managed/blocked (`freedom_house`, `imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 27 total source keys. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging: 20 implemented (the 20 above) + 1 raw-staged/interface-pending (`freedom_house`) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 27 total source keys. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+
+**Freedom House FIW staging note (2026-06-25):** The FIW 2026 workbooks were moved out of `data/raw/client_existing/` and into the correct external-source folder, `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. We can publish derived results based on FIW with proper attribution, but if any use would make the underlying data publicly available, clear that use with Freedom House first. **Planned follow-up for another agent:** build the `freedom_house` interface under the clean `leaders_db.sources` architecture; do not wire a new legacy `src/leaders_db/ingest` adapter.
 
 The older source-by-source backlog and prototype adapter notes remain in [`docs/sources/ingestion-plan.md`](sources/ingestion-plan.md), but future source-interface work is now governed by the clean `leaders_db.sources` architecture in [`docs/architecture/sources.md`](architecture/sources.md) and [`docs/requirements/sources.md`](requirements/sources.md). Treat `docs/sources/ingestion-plan.md` as historical/prototype reference unless a section is explicitly carried forward into the new source-system docs.
 
@@ -720,6 +722,61 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
   `create_vdem_adapter()` /
   `register_vdem(registry)` factories and does NOT
   auto-register on import (§10.1).
+
+- **Investigation-slice vertical slice landed (2026-06-25) — Increment 6 of
+  [`docs/viz-workplan.md`](viz-workplan.md).** Small end-to-end proof
+  flow that wires the updated source architecture to a constrained
+  investigation question without free-form LLM parsing or rewrite of
+  legacy ingest. New module `src/leaders_db/viz/investigation_slice.py`
+  exposes `run_investigation_slice()`: registers PWT + Maddison + WDI
+  through the unified `SourceIngestRunner`, flattens the resulting
+  `NormalizedObservation` tuples, runs the semantic concept catalog
+  (`extract_concept_result(..., concept_key="gdp_per_capita")`),
+  writes a chart-ready long-form CSV under
+  `data/processed/viz/country-year-chronicle/`, emits a deterministic
+  dependency-free HTML+SVG line chart beside it, and (when the
+  canonical core CSV is present) refreshes the read-only Superset
+  SQLite artifact via `build_superset_sqlite_db()`. Supported question
+  keys are restricted to a small registry
+  (`SUPPORTED_QUESTIONS` -> `gdp_per_capita_major_powers` for
+  USA / GBR / FRA / IND / CHN over 1950-2023); unknown keys fail fast
+  via `UnknownInvestigationQuestionError`; not-ready sources surface
+  as structured coverage gaps on the result envelope and the slice
+  keeps going with the other sources; a slice that completes with zero
+  concept rows raises `RuntimeError` rather than silently emitting an
+  empty CSV. New Typer CLI command
+  `leaders-db viz-run-investigation-slice --question <key>
+  [--countries ...] [--start-year ...] [--end-year ...]
+  [--raw-root ...] [--data-dir ...] [--superset-db ...]
+  [--no-rebuild-superset-db]` is registered on the existing
+  :data:`app`. `VIZ_CSV_TABLES` in `src/leaders_db/viz/superset_db.py`
+  picks up the new investigation CSV as an optional entry so the
+  Superset builder loads it under
+  `viz_investigation_gdp_per_capita_major_powers` whenever the slice
+  has run. New focused pytest coverage in
+  `tests/test_viz_investigation_slice.py` (13 tests, all using fake
+  adapters + temp dirs so the tests do not depend on staged raw
+  bundles): the runner drives every adapter through
+  `check_ready -> read_raw -> transform`; concept extraction feeds
+  the CSV rows; CSV rows are deterministically sorted; the static
+  HTML+SVG is written and references every requested country; the
+  Superset SQLite artifact contains the new table; the slice skips
+  the Superset rebuild cleanly when the canonical core CSV is absent;
+  the slice continues when a source is not-ready; the slice refuses
+  unknown question keys and the empty-result path; the CLI
+  registers and rejects unknown question keys. `ruff check` clean
+  on all changed/new files; `pytest -q
+  tests/test_viz_investigation_slice.py
+  tests/test_cli_viz.py tests/test_viz_superset_growth_tables.py
+  tests/test_imports.py` passes (38 tests); the broader source-suite
+  (`tests/sources/`) and Chronicle slice remain green. Docs updated:
+  `docs/viz-workplan.md` §Increment 6 (run-book + artifact list),
+  `docs/testing-guide-viz-superset.md` §Investigation-slice smoke
+  check (manual + automated checks). The slice is intentionally
+  constrained: one supported question, deterministic, no LLM
+  parser; future expansion adds entries to
+  `SUPPORTED_QUESTIONS` rather than evolving the slice into a
+  free-form question engine.
 
 - **Fourth clean-source migration landed (2026-06-25) — World Bank WGI under
   `src/leaders_db/sources/adapters/world_bank_wgi/`.** WGI is

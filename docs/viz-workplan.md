@@ -201,3 +201,91 @@ Live activation still requires:
 - Final client/internal email allowlist.
 - Manual verification that non-allowlisted users see Cloudflare Access denial and
   never reach Superset directly.
+
+## Increment 6 — investigation-slice vertical slice (end-to-end proof flow)
+
+Status: **landed 2026-06-25; pending independent reviewer pass**
+
+Primary goal: prove the updated source architecture can carry a single
+constrained question from "question string" all the way to a chart-ready
+CSV + displayable graph artifact + Superset SQLite table without any
+free-form LLM parsing or rewrite of legacy ingest.
+
+Implemented in:
+
+- `src/leaders_db/viz/investigation_slice/` — `run_investigation_slice()`
+  is a deterministic, side-effect-bounded function split across
+  focused submodules (`__init__.py` re-exports the public API;
+  `_models.py` carries the dataclasses + supported question catalog;
+  `_api.py` owns the entry point and the per-source lifecycle driver;
+  `_csv.py` writes the chart-ready long-form CSV; `_html.py` renders
+  the dependency-free SVG line chart). The public import surface
+  (`from leaders_db.viz.investigation_slice import ...`) is unchanged
+  so callers and tests do not need to update their imports. The
+  slice wires PWT, Maddison, and WDI through the unified
+  `SourceIngestRunner`, flattens the resulting `NormalizedObservation`
+  tuples, runs `extract_concept_result(..., concept_key="gdp_per_capita")`
+  over the stream, writes a long-form CSV under
+  `data/processed/viz/country-year-chronicle/`, and emits the
+  dependency-free HTML+SVG line chart beside it. **The chart groups
+  by ``(country_code, source_id, series_label)`` and plots one polyline
+  per indicator-or-recipe series, with legend labels rendered as
+  ``"{country_code} \u00b7 {source_slug} \u00b7 {series_label}"``, so multiple
+  sources or multiple same-source indicators for the same country/year
+  are never collapsed into a single time-series line.** It also calls
+  `build_superset_sqlite_db()` so the new investigation table is
+  loaded into `superset_viz.sqlite` (only when the canonical core CSV
+  is present; otherwise the rebuild is skipped and surfaced on the
+  result envelope).
+- `src/leaders_db/cli/commands_viz.py::viz-run-investigation-slice` —
+  Typer CLI surface for the slice.
+- `tests/test_viz_investigation_slice.py` — focused pytest coverage
+  with fake adapters; proves the runner drives the lifecycle, the
+  CSV/HTML are written, the Superset SQLite has the new table, and
+  the slice refuses to invent data on not-ready sources.
+- `VIZ_CSV_TABLES` in `src/leaders_db/viz/superset_db.py` — the new
+  investigation CSV is registered as an optional entry so the
+  Superset builder picks it up when present and skips it when absent.
+
+Supported question keys are restricted to a small registry in
+`SUPPORTED_QUESTIONS` (currently `gdp_per_capita_major_powers`,
+mapping to the `gdp_per_capita` concept for USA / GBR / FRA / IND / CHN
+over 1950-2023). Unknown keys fail fast via
+`UnknownInvestigationQuestionError`. Source readiness gaps surface as
+structured coverage rows on the result envelope — the slice never
+silently invents data and only fails hard when zero concept rows
+materialise.
+
+### How to run
+
+```bash
+# 1. Optional: pre-stage the canonical core CSV (otherwise the slice
+#    still writes CSV + HTML but skips the Superset SQLite rebuild).
+leaders-db run-country-year-chronicle --config configs/prototype-2023.yaml
+
+# 2. Run the slice against the local data lake. The default registry
+#    covers PWT + Maddison + WDI; partial coverage is fine -- the
+#    slice continues with whichever sources emitted observations.
+leaders-db viz-run-investigation-slice \
+  --question gdp-per-capita-major-powers \
+  --start-year 1950 --end-year 2023
+
+# 3. Rebuild the Superset SQLite artifact (the slice does this
+#    automatically when the core CSV is present; this is for
+#    re-running after manual CSV edits).
+leaders-db viz-build-superset-db
+```
+
+Output artifacts:
+
+- `data/processed/viz/country-year-chronicle/viz_investigation_gdp_per_capita_major_powers.csv`
+  — long-form chart-ready table with stable column order.
+- `data/processed/viz/country-year-chronicle/viz_investigation_gdp_per_capita_major_powers.html`
+  — dependency-free HTML+SVG line chart (no extra packages). One
+  polyline per ``(country_code, source_id, series_label)``
+  indicator-or-recipe series; legend labels are
+  ``"{country_code} \u00b7 {source_slug} \u00b7 {series_label}"`` so the source
+  and exact indicator/recipe are visible.
+- `data/processed/viz/country-year-chronicle/superset_viz.sqlite`
+  — read-only analytic SQLite artifact; the new table is registered
+  under `viz_investigation_gdp_per_capita_major_powers`.

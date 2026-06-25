@@ -20,6 +20,18 @@ VIZ_CSV_TABLES: tuple[tuple[str, str, bool], ...] = (
     ("viz_metric_catalog.csv", "viz_metric_catalog", False),
     ("viz_regime_year_population.csv", "viz_regime_year_population", False),
     ("viz_source_coverage.csv", "viz_source_coverage", False),
+    # Investigation-slice output. Optional -- only present when the
+    # ``leaders-db viz-run-investigation-slice`` command has been
+    # run for the matching ``question_key``. When the CSV exists,
+    # the Superset SQLite builder loads it under the canonical
+    # ``viz_investigation_<question_key>`` table name; when it is
+    # absent the builder skips it (the third tuple slot is the
+    # ``required`` flag).
+    (
+        "viz_investigation_gdp_per_capita_major_powers.csv",
+        "viz_investigation_gdp_per_capita_major_powers",
+        False,
+    ),
 )
 
 
