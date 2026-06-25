@@ -39,6 +39,24 @@ requirements, and a plain-English guide are tracked in
 [`docs/sources/system-explained.md`](sources/system-explained.md). Existing source
 capabilities remain available as legacy/reference code until migrated.
 
+**Next source-migration path (2026-06-25):** Per user direction, continue clean
+`leaders_db.sources` migrations before building the end-to-end investigation
+flow. The next source adapter after WGI lands was **V-Dem**; V-Dem has now
+landed (see the fifth clean-source migration entry in Done History at the
+bottom of this workplan). Together with the already migrated PWT, Maddison
+Project, WDI, WGI, and V-Dem adapters, the unified source interface now
+covers the four structured source families needed for a complete 1900-2026
+inquiry (PWT + Maddison = historical economy; WDI = current economy; WGI =
+governance; V-Dem = political regime / repression / corruption / social
+well-being). The next major milestone is a **vertical slice of an
+investigation** that runs from these source adapters through
+`InMemoryEvidenceRepository`, semantic concepts / evidence bundles, scoring
+or analysis logic, and a documented answer with provenance. **Active next
+action:** design + execute the 1900-2026 vertical-slice investigation
+through the migrated source pipeline; defer additional source migrations
+(e.g. `transparency_cpi`, `rsf_press_freedom`, `bti`) until the vertical
+slice lands unless an interim blocker requires them.
+
 **Source concept-catalog slice landed (2026-06-24) — semantic indicator
 catalog under `leaders_db.sources.concepts`.** A real-life
 experiment using PWT, Maddison, and WDI through the new source
@@ -171,12 +189,15 @@ now satisfies the full Phase B contract:
   are explicitly deferred to a later phase. The runner's `SourceIngestResult.manifest`
   is `None` and the no-legacy-dispatch test guards the boundary.
 
-Current verification: `pytest -q tests/sources` passes 205 tests
+Current verification: `pytest -q tests/sources` passes 290 tests
 (`tests/sources/test_contracts.py` 41, `test_import_boundary.py` 5,
-`test_legacy_compatibility.py` 7, `test_query.py` 14, `test_registry.py` 13,
-`test_runner.py` 4, `test_pwt_adapter.py` 21,
+`test_legacy_compatibility.py` 7, `test_query.py` 14, `test_query_repository.py` 37,
+`test_registry.py` 13, `test_runner.py` 4,
+`test_pwt_adapter.py` 21,
 `test_maddison_project_adapter.py` 22,
 `test_world_bank_wdi_adapter.py` 45,
+`test_world_bank_wgi_adapter.py` 23,
+`test_vdem_adapter.py` 25,
 `test_concepts.py` 33)
 with **zero failures** and no NON-PASS-ELIGIBLE entries.
 `ruff check src/leaders_db/sources tests/sources
@@ -577,6 +598,233 @@ The first build sequence from [`requirements/top-level-requirements.md`](require
 Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-level-requirements.md) and refined in [`requirements/core.md`](requirements/core.md). Architecture lives in [`architecture/overview.md`](architecture/overview.md). The schema is normative in [`architecture/database-schema.md`](architecture/database-schema.md).
 
 ## Done History
+
+- **Fifth clean-source migration landed (2026-06-25) — V-Dem v16 under
+  `src/leaders_db/sources/adapters/vdem/`.** V-Dem is
+  the fifth source rebuilt under the new `leaders_db.sources`
+  interface (docs/architecture/sources.md §7.1 priority 5,
+  docs/requirements/sources.md §12 SRC-MIG-005), after
+  PWT 10.01, Maddison Project Database 2023, World Bank WDI,
+  and World Bank WGI. V-Dem is a large local CSV source
+  (388MB / 28093 rows / 4618 columns) with `metadata.json`
+  and a 26MB zip; the unified adapter is **not** network-backed
+  (`requires_network=False`); the descriptor advertises
+  `source_type="dataset"`. The new package implements the
+  full `SourceAdapter` Protocol (`descriptor` + `check_ready` +
+  `read_raw` + `transform`) and reuses the legacy reader /
+  transform / catalog under `leaders_db.ingest.vdem_io` via
+  lazy imports so the package boundary documented in
+  docs/architecture/sources.md §10.1 is preserved; the package
+  import does NOT pull in `leaders_db.ingest`
+  (`tests/sources/test_vdem_adapter.py::test_vdem_adapter_module_does_not_import_legacy_ingest_at_import`
+  + the import-boundary submodule list in
+  `tests/sources/test_import_boundary.py`). The legacy
+  `STAGE2_ADAPTERS["vdem"]` entry remains unchanged -- the
+  new package exposes explicit `create_vdem_adapter()` /
+  `register_vdem(registry)` factories and does NOT
+  auto-register on import (per docs/architecture/sources.md
+  §10.1). The new adapter honors the full request scope:
+  `years=` and `countries=` filter the narrow DataFrame on
+  the new transform side (the legacy reader returns the
+  full frame when called with `year=None`); `leaders=`
+  emits a structured `unsupported_filter` warning
+  (SRC-REQ-005); `years=(1788,)` or `years=(2026,)`
+  (out of coverage) emit zero observations plus a
+  structured `year_absent` warning -- no stale-proxy fill
+  (SRC-COV-002 / SRC-COV-003). A mismatched `source_version=`
+  (e.g. `"9999"` against a canonical V-Dem bundle whose
+  metadata records `"v16"`) FAILS readiness with a
+  structured `unsupported_version` error per
+  docs/requirements/sources.md §3 SRC-REQ-009 -- the runner
+  raises `RuntimeError` before calling `read_raw` /
+  `transform`, so the legacy bundle metadata cannot be
+  silently overwritten by an unsupported version stamp. The
+  runner also validates the staged bundle's metadata
+  `source_version`: missing or mismatched metadata versions
+  fail readiness, and the canonical `"v16"` value
+  propagates consistently to `RawAsset.version` and every
+  emitted `NormalizedObservation.source_version`. The bundle
+  metadata's `checksum_sha256` is REQUIRED and accepts a
+  64-character hex SHA-256 string (covers the staged zip,
+  NOT the 388MB CSV). The gate validates the metadata shape
+  AND, if the zip is staged alongside the CSV, recomputes
+  the zip's SHA-256 and compares against the metadata field.
+  Missing / malformed `checksum_sha256` fails readiness with
+  a structured `missing_metadata` error; a mismatched zip
+  SHA-256 fails readiness with the V-Dem-specific
+  `vdem_checksum_mismatch` code. The CSV (388MB) is NEVER
+  hashed by the unified adapter -- the audit chain is
+  preserved via the legacy parquet metadata, the canonical
+  attribution text (Rule #15), and the zip-checksum match.
+  The runner end-to-end contract is proven by
+  `tests/sources/test_vdem_adapter.py::test_vdem_runner_produces_normalized_observations`
+  (220 fixture observations round-tripped -- 5 countries
+  x 2 years x 22 indicators) and
+  `test_vdem_runner_does_not_consult_legacy_stage2_adapters`
+  (monkeypatched legacy `STAGE2_ADAPTERS["vdem"]` tracker
+  is never invoked). The V-Dem descriptor exposes
+  `source_id="vdem"`, `default_version="v16"`, the canonical
+  V-Dem DOI homepage URL (`https://doi.org/10.23696/vdemds26`),
+  `attribution_key="vdem"`, coverage hint 1789-2025, five
+  observation families (`political_country_year`,
+  `governance_country_year`, `corruption_country_year`,
+  `repression_country_year`, `social_country_year`),
+  `source_type="dataset"`, and `requires_network=False`.
+  Per-observation `RawLocator` carries the staged CSV path
+  + the raw V-Dem column name (e.g. `v2x_polyarchy`);
+  `row_number` is intentionally `None` because the legacy
+  narrow frame loses the CSV row index through the
+  long-to-wide pivot -- the unified transform never
+  fabricates locators. Per-observation `extension` carries
+  the canonical attribution text (Rule #15), the
+  `source_row_reference="vdem:<country_text_id>"` pattern
+  (matching the legacy Stage 2 DB writer), the
+  `vdem_raw_column`, `vdem_country_id`, `vdem_country_text_id`,
+  `vdem_rating_category` (catalog `rating_category`),
+  `raw_value` (audit-trail string preserving V-Dem missing
+  sentinels like `"-999.0"`), and the `raw_scale` /
+  `higher_is_better` / `normalized_scale_target` direction
+  hints. The new `VDEM_ATTRIBUTION_TEXT` constant is
+  byte-identical to the legacy `VDEM_ATTRIBUTION` constant
+  in `src/leaders_db/ingest/vdem_io.py` and to the `vdem`
+  section in `docs/sources/attributions.md`;
+  `test_vdem_attribution_text_matches_attributions_doc`
+  enforces byte-identity (drift guard). 25 focused tests
+  in `tests/sources/test_vdem_adapter.py` cover the full
+  slice acceptance criteria (descriptor / factory /
+  registry / runner / request-scoping / out-of-coverage /
+  readiness-failure / checksum-shape / checksum-mismatch /
+  correct-zip / canonical-version-propagation /
+  V-Dem-specific extension / import-boundary /
+  STAGE2_ADAPTERS-no-touch). Module sizes: `__init__.py`
+  141 lines, `_descriptor.py` 234 lines,
+  `_metadata_validators.py` 325 lines, `_readiness.py`
+  307 lines, `_catalog.py` 114 lines, `_missing_values.py`
+  118 lines, `_raw_read.py` 160 lines, `_pipeline.py`
+  164 lines, `_transform.py` 319 lines, and `adapter.py`
+  358 lines; no V-Dem production-module carve-out is
+  needed. The focused single-source test file is
+  `tests/sources/test_vdem_adapter.py`. **With V-Dem
+  landed, the unified source interface now covers the four
+  structured source families needed for a complete
+  1900-2026 inquiry** (PWT + Maddison = historical economy;
+  WDI = current economy; WGI = governance; V-Dem = political
+  regime / repression / corruption / social well-being).
+  The next major milestone is a vertical slice of an
+  investigation that runs from these source adapters
+  through `InMemoryEvidenceRepository`, semantic concepts /
+  evidence bundles, scoring or analysis logic, and a
+  documented answer with provenance. The runner still
+  returns `manifest=None`; no persistence, DB writes, or
+  manifest writing landed. The package exposes explicit
+  `create_vdem_adapter()` /
+  `register_vdem(registry)` factories and does NOT
+  auto-register on import (§10.1).
+
+- **Fourth clean-source migration landed (2026-06-25) — World Bank WGI under
+  `src/leaders_db/sources/adapters/world_bank_wgi/`.** WGI is
+  the fourth source rebuilt under the new `leaders_db.sources`
+  interface (docs/architecture/sources.md §7.1 priority 4,
+  docs/requirements/sources.md §12 SRC-MIG-005), after PWT
+  10.01, Maddison Project Database 2023, and World Bank WDI.
+  WGI is a local-file source (single xlsx, 6 indicator sheets,
+  no network) so the unified adapter is no-network by design
+  (`requires_network=False`); the descriptor advertises
+  `source_type="dataset"`. The new package is a thin adapter
+  that implements the canonical `SourceAdapter` Protocol
+  (`descriptor` + `check_ready` + `read_raw` + `transform`)
+  and reuses the legacy reader under
+  `leaders_db.ingest.wgi_xlsx` via lazy imports so the
+  `leaders_db.sources` package boundary documented in
+  docs/architecture/sources.md §10.1 is preserved; the package
+  import does NOT pull in `leaders_db.ingest`
+  (`tests/sources/test_world_bank_wgi_adapter.py::test_wgi_adapter_module_does_not_import_legacy_ingest_at_import`
+  + the import-boundary submodule list in
+  `tests/sources/test_import_boundary.py`). The legacy
+  `STAGE2_ADAPTERS["world_bank_wgi"]` entry remains unchanged
+  -- the new package exposes explicit
+  `create_world_bank_wgi_adapter()` /
+  `register_world_bank_wgi(registry)` factories and does NOT
+  auto-register on import (per docs/architecture/sources.md
+  §10.1). The new adapter honors the full request scope:
+  `years=` and `countries=` filter the wide-format DataFrame on
+  the new transform side (the legacy reader returns the full
+  frame when called with `year=None`); `leaders=` emits a
+  structured `unsupported_filter` warning; `years=(2023,)` or
+  `years=(1995,)` (out of coverage) emit zero observations plus
+  a structured `year_absent` warning -- no stale-proxy fill
+  (SRC-COV-002 / SRC-COV-003). A mismatched `source_version=`
+  (e.g. `"9999"` against a canonical WGI bundle whose metadata
+  records `"Worldwide Governance Indicators 2023 Update (data
+  through 2022)"`) FAILS readiness with a structured
+  `unsupported_version` error per docs/requirements/sources.md
+  §3 SRC-REQ-009 -- the runner raises `RuntimeError` before
+  calling `read_raw` / `transform`, so the legacy bundle
+  metadata cannot be silently overwritten by an unsupported
+  version stamp. The runner also validates the staged bundle's
+  metadata `version` / `source_version`: missing or mismatched
+  metadata versions fail readiness, and the canonical
+  `"Worldwide Governance Indicators 2023 Update (data through
+  2022)"` value propagates consistently to `RawAsset.version`
+  and every emitted `NormalizedObservation.source_version`.
+  The readiness gate accepts BOTH the canonical primary metadata
+  shape (`source_version` / `checksum_sha256` / `local_files` /
+  `license_note` / `coverage`) AND the staged WGI legacy shape
+  (`version` / `sha256` / `local_file` / `license` /
+  `coverage_start_year` + `coverage_end_year`) so the existing
+  staged bundle metadata does not need to be rewritten as
+  part of the migration. The runner end-to-end contract is
+  proven by `test_wgi_runner_produces_normalized_observations`
+  (59 fixture observations round-tripped -- 5 countries x 2
+  years x 6 indicators minus one `#N/A` cell at MEX 2021
+  `wgi_political_stability`) and
+  `test_wgi_runner_does_not_consult_legacy_stage2_adapters`
+  (monkeypatched legacy `STAGE2_ADAPTERS["world_bank_wgi"]`
+  tracker is never invoked). The WGI descriptor exposes
+  `source_id="world_bank_wgi"`, `default_version="Worldwide
+  Governance Indicators 2023 Update (data through 2022)"`,
+  the canonical WGI homepage URL
+  (`https://info.worldbank.org/governance/wgi/`),
+  `attribution_key="world_bank_wgi"`, coverage hint 1996-2022,
+  and the `governance_country_year` observation family.
+  Per-observation `RawLocator` carries the staged xlsx path +
+  the per-indicator sheet name (e.g. `VoiceandAccountability`
+  for `wgi_voice_and_accountability`); `row_number` is
+  intentionally `None` because the legacy wide frame loses
+  the xlsx row index through the long-to-wide pivot -- the
+  unified transform never fabricates locators. Per-observation
+  `extension` carries the canonical attribution text (Rule
+  #15), the `source_row_reference="world_bank_wgi:<iso3>"`
+  pattern (matching the legacy Stage 2 DB writer), the
+  `wgi_sheet_name` (canonical xlsx sheet name), and the
+  `wgi_indicator_category` (catalog `rating_category`,
+  `effectiveness` for 5 indicators + `integrity` for
+  `wgi_control_of_corruption`). The new
+  `WORLD_BANK_WGI_ATTRIBUTION_TEXT` constant is byte-identical
+  to the legacy `WGI_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/wgi_io.py` and to the
+  `world_bank_wgi` entry in `docs/sources/attributions.md`;
+  `test_wgi_attribution_text_matches_attributions_doc` enforces
+  byte-identity (drift guard). 23 focused tests in
+  `tests/sources/test_world_bank_wgi_adapter.py` cover the
+  full slice acceptance criteria (descriptor / factory /
+  registry / runner / request-scoping / out-of-coverage /
+  readiness-failure / canonical-version-propagation /
+  primary-shape / import-boundary / STAGE2_ADAPTERS-no-touch).
+  Module sizes: `__init__.py` 109 lines, `_descriptor.py`
+  189 lines, `_metadata_validators.py` 303 lines,
+  `_readiness.py` 293 lines, `_raw_read.py` 161 lines,
+  `_pipeline.py` 119 lines, `_transform.py` 319 lines,
+  and `adapter.py` 354 lines; no WGI production-module
+  carve-out is needed. The focused single-source test file is
+  `tests/sources/test_world_bank_wgi_adapter.py`. The runner
+  still returns `manifest=None`; no persistence, DB writes,
+  or manifest writing landed. The package exposes explicit
+  `create_world_bank_wgi_adapter()` /
+  `register_world_bank_wgi(registry)` factories and does NOT
+  auto-register on import (§10.1). The next migration slice
+  candidate is V-Dem (priority 5), per
+  docs/architecture/sources.md §7.1.
 
 - **Country-Year Chronicle Increment 3 completed (2026-06-21).** Closes the documented Increment 2 gaps: (a) SUN rulers 1922-1991 populated via a curated, Wikipedia-anchored spell list at `data/raw/soviet_leaders_curated/soviet_leaders.csv` (8 leaders: Lenin, Stalin, Malenkov, Khrushchev, Brezhnev, Andropov, Chernenko, Gorbachev) with transition years (1924, 1953, 1985) emitting `multiple_rulers`; (b) CShapes 2.0 (Schvitz et al. 2022) integrated as the country-area source (44.5 MB raw CSV at `data/raw/cshapes/CShapes-2.0.csv`, SHA-256 verified, gitignored) with a GW 365 dispatch rule (SUN 1922-1991, RUS 1991+) that uses asymmetric containment to prevent SUN-era territory values from leaking into RUS rows; (c) `controlled_area_km2` populated with the conservative fallback (`country_area_km2`) plus the new `controlled_area_country_only` flag; imperial / dependency summing explicitly deferred (no vetted dependency-controller mapping was staged in this pass; ICOW Colonial History download URL is broken on 2026-06-21). **Reviewer-gate follow-up (2026-06-21)**: `row_builder.py` grew to 500 lines during the Increment 3 pass and broke the documented 400-line convention; the row-builder helpers were extracted into 5 focused sibling modules (`_row_identity.py` 67 lines, `_row_ruler.py` 83, `_row_regime.py` 47, `_row_sipri.py` 54, `_row_area.py` 109) so `row_builder.py` is now 309 lines. The Chronicle slice now ships **25 focused modules** (was 20; Increment 3 added `_sun_ruler_loader.py`, `_area_source.py`, and the 5 row-helper siblings). Four modules are now documented carve-outs from the 400-line convention: `constants.py` (476 lines, long-table / schema constants, carved out since Increment 1), `sources.py` (414 lines, legacy source facade / source classes; split deferred for compatibility; follow-up if growth crosses 440 lines), `runner.py` (421 lines, CLI boundary orchestration / composition seam; follow-up split if it grows beyond 440 lines), and `ruler_resolver.py` (402 lines, three-source resolver with the SUN curated helper; a 2-line overage that does not warrant another split). Pilot CSV regenerates 889 rows for the 7-country 1900-2026 scope and reports `sources_used = archigos, cshapes, maddison_project, reign, sipri_milex, soviet_leaders_curated, vdem`. Final coverage: 70 of 70 in-window SUN rows have a ruler; 645 of 645 in-window rows have a real `country_area_km2`; 49 rows past CShapes coverage (2020+) carry the `area_proxy_year_used` flag; 749 rows have the conservative `controlled_area_country_only` flag. New `docs/sources/attributions.md` Section 1 entries for `cshapes` and `soviet_leaders_curated` (drift-guarded by new tests in `test_chronicle_constants.py`). 48 new focused pytest tests (18 SUN curated + 18 CShapes area + 6 attribution drift + 3 production wiring + 3 fix-to-existing-tests); full suite green at 1757 passing (was 1709; +48 net). `ruff check .` clean; `git diff --check` clean. **SUN transition-year wording fix**: `tests/test_chronicle_sun_curated.py` and the Increment 3 doc no longer describe SUN 1922 as "full year" — it is correctly described as a partial-year spell (Lenin positive-overlap with the country-year after USSR formation on 1922-12-30); SUN 1991 is described as covered until 1991-12-25 (the USSR dissolution date), not as a full calendar year of rule. Implementation notes in [`docs/chronicle/increment-3.md`](chronicle/increment-3.md).
 

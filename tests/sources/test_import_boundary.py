@@ -187,6 +187,8 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.pwt",
         "leaders_db.sources.adapters.maddison_project",
         "leaders_db.sources.adapters.world_bank_wdi",
+        "leaders_db.sources.adapters.world_bank_wgi",
+        "leaders_db.sources.adapters.vdem",
     )
     _purge_modules("leaders_db")
     try:

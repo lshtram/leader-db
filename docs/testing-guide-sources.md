@@ -311,6 +311,176 @@ and that the legacy constant `WDI_ATTRIBUTION` is byte-identical to
 the new `WORLD_BANK_WDI_ATTRIBUTION_TEXT`
 (`test_wdi_attribution_text_matches_legacy_constant`).
 
+The World Bank WGI slice (fourth clean-source migration, local-file /
+no-network) adds the source-specific legacy-shape metadata contract
+on top of the shared contract:
+
+- the WGI adapter descriptor is registerable / listable through
+  the `InMemorySourceRegistry` and exposes the canonical WGI
+  static metadata (source_id `world_bank_wgi`, default version
+  `"Worldwide Governance Indicators 2023 Update (data through
+  2022)"`, attribution_key `"world_bank_wgi"`, dataset type,
+  1996-2022 coverage hint, `governance_country_year`
+  observation family, WGI homepage URL
+  `https://info.worldbank.org/governance/wgi/`,
+  `requires_network=False`);
+- `SourceIngestRunner.run(request)` drives WGI end-to-end through
+  the new registry against a fixture `raw_root` and produces
+  `NormalizedObservation` records (59 fixture observations
+  round-tripped -- 5 countries x 2 years x 6 indicators minus
+  one `#N/A` cell at MEX 2021 `wgi_political_stability`);
+- the runner does not consult legacy `STAGE2_ADAPTERS` even when
+  the legacy `world_bank_wgi` slot is monkeypatched to a
+  tracker;
+- `years=(2023,)` and `years=(1995,)` (out of coverage) emit
+  zero observations plus a structured `YEAR_ABSENT` warning
+  -- no stale-proxy fill (SRC-COV-002 / SRC-COV-003);
+- `years=` and `countries=` filters are honored; `leaders=`
+  emits a structured `unsupported_filter` warning;
+- the readiness-failure tests for missing `metadata.json`,
+  missing `wgidataset.xlsx`, `sha256` mismatch (legacy key),
+  missing metadata `version` (legacy key), mismatched
+  metadata `version`, and unsupported request
+  `source_version` each prove the runner short-circuits
+  before `read_raw` / `transform`;
+- the readiness gate accepts BOTH the canonical primary
+  metadata shape (PWT / Maddison / WDI convention:
+  `source_version` / `checksum_sha256` / `local_files` /
+  `license_note` / `coverage`) AND the staged WGI legacy
+  shape (`version` / `sha256` / `local_file` / `license` /
+  `coverage_start_year` + `coverage_end_year`);
+  `test_wgi_primary_shape_bundle_is_accepted_by_readiness`
+  drives the runner against a staged primary-shape bundle
+  and proves the runner short-circuits are identical to the
+  legacy-shape case;
+- the canonical metadata `source_version="Worldwide Governance
+  Indicators 2023 Update (data through 2022)"` propagates
+  consistently to `RawAsset.version` and every emitted
+  `NormalizedObservation.source_version`;
+- per-observation `RawLocator` carries the staged xlsx path
+  + the canonical per-indicator sheet name
+  (`VoiceandAccountability` /
+  `Political StabilityNoViolence` /
+  `GovernmentEffectiveness` / `RegulatoryQuality` /
+  `RuleofLaw` / `ControlofCorruption`); `row_number` is
+  intentionally `None` because the legacy wide frame loses
+  the xlsx row index through the long-to-wide pivot -- the
+  unified transform never fabricates locators;
+- the per-observation `extension` payload carries the
+  canonical WGI attribution text (Rule #15), the
+  `source_row_reference="world_bank_wgi:<iso3>"` pattern
+  (matching the legacy Stage 2 DB writer), the
+  `wgi_sheet_name` (canonical xlsx sheet name), and the
+  `wgi_indicator_category` (catalog `rating_category`,
+  `effectiveness` for 5 indicators + `integrity` for
+  `wgi_control_of_corruption`);
+- the legacy `WGI_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/wgi_io.py` is byte-identical to the
+  new `WORLD_BANK_WGI_ATTRIBUTION_TEXT`
+  (`test_wgi_attribution_text_matches_attributions_doc` asserts
+  the byte-identity AND that the unified text is a substring
+  of `docs/sources/attributions.md`);
+- the WGI unified path is local-file only
+  (`requires_network=False`, no HTTP layer in the new
+  package). The runner NEVER invokes the network. The
+  readiness gate validates the staged `wgidataset.xlsx` and
+  the metadata checksum / version / license /
+  coverage fields BEFORE `read_raw` / `transform` are
+  called.
+
+The V-Dem slice (fifth clean-source migration, large
+local CSV) adds the source-specific checksum-scope and
+V-Dem-specific extension contract on top of the shared
+contract:
+
+- the V-Dem adapter descriptor is registerable / listable
+  through the `InMemorySourceRegistry` and exposes the
+  canonical V-Dem static metadata (source_id `vdem`,
+  default version `"v16"`, attribution_key `"vdem"`,
+  dataset type, 1789-2025 coverage hint, five observation
+  families (`political_country_year`,
+  `governance_country_year`, `corruption_country_year`,
+  `repression_country_year`, `social_country_year`),
+  V-Dem DOI homepage URL
+  `https://doi.org/10.23696/vdemds26`,
+  `requires_network=False`);
+- `SourceIngestRunner.run(request)` drives V-Dem
+  end-to-end through the new registry against a fixture
+  `raw_root` and produces `NormalizedObservation` records
+  (220 fixture observations round-tripped -- 5 countries
+  x 2 years x 22 indicators);
+- the runner does not consult legacy `STAGE2_ADAPTERS`
+  even when the legacy `vdem` slot is monkeypatched to a
+  tracker;
+- `years=(1788,)` and `years=(2026,)` (out of coverage)
+  emit zero observations plus a structured `YEAR_ABSENT`
+  warning -- no stale-proxy fill (SRC-COV-002 /
+  SRC-COV-003);
+- `years=` and `countries=` filters are honored;
+  `leaders=` emits a structured `unsupported_filter`
+  warning;
+- the readiness-failure tests for missing `metadata.json`,
+  missing `V-Dem-CY-Full+Others-v16.csv`, missing
+  `local_files` reference, malformed `checksum_sha256`
+  (not a 64-char hex string), mismatched zip SHA-256
+  (V-Dem-specific `vdem_checksum_mismatch` code), missing
+  metadata `source_version`, mismatched metadata
+  `source_version`, and unsupported request
+  `source_version` each prove the runner short-circuits
+  before `read_raw` / `transform`;
+- the metadata `checksum_sha256` covers the staged zip,
+  NOT the 388MB CSV: the gate validates the metadata
+  SHAPE (must be a 64-character hex SHA-256 string) AND,
+  if the zip is staged, recomputes the zip's SHA-256 and
+  compares against the metadata field. The CSV is NEVER
+  hashed by the unified adapter (audit chain preserved via
+  the legacy parquet metadata + the canonical attribution
+  text);
+- the canonical metadata `source_version="v16"`
+  propagates consistently to `RawAsset.version` and every
+  emitted `NormalizedObservation.source_version`;
+- per-observation `RawLocator` carries the staged CSV
+  path + the raw V-Dem column name (e.g. `v2x_polyarchy`);
+  `row_number` is intentionally `None` because the legacy
+  narrow frame loses the CSV row index through the
+  long-to-wide pivot -- the unified transform never
+  fabricates locators;
+- the per-observation `extension` payload carries the
+  canonical V-Dem attribution text (Rule #15), the
+  `source_row_reference="vdem:<country_text_id>"` pattern
+  (matching the legacy Stage 2 DB writer), the
+  `vdem_raw_column` (catalog `raw_column`),
+  `vdem_country_id` (V-Dem integer id for Stage 3
+  country match), `vdem_country_text_id` (V-Dem COW
+  code), `vdem_rating_category` (catalog
+  `rating_category`), `raw_value` (audit-trail string
+  preserving V-Dem missing sentinels like `"-999.0"`),
+  and the `raw_scale` / `higher_is_better` /
+  `normalized_scale_target` direction hints;
+- the legacy `VDEM_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/vdem_io.py` is byte-identical to
+  the new `VDEM_ATTRIBUTION_TEXT`
+  (`test_vdem_attribution_text_matches_attributions_doc`
+  asserts the byte-identity AND that the unified text is
+  a substring of `docs/sources/attributions.md`);
+- the V-Dem unified path is local-file only
+  (`requires_network=False`, no HTTP layer in the new
+  package). The runner NEVER invokes the network. The
+  readiness gate validates the staged CSV and the
+  metadata checksum / version / license / coverage
+  fields BEFORE `read_raw` / `transform` are called.
+- **With V-Dem landed, the unified source interface
+  covers the four structured source families needed for
+  a complete 1900-2026 inquiry** (PWT + Maddison =
+  historical economy; WDI = current economy; WGI =
+  governance; V-Dem = political regime / repression /
+  corruption / social well-being). The next major
+  milestone is a vertical-slice investigation that runs
+  from these source adapters through
+  `InMemoryEvidenceRepository`, semantic concepts /
+  evidence bundles, scoring or analysis logic, and a
+  documented answer with provenance.
+
 ## Manual / boundary checks
 
 Use a fresh Python process to confirm the import boundary:
@@ -321,14 +491,16 @@ import importlib
 import sys
 
 importlib.import_module("leaders_db.sources.adapters.pwt")
+importlib.import_module("leaders_db.sources.adapters.world_bank_wgi")
+importlib.import_module("leaders_db.sources.adapters.vdem")
 leaked = sorted(name for name in sys.modules if name.startswith("leaders_db.ingest"))
 print(leaked)
 assert leaked == []
 PY
 ```
 
-Expected: `[]`. The PWT adapter module imports cleanly without pulling in
-the legacy ingest package.
+Expected: `[]`. The PWT, WGI, and V-Dem adapter modules import cleanly
+without pulling in the legacy ingest package.
 
 Use the explicit lazy bridge only when legacy access is needed:
 
@@ -350,8 +522,11 @@ Expected: a positive adapter count and `True` for `pwt`.
   validation beyond the current contract envelope.
 - New CLI commands under `leaders-db sources ...`.
 - Moving or deleting legacy `src/leaders_db/ingest/` code.
-- The fourth / fifth / ... clean source migrations (WGI, V-Dem,
-  ...). PWT, Maddison Project, and World Bank WDI are the
-  proof-of-pattern across dataset (PWT), historical xlsx (Maddison),
-  and API/cache (WDI) source shapes; future migrations follow the
+- The sixth / seventh / ... clean source migrations
+  (transparency_cpi, rsf_press_freedom, bti, ...). PWT,
+  Maddison Project, World Bank WDI, World Bank WGI, and
+  V-Dem are the proof-of-pattern across dataset (PWT),
+  historical xlsx (Maddison), API/cache (WDI),
+  local-file governance xlsx (WGI), and large local CSV
+  (V-Dem) source shapes; future migrations follow the
   same `src/leaders_db/sources/adapters/<slug>/` layout.
