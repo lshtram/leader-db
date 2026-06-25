@@ -15,6 +15,14 @@ DEBUG = False
 ENABLE_PROXY_FIX = True
 WTF_CSRF_ENABLED = True
 
+# Superset 6 blocks SQLite data sources by default through the unsafe database
+# connection guard. This local deployment intentionally uses SQLite only as a
+# derived, read-only analytic artifact mounted at ``/leaders-db-viz:ro`` by
+# Docker Compose. The Superset metadata DB remains PostgreSQL; this flag is
+# required so the UI can add ``sqlite:////leaders-db-viz/superset_viz.sqlite``
+# as the Leaders DB dashboard data source.
+PREVENT_UNSAFE_DB_CONNECTIONS = False
+
 SUPERSET_WEBSERVER_PROTOCOL = "http"
 SUPERSET_WEBSERVER_ADDRESS = "0.0.0.0"
 SUPERSET_WEBSERVER_PORT = 8088

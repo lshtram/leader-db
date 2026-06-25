@@ -195,6 +195,14 @@ Steps:
      -f infra/superset/docker-compose.yml up
    ```
 
+   If Superset was already running before a config change, restart it so
+   `infra/superset/superset_config.py` is reloaded:
+
+   ```bash
+   docker compose --env-file infra/superset/superset.env \
+     -f infra/superset/docker-compose.yml restart superset
+   ```
+
 4. Open `http://localhost:8088` and log in with the admin user/password from
    `infra/superset/superset.env`.
 
@@ -207,6 +215,22 @@ Steps:
    The compose file mounts `data/processed/viz/country-year-chronicle` at
    `/leaders-db-viz` as read-only (`:ro`). Superset must not connect to the
    mutable project catalog database for this increment.
+
+   Superset 6 blocks SQLite data sources unless its unsafe-connection guard is
+   explicitly disabled. This local config sets
+   `PREVENT_UNSAFE_DB_CONNECTIONS = False` **only** so the read-only mounted
+   artifact above can be added as a dashboard data source. The Superset metadata
+   database remains PostgreSQL, and the SQLite file must stay mounted read-only.
+
+   If the UI shows:
+
+   ```text
+   SQLiteDialect_pysqlite cannot be used as a data source for security reasons
+   ```
+
+   then the running container has not loaded the current `superset_config.py`.
+   Restart the `superset` service with the command in step 3 and retry adding
+   the database.
 
 6. Confirm tables are visible:
 

@@ -8,6 +8,7 @@ import yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CF_DIR = PROJECT_ROOT / "infra" / "cloudflare"
+SUPERSET_DIR = PROJECT_ROOT / "infra" / "superset"
 
 
 def test_cloudflare_secret_files_are_gitignored() -> None:
@@ -46,3 +47,12 @@ def test_cloudflare_runbook_requires_access_before_route() -> None:
     assert "Do **not** create the public hostname route" in guide
     assert "explicit email allowlist" in guide
     assert "It must not show the Superset login page directly" in guide
+
+
+def test_superset_config_allows_read_only_sqlite_viz_artifact() -> None:
+    """Superset must allow the mounted SQLite viz artifact as a data source."""
+    config = (SUPERSET_DIR / "superset_config.py").read_text(encoding="utf-8")
+
+    assert "PREVENT_UNSAFE_DB_CONNECTIONS = False" in config
+    assert "/leaders-db-viz:ro" in config
+    assert "sqlite:////leaders-db-viz/superset_viz.sqlite" in config
