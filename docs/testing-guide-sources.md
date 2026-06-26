@@ -974,12 +974,86 @@ Expected: a positive adapter count and `True` for `pwt`.
   validation beyond the current contract envelope.
 - New CLI commands under `leaders-db sources ...`.
 - Moving or deleting legacy `src/leaders_db/ingest/` code.
-- The seventh / eighth / ... clean source migrations
-  (transparency_cpi, rsf_press_freedom, bti, ...). PWT,
-  Maddison Project, World Bank WDI, World Bank WGI, V-Dem,
-  and UCDP are the proof-of-pattern across dataset (PWT),
-  historical xlsx (Maddison), API/cache (WDI),
-  local-file governance xlsx (WGI), large local CSV
-  (V-Dem), and event-level zip (UCDP) source shapes;
+- The remaining clean source migrations
+  (bti, archigos, reign, sipri_milex,
+  sipri_yearbook_ch7, cirights, undp_hdi, who_gho_api,
+  fas, wikidata_heads_of_state_government,
+  wikipedia_search_extract, freedom_house, ...).
+  PWT, Maddison Project, World Bank WDI, World Bank
+  WGI, V-Dem, UCDP, Transparency International CPI,
+  PTS, and RSF are the proof-of-pattern across
+  dataset (PWT), historical xlsx (Maddison),
+  API/cache (WDI), local-file governance xlsx (WGI),
+  large local CSV (V-Dem), event-level zip (UCDP),
+  per-year CSV (CPI), single xlsx (PTS), and
+  multi-file annual CSV (RSF) source shapes;
   future migrations follow the
   same `src/leaders_db/sources/adapters/<slug>/` layout.
+
+## RSF World Press Freedom Index
+
+The RSF adapter lives at
+`src/leaders_db/sources/adapters/rsf_press_freedom/`
+and follows the same
+`leaders_db.sources.adapters.<slug>/` layout as the
+prior clean-source migrations. The canonical
+descriptor / factory / lifecycle class live in
+`adapter.py`; the static constants in `_constants.py`
++ `_indicator_constants.py` (the 7 indicator names +
+the 2 base raw_columns, extracted from `_constants.py`
+to keep it under the 400-line convention) +
+`_descriptor.py`; the readiness gate in
+`_readiness.py` + `_metadata_validators.py` +
+`_metadata_version_validators.py` +
+`_files_validators.py` + `_year_validators.py`; the
+catalog helpers in `_catalog.py`; the missing-value
+helpers in `_missing_values.py`; the per-row
+emission in `_transform.py` + `_helpers.py`; the
+per-row observation construction in
+`_observation_builder.py` +
+`_observation_helpers.py`; the raw-read
+orchestration in `_raw_read.py`; the
+transform-pipeline orchestration in `_pipeline.py`;
+and the registration helpers + protocol
+conformance guard in `_registration.py`.
+
+**Verification commands:**
+
+```bash
+# Full RSF adapter suite + import-boundary + legacy
+# RSF tests + the focused subset.
+.venv/bin/pytest -q tests/sources/test_rsf_press_freedom_adapter.py \
+                    tests/sources/test_import_boundary.py \
+                    tests/test_ingest_rsf_press_freedom.py
+.venv/bin/ruff check src/leaders_db/sources/adapters/rsf_press_freedom/ \
+                  tests/sources/test_rsf_press_freedom_adapter.py \
+                  tests/sources/test_import_boundary.py
+.venv/bin/wc -l src/leaders_db/sources/adapters/rsf_press_freedom/*.py
+```
+
+The RSF slice acceptance covers the descriptor /
+factory / protocol / register / listable contract;
+the runner end-to-end on staged fixtures for both
+the pre-2022 schema (2002) and the post-2022
+schema (2023); the canonical version propagation
+(`"RSF Press Freedom Index 2026"`); the readiness
+gate (missing metadata, missing per-year CSV,
+malformed `local_files`, malformed `files` entry,
+mismatched bundle `source_version`, mismatched
+per-file `sha256`, unsupported request
+`source_version`, year=2011 documented missing
+caveat, year=2027 out-of-coverage year filter);
+the request-scoping warnings (out-of-coverage year
+filter, leader filter); the no-network contract on
+the production runner path (monkeypatched
+`requests.*` / `urllib.request.urlopen` /
+`socket.socket` tripwires); the per-observation
+extension (RSF-specific `rsf_raw_column` /
+`rsf_iso3` / `rsf_category` / `rsf_actual_column` /
+`rsf_schema_group` audit-trail fields,
+`source_row_reference="rsf_press_freedom:<iso3>:<actual>"`
+pattern, verbatim `raw_value` cell text, direction
+hints); the import-boundary contract (no
+`leaders_db.ingest` import at module import time);
+and the legacy `STAGE2_ADAPTERS` non-routing
+contract.

@@ -541,7 +541,7 @@ All listed sources should eventually be represented under the new interface.
 | `world_bank_wgi` | implemented | WGI governance country-year indicators | 4 | migrated |
 | `vdem` | implemented | large political/social country-year indicators | 5 | migrated |
 | `transparency_cpi` | implemented | corruption/integrity country-year indicators | 6 | migrated |
-| `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 | pending |
+| `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 | migrated |
 | `bti` | implemented | governance / democracy / transformation indicators | 8 | pending |
 | `archigos` | implemented | leader identity and tenure | 9 | pending |
 | `reign` | implemented | leader identity, regime, tenure | 10 | pending |
@@ -625,6 +625,87 @@ Chronicle-focused adapter, or an alias/subset of another adapter.
 | `vdem_governance` | V-Dem governance sub-indicators | represent as observation family / catalog subset under `vdem`, not a separate raw adapter |
 | `world_bank_wgi_corruption` | WGI Control of Corruption subset | represent as observation family / catalog subset under `world_bank_wgi`, not a separate raw adapter |
 | `vdem_corruption` | V-Dem corruption variables | represent as observation family / catalog subset under `vdem`, not a separate raw adapter |
+
+### 7.6 RSF World Press Freedom Index (clean migration)
+
+`rsf_press_freedom` is the ninth source rebuilt under
+the clean `leaders_db.sources` interface
+(§7.1 priority 7, [`docs/requirements/sources.md`](../requirements/sources.md) §12
+SRC-MIG-006), after PWT 10.01, Maddison Project Database
+2023, World Bank WDI, World Bank WGI, V-Dem, UCDP,
+Transparency International CPI, and Political Terror
+Scale. The unified adapter lives at
+`leaders_db.sources.adapters.rsf_press_freedom` with
+`source_id.slug == "rsf_press_freedom"` and
+`descriptor.attribution_key == "rsf_press_freedom"`.
+
+Unlike the prior clean-source migrations, RSF is
+**the first source with multiple local annual input
+files** (24 annual CSVs covering 2002-2010 +
+2012-2026; the direct `2011.csv` is intentionally
+absent). The unified adapter's
+`read_raw` call reads each per-year file
+independently rather than concatenating them into
+one wide CSV, preserves the canonical
+semicolon-delimited + comma-decimal-separator
+parsing, and surfaces the BOM-first / cp1252-fallback
+encoding detection via the legacy reader
+(`leaders_db.ingest.rsf_press_freedom_csv`).
+
+**Documented 2011 missing / direct-CSV caveat.**
+The direct `2011.csv` is absent; RSF's combined
+2011/2012 edition is represented by the 2012 file
+(its `Year (N)` column reads `"2011-12"`). Year=2011
+requests fail readiness with a structured
+`rsf_year_2011_absent` warning (NOT a generic
+`year_absent` so the operator can distinguish the
+documented 2011 caveat from a generic
+out-of-coverage year). The runner short-circuits
+with `RuntimeError` BEFORE `read_raw` /
+`transform`; downstream code should request the
+2012 file (`years=(2012,)`) for 2011-related
+data and MUST NOT silently proxy 2011 -> 2012 (no
+stale-proxy fill per SRC-COV-002 / SRC-COV-003).
+
+**Pre/post-2022 methodology / schema
+distinction.** Pre-2022 files (2002-2021) use a
+16-col wide format with score + rank only; the 5
+component-context indicators
+(`rsf_press_freedom_political_context` /
+`rsf_press_freedom_economic_context` /
+`rsf_press_freedom_legal_context` /
+`rsf_press_freedom_social_context` /
+`rsf_press_freedom_safety`) are NOT emitted for
+these years because the actual columns are
+absent in the legacy CSV. Post-2022 files
+(2022+) use a 22-26 col wide format with score +
+rank + 5 component-context columns; all 7 catalog
+indicators are emitted for these years. The
+pre/post-2022 methodology/schema distinction is
+preserved on every observation via the
+`extension["rsf_schema_group"]` field (1 =
+pre-2022; 2+ = post-2022). The unified transform
+does NOT silently merge pre/post-2022 methodology
+-- the raw cell text is preserved verbatim on
+`extension["raw_value"]` and the
+`rsf_schema_group` flag tells downstream code
+which methodology applied. The 2022 file
+carries 181 blank separator rows between data
+rows that the legacy reader drops; the unified
+transform emits zero observations for the
+separator rows (no fabricated observations).
+
+**Press/media-freedom sub-signal.** Per
+`docs/sources/vetting/report.md` §3.2, RSF is
+explicitly NOT a full political-freedom
+replacement -- it is a press/media-freedom
+sub-signal for the `political_freedom` rating
+category, complementing V-Dem / Polity V /
+Freedom House. The descriptor advertises
+`source_type="dataset"`,
+`requires_network=False`, and the single
+observation family
+`political_freedom_country_year`.
 
 ---
 
