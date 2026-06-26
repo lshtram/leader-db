@@ -533,28 +533,28 @@ All listed sources should eventually be represented under the new interface.
 
 ### 7.1 Implemented prototype sources to rebuild or migrate
 
-| Source slug | Current prototype status | New-interface target role | Suggested migration priority |
-|---|---|---|---|
-| `pwt` | implemented in prototype shared-adapter experiment | economic country-year observations | 1 |
-| `maddison_project` | implemented | historical economic country-year observations | 2 |
-| `world_bank_wdi` | implemented | WDI API/cache country-year indicators | 3 |
-| `world_bank_wgi` | implemented | WGI governance country-year indicators | 4 |
-| `vdem` | implemented | large political/social country-year indicators | 5 |
-| `transparency_cpi` | implemented | corruption/integrity country-year indicators | 6 |
-| `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 |
-| `bti` | implemented | governance / democracy / transformation indicators | 8 |
-| `archigos` | implemented | leader identity and tenure | 9 |
-| `reign` | implemented | leader identity, regime, tenure | 10 |
-| `ucdp` | implemented | conflict and violence observations | 11 |
-| `sipri_milex` | implemented | military-expenditure observations | 12 |
-| `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 |
-| `pts` | implemented | political terror / repression indicators | 14 |
-| `cirights` | implemented | human-rights indicators | 15 |
-| `undp_hdi` | implemented | HDI/social well-being indicators | 16 |
-| `who_gho_api` | implemented | health API/cache indicators | 17 |
-| `fas` | implemented | nuclear-force document/API-style observations | 18 |
-| `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 |
-| `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 |
+| Source slug | Current prototype status | New-interface target role | Suggested migration priority | Clean-interface adapter status |
+|---|---|---|---|---|
+| `pwt` | implemented in prototype shared-adapter experiment | economic country-year observations | 1 | migrated |
+| `maddison_project` | implemented | historical economic country-year observations | 2 | migrated |
+| `world_bank_wdi` | implemented | WDI API/cache country-year indicators | 3 | migrated |
+| `world_bank_wgi` | implemented | WGI governance country-year indicators | 4 | migrated |
+| `vdem` | implemented | large political/social country-year indicators | 5 | migrated |
+| `transparency_cpi` | implemented | corruption/integrity country-year indicators | 6 | migrated |
+| `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 | pending |
+| `bti` | implemented | governance / democracy / transformation indicators | 8 | pending |
+| `archigos` | implemented | leader identity and tenure | 9 | pending |
+| `reign` | implemented | leader identity, regime, tenure | 10 | pending |
+| `ucdp` | implemented | conflict and violence observations | 11 | migrated |
+| `sipri_milex` | implemented | military-expenditure observations | 12 | pending |
+| `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | pending |
+| `pts` | implemented | political terror / repression indicators | 14 | migrated |
+| `cirights` | implemented | human-rights indicators | 15 | pending |
+| `undp_hdi` | implemented | HDI/social well-being indicators | 16 | pending |
+| `who_gho_api` | implemented | health API/cache indicators | 17 | pending |
+| `fas` | implemented | nuclear-force document/API-style observations | 18 | pending |
+| `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | pending |
+| `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 | pending |
 
 ### 7.2 Pending or blocked sources to implement only in the new interface
 
@@ -620,7 +620,7 @@ Chronicle-focused adapter, or an alias/subset of another adapter.
 | `soviet_leaders_curated` | implemented as curated local CSV for SUN ruler gaps | first-class manual/curated leader-source adapter with project-authored provenance; no web facts invented at runtime |
 | `cshapes` | implemented for Chronicle country-area rows | first-class country-area source adapter under `leaders_db.sources`, even if first used by Chronicle only |
 | `icow_colonial` | blocked; canonical URL returned 404 | keep as blocked future controlled-area / dependency-controller source until a working raw source is vetted |
-| `political_terror_scale` | documented source key for PTS | canonical external source slug should be reconciled during migration: either rename `pts` -> `political_terror_scale` or keep `pts` with `political_terror_scale` as documented alias |
+| `political_terror_scale` | documented source key for PTS (disk-folder alias only) | reconciled: canonical clean-interface slug is `pts`; the on-disk folder name `political_terror_scale/` is preserved as the human-readable bundle alias. The clean adapter lives at `leaders_db.sources.adapters.pts` with `source_id.slug == "pts"` and `descriptor.attribution_key == "pts"`; the bundle dir resolver maps `request.raw_root + "political_terror_scale/"`. This is the same pattern as the V-Dem / WGI / UCDP / SIPRI milex / SIPRI Yearbook Ch.7 / Transparency International CPI clean migrations where the dispatch key is short but the disk folder is human-readable. |
 | `world_bank_wdi_social` | WDI health / education / inequality subset | represent as observation family / catalog subset under `world_bank_wdi`, not a separate raw adapter |
 | `vdem_governance` | V-Dem governance sub-indicators | represent as observation family / catalog subset under `vdem`, not a separate raw adapter |
 | `world_bank_wgi_corruption` | WGI Control of Corruption subset | represent as observation family / catalog subset under `world_bank_wgi`, not a separate raw adapter |

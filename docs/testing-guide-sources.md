@@ -729,6 +729,205 @@ contract:
   corruption rating category is now fully covered by
   the unified source interface.
 
+The Political Terror Scale (PTS) slice (eighth
+clean-source migration, country-year / no-network /
+local xlsx / NA_Status sentinel-matrix per-row data
+contract) adds the Political Terror Scale source to
+the unified source interface on top of the shared
+contract:
+
+- the PTS adapter descriptor is registerable / listable
+  through the ``InMemorySourceRegistry`` and exposes
+  the canonical PTS static metadata (source_id
+  ``pts``, default version ``"PTS-2025"``,
+  attribution_key ``pts``, dataset type, 1976-2024
+  coverage hint, single observation family
+  ``domestic_violence_country_year``, PTS homepage
+  URL ``https://www.politicalterrorscale.org/``,
+  ``requires_network=False``). The canonical
+  clean-interface slug is ``pts``; the on-disk folder
+  alias is ``political_terror_scale/`` (preserved
+  from the live download). This reconciliation is
+  documented in ``docs/architecture/sources.md``
+  section 7.5 (the ``political_terror_scale`` entry)
+  and propagated through the public API
+  (``PTS_SOURCE_KEY = "pts"``).
+- ``SourceIngestRunner.run(request)`` drives PTS
+  end-to-end through the new registry against a
+  fixture ``raw_root`` and produces
+  ``NormalizedObservation`` records. The fixture's 5
+  country-year rows (Afghanistan 2022 + Afghanistan
+  2023 + Andorra 2022 + USA 2022 + USA 2023) round-trip
+  11 valid observations across the 3 catalog
+  indicators (Andorra's PTS_A + PTS_H drop on
+  NA_Status=88; USA's PTS_S drops on NA_Status=88 in
+  both years -- matching the legacy
+  ``tests/test_ingest_pts.py`` contract).
+- the runner does not consult legacy
+  ``STAGE2_ADAPTERS`` even when the legacy ``pts``
+  slot is monkeypatched to a tracker
+  (``test_pts_runner_does_not_consult_legacy_stage2_adapters``
+  proves the no-legacy-dispatch contract).
+- the request ``countries=`` filter applies as an
+  exact match against the ``COW_Code_A`` 3-letter
+  alphabetic column (the canonical primary key per
+  design doc section 7.2); ``test_pts_country_filter_is_applied``
+  drives the runner with ``countries=('AFG',)`` and
+  verifies the 6 Afghanistan observations round-trip.
+- ``years=(2025,)`` (after coverage) and
+  ``years=(1975,)`` (before coverage) emit zero
+  observations plus a structured ``YEAR_ABSENT``
+  warning -- no stale-proxy fill (SRC-COV-002 /
+  SRC-COV-003);
+- the readiness-failure tests cover the documented
+  per-bundle failure classes on two layers: the
+  runner-short-circuit layer and the structured
+  ``check_ready()`` layer.
+  The runner-short-circuit layer (``test_pts_missing_xlsx_fails_readiness_with_missing_raw``
+  / ``test_pts_missing_metadata_fails_readiness_with_missing_metadata``
+  / ``test_pts_unsupported_source_version_fails_readiness``
+  / ``test_pts_mismatched_metadata_version_fails_readiness``
+  / ``test_pts_malformed_sha256_fails_readiness``
+  / ``test_pts_mismatched_sha256_fails_readiness``
+  / ``test_pts_correct_sha256_passes_readiness``
+  / ``test_pts_malformed_local_files_fails_readiness``)
+  drives the production ``SourceIngestRunner`` against
+  a staged bundle, wraps the adapter in a
+  ``_SpyPTSAdapter``, and asserts the runner
+  short-circuits BEFORE ``read_raw`` / ``transform``
+  (the call list stays ``["check_ready"]``).
+  The structured ``check_ready()`` layer pins the
+  exact error code, ``severity='error'``,
+  ``source_id.slug='pts'``, and key ``context`` fields
+  directly on ``ReadinessResult.errors`` -- defense
+  in depth so a refactor that swaps the error code
+  (or drops the severity flag) cannot silently
+  regress the contract:
+  ``test_pts_check_ready_missing_metadata_emits_structured_error``
+  proves the ``missing_metadata`` branch on a
+  metadata-only stage (context keys ``bundle_dir``
+  + ``xlsx_name``);
+  ``test_pts_check_ready_missing_xlsx_emits_structured_error``
+  proves the ``missing_raw`` branch on a
+  metadata-only stage;
+  ``test_pts_check_ready_unsupported_request_version_emits_structured_error``
+  proves the SRC-REQ-009 ``unsupported_version``
+  branch (context carries ``requested_version`` +
+  ``canonical_version``);
+  ``test_pts_check_ready_mismatched_bundle_version_emits_structured_error``
+  proves the ``pts_metadata_version_mismatch``
+  branch when the bundle's ``version`` stamp is not
+  the canonical ``"2025"``;
+  ``test_pts_check_ready_malformed_sha256_emits_structured_error``
+  proves the checksum-shape ``missing_metadata``
+  branch when the metadata's ``sha256`` is non-hex;
+  ``test_pts_check_ready_sha256_mismatch_emits_structured_error``
+  proves the ``pts_checksum_mismatch`` branch when a
+  well-formed sha256 disagrees with the staged xlsx
+  bytes;
+  ``test_pts_check_ready_malformed_local_files_emits_structured_error``
+  proves the ``missing_metadata`` branch when
+  ``local_files`` is present-but-null;
+  ``test_pts_check_ready_wrong_local_files_emits_structured_error``
+  proves the ``missing_metadata`` branch when
+  ``local_files`` is non-empty but does NOT include
+  the canonical xlsx filename;
+  ``test_pts_check_ready_missing_required_metadata_field_emits_structured_error``
+  proves the ``missing_metadata`` branch when a
+  required metadata field is empty (defends the
+  per-field validator chain);
+  ``test_pts_check_ready_invalid_ingestion_status_emits_structured_error``
+  proves the ``missing_metadata`` branch when
+  ``ingestion_status`` is not in the documented
+  acceptable set.
+  ``test_pts_check_ready_happy_path_emits_no_errors``
+  pins the green-path envelope -- the canonical
+  bundle returns ``ready=True`` with no errors so a
+  future refactor that always emits an error cannot
+  silently regress the contract.
+- the canonical metadata ``source_version="PTS-2025"``
+  propagates consistently to ``RawAsset.version`` AND
+  every emitted ``NormalizedObservation.source_version``.
+  The bundle's ``version="2025"`` (bare-year stamp) is
+  a different shape and is validated by
+  ``_metadata_source_version_blocker`` but does not
+  carry onto observations.
+- per-observation ``RawLocator`` carries the staged
+  xlsx path + the catalog ``raw_column`` (``PTS_A``
+  / ``PTS_H`` / ``PTS_S``) + the positional row index
+  in the wide frame (the legacy reader sorts by
+  ``COW_Code_A`` ascending for deterministic
+  idempotency; the unified transform preserves the
+  row index via ``_locate_row_index``);
+- per-observation ``extension`` carries the canonical
+  PTS attribution text (Rule #15; byte-identical to
+  the legacy ``PTS_ATTRIBUTION`` constant in
+  ``src/leaders_db/ingest/pts_io.py`` and to the
+  ``pts`` section in ``docs/sources/attributions.md``),
+  the ``source_row_reference="pts:<COW_Code_A>"``
+  pattern (matching the legacy Stage 2 DB writer),
+  the PTS-specific audit-trail fields
+  (``pts_cow_code`` / ``pts_country_name`` /
+  ``pts_region`` / ``pts_na_status``), the
+  pre-coercion ``raw_value`` cell text (int
+  string for valid cells; ``"NA"`` for dropped cells
+  per the §6.3 audit-trail matrix), and the direction
+  hints (``higher_is_better=False`` / ``raw_scale``
+  ``"ordinal"`` / ``normalized_scale_target``
+  ``"0-10"`` -- the raw 1-5 value is preserved
+  verbatim and the Stage 5 score module inverts the
+  direction);
+- the §6 sentinel-matrix contract is preserved
+  byte-for-byte. The per-row observation emission
+  skips cells where ``NA_Status != 0`` AND where
+  ``PTS_X='NA'`` AND ``NA_Status=0`` (the case-4
+  inconsistency path); the case-1 (valid) cells
+  emit ``value`` as the int 1-5. The sentinel-matrix
+  helper tests
+  (``test_pts_sentinel_matrix_case_1_valid_int`` /
+  ``_case_2_int_with_nonzero_status`` /
+  ``_case_3_na_with_nonzero_status`` /
+  ``_case_4_inconsistency`` /
+  ``_unknown_na_status_warning`` /
+  ``_all_known_na_status_codes``) cover the 4-case
+  matrix + the §6.5 defensive check + all 5 known
+  ``NA_Status`` codes (``0`` / ``66`` / ``77`` / ``88``
+  / ``99``);
+- the legacy ``PTS_ATTRIBUTION`` constant in
+  ``src/leaders_db/ingest/pts_io.py`` is byte-identical
+  to the new ``PTS_ATTRIBUTION_TEXT``
+  (``test_pts_attribution_text_matches_attributions_doc``
+  asserts byte-identity AND that the unified text is
+  a substring of ``docs/sources/attributions.md`` --
+  Rule #15 drift guard);
+- the PTS unified path is local-file only
+  (``requires_network=False``, no HTTP layer in the
+  new package). The runner NEVER invokes the network
+  -- there is no HTTP layer in the clean adapter at
+  all. ``test_pts_runner_never_invokes_network``
+  pins the contract on the actual production runner
+  path: it monkeypatches the canonical Python
+  network surfaces (``requests.get`` / ``requests.post``
+  / ``requests.head`` / ``urllib.request.urlopen`` /
+  ``socket.socket``) to raise, while wrapping the legacy
+  ``read_pts`` bridge as an allowed local-xlsx reader spy
+  that must receive only the staged ``xlsx_path`` and no
+  hidden network kwargs. It then drives
+  ``SourceIngestRunner.run(request)`` end-to-end from
+  a staged fixture and asserts the 11 observations
+  round-trip without invoking any network tripwire (the
+  canonical bundle is staged at
+  ``data/raw/political_terror_scale/PTS-2025.xlsx``
+  and the readiness gate validates the staged xlsx
+  + the metadata checksum / version / license /
+  coverage / file-format / ingestion_status / notes
+  / local_files fields BEFORE ``read_raw`` /
+  ``transform`` are called);
+- the clean package ``__all__`` exposes every public
+  symbol documented in the adapter module +
+  descriptor (``test_pts_public_surface_is_coherent``
+  enforces the public surface contract).
+
 ## Manual / boundary checks
 
 Use a fresh Python process to confirm the import boundary:
@@ -743,14 +942,15 @@ importlib.import_module("leaders_db.sources.adapters.world_bank_wgi")
 importlib.import_module("leaders_db.sources.adapters.vdem")
 importlib.import_module("leaders_db.sources.adapters.ucdp")
 importlib.import_module("leaders_db.sources.adapters.transparency_cpi")
+importlib.import_module("leaders_db.sources.adapters.pts")
 leaked = sorted(name for name in sys.modules if name.startswith("leaders_db.ingest"))
 print(leaked)
 assert leaked == []
 PY
 ```
 
-Expected: `[]`. The PWT, WGI, V-Dem, UCDP, and
-Transparency International CPI adapter modules import
+Expected: `[]`. The PWT, WGI, V-Dem, UCDP, Transparency
+International CPI, and PTS adapter modules import
 cleanly
 without pulling in the legacy ingest package.
 

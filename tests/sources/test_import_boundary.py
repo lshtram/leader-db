@@ -191,6 +191,7 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.vdem",
         "leaders_db.sources.adapters.ucdp",
         "leaders_db.sources.adapters.transparency_cpi",
+        "leaders_db.sources.adapters.pts",
     )
     _purge_modules("leaders_db")
     try:
