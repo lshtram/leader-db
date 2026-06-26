@@ -544,7 +544,7 @@ All listed sources should eventually be represented under the new interface.
 | `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 | migrated |
 | `bti` | implemented | governance / democracy / transformation indicators | 8 | migrated |
 | `archigos` | implemented | leader identity and tenure | 9 | migrated |
-| `reign` | implemented | leader identity, regime, tenure | 10 | pending |
+| `reign` | implemented | leader identity, regime, tenure | 10 | migrated |
 | `ucdp` | implemented | conflict and violence observations | 11 | migrated |
 | `sipri_milex` | implemented | military-expenditure observations | 12 | pending |
 | `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | pending |
@@ -879,6 +879,23 @@ Each observation carries the raw filename, source row reference
 raw column, raw value, legacy normalized value, catalog scale/unit,
 direction hint, and normative Archigos attribution text. `country_code`
 and `leader_id` remain `None` until Stage 3/4 canonical mapping exists.
+
+### 7.10 REIGN 2021-8 (clean migration)
+
+REIGN 2021-8 is migrated under `src/leaders_db/sources/adapters/reign/` as a
+local-file-only clean adapter. The adapter reads the staged
+`data/raw/reign/REIGN_2021_8.csv` through lazy legacy parser imports, validates
+`metadata.json`, `local_files`, optional SHA-256 metadata, and the canonical
+version string `2021-8 (August 2021 release, final)`, then emits
+`leader_identity_month` observations for the eight legacy catalog variables.
+
+REIGN remains leader-month evidence, not country-year evidence. The clean
+adapter preserves source-native `country`, `ccode`, `year`, `month`, leader name,
+raw column, raw value, legacy normalized value, `source_row_reference`, and the
+normative REIGN attribution text; it does not invent ISO3, `leader_id`, 2023
+rows, leader-year rollups, or month expansions. Requests outside 1950-2021 warn
+and emit zero rows. `leaders=` warns and is ignored; `countries=` filters only on
+source-native country display token or COW `ccode`.
 
 ---
 

@@ -91,6 +91,40 @@ pytest -q tests/sources/test_archigos_adapter.py tests/sources/test_import_bound
 ruff check src/leaders_db/sources/adapters/archigos/ tests/sources/test_archigos_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The REIGN 2021-8 clean migration adds the source-specific leader-month contract
+on top of the shared source interface:
+
+- the REIGN adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes source_id `reign`, default version
+  `"2021-8 (August 2021 release, final)"`, attribution_key `reign`, dataset
+  type, `requires_network=False`, coverage hint 1950-2021, and the
+  `leader_identity_month` observation family;
+- `SourceIngestRunner.run(request)` drives REIGN end-to-end through the new
+  registry against `tests/fixtures/reign/sample.csv` staged under a temporary
+  `raw_root` and produces one observation per leader-month identity/governance
+  field;
+- `years=None` reads all available years in the staged file, multi-year requests
+  emit every requested in-coverage year, and `years=(2023,)` emits zero rows plus
+  a `year_absent` warning because REIGN ends in 2021-08;
+- `countries=` filters apply to source-native `country` / `ccode` tokens only;
+  `leaders=` warns and is ignored;
+- readiness failures cover missing `metadata.json`, missing CSV, malformed or
+  wrong `local_files`, unsupported request/source metadata versions, checksum
+  mismatch, and correct checksum;
+- emitted observations preserve source-native country, `ccode`, year, month,
+  leader name, raw column, raw value, legacy normalized value,
+  `source_row_reference`, raw locator path, and normative REIGN attribution text
+  without inventing ISO3 or `leader_id`;
+- importing `leaders_db.sources.adapters.reign` does not import legacy
+  `leaders_db.ingest`, and the runner does not consult `STAGE2_ADAPTERS`.
+
+Focused REIGN verification:
+
+```bash
+pytest -q tests/sources/test_reign_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_reign.py
+ruff check src/leaders_db/sources/adapters/reign/ tests/sources/test_reign_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 

@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration: 22 implemented (the 20 legacy Stage 2 adapters plus the clean `freedom_house` and `archigos` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 28 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration: 23 implemented (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, and `reign` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 29 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -50,16 +50,27 @@ ISO3, `leader_id`, 2023 rows, or leader-year expansions. Archigos still ends in
 2015 and remains historical leader-identity backstop only; it cannot validate
 2023 leaders.
 
+**REIGN 2021-8 clean adapter note (2026-06-26):** REIGN is now migrated under
+`src/leaders_db/sources/adapters/reign/`. The adapter reads the local staged
+`data/raw/reign/REIGN_2021_8.csv` through lazy legacy parser imports, emits
+`leader_identity_month` observations for the eight legacy identity/governance
+catalog variables, preserves source-native `country` / `ccode` / `year` /
+`month` / leader / raw-column provenance, and does not invent ISO3,
+`leader_id`, 2023 rows, or country-year rollups. REIGN still ends in 2021-08 and
+remains historical leader-month identity evidence only; it cannot validate 2023
+leaders.
+
 **Next source-migration path (2026-06-26):** Per user direction, continue clean
-`leaders_db.sources` migrations one source at a time. Archigos is now migrated
-under `src/leaders_db/sources/adapters/archigos/` after Freedom House, BTI, WGI,
-V-Dem, Transparency CPI, PTS, and RSF. Together with PWT, Maddison Project, WDI,
-WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House, and Archigos,
+`leaders_db.sources` migrations one source at a time. REIGN is now migrated
+under `src/leaders_db/sources/adapters/reign/` after Archigos, Freedom House,
+BTI, WGI, V-Dem, Transparency CPI, PTS, and RSF. Together with PWT, Maddison Project, WDI,
+WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House, Archigos, and REIGN,
 the unified source interface now covers historical economy, current economy,
 governance, political regime / repression / corruption / social well-being,
 press freedom, political terror, corruption perception, BTI transformation /
 effectiveness evidence, FIW political rights / civil liberties / status evidence,
-and historical leader-spell identity evidence. **Active next action:** project-manager review +
+historical leader-spell identity evidence, and historical leader-month identity /
+governance evidence. **Active next action:** project-manager review +
 reviewer pass for the latest clean migrations, then choose the next clean source
 migration or resume the vertical-slice investigation through the migrated source
 pipeline.

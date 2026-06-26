@@ -219,6 +219,7 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.bti",
         "leaders_db.sources.adapters.freedom_house",
         "leaders_db.sources.adapters.archigos",
+        "leaders_db.sources.adapters.reign",
     )
     _purge_source_boundary_modules()
     try:
