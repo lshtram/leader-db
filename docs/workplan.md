@@ -893,6 +893,176 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
   semantic concepts / evidence bundles, scoring or analysis
   logic, and a documented answer with provenance.
 
+- **Seventh clean-source migration landed (2026-06-26) — Transparency International CPI 2023 under
+  `src/leaders_db/sources/adapters/transparency_cpi/`.** CPI is the
+  seventh source rebuilt under the clean
+  ``leaders_db.sources`` interface
+  (docs/architecture/sources.md §7.1 priority 6,
+  docs/requirements/sources.md §12 SRC-MIG-005), after PWT
+  10.01, Maddison Project Database 2023, World Bank WDI,
+  World Bank WGI, V-Dem, and UCDP. CPI is the canonical
+  perception-based corruption / integrity sub-signal; the
+  canonical TI xlsx download is CDN-gated per
+  docs/sources/vetting/report.md §3.6 so the durable
+  per-year CSV is the OCHA HDX-mirrored verbatim
+  Transparency International release (the staged bundle
+  ships ``transparency_cpi_2023.csv`` + ``metadata.json``).
+  The unified adapter is local-file only
+  (``requires_network=False``, no HTTP layer in the new
+  package); the descriptor advertises ``source_type="dataset"``
+  and the canonical CPI version stamp ``"CPI 2023"``.
+  The new package implements the full ``SourceAdapter``
+  Protocol and reuses the legacy reader / transform under
+  ``leaders_db.ingest.transparency_cpi_csv`` via lazy
+  imports so the package boundary documented in
+  docs/architecture/sources.md §10.1 is preserved; the
+  package import does NOT pull in ``leaders_db.ingest``
+  (``tests/sources/test_transparency_cpi_adapter.py::test_transparency_cpi_adapter_module_does_not_import_legacy_ingest_at_import``
+  + the import-boundary submodule list in
+  ``tests/sources/test_import_boundary.py``). The legacy
+  ``STAGE2_ADAPTERS["transparency_cpi"]`` entry remains
+  unchanged -- the new package exposes explicit
+  ``create_transparency_cpi_adapter()`` /
+  ``register_transparency_cpi(registry)`` factories and
+  does NOT auto-register on import (§10.1). The request
+  ``years=`` and ``countries=`` filters are honored on the
+  wide-format DataFrame after the legacy read (the unified
+  adapter always reads the canonical 2023 CSV matching the
+  staged bundle's ``local_files`` annotation; the year
+  filter is applied on the wide frame so out-of-coverage
+  year requests still pass readiness and the transform
+  emits zero observations plus a structured
+  ``YEAR_ABSENT`` warning per offending year, with no
+  stale-proxy fill per SRC-COV-002 / SRC-COV-003).
+  ``leaders=`` emits a structured ``unsupported_filter``
+  warning per SRC-REQ-005. A mismatched ``source_version=``
+  (e.g. ``"CPI 2024"`` against a canonical CPI 2023
+  bundle) FAILS readiness with a structured
+  ``unsupported_version`` error per
+  docs/requirements/sources.md §3 SRC-REQ-009 -- the
+  runner raises ``RuntimeError`` before calling
+  ``read_raw`` / ``transform``. The canonical metadata
+  ``source_version="CPI 2023"`` propagates consistently
+  to ``RawAsset.version`` and every emitted
+  ``NormalizedObservation.source_version``. The canonical
+  bundle metadata ships with ``checksum_sha256=null``
+  (matching the staged ``data/raw/transparency_cpi/metadata.json``
+  shape); the gate accepts the null checksum and a
+  64-character hex SHA-256 matching the staged CSV. A
+  malformed non-null checksum shape fails readiness with
+  ``missing_metadata``, while a mismatched well-formed SHA
+  fails with ``transparency_cpi_checksum_mismatch``. The
+  mandatory readiness requirement is on raw-file
+  presence: a metadata-only bundle is intentionally NOT
+  runner-ready, even though ``checksum_sha256=null`` is
+  the canonical metadata shape. The gate returns
+  ``ready=False`` with a structured ``missing_raw`` error
+  when the per-year CSV is not staged on disk, regardless
+  of the metadata's ``local_files`` / ``checksum_sha256``
+  shape. The runner end-to-end contract is proven by
+  ``tests/sources/test_transparency_cpi_adapter.py::test_transparency_cpi_runner_produces_normalized_observations``
+  (5 fixture observations round-tripped -- 5 countries x
+  1 year x 1 indicator ``cpi_score``) and
+  ``test_transparency_cpi_runner_does_not_consult_legacy_stage2_adapters``
+  (monkeypatched legacy
+  ``STAGE2_ADAPTERS["transparency_cpi"]`` tracker is never
+  invoked) plus
+  ``test_transparency_cpi_runner_does_not_invoke_network``
+  (HTTP sentinels on the legacy fetcher and ``requests.get``
+  are never invoked). The CPI descriptor exposes
+  ``source_id="transparency_cpi"``, ``default_version="CPI 2023"``,
+  the canonical TI CPI 2023 homepage URL
+  (``https://www.transparency.org/en/cpi/2023``),
+  ``attribution_key="transparency_cpi"``, coverage hint
+  1995-2023, single observation family
+  ``integrity_country_year``, ``source_type="dataset"``,
+  and ``requires_network=False``. Per-observation
+  ``RawLocator`` carries the staged CSV path + the catalog
+  ``raw_column`` (``score``) + the positional row index
+  in the wide frame (the legacy reader sorts by iso3
+  ascending for deterministic idempotency, so the row
+  index is preserved byte-for-byte with the input CSV).
+  Per-observation ``extension`` carries the canonical CPI
+  attribution text (Rule #15; byte-identical to the
+  legacy ``TRANSPARENCY_CPI_ATTRIBUTION`` constant in
+  ``src/leaders_db/ingest/transparency_cpi_io.py`` and to
+  the ``transparency_cpi`` section in
+  ``docs/sources/attributions.md``), the
+  ``source_row_reference="transparency_cpi:score:<iso3>"``
+  pattern (matching the legacy Stage 2 DB writer), the
+  ``transparency_cpi_iso3`` / ``cpi_country_name`` /
+  ``cpi_region`` audit-trail labels, the per-row
+  confidence fields ``cpi_rank`` / ``cpi_sources`` /
+  ``cpi_standard_error`` / ``cpi_lower_ci`` /
+  ``cpi_upper_ci``, and the direction hints
+  (``higher_is_better=True`` because a higher CPI score =
+  cleaner perception = better). The mirror vs. publisher
+  attribution contract is documented in
+  ``docs/sources/attributions.md`` transparency_cpi
+  section: the report-facing attribution block names
+  Transparency International CPI 2023 (the canonical
+  publisher name), NOT the OCHA HDX mirror (which is the
+  durable CSV provenance path documented separately in
+  the bundle metadata's ``hdx_mirror_url`` field). The
+  legacy ``TRANSPARENCY_CPI_ATTRIBUTION`` constant in
+  ``src/leaders_db/ingest/transparency_cpi_io.py`` is
+  byte-identical to the new
+  ``TRANSPARENCY_CPI_ATTRIBUTION_TEXT``
+  (``test_transparency_cpi_attribution_text_matches_attributions_doc``
+  asserts byte-identity AND that the unified text is a
+  substring of ``docs/sources/attributions.md``). 30
+  focused tests in
+  ``tests/sources/test_transparency_cpi_adapter.py`` cover
+  the full slice acceptance criteria (descriptor /
+  factory / registry / runner / request-scoping /
+  out-of-coverage / readiness-failure /
+  unsupported-version / metadata-only-bundle-not-runner-ready
+  / runner-short-circuit-on-missing-csv /
+  canonical-version-propagation / checksum-shape /
+  checksum-mismatch / correct-checksum-match /
+  per-row audit-trail / attribution-drift-guard /
+  indicator-code / raw-locator-row-index /
+  direction-hints / no-network / import-boundary /
+  STAGE2_ADAPTERS-no-touch). Module split: each
+  production module stays under the documented
+  400-line convention; ``adapter.py`` owns the
+  lifecycle class + registration helpers + protocol
+  conformance guard, ``_descriptor.py`` owns the
+  canonical constants + ``build_transparency_cpi_descriptor``
+  factory, ``_catalog.py`` owns the lazy legacy
+  catalog loader + rating-category mapping,
+  ``_readiness.py`` + ``_metadata_validators.py`` own
+  the readiness gate (orchestrator + per-field
+  validators), ``_missing_values.py`` owns the
+  per-cell coercion helpers, ``_observation_builder.py``
+  owns the per-row ``NormalizedObservation``
+  construction helper, ``_raw_read.py`` owns the
+  raw-read orchestration, ``_pipeline.py`` owns the
+  transform-pipeline orchestration (year / country
+  filter), and ``_transform.py`` owns the per-row
+  emission loop. Run ``wc -l
+  src/leaders_db/sources/adapters/transparency_cpi/*.py``
+  for the current counts; no production-module carve-out
+  is needed. The runner
+  still returns ``manifest=None``; no persistence, DB
+  writes, or manifest writing landed. The package exposes
+  explicit ``create_transparency_cpi_adapter()`` /
+  ``register_transparency_cpi(registry)`` factories and
+  does NOT auto-register on import (§10.1). **With CPI
+  landed, the unified source interface now covers the
+  perception-based integrity sub-signal**: PWT +
+  Maddison = historical economy; WDI = current economy;
+  WGI = governance; V-Dem = political regime / repression
+  / corruption / social well-being; UCDP = organized
+  conflict / one-sided violence; CPI = corruption
+  perceptions. Together with V-Dem's ``vdem_corruption``
+  subset and WGI's ``world_bank_wgi_corruption`` subset
+  (both documented in docs/architecture/sources.md §7.5
+  as observation-family / catalog subsets under the
+  parent adapters, not separate adapters), the integrity
+  / corruption rating category is now fully covered by
+  the unified source interface.
+
 - **Investigation-slice vertical slice landed (2026-06-25) — Increment 6 of
   [`docs/viz-workplan.md`](viz-workplan.md).** Small end-to-end proof
   flow that wires the updated source architecture to a constrained
