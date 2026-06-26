@@ -550,7 +550,7 @@ All listed sources should eventually be represented under the new interface.
 | `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | migrated |
 | `pts` | implemented | political terror / repression indicators | 14 | migrated |
 | `cirights` | implemented | human-rights indicators | 15 | migrated |
-| `undp_hdi` | implemented | HDI/social well-being indicators | 16 | pending |
+| `undp_hdi` | implemented | HDI/social well-being indicators | 16 | migrated |
 | `who_gho_api` | implemented | health API/cache indicators | 17 | pending |
 | `fas` | implemented | nuclear-force document/API-style observations | 18 | pending |
 | `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | pending |
@@ -987,6 +987,42 @@ identifiers, and leaves `country_code`, `leader_id`, and `leader_name` as `None`
 until later matching/resolution stages. Raw metadata is not committed with the
 source; it is a gitignored local runtime requirement beside the user-staged
 CIRIGHTS raw bundle.
+
+### 7.14 UNDP HDI (clean migration)
+
+UNDP HDI is migrated under `src/leaders_db/sources/adapters/undp_hdi/` as a
+local-file-only clean adapter. It reads the runtime-local staged
+`data/raw/undp_hdi/HDR23-24_Composite_indices_complete_time_series.csv` through
+lazy legacy catalog/CSV/unpivot imports, so importing the clean adapter does not
+import `leaders_db.ingest`. The adapter declares the
+`social_wellbeing_country_year` family for country-year evidence from HDI, life
+expectancy, schooling, and income indicators.
+
+Readiness requires runtime-local `metadata.json` and the canonical CSV on disk.
+It accepts the newer metadata shape (`source_version`, `local_files`, optional
+`checksum_sha256`) and the existing legacy raw-local shape (`version`, matching
+`source_key`, and top-level `sha256` without `local_files`). When `local_files`
+is present, it must be a string list containing the canonical CSV. When either
+checksum shape is present, the adapter validates the CSV SHA-256. The raw
+metadata is not committed with the source; it remains a gitignored local runtime
+file beside the user-staged CSV.
+
+The adapter emits the five legacy catalog variables: `undp_hdi_hdi`,
+`undp_hdi_life_expectancy`, `undp_hdi_expected_years_schooling`,
+`undp_hdi_mean_years_schooling`, and `undp_hdi_gni_per_capita`. Requests with
+`years=None` read all years available in the CSV. A requested 2023 is accepted
+with a warning and maps to the 2022 data year; observations remain labeled as
+`year=2022`. If both 2022 and 2023 are requested, the clean adapter emits one
+2022 observation set rather than duplicate proxy rows. `countries=` matches ISO3
+or the source-native country display name. `leaders=` warns and is ignored.
+
+Each observation preserves ISO3 `country_code`, source-native country display,
+actual data year, raw CSV path and `{raw_column}_{year}` column locator, raw
+value, normalized numeric value, `source_row_reference` (`undp_hdi:<ISO3>`),
+`region`, `hdicode`, proxy audit metadata when applicable, and the normative
+UNDP attribution text. The adapter skips missing indicator cells instead of
+fabricating values, does not invent leader identifiers, and leaves `leader_id`
+and `leader_name` as `None`.
 
 ---
 

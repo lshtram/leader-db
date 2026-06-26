@@ -228,6 +228,39 @@ pytest -q tests/sources/test_cirights_adapter.py tests/sources/test_import_bound
 ruff check src/leaders_db/sources/adapters/cirights/ tests/sources/test_cirights_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The UNDP HDI clean migration adds the local wide-CSV social-wellbeing contract on
+top of the shared source interface:
+
+- the adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes source_id `undp_hdi`, default version
+  `"2023-24"`, attribution_key `undp_hdi`, dataset type, `requires_network=False`,
+  1990-2022 coverage, and the `social_wellbeing_country_year` observation
+  family;
+- `SourceIngestRunner.run(request)` drives UNDP HDI end-to-end through the new
+  registry against `tests/fixtures/undp_hdi/sample.csv` staged under a temporary
+  `raw_root` with runtime-local metadata;
+- readiness accepts both the newer `local_files` / `checksum_sha256` metadata
+  shape and the existing raw-local legacy shape (`version`, matching
+  `source_key`, and top-level `sha256`), while still validating canonical CSV
+  presence and checksum when supplied;
+- `years=None` reads all fixture years, requested `2023` warns while emitting
+  actual 2022 proxy rows, and a combined 2022+2023 request suppresses duplicate
+  2022 proxy observations;
+- `countries=` filters match ISO3 or source-native country display names;
+  `leaders=` warns and is ignored;
+- emitted observations preserve ISO3, source-native country display, actual data
+  year, raw CSV path/column, `row_number=None` because the true CSV row number is
+  not preserved by the legacy unpivot, raw value, normalized numeric value,
+  `source_row_reference`, `region`, `hdicode`, proxy audit metadata, no leader
+  fields, and normative UNDP attribution text.
+
+Focused UNDP HDI verification:
+
+```bash
+pytest -q tests/sources/test_undp_hdi_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_undp_hdi.py
+ruff check src/leaders_db/sources/adapters/undp_hdi/ tests/sources/test_undp_hdi_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 
