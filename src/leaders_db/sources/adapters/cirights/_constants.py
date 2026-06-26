@@ -1,0 +1,62 @@
+"""Constants for the clean CIRIGHTS source adapter."""
+
+from __future__ import annotations
+
+CIRIGHTS_SOURCE_KEY = "cirights"
+CIRIGHTS_ATTRIBUTION_KEY = "cirights"
+CIRIGHTS_DEFAULT_VERSION = "v3.12.10.24 (data), v2.8.27.23 (codebook)"
+CIRIGHTS_HOMEPAGE_URL = "https://www.cirights.org/"
+CIRIGHTS_METADATA_NAME = "metadata.json"
+CIRIGHTS_XLSX_NAME = "cirights_v3.12.10.24.xlsx"
+CIRIGHTS_XLSX_ASSET_ID = f"{CIRIGHTS_SOURCE_KEY}:{CIRIGHTS_XLSX_NAME}"
+
+CIRIGHTS_OBSERVATION_FAMILY = "domestic_violence_human_rights_country_year"
+CIRIGHTS_SUPPORTED_FAMILIES = (CIRIGHTS_OBSERVATION_FAMILY,)
+CIRIGHTS_COVERAGE_START_YEAR = 1981
+CIRIGHTS_COVERAGE_END_YEAR = 2022
+CIRIGHTS_PROXY_REQUESTED_YEAR = 2023
+CIRIGHTS_PROXY_YEAR = 2022
+
+CIRIGHTS_ATTRIBUTION_TEXT = (
+    "CIRI Human Rights Data Project v3.12.10.24 "
+    "(Cingranelli, Richards, and Crepaz 2024)."
+)
+
+CIRIGHTS_TRANSFORM_NAME = "cirights_country_year_v1"
+CIRIGHTS_CHECKSUM_MISMATCH = "cirights_checksum_mismatch"
+CIRIGHTS_LOCAL_FILES_INVALID = "cirights_local_files_invalid"
+CIRIGHTS_METADATA_VERSION_MISMATCH = "cirights_metadata_version_mismatch"
+CIRIGHTS_UNSUPPORTED_VERSION = "unsupported_version"
+
+CIRIGHTS_INDICATORS = (
+    "cirights_physint",
+    "cirights_repression",
+    "cirights_civpol",
+    "cirights_disap",
+    "cirights_kill",
+    "cirights_polpris",
+    "cirights_tort",
+)
+
+__all__ = [
+    "CIRIGHTS_ATTRIBUTION_KEY",
+    "CIRIGHTS_ATTRIBUTION_TEXT",
+    "CIRIGHTS_CHECKSUM_MISMATCH",
+    "CIRIGHTS_COVERAGE_END_YEAR",
+    "CIRIGHTS_COVERAGE_START_YEAR",
+    "CIRIGHTS_DEFAULT_VERSION",
+    "CIRIGHTS_HOMEPAGE_URL",
+    "CIRIGHTS_INDICATORS",
+    "CIRIGHTS_LOCAL_FILES_INVALID",
+    "CIRIGHTS_METADATA_NAME",
+    "CIRIGHTS_METADATA_VERSION_MISMATCH",
+    "CIRIGHTS_OBSERVATION_FAMILY",
+    "CIRIGHTS_PROXY_REQUESTED_YEAR",
+    "CIRIGHTS_PROXY_YEAR",
+    "CIRIGHTS_SOURCE_KEY",
+    "CIRIGHTS_SUPPORTED_FAMILIES",
+    "CIRIGHTS_TRANSFORM_NAME",
+    "CIRIGHTS_UNSUPPORTED_VERSION",
+    "CIRIGHTS_XLSX_ASSET_ID",
+    "CIRIGHTS_XLSX_NAME",
+]

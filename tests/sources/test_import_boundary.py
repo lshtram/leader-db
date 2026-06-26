@@ -222,6 +222,7 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.reign",
         "leaders_db.sources.adapters.sipri_milex",
         "leaders_db.sources.adapters.sipri_yearbook_ch7",
+        "leaders_db.sources.adapters.cirights",
     )
     _purge_source_boundary_modules()
     try:

@@ -549,7 +549,7 @@ All listed sources should eventually be represented under the new interface.
 | `sipri_milex` | implemented | military-expenditure observations | 12 | migrated |
 | `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | migrated |
 | `pts` | implemented | political terror / repression indicators | 14 | migrated |
-| `cirights` | implemented | human-rights indicators | 15 | pending |
+| `cirights` | implemented | human-rights indicators | 15 | migrated |
 | `undp_hdi` | implemented | HDI/social well-being indicators | 16 | pending |
 | `who_gho_api` | implemented | health API/cache indicators | 17 | pending |
 | `fas` | implemented | nuclear-force document/API-style observations | 18 | pending |
@@ -953,6 +953,40 @@ attribution text. The adapter does not invent ISO3 country codes or leader
 identifiers; `country_code`, `leader_id`, and `leader_name` remain `None` until
 later matching/resolution stages. Raw metadata is not committed with the source;
 it is a local runtime requirement beside the user-staged PDF.
+
+### 7.13 CIRIGHTS (clean migration)
+
+CIRIGHTS is migrated under `src/leaders_db/sources/adapters/cirights/` as a
+local-file-only clean adapter. It reads the runtime-local staged
+`data/raw/cirights/cirights_v3.12.10.24.xlsx` through lazy legacy catalog/xlsx
+parser imports, so importing the clean adapter does not import
+`leaders_db.ingest`. Readiness requires a runtime-local `metadata.json`, requires
+the canonical xlsx filename to appear in `metadata.local_files` and on disk,
+validates `source_version="v3.12.10.24 (data), v2.8.27.23 (codebook)"`, tolerates
+extra local files/checksums, validates the optional per-file xlsx SHA-256 when
+present, rejects unsupported request/source metadata versions, warns on
+out-of-coverage years, and warns that leader filters are ignored for this
+country-year source.
+
+The adapter emits `domestic_violence_human_rights_country_year` observations for
+the seven legacy catalog variables: `cirights_physint`, `cirights_repression`,
+`cirights_civpol`, `cirights_disap`, `cirights_kill`, `cirights_polpris`, and
+`cirights_tort`. Requests with `years=None` read all available workbook years;
+in-coverage multi-year requests emit all requested years. A requested 2023 is
+accepted with a warning and maps to the 2022 data year; observations remain
+labeled as `year=2022`. If both 2022 and 2023 are requested, the clean adapter
+emits one 2022 observation set rather than duplicate proxy rows.
+
+Each observation preserves source-native country display name, actual data year,
+raw workbook/sheet/column locator, raw value, normalized numeric value,
+`source_row_reference` (`cirights:<safe_country_token>:<year>:<raw_column>`),
+per-observation `year_window`, proxy audit metadata when applicable, and the
+normative CIRIGHTS attribution text. The adapter skips missing indicator cells
+instead of fabricating values, does not invent ISO3 country codes or leader
+identifiers, and leaves `country_code`, `leader_id`, and `leader_name` as `None`
+until later matching/resolution stages. Raw metadata is not committed with the
+source; it is a gitignored local runtime requirement beside the user-staged
+CIRIGHTS raw bundle.
 
 ---
 

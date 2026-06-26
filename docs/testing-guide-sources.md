@@ -193,6 +193,41 @@ pytest -q tests/sources/test_sipri_yearbook_ch7_adapter.py tests/sources/test_im
 ruff check src/leaders_db/sources/adapters/sipri_yearbook_ch7/ tests/sources/test_sipri_yearbook_ch7_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The CIRIGHTS clean migration adds the country-year human-rights/repression
+contract on top of the shared source interface:
+
+- the adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes source_id `cirights`, default version
+  `"v3.12.10.24 (data), v2.8.27.23 (codebook)"`, attribution_key `cirights`,
+  dataset type, `requires_network=False`, 1981-2022 coverage, and the
+  `domestic_violence_human_rights_country_year` observation family;
+- `SourceIngestRunner.run(request)` drives CIRIGHTS end-to-end through the new
+  registry against `tests/fixtures/cirights/sample.xlsx` staged under a
+  temporary `raw_root` with runtime-local metadata;
+- `years=None` reads all available fixture years, in-coverage multi-year
+  requests emit all requested years, and requested `2023` warns while emitting
+  actual 2022 proxy rows; when both 2022 and 2023 are requested, duplicate 2022
+  proxy rows are suppressed;
+- `countries=` filters apply to source-native CIRIGHTS display names only;
+  `leaders=` warns and is ignored;
+- readiness failures cover missing runtime-local `metadata.json`, missing xlsx,
+  malformed or wrong `local_files`, unsupported request/source metadata
+  versions, checksum mismatch, extra local files/checksum entries, and correct
+  checksum;
+- emitted observations preserve source-native country, actual data year, raw
+  xlsx path/sheet/column, raw value, normalized numeric value, source row
+  reference, proxy/year-window audit metadata, and normative CIRIGHTS
+  attribution text without inventing ISO3 or leader identifiers;
+- importing `leaders_db.sources.adapters.cirights` does not import legacy
+  `leaders_db.ingest`, and the runner does not consult `STAGE2_ADAPTERS`.
+
+Focused CIRIGHTS verification:
+
+```bash
+pytest -q tests/sources/test_cirights_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_cirights.py
+ruff check src/leaders_db/sources/adapters/cirights/ tests/sources/test_cirights_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 
