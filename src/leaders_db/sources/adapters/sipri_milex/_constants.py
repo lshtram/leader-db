@@ -1,0 +1,54 @@
+"""Constants for the clean SIPRI Milex source adapter."""
+
+from __future__ import annotations
+
+SIPRI_MILEX_SOURCE_KEY = "sipri_milex"
+SIPRI_MILEX_ATTRIBUTION_KEY = "sipri_milex"
+SIPRI_MILEX_DEFAULT_VERSION = "SIPRI milex 1949-2025 release"
+SIPRI_MILEX_HOMEPAGE_URL = "https://www.sipri.org/databases/milex"
+SIPRI_MILEX_METADATA_NAME = "metadata.json"
+SIPRI_MILEX_XLSX_NAME = "SIPRI-Milex-data-1949-2025_v1.2.xlsx"
+SIPRI_MILEX_XLSX_ASSET_ID = f"{SIPRI_MILEX_SOURCE_KEY}:{SIPRI_MILEX_XLSX_NAME}"
+
+SIPRI_MILEX_OBSERVATION_FAMILY = "international_peace_country_year"
+SIPRI_MILEX_SUPPORTED_FAMILIES = (SIPRI_MILEX_OBSERVATION_FAMILY,)
+SIPRI_MILEX_COVERAGE_START_YEAR = 1949
+SIPRI_MILEX_COVERAGE_END_YEAR = 2025
+
+SIPRI_MILEX_ATTRIBUTION_TEXT = (
+    "SIPRI milex (Stockholm International Peace Research Institute 2026)."
+)
+
+SIPRI_MILEX_TRANSFORM_NAME = "sipri_milex_country_year_v1"
+SIPRI_MILEX_CHECKSUM_MISMATCH = "sipri_milex_checksum_mismatch"
+SIPRI_MILEX_LOCAL_FILES_INVALID = "sipri_milex_local_files_invalid"
+SIPRI_MILEX_METADATA_VERSION_MISMATCH = "sipri_milex_metadata_version_mismatch"
+SIPRI_MILEX_UNSUPPORTED_VERSION = "unsupported_version"
+
+SIPRI_MILEX_INDICATORS = (
+    "sipri_milex_share_of_gdp",
+    "sipri_milex_per_capita",
+    "sipri_milex_constant_usd",
+    "sipri_milex_share_of_govt_spending",
+)
+
+__all__ = [
+    "SIPRI_MILEX_ATTRIBUTION_KEY",
+    "SIPRI_MILEX_ATTRIBUTION_TEXT",
+    "SIPRI_MILEX_CHECKSUM_MISMATCH",
+    "SIPRI_MILEX_COVERAGE_END_YEAR",
+    "SIPRI_MILEX_COVERAGE_START_YEAR",
+    "SIPRI_MILEX_DEFAULT_VERSION",
+    "SIPRI_MILEX_HOMEPAGE_URL",
+    "SIPRI_MILEX_INDICATORS",
+    "SIPRI_MILEX_LOCAL_FILES_INVALID",
+    "SIPRI_MILEX_METADATA_NAME",
+    "SIPRI_MILEX_METADATA_VERSION_MISMATCH",
+    "SIPRI_MILEX_OBSERVATION_FAMILY",
+    "SIPRI_MILEX_SOURCE_KEY",
+    "SIPRI_MILEX_SUPPORTED_FAMILIES",
+    "SIPRI_MILEX_TRANSFORM_NAME",
+    "SIPRI_MILEX_UNSUPPORTED_VERSION",
+    "SIPRI_MILEX_XLSX_ASSET_ID",
+    "SIPRI_MILEX_XLSX_NAME",
+]

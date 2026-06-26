@@ -546,7 +546,7 @@ All listed sources should eventually be represented under the new interface.
 | `archigos` | implemented | leader identity and tenure | 9 | migrated |
 | `reign` | implemented | leader identity, regime, tenure | 10 | migrated |
 | `ucdp` | implemented | conflict and violence observations | 11 | migrated |
-| `sipri_milex` | implemented | military-expenditure observations | 12 | pending |
+| `sipri_milex` | implemented | military-expenditure observations | 12 | migrated |
 | `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | pending |
 | `pts` | implemented | political terror / repression indicators | 14 | migrated |
 | `cirights` | implemented | human-rights indicators | 15 | pending |
@@ -896,6 +896,33 @@ normative REIGN attribution text; it does not invent ISO3, `leader_id`, 2023
 rows, leader-year rollups, or month expansions. Requests outside 1950-2021 warn
 and emit zero rows. `leaders=` warns and is ignored; `countries=` filters only on
 source-native country display token or COW `ccode`.
+
+### 7.11 SIPRI Military Expenditure Database (clean migration)
+
+SIPRI Milex is migrated under `src/leaders_db/sources/adapters/sipri_milex/`
+as a local-file-only clean adapter. It reads the staged
+`data/raw/sipri_milex/SIPRI-Milex-data-1949-2025_v1.2.xlsx` through lazy legacy
+catalog/parser imports, so importing the clean adapter does not import
+`leaders_db.ingest`. Readiness requires `metadata.json`, requires the canonical
+xlsx to appear in `metadata.local_files` and on disk, validates the optional
+per-file SHA-256 checksum, rejects unsupported request versions, warns on
+out-of-coverage years, and warns that leader filters are ignored for this
+country-year source.
+
+The adapter emits `international_peace_country_year` observations for the four
+legacy catalog variables: `sipri_milex_share_of_gdp`,
+`sipri_milex_per_capita`, `sipri_milex_constant_usd`, and
+`sipri_milex_share_of_govt_spending`. Requests with `years=None` read all years
+available in the workbook; multi-year requests emit all requested in-coverage
+years. Missing cells (`...`, `xxx`, empty/coerced NaN) are skipped rather than
+fabricated.
+
+Each observation preserves source-native country display name, year, indicator
+sheet, raw filename, raw value, normalized float, source row reference
+(`sipri_milex:<display_name>`), region-filter audit metadata from the legacy
+reader, and the normative SIPRI attribution text. The adapter does not invent
+ISO3 country codes or leader identifiers; `country_code`, `leader_id`, and
+`leader_name` remain `None` until later matching/resolution stages.
 
 ---
 

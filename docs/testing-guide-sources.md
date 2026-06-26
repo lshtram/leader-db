@@ -125,6 +125,41 @@ pytest -q tests/sources/test_reign_adapter.py tests/sources/test_import_boundary
 ruff check src/leaders_db/sources/adapters/reign/ tests/sources/test_reign_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The SIPRI Military Expenditure Database clean migration adds the source-specific
+country-year military-expenditure contract on top of the shared source
+interface:
+
+- the SIPRI Milex adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes source_id `sipri_milex`, default version
+  `"SIPRI milex 1949-2025 release"`, attribution_key `sipri_milex`, dataset
+  type, `requires_network=False`, coverage hint 1949-2025, and the
+  `international_peace_country_year` observation family;
+- `SourceIngestRunner.run(request)` drives SIPRI Milex end-to-end through the
+  new registry against `tests/fixtures/sipri_milex/sample.xlsx` staged under a
+  temporary `raw_root` and produces one observation per non-missing country,
+  year, and catalog indicator;
+- `years=None` reads all available fixture years, multi-year requests emit every
+  requested in-coverage year, and out-of-coverage years emit zero rows plus a
+  `year_absent` warning;
+- `countries=` filters apply to source-native SIPRI display country names only;
+  `leaders=` warns and is ignored;
+- readiness failures cover missing `metadata.json`, missing xlsx, malformed or
+  wrong `local_files`, unsupported request/source metadata versions, checksum
+  mismatch, and correct checksum;
+- emitted observations preserve source-native country, raw workbook sheet, raw
+  value, normalized float, source row reference, region-filter audit metadata,
+  raw locator path, and normative SIPRI attribution text without inventing ISO3
+  or leader identifiers;
+- importing `leaders_db.sources.adapters.sipri_milex` does not import legacy
+  `leaders_db.ingest`, and the runner does not consult `STAGE2_ADAPTERS`.
+
+Focused SIPRI Milex verification:
+
+```bash
+pytest -q tests/sources/test_sipri_milex_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_sipri_milex.py
+ruff check src/leaders_db/sources/adapters/sipri_milex/ tests/sources/test_sipri_milex_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 
