@@ -261,6 +261,142 @@ pytest -q tests/sources/test_undp_hdi_adapter.py tests/sources/test_import_bound
 ruff check src/leaders_db/sources/adapters/undp_hdi/ tests/sources/test_undp_hdi_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The WHO Global Health Observatory (GHO) API clean migration adds
+the source-specific API/cache-backed country-year social-wellbeing
+contract on top of the shared contract:
+
+- the WHO GHO API adapter descriptor is registerable / listable
+  through the `InMemorySourceRegistry` and exposes the canonical
+  WHO GHO API static metadata (source_id `who_gho_api`, default
+  version `"GHO OData v1"`, attribution_key `who_gho_api`, `api`
+  source type, 1990-present coverage hint, single observation
+  family `social_wellbeing_country_year`, WHO GHO OData v1 API
+  homepage URL `https://ghoapi.azureedge.net/api/`,
+  `requires_network=True`).
+- `SourceIngestRunner.run(request)` drives WHO GHO API
+  end-to-end through the new registry against the fixture cache
+  under `tests/fixtures/who_gho_api/cache/{2019,2021}/` (5
+  indicators × 2 years × 5 countries, minus missing cells like
+  MEX 2021 under-5 mortality) staged under a temporary `raw_root`
+  with the runtime-local metadata shape and produces
+  `NormalizedObservation` records (44 fixture observations
+  round-tripped; 4 observations for the
+  `years=(2021,) countries=("MEX",)` focused run).
+- the readiness gate accepts BOTH the canonical primary metadata
+  shape (`source_version` / `source_url`) AND the existing
+  raw-local legacy shape (`version` / `source_url` /
+  `sha256: null`) so the staged
+  `data/raw/who_gho_api/metadata.json` does not need to be
+  rewritten as part of the migration; the `version` /
+  `source_version` field must equal `"GHO OData v1"` for
+  readiness to pass.
+- `cache_policy="refresh"` / `"no_cache"` is NOT supported by
+  the unified WHO GHO API adapter in this slice: it fails
+  readiness with a structured `unsupported_cache_policy` error
+  BEFORE `read_raw` / `transform` are called. The unified
+  adapter is offline / cache-only; `WhoGhoApiAdapter.read_raw`
+  never invokes the network. Use `cache_policy="offline_only"`
+  / `"prefer_cache"` and stage the per-`(year, IndicatorCode)`
+  JSON cache to refresh data.
+- `years=None` accepts the all-available-years semantics with a
+  staged partial cache (the runner reads every cached `(year,
+  indicator)` triple on disk, skips malformed files via the
+  cached-JSON shape validator, and emits observations ONLY for
+  the valid cache entries). Explicit-year requests with a
+  missing year directory or missing catalog indicator cache
+  file fail readiness with a structured `missing_raw` error
+  BEFORE `read_raw` / `transform` are called (no silent proxy
+  fill per SRC-COV-002 / SRC-COV-003).
+- `countries=` filters apply as an exact match against the WHO
+  GHO API `SpatialDim` ISO3 alpha-3 code (upper-cased); an
+  unknown ISO3 filter emits zero observations; `leaders=` warns
+  and is ignored.
+- the readiness-failure tests for missing `metadata.json`,
+  missing `cache/` directory, missing one catalog indicator's
+  cache file (under explicit-year request), wrong metadata
+  `version` / `source_version`, and unsupported request
+  `source_version` each prove the runner short-circuits
+  before `read_raw` / `transform`.
+- the runner does not consult legacy `STAGE2_ADAPTERS` even
+  when the legacy `who_gho_api` slot is monkeypatched to a
+  tracker; the unified read path is cache-only and NEVER
+  invokes the network under supported cache policies
+  (`offline_only` / `prefer_cache`). The HTTP sentinel
+  contract is enforced by `test_offline_only_runner_does_not_invoke_network`
+  + `test_prefer_cache_runner_does_not_invoke_network` which
+  monkeypatch both `leaders_db.ingest.who_gho_api_http.fetch_who_gho_api_payload`
+  AND `requests.get` to raise `AssertionError` if either is
+  invoked; both sentinels remain uninvoked while the runner
+  executes the new adapter lifecycle end-to-end against the
+  staged fixture cache.
+- the canonical metadata `version="GHO OData v1"` propagates
+  consistently to `RawAsset.version` and every emitted
+  `NormalizedObservation.source_version`.
+- per-observation `RawLocator` carries the cache file path
+  + the per-`(year, IndicatorCode)` asset id
+  (`who_gho_api:cache:<year>:<IndicatorCode>`) + `column_name`
+  (the raw WHO GHO API `IndicatorCode`); `row_number` is
+  intentionally `None` because the legacy long-to-wide pivot
+  loses the API response row index -- the unified transform
+  never fabricates locators.
+- per-observation `extension` carries the canonical WHO GHO
+  API attribution text (Rule #15), the
+  `source_row_reference="who_gho_api:<raw_column>:<iso3>"`
+  pattern (matching the legacy Stage 2 DB writer), the
+  verbatim `Value` string (e.g. `"70.8 [70.7-71.1]"` with
+  bounds) as `raw_value`, the catalog `dim1_filter` (e.g.
+  `SEX_BTSX` for SEX-disaggregated indicators, empty for
+  immunization-only indicators), the `spatial_dim_type`
+  (`COUNTRY` -- the parser filters non-country records at
+  the parser level), and the `raw_scale` /
+  `higher_is_better` / `normalized_scale_target` direction
+  hints.
+- the first-match-wins semantics of the legacy
+  `pd.pivot_table(..., aggfunc="first")` are preserved: when
+  the WHO GHO API returns multiple `COUNTRY` disaggregation
+  records per `(iso3, year, indicator)` (e.g.
+  WEALTHQUINTILE_WQ5 + WEALTHQUINTILE_TOTL on
+  `MDG_0000000007`), the unified transform emits ONE
+  observation per triple -- the first record's value AND
+  raw_value, not a silent last-record-wins flip. The
+  `test_runner_under5_mortality_first_match_wins` test pins
+  the contract: NGA 2019 under-5 mortality emits one
+  observation with `value=59.3178952` AND
+  `raw_value="59.3 [45.7-78.2]"` (both from the first
+  record), not the second record's value /
+  `raw_value="117.5 [92.6-151.9]"`.
+- the unified adapter never invents values, ISO3, country
+  names, leader IDs, missing rows, or proxy years: cells
+  with null `NumericValue` are skipped; countries / years
+  not present in the cache are skipped; `leader_id` /
+  `leader_name` are always `None`; the MEX 2021 under-5
+  mortality cell (absent from the staged fixture) is
+  silently skipped -- the runner does NOT invent a value
+  for the missing cell.
+- the legacy `WHO_GHO_API_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/who_gho_api_io.py` carries the
+  longer citation block; the unified adapter uses the
+  SHORTER attribution block per the explicit user
+  instruction (`WHO_GHO_API_ATTRIBUTION_TEXT = "WHO Global
+  Health Observatory (World Health Organization)."`) which
+  is byte-identical to the canonical
+  `docs/sources/attributions.md` line. The
+  `test_attribution_text_matches_doc` test pins the
+  byte-identity drift guard.
+- importing `leaders_db.sources.adapters.who_gho_api` does
+  not import `leaders_db.ingest` (verified by
+  `test_importing_who_gho_api_adapter_does_not_import_legacy_ingest`),
+  and the legacy `STAGE2_ADAPTERS` dispatch slot for
+  `who_gho_api` remains callable for backward compatibility
+  (verified by `test_legacy_ingest_who_gho_api_slot_unchanged`).
+
+Focused WHO GHO API verification:
+
+```bash
+pytest -q tests/sources/test_who_gho_api_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_who_gho_api.py
+ruff check src/leaders_db/sources/adapters/who_gho_api/ tests/sources/test_who_gho_api_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 
