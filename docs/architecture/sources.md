@@ -542,7 +542,7 @@ All listed sources should eventually be represented under the new interface.
 | `vdem` | implemented | large political/social country-year indicators | 5 | migrated |
 | `transparency_cpi` | implemented | corruption/integrity country-year indicators | 6 | migrated |
 | `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 | migrated |
-| `bti` | implemented | governance / democracy / transformation indicators | 8 | pending |
+| `bti` | implemented | governance / democracy / transformation indicators | 8 | migrated |
 | `archigos` | implemented | leader identity and tenure | 9 | pending |
 | `reign` | implemented | leader identity, regime, tenure | 10 | pending |
 | `ucdp` | implemented | conflict and violence observations | 11 | migrated |
@@ -706,6 +706,108 @@ Freedom House. The descriptor advertises
 `requires_network=False`, and the single
 observation family
 `political_freedom_country_year`.
+
+### 7.7 Bertelsmann Transformation Index / BTI (clean migration)
+
+`bti` is the tenth source rebuilt under the clean
+`leaders_db.sources` interface (§7.1 priority 8,
+[`docs/requirements/sources.md`](../requirements/sources.md) §12
+SRC-MIG-006), after PWT 10.01, Maddison Project Database
+2023, World Bank WDI, World Bank WGI, V-Dem, UCDP,
+Transparency International CPI, Political Terror
+Scale, and Reporters Without Borders (RSF). The
+unified adapter lives at
+`leaders_db.sources.adapters.bti` with
+`source_id.slug == "bti"` and
+`descriptor.attribution_key == "bti"`.
+
+The BTI cumulative xlsx is structurally close to
+WGI / V-Dem / PTS: a single local file, no HTTP
+layer. The canonical bundle is
+`data/raw/bti/BTI_2006-2026_Scores.xlsx` (12
+edition sheets: one BTI edition per sheet from
+`BTI 2006_old` through `BTI 2026`; 137-159
+countries per edition; 123 columns) plus
+`BTI2026_Codebook.pdf` and `metadata.json`. The
+unified adapter is local-file only
+(`requires_network=False`); the runner NEVER
+invokes the network.
+
+**Biennial sheet/year mapping.** BTI is
+biennial: each edition covers the ~2-year period
+preceding publication (BTI 2024 covers 2022-2023;
+BTI 2026 covers 2024-2025). For the prototype
+target year 2023, the canonical mapping resolves
+to the `BTI 2024` sheet (covers 2022-2023). The
+per-edition covered interval map
+(`_BTI_EDITION_COVERED_INTERVAL` in
+`src/leaders_db/ingest/bti_io.py`) and the
+`sheet_for_year` resolver drive explicit
+`years=` sheet selection at read time. The
+unified raw-read path reads every requested
+in-coverage BTI sheet, and `years=None` reads
+every available BTI sheet in the staged workbook.
+The transform layer then narrows the wide frame
+to the requested year(s). The resolved sheet name + covered
+interval are carried on every observation's
+`extension` (`bti_sheet_name` / `bti_target_year`)
+so downstream Stage 5 score modules can apply
+the proxy / source-edition semantics without
+re-reading the parquet metadata.
+
+**12 catalog indicators across 3 observation
+families.** The canonical BTI catalog at
+`src/leaders_db/ingest/catalogs/bti.csv` lists 12
+indicator rows across 3 rating categories:
+
+- `effectiveness_country_year` (2 indicators):
+  `bti_governance_index` +
+  `bti_governance_performance`.
+- `political_freedom_country_year` (7 indicators):
+  `bti_status_index` + `bti_democracy_status` +
+  Q1-Q5 political transformation questions.
+- `economic_wellbeing_country_year` (3 indicators):
+  Q6/Q7/Q11 economic transformation questions.
+
+The descriptor advertises all three observation
+families so downstream query code can filter by
+family without consulting the per-source catalog.
+
+**Governance / effectiveness primary signal.**
+Per `docs/sources/registry.md` §1 +
+`docs/sources/attributions.md` § `bti`, BTI is
+the canonical governance / effectiveness source
+for the prototype, complementing V-Dem
+(broader democracy indicators) and World Bank
+WGI (quantitative governance estimates). BTI is
+NOT a full political-freedom replacement (the
+`political_freedom_country_year` family is one
+of three observation families BTI emits, not a
+full replacement for the political-freedom
+category). The Stage 5 `political_freedom`
+scorer's BTI group weight is 0.30 (per
+`_political_freedom_rubric.py`); the BTI
+contribution to a country-year political-freedom
+score is a 0.30-weighted average of the 7
+political-freedom indicators.
+
+**Direction hint.** All 12 indicators share
+`raw_scale="1-10"` with `10 = best`
+(`higher_is_better=True`); the raw 1-10 value is
+preserved verbatim on the observation's
+`normalized_value` (no inversion needed).
+
+**Attribution.** The unified `BTI_ATTRIBUTION_TEXT`
+constant is byte-identical to the legacy
+`BTI_ATTRIBUTION` constant in
+`src/leaders_db/ingest/bti_io.py` (the short
+form `"BTI 2026 (Bertelsmann Stiftung 2026)."`)
+and to the `Attribution text in reports` line in
+the `bti` section of
+`docs/sources/attributions.md` (Always-On Rule
+#15). The
+`test_bti_attribution_text_matches_attributions_doc`
+drift guard enforces byte-identity.
 
 ---
 

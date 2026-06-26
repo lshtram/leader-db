@@ -1057,3 +1057,109 @@ hints); the import-boundary contract (no
 `leaders_db.ingest` import at module import time);
 and the legacy `STAGE2_ADAPTERS` non-routing
 contract.
+
+## Bertelsmann Transformation Index / BTI
+
+The BTI adapter lives at
+`src/leaders_db/sources/adapters/bti/` and
+follows the same
+`leaders_db.sources.adapters.<slug>/` layout as
+the prior clean-source migrations. The canonical
+descriptor / factory / lifecycle class live in
+`adapter.py`; the static core constants in
+`_constants.py`; the 12 indicator names + 12
+raw column names in `_indicator_constants.py`;
+the descriptor factory in `_descriptor.py`; the
+readiness gate in `_readiness.py` +
+`_metadata_validators.py` +
+`_checksum_validators.py`; the catalog helpers
+in `_catalog.py`; the missing-value coercion
+helpers in `_missing_values.py`; the per-row
+emission loop in `_transform.py` +
+`_transform_helpers.py`; the per-row observation
+construction in `_observation_builder.py`; the
+raw-read orchestration in `_raw_read.py`; the
+transform-pipeline orchestration in
+`_pipeline.py`; and the registration helpers +
+protocol conformance guard in `adapter.py`.
+
+**Biennial sheet/year mapping.** BTI is the
+first source with a **biennial sheet/year
+mapping**: each BTI edition covers the ~2-year
+period preceding publication. For the prototype
+target year 2023, the canonical mapping resolves
+to the `BTI 2024` sheet (covers 2022-2023); for
+year 2021 -> `BTI 2022`; for year 2025 -> `BTI
+2026`. The per-edition covered interval map lives
+in `_BTI_EDITION_COVERED_INTERVAL` in
+`src/leaders_db/ingest/bti_io.py`; the
+`sheet_for_year` resolver drives explicit
+`years=` sheet selection at read time. The unified
+raw-read path reads every requested in-coverage
+BTI sheet, and `years=None` reads every available
+BTI sheet in the staged workbook. The resolved
+per-row sheet name + covered interval are carried
+on every observation's `extension`
+(`bti_sheet_name` / `bti_target_year`) so
+downstream Stage 5 score modules can apply the
+proxy / source-edition semantics without
+re-reading the parquet metadata.
+
+**Verification commands:**
+
+```bash
+# Full BTI adapter suite + import-boundary + legacy
+# BTI tests + the focused subset.
+.venv/bin/pytest -q tests/sources/test_bti_adapter.py \
+                    tests/sources/test_import_boundary.py \
+                    tests/test_ingest_bti.py
+.venv/bin/ruff check src/leaders_db/sources/adapters/bti/ \
+                  tests/sources/test_bti_adapter.py \
+                  tests/sources/test_import_boundary.py
+.venv/bin/wc -l src/leaders_db/sources/adapters/bti/*.py
+```
+
+The BTI slice acceptance covers the descriptor /
+factory / protocol / register / listable contract
+(source_id `bti`, default version `"BTI 2026"`,
+attribution_key `bti`, dataset type, 2002-2025
+coverage hint, 3 observation families
+`effectiveness_country_year` /
+`political_freedom_country_year` /
+`economic_wellbeing_country_year`, BTI homepage
+URL); the runner end-to-end on a staged fixture
+(5 country-edition rows x 12 indicators = 60
+observations round-trip); the canonical version
+propagation (`"BTI 2026"`); the **biennial
+sheet/year mapping** (target year 2023 -> `BTI
+2024`; year 2021 -> `BTI 2022`; year 2025 ->
+`BTI 2026`; `years=None` emits all available
+fixture sheets; multi-year requests emit each
+requested in-coverage sheet); the readiness gate
+(missing metadata, missing xlsx, missing required
+metadata field, malformed `local_files`, wrong
+`local_files`, malformed checksum, mismatched
+checksum, correct checksum pass, malformed
+bundle `source_version`, mismatched bundle
+`source_version`, unsupported request
+`source_version`, invalid `ingestion_status`); the
+request-scoping warnings (out-of-coverage year
+filter, leader filter); the no-network contract on
+the production runner path (monkeypatched
+`requests.*` / `urllib.request.urlopen` /
+`socket.socket` tripwires, plus a spy on the
+legacy `read_bti` bridge that asserts only the
+local xlsx is read); the per-observation extension
+(BTI-specific `bti_raw_column` /
+`bti_country_name` / `bti_sheet_name` /
+`bti_target_year` / `bti_rating_category`
+audit-trail fields, `source_row_reference="bti:<country_name>"`
+pattern matching the legacy Stage 2 DB writer,
+verbatim `raw_value` cell text, direction hints
+(`higher_is_better=True` + `raw_scale="1-10"` +
+`normalized_scale_target="0-10"`)); the
+import-boundary contract (no `leaders_db.ingest`
+import at module import time); the legacy
+`STAGE2_ADAPTERS` non-routing contract; and the
+clean package `__all__` public-surface coherence
+contract.

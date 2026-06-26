@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import importlib
 import sys
+from types import ModuleType
 
 import pytest
 
@@ -45,6 +46,28 @@ def _purge_modules(prefix: str) -> None:
             del sys.modules[name]
 
 
+def _drop_parent_attr(parent_name: str, attr_name: str) -> None:
+    parent = sys.modules.get(parent_name)
+    if isinstance(parent, ModuleType) and hasattr(parent, attr_name):
+        delattr(parent, attr_name)
+
+
+def _purge_source_boundary_modules() -> None:
+    """Remove only source-boundary modules from the cache.
+
+    Several legacy tests configure SQLAlchemy mappers. Removing the whole
+    ``leaders_db`` package after that point can orphan mapper class-registry
+    entries while leaving configured mapper objects alive, which breaks later
+    legacy DB tests. The import-boundary assertions only need fresh
+    ``leaders_db.sources`` / ``leaders_db.ingest`` modules, so keep unrelated
+    package modules (especially ``leaders_db.db``) intact.
+    """
+    _purge_modules("leaders_db.sources")
+    _purge_modules("leaders_db.ingest")
+    _drop_parent_attr("leaders_db", "sources")
+    _drop_parent_attr("leaders_db", "ingest")
+
+
 @pytest.fixture()
 def fresh_sources_import():
     """Import ``leaders_db.sources`` in an isolated module cache.
@@ -55,11 +78,11 @@ def fresh_sources_import():
     side effect. The fixture itself does the import; tests use the
     module object via the ``module`` attribute.
     """
-    _purge_modules("leaders_db")
+    _purge_source_boundary_modules()
     module = importlib.import_module("leaders_db.sources")
     yield module
     # Cleanup: drop the modules again so the next test starts clean.
-    _purge_modules("leaders_db")
+    _purge_source_boundary_modules()
 
 
 def test_sources_package_import_does_not_import_legacy_ingest(
@@ -141,7 +164,7 @@ def test_sources_legacy_module_does_not_import_ingest_at_import_time() -> None:
 
     PASS-ELIGIBLE: the Phase A seam has no eager ingest imports.
     """
-    _purge_modules("leaders_db")
+    _purge_source_boundary_modules()
     try:
         importlib.import_module("leaders_db.sources.legacy")
         leaked = sorted(
@@ -153,7 +176,7 @@ def test_sources_legacy_module_does_not_import_ingest_at_import_time() -> None:
             f"at import time (leaked modules: {leaked})"
         )
     finally:
-        _purge_modules("leaders_db")
+        _purge_source_boundary_modules()
 
 
 def test_sources_submodules_do_not_import_legacy_ingest() -> None:
@@ -193,8 +216,9 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.transparency_cpi",
         "leaders_db.sources.adapters.pts",
         "leaders_db.sources.adapters.rsf_press_freedom",
+        "leaders_db.sources.adapters.bti",
     )
-    _purge_modules("leaders_db")
+    _purge_source_boundary_modules()
     try:
         for name in submodules:
             importlib.import_module(name)
@@ -208,7 +232,7 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
                 f"(leaked modules: {leaked})"
             )
     finally:
-        _purge_modules("leaders_db")
+        _purge_source_boundary_modules()
 
 
 def test_legacy_ingest_remains_importable_independently() -> None:
@@ -219,13 +243,23 @@ def test_legacy_ingest_remains_importable_independently() -> None:
     imports ``leaders_db.ingest`` directly and confirms the canonical
     Stage 2 dispatch table is accessible.
 
-    PASS-ELIGIBLE: the legacy package is unchanged by Phase A.
+    Implementation note: the test does NOT re-purge on exit so
+    SQLAlchemy's mapper state stays intact for subsequent tests.
+    The legacy adapter modules with DB-layer imports
+    (``leaders_db.ingest.bti_db`` etc.) trigger SQLAlchemy mapper
+    configuration on import; purging the ``leaders_db`` package
+    cache and then reloading ``db.models`` re-registers the mapper
+    and the ``Country`` forward reference in ``SourceObservation``
+    can fail to resolve on the second pass. The legacy module is
+    re-imported here so subsequent legacy tests can use it
+    without breaking the SQLAlchemy mapper state.
     """
-    _purge_modules("leaders_db")
-    try:
-        legacy_ingest = importlib.import_module("leaders_db.ingest")
-    finally:
-        _purge_modules("leaders_db")
+    _purge_source_boundary_modules()
+    legacy_ingest = importlib.import_module("leaders_db.ingest")
+    # NOTE: do NOT re-purge in ``finally`` -- see the
+    # implementation note above. The legacy module is re-imported
+    # here so subsequent tests can use it without breaking the
+    # SQLAlchemy mapper state.
 
     # The dispatch table is the canonical Phase A evidence that the
     # legacy surface is intact.
