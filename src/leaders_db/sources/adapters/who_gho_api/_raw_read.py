@@ -27,6 +27,7 @@ from typing import Any
 
 from leaders_db.sources.contracts import RawAsset, RawReadResult, SourceIngestRequest
 
+from ._cache_readiness import _enumerate_cache_files
 from ._constants import (
     WHO_GHO_API_CACHE_DIR_NAME,
     WHO_GHO_API_DEFAULT_VERSION,
@@ -34,7 +35,6 @@ from ._constants import (
     WHO_GHO_API_SOURCE_KEY,
 )
 from ._readiness import (
-    _enumerate_cache_files,
     cache_root,
     metadata_path,
     read_metadata,
