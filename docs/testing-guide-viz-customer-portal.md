@@ -3,11 +3,14 @@
 This runbook is the authoritative operational note for the customer-facing
 visualization portal at `https://viz.chopsworkshop.com`.
 
-The portal uses one Cloudflare-protected hostname with path-based routing:
+The portal uses one Cloudflare-protected hostname with path-based routing. The
+Superset landing link is `/superset/welcome/`; Superset may redirect
+unauthenticated users to root-level paths such as `/login/`, so nginx proxies
+all non-report, non-visualization fallback paths to Superset.
 
 | URL path | Served by | Purpose |
 |---|---|---|
-| `/superset/` | Superset app container through nginx | Interactive Superset BI UI and dashboards |
+| `/superset/welcome/` | Superset app container through nginx | Interactive Superset BI UI and dashboards |
 | `/reports/` | nginx static files | Customer-facing report landing page |
 | `/reports/country-metrics-dashboard.html` | nginx static file | Standalone country metrics dashboard generated ahead of time |
 | `/reports/briefs/us-equity-ownership.html` | bind mount from `markets-research` | Static research brief |

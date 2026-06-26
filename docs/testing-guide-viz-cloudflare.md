@@ -2,8 +2,8 @@
 
 This guide covers Visualization Increment 5: exposing the local Superset UI at
 `https://viz.chopsworkshop.com` through Cloudflare Tunnel and Cloudflare Access.
-For the full customer-portal runbook, including `/superset/`, `/reports/`, the
-static market-research briefs, image mounts, and health checks, see
+For the full customer-portal runbook, including `/superset/welcome/`,
+`/reports/`, the static market-research briefs, image mounts, and health checks, see
 `docs/testing-guide-viz-customer-portal.md`.
 
 ## Safety model
@@ -110,7 +110,8 @@ Expected result:
 
 1. `https://viz.chopsworkshop.com` prompts through Cloudflare Access.
 2. After Access succeeds, `/reports/` shows the report landing page.
-3. `/superset/` shows Superset login.
+3. `/superset/welcome/` shows Superset login, possibly after Superset redirects
+   unauthenticated users to `/login/?next=...`.
 4. Superset login succeeds using a non-default Superset account.
 5. The Superset database is the read-only SQLite URI:
    `sqlite:////leaders-db-viz/superset_viz.sqlite`.

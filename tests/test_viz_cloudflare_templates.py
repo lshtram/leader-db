@@ -94,6 +94,7 @@ def test_nginx_proxy_serves_reports_briefs_and_visualizations() -> None:
 def test_reports_index_links_customer_pages() -> None:
     index = (SUPERSET_DIR / "reports" / "index.html").read_text(encoding="utf-8")
 
+    assert 'href="/superset/welcome/"' in index
     assert "country-metrics-dashboard.html" in index
     assert "briefs/us-equity-ownership.html" in index
     assert "briefs/us-market-size-baseline.html" in index
