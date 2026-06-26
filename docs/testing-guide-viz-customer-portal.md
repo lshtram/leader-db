@@ -50,9 +50,10 @@ There are two different graph models:
 
 - `superset-db`: PostgreSQL metadata database for Superset.
 - `superset-redis`: Redis for Superset.
-- `superset`: Apache Superset itself, listening only inside the compose network.
-  It has the network alias `superset-app` and does **not** publish host port
-  `8088` directly.
+- `superset-app`: Apache Superset itself, listening only inside the compose
+  network. It does **not** publish host port `8088` directly. The service is
+  intentionally not named `superset`, because the existing Cloudflare tunnel may
+  target `http://superset:8088`; that DNS name must resolve to the nginx proxy.
 - `superset-proxy`: nginx, published on `127.0.0.1:8088`. This is the only local
   service Cloudflare should target.
 

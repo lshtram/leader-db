@@ -16,7 +16,8 @@ services:
       - superset-redis:/data
 
   superset-init:
-    image: apache/superset:6.0.0
+    build: .
+    image: leaders-db-superset:6.0.0
     depends_on:
       - superset-db
       - superset-redis
@@ -43,8 +44,9 @@ services:
           --password "$${SUPERSET_ADMIN_PASSWORD}" || true && \
         superset init
 
-  superset:
-    image: apache/superset:6.0.0
+  superset-app:
+    build: .
+    image: leaders-db-superset:6.0.0
     restart: unless-stopped
     depends_on:
       superset-init:
@@ -56,10 +58,6 @@ services:
         postgresql+psycopg2://${SUPERSET_POSTGRES_USER:-superset}:${SUPERSET_POSTGRES_PASSWORD}@superset-db:5432/${SUPERSET_POSTGRES_DB:-superset}
       REDIS_HOST: superset-redis
       SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
-    networks:
-      default:
-        aliases:
-          - superset-app
     volumes:
       - ./superset_config.py:/app/pythonpath/superset_config.py:ro
       - ../../data/processed/viz/country-year-chronicle:/leaders-db-viz:ro
@@ -70,7 +68,7 @@ services:
     image: nginx:1.27-alpine
     restart: unless-stopped
     depends_on:
-      - superset
+      - superset-app
     networks:
       default:
         aliases:

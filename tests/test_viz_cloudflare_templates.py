@@ -61,11 +61,10 @@ def test_superset_config_allows_read_only_sqlite_viz_artifact() -> None:
 def test_superset_compose_routes_through_nginx_proxy() -> None:
     compose = yaml.safe_load((SUPERSET_DIR / "docker-compose.yml").read_text(encoding="utf-8"))
 
-    superset = compose["services"]["superset"]
+    superset = compose["services"]["superset-app"]
     proxy = compose["services"]["superset-proxy"]
 
     assert "ports" not in superset
-    assert "superset-app" in superset["networks"]["default"]["aliases"]
     assert proxy["image"] == "nginx:1.27-alpine"
     assert "superset" in proxy["networks"]["default"]["aliases"]
     assert proxy["ports"] == ["127.0.0.1:8088:8088"]
