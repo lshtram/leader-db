@@ -56,13 +56,32 @@ services:
         postgresql+psycopg2://${SUPERSET_POSTGRES_USER:-superset}:${SUPERSET_POSTGRES_PASSWORD}@superset-db:5432/${SUPERSET_POSTGRES_DB:-superset}
       REDIS_HOST: superset-redis
       SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
-    ports:
-      - "127.0.0.1:8088:8088"
+    networks:
+      default:
+        aliases:
+          - superset-app
     volumes:
       - ./superset_config.py:/app/pythonpath/superset_config.py:ro
       - ../../data/processed/viz/country-year-chronicle:/leaders-db-viz:ro
       - superset-home:/app/superset_home
     command: ["superset", "run", "-h", "0.0.0.0", "-p", "8088", "--with-threads"]
+
+  superset-proxy:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - superset
+    networks:
+      default:
+        aliases:
+          - superset
+    ports:
+      - "127.0.0.1:8088:8088"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d:ro
+      - ./reports:/usr/share/nginx/html/reports:ro
+      - ${MARKET_RESEARCH_ROOT:-/home/liorshtram/projects/markets-research}/reports/briefs/html:/usr/share/nginx/html/briefs:ro
+      - ${MARKET_RESEARCH_ROOT:-/home/liorshtram/projects/markets-research}/reports/visualizations:/usr/share/nginx/html/visualizations:ro
 
 volumes:
   superset-db:

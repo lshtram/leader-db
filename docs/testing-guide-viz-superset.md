@@ -4,6 +4,10 @@ This guide covers Visualization Increment 4: local Apache Superset
 integration, and Increment 6: the investigation-slice vertical slice
 that exercises the updated source architecture end-to-end.
 
+For the customer-facing runtime that combines Superset under `/superset/` with
+static reports under `/reports/` on `viz.chopsworkshop.com`, see
+`docs/testing-guide-viz-customer-portal.md`.
+
 ## Automated verification
 
 Run:
@@ -188,7 +192,7 @@ Steps:
    Replace every `replace-with-*` value in `infra/superset/superset.env`.
    Do **not** commit `superset.env`.
 
-3. Start Superset locally:
+3. Start Superset and the local nginx path proxy:
 
    ```bash
    docker compose --env-file infra/superset/superset.env \
@@ -203,8 +207,10 @@ Steps:
      -f infra/superset/docker-compose.yml restart superset
    ```
 
-4. Open `http://localhost:8088` and log in with the admin user/password from
-   `infra/superset/superset.env`.
+4. Open `http://localhost:8088/superset/` and log in with the admin
+   user/password from `infra/superset/superset.env`. `http://localhost:8088/`
+   redirects to `/superset/`, while `http://localhost:8088/reports/` serves the
+   static report landing page through nginx.
 
 5. Add a database in Superset using this SQLAlchemy URI:
 

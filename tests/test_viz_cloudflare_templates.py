@@ -56,3 +56,45 @@ def test_superset_config_allows_read_only_sqlite_viz_artifact() -> None:
     assert "PREVENT_UNSAFE_DB_CONNECTIONS = False" in config
     assert "/leaders-db-viz:ro" in config
     assert "sqlite:////leaders-db-viz/superset_viz.sqlite" in config
+
+
+def test_superset_compose_routes_through_nginx_proxy() -> None:
+    compose = yaml.safe_load((SUPERSET_DIR / "docker-compose.yml").read_text(encoding="utf-8"))
+
+    superset = compose["services"]["superset"]
+    proxy = compose["services"]["superset-proxy"]
+
+    assert "ports" not in superset
+    assert "superset-app" in superset["networks"]["default"]["aliases"]
+    assert proxy["image"] == "nginx:1.27-alpine"
+    assert "superset" in proxy["networks"]["default"]["aliases"]
+    assert proxy["ports"] == ["127.0.0.1:8088:8088"]
+    assert "./nginx-conf:/etc/nginx/conf.d:ro" in proxy["volumes"]
+    assert "./reports:/usr/share/nginx/html/reports:ro" in proxy["volumes"]
+    assert any(
+        "/reports/briefs/html:/usr/share/nginx/html/briefs:ro" in v for v in proxy["volumes"]
+    )
+    assert any(
+        "/reports/visualizations:/usr/share/nginx/html/visualizations:ro" in v
+        for v in proxy["volumes"]
+    )
+
+
+def test_nginx_proxy_serves_reports_briefs_and_visualizations() -> None:
+    nginx_conf = (SUPERSET_DIR / "nginx-conf" / "default.conf").read_text(encoding="utf-8")
+
+    assert "listen 8088" in nginx_conf
+    assert "location /reports/" in nginx_conf
+    assert "location /reports/briefs/" in nginx_conf
+    assert "location /visualizations/" in nginx_conf
+    assert "location /reports/visualizations/" in nginx_conf
+    assert "proxy_pass http://superset-app:8088" in nginx_conf
+    assert "Cache-Control \"no-store, must-revalidate\"" in nginx_conf
+
+
+def test_reports_index_links_customer_pages() -> None:
+    index = (SUPERSET_DIR / "reports" / "index.html").read_text(encoding="utf-8")
+
+    assert "country-metrics-dashboard.html" in index
+    assert "briefs/us-equity-ownership.html" in index
+    assert "briefs/us-market-size-baseline.html" in index

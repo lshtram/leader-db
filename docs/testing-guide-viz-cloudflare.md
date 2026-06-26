@@ -2,6 +2,9 @@
 
 This guide covers Visualization Increment 5: exposing the local Superset UI at
 `https://viz.chopsworkshop.com` through Cloudflare Tunnel and Cloudflare Access.
+For the full customer-portal runbook, including `/superset/`, `/reports/`, the
+static market-research briefs, image mounts, and health checks, see
+`docs/testing-guide-viz-customer-portal.md`.
 
 ## Safety model
 
@@ -12,7 +15,8 @@ configured; a tunnel route without Access can expose the origin publicly.
 
 The expected security posture is:
 
-- Superset continues to listen locally on `127.0.0.1:8088`.
+- The nginx path proxy listens locally on `127.0.0.1:8088`; Superset itself is
+  reachable only inside Docker as `superset-app:8088`.
 - `cloudflared` creates outbound-only connections to Cloudflare; no inbound port
   is opened on this machine.
 - `viz.chopsworkshop.com` is protected by a Cloudflare Access self-hosted
@@ -22,7 +26,7 @@ The expected security posture is:
 - Superset itself still requires login; Cloudflare Access is not the only
   authentication layer.
 - Superset connects only to the read-only analytic SQLite mount documented in
-  `docs/testing-guide-viz-superset.md`.
+  `docs/testing-guide-viz-superset.md`; static report paths are served by nginx.
 
 ## Automated repository checks
 
@@ -45,7 +49,8 @@ What this verifies:
 Prerequisites:
 
 - `viz.chopsworkshop.com` is in the `chopsworkshop.com` Cloudflare zone.
-- Superset is already running locally per `docs/testing-guide-viz-superset.md`.
+- Superset and the nginx proxy are already running locally per
+  `docs/testing-guide-viz-customer-portal.md`.
 - `leaders-db viz-build-superset-db` has refreshed the read-only analytic SQLite
   artifact.
 - You have the final client/internal email allowlist.
@@ -104,11 +109,13 @@ Expected result:
 Expected result:
 
 1. `https://viz.chopsworkshop.com` prompts through Cloudflare Access.
-2. After Access succeeds, Superset login appears.
-3. Superset login succeeds using a non-default Superset account.
-4. The Superset database is the read-only SQLite URI:
+2. After Access succeeds, `/reports/` shows the report landing page.
+3. `/superset/` shows Superset login.
+4. Superset login succeeds using a non-default Superset account.
+5. The Superset database is the read-only SQLite URI:
    `sqlite:////leaders-db-viz/superset_viz.sqlite`.
-5. The first dashboard charts load.
+6. The first dashboard charts load.
+7. `python scripts/check_viz_reports.py http://127.0.0.1:8088` passes locally.
 
 ### 6. Shutdown
 
