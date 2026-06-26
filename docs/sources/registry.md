@@ -46,7 +46,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 
 | Source key | Verdict | Description | Coverage | Notes |
 |---|---|---|---|---|
-| `archigos` | ⚠️ | Archigos dataset on political leaders | 1875–2015 (8-year gap) | free academic; Stata `.dta`; useful historical backstop only. |
+| `archigos` | ⚠️ | Archigos dataset on political leaders | 1875–2015 (8-year gap; staged file has start years 1840–2015) | free academic; Stata `.dta`; useful historical backstop only. Clean adapter at `src/leaders_db/sources/adapters/archigos/` emits `leader_identity_spell` observations from local `Archigos_4.1_stata14.dta`; it cannot validate 2023 leaders. |
 | `leader_survival` | ⚠️ | Leader Survival (PLT post-1789) | 1789–2022 (1-year gap) | free academic; Demscore H-DATA v5 (March 2025). Best of the three. |
 | `reign` | ⚠️ | Rulers, Elections, and Irregular Governance (REIGN) | 1950–2021-08 (frozen) | free academic; GitHub-hosted snapshot. Monthly updates ceased Aug 2021. |
 | `soviet_leaders_curated` | ✅ | Soviet leaders curated (Wikipedia-anchored) | 1922-12-30 to 1991-12-25 | Hand-curated, versioned spell list at `data/raw/soviet_leaders_curated/soviet_leaders.csv`. Fills the SUN ruler gap that neither Archigos nor REIGN can resolve cleanly (merged Russian-Empire + USSR + RUS ccode). Transition years (1924, 1953, 1985) emit `multiple_rulers`. Underlying Wikipedia facts are not copyrightable; the curated CSV is a project artifact. |

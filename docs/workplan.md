@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter: 21 implemented (the 20 legacy Stage 2 adapters plus the clean `freedom_house` adapter) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 27 total source keys. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration: 22 implemented (the 20 legacy Stage 2 adapters plus the clean `freedom_house` and `archigos` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 28 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -41,16 +41,25 @@ requirements, and a plain-English guide are tracked in
 [`docs/sources/system-explained.md`](sources/system-explained.md). Existing source
 capabilities remain available as legacy/reference code until migrated.
 
+**Archigos v4.1 clean adapter note (2026-06-26):** Archigos is now migrated under
+`src/leaders_db/sources/adapters/archigos/`. The adapter reads the local staged
+`data/raw/archigos/Archigos_4.1_stata14.dta` through lazy legacy parser imports,
+emits `leader_identity_spell` observations for the six legacy identity catalog
+variables, preserves `obsid` / `idacr` / `ccode` provenance, and does not invent
+ISO3, `leader_id`, 2023 rows, or leader-year expansions. Archigos still ends in
+2015 and remains historical leader-identity backstop only; it cannot validate
+2023 leaders.
+
 **Next source-migration path (2026-06-26):** Per user direction, continue clean
-`leaders_db.sources` migrations one source at a time. BTI is now migrated under
-`src/leaders_db/sources/adapters/bti/` after the WGI, V-Dem, Transparency CPI,
-PTS, and RSF migrations (see the Phase C.14 Done History entry below). Together
-with PWT, Maddison Project, WDI, WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF,
-BTI, and Freedom House, the unified source interface now covers historical economy, current
-economy, governance, political regime / repression / corruption / social
-well-being, press freedom, political terror, corruption perception, BTI
-transformation / effectiveness evidence, and FIW political rights / civil
-liberties / status evidence. **Active next action:** project-manager review +
+`leaders_db.sources` migrations one source at a time. Archigos is now migrated
+under `src/leaders_db/sources/adapters/archigos/` after Freedom House, BTI, WGI,
+V-Dem, Transparency CPI, PTS, and RSF. Together with PWT, Maddison Project, WDI,
+WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House, and Archigos,
+the unified source interface now covers historical economy, current economy,
+governance, political regime / repression / corruption / social well-being,
+press freedom, political terror, corruption perception, BTI transformation /
+effectiveness evidence, FIW political rights / civil liberties / status evidence,
+and historical leader-spell identity evidence. **Active next action:** project-manager review +
 reviewer pass for the latest clean migrations, then choose the next clean source
 migration or resume the vertical-slice investigation through the migrated source
 pipeline.
@@ -596,6 +605,8 @@ The first build sequence from [`requirements/top-level-requirements.md`](require
 Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-level-requirements.md) and refined in [`requirements/core.md`](requirements/core.md). Architecture lives in [`architecture/overview.md`](architecture/overview.md). The schema is normative in [`architecture/database-schema.md`](architecture/database-schema.md).
 
 ## Done History
+
+- **Phase C.16 — Archigos v4.1 clean-source adapter landed (2026-06-26).** Twelfth source rebuilt under the unified `leaders_db.sources` interface. The adapter lives at `src/leaders_db/sources/adapters/archigos/`, is local-file only (`requires_network=False`), and uses the staged `data/raw/archigos/Archigos_4.1_stata14.dta` plus `metadata.json`. Clean imports preserve the source-system boundary: legacy `leaders_db.ingest.archigos_io.load_archigos_catalog` and `read_archigos` are reused only through lazy imports inside `read_raw`, and the new runner path never consults `STAGE2_ADAPTERS`. Readiness requires metadata, requires the canonical `.dta` listed in `metadata.local_files` and present on disk, validates `source_version="v4.1 (Stata 14)"`, rejects unsupported request versions, and verifies the staged SHA-256 when present. Runtime semantics remain leader-spell, not country-year: `years=None` reads all available spell start years, multi-year requests emit all requested in-coverage start years, and 2023/out-of-coverage requests warn and emit zero rows. `countries=` filters source-native `idacr` / `ccode`; `leaders=` warns and is ignored. The transform emits the six legacy identity variables as `leader_identity_spell` observations with raw value, legacy normalized value, source row reference, raw locator, `obsid`, `idacr`, `ccode`, and normative Archigos attribution, leaving `country_code` and `leader_id` unset until canonical mapping exists. Focused coverage landed in `tests/sources/test_archigos_adapter.py` plus `tests/sources/test_import_boundary.py`; legacy `tests/test_ingest_archigos.py` remains in the verification set.
 
 - **Phase C.15 — Freedom House FIW clean-source adapter landed (2026-06-26).** Eleventh source rebuilt under the unified `leaders_db.sources` interface. The adapter lives at `src/leaders_db/sources/adapters/freedom_house/`, does not import or dispatch through legacy `leaders_db.ingest`, and reads only local/user-managed FIW 2026 workbooks (`requires_network=False`). The first production path requires `data/raw/freedom_house/metadata.json` plus the canonical `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx` workbook listed in `metadata.local_files`; superseded 2024 files are ignored. Readiness validates `source_version="2026"`, physical file presence, local_files shape, request `source_version`, and the workbook SHA-256 when present. The transform reads the country and territory ratings/statuses sheets and emits three `political_freedom_country_year` indicators per nonblank country/territory survey edition: `freedom_house_political_rights`, `freedom_house_civil_liberties`, and `freedom_house_status`. `years=None` means all available survey editions in the workbook, multi-year requests emit all requested in-coverage years, out-of-coverage years warn and emit zero rows, and `leaders=` warns but is ignored. Observations preserve source-native country/territory names without inventing ISO3, and carry workbook sheet, row, raw column, raw value, year(s)-under-review, normalized 0-1 rating hints for PR/CL, and normative Freedom House attribution. Focused coverage landed in `tests/sources/test_freedom_house_adapter.py` plus the import-boundary list in `tests/sources/test_import_boundary.py`; docs updated in `docs/architecture/sources.md`, `docs/testing-guide-sources.md`, `docs/sources/registry.md`, and `docs/sources/attributions.md`.
 

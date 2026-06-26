@@ -543,7 +543,7 @@ All listed sources should eventually be represented under the new interface.
 | `transparency_cpi` | implemented | corruption/integrity country-year indicators | 6 | migrated |
 | `rsf_press_freedom` | implemented | press-freedom country-year indicators | 7 | migrated |
 | `bti` | implemented | governance / democracy / transformation indicators | 8 | migrated |
-| `archigos` | implemented | leader identity and tenure | 9 | pending |
+| `archigos` | implemented | leader identity and tenure | 9 | migrated |
 | `reign` | implemented | leader identity, regime, tenure | 10 | pending |
 | `ucdp` | implemented | conflict and violence observations | 11 | migrated |
 | `sipri_milex` | implemented | military-expenditure observations | 12 | pending |
@@ -844,6 +844,41 @@ sheet, row number, raw column, survey edition year, raw value,
 and year(s)-under-review in provenance extension fields, and
 includes the normative Freedom House attribution text from
 `docs/sources/attributions.md`.
+
+### 7.9 Archigos v4.1 (clean migration)
+
+`archigos` is implemented under the clean `leaders_db.sources`
+interface at `src/leaders_db/sources/adapters/archigos/` with
+`source_id.slug == "archigos"` and
+`descriptor.attribution_key == "archigos"`. The adapter is
+local-file only (`requires_network=False`) and reads the staged
+Stata 14 bundle at `data/raw/archigos/Archigos_4.1_stata14.dta`.
+It reuses the legacy Archigos catalog and Stata parser only through
+lazy imports inside the raw-read function, so importing the clean
+adapter does not import `leaders_db.ingest`.
+
+Archigos is leader-spell data, not country-year data. The clean
+adapter preserves that unit: it emits one `leader_identity_spell`
+observation per leader-spell identity field and keys each observation
+by the spell start year. It does not expand spells to every covered
+year and does not fabricate 2023 rows. Requests with `years=None`
+read every available spell start year in the staged file; multi-year
+requests emit all requested in-coverage start years; out-of-coverage
+years such as 2023 surface `year_absent` warnings and emit zero rows.
+
+Readiness requires `metadata.json`, requires the canonical `.dta` file
+to appear in `metadata.local_files` and on disk, validates
+`source_version="v4.1 (Stata 14)"`, rejects unsupported request
+versions, and verifies `metadata.checksum_sha256["Archigos_4.1_stata14.dta"]`
+when present. `leaders=` filters warn and are ignored. `countries=`
+filters are applied only to source-native Archigos identifiers (`idacr`
+and `ccode`); the adapter does not invent ISO3 country codes.
+
+Each observation carries the raw filename, source row reference
+(`archigos:<obsid>:<year>:<raw_column>`), `obsid`, `idacr`, `ccode`,
+raw column, raw value, legacy normalized value, catalog scale/unit,
+direction hint, and normative Archigos attribution text. `country_code`
+and `leader_id` remain `None` until Stage 3/4 canonical mapping exists.
 
 ---
 

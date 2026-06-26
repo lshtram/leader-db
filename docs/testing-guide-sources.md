@@ -58,6 +58,39 @@ Verifies:
 - canonical metadata `source_version="10.01"` propagates consistently to
   `RawAsset.version` and every emitted `NormalizedObservation.source_version`.
 
+The Archigos v4.1 clean migration adds the source-specific leader-spell
+contract on top of the shared source interface:
+
+- the Archigos adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes source_id `archigos`, default version
+  `"v4.1 (Stata 14)"`, attribution_key `archigos`, dataset type,
+  `requires_network=False`, coverage hint 1840-2015, and the
+  `leader_identity_spell` observation family;
+- `SourceIngestRunner.run(request)` drives Archigos end-to-end through the new
+  registry against `tests/fixtures/archigos/sample.dta` staged under a temporary
+  `raw_root` and produces one observation per leader-spell identity field;
+- `years=None` reads all available spell start years in the staged file,
+  multi-year requests emit every requested in-coverage start year, and
+  `years=(2023,)` emits zero rows plus a `year_absent` warning because Archigos
+  ends in 2015;
+- `countries=` filters apply to source-native `idacr` / `ccode` tokens only;
+  `leaders=` warns and is ignored;
+- readiness failures cover missing `metadata.json`, missing `.dta`, malformed or
+  wrong `local_files`, unsupported request/source metadata versions, checksum
+  mismatch, and correct checksum;
+- emitted observations preserve `obsid`, `idacr`, `ccode`, raw column, raw value,
+  legacy normalized value, `source_row_reference`, raw locator path, and
+  normative Archigos attribution text without inventing ISO3 or `leader_id`;
+- importing `leaders_db.sources.adapters.archigos` does not import legacy
+  `leaders_db.ingest`, and the runner does not consult `STAGE2_ADAPTERS`.
+
+Focused Archigos verification:
+
+```bash
+pytest -q tests/sources/test_archigos_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_archigos.py
+ruff check src/leaders_db/sources/adapters/archigos/ tests/sources/test_archigos_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 
