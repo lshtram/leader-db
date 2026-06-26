@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration: 27 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, and `undp_hdi` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 33 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration: 28 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, and `who_gho_api` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 34 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -113,26 +113,51 @@ values, or 2023-labeled proxy rows. Runtime readiness accepts both newer
 legacy metadata shape (`version`, matching `source_key`, top-level `sha256`), and
 validates the staged CSV checksum when either checksum shape is present.
 
-**Next source-migration path (2026-06-26):** Per user direction, continue clean
-`leaders_db.sources` migrations one source at a time. UNDP HDI is now migrated
-under `src/leaders_db/sources/adapters/undp_hdi/` after CIRIGHTS, SIPRI Yearbook
-Ch.7, SIPRI Milex, REIGN, Archigos, Freedom House, BTI, WGI, V-Dem,
-Transparency CPI, PTS, and RSF. Together with PWT, Maddison Project, WDI, WGI,
-V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House, Archigos, REIGN,
-SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, and UNDP HDI, the unified source
-interface now covers historical economy, current economy, governance, political
-regime / repression / corruption / social well-being, press freedom, political
-terror, corruption perception, BTI transformation / effectiveness evidence, FIW
-political rights / civil liberties / status evidence, historical leader-spell
-identity evidence, historical leader-month identity / governance evidence,
-nuclear country-year warhead facts, CIRIGHTS domestic-violence/human-rights
-country-year evidence, and UNDP social-wellbeing country-year evidence. **Active
-next action:** project-manager review + reviewer pass for the latest clean
-migrations, then choose the next clean source migration or resume the
-vertical-slice investigation through the migrated source pipeline. The next
-pending legacy-implemented clean-source row in the inventory is `who_gho_api`
-unless the project-manager chooses to prioritize reviewer follow-up or another
-source.
+**WHO GHO API clean adapter note (2026-06-27):** WHO GHO API is now migrated
+under `src/leaders_db/sources/adapters/who_gho_api/`. The adapter reads the
+runtime-local per-`(year, IndicatorCode)` JSON cache under
+`data/raw/who_gho_api/cache/` through lazy legacy catalog/parser imports,
+emits `social_wellbeing_country_year` observations for the five legacy
+catalog indicators (`who_gho_life_expectancy`, `who_gho_under5_mortality`,
+`who_gho_dtp3_immunization`, `who_gho_hepb3_immunization`,
+`who_gho_bcg_immunization`), preserves ISO3 country code / source-native
+`SpatialDim` / raw cache path + `column_name` (raw WHO GHO API IndicatorCode)
+/ verbatim `Value` audit-trail string /
+`source_row_reference = "who_gho_api:<raw_column>:<iso3>"` provenance, and
+does not invent leader identifiers, missing values, or proxy-year rows.
+Runtime readiness accepts BOTH the canonical primary `source_version`
+metadata shape AND the existing gitignored raw-local legacy metadata shape
+(`version` / `source_url` / `sha256: null` / `ingestion_status`) and
+validates the canonical `GHO OData v1` version stamp. The unified adapter is
+offline / cache-only: `cache_policy="refresh"` / `"no_cache"` is
+unsupported and fails readiness with a structured `unsupported_cache_policy`
+error. The first-match-wins semantics of the legacy
+`pd.pivot_table(..., aggfunc="first")` are preserved across the long-to-wide
+transform: multiple `COUNTRY` disaggregation records per
+`(iso3, year, indicator)` collapse into one observation (the first record's
+value AND raw_value, not a silent last-record-wins flip).
+
+**Next source-migration path (2026-06-27):** Per user direction, continue clean
+`leaders_db.sources` migrations one source at a time. WHO GHO API is now
+migrated under `src/leaders_db/sources/adapters/who_gho_api/` after CIRIGHTS,
+SIPRI Yearbook Ch.7, SIPRI Milex, REIGN, Archigos, Freedom House, BTI, WGI,
+V-Dem, Transparency CPI, PTS, RSF, and UNDP HDI. Together with PWT, Maddison
+Project, WDI, WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House,
+Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, and
+WHO GHO API, the unified source interface now covers historical economy,
+current economy, governance, political regime / repression / corruption /
+social well-being, press freedom, political terror, corruption perception,
+BTI transformation / effectiveness evidence, FIW political rights / civil
+liberties / status evidence, historical leader-spell identity evidence,
+historical leader-month identity / governance evidence, nuclear country-year
+warhead facts, CIRIGHTS domestic-violence/human-rights country-year
+evidence, UNDP social-wellbeing country-year evidence, and WHO GHO API
+health country-year evidence. **Active next action:** project-manager
+review + reviewer pass for the latest clean migrations, then choose the
+next clean source migration or resume the vertical-slice investigation
+through the migrated source pipeline. The next pending legacy-implemented
+clean-source row in the inventory is `fas` unless the project-manager chooses
+to prioritize reviewer follow-up or another source.
 
 **Source concept-catalog slice landed (2026-06-24) — semantic indicator
 catalog under `leaders_db.sources.concepts`.** A real-life
