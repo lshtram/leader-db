@@ -547,7 +547,7 @@ All listed sources should eventually be represented under the new interface.
 | `reign` | implemented | leader identity, regime, tenure | 10 | migrated |
 | `ucdp` | implemented | conflict and violence observations | 11 | migrated |
 | `sipri_milex` | implemented | military-expenditure observations | 12 | migrated |
-| `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | pending |
+| `sipri_yearbook_ch7` | implemented | nuclear-force observations | 13 | migrated |
 | `pts` | implemented | political terror / repression indicators | 14 | migrated |
 | `cirights` | implemented | human-rights indicators | 15 | pending |
 | `undp_hdi` | implemented | HDI/social well-being indicators | 16 | pending |
@@ -923,6 +923,36 @@ sheet, raw filename, raw value, normalized float, source row reference
 reader, and the normative SIPRI attribution text. The adapter does not invent
 ISO3 country codes or leader identifiers; `country_code`, `leader_id`, and
 `leader_name` remain `None` until later matching/resolution stages.
+
+### 7.12 SIPRI Yearbook Chapter 7 (clean migration)
+
+SIPRI Yearbook Ch.7 is migrated under
+`src/leaders_db/sources/adapters/sipri_yearbook_ch7/` as a local-file-only clean
+adapter. It reads the runtime-local staged
+`data/raw/sipri_yearbook_ch7/YB24 07 WNF.pdf` through lazy legacy catalog/PDF
+parser imports, so importing the clean adapter does not import
+`leaders_db.ingest`. Readiness requires a runtime-local `metadata.json`,
+requires the canonical PDF filename to appear in `metadata.local_files` and on
+disk, validates the optional per-file SHA-256 checksum when present, rejects
+unsupported request/source metadata versions, warns on out-of-snapshot years,
+and warns that leader filters are ignored for this country-year document source.
+
+The adapter emits `nuclear_country_year` observations for the three legacy
+catalog variables: `sipri_yearbook_ch7_nuclear_warheads_total_inventory`,
+`sipri_yearbook_ch7_nuclear_warheads_deployed`, and
+`sipri_yearbook_ch7_nuclear_warheads_retired`. Requests with `years=None` read
+the PDF snapshot year; multi-year requests emit the in-snapshot year and warn for
+out-of-snapshot years. `countries=` filters match source-native SIPRI display
+names only.
+
+Each observation preserves source-native country display name, snapshot year,
+PDF filename/page, raw catalog column, raw PDF cell text, normalized integer or
+`None`, source row reference (`sipri_yearbook_ch7:<display_name>`),
+`pdf_pages_total`, `snapshot_year`, and the normative SIPRI Yearbook
+attribution text. The adapter does not invent ISO3 country codes or leader
+identifiers; `country_code`, `leader_id`, and `leader_name` remain `None` until
+later matching/resolution stages. Raw metadata is not committed with the source;
+it is a local runtime requirement beside the user-staged PDF.
 
 ---
 

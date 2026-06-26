@@ -160,6 +160,39 @@ pytest -q tests/sources/test_sipri_milex_adapter.py tests/sources/test_import_bo
 ruff check src/leaders_db/sources/adapters/sipri_milex/ tests/sources/test_sipri_milex_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The SIPRI Yearbook Ch.7 clean migration adds the PDF/document-source contract on
+top of the shared source interface:
+
+- the adapter descriptor is registerable / listable through the
+  `InMemorySourceRegistry` and exposes source_id `sipri_yearbook_ch7`, default
+  version `"YB2024 (data: January 2024)"`, attribution_key
+  `sipri_yearbook_ch7`, document type, `requires_network=False`, 2024 snapshot
+  coverage, and the `nuclear_country_year` observation family;
+- `SourceIngestRunner.run(request)` drives SIPRI Yearbook Ch.7 end-to-end
+  through the new registry against `tests/fixtures/sipri_yearbook_ch7/sample.pdf`
+  staged under a temporary `raw_root` with canonical runtime-local metadata;
+- `years=None` reads the snapshot year, multi-year requests emit the
+  in-snapshot year and warn for out-of-snapshot years, and out-of-snapshot-only
+  requests emit zero rows plus a `year_absent` warning;
+- `countries=` filters apply to source-native SIPRI display country names only;
+  `leaders=` warns and is ignored;
+- readiness failures cover missing runtime-local `metadata.json`, missing PDF,
+  malformed or wrong `local_files`, unsupported request/source metadata
+  versions, checksum mismatch, and correct checksum;
+- emitted observations preserve source-native country, raw PDF path/page/column,
+  raw cell text, normalized integer or `None`, source row reference,
+  `pdf_pages_total`, `snapshot_year`, and normative SIPRI Yearbook attribution
+  text without inventing ISO3 or leader identifiers;
+- importing `leaders_db.sources.adapters.sipri_yearbook_ch7` does not import
+  legacy `leaders_db.ingest`, and the runner does not consult `STAGE2_ADAPTERS`.
+
+Focused SIPRI Yearbook Ch.7 verification:
+
+```bash
+pytest -q tests/sources/test_sipri_yearbook_ch7_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_sipri_yearbook_ch7.py
+ruff check src/leaders_db/sources/adapters/sipri_yearbook_ch7/ tests/sources/test_sipri_yearbook_ch7_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 

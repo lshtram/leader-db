@@ -1,0 +1,45 @@
+"""SIPRI Yearbook Chapter 7 clean source adapter."""
+
+from __future__ import annotations
+
+from ._constants import (
+    SIPRI_YEARBOOK_CH7_ATTRIBUTION_KEY,
+    SIPRI_YEARBOOK_CH7_ATTRIBUTION_TEXT,
+    SIPRI_YEARBOOK_CH7_COVERAGE_END_YEAR,
+    SIPRI_YEARBOOK_CH7_COVERAGE_START_YEAR,
+    SIPRI_YEARBOOK_CH7_DEFAULT_VERSION,
+    SIPRI_YEARBOOK_CH7_HOMEPAGE_URL,
+    SIPRI_YEARBOOK_CH7_INDICATORS,
+    SIPRI_YEARBOOK_CH7_OBSERVATION_FAMILY,
+    SIPRI_YEARBOOK_CH7_PDF_NAME,
+    SIPRI_YEARBOOK_CH7_SNAPSHOT_YEAR,
+    SIPRI_YEARBOOK_CH7_SOURCE_KEY,
+    SIPRI_YEARBOOK_CH7_SUPPORTED_FAMILIES,
+)
+from ._descriptor import build_sipri_yearbook_ch7_descriptor
+from .adapter import (
+    SIPRI_YEARBOOK_CH7_ADAPTER_FACTORY,
+    SipriYearbookCh7Adapter,
+    create_sipri_yearbook_ch7_adapter,
+    register_sipri_yearbook_ch7,
+)
+
+__all__ = [
+    "SIPRI_YEARBOOK_CH7_ADAPTER_FACTORY",
+    "SIPRI_YEARBOOK_CH7_ATTRIBUTION_KEY",
+    "SIPRI_YEARBOOK_CH7_ATTRIBUTION_TEXT",
+    "SIPRI_YEARBOOK_CH7_COVERAGE_END_YEAR",
+    "SIPRI_YEARBOOK_CH7_COVERAGE_START_YEAR",
+    "SIPRI_YEARBOOK_CH7_DEFAULT_VERSION",
+    "SIPRI_YEARBOOK_CH7_HOMEPAGE_URL",
+    "SIPRI_YEARBOOK_CH7_INDICATORS",
+    "SIPRI_YEARBOOK_CH7_OBSERVATION_FAMILY",
+    "SIPRI_YEARBOOK_CH7_PDF_NAME",
+    "SIPRI_YEARBOOK_CH7_SNAPSHOT_YEAR",
+    "SIPRI_YEARBOOK_CH7_SOURCE_KEY",
+    "SIPRI_YEARBOOK_CH7_SUPPORTED_FAMILIES",
+    "SipriYearbookCh7Adapter",
+    "build_sipri_yearbook_ch7_descriptor",
+    "create_sipri_yearbook_ch7_adapter",
+    "register_sipri_yearbook_ch7",
+]

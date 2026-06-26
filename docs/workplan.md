@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration: 24 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, and `sipri_milex` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 30 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration: 25 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, and `sipri_yearbook_ch7` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 31 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -73,22 +73,37 @@ leader identifiers, or missing values. Runtime readiness requires local
 and, when present, verifies the per-file SHA-256; the local data/raw metadata is
 gitignored with the raw bundle.
 
+**SIPRI Yearbook Ch.7 clean adapter note (2026-06-26):** SIPRI Yearbook Chapter
+7 is now migrated under `src/leaders_db/sources/adapters/sipri_yearbook_ch7/`.
+The adapter reads the runtime-local staged
+`data/raw/sipri_yearbook_ch7/YB24 07 WNF.pdf` through lazy legacy catalog/PDF
+parser imports, emits `nuclear_country_year` observations for the three legacy
+nuclear-warhead indicators, preserves source-native country display names / PDF
+page and raw column / raw PDF cell text / normalized integer-or-null /
+`sipri_yearbook_ch7:<display_name>` provenance, and does not invent ISO3,
+leader identifiers, or non-source years. Runtime readiness requires local
+`data/raw/sipri_yearbook_ch7/metadata.json` to list the canonical PDF in
+`local_files` and, when present, verifies the per-file SHA-256; the local
+data/raw metadata is gitignored with the raw PDF bundle.
+
 **Next source-migration path (2026-06-26):** Per user direction, continue clean
-`leaders_db.sources` migrations one source at a time. SIPRI Milex is now migrated
-under `src/leaders_db/sources/adapters/sipri_milex/` after REIGN, Archigos,
-Freedom House, BTI, WGI, V-Dem, Transparency CPI, PTS, and RSF. Together with PWT, Maddison Project, WDI,
-WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House, Archigos, REIGN, and SIPRI Milex,
+`leaders_db.sources` migrations one source at a time. SIPRI Yearbook Ch.7 is now
+migrated under `src/leaders_db/sources/adapters/sipri_yearbook_ch7/` after SIPRI
+Milex, REIGN, Archigos, Freedom House, BTI, WGI, V-Dem, Transparency CPI, PTS,
+and RSF. Together with PWT, Maddison Project, WDI, WGI, V-Dem, UCDP,
+Transparency CPI, PTS, RSF, BTI, Freedom House, Archigos, REIGN, SIPRI Milex,
+and SIPRI Yearbook Ch.7,
 the unified source interface now covers historical economy, current economy,
 governance, political regime / repression / corruption / social well-being,
 press freedom, political terror, corruption perception, BTI transformation /
 effectiveness evidence, FIW political rights / civil liberties / status evidence,
 historical leader-spell identity evidence, and historical leader-month identity /
-governance evidence. **Active next action:** project-manager review +
+governance evidence, plus nuclear country-year warhead facts. **Active next action:** project-manager review +
 reviewer pass for the latest clean migrations, then choose the next clean source
 migration or resume the vertical-slice investigation through the migrated source
-pipeline. SIPRI Milex has now also been migrated; the next pending clean-source
-row in the inventory is `sipri_yearbook_ch7` unless the project-manager chooses
-to prioritize reviewer follow-up or another source.
+pipeline. SIPRI Yearbook Ch.7 has now also been migrated; the next pending
+legacy-implemented clean-source row in the inventory is `cirights` unless the
+project-manager chooses to prioritize reviewer follow-up or another source.
 
 **Source concept-catalog slice landed (2026-06-24) — semantic indicator
 catalog under `leaders_db.sources.concepts`.** A real-life
