@@ -551,7 +551,7 @@ All listed sources should eventually be represented under the new interface.
 | `pts` | implemented | political terror / repression indicators | 14 | migrated |
 | `cirights` | implemented | human-rights indicators | 15 | migrated |
 | `undp_hdi` | implemented | HDI/social well-being indicators | 16 | migrated |
-| `who_gho_api` | implemented | health API/cache indicators | 17 | pending |
+| `who_gho_api` | implemented | health API/cache indicators | 17 | migrated |
 | `fas` | implemented | nuclear-force document/API-style observations | 18 | pending |
 | `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | pending |
 | `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 | pending |
@@ -1023,6 +1023,88 @@ value, normalized numeric value, `source_row_reference` (`undp_hdi:<ISO3>`),
 UNDP attribution text. The adapter skips missing indicator cells instead of
 fabricating values, does not invent leader identifiers, and leaves `leader_id`
 and `leader_name` as `None`.
+
+The WHO GHO API clean migration adds the source-specific
+API/cache-backed country-year social-wellbeing contract on
+top of the shared contract:
+
+- the WHO GHO API adapter descriptor is registerable /
+  listable through the `InMemorySourceRegistry` and exposes
+  the canonical WHO GHO static metadata (source_id
+  `who_gho_api`, default version `"GHO OData v1"`,
+  attribution_key `who_gho_api`, `api` source type,
+  1990-present coverage hint, single observation family
+  `social_wellbeing_country_year`, WHO GHO OData v1 API
+  homepage URL `https://ghoapi.azureedge.net/api/`,
+  `requires_network=True`);
+- `SourceIngestRunner.run(request)` drives WHO GHO API
+  end-to-end through the new registry against the fixture
+  cache under `tests/fixtures/who_gho_api/cache/{2019,2021}/`
+  staged under a temporary `raw_root` with the runtime-local
+  metadata shape and produces `NormalizedObservation` records
+  (44 fixture observations across 2 years × 5 indicators ×
+  5 countries, minus missing cells like MEX 2021 under-5
+  mortality);
+- the readiness gate accepts BOTH the canonical primary
+  metadata shape (`source_version` / `source_url`) AND the
+  existing raw-local legacy shape (`version` / `source_url` /
+  `sha256: null`) so the staged
+  `data/raw/who_gho_api/metadata.json` does not need to be
+  rewritten as part of the migration;
+- the runner does not consult legacy `STAGE2_ADAPTERS` even
+  when the legacy `who_gho_api` slot is monkeypatched to a
+  tracker; the unified read path is cache-only and NEVER
+  invokes the network under supported cache policies
+  (`offline_only` / `prefer_cache`);
+- the unified adapter never invents values, ISO3, country
+  names, leader IDs, missing rows, or proxy years: cells
+  with null `NumericValue` are skipped; countries / years
+  not present in the cache are skipped; `leader_id` /
+  `leader_name` are always `None`;
+- the cache-policy gate blocks `cache_policy="refresh"` /
+  `"no_cache"` with a structured
+  `unsupported_cache_policy` error BEFORE `read_raw` /
+  `transform` are called -- the unified adapter never
+  hits the network in this slice; HTTP sentinels installed
+  on `leaders_db.ingest.who_gho_api_http.fetch_who_gho_api_payload`
+  AND `requests.get` are never invoked by the supported
+  cache policies;
+- the per-observation `RawLocator` carries the cache file
+  path + the per-`(year, IndicatorCode)` asset id +
+  `column_name` (the WHO GHO API `IndicatorCode`) +
+  `row_number=None` (the legacy long-to-wide pivot loses
+  the API response row index); the audit-trail
+  `extension.who_gho_api_raw_column` carries the same
+  IndicatorCode so downstream audit code can resolve the
+  per-observation source-native raw column without
+  consulting the legacy catalog;
+- the per-observation `extension` payload carries the
+  canonical WHO GHO API attribution text (Rule #15), the
+  `source_row_reference="who_gho_api:<raw_column>:<iso3>"`
+  pattern (matching the legacy Stage 2 DB writer), the
+  verbatim `Value` string (e.g. `"70.8 [70.7-71.1]"` with
+  bounds) as the audit-trail `raw_value`, the
+  `dim1_filter` (catalog `dim1_filter`, `SEX_BTSX` for
+  SEX-disaggregated indicators, empty for
+  immunization-only indicators), the
+  `spatial_dim_type` (`COUNTRY` -- the parser filters
+  non-country records at the parser level), and the
+  `raw_scale` / `higher_is_better` /
+  `normalized_scale_target` direction hints;
+- the first-match-wins semantics of the legacy
+  `pd.pivot_table(..., aggfunc="first")` are preserved
+  across the long-to-wide transform: when the WHO GHO
+  API returns multiple `COUNTRY` disaggregation records
+  per `(iso3, year, indicator)` (e.g. WEALTHQUINTILE_WQ5
+  + WEALTHQUINTILE_TOTL on `MDG_0000000007`), the unified
+  transform emits ONE observation per triple -- the first
+  record's value AND raw_value, not a silent
+  last-record-wins flip;
+- importing
+  `leaders_db.sources.adapters.who_gho_api` does not
+  import `leaders_db.ingest`; the legacy `STAGE2_ADAPTERS`
+  dispatch slot for `who_gho_api` remains callable for
+  backward compatibility.
 
 ---
 
