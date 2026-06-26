@@ -975,20 +975,48 @@ Expected: a positive adapter count and `True` for `pwt`.
 - New CLI commands under `leaders-db sources ...`.
 - Moving or deleting legacy `src/leaders_db/ingest/` code.
 - The remaining clean source migrations
-  (bti, archigos, reign, sipri_milex,
+  (archigos, reign, sipri_milex,
   sipri_yearbook_ch7, cirights, undp_hdi, who_gho_api,
   fas, wikidata_heads_of_state_government,
-  wikipedia_search_extract, freedom_house, ...).
+  wikipedia_search_extract, ...).
   PWT, Maddison Project, World Bank WDI, World Bank
   WGI, V-Dem, UCDP, Transparency International CPI,
-  PTS, and RSF are the proof-of-pattern across
+  PTS, RSF, BTI, and Freedom House are the proof-of-pattern across
   dataset (PWT), historical xlsx (Maddison),
   API/cache (WDI), local-file governance xlsx (WGI),
   large local CSV (V-Dem), event-level zip (UCDP),
   per-year CSV (CPI), single xlsx (PTS), and
-  multi-file annual CSV (RSF) source shapes;
+  multi-file annual CSV (RSF), biennial local xlsx (BTI), and
+  user-managed restricted local xlsx (Freedom House FIW) source shapes;
   future migrations follow the
   same `src/leaders_db/sources/adapters/<slug>/` layout.
+
+## Freedom House Freedom in the World
+
+The Freedom House adapter lives at
+`src/leaders_db/sources/adapters/freedom_house/` and reads the
+user-managed FIW 2026 ratings/statuses workbook staged under
+`data/raw/freedom_house/`. It emits the three core FIW political-freedom
+signals (`freedom_house_political_rights`,
+`freedom_house_civil_liberties`, `freedom_house_status`) as
+`political_freedom_country_year` observations.
+
+**Verification commands:**
+
+```bash
+.venv/bin/pytest -q tests/sources/test_freedom_house_adapter.py \
+                    tests/sources/test_import_boundary.py
+.venv/bin/ruff check src/leaders_db/sources/adapters/freedom_house/ \
+                  tests/sources/test_freedom_house_adapter.py \
+                  tests/sources/test_import_boundary.py
+wc -l src/leaders_db/sources/adapters/freedom_house/*.py
+```
+
+These tests verify descriptor/factory/registry/runner wiring, readiness
+success and failure paths, checksum validation, `years=None` all-years
+semantics, multi-year requests, out-of-coverage warnings, ignored leader
+filters, import-boundary isolation from `leaders_db.ingest`, no network
+access, source attribution drift, and raw locator/provenance preservation.
 
 ## RSF World Press Freedom Index
 

@@ -62,7 +62,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 | `vdem` | ✅ | Varieties of Democracy (V-Dem) | **v16 (March 2026) is on disk** at `data/raw/vdem/`. |
 | `polity_v` | ✅ | Polity V dataset | Direct `.sav` file from inscrdata.html; 1800–2018, 167 countries. **Fallback to Freedom House for 2023.** |
 | `rsf_press_freedom` | ✅ | Reporters Without Borders World Press Freedom Index | Annual CSVs on disk at `data/raw/rsf_press_freedom/`: 2002–2010 and 2012–2026. Direct `2011.csv` is absent; RSF publishes a combined 2011/2012 edition represented by the 2012 file. Use as a press/media-freedom sub-signal, not a full political-freedom replacement. |
-| `freedom_house` | ⚠️ | Freedom House Freedom in the World | FIW data is gated behind an email request. **User handling; email sent, awaiting response.** |
+| `freedom_house` | ✅ | Freedom House Freedom in the World | FIW 2026 user-managed/restricted workbooks are staged at `data/raw/freedom_house/`; clean `leaders_db.sources.adapters.freedom_house` adapter reads the 1973-2026 ratings/statuses workbook for political rights, civil liberties, and status. Do not redistribute raw FIW files. |
 
 ### Economic sources
 

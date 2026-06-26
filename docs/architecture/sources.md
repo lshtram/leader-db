@@ -562,7 +562,6 @@ All listed sources should eventually be represented under the new interface.
 |---|---|---|
 | `polity_v` | raw file observed locally, metadata incomplete | first post-interface source after docs/stubs if source hygiene is completed |
 | `leader_survival` | blocked on Demscore manual gate | manual-gated source readiness proof |
-| `freedom_house` | user-managed/local staging needed | manual/local xlsx source |
 | `imf_weo` | blocked by access challenge | user-managed or future manual/API path |
 | `cow_mid` | blocked/deferred | conflict source if raw access is resolved |
 | `nti` | blocked/user-managed | nuclear/manual document source |
@@ -808,6 +807,43 @@ the `bti` section of
 #15). The
 `test_bti_attribution_text_matches_attributions_doc`
 drift guard enforces byte-identity.
+
+### 7.8 Freedom House Freedom in the World / FIW (clean migration)
+
+`freedom_house` is implemented under the clean
+`leaders_db.sources` interface at
+`src/leaders_db/sources/adapters/freedom_house/`.
+The adapter is local-file only (`requires_network=False`)
+and uses the user-managed FIW 2026 bundle staged at
+`data/raw/freedom_house/` without modifying or publishing
+the raw workbooks.
+
+The first FIW clean adapter intentionally uses the core
+ratings/statuses workbook only:
+`Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`.
+It reads the country and territory ratings sheets and emits
+three `political_freedom_country_year` indicators per
+nonblank country/territory survey edition: political rights,
+civil liberties, and Freedom House status. The aggregate and
+all-data FIW 2026 workbooks remain staged for later expansion,
+but are not required by this adapter path.
+
+Readiness requires `metadata.json`, requires the canonical
+2026 ratings/statuses workbook to appear in
+`metadata.local_files` and on disk, validates the per-file
+SHA-256 from `metadata.checksum_sha256` when present, rejects
+unsupported request versions, warns on out-of-coverage years,
+and warns that leader filters are ignored for this
+country/territory-year source. Requests with `years=None`
+read all survey editions available in the workbook; multi-year
+requests emit every requested in-coverage year.
+
+Each observation preserves the source-native country or
+territory name without inventing ISO3, carries the workbook
+sheet, row number, raw column, survey edition year, raw value,
+and year(s)-under-review in provenance extension fields, and
+includes the normative Freedom House attribution text from
+`docs/sources/attributions.md`.
 
 ---
 

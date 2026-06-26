@@ -262,6 +262,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 | `undp_hdi` | social well-being (HDI composite + le/eys/mys/gnipc) | 1990–2022 | free | "UNDP HDR 2023-24 (United Nations Development Programme 2024)." |
 | `who_gho_api` | social well-being (health indicators) | ongoing | open | "WHO Global Health Observatory (World Health Organization)." |
 | `polity_v` | political freedom (1800–2018) | 1800–2018 | free academic | "Polity V (Marshall, Jaggers, Gleditsch 2018)." |
+| `freedom_house` | political freedom (political rights, civil liberties, status) | 1973–2026 survey editions | user-managed FIW database/workbooks; do not redistribute raw files | "Freedom House, Freedom in the World data (2026 edition), https://freedomhouse.org/report/freedom-world. Raw database/workbooks are user-managed and must not be redistributed; cite Freedom House in derived reports." |
 | `rsf_press_freedom` | political freedom (press/media-freedom sub-signal) | 2002–2026 (no direct 2011 CSV) | public dataset; cite RSF | "RSF World Press Freedom Index (Reporters Without Borders 2026)." |
 | `wikidata_heads_of_state_government` | current/historical leaders | all | CC0 1.0 | "Wikidata (CC0 1.0)." |
 | `wikipedia_search_extract` | narrative context | all | CC BY-SA 4.0 | "Wikipedia (CC BY-SA 4.0)." |
@@ -273,11 +274,9 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 For each source below, the reason it was not used and the substitute decision.
 
-### `freedom_house` — FIW data is user-managed / pending provider response
+### `freedom_house` — superseded pending-provider note
 
-- **Status:** ⚠️ user-managed. The user sent the FIW data request email; if the provider responds, place the file at `data/raw/freedom_house/`.
-- **Why:** the Freedom House *Freedom in the World* data file is not freely downloadable. From the [publication archives page](https://freedomhouse.org/reports/publication-archives), verbatim: "Interested in downloading *Freedom in the World* report data? Please email research@freedomhouse.org with 'FIW Data Request' in the subject line and our team will assist you." A programmatic Phase 2 ingest cannot depend on an email gate.
-- **Substitute decision:** V-Dem + Polity V + RSF cover political-freedom cross-validation while the FIW response is pending. If the user provides FIW data manually, it becomes an additional political-freedom source rather than silently replacing the others.
+> Moved to "Sources In Use" on 2026-06-26 after the user staged the FIW 2026 workbooks under `data/raw/freedom_house/` and the clean `leaders_db.sources.adapters.freedom_house` adapter landed. The raw FIW database/workbooks remain user-managed and must not be redistributed. Public outputs may include derived FIW results with the attribution text in Section 1.
 
 ### `cow_mid` — data ends 2014; site has SSL issues in this environment
 
