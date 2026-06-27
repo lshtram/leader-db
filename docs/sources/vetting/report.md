@@ -189,7 +189,7 @@ When Phase C begins, the following Stage 2 ingest modules can be implemented imm
   - `pts` (xlsx; Phase C.7)
   - `undp_hdi` (CSV; Phase C.8)
   - `who_gho_api` (OData; Phase C.9)
-  - `polity_v` (SPSS) — **adapter blocked on raw file** (see workplan Done History)
+  - `polity_v` (SPSS `.sav`; **clean adapter landed 2026-06-27** under `src/leaders_db/sources/adapters/polity_v/` per the clean `leaders_db.sources` interface; SPSS read via `pyreadstat.read_sav`; no legacy Stage 2 implementation was added per the "databases not yet in legacy" rule; runtime metadata is gitignored local beside the user-staged raw `.sav`)
   - `bti` (cumulative xlsx already on disk; multi-sheet, 12 biennial editions; **adapter landed 2026-06-19, see `src/leaders_db/ingest/bti*.py`**)
   - `rsf_press_freedom` (annual CSVs already on disk; press/media-freedom sub-signal; **adapter landed 2026-06-19, see `src/leaders_db/ingest/rsf_press_freedom*.py`**)
 - **Medium priority (vetted_with_caveats, need careful adapter):**

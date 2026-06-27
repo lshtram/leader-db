@@ -240,17 +240,17 @@ All of them.
 - `fas`
 - `wikidata_heads_of_state_government`
 - `wikipedia_search_extract`
+- `polity_v`
+- `sipri_arms_transfers`
+- `iaea_safeguards`
 
 ### Pending or future sources
 
-- `polity_v`
 - `leader_survival`
 - `freedom_house`
 - `imf_weo`
 - `cow_mid`
 - `nti`
-- `sipri_arms_transfers`
-- `iaea_safeguards`
 - `iaea_additional_protocol_status`
 - `unoda_treaties`
 - `ctbto_treaty_status`

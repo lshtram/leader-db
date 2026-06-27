@@ -11,14 +11,14 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
 - Strict LLM input/output Pydantic schemas in `src/leaders_db/llm/schemas.py` per requirement §10.
 - The client 2023 source bundle moved into `data/raw/client_existing/` with a `metadata.json`.
 - **20 reviewed Stage 2 adapters wired into `STAGE2_ADAPTERS`**: `vdem`, `world_bank_wdi`, `world_bank_wgi`, `ucdp`, `sipri_milex`, `sipri_yearbook_ch7`, `pts`, `undp_hdi`, `who_gho_api`, `archigos`, `reign`, `cirights`, `transparency_cpi`, `fas`, `bti`, `rsf_press_freedom`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `maddison_project`, `pwt`. The dispatch table is the single registry consumed by `leaders-db ingest-source --source <key>`. PWT 10.01 is the first per-source adapter built on the new shared `SourceAdapter` Protocol (`src/leaders_db/ingest/sources/pwt/`) — see the `pwt` Active blocker entry below for implementation + reviewer follow-up status.
-- Source-adapter development for the highest-priority batch has landed; downstream Stage 3–15 work and the next tranche of Stage 2 adapters are the next milestones: **Freedom House FIW 2026 is now staged locally and implemented under the clean `leaders_db.sources` interface**, Polity V still needs source hygiene, and Leader Survival still needs the Demscore email-gated raw data. PWT is now implemented and wired.
+- Source-adapter development for the highest-priority batch has landed; downstream Stage 3–15 work and the next tranche of Stage 2 adapters are the next milestones: **Freedom House FIW 2026 and Polity V are now staged locally and implemented under the clean `leaders_db.sources` interface**. Polity V uses a runtime-local metadata contract at `data/raw/polity_v/metadata.json` next to `p5v2018.sav`; Leader Survival still needs the Demscore email-gated raw data. PWT is now implemented and wired.
 - **Visualization workplan approved and Increments 1–4 complete/reviewed (2026-06-23):** `docs/viz-workplan.md` tracks the hybrid `leaders_db.viz` semantic layer + Apache Superset dashboard plan. The core abstraction is `viz_country_year_metrics` + `viz_metric_catalog` plus a generic semantic query layer; `viz_regime_year_population` is explicitly a cached example/proof query, not a bespoke-table pattern for every metric. Increment 3 adds generic agent CLI access through `leaders-db viz-metrics` and `leaders-db viz-query`. Increment 4 adds local Superset compose/config plus `leaders-db viz-build-superset-db`, which builds the read-only SQLite analytic artifact mounted into Superset. The next visualization action is Increment 5: secure client access via Cloudflare Tunnel/Access for `viz.chopsworkshop.com`. **Increment 6 landed 2026-06-25 — investigation-slice vertical slice** (`viz-run-investigation-slice`) wires the updated source architecture (PWT + Maddison + WDI through the unified `SourceIngestRunner`) to a constrained `gdp_per_capita` concept extraction, writes a chart-ready CSV + dependency-free HTML+SVG line chart, and refreshes the Superset SQLite artifact when the canonical core CSV is present (skipping the rebuild cleanly when it is absent). The chart groups by `(country_code, source_id, series_label)` and renders one polyline per indicator-or-recipe series with legend labels `"{country_code} \u00b7 {source_slug} \u00b7 {series_label}"`, so values from different sources or same-source indicators for the same country/year are never chained into a single misleading time-series line. See `docs/viz-workplan.md` §Increment 6 and `docs/testing-guide-viz-superset.md` §Investigation-slice smoke check for the run-book.
 
 The prototype has **not yet** implemented the full Stage 3–15 resolution, scoring, validation, and report-generation pipeline. Phase C currently focuses on source acquisition and Stage 2 normalized observations. **First deterministic scorer landed: `social_wellbeing`** — see the Phase D.1 entry below. **Stage 9 narrow single-country read-only seam landed** — see the Phase D.2 entry. The next round focuses on the evidence-bundle contract for the remaining categories, the Stage 3/4 leader resolver, and the per-category scorers that are not yet implemented.
 
 Concrete numbers (as of 2026-06-20):
 
-- Source-bundle coverage on disk: `vdem`, WDI/WGI evidence, SIPRI, PTS, UNDP HDI, WHO GHO (cache), CIRIGHTS, BTI, RSF (24 annual CSVs), **Freedom House FIW 2026** (`data/raw/freedom_house/` with three user-managed/restricted workbooks and a clean-source adapter for the 1973-2026 ratings/statuses workbook; raw database must not be published, derived public results are allowed unless the data itself would become public), Archigos, REIGN, transparency_cpi, fas, wikidata_heads_of_state_government (cache), wikipedia_search_extract (cache), PWT 10.01 (`data/raw/pwt/pwt1001.xlsx` + metadata, **adapter implemented + wired**), and the client bundle. `maddison_project` is implemented and fixture-proven, with the canonical upstream xlsx expected at `data/raw/maddison_project/mpd2023.xlsx` for real production ingestion. The remaining unimplemented/source-interface rows now include: `polity_v` (still blocked on source hygiene) and `leader_survival` (blocked on raw data). `pwt` is implemented and wired.
+- Source-bundle coverage on disk: `vdem`, WDI/WGI evidence, SIPRI, PTS, UNDP HDI, WHO GHO (cache), CIRIGHTS, BTI, RSF (24 annual CSVs), **Freedom House FIW 2026** (`data/raw/freedom_house/` with three user-managed/restricted workbooks and a clean-source adapter for the 1973-2026 ratings/statuses workbook; raw database must not be published, derived public results are allowed unless the data itself would become public), Archigos, REIGN, transparency_cpi, fas, wikidata_heads_of_state_government (cache), wikipedia_search_extract (cache), PWT 10.01 (`data/raw/pwt/pwt1001.xlsx` + metadata, **adapter implemented + wired**), Polity V (`data/raw/polity_v/p5v2018.sav` + user-managed metadata required by readiness, **clean-source adapter implemented**), and the client bundle. `maddison_project` is implemented and fixture-proven, with the canonical upstream xlsx expected at `data/raw/maddison_project/mpd2023.xlsx` for real production ingestion. The remaining unimplemented/source-interface row is `leader_survival` (blocked on raw data). `pwt` is implemented and wired.
 - 0 client 2023 rows ingested into `processed/client_2023_matrix_normalized.csv` (Stage 1 not run).
 - 0 leader-year rows in `ruler_years` (Stage 4 not run).
 - 1 run config in `configs/prototype-2023.yaml` (target year = 2023).
@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration: 31 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, and `wikipedia_search_extract` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 37 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration: 34 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, and `iaea_safeguards` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 39 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -145,7 +145,8 @@ SIPRI Milex, REIGN, Archigos, Freedom House, BTI, WGI, V-Dem,
 Transparency CPI, PTS, RSF, and UNDP HDI. Together with PWT, Maddison Project,
 WDI, WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House,
 Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, WHO GHO
-API, FAS, Wikidata HoS/HoG, and Wikipedia search/extract, the unified source interface now covers
+API, FAS, Wikidata HoS/HoG, Wikipedia search/extract, Polity V, SIPRI Arms
+Transfers, and IAEA Safeguards, the unified source interface now covers
 historical economy, current economy, governance, political regime / repression /
 corruption / social well-being, press freedom, political terror, corruption
 perception, BTI transformation / effectiveness evidence, FIW political rights /
@@ -154,12 +155,12 @@ historical leader-month identity / governance evidence, both nuclear-force
 country-year evidence sources, CIRIGHTS domestic-violence/human-rights
 country-year evidence, UNDP social-wellbeing country-year evidence, WHO GHO API
 health country-year evidence, Wikidata per-binding leader-identity
-evidence, and Wikipedia cached leader-context snippets. **Active next action:**
-project-manager review + reviewer pass for the Wikipedia search/extract clean
-migration, then choose whether to resume the vertical-slice investigation
-through the fully migrated legacy source pipeline or prioritize one of the
-blocked/future source rows. There are no remaining legacy-implemented
-clean-source rows pending in the §7.1 inventory.
+evidence, Wikipedia cached leader-context snippets, and IAEA Safeguards
+legal / status evidence. **Active next action:** choose whether to resume
+the vertical-slice investigation through the fully migrated legacy source
+pipeline or prioritize one of the blocked/future source rows. There are no
+remaining legacy-implemented clean-source rows pending in the §7.1
+inventory.
 
 **Wikidata WikiProject heads-of-state-and-government clean adapter note (2026-06-27):**
 Wikidata HoS/HoG is now migrated under
@@ -287,6 +288,285 @@ does NOT auto-register on import (per
 byte-identical to the new `WIKIPEDIA_SEARCH_EXTRACT_ATTRIBUTION_TEXT`
 and to the `wikipedia_search_extract` row in
 `docs/sources/attributions.md` (Always-On Rule #15).
+
+**Polity V (Polity5 v2018) clean adapter note (2026-06-27):**
+Polity V is now migrated under
+`src/leaders_db/sources/adapters/polity_v/`. Polity V is the
+**first source from the "databases not yet in legacy" list**
+(`docs/architecture/sources.md` §7.2 ``polity_v`` row) rebuilt
+under the clean ``leaders_db.sources`` interface; there was no
+legacy Stage 2 module to reuse -- ``STAGE2_ADAPTERS["polity_v"]``
+was ``None`` per the workplan Done History ("blocked on source
+hygiene / raw file placement"). The unified adapter reads the
+staged ``p5v2018.sav`` directly via ``pyreadstat.read_sav`` (no
+HTTP layer, ``requires_network=False``), validates the canonical
+metadata fields + the per-file SHA-256 + the canonical
+``source_version="p5v2018"``, surfaces a structured
+``YEAR_ABSENT`` warning on ``years=(2023,)`` (Polity V ends in
+2018; no stale-proxy fill per SRC-COV-002 / SRC-COV-003), and
+surfaces a structured ``UNSUPPORTED_FILTER`` warning on
+``leaders=`` (Polity V is country-year political-freedom
+evidence, not leader identity). The 11 catalog indicators
+(``polity_v_polity`` / ``polity_v_polity2`` / ``polity_v_democ``
+/ ``polity_v_autoc`` / ``polity_v_durable`` / ``polity_v_xrreg``
+/ ``polity_v_xrcomp`` / ``polity_v_xropen`` / ``polity_v_xconst``
+/ ``polity_v_parreg`` / ``polity_v_parcomp``) emit under the
+single ``political_freedom_country_year`` observation family.
+The documented special codes ``-66`` / ``-77`` / ``-88`` (foreign
+occupation / interrupted polity / transition per the Polity V
+codebook) are emitted as ``value=None`` /
+``value_type='missing'`` + the verbatim raw cell text on
+``extension.raw_value`` (NOT coerced to numeric); valid negative
+scores on ``polity`` / ``polity2`` (``-10..-1``) ARE preserved
+as numeric observations (real political-freedom observations,
+NOT special codes). The raw ``p5v2018.sav`` carries a small
+number of rows outside the canonical 1800-2018 envelope (1776-1799
+historical backfill + 2019-2020 strays); the unified raw-read
+layer filters to the canonical envelope so the descriptor's
+1800-2018 coverage hint is the authoritative public contract.
+The 27 focused tests in
+``tests/sources/test_polity_v_adapter.py`` cover the descriptor
+/ factory / registry / runner / request-scoping /
+out-of-coverage / readiness-failure / special-code /
+valid-negative / canonical-version-propagation / import-
+boundary / STAGE2_ADAPTERS-no-touch contracts. The legacy
+``STAGE2_ADAPTERS["polity_v"]`` slot remains ``None`` -- the
+new package exposes explicit ``create_polity_v_adapter()`` and
+``register_polity_v(registry)`` factories and does NOT
+auto-register on import (per ``docs/architecture/sources.md``
+§10.1). With Polity V landed, the unified source interface now
+covers historical political-regime / democracy / autocracy
+country-year evidence alongside V-Dem / Freedom House / BTI /
+RSF press sub-signal / PTS domestic-violence evidence. The
+runtime-local ``metadata.json`` is gitignored per Always-On Rule
+#9 -- the canonical bundle is the user-staged
+``data/raw/polity_v/p5v2018.sav`` (1.4 MB / 17574 rows x 37
+columns / SHA-256
+``c0405a807777610a65fe430e4b4828fda16717afc4b5d6e34bf56f1ca100f2f6``).
+The clean adapter accepts the canonical primary metadata shape
+(``source_version`` / ``source_url`` / ``license_note`` /
+``local_files`` / ``checksum_sha256`` / ``ingestion_status`` /
+``coverage`` / ``source_name`` / ``download_date`` / ``notes``)
+and fails readiness with structured ``missing_metadata`` /
+``missing_raw`` / ``unsupported_version`` errors so the runner
+raises ``RuntimeError`` BEFORE ``read_raw`` / ``transform`` --
+this prevents the legacy bundle metadata from being silently
+overridden by a mismatched version stamp.
+
+**SIPRI Arms Transfers clean adapter note (2026-06-27):**
+SIPRI Arms Transfers is the **next feasible
+clean-interface-only source** after ``polity_v``
+(`docs/architecture/sources.md` §7.2 ``sipri_arms_transfers``
+row; second post-interface source with no legacy Stage 2
+implementation). The unified adapter lives at
+`src/leaders_db/sources/adapters/sipri_arms_transfers/` with
+`source_id.slug == "sipri_arms_transfers"` and
+`descriptor.attribution_key == "sipri_arms_transfers"`. The
+canonical Stage 2 access path is a single staged cached
+export (`trade_register.csv` direct CSV OR the canonical
+`trade_register.json` base64-JSON wrapper) from
+`data/raw/sipri_arms_transfers/` plus a runtime-local
+`metadata.json` (gitignored per Always-On Rule #9). The
+unified adapter is **offline / cache-only** in this slice
+(``requires_network=False``, ``source_type="api"``); live
+fetch is intentionally NOT supported -- the task brief
+explicitly cautions against adding a broad network
+downloader because the existing clean-source architecture
+does not expose an explicit safe cache_policy/http-client
+pattern the adapter can mirror. The readiness gate blocks
+``cache_policy='refresh'`` / ``'no_cache'`` with a structured
+``sipri_arms_transfers_unsupported_cache_policy`` error
+BEFORE ``read_raw`` / ``transform`` are called. The cached
+CSV / JSON header is validated against the 8 canonical
+required columns (``Supplier`` / ``Recipient`` /
+``Order year`` / ``Delivery year`` / ``Designation`` /
+``Status`` / ``Numbers delivered`` / ``TIV (delivered)``);
+a missing required column fires a structured
+``SipriArmsTransfersSchemaError`` so the transform layer
+does NOT silently emit partial output on a schema contract
+violation. The unified adapter emits TWO observation
+families: ``arms_transfer_register_row`` (per-transfer, 3
+per-row indicators
+``sipri_arms_transfers_tiv_delivered`` /
+``sipri_arms_transfers_tiv_ordered`` /
+``sipri_arms_transfers_number_delivered``) and
+``arms_transfer_country_year_aggregate`` (deterministic
+per-``(role, country, year)`` sum of TIV delivered over the
+cached bundle; 2 per-aggregate indicators
+``sipri_arms_transfers_supplier_year_tiv_delivered`` and
+``sipri_arms_transfers_recipient_year_tiv_delivered``).
+Non-numeric ``TIV (delivered)`` cells (e.g. ``"n.a."``) are
+emitted as ``value=None`` / ``value_type='missing'`` +
+the verbatim raw cell text on ``extension.raw_value``
+(matches the SIPRI Yearbook Ch.7 / FAS / RSF / PTS
+defensive pattern). Delivery-year range / list cells
+(e.g. ``"2016-2018"``) are parsed as the first 4-digit year
+(``2016``) and the verbatim raw cell text is preserved on
+``extension["sipri_arms_transfers_delivery_year_raw"]``. The
+unified adapter preserves the source-native supplier /
+recipient display names verbatim on every emitted
+observation's ``extension["sipri_arms_transfers_supplier"]``
+/ ``extension["sipri_arms_transfers_recipient"]`` fields
+(SIPRI Trade Register uses SIPRI's own country display
+names, which are NOT ISO3); ``country_code`` /
+``leader_id`` / ``leader_name`` remain ``None`` until later
+matching / resolution stages introduce a canonical ISO3
+mapping. The descriptor advertises 1950-2025 coverage (the
+canonical 2026-03-09 SIPRI update); the readiness envelope
+surfaces a structured ``YEAR_ABSENT`` warning on
+out-of-coverage year requests (e.g. ``years=(2026,)`` --
+one year past the latest SIPRI update) per SRC-COV-002 /
+SRC-COV-003 (no stale-proxy fill); the prototype's target
+year 2023 falls WITHIN the canonical envelope so 2023 is
+in-coverage. **Important caveat:** arms-transfer data is
+evidence of arms flows between recorded supplier /
+recipient countries and is NOT direct proof of aggression,
+proxy sponsorship, or illegality; downstream scorers MUST
+NOT silently treat arms-transfer TIV totals as a proxy for
+aggression / responsibility without an explicit
+secondary-source corroboration step (UCDP external support,
+sanctions records, expert-panel reports, manual evidence)
+-- this is the documented caveat the
+``docs/methodology/ranking-evaluation-criteria.md`` Chapter
+2 proxy-aggression question applies to arms-transfer
+evidence. SIPRI retains copyright; database use must be
+non-commercial and in line with SIPRI fair-use policy;
+commercial use requires licence / permission; attribution
+required. The canonical attribution text
+``"SIPRI Arms Transfers Database (Stockholm International Peace Research Institute 2026)."``
+is byte-identical to the ``sipri_arms_transfers`` row in
+``docs/sources/attributions.md`` (Always-On Rule #15). The
+canonical version stamp
+``"SIPRI Arms Transfers Trade Register 2026-03-09 (data 1950-2025)"``
+propagates consistently to ``RawAsset.version`` and every
+emitted ``NormalizedObservation.source_version``. The legacy
+``STAGE2_ADAPTERS["sipri_arms_transfers"]`` slot remains
+``None`` (no legacy Stage 2 implementation); the new
+package exposes explicit
+``create_sipri_arms_transfers_adapter()`` and
+``register_sipri_arms_transfers(registry)`` factories and
+does NOT auto-register on import (per
+``docs/architecture/sources.md`` §10.1).
+
+**IAEA Safeguards clean adapter note (2026-06-27):**
+IAEA Safeguards Status List is now migrated under
+``src/leaders_db/sources/adapters/iaea_safeguards/``. The
+adapter is the **next feasible clean-interface-only source**
+after ``sipri_arms_transfers``
+(``docs/architecture/sources.md`` §7.2 ``iaea_safeguards``
+row; third post-interface source with no legacy Stage 2
+implementation). Per the task brief the slice is deliberately
+scoped to safeguards **legal / status** evidence only
+(the canonical public IAEA Safeguards Status List PDF at
+``https://www.iaea.org/sites/default/files/20/01/sg-agreements-comprehensive-status.pdf``,
+"Conclusion of Safeguards Agreements, Additional Protocols
+and Small Quantities Protocols", status as of 31 December
+2025) -- NOT per-country safeguards conclusions, NOT
+nuclear-weapons scores, NOT proof of compliance / non-compliance
+by itself. The descriptor's ``coverage_hint.notes`` carries
+the explicit caveat. The unified adapter reads the cached
+status-list PDF plus a runtime-local ``metadata.json``
+(gitignored per Always-On Rule #9) from
+``data/raw/iaea_safeguards/`` via ``pdfplumber`` (table
+extraction path with text-extraction fallback that
+**iterates every page and accumulates rows from every
+page** whose header matches the canonical column set,
+preserving the per-row ``page_number`` provenance so the
+``RawLocator.page_number`` field carries the exact page
+the row originated from). The reader validates the header
+against the 5 canonical required columns
+(``State`` / ``Safeguards Agreement`` / ``INFCIRC`` /
+``Additional Protocol`` / ``Small Quantities Protocol``),
+raises ``IaeaSafeguardsSchemaError`` BEFORE the transform
+layer consumes the frame on a schema contract violation,
+emits ONE observation family
+(``nuclear_safeguards_status_country``) with **4 source-native
+catalog indicators** (one per non-State column in the cached
+PDF table: ``iaea_safeguards_safeguards_agreement_status`` /
+``iaea_safeguards_additional_protocol_status`` /
+``iaea_safeguards_small_quantities_protocol_status`` /
+``iaea_safeguards_infcirc_number`` -- canonical
+``infcirc`` spelling). The catalog deliberately does NOT
+include a separate
+``iaea_safeguards_safeguards_agreement_type`` indicator --
+the canonical IAEA table has a single ``Safeguards
+Agreement`` column carrying the composite status label
+(e.g. ``In Force: 153`` / ``Not in Force: 66`` / ``N/A``),
+NOT a separate type column; the adapter never invents a
+type column from the composite label. The transform
+preserves the source-native state display name verbatim
+(no ISO3 invention) and uses the canonical single-year
+2025 coverage envelope so out-of-coverage year requests
+(e.g. ``years=(2023,)`` -- the prototype's target year)
+emit zero observations plus a structured ``YEAR_ABSENT``
+warning (no stale-proxy fill per SRC-COV-002 / SRC-COV-003).
+The adapter is offline / cache-only in this slice
+(``requires_network=False``); live fetch is intentionally
+NOT supported -- the readiness gate blocks
+``cache_policy="refresh"`` / ``"no_cache"`` with a
+structured ``iaea_safeguards_unsupported_cache_policy``
+error BEFORE ``read_raw`` / ``transform`` are called. The
+focused tests in
+``tests/sources/test_iaea_safeguards_adapter.py`` cover:
+descriptor / factory / registry / public surface (8
+tests); the canonical 4-indicator catalog (3 tests --
+positive catalog match, ``safeguards_agreement_type``
+absence assertion, INFCIRC spelling / constants /
+extension-key contract); the INFCIRC spelling grep-clean
+guard against the production source tree (1 test);
+attribution-text drift guard against
+``docs/sources/attributions.md`` (2 tests); readiness-failure
+matrix (6 readiness-blocker cases + cache-policy gate +
+unsupported-version blocker + unsupported-leaders-filter
+advisory warning); year semantics (out-of-coverage year
+emits zero observations + advisory ``YEAR_ABSENT`` warning;
+in-coverage year emits the full observation set;
+``years=None`` emits the full observation set); country
+filter (single match, no-match, multiple matches,
+source-native display name); runner end-to-end contract
+(full-bundle + scoped requests); observation shape
+(source-native state preserved verbatim + no ISO3
+invention + per-indicator value / value_type + raw_locator
++ transform_locator); the schema-error path
+(``IaeaSafeguardsSchemaError`` for missing required
+columns); the import-boundary contract (no
+``leaders_db.ingest`` leak); the no-network boundary
+(HTTP / socket sentinels never invoked); the
+duplicate-slug ``ValueError`` registration guard
+(SRC-REG-004); and the multi-page PDF + per-row page
+provenance contract (2 tests: runner-level 2-page PDF
+end-to-end test asserting 5 rows x 4 indicators = 20
+observations with correct per-state ``page_number`` locators,
+plus a direct raw-read helper test asserting per-row
+``page_number`` key correctness on the parsed frame).
+The synthetic PDF fixture is built by
+``tests/fixtures/iaea_safeguards/build_sample_pdf.py`` via
+``reportlab`` (5 hand-authored synthetic country rows + 1
+header row; the country labels and cell values are NOT real
+IAEA Safeguards data per the task brief: "fixtures must not
+redistribute IAEA tables"). The canonical attribution text
+``"IAEA Safeguards Status List, Conclusion of Safeguards
+Agreements, Additional Protocols and Small Quantities
+Protocols (International Atomic Energy Agency, status as of
+31 December 2025)."`` is byte-identical to the
+``iaea_safeguards`` row in ``docs/sources/attributions.md``
+(Always-On Rule #15). The canonical version stamp
+``"IAEA Safeguards Status List, status as of 2025-12-31"``
+propagates consistently to ``RawAsset.version`` and every
+emitted ``NormalizedObservation.source_version``. The
+legacy ``STAGE2_ADAPTERS["iaea_safeguards"]`` slot remains
+``None`` (no legacy Stage 2 implementation); the new
+package exposes explicit
+``create_iaea_safeguards_adapter()`` and
+``register_iaea_safeguards(registry)`` factories and does
+NOT auto-register on import (per
+``docs/architecture/sources.md`` §10.1). With IAEA
+Safeguards landed, the unified source interface now covers
+a safeguards legal / status evidence source alongside the
+two nuclear-force evidence sources (SIPRI Yearbook Ch.7 +
+FAS), giving downstream scorers + manual-review code a
+structured snapshot of the legal / treaty-status layer
+beneath the nuclear-arsenal-facts layer.
 
 **Source concept-catalog slice landed (2026-06-24) — semantic indicator
 catalog under `leaders_db.sources.concepts`.** A real-life
@@ -751,7 +1031,7 @@ next migration slice candidates are WGI (priority 4), V-Dem
 
 ### Active blockers
 
-- **`polity_v` — Stage 2 adapter blocked on source hygiene (updated 2026-06-20).** Polity V is ✅ `vetted_ok` in the source-vetting report, and Increment 0 for Country-Year Chronicle observed `data/raw/polity_v/p5v2018.sav` locally. However, there is still **no `data/raw/polity_v/metadata.json`**, and the source remains non-canonical for adapters until metadata captures the source URL, SHA-256 checksum, download date, license note, and `ingestion_status: downloaded`. The `STAGE2_ADAPTERS["polity_v"]` entry stays at `None` until that source-hygiene step is complete.
+- **`polity_v` — clean source adapter implemented (updated 2026-06-27).** Polity V is ✅ `vetted_ok` in the source-vetting report, and `src/leaders_db/sources/adapters/polity_v/` now implements the clean `leaders_db.sources` interface for the local `data/raw/polity_v/p5v2018.sav` bundle. Runtime readiness enforces the user-managed, gitignored `data/raw/polity_v/metadata.json` contract with source URL, SHA-256 checksum, download date, license note, local files, and `ingestion_status: downloaded`; missing or mismatched metadata fails readiness instead of silently ingesting. `STAGE2_ADAPTERS["polity_v"]` remains `None` because this source has no legacy Stage 2 orchestrator; use the clean registry/runner path.
 
 - **`pwt` — Stage 2 adapter implemented + wired (Phase B Increment B + second-pass reviewer follow-up; updated 2026-06-22).** PWT is ✅ `vetted_ok`; the local raw file is `data/raw/pwt/pwt1001.xlsx` (PWT 10.01, `Data` sheet, 1950–2019 rows for 183 country/economy codes) and `data/raw/pwt/metadata.json` records the canonical SHA-256 (`bf2b66c5...`), source URL, CC BY 4.0 license note, local file name, and `ingestion_status: downloaded`. `STAGE2_ADAPTERS["pwt"]` now points at the per-source `ingest_pwt` orchestrator; the new shared `SourceAdapter` Protocol (`src/leaders_db/ingest/sources/pwt/`) is the reference implementation for the per-source package layout. **Remaining PWT-specific reviewer follow-up:** `registry.ingest_source` still requires an explicit `register('pwt', PWTAdapter())` call (the registry is opt-in by design — the CLI uses `STAGE2_ADAPTERS['pwt']` directly, the registry runner is the shared-protocol seam). The implementation honors every request-scoped field end-to-end (raw_root, processed_root, database_url, year/years, country_filter, parquet_path, catalog_path) with full DB assertion coverage (87 focused tests).
 
@@ -1591,10 +1871,11 @@ Per [`docs/sources/vetting/report.md`](sources/vetting/report.md) §8, the build
 4. `archigos`, `reign`, `cirights`, `transparency_cpi`, `fas`, `bti`, `rsf_press_freedom` (Phase C.10 — caveat/user-managed second-batch landed; raw + metadata on disk, indicator catalogs authored, orchestrators shipped, central dispatch wired)
 5. `wikidata_heads_of_state_government`, `wikipedia_search_extract` (Phase C.10 — always-on helpers; thin wrappers over the public API/endpoint; central dispatch wired)
 6. **Complete**: `pwt` (Phase B Increment B + second-pass reviewer follow-up) — shared `SourceAdapter` Protocol + per-source package layout implemented; `STAGE2_ADAPTERS["pwt"]` wired to `ingest_pwt`; honors `years=` / `country_filter=` / request-scoped `raw_root` / `processed_root` / `database_url` end-to-end.
-7. **Next**: `polity_v` once source hygiene is complete, then `leader_survival` once raw data is staged
-8. Optional user-managed: `freedom_house`, `imf_weo` (no code until data is placed locally)
-9. Blocked: `cow_mid`, `cia_world_leaders`, `nti` (no code)
-10. Deferred: (none)
+7. **Complete**: `polity_v` clean `leaders_db.sources` adapter (2026-06-27) — reads the local Polity5 `p5v2018.sav` bundle through `pyreadstat`, enforces runtime metadata/checksum/version readiness, filters to canonical 1800-2018 coverage, and emits political-freedom country-year observations through the clean registry path.
+8. **Next**: `leader_survival` once raw data is staged
+9. Optional user-managed: `freedom_house`, `imf_weo` (no code until data is placed locally)
+10. Blocked: `cow_mid`, `cia_world_leaders`, `nti` (no code)
+11. Deferred: (none)
 
 ### Phase C exit criteria
 

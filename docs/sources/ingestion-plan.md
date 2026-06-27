@@ -462,7 +462,7 @@ Adapter plan:
 
 - Package: `src/leaders_db/ingest/sources/iaea_additional_protocol_status/`.
 - Reader: vetted IAEA status list, likely table/PDF.
-- Catalog candidates: safeguards agreement type, additional protocol signed/in force, small quantities protocol status, status date.
+- Catalog candidates: source-native composite safeguards-agreement status label, additional protocol signed/in force, small quantities protocol status, status date. Do not invent a separate safeguards-agreement type unless a future source-native field provides one.
 - Locator: `iaea_additional_protocol_status:<state>:<status_date>:<field>`.
 - Scoring impact: nuclear responsibility safeguards-restraint group.
 

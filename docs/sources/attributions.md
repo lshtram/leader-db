@@ -190,6 +190,26 @@ Each source below is in active use by the pipeline. The table at the end of this
   > Stockholm International Peace Research Institute. 2024. "World Nuclear Forces." In SIPRI Yearbook 2024: Armaments, Disarmament and International Security. Oxford University Press.
 - **Attribution text in reports:** "SIPRI Yearbook 2024 Ch.7 (Stockholm International Peace Research Institute 2024)."
 
+### `sipri_arms_transfers` — SIPRI Arms Transfers Database (Trade Register)
+
+- **What we extract:** per-transfer records of major conventional arms transfers (supplier, recipient, order year, delivery year(s), designation, weapon category, status, numbers delivered, TIV delivered, TIV ordered, comments) and deterministic per-`(role, country, year)` TIV (Trend Indicator Value) aggregates. The unified adapter is offline / cache-only in this slice and reads a single staged cached export (`trade_register.csv` direct CSV or `trade_register.json` base64-JSON wrapper) from `data/raw/sipri_arms_transfers/` plus a runtime-local `metadata.json` (gitignored per Always-On Rule #9).
+- **What we don't use:** live network fetch is intentionally NOT supported in this slice -- `cache_policy='refresh'` / `'no_cache'` fails readiness with a structured `sipri_arms_transfers_unsupported_cache_policy` error. The adapter also does NOT infer ISO3 country codes; the source-native supplier / recipient display names are preserved verbatim on every emitted observation (SIPRI Arms Transfers uses SIPRI's own country display names, which are not ISO3).
+- **Important caveat:** arms-transfer data is evidence of arms flows between recorded supplier / recipient countries and is NOT direct proof of aggression, proxy sponsorship, or illegality. Downstream scorers MUST NOT silently treat arms-transfer TIV totals as a proxy for aggression / responsibility without an explicit secondary-source corroboration step (UCDP external support, sanctions records, expert-panel reports, manual evidence).
+- **License:** SIPRI retains copyright; database use must be non-commercial and in line with SIPRI fair-use policy; commercial use requires licence / permission; attribution required.
+- **Citation:**
+  > Stockholm International Peace Research Institute. 2026. SIPRI Arms Transfers Database. https://www.sipri.org/databases/armstransfers
+- **Attribution text in reports:** "SIPRI Arms Transfers Database (Stockholm International Peace Research Institute 2026)."
+
+### `iaea_safeguards` — IAEA Safeguards Status List (status as of 31 December 2025)
+
+- **What we extract:** the canonical IAEA Safeguards Status List — "Conclusion of Safeguards Agreements, Additional Protocols and Small Quantities Protocols" (PDF at `https://www.iaea.org/sites/default/files/20/01/sg-agreements-comprehensive-status.pdf`). Per-State evidence on the composite status of a Comprehensive Safeguards Agreement (CSA) cell (e.g. `In Force: 153` / `Not in Force: 66` / `N/A`), the Additional Protocol (AP) status (signed / approved / in force / not in force / not signed), the Small Quantities Protocol (SQP) status (modified / original / not applicable / not in force), and the INFCIRC document identifier. The clean adapter emits one observation per cached country row + indicator (4 source-native catalog indicators per row, one per non-State column in the cached PDF table). The catalog deliberately does NOT include a separate `iaea_safeguards_safeguards_agreement_type` indicator — the canonical IAEA table has a single `Safeguards Agreement` column carrying the composite status label, NOT a separate type column; the adapter never invents a type column from the composite label. The raw-read boundary iterates every PDF page and accumulates rows from every page whose header matches the canonical column set, preserving `page_number` per row so the `RawLocator.page_number` field carries the exact page the row originated from. The source is offline / cache-only in this slice; it reads a single cached status-list PDF plus a runtime-local `metadata.json` (gitignored per Always-On Rule #9) from `data/raw/iaea_safeguards/`. Live fetch is intentionally NOT supported — `cache_policy='refresh'` / `'no_cache'` fails readiness with a structured `iaea_safeguards_unsupported_cache_policy` error.
+- **What we don't use:** the per-country "conclusions" of safeguards (the formal IAEA State-level conclusions document) — this slice only covers the status list (agreement presence / type / protocol status); downstream code that needs conclusions-level evidence must wait for a future adapter. Per-country inferences about compliance or non-compliance are NOT made by the adapter; the status list is a legal / treaty-status observation, NOT direct proof of compliance / non-compliance. The adapter also does NOT infer ISO3 country codes (the status list uses IAEA's own State display names, which are not ISO3); `country_code` remains `None` until later matching / resolution stages introduce a canonical ISO3 mapping. The pipeline does NOT redistribute the full PDF / table in public outputs.
+- **Important caveat:** this source captures safeguards / legal / status evidence and is NOT a direct nuclear-weapons score or proof of safeguards compliance / non-compliance by itself. Downstream scorers MUST NOT silently treat a `Not in Force` AP cell as proof of non-cooperation; the descriptor's `coverage_hint.notes` carries the explicit caveat and the Stage 11 confidence formula penalises the temporal-fit gap between the cached status date (2025-12-31) and the prototype's target year (2023). The status list is a single-point legal snapshot; the descriptor advertises a single-year 2025 envelope so out-of-coverage year requests (e.g. `years=(2023,)`) emit zero observations plus a structured `YEAR_ABSENT` warning (no stale-proxy fill).
+- **License:** IAEA permits download / copy / use of its published material with acknowledgement for research / private study / commercial / non-commercial use subject to restrictions; do not redistribute the full PDF / table in outputs; cite the IAEA + the canonical URL.
+- **Citation:**
+  > International Atomic Energy Agency. 2025. *Status List: Conclusion of Safeguards Agreements, Additional Protocols and Small Quantities Protocols* (status as of 31 December 2025). Vienna: IAEA. https://www.iaea.org/sites/default/files/20/01/sg-agreements-comprehensive-status.pdf
+- **Attribution text in reports:** "IAEA Safeguards Status List, Conclusion of Safeguards Agreements, Additional Protocols and Small Quantities Protocols (International Atomic Energy Agency, status as of 31 December 2025)."
+
 ### `rsf_press_freedom` — Reporters Without Borders World Press Freedom Index, 2002–2026
 
 - **What we extract:** annual country/territory press-freedom score, rank, and country labels. For 2022+ editions, also extract component context scores/ranks (political, economic, legal, social/sociocultural, and safety/security) where needed by the indicator catalog. Feeds political freedom as a **press/media-freedom sub-signal**.
@@ -256,6 +276,8 @@ Each source below is in active use by the pipeline. The table at the end of this
 | `transparency_cpi` | corruption perceptions | 1995–2023 | free, non-commercial | "Transparency International CPI 2023." |
 | `sipri_milex` | military expenditure | 1949–2025 | free | "SIPRI milex (Stockholm International Peace Research Institute 2026)." |
 | `sipri_yearbook_ch7` | nuclear arsenal facts | annual | free | "SIPRI Yearbook 2024 Ch.7 (Stockholm International Peace Research Institute 2024)." |
+| `sipri_arms_transfers` | arms transfers (supplier / recipient / TIV) | 1950–2025 | SIPRI copyright; non-commercial; attribution required | "SIPRI Arms Transfers Database (Stockholm International Peace Research Institute 2026)." |
+| `iaea_safeguards` | safeguards / legal / status observations (CSA composite status, AP / SQP status, INFCIRC) | single-point snapshot (2025-12-31) | IAEA; download / copy / use with acknowledgement; no redistribution of full PDF / table | "IAEA Safeguards Status List, Conclusion of Safeguards Agreements, Additional Protocols and Small Quantities Protocols (International Atomic Energy Agency, status as of 31 December 2025)." |
 | `pts` | political terror | 1976–2025 | free academic | "Political Terror Scale (Wood, Gibney, et al.)." |
 | `cirights` | physical-integrity rights, repression, civil/political rights | 1981–2022 | free academic, user-managed | "CIRI Human Rights Data Project v3.12.10.24 (Cingranelli, Richards, and Crepaz 2024)." |
 | `fas` | nuclear arsenal facts (cross-check) | ongoing | free | "FAS Nuclear Notebook (Federation of American Scientists)." |
@@ -470,6 +492,15 @@ RSF World Press Freedom Index (Reporters Without Borders 2026).
   Reporters Without Borders. 2026. World Press Freedom Index.
   Paris: Reporters Without Borders / Reporters sans frontières.
   https://rsf.org/en/index
+
+IAEA Safeguards Status List, Conclusion of Safeguards Agreements,
+Additional Protocols and Small Quantities Protocols
+(International Atomic Energy Agency, status as of 31 December 2025).
+  International Atomic Energy Agency. 2025. Status List:
+  Conclusion of Safeguards Agreements, Additional Protocols and
+  Small Quantities Protocols (status as of 31 December 2025).
+  Vienna: IAEA. https://www.iaea.org/sites/default/files/20/01/
+  sg-agreements-comprehensive-status.pdf
 
 Wikidata (CC0 1.0).
   Wikidata contributors. Wikidata: WikiProject Heads of state and

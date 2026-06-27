@@ -228,6 +228,9 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.fas",
         "leaders_db.sources.adapters.wikidata_heads_of_state_government",
         "leaders_db.sources.adapters.wikipedia_search_extract",
+        "leaders_db.sources.adapters.polity_v",
+        "leaders_db.sources.adapters.sipri_arms_transfers",
+        "leaders_db.sources.adapters.iaea_safeguards",
     )
     _purge_source_boundary_modules()
     try:

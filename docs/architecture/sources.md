@@ -560,13 +560,13 @@ All listed sources should eventually be represented under the new interface.
 
 | Source slug | Current status | New-interface notes |
 |---|---|---|
-| `polity_v` | raw file observed locally, metadata incomplete | first post-interface source after docs/stubs if source hygiene is completed |
+| `polity_v` | implemented (2026-06-27) | first post-interface source from "databases not yet in legacy"; lives at `src/leaders_db/sources/adapters/polity_v/`; reads `p5v2018.sav` via `pyreadstat.read_sav`; canonical 1800-2018 coverage hint; single `political_freedom_country_year` family; documented special codes -66 / -77 / -88 are NOT coerced to numeric; runtime-local `metadata.json` is gitignored per Always-On Rule #9 (see §7.18 entry for the migration notes) |
 | `leader_survival` | blocked on Demscore manual gate | manual-gated source readiness proof |
 | `imf_weo` | blocked by access challenge | user-managed or future manual/API path |
 | `cow_mid` | blocked/deferred | conflict source if raw access is resolved |
 | `nti` | blocked/user-managed | nuclear/manual document source |
-| `sipri_arms_transfers` | future | arms-transfer / proxy-war evidence |
-| `iaea_safeguards` | future | nuclear safeguards evidence |
+| `sipri_arms_transfers` | implemented (2026-06-27) | offline / cache-only arms-transfer register + per-`(role, country, year)` aggregates; no live fetch in this slice |
+| `iaea_safeguards` | implemented (2026-06-27) | nuclear safeguards legal / status evidence; offline / cache-only; see §7.20 detailed note |
 | `iaea_additional_protocol_status` | future | nuclear treaty/status evidence |
 | `unoda_treaties` | future | treaty posture evidence |
 | `ctbto_treaty_status` | future | nuclear-test-ban status evidence |
@@ -1382,6 +1382,605 @@ HTTP layer is intentionally NEVER invoked by the unified read path
 (verified by
 `test_runner_does_not_invoke_http_layer` which monkeypatches the
 legacy HTTP helper to raise `AssertionError` if invoked).
+
+### 7.18 Polity V / Polity5 v2018 (clean migration, first "databases not yet in legacy")
+
+Polity V is the **first source from the "databases not yet in
+legacy" list** (the prior §7.1 list of 20 legacy-implemented
+sources plus the §7.6-§7.17 series of clean migrations)
+rebuilt under the clean `leaders_db.sources` interface. There
+is **no legacy Stage 2 module to reuse** --
+`STAGE2_ADAPTERS["polity_v"]` is `None` per the workplan Done
+History ("blocked on source hygiene / raw file placement") --
+so the unified adapter uses `pyreadstat.read_sav` directly
+(lazy-imported inside the raw-read function) and emits the
+canonical `NormalizedObservation` records end-to-end through
+the new registry.
+
+The unified Polity V adapter lives at
+`src/leaders_db/sources/adapters/polity_v/` with
+`source_id.slug == "polity_v"` and
+`descriptor.attribution_key == "polity_v"`.
+
+**Source-specific SPSS / pyreadstat contract.**
+
+Polity V is the **first SPSS `.sav` source** under the clean
+interface. The unified adapter's `read_raw` opens the staged
+`p5v2018.sav` via `pyreadstat.read_sav` (1.4 MB / 17574 rows /
+37 columns / SHA-256
+`c0405a807777610a65fe430e4b4828fda16717afc4b5d6e34bf56f1ca100f2f6`),
+filters the wide frame to the canonical 1800-2018 envelope
+(dropping the historical 1776-1799 backfill + the 2019-2020
+stray rows) so the descriptor's coverage hint is the
+authoritative public contract, and emits a `RawReadResult`
+carrying the filtered frame plus a `RawAsset` record (path,
+SHA-256, source URL). The reader validates the staged
+`metadata.json` + the per-file SHA-256 + the canonical
+`source_version="p5v2018"` BEFORE opening the SPSS file; every
+blocker surfaces a structured `SourceWarning(severity="error")`
+so the runner raises `RuntimeError` BEFORE `read_raw` /
+`transform` (per the documented readiness contract).
+
+**Source-specific special-code matrix.**
+
+Polity V component cells carry documented special codes
+(`-66` / `-77` / `-88`) PLUS the canonical valid range
+(`-10..+10` for `polity` / `polity2`; `0..+N` for sub-components).
+The unified transform applies the documented coercion matrix:
+
+- Valid int (in the indicator-specific valid range) -> emit
+  `value=<int>` / `value_type='numeric'`. Valid negative scores
+  (`-10..-1`) on `polity` / `polity2` ARE preserved as numeric
+  observations -- they are real political-freedom data, NOT
+  special codes.
+- Special code (`-66` / `-77` / `-88`) -> emit
+  `value=None` / `value_type='missing'` + the verbatim raw cell
+  text on `extension.raw_value`. The observation is NOT
+  dropped; the analyst can see the upstream gap without losing
+  the observation id / locator (matches the PTS / RSF / FAS
+  defensive pattern).
+- NaN / blank / non-numeric / out-of-range -> emit
+  `value=None` / `value_type='missing'` + the verbatim raw cell
+  text on `extension.raw_value`.
+
+**Source-specific coverage filter.**
+
+Polity V covers 1800-2018 per the canonical attribution block
+in `docs/sources/attributions.md` § `polity_v`. The unified
+transform's raw-read layer filters to the canonical envelope so
+the descriptor's coverage hint is authoritative; the readiness
+envelope surfaces a structured `YEAR_ABSENT` warning on
+out-of-coverage year requests (e.g. `years=(2023,)` for the
+prototype's target year -- Polity V ends in 2018) per
+SRC-COV-002 / SRC-COV-003 (no stale-proxy fill).
+
+**Source-specific leader-filter semantics.**
+
+Polity V is country-year political-freedom evidence, NOT
+leader-identity evidence. The readiness envelope surfaces a
+structured `UNSUPPORTED_FILTER` warning on `leaders=`
+(SRC-REQ-005) -- the runner ignores the filter and still emits
+the cached rows; the unified adapter never invents leader
+values.
+
+**Source-specific canonical catalog.**
+
+The 11 catalog indicators all emit under the single
+`political_freedom_country_year` observation family:
+
+- `polity_v_polity` (composite regime score)
+- `polity_v_polity2` (revised regime score)
+- `polity_v_democ` (democracy sub-component)
+- `polity_v_autoc` (autocracy sub-component)
+- `polity_v_durable` (regime durability years)
+- `polity_v_xrreg` / `polity_v_xrcomp` / `polity_v_xropen`
+  (executive recruitment indicators)
+- `polity_v_xconst` (executive constraints)
+- `polity_v_parreg` / `polity_v_parcomp` (participatory
+  indicators)
+
+The descriptor advertises the single observation family so
+downstream query code can filter by
+`observation_family == "political_freedom_country_year"`
+without consulting the per-source catalog.
+
+**Runtime hygiene.**
+
+The runtime-local `data/raw/polity_v/metadata.json` is
+gitignored per Always-On Rule #9 -- the canonical bundle is
+the user-staged `p5v2018.sav`; metadata is a runtime-local
+requirement beside the user-staged raw `.sav` (matches the
+CIRIGHTS / SIPRI Milex / SIPRI Yearbook Ch.7 pattern). The
+readiness gate accepts the canonical primary metadata shape
+(`source_version` / `source_url` / `license_note` /
+`local_files` / `checksum_sha256` / `ingestion_status` /
+`coverage` / `source_name` / `download_date` / `notes`) and
+fails readiness with structured `missing_metadata` /
+`missing_raw` / `unsupported_version` errors so the runner
+refuses to dispatch `read_raw` / `transform`.
+
+The legacy `STAGE2_ADAPTERS["polity_v"]` slot remains `None`
+(the unified adapter does NOT add a legacy orchestrator
+because Polity V was the first "databases not yet in legacy"
+entry per the §7.2 row update). The new package exposes
+explicit `create_polity_v_adapter()` and
+`register_polity_v(registry)` factories and does NOT
+auto-register on import (per `docs/architecture/sources.md`
+§10.1). The unified attribution text
+ `"Polity V (Marshall, Jaggers, Gleditsch 2018)."` is
+ byte-identical to the `polity_v` row in
+ `docs/sources/attributions.md` (Always-On Rule #15; the
+ `test_polity_v_attribution_text_matches_attributions_doc`
+ drift guard enforces byte-identity).
+
+### 7.19 SIPRI Arms Transfers Database (clean migration, cache-only)
+
+`sipri_arms_transfers` is the **next feasible
+clean-interface-only source** after ``polity_v``
+(`docs/architecture/sources.md` §7.2 ``sipri_arms_transfers``
+row; second post-interface source with no legacy Stage 2
+implementation). There is **no legacy Stage 2 module to
+reuse** -- ``STAGE2_ADAPTERS["sipri_arms_transfers"]`` is
+``None`` per the workplan Done History ("blocked on source
+hygiene / raw file placement") -- so the unified adapter is
+built from scratch.
+
+The unified SIPRI Arms Transfers adapter lives at
+`src/leaders_db/sources/adapters/sipri_arms_transfers/` with
+`source_id.slug == "sipri_arms_transfers"` and
+`descriptor.attribution_key == "sipri_arms_transfers"`.
+
+**Source-specific cache-only contract.**
+
+The SIPRI Arms Transfers Database is SIPRI's public record of
+international transfers of major conventional arms (1950-2025
+per the canonical 2026-03-09 SIPRI update). The unified
+adapter in this slice is **offline / cache-only** -- the task
+brief explicitly cautions against adding a broad network
+downloader because "the existing clean-source architecture
+[does] not expose an explicit safe cache_policy/http-client
+pattern [the adapter] can mirror". The canonical Stage 2
+access path is a single staged cached export from
+`data/raw/sipri_arms_transfers/`:
+
+1. **Direct CSV** -- the canonical `trade_register.csv` file.
+2. **Base64-JSON wrapper** -- the canonical `trade_register.json`
+   file containing base64-encoded CSV bytes (the canonical
+   shape the SIPRI public app's backend API
+   `https://atbackend.sipri.org/api/p/trades/trade-register-csv/`
+   returns).
+
+The unified adapter never invokes the network; live fetch is
+intentionally NOT supported in this slice. The
+`cache_policy='refresh'` / `'no_cache'` policies fail
+readiness with a structured
+`sipri_arms_transfers_unsupported_cache_policy` error
+BEFORE `read_raw` / `transform` are called -- the runner
+refuses to dispatch rather than silently surfacing an
+HTTP-fetched payload.
+
+**Source-specific schema contract.**
+
+The cached CSV / JSON export carries 8 documented required
+columns (`Supplier` / `Recipient` / `Order year` /
+`Delivery year` / `Designation` / `Status` /
+`Numbers delivered` / `TIV (delivered)`). The raw-read layer
+validates the parsed header against this set BEFORE the
+transform layer consumes the frame; a missing required column
+fires a structured `SipriArmsTransfersSchemaError` carrying
+the missing-columns / expected-columns / actual-columns
+context so the transform layer does NOT silently emit
+partial output on a schema contract violation. SIPRI
+preamble / citation lines (the lines that precede the
+documented header row in the canonical SIPRI Trade Register
+export) are split out and preserved on the audit-trail
+`extension["sipri_arms_transfers_preamble"]` field on every
+emitted observation so downstream code can recover the
+verbatim SIPRI citation block per Always-On Rule #15.
+
+**Source-specific observation families.**
+
+The unified adapter emits TWO observation families so
+downstream query code can filter by family without
+consulting the per-source catalog:
+
+1. `arms_transfer_register_row` -- one observation per cached
+   transfer row, per indicator. The 3 per-row indicator
+   codes are `sipri_arms_transfers_tiv_delivered` /
+   `sipri_arms_transfers_tiv_ordered` /
+   `sipri_arms_transfers_number_delivered`. Rows with
+   missing / blank / non-numeric TIV or number cells are
+   emitted with `value=None` / `value_type="missing"` plus
+   the verbatim raw cell text on `extension.raw_value` --
+   the observation is NOT dropped (matches the SIPRI
+   Yearbook Ch.7 / FAS / RSF / PTS defensive pattern).
+
+2. `arms_transfer_country_year_aggregate` -- one
+   observation per `(role, country, year)` triple where
+   `role` is `"supplier"` or `"recipient"`. The aggregate
+   is the deterministic sum of TIV (delivered) over all
+   transfers in the cached bundle where the country appears
+   as supplier (resp. recipient) and the delivery year
+   matches the year. The per-`(role, country, year)` scope
+   key keeps supplier-side and recipient-side aggregates
+   separate (no double-counting when the same country
+   appears as both supplier and recipient in the same
+   year). The 2 per-aggregate indicator codes are
+   `sipri_arms_transfers_supplier_year_tiv_delivered` and
+   `sipri_arms_transfers_recipient_year_tiv_delivered`.
+
+**Source-specific coverage envelope + year semantics.**
+
+The SIPRI Arms Transfers Database covers 1950-2025 per the
+canonical attribution block in
+`docs/sources/attributions.md` § `sipri_arms_transfers`. The
+descriptor advertises the canonical envelope; the readiness
+envelope surfaces a structured `YEAR_ABSENT` warning on
+out-of-coverage year requests (e.g. `years=(2026,)` -- one
+year past the latest SIPRI update) per SRC-COV-002 /
+SRC-COV-003 (no stale-proxy fill). The prototype's target
+year 2023 falls WITHIN the canonical envelope (1950-2025)
+so 2023 is in-coverage.
+
+**Source-specific leader-filter semantics.**
+
+SIPRI Arms Transfers is a supplier-recipient flow source,
+not leader-identity evidence. The readiness envelope surfaces
+a structured `UNSUPPORTED_FILTER` warning on `leaders=`
+(SRC-REQ-005) -- the runner ignores the filter and still
+emits the in-coverage rows; the unified adapter never invents
+leader values.
+
+**Source-specific ISO3 caveat.**
+
+The SIPRI Trade Register uses SIPRI's own country display
+names, which are NOT ISO3. The unified adapter preserves the
+source-native supplier / recipient display names verbatim on
+every emitted observation's
+`extension["sipri_arms_transfers_supplier"]` /
+`extension["sipri_arms_transfers_recipient"]` fields. The
+adapter does NOT invent ISO3 codes; `country_code` /
+`leader_id` / `leader_name` remain `None` until later
+matching / resolution stages introduce a canonical ISO3
+mapping.
+
+**Source-specific attribution caveat.**
+
+The descriptor's `coverage_hint.notes` carries the explicit
+SIPRI Arms Transfers caveat: arms-transfer data is evidence
+of arms flows between recorded supplier / recipient countries
+and is NOT direct proof of aggression, proxy sponsorship, or
+illegality. Downstream scorers MUST NOT silently treat
+arms-transfer TIV totals as a proxy for aggression /
+responsibility without an explicit secondary-source
+corroboration step (UCDP external support, sanctions
+records, expert-panel reports, manual evidence). This is
+the documented caveat the
+`docs/methodology/ranking-evaluation-criteria.md` Chapter 2
+proxy-aggression question applies to arms-transfer evidence.
+
+**Runtime hygiene.**
+
+The runtime-local `data/raw/sipri_arms_transfers/metadata.json`
+is gitignored per Always-On Rule #9. The readiness gate
+validates the canonical metadata fields (source_name /
+source_version / source_url / license_note / coverage /
+local_files / ingestion_status / checksum_sha256 /
+download_date / notes) plus the per-file SHA-256 when
+supplied (the gate accepts BOTH the canonical flat-string
+shape `checksum_sha256 = "<64-hex>"` AND the per-file dict
+shape `checksum_sha256 = {"trade_register.csv":
+"<64-hex>"}` -- matching the SIPRI Milex / SIPRI Yearbook
+Ch.7 / CIRIGHTS convention). Missing or mismatched metadata
+fails readiness with structured `missing_metadata` /
+`missing_raw` / `sipri_arms_transfers_metadata_version_mismatch`
+/ `sipri_arms_transfers_checksum_mismatch` errors so the
+runner refuses to dispatch `read_raw` / `transform`. The
+canonical version stamp is
+`"SIPRI Arms Transfers Trade Register 2026-03-09 (data 1950-2025)"`.
+
+The legacy `STAGE2_ADAPTERS["sipri_arms_transfers"]` slot
+remains `None` (the unified adapter does NOT add a legacy
+orchestrator). The new package exposes explicit
+`create_sipri_arms_transfers_adapter()` and
+`register_sipri_arms_transfers(registry)` factories and
+does NOT auto-register on import (per
+`docs/architecture/sources.md` §10.1). The unified
+attribution text
+`"SIPRI Arms Transfers Database (Stockholm International Peace Research Institute 2026)."`
+is byte-identical to the `sipri_arms_transfers` row in
+`docs/sources/attributions.md` (Always-On Rule #15; the
+`test_sipri_arms_transfers_attribution_text_matches_attributions_doc`
+drift guard enforces byte-identity).
+
+The 39 focused tests in
+`tests/sources/test_sipri_arms_transfers_adapter.py` cover
+the SIPRI-specific slice of the unified-source adapter
+contract:
+
+- Descriptor / factory / registry surface
+  (``test_descriptor_factory_and_registry``,
+  ``test_register_helper_registers_against_explicit_registry``,
+  ``test_indicator_codes_match_canonical_5``,
+  ``test_required_columns_match_canonical_8``,
+  ``test_attribution_text_matches_attributions_doc``,
+  ``test_attribution_key_matches_attributions_doc``).
+- ``SourceIngestRunner`` end-to-end on the direct-CSV
+  cached shape
+  (``test_runner_emits_register_and_aggregate_observations``,
+  ``test_runner_emits_register_row_for_each_indicator``,
+  ``test_runner_emits_aggregate_observations_for_in_coverage_year``,
+  ``test_runner_aggregate_math_is_deterministic``,
+  ``test_runner_non_numeric_tiv_emits_missing_with_raw_value``,
+  ``test_runner_delivery_year_range_parses_first_year``,
+  ``test_runner_preserves_preamble_on_extension``,
+  ``test_runner_years_none_reads_all_fixture_rows``,
+  ``test_runner_countries_filter_applies_to_supplier_or_recipient``,
+  ``test_runner_does_not_invent_iso3_codes``,
+  ``test_runner_observation_ids_are_unique``,
+  ``test_runner_extension_carries_canonical_attribution``,
+  ``test_runner_source_version_propagates_to_observations``,
+  ``test_runner_transform_locator_rule_id_matches_source_row_reference``).
+- ``SourceIngestRunner`` end-to-end on the base64-JSON
+  cached shape
+  (``test_runner_reads_base64_json_cached_shape``,
+  ``test_base64_json_envelope_decode_handles_alternative_keys``).
+- SIPRI-specific year-scoping semantics
+  (``test_runner_out_of_coverage_year_warns_and_emits_zero``)
+  plus the new
+  ``test_years_filter_emits_no_delivery_year_2020_from_order_year_2018``
+  which proves a ``years=(2018,)`` request emits no
+  ``year=2020`` observations / aggregates from an
+  order-2018 / delivery-2020 record.
+- SIPRI-specific leader-filter warning
+  (``test_runner_leader_filter_warns_but_is_ignored``).
+- ``STAGE2_ADAPTERS``-no-touch dispatch contract
+  (``test_runner_does_not_consult_legacy_stage2_adapters``).
+- Readiness failures (parametrised)
+  (``test_correct_bundle_passes_readiness``,
+  ``test_unsupported_request_version_fails_readiness``,
+  ``test_unsupported_cache_policy_fails_readiness``,
+  ``test_checksum_mismatch_fails_readiness``,
+  ``test_readiness_failures``,
+  ``test_missing_required_csv_column_fails_readiness``,
+  ``test_preamble_only_cached_export_emits_warning``).
+- Import boundary + network boundary
+  (``test_importing_adapter_does_not_import_legacy_ingest``,
+  ``test_adapter_does_not_use_network``).
+- Preamble-detection robustness against punctuation-
+  containing preamble lines (commas, semicolons, quotes)
+  for BOTH the direct-CSV and base64-JSON cached shapes
+  (``test_raw_read_handles_punctuation_preamble_csv``,
+  ``test_raw_read_handles_punctuation_preamble_base64_json``).
+- ``RawAsset.checksum_sha256`` population for BOTH cached
+  shapes
+  (``test_raw_asset_checksum_populated_csv``,
+  ``test_raw_asset_checksum_populated_base64_json``).
+- ``SourceAdapter`` Protocol conformance
+  (``test_adapter_satisfies_source_adapter_protocol``).
+
+The ``tests/sources/test_import_boundary.py`` canonical
+submodule list now includes
+`leaders_db.sources.adapters.sipri_arms_transfers`.
+
+### 7.20 IAEA Safeguards Status List (clean migration, offline / cache-only)
+
+`iaea_safeguards` is the **next feasible
+clean-interface-only source** after ``sipri_arms_transfers``
+(`docs/architecture/sources.md` §7.2 ``iaea_safeguards`` row;
+third post-interface source with no legacy Stage 2
+implementation). There is **no legacy Stage 2 module to
+reuse** -- ``STAGE2_ADAPTERS["iaea_safeguards"]`` remains
+``None`` per the workplan Done History ("need / future" before
+this slice) -- so the unified adapter is built from scratch.
+
+The unified IAEA Safeguards adapter lives at
+`src/leaders_db/sources/adapters/iaea_safeguards/` with
+`source_id.slug == "iaea_safeguards"` and
+`descriptor.attribution_key == "iaea_safeguards"`.
+
+**Source-specific scope: legal / status evidence only.**
+
+The task brief scoped this slice deliberately to the public
+IAEA Safeguards Status List PDF
+(`https://www.iaea.org/sites/default/files/20/01/sg-agreements-comprehensive-status.pdf`,
+"Conclusion of Safeguards Agreements, Additional Protocols and
+Small Quantities Protocols", status as of 31 December 2025).
+This is a **single-point legal / status snapshot** covering
+~190 States: the source-native composite `Safeguards Agreement`
+status label for a Comprehensive Safeguards Agreement (CSA),
+the status of an Additional Protocol
+(AP) signed / approved / in force / not in force / not signed,
+the status of a Small Quantities Protocol (SQP) modified /
+original / not applicable / not in force, and the INFCIRC
+document identifier. The slice does NOT cover the per-country
+"conclusions" of safeguards (the formal IAEA State-level
+conclusions document); downstream code that needs
+conclusions-level evidence must wait for a future adapter
+(``iaea_additional_protocol_status`` in §7.2 is a subset /
+family of this same source -- NOT a separate adapter).
+
+**Source-specific cache-only contract.**
+
+The IAEA Safeguards Status List is published as a public PDF
+that the IAEA permits download / copy / use with acknowledgement
+for research / private study / commercial / non-commercial use
+subject to restrictions; do not redistribute the full PDF /
+table in outputs. The unified adapter is **offline /
+cache-only** in this slice -- the task brief explicitly cautions
+against adding a broad network downloader because the existing
+clean-source architecture does not expose a dedicated safe
+``cache_policy`` / http-client pattern for IAEA Safeguards.
+Live fetch is intentionally NOT supported; the
+``cache_policy='refresh'`` / ``'no_cache'`` policies fail
+readiness with a structured
+``iaea_safeguards_unsupported_cache_policy`` error BEFORE
+``read_raw`` / ``transform`` are called -- the runner refuses
+to dispatch rather than silently surfacing an HTTP-fetched
+payload. The canonical Stage 2 access path is a single staged
+cached PDF at
+`data/raw/iaea_safeguards/sg-agreements-comprehensive-status.pdf`
+plus a runtime-local `metadata.json` (gitignored per
+Always-On Rule #9).
+
+**Source-specific schema contract.**
+
+The cached status-list PDF carries 5 documented required
+columns: `State` / `Safeguards Agreement` / `INFCIRC` /
+`Additional Protocol` / `Small Quantities Protocol`. The
+raw-read layer (via `pdfplumber`) tries the
+`extract_tables()` path first then falls back to text
+extraction, validates the parsed header against the 5 canonical
+required columns, and raises `IaeaSafeguardsSchemaError` BEFORE
+the transform layer consumes the frame; the transform layer
+does NOT silently emit partial output on a schema contract
+violation.
+
+**Source-specific observation families.**
+
+The unified adapter emits ONE observation family
+(`nuclear_safeguards_status_country`) with 4 source-native
+catalog indicators (one per non-State column in the cached
+PDF table):
+
+- `iaea_safeguards_safeguards_agreement_status` -- the
+  composite CSA status cell (verbatim source-native label
+  preserved on
+  `extension["iaea_safeguards_safeguards_agreement_status_raw"]`).
+- `iaea_safeguards_additional_protocol_status` -- the AP
+  status cell (verbatim source-native label preserved on
+  `extension["iaea_safeguards_additional_protocol_status_raw"]`).
+- `iaea_safeguards_small_quantities_protocol_status` -- the
+  SQP status cell (verbatim source-native label preserved on
+  `extension["iaea_safeguards_small_quantities_protocol_status_raw"]`).
+- `iaea_safeguards_infcirc_number` -- the INFCIRC document
+  identifier (text; verbatim source-native identifier
+  preserved on `extension["iaea_safeguards_infcirc_raw"]`).
+
+The catalog deliberately does NOT include a separate
+`iaea_safeguards_safeguards_agreement_type` indicator: the
+canonical IAEA table has a single `Safeguards Agreement`
+column carrying the composite status label (e.g.
+`In Force: 153` / `Not in Force: 66` / `N/A`), NOT a separate
+type column; the adapter never invents a type column from
+the composite label.
+
+Per-row emission produces up to 4 observations per cached
+country row (5 rows x 4 indicators = 20 observations for a full
+5-row fixture). Empty cells (e.g. blank INFCIRC for non-States)
+emit `value=None` / `value_type="missing"` plus the verbatim
+raw cell text on `extension.raw_value` so audit code can
+recover the original cell.
+
+**Source-specific multi-page PDF semantics.**
+
+The raw-read boundary iterates every PDF page and accumulates
+rows from every page whose header matches the canonical column
+set; the reader does NOT stop at the first matching page. Each
+parsed row carries a 1-based `page_number` key so the
+transform layer can populate `RawLocator.page_number` with
+the exact page the row originated from. Multi-page PDFs
+(typical for the ~190 country rows of the public IAEA
+Safeguards Status List) paginate rows across pages; the
+per-row page provenance is preserved verbatim on every
+emitted observation's `RawLocator.page_number` field.
+
+**Source-specific coverage envelope + year semantics.**
+
+The IAEA Safeguards Status List is a single-point legal /
+status snapshot (the canonical probed stamp is "status as of
+31 December 2025"). The descriptor advertises a single-year
+envelope (`start_year == end_year == 2025`); the readiness
+envelope surfaces a structured `YEAR_ABSENT` warning on
+out-of-coverage year requests (e.g. `years=(2023,)` -- the
+prototype's target year -- falls outside the envelope) per
+SRC-COV-002 / SRC-COV-003 (no stale-proxy fill). The
+prototype's target year 2023 falls OUTSIDE the canonical
+envelope; the transform emits zero observations for that year
+(no stale-proxy to 2025). The descriptor's `coverage_hint.notes`
+explicitly tells operators that the snapshot is a single
+legal observation, not a multi-year time series.
+
+**Source-specific leader-filter semantics.**
+
+The IAEA Safeguards Status List is a country-level legal /
+status snapshot, NOT leader-identity evidence. The readiness
+envelope surfaces a structured `UNSUPPORTED_FILTER` warning on
+`leaders=` (SRC-REQ-005) -- the runner ignores the filter and
+still emits the cached rows; the unified adapter never invents
+leader values.
+
+**Source-specific ISO3 caveat.**
+
+The IAEA Safeguards Status List uses IAEA's own State display
+names, which are NOT ISO3. The unified adapter preserves the
+source-native state display name verbatim on every emitted
+observation's `extension["iaea_safeguards_state"]` field. The
+adapter does NOT invent ISO3 codes; `country_code` /
+`leader_id` / `leader_name` remain `None` until later matching
+/ resolution stages introduce a canonical ISO3 mapping.
+
+**Source-specific attribution caveat.**
+
+The descriptor's `coverage_hint.notes` carries the explicit
+caveat that this source captures safeguards / legal / status
+evidence -- the source-native safeguards agreement status,
+INFCIRC reference, Additional Protocol status, and Small
+Quantities Protocol status -- and is NOT a direct nuclear-weapons score or
+proof of safeguards compliance / non-compliance by itself.
+Downstream scorers MUST NOT silently treat a `Not in Force` AP
+cell as proof of non-cooperation; the Stage 11 confidence
+formula penalises the temporal-fit gap between the cached
+status date and the prototype's target year (2023). The
+canonical attribution text
+`"IAEA Safeguards Status List, Conclusion of Safeguards
+Agreements, Additional Protocols and Small Quantities
+Protocols (International Atomic Energy Agency, status as of 31
+December 2025)."` is byte-identical to the `iaea_safeguards`
+row in `docs/sources/attributions.md` (Always-On Rule #15).
+The canonical version stamp
+`"IAEA Safeguards Status List, status as of 2025-12-31"`
+propagates consistently to `RawAsset.version` and every
+emitted `NormalizedObservation.source_version`. The legacy
+`STAGE2_ADAPTERS["iaea_safeguards"]` slot remains `None` (no
+legacy Stage 2 implementation); the new package exposes
+explicit `create_iaea_safeguards_adapter()` and
+`register_iaea_safeguards(registry)` factories and does NOT
+auto-register on import (per `docs/architecture/sources.md`
+§10.1).
+
+**Source-specific test surface.**
+
+The focused tests in
+`tests/sources/test_iaea_safeguards_adapter.py` cover: the
+descriptor / factory / registry / public surface (8 tests);
+the canonical 4-indicator catalog; the
+attribution-text drift guard (2 tests); the readiness-failure
+matrix (6 readiness-blocker cases + cache-policy gate +
+unsupported-version blocker + unsupported-leaders-filter
+advisory warning); the year semantics (out-of-coverage year
+emits zero observations + advisory `YEAR_ABSENT` warning;
+in-coverage year emits the full observation set; `years=None`
+emits the full observation set); the country filter (single
+match, no-match, multiple matches, source-native display name);
+the runner end-to-end contract (full-bundle + scoped requests);
+the observation shape (source-native state preserved verbatim
++ no ISO3 invention + per-indicator value / value_type
++ raw_locator + transform_locator); the schema-error path
+(`IaeaSafeguardsSchemaError` for missing required columns);
+the import-boundary contract (no `leaders_db.ingest` leak);
+the no-network boundary (HTTP / socket sentinels never
+invoked); and the duplicate-slug `ValueError` registration
+guard (SRC-REG-004). The synthetic PDF fixture is built by
+`tests/fixtures/iaea_safeguards/build_sample_pdf.py` via
+`reportlab` (5 hand-authored synthetic country rows + 1
+header row; the country labels and cell values are NOT real
+IAEA Safeguards data per the task brief: "fixtures must not
+redistribute IAEA tables").
+
+The `tests/sources/test_import_boundary.py` canonical
+submodule list now includes
+`leaders_db.sources.adapters.iaea_safeguards`.
 
 ---
 
