@@ -538,6 +538,162 @@ pytest -q tests/sources/test_fas_adapter.py tests/sources/test_import_boundary.p
 ruff check src/leaders_db/sources/adapters/fas/ tests/sources/test_fas_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The Wikidata WikiProject heads-of-state-and-government clean
+migration adds the source-specific per-binding
+leader-identity / knowledge-base / QID-native-country contract
+on top of the shared contract:
+
+- the Wikidata HoS/HoG adapter descriptor is registerable /
+  listable through the `InMemorySourceRegistry` and exposes
+  the canonical Wikidata static metadata (source_id
+  `wikidata_heads_of_state_government`, default version
+  `"SPARQL"`, `attribution_key="wikidata_heads_of_state_government"`,
+  `source_type="knowledge_base"`, `requires_network=False`,
+  coverage hint `None` (Wikidata is global / all-years /
+  all-countries), single observation family
+  `leader_identity_country_year`, SPARQL endpoint homepage
+  URL `https://query.wikidata.org/sparql`, WikiProject page
+  URL `https://www.wikidata.org/wiki/Wikidata:WikiProject_Heads_of_state_and_government`);
+- `SourceIngestRunner.run(request)` drives the adapter
+  end-to-end through the new registry against the staged
+  fixture cache
+  `tests/fixtures/wikidata_heads_of_state_government/cache/`
+  (two real-format SPARQL JSON responses: one for the
+  `year=2023` / `country_qids=[Q30, Q96]` parameter set; one
+  for the `year=None` / `country_qids=None` current-holders
+  parameter set) and produces `NormalizedObservation` records
+  (3 fixture bindings for the
+  `years=(2023,) countries=("Q30", "Q96")` focused run; 3
+  fixture bindings for the
+  `years=None countries=("Q235",)` Monaco filter; etc.);
+- `cache_policy="offline_only"` / `"prefer_cache"` is the
+  documented safe default;
+  `cache_policy="refresh"` / `"no_cache"` is NOT supported by
+  the unified adapter in this slice -- readiness surfaces a
+  structured `unsupported_cache_policy`
+  error BEFORE `read_raw` / `transform` are called. The
+  unified adapter is cache-only;
+  `WikidataHeadsOfStateGovernmentAdapter.read_raw` never
+  invokes the network;
+
+- multi-year requests such as `years=(2023, 2024)` are
+  intentionally unsupported in this cache-only slice and fail
+  readiness with `wikidata_multi_year_request_unsupported`
+  before `read_raw` / `transform`, preventing silent first-year
+  truncation;
+- `years=(2023,)` reads the matching single-year cache file and emits one observation per binding with
+  `year=2023`; the original `start_date` / `end_date`
+  qualifiers are preserved on every emitted observation's
+  `extension.start_date` / `extension.end_date` audit fields
+  so downstream audit code can see the full temporal envelope
+  of each binding;
+- `years=None` reads the legacy current-holders cache
+  (`wd_ALL_current_all_<template_hash>.json`) and emits one
+  observation per binding with `year` taken from the parsed
+  row's `start_date` year (or `None` only when the start date
+  is absent). The original dates are preserved on the
+  audit-trail extension payload;
+- `countries=` filters are Wikidata-QID matches against the
+  `country_qid` column. The unified adapter never invents ISO3
+  codes; an ISO3 filter silently emits zero rows AND the
+  readiness envelope surfaces a structured
+  `wikidata_non_qid_country_filter` warning naming the
+  offending values so the caller can switch to QIDs.
+  `wd:Q30` prefixed QIDs match the same as bare `Q30`
+  (the legacy parser's defensive `wd:` prefix stripping is
+  preserved);
+- `leaders=` filters warn with `UNSUPPORTED_FILTER` and are
+  ignored (Wikidata is a per-binding leader-identity source
+  with no leader filter at Stage 2; Stage 4 is the resolver;
+  SRC-REQ-005);
+- the readiness-failure tests for missing `metadata.json`,
+  missing cache directory, missing one cache file (under
+  explicit-year request), malformed cache file (non-JSON /
+  no `results.bindings` list), missing metadata version
+  stamp, mismatched metadata version, and unsupported request
+  `source_version` each prove the runner short-circuits
+  before `read_raw` / `transform`;
+- the readiness gate accepts BOTH the canonical primary
+  metadata shape (`source_version`) AND the legacy raw-local
+  bundle shape (`version`); the version stamp accepts BOTH
+  the canonical `"SPARQL"` value AND the legacy alias
+  `"SPARQL endpoint (no version)"` so the existing staged
+  bundle metadata (`data/raw/wikidata_heads_of_state_government/metadata.json`)
+  does not need to be rewritten as part of the migration;
+- the canonical metadata `source_version="SPARQL"` propagates
+  consistently to `RawAsset.version` and every emitted
+  `NormalizedObservation.source_version`;
+- per-observation `RawLocator` carries the cache file path +
+  the SPARQL endpoint URL +
+  `url=WIKIDATA_HEADS_OF_STATE_GOVERNMENT_SPARQL_ENDPOINT_URL`
+  + the cache asset id
+  (`wikidata_heads_of_state_government:cache:<cache_key>`) +
+  `column_name=<office_qid>` (the Wikidata office QID);
+  `row_number` is intentionally `None` because the legacy
+  parser does not expose the SPARQL binding index (the
+  binding index is recoverable from the `statement_hash` audit
+  field);
+- per-observation `extension` carries the canonical Wikidata
+  attribution text (Rule #15), the
+  `source_row_reference="wikidata:<country_qid>:<office_qid>:<person_qid>:<statement_hash>"`
+  pattern (matching the legacy Stage 2 DB writer), the
+  verbatim SPARQL binding JSON as `raw_binding` (audit-trail
+  copy of the API response row), the person / country /
+  office QIDs and English labels
+  (`extension.person_qid` / `person_label` /
+  `country_qid` / `country_label` / `office_qid` /
+  `office_label`), the verbatim start / end dates
+  (`extension.start_date` / `extension.end_date`), the
+  statement URI + statement hash
+  (`extension.statement_uri` / `statement_hash`), the
+  request audit fields (`requested_year`, `value_type`), and
+  the `raw_scale` / `normalized_scale_target` /
+  `higher_is_better` direction hints
+  (`higher_is_better=True` because a populated office is
+  more useful than an empty one -- metadata only, has no
+  scoring impact);
+- the unified Wikidata HoS/HoG adapter never invents values,
+  ISO3 codes, country names, leader IDs, or proxy years:
+  bindings with missing `country_qid` / `person_qid` /
+  `office_qid` are skipped; `country_code` / `leader_id` are
+  always `None`; `country_name` / `leader_name` carry the
+  Wikidata English labels verbatim;
+- the legacy
+  `WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/wikidata_heads_of_state_government_io.py`
+  is byte-identical to the new
+  `WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION_TEXT`
+  (`test_attribution_text_matches_doc_and_legacy_constant`
+  asserts byte-identity AND that the unified text is a
+  substring of `docs/sources/attributions.md`);
+- the unified Wikidata HoS/HoG path is cache-only
+  (`requires_network=False`, no HTTP layer in the new
+  package). The runner NEVER invokes the network. The HTTP
+  sentinel contract is enforced by
+  `test_offline_only_runner_does_not_invoke_network` +
+  `test_prefer_cache_runner_does_not_invoke_network` which
+  monkeypatch both
+  `leaders_db.ingest.wikidata_heads_of_state_government_http.fetch_wikidata_sparql_payload`
+  AND `requests.get` to raise `AssertionError` if either is
+  invoked; both sentinels remain uninvoked while the runner
+  executes the new adapter lifecycle end-to-end against the
+  staged fixture cache;
+- importing
+  `leaders_db.sources.adapters.wikidata_heads_of_state_government`
+  does not import `leaders_db.ingest` (verified by
+  `test_importing_wikidata_heads_of_state_government_adapter_does_not_import_legacy_ingest`),
+  and the legacy `STAGE2_ADAPTERS` dispatch slot for
+  `wikidata_heads_of_state_government` remains callable for
+  backward compatibility (verified by
+  `test_legacy_ingest_wikidata_heads_of_state_government_slot_unchanged`).
+
+Focused Wikidata HoS/HoG verification:
+
+```bash
+pytest -q tests/sources/test_wikidata_heads_of_state_government_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_wikidata_heads_of_state_government.py
+ruff check src/leaders_db/sources/adapters/wikidata_heads_of_state_government/ tests/sources/test_wikidata_heads_of_state_government_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 

@@ -553,7 +553,7 @@ All listed sources should eventually be represented under the new interface.
 | `undp_hdi` | implemented | HDI/social well-being indicators | 16 | migrated |
 | `who_gho_api` | implemented | health API/cache indicators | 17 | migrated |
 | `fas` | implemented | nuclear-force document/API-style observations | 18 | migrated |
-| `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | pending |
+| `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | migrated |
 | `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 | pending |
 
 ### 7.2 Pending or blocked sources to implement only in the new interface
@@ -1172,6 +1172,115 @@ leader identifiers; `country_code`, `leader_id`, and
 stages. Raw metadata is not committed with the source; it is a
 gitignored local runtime requirement beside the user-staged HTML
 cache.
+
+### 7.16 Wikidata WikiProject heads-of-state-and-government (clean migration)
+
+`wikidata_heads_of_state_government` is migrated under
+`src/leaders_db/sources/adapters/wikidata_heads_of_state_government/`
+as a cache-only clean adapter. It reads the per-``(year,
+country_qids)`` JSON cache recorded under
+`<raw_root>/wikidata_heads_of_state_government/cache/`
+through lazy legacy parser imports, so importing the clean
+adapter does NOT pull in `leaders_db.ingest`.
+
+Wikidata is the **always-on leader-identity helper** for the
+prototype (per `docs/requirements/top-level-requirements.md`
+§3 + §9 + §12). It is structurally distinct from every prior
+clean migration: a **knowledge-base** source (per
+`docs/architecture/sources.md` §5.2) carrying per-binding
+leader-identity evidence, NOT a country-year scoring source
+and NOT a leader-spell source. Each SPARQL binding carries one
+`(country_qid, country_label, person_qid, person_label,
+office_qid, office_label, start_date, end_date, statement_uri)`
+tuple.
+
+The descriptor advertises `source_id="wikidata_heads_of_state_government"`,
+`default_version="SPARQL"`, `attribution_key="wikidata_heads_of_state_government"`,
+`source_type="knowledge_base"`, `requires_network=False`,
+coverage hint `None` (Wikidata is global, all-years,
+all-countries), and the single observation family
+`leader_identity_country_year`. The homepage URL is the
+canonical SPARQL endpoint `https://query.wikidata.org/sparql`;
+the WikiProject page
+`https://www.wikidata.org/wiki/Wikidata:WikiProject_Heads_of_state_and_government`
+is recorded in the coverage-hint notes.
+
+Readiness requires a runtime-local `metadata.json`, validates
+the canonical `source_version="SPARQL"` stamp (the legacy
+alias `"SPARQL endpoint (no version)"` is also accepted on the
+staged metadata for backward compatibility), rejects
+unsupported request/source metadata versions, blocks
+`cache_policy="refresh"` / `"no_cache"` with a structured
+`unsupported_cache_policy` error, and validates the per-
+`(year, country_qids)` JSON cache (file presence + SPARQL JSON
+shape with a `results.bindings` list) for the requested
+parameter set. For `years=None` the readiness gate uses the
+canonical current-holders cache file
+(`wd_ALL_current_all_<template_hash>.json`); for
+`years=(YYYY,)` the gate uses the file matching the first
+requested year (`wd_ALL_<year>_<country_hash>_<template_hash>.json`).
+
+The adapter emits `leader_identity_country_year` observations
+for the two legacy catalog variables
+(`wikidata_head_of_state_held` for office Q30461 and
+`wikidata_head_of_government_held` for office Q22857062).
+`years=(YYYY,)` reads the matching single-year cache file and
+emits one observation per binding with `year=YYYY`; multi-year
+requests are explicitly unsupported in this cache-only slice; `years=None` reads the legacy current-holders
+cache and emits one observation per binding with `year` taken
+from the parsed row's `start_date` year (or `None` only when
+the start date is absent). The original `start_date` and
+`end_date` qualifiers are preserved on every emitted
+observation's `extension.start_date` / `extension.end_date`
+audit fields so downstream audit code can see the full
+temporal envelope of each binding.
+
+`countries=` filters are Wikidata-QID matches against the
+`country_qid` column; non-QID inputs (e.g. `"USA"`) surface a
+structured `wikidata_non_qid_country_filter` warning AND
+silently emit zero rows (the unified adapter never invents
+ISO3 codes). `wd:Q30` prefixed QIDs match the same as bare
+`Q30` (the legacy parser's defensive `wd:` prefix stripping is
+preserved). `leaders=` is unsupported and surfaces a
+structured `UNSUPPORTED_FILTER` warning per SRC-REQ-005 (Stage
+4 is the resolver for leader-identity evidence; Stage 2 does
+not filter by leader).
+
+Each observation preserves the Wikidata English country /
+person / office labels verbatim (`country_name`,
+`leader_name`, plus `extension.country_label` /
+`extension.person_label` / `extension.office_label`), the
+Wikidata QIDs (`extension.country_qid` /
+`extension.person_qid` / `extension.office_qid`), the
+verbatim SPARQL binding JSON as `extension.raw_binding`
+(audit-trail copy of the API response row), the
+`source_row_reference="wikidata:<country_qid>:<office_qid>:<person_qid>:<statement_hash>"`
+pattern (matching the legacy DB writer; the 10-character
+SHA-256 prefix of the statement URI is the
+`extension.statement_hash` audit field), and the canonical
+Wikidata attribution text `"Wikidata (CC0 1.0)."` per
+Rule #15. `country_code` and `leader_id` remain `None` until
+Stage 3 / Stage 4 fill them via the canonical country / leader
+mapping tables. The unified adapter does not invent ISO3
+country codes, leader identifiers, missing values, or proxy
+years. `RawLocator` carries the cache file path + the SPARQL
+endpoint URL + the per-cache asset id
+(`wikidata_heads_of_state_government:cache:<cache_key>`);
+`row_number` is intentionally `None` because the legacy parser
+does not expose the SPARQL binding index (the binding index is
+recoverable from the `statement_hash` audit field).
+
+The unified adapter is cache-only in this slice
+(`requires_network=False`, no HTTP layer in the new
+package). The runner NEVER invokes the network; the legacy
+`fetch_wikidata_sparql_payload` is intentionally NEVER imported
+or invoked by the unified read path. The HTTP sentinel contract
+is enforced by the `test_offline_only_runner_does_not_invoke_network`
++ `test_prefer_cache_runner_does_not_invoke_network` tests
+which monkeypatch both
+`leaders_db.ingest.wikidata_heads_of_state_government_http.fetch_wikidata_sparql_payload`
+AND `requests.get` to raise `AssertionError` if either is
+invoked.
 
 ---
 

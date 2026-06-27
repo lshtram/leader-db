@@ -226,6 +226,7 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.undp_hdi",
         "leaders_db.sources.adapters.who_gho_api",
         "leaders_db.sources.adapters.fas",
+        "leaders_db.sources.adapters.wikidata_heads_of_state_government",
     )
     _purge_source_boundary_modules()
     try:
