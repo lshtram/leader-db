@@ -552,7 +552,7 @@ All listed sources should eventually be represented under the new interface.
 | `cirights` | implemented | human-rights indicators | 15 | migrated |
 | `undp_hdi` | implemented | HDI/social well-being indicators | 16 | migrated |
 | `who_gho_api` | implemented | health API/cache indicators | 17 | migrated |
-| `fas` | implemented | nuclear-force document/API-style observations | 18 | pending |
+| `fas` | implemented | nuclear-force document/API-style observations | 18 | migrated |
 | `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | pending |
 | `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 | pending |
 
@@ -1105,6 +1105,73 @@ top of the shared contract:
   import `leaders_db.ingest`; the legacy `STAGE2_ADAPTERS`
   dispatch slot for `who_gho_api` remains callable for
   backward compatibility.
+
+### 7.15 FAS (Federation of American Scientists) Nuclear Notebook (clean migration)
+
+`fas` is migrated under `src/leaders_db/sources/adapters/fas/` as
+a local-file-only clean adapter. It reads the staged
+`<raw_root>/fas/fas_status.html` (the consolidated FAS "Status
+of World Nuclear Forces" HTML page snapshot) through lazy legacy
+parser imports, so importing the clean adapter does NOT pull in
+`leaders_db.ingest`.
+
+Readiness requires a runtime-local `metadata.json`, validates
+`source_version="consolidated status table"`, requires the
+canonical `fas_status.html` to appear in `metadata.local_files`
+when the field is present (the field is also accepted as absent
+for backward compatibility), validates the optional per-file
+SHA-256 `checksum_sha256` when supplied (accepting BOTH the
+canonical flat-string shape `checksum_sha256 = "<64-hex>"` and
+the per-file dict shape `{"fas_status.html": "<64-hex>"}`),
+rejects unsupported request/source metadata versions, blocks
+`cache_policy="refresh"` / `"no_cache"` with a structured
+`unsupported_cache_policy` error, and warns on out-of-snapshot
+years (FAS is a single-snapshot source so requesting a year
+other than the snapshot year surfaces a `YEAR_ABSENT` warning per
+SRC-COV-002 / SRC-COV-003 with no silent stale-proxy fill).
+
+The adapter emits `nuclear_country_year` observations for the five
+legacy catalog variables (`fas_operational_strategic`,
+`fas_operational_nonstrategic`, `fas_reserve_nondeployed`,
+`fas_military_stockpile`, `fas_total_inventory`). `years=None`
+reads the snapshot year; an explicit `years=` request that
+matches the snapshot year emits the snapshot rows with no
+warning; a request that does NOT match the snapshot year still
+emits the snapshot rows (no silent relabeling to the requested
+year) AND tags every observation with `extension.requested_year`
++ `proxy_snapshot_semantics` audit metadata so downstream
+audit code can detect the temporal-fit gap. `countries=` filters
+match source-native FAS display names only (the FAS table does
+NOT carry ISO3 codes; Stage 3 resolves ISO3 via
+`country_aliases.csv` later); an ISO3 filter silently emits zero
+rows. `leaders=` warns and is ignored.
+
+Sentinel handling: `n.a.` and `?` cells are represented
+consistently with the legacy DB writer semantics (the row IS
+emitted with `value=None` / `value_type="missing"` AND the
+audit `raw_value` preserves the sentinel literal); `<10` cells
+map to the upper bound `10` with the raw literal `&lt;10`
+preserved; numeric cells like `1,600` / `8,000` are coerced
+correctly; the legacy parser strips `<sup>` footnote markers
+before populating `_raw_value`, so the clean adapter's audit
+`raw_value` is the post-strip legacy cell text, not the original
+footnote-bearing HTML/text.
+
+Each observation preserves source-native country display name
+(no ISO3 invention), parsed snapshot year, raw column name, raw
+value, normalized numeric value (or `None` for sentinels),
+`source_row_reference` (`fas:<raw_column>:<country>`),
+`url=FAS_STATUS_PAGE_URL`, `row_number=None` (the legacy wide
+frame loses the HTML row index through the long-to-wide pivot),
+`column_name=<raw_column>`, `snapshot_year`, `year_window`,
+proxy audit metadata when applicable, and the normative FAS
+attribution text `FAS Nuclear Notebook (Federation of American
+Scientists).` The adapter does not invent ISO3 country codes or
+leader identifiers; `country_code`, `leader_id`, and
+`leader_name` remain `None` until later matching/resolution
+stages. Raw metadata is not committed with the source; it is a
+gitignored local runtime requirement beside the user-staged HTML
+cache.
 
 ---
 

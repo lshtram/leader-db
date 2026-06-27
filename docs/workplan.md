@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration: 28 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, and `who_gho_api` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 34 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration: 29 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, and `fas` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 2 pending (`polity_v` needs source hygiene; `leader_survival` needs raw data) = 35 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -138,26 +138,74 @@ transform: multiple `COUNTRY` disaggregation records per
 value AND raw_value, not a silent last-record-wins flip).
 
 **Next source-migration path (2026-06-27):** Per user direction, continue clean
-`leaders_db.sources` migrations one source at a time. WHO GHO API is now
-migrated under `src/leaders_db/sources/adapters/who_gho_api/` after CIRIGHTS,
-SIPRI Yearbook Ch.7, SIPRI Milex, REIGN, Archigos, Freedom House, BTI, WGI,
-V-Dem, Transparency CPI, PTS, RSF, and UNDP HDI. Together with PWT, Maddison
-Project, WDI, WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House,
-Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, and
-WHO GHO API, the unified source interface now covers historical economy,
+`leaders_db.sources` migrations one source at a time. WHO GHO API and FAS are
+now migrated under `src/leaders_db/sources/adapters/` after CIRIGHTS, SIPRI
+Yearbook Ch.7, SIPRI Milex, REIGN, Archigos, Freedom House, BTI, WGI, V-Dem,
+Transparency CPI, PTS, RSF, and UNDP HDI. Together with PWT, Maddison Project,
+WDI, WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House,
+Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, WHO GHO
+API, and FAS, the unified source interface now covers historical economy,
 current economy, governance, political regime / repression / corruption /
 social well-being, press freedom, political terror, corruption perception,
 BTI transformation / effectiveness evidence, FIW political rights / civil
 liberties / status evidence, historical leader-spell identity evidence,
-historical leader-month identity / governance evidence, nuclear country-year
-warhead facts, CIRIGHTS domestic-violence/human-rights country-year
-evidence, UNDP social-wellbeing country-year evidence, and WHO GHO API
-health country-year evidence. **Active next action:** project-manager
-review + reviewer pass for the latest clean migrations, then choose the
-next clean source migration or resume the vertical-slice investigation
-through the migrated source pipeline. The next pending legacy-implemented
-clean-source row in the inventory is `fas` unless the project-manager chooses
-to prioritize reviewer follow-up or another source.
+historical leader-month identity / governance evidence, both nuclear-force
+country-year evidence sources, CIRIGHTS domestic-violence/human-rights
+country-year evidence, UNDP social-wellbeing country-year evidence, and WHO
+GHO API health country-year evidence. **Active next action:** project-manager
+review + reviewer pass for the FAS clean migration, then choose the next clean
+source migration or resume the vertical-slice investigation through the
+migrated source pipeline. The next pending legacy-implemented clean-source row
+in the inventory is `wikidata_heads_of_state_government` unless the
+project-manager chooses to prioritize reviewer follow-up or another source.
+
+**FAS clean adapter note (2026-06-27):** FAS is now migrated under
+`src/leaders_db/sources/adapters/fas/`. The adapter reads the
+runtime-local staged `<raw_root>/fas/fas_status.html` (the FAS
+consolidated "Status of World Nuclear Forces" HTML page snapshot)
+through lazy legacy parser imports, emits `nuclear_country_year`
+observations for the five legacy FAS catalog indicators
+(`fas_operational_strategic`, `fas_operational_nonstrategic`,
+`fas_reserve_nondeployed`, `fas_military_stockpile`,
+`fas_total_inventory`), preserves source-native country display
+name / snapshot year / raw column / raw value / normalized
+numeric value / `source_row_reference = "fas:<raw_column>:<country>"`
+provenance, and does not invent ISO3, leader identifiers, or
+relabel rows as 2023. Runtime readiness accepts BOTH the canonical
+primary `source_version` metadata shape AND the staged raw-local
+legacy shape (the same primary keys plus `caveats` / `coverage` /
+`years_available` / `license_note`), validates the canonical
+`"consolidated status table"` version stamp, and validates the
+optional SHA-256 `checksum_sha256` field when supplied
+(accepting BOTH the canonical flat-string shape `checksum_sha256
+= "<64-hex>"` and the per-file dict shape `{"fas_status.html":
+"<64-hex>"}`). The FAS consolidated snapshot year is parsed
+from the page's `<meta name="date">` element (falling back to
+the footer "Current update" text and finally the default 2014)
+and stamped on every observation's `extension.snapshot_year`
+field. A requested 2023 with a 2014 snapshot emits the 2014
+rows labeled with the snapshot year (no silent relabeling) plus
+`extension.requested_year=2023` / `proxy_snapshot_semantics`
+audit metadata; the readiness envelope surfaces a structured
+`YEAR_ABSENT` warning so the caller can branch on the
+temporal-fit gap (no stale-proxy fill per SRC-COV-002 /
+SRC-COV-003). The unified adapter is local-file only
+(`requires_network=False`, no HTTP layer) and `cache_policy=
+"refresh"` / `"no_cache"` is unsupported and fails readiness
+with a structured `unsupported_cache_policy` error. Sentinel
+handling: `<10` (HTML-encoded as `&lt;10`) maps to the upper
+bound `10` with the raw literal preserved; `n.a.` and `?` cells
+are represented with `value=None` / `value_type="missing"` AND
+the audit `raw_value` preserves the sentinel literal (matches
+the legacy DB writer semantics). The legacy `FAS_ATTRIBUTION`
+constant in `src/leaders_db/ingest/fas_io.py` is byte-identical
+to the new `FAS_ATTRIBUTION_TEXT`. **With FAS landed, the
+unified source interface now covers both nuclear-force evidence
+sources** (SIPRI Yearbook Ch.7 = current Yearbook snapshot; FAS
+= consolidated status page snapshot) and the
+`nuclear_country_year` observation family is shared across both
+adapters so downstream scoring and research code can treat the
+nuclear evidence as a single filterable family.
 
 **Source concept-catalog slice landed (2026-06-24) — semantic indicator
 catalog under `leaders_db.sources.concepts`.** A real-life
@@ -700,6 +748,8 @@ The first build sequence from [`requirements/top-level-requirements.md`](require
 Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-level-requirements.md) and refined in [`requirements/core.md`](requirements/core.md). Architecture lives in [`architecture/overview.md`](architecture/overview.md). The schema is normative in [`architecture/database-schema.md`](architecture/database-schema.md).
 
 ## Done History
+
+- **Phase C.18 — FAS Nuclear Notebook clean-source adapter landed (2026-06-27).** Nineteenth source rebuilt under the unified `leaders_db.sources` interface (priority 18, §7.1, SRC-MIG-006), after PWT 10.01, Maddison Project Database 2023, World Bank WDI, World Bank WGI, V-Dem, UCDP, Transparency International CPI, Political Terror Scale, RSF, BTI, Freedom House, Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, and WHO GHO API. The FAS Nuclear Notebook is the canonical nuclear-force document source for the prototype (complementing SIPRI Yearbook Ch.7); the canonical Stage 2 access path is the staged local HTML cache (`<raw_root>/fas/fas_status.html`) augmented by the local `metadata.json` bundle. The new package lives at `src/leaders_db/sources/adapters/fas/`, is local-file only (`requires_network=False`), and reuses the legacy parser `leaders_db.ingest.fas_html.read_fas_status_html` via lazy imports so the package boundary at `docs/architecture/sources.md` §10.1 is preserved; the new runner path never consults `STAGE2_ADAPTERS`. FAS is structurally distinct from every prior clean migration: it is a **single-snapshot HTML document source** (the consolidated "Status of World Nuclear Forces" page, dated 2014-04-30 as of probe 2026-06-19). The readiness gate accepts BOTH the canonical primary metadata shape (`source_version` / `source_url` / `local_files` / `checksum_sha256`) AND the staged FAS legacy shape (the same primary keys plus `caveats` / `coverage` / `years_available` / `license_note`); `metadata.local_files` is OPTIONAL in the staged shape and the gate accepts the absent-field shape for backward compatibility. The staged `metadata.checksum_sha256` accepts BOTH the canonical flat-string shape (`"<64-hex>"`, the staged `data/raw/fas/metadata.json` shape) AND the per-file dict shape (`{"fas_status.html": "<64-hex>"}`, the legacy SIPRI Yearbook / CIRIGHTS / SIPRI Milex convention). The adapter emits `nuclear_country_year` observations for the five legacy catalog variables: `fas_operational_strategic`, `fas_operational_nonstrategic`, `fas_reserve_nondeployed`, `fas_military_stockpile`, `fas_total_inventory`. **Snapshot-year / temporal-fit semantics:** `years=None` reads the snapshot year; `years=(2014,)` (the canonical snapshot year) emits the snapshot rows with NO `YEAR_ABSENT` warning AND no `extension.requested_year` audit metadata; a request that does NOT match the snapshot year (e.g. `years=(2023,)`) still emits the snapshot rows (no silent relabeling to the requested year) AND tags every observation with `extension.requested_year` + `extension.proxy_snapshot_semantics` audit metadata so downstream audit code can detect the temporal-fit gap. The readiness envelope surfaces a structured `YEAR_ABSENT` warning per the request so the caller can branch on the gap (no stale-proxy fill per SRC-COV-002 / SRC-COV-003). A combined `years=(2014, 2023)` request emits a single 2014 observation set (no duplicate proxy rows). **Sentinel handling:** `<10` (HTML-encoded as `&lt;10` in the FAS page) maps to the upper bound `10` with the raw literal preserved on `extension.raw_value`; `n.a.` and `?` cells are represented consistently with the legacy DB writer semantics (the row IS emitted with `value=None` / `value_type="missing"` AND the audit `raw_value` preserves the sentinel literal -- matches the legacy DB writer semantics so the unified transform preserves the legacy DB rows byte-for-byte); numeric cells like `1,600` / `8,000` are coerced correctly; the legacy parser strips `<sup>` footnote markers before populating `_raw_value`, so the clean adapter's audit `raw_value` is the post-strip legacy cell text, not the original footnote-bearing HTML/text. **Country filter:** `countries=` matches the FAS source-native display name only (case-insensitive exact match); the FAS table does NOT carry ISO3 codes, so an ISO3 filter silently emits zero rows (the unified adapter never invents ISO3). `leaders=` warns and is ignored. **Per-observation contract:** `RawLocator` carries the staged HTML path + `url=FAS_STATUS_PAGE_URL` + the catalog `raw_column` (e.g. `"Total Inventory"`) + `row_number=None` (the legacy wide frame loses the HTML row index through the long-to-wide pivot -- the unified transform never fabricates locators). Per-observation `extension` carries the canonical FAS attribution text `FAS Nuclear Notebook (Federation of American Scientists).` (Rule #15; byte-identical to the legacy `FAS_ATTRIBUTION` constant in `src/leaders_db/ingest/fas_io.py` and to the `fas` section in `docs/sources/attributions.md`; `test_attribution_text_matches_doc` enforces byte-identity AND substring match against the doc), the `source_row_reference="fas:<raw_column>:<country>"` pattern (matching the legacy Stage 2 DB writer), the verbatim cell text as `raw_value`, the `fas_raw_column` / `snapshot_year` / `year_window` / `source_row_url` audit fields, and the `raw_scale` / `higher_is_better` / `normalized_scale_target` direction hints (`higher_is_better=False` because more warheads = more nuclear risk). The unified adapter is local-file only (`requires_network=False`, no HTTP layer); `cache_policy="refresh"` / `"no_cache"` is NOT supported and fails readiness with a structured `unsupported_cache_policy` error BEFORE `read_raw` / `transform` are called. 26 new tests in `tests/sources/test_fas_adapter.py` covering: descriptor / factory / protocol / register / public surface (3 tests); indicator / raw-column constants match the canonical catalog (1 test); attribution drift guard (1 test); module-level constants match documented values (1 test); runner end-to-end against the staged fixture HTML (5 tests for focused snapshot-year Russia row + all-fixture snapshot run + country filter + leader filter + multi-year dedup); sentinel handling (4 tests for `<10` upper bound + `n.a.` representation + `?` representation + numeric + footnote-letter coercion); readiness failures (8 tests: missing metadata, missing HTML, metadata version mismatch, local_files wrong, checksum mismatch, correct checksum pass, missing local_files field pass, refresh/no_cache policy block, unsupported request version); legacy-dispatch contract (1 test: `STAGE2_ADAPTERS["fas"]` tracker never invoked); import-boundary (1 test: importing the new adapter does NOT pull in legacy ingest); legacy slot unchanged (1 test: the legacy `STAGE2_ADAPTERS["fas"]` slot still resolves to the legacy orchestrator). New clean package `src/leaders_db/sources/adapters/fas/` following the documented `leaders_db.sources.adapters.<slug>/` layout (verify module line counts via `wc -l src/leaders_db/sources/adapters/fas/*.py` -- all 7 production modules stay under the documented 400-line convention). The package contains the lifecycle class + registration helpers + protocol conformance guard (`adapter.py`); the static core constants (`_constants.py`); the canonical `build_fas_descriptor` factory (`_descriptor.py`); the readiness-gate orchestrator + metadata + file + cache-policy + version gates + request-scoping warnings (`_readiness.py`); the local-files validator helper (`_local_files_blocker`); the lazy legacy reader + per-file raw asset + payload + raw-value lookup + checksum propagation (`_raw_read.py`); the per-row emission loop + country filter + sentinel skip + proxy audit metadata builder (`_transform.py`); the public surface re-exports + `__all__` (`__init__.py`). The `FAS_ATTRIBUTION_TEXT` constant is byte-identical to the legacy `FAS_ATTRIBUTION` constant in `src/leaders_db/ingest/fas_io.py` and to the `fas` section in `docs/sources/attributions.md` (drift-guard test asserts both). Legacy `tests/test_ingest_fas.py` (33 tests) still passes; `tests/sources/test_import_boundary.py` updated to include the new `fas` submodule in the canonical boundary-check list. Focused proof: `pytest -q tests/sources/test_fas_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_fas.py` passes (64 tests: 26 FAS adapter + 6 import-boundary + 33 legacy -- the import-boundary submodule list grew by 1 with the FAS addition). `wc -l src/leaders_db/sources/adapters/fas/*.py` confirms all 7 production modules are under the documented 400-line convention (largest is `adapter.py` at 356 lines); `.venv/bin/ruff check src/leaders_db/sources/adapters/fas/ tests/sources/test_fas_adapter.py tests/sources/test_import_boundary.py` is clean. **No production wiring changes to `STAGE2_ADAPTERS`** (the clean adapter does not consume the legacy dispatch table; the legacy dispatch entry remains for backward compatibility). **With FAS landed, the unified source interface now covers both nuclear-force evidence sources** (SIPRI Yearbook Ch.7 = current Yearbook snapshot; FAS = consolidated status page snapshot). The `nuclear_country_year` observation family is shared across both adapters so downstream scoring and research code can treat the nuclear evidence as a single filterable family. **Awaiting reviewer sign-off before starting the next migration slice.**
 
 - **Phase C.16 — Archigos v4.1 clean-source adapter landed (2026-06-26).** Twelfth source rebuilt under the unified `leaders_db.sources` interface. The adapter lives at `src/leaders_db/sources/adapters/archigos/`, is local-file only (`requires_network=False`), and uses the staged `data/raw/archigos/Archigos_4.1_stata14.dta` plus `metadata.json`. Clean imports preserve the source-system boundary: legacy `leaders_db.ingest.archigos_io.load_archigos_catalog` and `read_archigos` are reused only through lazy imports inside `read_raw`, and the new runner path never consults `STAGE2_ADAPTERS`. Readiness requires metadata, requires the canonical `.dta` listed in `metadata.local_files` and present on disk, validates `source_version="v4.1 (Stata 14)"`, rejects unsupported request versions, and verifies the staged SHA-256 when present. Runtime semantics remain leader-spell, not country-year: `years=None` reads all available spell start years, multi-year requests emit all requested in-coverage start years, and 2023/out-of-coverage requests warn and emit zero rows. `countries=` filters source-native `idacr` / `ccode`; `leaders=` warns and is ignored. The transform emits the six legacy identity variables as `leader_identity_spell` observations with raw value, legacy normalized value, source row reference, raw locator, `obsid`, `idacr`, `ccode`, and normative Archigos attribution, leaving `country_code` and `leader_id` unset until canonical mapping exists. Focused coverage landed in `tests/sources/test_archigos_adapter.py` plus `tests/sources/test_import_boundary.py`; legacy `tests/test_ingest_archigos.py` remains in the verification set.
 

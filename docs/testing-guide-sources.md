@@ -397,6 +397,147 @@ pytest -q tests/sources/test_who_gho_api_adapter.py tests/sources/test_import_bo
 ruff check src/leaders_db/sources/adapters/who_gho_api/ tests/sources/test_who_gho_api_adapter.py tests/sources/test_import_boundary.py
 ```
 
+The FAS (Federation of American Scientists) Nuclear Notebook
+clean migration adds the source-specific single-snapshot HTML
+document contract on top of the shared contract:
+
+- the FAS adapter descriptor is registerable / listable through
+  the `InMemorySourceRegistry` and exposes the canonical FAS
+  static metadata (source_id `fas`, default version `"consolidated
+  status table"`, attribution_key `fas`, document type,
+  `requires_network=False`, 2014 snapshot coverage hint, single
+  observation family `nuclear_country_year`, FAS Nuclear Notebook
+  publisher URL `https://fas.org/issues/nuclear-weapons/`,
+  consolidated status page URL `https://programs.fas.org/ssp/nukes/nuclearweapons/nukestatus.html`);
+- `SourceIngestRunner.run(request)` drives FAS end-to-end
+  through the new registry against the staged fixture HTML
+  `tests/fixtures/fas/sample.html` (5 countries x 5 indicators
+  with sentinels preserved on the audit trail) and produces
+  `NormalizedObservation` records (25 fixture observations
+  round-tripped; 5 observations for the
+  `years=(2014,) countries=("Russia",)` focused run);
+- `cache_policy="offline_only"` / `"prefer_cache"` is the
+  documented safe default; `cache_policy="refresh"` /
+  `"no_cache"` is NOT supported by the unified FAS adapter in
+  this slice -- readiness surfaces a structured
+  `fas_unsupported_cache_policy` error BEFORE `read_raw` /
+  `transform` are called. The unified adapter is local-file
+  only; `FasAdapter.read_raw` never invokes the network;
+- `years=(2023,)` (out of snapshot) emits the 2014 snapshot
+  rows labeled with `year=2014` plus `extension.requested_year=
+  2023` and `extension.proxy_snapshot_semantics` audit metadata
+  on every observation. The readiness envelope surfaces a
+  structured `YEAR_ABSENT` warning per SRC-COV-002 /
+  SRC-COV-003 (no silent stale-proxy fill, no silent
+  relabeling to the requested year);
+- `years=(2014,)` (the canonical snapshot year) emits the
+  snapshot rows with NO `YEAR_ABSENT` warning AND no
+  `extension.requested_year` audit metadata (clean hit);
+- `years=(2014, 2023)` emits a single 2014 observation set
+  (no duplicate proxy rows);
+- `years=None` reads every available fixture snapshot
+  observation (25 observations across 5 countries x 5
+  indicators, with `n.a.` / `?` / `<10` sentinels represented
+  consistently with the legacy DB writer semantics);
+- `countries=` filters match the FAS source-native display
+  name only (case-insensitive exact match); the FAS table does
+  NOT carry ISO3 codes, so an ISO3 filter silently emits zero
+  rows (the unified adapter never invents ISO3). The
+  `test_runner_country_filter_matches_source_native_display_name`
+  test drives the runner with `countries=("Russia",)` and
+  asserts the 5 Russia rows, then drives the same runner with
+  `countries=("RUS",)` and asserts zero observations;
+- `leaders=` filters warn with `UNSUPPORTED_FILTER` and are
+  ignored (FAS is country-year nuclear evidence with no leader
+  dimension per SRC-REQ-005);
+- the readiness-failure tests for missing `metadata.json`,
+  missing `fas_status.html`, malformed `local_files`, mismatched
+  metadata `source_version`, unsupported request
+  `source_version`, and checksum mismatch each prove the
+  runner short-circuits before `read_raw` / `transform`
+  (call order verified via the readiness gate's structured
+  error envelope);
+- the readiness gate accepts BOTH the canonical primary
+  metadata shape (`source_version` / `local_files` /
+  `checksum_sha256`) AND the staged FAS legacy shape (the
+  same primary keys plus `caveats` / `coverage` /
+  `years_available` / `license_note`); the `metadata.local_files`
+  field is OPTIONAL in the staged shape and the gate accepts
+  the absent-field shape for backward compatibility;
+- the staged `metadata.checksum_sha256` accepts BOTH the
+  canonical flat-string shape (`"<64-hex>"`, the staged
+  `data/raw/fas/metadata.json` shape) AND the per-file dict
+  shape (`{"fas_status.html": "<64-hex>"}`, the legacy SIPRI
+  Yearbook / CIRIGHTS / SIPRI Milex convention). A staged HTML
+  whose SHA-256 does NOT match the metadata field fails
+  readiness with the FAS-specific `fas_checksum_mismatch`
+  error;
+- sentinel handling: `<10` (HTML-encoded as `&lt;10` in the FAS
+  page) maps to the upper bound `10` with the raw literal
+  preserved on `extension.raw_value`; `n.a.` and `?` cells
+  emit rows with `value=None` / `value_type="missing"` AND
+  the audit `raw_value` preserves the sentinel literal (matches
+  the legacy DB writer semantics); `1,600` and `8,000` are
+  coerced correctly; the legacy parser strips `<sup>` footnote
+  markers before populating `_raw_value`, so the clean adapter's
+  audit `raw_value` is the post-strip legacy cell text (for
+  example `1,600`), not the original footnote-bearing HTML/text;
+- the canonical metadata `source_version="consolidated status
+  table"` propagates consistently to `RawAsset.version` and
+  every emitted `NormalizedObservation.source_version`;
+- per-observation `RawLocator` carries the staged HTML path
+  + the FAS status page URL (`url=FAS_STATUS_PAGE_URL`) + the
+  catalog `raw_column` (e.g. `"Total Inventory"`);
+  `row_number` is intentionally `None` because the legacy wide
+  frame loses the HTML row index through the long-to-wide
+  pivot -- the unified transform never fabricates locators;
+- per-observation `extension` carries the canonical FAS
+  attribution text (Rule #15), the
+  `source_row_reference="fas:<raw_column>:<country>"` pattern
+  (matching the legacy Stage 2 DB writer), the verbatim cell
+  text as `raw_value` (e.g. `"8,000"`, `"&lt;10"`, `"n.a."`,
+  `"?"`), the `fas_raw_column`, `snapshot_year`, `year_window`,
+  `source_row_url`, and the `raw_scale` / `higher_is_better` /
+  `normalized_scale_target` direction hints (`higher_is_better
+  =False` because more warheads = more nuclear risk);
+- the unified FAS adapter never invents values, ISO3 codes,
+  country names, leader IDs, or proxy years: cells with
+  missing values skip the numeric observation but still
+  emit the audit row with `value_type="missing"`;
+  countries / years not present in the HTML cache are
+  skipped; `leader_id` / `leader_name` are always `None`;
+  `country_code` is always `None` until Stage 3 country match
+  resolves the source-native display name to ISO3;
+- the legacy `FAS_ATTRIBUTION` constant in
+  `src/leaders_db/ingest/fas_io.py` is byte-identical to the
+  new `FAS_ATTRIBUTION_TEXT`
+  (`test_attribution_text_matches_doc` asserts byte-identity
+  AND that the unified text is a substring of
+  `docs/sources/attributions.md`);
+- the FAS unified path is local-file only
+  (`requires_network=False`, no HTTP layer in the new
+  package). The runner NEVER invokes the network. The
+  readiness gate validates the staged `fas_status.html` and
+  the metadata `checksum_sha256` / `source_version` /
+  `local_files` fields BEFORE `read_raw` / `transform` are
+  called;
+- **With FAS landed, the unified source interface now
+  covers both nuclear-force evidence sources** (SIPRI
+  Yearbook Ch.7 = current Yearbook snapshot; FAS = consolidated
+  status page snapshot). The nuclear rating category's two
+  sources are now both queryable through the unified
+  `InMemoryEvidenceRepository` -- the `nuclear_country_year`
+  family is shared across both adapters so downstream scoring
+  and research code can treat the nuclear evidence as a
+  single filterable family.
+
+Focused FAS verification:
+
+```bash
+pytest -q tests/sources/test_fas_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_fas.py
+ruff check src/leaders_db/sources/adapters/fas/ tests/sources/test_fas_adapter.py tests/sources/test_import_boundary.py
+```
+
 The Maddison Project Database 2023 slice adds the source-specific
 coverage semantics on top of the shared contract:
 
