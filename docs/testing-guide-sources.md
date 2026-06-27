@@ -1615,6 +1615,9 @@ Expected: a positive adapter count and `True` for `pwt`.
   sipri_yearbook_ch7, cirights, undp_hdi, who_gho_api,
   fas, wikidata_heads_of_state_government,
   wikipedia_search_extract, ...).
+  **The wikipedia_search_extract clean migration landed
+  2026-06-27**; the slice below adds its focused testing
+  guide.
   PWT, Maddison Project, World Bank WDI, World Bank
   WGI, V-Dem, UCDP, Transparency International CPI,
   PTS, RSF, BTI, and Freedom House are the proof-of-pattern across
@@ -1827,3 +1830,122 @@ import at module import time); the legacy
 `STAGE2_ADAPTERS` non-routing contract; and the
 clean package `__all__` public-surface coherence
 contract.
+
+## Wikipedia Action API (search + extract)
+
+The Wikipedia Action API adapter lives at
+`src/leaders_db/sources/adapters/wikipedia_search_extract/`
+and follows the same `leaders_db.sources.adapters.<slug>/`
+layout as the prior clean-source migrations. It is the
+**always-on narrative-context helper** for the prototype
+(CC BY-SA 4.0); the unified adapter is cache-only in this
+slice (`requires_network=False`) and reuses the legacy
+parsers
+(`leaders_db.ingest.wikipedia_search_extract_parse.parse_extracts_response` /
+`parse_search_response`) and the legacy cache-key builder
+(`leaders_db.ingest.wikipedia_search_extract_http.build_cache_key`)
+via lazy imports so the package boundary is preserved.
+
+**Verification commands:**
+
+```bash
+pytest -q tests/sources/test_wikipedia_search_extract_adapter.py \
+            tests/sources/test_import_boundary.py \
+            tests/test_ingest_wikipedia_search_extract.py \
+            tests/ingest/common/test_cli_legacy.py
+ruff check src/leaders_db/sources/adapters/wikipedia_search_extract/ \
+            tests/sources/test_wikipedia_search_extract_adapter.py \
+            tests/sources/test_import_boundary.py
+wc -l src/leaders_db/sources/adapters/wikipedia_search_extract/*.py
+```
+
+The Wikipedia slice acceptance covers the
+descriptor / factory / register / protocol conformance;
+the canonical source_id / attribution_key /
+default_version / source_type / requires_network /
+observation family (`leader_identity_context`) /
+homepage_url / coverage hint contract;
+`SourceIngestRunner.run(request)` end-to-end against the
+staged fixture JSON cache under
+`tests/fixtures/wikipedia_search_extract/cache/` (3
+fixtures: `wikipedia_extracts_62f100bfa4_default.json`
+/ `wikipedia_search_62f100bfa4_7d0587b5ac.json` /
+`wikipedia_extracts_6f47c90e93_default.json`); the
+request-input contract (the explicit query list maps to
+`request.leaders=`, NOT resolved leader IDs);
+the readiness gate fails cleanly when `leaders=` is
+missing or empty with a structured
+`wikipedia_search_extract_missing_queries` error BEFORE
+the reader opens the cache; the readiness gate fails
+when any cache file is missing or malformed
+(`wikipedia_search_extract_missing_raw`); the readiness
+gate refuses `cache_policy="refresh"` / `"no_cache"`
+with a structured `unsupported_cache_policy` error;
+`years=` and `countries=` are unsupported filters that
+surface a structured `unsupported_filter` warning (the
+runner ignores the filters and still emits the cached
+rows; the unified adapter never invents year /
+country / leader values); `request.source_version`
+other than the canonical `"Action API"` fails readiness
+with a structured `unsupported_version` error; the
+staged metadata accepts BOTH the canonical primary
+`source_version="Action API"` shape AND the legacy
+alias `version="Action API (no version)"`; the
+canonical metadata `source_version="Action API"`
+propagates consistently to `RawAsset.version` and
+every emitted `NormalizedObservation.source_version`;
+per-observation `RawLocator` carries the canonical
+Action API URL (`url=WIKIPEDIA_SEARCH_EXTRACT_HOMEPAGE_URL`)
++ the canonical `api_params_hash` (the legacy
+`build_cache_key` output) + the `api_endpoint`
+template; per-observation `extension` carries the
+canonical Wikipedia attribution text (Rule #15), the
+legacy DB-writer `source_row_reference`
+(`wikipedia:<variable_name>:<hint>`), the verbatim
+per-row payload JSON, the verbatim query string, the
+action name, the title, the pageid, the verbatim
+`extract` text, the `cache_key`, and the
+`value_type='text'` / `raw_scale='text'` /
+`normalized_scale_target='text'` /
+`higher_is_better=True` direction hints; the
+import-boundary contract (no `leaders_db.ingest`
+import at module import time); the unified adapter
+NEVER invokes the network (verified by
+`test_runner_does_not_invoke_http_layer` which
+monkeypatches the legacy HTTP helper to raise
+`AssertionError` if invoked); the runner does NOT
+consult legacy `STAGE2_ADAPTERS` (verified by
+monkeypatching the legacy slot to a tracker); the
+legacy `STAGE2_ADAPTERS["wikipedia_search_extract"]`
+slot remains callable for backward compatibility;
+and the clean package `__all__` public-surface
+coherence contract.
+
+## Wikipedia Action API (search + extract) manual smoke
+
+The adapter lives at
+`src/leaders_db/sources/adapters/wikipedia_search_extract/`,
+exposes the canonical descriptor / factory / lifecycle
+class, and emits `leader_identity_context` observations
+for the two legacy catalog variables
+(`wikipedia_extract_lead` for action=extracts;
+`wikipedia_search_results` for action=search). The
+slice is cache-only in this iteration
+(`requires_network=False`, no HTTP layer in the new
+package); `cache_policy="offline_only"` /
+`"prefer_cache"` is the documented safe default;
+`cache_policy="refresh"` / `"no_cache"` is NOT
+supported and fails readiness before the reader opens
+the cache. With the canonical fixture cache staged
+under `<raw_root>/wikipedia_search_extract/cache/`,
+the runner end-to-end pipeline emits one observation
+per parsed `extracts` page or `search` hit (4
+observations for `leaders=("Joe Biden",)`: 1 extracts
++ 3 search hits; 8 observations for two queries with
+both `extracts` and `search` fixtures per query).
+
+The unified slice does NOT auto-register on import
+(the registry is opt-in by design); callers wire the
+adapter through
+`leaders_db.sources.adapters.wikipedia_search_extract.register_wikipedia_search_extract(registry)`
+before driving `SourceIngestRunner(registry).run(request)`.

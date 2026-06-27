@@ -554,7 +554,7 @@ All listed sources should eventually be represented under the new interface.
 | `who_gho_api` | implemented | health API/cache indicators | 17 | migrated |
 | `fas` | implemented | nuclear-force document/API-style observations | 18 | migrated |
 | `wikidata_heads_of_state_government` | implemented | knowledge-base leader identity observations | 19 | migrated |
-| `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 | pending |
+| `wikipedia_search_extract` | implemented | cached web/knowledge snippets | 20 | migrated |
 
 ### 7.2 Pending or blocked sources to implement only in the new interface
 
@@ -1281,6 +1281,107 @@ which monkeypatch both
 `leaders_db.ingest.wikidata_heads_of_state_government_http.fetch_wikidata_sparql_payload`
 AND `requests.get` to raise `AssertionError` if either is
 invoked.
+
+### 7.17 Wikipedia Action API (search + extract) (clean migration)
+
+`wikipedia_search_extract` is migrated under
+`src/leaders_db/sources/adapters/wikipedia_search_extract/` as a
+cache-only clean adapter. It reads the per-``(query, action)`` JSON
+cache recorded under
+`<raw_root>/wikipedia_search_extract/cache/` through lazy legacy
+parser imports, so importing the clean adapter does NOT pull in
+`leaders_db.ingest`.
+
+Wikipedia Action API is the **always-on narrative-context helper**
+for the prototype (per
+`docs/requirements/top-level-requirements.md` §3 + §9 + §12). It is
+API-backed (public Wikipedia Action API at
+`https://en.wikipedia.org/w/api.php`, CC BY-SA 4.0) but the
+unified runner is offline / cache-first by default and the unified
+adapter is offline / cache-only in this slice
+(`requires_network=False`). The canonical legacy cache key
+convention `wikipedia_<action>_<query_hash>_<params_hash>.json` is
+preserved verbatim — the canonical fixture filenames are
+`wikipedia_extracts_62f100bfa4_default.json` (Joe Biden extracts),
+`wikipedia_search_62f100bfa4_7d0587b5ac.json` (Joe Biden search),
+and `wikipedia_extracts_6f47c90e93_default.json` (AMLO extracts).
+
+The clean-slice request-input contract maps the Wikipedia Action
+API query list to `request.leaders` (this source is a cached
+web/knowledge snippet helper, `leaders=` here means query strings,
+NOT resolved leader IDs). Missing / empty `leaders=` fails readiness
+with a structured `wikipedia_search_extract_missing_queries` error
+BEFORE the reader opens the cache — the helper does NOT browse /
+discover. `years=` and `countries=` are unsupported filters for
+this source (the Action API responses are not temporally scoped and
+not country-coded); the readiness envelope surfaces a structured
+`unsupported_filter` warning per request filter when set (the
+runner ignores the filters and still emits the cached rows; the
+unified adapter never invents year / country / leader values).
+
+The descriptor advertises
+`source_id="wikipedia_search_extract"`,
+`default_version="Action API"`,
+`attribution_key="wikipedia_search_extract"`,
+`source_type="api"`, `requires_network=False`, coverage hint
+`None` (Wikipedia is global, not temporally scoped), single
+observation family `leader_identity_context` (distinguished from
+the Wikidata `leader_identity_country_year` family so the two
+leader-context sources can co-exist in the registry without
+collision), Action API homepage URL
+`https://en.wikipedia.org/w/api.php`, and the canonical attribution
+text `Wikipedia (CC BY-SA 4.0).` per Rule #15. The adapter
+accepts BOTH the canonical primary metadata shape
+(`source_version="Action API"`) AND the legacy alias
+(`version="Action API (no version)"`) so the existing staged
+bundle does not need to be rewritten as part of the migration.
+The metadata `version` / `source_version` field is OPTIONAL for a
+cache-only bundle (the staged metadata is not required at runtime;
+the cache files are the source of truth); when present, the gate
+validates the canonical primary shape OR the legacy alias.
+
+The adapter emits one `leader_identity_context` observation per
+parsed Action API response row: one per `extracts` page (article
+lead / intro paragraph as `value`) or one per `search` hit
+(search snippet as `value`); `value_type='text'`; `year=None`,
+`country_code=None`, `leader_id=None`, `leader_name=None` (the
+Action API responses are not temporally scoped, not
+country-coded, and not leader-resolved; Stage 3 / Stage 4 resolve
+from the verbatim `raw_value` audit trail). The two in-scope
+indicator codes from the legacy catalog
+(`src/leaders_db/ingest/catalogs/wikipedia_search_extract.csv`) are
+`wikipedia_extract_lead` (for the `extracts` Action API action)
+and `wikipedia_search_results` (for the `search` Action API
+action).
+
+The per-observation `extension` carries the canonical attribution
+text (Rule #15), the legacy DB-writer `source_row_reference`
+(`wikipedia:<variable_name>:<hint>` where `<hint>` is the
+parser-emitted per-row `wikipedia:<pageid>:<title>` (extracts) or
+`wikipedia:search:<pageid>:<title>` (search)), the verbatim per-row
+payload JSON (`raw_row_payload`), the verbatim query string,
+the action name, the title, the pageid, the verbatim `extract`
+text, the `cache_key`, the `value_type='text'` /
+`raw_scale='text'` / `normalized_scale_target='text'` /
+`higher_is_better=True` direction hints, the cache path
+reference, and the `attribution` block. `RawLocator` carries the
+Action API URL (`url=WIKIPEDIA_SEARCH_EXTRACT_HOMEPAGE_URL`) +
+the canonical `api_params_hash` (the legacy `build_cache_key`
+output) + the `api_endpoint` template so audit code can resolve
+the canonical Wikipedia URL for each emitted observation.
+`TransformLocator` uses the canonical
+`wikipedia_search_extract_query_v1` transform name.
+
+Cache-policy semantics: `cache_policy="refresh"` / `"no_cache"` is
+NOT supported by the unified adapter in this slice — readiness
+surfaces a structured `unsupported_cache_policy` error BEFORE the
+reader opens the cache. The runner NEVER invokes the network; the
+legacy
+`leaders_db.ingest.wikipedia_search_extract_http.fetch_wikipedia_action_api_payload`
+HTTP layer is intentionally NEVER invoked by the unified read path
+(verified by
+`test_runner_does_not_invoke_http_layer` which monkeypatches the
+legacy HTTP helper to raise `AssertionError` if invoked).
 
 ---
 
