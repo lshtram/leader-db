@@ -121,6 +121,9 @@ def _missing_row(
     row_scope: RowScope,
     concept_key: str,
 ) -> AnalyticalDatasetRow:
+    warning_codes = ["missing_evidence"]
+    if plan.acquisition_policy == "run_approved_tasks":
+        warning_codes.append("live_acquisition_not_executed")
     return AnalyticalDatasetRow(
         question_id=plan.question_id,
         row_scope=row_scope,
@@ -131,7 +134,7 @@ def _missing_row(
         source_id=None,
         source_observation_ids=(),
         coverage_status="missing",
-        warning_codes=("missing_evidence",),
+        warning_codes=tuple(warning_codes),
         caveats=(),
         provenance_json={},
     )
@@ -182,7 +185,7 @@ def _task_for_gap(plan: InvestigationPlan, gap: EvidenceGap) -> EvidenceAcquisit
         scope_filter=gap.scope_filter,
         evidence_need=gap.required_evidence,
         required_output_schema=required_output_schema,
-        allowed_source_types=plan.source_priority or allowed_source_types,
+        allowed_source_types=allowed_source_types,
         status="planned",
     )
 
@@ -194,6 +197,7 @@ def _provenance(observation: NormalizedObservation) -> dict[str, Any]:
         "transform_locator": asdict(observation.transform_locator),
         "quality_flags": observation.quality_flags,
         "raw_locator_summary": _raw_locator_summary(observation),
+        "extension": dict(observation.extension),
     }
 
 

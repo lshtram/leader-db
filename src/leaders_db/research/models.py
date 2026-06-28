@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal, Self, TypeAlias
 
-from pydantic import BaseModel, ConfigDict, Field, field_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, model_validator
 
 from leaders_db.sources.contracts import EvidenceQuery, SourceId
 
@@ -19,6 +19,9 @@ EvidenceShape: TypeAlias = Literal[
     "evidence_bundle",
 ]
 AcquisitionPolicy: TypeAlias = Literal["none", "plan_only", "run_approved_tasks"]
+AcquiredEvidenceValueType: TypeAlias = Literal[
+    "boolean", "numeric", "categorical", "text", "missing"
+]
 
 
 class _StrictModel(BaseModel):
@@ -191,6 +194,36 @@ class EvidenceAcquisitionTask(_StrictModel):
     required_output_schema: str
     allowed_source_types: tuple[str, ...]
     status: Literal["planned", "approved", "running", "completed", "failed"] = "planned"
+
+
+class AcquiredEvidenceRecord(_StrictModel):
+    """Structured evidence produced by a controlled acquisition task."""
+
+    task_id: str
+    subject_scope: RowScope
+    claim_key: str
+    value: bool | int | float | str | None
+    value_type: AcquiredEvidenceValueType
+    source_url: str = Field(min_length=1)
+    source_title: str | None
+    source_type: str
+    quote: str | None
+    retrieved_at: str
+    confidence_score: int = Field(ge=0, le=100)
+    human_review_required: bool
+    caveats: tuple[str, ...]
+
+    @model_validator(mode="after")
+    def _value_matches_value_type(self) -> Self:
+        valid = (
+            (self.value_type == "boolean" and isinstance(self.value, bool))
+            or (self.value_type == "numeric" and type(self.value) in {int, float})
+            or (self.value_type in {"categorical", "text"} and isinstance(self.value, str))
+            or (self.value_type == "missing" and self.value is None)
+        )
+        if not valid:
+            raise ValueError(f"value must match value_type {self.value_type!r}")
+        return self
 
 
 class AnalyticalDatasetRow(_StrictModel):

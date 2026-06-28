@@ -80,7 +80,12 @@ unknown question review path, and classification-contract mapping to known specs
 
 ## Increment 3 — evidence gap and acquisition-task planning
 
-Status: planned.
+Status: implemented and reviewed on 2026-06-28.
+
+Verification:
+
+- `pytest -q tests/research` — passed, 22 tests.
+- `ruff check src/leaders_db/research tests/research` — passed.
 
 Deliverables:
 

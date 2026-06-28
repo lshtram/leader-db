@@ -1,5 +1,6 @@
 """Research engine first-slice package."""
 
+from .acquisition import acquired_evidence_to_observation
 from .dataset_builder import build_analytical_dataset
 from .planner import (
     QuestionSpecReviewNeeded,
@@ -12,6 +13,7 @@ from .runner import run_research_question
 
 __all__ = [
     "QuestionSpecReviewNeeded",
+    "acquired_evidence_to_observation",
     "build_analytical_dataset",
     "expand_scope_filter",
     "plan_question",
