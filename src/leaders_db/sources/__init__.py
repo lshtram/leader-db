@@ -32,7 +32,7 @@ from .contracts import (
     ValidationResult,
 )
 from .query import EvidenceRepository, InMemoryEvidenceRepository
-from .registry import InMemorySourceRegistry, SourceRegistry
+from .registry import InMemorySourceRegistry, SourceRegistry, build_default_source_registry
 from .runner import SourceIngestRunner
 from .validation import validate_observations
 
@@ -60,5 +60,6 @@ __all__ = [
     "SourceWarning",
     "TransformLocator",
     "ValidationResult",
+    "build_default_source_registry",
     "validate_observations",
 ]

@@ -2,9 +2,45 @@
 
 from __future__ import annotations
 
+from importlib import import_module
 from typing import Protocol, runtime_checkable
 
 from .contracts import SourceAdapter, SourceDescriptor, SourceId
+
+_DEFAULT_SOURCE_REGISTRARS: tuple[tuple[str, str], ...] = (
+    ("leaders_db.sources.adapters.archigos", "register_archigos"),
+    ("leaders_db.sources.adapters.bti", "register_bti"),
+    ("leaders_db.sources.adapters.cirights", "register_cirights"),
+    ("leaders_db.sources.adapters.ctbto_treaty_status", "register_ctbto_treaty_status"),
+    ("leaders_db.sources.adapters.fas", "register_fas"),
+    ("leaders_db.sources.adapters.freedom_house", "register_freedom_house"),
+    ("leaders_db.sources.adapters.iaea_safeguards", "register_iaea_safeguards"),
+    ("leaders_db.sources.adapters.maddison_project", "register_maddison_project"),
+    ("leaders_db.sources.adapters.polity_v", "register_polity_v"),
+    ("leaders_db.sources.adapters.pts", "register_pts"),
+    ("leaders_db.sources.adapters.pwt", "register_pwt"),
+    ("leaders_db.sources.adapters.reign", "register_reign"),
+    ("leaders_db.sources.adapters.rsf_press_freedom", "register_rsf_press_freedom"),
+    ("leaders_db.sources.adapters.sipri_arms_transfers", "register_sipri_arms_transfers"),
+    ("leaders_db.sources.adapters.sipri_milex", "register_sipri_milex"),
+    ("leaders_db.sources.adapters.sipri_yearbook_ch7", "register_sipri_yearbook_ch7"),
+    ("leaders_db.sources.adapters.transparency_cpi", "register_transparency_cpi"),
+    ("leaders_db.sources.adapters.ucdp", "register_ucdp"),
+    ("leaders_db.sources.adapters.undp_hdi", "register_undp_hdi"),
+    ("leaders_db.sources.adapters.vdem", "register_vdem"),
+    ("leaders_db.sources.adapters.who_gho_api", "register_who_gho_api"),
+    (
+        "leaders_db.sources.adapters.wikidata_heads_of_state_government",
+        "register_wikidata_heads_of_state_government",
+    ),
+    ("leaders_db.sources.adapters.wikipedia_search_extract", "register_wikipedia_search_extract"),
+    (
+        "leaders_db.sources.adapters.world_bank_poverty_inequality_platform",
+        "register_world_bank_poverty_inequality_platform",
+    ),
+    ("leaders_db.sources.adapters.world_bank_wdi", "register_world_bank_wdi"),
+    ("leaders_db.sources.adapters.world_bank_wgi", "register_world_bank_wgi"),
+)
 
 
 @runtime_checkable
@@ -78,3 +114,17 @@ class InMemorySourceRegistry:
             return self._adapters[source_id.slug]
         except KeyError as exc:
             raise KeyError(f"No source adapter registered for {source_id.slug!r}") from exc
+
+
+def build_default_source_registry() -> InMemorySourceRegistry:
+    """Compose the production clean-source registry.
+
+    The registry remains passive at import time: adapters are imported and
+    registered only when this composition helper is called. This keeps the
+    clean ``leaders_db.sources`` system separate from legacy Stage 2 dispatch.
+    """
+    registry = InMemorySourceRegistry()
+    for module_name, registrar_name in _DEFAULT_SOURCE_REGISTRARS:
+        registrar = getattr(import_module(module_name), registrar_name)
+        registrar(registry)
+    return registry

@@ -237,6 +237,19 @@ def test_register_rejects_duplicate_slug_with_value_error() -> None:
     assert "dup" in str(exc_info.value)
 
 
+def test_default_source_registry_registers_clean_adapters_only() -> None:
+    """Production composition exposes known clean adapter descriptors."""
+    from leaders_db.sources import build_default_source_registry
+
+    registry = build_default_source_registry()
+    slugs = tuple(descriptor.source_id.slug for descriptor in registry.list_descriptors())
+
+    assert slugs == tuple(sorted(slugs))
+    assert "world_bank_wdi" in slugs
+    assert "ctbto_treaty_status" in slugs
+    assert "cia_world_leaders" not in slugs
+
+
 # ---------------------------------------------------------------------------
 # Protocol conformance
 # ---------------------------------------------------------------------------

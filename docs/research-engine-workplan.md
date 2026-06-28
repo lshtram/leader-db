@@ -235,16 +235,33 @@ Verification:
 
 ## Increment 8 — source CLI over the new source system
 
-Status: planned.
+Status: first slice implemented; remaining commands deferred.
 
-Deliverables:
+Delivered first slice:
 
 - `leaders-db sources list`;
 - `leaders-db sources describe <source>`;
+- default clean source-registry composition for inspection commands;
+- CLI tests proving the new commands use the clean `leaders_db.sources` registry
+  path rather than legacy `leaders_db.ingest.STAGE2_ADAPTERS` dispatch.
+
+Deferred / out of scope for the first slice:
+
+- `leaders-db sources check-ready <source>`;
+- `leaders-db sources ingest <source>`;
+- `leaders-db sources query ...`.
+
+Remaining deliverables:
+
 - `leaders-db sources check-ready <source>`;
 - `leaders-db sources ingest <source>`;
 - `leaders-db sources query ...`;
 - clear distinction between legacy ingest commands and new source commands.
+
+First-slice verification:
+
+- `pytest tests/test_cli_sources.py tests/sources/test_registry.py tests/sources/test_import_boundary.py -q` — passed, 23 tests.
+- `ruff check src/leaders_db/cli/commands_sources.py src/leaders_db/cli/__init__.py src/leaders_db/sources/__init__.py src/leaders_db/sources/registry.py tests/test_cli_sources.py tests/sources/test_registry.py` — passed.
 
 Success check:
 
