@@ -12,12 +12,15 @@ from leaders_db.cli import app
 from leaders_db.sources import (
     CoverageHint,
     InMemorySourceRegistry,
+    NormalizedObservation,
+    RawLocator,
     RawReadResult,
     ReadinessResult,
     SourceDescriptor,
     SourceId,
     SourceIngestRequest,
     SourceWarning,
+    TransformLocator,
 )
 
 runner = CliRunner()
@@ -74,6 +77,35 @@ class _ReadinessAdapter:
     ) -> Iterable[Any]:
         self.transform_called = True
         return ()
+
+
+class _IngestAdapter(_ReadinessAdapter):
+    def transform(
+        self,
+        request: SourceIngestRequest,
+        raw: RawReadResult,
+    ) -> Iterable[NormalizedObservation]:
+        self.transform_called = True
+        return (
+            NormalizedObservation(
+                source_id=request.source_id,
+                observation_id="fake-obs-1",
+                observation_family="fixture",
+                indicator_code="fixture_indicator",
+                value=7,
+                value_type="numeric",
+                year=2023,
+                country_code="ISR",
+                country_name="Israel",
+                leader_id="leader-1",
+                leader_name=None,
+                unit=None,
+                scale=None,
+                source_version="fixture-v1",
+                raw_locator=RawLocator(asset_id="fake-raw"),
+                transform_locator=TransformLocator(adapter_version="fixture-adapter-v1"),
+            ),
+        )
 
 
 def _patch_registry(monkeypatch: Any, adapter: _ReadinessAdapter) -> None:
@@ -263,3 +295,116 @@ def test_sources_check_ready_json_output(monkeypatch) -> None:
             }
         ],
     }
+
+
+def test_sources_ingest_success_uses_clean_runner_path(monkeypatch, tmp_path) -> None:
+    adapter = _IngestAdapter(ReadinessResult(ready=True))
+    _patch_registry(monkeypatch, adapter)
+
+    result = runner.invoke(
+        app,
+        [
+            "sources",
+            "ingest",
+            "fake_source",
+            "--year",
+            "2023",
+            "--country",
+            "ISR",
+            "--leader",
+            "leader-1",
+            "--raw-root",
+            str(tmp_path / "raw"),
+            "--processed-root",
+            str(tmp_path / "processed"),
+            "--metadata-root",
+            str(tmp_path / "metadata"),
+            "--cache-policy",
+            "offline_only",
+            "--overwrite",
+            "--dry-run",
+            "--output-format",
+            "csv",
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    assert "source_id: fake_source" in result.stdout
+    assert "ready: True" in result.stdout
+    assert "validation_valid: True" in result.stdout
+    assert "observation_count: 1" in result.stdout
+    assert adapter.read_raw_called is True
+    assert adapter.transform_called is True
+    request = adapter.requests[0]
+    assert request.years == (2023,)
+    assert request.countries == ("ISR",)
+    assert request.leaders == ("leader-1",)
+    assert request.raw_root == tmp_path / "raw"
+    assert request.processed_root == tmp_path / "processed"
+    assert request.metadata_root == tmp_path / "metadata"
+    assert request.cache_policy == "offline_only"
+    assert request.overwrite is True
+    assert request.dry_run is True
+    assert request.output_formats == ("csv",)
+
+
+def test_sources_ingest_not_ready_fails_before_reading_raw(monkeypatch) -> None:
+    adapter = _ReadinessAdapter(
+        ReadinessResult(
+            ready=False,
+            errors=(SourceWarning(code="MISSING_RAW", message="raw file absent"),),
+        )
+    )
+    _patch_registry(monkeypatch, adapter)
+
+    result = runner.invoke(app, ["sources", "ingest", "fake_source"])
+
+    assert result.exit_code == 1
+    assert "ready: False" in result.stdout
+    assert "INGEST_FAILED" in result.stdout
+    assert "not ready" in result.stdout
+    assert adapter.read_raw_called is False
+    assert adapter.transform_called is False
+
+
+def test_sources_ingest_unknown_source_fails_clearly() -> None:
+    result = runner.invoke(app, ["sources", "ingest", "not_a_source"])
+
+    assert result.exit_code != 0
+    combined = result.stdout + (result.stderr or "")
+    assert "not_a_source" in combined
+    assert "sources list" in combined
+
+
+def test_sources_ingest_uses_clean_registry_not_legacy_stage2_dispatch(monkeypatch) -> None:
+    from leaders_db import ingest as legacy_ingest
+
+    adapter = _IngestAdapter(ReadinessResult(ready=True))
+    _patch_registry(monkeypatch, adapter)
+    monkeypatch.setattr(legacy_ingest, "STAGE2_ADAPTERS", _ExplodingStage2Dispatch())
+
+    result = runner.invoke(app, ["sources", "ingest", "fake_source"])
+
+    assert result.exit_code == 0, result.stdout
+    assert adapter.requests
+
+
+def test_sources_ingest_json_output(monkeypatch) -> None:
+    adapter = _IngestAdapter(
+        ReadinessResult(
+            ready=True,
+            warnings=(SourceWarning(code="OPTIONAL", message="optional warning"),),
+        )
+    )
+    _patch_registry(monkeypatch, adapter)
+
+    result = runner.invoke(app, ["sources", "ingest", "fake_source", "--output", "json"])
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["source_id"] == "fake_source"
+    assert payload["ready"] is True
+    assert payload["validation_valid"] is True
+    assert payload["observation_count"] == 1
+    assert payload["manifest_run_id"] is None
+    assert payload["warnings"][0]["code"] == "OPTIONAL"

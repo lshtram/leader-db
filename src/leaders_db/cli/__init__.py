@@ -35,6 +35,7 @@ from .commands_sources import (
     sources_app,
     sources_check_ready_cmd,
     sources_describe_cmd,
+    sources_ingest_cmd,
     sources_list_cmd,
 )
 from .commands_stage0_1 import check_source_availability, ingest_client_matrix
@@ -79,6 +80,7 @@ __all__ = [
     "sources_app",
     "sources_check_ready_cmd",
     "sources_describe_cmd",
+    "sources_ingest_cmd",
     "sources_list_cmd",
     "summary_report",
     "viz_build_growth_tables_cmd",

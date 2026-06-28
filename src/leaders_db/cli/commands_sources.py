@@ -11,9 +11,11 @@ import typer
 
 from ..sources import (
     CachePolicy,
+    OutputFormat,
     SourceDescriptor,
     SourceId,
     SourceIngestRequest,
+    SourceIngestResult,
     SourceIngestRunner,
     SourceWarning,
     build_default_source_registry,
@@ -178,6 +180,102 @@ def sources_check_ready_cmd(
         raise typer.Exit(1)
 
 
+@sources_app.command("ingest")
+def sources_ingest_cmd(
+    source: str = typer.Argument(..., help="Clean source ID to ingest."),
+    years: list[int] | None = typer.Option(
+        None,
+        "--year",
+        help="Restrict ingest to a year. May be passed multiple times.",
+    ),
+    countries: list[str] | None = typer.Option(
+        None,
+        "--country",
+        help="Restrict ingest to an ISO country code. May be passed multiple times.",
+    ),
+    leaders: list[str] | None = typer.Option(
+        None,
+        "--leader",
+        help="Restrict ingest to a leader ID. May be passed multiple times.",
+    ),
+    raw_root: Path = typer.Option(Path("data/raw"), "--raw-root"),
+    processed_root: Path = typer.Option(Path("data/processed"), "--processed-root"),
+    metadata_root: Path = typer.Option(Path("data/metadata"), "--metadata-root"),
+    cache_policy: str = typer.Option(
+        "prefer_cache",
+        "--cache-policy",
+        help="Cache policy: offline_only, prefer_cache, refresh, or no_cache.",
+    ),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Allow overwriting outputs."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Run without mutating outputs."),
+    output_formats: list[str] | None = typer.Option(
+        None,
+        "--output-format",
+        help="Processed output format: parquet or csv. May be passed multiple times.",
+    ),
+    output: str = typer.Option(
+        "table",
+        "--output",
+        "-o",
+        help="Output format: table or json.",
+    ),
+) -> None:
+    """Ingest one clean source through the shared source runner lifecycle."""
+    if output not in {"table", "json"}:
+        raise typer.BadParameter("--output must be 'table' or 'json'")
+    if cache_policy not in {"offline_only", "prefer_cache", "refresh", "no_cache"}:
+        raise typer.BadParameter(
+            "--cache-policy must be one of: offline_only, prefer_cache, refresh, no_cache"
+        )
+    formats = tuple(output_formats) if output_formats else ("parquet",)
+    unsupported_formats = sorted(set(formats) - {"parquet", "csv"})
+    if unsupported_formats:
+        raise typer.BadParameter("--output-format must be 'parquet' or 'csv'")
+
+    registry = build_default_source_registry()
+    source_id = SourceId(slug=source)
+    request = SourceIngestRequest(
+        source_id=source_id,
+        years=tuple(years) if years else None,
+        countries=tuple(countries) if countries else None,
+        leaders=tuple(leaders) if leaders else None,
+        raw_root=raw_root,
+        processed_root=processed_root,
+        metadata_root=metadata_root,
+        dry_run=dry_run,
+        overwrite=overwrite,
+        cache_policy=cast(CachePolicy, cache_policy),
+        output_formats=cast(tuple[OutputFormat, ...], formats),
+    )
+
+    try:
+        result = SourceIngestRunner(registry).run(request)
+    except KeyError as exc:
+        raise typer.BadParameter(
+            f"unknown source {source!r}; run `leaders-db sources list` for valid IDs"
+        ) from exc
+    except RuntimeError as exc:
+        _echo_ingest_failure(source, str(exc), output=output)
+        raise typer.Exit(1) from exc
+
+    if output == "json":
+        typer.echo(json.dumps(_ingest_result_payload(result), indent=2, sort_keys=True))
+        return
+
+    payload = _ingest_result_payload(result)
+    typer.echo(f"source_id: {payload['source_id']}")
+    typer.echo(f"ready: {payload['ready']}")
+    typer.echo(f"validation_valid: {payload['validation_valid']}")
+    typer.echo(f"observation_count: {payload['observation_count']}")
+    typer.echo(f"manifest_run_id: {payload['manifest_run_id'] or '-'}")
+    typer.echo(f"manifest_idempotency_key: {payload['manifest_idempotency_key'] or '-'}")
+    _echo_findings("warning", result.warnings)
+    _echo_findings("validation_error", result.validation.errors)
+
+    if not result.validation.valid:
+        raise typer.Exit(1)
+
+
 def _descriptor_payload(descriptor: SourceDescriptor) -> dict[str, object]:
     """Return a JSON-friendly descriptor payload for CLI output."""
     return {
@@ -204,6 +302,56 @@ def _warning_payload(warning: SourceWarning) -> dict[str, object]:
     }
 
 
+def _ingest_result_payload(result: SourceIngestResult) -> dict[str, object]:
+    manifest = result.manifest
+    return {
+        "source_id": result.source_id.slug,
+        "ready": result.readiness.ready,
+        "validation_valid": result.validation.valid,
+        "observation_count": len(result.observations),
+        "manifest_run_id": manifest.run_id if manifest else None,
+        "manifest_idempotency_key": manifest.idempotency_key if manifest else None,
+        "warnings": [_warning_payload(warning) for warning in result.warnings],
+        "validation_errors": [_warning_payload(error) for error in result.validation.errors],
+    }
+
+
+def _echo_ingest_failure(source: str, message: str, *, output: str) -> None:
+    if output == "json":
+        typer.echo(
+            json.dumps(
+                {
+                    "source_id": source,
+                    "ready": False,
+                    "validation_valid": False,
+                    "observation_count": 0,
+                    "manifest_run_id": None,
+                    "manifest_idempotency_key": None,
+                    "warnings": [],
+                    "validation_errors": [
+                        {
+                            "code": "INGEST_FAILED",
+                            "message": message,
+                            "severity": "error",
+                            "source_id": source,
+                            "context": {},
+                        }
+                    ],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return
+
+    typer.echo(f"source_id: {source}")
+    typer.echo("ready: False")
+    typer.echo("validation_valid: False")
+    typer.echo("observation_count: 0")
+    typer.echo("manifest_run_id: -")
+    typer.echo(f"errors:\n  - [error] INGEST_FAILED: {message}")
+
+
 def _echo_findings(label: str, warnings: tuple[SourceWarning, ...]) -> None:
     if not warnings:
         typer.echo(f"{label}s: -")
@@ -217,5 +365,6 @@ __all__ = [
     "sources_app",
     "sources_check_ready_cmd",
     "sources_describe_cmd",
+    "sources_ingest_cmd",
     "sources_list_cmd",
 ]

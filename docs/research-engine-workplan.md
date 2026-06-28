@@ -235,7 +235,7 @@ Verification:
 
 ## Increment 8 — source CLI over the new source system
 
-Status: first two slices implemented; ingest/query deferred.
+Status: list/describe, check-ready, and ingest slices implemented; query deferred.
 
 Delivered first slice:
 
@@ -255,12 +255,10 @@ Delivered check-ready slice:
 
 Deferred / out of scope for current slices:
 
-- `leaders-db sources ingest <source>`;
 - `leaders-db sources query ...`.
 
 Remaining deliverables:
 
-- `leaders-db sources ingest <source>`;
 - `leaders-db sources query ...`;
 - clear distinction between legacy ingest commands and new source commands.
 
@@ -274,6 +272,22 @@ Check-ready slice verification:
 - `pytest -q tests/test_cli_sources.py` — passed, 9 tests.
 - `pytest -q tests/test_imports.py tests/test_cli_sources.py` — passed, 11 tests.
 - `ruff check src/leaders_db/cli/commands_sources.py tests/test_cli_sources.py` — passed.
+
+Delivered ingest slice:
+
+- `leaders-db sources ingest <source>`;
+- ingest routed through `build_default_source_registry()` and
+  `SourceIngestRunner.run()`, not legacy Stage 2 dispatch;
+- deterministic human-readable output and JSON output with readiness,
+  validation status, observation count, manifest/run IDs when available, and
+  warnings/errors;
+- clear unknown-source failures and non-zero exit when readiness blocks ingest
+  before raw read/transform.
+
+Ingest slice verification:
+
+- `pytest -q tests/test_cli_sources.py tests/sources/test_import_boundary.py` — passed, 19 tests.
+- `ruff check src/leaders_db/cli/commands_sources.py src/leaders_db/cli/__init__.py src/leaders_db/sources/__init__.py tests/test_cli_sources.py` — passed.
 
 Success check:
 
