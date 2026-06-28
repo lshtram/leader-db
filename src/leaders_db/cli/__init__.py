@@ -31,7 +31,12 @@ from .commands_scoring_other import compute_confidence, score_all
 # decorators, which register every Stage 0–15 command on :data:`app`.
 # Keep the imports grouped by stage so the surface area is obvious.
 from .commands_setup import init_data_lake, init_db
-from .commands_sources import sources_app, sources_describe_cmd, sources_list_cmd
+from .commands_sources import (
+    sources_app,
+    sources_check_ready_cmd,
+    sources_describe_cmd,
+    sources_list_cmd,
+)
 from .commands_stage0_1 import check_source_availability, ingest_client_matrix
 from .commands_stage2 import ingest_source
 from .commands_stage3_5 import (
@@ -72,6 +77,7 @@ __all__ = [
     "run_vertical_slice_2023",
     "score_all",
     "sources_app",
+    "sources_check_ready_cmd",
     "sources_describe_cmd",
     "sources_list_cmd",
     "summary_report",

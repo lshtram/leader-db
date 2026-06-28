@@ -235,7 +235,7 @@ Verification:
 
 ## Increment 8 — source CLI over the new source system
 
-Status: first slice implemented; remaining commands deferred.
+Status: first two slices implemented; ingest/query deferred.
 
 Delivered first slice:
 
@@ -245,15 +245,21 @@ Delivered first slice:
 - CLI tests proving the new commands use the clean `leaders_db.sources` registry
   path rather than legacy `leaders_db.ingest.STAGE2_ADAPTERS` dispatch.
 
-Deferred / out of scope for the first slice:
+Delivered check-ready slice:
 
 - `leaders-db sources check-ready <source>`;
+- readiness checks routed through the clean source registry / adapter lifecycle,
+  not legacy Stage 2 dispatch;
+- deterministic human-readable output and JSON output;
+- clear unknown-source failures and non-zero exit for not-ready sources.
+
+Deferred / out of scope for current slices:
+
 - `leaders-db sources ingest <source>`;
 - `leaders-db sources query ...`.
 
 Remaining deliverables:
 
-- `leaders-db sources check-ready <source>`;
 - `leaders-db sources ingest <source>`;
 - `leaders-db sources query ...`;
 - clear distinction between legacy ingest commands and new source commands.
@@ -262,6 +268,12 @@ First-slice verification:
 
 - `pytest tests/test_cli_sources.py tests/sources/test_registry.py tests/sources/test_import_boundary.py -q` — passed, 23 tests.
 - `ruff check src/leaders_db/cli/commands_sources.py src/leaders_db/cli/__init__.py src/leaders_db/sources/__init__.py src/leaders_db/sources/registry.py tests/test_cli_sources.py tests/sources/test_registry.py` — passed.
+
+Check-ready slice verification:
+
+- `pytest -q tests/test_cli_sources.py` — passed, 9 tests.
+- `pytest -q tests/test_imports.py tests/test_cli_sources.py` — passed, 11 tests.
+- `ruff check src/leaders_db/cli/commands_sources.py tests/test_cli_sources.py` — passed.
 
 Success check:
 
