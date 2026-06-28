@@ -268,6 +268,17 @@ concept rows, emits chart-ready rows using `VIZ_OUTPUT_REQUIRED_COLUMNS`, and
 returns source/concept coverage diagnostics. The first source precedence policy
 is explicit and stable: `world_bank_wdi -> maddison_project -> pwt`.
 
+### Economic trend publishing (research-engine Increment 9 first slice, 2026-06-28)
+
+`src/leaders_db/viz/economic_trends.py` adds the first broader question-family
+proof path without creating a dashboard-specific script. It reads persisted
+normalized observations through `EvidenceRepository`, reuses the concept metric
+bridge for `concept.gdp_per_capita`, `concept.population`, and
+`concept.gdp_total`, filters selected country/year scopes, and can write the
+deterministic `viz_economic_trends.csv` artifact. When that CSV is present,
+`leaders-db viz-build-superset-db` loads it as the optional read-only
+`viz_economic_trends` table.
+
 ### How to run
 
 ```bash

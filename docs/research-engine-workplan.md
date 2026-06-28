@@ -309,7 +309,31 @@ fixture-backed source.
 
 ## Increment 9 — visualization publishing and broader questions
 
-Status: planned.
+Status: first slice implemented (2026-06-28).
+
+Delivered first slice:
+
+- reusable economic trend publishing helper over persisted evidence via
+  `SqlEvidenceRepository` / `EvidenceRepository`;
+- GDP per capita, population, and total GDP trend rows are built by reusing the
+  Increment 7 concept metric bridge (`concept.gdp_per_capita`,
+  `concept.population`, `concept.gdp_total`), not by adding new source-specific
+  extraction logic;
+- deterministic `viz_economic_trends.csv` writer for selected countries and
+  inclusive year ranges;
+- optional Superset SQLite table registration as `viz_economic_trends` when the
+  CSV is present.
+
+First-slice success check:
+
+```text
+SQL-backed normalized observations can be published as GDP/population trend rows
+and loaded into the read-only viz/Superset artifact without rerunning adapters
+```
+
+Proof surface: `tests/test_viz_economic_trends.py` covers fixture observations in
+`normalized_observations` -> concept bridge metrics -> filtered economic trend
+CSV -> optional Superset SQLite table.
 
 Candidate question families:
 

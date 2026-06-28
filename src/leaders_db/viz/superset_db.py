@@ -32,6 +32,7 @@ VIZ_CSV_TABLES: tuple[tuple[str, str, bool], ...] = (
         "viz_investigation_gdp_per_capita_major_powers",
         False,
     ),
+    ("viz_economic_trends.csv", "viz_economic_trends", False),
 )
 
 

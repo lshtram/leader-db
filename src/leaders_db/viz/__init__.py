@@ -9,6 +9,14 @@ from .concept_bridge import (
     concept_metric_mappings,
     publish_concept_metrics,
 )
+from .economic_trends import (
+    ECONOMIC_TREND_CONCEPT_KEYS,
+    ECONOMIC_TRENDS_CSV_NAME,
+    EconomicTrendRequest,
+    EconomicTrendResult,
+    build_economic_trend_table,
+    write_economic_trend_csv,
+)
 from .executor import CsvVizDataProvider, VizDataProvider, execute_query
 from .investigation_slice import (
     INVESTIGATION_CSV_COLUMNS,
@@ -54,6 +62,8 @@ from .superset_growth_tables import (
 )
 
 __all__ = [
+    "ECONOMIC_TRENDS_CSV_NAME",
+    "ECONOMIC_TREND_CONCEPT_KEYS",
     "INVESTIGATION_CSV_COLUMNS",
     "SUPPORTED_QUESTIONS",
     "SUPPORTED_QUESTION_KEYS",
@@ -64,6 +74,8 @@ __all__ = [
     "ConceptMetricMapping",
     "ConceptMetricPublishResult",
     "CsvVizDataProvider",
+    "EconomicTrendRequest",
+    "EconomicTrendResult",
     "FilterOperator",
     "FilterSpec",
     "GrowthTableBuildResult",
@@ -82,6 +94,7 @@ __all__ = [
     "VizGrain",
     "build_country_latest_metrics",
     "build_country_year_growth",
+    "build_economic_trend_table",
     "build_growth_tables",
     "build_regime_year_aggregates",
     "build_superset_sqlite_db",
@@ -94,4 +107,5 @@ __all__ = [
     "lookup_metric",
     "publish_concept_metrics",
     "run_investigation_slice",
+    "write_economic_trend_csv",
 ]

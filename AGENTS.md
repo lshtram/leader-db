@@ -1,6 +1,6 @@
 # AGENTS.md — leaders-db Agent Rules
 
-This file tells AI agents how to operate in this repository. **Read it first** whenever you open this workspace, then read [`docs/workplan.md`](docs/workplan.md) and [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md).
+This file tells AI agents how to operate in this repository. **Read it first** whenever you open this workspace, then read [`docs/workplan.md`](docs/workplan.md), [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md), and [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md).
 
 The authoritative product brief is **`docs/requirements/top-level-requirements.md`**. The stage numbering in this file (Stage 0–15) refers to the pipeline stages defined there in §8.
 
@@ -26,12 +26,13 @@ Read in this order before doing any non-trivial work:
 
 1. [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md) — product brief, §1–18. The numbering of pipeline stages in this AGENTS.md follows §8 there.
 2. [`docs/workplan.md`](docs/workplan.md) — current status, active phase, next steps.
-3. [`docs/architecture/overview.md`](docs/architecture/overview.md) — system design and module boundaries.
-4. [`docs/requirements/core.md`](docs/requirements/core.md) — the locally tracked REQ-* / NFR-* baseline derived from the brief.
-5. [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) — style, banned patterns, review checklist.
-6. [`docs/sources/registry.md`](docs/sources/registry.md) — the per-source registry for `data/raw/<source>/`.
-7. [`docs/architecture/local-data-store.md`](docs/architecture/local-data-store.md) — the data-lake folder rules.
-8. [`docs/architecture/database-schema.md`](docs/architecture/database-schema.md) — the 11-table prototype schema.
+3. [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md) — the ruler-quality question bank, including the chapter 7/8 scoring criteria and question IDs (for example 8B.* effectiveness questions).
+4. [`docs/architecture/overview.md`](docs/architecture/overview.md) — system design and module boundaries.
+5. [`docs/requirements/core.md`](docs/requirements/core.md) — the locally tracked REQ-* / NFR-* baseline derived from the brief.
+6. [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) — style, banned patterns, review checklist.
+7. [`docs/sources/registry.md`](docs/sources/registry.md) — the per-source registry for `data/raw/<source>/`.
+8. [`docs/architecture/local-data-store.md`](docs/architecture/local-data-store.md) — the data-lake folder rules.
+9. [`docs/architecture/database-schema.md`](docs/architecture/database-schema.md) — the 11-table prototype schema.
 
 Do not re-derive the schema or the pipeline order from comments in code; both are normative in the docs above.
 
@@ -111,6 +112,7 @@ These apply in every mode, every session:
 |---|---|
 | [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md) | Authoritative product brief (the "what") |
 | [`docs/workplan.md`](docs/workplan.md) | Current status, active phase, next steps, done history |
+| [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md) | Ruler-quality question bank and scoring criteria, including chapter 7/8 question IDs |
 | [`docs/architecture/overview.md`](docs/architecture/overview.md) | System design, module boundaries, data flow |
 | [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) | Style, banned patterns, D2 review checklist |
 | [`docs/process/operational-hygiene.md`](docs/process/operational-hygiene.md) | Cleanup-coherence + review discipline (Always-On Rules #13, #14) |
