@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from ._app import app, main_callback
 from .commands_chronicle import run_country_year_chronicle_cmd
+from .commands_evidence import evidence_app, evidence_summarize_ruler_period_cmd
 from .commands_scoring_category import _run_score_category_all_countries
 from .commands_scoring_other import compute_confidence, score_all
 
@@ -67,6 +68,8 @@ __all__ = [
     "check_source_availability",
     "compare_vs_client",
     "compute_confidence",
+    "evidence_app",
+    "evidence_summarize_ruler_period_cmd",
     "extract_indicators",
     "ingest_client_matrix",
     "ingest_source",
