@@ -26,7 +26,7 @@ Concrete numbers (as of 2026-06-20):
 
 ## Active Phase
 
-**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration: 34 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, and `iaea_safeguards` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 39 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
+**Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration + CTBTO Treaty Status clean migration + World Bank PIP clean migration: 36 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, `iaea_safeguards`, `ctbto_treaty_status`, and `world_bank_poverty_inequality_platform` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 41 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
 **Freedom House FIW clean adapter note (2026-06-26):** The FIW 2026 workbooks remain staged under `data/raw/freedom_house/`: `Aggregate_Category_and_Subcategory_Scores_FIW_2003-2026.xlsx`, `All_data_FIW_2013-2026.xlsx`, and `Country_and_Territory_Ratings_and_Statuses_FIW_1973-2026.xlsx`. The raw FIW database/workbooks are user-managed and must not be published or redistributed. The clean adapter at `src/leaders_db/sources/adapters/freedom_house/` reads the canonical 1973-2026 ratings/statuses workbook and emits political rights, civil liberties, and status observations under `political_freedom_country_year`; the aggregate/all-data workbooks remain staged for future expansion. No legacy `src/leaders_db/ingest` adapter was added.
 
@@ -137,7 +137,7 @@ transform: multiple `COUNTRY` disaggregation records per
 `(iso3, year, indicator)` collapse into one observation (the first record's
 value AND raw_value, not a silent last-record-wins flip).
 
-**Next source-migration path (2026-06-27):** Per user direction, continue clean
+**Next source-migration path (2026-06-28):** Per user direction, continue clean
 `leaders_db.sources` migrations one source at a time. WHO GHO API, FAS, Wikidata WikiProject heads-of-state-and-government, and
 Wikipedia Action API search/extract are now migrated under
 `src/leaders_db/sources/adapters/` after CIRIGHTS, SIPRI Yearbook Ch.7,
@@ -146,20 +146,22 @@ Transparency CPI, PTS, RSF, and UNDP HDI. Together with PWT, Maddison Project,
 WDI, WGI, V-Dem, UCDP, Transparency CPI, PTS, RSF, BTI, Freedom House,
 Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, WHO GHO
 API, FAS, Wikidata HoS/HoG, Wikipedia search/extract, Polity V, SIPRI Arms
-Transfers, and IAEA Safeguards, the unified source interface now covers
-historical economy, current economy, governance, political regime / repression /
-corruption / social well-being, press freedom, political terror, corruption
-perception, BTI transformation / effectiveness evidence, FIW political rights /
-civil liberties / status evidence, historical leader-spell identity evidence,
-historical leader-month identity / governance evidence, both nuclear-force
+Transfers, IAEA Safeguards, and CTBTO Treaty Status, the unified source
+interface now covers historical economy, current economy, governance,
+political regime / repression / corruption / social well-being, press
+freedom, political terror, corruption perception, BTI transformation /
+effectiveness evidence, FIW political rights / civil liberties / status
+evidence, historical leader-spell identity evidence, historical
+leader-month identity / governance evidence, both nuclear-force
 country-year evidence sources, CIRIGHTS domestic-violence/human-rights
-country-year evidence, UNDP social-wellbeing country-year evidence, WHO GHO API
-health country-year evidence, Wikidata per-binding leader-identity
-evidence, Wikipedia cached leader-context snippets, and IAEA Safeguards
-legal / status evidence. **Active next action:** choose whether to resume
-the vertical-slice investigation through the fully migrated legacy source
-pipeline or prioritize one of the blocked/future source rows. There are no
-remaining legacy-implemented clean-source rows pending in the §7.1
+country-year evidence, UNDP social-wellbeing country-year evidence, WHO
+GHO API health country-year evidence, Wikidata per-binding leader-identity
+evidence, Wikipedia cached leader-context snippets, IAEA Safeguards legal
+/ status evidence, and CTBTO CTBT signature / ratification status
+evidence. **Active next action:** choose whether to resume the
+vertical-slice investigation through the fully migrated legacy source
+pipeline or prioritize one of the blocked/future source rows. There are
+no remaining legacy-implemented clean-source rows pending in the §7.1
 inventory.
 
 **Wikidata WikiProject heads-of-state-and-government clean adapter note (2026-06-27):**
@@ -567,6 +569,227 @@ two nuclear-force evidence sources (SIPRI Yearbook Ch.7 +
 FAS), giving downstream scorers + manual-review code a
 structured snapshot of the legal / treaty-status layer
 beneath the nuclear-arsenal-facts layer.
+
+**CTBTO Treaty Status clean adapter note (2026-06-28):**
+CTBTO States Signatories is now migrated under
+`src/leaders_db/sources/adapters/ctbto_treaty_status/`. The
+adapter is the **next feasible clean-interface-only source**
+after ``iaea_safeguards``
+(``docs/architecture/sources.md`` §7.2 ``ctbto_treaty_status``
+row; fourth post-interface source with no legacy Stage 2
+implementation). Per the task brief the slice is deliberately
+scoped to CTBT **signature / ratification status** evidence
+only (the canonical public CTBTO States Signatories page at
+``https://www.ctbto.org/our-mission/states-signatories``,
+status as of 13 March 2024) -- NOT per-country nuclear
+behaviour, NOT proof of compliance / non-compliance by
+itself. The descriptor's ``coverage_hint.notes`` carries the
+explicit caveat. The unified adapter reads the staged cached
+CSV (``states-signatories.csv``) or HTML fallback
+(``states-signatories.html``) plus a runtime-local
+``metadata.json`` (gitignored per Always-On Rule #9) from
+``data/raw/ctbto_treaty_status/`` and validates the parsed
+header against the 4 canonical required columns
+(``Region`` / ``State`` / ``Signature Date`` /
+``Ratification Date``), raising
+``CtbtoTreatyStatusSchemaError`` BEFORE the transform layer
+consumes the frame on a schema contract violation. The
+adapter emits ONE observation family
+(``nuclear_treaty_status_country``) with **2 source-derived
+catalog indicators** (one per date-bearing column in the
+canonical CTBTO page:
+``ctbto_treaty_status_signature_status`` and
+``ctbto_treaty_status_ratification_status``). The transform
+derives the signature status from the signature date cell
+(``"signed"`` iff the cell is non-empty, ``"not_signed"``
+otherwise) and the ratification status from the ratification
+date cell (``"ratified"`` iff the cell is non-empty,
+``"not_ratified"`` otherwise) -- an empty / blank date cell
+is ALWAYS treated as ``"not_signed"`` /
+``"not_ratified"`` per the canonical CTBTO page semantics;
+the transform never invents a signature / ratification
+status from empty / blank date cells. The catalog
+deliberately does NOT include a default
+``ctbto_treaty_status_annex_2_status`` indicator -- the
+canonical CTBTO page does NOT carry an Annex 2 flag column
+(Annex 2 refers to the 44 States that the CTBTO PrepCom
+identified as needing to ratify the CTBT for the Treaty to
+enter into force, but the public table does NOT surface an
+Annex 2 status column); the adapter only emits an OPTIONAL
+per-row Annex 2 observation when the cached fixture /
+source-native data carries an explicit ``Annex 2`` column
+(and never invents an Annex 2 flag from missing
+source-native data). Raw signature / ratification dates are
+preserved verbatim as strings on the audit-trail extension
+payload (the adapter does NOT coerce them to numeric years
+that could mislead Stage 11 confidence calculations). The
+transform preserves the source-native State display name
+verbatim (no ISO3 invention) and uses the canonical
+single-year 2024 coverage envelope so out-of-coverage year
+requests (e.g. ``years=(2023,)`` -- the prototype's target
+year) emit zero observations plus a structured
+``YEAR_ABSENT`` warning (no stale-proxy fill per
+SRC-COV-002 / SRC-COV-003). The adapter is offline /
+cache-only in this slice (``requires_network=False``); live
+fetch is intentionally NOT supported per the CTBTO
+terms-of-use -- the readiness gate blocks
+``cache_policy="refresh"`` / ``"no_cache"`` with a
+structured ``ctbto_treaty_status_unsupported_cache_policy``
+error BEFORE ``read_raw`` / ``transform`` are called. The
+focused tests in
+``tests/sources/test_ctbto_treaty_status_adapter.py`` cover:
+descriptor / factory / registry / public surface (8 tests);
+the canonical 2-indicator catalog + Annex 2 absence /
+presence assertion (3 tests); the attribution-text drift
+guard (2 tests); the readiness-failure matrix (5
+readiness-blocker cases + cache-policy gate +
+unsupported-version blocker + unsupported-leaders-filter
+advisory warning); the year semantics (out-of-coverage year
+emits zero observations + advisory ``YEAR_ABSENT``
+warning; in-coverage year emits the full observation set;
+``years=None`` emits the full observation set); the country
+filter (single match, no-match, multiple matches,
+source-native display name); the signature / ratification
+status sentinels (signed+ratified row, signed but
+not-yet-ratified row, unsigned+unratified row -- the
+unsigned / unratified rows are NOT silently treated as
+signed / ratified); the observation shape (source-native
+State preserved verbatim + no ISO3 invention + raw_locators
++ transform_locators + attribution text); the Annex 2
+indicator emission path (OPTIONAL emission when the cached
+fixture carries an explicit ``Annex 2`` column, NO emission
+when the column is absent); the schema-error path
+(``CtbtoTreatyStatusSchemaError`` for missing required
+columns); the import-boundary contract (no
+``leaders_db.ingest`` leak); the no-network boundary (HTTP /
+socket sentinels never invoked); the duplicate-slug
+``ValueError`` registration guard (SRC-REG-004); and the
+HTML fallback contract (the raw-read boundary loads the
+HTML fallback when the CSV is absent and parses the
+``<table>`` via the built-in HTML parser). The synthetic CSV
+fixture is built by
+``tests/fixtures/ctbto_treaty_status/build_sample_csv.py``
+via the Python ``csv`` module (6 hand-authored synthetic
+State rows + 1 header row; the State labels and date cells
+are NOT real CTBTO Treaty Status data per the task brief:
+"fixtures must not redistribute copied full table in
+outputs"). The canonical attribution text
+``"CTBTO States Signatories, Comprehensive Nuclear-Test-Ban
+Treaty signature and ratification status (Comprehensive
+Nuclear-Test-Ban Treaty Organization, status as of 13 March
+2024)."`` is byte-identical to the ``ctbto_treaty_status``
+row in ``docs/sources/attributions.md`` (Always-On Rule
+#15). The canonical version stamp
+``"CTBTO States Signatories, status as of 2024-03-13"``
+propagates consistently to ``RawAsset.version`` and every
+emitted ``NormalizedObservation.source_version``. The
+legacy ``STAGE2_ADAPTERS["ctbto_treaty_status"]`` slot
+remains unset (no legacy Stage 2 implementation); the new
+package exposes explicit
+``create_ctbto_treaty_status_adapter()`` and
+``register_ctbto_treaty_status(registry)`` factories and
+does NOT auto-register on import (per
+``docs/architecture/sources.md`` §10.1). The
+``iaea_additional_protocol_status`` slug in §7.2 is
+documented as a subset / family of ``iaea_safeguards``
+(subsumed; do not implement as a separate adapter). With
+CTBTO Treaty Status landed, the unified source interface
+now covers the canonical nuclear-test-ban treaty-status
+evidence alongside the safeguards legal / status evidence
+(``iaea_safeguards``) and the two nuclear-force evidence
+sources (``sipri_yearbook_ch7`` + ``fas``), giving
+downstream scorers + manual-review code a structured
+snapshot of the CTBT signature / ratification posture
+beneath the nuclear-arsenal-facts + safeguards-status
+layer.
+
+**World Bank Poverty and Inequality Platform (PIP) clean adapter
+note (2026-06-28):** World Bank PIP is now migrated under
+`src/leaders_db/sources/adapters/world_bank_poverty_inequality_platform/`.
+The adapter is the **next feasible clean-interface-only source**
+after ``ctbto_treaty_status``
+(``docs/architecture/sources.md`` §7.2
+``world_bank_poverty_inequality_platform`` row; no legacy Stage
+2 implementation, and no legacy ``STAGE2_ADAPTERS`` slot is
+added for this clean-interface-only slice). Per the task brief the slice is
+deliberately scoped to cached CSV / JSON ingestion only --
+live fetch is intentionally NOT supported ("Build an
+offline/cache-first adapter. Do NOT implement live HTTP
+fetching"). The unified adapter reads a staged cached CSV
+(``pip_stats.csv``) or JSON wrapper (``pip_stats.json``) plus
+a runtime-local ``metadata.json`` (gitignored per Always-On
+Rule #9) from ``data/raw/world_bank_poverty_inequality_platform/``
+and validates the parsed header against the 11 canonical
+required columns (``country_code`` / ``country_name`` /
+``year`` / ``reporting_level`` / ``welfare_type`` /
+``poverty_line`` / ``headcount`` / ``poverty_gap`` / ``gini`` /
+``version_id`` / ``ppp_version``),
+raising ``WorldBankPipSchemaError`` BEFORE the transform layer
+consumes the frame on a schema contract violation. Runtime
+metadata must also declare ``version_id`` and ``ppp_version``;
+row-level ``version_id`` / ``ppp_version`` cells must match that
+canonical supported basis, and missing, mismatched, or mixed PIP
+version / PPP bases fail before transform so observations cannot
+be mislabeled across PIP releases. The adapter
+emits ONE observation family (``poverty_inequality_country_year``)
+with **3 source-native catalog indicators** (one per numeric
+indicator cell: ``world_bank_poverty_inequality_platform_poverty_headcount_ratio``
+/ ``world_bank_poverty_inequality_platform_poverty_gap`` /
+``world_bank_poverty_inequality_platform_gini_index``). The
+transform never invents a value from missing source-native
+data; blank / non-numeric cells are emitted with
+``value=None`` / ``value_type="missing"`` plus the verbatim
+raw cell text on ``extension.raw_value``. The source-native
+country code (the World Bank's own reporting identifier -- a
+3-character code that LOOKS LIKE ISO3 but is NOT a canonical
+ISO3 mapping) is preserved verbatim on the audit-trail
+extension payload; ``country_code`` remains ``None`` until
+later matching / resolution stages introduce a canonical ISO3
+mapping. Per-row PPP version + reporting level + welfare type
++ poverty line + version_id are preserved on the audit-trail
+extension payload so downstream code can recover the verbatim
+source-native provenance. The descriptor advertises a broad
+1960-2024 coverage envelope so out-of-coverage year requests
+(e.g. ``years=(2050,)`` -- well beyond the canonical envelope)
+emit zero observations plus a structured ``YEAR_ABSENT``
+warning (no stale-proxy fill per SRC-COV-002 / SRC-COV-003);
+the prototype's target year 2023 falls WITHIN the canonical
+envelope so 2023 is in-coverage. The adapter is offline /
+cache-only in this slice (``requires_network=False``); live
+fetch is intentionally NOT supported -- the readiness gate
+blocks ``cache_policy="refresh"`` / ``"no_cache"`` with a
+structured
+``world_bank_poverty_inequality_platform_unsupported_cache_policy``
+error BEFORE ``read_raw`` / ``transform`` are called. The
+canonical attribution text ``"World Bank (2025) Poverty and
+Inequality Platform (version {version_ID}) [Data set] World
+Bank Group, www.pip.worldbank.org."`` is byte-identical to
+the ``world_bank_poverty_inequality_platform`` row in
+``docs/sources/attributions.md`` (Always-On Rule #15). The
+canonical version stamp ``"World Bank PIP, version
+20260324_2021"`` propagates consistently to ``RawAsset.version``
+and every emitted ``NormalizedObservation.source_version``.
+No legacy ``STAGE2_ADAPTERS["world_bank_poverty_inequality_platform"]``
+entry exists (no legacy Stage 2 implementation); the new
+package exposes explicit
+``create_world_bank_poverty_inequality_platform_adapter()`` and
+``register_world_bank_poverty_inequality_platform(registry)``
+factories and does NOT auto-register on import (per
+``docs/architecture/sources.md`` §10.1). With World Bank PIP
+landed, the unified source interface now covers the canonical
+poverty / inequality / distribution evidence alongside the
+economic evidence sources (WDI / WGI / PWT / Maddison). Three
+``docs/architecture/sources.md`` §7.2 candidates (``ctbto_nuclear_tests``
+/ ``csis_missile_threat`` / ``cns_nti_missile_launches``) were
+considered for this slice and intentionally skipped /
+recorded in ``docs/architecture/sources.md`` §7.22 -- the
+CTBTO event / monitoring data is gated / contractual or
+narrative; CSIS is a narrative country / missile profile
+product; CNS / NTI launch data is NTI-adjacent and the
+canonical ``nti`` slug is Cloudflare-blocked per the workplan
+Done History. These three rows remain in §7.2 as ``future`` /
+``blocked`` future work and require source-specific design
+before implementation.
 
 **Source concept-catalog slice landed (2026-06-24) — semantic indicator
 catalog under `leaders_db.sources.concepts`.** A real-life

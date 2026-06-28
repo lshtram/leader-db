@@ -243,6 +243,8 @@ All of them.
 - `polity_v`
 - `sipri_arms_transfers`
 - `iaea_safeguards`
+- `ctbto_treaty_status`
+- `world_bank_poverty_inequality_platform`
 
 ### Pending or future sources
 
@@ -251,13 +253,11 @@ All of them.
 - `imf_weo`
 - `cow_mid`
 - `nti`
-- `iaea_additional_protocol_status`
+- `iaea_additional_protocol_status` (subsumed by `iaea_safeguards`)
 - `unoda_treaties`
-- `ctbto_treaty_status`
 - `ctbto_nuclear_tests`
 - `csis_missile_threat`
 - `cns_nti_missile_launches`
-- `world_bank_poverty_inequality_platform`
 - `ilo_labor_statistics`
 - `world_bank_global_findex`
 - `world_inequality_database`

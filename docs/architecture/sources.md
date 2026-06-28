@@ -567,13 +567,13 @@ All listed sources should eventually be represented under the new interface.
 | `nti` | blocked/user-managed | nuclear/manual document source |
 | `sipri_arms_transfers` | implemented (2026-06-27) | offline / cache-only arms-transfer register + per-`(role, country, year)` aggregates; no live fetch in this slice |
 | `iaea_safeguards` | implemented (2026-06-27) | nuclear safeguards legal / status evidence; offline / cache-only; see §7.20 detailed note |
-| `iaea_additional_protocol_status` | future | nuclear treaty/status evidence |
+| `iaea_additional_protocol_status` | future | nuclear treaty/status evidence -- subsumed by `iaea_safeguards`; see §7.21 |
 | `unoda_treaties` | future | treaty posture evidence |
-| `ctbto_treaty_status` | future | nuclear-test-ban status evidence |
+| `ctbto_treaty_status` | implemented (2026-06-28) | CTBT signature / ratification status evidence; offline / cache-only; see §7.21 detailed note |
+| `world_bank_poverty_inequality_platform` | implemented (2026-06-28) | poverty / inequality / distribution observations; offline / cache-only; see §7.22 detailed note |
 | `ctbto_nuclear_tests` | future | nuclear-test observations |
 | `csis_missile_threat` | future | missile capability observations |
 | `cns_nti_missile_launches` | future | missile-launch observations |
-| `world_bank_poverty_inequality_platform` | future | poverty/inequality indicators |
 | `ilo_labor_statistics` | future | labor/employment indicators |
 | `world_bank_global_findex` | future | financial inclusion / access-to-basic-services indicators; survey-wave temporal-fit rules required |
 | `world_inequality_database` | future | top income/wealth shares and distribution indicators; careful series/unit selection required |
@@ -1981,6 +1981,490 @@ redistribute IAEA tables").
 The `tests/sources/test_import_boundary.py` canonical
 submodule list now includes
 `leaders_db.sources.adapters.iaea_safeguards`.
+
+### 7.21 CTBTO States Signatories — CTBT treaty-status (clean migration, offline / cache-only)
+
+`ctbto_treaty_status` is the **next feasible
+clean-interface-only source** after ``iaea_safeguards``
+(`docs/architecture/sources.md` §7.2 ``ctbto_treaty_status``
+row; fourth post-interface source with no legacy Stage 2
+implementation). There is **no legacy Stage 2 module to
+reuse** -- ``STAGE2_ADAPTERS["ctbto_treaty_status"]``
+remains unset per the workplan Done History ("need / future"
+before this slice) -- so the unified adapter is built from
+scratch.
+
+The unified CTBTO Treaty Status adapter lives at
+`src/leaders_db/sources/adapters/ctbto_treaty_status/` with
+`source_id.slug == "ctbto_treaty_status"` and
+`descriptor.attribution_key == "ctbto_treaty_status"`.
+
+**Source-specific scope: treaty-status evidence only.**
+
+The task brief scoped this slice deliberately to the public
+CTBTO States Signatories page
+(`https://www.ctbto.org/our-mission/states-signatories`,
+"States Signatories — Comprehensive Nuclear-Test-Ban
+Treaty", status as of 13 March 2024). This is a **single-point
+treaty-status snapshot** covering ~196 States: the source-
+derived signature status (`"signed"` iff the signature date
+is non-empty in the cached row, `"not_signed"` otherwise)
+and the source-derived ratification status (`"ratified"` iff
+the ratification date is non-empty in the cached row,
+`"not_ratified"` otherwise). The slice does NOT cover
+per-country nuclear behaviour, compliance, or non-compliance
+-- the source is a treaty-status observation, NOT direct
+proof of nuclear behaviour, compliance, or non-compliance.
+The signature / ratification date cells are preserved verbatim
+as strings on the audit-trail extension payload (the adapter
+does NOT coerce them to numeric years that could mislead Stage
+11 confidence calculations). The `iaea_additional_protocol_status`
+slug in §7.2 is a subset / family of the `iaea_safeguards`
+adapter (the Additional Protocol status cell is one of the
+4 source-native catalog indicators emitted by `iaea_safeguards`)
+and is NOT a separate adapter.
+
+**Source-specific cache-only contract.**
+
+The CTBTO States Signatories page is delivered as a public
+HTML table that the CTBTO terms-of-use
+(`https://www.ctbto.org/terms-of-use`) permit users to visit,
+download and copy subject to terms; personal, non-commercial,
+research / teaching use is permitted with acknowledgement; do
+not redistribute or derivative-compile without permission;
+the "designations" caveat preserves the CTBTO's neutral
+diplomatic nomenclature. The unified adapter is **offline /
+cache-only** in this slice -- the task brief explicitly
+cautions against adding live download / scraping ("Do NOT
+implement live download/scraping. Build an offline/cache-
+first adapter"). Live fetch is intentionally NOT supported;
+the ``cache_policy='refresh'`` / ``'no_cache'`` policies fail
+readiness with a structured
+``ctbto_treaty_status_unsupported_cache_policy`` error BEFORE
+``read_raw`` / ``transform`` are called -- the runner refuses
+to dispatch rather than silently surfacing an HTTP-fetched
+payload. The canonical Stage 2 access path is a single staged
+cached CSV at
+`data/raw/ctbto_treaty_status/states-signatories.csv` (or the
+HTML fallback at `data/raw/ctbto_treaty_status/states-signatories.html`)
+plus a runtime-local `metadata.json` (gitignored per
+Always-On Rule #9).
+
+**Source-specific schema contract.**
+
+The cached CTBTO States Signatories export carries 4
+documented required columns: `Region` / `State` /
+`Signature Date` / `Ratification Date`. The raw-read layer
+parses the cached CSV via the Python `csv` module (or a
+built-in HTML table parser for the HTML fallback), validates
+the parsed header against the 4 canonical required columns,
+and raises `CtbtoTreatyStatusSchemaError` BEFORE the
+transform layer consumes the frame; the transform layer does
+NOT silently emit partial output on a schema contract
+violation. The optional `Annex 2` column is preserved on the
+parsed row only when the cached fixture / source-native data
+carries the column -- the canonical CTBTO public page does
+NOT carry an Annex 2 flag, so the transform layer does NOT
+emit an Annex 2 observation by default and never invents an
+Annex 2 flag from missing source-native data.
+
+**Source-specific observation family.**
+
+The unified adapter emits ONE observation family
+(`nuclear_treaty_status_country`) with 2 source-derived
+catalog indicators (one per date-bearing column in the
+cached CTBTO table):
+
+- `ctbto_treaty_status_signature_status` -- the source-
+  derived signature status sentinel: `"signed"` iff the
+  signature date is non-empty in the cached row,
+  `"not_signed"` otherwise. The transform never invents a
+  signature status from empty / blank date cells -- an empty
+  signature date cell is ALWAYS treated as `"not_signed"`.
+- `ctbto_treaty_status_ratification_status` -- the source-
+  derived ratification status sentinel: `"ratified"` iff the
+  ratification date is non-empty in the cached row,
+  `"not_ratified"` otherwise. The transform never invents a
+  ratification status from empty / blank date cells -- an
+  empty ratification date cell is ALWAYS treated as
+  `"not_ratified"`.
+
+The catalog deliberately does NOT include a default
+`ctbto_treaty_status_annex_2_status` indicator: the canonical
+CTBTO public page does NOT carry an Annex 2 flag column
+(Annex 2 refers to the 44 States that the CTBTO PrepCom
+identified as needing to ratify the CTBT for the Treaty to
+enter into force, but the public table does NOT surface an
+Annex 2 status column); the adapter never invents an Annex 2
+flag from missing source-native data. The transform layer
+preserves an OPTIONAL Annex 2 indicator emission when the
+cached fixture / source-native data carries an explicit
+`Annex 2` flag column, but the default 2-indicator catalog
+does NOT include the Annex 2 indicator.
+
+Per-row emission produces 2 observations per cached State row
+by default (6 rows × 2 indicators = 12 observations for the
+default fixture; 6 rows × 3 indicators = 18 observations
+when the cached fixture carries an explicit `Annex 2`
+column).
+
+**Source-specific coverage envelope + year semantics.**
+
+The CTBTO States Signatories page is a single-point
+treaty-status snapshot (the canonical probed stamp is "status
+as of 13 March 2024" -- the date of the latest ratifying
+state Papua New Guinea). The descriptor advertises a
+single-year envelope (`start_year == end_year == 2024`); the
+readiness envelope surfaces a structured `YEAR_ABSENT`
+warning on out-of-coverage year requests (e.g. `years=(2023,)`
+-- the prototype's target year -- falls outside the
+envelope) per SRC-COV-002 / SRC-COV-003 (no stale-proxy
+fill). The prototype's target year 2023 falls OUTSIDE the
+canonical envelope; the transform emits zero observations
+for that year (no stale-proxy to 2024). The descriptor's
+`coverage_hint.notes` explicitly tells operators that the
+snapshot is a single legal observation, not a multi-year
+time series.
+
+**Source-specific leader-filter semantics.**
+
+The CTBTO States Signatories page is a country-level
+treaty-status snapshot, NOT leader-identity evidence. The
+readiness envelope surfaces a structured `UNSUPPORTED_FILTER`
+warning on `leaders=` (SRC-REQ-005) -- the runner ignores
+the filter and still emits the cached rows; the unified
+adapter never invents leader values.
+
+**Source-specific ISO3 caveat.**
+
+The CTBTO States Signatories page uses CTBTO's own State
+display names, which are NOT ISO3. The unified adapter
+preserves the source-native State display name verbatim on
+every emitted observation's
+`extension["ctbto_treaty_status_state"]` field, along with
+the source-native Region display name on
+`extension["ctbto_treaty_status_region"]`. The adapter does
+NOT invent ISO3 codes; `country_code` / `leader_id` /
+`leader_name` remain `None` until later matching / resolution
+stages introduce a canonical ISO3 mapping.
+
+**Source-specific attribution + legal caveat.**
+
+The descriptor's `coverage_hint.notes` carries the explicit
+caveat that this source captures CTBT treaty-status
+evidence -- the source-derived signature / ratification
+status flags -- and is NOT direct proof of nuclear behaviour,
+compliance, or non-compliance. Downstream scorers MUST NOT
+silently treat an unsigned / unratified status cell as
+proof of nuclear activity or non-cooperation; the Stage 11
+confidence formula penalises the temporal-fit gap between
+the cached snapshot date (2024-03-13) and the prototype's
+target year (2023). The canonical attribution text
+`"CTBTO States Signatories, Comprehensive Nuclear-Test-Ban
+Treaty signature and ratification status (Comprehensive
+Nuclear-Test-Ban Treaty Organization, status as of 13 March
+2024)."` is byte-identical to the `ctbto_treaty_status` row
+in `docs/sources/attributions.md` (Always-On Rule #15). The
+canonical version stamp
+`"CTBTO States Signatories, status as of 2024-03-13"`
+propagates consistently to `RawAsset.version` and every
+emitted `NormalizedObservation.source_version`. No legacy
+`STAGE2_ADAPTERS["ctbto_treaty_status"]` entry exists
+(no legacy Stage 2 implementation); the new package exposes
+explicit `create_ctbto_treaty_status_adapter()` and
+`register_ctbto_treaty_status(registry)` factories and does
+NOT auto-register on import (per `docs/architecture/sources.md`
+§10.1).
+
+**Source-specific test surface.**
+
+The focused tests in
+`tests/sources/test_ctbto_treaty_status_adapter.py` cover: the
+descriptor / factory / registry / public surface (8 tests);
+the canonical 2-indicator catalog + Annex 2 absence / presence
+assertion (3 tests); the attribution-text drift guard (2
+tests); the readiness-failure matrix (5 readiness-blocker
+cases + cache-policy gate + unsupported-version blocker +
+unsupported-leaders-filter advisory warning); the year
+semantics (out-of-coverage year emits zero observations +
+advisory `YEAR_ABSENT` warning; in-coverage year emits the
+full observation set; `years=None` emits the full observation
+set); the country filter (single match, no-match, multiple
+matches, source-native display name); the signature /
+ratification status sentinels (signed+ratified row, signed
+but not-yet-ratified row, unsigned+unratified row -- the
+unsigned / unratified rows are NOT silently treated as
+signed / ratified); the observation shape (source-native
+State preserved verbatim + no ISO3 invention + raw_locators +
+transform_locators + attribution text); the Annex 2 indicator
+emission path (OPTIONAL emission when the cached fixture
+carries an explicit `Annex 2` column, NO emission when the
+column is absent); the schema-error path
+(`CtbtoTreatyStatusSchemaError` for missing required columns);
+the import-boundary contract (no `leaders_db.ingest` leak);
+the no-network boundary (HTTP / socket sentinels never
+invoked); the duplicate-slug `ValueError` registration guard
+(SRC-REG-004); and the HTML fallback contract (the
+raw-read boundary loads the HTML fallback when the CSV is
+absent and parses the `<table>` via the built-in HTML
+parser). The synthetic CSV fixture is built by
+`tests/fixtures/ctbto_treaty_status/build_sample_csv.py` (6
+hand-authored synthetic State rows + 1 header row; the State
+labels and date cells are NOT real CTBTO Treaty Status data
+per the task brief: "fixtures must not redistribute copied
+full table in outputs").
+
+The `tests/sources/test_import_boundary.py` canonical
+submodule list now includes
+`leaders_db.sources.adapters.ctbto_treaty_status`.
+
+### 7.22 World Bank Poverty and Inequality Platform / PIP (clean migration, offline / cache-only)
+
+`world_bank_poverty_inequality_platform` is the **next feasible
+clean-interface-only source** after ``ctbto_treaty_status``
+(``docs/architecture/sources.md`` §7.2
+``world_bank_poverty_inequality_platform`` row; no legacy Stage
+2 implementation, and no legacy ``STAGE2_ADAPTERS`` slot is
+added for this clean-interface-only slice). The unified adapter
+is built from scratch.
+
+The unified World Bank PIP adapter lives at
+`src/leaders_db/sources/adapters/world_bank_poverty_inequality_platform/`
+with `source_id.slug == "world_bank_poverty_inequality_platform"`
+and `descriptor.attribution_key == "world_bank_poverty_inequality_platform"`.
+
+**Source-specific scope: poverty / inequality / distribution
+observations only.**
+
+The task brief scoped this slice deliberately to the public
+World Bank PIP dataset (PIP home page
+`https://pip.worldbank.org/`, PIP API
+`https://pip.worldbank.org/api` -- CSV / JSON endpoints). PIP
+delivers per-(country_code, country_name, year, reporting_level,
+welfare_type, poverty_line) country-year observations: the
+poverty headcount ratio, the poverty gap, and the Gini index.
+The source-native `country_code` is the World Bank's own
+reporting identifier -- a 3-character code that LOOKS LIKE
+ISO3 but is NOT a canonical ISO3 mapping; the adapter does NOT
+assume it is ISO3 even when it resembles one. Per-row PPP
+version + reporting level + welfare type + poverty line are
+preserved on the audit-trail extension payload.
+
+**Source-specific cache-only contract.**
+
+The unified adapter is **offline / cache-first** in this slice
+-- the task brief explicitly cautions against adding live HTTP
+fetching ("Build an offline/cache-first adapter. Do NOT
+implement live HTTP fetching"). Live fetch is intentionally
+NOT supported; the ``cache_policy='refresh'`` / ``'no_cache'``
+policies fail readiness with a structured
+``world_bank_poverty_inequality_platform_unsupported_cache_policy``
+error BEFORE ``read_raw`` / ``transform`` are called -- the
+runner refuses to dispatch rather than silently surfacing an
+HTTP-fetched payload. The canonical Stage 2 access path is a
+single staged cached CSV at
+`data/raw/world_bank_poverty_inequality_platform/pip_stats.csv`
+(or the cached JSON wrapper at
+`data/raw/world_bank_poverty_inequality_platform/pip_stats.json`)
+plus a runtime-local `metadata.json` (gitignored per
+Always-On Rule #9).
+
+**Source-specific schema contract.**
+
+The cached World Bank PIP export carries 11 documented required
+columns: `country_code` / `country_name` / `year` /
+`reporting_level` / `welfare_type` / `poverty_line` /
+`headcount` / `poverty_gap` / `gini` / `version_id` /
+`ppp_version`. The raw-read layer
+parses the cached CSV via the Python `csv` module (or the JSON
+parser for the JSON fallback), validates the parsed header
+against the 11 canonical required columns, and raises
+`WorldBankPipSchemaError` BEFORE the transform layer consumes
+the frame; the transform layer does NOT silently emit partial
+output on a schema contract violation. Runtime metadata must
+also declare `version_id` and `ppp_version`, and every parsed
+row's `version_id` / `ppp_version` cells must match the
+metadata's canonical supported basis; missing, mismatched, or
+mixed PIP version / PPP bases fail before transform so
+observations cannot be mislabeled across PIP releases. Optional
+columns (`ppp_base_year` / `survey_year` /
+`survey_comparability` / `notes`) are preserved on the parsed
+row payload when the cached header declares them; the transform
+never invents a value from missing source-native data.
+
+**Source-specific observation family.**
+
+The unified adapter emits ONE observation family
+(`poverty_inequality_country_year`) with 3 source-native
+catalog indicators (one per numeric indicator cell typically
+exposed by the canonical PIP CSV / JSON export):
+
+- `world_bank_poverty_inequality_platform_poverty_headcount_ratio`
+  -- the poverty headcount ratio at the row's poverty line.
+  Preserved verbatim on
+  `extension["world_bank_poverty_inequality_platform_poverty_line_raw"]`.
+- `world_bank_poverty_inequality_platform_poverty_gap` -- the
+  poverty gap at the row's poverty line.
+- `world_bank_poverty_inequality_platform_gini_index` -- the
+  Gini index of the row's distribution.
+
+The catalog deliberately does NOT include a default PPP factor
+/ survey-year indicator beyond what the source-native CSV /
+JSON explicitly exposes; the transform never invents a value
+from missing source-native data.
+
+Per-row emission produces 3 observations per cached row for the
+default 3-indicator catalog (N rows x 3 indicators = 3N
+observations).
+
+**Source-specific coverage envelope + year semantics.**
+
+PIP coverage is version-stamped and PPP / survey / welfare-type
+specific. The descriptor advertises a broad 1960-2024 envelope
+(PIP records typically begin in the early 1960s when
+survey-based poverty estimates become available for low /
+lower-middle income countries; the canonical probe stamp is
+2021 for the `20260324_2021` PIP version with a few extrapolation
+cells into 2024 for a handful of countries). The readiness
+envelope surfaces a structured `YEAR_ABSENT` warning on
+out-of-coverage year requests (e.g. `years=(2050,)` -- well
+beyond the canonical envelope) per SRC-COV-002 / SRC-COV-003
+(no stale-proxy fill). The prototype's target year 2023 falls
+WITHIN the canonical envelope so 2023 is in-coverage; the
+transform emits zero observations for an out-of-coverage year
+request without silently proxying to the nearest in-coverage
+year.
+
+**Source-specific leader-filter semantics.**
+
+The World Bank PIP dataset is a country-year poverty /
+inequality source, NOT leader-identity evidence. The readiness
+envelope surfaces a structured `UNSUPPORTED_FILTER` warning on
+`leaders=` (SRC-REQ-005) -- the runner ignores the filter and
+still emits the cached rows; the unified adapter never invents
+leader values.
+
+**Source-specific ISO3 caveat.**
+
+The cached World Bank PIP CSV / JSON row carries a 3-character
+`country_code` column that LOOKS LIKE ISO3 but is the World
+Bank's own reporting identifier (NOT a canonical ISO3 mapping
+introduced by the project). The unified adapter preserves the
+source-native `country_code` verbatim on the audit-trail
+extension payload
+(`extension["world_bank_poverty_inequality_platform_country_code_raw"]`)
+and does NOT assume the source identifier is a canonical ISO3
+even when it resembles one. The `country_code` field on
+emitted observations remains `None` until later matching /
+resolution stages introduce a canonical ISO3 mapping.
+
+**Source-specific attribution + version / PPP caveat.**
+
+The descriptor's `coverage_hint.notes` carries the explicit
+caveat that PIP poverty / inequality estimates are SURVEY- and
+PPP-specific and SHOULD NOT be silently mixed across PIP
+version stamps (e.g. `20260324_2021` vs `20260324_2017`) or PPP
+bases (2021 PPP vs 2017 PPP) without explicit metadata
+propagation. Downstream scorers MUST NOT silently treat a PIP
+cell as comparable across version stamps or PPP bases without
+explicit metadata propagation; the Stage 11 confidence
+formula penalises the temporal-fit gap between the cached PIP
+version release date and the prototype's target year. The
+canonical attribution text ``"World Bank (2025) Poverty and
+Inequality Platform (version {version_ID}) [Data set] World
+Bank Group, www.pip.worldbank.org."`` is byte-identical to
+the ``world_bank_poverty_inequality_platform`` row in
+``docs/sources/attributions.md`` (Always-On Rule #15); the
+``{version_ID}`` placeholder is interpolated at observation
+emission time from the canonical PIP version stamp. The
+canonical version stamp
+``"World Bank PIP, version 20260324_2021"`` propagates
+consistently to ``RawAsset.version`` and every emitted
+``NormalizedObservation.source_version``. No legacy
+``STAGE2_ADAPTERS["world_bank_poverty_inequality_platform"]``
+entry exists (no legacy Stage 2 implementation); the new
+package exposes explicit
+``create_world_bank_poverty_inequality_platform_adapter()`` and
+``register_world_bank_poverty_inequality_platform(registry)``
+factories and does NOT auto-register on import (per
+``docs/architecture/sources.md`` §10.1).
+
+**Source-specific test surface.**
+
+The focused tests in
+`tests/sources/test_world_bank_poverty_inequality_platform_adapter.py`
+cover: descriptor / factory / registry / public surface (4
+tests); the canonical 3-indicator catalog + 11 required
+columns, including required ``version_id`` / ``ppp_version``
+release-basis fields (2 tests); the attribution-text drift guard (2 tests);
+the readiness-failure matrix (6 readiness-blocker cases via
+parametrize + cache-policy gate + unsupported-version blocker
++ unsupported-leaders-filter advisory warning); the year
+semantics (out-of-coverage year emits zero observations +
+advisory `YEAR_ABSENT` warning; in-coverage year emits the row
+set; `years=None` emits the in-coverage observation set; the
+prototype's target year 2023 is in-coverage); the country
+filter (single match, no-match, multiple matches,
+source-native display name); the blank / non-numeric cell
+sentinel path (`value_type='missing'` plus the verbatim raw
+cell text); the observation shape (source-native country code
++ display name preserved verbatim + no ISO3 invention +
+raw_locators + transform_locators + attribution text with
+`{version_ID}` interpolation); the per-row PPP version +
+reporting level + welfare type + poverty line + version_id
+audit-trail preservation; the schema-error path
+(`WorldBankPipSchemaError` for missing required columns); the
+import-boundary contract (no `leaders_db.ingest` leak); the
+no-network boundary (HTTP / socket sentinels never invoked);
+the duplicate-slug `ValueError` registration guard
+(SRC-REG-004); the JSON fallback contract (the raw-read
+boundary loads the JSON fallback when the CSV is absent and
+parses the array via the built-in JSON parser); the
+selected-file contract (the actually-present SELECTED cache
+file is declared in `metadata.local_files` AND covered by
+`metadata.checksum_sha256`); and the observation-id
+uniqueness invariant (per-row + per-indicator). The synthetic
+CSV / JSON fixture is built by
+`tests/fixtures/world_bank_poverty_inequality_platform/build_sample_csv.py`
+(6 hand-authored synthetic country-year rows; the country
+labels and numeric cells are NOT real World Bank PIP data per
+the task brief: "prefer synthetic non-real country labels if
+it tests parser mechanics without factual assertions").
+
+The `tests/sources/test_import_boundary.py` canonical
+submodule list now includes
+`leaders_db.sources.adapters.world_bank_poverty_inequality_platform`.
+
+**Skipped candidates (deferred to a later slice).**
+
+Three other ``docs/architecture/sources.md`` §7.2 rows were
+considered for this slice and intentionally skipped /
+recorded here so future work can pick them up with explicit
+source-shape / access design:
+
+- ``ctbto_nuclear_tests`` -- CTBTO nuclear-test records /
+  monitoring statements. The CTBTO event / monitoring data is
+  gated / contractual or narrative, not a stable public event
+  table for this slice. Requires source-shape design (event
+  taxonomy: actual nuclear tests vs monitoring statements vs
+  component tests; the ``docs/sources/ingestion-plan.md``
+  §``ctbto_nuclear_tests`` row already flagged this blocker).
+- ``csis_missile_threat`` -- CSIS Missile Threat. Narrative
+  country / missile profiles; risk of over-interpreting
+  capability. Requires capability / test-event indicators and
+  locators design per
+  ``docs/sources/ingestion-plan.md`` §``csis_missile_threat``.
+- ``cns_nti_missile_launches`` -- CNS / NTI Missile and SLV
+  Launch Databases. NTI-adjacent access risk (the canonical
+  ``nti`` slug is Cloudflare-blocked per the workplan Done
+  History); requires source-specific design per
+  ``docs/sources/ingestion-plan.md`` §``cns_nti_missile_launches``.
+
+These three rows remain in §7.2 as ``future`` / ``blocked``
+future work; they were NOT implemented in this slice because
+the source-shape / access design is ambiguous and the PIP
+dataset was the cleanest documented public event / indicator
+table for a low-risk offline / cache-first adapter.
 
 ---
 

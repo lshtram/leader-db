@@ -231,6 +231,8 @@ def test_sources_submodules_do_not_import_legacy_ingest() -> None:
         "leaders_db.sources.adapters.polity_v",
         "leaders_db.sources.adapters.sipri_arms_transfers",
         "leaders_db.sources.adapters.iaea_safeguards",
+        "leaders_db.sources.adapters.ctbto_treaty_status",
+        "leaders_db.sources.adapters.world_bank_poverty_inequality_platform",
     )
     _purge_source_boundary_modules()
     try:
