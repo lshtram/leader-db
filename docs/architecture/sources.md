@@ -314,7 +314,7 @@ The shared runner owns orchestration:
 
 ```python
 class SourceIngestRunner:
-    def __init__(self, registry: SourceRegistry) -> None: ...
+    def __init__(self, registry: SourceRegistry, *, engine: Engine | None = None) -> None: ...
 
     @property
     def registry(self) -> SourceRegistry: ...
@@ -331,9 +331,12 @@ adapter argument. The new registry is the single dispatch surface — the
 runner does not consult the legacy `leaders_db.ingest.STAGE2_ADAPTERS`
 table. `SourceIngestRunner.run(request)` currently drives the adapter
 lifecycle in the documented fixed order `check_ready -> read_raw ->
-transform` and returns a `SourceIngestResult` whose `manifest` is `None`;
-shared validation, persistence, and manifest generation are deferred to
-later phases and remain runner-owned when implemented.
+transform -> validate`. SQL persistence and manifest writing are opt-in via the
+constructor `engine`; the default `SourceIngestRunner(registry)` path remains
+side-effect free and returns `manifest=None`, while `SourceIngestRunner(registry,
+engine=...)` persists valid observations idempotently and writes processed
+artifacts plus a deterministic manifest under
+`processed_root/<source>/manifest-<run_id>.json`.
 
 ### 5.7 Evidence repository
 
@@ -3287,13 +3290,13 @@ or call legacy ingestion.
 - The `SourceIngestRunner` is no longer a `NotImplementedError` stub. It
   is constructed with a `SourceRegistry` and exposes it as
   `runner.registry`; `run(request)` drives the documented
-  `check_ready -> read_raw -> transform` lifecycle and returns a real
-  `SourceIngestResult`. The runner never touches the legacy
-  `STAGE2_ADAPTERS` table. Shared validation, persistence, and manifest
-  generation are intentionally deferred to a later phase — the runner
-  surfaces the adapter-produced `ReadinessResult`, materialised
-  `NormalizedObservation` tuple, and a convenience `ValidationResult`
-  without writing files or DB rows.
+  `check_ready -> read_raw -> transform -> validate` lifecycle and returns a
+  real `SourceIngestResult`. The runner never touches the legacy
+  `STAGE2_ADAPTERS` table. When constructed without an engine, it remains
+  side-effect free and returns `manifest=None`. When constructed with an engine,
+  it rejects invalid observations, upserts valid rows through the shared SQL
+  evidence store, writes processed observation artifacts, and writes a source-run
+  manifest JSON under the request's `processed_root`.
 
 ### 10.2 Phase B tests and proof surfaces
 
@@ -3308,7 +3311,7 @@ or call legacy ingestion.
 | SRC-LIFE-001 through SRC-LIFE-007 | Unit / protocol shape | Type/duck-test a fake adapter against `SourceAdapter`; assert required methods are `check_ready`, `read_raw`, and `transform`, and shared runner remains responsible for validate/persist/manifest. |
 | SRC-OBS-001 through SRC-OBS-007, SRC-PROV-001 through SRC-PROV-005 | Unit / model contract | Instantiate `NormalizedObservation`, `RawAsset`, `RawLocator`, `TransformLocator`, `SourceAttribution`, and `SourceManifest`; assert provenance, warning, quality-flag, attribution, source-version, and extension fields are present. |
 | SRC-COV-001 through SRC-COV-005 | Unit / descriptor and warning contract | Instantiate `CoverageHint` and structured `SourceWarning` values for out-of-coverage and missingness codes; assert warnings can carry source id, severity, and machine-readable context. |
-| SRC-PERSIST-001 through SRC-PERSIST-007 | Unit / stub safety now; package integration later | Assert Phase A has no persistence implementation and no file/DB mutation path. Later adapter contract tests must add filesystem + SQLite boundary proof for a fixture source. |
+| SRC-PERSIST-001 through SRC-PERSIST-007 | Package integration / SQLite + filesystem boundary | Construct `SourceIngestRunner(registry=..., engine=...)` with a fixture adapter; assert the run validates observations, persists one SQL row, writes a manifest, and an identical rerun does not duplicate rows. |
 | SRC-QUERY-001 through SRC-QUERY-005 | Unit / query interface | Assert `EvidenceQuery` contains source/family/indicator/year/country/leader filters plus include flags; assert an `EvidenceRepository` fake can implement read-only query methods without invoking ingestion. |
 | SRC-DEFAULT-001 through SRC-DEFAULT-007 | Package integration / static inspection | Assert package name is `leaders_db.sources`, default request output format is parquet, default cache policy is `prefer_cache`, no real adapter is registered by default, and `client_existing` is not auto-registered as evidence. |
 

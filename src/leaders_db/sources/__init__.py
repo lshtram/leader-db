@@ -34,6 +34,7 @@ from .contracts import (
 from .query import EvidenceRepository, InMemoryEvidenceRepository
 from .registry import InMemorySourceRegistry, SourceRegistry
 from .runner import SourceIngestRunner
+from .validation import validate_observations
 
 __all__ = [
     "CachePolicy",
@@ -59,4 +60,5 @@ __all__ = [
     "SourceWarning",
     "TransformLocator",
     "ValidationResult",
+    "validate_observations",
 ]

@@ -178,8 +178,9 @@ disagreement into the rationale and confidence components.
 | Database | `src/leaders_db/db/` | — | SQLAlchemy engine/session/models and migrations. |
 | Source availability | `src/leaders_db/ingest/source_availability.py` | 0 | Probe/source availability reports. |
 | Client reference loader | `src/leaders_db/ingest/client_matrix.py` | 1 | Load customer matrix as validation reference only. Must not create independent source evidence. |
-| Source adapters | `src/leaders_db/ingest/<source>*.py` | 2 | Read one external source, normalize raw rows to `source_observations`, write processed parquet/manifest. |
-| Adapter registry | `src/leaders_db/ingest/__init__.py` | 2 | `STAGE2_ADAPTERS` dispatch table consumed by the CLI. |
+| Legacy Stage 2 source adapters | `src/leaders_db/ingest/<source>*.py` | 2 | Read one external source, normalize raw rows to `source_observations`, write processed parquet/manifest through the original ingest stack. |
+| Unified source subsystem | `src/leaders_db/sources/` | 2+ | Registry-backed clean source interface. `SourceIngestRunner(registry)` remains side-effect free for validation/inspection; `SourceIngestRunner(registry, engine=...)` executes `check_ready -> read_raw -> transform -> validate -> persist -> manifest`, writes processed observations under `processed_root/<source>/observations-<run_id>.<format>`, upserts SQL evidence rows idempotently, and writes immutable manifests at `processed_root/<source>/manifest-<run_id>.json`. |
+| Legacy adapter registry | `src/leaders_db/ingest/__init__.py` | 2 | `STAGE2_ADAPTERS` dispatch table consumed by legacy CLI paths. The unified source runner uses `leaders_db.sources.registry.SourceRegistry` instead and never consults `STAGE2_ADAPTERS`. |
 | Indicator catalogs | `src/leaders_db/ingest/catalogs/<source>.csv` | 2/5 | Source-specific mapping from raw field to canonical `variable_name`, category, direction, unit, scale. |
 | Country normalization | `src/leaders_db/normalize/countries.py`, `src/leaders_db/resolve/country_match.py` | 3 | ISO3 matching and alias handling. |
 | Leader resolution | `src/leaders_db/resolve/leader_resolver.py` | 4 | Actual-ruler selection from independent leader sources. |
@@ -216,8 +217,10 @@ implemented`:
 | Indicator catalog | `src/leaders_db/ingest/catalogs/<source>.csv`. This is the contract for raw columns, category, scale, direction, unit, description. |
 | Adapter orchestrator | `src/leaders_db/ingest/<source>.py` public `ingest_<source>()`. |
 | Reader/parser modules | `src/leaders_db/ingest/<source>_*.py` as needed (`*_csv.py`, `*_xlsx.py`, `*_pdf.py`, `*_http.py`, `*_db.py`, helpers). |
-| Processed output | `data/processed/<source>/<source>_country_year.parquet` or source-specific equivalent. |
-| Run manifest | `data/processed/<source>/<source>_run_manifest.json`. |
+| Legacy processed output | `data/processed/<source>/<source>_country_year.parquet` or source-specific equivalent. |
+| Legacy run manifest | `data/processed/<source>/<source>_run_manifest.json`. |
+| Unified source processed output | `data/processed/<source>/observations-<run_id>.<format>` (`parquet` by default, optional `csv`). |
+| Unified source run manifest | `data/processed/<source>/manifest-<run_id>.json`; an existing run id is immutable unless the new payload is byte-identical. |
 | DB rows | `sources` and `source_observations`; `source_row_reference` must identify the raw row/cell/source key, e.g. `undp_hdi:MEX`, `wgi:MEX`, `pts:MEX`. |
 | Tests | `tests/test_ingest_<source>.py` and fixtures under `tests/fixtures/<source>/`. |
 

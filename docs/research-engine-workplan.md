@@ -163,7 +163,7 @@ Verification:
 
 ## Increment 6 — shared source validation, persistence, manifests
 
-Status: planned.
+Status: implemented (2026-06-28).
 
 Deliverables:
 
@@ -182,6 +182,21 @@ SourceIngestRunner can execute check_ready -> read_raw -> transform -> validate 
 
 Proof surface: one migrated source run writes observations, a manifest, and no
 duplicate rows on rerun.
+
+Implementation note: `SourceIngestRunner(registry, engine=...)` now opts into
+shared validation, processed observation artifacts under
+`processed_root/<source>/observations-<run_id>.<format>`, SQL persistence via
+`normalized_observations`, deterministic manifest JSON under
+`processed_root/<source>/manifest-<run_id>.json`, and idempotent upserts keyed by
+`(source_slug, observation_id)`. The default `SourceIngestRunner(registry)` path
+remains side-effect free and returns `manifest=None` for existing in-memory
+callers.
+
+Verification:
+
+- `pytest -q tests/sources/test_runner.py tests/sources/test_maddison_project_adapter.py tests/research/test_sql_repository.py tests/test_db_schema.py` — passed, 48 tests.
+- `pytest -q tests/sources` — passed, 2 skipped.
+- `ruff check src/leaders_db/sources tests/sources/test_runner.py tests/sources/test_maddison_project_adapter.py` — passed.
 
 ## Increment 7 — concept/metric catalog bridge
 

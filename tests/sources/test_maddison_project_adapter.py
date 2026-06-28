@@ -399,6 +399,80 @@ def test_maddison_project_runner_produces_normalized_observations(
         assert "proxy_year" not in obs.quality_flags
 
 
+def test_maddison_project_engine_runner_persists_manifest_and_reruns_idempotently(
+    tmp_path: Path,
+    database_url: str,
+) -> None:
+    """A migrated source run writes SQL rows, processed output, and a manifest."""
+    from sqlalchemy import text
+
+    from leaders_db.db.engine import build_engine, init_database
+    from leaders_db.research.sql_repository import SqlEvidenceRepository
+    from leaders_db.sources import (
+        EvidenceQuery,
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.maddison_project import (
+        MADDISON_PROJECT_ATTRIBUTION_TEXT,
+        create_maddison_project_adapter,
+    )
+    from leaders_db.sources.manifests import read_manifest
+
+    init_database(database_url)
+    engine = build_engine(database_url)
+    raw_root = tmp_path / "raw"
+    processed_root = tmp_path / "processed"
+    _stage_maddison_project_bundle(raw_root)
+
+    registry = InMemorySourceRegistry()
+    registry.register(create_maddison_project_adapter())
+    runner = SourceIngestRunner(registry=registry, engine=engine)
+    request = SourceIngestRequest(
+        source_id=SourceId(slug="maddison_project"),
+        raw_root=raw_root,
+        processed_root=processed_root,
+        run_id="maddison-fixture-run",
+    )
+
+    first = runner.run(request)
+    second = runner.run(request)
+
+    assert first.validation.valid is True
+    assert first.manifest is not None
+    assert first.manifest.observation_count == 21
+    assert first.manifest.raw_assets
+    assert (
+        first.manifest.output_assets[0].asset_id
+        == "observations-maddison-fixture-run.parquet"
+    )
+    assert first.manifest.attribution is not None
+    assert first.manifest.attribution.attribution_key == "maddison_project"
+    assert first.manifest.attribution.text == MADDISON_PROJECT_ATTRIBUTION_TEXT
+    assert first.manifest.adapter_version is not None
+    assert second.manifest is not None
+    assert second.manifest.content_hash == first.manifest.content_hash
+
+    rows = SqlEvidenceRepository(engine).query_observations(
+        EvidenceQuery(source_ids=(SourceId(slug="maddison_project"),))
+    )
+    assert len(rows) == 21
+    with engine.connect() as conn:
+        row_count = conn.execute(text("SELECT COUNT(*) FROM normalized_observations")).scalar_one()
+    assert row_count == 21
+
+    output_path = processed_root / "maddison_project" / "observations-maddison-fixture-run.parquet"
+    manifest_path = processed_root / "maddison_project" / "manifest-maddison-fixture-run.json"
+    assert output_path.exists()
+    payload = read_manifest(manifest_path)
+    assert payload["source_id"]["slug"] == "maddison_project"
+    assert payload["observation_count"] == 21
+    assert payload["output_assets"][0]["asset_id"] == output_path.name
+    assert payload["attribution"]["text"] == MADDISON_PROJECT_ATTRIBUTION_TEXT
+
+
 # ---------------------------------------------------------------------------
 # Dispatch: runner must not consult legacy STAGE2_ADAPTERS
 # ---------------------------------------------------------------------------

@@ -917,11 +917,15 @@ now satisfies the full Phase B contract:
   and `test_runner_does_not_dispatch_through_legacy_stage2_adapters` pass;
   the runner never consults `STAGE2_ADAPTERS` and there is no legacy dispatch
   path.
-- **No persistence, DB, or source-migration work landed in this pass.**
-  Validation, persistence, manifest generation, and the per-source migration
-  inventory in [`docs/architecture/sources.md`](architecture/sources.md) §7
-  are explicitly deferred to a later phase. The runner's `SourceIngestResult.manifest`
-  is `None` and the no-legacy-dispatch test guards the boundary.
+- **Historical Phase B boundary:** no persistence, DB, or source-migration work
+  landed in the 2026-06-23 Phase B pass. That historical note has now been
+  superseded for engine-backed runs by Research Engine Increment 6: the default
+  `SourceIngestRunner(registry)` path remains side-effect free and returns
+  `manifest=None`, while `SourceIngestRunner(registry, engine=...)` validates,
+  writes processed observations, upserts SQL evidence rows idempotently, and
+  writes immutable manifests at
+  `processed_root/<source>/manifest-<run_id>.json`. The runner still never
+  consults `STAGE2_ADAPTERS`.
 
 Current verification: `pytest -q tests/sources` passes 290 tests
 (`tests/sources/test_contracts.py` 41, `test_import_boundary.py` 5,
