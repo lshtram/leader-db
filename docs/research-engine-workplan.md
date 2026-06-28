@@ -133,7 +133,7 @@ Verification:
 
 ## Increment 5 — persistent evidence store
 
-Status: planned.
+Status: implemented and reviewed on 2026-06-28.
 
 Deliverables:
 
@@ -155,6 +155,11 @@ ingested observations can be queried from SQLite without rerunning adapters
 Proof surface: focused pytest coverage for DB serialization/deserialization and
 `SqlEvidenceRepository` filters, including traceability from evidence rows to
 source locators.
+
+Verification:
+
+- `pytest -q tests/research tests/test_db_schema.py` — passed, 40 tests.
+- `ruff check src/leaders_db/research src/leaders_db/db tests/research tests/test_db_schema.py` — passed.
 
 ## Increment 6 — shared source validation, persistence, manifests
 

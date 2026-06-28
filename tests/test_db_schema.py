@@ -1,12 +1,9 @@
 """Database schema migration tests.
 
-The DDL at ``src/leaders_db/db/migrations/0001_initial.sql`` is the source
-of truth for the prototype schema. These tests apply it to a fresh SQLite
-file and verify that:
-
-- All 11 tables are created.
-- The expected columns exist with the expected nullability.
-- The runner is idempotent (re-applying does not duplicate rows).
+The ordered SQL files under ``src/leaders_db/db/migrations/`` are the source of
+truth for the prototype schema and research evidence store. These tests apply
+the migrations to a fresh SQLite file and verify that core tables are created,
+expected columns exist, and the runner is idempotent.
 """
 
 from __future__ import annotations
@@ -34,6 +31,7 @@ def test_init_database_creates_all_tables(database_url: str) -> None:
         "sources",
         "source_observations",
         "validation_results",
+        "normalized_observations",
         # Internal to the migration runner.
         "schema_migrations",
     }
@@ -47,7 +45,7 @@ def test_init_database_is_idempotent(database_url: str) -> None:
     engine = create_engine(database_url)
     with engine.connect() as conn:
         rows = conn.execute(text("SELECT COUNT(*) FROM schema_migrations")).scalar_one()
-    assert rows == 1
+    assert rows == 2
 
 
 def test_required_columns_present(database_url: str) -> None:

@@ -1,6 +1,14 @@
-# Database Schema — Prototype (v1)
+# Database Schema — Prototype + Research Evidence Store
 
-This document is the authoritative schema reference for the 11 prototype tables defined in [`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md) §7. The implementation lives in [`src/leaders_db/db/models.py`](../../src/leaders_db/db/models.py) (SQLAlchemy 2.x ORM) and the canonical DDL at [`src/leaders_db/db/migrations/0001_initial.sql`](../../src/leaders_db/db/migrations/0001_initial.sql). SQL DDL is checked in for clarity and as the schema change source of truth.
+This document is the authoritative schema reference for the 11 prototype tables
+defined in [`../requirements/top-level-requirements.md`](../requirements/top-level-requirements.md)
+§7 plus later research-engine persistence migrations. The implementation lives
+in [`src/leaders_db/db/models.py`](../../src/leaders_db/db/models.py)
+(SQLAlchemy 2.x ORM), and the canonical DDL is the ordered migration set under
+[`src/leaders_db/db/migrations/`](../../src/leaders_db/db/migrations/), starting
+with `0001_initial.sql` and extended by later files such as
+`0002_normalized_observations.sql`. SQL DDL is checked in for clarity and as the
+schema change source of truth.
 
 ## Conventions
 
@@ -183,6 +191,37 @@ Raw and normalized observations from each source. The audit backbone.
 | `notes` | text | |
 
 INDEX on (`source_id`, `country_id`, `year`), INDEX on (`variable_name`, `year`).
+
+### `normalized_observations`
+
+Research-engine evidence store mirroring the source-layer
+`NormalizedObservation` contract. Introduced by
+`0002_normalized_observations.sql` so research queries can read normalized
+evidence from SQLite without rerunning adapters or opening raw files.
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | integer PK | surrogate |
+| `source_slug` | text NOT NULL | source id slug, e.g. `ucdp` |
+| `observation_id` | text NOT NULL | source-stable observation id |
+| `observation_family` | text NOT NULL | normalized evidence family |
+| `indicator_code` | text NOT NULL | concept/indicator key |
+| `value_json` | text NOT NULL | JSON-encoded `NormalizedObservation.value` |
+| `value_type` | text NOT NULL | `numeric`, `categorical`, `text`, `boolean`, `json`, or `missing` |
+| `year` | integer | optional common time dimension |
+| `country_code` / `country_name` | text | optional common entity dimension |
+| `leader_id` / `leader_name` | text | optional common leader dimension |
+| `unit`, `scale`, `source_version` | text | source metadata |
+| `raw_locator_json` | text NOT NULL | JSON `RawLocator`, including source URL/path/row references |
+| `transform_locator_json` | text NOT NULL | JSON `TransformLocator` |
+| `quality_flags_json` | text NOT NULL | JSON array |
+| `warnings_json` | text NOT NULL | JSON array of structured source warnings |
+| `extension_json` | text NOT NULL | JSON extension payload |
+| `scope_json` | text NOT NULL | generic dimension snapshot for research scope |
+| `created_at` | text | insert timestamp |
+
+UNIQUE(`source_slug`, `observation_id`). Indexes support source/family/indicator,
+country-year, and leader-year filters.
 
 ### `validation_results`
 

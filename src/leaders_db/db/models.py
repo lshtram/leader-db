@@ -1,9 +1,9 @@
-"""SQLAlchemy 2.x ORM models for the 11 prototype tables.
+"""SQLAlchemy 2.x ORM models for the migration-backed prototype schema.
 
-The schema is normative; see ``docs/architecture/database-schema.md`` and the canonical
-DDL at ``migrations/0001_initial.sql``. These models are the application-
-side mirror — column names, types, nullability, and uniqueness constraints
-must stay aligned with the DDL.
+The schema is normative; see ``docs/architecture/database-schema.md`` and the
+canonical ordered DDL under ``migrations/``. These models are the application-side
+mirror — column names, types, nullability, and uniqueness constraints must stay
+aligned with the migrations.
 
 Conventions:
 
@@ -275,6 +275,46 @@ class SourceObservation(Base):
     leader: Mapped[Leader | None] = relationship(back_populates="source_observations")
 
 
+class NormalizedObservationRow(Base):
+    """Research-engine normalized evidence row with JSON provenance payloads."""
+
+    __tablename__ = "normalized_observations"
+    __table_args__ = (
+        UniqueConstraint("source_slug", "observation_id", name="uq_normalized_observation"),
+        Index(
+            "ix_norm_obs_source_family_indicator",
+            "source_slug",
+            "observation_family",
+            "indicator_code",
+        ),
+        Index("ix_norm_obs_country_year", "country_code", "year"),
+        Index("ix_norm_obs_leader_year", "leader_id", "leader_name", "year"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    source_slug: Mapped[str] = mapped_column(String, nullable=False)
+    observation_id: Mapped[str] = mapped_column(String, nullable=False)
+    observation_family: Mapped[str] = mapped_column(String, nullable=False)
+    indicator_code: Mapped[str] = mapped_column(String, nullable=False)
+    value_json: Mapped[str] = mapped_column(Text, nullable=False)
+    value_type: Mapped[str] = mapped_column(String, nullable=False)
+    year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    country_code: Mapped[str | None] = mapped_column(String, nullable=True)
+    country_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    leader_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    leader_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    unit: Mapped[str | None] = mapped_column(String, nullable=True)
+    scale: Mapped[str | None] = mapped_column(String, nullable=True)
+    source_version: Mapped[str | None] = mapped_column(String, nullable=True)
+    raw_locator_json: Mapped[str] = mapped_column(Text, nullable=False)
+    transform_locator_json: Mapped[str] = mapped_column(Text, nullable=False)
+    quality_flags_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    warnings_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    extension_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    scope_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+
+
 class ValidationResult(Base):
     """Per-item validation record. Stage 12 output."""
 
@@ -299,6 +339,7 @@ __all__ = [
     "CountryYear",
     "Leader",
     "LeaderAlias",
+    "NormalizedObservationRow",
     "RulerScore",
     "RulerSpell",
     "RulerYear",
