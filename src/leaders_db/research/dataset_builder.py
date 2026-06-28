@@ -112,7 +112,10 @@ def _direct_row(
         confidence_score=None,
         warning_codes=tuple(warning.code for obs in observations for warning in obs.warnings),
         caveats=tuple(flag for obs in observations for flag in obs.quality_flags),
-        provenance_json=_provenance(primary),
+        provenance_json={
+            **_provenance(primary),
+            "source_ids": tuple(obs.source_id.slug for obs in observations),
+        },
     )
 
 

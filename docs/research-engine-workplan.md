@@ -84,7 +84,7 @@ Status: implemented and reviewed on 2026-06-28.
 
 Verification:
 
-- `pytest -q tests/research` — passed, 22 tests.
+- `pytest -q tests/research` — passed, 24 tests.
 - `ruff check src/leaders_db/research tests/research` — passed.
 
 Deliverables:
@@ -106,7 +106,7 @@ approved, and generated evidence rows with URL/quote provenance.
 
 ## Increment 4 — report and artifact proof
 
-Status: planned.
+Status: implemented and reviewed on 2026-06-28.
 
 Deliverables:
 
@@ -125,6 +125,11 @@ research run produces readable report plus machine-readable findings
 
 Proof surface: generated Markdown/JSON/CSV artifacts include method, caveats,
 provenance, evidence ids, and attribution blocks.
+
+Verification:
+
+- `pytest -q tests/research` — passed, 24 tests.
+- `ruff check src/leaders_db/research tests/research` — passed.
 
 ## Increment 5 — persistent evidence store
 
