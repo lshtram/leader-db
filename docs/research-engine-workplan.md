@@ -200,7 +200,7 @@ Verification:
 
 ## Increment 7 — concept/metric catalog bridge
 
-Status: planned.
+Status: implemented (2026-06-28).
 
 Deliverables:
 
@@ -218,6 +218,20 @@ concept rows can be extracted from SQL-backed evidence and published as viz metr
 
 Proof surface: concept rows from the SQL evidence repo match expected fixture
 values and appear in the viz metric catalog/output.
+
+Implementation note: `leaders_db.viz.concept_bridge` now defines the explicit
+concept-to-metric mapping for `gdp_per_capita`, `population`, and `gdp_total`,
+publishes concept rows from any `EvidenceRepository` (including the SQL-backed
+`SqlEvidenceRepository`) into the chart-ready viz output contract, and surfaces
+per-concept/per-source coverage diagnostics. The viz metric registry includes
+`concept.gdp_per_capita`, `concept.population`, and `concept.gdp_total` with the
+source-precedence policy `world_bank_wdi -> maddison_project -> pwt`.
+
+Verification:
+
+- `pytest -q tests/test_viz_concept_bridge.py tests/sources/test_concepts.py tests/research/test_sql_repository.py` — passed, 49 tests.
+- `pytest -q tests/test_viz_concept_bridge.py tests/test_cli_viz.py tests/test_viz_investigation_slice.py` — passed, 34 tests.
+- `ruff check src/leaders_db/viz tests/test_viz_concept_bridge.py` — passed.
 
 ## Increment 8 — source CLI over the new source system
 

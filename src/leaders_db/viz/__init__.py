@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+from .concept_bridge import (
+    ConceptCoverageDiagnostic,
+    ConceptMetricMapping,
+    ConceptMetricPublishResult,
+    concept_metric_mappings,
+    publish_concept_metrics,
+)
 from .executor import CsvVizDataProvider, VizDataProvider, execute_query
 from .investigation_slice import (
     INVESTIGATION_CSV_COLUMNS,
@@ -53,6 +60,9 @@ __all__ = [
     "VIZ_OUTPUT_REQUIRED_COLUMNS",
     "AggregationKind",
     "AggregationSpec",
+    "ConceptCoverageDiagnostic",
+    "ConceptMetricMapping",
+    "ConceptMetricPublishResult",
     "CsvVizDataProvider",
     "FilterOperator",
     "FilterSpec",
@@ -75,11 +85,13 @@ __all__ = [
     "build_growth_tables",
     "build_regime_year_aggregates",
     "build_superset_sqlite_db",
+    "concept_metric_mappings",
     "default_superset_db_path",
     "default_viz_data_dir",
     "execute_query",
     "get_metric_registry",
     "initial_metric_definitions",
     "lookup_metric",
+    "publish_concept_metrics",
     "run_investigation_slice",
 ]

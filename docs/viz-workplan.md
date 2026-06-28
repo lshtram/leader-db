@@ -256,6 +256,18 @@ structured coverage rows on the result envelope — the slice never
 silently invents data and only fails hard when zero concept rows
 materialise.
 
+### Concept metric bridge (research-engine Increment 7, 2026-06-28)
+
+`src/leaders_db/viz/concept_bridge.py` connects the source concept catalog to
+the reusable viz metric registry without adding a new source runner or bespoke
+dashboard path. It maps `gdp_per_capita`, `population`, and `gdp_total` to
+`concept.gdp_per_capita`, `concept.population`, and `concept.gdp_total`, all of
+which are now listed by `get_metric_registry()`. `publish_concept_metrics()`
+reads normalized evidence through the `EvidenceRepository` protocol, extracts
+concept rows, emits chart-ready rows using `VIZ_OUTPUT_REQUIRED_COLUMNS`, and
+returns source/concept coverage diagnostics. The first source precedence policy
+is explicit and stable: `world_bank_wdi -> maddison_project -> pwt`.
+
 ### How to run
 
 ```bash

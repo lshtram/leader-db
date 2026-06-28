@@ -97,10 +97,12 @@ many times.
 Current implementation:
 
 - `InMemoryEvidenceRepository` for tests and slices.
+- `SqlEvidenceRepository` backed by SQLite for persisted normalized observations
+  in `normalized_observations`.
 
-Needed implementation:
+Future implementation:
 
-- `SqlEvidenceRepository` backed by SQLite/PostgreSQL.
+- PostgreSQL deployment hardening for the same repository boundary.
 
 The query API remains:
 
@@ -137,11 +139,16 @@ Distinction:
 Current implementation:
 
 - `leaders_db.sources.concepts`;
-- `leaders_db.viz.metrics`.
+- `leaders_db.viz.metrics`;
+- `leaders_db.viz.concept_bridge`, the explicit bridge from stable source
+  concepts (`gdp_per_capita`, `population`, `gdp_total`) to chart/report-ready
+  metrics (`concept.gdp_per_capita`, `concept.population`, `concept.gdp_total`).
 
-Needed:
-
-- shared concept/metric catalog, or explicit bridge between the two.
+The first bridge policy is explicit: source diagnostics and precedence use
+`world_bank_wdi -> maddison_project -> pwt` unless callers provide a narrower
+`source_ids` request. Missing requested/precedence sources still produce coverage
+diagnostics with zero observation/concept rows so absence is visible instead of
+silently omitted.
 
 ### 4. Research engine layer
 
