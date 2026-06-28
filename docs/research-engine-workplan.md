@@ -235,7 +235,7 @@ Verification:
 
 ## Increment 8 — source CLI over the new source system
 
-Status: list/describe, check-ready, and ingest slices implemented; query deferred.
+Status: completed (2026-06-28).
 
 Delivered first slice:
 
@@ -253,14 +253,17 @@ Delivered check-ready slice:
 - deterministic human-readable output and JSON output;
 - clear unknown-source failures and non-zero exit for not-ready sources.
 
-Deferred / out of scope for current slices:
+Delivered query slice:
 
-- `leaders-db sources query ...`.
-
-Remaining deliverables:
-
-- `leaders-db sources query ...`;
-- clear distinction between legacy ingest commands and new source commands.
+- `leaders-db sources query`;
+- filters for clean source ID, observation family, indicator, year, country, and
+  leader mapped directly into `EvidenceQuery`;
+- query routed through the clean `EvidenceRepository` boundary, backed in normal
+  CLI use by persisted `normalized_observations` via `SqlEvidenceRepository`;
+- deterministic table output and parseable JSON output;
+- empty results exit 0 with clear output;
+- sentinel tests prove the command does not consult legacy
+  `leaders_db.ingest.STAGE2_ADAPTERS`.
 
 First-slice verification:
 
@@ -288,6 +291,12 @@ Ingest slice verification:
 
 - `pytest -q tests/test_cli_sources.py tests/sources/test_import_boundary.py` — passed, 19 tests.
 - `ruff check src/leaders_db/cli/commands_sources.py src/leaders_db/cli/__init__.py src/leaders_db/sources/__init__.py tests/test_cli_sources.py` — passed.
+
+Query slice verification:
+
+- `pytest -q tests/test_cli_sources.py tests/sources/test_import_boundary.py` — passed, 24 tests.
+- `pytest -q tests/test_imports.py tests/test_cli_sources.py` — passed, 21 tests.
+- `ruff check src/leaders_db/cli/commands_sources.py src/leaders_db/cli/__init__.py tests/test_cli_sources.py` — passed.
 
 Success check:
 

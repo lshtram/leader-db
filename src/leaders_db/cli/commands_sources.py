@@ -8,9 +8,13 @@ from pathlib import Path
 from typing import cast
 
 import typer
+from sqlalchemy.exc import SQLAlchemyError
 
 from ..sources import (
     CachePolicy,
+    EvidenceQuery,
+    EvidenceRepository,
+    NormalizedObservation,
     OutputFormat,
     SourceDescriptor,
     SourceId,
@@ -276,6 +280,95 @@ def sources_ingest_cmd(
         raise typer.Exit(1)
 
 
+@sources_app.command("query")
+def sources_query_cmd(
+    sources: list[str] | None = typer.Option(
+        None,
+        "--source",
+        help="Restrict to a clean source ID. May be passed multiple times.",
+    ),
+    families: list[str] | None = typer.Option(
+        None,
+        "--family",
+        help="Restrict to an observation family. May be passed multiple times.",
+    ),
+    indicators: list[str] | None = typer.Option(
+        None,
+        "--indicator",
+        help="Restrict to an indicator code. May be passed multiple times.",
+    ),
+    years: list[int] | None = typer.Option(
+        None,
+        "--year",
+        help="Restrict to an observation year. May be passed multiple times.",
+    ),
+    countries: list[str] | None = typer.Option(
+        None,
+        "--country",
+        help="Restrict to a country code or name. May be passed multiple times.",
+    ),
+    leaders: list[str] | None = typer.Option(
+        None,
+        "--leader",
+        help="Restrict to a leader ID or name. May be passed multiple times.",
+    ),
+    db_url: str | None = typer.Option(
+        None,
+        "--db-url",
+        help="SQLAlchemy database URL for persisted normalized observations.",
+    ),
+    output: str = typer.Option(
+        "table",
+        "--output",
+        "-o",
+        help="Output format: table or json.",
+    ),
+) -> None:
+    """Query persisted clean-source observations through EvidenceRepository."""
+    if output not in {"table", "json"}:
+        raise typer.BadParameter("--output must be 'table' or 'json'")
+
+    query = EvidenceQuery(
+        source_ids=tuple(SourceId(slug=source) for source in sources) if sources else None,
+        observation_families=tuple(families) if families else None,
+        indicator_codes=tuple(indicators) if indicators else None,
+        years=tuple(years) if years else None,
+        countries=tuple(countries) if countries else None,
+        leaders=tuple(leaders) if leaders else None,
+    )
+    repository = _build_evidence_repository(db_url)
+
+    try:
+        observations = tuple(repository.query_observations(query))
+    except SQLAlchemyError as exc:
+        message = (
+            "could not query normalized observations; ensure the database is "
+            "initialized and contains source-ingest output"
+        )
+        if output == "json":
+            typer.echo(json.dumps({"error": message, "detail": str(exc)}, sort_keys=True))
+        else:
+            typer.echo(f"error: {message}: {exc}")
+        raise typer.Exit(1) from exc
+
+    if output == "json":
+        typer.echo(
+            json.dumps(
+                [_observation_payload(observation) for observation in observations],
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return
+
+    if not observations:
+        typer.echo("no observations matched")
+        return
+    typer.echo("source_id\tobservation_id\tfamily\tindicator\tyear\tcountry\tleader\tvalue")
+    for observation in observations:
+        typer.echo(_observation_row(observation))
+
+
 def _descriptor_payload(descriptor: SourceDescriptor) -> dict[str, object]:
     """Return a JSON-friendly descriptor payload for CLI output."""
     return {
@@ -290,6 +383,53 @@ def _descriptor_payload(descriptor: SourceDescriptor) -> dict[str, object]:
         "requires_manual_approval": descriptor.requires_manual_approval,
         "requires_network": descriptor.requires_network,
     }
+
+
+def _build_evidence_repository(db_url: str | None) -> EvidenceRepository:
+    """Build the persisted clean-source query repository for CLI use."""
+    from ..db.engine import build_engine
+    from ..db.session import default_sqlite_url
+    from ..research.sql_repository import SqlEvidenceRepository
+
+    return SqlEvidenceRepository(build_engine(db_url or default_sqlite_url()))
+
+
+def _observation_payload(observation: NormalizedObservation) -> dict[str, object]:
+    return {
+        "country_code": observation.country_code,
+        "country_name": observation.country_name,
+        "indicator_code": observation.indicator_code,
+        "leader_id": observation.leader_id,
+        "leader_name": observation.leader_name,
+        "observation_family": observation.observation_family,
+        "observation_id": observation.observation_id,
+        "quality_flags": observation.quality_flags,
+        "scale": observation.scale,
+        "source_id": observation.source_id.slug,
+        "source_version": observation.source_version,
+        "unit": observation.unit,
+        "value": observation.value,
+        "value_type": observation.value_type,
+        "warnings": [_warning_payload(warning) for warning in observation.warnings],
+        "year": observation.year,
+    }
+
+
+def _observation_row(observation: NormalizedObservation) -> str:
+    country = observation.country_code or observation.country_name or "-"
+    leader = observation.leader_id or observation.leader_name or "-"
+    return "\t".join(
+        (
+            observation.source_id.slug,
+            observation.observation_id,
+            observation.observation_family,
+            observation.indicator_code,
+            str(observation.year) if observation.year is not None else "-",
+            country,
+            leader,
+            json.dumps(observation.value, sort_keys=True),
+        )
+    )
 
 
 def _warning_payload(warning: SourceWarning) -> dict[str, object]:
@@ -367,4 +507,5 @@ __all__ = [
     "sources_describe_cmd",
     "sources_ingest_cmd",
     "sources_list_cmd",
+    "sources_query_cmd",
 ]

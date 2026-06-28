@@ -11,6 +11,7 @@ from typer.testing import CliRunner
 from leaders_db.cli import app
 from leaders_db.sources import (
     CoverageHint,
+    EvidenceQuery,
     InMemorySourceRegistry,
     NormalizedObservation,
     RawLocator,
@@ -108,12 +109,67 @@ class _IngestAdapter(_ReadinessAdapter):
         )
 
 
+class _QueryRepository:
+    def __init__(self, observations: tuple[NormalizedObservation, ...]) -> None:
+        self.observations = observations
+        self.queries: list[EvidenceQuery] = []
+
+    def query_observations(self, query: EvidenceQuery) -> tuple[NormalizedObservation, ...]:
+        self.queries.append(query)
+        return self.observations
+
+    def get_manifest(self, source_id: SourceId, run_id: str | None = None) -> object:
+        raise AssertionError("CLI query should not request manifests")
+
+    def get_attributions(self, source_ids: tuple[SourceId, ...]) -> tuple[object, ...]:
+        raise AssertionError("CLI query should not request attributions")
+
+
+def _query_observation(
+    *,
+    source_slug: str = "fake_source",
+    observation_id: str = "obs-1",
+    family: str = "fixture",
+    indicator: str = "fixture_indicator",
+    year: int | None = 2023,
+    country_code: str | None = "ISR",
+    country_name: str | None = "Israel",
+    leader_id: str | None = "leader-1",
+    leader_name: str | None = "Leader One",
+    value: object = 7,
+) -> NormalizedObservation:
+    return NormalizedObservation(
+        source_id=SourceId(source_slug),
+        observation_id=observation_id,
+        observation_family=family,
+        indicator_code=indicator,
+        value=value,
+        value_type="numeric",
+        year=year,
+        country_code=country_code,
+        country_name=country_name,
+        leader_id=leader_id,
+        leader_name=leader_name,
+        unit=None,
+        scale=None,
+        source_version="fixture-v1",
+        raw_locator=RawLocator(asset_id="fake-raw"),
+        transform_locator=TransformLocator(adapter_version="fixture-adapter-v1"),
+    )
+
+
 def _patch_registry(monkeypatch: Any, adapter: _ReadinessAdapter) -> None:
     from leaders_db.cli import commands_sources
 
     registry = InMemorySourceRegistry()
     registry.register(adapter)
     monkeypatch.setattr(commands_sources, "build_default_source_registry", lambda: registry)
+
+
+def _patch_query_repository(monkeypatch: Any, repository: _QueryRepository) -> None:
+    from leaders_db.cli import commands_sources
+
+    monkeypatch.setattr(commands_sources, "_build_evidence_repository", lambda db_url: repository)
 
 
 def test_sources_list_uses_clean_registry_not_legacy_stage2_dispatch(monkeypatch) -> None:
@@ -408,3 +464,136 @@ def test_sources_ingest_json_output(monkeypatch) -> None:
     assert payload["observation_count"] == 1
     assert payload["manifest_run_id"] is None
     assert payload["warnings"][0]["code"] == "OPTIONAL"
+
+
+def test_sources_query_returns_filtered_observations_from_clean_repository(monkeypatch) -> None:
+    repository = _QueryRepository(
+        (
+            _query_observation(observation_id="obs-1", value=7),
+            _query_observation(
+                source_slug="other_source",
+                observation_id="obs-2",
+                indicator="other_indicator",
+                value=3,
+            ),
+        )
+    )
+    _patch_query_repository(monkeypatch, repository)
+
+    result = runner.invoke(app, ["sources", "query"])
+
+    assert result.exit_code == 0, result.stdout
+    assert (
+        "source_id\tobservation_id\tfamily\tindicator\tyear\tcountry\tleader\tvalue"
+        in result.stdout
+    )
+    assert (
+        "fake_source\tobs-1\tfixture\tfixture_indicator\t2023\tISR\tleader-1\t7"
+        in result.stdout
+    )
+    assert (
+        "other_source\tobs-2\tfixture\tother_indicator\t2023\tISR\tleader-1\t3"
+        in result.stdout
+    )
+    assert repository.queries == [EvidenceQuery()]
+
+
+def test_sources_query_maps_filters_to_evidence_query(monkeypatch) -> None:
+    repository = _QueryRepository(())
+    _patch_query_repository(monkeypatch, repository)
+
+    result = runner.invoke(
+        app,
+        [
+            "sources",
+            "query",
+            "--source",
+            "fake_source",
+            "--source",
+            "other_source",
+            "--family",
+            "fixture",
+            "--indicator",
+            "fixture_indicator",
+            "--year",
+            "2023",
+            "--country",
+            "ISR",
+            "--leader",
+            "leader-1",
+            "--db-url",
+            "sqlite:///fixture.sqlite",
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    assert repository.queries == [
+        EvidenceQuery(
+            source_ids=(SourceId("fake_source"), SourceId("other_source")),
+            observation_families=("fixture",),
+            indicator_codes=("fixture_indicator",),
+            years=(2023,),
+            countries=("ISR",),
+            leaders=("leader-1",),
+        )
+    ]
+
+
+def test_sources_query_json_output_is_deterministic_and_parseable(monkeypatch) -> None:
+    repository = _QueryRepository(
+        (
+            _query_observation(observation_id="obs-1", value={"score": 7}),
+            _query_observation(observation_id="obs-2", value=3),
+        )
+    )
+    _patch_query_repository(monkeypatch, repository)
+
+    result = runner.invoke(app, ["sources", "query", "--output", "json"])
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert [item["observation_id"] for item in payload] == ["obs-1", "obs-2"]
+    assert payload[0] == {
+        "country_code": "ISR",
+        "country_name": "Israel",
+        "indicator_code": "fixture_indicator",
+        "leader_id": "leader-1",
+        "leader_name": "Leader One",
+        "observation_family": "fixture",
+        "observation_id": "obs-1",
+        "quality_flags": [],
+        "scale": None,
+        "source_id": "fake_source",
+        "source_version": "fixture-v1",
+        "unit": None,
+        "value": {"score": 7},
+        "value_type": "numeric",
+        "warnings": [],
+        "year": 2023,
+    }
+
+
+def test_sources_query_empty_results_exit_zero_with_clear_output(monkeypatch) -> None:
+    repository = _QueryRepository(())
+    _patch_query_repository(monkeypatch, repository)
+
+    table_result = runner.invoke(app, ["sources", "query"])
+    json_result = runner.invoke(app, ["sources", "query", "--output", "json"])
+
+    assert table_result.exit_code == 0, table_result.stdout
+    assert table_result.stdout.strip() == "no observations matched"
+    assert json_result.exit_code == 0, json_result.stdout
+    assert json.loads(json_result.stdout) == []
+
+
+def test_sources_query_uses_clean_repository_not_legacy_stage2_dispatch(monkeypatch) -> None:
+    from leaders_db import ingest as legacy_ingest
+
+    repository = _QueryRepository((_query_observation(),))
+    _patch_query_repository(monkeypatch, repository)
+    monkeypatch.setattr(legacy_ingest, "STAGE2_ADAPTERS", _ExplodingStage2Dispatch())
+
+    result = runner.invoke(app, ["sources", "query", "--source", "fake_source"])
+
+    assert result.exit_code == 0, result.stdout
+    assert repository.queries[0].source_ids == (SourceId("fake_source"),)

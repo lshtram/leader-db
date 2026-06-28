@@ -37,6 +37,7 @@ from .commands_sources import (
     sources_describe_cmd,
     sources_ingest_cmd,
     sources_list_cmd,
+    sources_query_cmd,
 )
 from .commands_stage0_1 import check_source_availability, ingest_client_matrix
 from .commands_stage2 import ingest_source
@@ -82,6 +83,7 @@ __all__ = [
     "sources_describe_cmd",
     "sources_ingest_cmd",
     "sources_list_cmd",
+    "sources_query_cmd",
     "summary_report",
     "viz_build_growth_tables_cmd",
     "viz_build_superset_db_cmd",
