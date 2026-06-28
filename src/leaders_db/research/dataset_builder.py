@@ -17,6 +17,7 @@ from .models import (
     RowScope,
 )
 from .planner import expand_scope_filter
+from .registry import get_concept_spec
 
 
 def build_analytical_dataset(
@@ -162,6 +163,17 @@ def _gap_for_missing(
 
 
 def _task_for_gap(plan: InvestigationPlan, gap: EvidenceGap) -> EvidenceAcquisitionTask:
+    concept_spec = get_concept_spec(gap.concept_key)
+    required_output_schema = (
+        concept_spec.required_output_schema
+        if concept_spec is not None
+        else "AcquiredEvidenceRecord"
+    )
+    allowed_source_types = (
+        concept_spec.allowed_source_types
+        if concept_spec is not None
+        else ("official_record", "reputable_news")
+    )
     return EvidenceAcquisitionTask(
         task_id=f"task-{gap.gap_id}",
         question_id=plan.question_id,
@@ -169,8 +181,8 @@ def _task_for_gap(plan: InvestigationPlan, gap: EvidenceGap) -> EvidenceAcquisit
         acquisition_type="manual_research",
         scope_filter=gap.scope_filter,
         evidence_need=gap.required_evidence,
-        required_output_schema="AcquiredEvidenceRecord",
-        allowed_source_types=plan.source_priority or ("official_record", "reputable_news"),
+        required_output_schema=required_output_schema,
+        allowed_source_types=plan.source_priority or allowed_source_types,
         status="planned",
     )
 

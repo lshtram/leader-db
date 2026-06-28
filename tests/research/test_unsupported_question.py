@@ -1,7 +1,7 @@
 import pytest
 
 from leaders_db.research.models import ResearchQuestion, ScopeFilter
-from leaders_db.research.planner import plan_question
+from leaders_db.research.planner import QuestionSpecReviewNeeded, plan_question
 
 
 def test_unsupported_question_key_raises_clear_error() -> None:
@@ -14,5 +14,7 @@ def test_unsupported_question_key_raises_clear_error() -> None:
         analyses=("coverage",),
     )
 
-    with pytest.raises(ValueError, match="Unsupported research question_key"):
+    with pytest.raises(QuestionSpecReviewNeeded, match="needs_question_spec_review") as exc_info:
         plan_question(question)
+
+    assert exc_info.value.code == "needs_question_spec_review"

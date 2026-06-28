@@ -7,47 +7,56 @@ from itertools import product
 from leaders_db.sources.contracts import EvidenceQuery
 
 from .models import (
+    ConceptSpec,
     DimensionBinding,
     DimensionFilter,
     DimensionValue,
     InvestigationPlan,
+    QuestionClassification,
+    QuestionSpec,
     ResearchQuestion,
     RowScope,
     ScopeFilter,
     source_ids_from_slugs,
 )
+from .registry import get_concept_spec, get_question_spec
 
-_SUPPORTED_QUESTIONS = {
-    "conflict_fatalities_structured": {
-        "concepts": ("conflict_fatalities",),
-        "acquisition_policy": "none",
-    },
-    "leader_legal_cases_qualitative": {
-        "concepts": ("leader_open_criminal_or_corruption_case",),
-        "acquisition_policy": "plan_only",
-    },
-}
+NEEDS_QUESTION_SPEC_REVIEW = "needs_question_spec_review"
+
+
+class QuestionSpecReviewNeeded(ValueError):
+    """Raised when a question cannot be mapped to executable registry specs."""
+
+    code = NEEDS_QUESTION_SPEC_REVIEW
 
 
 def plan_question(question: ResearchQuestion) -> InvestigationPlan:
     """Convert a supported question into an explicit investigation plan."""
 
-    supported = _SUPPORTED_QUESTIONS.get(question.question_key)
-    if supported is None:
-        raise ValueError(f"Unsupported research question_key: {question.question_key!r}")
+    question_spec = get_question_spec(question.question_key)
+    if question_spec is None:
+        raise QuestionSpecReviewNeeded(
+            f"{NEEDS_QUESTION_SPEC_REVIEW}: unsupported research question_key "
+            f"{question.question_key!r}"
+        )
 
-    expected_concepts = supported["concepts"]
-    if tuple(question.concepts) != expected_concepts:
+    concept_specs = tuple(_concept_spec(concept_key) for concept_key in question.concepts)
+    if tuple(question.concepts) != question_spec.concept_keys:
         raise ValueError(
-            f"Question {question.question_key!r} requires concepts {expected_concepts!r}; "
+            f"Question {question.question_key!r} requires concepts {question_spec.concept_keys!r}; "
             f"got {question.concepts!r}"
         )
+    _validate_required_scope_keys(
+        question.scope_filter,
+        _required_scope_keys(question_spec.expected_scope_keys, concept_specs),
+    )
 
     return InvestigationPlan(
         question_id=question.question_id,
         concept_keys=question.concepts,
         evidence_query=EvidenceQuery(
             source_ids=source_ids_from_slugs(question.preferred_sources),
+            observation_families=_observation_families(concept_specs),
             indicator_codes=question.concepts,
             years=_integer_dimension_values(question.scope_filter, "year"),
             countries=_string_dimension_values(question.scope_filter, "country"),
@@ -58,8 +67,47 @@ def plan_question(question: ResearchQuestion) -> InvestigationPlan:
         output_grain="dimensioned_concept",
         analyses=question.analyses,
         include_missing_rows=True,
-        acquisition_policy=supported["acquisition_policy"],
+        acquisition_policy=question_spec.acquisition_policy,
     )
+
+
+def question_from_classification(
+    *,
+    question_id: str,
+    display_text: str,
+    classification: QuestionClassification,
+) -> ResearchQuestion:
+    """Map a validated classification contract to a registered question."""
+
+    question_spec = validate_question_classification(classification)
+    return ResearchQuestion(
+        question_id=question_id,
+        question_key=classification.question_key,
+        display_text=display_text,
+        concepts=classification.concept_keys,
+        scope_filter=classification.scope_filter,
+        analyses=classification.analyses or question_spec.default_analyses,
+        preferred_sources=classification.preferred_sources,
+    )
+
+
+def validate_question_classification(classification: QuestionClassification) -> QuestionSpec:
+    """Validate a provider-produced classification against curated registries."""
+
+    question = ResearchQuestion(
+        question_id="classification-contract-validation",
+        question_key=classification.question_key,
+        display_text="Classification contract validation.",
+        concepts=classification.concept_keys,
+        scope_filter=classification.scope_filter,
+        analyses=classification.analyses,
+        preferred_sources=classification.preferred_sources,
+    )
+    plan_question(question)
+    question_spec = get_question_spec(classification.question_key)
+    if question_spec is None:  # pragma: no cover - guarded by plan_question
+        raise QuestionSpecReviewNeeded(NEEDS_QUESTION_SPEC_REVIEW)
+    return question_spec
 
 
 def expand_scope_filter(scope_filter: ScopeFilter) -> tuple[RowScope, ...]:
@@ -127,3 +175,48 @@ def _string_dimension_values(scope_filter: ScopeFilter, key: str) -> tuple[str, 
         for value in filter_.values
     )
     return values or None
+
+
+def _concept_spec(concept_key: str) -> ConceptSpec:
+    concept_spec = get_concept_spec(concept_key)
+    if concept_spec is None:
+        raise QuestionSpecReviewNeeded(
+            f"{NEEDS_QUESTION_SPEC_REVIEW}: unsupported concept_key {concept_key!r}"
+        )
+    return concept_spec
+
+
+def _required_scope_keys(
+    question_keys: tuple[str, ...], concept_specs: tuple[ConceptSpec, ...]
+) -> tuple[str, ...]:
+    required: list[str] = []
+    for key in question_keys:
+        if key not in required:
+            required.append(key)
+    for concept_spec in concept_specs:
+        for key in concept_spec.expected_scope_keys:
+            if key not in required:
+                required.append(key)
+    return tuple(required)
+
+
+def _validate_required_scope_keys(
+    scope_filter: ScopeFilter, required_keys: tuple[str, ...]
+) -> None:
+    present_keys = {filter_.key for filter_ in scope_filter.filters if _has_scope_value(filter_)}
+    missing_keys = tuple(key for key in required_keys if key not in present_keys)
+    if missing_keys:
+        raise ValueError(f"Missing required scope key(s): {missing_keys!r}")
+
+
+def _has_scope_value(filter_: DimensionFilter) -> bool:
+    return bool(filter_.values) or filter_.start is not None or filter_.end is not None
+
+
+def _observation_families(concept_specs: tuple[ConceptSpec, ...]) -> tuple[str, ...]:
+    families: list[str] = []
+    for concept_spec in concept_specs:
+        for family in concept_spec.observation_families:
+            if family not in families:
+                families.append(family)
+    return tuple(families)

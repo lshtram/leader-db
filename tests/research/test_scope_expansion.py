@@ -39,7 +39,28 @@ def test_planner_maps_recognized_scope_filters_to_evidence_query() -> None:
     plan = plan_question(question)
 
     assert plan.evidence_query.indicator_codes == ("conflict_fatalities",)
+    assert plan.evidence_query.observation_families == ("conflict",)
     assert [source_id.slug for source_id in plan.evidence_query.source_ids or ()] == ["ucdp"]
     assert plan.evidence_query.countries == ("USA", "CHN")
     assert plan.evidence_query.years == (2020, 2021)
     assert plan.evidence_query.leaders is None
+
+
+def test_planner_rejects_missing_required_scope_key() -> None:
+    question = ResearchQuestion(
+        question_id="conflict-without-year",
+        question_key="conflict_fatalities_structured",
+        display_text="Get conflict fatalities for selected countries.",
+        concepts=("conflict_fatalities",),
+        scope_filter=ScopeFilter(
+            filters=(DimensionFilter(key="country", values=("USA",), role="entity"),)
+        ),
+        analyses=("coverage",),
+    )
+
+    try:
+        plan_question(question)
+    except ValueError as exc:
+        assert "Missing required scope key" in str(exc)
+    else:  # pragma: no cover - assertion path
+        raise AssertionError("Expected missing scope key rejection")

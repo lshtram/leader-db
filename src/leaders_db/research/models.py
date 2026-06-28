@@ -12,6 +12,13 @@ from leaders_db.sources.contracts import EvidenceQuery, SourceId
 DimensionValue: TypeAlias = str | int | float | bool | None
 DimensionValueType: TypeAlias = Literal["string", "integer", "number", "boolean", "date", "missing"]
 DimensionRole: TypeAlias = Literal["entity", "time", "category", "filter", "grouping"]
+EvidenceShape: TypeAlias = Literal[
+    "structured_numeric",
+    "structured_categorical",
+    "qualitative_cited",
+    "evidence_bundle",
+]
+AcquisitionPolicy: TypeAlias = Literal["none", "plan_only", "run_approved_tasks"]
 
 
 class _StrictModel(BaseModel):
@@ -74,6 +81,42 @@ class ScopeFilter(_StrictModel):
     filters: tuple[DimensionFilter, ...]
 
 
+class QuestionSpec(_StrictModel):
+    """Curated executable question contract."""
+
+    question_code: str
+    question_key: str
+    text: str
+    category: str
+    expected_scope_keys: tuple[str, ...]
+    concept_keys: tuple[str, ...]
+    default_analyses: tuple[str, ...]
+    acquisition_policy: AcquisitionPolicy
+
+
+class ConceptSpec(_StrictModel):
+    """Curated concept contract used by deterministic planning."""
+
+    concept_key: str
+    expected_scope_keys: tuple[str, ...]
+    evidence_shape: EvidenceShape
+    observation_families: tuple[str, ...]
+    required_output_schema: str
+    allowed_source_types: tuple[str, ...]
+    acquisition_allowed: bool
+
+
+class QuestionClassification(_StrictModel):
+    """Provider-agnostic LLM classification contract; it performs no execution."""
+
+    question_key: str
+    concept_keys: tuple[str, ...]
+    scope_filter: ScopeFilter
+    analyses: tuple[str, ...] = ()
+    preferred_sources: tuple[str, ...] = ()
+    rationale: str | None = None
+
+
 class ResearchQuestion(_StrictModel):
     """Explicit research request accepted by the first-slice planner."""
 
@@ -99,7 +142,7 @@ class InvestigationPlan(_StrictModel):
     output_grain: Literal["dimensioned_concept", "category_bundle", "evidence_record"]
     analyses: tuple[str, ...]
     include_missing_rows: bool = True
-    acquisition_policy: Literal["none", "plan_only", "run_approved_tasks"] = "none"
+    acquisition_policy: AcquisitionPolicy = "none"
 
     @field_serializer("evidence_query")
     def _serialize_evidence_query(self, query: EvidenceQuery) -> dict[str, Any]:

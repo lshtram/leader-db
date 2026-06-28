@@ -58,7 +58,7 @@ unambiguous row scopes and findings link to evidence row ids.
 
 ## Increment 2 — question/concept registry and planner rules
 
-Status: planned.
+Status: implemented.
 
 Deliverables:
 
@@ -74,8 +74,9 @@ Success check:
 known question specs become deterministic InvestigationPlan objects
 ```
 
-Proof surface: tests cover known question, unknown question, and LLM-classified
-question mapping to known specs.
+Proof surface: `pytest -q tests/research` and
+`ruff check src/leaders_db/research tests/research` cover known question planning,
+unknown question review path, and classification-contract mapping to known specs.
 
 ## Increment 3 — evidence gap and acquisition-task planning
 
