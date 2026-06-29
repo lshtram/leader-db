@@ -314,9 +314,10 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ---
 
-## 2. Sources Considered But Rejected
+## 2. Sources Considered, Staged, Or Rejected
 
-For each source below, the reason it was not used and the substitute decision.
+For each source below, the current disposition: staged candidate, deferred,
+blocked/rejected, or superseded.
 
 ### `freedom_house` — superseded pending-provider note
 
@@ -343,10 +344,26 @@ For each source below, the reason it was not used and the substitute decision.
 - **Why:** the URL returns 403 from Cloudflare even with a browser User-Agent. The server is reachable but Cloudflare's anti-bot blocks automated requests.
 - **Substitute decision:** the nuclear arsenal coverage from FAS is cross-validated by SIPRI Yearbook Chapter 7 (added in the second wave). NTI is not needed.
 
-### `eiu_polity_bmr` (partial — EIU only) — paywalled
+### `eiu_democracy_index` — staged candidate, not yet ingested
 
-- **Status:** 🟡 partially adopted.
-- **Why:** EIU Democracy Index is paywalled. Polity V and BMR are free; Polity V is now adopted (see above), BTI is now adopted (moved to "Sources In Use" on 2026-06-17 after BTI 2026 was released).
+- **Status:** ⚠️ staged candidate as of 2026-06-29.
+- **What is staged:** public/report PDFs for 2022, 2023, and 2024 under `data/raw/eiu_democracy_index/`.
+- **Potential use:** recent political-freedom/democracy evidence: overall Democracy Index score, rank, rank change, the five category sub-scores, and EIU regime type.
+- **Caveat:** EIU reports are copyrighted; raw PDFs must not be redistributed. License/terms and adapter parsing need vetting before ingestion. The 2021/2020 official `pages.eiu.com` PDF URLs were discoverable but DNS-unreachable in this environment; the 2025 campaign page was reachable but did not expose a direct full country appendix download without the form.
+- **Attribution text if used in reports:** "Economist Intelligence Unit Democracy Index (The Economist Intelligence Unit, report year {year})."
+
+### `icc_cases` — staged candidate, not yet ingested
+
+- **Status:** ⚠️ staged candidate as of 2026-06-29.
+- **What is staged:** official ICC public defendants/cases HTML snapshots under `data/raw/icc_cases/` (75 defendants, 34 cases at snapshot time).
+- **Potential use:** severe accountability/manual-review flags for ruler/person evidence and domestic violence / atrocity context.
+- **Caveat:** this is narrow legal-proceeding coverage, not a broad human-rights or conflict dataset. Downstream logic must distinguish accused/warrant/summons from confirmed charges, convictions, acquittals, dismissals, withdrawals, fugitive/custody status, appeals, and reparations stages.
+- **Attribution text if used in reports:** "International Criminal Court public cases and defendants pages (ICC, snapshot {date})."
+
+### `eiu_polity_bmr` — superseded combined placeholder
+
+- **Status:** superseded.
+- **Why:** this earlier combined placeholder mixed three sources. Polity V is adopted as `polity_v`; BTI is adopted as `bti`; EIU is now tracked separately as the staged candidate `eiu_democracy_index`.
 
 ### `HoG` (Heads of Government) — only 33 countries, 1870–2012
 

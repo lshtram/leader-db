@@ -315,6 +315,155 @@ class NormalizedObservationRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
 
 
+class ResearchQuestion(Base):
+    """Persisted question metadata for dashboard/result rows."""
+
+    __tablename__ = "research_questions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    question_id: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    chapter_id: Mapped[str] = mapped_column(String, nullable=False)
+    question_text: Mapped[str] = mapped_column(Text, nullable=False)
+    answer_type: Mapped[str] = mapped_column(String, nullable=False)
+    category_key: Mapped[str | None] = mapped_column(String, nullable=True)
+    method_version: Mapped[str] = mapped_column(String, nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+
+    answers: Mapped[list[ResearchQuestionAnswer]] = relationship(
+        back_populates="question"
+    )
+
+
+class ResearchQuestionAnswer(Base):
+    """One dashboard-ready answer per question/country/year/method slice."""
+
+    __tablename__ = "research_question_answers"
+    __table_args__ = (
+        UniqueConstraint(
+            "question_id",
+            "year",
+            "iso3",
+            "method_version",
+            name="uq_research_question_answer_slice",
+        ),
+        Index("ix_research_answers_question_year", "question_id", "year"),
+        Index("ix_research_answers_iso3_year", "iso3", "year"),
+        Index("ix_research_answers_ruler_name_year", "ruler_name", "year"),
+        Index("ix_research_answers_coverage_year", "coverage_status", "year"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    question_id: Mapped[str] = mapped_column(
+        ForeignKey("research_questions.question_id"), nullable=False
+    )
+    year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    iso3: Mapped[str] = mapped_column(String(3), nullable=False)
+    country_name: Mapped[str] = mapped_column(String, nullable=False)
+    ruler_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    ruler_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    answer_boolean: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    answer_numeric: Mapped[float | None] = mapped_column(Float, nullable=True)
+    answer_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    answer_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    score_1_to_10: Mapped[float | None] = mapped_column(Float, nullable=True)
+    confidence_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    coverage_status: Mapped[str] = mapped_column(String, nullable=False)
+    evidence_year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    method_version: Mapped[str] = mapped_column(String, nullable=False)
+    warning_codes_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    caveats_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+
+    question: Mapped[ResearchQuestion] = relationship(back_populates="answers")
+    evidence_links: Mapped[list[ResearchAnswerEvidenceLink]] = relationship(
+        back_populates="answer", cascade="all, delete-orphan"
+    )
+
+
+class ResearchAnswerEvidenceLink(Base):
+    """Drill-down link from a persisted answer to source evidence."""
+
+    __tablename__ = "research_answer_evidence_links"
+    __table_args__ = (
+        UniqueConstraint(
+            "answer_id",
+            "source_slug",
+            "source_observation_id",
+            "evidence_role",
+            name="uq_research_answer_evidence_link",
+        ),
+        Index(
+            "ix_research_evidence_source_observation",
+            "source_slug",
+            "source_observation_id",
+        ),
+        Index("ix_research_evidence_answer_id", "answer_id"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    answer_id: Mapped[int] = mapped_column(
+        ForeignKey("research_question_answers.id", ondelete="CASCADE"), nullable=False
+    )
+    source_slug: Mapped[str] = mapped_column(String, nullable=False)
+    source_observation_id: Mapped[str] = mapped_column(String, nullable=False)
+    evidence_role: Mapped[str] = mapped_column(String, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+
+    answer: Mapped[ResearchQuestionAnswer] = relationship(back_populates="evidence_links")
+
+
+class ChapterScore(Base):
+    """Future aggregate chapter score per ruler-country-year slice."""
+
+    __tablename__ = "chapter_scores"
+    __table_args__ = (
+        UniqueConstraint(
+            "chapter_id",
+            "year",
+            "iso3",
+            "method_version",
+            name="uq_chapter_score_slice",
+        ),
+        Index("ix_chapter_scores_chapter_year", "chapter_id", "year"),
+        Index("ix_chapter_scores_iso3_year", "iso3", "year"),
+        Index("ix_chapter_scores_ruler_name_year", "ruler_name", "year"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    chapter_id: Mapped[str] = mapped_column(String, nullable=False)
+    year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    iso3: Mapped[str] = mapped_column(String(3), nullable=False)
+    ruler_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    ruler_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    score_1_to_10: Mapped[float | None] = mapped_column(Float, nullable=True)
+    confidence_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    answer_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    answered_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    missing_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    direct_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    proxy_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    method_version: Mapped[str] = mapped_column(String, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+
+
 class ValidationResult(Base):
     """Per-item validation record. Stage 12 output."""
 
@@ -335,11 +484,15 @@ class ValidationResult(Base):
 
 __all__ = [
     "Base",
+    "ChapterScore",
     "Country",
     "CountryYear",
     "Leader",
     "LeaderAlias",
     "NormalizedObservationRow",
+    "ResearchAnswerEvidenceLink",
+    "ResearchQuestion",
+    "ResearchQuestionAnswer",
     "RulerScore",
     "RulerSpell",
     "RulerYear",

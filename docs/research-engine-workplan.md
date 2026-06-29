@@ -24,6 +24,58 @@ Already available:
 - Superset local integration;
 - GDP-per-capita investigation slice.
 
+## Immediate execution strategy — Slice 1 stabilization
+
+Status: active as of 2026-06-29.
+
+The research engine now prioritizes reusable vertical-slice execution over
+source-specific expansion. A vertical slice is defined by the research request,
+not by an input database. The first slice family is:
+
+```text
+one question + one year + all in-scope countries
+```
+
+The same runner should be able to take different question/year pairs from
+chapters 1-8 and 1B-8B, gather whatever evidence is needed, persist answer rows,
+and expose queryable result tables without writing new bespoke code for each run.
+When a run fails or requires code changes, the output of that iteration is an
+infrastructure-gap list plus the smallest generic improvement needed before
+rerunning.
+
+Validation ladder for Slice 1:
+
+1. run the current proving case (`question_id="2.1"`, one target year, all
+   countries) end-to-end through generic orchestration;
+2. rerun Slice 1 with several other structured chapter 1-8 questions/years;
+3. rerun Slice 1 with several 1B-8B internet-research-heavy questions/years;
+4. require that repeated Slice 1 cases run by changing request parameters, not by
+   adding per-question code paths, except where a new generic capability is
+   explicitly identified and implemented;
+5. only after repeated Slice 1 cases are stable, move to Slice 2 (`one question +
+   one country/ruler + all years`).
+
+Immediate known infrastructure to inspect next:
+
+- generic `run_question(question_id, years, countries/rulers)` orchestration;
+- question registry coverage for methodology question IDs and expected answer
+  types;
+- generic dispatch from a question spec to structured evidence, internet
+  research, or manual-review fallback;
+- country/ruler scope injection for all-country runs;
+- persistence into `research_question_answers` and evidence-link tables;
+- repeatability/idempotency when the same slice is rerun with only parameters
+  changed.
+
+First infrastructure assessment (2026-06-29): before this iteration Q2.1 Slice 1
+required hand assembly of country scope, evidence repository, answer builder, and
+result persistence. `leaders_db.research.slice_runner.run_slice_1_question_year`
+now provides the generic programmatic runner surface for `one question + one year
++ all or selected in-scope countries`, with Q2.1 registered as the first supported
+handler and persistence routed through `research_question_answers`. Remaining
+generic gaps for other Slice 1 questions are handler/spec coverage and dispatch
+strategy for structured evidence versus internet-research/manual-review paths.
+
 ## Increment 1 — in-memory representative vertical slice
 
 Status: implemented and reviewed on 2026-06-27.
@@ -334,6 +386,38 @@ and loaded into the read-only viz/Superset artifact without rerunning adapters
 Proof surface: `tests/test_viz_economic_trends.py` covers fixture observations in
 `normalized_observations` -> concept bridge metrics -> filtered economic trend
 CSV -> optional Superset SQLite table.
+
+Fast-path Q2.1 helper slice (2026-06-28):
+
+- Added a pure `leaders_db.research.question_2_1` helper for methodology
+  Question 2.1, "Was the country involved in state-based armed conflict?".
+- The helper reads only through `EvidenceRepository` using UCDP indicators
+  `ucdp_state_based_events` and `ucdp_state_based_fatalities` in observation
+  family `international_peace_country_year`, emits one row per in-scope country,
+  and preserves source observation ids plus ruler-name fields from an injected
+  resolver/callback.
+- Exact 2023 UCDP evidence is still not claimed by this slice: the local GED
+  23.1 metadata covers 1989-2022. Any 2023 run must either surface missing
+  coverage or pass an explicit proxy year, which is marked `coverage_status =
+  "proxy"` with a warning/caveat rather than masquerading as direct 2023 data.
+
+Persisted Q2.1 result-layer trial (2026-06-29):
+
+- Added migration `0003_research_results.sql` for question metadata,
+  dashboard-ready question answers, answer-to-evidence drill-down links, and a
+  future chapter-score aggregate table.
+- Added `leaders_db.research.results_store.persist_q2_1_answers(...)` to upsert
+  already-built Q2.1 rows into the persisted result layer and refresh UCDP
+  evidence links on rerun without reading raw files or rerunning adapters.
+- First proof remains fixture/test-backed because exact local UCDP 2023 evidence
+  is unavailable in GED 23.1; no production 2023 direct result is claimed.
+
+Trial commands:
+
+```bash
+pytest -q tests/test_research_results_store.py tests/test_research_question_2_1.py tests/test_db_schema.py
+ruff check src/leaders_db/db/models.py src/leaders_db/research/results_store.py tests/test_research_results_store.py tests/test_db_schema.py
+```
 
 Candidate question families:
 

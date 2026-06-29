@@ -32,6 +32,10 @@ def test_init_database_creates_all_tables(database_url: str) -> None:
         "source_observations",
         "validation_results",
         "normalized_observations",
+        "research_questions",
+        "research_question_answers",
+        "research_answer_evidence_links",
+        "chapter_scores",
         # Internal to the migration runner.
         "schema_migrations",
     }
@@ -45,7 +49,7 @@ def test_init_database_is_idempotent(database_url: str) -> None:
     engine = create_engine(database_url)
     with engine.connect() as conn:
         rows = conn.execute(text("SELECT COUNT(*) FROM schema_migrations")).scalar_one()
-    assert rows == 2
+    assert rows == 3
 
 
 def test_required_columns_present(database_url: str) -> None:

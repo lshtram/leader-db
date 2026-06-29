@@ -15,6 +15,7 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
 - **Visualization workplan approved and Increments 1–4 complete/reviewed (2026-06-23):** `docs/viz-workplan.md` tracks the hybrid `leaders_db.viz` semantic layer + Apache Superset dashboard plan. The core abstraction is `viz_country_year_metrics` + `viz_metric_catalog` plus a generic semantic query layer; `viz_regime_year_population` is explicitly a cached example/proof query, not a bespoke-table pattern for every metric. Increment 3 adds generic agent CLI access through `leaders-db viz-metrics` and `leaders-db viz-query`. Increment 4 adds local Superset compose/config plus `leaders-db viz-build-superset-db`, which builds the read-only SQLite analytic artifact mounted into Superset. The next visualization action is Increment 5: secure client access via Cloudflare Tunnel/Access for `viz.chopsworkshop.com`. **Increment 6 landed 2026-06-25 — investigation-slice vertical slice** (`viz-run-investigation-slice`) wires the updated source architecture (PWT + Maddison + WDI through the unified `SourceIngestRunner`) to a constrained `gdp_per_capita` concept extraction, writes a chart-ready CSV + dependency-free HTML+SVG line chart, and refreshes the Superset SQLite artifact when the canonical core CSV is present (skipping the rebuild cleanly when it is absent). The chart groups by `(country_code, source_id, series_label)` and renders one polyline per indicator-or-recipe series with legend labels `"{country_code} \u00b7 {source_slug} \u00b7 {series_label}"`, so values from different sources or same-source indicators for the same country/year are never chained into a single misleading time-series line. See `docs/viz-workplan.md` §Increment 6 and `docs/testing-guide-viz-superset.md` §Investigation-slice smoke check for the run-book.
 - **Research-engine Increment 9 first slice (2026-06-28):** the selected narrow slice is economic trend publishing over existing Increment 7 concept metrics only. `leaders_db.viz.economic_trends` reads persisted normalized observations through the `EvidenceRepository` boundary, reuses `publish_concept_metrics()` for `concept.gdp_per_capita`, `concept.population`, and `concept.gdp_total`, filters selected countries / year ranges, writes `viz_economic_trends.csv`, and registers that CSV as an optional read-only Superset SQLite table. This proves the clean source/research/viz path for one broader economic trend family without adding dashboard product scope or new source scoring formulas.
 - **Local ruler-period evidence summary helper (2026-06-28):** `leaders-db evidence summarize-ruler-period` now emits compact JSON for local structured concept evidence over a country/year window, using persisted `normalized_observations` through the `EvidenceRepository` boundary and the existing concept catalog. `--leader` is request metadata only; no leader matching, client-matrix evidence, or scoring formula is introduced.
+- **Data table workplan added (2026-06-29):** `docs/data-table-plan.md` now defines the desired identity, harmonized country-year, ruler-period, question-answer, evidence-link, score, and review tables, with the methodology questions each table supports and the infrastructure phases needed before each table can be completed.
 
 The prototype has **not yet** implemented the full Stage 3–15 resolution, scoring, validation, and report-generation pipeline. Phase C currently focuses on source acquisition and Stage 2 normalized observations. **First deterministic scorer landed: `social_wellbeing`** — see the Phase D.1 entry below. **Stage 9 narrow single-country read-only seam landed** — see the Phase D.2 entry. The next round focuses on the evidence-bundle contract for the remaining categories, the Stage 3/4 leader resolver, and the per-category scorers that are not yet implemented.
 
@@ -27,6 +28,46 @@ Concrete numbers (as of 2026-06-20):
 - Full pytest suite baseline has moved beyond the Phase D.2 number as source adapters and CYC work were added. Maddison-focused verification: `pytest -q tests/test_ingest_maddison_project.py tests/test_paths.py` passes (32 tests), and the non-CYC suite was reported green during the adapter restoration pass.
 
 ## Active Phase
+
+**Immediate goal reset (2026-06-29): slice-first research-runner validation.**
+All source-by-source expansion and dashboard polish are deferred unless they are
+required to make the current vertical slice run. The active goal is to prove that
+the system can execute reusable research slices from the question bank without
+new bespoke code for each question/run. The first slice family is:
+
+```text
+one question + one year + all in-scope countries
+```
+
+For each attempted slice, the loop is:
+
+1. choose a question from chapters 1-8 or 1B-8B and a target year;
+2. run the generic inquiry path for all countries;
+3. use all available evidence mechanisms needed for that question: persisted
+   structured observations, proxy-year logic, ruler/country scope, cached/web or
+   internet-research agent outputs where appropriate, and explicit missing/manual
+   review markers when evidence is not available;
+4. persist results to the research result tables (`research_questions`,
+   `research_question_answers`, `research_answer_evidence_links`, and eventually
+   `chapter_scores`);
+5. inspect whether the result is queryable for visualization and drill-down;
+6. if the run requires code changes, record the infrastructure gap, implement the
+   smallest generic improvement, and rerun;
+7. repeat with several randomized Slice 1 cases across chapters 1-8 and then
+   1B-8B. Only after multiple Slice 1 cases run without per-question code changes
+   should we move to Slice 2 (`one question + one country/ruler + all years`).
+
+Success for this phase is not high-quality final data yet. Success is that the
+infrastructure is generic enough to run different Slice 1 cases repeatedly, with
+LLM/internet research invoked where needed and results persisted in the same
+database shape. Data-quality iteration starts after this execution path is stable.
+
+Current first proving case: Q2.1 for one target year/all countries. Q2.1 now runs
+through a generic programmatic Slice 1 runner that selects all or requested
+in-scope countries, invokes the registered Q2.1 handler, and persists results into
+`research_question_answers` without tests hand-calling the Q2.1 persistence seam.
+The next infrastructure gaps are handler/spec coverage for additional questions
+and structured/internet-research strategy dispatch.
 
 **Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration + CTBTO Treaty Status clean migration + World Bank PIP clean migration: 36 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, `iaea_safeguards`, `ctbto_treaty_status`, and `world_bank_poverty_inequality_platform` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 41 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 

@@ -61,6 +61,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 |---|---|---|---|
 | `vdem` | ✅ | Varieties of Democracy (V-Dem) | **v16 (March 2026) is on disk** at `data/raw/vdem/`. |
 | `polity_v` | ✅ | Polity V dataset | Direct `.sav` file from inscrdata.html; 1800–2018, 167 countries. **Fallback to Freedom House for 2023.** |
+| `eiu_democracy_index` | ⚠️ | Economist Intelligence Unit Democracy Index | **New candidate staged 2026-06-29** at `data/raw/eiu_democracy_index/`: public/report PDFs for 2022, 2023, and 2024. Useful for recent country democracy scores, five category sub-scores, rankings, and regime type. License/redistribution and adapter parsing still need vetting; raw PDFs must not be redistributed. 2021/2020 official `pages.eiu.com` URLs were discoverable but DNS-unreachable in this environment; 2025 public page was reachable but did not expose a direct full country appendix download without the form. |
 | `rsf_press_freedom` | ✅ | Reporters Without Borders World Press Freedom Index | Annual CSVs on disk at `data/raw/rsf_press_freedom/`: 2002–2010 and 2012–2026. Direct `2011.csv` is absent; RSF publishes a combined 2011/2012 edition represented by the 2012 file. Use as a press/media-freedom sub-signal, not a full political-freedom replacement. |
 | `freedom_house` | ✅ | Freedom House Freedom in the World | FIW 2026 user-managed/restricted workbooks are staged at `data/raw/freedom_house/`; clean `leaders_db.sources.adapters.freedom_house` adapter reads the 1973-2026 ratings/statuses workbook for political rights, civil liberties, and status. Do not redistribute raw FIW files. |
 
@@ -130,6 +131,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 | `political_terror_scale` | ✅ | Political Terror Scale | Direct file at `/Data/Files/PTS-2025.xlsx`; 1976–2025 coverage. |
 | `cirights` | ⚠️ | CIRIGHTS Physical Integrity Rights | User-managed. v3.12.10.24 (Dec 2024) placed manually because `cirights.org` is DNS-unreachable from this environment. 207 countries × 1981–2022. **1-year gap to 2023** (use 2022 as proxy). See `data/raw/cirights/metadata.json`. |
 | `acled_ucdp_osv` | ✅ | UCDP one-sided violence (subset of `ucdp`) | Same download as `ucdp`. |
+| `icc_cases` | ⚠️ | International Criminal Court public cases and defendants | **New candidate staged 2026-06-29** at `data/raw/icc_cases/`: official ICC HTML snapshots for 75 defendants and 34 cases. Useful for severe legal-accountability/manual-review flags, not broad human-rights scoring. Narrow scope: only situations/persons reaching ICC proceedings, and downstream use must distinguish warrants/summons/charges/convictions/acquittals/dismissals/fugitives/custody/appeals. |
 
 ### Nuclear / global responsibility sources
 
