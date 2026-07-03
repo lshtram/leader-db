@@ -122,7 +122,7 @@ def test_runner_emits_leader_spell_observations(tmp_path: Path) -> None:
     assert [obs.indicator_code for obs in observations] == list(ARCHIGOS_INDICATORS)
     assert {obs.observation_family for obs in observations} == {ARCHIGOS_OBSERVATION_FAMILY}
     assert {obs.year for obs in observations} == {1869}
-    assert {obs.country_code for obs in observations} == {None}
+    assert {obs.country_code for obs in observations} == {"USA"}
     assert {obs.leader_id for obs in observations} == {None}
     assert {obs.leader_name for obs in observations} == {"Grant"}
 
@@ -136,6 +136,7 @@ def test_runner_emits_leader_spell_observations(tmp_path: Path) -> None:
     assert leader.extension["archigos_obsid"] == "USA-1869"
     assert leader.extension["archigos_idacr"] == "USA"
     assert leader.extension["archigos_ccode"] == 2
+    assert leader.extension["country_code"] == "USA"
     assert leader.extension["normalized_value"] is None
     assert leader.extension["attribution"] == ARCHIGOS_ATTRIBUTION_TEXT
 
@@ -193,6 +194,132 @@ def test_country_filter_applies_to_source_native_idacr_and_ccode(tmp_path: Path)
     assert len(by_idacr.observations) == 12
     assert len(by_ccode.observations) == 12
     assert absent.observations == ()
+
+
+def test_archigos_yugoslav_cow_code_maps_to_historical_yug() -> None:
+    from leaders_db.ingest.archigos_io import IndicatorSpec
+    from leaders_db.sources.adapters.archigos._transform import _build_observation
+
+    class Row:
+        raw_value = "Test Leader"
+        normalized_value = None
+        end_year = 1991
+
+    observation = _build_observation(
+        _request(Path("data/raw")),
+        row=Row(),
+        obsid="YUG-1980",
+        idacr="",
+        ccode=345,
+        year=1980,
+        variable_name="archigos_leader_name",
+        raw_column="leader",
+        source_row_reference="archigos:YUG-1980:1980:leader",
+        spec=IndicatorSpec(
+            variable_name="archigos_leader_name",
+            raw_column="leader",
+            category="leader_identity",
+            raw_scale="text",
+            normalized_scale_target="text",
+            higher_is_better=False,
+            unit="name",
+        ),
+        leader_name="Test Leader",
+    )
+
+    assert observation.country_code == "YUG"
+    assert observation.extension["country_code"] == "YUG"
+
+
+def test_archigos_source_native_country_code_maps_to_project_iso3() -> None:
+    from leaders_db.ingest.archigos_io import IndicatorSpec
+    from leaders_db.sources.adapters.archigos._transform import _build_observation, _country_matches
+
+    class Row:
+        raw_value = "Test Leader"
+        normalized_value = None
+        end_year = 2015
+
+    observation = _build_observation(
+        _request(Path("data/raw")),
+        row=Row(),
+        obsid="ROK-2015",
+        idacr="ROK",
+        ccode=None,
+        year=2015,
+        variable_name="archigos_leader_name",
+        raw_column="leader",
+        source_row_reference="archigos:ROK-2015:2015:leader",
+        spec=IndicatorSpec(
+            variable_name="archigos_leader_name",
+            raw_column="leader",
+            category="leader_identity",
+            raw_scale="text",
+            normalized_scale_target="text",
+            higher_is_better=False,
+            unit="name",
+        ),
+        leader_name="Test Leader",
+    )
+
+    assert observation.country_code == "KOR"
+    assert observation.extension["country_code"] == "KOR"
+    assert _country_matches(_request(Path("data/raw"), countries=("KOR",)), "ROK", None)
+
+
+def test_archigos_prefers_cow_code_over_source_native_idacr() -> None:
+    from leaders_db.ingest.archigos_io import IndicatorSpec
+    from leaders_db.sources.adapters.archigos._transform import _build_observation, _country_matches
+
+    class Row:
+        raw_value = "Test Leader"
+        normalized_value = None
+        end_year = 2015
+
+    spec = IndicatorSpec(
+        variable_name="archigos_leader_name",
+        raw_column="leader",
+        category="leader_identity",
+        raw_scale="text",
+        normalized_scale_target="text",
+        higher_is_better=False,
+        unit="name",
+    )
+
+    austria = _build_observation(
+        _request(Path("data/raw")),
+        row=Row(),
+        obsid="AUS-1953",
+        idacr="AUS",
+        ccode=305,
+        year=1953,
+        variable_name="archigos_leader_name",
+        raw_column="leader",
+        source_row_reference="archigos:AUS-1953:1953:leader",
+        spec=spec,
+        leader_name="Raab",
+    )
+    australia = _build_observation(
+        _request(Path("data/raw")),
+        row=Row(),
+        obsid="AUL-1953",
+        idacr="AUL",
+        ccode=900,
+        year=1953,
+        variable_name="archigos_leader_name",
+        raw_column="leader",
+        source_row_reference="archigos:AUL-1953:1953:leader",
+        spec=spec,
+        leader_name="Menzies",
+    )
+
+    assert austria.country_code == "AUT"
+    assert austria.extension["country_code"] == "AUT"
+    assert australia.country_code == "AUS"
+    assert australia.extension["country_code"] == "AUS"
+    assert not _country_matches(_request(Path("data/raw"), countries=("AUS",)), "AUS", 305)
+    assert _country_matches(_request(Path("data/raw"), countries=("AUT",)), "AUS", 305)
+    assert _country_matches(_request(Path("data/raw"), countries=("AUS",)), "AUL", 900)
 
 
 @pytest.mark.parametrize(

@@ -12,6 +12,7 @@ from leaders_db.sources.contracts import (
     SourceIngestRequest,
     TransformLocator,
 )
+from leaders_db.sources.country_codes import iso3_from_cow_code, normalize_source_country_code
 
 from ._constants import (
     ARCHIGOS_ATTRIBUTION_TEXT,
@@ -86,6 +87,9 @@ def _build_observation(
 ) -> NormalizedObservation:
     raw_value = _text(getattr(row, "raw_value", None))
     normalized_value = _json_scalar(getattr(row, "normalized_value", None))
+    # Archigos IDACR is not ISO3: for example, ``AUS`` means Austria while
+    # Australia is ``AUL``. Prefer the COW numeric bridge whenever available.
+    country_code = iso3_from_cow_code(ccode) or normalize_source_country_code(idacr)
     extension = {
         "source_row_reference": source_row_reference,
         "raw_value": raw_value,
@@ -93,6 +97,7 @@ def _build_observation(
         "archigos_obsid": obsid,
         "archigos_idacr": idacr,
         "archigos_ccode": ccode,
+        "country_code": country_code,
         "archigos_end_year": _coerce_int(getattr(row, "end_year", None)),
         "archigos_raw_column": raw_column,
         "higher_is_better": bool(getattr(spec, "higher_is_better", False)),
@@ -108,7 +113,7 @@ def _build_observation(
         value=raw_value,
         value_type=_value_type(variable_name),
         year=year,
-        country_code=None,
+        country_code=country_code,
         country_name=None,
         leader_id=None,
         leader_name=leader_name,
@@ -149,9 +154,17 @@ def _country_matches(request: SourceIngestRequest, idacr: str, ccode: int | None
     if not request.countries:
         return True
     needles = {item.strip().casefold() for item in request.countries if item.strip()}
-    tokens = {idacr.casefold()}
+    tokens: set[str] = set()
+    mapped_from_cow = False
     if ccode is not None:
         tokens.add(str(ccode).casefold())
+        if mapped := iso3_from_cow_code(ccode):
+            tokens.add(mapped.casefold())
+            mapped_from_cow = True
+    if not mapped_from_cow:
+        tokens.add(idacr.casefold())
+        if mapped := normalize_source_country_code(idacr):
+            tokens.add(mapped.casefold())
     return bool(tokens & needles)
 
 

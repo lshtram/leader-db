@@ -309,8 +309,9 @@ claimed to prioritize, except where the issue is a basic duty of government.
 ## Ruler-quality evaluation categories: 1B-8B
 
 The 1B-8B categories reframe the original country-year question bank into a
-leader/ruler-quality question bank. The scoring target is not "what condition was
-the country in?" but "what did the ruler intend, choose, tolerate, prevent,
+leader/ruler-quality question bank. The scoring target is not "what static
+condition was the country in?" but "what responsibility did the ruler bear for
+the trajectory: what did they inherit, intend, choose, tolerate, prevent,
 improve, or worsen during the ruler-year?" These questions are deliberately
 source-agnostic for now. They should be used to design the human/LLM rubric first;
 source mapping can be added later.
@@ -318,13 +319,16 @@ source mapping can be added later.
 General attribution rules for all 1B-8B questions:
 
 - Judge the ruler's **intentions, decisions, incentives, actions, omissions, and
-  tolerated practices**, not only aggregate national outcomes.
+  tolerated practices**, not only aggregate national outcomes or static country
+  conditions.
 - Separate inherited baseline from ruler-caused change: ask what the ruler
-  inherited, what they tried to change, what they resisted changing, and what
-  happened under their control.
-- Give more weight to choices inside the ruler's plausible authority: formal
-  powers, informal dominance, party/military control, coalition constraints, and
-  crisis constraints.
+  inherited, what trajectory was already underway, what they tried to change,
+  what they resisted changing, and what worsened or improved because of their
+  choices.
+- Give more weight to choices inside the ruler's plausible authority or control:
+  formal powers, informal dominance, party/military control, coalition
+  constraints, time in office, implementation capacity, external shocks, and
+  international/security constraints.
 - Distinguish good intent with poor execution from bad intent, indifference, or
   deliberate harm.
 - Penalize performative announcements when they are not followed by resources,
@@ -332,6 +336,10 @@ General attribution rules for all 1B-8B questions:
 - Treat systematic appointment of loyalists, family members, business partners,
   cronies, or "yes-men" over competent professionals as evidence about both
   integrity and effectiveness.
+- Do not treat low counts of visible punishments, arrests, or violent events as
+  automatically low repression when credible evidence shows pervasive fear,
+  surveillance, arbitrary enforcement, selective exemplary punishment, or a
+  chilling effect that prevents opposition from surfacing.
 
 ### 1B. Ruler responsibility for nuclear / global existential risk
 
@@ -352,31 +360,31 @@ General attribution rules for all 1B-8B questions:
 
 | ID | Ruler-quality question |
 |---|---|
-| **2B.1** | Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed? |
-| **2B.2** | Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, or proxy conflict? |
-| **2B.3** | Did the ruler distinguish defensive security needs from prestige, revenge, nationalism, diversionary politics, or regime-survival motives? |
-| **2B.4** | Did the ruler respect civilian protection, humanitarian law, prisoner treatment, and proportionality in military operations? |
-| **2B.5** | Did the ruler restrain security forces, militias, allies, proxies, and arms recipients from atrocities or destabilization? |
-| **2B.6** | Did the ruler truthfully explain security threats to the public, or manipulate fear and misinformation to build support for conflict? |
-| **2B.7** | Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, or post-conflict reconciliation when possible? |
-| **2B.8** | Did the ruler use military spending to meet real security needs, or to enrich networks, reward security elites, or project personal strength? |
-| **2B.9** | Did the ruler accept accountability for military failures, civilian harm, and illegal conduct? |
-| **2B.10** | Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them? |
+| **2B.1** | Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed, rather than treating force as the preferred first option? |
+| **2B.2** | Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, covert destabilization, or proxy conflict beyond defensive necessity? |
+| **2B.3** | Did the ruler distinguish genuine defensive security needs from prestige, revenge, nationalism, manufactured threats, diversionary politics, or regime-survival motives? |
+| **2B.4** | Did the ruler respect civilian protection, humanitarian law, prisoner treatment, necessity, and proportionality in military operations? |
+| **2B.5** | Did the ruler restrain security forces, militias, allies, proxies, clients, and arms recipients from atrocities or destabilization, and accept responsibility for foreseeable proxy conduct? |
+| **2B.6** | Did the ruler truthfully explain security threats to the public, or manipulate intelligence, fear, historical grievance, and misinformation to build support for conflict? |
+| **2B.7** | Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, lawful settlements, or post-conflict reconciliation when possible? |
+| **2B.8** | Did the ruler use military spending and mobilization to meet real security needs, or to enrich networks, reward security elites, intimidate neighbors, or project personal strength? |
+| **2B.9** | Did the ruler accept accountability for military failures, civilian harm, illegal conduct, and later evidence that contradicted the stated justification for conflict? |
+| **2B.10** | Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them, accounting for inherited conflicts and external constraints? |
 
 ### 3B. Ruler responsibility for domestic safety vs violence, oppression, and incitement
 
 | ID | Ruler-quality question |
 |---|---|
-| **3B.1** | Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, and extrajudicial killing? |
-| **3B.2** | Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, or informal loyalists? |
-| **3B.3** | Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, or civil society? |
-| **3B.4** | Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse? |
-| **3B.5** | Did the ruler use emergency powers, security laws, or anti-terror measures narrowly and lawfully, or as tools for intimidation and control? |
-| **3B.6** | Did the ruler reduce domestic fear and insecurity without replacing criminal violence with state terror? |
-| **3B.7** | Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence and systematic neglect? |
-| **3B.8** | Did the ruler allow peaceful protest, dissent, and community organization without retaliation? |
-| **3B.9** | Did the ruler respond to domestic crises with protection and restraint rather than collective punishment, censorship, or militarized spectacle? |
-| **3B.10** | Did the ruler leave citizens safer from both political violence and preventable domestic insecurity than they inherited them? |
+| **3B.1** | Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment? |
+| **3B.2** | Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes? |
+| **3B.3** | Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups? |
+| **3B.4** | Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors? |
+| **3B.5** | Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control? |
+| **3B.6** | Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate? |
+| **3B.7** | Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect? |
+| **3B.8** | Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment? |
+| **3B.9** | Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle? |
+| **3B.10** | Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them? |
 
 ### 4B. Ruler commitment to political freedom vs authoritarian rule
 
@@ -427,16 +435,22 @@ General attribution rules for all 1B-8B questions:
 
 | ID | Ruler-quality question |
 |---|---|
-| **7B.1** | Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners? |
-| **7B.2** | Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they double down, blame others, and punish truth-tellers? |
-| **7B.3** | Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, and foreign policy? |
-| **7B.4** | Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, or opaque foundations? |
-| **7B.5** | Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men? |
-| **7B.6** | Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, and associates? |
-| **7B.7** | Does the ruler use state power to protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, and media? |
-| **7B.8** | Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions for personal advantage? |
-| **7B.9** | Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, and enforcement? |
-| **7B.10** | Does the ruler model ethical standards that improve public trust, or normalize lying, impunity, self-dealing, and cynicism? |
+| **7B.1** | Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners, especially on matters where deception would protect power or reputation? |
+| **7B.2** | Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they knowingly mislead, double down, blame others, and punish truth-tellers? |
+| **7B.3** | Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, law enforcement, and foreign policy? |
+| **7B.4** | Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, opaque foundations, or hidden conflicts of interest? |
+| **7B.5** | Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men to protect personal power or self-dealing? |
+| **7B.6** | Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, associates, and concealed official decisions? |
+| **7B.7** | Does the ruler use state power to conceal illegal, destructive, or self-serving activity, protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, media, and whistleblowers? |
+| **7B.8** | Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions, manipulate public information, and conceal tradeoffs for personal advantage? |
+| **7B.9** | Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, enforcement, and access to public information? |
+| **7B.10** | Does the ruler model ethical standards that improve public trust, or normalize deliberate lying, impunity, self-dealing, conflicts of interest, and cynicism? |
+
+Low transparency alone is not automatically dishonesty, especially under genuine
+security, privacy, or diplomatic constraints. It becomes evidence for 7B when it
+supports intentional deception, concealment of illegal/destructive/self-serving
+activity, manipulation of public information, punishment of truth-tellers, or
+avoidance of accountability.
 
 ### 8B. Ruler effectiveness and competence
 
@@ -444,21 +458,22 @@ Design note: this category is **ideology-neutral**. It does not ask whether the
 ruler's ideology, goals, or moral purposes were good. It asks whether the ruler
 could define a direction, mobilize the state, coordinate people and institutions,
 execute consistently, adapt tactically, and produce results aligned with the
-ruler's own declared program. A ruler can be morally evil, repressive, or harmful
-in other categories while still being highly competent/effective in this narrow
-execution sense. Moral evaluation belongs mainly in the peace, domestic safety,
-political freedom, social welfare, and integrity categories; 8B measures
-execution capacity and goal-realization discipline.
+ruler's own declared or revealed program. A ruler can be morally evil,
+repressive, or harmful in other categories while still being highly
+competent/effective in this narrow execution sense. Moral evaluation belongs
+mainly in the peace, domestic safety, political freedom, social welfare, and
+integrity categories; 8B measures execution capacity, power consolidation, state
+reach, durability, influence, and goal-realization discipline.
 
 | ID | Ruler-quality question |
 |---|---|
-| **8B.1** | Does the ruler articulate a clear governing ideology, strategic direction, or program that can be evaluated against later action? |
+| **8B.1** | Does the ruler articulate a clear governing ideology, strategic direction, or program, including explicit or revealed goals for power, policy, or regime control, that can be evaluated against later action? |
 | **8B.2** | Does the ruler translate that program into concrete priorities, plans, budgets, appointments, timelines, institutions, and enforcement mechanisms? |
-| **8B.3** | Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program? |
-| **8B.4** | Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, or coercive administrators? |
-| **8B.5** | Does the ruler maintain internal discipline, coordination, and follow-through across ministries, regions, security forces, party structures, and implementing agencies? |
-| **8B.6** | Does the ruler convert declarations into observable implementation rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only? |
-| **8B.7** | Do outcome indicators move in the direction the ruler claimed to seek, after allowing for realistic lags and external constraints? |
-| **8B.8** | When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program? |
-| **8B.9** | Does the ruler manage crises and opposition in a way that preserves or advances the regime's chosen objectives, regardless of whether those objectives are morally good? |
-| **8B.10** | By the end of the relevant period, is the ruler closer to achieving the stated ideological or policy program than at the start, accounting for inherited conditions and external shocks? |
+| **8B.3** | Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program and the ruler's own goals? |
+| **8B.4** | Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, security officials, or coercive administrators? |
+| **8B.5** | Does the ruler maintain internal discipline, coordination, control, and follow-through across ministries, regions, territory, institutions, security forces, party structures, and implementing agencies? |
+| **8B.6** | Does the ruler convert declarations into observable implementation and state reach rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only? |
+| **8B.7** | Do outcome indicators move in the direction the ruler claimed or revealed they sought, after allowing for realistic lags, inherited conditions, and external constraints? |
+| **8B.8** | When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program and maintaining effective control? |
+| **8B.9** | Does the ruler manage crises, opposition, international relationships, and institutional resistance in a way that preserves or advances the regime's chosen objectives, durability, and influence, regardless of whether those objectives are morally good? |
+| **8B.10** | By the end of the relevant period, is the ruler closer to achieving the stated or revealed ideological, policy, power-consolidation, or international-influence program than at the start, accounting for short-term wins, long-term durability, inherited conditions, and external shocks? |

@@ -125,7 +125,7 @@ def test_runner_emits_leader_month_observations(tmp_path: Path) -> None:
     assert [obs.indicator_code for obs in observations[:8]] == list(REIGN_INDICATORS)
     assert {obs.observation_family for obs in observations} == {REIGN_OBSERVATION_FAMILY}
     assert {obs.year for obs in observations} == {2020}
-    assert {obs.country_code for obs in observations} == {None}
+    assert {obs.country_code for obs in observations} == {"USA"}
     assert {obs.country_name for obs in observations} == {"USA"}
     assert {obs.leader_id for obs in observations} == {None}
     assert {obs.leader_name for obs in observations} == {"Trump"}
@@ -163,6 +163,21 @@ def test_years_none_reads_all_available_fixture_years(tmp_path: Path) -> None:
     assert {obs.extension["reign_month"] for obs in result.observations} == {1, 8}
 
 
+def test_duplicate_reign_rows_get_stable_unique_observation_ids(tmp_path: Path) -> None:
+    _stage_bundle(tmp_path, checksum=None)
+    csv_path = tmp_path / REIGN_SOURCE_KEY / REIGN_CSV_NAME
+    original = csv_path.read_text(encoding="utf-8")
+    first_data_line = original.splitlines()[1]
+    csv_path.write_text(f"{original.rstrip()}\n{first_data_line}\n", encoding="utf-8")
+
+    result = _run(tmp_path, years=(2020,), countries=("USA",))
+    observation_ids = [obs.observation_id for obs in result.observations]
+
+    assert result.validation.valid is True
+    assert len(observation_ids) == len(set(observation_ids))
+    assert any(":duplicate-" in observation_id for observation_id in observation_ids)
+
+
 def test_multi_year_request_reads_requested_years(tmp_path: Path) -> None:
     _stage_bundle(tmp_path)
     result = _run(tmp_path, years=(2020, 2021), countries=("Mexico",))
@@ -193,6 +208,118 @@ def test_country_filter_applies_to_source_native_country_and_ccode(tmp_path: Pat
     assert len(by_country.observations) == 16
     assert len(by_ccode.observations) == 16
     assert absent.observations == ()
+
+
+def test_reign_source_native_country_code_maps_to_project_iso3() -> None:
+    from leaders_db.ingest.reign_io import IndicatorSpec
+    from leaders_db.sources.adapters.reign._transform import _build_observation, _country_matches
+
+    class Row:
+        raw_value = "Test Leader"
+        normalized_value = None
+
+    observation = _build_observation(
+        _request(Path("data/raw")),
+        row=Row(),
+        country="TAW",
+        ccode=None,
+        year=2021,
+        month=8,
+        leader_name="Test Leader",
+        variable_name="reign_leader",
+        spec=IndicatorSpec(
+            variable_name="reign_leader",
+            raw_column="leader",
+            category="leader_identity",
+            raw_scale="text",
+            normalized_scale_target="text",
+            higher_is_better=False,
+            unit="name",
+        ),
+        source_row_reference="reign:TAW:Test Leader:2021:8:leader",
+        row_index=1,
+        seen_observation_ids={},
+    )
+
+    assert observation.country_code == "TWN"
+    assert observation.extension["country_code"] == "TWN"
+    assert _country_matches(_request(Path("data/raw"), countries=("TWN",)), "TAW", None)
+
+
+@pytest.mark.parametrize(
+    ("reign_country", "reign_ccode", "year", "project_iso3"),
+    [
+        ("St Lucia", 56, 2020, "LCA"),
+        ("St Kitts and Nevis", 60, 2020, "KNA"),
+        ("St Vincent", 57, 2020, "VCT"),
+        ("Micronesia", 987, 2020, "FSM"),
+        ("Korea South", 732, 2020, "KOR"),
+        ("Soviet Union", 365, 1991, "SUN"),
+    ],
+)
+def test_reign_country_names_and_codes_map_to_project_iso3(
+    reign_country: str,
+    reign_ccode: int,
+    year: int,
+    project_iso3: str,
+) -> None:
+    from leaders_db.ingest.reign_io import IndicatorSpec
+    from leaders_db.sources.adapters.reign._transform import _build_observation, _country_matches
+
+    class Row:
+        raw_value = "Test Leader"
+        normalized_value = None
+
+    observation = _build_observation(
+        _request(Path("data/raw")),
+        row=Row(),
+        country=reign_country,
+        ccode=reign_ccode,
+        year=year,
+        month=8,
+        leader_name="Test Leader",
+        variable_name="reign_leader",
+        spec=IndicatorSpec(
+            variable_name="reign_leader",
+            raw_column="leader",
+            category="leader_identity",
+            raw_scale="text",
+            normalized_scale_target="text",
+            higher_is_better=False,
+            unit="name",
+        ),
+        source_row_reference=f"reign:{reign_country}:Test Leader:{year}:8:leader",
+        row_index=1,
+        seen_observation_ids={},
+    )
+
+    assert observation.country_code == project_iso3
+    assert observation.extension["reign_country"] == reign_country
+    assert observation.extension["reign_ccode"] == reign_ccode
+    assert observation.extension["country_code"] == project_iso3
+    assert _country_matches(
+        _request(Path("data/raw"), countries=(project_iso3,)),
+        reign_country,
+        reign_ccode,
+        year=year,
+    )
+
+
+def test_reign_soviet_union_filter_does_not_match_pre_1992_russia() -> None:
+    from leaders_db.sources.adapters.reign._transform import _country_matches
+
+    assert _country_matches(
+        _request(Path("data/raw"), countries=("SUN",)),
+        "Soviet Union",
+        365,
+        year=1991,
+    )
+    assert not _country_matches(
+        _request(Path("data/raw"), countries=("RUS",)),
+        "Soviet Union",
+        365,
+        year=1991,
+    )
 
 
 @pytest.mark.parametrize(

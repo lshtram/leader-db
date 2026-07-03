@@ -12,6 +12,7 @@ _DEFAULT_SOURCE_REGISTRARS: tuple[tuple[str, str], ...] = (
     ("leaders_db.sources.adapters.bti", "register_bti"),
     ("leaders_db.sources.adapters.cirights", "register_cirights"),
     ("leaders_db.sources.adapters.ctbto_treaty_status", "register_ctbto_treaty_status"),
+    ("leaders_db.sources.adapters.eiu_democracy_index", "register_eiu_democracy_index"),
     ("leaders_db.sources.adapters.fas", "register_fas"),
     ("leaders_db.sources.adapters.freedom_house", "register_freedom_house"),
     ("leaders_db.sources.adapters.iaea_safeguards", "register_iaea_safeguards"),

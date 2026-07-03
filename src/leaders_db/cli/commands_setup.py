@@ -13,7 +13,7 @@ from pathlib import Path
 
 import typer
 
-from ..config import default_config_path
+from ..config import RunConfig, default_config_path
 from ..paths import (
     PRIORITY_SOURCES,
     catalog_dir,
@@ -53,15 +53,22 @@ def init_db(
         exists=False,
     ),
 ) -> None:
-    """Apply the canonical DDL migration to the configured database."""
+    """Apply all checked-in migrations to the configured database."""
     cfg = _safe_load_config(config)
-    typer.echo(f"Database URL: {cfg.database.url}")
     catalog_dir().mkdir(parents=True, exist_ok=True)
     # Implementation lives in leaders_db.db.engine; see Phase A finish-line
     # task list in docs/workplan.md.
     from ..db.engine import init_database  # local import to keep CLI lean
+    from ..db.session import default_sqlite_url
 
-    init_database(cfg.database.url)
+    db_url = (
+        default_sqlite_url()
+        if cfg.database.url == RunConfig().database.url
+        else cfg.database.url
+    )
+
+    typer.echo(f"Database URL: {db_url}")
+    init_database(db_url)
     typer.echo("Database initialized.")
 
 

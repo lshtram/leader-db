@@ -87,6 +87,13 @@ ready.
 
 #### I1 — Database bootstrap
 
+**Status (2026-06-29): implemented.** The normal local SQLite file is
+`data/catalog/leaders_db.sqlite`. Run `leaders-db init-db` to create it; the
+command applies all checked-in migrations in order. Read commands that use the
+local evidence store now check for required persisted tables and report a
+friendly setup message instead of raw `no such table` SQL errors. Explicit
+`--db-url` callers remain supported.
+
 **Plain meaning:** there must be one obvious working database file and a clear way
 to create it. Commands must fail with helpful messages if the database is missing
 or uninitialized.
@@ -134,13 +141,24 @@ query without manual DB-path guessing.
 - Source observations preserve source slug, observation id, family, indicator,
   value, year, country, leader fields where present, raw locator, transform
   locator, warnings, and metadata.
+- I2 first infrastructure slice (2026-06-29): `leaders-db sources ingest
+  <source>` now persists non-dry clean-source runs to the initialized working
+  database (`data/catalog/leaders_db.sqlite` by default, or `--db-url`) through
+  `SourceIngestRunner` / `normalized_observations`; reruns upsert on
+  `(source_slug, observation_id)`. `leaders-db sources coverage` reports rows
+  actually loaded in the DB by source, observation family, indicator, min/max
+  year, country count, and missing raw-locator count, with a registry-backed
+  source-status section that marks zero-row manual/user-managed sources as
+  `blocked_user_managed` rather than failed.
 
 **Still missing / weak:**
 
-- Not every adapter is guaranteed to write into `normalized_observations` in the
-  current working DB.
 - Some processed parquet files were observed empty even while raw files existed.
-- We need a reliable source-coverage report for rows actually loaded into the DB.
+- Real priority-source loading still depends on the operator running ingestion
+  against locally managed raw files; fixture tests do not touch user raw data.
+- The coverage report is DB-backed and does not infer adapter failures; failed
+  runs remain visible through ingest readiness/errors, while coverage statuses
+  distinguish `loaded`, `no_rows`, and `blocked_user_managed`.
 
 **Build tasks:**
 
@@ -166,24 +184,55 @@ answer. This is the project calendar and map.
 
 - `countries` and `country_years` are already part of the schema.
 - Country normalization utilities exist.
+- I3 now provides `leaders-db scope build-country-years` and
+  `leaders-db scope country-year-coverage`. The build command populates
+  `countries` from a deterministic current ISO 3166-1 alpha-3 universe
+  (`pycountry` when installed, otherwise the packaged I3 seed) plus a packaged
+  year-level lifecycle seed, then expands requested country/year intervals
+  idempotently while marking out-of-lifecycle rows audit-only.
+- The packaged lifecycle seed includes a conservative, year-level `PSE` policy:
+  `PSE` is retained as a polity-sensitive current ISO entry but enters the D3-D5
+  ruler-scoring denominator only from the 2012 UN non-member observer State
+  anchor; earlier rows remain audit-only rather than identity gaps.
+- The legacy prototype config still stores `1900-2023` in
+  `configs/prototype-2023.yaml` under `scope.start_year` / `scope.end_year`, but
+  active D3-D5 identity work currently uses explicit CLI overrides for
+  `1950-2025`. This is a quality-first stepwise working period, not a final
+  product-scope claim; 2023 is retained as a diagnostic/client-comparison slice.
 
 **Still missing / weak:**
 
-- `country_years` may be empty or incomplete.
-- The in-scope universe must be explicit: years, country list, population
-  threshold, exclusions, predecessor/successor country handling, and disputed
-  country cases.
+- The lifecycle model is year-level and intentionally not a complete historical
+  ontology, but it has been expanded for the active 1950-2025 D3-D5 scope. It
+  now covers post-1950 independence / modern statehood anchors for most current
+  included ISO3 countries that would otherwise inflate pre-statehood ruler
+  denominators, plus selected ceased predecessor states such as `SUN`, `CSK`,
+  and `YUG`.
+- Population thresholds, recognition/sovereignty edge cases, disputed-country
+  cases, and detailed successor subperiods are not yet globally modeled.
 
 **Build tasks:**
 
-1. Decide the first target range, for example 1900-2023 or a narrower pilot.
+1. Decide the first target range. **Current:** active D3-D5 work uses
+   `1950-2025` through explicit CLI overrides. The legacy prototype config still
+   carries `1900-2023`; treat that as a config default/diagnostic baseline, not
+   the current identity-coverage goal.
 2. Populate `countries` with canonical ISO3 names and normalized names.
+   **Done:** via `pycountry` when available, otherwise the packaged I3 seed,
+   plus packaged lifecycle rows such as historical `YUG`.
 3. Generate `country_years` for all in-scope country/year pairs.
+   **Done:** deterministic and idempotent; audit rows are generated for the
+   requested country/year grid and rows outside each country code's
+   valid-from/valid-to interval are marked `included_in_project = false` with a
+   lifecycle exclusion reason rather than silently omitted.
 4. Add `included_in_project`, `inclusion_reason`, and confidence/coverage notes.
-5. Produce a country-year coverage report.
+   **Partial:** schema fields are populated with lifecycle inclusion/exclusion
+   reasons where present; detailed global scope rules remain future work.
+5. Produce a country-year coverage report. **Done:** text or JSON via CLI.
 
-**Done means:** for any target year, the system can list exactly which countries
-should receive answers and which are excluded or uncertain.
+**Done means:** for any target year in the configured range, the system can list
+the current ISO3 countries that should receive answers and reports the current
+limitations for excluded/uncertain scope rules not yet represented.
 
 **Unlocks:** D2, D8-D17, D24, D29.
 
@@ -196,15 +245,194 @@ figure we are evaluating.
 
 - Schema tables exist: `leaders`, `leader_aliases`, `ruler_spells`, and
   `ruler_years`.
+- I4 infrastructure now consumes persisted `normalized_observations` identity
+  families (`leader_identity_spell`, `leader_identity_month`, and
+  `leader_identity_country_year`) and idempotently populates `leaders`,
+  `leader_aliases`, `ruler_spells`, and overlapping `ruler_years` through
+  `leaders-db identity build-ruler-years`.
+- D3-D5 operational run on 2026-06-30 proved non-client local identity evidence
+  can populate the tables: 2,752 total `leaders`, 14,358 evidence-backed
+  `ruler_spells`, and 15,663 evidence-backed `ruler_years` after excluding the
+  three `vertical_slice_client_seed` rows from coverage. Archigos contributes
+  1,972 spells / 3,303 ruler-years over 1900-2015 where its source-native
+  country code maps to the lifecycle grid; REIGN contributes 12,386 spells /
+  12,360 ruler-years over 1950-2021.
+- D3-D5 current-identity continuation on 2026-06-30 persisted 325 Wikidata
+  HoS/HoG `leader_identity_country_year` observations for 2023 from the locally
+  staged `cyc_2023_all_c01e7af7cf.json` Wikidata SPARQL cache. The source
+  adapter consumes this cache only for explicit all-country year requests where
+  the older `wd_ALL_<year>_all_<hash>.json` cache is absent; the ISO3 values are
+  source-provided `countryISO3` bindings, not client-matrix evidence or stale
+  REIGN/Archigos fill. D3-D5 now reports the current-year path as automated
+  coverage/gap diagnostics, not full data completion: the 2023 audit grid has
+  249 country-year rows, the included scoring denominator is 195, and 54 rows are
+  `out_of_scope` audit rows. Basic included-only coverage is 188 covered / 7
+  missing / 195 total, where covered includes rows that still need attention.
+- `leaders-db identity ruler-coverage [--year ...] [--json]` reports total,
+  covered, missing, disputed, multiple-possible, low-confidence, and
+  source-conflict country-years.
+- D3-D5 automated reporting now extends `ruler-coverage` with a reusable
+  detailed gap report: `--detail`, `--output json|csv|markdown`, `--year`,
+  `--start-year`, `--end-year`, and `--write-artifact`. The report classifies
+  every country-year instead of chasing individual current-year gaps by hand.
+  Stable classifications include the backward-compatible labels `resolved`,
+  `multiple_candidates`, and `source_conflict`, plus the adjudication-aware
+  labels `resolved_auto_single_candidate`, `resolved_auto_role_priority`,
+  `resolved_auto_duration_majority`, `multiple_candidates_manual_review`,
+  `source_conflict_manual_review`, `missing_no_identity_observation`,
+  `missing_unresolved_country_mapping`, `missing_source_out_of_range`,
+  `missing_current_source_cache`, `disputed_rule`, `low_confidence`, and
+  `out_of_scope`. Source diagnostics
+  report loaded identity rows, min/max years, mapped country counts, usable rows,
+  skipped rows, unresolved country rows, missing leader rows, and missing time
+  anchors for Archigos/REIGN/Wikidata-style identity observations already loaded
+  in `normalized_observations`.
+- D3-D5 adjudication v1 now selects a principal ruler-year only where deterministic
+  evidence is safe while preserving all candidates. The current no-migration
+  implementation stores the selection rule and evidence trail in existing
+  `ruler_years` fields: `match_status` carries `resolved_auto_single_candidate`,
+  `resolved_auto_role_priority`, `resolved_auto_duration_majority`,
+  `preserved_competing_candidate`, `multiple_candidates_manual_review`, or
+  `source_conflict_manual_review`; `review_status` distinguishes `auto_resolved`
+  from `needs_review`; `review_note` records the selection rule, competing
+  candidates, source/title observations, warnings, and confidence penalties; and
+  `system_selected_leader_name` points competing rows at the selected principal
+  name when one exists. Auto-resolved disagreements are penalized by 10 confidence
+  points and unresolved/manual conflicts by 20 points. The first rules are:
+  exactly-one-candidate, actual/dominant executive over formal-only officeholder,
+  simple two-candidate majority-year duration, alias cleanup for superficial
+  title/suffix/parenthetical variants, and manual review for unresolved source
+  conflicts, no-majority transitions, three-plus candidates, and coup/contested /
+  de-facto/disputed cases unless source metadata clearly marks the actual ruler.
+- D3-D5 source-native country-code mapping refinement on 2026-07-01 moved the
+  largest actionable 1950-2025 missing-identity cluster into the shared source
+  country-code bridge instead of the identity builder. The mapped source-native
+  codes are `ROK→KOR`, `TAW→TWN`, `DRC→COD`, `CEN→CAF`, `CDI→CIV`, `CAP→CPV`,
+  `CON→COG`, `MAC→MKD`, `BOS→BIH`, `CZR→CZE`, `OMA→OMN`, `SER→SRB`, and
+  `BHU→BTN`. Archigos and REIGN now emit mapped project `country_code` values
+  from that bridge, and country filters can use either the source-native token or
+  the mapped project ISO3. After local Archigos re-ingest and 1950-2025 identity
+  rebuild, the refreshed artifact reports 12,265 included scoring targets, 11,617
+  covered target rows (94.72%), 384 `missing_no_identity_observation`, 264
+  `missing_current_source_cache`, and 6,887 `out_of_scope` audit rows. This run
+  did not fetch live data, edit raw files, use the client matrix as evidence, or
+  manually chase individual rulers.
+- D3-D5 REIGN alias/COW mapping refinement on 2026-07-02 added the remaining
+  high-impact REIGN-native aliases/codes to the same shared bridge: `St Lucia` /
+  56 → `LCA`, `St Kitts and Nevis` / 60 → `KNA`, `St Vincent` / 57 → `VCT`,
+  `Micronesia` / 987 → `FSM`, and `Korea South` / 732 → `KOR`. `Soviet Union`
+  rows map to historical `SUN` through 1991, and the REIGN country filter avoids
+  matching those rows as `RUS` via COW code 365. After local REIGN re-ingest and
+  a 1950-2025 identity rebuild, the refreshed artifact reports 12,265 included
+  scoring targets, 11,850 covered target rows (96.62%), 151
+  `missing_no_identity_observation`, 264 `missing_current_source_cache`, and
+  6,887 `out_of_scope` audit rows. Remaining top included gaps (`PSE`, `AND`,
+  `OMN`, `SOM`) are not safe alias-only REIGN mapping fixes under the current
+  no-manual-chasing constraint.
+- D3-D5 scope refinement on 2026-06-30 added a conservative packaged exclusion
+  seed for clear ISO territory/dependency/special entries so they remain in the
+  audit grid but are not counted in the ruler-scoring denominator. The 2023
+  scope now has 249 country-year rows, 195 included scoring targets, and 54
+  excluded non-sovereign/special entries. The earlier broad missing set was split
+  into out-of-scope territory/special entries, included current-state
+  cache/mapping gaps, and one scope/recognition-policy case (`PSE`) retained for
+  review. The policy also removes previously covered `PYF`
+  from the denominator; `XKS` appears in Wikidata source rows but is not in the
+  current country grid.
+- D3-D5 local Wikidata role refinement on 2026-06-30 broadened the clean
+  transform to retain source ISO3 rows where Wikidata models the broad role as
+  `Q14212` (prime minister). Those rows are emitted under the existing
+  head-of-government indicator, with the source role/concrete office preserved
+  in the observation extension. The local 2023 rebuild now has basic
+  included-only coverage of 188 covered / 7 missing / 195 targets. The detailed
+  classification artifact separates those rows into 88 `resolved`, 100
+  `multiple_candidates`, 7 `missing_no_identity_observation`, and 54
+  `out_of_scope` audit rows; the 7 missing countries are not silently filled.
+- D3-D5 2024-2025 current-identity continuation on 2026-07-02 used only already
+  staged local Wikidata HoS/HoG Chronicle/SPARQL caches. The readiness-selected
+  cache files are `cyc_2024_all_c01e7af7cf.json` and
+  `cyc_2025_all_c01e7af7cf.json`; both passed `offline_only` readiness and were
+  ingested through `leaders-db sources ingest wikidata_heads_of_state_government
+  --year <year> --cache-policy offline_only`. The active 1950-2025 coverage
+  artifact now reports 12,203 included scoring targets, 12,092 covered targets
+  (99.09%), 102 `missing_no_identity_observation`, 9
+  `missing_current_source_cache`, and 6,949 out-of-scope audit rows. No live
+  fetch, raw edit, client-matrix evidence, ad hoc scrape, or invented leader row
+  was used.
+- D3-D5 durable adjudication layer on 2026-07-02 added
+  `ruler_identity_adjudications`, a queryable one-row-per-included-country-year
+  table built from the existing v1 `ruler_years` adjudication statuses and
+  detailed coverage output. `leaders-db identity build-adjudications --start-year
+  1950 --end-year 2025` upserts principal selections and unresolved/research
+  prompts without duplicating rows on rerun. The first active-period operational
+  build persisted 12,203 rows: 9,924 `auto_resolved`, 2,168 `needs_review`, and
+  111 `research_required`; unresolved rows carry candidate IDs, source context,
+  rationale, recommended next action, and a future manual/internet-research
+  prompt. No live fetch, client-matrix evidence, raw edit, or invented ruler was
+  used.
+- D3-D5 generic fact publication on 2026-07-02 added `country_year_facts`, a
+  reusable one-row-per-country-year-field adjudication table. The ruler identity
+  builder now publishes `field_key = principal_ruler` there in addition to the
+  ruler-specific table, using the same candidate values, selected entity,
+  confidence, warnings, source links, rationale, review status, and future
+  research prompt. This is the intended pattern for later fields such as GDP,
+  political freedom, conflict fatalities, nuclear status, sanctions, coups, and
+  methodology question cells; future producers should add fields to the generic
+  contract instead of creating one-off adjudication mechanisms.
+- D3-D5 automated second-pass adjudication on 2026-07-02 added a conservative
+  year-coverage rule inside `build-ruler-identity-adjudications`. Candidate JSON
+  now carries `year_coverage_days` and `year_coverage_ratio`; unresolved
+  transition rows can be upgraded to
+  `resolved_auto_year_coverage_majority` / `year_coverage_majority` when dated
+  intervals show one candidate covering more than half of the target year, that
+  candidate has decisive coverage, and no disputed/shared/coup/contested/de-facto/
+  junta hard-review marker is present. Rows that still lack reliable coverage or contain hard conflicts keep
+  `needs_review`/`research_required` plus the research prompt. The generic
+  `principal_ruler` fact mirrors the selected entity and stores the selected
+  coverage ratio as `temporal_fit_score`.
+- D3-D5 REIGN monthly identity aggregation on 2026-07-03 fixes the prior
+  one-month-fragment failure mode for `leader_identity_month` rows. The identity
+  builder now aggregates consecutive month-end observations for the same
+  source/country/leader/role/flags into one observed spell while leaving
+  non-consecutive gaps unbridged. A 1950-2025 local rebuild changed generic
+  `principal_ruler` fact counts from 10,172 `auto_resolved`, 1,920
+  `needs_review`, 111 `research_required` to 11,370 `auto_resolved`, 722
+  `needs_review`, 111 `research_required`. Remaining durable adjudication review
+  rows are mostly source conflicts rather than REIGN-only monthly fragments: 636
+  `source_conflict_manual_review` and 86 `multiple_candidates_manual_review`.
+  Source-set breakdown for those 722 review rows is 322 REIGN+Wikidata, 304
+  Archigos+REIGN, 50 Wikidata-only, 28 REIGN-only, 10 Archigos+REIGN+Wikidata,
+  and 8 Archigos-only.
+- D3-D5 cited internet-research adjudication on 2026-07-03 added a narrow
+  conflict-resolution rule for reviewed identity observations persisted as
+  `source_slug = internet_research_adjudication`. When an unresolved
+  source-conflict/manual country-year has exactly one such candidate, the
+  candidate is marked as actual ruler, source/spell confidence is at least 80,
+  year coverage is greater than 50%, and that candidate has no disputed/shared/
+  coup/contested/junta hard marker, `build-ruler-identity-adjudications` selects
+  it as `resolved_research_adjudicated` using selection rule
+  `internet_research_adjudication`. Candidate JSON now also carries source notes
+  so normalized-observation IDs and simple citation URL/quote fields from the
+  reviewed observation remain visible. The UAE/ARE test case for 2014-2025 now
+  resolves to Mohammed bin Zayed Al Nahyan from the cited research adjudication
+  observation instead of remaining `source_conflict_manual_review`.
 - Raw/adapter support exists or is planned for Archigos, REIGN, Wikidata, and
   related leader sources.
 - The project rules already distinguish actual ruler from formal officeholder.
 
 **Still missing / weak:**
 
-- `ruler_years` is currently noted as empty in the main workplan.
-- The resolver must handle co-rulers, disputed rule, formal-only leaders, client
-  name differences, and source disagreement.
+- Local project `ruler_years` now contain evidence-backed Archigos/REIGN rows
+  where source coverage and country mapping permit, plus partial 2023 Wikidata
+  rows where the staged current-identity cache and lifecycle grid match. The
+  remaining 2023 gaps are explicit missing country-years, not stale fills.
+- The resolver still needs deeper person disambiguation, co-ruler adjudication,
+  client-name comparison, and broader human source-disagreement review workflows.
+  I4 now
+  persists first-class adjudication/review records in
+  `ruler_identity_adjudications` and publishes the same principal-ruler cell to
+  `country_year_facts`; the current internet-research write-back support is a
+  conservative principal-ruler identity rule only, not a general review system.
 
 **Build tasks:**
 
@@ -213,12 +441,58 @@ figure we are evaluating.
    formal status, shared/disputed flags, and confidence.
 3. Expand spells into `ruler_years` for the country-year grid.
 4. Store match status and confidence. Do not silently overwrite the client matrix
-   leader string.
+   leader string. **Current:** selection metadata remains on candidate
+   `ruler_years`, `ruler_identity_adjudications` persists the country-year
+   principal selection or unresolved review/research queue, and
+   `country_year_facts` publishes the generic `principal_ruler` cell.
 5. Produce a ruler identity coverage report: missing, disputed, multiple possible
    rulers, low confidence, and source conflicts.
 
 **Done means:** every in-scope country/year has either a selected ruler row or an
-explicit unresolved/manual-review marker.
+explicit unresolved/manual-review marker. For the current infrastructure slice,
+that marker is now persisted in `ruler_identity_adjudications`, published as the
+generic `principal_ruler` row in `country_year_facts`, and can also be exported
+through the generated D3-D5 gap report artifacts.
+
+**I4 normalized-observation contract:** `leaders-db identity build-ruler-years`
+does not read raw files. It consumes persisted `normalized_observations` rows in
+the following families only: `leader_identity_spell`, `leader_identity_month`,
+and `leader_identity_country_year`.
+
+- Required country match: one of `country_code`, `extension.country_code`,
+  `extension.country_iso3`, `extension.iso3`, supported source-native
+  three-letter identity codes such as `extension.archigos_idacr` /
+  `extension.reign_country`, or supported COW numeric code extensions such as
+  `extension.archigos_ccode` / `extension.reign_ccode` must match
+  `countries.iso3`; if none are present, `country_name`,
+  `extension.country_name`, or `extension.country_label` may match
+  `countries.country_name_normalized` exactly after normalization. Rows with no
+  match are skipped and counted in coverage. The source-native/COW mapping is a
+  small documented bridge for loaded identity sources, not a complete global
+  historical country ontology.
+- Required leader name: one of `leader_name`, `extension.leader_name`,
+  `extension.person_label`, `extension.reign_leader`, or
+  `extension.archigos_leader_name`. Source-native IDs such as `leader_id`,
+  `extension.person_qid`, and `extension.archigos_obsid` are provenance only;
+  they are not inserted as `leader_aliases.alias` because aliases are reserved
+  for human-readable spellings.
+- Required time anchor: `extension.start_date` or `extension.start`; otherwise
+  `extension.start_year` or row `year` is used with `extension.month` /
+  `extension.reign_month` when present. Rows with no start date/year are skipped.
+- Optional end date: `extension.end_date` / `extension.end`; otherwise
+  `extension.end_year` / `extension.archigos_end_year` with optional
+  `extension.end_month`. `leader_identity_month` rows expand only to that month,
+  and `leader_identity_country_year` rows without explicit end dates expand only
+  to that row year. Open-ended spells expand only across existing included
+  `country_years` rows.
+- Optional status fields: `extension.office_title`, `extension.office_label`,
+  `extension.is_actual_ruler`, `extension.is_formal_leader`,
+  `extension.rule_type`, `extension.actual_ruler_status`,
+  `extension.shared_rule_flag`, `extension.disputed_rule_flag`,
+  `extension.confidence_score`, and `extension.confidence`. If actual/formal
+  flags are absent, Wikidata head-of-state rows default to formal-only,
+  Wikidata head-of-government rows default to actual+formal, and other identity
+  rows default to actual ruler.
 
 **Unlocks:** D3-D5, D18-D22, D25-D28.
 
@@ -263,16 +537,23 @@ tables are easier to inspect than raw evidence rows.
 - A small economic trend publishing helper exists.
 - The visualization concept bridge proves the basic pattern for some economic
   concepts.
+- The generic `country_year_facts` table now exists as the reusable adjudicated
+  country-year cell contract. The first producer is ruler identity, which writes
+  `field_key = principal_ruler`; later I5/I6 builders should publish their own
+  fields into the same table before or alongside any topic-specific convenience
+  views/tables.
 
 **Still missing / weak:**
 
-- We do not yet have builders for each major topic table.
+- We do not yet have builders for each major topic field/table.
 - Builders must keep evidence traceability instead of flattening away sources.
 
 **Build tasks:**
 
-1. Define a standard output pattern for harmonized fact rows: country, year,
-   concept, value, unit, source, source observation ids, confidence, warnings.
+1. Use `country_year_facts` as the standard output pattern for adjudicated fact
+   rows: country-year, field key, selected value, candidates, source observation
+   ids, confidence, quality components, warnings, review status, and research
+   prompt.
 2. Build the first tables: population, economy, conflict, and military.
 3. Add later builders for social development, political freedom, domestic safety,
    corruption, governance, and nuclear risk.
@@ -456,11 +737,11 @@ These tables define the world we are scoring.
 
 | Step | Table | Purpose | Supports questions | Needed infrastructure | Current support |
 |---:|---|---|---|---|---|
-| **D1** | `countries` | One row per country, using ISO3 as the stable key. | All country and ruler questions. | I0 | Already in schema. Needs population/refresh check. |
-| **D2** | `country_years` | One row per country per year in scope. | All chapter 1-8 country-year questions; all 1B-8B ruler-year questions need this as their calendar. | I1, I3 | Already in schema, but not fully populated. |
-| **D3** | `leaders` | One row per ruler/person. | All 1B-8B ruler-quality questions. | I1, I4 | Already in schema. Needs population. |
-| **D4** | `ruler_spells` | One row per leader’s period of rule. | All 1B-8B; especially period questions like 8B.10 and 5B.10. | I1, I2, I4 | Already in schema. Needs complete resolver/population. |
-| **D5** | `ruler_years` | One row per ruler/country/year. | Main anchor for every 1B-8B answer. | I1, I3, I4 | Already in schema; current workplan says 0 rows. Highest priority gap. |
+| **D1** | `countries` | One row per country, using ISO3 as the stable key. | All country and ruler questions. | I0 | Schema populated by the I3 builder from current ISO3 plus a partial lifecycle seed; historical `YUG` is included as a seed row. |
+| **D2** | `country_years` | One row per country per year in scope. | All chapter 1-8 country-year questions; all 1B-8B ruler-year questions need this as their calendar. | I1, I3 | Populated idempotently by valid lifecycle intervals where known; global lifecycle/recognition/population rules remain partial. |
+| **D3** | `leaders` | One row per ruler/person. | All 1B-8B ruler-quality questions. | I1, I4 | Populated from evidence-backed Archigos/REIGN/Wikidata identity observations where source country mapping permits; same-name person disambiguation remains future work. |
+| **D4** | `ruler_spells` | One row per leader’s period of rule. | All 1B-8B; especially period questions like 8B.10 and 5B.10. | I1, I2, I4 | Populated from persisted identity observations; historical Archigos/REIGN coverage is operational and 2023 Wikidata coverage is partial. |
+| **D5** | `ruler_years` + `ruler_identity_adjudications` + `country_year_facts.principal_ruler` | Candidate ruler-years plus one durable principal-selection/review row, also published through the generic country-year fact contract. | Main anchor for every 1B-8B answer. | I1, I3, I4 | Populated for available evidence-backed spells. The active D3-D5 working period is 1950-2025 for now, with persisted adjudication rows, generic `principal_ruler` fact rows, and JSON/CSV/Markdown gap artifacts; local Wikidata caches now cover the 2024-2025 current-identity path without live fetch. The 2023 grid is useful as a diagnostic slice, not the coverage goal. |
 | **D6** | `sources` | Registry of datasets and source versions. | Evidence traceability for every answer. | I0, I1 | Already in schema. |
 | **D7** | `normalized_observations` | Clean source observations in one shared format. | Base evidence for almost all structured questions. | I1, I2 | Already in schema. Needs reliable population and clear default DB path. |
 
@@ -468,6 +749,11 @@ These tables define the world we are scoring.
 
 These are friendly analysis tables built from `normalized_observations`. They do
 not replace source evidence; they make it easier to answer questions.
+
+The shared write target for adjudicated cells is now `country_year_facts`. The
+topic table names below may still become convenience views/tables, but producers
+should first write generic fact rows so all fields share the same candidate,
+quality, confidence, review, and research-prompt mechanism.
 
 | Step | Table | Main fields | Supports methodology questions | Needed infrastructure | Current support |
 |---:|---|---|---|---|---|
@@ -521,6 +807,12 @@ These consume the answer tables. They should not be built first.
 
 ### Phase A — make the database usable
 
+Status (2026-06-29): complete for I1. The documented working SQLite path is
+`data/catalog/leaders_db.sqlite`; `leaders-db init-db` initializes it with every
+checked-in migration, including `normalized_observations` and the research result
+tables, and default evidence reads fail with an actionable initialization message
+when the database is missing or uninitialized.
+
 1. Confirm the default working SQLite path.
 2. Add a friendly setup/check command if needed.
 3. Confirm all migrations create `normalized_observations` and the research answer
@@ -531,21 +823,41 @@ Blocks: D2-D30 if not done.
 
 ### Phase B — populate identity first
 
+Status (2026-07-01): I3/I4 are implemented for the country/year identity base.
+Run `leaders-db scope build-country-years --start-year 1950 --end-year 2025`
+after `leaders-db init-db` to populate/update the current active working period,
+then `leaders-db scope country-year-coverage --json` to inspect totals. This
+1950-2025 period is a quality-first, stepwise D3-D5 working range for now, not a
+final product-scope claim; the period may change as evidence quality and project
+needs evolve. The legacy `configs/prototype-2023.yaml` scope remains a config
+default/diagnostic baseline, and 2023 remains a diagnostic/client-comparison
+slice rather than the identity-coverage goal. A partial packaged lifecycle seed
+now prevents selected known anachronisms such as Slovenia in 1900 and Yugoslavia
+after 2002, but global state lifetimes, recognition/sovereignty edge cases,
+population thresholds, and disputed cases remain incomplete.
+
 1. Populate `countries`.
 2. Build `country_years` for the target range.
-3. Populate `leaders`, `ruler_spells`, and `ruler_years` from available leader
-   sources.
-4. Produce an identity coverage report: missing countries/years, disputed rulers,
-   shared rule, and low-confidence matches.
+3. Populate `leaders`, `ruler_spells`, and `ruler_years` from persisted leader
+   identity observations with `leaders-db identity build-ruler-years`.
+4. Produce an identity coverage report with
+   `leaders-db identity ruler-coverage --json`: missing countries/years,
+   disputed rulers, shared/multiple rule, low-confidence matches, and source
+   conflicts.
 
 Completes/starts: D1-D5.
 
 ### Phase C — populate normalized observations
 
 1. Run clean source ingestion for the highest-value structured sources already on
-   disk.
-2. Confirm `normalized_observations` has rows by source, country, year, indicator.
-3. Produce a source coverage report for the methodology sections.
+   disk. I2 supplies the DB-persisting command path:
+   `leaders-db sources ingest <source> [--db-url ...]`.
+2. Confirm `normalized_observations` has rows by source, country, year,
+   indicator. Use `leaders-db sources coverage [--output json]`, which reads the
+   DB only and does not reopen raw source files.
+3. Produce a source coverage report for the methodology sections. The current I2
+   report is source/family/indicator coverage; methodology-section rollups can be
+   layered on top once the D6/D7 evidence-link/catalog mapping is finalized.
 
 Completes/starts: D6-D7.
 

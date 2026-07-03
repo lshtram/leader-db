@@ -39,6 +39,7 @@ per-year cache layout is preserved.
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
@@ -108,10 +109,6 @@ def read_wikidata_heads_of_state_government_cache(
     from leaders_db.ingest.wikidata_heads_of_state_government_io import (
         load_indicator_catalog,
     )
-    from leaders_db.ingest.wikidata_heads_of_state_government_parse import (
-        parse_sparql_bindings,
-    )
-
     cache_root_path = _cache_root(request)
     metadata = read_metadata(metadata_path(request))
     specs = load_indicator_catalog()
@@ -121,19 +118,13 @@ def read_wikidata_heads_of_state_government_cache(
     long_frames: list[Any] = []
     raw_payloads: list[tuple[str, dict[str, Any]]] = []
     assets: list[RawAsset] = []
-    for cache_file_path, payload in cache_files:
+    for cache_file_path, payload, cache_kind in cache_files:
         cache_key = cache_file_path.stem
-        office_qids = [
-            getattr(spec, "raw_column", "") for spec in specs
-        ]
-        office_qid = office_qids[0] if office_qids else "ALL"
-        # ``year`` is encoded in the cache key as ``YYYY`` or
-        # ``current``; the parser does not need it for the JSON
-        # bindings -> long-frame pivot (the parser only uses
-        # ``year`` for the ``requested_year`` audit column).
-        year_for_parser = _year_from_cache_key(cache_key)
-        long_df = parse_sparql_bindings(
-            payload, office_qid=office_qid, year=year_for_parser,
+        long_df = _parse_cache_payload(
+            cache_key=cache_key,
+            cache_kind=cache_kind,
+            payload=payload,
+            specs=specs,
         )
         if long_df is None or getattr(long_df, "empty", False):
             continue
@@ -175,7 +166,7 @@ def _cache_root(request: SourceIngestRequest) -> Path:
 def _select_cache_files(
     request: SourceIngestRequest,
     cache_root_path: Path,
-) -> list[tuple[Path, dict[str, Any]]]:
+) -> list[tuple[Path, dict[str, Any], str]]:
     """Return the cache files matching the request's year / country scope.
 
     The unified adapter follows the legacy orchestrator's
@@ -200,15 +191,91 @@ def _select_cache_files(
             country_qids=countries,
             query_template_hash=canonical_template_hash(),
         )
-    if not target.is_file():
-        return []
+    selected = _read_cache_payload(target)
+    if selected is not None:
+        return [(target, selected, "wd")]
+    if request.years and request.countries is None:
+        recent_target = _recent_rulers_cache_file(
+            cache_root_path, year=int(request.years[0]),
+        )
+        selected = _read_cache_payload(recent_target)
+        if selected is not None:
+            return [(recent_target, selected, "cyc")]
+    return []
+
+
+def _read_cache_payload(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
     try:
-        payload = json.loads(target.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
-        return []
-    if not isinstance(payload, dict):
-        return []
-    return [(target, payload)]
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def _recent_rulers_cache_file(cache_root_path: Path, *, year: int) -> Path:
+    """Return the canonical Chronicle recent-rulers cache file for ``year``.
+
+    The Chronicle cache is a Wikidata SPARQL response with projected ISO3
+    values. It is safe to consume here because it lives under the same
+    source bundle and preserves verbatim Wikidata bindings.
+    """
+    from leaders_db.chronicle._wikidata_recent_rulers import _cache_key
+
+    return cache_root_path / f"{_cache_key(year=year)}.json"
+
+
+def _parse_cache_payload(
+    *,
+    cache_key: str,
+    cache_kind: str,
+    payload: dict[str, Any],
+    specs: Iterable[Any],
+) -> Any:
+    if cache_kind == "cyc":
+        return _parse_recent_rulers_payload(cache_key, payload)
+    from leaders_db.ingest.wikidata_heads_of_state_government_parse import (
+        parse_sparql_bindings,
+    )
+
+    office_qids = [getattr(spec, "raw_column", "") for spec in specs]
+    office_qid = office_qids[0] if office_qids else "ALL"
+    return parse_sparql_bindings(
+        payload, office_qid=office_qid, year=_year_from_cache_key(cache_key),
+    )
+
+
+def _parse_recent_rulers_payload(
+    cache_key: str,
+    payload: dict[str, Any],
+) -> Any:
+    from leaders_db.chronicle._wikidata_recent_rulers import (
+        parse_recent_rulers_payload,
+    )
+
+    year = _year_from_cache_key(cache_key)
+    if year is None:
+        year = 0
+    frame = parse_recent_rulers_payload(payload, year=year)
+    if getattr(frame, "empty", True):
+        return frame
+    raw_values = [
+        json.dumps(binding, ensure_ascii=False)
+        for binding in payload.get("results", {}).get("bindings", [])
+        if isinstance(binding, dict)
+    ]
+    frame = frame.rename(
+        columns={
+            "iso3": "country_iso3",
+            "role_qid": "role_qid",
+        }
+    )
+    frame["requested_year"] = int(year)
+    frame["raw_value"] = raw_values[: len(frame)]
+    frame["statement_uri"] = ""
+    frame["binding_index"] = range(len(frame))
+    return frame
 
 
 def _build_asset(
@@ -249,7 +316,7 @@ def _year_from_cache_key(cache_key: str) -> int | None:
     parts = cache_key.split("_")
     if len(parts) < 4:
         return None
-    year_token = parts[2]
+    year_token = parts[1] if parts[0] == "cyc" else parts[2]
     if not year_token.isdigit():
         return None
     return int(year_token)

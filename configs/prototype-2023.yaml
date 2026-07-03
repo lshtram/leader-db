@@ -1,4 +1,4 @@
-# Pipeline run config for the first prototype (target year 2023).
+# Legacy pipeline run config for the first prototype diagnostic slice (target year 2023).
 #
 # This file is the source of truth for a normal run. CLI flags may override
 # individual values for one-off diagnostics, but the resolved config used
@@ -13,6 +13,14 @@ project:
 database:
   url: sqlite:///data/catalog/leaders_db.sqlite
   echo_sql: false
+
+# Country-year scope for this legacy prototype config. Active D3-D5 identity
+# work currently uses explicit CLI overrides (`--start-year 1950 --end-year
+# 2025`) as a quality-first stepwise working period; 2023 remains a diagnostic
+# slice for client-matrix comparison, not the identity-coverage goal.
+scope:
+  start_year: 1900
+  end_year: 2023
 
 # Source selection. Flags default to False — the runner is explicit about
 # which sources it wants, so a run is reproducible from this file alone.

@@ -52,6 +52,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 from leaders_db.sources.contracts import SourceIngestRequest
 from leaders_db.sources.warnings import (
@@ -251,7 +252,7 @@ def check_cache_availability(
     return _check_explicit_year_cache_files(request)
 
 
-def _check_explicit_year_cache_files(
+def _check_explicit_year_cache_files(  # noqa: PLR0911
     request: SourceIngestRequest,
 ) -> tuple[bool, str | None, str | None]:
     """Validate the per-(year, country_qids) cache gate for explicit-year requests."""
@@ -286,6 +287,17 @@ def _check_explicit_year_cache_files(
         country_qids=countries,
     )
     blocker = _validate_cached_sparql_json_shape(cache_file_path)
+    if blocker is not None and request.countries is None:
+        recent_cache_file_path = _recent_rulers_cache_file(
+            cache_root_path, year=first_year,
+        )
+        recent_blocker = _validate_recent_rulers_cache_contract(
+            recent_cache_file_path,
+        )
+        if recent_blocker is None:
+            return True, None, None
+        if recent_cache_file_path.is_file():
+            return False, *recent_blocker
     if blocker is not None:
         message, _ = blocker
         return False, (
@@ -296,6 +308,69 @@ def _check_explicit_year_cache_files(
             f"the cache before running ingestion."
         ), MISSING_RAW
     return True, None, None
+
+
+def _recent_rulers_cache_file(cache_root_path: Path, *, year: int) -> Path:
+    """Return the canonical Wikidata recent-rulers cache file for ``year``."""
+    from leaders_db.chronicle._wikidata_recent_rulers import _cache_key
+
+    return cache_root_path / f"{_cache_key(year=year)}.json"
+
+
+def _validate_recent_rulers_cache_contract(
+    cache_file_path: Path,
+) -> tuple[str, str] | None:
+    """Validate the ISO3-bearing Wikidata recent-rulers cache contract."""
+    shape_blocker = _validate_cached_sparql_json_shape(cache_file_path)
+    if shape_blocker is not None:
+        return shape_blocker
+    payload = read_metadata(cache_file_path)
+    bindings = payload.get("results", {}).get("bindings", [])
+    if not isinstance(bindings, list):
+        return _recent_cache_contract_blocker(
+            cache_file_path, "results.bindings must be a list",
+        )
+    for index, binding in enumerate(bindings):
+        if not isinstance(binding, dict):
+            return _recent_cache_contract_blocker(
+                cache_file_path, f"binding {index} is not a JSON object",
+            )
+        missing = [
+            field for field in ("countryISO3", "country", "person", "office", "role")
+            if not _binding_value(binding, field)
+        ]
+        if missing:
+            return _recent_cache_contract_blocker(
+                cache_file_path,
+                f"binding {index} missing required field(s): {', '.join(missing)}",
+            )
+        iso3 = _binding_value(binding, "countryISO3").strip().upper()
+        if len(iso3) != 3 or not iso3.isalpha():
+            return _recent_cache_contract_blocker(
+                cache_file_path,
+                f"binding {index} has invalid countryISO3 {iso3!r}; expected 3 letters",
+            )
+    return None
+
+
+def _binding_value(binding: dict[str, Any], field: str) -> str:
+    value = binding.get(field)
+    if not isinstance(value, dict):
+        return ""
+    raw = value.get("value")
+    return "" if raw is None else str(raw).strip()
+
+
+def _recent_cache_contract_blocker(
+    cache_file_path: Path,
+    detail: str,
+) -> tuple[str, str]:
+    return (
+        "Wikidata heads-of-state readiness gate: recent-rulers fallback "
+        f"cache {cache_file_path} is not usable for I4 identity ingestion: "
+        f"{detail}. Re-stage a Wikidata SPARQL JSON cache containing "
+        "countryISO3, country, person, office, and role bindings for each row."
+    ), MISSING_RAW
 
 
 # ---------------------------------------------------------------------------

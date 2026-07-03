@@ -7,6 +7,7 @@ import json
 import typer
 from sqlalchemy.exc import SQLAlchemyError
 
+from leaders_db.db.readiness import DatabaseReadinessError
 from leaders_db.research.local_evidence_summary import (
     RulerPeriodEvidenceRequest,
     parse_concept_options,
@@ -58,6 +59,9 @@ def evidence_summarize_ruler_period_cmd(
         payload = summarize_ruler_period_evidence(repository, request)
     except ValueError as exc:
         raise typer.BadParameter(str(exc)) from exc
+    except DatabaseReadinessError as exc:
+        typer.echo(json.dumps({"error": str(exc)}, sort_keys=True))
+        raise typer.Exit(1) from exc
     except SQLAlchemyError as exc:
         typer.echo(
             json.dumps(
@@ -77,10 +81,13 @@ def _build_evidence_repository(db_url: str | None) -> EvidenceRepository:
     """Build the persisted clean-source query repository for CLI use."""
 
     from ..db.engine import build_engine
+    from ..db.readiness import EVIDENCE_TABLES, assert_database_ready
     from ..db.session import default_sqlite_url
     from ..research.sql_repository import SqlEvidenceRepository
 
-    return SqlEvidenceRepository(build_engine(db_url or default_sqlite_url()))
+    engine = build_engine(db_url or default_sqlite_url())
+    assert_database_ready(engine, required_tables=EVIDENCE_TABLES)
+    return SqlEvidenceRepository(engine)
 
 
 __all__ = ["evidence_app", "evidence_summarize_ruler_period_cmd"]

@@ -17,6 +17,7 @@ from pathlib import Path
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
+from sqlalchemy.engine.url import make_url
 
 _MIGRATIONS_DIR = Path(__file__).resolve().parent / "migrations"
 _MIGRATION_NAME_RE = re.compile(r"^\d{4}_.+\.sql$")
@@ -39,6 +40,7 @@ def init_database(url: str, *, echo: bool = False) -> None:
 
     The runner is idempotent — re-running it does not duplicate work.
     """
+    _ensure_sqlite_parent(url)
     engine = build_engine(url, echo=echo)
     migrations = list(_migration_files(_MIGRATIONS_DIR))
     if not migrations:
@@ -68,6 +70,13 @@ def _migration_files(directory: Path) -> Iterable[Path]:
     if not directory.is_dir():
         return []
     return sorted(p for p in directory.iterdir() if _MIGRATION_NAME_RE.match(p.name))
+
+
+def _ensure_sqlite_parent(url: str) -> None:
+    parsed = make_url(url)
+    if parsed.drivername != "sqlite" or parsed.database in {None, "", ":memory:"}:
+        return
+    Path(parsed.database).parent.mkdir(parents=True, exist_ok=True)
 
 
 def _ensure_migrations_table(conn) -> None:

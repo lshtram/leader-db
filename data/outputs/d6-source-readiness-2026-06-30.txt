@@ -1,0 +1,198 @@
+### archigos
+source_id: archigos
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### bti
+source_id: bti
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### cirights
+source_id: cirights
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### ctbto_treaty_status
+source_id: ctbto_treaty_status
+ready: False
+warnings: -
+errors:
+  - [error] missing_metadata: CTBTO Treaty Status readiness gate: metadata.json missing at data/raw/ctbto_treaty_status/metadata.json; place the canonical data/raw/ctbto_treaty_status/metadata.json before running ingestion.
+EXIT_CODE=1
+
+### eiu_democracy_index
+source_id: eiu_democracy_index
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### fas
+source_id: fas
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### freedom_house
+source_id: freedom_house
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### iaea_safeguards
+source_id: iaea_safeguards
+ready: False
+warnings: -
+errors:
+  - [error] missing_raw: IAEA Safeguards readiness gate: cached status list PDF missing at data/raw/iaea_safeguards/sg-agreements-comprehensive-status.pdf; place the canonical 'sg-agreements-comprehensive-status.pdf' at data/raw/iaea_safeguards before running ingestion.
+EXIT_CODE=1
+
+### maddison_project
+source_id: maddison_project
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### polity_v
+source_id: polity_v
+ready: False
+warnings: -
+errors:
+  - [error] missing_metadata: Polity V readiness gate: metadata.json missing at data/raw/polity_v/metadata.json; place the canonical data/raw/polity_v/metadata.json before running Stage 2.
+EXIT_CODE=1
+
+### pts
+source_id: pts
+ready: False
+warnings: -
+errors:
+  - [error] missing_metadata: PTS readiness gate: metadata.json is missing required field 'local_files'.
+EXIT_CODE=1
+
+### pwt
+source_id: pwt
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### reign
+source_id: reign
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### rsf_press_freedom
+source_id: rsf_press_freedom
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### sipri_arms_transfers
+source_id: sipri_arms_transfers
+ready: False
+warnings: -
+errors:
+  - [error] missing_metadata: SIPRI Arms Transfers readiness gate: metadata.json missing at data/raw/sipri_arms_transfers/metadata.json; place the canonical data/raw/sipri_arms_transfers/metadata.json before running ingestion.
+EXIT_CODE=1
+
+### sipri_milex
+source_id: sipri_milex
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### sipri_yearbook_ch7
+source_id: sipri_yearbook_ch7
+ready: False
+warnings: -
+errors:
+  - [error] sipri_yearbook_ch7_metadata_version_mismatch: SIPRI Yearbook Ch.7 metadata source_version must be 'YB2024 (data: January 2024)'; got 'SIPRI Yearbook 2024 Chapter 7'
+EXIT_CODE=1
+
+### transparency_cpi
+source_id: transparency_cpi
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### ucdp
+source_id: ucdp
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### undp_hdi
+source_id: undp_hdi
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### vdem
+source_id: vdem
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### who_gho_api
+source_id: who_gho_api
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### wikidata_heads_of_state_government
+source_id: wikidata_heads_of_state_government
+ready: False
+warnings: -
+errors:
+  - [error] missing_raw: Wikidata heads-of-state readiness gate: cache file missing at data/raw/wikidata_heads_of_state_government/cache/wd_ALL_current_all_6a945a3130.json; the SPARQL cache is incomplete. Re-stage the cache before running ingestion. Required by the all-current-holders request under cache_policy='prefer_cache'; re-stage the cache before running ingestion.
+EXIT_CODE=1
+
+### wikipedia_search_extract
+source_id: wikipedia_search_extract
+ready: False
+warnings: -
+errors:
+  - [error] wikipedia_search_extract_missing_queries: ("Wikipedia Action API readiness gate: the explicit queries= list (request.leaders) is missing or empty; the Stage 2 contract is 'do not browse / score'; the helper requires explicit query strings. Pass request.leaders= with at least one non-empty query / title string.",)
+EXIT_CODE=1
+
+### world_bank_poverty_inequality_platform
+source_id: world_bank_poverty_inequality_platform
+ready: False
+warnings: -
+errors:
+  - [error] missing_metadata: World Bank PIP readiness gate: metadata.json missing at data/raw/world_bank_poverty_inequality_platform/metadata.json; place the canonical data/raw/world_bank_poverty_inequality_platform/metadata.json before running ingestion.
+EXIT_CODE=1
+
+### world_bank_wdi
+source_id: world_bank_wdi
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+
+### world_bank_wgi
+source_id: world_bank_wgi
+ready: True
+warnings: -
+errors: -
+EXIT_CODE=0
+

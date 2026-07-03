@@ -119,6 +119,64 @@ Per-leader-per-country-per-year actual-ruler determination (Stage 4 output).
 
 UNIQUE(`leader_id`, `country_id`, `year`).
 
+### `ruler_identity_adjudications`
+
+Durable D3-D5 principal-ruler selection / review queue, one row per included
+`country_years` row.
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | integer PK | surrogate |
+| `country_year_id` | integer FK → `country_years.id` | UNIQUE, idempotent upsert key |
+| `country_id`, `year` | integer / smallint | query-friendly country-year dimensions |
+| `selected_ruler_year_id` | integer FK → `ruler_years.id` | nullable when unresolved/research-required |
+| `selected_leader_name` | text | nullable display name of selected principal ruler |
+| `candidate_ruler_year_ids_json` | text JSON array | all persisted candidate `ruler_years.id` values |
+| `candidates_json` | text JSON array | candidate names, titles, source slugs, intervals, flags |
+| `classification` / `selection_rule` | text | detailed adjudication class and rule used |
+| `review_status` | text | `auto_resolved`, `needs_review`, or `research_required` |
+| `confidence_score` | smallint | selected confidence or unresolved minimum where available |
+| `confidence_penalties_json`, `warnings_json` | text JSON arrays | audit notes from v1 adjudication |
+| `rationale`, `review_reason` | text | why the row was selected or queued |
+| `research_prompt` | text | future manual/internet-research question/context for unresolved rows |
+| `recommended_next_action` | text | next action from detailed identity coverage |
+| `source_slugs_json`, `source_observation_ids_json` | text JSON arrays | source traceability when available |
+| `run_id`, `method_version`, `created_at`, `updated_at` | text | reproducibility metadata |
+
+UNIQUE(`country_year_id`). Indexes support (`country_id`, `year`) and
+(`review_status`, `classification`).
+
+### `country_year_facts`
+
+Generic adjudicated country-year value table. This is the long-term write
+contract for reusable table cells across domains, not just ruler identity. Domain
+builders may keep convenient specialized tables, but they should also publish one
+row per country-year field here when the value is useful to downstream scoring,
+question answering, review queues, or exports.
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | integer PK | surrogate |
+| `country_year_id` | integer FK → `country_years.id` | part of idempotent upsert key |
+| `country_id`, `year` | integer / smallint | query-friendly dimensions |
+| `field_key`, `field_label` | text | stable key such as `principal_ruler`; display label |
+| `value_type` | text | `entity_reference`, `number`, `text`, `boolean`, `json`, etc. |
+| `selected_value_text`, `selected_value_number`, `selected_value_json` | text / real / JSON text | typed selected value slots; unused slots remain NULL |
+| `selected_entity_table`, `selected_entity_id` | text / integer | optional reference to a domain row such as `ruler_years.id` |
+| `candidate_values_json` | text JSON array | all candidate values considered for the cell |
+| `selection_rule`, `adjudication_status` | text | deterministic rule and `auto_resolved` / `needs_review` / `research_required` status |
+| `confidence_score` | smallint | 0-100 confidence when available |
+| `agreement_score`, `authority_score`, `specificity_score`, `temporal_fit_score` | real | reusable quality components; nullable until a producer can compute them |
+| `quality_signals_json`, `warnings_json` | text JSON | audit signals and warnings that do not fit typed columns yet |
+| `rationale`, `review_reason`, `research_prompt`, `recommended_next_action` | text | selection or review context |
+| `source_slugs_json`, `source_observation_ids_json` | text JSON arrays | source traceability |
+| `producer`, `method_version`, `run_id`, `created_at`, `updated_at` | text | reproducibility metadata |
+
+UNIQUE(`country_year_id`, `field_key`). Indexes support (`country_id`, `year`),
+(`field_key`, `adjudication_status`), and review-queue scans by
+(`adjudication_status`, `field_key`, `year`). The current first producer is the
+D3-D5 ruler adjudication builder, which publishes `field_key = principal_ruler`.
+
 ### `score_categories`
 
 Canonical list of scoring categories. Requirement §4 enumerates ten categories in total: 8 active rating categories (nuclear responsibility, international peace, domestic safety, political freedom, economic well-being, social well-being, integrity, effectiveness) and 2 optional/deferred categories (power retention, global influence). The active set is the prototype's scoring scope; the optional categories may be populated in a later iteration.

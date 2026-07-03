@@ -9,6 +9,8 @@ This test runs against the real CLI entrypoint. It exists to catch:
 
 from __future__ import annotations
 
+import json
+
 from typer.testing import CliRunner
 
 from leaders_db.cli import app
@@ -91,6 +93,58 @@ def test_init_db_runs(isolated_data_lake, database_url: str, monkeypatch) -> Non
     # the catalog dir; the test asserts that location, not the legacy
     # ``test.sqlite`` name.
     assert (isolated_data_lake / "data" / "catalog" / "leaders_db.sqlite").is_file()
+
+
+def test_default_init_db_unblocks_default_evidence_read(isolated_data_lake) -> None:
+    """A fresh default DB can be initialized then read without passing --db-url."""
+
+    init_result = runner.invoke(app, ["init-db"])
+
+    assert init_result.exit_code == 0, init_result.stdout
+    assert (isolated_data_lake / "data" / "catalog" / "leaders_db.sqlite").is_file()
+
+    read_result = runner.invoke(
+        app,
+        [
+            "evidence",
+            "summarize-ruler-period",
+            "--country",
+            "KEN",
+            "--start-year",
+            "1964",
+            "--end-year",
+            "1964",
+        ],
+    )
+
+    assert read_result.exit_code == 0, read_result.stdout
+    payload = json.loads(read_result.stdout)
+    assert payload["request"]["country"] == "KEN"
+    assert payload["coverage"]["gdp_per_capita"]["coverage_status"] == "missing"
+
+
+def test_default_evidence_read_fails_friendly_when_db_uninitialized(
+    isolated_data_lake,
+) -> None:
+    result = runner.invoke(
+        app,
+        [
+            "evidence",
+            "summarize-ruler-period",
+            "--country",
+            "KEN",
+            "--start-year",
+            "1964",
+            "--end-year",
+            "1964",
+        ],
+    )
+
+    assert result.exit_code == 1, result.stdout
+    assert "The local evidence database is not initialized" in result.stdout
+    assert "leaders-db init-db" in result.stdout
+    assert "--db-url" in result.stdout
+    assert "no such table" not in result.stdout.lower()
 
 
 def test_ingest_source_rejects_unknown_source(isolated_data_lake) -> None:

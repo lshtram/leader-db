@@ -26,11 +26,12 @@ Year semantics:
   ``start_date`` is absent.
 
 Country semantics: the unified transform never invents ISO3
-codes. ``country_code`` is always ``None`` (Wikidata QIDs are
-source-native, not ISO3). ``country_name`` carries the Wikidata
-English label verbatim. The Wikidata QID is preserved on every
-emitted observation's ``extension.country_qid`` /
-``extension.country_label`` audit fields.
+codes. For the recent-rulers cache bridge, ``country_code`` is
+the source-provided ``countryISO3`` binding; otherwise it remains
+``None``. ``country_name`` carries the Wikidata English label
+verbatim. The Wikidata QID is preserved on every emitted
+observation's ``extension.country_qid`` / ``extension.country_label``
+audit fields.
 
 Leader semantics: ``leader_id`` is always ``None`` (Stage 4 is
 the resolver). ``leader_name`` carries the Wikidata person
@@ -44,7 +45,10 @@ Indicator codes: the two legacy catalog variables
 (``wikidata_head_of_state_held`` for Q30461, and
 ``wikidata_head_of_government_held`` for Q22857062). The
 unified transform emits one observation per binding whose
-``office_qid`` matches a catalog ``raw_column``.
+``office_qid`` or broad ``role_qid`` matches a catalog
+``raw_column``. Recent-rulers rows whose broad role is Q14212
+(prime minister) are retained as head-of-government evidence while
+the concrete office QID and role QID remain in the audit payload.
 
 Per-observation ``extension`` payload (audit trail):
 ``source_row_reference`` (the legacy DB writer's
@@ -95,6 +99,12 @@ from ._transform_helpers import (
     text,
     text_or_none,
 )
+
+_HEAD_OF_GOVERNMENT_QID = "Q22857062"
+_PRIME_MINISTER_QID = "Q14212"
+_ROLE_TO_INDICATOR_OFFICE_QID = {
+    _PRIME_MINISTER_QID: _HEAD_OF_GOVERNMENT_QID,
+}
 
 
 def emit_wikidata_heads_of_state_government_observations(
@@ -180,10 +190,13 @@ def _row_to_observation(
     person_label = text(getattr(row, "person_label", None))
     office_qid = text(getattr(row, "office_qid", None))
     office_label = text(getattr(row, "office_label", None))
+    role_qid = text(getattr(row, "role_qid", None))
+    country_iso3 = text(getattr(row, "country_iso3", None))
     start_date = text_or_none(getattr(row, "start_date", None))
     end_date = text_or_none(getattr(row, "end_date", None))
     statement_uri = text(getattr(row, "statement_uri", None))
     raw_value_text = text(getattr(row, "raw_value", None))
+    binding_index = text_or_none(getattr(row, "binding_index", None))
     parsed_year = coerce_int(getattr(row, "year", None))
 
     if not country_qid or not person_qid or not office_qid:
@@ -193,10 +206,20 @@ def _row_to_observation(
         # values.
         return None
 
+    if role_qid and not country_iso3:
+        # The recent-rulers fallback is only usable for I4 when Wikidata
+        # supplies ISO3 directly. Do not emit rows that would later be
+        # country-name matched into 2023 identity coverage.
+        return None
+
     if country_filter is not None and country_qid not in country_filter:
         return None
 
     spec = spec_by_office_qid.get(office_qid)
+    indicator_office_qid = office_qid
+    if spec is None and role_qid:
+        indicator_office_qid = _ROLE_TO_INDICATOR_OFFICE_QID.get(role_qid, role_qid)
+        spec = spec_by_office_qid.get(indicator_office_qid)
     if spec is None:
         # Binding for an office QID not in the catalog. The
         # SPARQL query is built from the catalog's office QIDs,
@@ -210,7 +233,9 @@ def _row_to_observation(
     else:
         year_value = parsed_year
 
-    statement_hash_value = statement_hash(statement_uri)
+    statement_hash_value = statement_hash(
+        statement_uri or f"{binding_index}:{raw_value_text}",
+    )
     source_row_reference = (
         f"wikidata:{country_qid}:{office_qid}:"
         f"{person_qid}:{statement_hash_value}"
@@ -226,10 +251,14 @@ def _row_to_observation(
         "country_label": country_label or None,
         "office_qid": office_qid,
         "office_label": office_label or None,
+        "role_qid": role_qid or None,
+        "indicator_office_qid": indicator_office_qid,
+        "country_iso3": country_iso3 or None,
         "start_date": start_date,
         "end_date": end_date,
         "statement_uri": statement_uri or None,
         "statement_hash": statement_hash_value,
+        "binding_index": binding_index,
         "requested_year": requested_year,
         "value_type": "categorical",
         "raw_value": raw_value_text or None,
@@ -264,7 +293,7 @@ def _row_to_observation(
         value=value,
         value_type="categorical",
         year=year_value,
-        country_code=None,
+        country_code=country_iso3 or None,
         country_name=country_label or None,
         leader_id=None,
         leader_name=person_label or None,
@@ -279,7 +308,7 @@ def _row_to_observation(
             ),
             url=WIKIDATA_HEADS_OF_STATE_GOVERNMENT_SPARQL_ENDPOINT_URL,
             row_number=None,
-            column_name=office_qid,
+            column_name=indicator_office_qid,
         ),
         transform_locator=TransformLocator(
             adapter_version=None,

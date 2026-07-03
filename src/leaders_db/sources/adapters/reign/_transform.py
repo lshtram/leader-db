@@ -12,6 +12,11 @@ from leaders_db.sources.contracts import (
     SourceIngestRequest,
     TransformLocator,
 )
+from leaders_db.sources.country_codes import (
+    iso3_from_cow_code,
+    iso3_from_source_country,
+    normalize_source_country_code,
+)
 
 from ._constants import (
     REIGN_ATTRIBUTION_TEXT,
@@ -36,13 +41,14 @@ def emit_reign_observations(
     spec_by_variable = {spec.variable_name: spec for spec in specs}
     requested_years = set(request.years) if request.years else None
     observations: list[NormalizedObservation] = []
-    for row in frame.itertuples(index=False):
+    seen_observation_ids: dict[str, int] = {}
+    for row_index, row in enumerate(frame.itertuples(index=False), start=1):
         year = _coerce_int(getattr(row, "year", None))
         if year is None or (requested_years is not None and year not in requested_years):
             continue
         country = _text(getattr(row, "country", None))
         ccode = _coerce_int(getattr(row, "ccode", None))
-        if not _country_matches(request, country, ccode):
+        if not _country_matches(request, country, ccode, year=year):
             continue
         variable_name = _text(getattr(row, "variable_name", None))
         spec = spec_by_variable.get(variable_name)
@@ -60,6 +66,8 @@ def emit_reign_observations(
                 variable_name=variable_name,
                 spec=spec,
                 source_row_reference=_text(getattr(row, "source_row_reference", None)),
+                row_index=row_index,
+                seen_observation_ids=seen_observation_ids,
             ),
         )
     return iter(observations)
@@ -77,15 +85,19 @@ def _build_observation(
     variable_name: str,
     spec: Any,
     source_row_reference: str,
+    row_index: int,
+    seen_observation_ids: dict[str, int],
 ) -> NormalizedObservation:
     raw_value = _json_scalar(getattr(row, "raw_value", None))
     normalized_value = _json_scalar(getattr(row, "normalized_value", None))
+    country_code = iso3_from_source_country(country, ccode=ccode, year=year)
     extension = {
         "source_row_reference": source_row_reference,
         "raw_value": raw_value,
         "normalized_value": normalized_value,
         "reign_country": country,
         "reign_ccode": ccode,
+        "country_code": country_code,
         "reign_year": year,
         "reign_month": month,
         "reign_leader": leader_name,
@@ -95,15 +107,20 @@ def _build_observation(
         "normalized_scale_target": getattr(spec, "normalized_scale_target", None),
         "attribution": REIGN_ATTRIBUTION_TEXT,
     }
+    observation_id = _unique_observation_id(
+        f"{source_row_reference}:{variable_name}",
+        row_index=row_index,
+        seen_observation_ids=seen_observation_ids,
+    )
     return NormalizedObservation(
         source_id=request.source_id,
-        observation_id=f"{source_row_reference}:{variable_name}",
+        observation_id=observation_id,
         observation_family=REIGN_OBSERVATION_FAMILY,
         indicator_code=variable_name,
         value=raw_value,
         value_type=_value_type(variable_name, normalized_value),
         year=year,
-        country_code=None,
+        country_code=country_code,
         country_name=country,
         leader_id=None,
         leader_name=leader_name,
@@ -128,13 +145,40 @@ def _build_observation(
     )
 
 
-def _country_matches(request: SourceIngestRequest, country: str, ccode: int | None) -> bool:
+def _unique_observation_id(
+    base_id: str,
+    *,
+    row_index: int,
+    seen_observation_ids: dict[str, int],
+) -> str:
+    count = seen_observation_ids.get(base_id, 0)
+    seen_observation_ids[base_id] = count + 1
+    if count == 0:
+        return base_id
+    return f"{base_id}:duplicate-{row_index}"
+
+
+def _country_matches(
+    request: SourceIngestRequest,
+    country: str,
+    ccode: int | None,
+    *,
+    year: int | None = None,
+) -> bool:
     if not request.countries:
         return True
     needles = {item.strip().casefold() for item in request.countries if item.strip()}
     tokens = {country.casefold()}
+    if mapped := normalize_source_country_code(country):
+        tokens.add(mapped.casefold())
+    if mapped := iso3_from_source_country(country, ccode=ccode, year=year):
+        tokens.add(mapped.casefold())
     if ccode is not None:
         tokens.add(str(ccode).casefold())
+        if mapped := iso3_from_cow_code(ccode):
+            if country.casefold() == "soviet union" and year is not None and year <= 1991:
+                mapped = "SUN"
+            tokens.add(mapped.casefold())
     return bool(tokens & needles)
 
 

@@ -217,6 +217,77 @@ def _run(raw_root: Path, **kwargs: Any):
     )
 
 
+def _write_recent_rulers_cache(
+    raw_root: Path,
+    *,
+    year: int = 2023,
+    role_qid: str = "Q30461",
+    omit_fields: tuple[str, ...] = (),
+    malformed: bool = False,
+) -> Path:
+    """Stage a Wikidata recent-rulers cache payload with source ISO3."""
+    from leaders_db.chronicle._wikidata_recent_rulers import _cache_key
+
+    cache_root_path = (
+        raw_root
+        / WIKIDATA_HEADS_OF_STATE_GOVERNMENT_SOURCE_KEY
+        / WIKIDATA_HEADS_OF_STATE_GOVERNMENT_CACHE_DIR_NAME
+    )
+    cache_root_path.mkdir(parents=True, exist_ok=True)
+    cache_path = cache_root_path / f"{_cache_key(year=year)}.json"
+    if malformed:
+        cache_path.write_text('{"results": "not-a-dict"}', encoding="utf-8")
+        return cache_path
+    binding = {
+        "country": {
+            "type": "uri",
+            "value": "http://www.wikidata.org/entity/Q30",
+        },
+        "countryISO3": {"type": "literal", "value": "USA"},
+        "countryLabel": {
+            "type": "literal",
+            "value": "United States",
+        },
+        "person": {
+            "type": "uri",
+            "value": "http://www.wikidata.org/entity/Q6279",
+        },
+        "personLabel": {"type": "literal", "value": "Joe Biden"},
+        "office": {
+            "type": "uri",
+            "value": "http://www.wikidata.org/entity/Q11696",
+        },
+        "officeLabel": {
+            "type": "literal",
+            "value": "President of the United States",
+        },
+        "role": {
+            "type": "uri",
+            "value": f"http://www.wikidata.org/entity/{role_qid}",
+        },
+        "start": {
+            "type": "literal",
+            "value": "2021-01-20T00:00:00Z",
+        },
+        "end": {
+            "type": "literal",
+            "value": "2025-01-20T00:00:00Z",
+        },
+    }
+    for field in omit_fields:
+        binding.pop(field, None)
+    cache_path.write_text(
+        json.dumps(
+            {
+                "head": {"vars": ["country", "countryISO3", "person"]},
+                "results": {"bindings": [binding]},
+            }
+        ),
+        encoding="utf-8",
+    )
+    return cache_path
+
+
 # ---------------------------------------------------------------------------
 # Descriptor / factory / register / protocol
 # ---------------------------------------------------------------------------
@@ -535,6 +606,94 @@ def test_runner_years_none_reads_current_holders_fixture(
     codes = [w.code for w in result.warnings]
     assert UNSUPPORTED_FILTER not in codes
     assert WIKIDATA_HEADS_OF_STATE_GOVERNMENT_NON_QID_COUNTRY not in codes
+
+
+def test_runner_explicit_year_uses_recent_rulers_cache_when_wd_cache_absent(
+    tmp_path: Path,
+) -> None:
+    """The source adapter can consume the locally staged Wikidata ISO3 cache.
+
+    This is the D3-D5 current-identity bridge: for an all-country explicit
+    year request, the adapter may read the existing ``cyc_<year>`` Wikidata
+    SPARQL cache when the older ``wd_ALL_<year>`` cache is absent. The row is
+    still emitted as ``wikidata_heads_of_state_government`` evidence and the
+    ISO3 comes from the source payload, not from client data or stale fill.
+    """
+    _stage_bundle(tmp_path, with_cache=False)
+    cache_path = _write_recent_rulers_cache(tmp_path, year=2023)
+
+    result = _run(tmp_path, years=(2023,), cache_policy="offline_only")
+
+    assert len(result.observations) == 1
+    observation = result.observations[0]
+    assert observation.source_id.slug == WIKIDATA_HEADS_OF_STATE_GOVERNMENT_SOURCE_KEY
+    assert observation.observation_family == "leader_identity_country_year"
+    assert observation.indicator_code == "wikidata_head_of_state_held"
+    assert observation.year == 2023
+    assert observation.country_code == "USA"
+    assert observation.country_name == "United States"
+    assert observation.leader_name == "Joe Biden"
+    assert observation.extension["country_iso3"] == "USA"
+    assert observation.extension["role_qid"] == "Q30461"
+    assert observation.raw_locator.path == str(cache_path)
+
+
+def test_runner_maps_recent_rulers_prime_minister_role_to_head_of_government(
+    tmp_path: Path,
+) -> None:
+    """Recent-rulers PM role rows are compliant HoG identity evidence.
+
+    The local 2023 cache represents many parliamentary rulers with role Q14212
+    (prime minister) while the source catalog has the broader head-of-government
+    indicator. Those rows must be retained as source-attributed HoG evidence
+    rather than skipped as unsupported offices.
+    """
+
+    _stage_bundle(tmp_path, with_cache=False)
+    _write_recent_rulers_cache(tmp_path, year=2023, role_qid="Q14212")
+
+    result = _run(tmp_path, years=(2023,), cache_policy="offline_only")
+
+    assert len(result.observations) == 1
+    observation = result.observations[0]
+    assert observation.indicator_code == "wikidata_head_of_government_held"
+    assert observation.extension["role_qid"] == "Q14212"
+    assert observation.extension["office_qid"] == "Q11696"
+    assert observation.extension["indicator_office_qid"] == "Q22857062"
+
+
+def test_readiness_recent_rulers_malformed_cache_fails(tmp_path: Path) -> None:
+    """Malformed recent-rulers fallback cache is an actionable blocker."""
+    _stage_bundle(tmp_path, with_cache=False)
+    _write_recent_rulers_cache(tmp_path, year=2023, malformed=True)
+
+    readiness = create_wikidata_heads_of_state_government_adapter().check_ready(
+        _request(tmp_path, years=(2023,), cache_policy="offline_only"),
+    )
+
+    assert readiness.ready is False
+    assert readiness.errors[0].code == MISSING_RAW
+
+
+@pytest.mark.parametrize(
+    "field",
+    ["countryISO3", "country", "person", "office", "role"],
+)
+def test_readiness_recent_rulers_missing_required_binding_field_fails(
+    tmp_path: Path,
+    field: str,
+) -> None:
+    """SPARQL-shaped recent-rulers caches must carry the I4 contract fields."""
+    _stage_bundle(tmp_path, with_cache=False)
+    _write_recent_rulers_cache(tmp_path, year=2023, omit_fields=(field,))
+
+    readiness = create_wikidata_heads_of_state_government_adapter().check_ready(
+        _request(tmp_path, years=(2023,), cache_policy="offline_only"),
+    )
+
+    assert readiness.ready is False
+    assert readiness.errors[0].code == MISSING_RAW
+    assert field in readiness.errors[0].message
 
 
 def test_runner_country_filter_qid_matches_only_matching_observations(

@@ -59,11 +59,17 @@ class Country(Base):
     region: Mapped[str | None] = mapped_column(String, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    country_years: Mapped[list[CountryYear]] = relationship(back_populates="country")
-    ruler_spells: Mapped[list[RulerSpell]] = relationship(back_populates="country")
-    ruler_years: Mapped[list[RulerYear]] = relationship(back_populates="country")
+    country_years: Mapped[list[CountryYear]] = relationship(
+        lambda: CountryYear, back_populates="country"
+    )
+    ruler_spells: Mapped[list[RulerSpell]] = relationship(
+        lambda: RulerSpell, back_populates="country"
+    )
+    ruler_years: Mapped[list[RulerYear]] = relationship(
+        lambda: RulerYear, back_populates="country"
+    )
     source_observations: Mapped[list[SourceObservation]] = relationship(
-        back_populates="country"
+        lambda: SourceObservation, back_populates="country"
     )
 
 
@@ -101,11 +107,17 @@ class Leader(Base):
     gender: Mapped[str | None] = mapped_column(String, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    aliases: Mapped[list[LeaderAlias]] = relationship(back_populates="leader")
-    ruler_spells: Mapped[list[RulerSpell]] = relationship(back_populates="leader")
-    ruler_years: Mapped[list[RulerYear]] = relationship(back_populates="leader")
+    aliases: Mapped[list[LeaderAlias]] = relationship(
+        lambda: LeaderAlias, back_populates="leader"
+    )
+    ruler_spells: Mapped[list[RulerSpell]] = relationship(
+        lambda: RulerSpell, back_populates="leader"
+    )
+    ruler_years: Mapped[list[RulerYear]] = relationship(
+        lambda: RulerYear, back_populates="leader"
+    )
     source_observations: Mapped[list[SourceObservation]] = relationship(
-        back_populates="leader"
+        lambda: SourceObservation, back_populates="leader"
     )
 
 
@@ -211,7 +223,97 @@ class RulerYear(Base):
 
     leader: Mapped[Leader] = relationship(back_populates="ruler_years")
     country: Mapped[Country] = relationship(back_populates="ruler_years")
-    ruler_scores: Mapped[list[RulerScore]] = relationship(back_populates="ruler_year")
+    ruler_scores: Mapped[list[RulerScore]] = relationship(
+        lambda: RulerScore, back_populates="ruler_year"
+    )
+
+
+class RulerIdentityAdjudication(Base):
+    """Durable principal-ruler selection or review queue row per country-year."""
+
+    __tablename__ = "ruler_identity_adjudications"
+    __table_args__ = (
+        UniqueConstraint("country_year_id", name="uq_ruler_identity_adjudication_country_year"),
+        Index("ix_ruler_identity_adjudications_country_year", "country_id", "year"),
+        Index("ix_ruler_identity_adjudications_review_status", "review_status", "classification"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    country_year_id: Mapped[int] = mapped_column(ForeignKey("country_years.id"), nullable=False)
+    country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"), nullable=False)
+    year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    selected_ruler_year_id: Mapped[int | None] = mapped_column(
+        ForeignKey("ruler_years.id"), nullable=True
+    )
+    selected_leader_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    candidate_ruler_year_ids_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    candidates_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    classification: Mapped[str] = mapped_column(String, nullable=False)
+    selection_rule: Mapped[str] = mapped_column(String, nullable=False)
+    review_status: Mapped[str] = mapped_column(String, nullable=False)
+    confidence_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    confidence_penalties_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    warnings_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    rationale: Mapped[str] = mapped_column(Text, nullable=False)
+    review_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    research_prompt: Mapped[str | None] = mapped_column(Text, nullable=True)
+    recommended_next_action: Mapped[str] = mapped_column(Text, nullable=False)
+    source_slugs_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    source_observation_ids_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    run_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    method_version: Mapped[str] = mapped_column(String, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
+
+
+class CountryYearFact(Base):
+    """Generic adjudicated country-year value for any field or question."""
+
+    __tablename__ = "country_year_facts"
+    __table_args__ = (
+        UniqueConstraint("country_year_id", "field_key", name="uq_country_year_fact_field"),
+        Index("ix_country_year_facts_country_year", "country_id", "year"),
+        Index("ix_country_year_facts_field_status", "field_key", "adjudication_status"),
+        Index("ix_country_year_facts_review_queue", "adjudication_status", "field_key", "year"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    country_year_id: Mapped[int] = mapped_column(ForeignKey("country_years.id"), nullable=False)
+    country_id: Mapped[int] = mapped_column(ForeignKey("countries.id"), nullable=False)
+    year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    field_key: Mapped[str] = mapped_column(String, nullable=False)
+    field_label: Mapped[str] = mapped_column(String, nullable=False)
+    value_type: Mapped[str] = mapped_column(String, nullable=False)
+    selected_value_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    selected_value_number: Mapped[float | None] = mapped_column(Float, nullable=True)
+    selected_value_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    selected_entity_table: Mapped[str | None] = mapped_column(String, nullable=True)
+    selected_entity_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    candidate_values_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    selection_rule: Mapped[str] = mapped_column(String, nullable=False)
+    adjudication_status: Mapped[str] = mapped_column(String, nullable=False)
+    confidence_score: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    agreement_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    authority_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    specificity_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    temporal_fit_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    quality_signals_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    warnings_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    rationale: Mapped[str] = mapped_column(Text, nullable=False)
+    review_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    research_prompt: Mapped[str | None] = mapped_column(Text, nullable=True)
+    recommended_next_action: Mapped[str] = mapped_column(Text, nullable=False)
+    source_slugs_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    source_observation_ids_json: Mapped[str] = mapped_column(Text, nullable=False, default="[]")
+    producer: Mapped[str] = mapped_column(String, nullable=False)
+    method_version: Mapped[str] = mapped_column(String, nullable=False)
+    run_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=datetime.utcnow
+    )
 
 
 class RulerScore(Base):
@@ -336,7 +438,8 @@ class ResearchQuestion(Base):
     )
 
     answers: Mapped[list[ResearchQuestionAnswer]] = relationship(
-        back_populates="question"
+        lambda: ResearchQuestionAnswer,
+        back_populates="question",
     )
 
 
@@ -387,7 +490,9 @@ class ResearchQuestionAnswer(Base):
 
     question: Mapped[ResearchQuestion] = relationship(back_populates="answers")
     evidence_links: Mapped[list[ResearchAnswerEvidenceLink]] = relationship(
-        back_populates="answer", cascade="all, delete-orphan"
+        lambda: ResearchAnswerEvidenceLink,
+        back_populates="answer",
+        cascade="all, delete-orphan",
     )
 
 
@@ -493,6 +598,7 @@ __all__ = [
     "ResearchAnswerEvidenceLink",
     "ResearchQuestion",
     "ResearchQuestionAnswer",
+    "RulerIdentityAdjudication",
     "RulerScore",
     "RulerSpell",
     "RulerYear",

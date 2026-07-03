@@ -344,12 +344,12 @@ blocked/rejected, or superseded.
 - **Why:** the URL returns 403 from Cloudflare even with a browser User-Agent. The server is reachable but Cloudflare's anti-bot blocks automated requests.
 - **Substitute decision:** the nuclear arsenal coverage from FAS is cross-validated by SIPRI Yearbook Chapter 7 (added in the second wave). NTI is not needed.
 
-### `eiu_democracy_index` — staged candidate, not yet ingested
+### `eiu_democracy_index` — staged candidate with local-PDF adapter
 
-- **Status:** ⚠️ staged candidate as of 2026-06-29.
-- **What is staged:** public/report PDFs for 2022, 2023, and 2024 under `data/raw/eiu_democracy_index/`.
+- **Status:** ⚠️ staged candidate with a clean local-PDF `leaders_db.sources` adapter as of 2026-06-29.
+- **What is staged:** public/report PDFs for 2006, 2008, 2010-2019, and 2021-2024 under `data/raw/eiu_democracy_index/`.
 - **Potential use:** recent political-freedom/democracy evidence: overall Democracy Index score, rank, rank change, the five category sub-scores, and EIU regime type.
-- **Caveat:** EIU reports are copyrighted; raw PDFs must not be redistributed. License/terms and adapter parsing need vetting before ingestion. The 2021/2020 official `pages.eiu.com` PDF URLs were discoverable but DNS-unreachable in this environment; the 2025 campaign page was reachable but did not expose a direct full country appendix download without the form.
+- **Caveat:** EIU reports are copyrighted; raw PDFs must not be redistributed. License/terms still need source-vetting before public use. The local adapter is conservative and preserves raw PDF/page/row provenance; PDF text extraction can miss wrapped rows or regime labels. EIU did not publish annual updates for 2007 or 2009. The 2020 PDF was located but not downloadable here (FUNDESA mirror returned HTTP 403; official `pages.eiu.com` did not resolve); the 2025 campaign page was reachable but did not expose a direct full country appendix download without the form.
 - **Attribution text if used in reports:** "Economist Intelligence Unit Democracy Index (The Economist Intelligence Unit, report year {year})."
 
 ### `icc_cases` — staged candidate, not yet ingested

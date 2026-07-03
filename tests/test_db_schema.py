@@ -8,6 +8,8 @@ expected columns exist, and the runner is idempotent.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from sqlalchemy import create_engine, inspect, text
 
 from leaders_db.db.engine import init_database
@@ -36,6 +38,8 @@ def test_init_database_creates_all_tables(database_url: str) -> None:
         "research_question_answers",
         "research_answer_evidence_links",
         "chapter_scores",
+        "ruler_identity_adjudications",
+        "country_year_facts",
         # Internal to the migration runner.
         "schema_migrations",
     }
@@ -48,8 +52,14 @@ def test_init_database_is_idempotent(database_url: str) -> None:
 
     engine = create_engine(database_url)
     with engine.connect() as conn:
-        rows = conn.execute(text("SELECT COUNT(*) FROM schema_migrations")).scalar_one()
-    assert rows == 3
+        rows = conn.execute(text("SELECT filename FROM schema_migrations")).scalars().all()
+    expected_migrations = {
+        path.name
+        for path in (Path(__file__).parents[1] / "src/leaders_db/db/migrations").glob(
+            "[0-9][0-9][0-9][0-9]_*.sql"
+        )
+    }
+    assert set(rows) == expected_migrations
 
 
 def test_required_columns_present(database_url: str) -> None:
@@ -74,6 +84,41 @@ def test_required_columns_present(database_url: str) -> None:
         "score_delta_vs_client",
         "confidence_score",
     }.issubset(ruler_scores_cols)
+
+    adjudication_cols = {c["name"] for c in inspector.get_columns("ruler_identity_adjudications")}
+    assert {
+        "country_year_id",
+        "selected_ruler_year_id",
+        "candidate_ruler_year_ids_json",
+        "candidates_json",
+        "classification",
+        "selection_rule",
+        "review_status",
+        "research_prompt",
+        "source_slugs_json",
+        "source_observation_ids_json",
+    }.issubset(adjudication_cols)
+
+    fact_cols = {c["name"] for c in inspector.get_columns("country_year_facts")}
+    assert {
+        "country_year_id",
+        "field_key",
+        "value_type",
+        "selected_value_text",
+        "selected_entity_table",
+        "selected_entity_id",
+        "candidate_values_json",
+        "selection_rule",
+        "adjudication_status",
+        "confidence_score",
+        "agreement_score",
+        "authority_score",
+        "specificity_score",
+        "temporal_fit_score",
+        "quality_signals_json",
+        "research_prompt",
+        "producer",
+    }.issubset(fact_cols)
 
 
 def test_ruler_year_uniqueness_constraint(database_url: str) -> None:

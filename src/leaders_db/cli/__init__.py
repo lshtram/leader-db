@@ -25,6 +25,18 @@ from __future__ import annotations
 from ._app import app, main_callback
 from .commands_chronicle import run_country_year_chronicle_cmd
 from .commands_evidence import evidence_app, evidence_summarize_ruler_period_cmd
+from .commands_identity import (
+    identity_adjudication_coverage_cmd,
+    identity_app,
+    identity_build_adjudications_cmd,
+    identity_build_ruler_years_cmd,
+    identity_ruler_coverage_cmd,
+)
+from .commands_scope import (
+    scope_app,
+    scope_build_country_years_cmd,
+    scope_country_year_coverage_cmd,
+)
 from .commands_scoring_category import _run_score_category_all_countries
 from .commands_scoring_other import compute_confidence, score_all
 
@@ -71,6 +83,11 @@ __all__ = [
     "evidence_app",
     "evidence_summarize_ruler_period_cmd",
     "extract_indicators",
+    "identity_adjudication_coverage_cmd",
+    "identity_app",
+    "identity_build_adjudications_cmd",
+    "identity_build_ruler_years_cmd",
+    "identity_ruler_coverage_cmd",
     "ingest_client_matrix",
     "ingest_source",
     "init_data_lake",
@@ -80,6 +97,9 @@ __all__ = [
     "resolve_leaders",
     "run_country_year_chronicle_cmd",
     "run_vertical_slice_2023",
+    "scope_app",
+    "scope_build_country_years_cmd",
+    "scope_country_year_coverage_cmd",
     "score_all",
     "sources_app",
     "sources_check_ready_cmd",

@@ -13,6 +13,25 @@ import re
 import unicodedata
 
 _DROP_PATTERN = re.compile(r"[^a-z0-9\s]")
+_PARENTHETICAL_PATTERN = re.compile(r"\([^)]*\)")
+_LEADING_TITLES = {
+    "acting",
+    "chairman",
+    "chancellor",
+    "deputy",
+    "dr",
+    "general",
+    "hon",
+    "king",
+    "minister",
+    "president",
+    "prime",
+    "prof",
+    "queen",
+    "sir",
+    "state",
+}
+_TRAILING_SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
 
 
 def normalize_leader_name(value: str) -> str:
@@ -23,12 +42,17 @@ def normalize_leader_name(value: str) -> str:
     """
     if value is None:
         raise ValueError("leader name is None")
-    text = unicodedata.normalize("NFKD", str(value))
+    text = _PARENTHETICAL_PATTERN.sub(" ", str(value))
+    text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
     text = text.lower()
     text = _DROP_PATTERN.sub(" ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
+    tokens = re.sub(r"\s+", " ", text).strip().split()
+    while tokens and tokens[0] in _LEADING_TITLES:
+        tokens.pop(0)
+    while tokens and tokens[-1] in _TRAILING_SUFFIXES:
+        tokens.pop()
+    return " ".join(tokens)
 
 
 def name_match_key(value: str) -> str:

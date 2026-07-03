@@ -8,8 +8,10 @@ from pathlib import Path
 from typing import cast
 
 import typer
+from sqlalchemy.engine import Engine
 from sqlalchemy.exc import SQLAlchemyError
 
+from ..db.readiness import DatabaseReadinessError
 from ..sources import (
     CachePolicy,
     EvidenceQuery,
@@ -21,6 +23,7 @@ from ..sources import (
     SourceIngestRequest,
     SourceIngestResult,
     SourceIngestRunner,
+    SourceRegistry,
     SourceWarning,
     build_default_source_registry,
 )
@@ -205,6 +208,11 @@ def sources_ingest_cmd(
     raw_root: Path = typer.Option(Path("data/raw"), "--raw-root"),
     processed_root: Path = typer.Option(Path("data/processed"), "--processed-root"),
     metadata_root: Path = typer.Option(Path("data/metadata"), "--metadata-root"),
+    db_url: str | None = typer.Option(
+        None,
+        "--db-url",
+        help="SQLAlchemy database URL for persisted normalized observations.",
+    ),
     cache_policy: str = typer.Option(
         "prefer_cache",
         "--cache-policy",
@@ -238,6 +246,12 @@ def sources_ingest_cmd(
 
     registry = build_default_source_registry()
     source_id = SourceId(slug=source)
+    try:
+        registry.get_descriptor(source_id)
+    except KeyError as exc:
+        raise typer.BadParameter(
+            f"unknown source {source!r}; run `leaders-db sources list` for valid IDs"
+        ) from exc
     request = SourceIngestRequest(
         source_id=source_id,
         years=tuple(years) if years else None,
@@ -246,6 +260,7 @@ def sources_ingest_cmd(
         raw_root=raw_root,
         processed_root=processed_root,
         metadata_root=metadata_root,
+        db_url=db_url,
         dry_run=dry_run,
         overwrite=overwrite,
         cache_policy=cast(CachePolicy, cache_policy),
@@ -253,7 +268,10 @@ def sources_ingest_cmd(
     )
 
     try:
-        result = SourceIngestRunner(registry).run(request)
+        result = _build_source_ingest_runner(registry, db_url, dry_run=dry_run).run(request)
+    except DatabaseReadinessError as exc:
+        _echo_ingest_failure(source, str(exc), output=output)
+        raise typer.Exit(1) from exc
     except KeyError as exc:
         raise typer.BadParameter(
             f"unknown source {source!r}; run `leaders-db sources list` for valid IDs"
@@ -278,6 +296,85 @@ def sources_ingest_cmd(
 
     if not result.validation.valid:
         raise typer.Exit(1)
+
+
+@sources_app.command("coverage")
+def sources_coverage_cmd(
+    db_url: str | None = typer.Option(
+        None,
+        "--db-url",
+        help="SQLAlchemy database URL for persisted normalized observations.",
+    ),
+    include_registry: bool = typer.Option(
+        True,
+        "--include-registry/--db-only",
+        help="Include registered zero-row and user-managed sources in status output.",
+    ),
+    output: str = typer.Option(
+        "table",
+        "--output",
+        "-o",
+        help="Output format: table or json.",
+    ),
+) -> None:
+    """Report DB-backed source coverage for normalized observations."""
+    if output not in {"table", "json"}:
+        raise typer.BadParameter("--output must be 'table' or 'json'")
+
+    try:
+        engine = _build_ready_evidence_engine(db_url)
+        registry = build_default_source_registry() if include_registry else None
+        from ..sources.coverage import build_source_coverage_report, coverage_report_to_json
+
+        report = build_source_coverage_report(engine, registry=registry)
+    except DatabaseReadinessError as exc:
+        if output == "json":
+            typer.echo(json.dumps({"error": str(exc)}, sort_keys=True))
+        else:
+            typer.echo(f"error: {exc}")
+        raise typer.Exit(1) from exc
+    except SQLAlchemyError as exc:
+        message = "could not build source coverage report from normalized observations"
+        if output == "json":
+            typer.echo(json.dumps({"error": message, "detail": str(exc)}, sort_keys=True))
+        else:
+            typer.echo(f"error: {message}: {exc}")
+        raise typer.Exit(1) from exc
+
+    if output == "json":
+        typer.echo(json.dumps(coverage_report_to_json(report), indent=2, sort_keys=True))
+        return
+
+    if report.rows:
+        typer.echo(
+            "source_id\tfamily\tindicator\trow_count\tmin_year\tmax_year\t"
+            "country_count\tmissing_raw_locator_count"
+        )
+        for row in report.rows:
+            typer.echo(
+                "\t".join(
+                    (
+                        row.source_slug,
+                        row.observation_family,
+                        row.indicator_code,
+                        str(row.row_count),
+                        str(row.min_year) if row.min_year is not None else "-",
+                        str(row.max_year) if row.max_year is not None else "-",
+                        str(row.country_count),
+                        str(row.missing_raw_locator_count),
+                    )
+                )
+            )
+    else:
+        typer.echo("no normalized observations loaded")
+
+    typer.echo("source_statuses:")
+    for status in report.source_statuses:
+        typer.echo(
+            f"  - {status.source_slug}\t{status.status}\t"
+            f"row_count={status.row_count}\t"
+            f"requires_manual_approval={status.requires_manual_approval}"
+        )
 
 
 @sources_app.command("query")
@@ -336,10 +433,15 @@ def sources_query_cmd(
         countries=tuple(countries) if countries else None,
         leaders=tuple(leaders) if leaders else None,
     )
-    repository = _build_evidence_repository(db_url)
-
     try:
+        repository = _build_evidence_repository(db_url)
         observations = tuple(repository.query_observations(query))
+    except DatabaseReadinessError as exc:
+        if output == "json":
+            typer.echo(json.dumps({"error": str(exc)}, sort_keys=True))
+        else:
+            typer.echo(f"error: {exc}")
+        raise typer.Exit(1) from exc
     except SQLAlchemyError as exc:
         message = (
             "could not query normalized observations; ensure the database is "
@@ -387,11 +489,34 @@ def _descriptor_payload(descriptor: SourceDescriptor) -> dict[str, object]:
 
 def _build_evidence_repository(db_url: str | None) -> EvidenceRepository:
     """Build the persisted clean-source query repository for CLI use."""
-    from ..db.engine import build_engine
-    from ..db.session import default_sqlite_url
     from ..research.sql_repository import SqlEvidenceRepository
 
-    return SqlEvidenceRepository(build_engine(db_url or default_sqlite_url()))
+    engine = _build_ready_evidence_engine(db_url)
+    return SqlEvidenceRepository(engine)
+
+
+def _build_ready_evidence_engine(db_url: str | None) -> Engine:
+    """Build an engine and assert the normalized-observation table exists."""
+    from ..db.engine import build_engine
+    from ..db.readiness import EVIDENCE_TABLES, assert_database_ready
+    from ..db.session import default_sqlite_url
+
+    engine = build_engine(db_url or default_sqlite_url())
+    assert_database_ready(engine, required_tables=EVIDENCE_TABLES)
+    return engine
+
+
+def _build_source_ingest_runner(
+    registry: SourceRegistry,
+    db_url: str | None,
+    *,
+    dry_run: bool,
+) -> SourceIngestRunner:
+    """Build the source runner; non-dry CLI ingest persists to the evidence DB."""
+
+    if dry_run:
+        return SourceIngestRunner(registry)
+    return SourceIngestRunner(registry, engine=_build_ready_evidence_engine(db_url))
 
 
 def _observation_payload(observation: NormalizedObservation) -> dict[str, object]:
@@ -504,6 +629,7 @@ def _echo_findings(label: str, warnings: tuple[SourceWarning, ...]) -> None:
 __all__ = [
     "sources_app",
     "sources_check_ready_cmd",
+    "sources_coverage_cmd",
     "sources_describe_cmd",
     "sources_ingest_cmd",
     "sources_list_cmd",

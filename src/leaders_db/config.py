@@ -38,6 +38,13 @@ class DatabaseConfig(BaseModel):
     echo_sql: bool = False
 
 
+class ScopeConfig(BaseModel):
+    """Country-year scope defaults for grid-building runs."""
+
+    start_year: int = Field(default=1900, ge=1900, le=2100)
+    end_year: int = Field(default=2023, ge=1900, le=2100)
+
+
 class SourcesConfig(BaseModel):
     """Selection of priority sources to use for a run.
 
@@ -110,6 +117,7 @@ class RunConfig(BaseModel):
 
     project: ProjectConfig = Field(default_factory=ProjectConfig)
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
+    scope: ScopeConfig = Field(default_factory=ScopeConfig)
     sources: SourcesConfig = Field(default_factory=SourcesConfig)
     scoring: ScoringConfig = Field(default_factory=ScoringConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)

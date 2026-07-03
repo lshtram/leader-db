@@ -6,6 +6,7 @@ import json
 from collections.abc import Iterable
 from typing import Any
 
+import pytest
 from typer.testing import CliRunner
 
 from leaders_db.cli import app
@@ -25,6 +26,48 @@ from leaders_db.sources import (
 )
 
 runner = CliRunner()
+
+
+@pytest.fixture(autouse=True)
+def _refresh_cli_and_source_contracts_after_import_boundary_tests() -> None:
+    """Keep CLI tests isolated from source-boundary sys.modules purges.
+
+    Several source import-boundary tests intentionally delete and re-import
+    ``leaders_db`` / ``leaders_db.sources`` modules. When pytest collects this
+    file before those tests run, the module-level ``app`` and source contract
+    classes below can otherwise point at stale module objects while later
+    monkeypatches target the re-imported modules. Refreshing these globals before
+    each test preserves the same runtime CLI path while making test order
+    irrelevant.
+    """
+
+    from leaders_db import cli as current_cli
+    from leaders_db import sources as current_sources
+    from leaders_db.cli import commands_sources as current_commands_sources
+
+    current_contracts = {
+        "CoverageHint": current_sources.CoverageHint,
+        "EvidenceQuery": current_sources.EvidenceQuery,
+        "InMemorySourceRegistry": current_sources.InMemorySourceRegistry,
+        "NormalizedObservation": current_sources.NormalizedObservation,
+        "RawLocator": current_sources.RawLocator,
+        "RawReadResult": current_sources.RawReadResult,
+        "ReadinessResult": current_sources.ReadinessResult,
+        "SourceDescriptor": current_sources.SourceDescriptor,
+        "SourceId": current_sources.SourceId,
+        "SourceIngestRequest": current_sources.SourceIngestRequest,
+        "SourceWarning": current_sources.SourceWarning,
+        "TransformLocator": current_sources.TransformLocator,
+    }
+    globals().update({"app": current_cli.app, **current_contracts})
+    current_commands_sources.__dict__.update(current_contracts)
+
+    for group_info in current_cli.app.registered_groups:
+        if group_info.name != "sources":
+            continue
+        for command_info in group_info.typer_instance.registered_commands:
+            if command_info.callback is not None:
+                command_info.callback.__globals__.update(current_contracts)
 
 
 class _ExplodingStage2Dispatch:
@@ -404,7 +447,13 @@ def test_sources_ingest_success_uses_clean_runner_path(monkeypatch, tmp_path) ->
     assert request.output_formats == ("csv",)
 
 
-def test_sources_ingest_not_ready_fails_before_reading_raw(monkeypatch) -> None:
+def test_sources_ingest_not_ready_fails_before_reading_raw(
+    monkeypatch,
+    database_url: str,
+) -> None:
+    from leaders_db.db.engine import init_database
+
+    init_database(database_url)
     adapter = _ReadinessAdapter(
         ReadinessResult(
             ready=False,
@@ -413,7 +462,7 @@ def test_sources_ingest_not_ready_fails_before_reading_raw(monkeypatch) -> None:
     )
     _patch_registry(monkeypatch, adapter)
 
-    result = runner.invoke(app, ["sources", "ingest", "fake_source"])
+    result = runner.invoke(app, ["sources", "ingest", "fake_source", "--output-format", "csv"])
 
     assert result.exit_code == 1
     assert "ready: False" in result.stdout
@@ -432,17 +481,53 @@ def test_sources_ingest_unknown_source_fails_clearly() -> None:
     assert "sources list" in combined
 
 
-def test_sources_ingest_uses_clean_registry_not_legacy_stage2_dispatch(monkeypatch) -> None:
+def test_sources_ingest_uses_clean_registry_not_legacy_stage2_dispatch(
+    monkeypatch,
+    database_url: str,
+) -> None:
     from leaders_db import ingest as legacy_ingest
+    from leaders_db.db.engine import init_database
 
+    init_database(database_url)
     adapter = _IngestAdapter(ReadinessResult(ready=True))
     _patch_registry(monkeypatch, adapter)
     monkeypatch.setattr(legacy_ingest, "STAGE2_ADAPTERS", _ExplodingStage2Dispatch())
 
-    result = runner.invoke(app, ["sources", "ingest", "fake_source"])
+    result = runner.invoke(
+        app,
+        ["sources", "ingest", "fake_source", "--output-format", "csv"],
+    )
 
     assert result.exit_code == 0, result.stdout
     assert adapter.requests
+
+
+def test_sources_ingest_persists_to_default_db_idempotently(
+    monkeypatch,
+    database_url: str,
+) -> None:
+    from sqlalchemy import text
+
+    from leaders_db.db.engine import build_engine, init_database
+
+    init_database(database_url)
+    adapter = _IngestAdapter(ReadinessResult(ready=True))
+    _patch_registry(monkeypatch, adapter)
+
+    first = runner.invoke(app, ["sources", "ingest", "fake_source", "--output-format", "csv"])
+    second = runner.invoke(app, ["sources", "ingest", "fake_source", "--output-format", "csv"])
+
+    assert first.exit_code == 0, first.stdout
+    assert second.exit_code == 0, second.stdout
+    assert "manifest_run_id: fake_source-" in first.stdout
+    engine = build_engine(database_url)
+    with engine.connect() as conn:
+        row_count = conn.execute(text("SELECT COUNT(*) FROM normalized_observations")).scalar_one()
+        raw_locator = conn.execute(
+            text("SELECT raw_locator_json FROM normalized_observations")
+        ).scalar_one()
+    assert row_count == 1
+    assert "fake-raw" in raw_locator
 
 
 def test_sources_ingest_json_output(monkeypatch) -> None:
@@ -454,7 +539,10 @@ def test_sources_ingest_json_output(monkeypatch) -> None:
     )
     _patch_registry(monkeypatch, adapter)
 
-    result = runner.invoke(app, ["sources", "ingest", "fake_source", "--output", "json"])
+    result = runner.invoke(
+        app,
+        ["sources", "ingest", "fake_source", "--dry-run", "--output", "json"],
+    )
 
     assert result.exit_code == 0, result.stdout
     payload = json.loads(result.stdout)
@@ -464,6 +552,21 @@ def test_sources_ingest_json_output(monkeypatch) -> None:
     assert payload["observation_count"] == 1
     assert payload["manifest_run_id"] is None
     assert payload["warnings"][0]["code"] == "OPTIONAL"
+
+
+def test_sources_ingest_missing_default_db_fails_with_readiness_message(
+    monkeypatch,
+    isolated_data_lake,
+) -> None:
+    adapter = _IngestAdapter(ReadinessResult(ready=True))
+    _patch_registry(monkeypatch, adapter)
+
+    result = runner.invoke(app, ["sources", "ingest", "fake_source", "--output-format", "csv"])
+
+    assert result.exit_code == 1, result.stdout
+    assert "The local evidence database is not initialized" in result.stdout
+    assert "leaders-db init-db" in result.stdout
+    assert adapter.read_raw_called is False
 
 
 def test_sources_query_returns_filtered_observations_from_clean_repository(monkeypatch) -> None:
@@ -496,6 +599,17 @@ def test_sources_query_returns_filtered_observations_from_clean_repository(monke
         in result.stdout
     )
     assert repository.queries == [EvidenceQuery()]
+
+
+def test_sources_query_missing_default_db_fails_with_readiness_message(
+    isolated_data_lake,
+) -> None:
+    result = runner.invoke(app, ["sources", "query"])
+
+    assert result.exit_code == 1, result.stdout
+    assert "The local evidence database is not initialized" in result.stdout
+    assert "leaders-db init-db" in result.stdout
+    assert "no such table" not in result.stdout.lower()
 
 
 def test_sources_query_maps_filters_to_evidence_query(monkeypatch) -> None:
@@ -584,6 +698,111 @@ def test_sources_query_empty_results_exit_zero_with_clear_output(monkeypatch) ->
     assert table_result.stdout.strip() == "no observations matched"
     assert json_result.exit_code == 0, json_result.stdout
     assert json.loads(json_result.stdout) == []
+
+
+def test_sources_coverage_reports_db_group_counts_and_statuses(
+    monkeypatch,
+    database_url: str,
+) -> None:
+    from leaders_db.cli import commands_sources
+    from leaders_db.db.engine import build_engine, init_database
+    from leaders_db.research.sql_repository import write_observations
+
+    init_database(database_url)
+    engine = build_engine(database_url)
+    write_observations(
+        engine,
+        (
+            _query_observation(observation_id="obs-1", year=2020, country_code="ISR"),
+            _query_observation(observation_id="obs-2", year=2023, country_code="USA"),
+            _query_observation(
+                source_slug="other_source",
+                observation_id="obs-3",
+                family="other_family",
+                indicator="other_indicator",
+                year=None,
+                country_code=None,
+                country_name="Atlantis",
+            ),
+        ),
+    )
+    adapter = _IngestAdapter(ReadinessResult(ready=True))
+    manual_adapter = _ReadinessAdapter(ReadinessResult(ready=False))
+    manual_adapter.descriptor = SourceDescriptor(
+        source_id=SourceId("manual_source"),
+        display_name="Manual Source",
+        source_type="manual",
+        supported_observation_families=("manual",),
+        default_version=None,
+        homepage_url=None,
+        attribution_key="manual_source",
+        coverage_hint=adapter.descriptor.coverage_hint,
+        requires_manual_approval=True,
+    )
+    registry = InMemorySourceRegistry()
+    registry.register(adapter)
+    registry.register(manual_adapter)
+    monkeypatch.setattr(commands_sources, "build_default_source_registry", lambda: registry)
+
+    result = runner.invoke(app, ["sources", "coverage", "--output", "json"])
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["rows"] == [
+        {
+            "country_count": 2,
+            "indicator_code": "fixture_indicator",
+            "max_year": 2023,
+            "min_year": 2020,
+            "missing_raw_locator_count": 0,
+            "observation_family": "fixture",
+            "row_count": 2,
+            "source_slug": "fake_source",
+        },
+        {
+            "country_count": 1,
+            "indicator_code": "other_indicator",
+            "max_year": None,
+            "min_year": None,
+            "missing_raw_locator_count": 0,
+            "observation_family": "other_family",
+            "row_count": 1,
+            "source_slug": "other_source",
+        },
+    ]
+    statuses = {item["source_slug"]: item for item in payload["source_statuses"]}
+    assert statuses["fake_source"]["status"] == "loaded"
+    assert statuses["other_source"]["status"] == "loaded"
+    assert statuses["manual_source"]["status"] == "blocked_user_managed"
+
+
+def test_sources_coverage_table_output_is_deterministic(database_url: str) -> None:
+    from leaders_db.db.engine import build_engine, init_database
+    from leaders_db.research.sql_repository import write_observations
+
+    init_database(database_url)
+    write_observations(build_engine(database_url), (_query_observation(),))
+
+    result = runner.invoke(app, ["sources", "coverage", "--db-only"])
+
+    assert result.exit_code == 0, result.stdout
+    assert (
+        "source_id\tfamily\tindicator\trow_count\tmin_year\tmax_year\t"
+        "country_count\tmissing_raw_locator_count"
+    ) in result.stdout
+    assert "fake_source\tfixture\tfixture_indicator\t1\t2023\t2023\t1\t0" in result.stdout
+    assert "source_statuses:\n  - fake_source\tloaded\trow_count=1" in result.stdout
+
+
+def test_sources_coverage_missing_default_db_fails_with_readiness_message(
+    isolated_data_lake,
+) -> None:
+    result = runner.invoke(app, ["sources", "coverage"])
+
+    assert result.exit_code == 1, result.stdout
+    assert "The local evidence database is not initialized" in result.stdout
+    assert "leaders-db init-db" in result.stdout
+    assert "no such table" not in result.stdout.lower()
 
 
 def test_sources_query_uses_clean_repository_not_legacy_stage2_dispatch(monkeypatch) -> None:
