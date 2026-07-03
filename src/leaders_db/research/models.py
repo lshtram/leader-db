@@ -19,6 +19,26 @@ EvidenceShape: TypeAlias = Literal[
     "evidence_bundle",
 ]
 AcquisitionPolicy: TypeAlias = Literal["none", "plan_only", "run_approved_tasks"]
+QuestionAnswerLevel: TypeAlias = Literal["country_year", "ruler_year", "ruler_period"]
+QuestionAnswerType: TypeAlias = Literal[
+    "boolean",
+    "numeric",
+    "categorical",
+    "text",
+    "evidence_bundle",
+]
+QuestionEvidenceStrategy: TypeAlias = Literal[
+    "structured",
+    "structured_plus_context",
+    "internet_manual",
+    "not_yet_supported",
+]
+QuestionSupportStatus: TypeAlias = Literal[
+    "structured",
+    "structured_plus_context",
+    "internet_manual",
+    "not_yet_supported",
+]
 AcquiredEvidenceValueType: TypeAlias = Literal[
     "boolean", "numeric", "categorical", "text", "missing"
 ]
@@ -87,14 +107,20 @@ class ScopeFilter(_StrictModel):
 class QuestionSpec(_StrictModel):
     """Curated executable question contract."""
 
+    methodology_id: str
     question_code: str
     question_key: str
     text: str
     category: str
+    answer_level: QuestionAnswerLevel
+    answer_type: QuestionAnswerType
+    evidence_strategy: QuestionEvidenceStrategy
+    support_status: QuestionSupportStatus
     expected_scope_keys: tuple[str, ...]
     concept_keys: tuple[str, ...]
     default_analyses: tuple[str, ...]
     acquisition_policy: AcquisitionPolicy
+    output_fields: tuple[str, ...] = ()
 
 
 class ConceptSpec(_StrictModel):

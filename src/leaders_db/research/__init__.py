@@ -9,6 +9,7 @@ from .planner import (
     question_from_classification,
     validate_question_classification,
 )
+from .registry import get_question_spec_by_methodology_id, list_question_specs
 from .runner import run_research_question
 
 __all__ = [
@@ -16,6 +17,8 @@ __all__ = [
     "acquired_evidence_to_observation",
     "build_analytical_dataset",
     "expand_scope_filter",
+    "get_question_spec_by_methodology_id",
+    "list_question_specs",
     "plan_question",
     "question_from_classification",
     "run_research_question",

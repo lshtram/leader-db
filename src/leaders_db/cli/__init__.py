@@ -25,6 +25,7 @@ from __future__ import annotations
 from ._app import app, main_callback
 from .commands_chronicle import run_country_year_chronicle_cmd
 from .commands_evidence import evidence_app, evidence_summarize_ruler_period_cmd
+from .commands_facts import facts_app, facts_publish_concepts_cmd
 from .commands_identity import (
     identity_adjudication_coverage_cmd,
     identity_app,
@@ -83,6 +84,8 @@ __all__ = [
     "evidence_app",
     "evidence_summarize_ruler_period_cmd",
     "extract_indicators",
+    "facts_app",
+    "facts_publish_concepts_cmd",
     "identity_adjudication_coverage_cmd",
     "identity_app",
     "identity_build_adjudications_cmd",
