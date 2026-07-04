@@ -32,6 +32,15 @@ CONCEPT_SPECS: dict[str, ConceptSpec] = {
         allowed_source_types=("official_record", "reputable_news"),
         acquisition_allowed=True,
     ),
+    "ruler_effectiveness_qualitative_evidence": ConceptSpec(
+        concept_key="ruler_effectiveness_qualitative_evidence",
+        expected_scope_keys=("country", "leader", "period"),
+        evidence_shape="qualitative_cited",
+        observation_families=("ruler_period_effectiveness",),
+        required_output_schema="RulerEffectivenessEvidenceRecord",
+        allowed_source_types=("official_record", "reputable_news", "scholarly_source"),
+        acquisition_allowed=True,
+    ),
 }
 
 QUESTION_SPECS: dict[str, QuestionSpec] = {
@@ -88,6 +97,208 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         concept_keys=("leader_open_criminal_or_corruption_case",),
         default_analyses=("coverage", "human_review_queue"),
         acquisition_policy="plan_only",
+    ),
+    "ruler_effectiveness_program": QuestionSpec(
+        methodology_id="8B.1",
+        question_code="effectiveness/program",
+        question_key="ruler_effectiveness_program",
+        text=(
+            "Does the ruler articulate a clear governing ideology, strategic direction, "
+            "or program, including explicit or revealed goals for power, policy, or "
+            "regime control, that can be evaluated against later action?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_priorities": QuestionSpec(
+        methodology_id="8B.2",
+        question_code="effectiveness/priorities",
+        question_key="ruler_effectiveness_priorities",
+        text=(
+            "Does the ruler translate that program into concrete priorities, plans, "
+            "budgets, appointments, timelines, institutions, and enforcement mechanisms?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_mobilization": QuestionSpec(
+        methodology_id="8B.3",
+        question_code="effectiveness/mobilization",
+        question_key="ruler_effectiveness_mobilization",
+        text=(
+            "Does the ruler mobilize the state apparatus, party, military, bureaucracy, "
+            "coalition, or ruling network effectively toward the chosen program and the "
+            "ruler's own goals?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_appointments": QuestionSpec(
+        methodology_id="8B.4",
+        question_code="effectiveness/appointments",
+        question_key="ruler_effectiveness_appointments",
+        text=(
+            "Does the ruler select and empower people who are capable of executing the "
+            "program, whether professionals, loyal operators, technocrats, organizers, "
+            "security officials, or coercive administrators?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_coordination": QuestionSpec(
+        methodology_id="8B.5",
+        question_code="effectiveness/coordination",
+        question_key="ruler_effectiveness_coordination",
+        text=(
+            "Does the ruler maintain internal discipline, coordination, control, and "
+            "follow-through across ministries, regions, territory, institutions, "
+            "security forces, party structures, and implementing agencies?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_implementation": QuestionSpec(
+        methodology_id="8B.6",
+        question_code="effectiveness/implementation",
+        question_key="ruler_effectiveness_implementation",
+        text=(
+            "Does the ruler convert declarations into observable implementation and "
+            "state reach rather than leaving goals as slogans, speeches, symbolic "
+            "gestures, or propaganda only?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_outcomes": QuestionSpec(
+        methodology_id="8B.7",
+        question_code="effectiveness/outcomes",
+        question_key="ruler_effectiveness_outcomes",
+        text=(
+            "Do outcome indicators move in the direction the ruler claimed or revealed "
+            "they sought, after allowing for realistic lags, inherited conditions, and "
+            "external constraints?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_adaptation": QuestionSpec(
+        methodology_id="8B.8",
+        question_code="effectiveness/adaptation",
+        question_key="ruler_effectiveness_adaptation",
+        text=(
+            "When tactics fail, does the ruler adapt methods, replace ineffective "
+            "implementers, reallocate resources, or otherwise correct course to keep "
+            "advancing the program and maintaining effective control?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_crisis_management": QuestionSpec(
+        methodology_id="8B.9",
+        question_code="effectiveness/crisis_management",
+        question_key="ruler_effectiveness_crisis_management",
+        text=(
+            "Does the ruler manage crises, opposition, international relationships, "
+            "and institutional resistance in a way that preserves or advances the "
+            "regime's chosen objectives, durability, and influence, regardless of "
+            "whether those objectives are morally good?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
+    ),
+    "ruler_effectiveness_period_end": QuestionSpec(
+        methodology_id="8B.10",
+        question_code="effectiveness/period_end",
+        question_key="ruler_effectiveness_period_end",
+        text=(
+            "By the end of the relevant period, is the ruler closer to achieving the "
+            "stated or revealed ideological, policy, power-consolidation, or "
+            "international-influence program than at the start, accounting for "
+            "short-term wins, long-term durability, inherited conditions, and external "
+            "shocks?"
+        ),
+        category="effectiveness",
+        answer_level="ruler_period",
+        answer_type="evidence_bundle",
+        evidence_strategy="internet_manual",
+        support_status="internet_manual",
+        expected_scope_keys=("country", "leader", "period"),
+        concept_keys=("ruler_effectiveness_qualitative_evidence",),
+        default_analyses=("coverage", "human_review_queue"),
+        acquisition_policy="plan_only",
+        output_fields=("answer", "confidence", "citations", "warning_codes"),
     ),
 }
 

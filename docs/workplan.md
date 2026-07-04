@@ -393,9 +393,29 @@ I6 now has a runnable concept-fact publishing path for the first economic concep
 (`population`, `gdp_per_capita`, `gdp_total`) into `country_year_facts`, and I7
 has the first structured methodology-question registry entry for Q2.1 with answer
 level/type, evidence strategy, support status, output fields, and stable lookup by
-methodology id. The next infrastructure gaps are broader question-registry coverage
-for sections 1-8 / 1B-8B, handler/spec coverage for additional executable
-questions, and structured/internet-research strategy dispatch.
+methodology id. D10 social-development facts are now partly supported through the
+same generic publisher for UNDP HDI/life expectancy/GNI/schooling and WHO GHO
+under-5 mortality/immunization concepts. D11 political-freedom facts are partly
+supported for the 1950-2025 working period through V-Dem democracy/liberty/rule
+concepts and RSF press-freedom concepts; Freedom House/EIU/BTI publication is
+blocked on ISO3 mapping cleanup. D12 domestic-safety facts are partly supported
+through V-Dem physical-integrity, liberty, civil-society repression, and political
+killings concepts; UCDP one-sided violence, CIRIGHTS, and PTS publication are
+blocked on country-code mapping cleanup. D13/D14 are blocked for the same reason:
+UCDP conflict and SIPRI Milex observations exist but are not yet keyed to ISO3 in
+the normalized table. D15/D16 are partly supported for the 1950-2025 working
+period through V-Dem corruption and governance-capacity concepts. The next
+infrastructure gaps are country-code mapping cleanup for blocked structured
+sources. D17 is partly supported through FAS 2014 nuclear arsenal-count facts
+for 9 nuclear states, using the generic concept publisher with conservative
+country-name fallback to the existing country table/alias seed; doctrine,
+treaties, modernization, and nuclear-threat rhetoric remain future/manual/web
+work. D23 registry coverage now includes Q2.1 plus 8B.1-8B.10 effectiveness
+questions as explicit registry specs with text-sync tests; these are registry-only
+manual/internet evidence specs and do not yet populate D25-D27 answer/evidence
+tables. The next infrastructure gaps are broader question-registry coverage for
+sections 1-8 / 1B-7B, handler/spec coverage for additional executable questions,
+and structured/internet-research strategy dispatch.
 
 **Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration + CTBTO Treaty Status clean migration + World Bank PIP clean migration + EIU Democracy Index local-PDF adapter: 37 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, `iaea_safeguards`, `ctbto_treaty_status`, `world_bank_poverty_inequality_platform`, and `eiu_democracy_index` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 42 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 

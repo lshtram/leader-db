@@ -7,7 +7,6 @@ import json
 import typer
 from sqlalchemy.exc import SQLAlchemyError
 
-from leaders_db.db.readiness import DatabaseReadinessError
 from leaders_db.sources.concepts import KNOWN_CONCEPT_KEYS
 
 from ._app import app
@@ -41,6 +40,16 @@ def facts_publish_concepts_cmd(
         "--run-id",
         help="Optional run identifier stored on generated fact rows.",
     ),
+    start_year: int | None = typer.Option(
+        None,
+        "--start-year",
+        help="First observation/country-year to publish. Requires --end-year.",
+    ),
+    end_year: int | None = typer.Option(
+        None,
+        "--end-year",
+        help="Last observation/country-year to publish. Requires --start-year.",
+    ),
     output_json: bool = typer.Option(False, "--json", help="Emit JSON instead of text."),
     db_url: str | None = typer.Option(
         None,
@@ -51,7 +60,11 @@ def facts_publish_concepts_cmd(
     """Publish supported concept observations into ``country_year_facts``."""
 
     from ..db.engine import build_engine
-    from ..db.readiness import EVIDENCE_TABLES, assert_database_ready
+    from ..db.readiness import (
+        EVIDENCE_TABLES,
+        DatabaseReadinessError,
+        assert_database_ready,
+    )
     from ..db.session import default_sqlite_url
     from ..facts import publish_concept_country_year_facts
     from ..research.sql_repository import SqlEvidenceRepository
@@ -60,6 +73,10 @@ def facts_publish_concepts_cmd(
     concept_keys = _parse_csv_options(concepts) or list(KNOWN_CONCEPT_KEYS)
     source_slugs = _parse_csv_options(sources)
     precedence = _parse_csv_options(source_precedence)
+    if (start_year is None) != (end_year is None):
+        raise typer.BadParameter("--start-year and --end-year must be provided together")
+    if start_year is not None and end_year is not None and start_year > end_year:
+        raise typer.BadParameter("start_year must be less than or equal to end_year")
     try:
         engine = build_engine(db_url or default_sqlite_url())
         assert_database_ready(
@@ -77,6 +94,8 @@ def facts_publish_concepts_cmd(
             SqlEvidenceRepository(engine),
             concept_keys=tuple(concept_keys),
             source_ids=tuple(SourceId(slug=slug) for slug in source_slugs) or None,
+            start_year=start_year,
+            end_year=end_year,
             run_id=run_id,
             **kwargs,
         )

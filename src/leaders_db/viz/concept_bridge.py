@@ -12,7 +12,6 @@ from leaders_db.sources.concepts import (
     CONCEPT_GDP_PER_CAPITA,
     CONCEPT_GDP_TOTAL,
     CONCEPT_POPULATION,
-    KNOWN_CONCEPT_KEYS,
     ConceptObservation,
     extract_concept_result,
 )
@@ -86,7 +85,7 @@ def concept_metric_mappings() -> tuple[ConceptMetricMapping, ...]:
 def publish_concept_metrics(
     repository: EvidenceRepository,
     *,
-    concept_keys: Sequence[str] = KNOWN_CONCEPT_KEYS,
+    concept_keys: Sequence[str] = tuple(CONCEPT_METRIC_IDS),
     source_ids: Sequence[SourceId] | None = None,
 ) -> ConceptMetricPublishResult:
     """Extract concept rows from SQL/in-memory evidence and shape viz metrics."""

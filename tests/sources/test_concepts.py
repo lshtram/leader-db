@@ -67,6 +67,44 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "gdp_per_capita",
     "population",
     "gdp_total",
+    "hdi",
+    "life_expectancy",
+    "gni_per_capita",
+    "expected_years_schooling",
+    "mean_years_schooling",
+    "under5_mortality",
+    "bcg_immunization",
+    "dtp3_immunization",
+    "hepb3_immunization",
+    "electoral_democracy",
+    "liberal_democracy",
+    "civil_liberties",
+    "suffrage",
+    "rule_of_law",
+    "freedom_expression",
+    "freedom_association",
+    "press_freedom_score",
+    "press_freedom_rank",
+    "physical_integrity",
+    "political_liberties",
+    "private_civil_liberties",
+    "civil_society_repression",
+    "extrajudicial_killings",
+    "one_sided_violence_events",
+    "one_sided_violence_fatalities",
+    "corruption_index",
+    "executive_corruption",
+    "public_corruption",
+    "accountability",
+    "judicial_constraints",
+    "legislative_constraints",
+    "multiparty_institutions",
+    "regime_type",
+    "nuclear_total_inventory",
+    "nuclear_military_stockpile",
+    "nuclear_operational_strategic",
+    "nuclear_operational_nonstrategic",
+    "nuclear_reserve_nondeployed",
 )
 
 
@@ -81,7 +119,8 @@ def _make_observation(
     indicator_code: str,
     value: Any,
     year: int,
-    country_code: str,
+    country_code: str | None,
+    country_name: str | None = None,
     source_version: str | None = "v1",
     observation_id: str | None = None,
     unit: str | None = None,
@@ -116,7 +155,7 @@ def _make_observation(
         observation_id=(
             observation_id
             if observation_id is not None
-            else f"{source_slug}:{country_code}:{year}:{indicator_code}"
+            else f"{source_slug}:{country_code or country_name}:{year}:{indicator_code}"
         ),
         observation_family="economic_country_year",
         indicator_code=indicator_code,
@@ -124,7 +163,7 @@ def _make_observation(
         value_type="numeric" if is_finite_numeric else "missing",
         year=year,
         country_code=country_code,
-        country_name=None,
+        country_name=country_name,
         leader_id=None,
         leader_name=None,
         unit=unit,
@@ -145,18 +184,50 @@ def _make_observation(
 # ---------------------------------------------------------------------------
 
 
-def test_list_concepts_exposes_three_stable_keys() -> None:
-    """``list_concepts()`` returns exactly the documented stable keys.
-
-    The first slice supports ``gdp_per_capita``, ``population``, and
-    ``gdp_total`` per SRC-CONCEPT-001. The descriptors are frozen
-    dataclasses with stable ``concept_key`` / ``display_name``
-    fields so callers can introspect them.
-    """
+def test_list_concepts_exposes_stable_keys() -> None:
+    """``list_concepts()`` returns exactly the documented stable keys."""
     from leaders_db.sources.concepts import (
+        CONCEPT_ACCOUNTABILITY,
+        CONCEPT_BCG_IMMUNIZATION,
+        CONCEPT_CIVIL_LIBERTIES,
+        CONCEPT_CIVIL_SOCIETY_REPRESSION,
+        CONCEPT_CORRUPTION_INDEX,
+        CONCEPT_DTP3_IMMUNIZATION,
+        CONCEPT_ELECTORAL_DEMOCRACY,
+        CONCEPT_EXECUTIVE_CORRUPTION,
+        CONCEPT_EXPECTED_YEARS_SCHOOLING,
+        CONCEPT_EXTRAJUDICIAL_KILLINGS,
+        CONCEPT_FREEDOM_ASSOCIATION,
+        CONCEPT_FREEDOM_EXPRESSION,
         CONCEPT_GDP_PER_CAPITA,
         CONCEPT_GDP_TOTAL,
+        CONCEPT_GNI_PER_CAPITA,
+        CONCEPT_HDI,
+        CONCEPT_HEPB3_IMMUNIZATION,
+        CONCEPT_JUDICIAL_CONSTRAINTS,
+        CONCEPT_LEGISLATIVE_CONSTRAINTS,
+        CONCEPT_LIBERAL_DEMOCRACY,
+        CONCEPT_LIFE_EXPECTANCY,
+        CONCEPT_MEAN_YEARS_SCHOOLING,
+        CONCEPT_MULTIPARTY_INSTITUTIONS,
+        CONCEPT_NUCLEAR_MILITARY_STOCKPILE,
+        CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
+        CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
+        CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+        CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+        CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
+        CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+        CONCEPT_PHYSICAL_INTEGRITY,
+        CONCEPT_POLITICAL_LIBERTIES,
         CONCEPT_POPULATION,
+        CONCEPT_PRESS_FREEDOM_RANK,
+        CONCEPT_PRESS_FREEDOM_SCORE,
+        CONCEPT_PRIVATE_CIVIL_LIBERTIES,
+        CONCEPT_PUBLIC_CORRUPTION,
+        CONCEPT_REGIME_TYPE,
+        CONCEPT_RULE_OF_LAW,
+        CONCEPT_SUFFRAGE,
+        CONCEPT_UNDER5_MORTALITY,
         KNOWN_CONCEPT_KEYS,
         list_concepts,
     )
@@ -167,6 +238,44 @@ def test_list_concepts_exposes_three_stable_keys() -> None:
         CONCEPT_GDP_PER_CAPITA,
         CONCEPT_POPULATION,
         CONCEPT_GDP_TOTAL,
+        CONCEPT_HDI,
+        CONCEPT_LIFE_EXPECTANCY,
+        CONCEPT_GNI_PER_CAPITA,
+        CONCEPT_EXPECTED_YEARS_SCHOOLING,
+        CONCEPT_MEAN_YEARS_SCHOOLING,
+        CONCEPT_UNDER5_MORTALITY,
+        CONCEPT_BCG_IMMUNIZATION,
+        CONCEPT_DTP3_IMMUNIZATION,
+        CONCEPT_HEPB3_IMMUNIZATION,
+        CONCEPT_ELECTORAL_DEMOCRACY,
+        CONCEPT_LIBERAL_DEMOCRACY,
+        CONCEPT_CIVIL_LIBERTIES,
+        CONCEPT_SUFFRAGE,
+        CONCEPT_RULE_OF_LAW,
+        CONCEPT_FREEDOM_EXPRESSION,
+        CONCEPT_FREEDOM_ASSOCIATION,
+        CONCEPT_PRESS_FREEDOM_SCORE,
+        CONCEPT_PRESS_FREEDOM_RANK,
+        CONCEPT_PHYSICAL_INTEGRITY,
+        CONCEPT_POLITICAL_LIBERTIES,
+        CONCEPT_PRIVATE_CIVIL_LIBERTIES,
+        CONCEPT_CIVIL_SOCIETY_REPRESSION,
+        CONCEPT_EXTRAJUDICIAL_KILLINGS,
+        CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
+        CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+        CONCEPT_CORRUPTION_INDEX,
+        CONCEPT_EXECUTIVE_CORRUPTION,
+        CONCEPT_PUBLIC_CORRUPTION,
+        CONCEPT_ACCOUNTABILITY,
+        CONCEPT_JUDICIAL_CONSTRAINTS,
+        CONCEPT_LEGISLATIVE_CONSTRAINTS,
+        CONCEPT_MULTIPARTY_INSTITUTIONS,
+        CONCEPT_REGIME_TYPE,
+        CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+        CONCEPT_NUCLEAR_MILITARY_STOCKPILE,
+        CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
+        CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
+        CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
     )
     assert keys == KNOWN_CONCEPT_KEYS
 
@@ -202,9 +311,9 @@ def test_concepts_package_import_does_not_import_legacy_ingest() -> None:
     try:
         importlib.import_module(CONCEPT_TEST_PACKAGE)
         leaked = sorted(
-            name for name in sys.modules
-            if name == "leaders_db.ingest"
-            or name.startswith("leaders_db.ingest.")
+            name
+            for name in sys.modules
+            if name == "leaders_db.ingest" or name.startswith("leaders_db.ingest.")
         )
         assert leaked == [], (
             f"importing {CONCEPT_TEST_PACKAGE} must not import "
@@ -296,9 +405,7 @@ def test_resolve_concept_global_returns_all_source_mappings() -> None:
     assert slugs == {WDI_SOURCE_KEY, MADDISON_PROJECT_SOURCE_KEY, PWT_SOURCE_KEY}
 
     # WDI mapping is direct + carries two indicator codes.
-    wdi_mapping = next(
-        m for m in mappings if m.source_id.slug == WDI_SOURCE_KEY
-    )
+    wdi_mapping = next(m for m in mappings if m.source_id.slug == WDI_SOURCE_KEY)
     assert wdi_mapping.mapping_type == "direct"
     assert len(wdi_mapping.indicator_codes) == 2
 
@@ -352,8 +459,7 @@ def test_resolve_concept_unknown_concept_key_raises_actionable_error() -> None:
     assert "not_a_real_concept" in msg
     for known_key in KNOWN_CONCEPT_KEYS:
         assert known_key in msg, (
-            f"error message must list known keys for actionable "
-            f"debugging; got {msg!r}"
+            f"error message must list known keys for actionable debugging; got {msg!r}"
         )
 
 
@@ -508,6 +614,204 @@ def test_extract_concept_wdi_direct_population_preserves_indicator() -> None:
     )
 
 
+def test_extract_concept_social_development_direct_mappings() -> None:
+    """D10 social-development concepts alias UNDP/WHO observations directly."""
+    from leaders_db.sources.concepts import (
+        CONCEPT_DTP3_IMMUNIZATION,
+        CONCEPT_HDI,
+        UNDP_HDI_INDICATOR_CODE,
+        UNDP_HDI_SOURCE_KEY,
+        WHO_GHO_API_SOURCE_KEY,
+        WHO_GHO_DTP3_IMMUNIZATION_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=UNDP_HDI_SOURCE_KEY,
+            indicator_code=UNDP_HDI_INDICATOR_CODE,
+            value=0.92,
+            year=2022,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=WHO_GHO_API_SOURCE_KEY,
+            indicator_code=WHO_GHO_DTP3_IMMUNIZATION_INDICATOR_CODE,
+            value=94.0,
+            year=2022,
+            country_code="USA",
+        ),
+    ]
+
+    hdi_rows = extract_concept(observations, CONCEPT_HDI, UNDP_HDI_SOURCE_KEY)
+    immunization_rows = extract_concept(
+        observations,
+        CONCEPT_DTP3_IMMUNIZATION,
+        WHO_GHO_API_SOURCE_KEY,
+    )
+
+    assert hdi_rows[0].source_indicator_codes == (UNDP_HDI_INDICATOR_CODE,)
+    assert hdi_rows[0].value == 0.92
+    assert immunization_rows[0].source_indicator_codes == (
+        WHO_GHO_DTP3_IMMUNIZATION_INDICATOR_CODE,
+    )
+    assert immunization_rows[0].value == 94.0
+
+
+def test_extract_concept_political_freedom_direct_mappings() -> None:
+    """D11 political-freedom concepts alias V-Dem and RSF observations."""
+    from leaders_db.sources.concepts import (
+        CONCEPT_ELECTORAL_DEMOCRACY,
+        CONCEPT_PRESS_FREEDOM_SCORE,
+        RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE,
+        RSF_PRESS_FREEDOM_SOURCE_KEY,
+        VDEM_ELECTORAL_DEMOCRACY_INDICATOR_CODE,
+        VDEM_SOURCE_KEY,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=VDEM_SOURCE_KEY,
+            indicator_code=VDEM_ELECTORAL_DEMOCRACY_INDICATOR_CODE,
+            value=0.83,
+            year=2020,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=RSF_PRESS_FREEDOM_SOURCE_KEY,
+            indicator_code=RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE,
+            value=72.4,
+            year=2020,
+            country_code="USA",
+        ),
+    ]
+
+    democracy_rows = extract_concept(
+        observations,
+        CONCEPT_ELECTORAL_DEMOCRACY,
+        VDEM_SOURCE_KEY,
+    )
+    press_rows = extract_concept(
+        observations,
+        CONCEPT_PRESS_FREEDOM_SCORE,
+        RSF_PRESS_FREEDOM_SOURCE_KEY,
+    )
+
+    assert democracy_rows[0].source_indicator_codes == (VDEM_ELECTORAL_DEMOCRACY_INDICATOR_CODE,)
+    assert democracy_rows[0].value == 0.83
+    assert press_rows[0].source_indicator_codes == (RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE,)
+    assert press_rows[0].value == 72.4
+
+
+def test_extract_concept_domestic_safety_direct_mappings() -> None:
+    """D12 domestic-safety concepts alias V-Dem and UCDP observations."""
+    from leaders_db.sources.concepts import (
+        CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+        CONCEPT_PHYSICAL_INTEGRITY,
+        UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,
+        UCDP_SOURCE_KEY,
+        VDEM_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+        VDEM_SOURCE_KEY,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=VDEM_SOURCE_KEY,
+            indicator_code=VDEM_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+            value=0.71,
+            year=2020,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=UCDP_SOURCE_KEY,
+            indicator_code=UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,
+            value=4,
+            year=2020,
+            country_code="USA",
+        ),
+    ]
+
+    physical_rows = extract_concept(observations, CONCEPT_PHYSICAL_INTEGRITY, VDEM_SOURCE_KEY)
+    fatality_rows = extract_concept(
+        observations,
+        CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+        UCDP_SOURCE_KEY,
+    )
+
+    assert physical_rows[0].source_indicator_codes == (VDEM_PHYSICAL_INTEGRITY_INDICATOR_CODE,)
+    assert physical_rows[0].value == 0.71
+    assert fatality_rows[0].source_indicator_codes == (UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,)
+    assert fatality_rows[0].value == 4
+
+
+def test_extract_concept_corruption_and_governance_direct_mappings() -> None:
+    """D15/D16 concepts alias V-Dem corruption and governance observations."""
+    from leaders_db.sources.concepts import (
+        CONCEPT_ACCOUNTABILITY,
+        CONCEPT_CORRUPTION_INDEX,
+        VDEM_ACCOUNTABILITY_INDICATOR_CODE,
+        VDEM_CORRUPTION_INDEX_INDICATOR_CODE,
+        VDEM_SOURCE_KEY,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=VDEM_SOURCE_KEY,
+            indicator_code=VDEM_CORRUPTION_INDEX_INDICATOR_CODE,
+            value=0.22,
+            year=2020,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=VDEM_SOURCE_KEY,
+            indicator_code=VDEM_ACCOUNTABILITY_INDICATOR_CODE,
+            value=0.76,
+            year=2020,
+            country_code="USA",
+        ),
+    ]
+
+    corruption_rows = extract_concept(observations, CONCEPT_CORRUPTION_INDEX, VDEM_SOURCE_KEY)
+    accountability_rows = extract_concept(observations, CONCEPT_ACCOUNTABILITY, VDEM_SOURCE_KEY)
+
+    assert corruption_rows[0].source_indicator_codes == (VDEM_CORRUPTION_INDEX_INDICATOR_CODE,)
+    assert corruption_rows[0].value == 0.22
+    assert accountability_rows[0].source_indicator_codes == (VDEM_ACCOUNTABILITY_INDICATOR_CODE,)
+    assert accountability_rows[0].value == 0.76
+
+
+def test_extract_concept_nuclear_risk_direct_mappings() -> None:
+    """D17 concepts alias FAS nuclear status-table observations."""
+    from leaders_db.sources.concepts import (
+        CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+        FAS_SOURCE_KEY,
+        FAS_TOTAL_INVENTORY_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=FAS_SOURCE_KEY,
+            indicator_code=FAS_TOTAL_INVENTORY_INDICATOR_CODE,
+            value=5244,
+            year=2014,
+            country_code=None,
+            country_name="United States",
+        ),
+    ]
+
+    rows = extract_concept(observations, CONCEPT_NUCLEAR_TOTAL_INVENTORY, FAS_SOURCE_KEY)
+
+    assert len(rows) == 1
+    assert rows[0].country_code is None
+    assert rows[0].country_name == "United States"
+    assert rows[0].source_indicator_codes == (FAS_TOTAL_INVENTORY_INDICATOR_CODE,)
+    assert rows[0].value == 5244
+
+
 def test_extract_concept_maddison_direct_gdp_per_capita_preserves_indicator() -> None:
     """Maddison ``gdp_per_capita`` extraction preserves the indicator code."""
     from leaders_db.sources.concepts import (
@@ -533,9 +837,7 @@ def test_extract_concept_maddison_direct_gdp_per_capita_preserves_indicator() ->
     )
     assert len(rows) == 1
     row = rows[0]
-    assert row.source_indicator_codes == (
-        MADDISON_PROJECT_GDP_PER_CAPITA_INDICATOR_CODE,
-    )
+    assert row.source_indicator_codes == (MADDISON_PROJECT_GDP_PER_CAPITA_INDICATOR_CODE,)
     assert row.value == 60_000.0
     assert row.year == 2022
 
@@ -680,14 +982,8 @@ def test_extract_concept_pwt_derived_gdp_per_capita_computes_ratio() -> None:
     assert len(row.transform_locators) == 2
     # Recipe key is in the extension payload for audit.
     assert row.extension["recipe_key"] == PWT_GDP_PER_CAPITA_RECIPE_KEY
-    assert (
-        row.extension["numerator_indicator_code"]
-        == PWT_REAL_GDP_OUTPUT_SIDE_INDICATOR_CODE
-    )
-    assert (
-        row.extension["denominator_indicator_code"]
-        == PWT_POPULATION_INDICATOR_CODE
-    )
+    assert row.extension["numerator_indicator_code"] == PWT_REAL_GDP_OUTPUT_SIDE_INDICATOR_CODE
+    assert row.extension["denominator_indicator_code"] == PWT_POPULATION_INDICATOR_CODE
 
 
 def test_extract_concept_pwt_derived_missing_denominator_emits_no_row() -> None:
@@ -934,10 +1230,7 @@ def test_extract_concept_does_not_call_adapters_or_runners(
         PWT_SOURCE_KEY,
     )
     assert len(rows) == 1
-    assert calls == [], (
-        "extract_concept must not instantiate SourceIngestRunner; "
-        f"saw {calls!r}"
-    )
+    assert calls == [], f"extract_concept must not instantiate SourceIngestRunner; saw {calls!r}"
 
 
 def test_extract_concept_does_not_read_raw_files(
@@ -968,6 +1261,7 @@ def test_extract_concept_does_not_read_raw_files(
         SourceId,
         TransformLocator,
     )
+
     observations: list[NormalizedObservation] = [
         NormalizedObservation(
             source_id=SourceId(slug=WDI_SOURCE_KEY),
@@ -1010,10 +1304,7 @@ def test_extract_concept_does_not_read_raw_files(
         WDI_SOURCE_KEY,
     )
     assert len(rows) == 1
-    assert opened == [], (
-        "extract_concept must not open raw files; "
-        f"saw opens={opened!r}"
-    )
+    assert opened == [], f"extract_concept must not open raw files; saw opens={opened!r}"
 
 
 # ---------------------------------------------------------------------------
@@ -1533,11 +1824,7 @@ def _stage_pwt_bundle_for_concept_test(raw_root: Path) -> Path:
     """Stage the canonical PWT fixture bundle for the concept integration test."""
     bundle_dir = raw_root / "pwt"
     bundle_dir.mkdir(parents=True, exist_ok=True)
-    fixtures = (
-        Path(__file__).resolve().parents[1]
-        / "fixtures"
-        / "pwt"
-    )
+    fixtures = Path(__file__).resolve().parents[1] / "fixtures" / "pwt"
     shutil.copy2(fixtures / "sample.xlsx", bundle_dir / "pwt1001.xlsx")
     sha = hashlib.sha256(
         (bundle_dir / "pwt1001.xlsx").read_bytes(),
@@ -1554,14 +1841,12 @@ def _stage_pwt_bundle_for_concept_test(raw_root: Path) -> Path:
         ),
         "local_files": ["pwt1001.xlsx"],
         "ingestion_status": "downloaded",
-        "source_url": (
-            "https://www.rug.nl/ggdc/productivity/pwt/"
-            "pwt-releases/pwt1001"
-        ),
+        "source_url": ("https://www.rug.nl/ggdc/productivity/pwt/pwt-releases/pwt1001"),
         "checksum_sha256": sha,
     }
     (bundle_dir / "metadata.json").write_text(
-        json.dumps(payload, indent=2), encoding="utf-8",
+        json.dumps(payload, indent=2),
+        encoding="utf-8",
     )
     return bundle_dir
 
@@ -1570,11 +1855,7 @@ def _stage_maddison_bundle_for_concept_test(raw_root: Path) -> Path:
     """Stage the canonical Maddison fixture bundle for the concept integration test."""
     bundle_dir = raw_root / "maddison_project"
     bundle_dir.mkdir(parents=True, exist_ok=True)
-    fixtures = (
-        Path(__file__).resolve().parents[1]
-        / "fixtures"
-        / "maddison_project"
-    )
+    fixtures = Path(__file__).resolve().parents[1] / "fixtures" / "maddison_project"
     shutil.copy2(fixtures / "sample.xlsx", bundle_dir / "mpd2023.xlsx")
     sha = hashlib.sha256(
         (bundle_dir / "mpd2023.xlsx").read_bytes(),
@@ -1592,7 +1873,8 @@ def _stage_maddison_bundle_for_concept_test(raw_root: Path) -> Path:
         "checksum_sha256": {"mpd2023.xlsx": sha},
     }
     (bundle_dir / "metadata.json").write_text(
-        json.dumps(payload, indent=2), encoding="utf-8",
+        json.dumps(payload, indent=2),
+        encoding="utf-8",
     )
     return bundle_dir
 
@@ -1601,21 +1883,14 @@ def _stage_wdi_bundle_for_concept_test(raw_root: Path) -> Path:
     """Stage the canonical WDI fixture bundle for the concept integration test."""
     bundle_dir = raw_root / "world_bank_wdi"
     bundle_dir.mkdir(parents=True, exist_ok=True)
-    fixtures_cache = (
-        Path(__file__).resolve().parents[1]
-        / "fixtures"
-        / "world_bank_wdi"
-        / "cache"
-    )
+    fixtures_cache = Path(__file__).resolve().parents[1] / "fixtures" / "world_bank_wdi" / "cache"
     for year in ("2022", "2023"):
         src_year_dir = fixtures_cache / year
         if src_year_dir.exists():
             shutil.copytree(src_year_dir, bundle_dir / "cache" / year)
     payload = {
         "source_name": "World Bank WDI",
-        "source_version": (
-            "World Bank API v2; cached indicator responses"
-        ),
+        "source_version": ("World Bank API v2; cached indicator responses"),
         "download_date": "2026-06-24",
         "coverage": "1960-present",
         "years_available": "1960-2023+",
@@ -1632,7 +1907,8 @@ def _stage_wdi_bundle_for_concept_test(raw_root: Path) -> Path:
         "attribution": "World Bank WDI (World Bank 2024).",
     }
     (bundle_dir / "metadata.json").write_text(
-        json.dumps(payload, indent=2), encoding="utf-8",
+        json.dumps(payload, indent=2),
+        encoding="utf-8",
     )
     return bundle_dir
 
@@ -1710,9 +1986,7 @@ def test_concepts_extract_gdp_per_capita_from_real_runner_output(
     )
     assert wdi_rows, "WDI direct extraction must produce at least one row"
     countries = {row.country_code for row in wdi_rows}
-    assert "USA" in countries, (
-        f"WDI fixture must include USA; got countries={countries}"
-    )
+    assert "USA" in countries, f"WDI fixture must include USA; got countries={countries}"
     for row in wdi_rows:
         assert row.year == 2023
         assert row.mapping_type == "direct"
@@ -1727,13 +2001,10 @@ def test_concepts_extract_gdp_per_capita_from_real_runner_output(
         CONCEPT_GDP_PER_CAPITA,
         MADDISON_PROJECT_SOURCE_KEY,
     )
-    assert maddison_rows, (
-        "Maddison direct extraction must produce at least one row"
-    )
+    assert maddison_rows, "Maddison direct extraction must produce at least one row"
     maddison_countries = {row.country_code for row in maddison_rows}
     assert "USA" in maddison_countries, (
-        f"Maddison fixture must include USA; got "
-        f"countries={maddison_countries}"
+        f"Maddison fixture must include USA; got countries={maddison_countries}"
     )
     for row in maddison_rows:
         assert row.year == 2022
@@ -1751,9 +2022,7 @@ def test_concepts_extract_gdp_per_capita_from_real_runner_output(
     )
     assert pwt_rows, "PWT derived extraction must produce at least one row"
     pwt_countries = {row.country_code for row in pwt_rows}
-    assert "USA" in pwt_countries, (
-        f"PWT fixture must include USA; got countries={pwt_countries}"
-    )
+    assert "USA" in pwt_countries, f"PWT fixture must include USA; got countries={pwt_countries}"
     for row in pwt_rows:
         assert row.mapping_type == "derived"
         assert "derived_concept" in row.quality_flags
@@ -1792,7 +2061,7 @@ __all__ = [
     "test_extract_concept_unknown_indicator_does_not_match",
     "test_extract_concept_wdi_direct_gdp_per_capita_emits_two_rows",
     "test_extract_concept_wdi_direct_population_preserves_indicator",
-    "test_list_concepts_exposes_three_stable_keys",
+    "test_list_concepts_exposes_stable_keys",
     "test_resolve_concept_client_existing_is_unsupported_for_every_concept",
     "test_resolve_concept_global_returns_all_source_mappings",
     "test_resolve_concept_source_specific_narrows_to_single_mapping",

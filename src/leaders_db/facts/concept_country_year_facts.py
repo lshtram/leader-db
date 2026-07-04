@@ -13,6 +13,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
 from leaders_db.db.models import Country, CountryYear, CountryYearFact
+from leaders_db.normalize.countries import alias_to_iso3, normalize_country_name
 from leaders_db.sources.concepts import (
     KNOWN_CONCEPT_KEYS,
     ConceptObservation,
@@ -31,6 +32,11 @@ DEFAULT_CONCEPT_SOURCE_PRECEDENCE: tuple[str, ...] = (
     "world_bank_wdi",
     "maddison_project",
     "pwt",
+    "undp_hdi",
+    "who_gho_api",
+    "vdem",
+    "rsf_press_freedom",
+    "fas",
 )
 
 
@@ -54,6 +60,8 @@ def publish_concept_country_year_facts(
     concept_keys: Sequence[str] = KNOWN_CONCEPT_KEYS,
     source_precedence: Sequence[str] = DEFAULT_CONCEPT_SOURCE_PRECEDENCE,
     source_ids: Sequence[SourceId] | None = None,
+    start_year: int | None = None,
+    end_year: int | None = None,
     run_id: str | None = None,
 ) -> ConceptCountryYearFactBuildResult:
     """Extract concepts and upsert one generic fact per country/year/concept.
@@ -67,6 +75,7 @@ def publish_concept_country_year_facts(
         EvidenceQuery(
             source_ids=source_ids,
             indicator_codes=_indicator_codes_for_concepts(concept_keys),
+            years=_year_filter(start_year, end_year),
         )
     )
     descriptors = {descriptor.concept_key: descriptor for descriptor in list_concepts()}
@@ -78,9 +87,17 @@ def publish_concept_country_year_facts(
         concept_rows.extend(result.observations)
         warnings.extend(result.warnings)
 
-    grouped_rows = _group_concept_rows(concept_rows)
     with Session(engine, expire_on_commit=False) as session:
-        country_years = _country_year_index(session)
+        country_years = _country_year_index(
+            session,
+            start_year=start_year,
+            end_year=end_year,
+        )
+        country_codes_by_name = _country_code_by_normalized_name(session)
+        grouped_rows = _group_concept_rows(
+            concept_rows,
+            country_codes_by_name=country_codes_by_name,
+        )
         rows_created = 0
         rows_updated = 0
         skipped_without_country_year = 0
@@ -106,7 +123,12 @@ def publish_concept_country_year_facts(
             rows_updated += int(action == "updated")
         session.commit()
 
-    counts = _concept_fact_counts(engine, concept_keys=tuple(concept_keys))
+    counts = _concept_fact_counts(
+        engine,
+        concept_keys=tuple(concept_keys),
+        start_year=start_year,
+        end_year=end_year,
+    )
     return ConceptCountryYearFactBuildResult(
         rows_created=rows_created,
         rows_updated=rows_updated,
@@ -120,13 +142,30 @@ def publish_concept_country_year_facts(
 
 def _group_concept_rows(
     rows: Sequence[ConceptObservation],
+    *,
+    country_codes_by_name: dict[str, str],
 ) -> dict[tuple[str, int, str], tuple[ConceptObservation, ...]]:
     grouped: dict[tuple[str, int, str], list[ConceptObservation]] = defaultdict(list)
     for row in rows:
-        if row.country_code is None or row.year is None:
+        if row.year is None:
             continue
-        grouped[(row.country_code.upper(), row.year, row.concept_key)].append(row)
+        country_code = _resolve_country_code(row, country_codes_by_name)
+        if country_code is None:
+            continue
+        grouped[(country_code, row.year, row.concept_key)].append(row)
     return {key: tuple(value) for key, value in grouped.items()}
+
+
+def _resolve_country_code(
+    row: ConceptObservation,
+    country_codes_by_name: dict[str, str],
+) -> str | None:
+    if row.country_code is not None:
+        return row.country_code.upper()
+    if row.country_name is None:
+        return None
+    normalized_name = normalize_country_name(row.country_name)
+    return country_codes_by_name.get(normalized_name) or alias_to_iso3(normalized_name)
 
 
 def _indicator_codes_for_concepts(concept_keys: Sequence[str]) -> tuple[str, ...]:
@@ -137,13 +176,40 @@ def _indicator_codes_for_concepts(concept_keys: Sequence[str]) -> tuple[str, ...
     return tuple(dict.fromkeys(codes))
 
 
-def _country_year_index(session: Session) -> dict[tuple[str, int], CountryYear]:
-    rows = session.execute(
+def _year_filter(start_year: int | None, end_year: int | None) -> tuple[int, ...] | None:
+    if start_year is None and end_year is None:
+        return None
+    if start_year is None or end_year is None:
+        raise ValueError("start_year and end_year must be provided together")
+    if start_year > end_year:
+        raise ValueError("start_year must be less than or equal to end_year")
+    return tuple(range(start_year, end_year + 1))
+
+
+def _country_year_index(
+    session: Session,
+    *,
+    start_year: int | None,
+    end_year: int | None,
+) -> dict[tuple[str, int], CountryYear]:
+    statement = (
         select(CountryYear, Country.iso3)
         .join(Country, CountryYear.country_id == Country.id)
         .where(CountryYear.included_in_project.is_(True))
-    ).all()
+    )
+    if start_year is not None:
+        statement = statement.where(CountryYear.year >= start_year)
+    if end_year is not None:
+        statement = statement.where(CountryYear.year <= end_year)
+    rows = session.execute(statement).all()
     return {(iso3.upper(), country_year.year): country_year for country_year, iso3 in rows}
+
+
+def _country_code_by_normalized_name(session: Session) -> dict[str, str]:
+    return {
+        country.country_name_normalized: country.iso3.upper()
+        for country in session.scalars(select(Country)).all()
+    }
 
 
 def _select_concept_row(
@@ -208,22 +274,16 @@ def _fact_payload(
         "warnings_json": _dumps(warning_payloads),
         "rationale": _rationale(selected, concept_key),
         "review_reason": (
-            None
-            if adjudication_status == "auto_resolved"
-            else "selected concept value is missing"
+            None if adjudication_status == "auto_resolved" else "selected concept value is missing"
         ),
         "research_prompt": None,
         "recommended_next_action": (
-            "none"
-            if adjudication_status == "auto_resolved"
-            else "review missing concept value"
+            "none" if adjudication_status == "auto_resolved" else "review missing concept value"
         ),
         "source_slugs_json": _dumps(_unique(row.source_id.slug for row in candidates)),
         "source_observation_ids_json": _dumps(
             _unique(
-                observation_id
-                for row in candidates
-                for observation_id in row.input_observation_ids
+                observation_id for row in candidates for observation_id in row.input_observation_ids
             )
         ),
         "producer": CONCEPT_FACT_PRODUCER,
@@ -282,14 +342,19 @@ def _concept_fact_counts(
     engine: Engine,
     *,
     concept_keys: tuple[str, ...],
+    start_year: int | None,
+    end_year: int | None,
 ) -> dict[str, Any]:
     with Session(engine) as session:
-        rows = session.scalars(
-            select(CountryYearFact).where(
-                CountryYearFact.field_key.in_(concept_keys),
-                CountryYearFact.producer == CONCEPT_FACT_PRODUCER,
-            )
-        ).all()
+        statement = select(CountryYearFact).where(
+            CountryYearFact.field_key.in_(concept_keys),
+            CountryYearFact.producer == CONCEPT_FACT_PRODUCER,
+        )
+        if start_year is not None:
+            statement = statement.where(CountryYearFact.year >= start_year)
+        if end_year is not None:
+            statement = statement.where(CountryYearFact.year <= end_year)
+        rows = session.scalars(statement).all()
     return {
         "total_rows": len(rows),
         "adjudication_status_counts": dict(

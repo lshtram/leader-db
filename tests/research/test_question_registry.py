@@ -78,6 +78,47 @@ def test_registered_question_specs_have_unique_methodology_ids_and_i7_fields() -
         }
 
 
+def test_8b_effectiveness_questions_are_registered_as_manual_period_specs(
+    project_root: Path,
+) -> None:
+    methodology = (
+        project_root / "docs" / "methodology" / "ranking-evaluation-criteria.md"
+    ).read_text(encoding="utf-8")
+
+    specs = tuple(spec for spec in list_question_specs() if spec.methodology_id.startswith("8B."))
+
+    assert {spec.methodology_id for spec in specs} == {
+        "8B.1",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.5",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.9",
+        "8B.10",
+    }
+    for spec in specs:
+        assert spec.category == "effectiveness"
+        assert spec.answer_level == "ruler_period"
+        assert spec.answer_type == "evidence_bundle"
+        assert spec.evidence_strategy == "internet_manual"
+        assert spec.support_status == "internet_manual"
+        assert spec.acquisition_policy == "plan_only"
+        assert spec.concept_keys == ("ruler_effectiveness_qualitative_evidence",)
+        assert spec.text in methodology
+
+
+def test_8b_effectiveness_concept_spec_is_registry_only_manual_evidence() -> None:
+    concept = get_concept_spec("ruler_effectiveness_qualitative_evidence")
+
+    assert concept is not None
+    assert concept.expected_scope_keys == ("country", "leader", "period")
+    assert concept.evidence_shape == "qualitative_cited"
+    assert concept.acquisition_allowed is True
+
+
 def test_q2_1_classification_maps_to_registered_question() -> None:
     classification = QuestionClassification(
         question_key="state_based_armed_conflict",

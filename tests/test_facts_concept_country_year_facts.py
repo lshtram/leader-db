@@ -13,7 +13,9 @@ from leaders_db.research.sql_repository import SqlEvidenceRepository, write_obse
 from leaders_db.sources import NormalizedObservation, RawLocator, SourceId, TransformLocator
 from leaders_db.sources.concepts import (
     CONCEPT_GDP_PER_CAPITA,
+    CONCEPT_NUCLEAR_TOTAL_INVENTORY,
     CONCEPT_POPULATION,
+    FAS_TOTAL_INVENTORY_INDICATOR_CODE,
     PWT_POPULATION_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_INDICATOR_CODE,
     WDI_POPULATION_INDICATOR_CODE,
@@ -67,9 +69,7 @@ def test_publish_concept_country_year_facts_selects_preferred_numeric_source(
         assert fact.adjudication_status == "auto_resolved"
         assert fact.confidence_score == 80
         assert fact.source_slugs_json == '["world_bank_wdi","pwt"]'
-        assert fact.source_observation_ids_json == (
-            '["wdi-usa-2020-pop","pwt-usa-2020-pop"]'
-        )
+        assert fact.source_observation_ids_json == ('["wdi-usa-2020-pop","pwt-usa-2020-pop"]')
         selected = json.loads(fact.selected_value_json or "{}")
         assert selected["source_slug"] == "world_bank_wdi"
         candidates = json.loads(fact.candidate_values_json)
@@ -145,6 +145,56 @@ def test_publish_concept_country_year_facts_skips_rows_outside_scope(
         assert session.scalars(select(CountryYearFact)).all() == []
 
 
+def test_publish_concept_country_year_facts_respects_year_window(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2020)
+    _seed_country_year(engine, year=2021, iso3="CAN", country_name="Canada")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_POPULATION_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-pop",
+                value=331_000_000,
+                unit="persons",
+                year=2020,
+                country_code="USA",
+                country_name="United States",
+            ),
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_POPULATION_INDICATOR_CODE,
+                observation_id="wdi-can-2021-pop",
+                value=38_000_000,
+                unit="persons",
+                year=2021,
+                country_code="CAN",
+                country_name="Canada",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_POPULATION,),
+        start_year=2021,
+        end_year=2021,
+    )
+
+    assert result.rows_created == 1
+    assert result.total_rows == 1
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.year == 2021
+        assert fact.selected_value_number == 38_000_000
+
+
 def test_publish_concept_country_year_facts_persists_missing_values_for_review(
     database_url: str,
 ) -> None:
@@ -186,12 +236,59 @@ def test_publish_concept_country_year_facts_persists_missing_values_for_review(
         assert warnings[0]["code"] == "missing_value"
 
 
-def _seed_country_year(engine: Any) -> None:
+def test_publish_concept_country_year_facts_resolves_country_name_fallback(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2014)
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="fas",
+                indicator_code=FAS_TOTAL_INVENTORY_INDICATOR_CODE,
+                observation_id="fas:United States:2014:fas_total_inventory",
+                value=5244,
+                unit="warheads",
+                year=2014,
+                country_code=None,
+                country_name="United States",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_NUCLEAR_TOTAL_INVENTORY,),
+        start_year=2014,
+        end_year=2014,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_NUCLEAR_TOTAL_INVENTORY: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_NUCLEAR_TOTAL_INVENTORY
+        assert fact.selected_value_number == 5244
+        assert fact.source_slugs_json == '["fas"]'
+
+
+def _seed_country_year(
+    engine: Any,
+    *,
+    year: int = 2020,
+    iso3: str = "USA",
+    country_name: str = "United States",
+) -> None:
     with Session(engine) as session:
         country = Country(
-            iso3="USA",
-            country_name="United States",
-            country_name_normalized="united states",
+            iso3=iso3,
+            country_name=country_name,
+            country_name_normalized=country_name.lower(),
             notes=None,
         )
         session.add(country)
@@ -199,7 +296,7 @@ def _seed_country_year(engine: Any) -> None:
         session.add(
             CountryYear(
                 country_id=country.id,
-                year=2020,
+                year=year,
                 included_in_project=True,
                 inclusion_reason="test fixture",
             )
@@ -215,6 +312,9 @@ def _observation(
     value: Any,
     unit: str,
     value_type: str = "numeric",
+    year: int = 2020,
+    country_code: str | None = "USA",
+    country_name: str = "United States",
 ) -> NormalizedObservation:
     return NormalizedObservation(
         source_id=SourceId(slug=source_slug),
@@ -223,9 +323,9 @@ def _observation(
         indicator_code=indicator_code,
         value=value,
         value_type=value_type,
-        year=2020,
-        country_code="USA",
-        country_name="United States",
+        year=year,
+        country_code=country_code,
+        country_name=country_name,
         leader_id=None,
         leader_name=None,
         unit=unit,
