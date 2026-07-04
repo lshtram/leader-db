@@ -46,6 +46,23 @@ can be considered complete.
 | **I10** | Internet/manual evaluator storage | Web/manual/LLM evaluation records can be stored with citations, score, confidence, warnings, and source traceability. |
 | **I11** | Score aggregation | Category scores can be computed from question-answer rows and written to final score/review tables. |
 
+### Current infrastructure status
+
+| Phase | Current status | Remaining work |
+|---:|---|---|
+| **I0** | Complete enough for the current path. | Keep source registry and attribution docs synchronized as new sources/mappings land. |
+| **I1** | Complete. | None unless migrations change. |
+| **I2** | Mostly complete. | Continue local ingestion/coverage checks and mark blocked/user-managed sources separately from failures. |
+| **I3** | Operational for the active 1950-2025 period. | Improve lifecycle, recognition, disputed-scope, and population-threshold edge cases later. |
+| **I4** | Operational for local non-client identity evidence. | Improve residual current-identity gaps, disambiguation, and review/research classifications. |
+| **I5** | Partial. | Add missing concepts and fix blocked source-country mappings. |
+| **I6** | Operational. | Extend producers and mapping fallbacks carefully; keep `country_year_facts` as the shared write target. |
+| **I7** | Partial. | `1B.1-8B.10` ruler-quality questions are registered; chapter 1-8 country-condition questions remain. |
+| **I8** | Implemented through generic research answer/evidence tables. | Add more answer adapters and query/export QA. |
+| **I9** | Partial. | Add typed goal, implementation, crisis, appointment, and corruption-case payloads/adapters. |
+| **I10** | Partial. | Generalize cited/manual evaluator storage beyond the first 8B adapter. |
+| **I11** | Not started. | Build aggregation only after enough D24-D27 answer rows exist. |
+
 ### Infrastructure phase details
 
 This section explains what each infrastructure phase means in practical terms.
@@ -787,11 +804,11 @@ methodology questions.
 
 | Step | Table | Purpose | Supports methodology questions | Needed infrastructure | Current support |
 |---:|---|---|---|---|---|
-| **D23** | `methodology_questions` | Stores question ID, text, category, answer type, evidence strategy, and whether it is country-year, ruler-year, or ruler-period. | All sections 1-8 and 1B-8B. | I7 | Partly supported in the code registry: Q2.1 plus all 8B.1-8B.10 ruler-effectiveness questions are registered with answer level/type, evidence strategy, support status, output fields, and text-sync tests against the methodology document. Full DB sync and complete sections 1-8 / 1B-7B remain future work. |
+| **D23** | `methodology_questions` | Stores question ID, text, category, answer type, evidence strategy, and whether it is country-year, ruler-year, or ruler-period. | All sections 1-8 and 1B-8B. | I7 | Partly supported in the code registry: Q2.1 plus all 1B.1-8B.10 ruler-quality questions are registered with answer level/type, evidence strategy, support status, output fields, and text-sync tests against the methodology document. Full DB sync and complete country-condition sections 1-8 remain future work. |
 | **D24** | `country_year_question_answers` | One answer per country/year/question for the chapter 1-8 country-condition questions. | Sections 1-8. | I3, I5, I7, I8 | Implemented for now through the generic `research_question_answers` table rather than a new grain-specific table. `persist_research_answers` is the typed D24-D27 write contract; Q2.1 continues to use the same table through its wrapper. |
 | **D25** | `ruler_year_question_answers` | One answer per ruler/country/year/question for 1B-8B. | 1B-8B. | I4, I7, I8, I10 | Uses the same generic `research_question_answers` path for now, keyed by question/year/ISO3/method and optional ruler fields. The first 8B writer, `persist_effectiveness_8b_evaluations`, persists already-cited effectiveness evaluations through this generic path; `leaders-db research persist-8b-evaluations --input <file.json>` is the CLI entrypoint. Dedicated ruler-year tables are deferred until answer shapes stabilize. |
 | **D26** | `ruler_period_question_answers` | One answer per ruler period/question, for questions that cannot honestly be answered one year at a time. | 5B.10, 6B.10, 8B.7-8B.10, many 1B/2B/7B questions. | I4, I7, I8, I9, I10 | Uses the same generic `research_question_answers` path for now, with period-level details stored in `answer_json` and the relevant evaluation/end year in `year` / `evidence_year`. `persist_effectiveness_8b_evaluations` and the matching CLI command are the first period-style adapter for registered 8B manual/internet outputs. Dedicated period tables are deferred. |
-| **D27** | `answer_evidence_links` | Links each answer to exact source observations, web citations, quotes, local files, or manual evidence. | Required for all answer tables. | I8, I10 | Implemented for now through `research_answer_evidence_links`; `persist_research_answers` refreshes links idempotently on rerun. |
+| **D27** | `answer_evidence_links` | Links each answer to exact source observations, web citations, quotes, local files, or manual evidence. | Required for all answer tables. | I8, I10 | Implemented for now through `research_answer_evidence_links`; `persist_research_answers` refreshes links idempotently on rerun, and `leaders-db research list-answers` exposes persisted answers with evidence-link counts / JSON links. |
 
 ### 5. Score and review tables
 
@@ -909,6 +926,68 @@ Completes/starts: D18-D22 and ruler-period parts of D25-D27.
 4. Produce drill-down reports showing score -> question answers -> evidence.
 
 Completes/starts: D28-D30.
+
+## Completion Roadmap To D30
+
+This section records the current dependency order for finishing every remaining
+infrastructure phase and data table. It supersedes earlier slice-specific next
+steps when choosing what to do next.
+
+### Infrastructure Completion Order
+
+1. **I5 / I6 mapping hardening:** fix source-country mappings that block
+   structured publication before adding new topic-table shapes. Priority blockers
+   are UCDP numeric country IDs for D13, SIPRI Milex country-name/code mapping for
+   D14, and the remaining PTS/CIRIGHTS/Freedom House/WGI/CPI/BTI mapping gaps.
+2. **I7 country-condition registry:** add methodology specs for chapter 1-8
+   country-condition questions. Ruler-quality `1B.1-8B.10` is already represented
+   in the registry as manual/internet evidence specs.
+3. **I8 answer-builder expansion:** keep using `research_question_answers` and
+   `research_answer_evidence_links` as the write target. Add reusable builders for
+   structured country-year answers from `country_year_facts`, not one-off tables.
+4. **I9 ruler-period evidence payloads:** add typed payloads/adapters for goals,
+   implementation, crises, appointments, and corruption cases, writing through the
+   generic answer/evidence tables.
+5. **I10 manual/internet evaluator storage:** generalize the cited-evaluation JSON
+   contract beyond 8B so `1B-7B` and country-condition manual questions can import
+   source-backed evaluator results with citations, confidence, warnings, and review
+   flags.
+6. **I11 score aggregation:** only start after enough D24-D27 answers exist for a
+   pilot category. Build aggregation rules, confidence rollup, and review
+   thresholds before writing D28/D30 outputs.
+
+### Data-Table Completion Order
+
+1. **Close D13/D14 blockers:** fix UCDP and SIPRI Milex country-code/ISO3 mapping,
+   then publish conflict and military facts.
+2. **Finish D8-D17 breadth:** add missing concepts and source precedence for the
+   partly supported structured families: more economy, poverty/inequality/services,
+   Freedom House/Polity/BTI, PTS/CIRIGHTS, WGI/CPI/BTI, SIPRI Yearbook/NTI/treaty
+   nuclear signals where locally supportable.
+3. **Finish D23 registry breadth:** add chapter 1-8 country-condition questions
+   with answer level/type, evidence strategy, support status, output fields, and
+   text-sync tests.
+4. **Populate D24:** create structured country-year answer builders from
+   `country_year_facts` for chapter 1-8 questions where local facts are enough;
+   emit explicit missing/manual-review rows otherwise.
+5. **Populate D25/D26:** add cited-evaluation adapters for `1B-7B` and the
+   ruler-period evidence families D18-D22. The existing 8B adapter is the pattern.
+6. **Make D27 audit-complete:** require every answer adapter to write exact source
+   observation IDs or citation URLs; use `leaders-db research list-answers` for QA.
+7. **Implement D28:** aggregate `1B-8B` answer rows into ruler category scores only
+   after a pilot slice has enough persisted answers.
+8. **Decide D29:** build country-category scores only if country-condition outputs
+   need their own scored layer separate from ruler responsibility.
+9. **Implement D30:** build manual-review items from missing answers, low
+   confidence, conflicting evidence, high-impact categories, explicit
+   `manual_review_required` flags, and score-threshold triggers.
+
+### Current Gate Before Scoring
+
+Do not start D28-D30 yet. The next useful work is still evidence and answer
+coverage: fix D13/D14 mapping blockers, complete the chapter 1-8 registry, and add
+generic structured/manual answer builders until D24-D27 have enough rows to
+aggregate.
 
 ## Questions already well supported by table plan
 

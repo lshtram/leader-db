@@ -33,7 +33,11 @@ from .commands_identity import (
     identity_build_ruler_years_cmd,
     identity_ruler_coverage_cmd,
 )
-from .commands_research import research_app, research_persist_8b_evaluations_cmd
+from .commands_research import (
+    research_app,
+    research_list_answers_cmd,
+    research_persist_8b_evaluations_cmd,
+)
 from .commands_scope import (
     scope_app,
     scope_build_country_years_cmd,
@@ -99,6 +103,7 @@ __all__ = [
     "main_callback",
     "match_countries",
     "research_app",
+    "research_list_answers_cmd",
     "research_persist_8b_evaluations_cmd",
     "resolve_leaders",
     "run_country_year_chronicle_cmd",

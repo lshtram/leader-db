@@ -40,3 +40,14 @@ The input file can be a JSON array or an object with an `evaluations` array:
 This command writes `research_questions`, `research_question_answers`, and
 `research_answer_evidence_links`. It does not run web research, create citations,
 or invent evidence; it only persists already-cited evaluator output.
+
+Inspect persisted answers with:
+
+```bash
+leaders-db research list-answers --question-id 8B.3 --iso3 TZA --output json
+leaders-db research list-answers --year 1967 --output csv
+```
+
+Available filters are `--question-id`, `--year`, `--iso3`, and
+`--method-version`. JSON output includes expanded `evidence_links`; CSV output is
+flat and includes `evidence_link_count`.

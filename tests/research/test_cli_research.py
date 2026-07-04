@@ -90,6 +90,80 @@ def test_research_persist_8b_evaluations_cli_fails_when_db_uninitialized(
     assert "The local evidence database is not initialized" in result.stdout
 
 
+def test_research_list_answers_cli_outputs_json_with_evidence_links(
+    database_url: str,
+    tmp_path: Path,
+) -> None:
+    init_database(database_url)
+    _persist_fixture_evaluation(database_url, tmp_path)
+
+    result = runner.invoke(
+        app,
+        [
+            "research",
+            "list-answers",
+            "--question-id",
+            "8B.3",
+            "--iso3",
+            "tza",
+            "--db-url",
+            database_url,
+            "--output",
+            "json",
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert len(payload) == 1
+    assert payload[0]["question_id"] == "8B.3"
+    assert payload[0]["iso3"] == "TZA"
+    assert payload[0]["answer_text"] == "partially_supported"
+    assert payload[0]["answer_json"]["leader_resolution"] == ("Julius Nyerere / TANU government")
+    assert payload[0]["evidence_link_count"] == 1
+    assert payload[0]["evidence_links"] == [
+        {
+            "evidence_role": "citation",
+            "source_observation_id": "https://example.test/program",
+            "source_slug": "manual_web",
+        }
+    ]
+
+
+def test_research_list_answers_cli_outputs_csv(database_url: str, tmp_path: Path) -> None:
+    init_database(database_url)
+    _persist_fixture_evaluation(database_url, tmp_path)
+
+    result = runner.invoke(
+        app,
+        [
+            "research",
+            "list-answers",
+            "--year",
+            "1967",
+            "--db-url",
+            database_url,
+            "--output",
+            "csv",
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    lines = result.stdout.splitlines()
+    assert lines[0].startswith("question_id,year,iso3,country_name")
+    assert "8B.3,1967,TZA,Tanzania,Julius Nyerere" in lines[1]
+    assert lines[1].endswith(",8b_cited_evaluation_v1,1")
+
+
+def test_research_list_answers_cli_fails_when_db_uninitialized(
+    isolated_data_lake: object,
+) -> None:
+    result = runner.invoke(app, ["research", "list-answers"])
+
+    assert result.exit_code == 1, result.stdout
+    assert "The local evidence database is not initialized" in result.stdout
+
+
 def _evaluation_payload() -> dict[str, object]:
     return {
         "methodology_id": "8B.3",
@@ -116,3 +190,20 @@ def _evaluation_payload() -> dict[str, object]:
         ],
         "caveats": ["Broad mobilization question."],
     }
+
+
+def _persist_fixture_evaluation(database_url: str, tmp_path: Path) -> None:
+    input_path = tmp_path / "8b.json"
+    input_path.write_text(json.dumps([_evaluation_payload()]), encoding="utf-8")
+    result = runner.invoke(
+        app,
+        [
+            "research",
+            "persist-8b-evaluations",
+            "--input",
+            str(input_path),
+            "--db-url",
+            database_url,
+        ],
+    )
+    assert result.exit_code == 0, result.stdout

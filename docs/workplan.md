@@ -385,48 +385,41 @@ infrastructure is generic enough to run different Slice 1 cases repeatedly, with
 LLM/internet research invoked where needed and results persisted in the same
 database shape. Data-quality iteration starts after this execution path is stable.
 
-Current first proving case: Q2.1 for one target year/all countries. Q2.1 now runs
-through a generic programmatic Slice 1 runner that selects all or requested
-in-scope countries, invokes the registered Q2.1 handler, and persists results into
-`research_question_answers` without tests hand-calling the Q2.1 persistence seam.
-I6 now has a runnable concept-fact publishing path for the first economic concepts
-(`population`, `gdp_per_capita`, `gdp_total`) into `country_year_facts`, and I7
-has the first structured methodology-question registry entry for Q2.1 with answer
-level/type, evidence strategy, support status, output fields, and stable lookup by
-methodology id. D10 social-development facts are now partly supported through the
-same generic publisher for UNDP HDI/life expectancy/GNI/schooling and WHO GHO
-under-5 mortality/immunization concepts. D11 political-freedom facts are partly
-supported for the 1950-2025 working period through V-Dem democracy/liberty/rule
-concepts and RSF press-freedom concepts; Freedom House/EIU/BTI publication is
-blocked on ISO3 mapping cleanup. D12 domestic-safety facts are partly supported
-through V-Dem physical-integrity, liberty, civil-society repression, and political
-killings concepts; UCDP one-sided violence, CIRIGHTS, and PTS publication are
-blocked on country-code mapping cleanup. D13/D14 are blocked for the same reason:
-UCDP conflict and SIPRI Milex observations exist but are not yet keyed to ISO3 in
-the normalized table. D15/D16 are partly supported for the 1950-2025 working
-period through V-Dem corruption and governance-capacity concepts. The next
-infrastructure gaps are country-code mapping cleanup for blocked structured
-sources. D17 is partly supported through FAS 2014 nuclear arsenal-count facts
-for 9 nuclear states, using the generic concept publisher with conservative
-country-name fallback to the existing country table/alias seed; doctrine,
-treaties, modernization, and nuclear-threat rhetoric remain future/manual/web
-work. D23 registry coverage now includes Q2.1 plus 8B.1-8B.10 effectiveness
-questions as explicit registry specs with text-sync tests; these are registry-only
-manual/internet evidence specs and do not yet populate D25-D27 answer/evidence
-tables. Per user decision, D24-D27 now use the existing generic
-`research_question_answers` and `research_answer_evidence_links` tables for the
-next implementation stage rather than new grain-specific tables. The typed
-`persist_research_answers` contract writes generic country-year, ruler-year, and
-ruler-period answers plus evidence links idempotently; Q2.1 remains a wrapper over
-that generic path. The first 8B persistence adapter now accepts already-produced
-cited effectiveness evaluations and writes registered 8B answers through the same
-generic store; it does not run web research or invent evidence. The command
-`leaders-db research persist-8b-evaluations --input <file.json>` accepts either a
-JSON array or `{"evaluations": [...]}` using the `Effectiveness8BEvaluation`
-shape and persists the rows idempotently. The next infrastructure gaps are
-broader question-registry coverage for sections 1-8 / 1B-7B, handler/spec
-coverage for additional executable questions, and structured/internet-research
-strategy dispatch.
+Current status of the I/D roadmap: I0-I4 are operational for the active
+1950-2025 path. I5/I6 are operational for concept/fact publishing through
+`country_year_facts`, but source-country mapping gaps still block some structured
+families. I7 now covers Q2.1 plus every `1B.1-8B.10` ruler-quality question with
+methodology text-sync tests; chapter 1-8 country-condition registry coverage is
+still future. I8 is implemented through the generic `research_question_answers`
+and `research_answer_evidence_links` tables. I9/I10 are partial through the cited
+8B/manual-style evaluator payload and CLI, not a full evaluator system. I11 score
+aggregation has not started and should wait until D24-D27 contain enough answer
+rows for a pilot aggregation.
+
+D8-D12 are partly populated through `country_year_facts` for available local
+concepts. D13/D14 are blocked on source-country/ISO3 mapping: UCDP conflict rows
+and SIPRI Milex observations exist but are not yet safely keyed to project ISO3.
+D15/D16 are partly supported through V-Dem corruption and governance-capacity
+concepts. D17 is partly supported through FAS 2014 nuclear arsenal-count facts for
+9 nuclear states; doctrine, treaties, modernization, and threat rhetoric remain
+manual/web or future-source work. D18-D22 do not have dedicated tables yet and are
+represented for now through cited/manual payloads written into the generic answer
+store. D23 is complete for ruler-quality `1B-8B` registry coverage but incomplete
+for country-condition chapters 1-8. D24-D27 use the generic research answer and
+evidence-link tables by design; `persist_research_answers` is the write contract,
+`leaders-db research persist-8b-evaluations --input <file.json>` is the first
+manual/cited import command, and `leaders-db research list-answers` exports
+persisted answers with question/year/ISO3/method filters as JSON or CSV. D28-D30
+remain future.
+
+The current completion order to reach D30 is: (1) fix D13/D14 and related
+source-country mapping blockers; (2) finish chapter 1-8 country-condition registry
+coverage; (3) add structured D24 answer builders from `country_year_facts`; (4)
+add cited/manual adapters for `1B-7B` and D18-D22 ruler-period evidence families;
+(5) enforce D27 evidence-link completeness across every answer adapter; (6) only
+then implement I11/D28 ruler-category aggregation; (7) decide whether D29 country
+category scores are needed; and (8) implement D30 manual-review items from missing,
+low-confidence, conflicting, high-impact, or explicitly review-required rows.
 
 **Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration + CTBTO Treaty Status clean migration + World Bank PIP clean migration + EIU Democracy Index local-PDF adapter: 37 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, `iaea_safeguards`, `ctbto_treaty_status`, `world_bank_poverty_inequality_platform`, and `eiu_democracy_index` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 42 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
