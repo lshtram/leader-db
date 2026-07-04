@@ -6,7 +6,14 @@ from sqlalchemy import create_engine, inspect, text
 
 from leaders_db.db.engine import init_database
 from leaders_db.research.question_2_1 import Question21AnswerRow
-from leaders_db.research.results_store import Q2_1_METHOD_VERSION, persist_q2_1_answers
+from leaders_db.research.results_store import (
+    Q2_1_METHOD_VERSION,
+    ResearchAnswerEvidence,
+    ResearchAnswerRow,
+    ResearchQuestionMetadata,
+    persist_q2_1_answers,
+    persist_research_answers,
+)
 
 
 def test_research_results_migration_creates_tables(database_url: str) -> None:
@@ -45,9 +52,13 @@ def test_persist_q2_1_rows_inserts_metadata_answers_and_evidence(
     with engine.connect() as conn:
         question = conn.execute(text("SELECT * FROM research_questions")).mappings().one()
         answer = conn.execute(text("SELECT * FROM research_question_answers")).mappings().one()
-        links = conn.execute(
-            text("SELECT * FROM research_answer_evidence_links ORDER BY source_observation_id")
-        ).mappings().all()
+        links = (
+            conn.execute(
+                text("SELECT * FROM research_answer_evidence_links ORDER BY source_observation_id")
+            )
+            .mappings()
+            .all()
+        )
 
     assert question["question_id"] == "2.1"
     assert question["chapter_id"] == "2"
@@ -120,17 +131,21 @@ def test_persisted_rows_are_queryable_by_question_and_year(database_url: str) ->
     persist_q2_1_answers(engine, [_row(), _row(iso3="CAN", country_name="Canada")])
 
     with engine.connect() as conn:
-        rows = conn.execute(
-            text(
-                """
+        rows = (
+            conn.execute(
+                text(
+                    """
                 SELECT iso3, country_name, answer_boolean, coverage_status
                 FROM research_question_answers
                 WHERE question_id = :question_id AND year = :year
                 ORDER BY iso3
                 """
-            ),
-            {"question_id": "2.1", "year": 2022},
-        ).mappings().all()
+                ),
+                {"question_id": "2.1", "year": 2022},
+            )
+            .mappings()
+            .all()
+        )
 
     assert [dict(row) for row in rows] == [
         {
@@ -146,6 +161,94 @@ def test_persisted_rows_are_queryable_by_question_and_year(database_url: str) ->
             "coverage_status": "direct",
         },
     ]
+
+
+def test_persist_research_answers_supports_generic_d24_d27_contract(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    question = ResearchQuestionMetadata(
+        question_id="8B.1",
+        chapter_id="8B",
+        question_text="Does the ruler articulate a clear governing program?",
+        answer_type="evidence_bundle",
+        category_key="effectiveness",
+        method_version="manual_8b_v1",
+    )
+    answer = ResearchAnswerRow(
+        question_id="8B.1",
+        year=1967,
+        iso3="TZA",
+        country_name="Tanzania",
+        ruler_name="Julius Nyerere",
+        answer_text="Supported by a cited national-program source.",
+        answer_json={"support_status": "supported", "citation_count": 2},
+        confidence_score=0.74,
+        coverage_status="manual_cited",
+        evidence_year=1967,
+        method_version="manual_8b_v1",
+        warning_codes=("needs_human_review",),
+        caveats=("Program evidence is period-level, not annual.",),
+        evidence_links=(
+            ResearchAnswerEvidence(
+                source_slug="manual_web",
+                source_observation_id="https://example.test/program",
+                evidence_role="citation",
+            ),
+        ),
+    )
+
+    persist_research_answers(engine, question, (answer,))
+
+    with engine.connect() as conn:
+        question_row = conn.execute(text("SELECT * FROM research_questions")).mappings().one()
+        answer_row = conn.execute(text("SELECT * FROM research_question_answers")).mappings().one()
+        link_row = (
+            conn.execute(text("SELECT * FROM research_answer_evidence_links")).mappings().one()
+        )
+
+    assert question_row["question_id"] == "8B.1"
+    assert question_row["category_key"] == "effectiveness"
+    assert answer_row["answer_text"] == "Supported by a cited national-program source."
+    assert answer_row["confidence_score"] == 0.74
+    assert json.loads(answer_row["answer_json"]) == {
+        "citation_count": 2,
+        "support_status": "supported",
+    }
+    assert json.loads(answer_row["warning_codes_json"]) == ["needs_human_review"]
+    assert link_row["source_slug"] == "manual_web"
+    assert link_row["evidence_role"] == "citation"
+
+
+def test_persist_research_answers_validates_question_and_method_match(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    question = ResearchQuestionMetadata(
+        question_id="8B.1",
+        chapter_id="8B",
+        question_text="Does the ruler articulate a clear governing program?",
+        answer_type="evidence_bundle",
+        category_key="effectiveness",
+        method_version="manual_8b_v1",
+    )
+    mismatched = ResearchAnswerRow(
+        question_id="8B.2",
+        year=1967,
+        iso3="TZA",
+        country_name="Tanzania",
+        method_version="manual_8b_v1",
+        coverage_status="manual_cited",
+    )
+
+    try:
+        persist_research_answers(engine, question, (mismatched,))
+    except ValueError as exc:
+        assert "question_id" in str(exc)
+    else:  # pragma: no cover - defensive branch for clear assertion failure
+        raise AssertionError("persist_research_answers accepted a mismatched row")
 
 
 def _row(

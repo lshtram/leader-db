@@ -413,9 +413,14 @@ treaties, modernization, and nuclear-threat rhetoric remain future/manual/web
 work. D23 registry coverage now includes Q2.1 plus 8B.1-8B.10 effectiveness
 questions as explicit registry specs with text-sync tests; these are registry-only
 manual/internet evidence specs and do not yet populate D25-D27 answer/evidence
-tables. The next infrastructure gaps are broader question-registry coverage for
-sections 1-8 / 1B-7B, handler/spec coverage for additional executable questions,
-and structured/internet-research strategy dispatch.
+tables. Per user decision, D24-D27 now use the existing generic
+`research_question_answers` and `research_answer_evidence_links` tables for the
+next implementation stage rather than new grain-specific tables. The typed
+`persist_research_answers` contract writes generic country-year, ruler-year, and
+ruler-period answers plus evidence links idempotently; Q2.1 remains a wrapper over
+that generic path. The next infrastructure gaps are broader question-registry
+coverage for sections 1-8 / 1B-7B, handler/spec coverage for additional
+executable questions, and structured/internet-research strategy dispatch.
 
 **Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration + CTBTO Treaty Status clean migration + World Bank PIP clean migration + EIU Democracy Index local-PDF adapter: 37 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, `iaea_safeguards`, `ctbto_treaty_status`, `world_bank_poverty_inequality_platform`, and `eiu_democracy_index` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 42 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 
