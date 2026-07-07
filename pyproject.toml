@@ -63,6 +63,9 @@ where = ["src"]
 pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = "-ra -q"
+markers = [
+    "slow: expensive integration or real-bundle smoke tests; skipped by default, run with --runslow",
+]
 
 [tool.ruff]
 line-length = 100

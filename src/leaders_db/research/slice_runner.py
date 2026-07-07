@@ -10,11 +10,17 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
 from leaders_db.chronicle.country_scope import CountryScopeEntry
+from leaders_db.research.country_year_fact_answers import (
+    COUNTRY_YEAR_FACTS_METHOD_VERSION,
+    build_country_year_fact_answers,
+    persist_country_year_fact_answers,
+)
 from leaders_db.research.question_2_1 import (
     Question21AnswerRow,
     RulerLookup,
     build_q2_1_state_based_conflict_answers,
 )
+from leaders_db.research.registry import list_question_specs
 from leaders_db.research.results_store import Q2_1_METHOD_VERSION, persist_q2_1_answers
 from leaders_db.sources.query import EvidenceRepository
 
@@ -65,6 +71,7 @@ class Slice1QuestionHandler:
     build: Callable[..., Sequence[Any]]
     persist: Callable[[Engine | Session, Sequence[Any], str], None]
     default_method_version: str
+    build_from_fact_bind: bool = False
 
 
 def run_slice_1_question_year(
@@ -73,6 +80,7 @@ def run_slice_1_question_year(
     country_scope: Mapping[str, CountryScopeEntry | Mapping[str, Any]],
     evidence_repository: EvidenceRepository,
     results_bind: Engine | Session | None,
+    fact_bind: Engine | Session | None = None,
     ruler_resolver: _RulerResolverLike | RulerLookup | None = None,
     handlers: Mapping[str, Slice1QuestionHandler] | None = None,
 ) -> Slice1RunResult:
@@ -102,15 +110,35 @@ def run_slice_1_question_year(
         year=request.year,
         countries=request.countries,
     )
-    rows = tuple(
-        handler.build(
-            year=request.year,
-            country_scope=selected_scope,
-            evidence_repository=evidence_repository,
-            ruler_resolver=ruler_resolver,
-            proxy_year=request.proxy_year,
+    if handler.build_from_fact_bind:
+        structured_bind = fact_bind or results_bind
+        if structured_bind is None:
+            return Slice1RunResult(
+                status="blocked",
+                question_id=request.question_id,
+                year=request.year,
+                answer_count=0,
+                persisted_count=0,
+                infrastructure_gaps=("missing_country_year_fact_bind",),
+            )
+        rows = tuple(
+            handler.build(
+                bind=structured_bind,
+                question_id=request.question_id,
+                year=request.year,
+                country_scope=selected_scope,
+            )
         )
-    )
+    else:
+        rows = tuple(
+            handler.build(
+                year=request.year,
+                country_scope=selected_scope,
+                evidence_repository=evidence_repository,
+                ruler_resolver=ruler_resolver,
+                proxy_year=request.proxy_year,
+            )
+        )
     method_version = request.method_version or handler.default_method_version
     persisted_count = 0
     if results_bind is not None:
@@ -130,13 +158,26 @@ def run_slice_1_question_year(
 def default_slice_1_handlers() -> Mapping[str, Slice1QuestionHandler]:
     """Return the currently supported Slice 1 question handlers."""
 
-    return {
+    handlers: dict[str, Slice1QuestionHandler] = {
         "2.1": Slice1QuestionHandler(
             build=build_q2_1_state_based_conflict_answers,
             persist=_persist_q2_1,
             default_method_version=Q2_1_METHOD_VERSION,
         )
     }
+    for spec in list_question_specs():
+        if (
+            spec.methodology_id != "2.1"
+            and spec.answer_level == "country_year"
+            and spec.evidence_strategy in {"structured", "structured_plus_context"}
+        ):
+            handlers[spec.methodology_id] = Slice1QuestionHandler(
+                build=build_country_year_fact_answers,
+                persist=_persist_country_year_fact_answers,
+                default_method_version=COUNTRY_YEAR_FACTS_METHOD_VERSION,
+                build_from_fact_bind=True,
+            )
+    return handlers
 
 
 def _persist_q2_1(
@@ -146,6 +187,15 @@ def _persist_q2_1(
 ) -> None:
     typed_rows = tuple(cast(Question21AnswerRow, row) for row in rows)
     persist_q2_1_answers(bind, typed_rows, method_version=method_version)
+
+
+def _persist_country_year_fact_answers(
+    bind: Engine | Session,
+    rows: Sequence[Any],
+    method_version: str,
+) -> None:
+    typed_rows = tuple(cast(Any, row) for row in rows)
+    persist_country_year_fact_answers(bind, typed_rows, method_version=method_version)
 
 
 def _select_country_scope(

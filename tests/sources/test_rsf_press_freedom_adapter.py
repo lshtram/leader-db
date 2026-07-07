@@ -3144,7 +3144,8 @@ def test_rsf_adapter_module_does_not_import_legacy_ingest() -> None:
     MUST NOT import ``leaders_db.ingest`` at module
     import time (SRC-MIG-007 +
     ``docs/architecture/sources.md`` §10.1)."""
-    _purge_modules("leaders_db")
+    _purge_modules("leaders_db.sources")
+    _purge_modules("leaders_db.ingest")
     try:
         importlib_import = __import__(
             "importlib",
@@ -3162,7 +3163,8 @@ def test_rsf_adapter_module_does_not_import_legacy_ingest() -> None:
             f"time (leaked modules: {leaked})"
         )
     finally:
-        _purge_modules("leaders_db")
+        _purge_modules("leaders_db.sources")
+        _purge_modules("leaders_db.ingest")
 
 
 def test_rsf_default_version_matches_canonical_stamp() -> None:

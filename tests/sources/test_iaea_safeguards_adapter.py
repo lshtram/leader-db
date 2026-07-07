@@ -1428,6 +1428,7 @@ def test_extension_raw_value_key_is_infcirc_raw(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_production_staged_bundle_smoke_if_present() -> None:
     """If a real ``data/raw/iaea_safeguards/`` bundle is
     canonically staged locally, the adapter must run

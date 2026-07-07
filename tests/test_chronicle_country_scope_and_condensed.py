@@ -577,6 +577,7 @@ def _seed_isolated_vdem(isolated_data_lake: Path) -> None:
     )
 
 
+@pytest.mark.slow
 def test_cli_countries_all_writes_condensed_output(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -620,6 +621,7 @@ def test_cli_countries_all_writes_condensed_output(
     assert "XYZ123" not in iso3s
 
 
+@pytest.mark.slow
 def test_cli_countries_all_emits_existence_status_labels(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -670,6 +672,7 @@ def test_cli_countries_all_emits_existence_status_labels(
     assert sun_1950["existence_status"] == EXISTS_STATUS_EXISTS
 
 
+@pytest.mark.slow
 def test_cli_condensed_output_path_opt(tmp_path: Path) -> None:
     """``--condensed-output <PATH>`` writes the condensed CSV to the
     custom path instead of the canonical default.
@@ -702,6 +705,7 @@ def test_cli_condensed_output_path_opt(tmp_path: Path) -> None:
     assert not canonical.exists()
 
 
+@pytest.mark.slow
 def test_cli_no_condensed_output_disables_condensed_write(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -738,6 +742,7 @@ def test_cli_no_condensed_output_disables_condensed_write(
     assert "condensed_output_path:  (skipped)" in result.stdout
 
 
+@pytest.mark.slow
 def test_cli_pilot_scope_still_writes_default_condensed(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -770,6 +775,7 @@ def test_cli_pilot_scope_still_writes_default_condensed(
     assert expected_condensed.is_file()
 
 
+@pytest.mark.slow
 def test_cli_detailed_output_unchanged_when_condensed_added(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:

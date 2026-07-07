@@ -23,6 +23,10 @@ from .registry import get_concept_spec, get_question_spec
 
 NEEDS_QUESTION_SPEC_REVIEW = "needs_question_spec_review"
 
+_CONCEPT_ALIASES: dict[str, str] = {
+    "conflict_fatalities": "state_based_conflict_fatalities",
+}
+
 
 class QuestionSpecReviewNeeded(ValueError):
     """Raised when a question cannot be mapped to executable registry specs."""
@@ -41,7 +45,7 @@ def plan_question(question: ResearchQuestion) -> InvestigationPlan:
         )
 
     concept_specs = tuple(_concept_spec(concept_key) for concept_key in question.concepts)
-    if tuple(question.concepts) != question_spec.concept_keys:
+    if _canonical_concept_keys(question.concepts) != question_spec.concept_keys:
         raise ValueError(
             f"Question {question.question_key!r} requires concepts {question_spec.concept_keys!r}; "
             f"got {question.concepts!r}"
@@ -184,6 +188,10 @@ def _concept_spec(concept_key: str) -> ConceptSpec:
             f"{NEEDS_QUESTION_SPEC_REVIEW}: unsupported concept_key {concept_key!r}"
         )
     return concept_spec
+
+
+def _canonical_concept_keys(concept_keys: tuple[str, ...]) -> tuple[str, ...]:
+    return tuple(_CONCEPT_ALIASES.get(concept_key, concept_key) for concept_key in concept_keys)
 
 
 def _required_scope_keys(

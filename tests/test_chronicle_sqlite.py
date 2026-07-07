@@ -18,6 +18,7 @@ import csv
 import sqlite3
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from leaders_db.chronicle.constants import CHRONICLE_CSV_COLUMNS
@@ -270,6 +271,7 @@ def test_write_sqlite_creates_parent_directory(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_cli_with_explicit_sqlite_path_writes_at_that_path(
     isolated_data_lake: Path,
     tmp_path: Path,
@@ -315,6 +317,7 @@ def test_cli_with_explicit_sqlite_path_writes_at_that_path(
     assert not default_sqlite_path.exists()
 
 
+@pytest.mark.slow
 def test_cli_default_command_writes_sqlite_alongside_csv(
     isolated_data_lake: Path,
 ) -> None:
@@ -367,6 +370,7 @@ def test_cli_default_command_writes_sqlite_alongside_csv(
     assert sqlite_path.is_file()
 
 
+@pytest.mark.slow
 def test_cli_sqlite_artifact_row_count_matches_csv(
     isolated_data_lake: Path,
     tmp_path: Path,

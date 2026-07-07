@@ -296,6 +296,7 @@ def test_attribution_text_matches_doc_and_no_invented_identity_fields(tmp_path: 
     assert {obs.leader_name for obs in result.observations} == {None}
 
 
+@pytest.mark.slow
 def test_production_staged_bundle_smoke_if_present() -> None:
     root = Path("data/raw")
     bundle = root / SIPRI_YEARBOOK_CH7_SOURCE_KEY

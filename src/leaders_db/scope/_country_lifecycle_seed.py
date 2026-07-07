@@ -189,6 +189,17 @@ POST_1950_CURRENT_STATE_LIFECYCLES: tuple[CountryLifecycleRecord, ...] = (
     _current("HRV", "Croatia", 1991, predecessors=("YUG",)),
     _current("KAZ", "Kazakhstan", 1991, predecessors=("SUN",)),
     _current("KGZ", "Kyrgyzstan", 1991, predecessors=("SUN",)),
+    _current(
+        "XKX",
+        "Kosovo",
+        2008,
+        predecessors=("SCG", "SRB"),
+        note=(
+            "Year-level lifecycle seed: Kosovo is modeled as XKX from the 2008 "
+            "declaration-of-independence anchor for source coverage; recognition "
+            "status and month/day details are not modeled."
+        ),
+    ),
     _current("LTU", "Lithuania", 1991, predecessors=("SUN",)),
     _current("LVA", "Latvia", 1991, predecessors=("SUN",)),
     _current("MDA", "Moldova, Republic of", 1991, predecessors=("SUN",)),
@@ -252,11 +263,33 @@ HISTORICAL_STATE_LIFECYCLES: tuple[CountryLifecycleRecord, ...] = (
         ),
     ),
     _historical(
+        "DDR",
+        "German Democratic Republic",
+        1949,
+        1990,
+        successors=("DEU",),
+        note=(
+            "Year-level lifecycle seed: East Germany / German Democratic Republic "
+            "modeled as DDR for 1949-1990; reunification subyear details are not modeled."
+        ),
+    ),
+    _historical(
+        "SCG",
+        "Serbia and Montenegro",
+        2003,
+        2006,
+        successors=("MNE", "SRB", "XKX"),
+        note=(
+            "Year-level lifecycle seed: Serbia and Montenegro modeled as SCG for "
+            "2003-2006; successor and recognition subperiods are not split further."
+        ),
+    ),
+    _historical(
         "YUG",
         "Yugoslavia",
         1918,
         2002,
-        successors=("BIH", "HRV", "MKD", "MNE", "SRB", "SVN"),
+        successors=("BIH", "HRV", "MKD", "MNE", "SCG", "SRB", "SVN"),
         note=(
             "Year-level lifecycle seed: Yugoslavia modeled as YUG for 1918-2002; "
             "successor-state, Federal Republic/State Union, and recognition subperiods "

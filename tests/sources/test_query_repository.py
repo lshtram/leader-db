@@ -1046,14 +1046,24 @@ def test_repository_does_not_open_raw_files() -> None:
 
 
 def _purge_leaders_db_modules() -> None:
-    """Remove every cached ``leaders_db.*`` module from ``sys.modules``.
+    """Remove source-boundary modules from ``sys.modules``.
 
-    Helper for the import-boundary sentinel test. Keeping the
-    helper small and local so the test file stays self-contained.
+    Helper for the import-boundary sentinel test. Keep unrelated package modules
+    cached so collection-time imports in other test files are not invalidated.
     """
     for name in list(sys.modules):
-        if name == "leaders_db" or name.startswith("leaders_db."):
+        if (
+            name == "leaders_db.sources"
+            or name.startswith("leaders_db.sources.")
+            or name == "leaders_db.ingest"
+            or name.startswith("leaders_db.ingest.")
+        ):
             del sys.modules[name]
+    parent = sys.modules.get("leaders_db")
+    if parent is not None:
+        for attr in ("sources", "ingest"):
+            if hasattr(parent, attr):
+                delattr(parent, attr)
 
 
 # ---------------------------------------------------------------------------

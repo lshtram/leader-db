@@ -134,6 +134,7 @@ ISO3_COUNTRY_SEED: tuple[tuple[str, str], ...] = (
     ("KNA", "Saint Kitts and Nevis"),
     ("KOR", "South Korea"),
     ("KWT", "Kuwait"),
+    ("XKX", "Kosovo"),
     ("LAO", "Laos"),
     ("LBN", "Lebanon"),
     ("LBR", "Liberia"),
@@ -259,6 +260,8 @@ ISO3_COUNTRY_SEED: tuple[tuple[str, str], ...] = (
     ("ZAF", "South Africa"),
     ("ZMB", "Zambia"),
     ("ZWE", "Zimbabwe"),
+    ("DDR", "German Democratic Republic"),
+    ("SCG", "Serbia and Montenegro"),
 )
 
 __all__ = ["ISO3_COUNTRY_SEED"]

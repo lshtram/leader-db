@@ -2423,7 +2423,8 @@ def test_pts_adapter_module_does_not_import_legacy_ingest() -> None:
     the import to prove legacy ingest is not loaded
     as a side effect.
     """
-    _purge_modules("leaders_db")
+    _purge_modules("leaders_db.sources")
+    _purge_modules("leaders_db.ingest")
     try:
         importlib = __import__("importlib")
         importlib.import_module("leaders_db.sources.adapters.pts")
@@ -2438,7 +2439,8 @@ def test_pts_adapter_module_does_not_import_legacy_ingest() -> None:
             f"(leaked modules: {leaked})"
         )
     finally:
-        _purge_modules("leaders_db")
+        _purge_modules("leaders_db.sources")
+        _purge_modules("leaders_db.ingest")
 
 
 # ---------------------------------------------------------------------------

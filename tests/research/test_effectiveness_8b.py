@@ -104,12 +104,30 @@ def test_effectiveness_8b_requires_manual_review_reason_when_flagged() -> None:
         _evaluation(evidence_quality="manual_review_required", manual_review_reason=None)
 
 
+def test_effectiveness_8b_requires_at_least_one_citation() -> None:
+    with pytest.raises(ValueError, match="citations"):
+        _evaluation(citations=())
+
+
+def test_effectiveness_8b_requires_calibration_when_scored() -> None:
+    with pytest.raises(ValueError, match=r"answer_payload\.calibration"):
+        _evaluation(calibration={})
+
+
+def test_effectiveness_8b_accepts_fractional_confidence_score() -> None:
+    evaluation = _evaluation(confidence_score=0.7)
+
+    assert evaluation.confidence_score == 70
+
+
 def _evaluation(
     *,
     methodology_id: str = "8B.3",
     verdict: str = "partially_supported",
     evidence_quality: str = "medium",
     manual_review_reason: str | None = "Outcome side effects require review.",
+    confidence_score: int | float | None = 70,
+    calibration: dict[str, object] | None = None,
     citations: tuple[EffectivenessCitation, ...] = (
         EffectivenessCitation(url="https://example.test/program", title="Program source"),
         EffectivenessCitation(url="https://example.test/implementation", title="Implementation"),
@@ -129,9 +147,35 @@ def _evaluation(
         confidence="medium",
         manual_review_reason=manual_review_reason,
         score_1_to_10=6,
-        confidence_score=70,
+        confidence_score=confidence_score,
         goal_coverage=({"goal": "ujamaa villages", "score_1_10": 5},),
+        calibration=calibration if calibration is not None else _calibration(),
         candidate_structured_observation={"support_status": verdict},
         citations=citations,
         caveats=("Broad mobilization question; not a binary promise-delivery claim.",),
     )
+
+
+def _calibration() -> dict[str, object]:
+    return {
+        "rubric_version": "8b_effectiveness_v1",
+        "calibration_batch_id": "8b_1967_test_batch",
+        "calibrated_against": ["Tanzania / Julius Nyerere / 1967"],
+        "severity_band": "recurring",
+        "state_responsibility": "direct",
+        "accountability_level": "partial",
+        "information_environment": "partly_restricted",
+        "period_fit": "ruler_period",
+        "source_mix": ["academic", "official"],
+        "structured_prior_summary": "not_available",
+        "contrary_evidence": [],
+        "score_rationale": "Fixture score reflects mixed program delivery.",
+        "lower_anchor_rejected": "Lower anchor would overstate policy failure.",
+        "higher_anchor_rejected": "Higher anchor would understate side effects.",
+        "visibility_bias_check": "Fixture does not use source volume as severity.",
+        "repression_silence_check": "Fixture records information limits.",
+        "population_scale_check": "Fixture separates national program scope from harm scale.",
+        "source_type_check": "Fixture includes official and secondary sources.",
+        "recency_check": "Fixture uses ruler-period evidence.",
+        "subagent_calibration_check": "Fixture has one comparison case only.",
+    }

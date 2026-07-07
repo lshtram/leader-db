@@ -295,6 +295,7 @@ def test_attribution_text_matches_doc() -> None:
     assert SIPRI_MILEX_ATTRIBUTION_TEXT in doc
 
 
+@pytest.mark.slow
 def test_production_staged_bundle_smoke_if_present() -> None:
     root = Path("data/raw")
     bundle = root / SIPRI_MILEX_SOURCE_KEY

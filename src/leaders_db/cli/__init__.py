@@ -35,6 +35,9 @@ from .commands_identity import (
 )
 from .commands_research import (
     research_app,
+    research_build_country_year_fact_answers_cmd,
+    research_build_local_prior_cmd,
+    research_build_local_prior_slice_cmd,
     research_list_answers_cmd,
     research_persist_8b_evaluations_cmd,
 )
@@ -103,6 +106,9 @@ __all__ = [
     "main_callback",
     "match_countries",
     "research_app",
+    "research_build_country_year_fact_answers_cmd",
+    "research_build_local_prior_cmd",
+    "research_build_local_prior_slice_cmd",
     "research_list_answers_cmd",
     "research_persist_8b_evaluations_cmd",
     "resolve_leaders",

@@ -22,12 +22,18 @@ from leaders_db.sources.concepts import (
     resolve_concept,
 )
 from leaders_db.sources.contracts import EvidenceQuery, SourceId, SourceWarning
+from leaders_db.sources.country_codes import (
+    iso3_from_source_country,
+    iso3_from_ucdp_country_id,
+    normalize_source_country_code,
+)
 from leaders_db.sources.query import EvidenceRepository
 
 from .country_year_facts import upsert_country_year_fact
 
 CONCEPT_FACT_PRODUCER = "concept_country_year_facts"
 CONCEPT_FACT_METHOD_VERSION = "concept-country-year-facts-v1"
+SOURCE_NATIVE_UCDP_COUNTRY_ID_SOURCES: frozenset[str] = frozenset({"ucdp"})
 DEFAULT_CONCEPT_SOURCE_PRECEDENCE: tuple[str, ...] = (
     "world_bank_wdi",
     "maddison_project",
@@ -35,8 +41,11 @@ DEFAULT_CONCEPT_SOURCE_PRECEDENCE: tuple[str, ...] = (
     "undp_hdi",
     "who_gho_api",
     "vdem",
+    "freedom_house",
+    "ucdp",
     "rsf_press_freedom",
     "fas",
+    "sipri_milex",
 )
 
 
@@ -161,11 +170,21 @@ def _resolve_country_code(
     country_codes_by_name: dict[str, str],
 ) -> str | None:
     if row.country_code is not None:
-        return row.country_code.upper()
+        if row.source_id.slug in SOURCE_NATIVE_UCDP_COUNTRY_ID_SOURCES:
+            return iso3_from_ucdp_country_id(row.country_code, year=row.year)
+        if row.country_name is not None:
+            country_name_iso3 = iso3_from_source_country(row.country_name, year=row.year)
+            if country_name_iso3 is not None:
+                return country_name_iso3
+        return normalize_source_country_code(row.country_code)
     if row.country_name is None:
         return None
     normalized_name = normalize_country_name(row.country_name)
-    return country_codes_by_name.get(normalized_name) or alias_to_iso3(normalized_name)
+    return (
+        iso3_from_source_country(row.country_name, year=row.year)
+        or country_codes_by_name.get(normalized_name)
+        or alias_to_iso3(normalized_name)
+    )
 
 
 def _indicator_codes_for_concepts(concept_keys: Sequence[str]) -> tuple[str, ...]:

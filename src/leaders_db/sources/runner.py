@@ -8,8 +8,6 @@ from collections.abc import Sequence
 
 from sqlalchemy.engine import Engine
 
-from leaders_db.research.sql_repository import observation_to_row
-
 from .attributions import source_attribution_from_descriptor
 from .contracts import (
     NormalizedObservation,
@@ -188,6 +186,8 @@ def _build_manifest(
 
 
 def _content_hash(observations: Sequence[NormalizedObservation]) -> str:
+    from leaders_db.research.sql_repository import observation_to_row
+
     payload = [observation_to_row(observation) for observation in observations]
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()

@@ -88,6 +88,7 @@ from .pts_io import (
     load_indicator_catalog,
     write_pts_parquet,
 )
+from .pts_normalized import write_pts_normalized_observations
 from .pts_xlsx import read_pts
 
 # Re-exports: ``PTS_ATTRIBUTION``, ``PTS_SOURCE_KEY``, and
@@ -343,6 +344,7 @@ def ingest_pts(
         rows = write_pts_observations(
             session, source_id, df, catalog_path=catalog_path,
         )
+    write_pts_normalized_observations(parquet_path=parquet)
 
     result = PtsIngestResult(
         source_id=source_id,
@@ -393,6 +395,7 @@ __all__ = [
     "load_indicator_catalog",
     "read_pts",
     "register_pts_source",
+    "write_pts_normalized_observations",
     "write_pts_observations",
     "write_pts_parquet",
     "write_pts_run_manifest",

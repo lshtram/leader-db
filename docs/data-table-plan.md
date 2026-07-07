@@ -57,10 +57,10 @@ can be considered complete.
 | **I4** | Operational for local non-client identity evidence. | Improve residual current-identity gaps, disambiguation, and review/research classifications. |
 | **I5** | Partial. | Add missing concepts and fix blocked source-country mappings. |
 | **I6** | Operational. | Extend producers and mapping fallbacks carefully; keep `country_year_facts` as the shared write target. |
-| **I7** | Partial. | `1B.1-8B.10` ruler-quality questions are registered; chapter 1-8 country-condition questions remain. |
+| **I7** | Complete for registry breadth. | Chapter 1-8 country-condition questions and `1B.1-8B.10` ruler-quality questions are registered with text-sync tests; DB sync remains future work. |
 | **I8** | Implemented through generic research answer/evidence tables. | Add more answer adapters and query/export QA. |
 | **I9** | Partial. | Add typed goal, implementation, crisis, appointment, and corruption-case payloads/adapters. |
-| **I10** | Partial. | Generalize cited/manual evaluator storage beyond the first 8B adapter. |
+| **I10** | Partial. | Generic cited/manual persistence exists; remaining work is question-by-question guides, smoke-tested evidence generation, and judged calibration batches for score-bearing questions. |
 | **I11** | Not started. | Build aggregation only after enough D24-D27 answer rows exist. |
 
 ### Infrastructure phase details
@@ -777,12 +777,12 @@ quality, confidence, review, and research-prompt mechanism.
 | **D8** | `country_year_population` | population, source, year, confidence. | Section 5 context; denominators for per-capita metrics; inclusion threshold. | I1, I2, I3, I5, I6 | Partly supported via WDI population concept. |
 | **D9** | `country_year_economy` | GDP, GDP per capita, GDP PPP, GNI, trade, FDI, inflation, unemployment, debt/fiscal where available. | 5. economic well-being; 5B.1-5B.10; 8B outcome checks for economic goals. | I1, I2, I3, I5, I6 | GDP/population/GDP total partly supported. More concepts needed. |
 | **D10** | `country_year_social_development` | HDI, life expectancy, child mortality, immunization, schooling, literacy, inequality, poverty, services access. | 6. social well-being; 6B.1-6B.10; parts of 5. inclusive prosperity. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct concepts for UNDP HDI/life expectancy/GNI/schooling and WHO GHO under-5 mortality/immunization. Poverty/inequality/services remain future concepts. |
-| **D11** | `country_year_political_freedom` | democracy, suffrage, civil liberties, rule of law, press freedom, democratic institutions, Freedom House/Polity later. | 4. political freedom; 4B.1-4B.10. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct concepts for V-Dem electoral/liberal democracy, civil liberties, suffrage, rule of law, expression, association, and RSF press freedom score/rank. Freedom House/EIU/BTI require ISO3 mapping cleanup before publication. |
-| **D12** | `country_year_domestic_safety` | PTS, physical integrity, torture, disappearances, killings, political imprisonment, one-sided violence, civil-society repression, incitement/manual marker. | 3. domestic safety; 3B.1-3B.10. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct V-Dem concepts for physical integrity, political/private liberties, civil-society repression, and extrajudicial killings. UCDP one-sided violence, CIRIGHTS, and PTS need ISO3/country-code mapping cleanup before publication. Incitement remains manual/web. |
-| **D13** | `country_year_international_conflict` | state-based conflict, internationalized conflict, event counts, fatalities, conflict severity/frequency, peace agreement markers, aggressor/proxy markers later. | 2. peace/aggression; 2B.1-2B.10. | I1, I2, I3, I5, I6; I10 for role/proxy claims | UCDP observations exist, but current rows use numeric UCDP country IDs rather than ISO3, so `country_year_facts` publication is blocked on country-code mapping cleanup. Aggressor/proxy role remains future/manual. |
-| **D14** | `country_year_military` | military spend, spend % GDP, spend per capita, spend % government budget. | 2.4-2.8 context; 2B.8; nuclear/security context. | I1, I2, I3, I5, I6 | SIPRI Milex observations exist, but current normalized rows do not have usable ISO3 country-year pairs, so publication is blocked on country-code mapping cleanup. |
-| **D15** | `country_year_corruption_integrity` | WGI corruption, V-Dem corruption, executive corruption, public-sector corruption, CPI score/source count/error. | 7. integrity; 7B.3-7B.10 support. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct V-Dem concepts for corruption, executive corruption, and public-sector corruption. WGI/CPI require further mapping/source-priority work. |
-| **D16** | `country_year_governance_capacity` | WGI government effectiveness/rule of law/regulatory quality, BTI governance, V-Dem accountability/constraints. | 8. effectiveness background; 8B support; also 4 and 5B. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct V-Dem concepts for accountability, judicial/legislative constraints, multiparty institutions, and regime type. WGI/BTI require further mapping/source-priority work. |
+| **D11** | `country_year_political_freedom` | democracy, suffrage, civil liberties, rule of law, press freedom, democratic institutions, Freedom House/Polity later. | 4. political freedom; 4B.1-4B.10. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct concepts for V-Dem electoral/liberal democracy, civil liberties, suffrage, rule of law, expression, association, RSF press freedom score/rank, and Freedom House political-rights/civil-liberties numeric ratings. Freedom House now resolves the safe standard-country aliases found in its local rows; remaining unmapped Freedom House rows are mostly disputed/subnational/territorial entries that need an explicit scope policy. Freedom House status remains future categorical concept work; EIU/BTI require additional mapping/publication cleanup before D11 use. |
+| **D12** | `country_year_domestic_safety` | PTS, physical integrity, torture, disappearances, killings, political imprisonment, one-sided violence, civil-society repression, incitement/manual marker. | 3. domestic safety; 3B.1-3B.10. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct V-Dem concepts for physical integrity, political/private liberties, civil-society repression, and extrajudicial killings, direct UCDP one-sided violence events/fatalities, CIRIGHTS scale-specific concepts, and PTS scale-specific concepts (`pts_amnesty_score`, `pts_human_rights_watch_score`, `pts_state_dept_score`). The local PTS bridge now writes processed PTS parquet rows into `normalized_observations`; publication includes historical Czechoslovakia rows through the `CSK` lifecycle mapping. CIRIGHTS has no remaining unresolved country-name mappings; remaining CIRIGHTS skips are lifecycle/scope exclusions. Remaining PTS skips are lifecycle/scope rows or intentionally unresolved aggregate/territory labels such as EU, occupied territories, Crimea, Gaza, African Union, Somaliland, Western Sahara, Puerto Rico, and pre-policy Palestine rows. Incitement remains manual/web. |
+| **D13** | `country_year_international_conflict` | state-based conflict, internationalized conflict, event counts, fatalities, conflict severity/frequency, peace agreement markers, aggressor/proxy markers later. | 2. peace/aggression; 2B.1-2B.10. | I1, I2, I3, I5, I6; I10 for role/proxy claims | Partly supported through `country_year_facts` direct UCDP concepts for state-based and internationalized conflict events/fatalities. Publication resolves the committed `data/metadata/ucdp_country_iso3.csv` lookup (122 of 124 local UCDP IDs derived from the staged GED 23.1 raw `country` column) plus year-aware dispatch for `345 Serbia (Yugoslavia)` and `365 Russia (Soviet Union)`. Dense zero rows for `345` outside the YUG lifecycle remain skipped rather than invented; this policy is covered by a focused regression test. Aggressor/proxy role remains future/manual. |
+| **D14** | `country_year_military` | military spend, spend % GDP, spend per capita, spend % government budget. | 2.4-2.8 context; 2B.8; nuclear/security context. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct SIPRI Milex concepts for constant USD, per-capita, share of GDP, and share of government spending. SIPRI rows preserve source display names rather than invented ISO3; conservative country-name/alias matching now covers 170 distinct local SIPRI display names. German Democratic Republic and Kosovo resolve through `DDR` and `XKX`; the remaining unresolved display name is the European Union aggregate, intentionally unsupported unless an explicit aggregate/federation policy is added and covered by a focused regression test. Pre-scope lifecycle rows for Serbia/Montenegro, South Sudan, North Yemen, and Rhodesia/Zimbabwe remain skipped rather than invented. |
+| **D15** | `country_year_corruption_integrity` | WGI corruption, V-Dem corruption, executive corruption, public-sector corruption, CPI score/source count/error. | 7. integrity; 7B.3-7B.10 support. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct V-Dem concepts for corruption, executive corruption, and public-sector corruption, plus scale-specific Transparency CPI `cpi_score` and WGI `control_of_corruption` concepts. The concepts deliberately remain separate because V-Dem, CPI, and WGI use different scales. CPI Kosovo rows resolve through `KSV→XKX`; remaining CPI skips are territory/policy cases. |
+| **D16** | `country_year_governance_capacity` | WGI government effectiveness/rule of law/regulatory quality, BTI governance, V-Dem accountability/constraints. | 8. effectiveness background; 8B support; also 4 and 5B. | I1, I2, I3, I5, I6 | Partly supported through `country_year_facts` direct V-Dem concepts for accountability, judicial/legislative constraints, multiparty institutions, and regime type, plus scale-specific WGI concepts for voice/accountability, rule of law, government effectiveness, and regulatory quality, plus BTI governance/status/democracy-status concepts. WGI source-native codes now resolve safe one-to-one aliases such as `ADO→AND`, `ROM→ROU`, `TMP→TLS`, and `ZAR→COD`; BTI Kosovo rows resolve through `XKX`, and BTI's decomposed `Türkiye` spelling resolves through normalized `turkiye` aliases; remaining WGI/BTI skips are mostly territory/policy cases or pre-scope Serbia 2003/2005 rows. |
 | **D17** | `country_year_nuclear_risk` | has nuclear weapons, total inventory, deployed warheads, stockpile, reserve, retired warheads, safeguards/treaties, modernization, threats/manual marker. | 1. nuclear/global risk; 1B.1-1B.10. | I1, I2, I3, I5, I6; I10 for rhetoric/doctrine/manual claims | Partly supported through `country_year_facts` direct FAS 2014 arsenal-count concepts for total inventory, military stockpile, operational strategic/nonstrategic, and reserve/nondeployed warheads. Treaty/doctrine/threats and non-FAS source expansion remain future/manual/web work. |
 
 ### 3. Ruler-period interpretation tables
@@ -804,10 +804,10 @@ methodology questions.
 
 | Step | Table | Purpose | Supports methodology questions | Needed infrastructure | Current support |
 |---:|---|---|---|---|---|
-| **D23** | `methodology_questions` | Stores question ID, text, category, answer type, evidence strategy, and whether it is country-year, ruler-year, or ruler-period. | All sections 1-8 and 1B-8B. | I7 | Partly supported in the code registry: Q2.1 plus all 1B.1-8B.10 ruler-quality questions are registered with answer level/type, evidence strategy, support status, output fields, and text-sync tests against the methodology document. Full DB sync and complete country-condition sections 1-8 remain future work. |
-| **D24** | `country_year_question_answers` | One answer per country/year/question for the chapter 1-8 country-condition questions. | Sections 1-8. | I3, I5, I7, I8 | Implemented for now through the generic `research_question_answers` table rather than a new grain-specific table. `persist_research_answers` is the typed D24-D27 write contract; Q2.1 continues to use the same table through its wrapper. |
-| **D25** | `ruler_year_question_answers` | One answer per ruler/country/year/question for 1B-8B. | 1B-8B. | I4, I7, I8, I10 | Uses the same generic `research_question_answers` path for now, keyed by question/year/ISO3/method and optional ruler fields. The first 8B writer, `persist_effectiveness_8b_evaluations`, persists already-cited effectiveness evaluations through this generic path; `leaders-db research persist-8b-evaluations --input <file.json>` is the CLI entrypoint. Dedicated ruler-year tables are deferred until answer shapes stabilize. |
-| **D26** | `ruler_period_question_answers` | One answer per ruler period/question, for questions that cannot honestly be answered one year at a time. | 5B.10, 6B.10, 8B.7-8B.10, many 1B/2B/7B questions. | I4, I7, I8, I9, I10 | Uses the same generic `research_question_answers` path for now, with period-level details stored in `answer_json` and the relevant evaluation/end year in `year` / `evidence_year`. `persist_effectiveness_8b_evaluations` and the matching CLI command are the first period-style adapter for registered 8B manual/internet outputs. Dedicated period tables are deferred. |
+| **D23** | `methodology_questions` | Stores question ID, text, category, answer type, evidence strategy, and whether it is country-year, ruler-year, or ruler-period. | All sections 1-8 and 1B-8B. | I7 | Complete in the code registry for breadth: all Chapter 1-8 country-condition questions plus all 1B.1-8B.10 ruler-quality questions are registered with answer level/type, evidence strategy, support status, output fields where needed, and text-sync tests against the methodology document. Full DB sync remains future work. |
+| **D24** | `country_year_question_answers` | One answer per country/year/question for the chapter 1-8 country-condition questions. | Sections 1-8. | I3, I5, I7, I8 | Implemented for now through the generic `research_question_answers` table rather than a new grain-specific table. `persist_research_answers` is the typed D24-D27 write contract; Q2.1 continues to use the same table through its wrapper. `build_country_year_fact_answers` is the first generic structured builder from `country_year_facts`: it emits direct rows with source-observation evidence links, partial rows with `missing_field_keys` plus a `partial_country_year_fact` warning for incomplete multi-concept questions, and explicit missing rows where no selected fact exists. Slice 1 auto-registers structured / structured-plus-context country-year registry questions for this path. `leaders-db research build-country-year-fact-answers --question-id <id> --year <year>` is the CLI entrypoint, with optional repeated `--iso3`, `--db-url`, and `--json`. Specialized shaping now covers question `1.1`, deriving nuclear-possession booleans from FAS total-inventory facts; question `1.7`, adding stockpile/reserve nuclear fields and answer text while preserving the generic fact bundle; question `2.2`, deriving boolean internationalized-conflict answers from UCDP event-count facts while preserving the count in `answer_json`; and question `2.6`, bundling SIPRI constant-USD and per-capita facts into named fields and compact answer text. Generic Chapter 2 fact-backed registry keys now match production `country_year_facts` keys for 2.2-2.7. Structured evidence-bundle and categorical country-year questions now receive generic named-field shaping and compact answer text, and scalar `answer_numeric` values are reserved for true numeric contracts. Remaining D24 work is limited to future question-specific derivations that need more than direct selected-fact exposure. |
+| **D25** | `ruler_year_question_answers` | One answer per ruler/country/year/question for 1B-8B. | 1B-8B. | I4, I7, I8, I10 | Uses the same generic `research_question_answers` path for now, keyed by question/year/ISO3/method and optional ruler fields. `persist_cited_evaluations` now persists already-cited registered `internet_manual` outputs for non-8B and 8B methodology questions through this path; `leaders-db research persist-cited-evaluations --input <file.json>` is the generic CLI entrypoint. `leaders-db research cited-evaluation-schema` and `leaders-db research cited-evaluation-template` define the researcher/subagent-facing JSON form. Score-bearing records require `answer_payload.calibration` per `docs/methodology/cited-evaluation-calibration.md`; each question needs a guide under `docs/methodology/question-guides/` before vertical-slice smoke tests. The older `persist_effectiveness_8b_evaluations` / `persist-8b-evaluations` path remains as an 8B-specific compatibility wrapper. Dedicated ruler-year tables are deferred until answer shapes stabilize. |
+| **D26** | `ruler_period_question_answers` | One answer per ruler period/question, for questions that cannot honestly be answered one year at a time. | 5B.10, 6B.10, 8B.7-8B.10, many 1B/2B/7B questions. | I4, I7, I8, I9, I10 | Uses the same generic `research_question_answers` path for now, with period-level details stored in `answer_json` and the relevant evaluation/end year in `year` / `evidence_year`. `persist_cited_evaluations` is now the first generic period-style cited/manual persistence adapter for registered manual/internet outputs; the 8B-specific adapter remains a compatibility wrapper. Score-bearing ruler-period outputs follow the same required question-guide and calibration contract as D25. Dedicated period tables are deferred. |
 | **D27** | `answer_evidence_links` | Links each answer to exact source observations, web citations, quotes, local files, or manual evidence. | Required for all answer tables. | I8, I10 | Implemented for now through `research_answer_evidence_links`; `persist_research_answers` refreshes links idempotently on rerun, and `leaders-db research list-answers` exposes persisted answers with evidence-link counts / JSON links. |
 
 ### 5. Score and review tables
@@ -816,7 +816,7 @@ These consume the answer tables. They should not be built first.
 
 | Step | Table | Purpose | Supports methodology questions | Needed infrastructure | Current support |
 |---:|---|---|---|---|---|
-| **D28** | `ruler_category_scores` / existing `ruler_scores` | Final per-ruler-year category scores, confidence, rationale, review status. | Aggregates 1B-8B into eight category scores. | I8, I11 | Existing `ruler_scores` schema exists, but scoring from answer tables is not ready. |
+| **D28** | `ruler_category_scores` / existing `ruler_scores` | Final per-ruler-year category scores, confidence, rationale, review status. | Aggregates 1B-8B into eight category scores. | I8, I11 | Existing `ruler_scores` schema exists, but scoring from answer tables is not ready. Do not start until a pilot category has enough calibrated D25/D26 answers and complete D27 evidence links. |
 | **D29** | `country_category_scores` | Optional per-country-year category scores separate from ruler responsibility. | Aggregates sections 1-8. | I8, I11 | Not explicit today. Optional. |
 | **D30** | `manual_review_items` | Queue uncertain, conflicting, missing, or high-impact answers for human review. | All sections. | I8, I10, I11 | Partly supported by validation/manual-review ideas, but not tied to new answer tables. |
 
@@ -937,8 +937,12 @@ steps when choosing what to do next.
 
 1. **I5 / I6 mapping hardening:** fix source-country mappings that block
    structured publication before adding new topic-table shapes. Priority blockers
-   are UCDP numeric country IDs for D13, SIPRI Milex country-name/code mapping for
-   D14, and the remaining PTS/CIRIGHTS/Freedom House/WGI/CPI/BTI mapping gaps.
+   no longer include the known D13/D14 policy cases: post-YUG UCDP `345` dense
+   zero rows remain skipped, and the SIPRI Milex `European Union` aggregate
+   remains unsupported unless an explicit aggregate/federation policy is added.
+   BTI's decomposed `Türkiye` spelling is now covered by the shared alias seed
+   and a fact-publication regression. Remaining work is future D13/D14 source
+   expansion plus PTS/CIRIGHTS/Freedom House/WGI/CPI/BTI mapping gaps.
 2. **I7 country-condition registry:** add methodology specs for chapter 1-8
    country-condition questions. Ruler-quality `1B.1-8B.10` is already represented
    in the registry as manual/internet evidence specs.
@@ -948,18 +952,23 @@ steps when choosing what to do next.
 4. **I9 ruler-period evidence payloads:** add typed payloads/adapters for goals,
    implementation, crises, appointments, and corruption cases, writing through the
    generic answer/evidence tables.
-5. **I10 manual/internet evaluator storage:** generalize the cited-evaluation JSON
-   contract beyond 8B so `1B-7B` and country-condition manual questions can import
-   source-backed evaluator results with citations, confidence, warnings, and review
-   flags.
+5. **I10 manual/internet evaluator storage:** generic cited-evaluation persistence
+   exists beyond 8B. Remaining work is question-by-question vertical slices:
+   create/update the question guide, run 5-10 evidence cases, have one
+   `ruler-quality-judge` apply the shared meter, and persist only records with
+   citations plus `answer_payload.calibration`.
 6. **I11 score aggregation:** only start after enough D24-D27 answers exist for a
    pilot category. Build aggregation rules, confidence rollup, and review
    thresholds before writing D28/D30 outputs.
 
 ### Data-Table Completion Order
 
-1. **Close D13/D14 blockers:** fix UCDP and SIPRI Milex country-code/ISO3 mapping,
-   then publish conflict and military facts.
+1. **D13/D14 policy edge review complete:** known unresolved policy cases are
+   decided and regression-locked: post-YUG UCDP `345` dense-zero rows stay
+   skipped, and the SIPRI Milex `European Union` aggregate stays unsupported
+   unless an explicit aggregate/federation policy is added. Future D13/D14 work is
+   source/concept expansion, not silently adding those identities to the country
+   seed.
 2. **Finish D8-D17 breadth:** add missing concepts and source precedence for the
    partly supported structured families: more economy, poverty/inequality/services,
    Freedom House/Polity/BTI, PTS/CIRIGHTS, WGI/CPI/BTI, SIPRI Yearbook/NTI/treaty
@@ -970,12 +979,22 @@ steps when choosing what to do next.
 4. **Populate D24:** create structured country-year answer builders from
    `country_year_facts` for chapter 1-8 questions where local facts are enough;
    emit explicit missing/manual-review rows otherwise.
-5. **Populate D25/D26:** add cited-evaluation adapters for `1B-7B` and the
-   ruler-period evidence families D18-D22. The existing 8B adapter is the pattern.
+5. **Populate D25/D26:** generic cited/manual persistence now exists via
+    `persist_cited_evaluations` and
+    `leaders-db research persist-cited-evaluations --input <file.json>` for
+    already-cited registered `internet_manual` outputs, while the 8B-specific
+    adapter remains as a compatibility wrapper. The researcher/subagent-facing JSON
+    form is exposed by `leaders-db research cited-evaluation-schema` and
+    `leaders-db research cited-evaluation-template`. Score-bearing records require
+    `answer_payload.calibration`, and each question needs a guide under
+    `docs/methodology/question-guides/` before running the evidence/judge smoke
+    test. Remaining D25/D26 work is to add the research-generation adapters and
+    question guides that produce cited inputs for `1B-7B` and the ruler-period
+    evidence families D18-D22.
 6. **Make D27 audit-complete:** require every answer adapter to write exact source
    observation IDs or citation URLs; use `leaders-db research list-answers` for QA.
 7. **Implement D28:** aggregate `1B-8B` answer rows into ruler category scores only
-   after a pilot slice has enough persisted answers.
+    after a pilot slice has enough calibrated, evidence-linked persisted answers.
 8. **Decide D29:** build country-category scores only if country-condition outputs
    need their own scored layer separate from ruler responsibility.
 9. **Implement D30:** build manual-review items from missing answers, low
@@ -985,9 +1004,10 @@ steps when choosing what to do next.
 ### Current Gate Before Scoring
 
 Do not start D28-D30 yet. The next useful work is still evidence and answer
-coverage: fix D13/D14 mapping blockers, complete the chapter 1-8 registry, and add
-generic structured/manual answer builders until D24-D27 have enough rows to
-aggregate.
+coverage: finish remaining structured concept breadth and source precedence,
+complete additional D24-D27 structured/manual answer builders, and run
+question-guide vertical slices for score-bearing manual/internet questions. Defer
+any new D13/D14 aggregate/lifecycle policy expansion until explicitly scoped.
 
 ## Questions already well supported by table plan
 

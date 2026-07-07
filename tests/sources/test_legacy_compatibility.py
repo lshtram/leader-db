@@ -40,13 +40,23 @@ def _purge_modules(prefix: str) -> None:
             del sys.modules[name]
 
 
+def _purge_source_and_ingest_modules() -> None:
+    _purge_modules("leaders_db.sources")
+    _purge_modules("leaders_db.ingest")
+    parent = sys.modules.get("leaders_db")
+    if parent is not None:
+        for attr in ("sources", "ingest"):
+            if hasattr(parent, attr):
+                delattr(parent, attr)
+
+
 @pytest.fixture()
 def fresh_legacy_import():
     """Import ``leaders_db.ingest`` in a clean module cache."""
-    _purge_modules("leaders_db")
+    _purge_source_and_ingest_modules()
     module = importlib.import_module("leaders_db.ingest")
     yield module
-    _purge_modules("leaders_db")
+    _purge_source_and_ingest_modules()
 
 
 def test_legacy_ingest_exposes_stage2_adapters_dispatch_table(
@@ -194,7 +204,7 @@ def test_importing_sources_does_not_break_legacy_ingest_use() -> None:
 
     PASS-ELIGIBLE.
     """
-    _purge_modules("leaders_db")
+    _purge_source_and_ingest_modules()
     try:
         # Import the new package first.
         importlib.import_module("leaders_db.sources")
@@ -208,7 +218,7 @@ def test_importing_sources_does_not_break_legacy_ingest_use() -> None:
         assert pwt_via_legacy is pwt_again
         assert callable(pwt_via_legacy)
     finally:
-        _purge_modules("leaders_db")
+        _purge_source_and_ingest_modules()
 
 
 def test_lazy_legacy_seam_returns_same_mapping_as_legacy_package() -> None:

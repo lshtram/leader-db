@@ -90,12 +90,35 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "private_civil_liberties",
     "civil_society_repression",
     "extrajudicial_killings",
+    "cirights_physical_integrity",
+    "cirights_torture",
+    "cirights_disappearances",
+    "cirights_killings",
+    "cirights_political_imprisonment",
+    "cirights_repression",
+    "cirights_civil_political_rights",
+    "pts_amnesty_score",
+    "pts_human_rights_watch_score",
+    "pts_state_dept_score",
+    "state_based_conflict_events",
+    "state_based_conflict_fatalities",
+    "internationalized_conflict_events",
+    "internationalized_conflict_fatalities",
     "one_sided_violence_events",
     "one_sided_violence_fatalities",
     "corruption_index",
+    "cpi_score",
+    "control_of_corruption",
     "executive_corruption",
     "public_corruption",
     "accountability",
+    "voice_and_accountability",
+    "wgi_rule_of_law",
+    "government_effectiveness",
+    "regulatory_quality",
+    "bti_governance_index",
+    "bti_status_index",
+    "bti_democracy_status",
     "judicial_constraints",
     "legislative_constraints",
     "multiparty_institutions",
@@ -105,6 +128,10 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "nuclear_operational_strategic",
     "nuclear_operational_nonstrategic",
     "nuclear_reserve_nondeployed",
+    "military_spend_constant_usd",
+    "military_spend_per_capita",
+    "military_spend_share_gdp",
+    "military_spend_share_govt",
 )
 
 
@@ -189,9 +216,21 @@ def test_list_concepts_exposes_stable_keys() -> None:
     from leaders_db.sources.concepts import (
         CONCEPT_ACCOUNTABILITY,
         CONCEPT_BCG_IMMUNIZATION,
+        CONCEPT_BTI_DEMOCRACY_STATUS,
+        CONCEPT_BTI_GOVERNANCE_INDEX,
+        CONCEPT_BTI_STATUS_INDEX,
+        CONCEPT_CIRIGHTS_CIVIL_POLITICAL_RIGHTS,
+        CONCEPT_CIRIGHTS_DISAPPEARANCES,
+        CONCEPT_CIRIGHTS_KILLINGS,
+        CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+        CONCEPT_CIRIGHTS_POLITICAL_IMPRISONMENT,
+        CONCEPT_CIRIGHTS_REPRESSION,
+        CONCEPT_CIRIGHTS_TORTURE,
         CONCEPT_CIVIL_LIBERTIES,
         CONCEPT_CIVIL_SOCIETY_REPRESSION,
+        CONCEPT_CONTROL_OF_CORRUPTION,
         CONCEPT_CORRUPTION_INDEX,
+        CONCEPT_CPI_SCORE,
         CONCEPT_DTP3_IMMUNIZATION,
         CONCEPT_ELECTORAL_DEMOCRACY,
         CONCEPT_EXECUTIVE_CORRUPTION,
@@ -202,13 +241,20 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_GDP_PER_CAPITA,
         CONCEPT_GDP_TOTAL,
         CONCEPT_GNI_PER_CAPITA,
+        CONCEPT_GOVERNMENT_EFFECTIVENESS,
         CONCEPT_HDI,
         CONCEPT_HEPB3_IMMUNIZATION,
+        CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
+        CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
         CONCEPT_JUDICIAL_CONSTRAINTS,
         CONCEPT_LEGISLATIVE_CONSTRAINTS,
         CONCEPT_LIBERAL_DEMOCRACY,
         CONCEPT_LIFE_EXPECTANCY,
         CONCEPT_MEAN_YEARS_SCHOOLING,
+        CONCEPT_MILITARY_SPEND_CONSTANT_USD,
+        CONCEPT_MILITARY_SPEND_PER_CAPITA,
+        CONCEPT_MILITARY_SPEND_SHARE_GDP,
+        CONCEPT_MILITARY_SPEND_SHARE_GOVT,
         CONCEPT_MULTIPARTY_INSTITUTIONS,
         CONCEPT_NUCLEAR_MILITARY_STOCKPILE,
         CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
@@ -223,11 +269,19 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_PRESS_FREEDOM_RANK,
         CONCEPT_PRESS_FREEDOM_SCORE,
         CONCEPT_PRIVATE_CIVIL_LIBERTIES,
+        CONCEPT_PTS_AMNESTY_SCORE,
+        CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
+        CONCEPT_PTS_STATE_DEPT_SCORE,
         CONCEPT_PUBLIC_CORRUPTION,
         CONCEPT_REGIME_TYPE,
+        CONCEPT_REGULATORY_QUALITY,
         CONCEPT_RULE_OF_LAW,
+        CONCEPT_STATE_BASED_CONFLICT_EVENTS,
+        CONCEPT_STATE_BASED_CONFLICT_FATALITIES,
         CONCEPT_SUFFRAGE,
         CONCEPT_UNDER5_MORTALITY,
+        CONCEPT_VOICE_AND_ACCOUNTABILITY,
+        CONCEPT_WGI_RULE_OF_LAW,
         KNOWN_CONCEPT_KEYS,
         list_concepts,
     )
@@ -261,12 +315,35 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_PRIVATE_CIVIL_LIBERTIES,
         CONCEPT_CIVIL_SOCIETY_REPRESSION,
         CONCEPT_EXTRAJUDICIAL_KILLINGS,
+        CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+        CONCEPT_CIRIGHTS_TORTURE,
+        CONCEPT_CIRIGHTS_DISAPPEARANCES,
+        CONCEPT_CIRIGHTS_KILLINGS,
+        CONCEPT_CIRIGHTS_POLITICAL_IMPRISONMENT,
+        CONCEPT_CIRIGHTS_REPRESSION,
+        CONCEPT_CIRIGHTS_CIVIL_POLITICAL_RIGHTS,
+        CONCEPT_PTS_AMNESTY_SCORE,
+        CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
+        CONCEPT_PTS_STATE_DEPT_SCORE,
+        CONCEPT_STATE_BASED_CONFLICT_EVENTS,
+        CONCEPT_STATE_BASED_CONFLICT_FATALITIES,
+        CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
+        CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
         CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
         CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
         CONCEPT_CORRUPTION_INDEX,
+        CONCEPT_CPI_SCORE,
+        CONCEPT_CONTROL_OF_CORRUPTION,
         CONCEPT_EXECUTIVE_CORRUPTION,
         CONCEPT_PUBLIC_CORRUPTION,
         CONCEPT_ACCOUNTABILITY,
+        CONCEPT_VOICE_AND_ACCOUNTABILITY,
+        CONCEPT_WGI_RULE_OF_LAW,
+        CONCEPT_GOVERNMENT_EFFECTIVENESS,
+        CONCEPT_REGULATORY_QUALITY,
+        CONCEPT_BTI_GOVERNANCE_INDEX,
+        CONCEPT_BTI_STATUS_INDEX,
+        CONCEPT_BTI_DEMOCRACY_STATUS,
         CONCEPT_JUDICIAL_CONSTRAINTS,
         CONCEPT_LEGISLATIVE_CONSTRAINTS,
         CONCEPT_MULTIPARTY_INSTITUTIONS,
@@ -276,6 +353,10 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
         CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
         CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+        CONCEPT_MILITARY_SPEND_CONSTANT_USD,
+        CONCEPT_MILITARY_SPEND_PER_CAPITA,
+        CONCEPT_MILITARY_SPEND_SHARE_GDP,
+        CONCEPT_MILITARY_SPEND_SHARE_GOVT,
     )
     assert keys == KNOWN_CONCEPT_KEYS
 
@@ -305,9 +386,7 @@ def test_concepts_package_import_does_not_import_legacy_ingest() -> None:
 
     from leaders_db.sources import concepts as concepts_pkg
 
-    for name in list(sys.modules):
-        if name == "leaders_db" or name.startswith("leaders_db."):
-            del sys.modules[name]
+    _purge_source_boundary_modules(sys.modules)
     try:
         importlib.import_module(CONCEPT_TEST_PACKAGE)
         leaked = sorted(
@@ -320,12 +399,26 @@ def test_concepts_package_import_does_not_import_legacy_ingest() -> None:
             f"leaders_db.ingest (leaked modules: {leaked})"
         )
     finally:
-        for name in list(sys.modules):
-            if name == "leaders_db" or name.startswith("leaders_db."):
-                del sys.modules[name]
+        _purge_source_boundary_modules(sys.modules)
 
     # Sanity: the package object is importable on its own.
     assert concepts_pkg.__name__ == CONCEPT_TEST_PACKAGE
+
+
+def _purge_source_boundary_modules(modules: dict[str, object]) -> None:
+    for name in list(modules):
+        if (
+            name == "leaders_db.sources"
+            or name.startswith("leaders_db.sources.")
+            or name == "leaders_db.ingest"
+            or name.startswith("leaders_db.ingest.")
+        ):
+            del modules[name]
+    parent = modules.get("leaders_db")
+    if parent is not None:
+        for attr in ("sources", "ingest"):
+            if hasattr(parent, attr):
+                delattr(parent, attr)
 
 
 def test_concepts_module_does_not_import_legacy_ingest_at_import() -> None:
@@ -442,6 +535,27 @@ def test_resolve_concept_source_specific_narrows_to_single_mapping() -> None:
     assert by_str == by_id
     assert by_str[0].source_id.slug == MADDISON_PROJECT_SOURCE_KEY
     assert by_str[0].mapping_type == "direct"
+
+
+def test_resolve_concept_includes_freedom_house_political_rights() -> None:
+    """Freedom House political-rights rows map to political liberties."""
+    from leaders_db.sources.concepts import (
+        CONCEPT_POLITICAL_LIBERTIES,
+        FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+        FREEDOM_HOUSE_SOURCE_KEY,
+        resolve_concept,
+    )
+
+    mappings = resolve_concept(
+        CONCEPT_POLITICAL_LIBERTIES,
+        source_id=FREEDOM_HOUSE_SOURCE_KEY,
+    )
+
+    assert len(mappings) == 1
+    assert mappings[0].mapping_type == "direct"
+    assert mappings[0].indicator_codes == (
+        FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+    )
 
 
 def test_resolve_concept_unknown_concept_key_raises_actionable_error() -> None:
@@ -659,10 +773,15 @@ def test_extract_concept_social_development_direct_mappings() -> None:
 
 
 def test_extract_concept_political_freedom_direct_mappings() -> None:
-    """D11 political-freedom concepts alias V-Dem and RSF observations."""
+    """D11 political-freedom concepts alias V-Dem, FH, and RSF observations."""
     from leaders_db.sources.concepts import (
+        CONCEPT_CIVIL_LIBERTIES,
         CONCEPT_ELECTORAL_DEMOCRACY,
+        CONCEPT_POLITICAL_LIBERTIES,
         CONCEPT_PRESS_FREEDOM_SCORE,
+        FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE,
+        FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+        FREEDOM_HOUSE_SOURCE_KEY,
         RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE,
         RSF_PRESS_FREEDOM_SOURCE_KEY,
         VDEM_ELECTORAL_DEMOCRACY_INDICATOR_CODE,
@@ -675,6 +794,20 @@ def test_extract_concept_political_freedom_direct_mappings() -> None:
             source_slug=VDEM_SOURCE_KEY,
             indicator_code=VDEM_ELECTORAL_DEMOCRACY_INDICATOR_CODE,
             value=0.83,
+            year=2020,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=FREEDOM_HOUSE_SOURCE_KEY,
+            indicator_code=FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+            value=1,
+            year=2020,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=FREEDOM_HOUSE_SOURCE_KEY,
+            indicator_code=FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE,
+            value=2,
             year=2020,
             country_code="USA",
         ),
@@ -692,6 +825,16 @@ def test_extract_concept_political_freedom_direct_mappings() -> None:
         CONCEPT_ELECTORAL_DEMOCRACY,
         VDEM_SOURCE_KEY,
     )
+    political_rights_rows = extract_concept(
+        observations,
+        CONCEPT_POLITICAL_LIBERTIES,
+        FREEDOM_HOUSE_SOURCE_KEY,
+    )
+    civil_liberties_rows = extract_concept(
+        observations,
+        CONCEPT_CIVIL_LIBERTIES,
+        FREEDOM_HOUSE_SOURCE_KEY,
+    )
     press_rows = extract_concept(
         observations,
         CONCEPT_PRESS_FREEDOM_SCORE,
@@ -700,15 +843,29 @@ def test_extract_concept_political_freedom_direct_mappings() -> None:
 
     assert democracy_rows[0].source_indicator_codes == (VDEM_ELECTORAL_DEMOCRACY_INDICATOR_CODE,)
     assert democracy_rows[0].value == 0.83
+    assert political_rights_rows[0].source_indicator_codes == (
+        FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+    )
+    assert political_rights_rows[0].value == 1
+    assert civil_liberties_rows[0].source_indicator_codes == (
+        FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE,
+    )
+    assert civil_liberties_rows[0].value == 2
     assert press_rows[0].source_indicator_codes == (RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE,)
     assert press_rows[0].value == 72.4
 
 
 def test_extract_concept_domestic_safety_direct_mappings() -> None:
-    """D12 domestic-safety concepts alias V-Dem and UCDP observations."""
+    """D12 domestic-safety concepts alias V-Dem, UCDP, CIRIGHTS, and PTS."""
     from leaders_db.sources.concepts import (
+        CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+        CIRIGHTS_SOURCE_KEY,
+        CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
         CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
         CONCEPT_PHYSICAL_INTEGRITY,
+        CONCEPT_PTS_AMNESTY_SCORE,
+        PTS_AMNESTY_SCORE_INDICATOR_CODE,
+        PTS_SOURCE_KEY,
         UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,
         UCDP_SOURCE_KEY,
         VDEM_PHYSICAL_INTEGRITY_INDICATOR_CODE,
@@ -731,6 +888,22 @@ def test_extract_concept_domestic_safety_direct_mappings() -> None:
             year=2020,
             country_code="USA",
         ),
+        _make_observation(
+            source_slug=CIRIGHTS_SOURCE_KEY,
+            indicator_code=CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+            value=6,
+            year=2020,
+            country_code=None,
+            country_name="United States",
+        ),
+        _make_observation(
+            source_slug=PTS_SOURCE_KEY,
+            indicator_code=PTS_AMNESTY_SCORE_INDICATOR_CODE,
+            value=2,
+            year=2020,
+            country_code="USA",
+            unit="ordinal_score",
+        ),
     ]
 
     physical_rows = extract_concept(observations, CONCEPT_PHYSICAL_INTEGRITY, VDEM_SOURCE_KEY)
@@ -739,21 +912,54 @@ def test_extract_concept_domestic_safety_direct_mappings() -> None:
         CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
         UCDP_SOURCE_KEY,
     )
+    cirights_rows = extract_concept(
+        observations,
+        CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+        CIRIGHTS_SOURCE_KEY,
+    )
+    pts_rows = extract_concept(observations, CONCEPT_PTS_AMNESTY_SCORE, PTS_SOURCE_KEY)
 
     assert physical_rows[0].source_indicator_codes == (VDEM_PHYSICAL_INTEGRITY_INDICATOR_CODE,)
     assert physical_rows[0].value == 0.71
     assert fatality_rows[0].source_indicator_codes == (UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,)
     assert fatality_rows[0].value == 4
+    assert cirights_rows[0].source_indicator_codes == (
+        CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+    )
+    assert cirights_rows[0].value == 6
+    assert pts_rows[0].source_indicator_codes == (PTS_AMNESTY_SCORE_INDICATOR_CODE,)
+    assert pts_rows[0].value == 2
 
 
 def test_extract_concept_corruption_and_governance_direct_mappings() -> None:
-    """D15/D16 concepts alias V-Dem corruption and governance observations."""
+    """D15/D16 concepts alias V-Dem, CPI, and WGI observations."""
     from leaders_db.sources.concepts import (
+        BTI_DEMOCRACY_STATUS_INDICATOR_CODE,
+        BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+        BTI_SOURCE_KEY,
+        BTI_STATUS_INDEX_INDICATOR_CODE,
         CONCEPT_ACCOUNTABILITY,
+        CONCEPT_BTI_DEMOCRACY_STATUS,
+        CONCEPT_BTI_GOVERNANCE_INDEX,
+        CONCEPT_BTI_STATUS_INDEX,
+        CONCEPT_CONTROL_OF_CORRUPTION,
         CONCEPT_CORRUPTION_INDEX,
+        CONCEPT_CPI_SCORE,
+        CONCEPT_GOVERNMENT_EFFECTIVENESS,
+        CONCEPT_REGULATORY_QUALITY,
+        CONCEPT_VOICE_AND_ACCOUNTABILITY,
+        CONCEPT_WGI_RULE_OF_LAW,
+        TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
+        TRANSPARENCY_CPI_SOURCE_KEY,
         VDEM_ACCOUNTABILITY_INDICATOR_CODE,
         VDEM_CORRUPTION_INDEX_INDICATOR_CODE,
         VDEM_SOURCE_KEY,
+        WGI_CONTROL_OF_CORRUPTION_INDICATOR_CODE,
+        WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
+        WGI_REGULATORY_QUALITY_INDICATOR_CODE,
+        WGI_RULE_OF_LAW_INDICATOR_CODE,
+        WGI_SOURCE_KEY,
+        WGI_VOICE_AND_ACCOUNTABILITY_INDICATOR_CODE,
         extract_concept,
     )
 
@@ -772,15 +978,152 @@ def test_extract_concept_corruption_and_governance_direct_mappings() -> None:
             year=2020,
             country_code="USA",
         ),
+        _make_observation(
+            source_slug=TRANSPARENCY_CPI_SOURCE_KEY,
+            indicator_code=TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
+            value=69.0,
+            year=2023,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=WGI_SOURCE_KEY,
+            indicator_code=WGI_CONTROL_OF_CORRUPTION_INDICATOR_CODE,
+            value=1.12,
+            year=2022,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=WGI_SOURCE_KEY,
+            indicator_code=WGI_VOICE_AND_ACCOUNTABILITY_INDICATOR_CODE,
+            value=0.84,
+            year=2022,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=WGI_SOURCE_KEY,
+            indicator_code=WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
+            value=1.31,
+            year=2022,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=WGI_SOURCE_KEY,
+            indicator_code=WGI_RULE_OF_LAW_INDICATOR_CODE,
+            value=1.02,
+            year=2022,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=WGI_SOURCE_KEY,
+            indicator_code=WGI_REGULATORY_QUALITY_INDICATOR_CODE,
+            value=1.48,
+            year=2022,
+            country_code="USA",
+        ),
+        _make_observation(
+            source_slug=BTI_SOURCE_KEY,
+            indicator_code=BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+            value=7.2,
+            year=2023,
+            country_name="United States",
+            country_code=None,
+        ),
+        _make_observation(
+            source_slug=BTI_SOURCE_KEY,
+            indicator_code=BTI_STATUS_INDEX_INDICATOR_CODE,
+            value=8.1,
+            year=2023,
+            country_name="United States",
+            country_code=None,
+        ),
+        _make_observation(
+            source_slug=BTI_SOURCE_KEY,
+            indicator_code=BTI_DEMOCRACY_STATUS_INDICATOR_CODE,
+            value=9.0,
+            year=2023,
+            country_name="United States",
+            country_code=None,
+        ),
     ]
 
     corruption_rows = extract_concept(observations, CONCEPT_CORRUPTION_INDEX, VDEM_SOURCE_KEY)
     accountability_rows = extract_concept(observations, CONCEPT_ACCOUNTABILITY, VDEM_SOURCE_KEY)
+    cpi_rows = extract_concept(observations, CONCEPT_CPI_SCORE, TRANSPARENCY_CPI_SOURCE_KEY)
+    wgi_corruption_rows = extract_concept(
+        observations,
+        CONCEPT_CONTROL_OF_CORRUPTION,
+        WGI_SOURCE_KEY,
+    )
+    wgi_accountability_rows = extract_concept(
+        observations,
+        CONCEPT_VOICE_AND_ACCOUNTABILITY,
+        WGI_SOURCE_KEY,
+    )
+    wgi_rule_of_law_rows = extract_concept(
+        observations,
+        CONCEPT_WGI_RULE_OF_LAW,
+        WGI_SOURCE_KEY,
+    )
+    wgi_effectiveness_rows = extract_concept(
+        observations,
+        CONCEPT_GOVERNMENT_EFFECTIVENESS,
+        WGI_SOURCE_KEY,
+    )
+    wgi_regulatory_rows = extract_concept(
+        observations,
+        CONCEPT_REGULATORY_QUALITY,
+        WGI_SOURCE_KEY,
+    )
+    bti_governance_rows = extract_concept(
+        observations,
+        CONCEPT_BTI_GOVERNANCE_INDEX,
+        BTI_SOURCE_KEY,
+    )
+    bti_status_rows = extract_concept(
+        observations,
+        CONCEPT_BTI_STATUS_INDEX,
+        BTI_SOURCE_KEY,
+    )
+    bti_democracy_rows = extract_concept(
+        observations,
+        CONCEPT_BTI_DEMOCRACY_STATUS,
+        BTI_SOURCE_KEY,
+    )
 
     assert corruption_rows[0].source_indicator_codes == (VDEM_CORRUPTION_INDEX_INDICATOR_CODE,)
     assert corruption_rows[0].value == 0.22
     assert accountability_rows[0].source_indicator_codes == (VDEM_ACCOUNTABILITY_INDICATOR_CODE,)
     assert accountability_rows[0].value == 0.76
+    assert cpi_rows[0].source_indicator_codes == (TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,)
+    assert cpi_rows[0].value == 69.0
+    assert wgi_corruption_rows[0].source_indicator_codes == (
+        WGI_CONTROL_OF_CORRUPTION_INDICATOR_CODE,
+    )
+    assert wgi_corruption_rows[0].value == 1.12
+    assert wgi_accountability_rows[0].source_indicator_codes == (
+        WGI_VOICE_AND_ACCOUNTABILITY_INDICATOR_CODE,
+    )
+    assert wgi_accountability_rows[0].value == 0.84
+    assert wgi_rule_of_law_rows[0].source_indicator_codes == (WGI_RULE_OF_LAW_INDICATOR_CODE,)
+    assert wgi_rule_of_law_rows[0].value == 1.02
+    assert wgi_effectiveness_rows[0].source_indicator_codes == (
+        WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
+    )
+    assert wgi_effectiveness_rows[0].value == 1.31
+    assert wgi_regulatory_rows[0].source_indicator_codes == (
+        WGI_REGULATORY_QUALITY_INDICATOR_CODE,
+    )
+    assert wgi_regulatory_rows[0].value == 1.48
+    assert bti_governance_rows[0].source_indicator_codes == (
+        BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+    )
+    assert bti_governance_rows[0].value == 7.2
+    assert bti_status_rows[0].source_indicator_codes == (BTI_STATUS_INDEX_INDICATOR_CODE,)
+    assert bti_status_rows[0].value == 8.1
+    assert bti_democracy_rows[0].source_indicator_codes == (
+        BTI_DEMOCRACY_STATUS_INDICATOR_CODE,
+    )
+    assert bti_democracy_rows[0].value == 9.0
 
 
 def test_extract_concept_nuclear_risk_direct_mappings() -> None:

@@ -1604,10 +1604,15 @@ def test_ucdp_adapter_module_does_not_import_legacy_ingest_at_import() -> None:
     import importlib
     import sys
 
-    # Drop every cached ``leaders_db`` module so the import
-    # below is forced to run as if it were a fresh import.
+    # Drop only the source-boundary modules so the import below is forced to run
+    # without invalidating unrelated package modules imported during collection.
     for name in list(sys.modules):
-        if name == "leaders_db" or name.startswith("leaders_db."):
+        if (
+            name == "leaders_db.sources"
+            or name.startswith("leaders_db.sources.")
+            or name == "leaders_db.ingest"
+            or name.startswith("leaders_db.ingest.")
+        ):
             del sys.modules[name]
 
     try:
@@ -1624,7 +1629,12 @@ def test_ucdp_adapter_module_does_not_import_legacy_ingest_at_import() -> None:
         )
     finally:
         for name in list(sys.modules):
-            if name == "leaders_db" or name.startswith("leaders_db."):
+            if (
+                name == "leaders_db.sources"
+                or name.startswith("leaders_db.sources.")
+                or name == "leaders_db.ingest"
+                or name.startswith("leaders_db.ingest.")
+            ):
                 del sys.modules[name]
 
 
@@ -1643,7 +1653,12 @@ def test_ucdp_package_import_does_not_register_legacy_ucdp() -> None:
     import sys
 
     for name in list(sys.modules):
-        if name == "leaders_db" or name.startswith("leaders_db."):
+        if (
+            name == "leaders_db.sources"
+            or name.startswith("leaders_db.sources.")
+            or name == "leaders_db.ingest"
+            or name.startswith("leaders_db.ingest.")
+        ):
             del sys.modules[name]
 
     try:
@@ -1656,7 +1671,12 @@ def test_ucdp_package_import_does_not_register_legacy_ucdp() -> None:
         assert registry.list_descriptors() == ()
     finally:
         for name in list(sys.modules):
-            if name == "leaders_db" or name.startswith("leaders_db."):
+            if (
+                name == "leaders_db.sources"
+                or name.startswith("leaders_db.sources.")
+                or name == "leaders_db.ingest"
+                or name.startswith("leaders_db.ingest.")
+            ):
                 del sys.modules[name]
 
 

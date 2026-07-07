@@ -327,6 +327,104 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
   changed those years from `source_conflict_manual_review` to Mohammed bin Zayed
   Al Nahyan selected via `resolved_research_adjudicated`.
 
+- **Default test-suite tiering complete (2026-07-06):** Expensive Chronicle,
+  SQLite artifact, production-smoke, WDI-cache CLI, and local-source smoke tests
+  are now marked `@pytest.mark.slow` and skipped by default unless pytest is run
+  with `--runslow`. The default verification command remains `pytest -q` and now
+  focuses on unit and fast integration coverage; opt-in write/real-data smoke
+  checks run with `pytest --runslow` or `pytest -m slow --runslow`. The final
+  default full-suite run passed in 124.40s, down from roughly 14 minutes, and
+  focused slow samples were verified with `--runslow`. The policy is documented
+  in `docs/process/coding-guidelines.md`.
+
+- **D11 Freedom House concept publication unblocked (2026-07-06):** Freedom House
+  Freedom in the World numeric ratings now map into the generic concept catalog:
+  `freedom_house_political_rights` publishes to `political_liberties`, and
+  `freedom_house_civil_liberties` publishes to `civil_liberties`. The categorical
+  `freedom_house_status` field remains unmapped for now because it needs a
+  separate categorical/status concept rather than being forced into a numeric
+  index. A focused local refresh for 1950-2025 with source filter
+  `freedom_house` created or updated 11,678 selected Freedom House fact rows:
+  5,839 `political_liberties` rows and 5,839 `civil_liberties` rows. The command
+  reported 11,547 total rows per field after publication because those totals also
+  include pre-existing rows selected from other sources. 202 source rows skipped
+  because no included project country-year existed. This uses existing country-name
+  resolution and does not edit raw files or use client evidence.
+
+- **D11 Freedom House country-alias hardening (2026-07-06):** A concept-aware
+  skip audit of the Freedom House numeric-rating rows found safe standard-country
+  aliases that were still unresolved: `The Gambia`, `Congo (Kinshasa)`,
+  `Congo (Brazzaville)`, `St. Vincent and the Grenadines`, and historical
+  `Germany, E.` / `Germany, W.`. These now map through the shared country alias
+  helpers to `GMB`, `COD`, `COG`, `VCT`, `DDR`, and `DEU`. Republish passes added
+  72 selected Freedom House fact rows and left disputed/subnational/territorial
+  rows such as Northern Cyprus, Abkhazia, Kashmir variants, Tibet, Transnistria,
+  Nagorno-Karabakh, Somaliland, South Ossetia, Gaza Strip, and West Bank
+  unsupported pending an explicit disputed-territory policy.
+
+- **D15/D16 WGI/CPI source-code bridge fix (2026-07-06):** Fact publication now
+  applies the shared source-native country-code bridge to non-UCDP
+  `country_code` values instead of blindly uppercasing them. Safe source-native
+  aliases now include `ADO→AND`, `ROM→ROU`, `TMP→TLS`, `ZAR→COD`, and `KSV→XKX`.
+  Republish passes for 1950-2025 added 540 selected World Bank WGI fact rows and
+  1 Transparency CPI row for Kosovo. Remaining WGI/CPI skips are aggregate,
+  territory, or policy-sensitive codes such as Hong Kong, Macao, Puerto Rico, and
+  West Bank/Gaza rather than simple country-code mappings.
+
+- **D12 PTS Czechoslovakia lifecycle mapping (2026-07-06):** PTS rows labeled
+  `Czechoslovakia` with source code `CZE` now publish to the historical `CSK`
+  lifecycle identity before Czechia exists. The country-name lifecycle mapping is
+  applied before the generic source-code fallback, so the same source-native code
+  can still resolve to modern `CZE` for true Czechia rows. Republish for
+  1950-2025 added 28 selected PTS fact rows; remaining PTS skips are still
+  pre-scope lifecycle rows or aggregate/territory/policy cases such as Palestine
+  before its included-start policy year, Western Sahara, Puerto Rico, Niue, and
+  post-lifecycle Yugoslavia rows.
+
+- **D12 CIRIGHTS skip audit complete (2026-07-06):** A concept-aware CIRIGHTS
+  publication audit found no unresolved country names after the shared alias
+  hardening. The remaining 200 CIRIGHTS skips are all country-year scope/lifecycle
+  exclusions: Serbia and Montenegro rows before the modeled `SCG` lifecycle,
+  pre-independence Yemen/Namibia rows, and one pre-independence Timor-Leste row.
+  No new CIRIGHTS facts were created on republish, confirming the current gap is
+  scope policy rather than a safe alias-mapping issue.
+
+- **D25 local structured-prior artifact path added (2026-07-07):**
+  `leaders-db research build-local-prior` now builds a JSON artifact for
+  `internet_manual` ruler-quality tasks from the local DB only, preferring
+  `country_year_facts` and excluding client-matrix source slugs as evidence. The
+  first mapping covers 4B.1 and 4B.2 political-freedom research with the same D11
+  prior keys, including Freedom House `political_liberties` and
+  `civil_liberties` plus other political-freedom/governance facts when present.
+  Artifacts have explicit `evidence_found`, `no_evidence_found`,
+  `not_applicable`, and artifact-shaped `error` states, carry
+  `missing_or_empty_reason`, and include
+  researcher instructions not to refetch local structured datasets such as
+  Freedom House unless the local prior is absent, contradictory, or needs
+  ruler-specific/narrative detail. Subagents should receive this artifact before
+  internet research begins.
+
+- **D25 4B.2 local-prior vertical-slice package prepared (2026-07-07):** The new
+  guide `docs/methodology/question-guides/4b-2-entrenchment-manipulation.md`
+  defines the `4b2_entrenchment_manipulation_v1` rubric for the question “Did the
+  ruler refrain from manipulating electoral rules, courts, media, election
+  commissions, security forces, or public resources to entrench themselves?” and
+  requires local structured-prior artifacts before internet research. The cited
+  evaluation template/enforcement now includes 4B.2-specific calibration fields:
+  `manipulation_status`, `entrenchment_channels`, and
+  `institutional_remedy_status`. A reusable all-scope CLI,
+  `leaders-db research build-local-prior-slice`, generated the 2020 package under
+  `data/outputs/research/4b2_2020_local_priors/`: 196 included country-year
+  artifacts, all `evidence_found`, 3,088 selected local facts, 195 artifacts with
+  ruler metadata, `manifest.json`, `shard_plan.json`, and
+  `internet_research_launch_plan.md`. No full all-ruler `internet-research` web
+  run was launched because the repo has watchdog validation but no approved safe
+  parent-owned dispatcher that can launch and supervise hundreds of workers.
+  Bounded smoke preparation was limited to local-prior generation and starter
+  cited-evaluation templates for USA/CHN; the launch plan lists a four-case smoke
+  set (USA, CHN, BLR, NZL) and exact watchdog command templates for a
+  human-approved run.
+
 The prototype has **not yet** implemented the full Stage 3–15 resolution, scoring, validation, and report-generation pipeline. Phase C currently focuses on source acquisition and Stage 2 normalized observations. **First deterministic scorer landed: `social_wellbeing`** — see the Phase D.1 entry below. **Stage 9 narrow single-country read-only seam landed** — see the Phase D.2 entry. The next round focuses on the evidence-bundle contract for the remaining categories, the Stage 3/4 leader resolver, and the per-category scorers that are not yet implemented.
 
 Concrete source/setup notes (partly historical; D3-D5 current coverage is tracked
@@ -388,38 +486,169 @@ database shape. Data-quality iteration starts after this execution path is stabl
 Current status of the I/D roadmap: I0-I4 are operational for the active
 1950-2025 path. I5/I6 are operational for concept/fact publishing through
 `country_year_facts`, but source-country mapping gaps still block some structured
-families. I7 now covers Q2.1 plus every `1B.1-8B.10` ruler-quality question with
-methodology text-sync tests; chapter 1-8 country-condition registry coverage is
-still future. I8 is implemented through the generic `research_question_answers`
+families. I7 now covers all Chapter 1-8 country-condition questions plus every
+`1B.1-8B.10` ruler-quality question with methodology text-sync tests. I8 is implemented through
+the generic `research_question_answers`
 and `research_answer_evidence_links` tables. I9/I10 are partial through the cited
 8B/manual-style evaluator payload and CLI, not a full evaluator system. I11 score
 aggregation has not started and should wait until D24-D27 contain enough answer
 rows for a pilot aggregation.
 
 D8-D12 are partly populated through `country_year_facts` for available local
-concepts. D13/D14 are blocked on source-country/ISO3 mapping: UCDP conflict rows
-and SIPRI Milex observations exist but are not yet safely keyed to project ISO3.
+concepts. D12 now includes direct UCDP one-sided violence events/fatalities,
+CIRIGHTS scale-specific human-rights concepts, and PTS scale-specific political
+terror concepts. The local PTS bridge converts `data/processed/pts/pts_country_year.parquet`
+into `normalized_observations` and publication created 16,164 PTS facts
+(`pts_amnesty_score`, `pts_human_rights_watch_score`, `pts_state_dept_score`).
+Remaining D12 skips are lifecycle/scope rows or intentionally unresolved
+aggregate/territory PTS labels such as EU, occupied territories, Crimea, Gaza,
+African Union, and Somaliland rather than unresolved standard country mappings.
+D13 is mostly unblocked through direct UCDP state-based and
+internationalized conflict concepts plus the committed
+`data/metadata/ucdp_country_iso3.csv` lookup (122 of 124 local UCDP IDs derived
+from the staged GED 23.1 raw `country` column) and year-aware dispatch for the
+two lifecycle-ambiguous IDs. Dense zero rows for UCDP 345 outside the YUG
+lifecycle remain skipped rather than invented; this policy is now covered by a
+focused regression test so a future dense-zero pass cannot silently map post-YUG
+345 rows to modern Serbia. D14 is
+partly unblocked through direct SIPRI Milex military-spend concepts published with
+the conservative country-name fallback; alias matching now covers 170 distinct
+local SIPRI display names. `German Democratic Republic` and `Kosovo` now resolve
+through the existing `DDR` and `XKX` country/lifecycle seeds and have published
+military-spend facts in the local DB. The remaining unresolved SIPRI display name
+is the `European Union` aggregate, which is intentionally not forced into a
+country-year; this policy is now covered by a focused regression test. Pre-scope
+lifecycle rows for Serbia/Montenegro, South Sudan, North Yemen, and
+Rhodesia/Zimbabwe remain skipped rather than invented.
 D15/D16 are partly supported through V-Dem corruption and governance-capacity
-concepts. D17 is partly supported through FAS 2014 nuclear arsenal-count facts for
+concepts plus scale-specific Transparency CPI and WGI facts (`cpi_score`,
+`control_of_corruption`, `voice_and_accountability`, `wgi_rule_of_law`,
+`government_effectiveness`, and `regulatory_quality`) plus BTI governance/status
+concepts (`bti_governance_index`, `bti_status_index`, `bti_democracy_status`).
+The local D15/D16 publish now carries 81,954 facts across those twelve
+integrity/governance concepts; remaining skips are mostly source coverage/scope
+rows, missing WGI values, and pre-scope Serbia rows; BTI Kosovo rows resolve
+through `XKX`, and the shared country alias seed now covers BTI's decomposed
+`Türkiye` spelling via normalized `turkiye` / `republic of turkiye` aliases.
+D17 is partly supported through FAS 2014 nuclear arsenal-count facts for
 9 nuclear states; doctrine, treaties, modernization, and threat rhetoric remain
 manual/web or future-source work. D18-D22 do not have dedicated tables yet and are
 represented for now through cited/manual payloads written into the generic answer
-store. D23 is complete for ruler-quality `1B-8B` registry coverage but incomplete
-for country-condition chapters 1-8. D24-D27 use the generic research answer and
-evidence-link tables by design; `persist_research_answers` is the write contract,
-`leaders-db research persist-8b-evaluations --input <file.json>` is the first
-manual/cited import command, and `leaders-db research list-answers` exports
+store. D23 is complete for Chapter 1-8 country-condition registry coverage and
+ruler-quality `1B-8B` registry coverage. D24 now has a first generic structured
+country-year answer builder, `build_country_year_fact_answers`, that reads
+`country_year_facts`, emits direct, partial, or explicit missing
+`ResearchAnswerRow` rows, records missing required fact keys for incomplete
+multi-concept answers in `answer_json`, and carries source-observation evidence
+links through the existing
+`persist_research_answers` contract. The Slice 1 runner now auto-registers
+structured / structured-plus-context country-year registry questions for this
+fact-backed path, while preserving the specialized Q2.1 UCDP handler. The
+fact-backed D24 path has a CLI entrypoint:
+`leaders-db research build-country-year-fact-answers --question-id <id> --year <year>`
+with optional repeated `--iso3`, `--db-url`, and `--json`. Specialized D24 answer
+shapes now cover four fact-backed questions: `1.1` derives nuclear-possession
+booleans from `nuclear_total_inventory`; `1.7` keeps stockpile/reserve nuclear
+facts in the generic fact bundle while also emitting shaped `stockpile_warheads`,
+`reserve_nondeployed_warheads`, `stockpile_plus_reserve_warheads`,
+`stockpile_share_of_stockpile_plus_reserve`, and compact answer text; and `2.2`
+derives boolean internationalized-conflict answers from the numeric
+`internationalized_conflict_events` event-count fact, preserving the event count
+in `answer_json`; `2.6` bundles SIPRI `military_spend_constant_usd` and
+`military_spend_per_capita` into named fields and compact answer text. The D24
+registry keys for generic Chapter 2 fact-backed questions now align with
+production `country_year_facts` keys while preserving the specialized Q2.1 UCDP
+handler contract. The generic D24 builder now also shapes structured
+`evidence_bundle` and `categorical` country-year questions into named fields keyed
+by their selected fact keys, compact answer text, and JSON-only answer payloads;
+scalar `answer_numeric` values are reserved for questions whose registry contract
+is actually `numeric`. D25-D27 use the generic research answer and evidence-link
+tables by design. `persist_cited_evaluations` is now the generic cited/manual
+import path for registered `internet_manual` questions, with
+`persist-8b-evaluations` retained as an 8B compatibility wrapper. Score-bearing
+cited/manual records must include `answer_payload.calibration`, and
+question-specific guides under `docs/methodology/question-guides/` are now
+required before vertical-slice runs. `leaders-db research list-answers` exports
 persisted answers with question/year/ISO3/method filters as JSON or CSV. D28-D30
-remain future.
+remain future until a pilot category has enough calibrated, evidence-linked
+D24-D27 answer rows.
 
-The current completion order to reach D30 is: (1) fix D13/D14 and related
-source-country mapping blockers; (2) finish chapter 1-8 country-condition registry
-coverage; (3) add structured D24 answer builders from `country_year_facts`; (4)
-add cited/manual adapters for `1B-7B` and D18-D22 ruler-period evidence families;
-(5) enforce D27 evidence-link completeness across every answer adapter; (6) only
-then implement I11/D28 ruler-category aggregation; (7) decide whether D29 country
-category scores are needed; and (8) implement D30 manual-review items from missing,
-low-confidence, conflicting, high-impact, or explicitly review-required rows.
+The current completion order to reach D30 is:
+
+1. D13/D14 scope edge review is complete for the known unresolved policy cases:
+   UCDP dense-zero rows for source country ID 345 outside the YUG lifecycle remain
+   skipped rather than mapped to modern Serbia, and the SIPRI Milex
+   `European Union` aggregate remains unsupported unless an explicit aggregate /
+   federation policy is added. Both decisions now have focused regression tests.
+   `German Democratic Republic` and `Kosovo` are already modeled as `DDR` and
+   `XKX` and publish military-spend facts when matching country-year rows exist.
+2. Harden I5/I6 source-country mappings for structured publication across the
+   affected families: UCDP, SIPRI, and BTI. UCDP and SIPRI known policy cases are
+   now regression-locked by item 1; BTI's decomposed `Türkiye` spelling now
+   resolves through the shared alias seed and has a publication regression test.
+   PTS Czechoslovakia rows now publish through the `CSK` lifecycle mapping, and
+   CIRIGHTS has no remaining unresolved country-name mappings. WGI/CPI
+   source-native code gaps are now reduced to aggregate/territory/policy cases.
+   Freedom House numeric political-rights/civil-liberties ratings are now mapped
+   and published; its categorical status field remains future work.
+3. D23 registry breadth is complete for Chapter 1-8 country-condition questions
+   and ruler-quality `1B.1-8B.10` questions, with answer level/type, evidence
+   strategy, support status, output fields where needed, and methodology text-sync
+   tests.
+4. Extend D24 structured answer execution beyond the first generic builder:
+   `build_country_year_fact_answers` now writes direct, partial, and missing
+   rows from `country_year_facts` through `research_question_answers` /
+   `research_answer_evidence_links`; partial rows carry `missing_field_keys` and
+   a `partial_country_year_fact` warning when a multi-concept question has only
+   some required facts. Slice 1 auto-registers structured /
+   structured-plus-context country-year registry questions for this path. The
+   `leaders-db research build-country-year-fact-answers` CLI now runs and
+   persists one question/year over DB-backed country scope with optional ISO3
+   filtering. Specialized answer shapes now cover `1.1` nuclear-possession
+   booleans from FAS inventory facts, `1.7` stockpile/reserve nuclear facts, and
+   `2.2` internationalized-conflict boolean answers from UCDP event-count facts,
+   plus `2.6` military-spending scale bundles from SIPRI constant-USD and
+   per-capita facts. Generic Chapter 2 fact-backed registry keys now match the
+   production fact keys for 2.2-2.7. Structured evidence-bundle and categorical
+   country-year questions now get generic named-field shaping and compact text, so
+   local facts can be reviewed without digging through the raw `facts` array.
+   Remaining D24 work is limited to future question-specific derivations that need
+   more than direct selected-fact exposure.
+5. Add cited/manual evidence-generation and calibration slices for `1B-7B` plus
+   D18-D22 ruler-period evidence families. The first generic cited/manual
+   persistence adapter is now in place:
+   `persist_cited_evaluations` accepts already-cited `internet_manual`
+   methodology outputs for registered non-8B and 8B questions, writes them
+   through `research_question_answers` / `research_answer_evidence_links`, and is
+   exposed via `leaders-db research persist-cited-evaluations --input <file.json>`.
+    The researcher/subagent-facing form is now explicit: `leaders-db research
+    cited-evaluation-schema` prints the strict JSON Schema and `leaders-db research
+    cited-evaluation-template` prints a valid starter record for a registered
+     `internet_manual` question. Any score-bearing record must include
+     `answer_payload.calibration`; before running a new question, create/update its
+     guide under `docs/methodology/question-guides/`, run a 5-10 case smoke test,
+     build a local structured prior with `leaders-db research build-local-prior`,
+     pass that artifact to each `internet-research` worker, and use one
+     `ruler-quality-judge` batch to apply the meter across the cases.
+     The 4B.1 electoral-contestability guide now anchors the first 2020 ruler-quality
+     vertical slice, and the cited-evaluation template uses its rubric version.
+    Sharded `internet-research` runs should be parent-owned through `leaders-db
+    research validate-shard-output`, including heartbeat/progress messages and a
+    progress-staleness window, so missing or silent workers are flagged before
+    their final deadline when appropriate.
+    The old `persist-8b-evaluations` command remains as a compatibility wrapper
+    with the 8B-specific input schema. Remaining work is to add the actual
+   D18-D22/ruler-quality research-generation adapters and question guides that
+   produce those cited inputs.
+6. Enforce D27 evidence-link completeness across every answer adapter: each answer
+   must link to exact normalized observation IDs, citation URLs, or manual evidence
+   locators, and `leaders-db research list-answers` should expose the links for QA.
+7. Only then implement I11/D28 ruler-category aggregation, after a pilot category
+   has calibrated D25/D26 answers plus D27 evidence links.
+8. Decide whether D29 country category scores are needed separately from ruler
+   responsibility.
+9. Implement D30 manual-review items from missing, low-confidence, conflicting,
+   high-impact, or explicitly review-required rows.
 
 **Phase C — data acquisition / Stage 2 adapters.** Phase B is signed off and remains a living source-vetting record. Current source tally after the Phase B addenda + Maddison Project implementation + Phase B Increment B PWT + FIW staging/adapter + Archigos clean migration + REIGN clean migration + SIPRI Milex clean migration + SIPRI Yearbook Ch.7 clean migration + CIRIGHTS clean migration + UNDP HDI clean migration + WHO GHO API clean migration + FAS clean migration + Wikidata HoS/HoG clean migration + Wikipedia Action API clean migration + Polity V clean migration + SIPRI Arms Transfers clean migration + IAEA Safeguards clean migration + CTBTO Treaty Status clean migration + World Bank PIP clean migration + EIU Democracy Index local-PDF adapter: 37 implemented interface entries (the 20 legacy Stage 2 adapters plus the clean `freedom_house`, `archigos`, `reign`, `sipri_milex`, `sipri_yearbook_ch7`, `cirights`, `undp_hdi`, `who_gho_api`, `fas`, `wikidata_heads_of_state_government`, `wikipedia_search_extract`, `polity_v`, `sipri_arms_transfers`, `iaea_safeguards`, `ctbto_treaty_status`, `world_bank_poverty_inequality_platform`, and `eiu_democracy_index` adapters) + 3 user-managed/blocked (`imf_weo`, `cow_mid`, `nti`) + 1 retired (`cia_world_leaders`) + 1 pending (`leader_survival` still needs raw data) = 42 total source entries including clean-interface duplicates for migrated legacy sources. All 8 rating categories have at least 2 distinct datasets. See [`docs/sources/vetting/report.md`](sources/vetting/report.md). Implementation continues one source at a time.
 

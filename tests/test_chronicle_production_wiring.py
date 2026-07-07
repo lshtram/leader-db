@@ -27,6 +27,7 @@ import csv
 import shutil
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from leaders_db.chronicle.constants import SOURCE_TAG_MADDISON
@@ -105,6 +106,7 @@ def _read_csv_comment_lines(path: Path) -> list[str]:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_runner_loads_real_maddison_xlsx_into_chronicle_csv(
     isolated_data_lake: Path,
     tmp_path: Path,
@@ -221,6 +223,7 @@ def test_runner_reports_reign_in_sources_used(
     assert "reign" in result.stdout
 
 
+@pytest.mark.slow
 def test_runner_reports_maddison_archigos_and_reign_in_combined_run(
     isolated_data_lake: Path,
     tmp_path: Path,
@@ -344,6 +347,7 @@ def test_runner_reports_soviet_leaders_curated_for_sun_rows(
     assert "soviet_leaders_curated" in result.stdout
 
 
+@pytest.mark.slow
 def test_runner_combined_run_reports_all_seven_sources(
     isolated_data_lake: Path,
     tmp_path: Path,
@@ -389,6 +393,7 @@ def test_runner_combined_run_reports_all_seven_sources(
     assert "Soviet leaders" in comment_text
 
 
+@pytest.mark.slow
 def test_runner_three_country_pilot_smoke_with_real_fixtures(
     isolated_data_lake: Path,
     tmp_path: Path,
@@ -433,6 +438,7 @@ def test_runner_three_country_pilot_smoke_with_real_fixtures(
         assert expected_columns.issubset(set(row.keys()))
 
 
+@pytest.mark.slow
 def test_runner_csv_attribution_block_is_byte_identical_to_doc(
     isolated_data_lake: Path,
     tmp_path: Path,

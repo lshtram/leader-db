@@ -6,8 +6,6 @@ from collections.abc import Sequence
 
 from sqlalchemy.engine import Engine
 
-from leaders_db.research.sql_repository import observation_to_row, write_observations
-
 from .contracts import NormalizedObservation, OutputFormat, RawAsset, SourceIngestRequest
 
 
@@ -33,6 +31,8 @@ class SourcePersistenceService:
             source_version=source_version,
         )
         _write_processed_observations(request, observations, output_assets)
+        from leaders_db.research.sql_repository import write_observations
+
         write_observations(self._engine, observations)
         return output_assets
 
@@ -90,6 +90,8 @@ def _write_processed_observations(
     output_assets: Sequence[RawAsset],
 ) -> None:
     import pandas as pd
+
+    from leaders_db.research.sql_repository import observation_to_row
 
     source_dir = request.processed_root / request.source_id.slug
     source_dir.mkdir(parents=True, exist_ok=True)

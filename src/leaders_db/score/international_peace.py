@@ -261,7 +261,7 @@ def score_international_peace(bundle: CategoryEvidenceBundle) -> ScoreResult:
     # AGENTS.md always-on rule #6.
     if (
         not bundle.has_minimum_viable_usable_evidence
-        and plan.sparse_data_policy is SparseDataPolicy.INSUFFICIENT_DATA
+        and plan.sparse_data_policy == SparseDataPolicy.INSUFFICIENT_DATA
     ):
         # Compute the missingness summary first so ``detect_flags``
         # can read the observed-ratio and decide whether

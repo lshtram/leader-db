@@ -59,12 +59,35 @@ CONCEPT_POLITICAL_LIBERTIES: str = "political_liberties"
 CONCEPT_PRIVATE_CIVIL_LIBERTIES: str = "private_civil_liberties"
 CONCEPT_CIVIL_SOCIETY_REPRESSION: str = "civil_society_repression"
 CONCEPT_EXTRAJUDICIAL_KILLINGS: str = "extrajudicial_killings"
+CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY: str = "cirights_physical_integrity"
+CONCEPT_CIRIGHTS_TORTURE: str = "cirights_torture"
+CONCEPT_CIRIGHTS_DISAPPEARANCES: str = "cirights_disappearances"
+CONCEPT_CIRIGHTS_KILLINGS: str = "cirights_killings"
+CONCEPT_CIRIGHTS_POLITICAL_IMPRISONMENT: str = "cirights_political_imprisonment"
+CONCEPT_CIRIGHTS_REPRESSION: str = "cirights_repression"
+CONCEPT_CIRIGHTS_CIVIL_POLITICAL_RIGHTS: str = "cirights_civil_political_rights"
+CONCEPT_PTS_AMNESTY_SCORE: str = "pts_amnesty_score"
+CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE: str = "pts_human_rights_watch_score"
+CONCEPT_PTS_STATE_DEPT_SCORE: str = "pts_state_dept_score"
+CONCEPT_STATE_BASED_CONFLICT_EVENTS: str = "state_based_conflict_events"
+CONCEPT_STATE_BASED_CONFLICT_FATALITIES: str = "state_based_conflict_fatalities"
+CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS: str = "internationalized_conflict_events"
+CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES: str = "internationalized_conflict_fatalities"
 CONCEPT_ONE_SIDED_VIOLENCE_EVENTS: str = "one_sided_violence_events"
 CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES: str = "one_sided_violence_fatalities"
 CONCEPT_CORRUPTION_INDEX: str = "corruption_index"
+CONCEPT_CPI_SCORE: str = "cpi_score"
+CONCEPT_CONTROL_OF_CORRUPTION: str = "control_of_corruption"
 CONCEPT_EXECUTIVE_CORRUPTION: str = "executive_corruption"
 CONCEPT_PUBLIC_CORRUPTION: str = "public_corruption"
 CONCEPT_ACCOUNTABILITY: str = "accountability"
+CONCEPT_VOICE_AND_ACCOUNTABILITY: str = "voice_and_accountability"
+CONCEPT_WGI_RULE_OF_LAW: str = "wgi_rule_of_law"
+CONCEPT_GOVERNMENT_EFFECTIVENESS: str = "government_effectiveness"
+CONCEPT_REGULATORY_QUALITY: str = "regulatory_quality"
+CONCEPT_BTI_GOVERNANCE_INDEX: str = "bti_governance_index"
+CONCEPT_BTI_STATUS_INDEX: str = "bti_status_index"
+CONCEPT_BTI_DEMOCRACY_STATUS: str = "bti_democracy_status"
 CONCEPT_JUDICIAL_CONSTRAINTS: str = "judicial_constraints"
 CONCEPT_LEGISLATIVE_CONSTRAINTS: str = "legislative_constraints"
 CONCEPT_MULTIPARTY_INSTITUTIONS: str = "multiparty_institutions"
@@ -74,6 +97,10 @@ CONCEPT_NUCLEAR_MILITARY_STOCKPILE: str = "nuclear_military_stockpile"
 CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC: str = "nuclear_operational_strategic"
 CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC: str = "nuclear_operational_nonstrategic"
 CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED: str = "nuclear_reserve_nondeployed"
+CONCEPT_MILITARY_SPEND_CONSTANT_USD: str = "military_spend_constant_usd"
+CONCEPT_MILITARY_SPEND_PER_CAPITA: str = "military_spend_per_capita"
+CONCEPT_MILITARY_SPEND_SHARE_GDP: str = "military_spend_share_gdp"
+CONCEPT_MILITARY_SPEND_SHARE_GOVT: str = "military_spend_share_govt"
 
 # Canonical ordered list of stable concept keys. The order is the
 # canonical iteration order for ``list_concepts()``; downstream code
@@ -105,12 +132,35 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_PRIVATE_CIVIL_LIBERTIES,
     CONCEPT_CIVIL_SOCIETY_REPRESSION,
     CONCEPT_EXTRAJUDICIAL_KILLINGS,
+    CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+    CONCEPT_CIRIGHTS_TORTURE,
+    CONCEPT_CIRIGHTS_DISAPPEARANCES,
+    CONCEPT_CIRIGHTS_KILLINGS,
+    CONCEPT_CIRIGHTS_POLITICAL_IMPRISONMENT,
+    CONCEPT_CIRIGHTS_REPRESSION,
+    CONCEPT_CIRIGHTS_CIVIL_POLITICAL_RIGHTS,
+    CONCEPT_PTS_AMNESTY_SCORE,
+    CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
+    CONCEPT_PTS_STATE_DEPT_SCORE,
+    CONCEPT_STATE_BASED_CONFLICT_EVENTS,
+    CONCEPT_STATE_BASED_CONFLICT_FATALITIES,
+    CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
+    CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
     CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
     CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
     CONCEPT_CORRUPTION_INDEX,
+    CONCEPT_CPI_SCORE,
+    CONCEPT_CONTROL_OF_CORRUPTION,
     CONCEPT_EXECUTIVE_CORRUPTION,
     CONCEPT_PUBLIC_CORRUPTION,
     CONCEPT_ACCOUNTABILITY,
+    CONCEPT_VOICE_AND_ACCOUNTABILITY,
+    CONCEPT_WGI_RULE_OF_LAW,
+    CONCEPT_GOVERNMENT_EFFECTIVENESS,
+    CONCEPT_REGULATORY_QUALITY,
+    CONCEPT_BTI_GOVERNANCE_INDEX,
+    CONCEPT_BTI_STATUS_INDEX,
+    CONCEPT_BTI_DEMOCRACY_STATUS,
     CONCEPT_JUDICIAL_CONSTRAINTS,
     CONCEPT_LEGISLATIVE_CONSTRAINTS,
     CONCEPT_MULTIPARTY_INSTITUTIONS,
@@ -120,6 +170,10 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
     CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
     CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+    CONCEPT_MILITARY_SPEND_CONSTANT_USD,
+    CONCEPT_MILITARY_SPEND_PER_CAPITA,
+    CONCEPT_MILITARY_SPEND_SHARE_GDP,
+    CONCEPT_MILITARY_SPEND_SHARE_GOVT,
 )
 
 
@@ -134,8 +188,13 @@ UNDP_HDI_SOURCE_KEY: str = "undp_hdi"
 WHO_GHO_API_SOURCE_KEY: str = "who_gho_api"
 VDEM_SOURCE_KEY: str = "vdem"
 RSF_PRESS_FREEDOM_SOURCE_KEY: str = "rsf_press_freedom"
+FREEDOM_HOUSE_SOURCE_KEY: str = "freedom_house"
 UCDP_SOURCE_KEY: str = "ucdp"
 FAS_SOURCE_KEY: str = "fas"
+WGI_SOURCE_KEY: str = "world_bank_wgi"
+TRANSPARENCY_CPI_SOURCE_KEY: str = "transparency_cpi"
+BTI_SOURCE_KEY: str = "bti"
+CIRIGHTS_SOURCE_KEY: str = "cirights"
 CLIENT_EXISTING_SOURCE_KEY: str = "client_existing"
 
 
@@ -204,7 +263,41 @@ VDEM_LEGISLATIVE_CONSTRAINTS_INDICATOR_CODE: str = "vdem_v2xlg_legcon"
 VDEM_MULTIPARTY_INSTITUTIONS_INDICATOR_CODE: str = "vdem_v2x_mpi"
 VDEM_REGIME_TYPE_INDICATOR_CODE: str = "vdem_v2x_regime"
 
-# UCDP domestic one-sided violence indicators.
+# World Bank Worldwide Governance Indicators.
+WGI_VOICE_AND_ACCOUNTABILITY_INDICATOR_CODE: str = "wgi_voice_and_accountability"
+WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE: str = "wgi_government_effectiveness"
+WGI_REGULATORY_QUALITY_INDICATOR_CODE: str = "wgi_regulatory_quality"
+WGI_RULE_OF_LAW_INDICATOR_CODE: str = "wgi_rule_of_law"
+WGI_CONTROL_OF_CORRUPTION_INDICATOR_CODE: str = "wgi_control_of_corruption"
+
+# Transparency International CPI.
+TRANSPARENCY_CPI_SCORE_INDICATOR_CODE: str = "cpi_score"
+
+# CIRIGHTS physical-integrity / rights indicators.
+CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE: str = "cirights_physint"
+CIRIGHTS_TORTURE_INDICATOR_CODE: str = "cirights_tort"
+CIRIGHTS_DISAPPEARANCES_INDICATOR_CODE: str = "cirights_disap"
+CIRIGHTS_KILLINGS_INDICATOR_CODE: str = "cirights_kill"
+CIRIGHTS_POLITICAL_IMPRISONMENT_INDICATOR_CODE: str = "cirights_polpris"
+CIRIGHTS_REPRESSION_INDICATOR_CODE: str = "cirights_repression"
+CIRIGHTS_CIVIL_POLITICAL_RIGHTS_INDICATOR_CODE: str = "cirights_civpol"
+
+# Political Terror Scale indicators.
+PTS_SOURCE_KEY: str = "pts"
+PTS_AMNESTY_SCORE_INDICATOR_CODE: str = "pts_amnesty_score"
+PTS_HUMAN_RIGHTS_WATCH_SCORE_INDICATOR_CODE: str = "pts_human_rights_watch_score"
+PTS_STATE_DEPT_SCORE_INDICATOR_CODE: str = "pts_state_dept_score"
+
+# Bertelsmann Transformation Index.
+BTI_GOVERNANCE_INDEX_INDICATOR_CODE: str = "bti_governance_index"
+BTI_STATUS_INDEX_INDICATOR_CODE: str = "bti_status_index"
+BTI_DEMOCRACY_STATUS_INDICATOR_CODE: str = "bti_democracy_status"
+
+# UCDP conflict and domestic one-sided violence indicators.
+UCDP_STATE_BASED_EVENTS_INDICATOR_CODE: str = "ucdp_state_based_events"
+UCDP_STATE_BASED_FATALITIES_INDICATOR_CODE: str = "ucdp_state_based_fatalities"
+UCDP_INTL_EVENTS_INDICATOR_CODE: str = "ucdp_intl_events"
+UCDP_INTL_FATALITIES_INDICATOR_CODE: str = "ucdp_intl_fatalities"
 UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE: str = "ucdp_onesided_events"
 UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE: str = "ucdp_onesided_fatalities"
 
@@ -212,12 +305,27 @@ UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE: str = "ucdp_onesided_fatalities"
 RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE: str = "rsf_press_freedom_score"
 RSF_PRESS_FREEDOM_RANK_INDICATOR_CODE: str = "rsf_press_freedom_rank"
 
+# Freedom House Freedom in the World indicators.
+FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE: str = (
+    "freedom_house_political_rights"
+)
+FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE: str = (
+    "freedom_house_civil_liberties"
+)
+
 # FAS nuclear notebook status table indicators.
 FAS_TOTAL_INVENTORY_INDICATOR_CODE: str = "fas_total_inventory"
 FAS_MILITARY_STOCKPILE_INDICATOR_CODE: str = "fas_military_stockpile"
 FAS_OPERATIONAL_STRATEGIC_INDICATOR_CODE: str = "fas_operational_strategic"
 FAS_OPERATIONAL_NONSTRATEGIC_INDICATOR_CODE: str = "fas_operational_nonstrategic"
 FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE: str = "fas_reserve_nondeployed"
+
+# SIPRI Military Expenditure Database indicators.
+SIPRI_MILEX_SOURCE_KEY: str = "sipri_milex"
+SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE: str = "sipri_milex_constant_usd"
+SIPRI_MILEX_PER_CAPITA_INDICATOR_CODE: str = "sipri_milex_per_capita"
+SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE: str = "sipri_milex_share_of_gdp"
+SIPRI_MILEX_SHARE_GOVT_INDICATOR_CODE: str = "sipri_milex_share_of_govt_spending"
 
 # Quality-flag string surfaced on every derived ConceptObservation.
 DERIVED_CONCEPT_QUALITY_FLAG: str = "derived_concept"
@@ -414,6 +522,80 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             description="V-Dem country-year political killings indicator.",
         ),
         ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+            display_name="CIRIGHTS physical integrity",
+            description="CIRIGHTS country-year physical integrity score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_TORTURE,
+            display_name="CIRIGHTS torture",
+            description="CIRIGHTS country-year torture score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_DISAPPEARANCES,
+            display_name="CIRIGHTS disappearances",
+            description="CIRIGHTS country-year disappearance score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_KILLINGS,
+            display_name="CIRIGHTS killings",
+            description="CIRIGHTS country-year extrajudicial-killing score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_POLITICAL_IMPRISONMENT,
+            display_name="CIRIGHTS political imprisonment",
+            description="CIRIGHTS country-year political imprisonment score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_REPRESSION,
+            display_name="CIRIGHTS repression",
+            description="CIRIGHTS country-year repression score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CIRIGHTS_CIVIL_POLITICAL_RIGHTS,
+            display_name="CIRIGHTS civil and political rights",
+            description="CIRIGHTS country-year civil and political rights score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PTS_AMNESTY_SCORE,
+            display_name="PTS Amnesty score",
+            description="Political Terror Scale country-year Amnesty International score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
+            display_name="PTS Human Rights Watch score",
+            description="Political Terror Scale country-year Human Rights Watch score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PTS_STATE_DEPT_SCORE,
+            display_name="PTS State Department score",
+            description="Political Terror Scale country-year US State Department score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_STATE_BASED_CONFLICT_EVENTS,
+            display_name="State-based conflict events",
+            description="UCDP country-year state-based conflict event count.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_STATE_BASED_CONFLICT_FATALITIES,
+            display_name="State-based conflict fatalities",
+            description="UCDP country-year state-based conflict fatality count.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
+            display_name="Internationalized conflict events",
+            description=(
+                "UCDP country-year internationalized state-based conflict event count."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
+            display_name="Internationalized conflict fatalities",
+            description=(
+                "UCDP country-year internationalized state-based conflict fatality count."
+            ),
+        ),
+        ConceptDescriptor(
             concept_key=CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
             display_name="One-sided violence events",
             description="UCDP country-year one-sided violence event count.",
@@ -429,6 +611,16 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             description="V-Dem country-year political corruption index.",
         ),
         ConceptDescriptor(
+            concept_key=CONCEPT_CPI_SCORE,
+            display_name="Corruption Perceptions Index score",
+            description="Transparency International country-year CPI score.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_CONTROL_OF_CORRUPTION,
+            display_name="Control of corruption",
+            description="World Bank WGI country-year control of corruption estimate.",
+        ),
+        ConceptDescriptor(
             concept_key=CONCEPT_EXECUTIVE_CORRUPTION,
             display_name="Executive corruption",
             description="V-Dem country-year executive corruption index.",
@@ -442,6 +634,41 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_ACCOUNTABILITY,
             display_name="Accountability",
             description="V-Dem country-year accountability index.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_VOICE_AND_ACCOUNTABILITY,
+            display_name="Voice and accountability",
+            description="World Bank WGI country-year voice and accountability estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WGI_RULE_OF_LAW,
+            display_name="WGI rule of law",
+            description="World Bank WGI country-year rule of law estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GOVERNMENT_EFFECTIVENESS,
+            display_name="Government effectiveness",
+            description="World Bank WGI country-year government effectiveness estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_REGULATORY_QUALITY,
+            display_name="Regulatory quality",
+            description="World Bank WGI country-year regulatory quality estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_BTI_GOVERNANCE_INDEX,
+            display_name="BTI governance index",
+            description="Bertelsmann BTI country-year governance index.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_BTI_STATUS_INDEX,
+            display_name="BTI status index",
+            description="Bertelsmann BTI country-year status index.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_BTI_DEMOCRACY_STATUS,
+            display_name="BTI democracy status",
+            description="Bertelsmann BTI country-year democracy status score.",
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_JUDICIAL_CONSTRAINTS,
@@ -487,6 +714,28 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
             display_name="Reserve/nondeployed nuclear warheads",
             description="FAS country-year reserve or nondeployed nuclear warhead estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_MILITARY_SPEND_CONSTANT_USD,
+            display_name="Military expenditure, constant USD",
+            description="SIPRI country-year military expenditure in constant US dollars.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_MILITARY_SPEND_PER_CAPITA,
+            display_name="Military expenditure per capita",
+            description="SIPRI country-year military expenditure per capita.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_MILITARY_SPEND_SHARE_GDP,
+            display_name="Military expenditure share of GDP",
+            description="SIPRI country-year military expenditure as a share of GDP.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_MILITARY_SPEND_SHARE_GOVT,
+            display_name="Military expenditure share of government spending",
+            description=(
+                "SIPRI country-year military expenditure as a share of government spending."
+            ),
         ),
     )
 
@@ -687,6 +936,12 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             indicator_codes=(VDEM_CIVIL_LIBERTIES_INDICATOR_CODE,),
         ),
         ConceptMapping(
+            concept_key=CONCEPT_CIVIL_LIBERTIES,
+            source_id=SourceId(slug=FREEDOM_HOUSE_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
             concept_key=CONCEPT_SUFFRAGE,
             source_id=SourceId(slug=VDEM_SOURCE_KEY),
             mapping_type="direct",
@@ -737,6 +992,12 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             indicator_codes=(VDEM_POLITICAL_LIBERTIES_INDICATOR_CODE,),
         ),
         ConceptMapping(
+            concept_key=CONCEPT_POLITICAL_LIBERTIES,
+            source_id=SourceId(slug=FREEDOM_HOUSE_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
             concept_key=CONCEPT_PRIVATE_CIVIL_LIBERTIES,
             source_id=SourceId(slug=VDEM_SOURCE_KEY),
             mapping_type="direct",
@@ -754,7 +1015,92 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             mapping_type="direct",
             indicator_codes=(VDEM_EXTRAJUDICIAL_KILLINGS_INDICATOR_CODE,),
         ),
-        # --- UCDP one-sided violence mappings --------------------------
+        # --- CIRIGHTS domestic safety / rights mappings ----------------
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_TORTURE,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_TORTURE_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_DISAPPEARANCES,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_DISAPPEARANCES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_KILLINGS,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_KILLINGS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_POLITICAL_IMPRISONMENT,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_POLITICAL_IMPRISONMENT_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_REPRESSION,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_REPRESSION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CIRIGHTS_CIVIL_POLITICAL_RIGHTS,
+            source_id=SourceId(slug=CIRIGHTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(CIRIGHTS_CIVIL_POLITICAL_RIGHTS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PTS_AMNESTY_SCORE,
+            source_id=SourceId(slug=PTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PTS_AMNESTY_SCORE_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
+            source_id=SourceId(slug=PTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PTS_HUMAN_RIGHTS_WATCH_SCORE_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PTS_STATE_DEPT_SCORE,
+            source_id=SourceId(slug=PTS_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PTS_STATE_DEPT_SCORE_INDICATOR_CODE,),
+        ),
+        # --- UCDP conflict / one-sided violence mappings ---------------
+        ConceptMapping(
+            concept_key=CONCEPT_STATE_BASED_CONFLICT_EVENTS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_STATE_BASED_CONFLICT_FATALITIES,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_STATE_BASED_FATALITIES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_INTL_EVENTS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_INTL_FATALITIES_INDICATOR_CODE,),
+        ),
         ConceptMapping(
             concept_key=CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
             source_id=SourceId(slug=UCDP_SOURCE_KEY),
@@ -775,6 +1121,18 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             indicator_codes=(VDEM_CORRUPTION_INDEX_INDICATOR_CODE,),
         ),
         ConceptMapping(
+            concept_key=CONCEPT_CPI_SCORE,
+            source_id=SourceId(slug=TRANSPARENCY_CPI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_CONTROL_OF_CORRUPTION,
+            source_id=SourceId(slug=WGI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WGI_CONTROL_OF_CORRUPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
             concept_key=CONCEPT_EXECUTIVE_CORRUPTION,
             source_id=SourceId(slug=VDEM_SOURCE_KEY),
             mapping_type="direct",
@@ -792,6 +1150,48 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             source_id=SourceId(slug=VDEM_SOURCE_KEY),
             mapping_type="direct",
             indicator_codes=(VDEM_ACCOUNTABILITY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_VOICE_AND_ACCOUNTABILITY,
+            source_id=SourceId(slug=WGI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WGI_VOICE_AND_ACCOUNTABILITY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WGI_RULE_OF_LAW,
+            source_id=SourceId(slug=WGI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WGI_RULE_OF_LAW_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GOVERNMENT_EFFECTIVENESS,
+            source_id=SourceId(slug=WGI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_REGULATORY_QUALITY,
+            source_id=SourceId(slug=WGI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WGI_REGULATORY_QUALITY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_BTI_GOVERNANCE_INDEX,
+            source_id=SourceId(slug=BTI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(BTI_GOVERNANCE_INDEX_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_BTI_STATUS_INDEX,
+            source_id=SourceId(slug=BTI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(BTI_STATUS_INDEX_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_BTI_DEMOCRACY_STATUS,
+            source_id=SourceId(slug=BTI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(BTI_DEMOCRACY_STATUS_INDICATOR_CODE,),
         ),
         ConceptMapping(
             concept_key=CONCEPT_JUDICIAL_CONSTRAINTS,
@@ -848,6 +1248,31 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             mapping_type="direct",
             indicator_codes=(FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE,),
         ),
+        # --- SIPRI military expenditure mappings -----------------------
+        ConceptMapping(
+            concept_key=CONCEPT_MILITARY_SPEND_CONSTANT_USD,
+            source_id=SourceId(slug=SIPRI_MILEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_MILITARY_SPEND_PER_CAPITA,
+            source_id=SourceId(slug=SIPRI_MILEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_MILEX_PER_CAPITA_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_MILITARY_SPEND_SHARE_GDP,
+            source_id=SourceId(slug=SIPRI_MILEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_MILITARY_SPEND_SHARE_GOVT,
+            source_id=SourceId(slug=SIPRI_MILEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_MILEX_SHARE_GOVT_INDICATOR_CODE,),
+        ),
     )
 
 
@@ -865,13 +1290,21 @@ __all__ = [
     "CONCEPT_GNI_PER_CAPITA",
     "CONCEPT_HDI",
     "CONCEPT_HEPB3_IMMUNIZATION",
+    "CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS",
+    "CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES",
     "CONCEPT_LIBERAL_DEMOCRACY",
     "CONCEPT_LIFE_EXPECTANCY",
     "CONCEPT_MEAN_YEARS_SCHOOLING",
+    "CONCEPT_MILITARY_SPEND_CONSTANT_USD",
+    "CONCEPT_MILITARY_SPEND_PER_CAPITA",
+    "CONCEPT_MILITARY_SPEND_SHARE_GDP",
+    "CONCEPT_MILITARY_SPEND_SHARE_GOVT",
     "CONCEPT_POPULATION",
     "CONCEPT_PRESS_FREEDOM_RANK",
     "CONCEPT_PRESS_FREEDOM_SCORE",
     "CONCEPT_RULE_OF_LAW",
+    "CONCEPT_STATE_BASED_CONFLICT_EVENTS",
+    "CONCEPT_STATE_BASED_CONFLICT_FATALITIES",
     "CONCEPT_SUFFRAGE",
     "CONCEPT_UNDER5_MORTALITY",
     "CONCEPT_WARNING_AMBIGUOUS_PAIR",
@@ -883,6 +1316,9 @@ __all__ = [
     "CONCEPT_WARNING_PAIR_YEAR_MISMATCH",
     "CONCEPT_WARNING_ZERO_DENOMINATOR",
     "DERIVED_CONCEPT_QUALITY_FLAG",
+    "FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE",
+    "FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE",
+    "FREEDOM_HOUSE_SOURCE_KEY",
     "KNOWN_CONCEPT_KEYS",
     "MADDISON_PROJECT_GDP_PER_CAPITA_INDICATOR_CODE",
     "MADDISON_PROJECT_GDP_TOTAL_DERIVED_INDICATOR_CODE",
@@ -896,6 +1332,15 @@ __all__ = [
     "RSF_PRESS_FREEDOM_RANK_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_SOURCE_KEY",
+    "SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE",
+    "SIPRI_MILEX_PER_CAPITA_INDICATOR_CODE",
+    "SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE",
+    "SIPRI_MILEX_SHARE_GOVT_INDICATOR_CODE",
+    "SIPRI_MILEX_SOURCE_KEY",
+    "UCDP_INTL_EVENTS_INDICATOR_CODE",
+    "UCDP_INTL_FATALITIES_INDICATOR_CODE",
+    "UCDP_STATE_BASED_EVENTS_INDICATOR_CODE",
+    "UCDP_STATE_BASED_FATALITIES_INDICATOR_CODE",
     "UNDP_HDI_EXPECTED_YEARS_SCHOOLING_INDICATOR_CODE",
     "UNDP_HDI_GNI_PER_CAPITA_INDICATOR_CODE",
     "UNDP_HDI_INDICATOR_CODE",

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from sqlalchemy import create_engine, text
 
 from leaders_db.chronicle.country_scope import CountryScopeEntry
@@ -188,6 +190,41 @@ def test_q2_1_runner_rerun_is_idempotent(database_url: str) -> None:
     assert link_count == 2
 
 
+def test_structured_country_year_question_runs_through_fact_builder(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_country_year(engine, country_id=1, iso3="USA", name="United States", year=2023)
+    _insert_country_year_fact(
+        engine,
+        country_id=1,
+        country_year_id=1,
+        year=2023,
+        field_key="gdp_per_capita",
+        selected_value_number=76399.0,
+    )
+
+    result = run_slice_1_question_year(
+        request=Slice1Request(question_id="5.1", year=2023),
+        country_scope={"USA": _scope("USA", "United States")},
+        evidence_repository=InMemoryEvidenceRepository(observations=()),
+        results_bind=engine,
+    )
+
+    with engine.connect() as conn:
+        answer = conn.execute(text("SELECT * FROM research_question_answers")).mappings().one()
+        link = conn.execute(text("SELECT * FROM research_answer_evidence_links")).mappings().one()
+
+    assert result.status == "completed"
+    assert result.answer_count == 1
+    assert result.persisted_count == 1
+    assert answer["question_id"] == "5.1"
+    assert answer["answer_numeric"] == 76399.0
+    assert answer["coverage_status"] == "direct"
+    assert link["source_slug"] == "world_bank_wdi"
+
+
 def _scope(iso3: str, country_name: str) -> CountryScopeEntry:
     return CountryScopeEntry(
         iso3=iso3,
@@ -222,3 +259,103 @@ def _ucdp_observation(
         raw_locator=RawLocator(asset_id="ucdp:fixture"),
         transform_locator=TransformLocator(transform_name="fixture"),
     )
+
+
+def _insert_country_year(
+    engine: object,
+    *,
+    country_id: int,
+    iso3: str,
+    name: str,
+    year: int,
+) -> None:
+    with engine.begin() as conn:  # type: ignore[attr-defined]
+        conn.execute(
+            text(
+                """
+                INSERT INTO countries (id, iso3, country_name, country_name_normalized)
+                VALUES (:country_id, :iso3, :name, :normalized_name)
+                """
+            ),
+            {
+                "country_id": country_id,
+                "iso3": iso3,
+                "name": name,
+                "normalized_name": name.lower(),
+            },
+        )
+        conn.execute(
+            text(
+                """
+                INSERT INTO country_years (id, country_id, year, included_in_project)
+                VALUES (:country_year_id, :country_id, :year, 1)
+                """
+            ),
+            {"country_year_id": country_id, "country_id": country_id, "year": year},
+        )
+
+
+def _insert_country_year_fact(
+    engine: object,
+    *,
+    country_id: int,
+    country_year_id: int,
+    year: int,
+    field_key: str,
+    selected_value_number: float,
+) -> None:
+    with engine.begin() as conn:  # type: ignore[attr-defined]
+        conn.execute(
+            text(
+                """
+                INSERT INTO country_year_facts (
+                    country_year_id, country_id, year, field_key, field_label, value_type,
+                    selected_value_number, selected_value_json, candidate_values_json,
+                    selection_rule,
+                    adjudication_status, confidence_score, quality_signals_json,
+                    warnings_json, rationale, recommended_next_action,
+                    source_slugs_json, source_observation_ids_json, producer,
+                    method_version
+                ) VALUES (
+                    :country_year_id, :country_id, :year, :field_key, :field_label,
+                    'number', :selected_value_number, :selected_value_json,
+                    :candidate_values_json, 'test_rule', 'selected', 92, '{}', '[]',
+                    'Selected fixture fact.', 'none',
+                    :source_slugs_json, :source_observation_ids_json, 'test', 'test_v1'
+                )
+                """
+            ),
+            {
+                "country_year_id": country_year_id,
+                "country_id": country_id,
+                "year": year,
+                "field_key": field_key,
+                "field_label": field_key.replace("_", " ").title(),
+                "selected_value_number": selected_value_number,
+                "selected_value_json": json.dumps(
+                    _fact_candidate_payload(selected_value_number)
+                ),
+                "candidate_values_json": json.dumps(
+                    (_fact_candidate_payload(selected_value_number),)
+                ),
+                "source_slugs_json": json.dumps(("world_bank_wdi",)),
+                "source_observation_ids_json": json.dumps(("wdi:USA:2023:gdp_per_capita",)),
+            },
+        )
+
+
+def _fact_candidate_payload(value: float) -> dict[str, object]:
+    return {
+        "concept_key": "fixture",
+        "source_slug": "world_bank_wdi",
+        "value": value,
+        "value_type": "numeric",
+        "unit": None,
+        "scale": None,
+        "source_version": "fixture",
+        "source_indicator_codes": ["fixture_indicator"],
+        "input_observation_ids": ["wdi:USA:2023:gdp_per_capita"],
+        "mapping_type": "direct",
+        "quality_flags": [],
+        "warnings": [],
+    }

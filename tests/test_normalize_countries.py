@@ -66,6 +66,7 @@ def test_alias_seed_contains_common_variants() -> None:
         "vatican",
         "palestine",
         "turkey",
+        "the gambia",
     }
     assert expected_keys.issubset(set(COUNTRY_NAME_NORMALIZATION.keys()))
 
@@ -74,6 +75,61 @@ def test_alias_to_iso3_returns_iso3_for_known_alias() -> None:
     assert alias_to_iso3(normalize_country_name("United States")) == "USA"
     assert alias_to_iso3(normalize_country_name("UK")) == "GBR"
     assert alias_to_iso3(normalize_country_name("Burma")) == "MMR"
+
+
+@pytest.mark.parametrize(
+    ("source_name", "iso3"),
+    [
+        ("Brunei", "BRN"),
+        ("Cape Verde", "CPV"),
+        ("Congo, DR", "COD"),
+        ("Congo, Republic", "COG"),
+        ("Congo, Rep.", "COG"),
+        ("Gambia, The", "GMB"),
+        ("Korea, North", "PRK"),
+        ("Korea, South", "KOR"),
+        ("Kyrgyz Republic", "KGZ"),
+        ("Viet Nam", "VNM"),
+        ("Macedonia, FYR", "MKD"),
+        ("Bosnia-Herzegovina", "BIH"),
+        ("Czechoslovakia", "CSK"),
+        ("Bosnia Herzegovenia", "BIH"),
+        ("German Democratic Republic", "DDR"),
+        ("East Germany", "DDR"),
+        ("Germany, E.", "DDR"),
+        ("Germany, W.", "DEU"),
+        ("Kosovo", "XKX"),
+        ("Serbia and Montenegro", "SCG"),
+        ("Yugoslavia", "YUG"),
+        ("Côte d’Ivoire", "CIV"),
+        ("DR Congo (Zaire)", "COD"),
+        ("Congo, Democratic Republic of", "COD"),
+        ("Congo (Kinshasa)", "COD"),
+        ("Congo, Republic of", "COG"),
+        ("Congo (Brazzaville)", "COG"),
+        ("The Gambia", "GMB"),
+        ("St. Vincent and the Grenadines", "VCT"),
+        ("Türkiye", "TUR"),
+        ("Republic of Türkiye", "TUR"),
+        ("Zimbabwe (Rhodesia)", "ZWE"),
+        ("Kingdom of eSwatini (Swaziland)", "SWZ"),
+        ("Madagascar (Malagasy)", "MDG"),
+        ("Yemen (North Yemen)", "YEM"),
+        ("Myanmar (Burma)", "MMR"),
+        ("Burma (Myanmar)", "MMR"),
+        ("Cambodia (Kampuchea)", "KHM"),
+        ("East Timor (Timor-Leste)", "TLS"),
+        ("Slovak Republic", "SVK"),
+        ("Slovak Republic/ Slovakia", "SVK"),
+        ("Korea, Democratic People's Republic of (North Korea)", "PRK"),
+        ("Korea, Republic of (South Korea)", "KOR"),
+    ],
+)
+def test_alias_to_iso3_resolves_sipri_display_names(
+    source_name: str,
+    iso3: str,
+) -> None:
+    assert alias_to_iso3(normalize_country_name(source_name)) == iso3
 
 
 def test_alias_to_iso3_returns_none_for_unknown_name() -> None:

@@ -59,7 +59,9 @@ def evidence_summarize_ruler_period_cmd(
         payload = summarize_ruler_period_evidence(repository, request)
     except ValueError as exc:
         raise typer.BadParameter(str(exc)) from exc
-    except DatabaseReadinessError as exc:
+    except Exception as exc:
+        if not _is_database_readiness_error(exc):
+            raise
         typer.echo(json.dumps({"error": str(exc)}, sort_keys=True))
         raise typer.Exit(1) from exc
     except SQLAlchemyError as exc:
@@ -88,6 +90,12 @@ def _build_evidence_repository(db_url: str | None) -> EvidenceRepository:
     engine = build_engine(db_url or default_sqlite_url())
     assert_database_ready(engine, required_tables=EVIDENCE_TABLES)
     return SqlEvidenceRepository(engine)
+
+
+def _is_database_readiness_error(exc: Exception) -> bool:
+    return isinstance(exc, DatabaseReadinessError) or exc.__class__.__name__ == (
+        "DatabaseReadinessError"
+    )
 
 
 __all__ = ["evidence_app", "evidence_summarize_ruler_period_cmd"]

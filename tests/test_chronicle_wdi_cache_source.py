@@ -29,6 +29,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from leaders_db.chronicle._wdi_cache_source import (
     WDI_CACHE_INDICATOR_TO_COLUMN,
@@ -542,6 +543,7 @@ def test_runner_default_wdi_cache_dir_is_canonical() -> None:
     assert default_wdi_cache_dir() == raw_dir("world_bank_wdi") / "coverage_cache"
 
 
+@pytest.mark.slow
 def test_runner_threads_wdi_cache_dir_into_load_wdi_source_via_cli(
     isolated_data_lake: Path,
     tmp_path: Path,

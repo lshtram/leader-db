@@ -26,6 +26,7 @@ import csv
 from pathlib import Path
 
 import pandas as pd
+import pytest
 from typer.testing import CliRunner
 
 from leaders_db.chronicle.sqlite_writer import default_sqlite_path
@@ -155,6 +156,7 @@ def test_command_help_does_not_document_sqlite_opt_out() -> None:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_command_writes_csv_file(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -267,6 +269,7 @@ def test_command_rejects_sqlite_output_without_value(
     assert "sqlite-output" in combined_output.lower()
 
 
+@pytest.mark.slow
 def test_command_writes_attribution_block(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -421,6 +424,7 @@ def test_command_dedupes_countries(
     assert data_rows[0]["year"] == "2024"
 
 
+@pytest.mark.slow
 def test_command_emits_proxy_year_flag_for_2026(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -448,6 +452,7 @@ def test_command_emits_proxy_year_flag_for_2026(
     assert "proxy_year_used" in flags
 
 
+@pytest.mark.slow
 def test_command_no_proxy_flag_when_disabled(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -477,6 +482,7 @@ def test_command_no_proxy_flag_when_disabled(
     assert data_rows[0]["political_regime_bucket"] == "Unknown"
 
 
+@pytest.mark.slow
 def test_command_default_uses_chronicle_output_dir(
     isolated_data_lake: Path,
 ) -> None:
@@ -508,6 +514,7 @@ def test_command_default_uses_chronicle_output_dir(
     )
 
 
+@pytest.mark.slow
 def test_command_summary_includes_row_count(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -558,6 +565,7 @@ def test_command_summary_lists_sources_used(
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.slow
 def test_seven_country_pilot_smoke(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:
@@ -687,6 +695,7 @@ def test_cli_parsed_ind_1947_is_independent(
     assert "colonial_status_issue" not in rows[0]["data_quality_flags"].split("|")
 
 
+@pytest.mark.slow
 def test_cli_parsed_rus_with_authoritarian_vdem_is_mixed_unclear(
     isolated_data_lake: Path, tmp_path: Path
 ) -> None:

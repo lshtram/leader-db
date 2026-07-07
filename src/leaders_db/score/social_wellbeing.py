@@ -275,7 +275,7 @@ def score_social_wellbeing(
     # ------------------------------------------------------------------
     if (
         not bundle.has_minimum_viable_usable_evidence
-        and plan.sparse_data_policy is SparseDataPolicy.INSUFFICIENT_DATA
+        and plan.sparse_data_policy == SparseDataPolicy.INSUFFICIENT_DATA
     ):
         flags = [
             ReviewFlag.INSUFFICIENT_DATA,

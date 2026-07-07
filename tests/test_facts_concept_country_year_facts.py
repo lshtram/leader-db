@@ -12,13 +12,33 @@ from leaders_db.facts import publish_concept_country_year_facts
 from leaders_db.research.sql_repository import SqlEvidenceRepository, write_observations
 from leaders_db.sources import NormalizedObservation, RawLocator, SourceId, TransformLocator
 from leaders_db.sources.concepts import (
+    BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+    CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+    CONCEPT_BTI_GOVERNANCE_INDEX,
+    CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,
+    CONCEPT_CPI_SCORE,
     CONCEPT_GDP_PER_CAPITA,
+    CONCEPT_GOVERNMENT_EFFECTIVENESS,
+    CONCEPT_MILITARY_SPEND_CONSTANT_USD,
+    CONCEPT_MILITARY_SPEND_SHARE_GDP,
     CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+    CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
+    CONCEPT_POLITICAL_LIBERTIES,
     CONCEPT_POPULATION,
+    CONCEPT_PTS_AMNESTY_SCORE,
+    CONCEPT_STATE_BASED_CONFLICT_EVENTS,
     FAS_TOTAL_INVENTORY_INDICATOR_CODE,
+    FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+    PTS_AMNESTY_SCORE_INDICATOR_CODE,
     PWT_POPULATION_INDICATOR_CODE,
+    SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,
+    SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
+    TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
+    UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE,
+    UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_INDICATOR_CODE,
     WDI_POPULATION_INDICATOR_CODE,
+    WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
 )
 
 
@@ -275,6 +295,958 @@ def test_publish_concept_country_year_facts_resolves_country_name_fallback(
         assert fact.field_key == CONCEPT_NUCLEAR_TOTAL_INVENTORY
         assert fact.selected_value_number == 5244
         assert fact.source_slugs_json == '["fas"]'
+
+
+def test_publish_concept_country_year_facts_publishes_sipri_milex_by_country_name(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(
+        engine,
+        year=2023,
+        iso3="USA",
+        country_name="United States of America",
+    )
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
+                observation_id="sipri_milex:United States of America:2023:sipri_milex_share_of_gdp",
+                value=0.033,
+                unit="percent",
+                year=2023,
+                country_code=None,
+                country_name="United States of America",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_SHARE_GDP,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_MILITARY_SPEND_SHARE_GDP: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_MILITARY_SPEND_SHARE_GDP
+        assert fact.field_label == "Military expenditure share of GDP"
+        assert fact.selected_value_number == 0.033
+        assert fact.source_slugs_json == '["sipri_milex"]'
+
+
+def test_publish_concept_country_year_facts_publishes_sipri_milex_alias_name(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(
+        engine,
+        year=2023,
+        iso3="COD",
+        country_name="Congo, The Democratic Republic of the",
+    )
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
+                observation_id="sipri_milex:Congo, DR:2023:sipri_milex_share_of_gdp",
+                value=0.011,
+                unit="percent",
+                year=2023,
+                country_code=None,
+                country_name="Congo, DR",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_SHARE_GDP,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_MILITARY_SPEND_SHARE_GDP
+        assert fact.selected_value_number == 0.011
+        assert fact.source_slugs_json == '["sipri_milex"]'
+
+
+def test_publish_concept_country_year_facts_skips_sipri_milex_european_union_aggregate(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="DEU", country_name="Germany")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
+                observation_id="sipri_milex:European Union:2023:sipri_milex_share_of_gdp",
+                value=1.6,
+                unit="percent",
+                year=2023,
+                country_code=None,
+                country_name="European Union",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_SHARE_GDP,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 0
+    assert result.field_counts == {}
+    with Session(engine) as session:
+        assert session.scalar(select(CountryYearFact)) is None
+
+
+def test_publish_concept_country_year_facts_resolves_lifecycle_source_name(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=1990, iso3="SUN", country_name="Soviet Union")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,
+                observation_id="sipri_milex:USSR:1990:sipri_milex_constant_usd",
+                value=250_000.0,
+                unit="usd_millions",
+                year=1990,
+                country_code=None,
+                country_name="USSR",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_CONSTANT_USD,),
+        start_year=1990,
+        end_year=1990,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_MILITARY_SPEND_CONSTANT_USD
+        assert fact.selected_value_number == 250_000.0
+        assert fact.source_slugs_json == '["sipri_milex"]'
+
+
+def test_publish_concept_country_year_facts_resolves_sipri_east_germany(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(
+        engine,
+        year=1989,
+        iso3="DDR",
+        country_name="German Democratic Republic",
+    )
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,
+                observation_id=(
+                    "sipri_milex:German Democratic Republic:1989:"
+                    "sipri_milex_constant_usd"
+                ),
+                value=12_345.0,
+                unit="usd_millions",
+                year=1989,
+                country_code=None,
+                country_name="German Democratic Republic",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_CONSTANT_USD,),
+        start_year=1989,
+        end_year=1989,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_MILITARY_SPEND_CONSTANT_USD
+        assert fact.selected_value_number == 12_345.0
+        assert fact.source_slugs_json == '["sipri_milex"]'
+
+
+def test_publish_concept_country_year_facts_resolves_sipri_kosovo(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="XKX", country_name="Kosovo")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
+                observation_id="sipri_milex:Kosovo:2023:sipri_milex_share_of_gdp",
+                value=0.014,
+                unit="percent",
+                year=2023,
+                country_code=None,
+                country_name="Kosovo",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_SHARE_GDP,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_MILITARY_SPEND_SHARE_GDP
+        assert fact.selected_value_number == 0.014
+        assert fact.source_slugs_json == '["sipri_milex"]'
+
+
+def test_publish_concept_country_year_facts_publishes_freedom_house(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="USA", country_name="United States")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="freedom_house",
+                indicator_code=FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
+                observation_id=(
+                    "freedom_house:country:United States:2023:"
+                    "freedom_house_political_rights"
+                ),
+                value=1,
+                unit="rating",
+                year=2023,
+                country_code=None,
+                country_name="United States",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_POLITICAL_LIBERTIES,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_POLITICAL_LIBERTIES: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_POLITICAL_LIBERTIES
+        assert fact.field_label == "Political civil liberties"
+        assert fact.selected_value_number == 1
+        assert fact.source_slugs_json == '["freedom_house"]'
+
+
+def test_publish_concept_country_year_facts_skips_sipri_european_union(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="sipri_milex",
+                indicator_code=SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
+                observation_id="sipri_milex:European Union:2023:sipri_milex_share_of_gdp",
+                value=0.013,
+                unit="percent",
+                year=2023,
+                country_code=None,
+                country_name="European Union",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_MILITARY_SPEND_SHARE_GDP,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 0
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {}
+    with Session(engine) as session:
+        assert session.scalar(select(CountryYearFact)) is None
+
+
+def test_publish_concept_country_year_facts_resolves_ucdp_country_id(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="RUS", country_name="Russia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="ucdp",
+                indicator_code=UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
+                observation_id="ucdp:365:2022:ucdp_state_based_events",
+                value=3,
+                unit="count",
+                year=2022,
+                country_code="365",
+                country_name=None,
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_STATE_BASED_CONFLICT_EVENTS,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_STATE_BASED_CONFLICT_EVENTS: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_STATE_BASED_CONFLICT_EVENTS
+        assert fact.field_label == "State-based conflict events"
+        assert fact.selected_value_number == 3
+        assert fact.source_slugs_json == '["ucdp"]'
+
+
+def test_publish_concept_country_year_facts_resolves_ucdp_country_id_by_year(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=1999, iso3="YUG", country_name="Yugoslavia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="ucdp",
+                indicator_code=UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
+                observation_id="ucdp:345:1999:ucdp_state_based_events",
+                value=341,
+                unit="count",
+                year=1999,
+                country_code="345",
+                country_name=None,
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_STATE_BASED_CONFLICT_EVENTS,),
+        start_year=1999,
+        end_year=1999,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_STATE_BASED_CONFLICT_EVENTS
+        assert fact.selected_value_number == 341
+        assert fact.source_slugs_json == '["ucdp"]'
+
+
+def test_publish_concept_country_year_facts_skips_post_lifecycle_ucdp_dense_zero(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="SRB", country_name="Serbia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="ucdp",
+                indicator_code=UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
+                observation_id="ucdp:345:2023:ucdp_state_based_events",
+                value=0,
+                unit="count",
+                year=2023,
+                country_code="345",
+                country_name=None,
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_STATE_BASED_CONFLICT_EVENTS,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 0
+    assert result.field_counts == {}
+    with Session(engine) as session:
+        assert session.scalar(select(CountryYearFact)) is None
+
+
+def test_publish_concept_country_year_facts_publishes_ucdp_one_sided_violence(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="RUS", country_name="Russia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="ucdp",
+                indicator_code=UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE,
+                observation_id="ucdp:365:2022:ucdp_onesided_events",
+                value=2,
+                unit="count",
+                year=2022,
+                country_code="365",
+                country_name=None,
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_ONE_SIDED_VIOLENCE_EVENTS: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_ONE_SIDED_VIOLENCE_EVENTS
+        assert fact.field_label == "One-sided violence events"
+        assert fact.selected_value_number == 2
+        assert fact.source_slugs_json == '["ucdp"]'
+
+
+def test_publish_concept_country_year_facts_publishes_transparency_cpi(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="USA", country_name="United States")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="transparency_cpi",
+                indicator_code=TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
+                observation_id="transparency_cpi:USA:2023:cpi_score",
+                value=69.0,
+                unit="score_0_100",
+                year=2023,
+                country_code="USA",
+                country_name="United States",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_CPI_SCORE,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_CPI_SCORE: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_CPI_SCORE
+        assert fact.selected_value_number == 69.0
+        assert fact.source_slugs_json == '["transparency_cpi"]'
+
+
+def test_publish_concept_country_year_facts_publishes_wgi_government_effectiveness(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="USA", country_name="United States")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wgi",
+                indicator_code=WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
+                observation_id="world_bank_wgi:USA:2022:wgi_government_effectiveness",
+                value=1.31,
+                unit="estimate",
+                year=2022,
+                country_code="USA",
+                country_name=None,
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_GOVERNMENT_EFFECTIVENESS,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_GOVERNMENT_EFFECTIVENESS: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_GOVERNMENT_EFFECTIVENESS
+        assert fact.field_label == "Government effectiveness"
+        assert fact.selected_value_number == 1.31
+        assert fact.source_slugs_json == '["world_bank_wgi"]'
+
+
+def test_publish_concept_country_year_facts_resolves_wgi_source_code(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="AND", country_name="Andorra")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wgi",
+                indicator_code=WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
+                observation_id="world_bank_wgi:ADO:2022:wgi_government_effectiveness",
+                value=1.1,
+                unit="estimate",
+                year=2022,
+                country_code="ADO",
+                country_name=None,
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_GOVERNMENT_EFFECTIVENESS,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_GOVERNMENT_EFFECTIVENESS: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_GOVERNMENT_EFFECTIVENESS
+        assert fact.selected_value_number == 1.1
+        assert fact.source_slugs_json == '["world_bank_wgi"]'
+
+
+def test_publish_concept_country_year_facts_resolves_cpi_source_code(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="XKX", country_name="Kosovo")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="transparency_cpi",
+                indicator_code=TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
+                observation_id="transparency_cpi:KSV:2023:cpi_score",
+                value=41,
+                unit="score_0_100",
+                year=2023,
+                country_code="KSV",
+                country_name="Kosovo",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_CPI_SCORE,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_CPI_SCORE: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_CPI_SCORE
+        assert fact.selected_value_number == 41
+        assert fact.source_slugs_json == '["transparency_cpi"]'
+
+
+def test_publish_concept_country_year_facts_publishes_bti_name_only_country(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="COG", country_name="Republic of Congo")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="bti",
+                indicator_code=BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+                observation_id="bti:Congo, Rep.:2023:bti_governance_index",
+                value=4.9,
+                unit="index",
+                year=2023,
+                country_code=None,
+                country_name="Congo, Rep.",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_BTI_GOVERNANCE_INDEX,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_BTI_GOVERNANCE_INDEX: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_BTI_GOVERNANCE_INDEX
+        assert fact.field_label == "BTI governance index"
+        assert fact.selected_value_number == 4.9
+        assert fact.source_slugs_json == '["bti"]'
+
+
+def test_publish_concept_country_year_facts_publishes_bti_kosovo(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="XKX", country_name="Kosovo")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="bti",
+                indicator_code=BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+                observation_id="bti:Kosovo:2023:bti_governance_index",
+                value=5.1,
+                unit="index",
+                year=2023,
+                country_code=None,
+                country_name="Kosovo",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_BTI_GOVERNANCE_INDEX,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_BTI_GOVERNANCE_INDEX: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_BTI_GOVERNANCE_INDEX
+        assert fact.selected_value_number == 5.1
+        assert fact.source_slugs_json == '["bti"]'
+
+
+def test_publish_concept_country_year_facts_resolves_bti_turkiye_decomposed_name(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023, iso3="TUR", country_name="Türkiye")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="bti",
+                indicator_code=BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
+                observation_id="bti:Türkiye:2023:bti_governance_index",
+                value=4.2,
+                unit="index",
+                year=2023,
+                country_code=None,
+                country_name="Türkiye",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_BTI_GOVERNANCE_INDEX,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_BTI_GOVERNANCE_INDEX: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_BTI_GOVERNANCE_INDEX
+        assert fact.selected_value_number == 4.2
+        assert fact.source_slugs_json == '["bti"]'
+
+
+def test_publish_concept_country_year_facts_publishes_cirights_name_only_country(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="CIV", country_name="Cote d'Ivoire")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="cirights",
+                indicator_code=CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+                observation_id="cirights:Côte d’Ivoire:2022:cirights_physint",
+                value=5,
+                unit="score",
+                year=2022,
+                country_code=None,
+                country_name="Côte d’Ivoire",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY
+        assert fact.field_label == "CIRIGHTS physical integrity"
+        assert fact.selected_value_number == 5
+        assert fact.source_slugs_json == '["cirights"]'
+
+
+def test_publish_concept_country_year_facts_publishes_cirights_yugoslavia(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=1990, iso3="YUG", country_name="Yugoslavia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="cirights",
+                indicator_code=CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
+                observation_id="cirights:Yugoslavia:1990:cirights_physint",
+                value=4,
+                unit="ordinal_score",
+                year=1990,
+                country_code=None,
+                country_name="Yugoslavia",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY,),
+        start_year=1990,
+        end_year=1990,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_CIRIGHTS_PHYSICAL_INTEGRITY
+        assert fact.selected_value_number == 4
+        assert fact.source_slugs_json == '["cirights"]'
+
+
+def test_publish_concept_country_year_facts_publishes_pts(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2023)
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="pts",
+                indicator_code=PTS_AMNESTY_SCORE_INDICATOR_CODE,
+                observation_id="pts:USA:2023:pts_amnesty_score",
+                value=2,
+                unit="ordinal_score",
+                year=2023,
+                country_code="USA",
+                country_name="United States",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_PTS_AMNESTY_SCORE,),
+        start_year=2023,
+        end_year=2023,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_PTS_AMNESTY_SCORE: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_PTS_AMNESTY_SCORE
+        assert fact.field_label == "PTS Amnesty score"
+        assert fact.selected_value_number == 2
+        assert fact.source_slugs_json == '["pts"]'
+
+
+def test_publish_concept_country_year_facts_resolves_pts_czechoslovakia(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=1989, iso3="CSK", country_name="Czechoslovakia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="pts",
+                indicator_code=PTS_AMNESTY_SCORE_INDICATOR_CODE,
+                observation_id="pts:CZE:Czechoslovakia:1989:pts_amnesty_score",
+                value=2,
+                unit="ordinal_score",
+                year=1989,
+                country_code="CZE",
+                country_name="Czechoslovakia",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_PTS_AMNESTY_SCORE,),
+        start_year=1989,
+        end_year=1989,
+    )
+
+    assert result.rows_created == 1
+    assert result.skipped_without_country_year == 0
+    assert result.field_counts == {CONCEPT_PTS_AMNESTY_SCORE: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.field_key == CONCEPT_PTS_AMNESTY_SCORE
+        assert fact.selected_value_number == 2
+        assert fact.source_slugs_json == '["pts"]'
 
 
 def _seed_country_year(

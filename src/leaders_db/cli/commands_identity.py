@@ -9,6 +9,7 @@ import typer
 from sqlalchemy.engine import Engine
 
 from ..db.readiness import DatabaseReadinessError
+from ..identity import coverage as identity_coverage
 from ._app import app
 
 identity_app = typer.Typer(
@@ -302,33 +303,26 @@ def _run_gap_report_output(
     detail: bool,
     write_artifact: bool,
 ) -> None:
-    from ..identity.coverage import (
-        build_identity_coverage_gap_report,
-        identity_gap_report_to_json,
-        identity_gap_report_to_markdown,
-        write_identity_gap_report_artifacts,
-    )
-
-    detailed_report = build_identity_coverage_gap_report(
+    detailed_report = identity_coverage.build_identity_coverage_gap_report(
         engine,
         year=year,
         start_year=start_year,
         end_year=end_year,
     )
     if write_artifact:
-        paths = write_identity_gap_report_artifacts(detailed_report)
+        paths = identity_coverage.write_identity_gap_report_artifacts(detailed_report)
         for format_name, path in paths.items():
             typer.echo(f"{format_name}_artifact: {path}")
     if output == "json":
         typer.echo(
             json.dumps(
-                identity_gap_report_to_json(detailed_report, detail=detail),
+                identity_coverage.identity_gap_report_to_json(detailed_report, detail=detail),
                 indent=2,
                 sort_keys=True,
             )
         )
     elif output == "markdown":
-        typer.echo(identity_gap_report_to_markdown(detailed_report).rstrip())
+        typer.echo(identity_coverage.identity_gap_report_to_markdown(detailed_report).rstrip())
     elif output == "csv":
         _echo_gap_report_csv(detailed_report)
     else:

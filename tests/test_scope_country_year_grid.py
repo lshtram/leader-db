@@ -350,6 +350,9 @@ def test_country_universe_falls_back_when_pycountry_is_missing(monkeypatch) -> N
     assert countries == tuple(sorted(countries, key=lambda country: country.iso3))
     assert any(country.iso3 == "KEN" for country in countries)
     assert any(country.iso3 == "USA" for country in countries)
+    assert any(country.iso3 == "XKX" for country in countries)
+    assert any(country.iso3 == "DDR" and country.valid_to_year == 1990 for country in countries)
+    assert any(country.iso3 == "SCG" and country.valid_to_year == 2006 for country in countries)
     assert any(country.iso3 == "YUG" and country.valid_to_year == 2002 for country in countries)
 
 
@@ -364,6 +367,7 @@ def test_lifecycle_seed_contains_representative_post_1950_statehood_cases() -> N
         "ERI": 1993,
         "FSM": 1986,
         "KNA": 1983,
+        "XKX": 2008,
         "LCA": 1979,
         "NAM": 1990,
         "SSD": 2011,
@@ -374,6 +378,8 @@ def test_lifecycle_seed_contains_representative_post_1950_statehood_cases() -> N
         assert countries[iso3].valid_from_year == expected_year
 
     assert countries["CSK"].valid_to_year == 1992
+    assert countries["DDR"].valid_to_year == 1990
+    assert countries["SCG"].valid_to_year == 2006
     assert countries["SUN"].valid_to_year == 1991
     assert countries["YUG"].valid_to_year == 2002
 
