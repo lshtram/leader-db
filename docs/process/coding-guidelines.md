@@ -83,7 +83,8 @@ The fixed weights are normative. See [`src/leaders_db/score/confidence.py`](../.
 - Mock only external dependencies: network, vendor APIs, expensive LLM calls, and filesystem writes when appropriate.
 - Prefer small fixtures that prove schema and time-ordering behavior over large opaque datasets.
 - For config-driven behavior, test that changing config changes runtime behavior without changing production code.
-- Always run the affected test file before committing (`pytest tests/test_<file>.py -q`).
+- Mark expensive real-bundle / all-country artifact writes with `@pytest.mark.slow`; normal `pytest` skips slow tests, while `pytest --runslow` includes them and `pytest -m slow --runslow` runs only that tier.
+- Always run the affected test file before committing (`pytest tests/test_<file>.py -q`). Use `pytest --runslow` only when the changed behavior touches slow real-data smoke paths.
 
 ## Safety And Security
 
@@ -128,7 +129,7 @@ full review discipline.
 
 ## Operational Hygiene
 
-Two project-wide rules govern every operation:
+Three project-wide rules govern every operation:
 
 1. **Cleanup & coherence** — no slop, no junk, no stale files after any
    operation. See [`operational-hygiene.md`](operational-hygiene.md) §
@@ -137,6 +138,10 @@ Two project-wide rules govern every operation:
    change, findings fixed in place, never deferred. See
    [`operational-hygiene.md`](operational-hygiene.md) § "Rule 2" for
    the loop and what counts as non-trivial.
+3. **Subagent/search reliability** — keep delegated exploration and
+   `glob` / `grep` usage explicitly scoped, bounded, and project-local.
+   See [`operational-hygiene.md`](operational-hygiene.md) § "Rule 3" for
+   the checklist.
 
 These are non-negotiable. They apply to every mode, every phase, every
 agent session, and every human operator.

@@ -1,6 +1,6 @@
 # AGENTS.md — leaders-db Agent Rules
 
-This file tells AI agents how to operate in this repository. **Read it first** whenever you open this workspace, then read [`docs/workplan.md`](docs/workplan.md), [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md), and [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md).
+This file tells AI agents how to operate in this repository. **Read it first** whenever you open this workspace, then read [`docs/workplan.md`](docs/workplan.md), [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md), and [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md). For score-bearing manual/internet ruler-quality work, also read [`docs/methodology/cited-evaluation-calibration.md`](docs/methodology/cited-evaluation-calibration.md) and the relevant question guide under [`docs/methodology/question-guides/`](docs/methodology/question-guides/).
 
 The authoritative product brief is **`docs/requirements/top-level-requirements.md`**. The stage numbering in this file (Stage 0–15) refers to the pipeline stages defined there in §8.
 
@@ -27,12 +27,14 @@ Read in this order before doing any non-trivial work:
 1. [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md) — product brief, §1–18. The numbering of pipeline stages in this AGENTS.md follows §8 there.
 2. [`docs/workplan.md`](docs/workplan.md) — current status, active phase, next steps.
 3. [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md) — the ruler-quality question bank, including the chapter 7/8 scoring criteria and question IDs (for example 8B.* effectiveness questions).
-4. [`docs/architecture/overview.md`](docs/architecture/overview.md) — system design and module boundaries.
-5. [`docs/requirements/core.md`](docs/requirements/core.md) — the locally tracked REQ-* / NFR-* baseline derived from the brief.
-6. [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) — style, banned patterns, review checklist.
-7. [`docs/sources/registry.md`](docs/sources/registry.md) — the per-source registry for `data/raw/<source>/`.
-8. [`docs/architecture/local-data-store.md`](docs/architecture/local-data-store.md) — the data-lake folder rules.
-9. [`docs/architecture/database-schema.md`](docs/architecture/database-schema.md) — the 11-table prototype schema.
+4. [`docs/methodology/cited-evaluation-calibration.md`](docs/methodology/cited-evaluation-calibration.md) — required calibration contract for score-bearing cited/manual evaluations, including bias checks and the one-judge-per-question/year workflow.
+5. [`docs/methodology/question-guides/readme.md`](docs/methodology/question-guides/readme.md) — mandatory per-question guide workflow for vertical slices; read the relevant guide before running `internet-research` or `ruler-quality-judge` on a score-bearing question.
+6. [`docs/architecture/overview.md`](docs/architecture/overview.md) — system design and module boundaries.
+7. [`docs/requirements/core.md`](docs/requirements/core.md) — the locally tracked REQ-* / NFR-* baseline derived from the brief.
+8. [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) — style, banned patterns, review checklist.
+9. [`docs/sources/registry.md`](docs/sources/registry.md) — the per-source registry for `data/raw/<source>/`.
+10. [`docs/architecture/local-data-store.md`](docs/architecture/local-data-store.md) — the data-lake folder rules.
+11. [`docs/architecture/database-schema.md`](docs/architecture/database-schema.md) — the 11-table prototype schema.
 
 Do not re-derive the schema or the pipeline order from comments in code; both are normative in the docs above.
 
@@ -86,6 +88,20 @@ For localized corrections that do not change product behavior broadly:
 - Remove **all** `TODO(debug)` instrumentation, debug print statements, scratch notebooks, and one-off reproducers before commit (Always-On Rule #13). If a reproducer has lasting value, move it under `tests/`; otherwise delete or relocate it to `tmp/` with a date prefix.
 - After the bug is fixed, run a self-review (Always-On Rule #14) and a regression test.
 
+### 3.6 Subagent And Search Tool Reliability
+
+OpenCode subagents and broad `glob` / `grep` / ripgrep-backed searches can hang silently in some environments. Treat search-heavy delegation as a reliability risk and constrain it deliberately:
+
+- Prefer direct `read` calls when the likely file path is known. Do not delegate a simple file lookup to a subagent.
+- Keep subagent tasks narrow and bounded: specify the exact directory, filename patterns, maximum search rounds, and expected final response.
+- Always scope `glob` and `grep` to the repository root or a narrower project directory. Do **not** let searches default to `$HOME`, `/`, parent workspaces, `/tmp`, or other external absolute paths.
+- Avoid broad patterns such as `**/*` unless there is no practical alternative; prefer patterns like `src/**/*.py`, `docs/**/*.md`, or a named package subdirectory.
+- Avoid concurrent OpenCode/Codex sessions searching the same repository when possible; concurrent `grep` / `glob` searches have been observed to block each other.
+- Avoid `ask` permissions in headless or delegated subagent flows. Use explicit `allow` / `deny` rules so a nested permission prompt cannot silently stall the parent.
+- Keep transient files inside project `tmp/`, not `/tmp`, so delegated file operations stay within the workspace boundary.
+- If a subagent produces no progress after search tool calls, interrupt early, inspect for runaway `rg` / `opencode` processes, and retry with a narrower prompt rather than waiting indefinitely.
+- When diagnosing a hang, capture OpenCode version, provider/model, OS, prompt shape, active sessions, and debug logs (`--print-logs --log-level DEBUG`) before changing workflow assumptions.
+
 ## 4. Always-On Rules
 
 These apply in every mode, every session:
@@ -105,6 +121,8 @@ These apply in every mode, every session:
 13. **Clean up after every operation — no slop.** After any edit, debug session, exploration, experiment, or refactor, the agent must remove `TODO(debug)` instrumentation, delete or relocate scratch files (into `tmp/` or `research/`), kill ad-hoc scripts left in the project root or under `src/`, drop commented-out code and "fix later" notes, and remove stale fixtures. The project must stay coherent: no junk files, no half-finished experiments in `src/`, no debug print statements, no orphan docs, no stale `__pycache__` / `.pyc` / log files committed. Run `git status` and `find . -name '__pycache__' -o -name '*.pyc'` before considering work done. Detail in [`docs/process/operational-hygiene.md`](docs/process/operational-hygiene.md).
 14. **Full code review after every code-bearing change — fix findings immediately, do not defer.** Every module, function, class, bug fix, schema migration, or non-trivial edit must be self-reviewed against [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) (style, banned patterns, type safety, D2 review checklist) **before the next task begins**. Run the affected tests, run `ruff` (when configured), and address findings in place. For non-trivial changes (new modules, score-formula tweaks, LLM adapter wiring, schema migrations, anything that touches the canonical confidence formula or the strict LLM contract), route to the `reviewer` agent via the project-manager. Stacking unreviewed code is forbidden — no code lands without a clean review pass. Detail in [`docs/process/operational-hygiene.md`](docs/process/operational-hygiene.md).
 15. **Carry source attribution forward in every public output.** Every Stage 15 summary report, manual-review queue, exported CSV, LLM rationale, and `README.md` must include the attribution block from [`docs/sources/attributions.md`](docs/sources/attributions.md). The pipeline must never publish output without attribution. The attribution text for a source is normative — the exact wording in `docs/sources/attributions.md` is what the pipeline emits, not a paraphrase. When a new source is added or an existing source is upgraded, the change is reflected in `docs/sources/attributions.md` in the same commit; deferring attribution updates is forbidden.
+16. **Score-bearing manual/internet evaluations require question guides and calibration.** Before running a vertical slice for an `internet_manual` question, create or update the relevant guide under [`docs/methodology/question-guides/`](docs/methodology/question-guides/) using [`docs/methodology/question-guides/template.md`](docs/methodology/question-guides/template.md). `internet-research` collects cited evidence; `ruler-quality-judge` applies the question guide across the batch. Any record with `score_1_to_10` must include `answer_payload.calibration` per [`docs/methodology/cited-evaluation-calibration.md`](docs/methodology/cited-evaluation-calibration.md).
+17. **Constrain subagents and search tools to avoid silent hangs.** Search-heavy subagents must use explicit project-scoped paths, narrow patterns, bounded search rounds, and no nested `ask` permission flow. Prefer direct reads over delegated exploration when files are known. If `glob` / `grep` / `rg` stalls, interrupt and retry narrower; do not wait indefinitely. Detail in §3.6 and [`docs/process/operational-hygiene.md`](docs/process/operational-hygiene.md).
 
 ## 5. Key Documents
 
@@ -113,6 +131,9 @@ These apply in every mode, every session:
 | [`docs/requirements/top-level-requirements.md`](docs/requirements/top-level-requirements.md) | Authoritative product brief (the "what") |
 | [`docs/workplan.md`](docs/workplan.md) | Current status, active phase, next steps, done history |
 | [`docs/methodology/ranking-evaluation-criteria.md`](docs/methodology/ranking-evaluation-criteria.md) | Ruler-quality question bank and scoring criteria, including chapter 7/8 question IDs |
+| [`docs/methodology/cited-evaluation-calibration.md`](docs/methodology/cited-evaluation-calibration.md) | Required calibration fields, bias controls, and one-judge workflow for score-bearing cited/manual evaluations |
+| [`docs/methodology/question-guides/readme.md`](docs/methodology/question-guides/readme.md) | Per-question guide workflow for vertical slices with `internet-research` and `ruler-quality-judge` |
+| [`docs/methodology/question-guides/template.md`](docs/methodology/question-guides/template.md) | Template for question-specific researcher guidance, judge guidance, anchors, smoke cases, and acceptance checklist |
 | [`docs/architecture/overview.md`](docs/architecture/overview.md) | System design, module boundaries, data flow |
 | [`docs/process/coding-guidelines.md`](docs/process/coding-guidelines.md) | Style, banned patterns, D2 review checklist |
 | [`docs/process/operational-hygiene.md`](docs/process/operational-hygiene.md) | Cleanup-coherence + review discipline (Always-On Rules #13, #14) |

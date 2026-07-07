@@ -8,8 +8,11 @@ in this repository:
 - **Review discipline** — full code review after every code-bearing change,
   findings fixed in place, never deferred to "later in the project"
   (Always-On Rule #14 in [`AGENTS.md`](../../AGENTS.md)).
+- **Subagent/search reliability** — constrained subagent delegation and
+  project-scoped `glob` / `grep` usage to avoid silent hangs (Always-On
+  Rule #17 in [`AGENTS.md`](../../AGENTS.md)).
 
-Both rules are non-negotiable. They apply to every agent session, every
+These rules are non-negotiable. They apply to every agent session, every
 mode (Pragmatic Implementation, TDD, Quick Fix, Exploration, Debug),
 every phase (A → B → C → D → E), and every human operator.
 
@@ -24,6 +27,8 @@ hygiene rules, agents (and humans) tend to leave behind:
 - Orphan docs, half-finished experiments, stale fixtures.
 - Stacked unreviewed code that "looks fine for now" but accumulates
   technical debt.
+- Search-heavy subagents that silently hang after broad `glob` / `grep`
+  calls, leaving the parent session blocked with no useful progress.
 
 By Phase E (activation) the codebase becomes hard to read, hard to test,
 hard to reproduce, and hard to review. These rules keep the project
@@ -222,14 +227,70 @@ patch-and-proceed.
 - During Phase B (source vetting), probes are scripts, not code; the
   probe runner that ships in Phase C is reviewed normally.
 
-## How the two rules interact
+## Rule 3 — Subagent And Search Tool Reliability
+
+### Scope
+
+Every delegated subagent task and every search-heavy operation that uses
+OpenCode's `glob`, `grep`, or ripgrep-backed tools.
+
+### Why this exists
+
+OpenCode subagents and search tools can hang silently in some environments,
+especially after broad `glob` / `grep` calls, omitted search paths, concurrent
+sessions on the same repository, nested permission prompts, or operations
+outside the workspace. A hung subagent can block the parent session forever.
+
+### Required practice
+
+Before launching a subagent or broad search, the agent must:
+
+1. **Prefer direct reads when possible.** If the target file is known or can be
+   identified with one narrow search, do not delegate the lookup to a subagent.
+2. **Bound every subagent prompt.** Specify the exact goal, allowed directories,
+   maximum search rounds, and expected return shape.
+3. **Scope every search path.** Pass the repository root or a narrower project
+   directory to `glob` / `grep`. Never rely on an omitted path that may default
+   to `$HOME`, `/`, or a parent workspace.
+4. **Use narrow patterns.** Prefer `src/**/*.py`, `docs/**/*.md`, or a named
+   package subtree over `**/*`.
+5. **Avoid external absolute paths.** Keep transient files under project `tmp/`,
+   not `/tmp`, unless the user explicitly asks otherwise.
+6. **Avoid nested permission prompts.** Do not rely on `ask` permissions inside
+   headless or subagent flows; configure explicit `allow` / `deny` behavior.
+7. **Limit concurrency.** Avoid multiple OpenCode/Codex sessions running large
+   `glob` / `grep` searches against the same repository at the same time.
+8. **Interrupt instead of waiting indefinitely.** If a subagent is silent after
+   search tool calls, stop it, inspect for runaway `rg` / `opencode` processes,
+   and retry with a narrower prompt.
+9. **Capture repro details for recurring hangs.** Record OpenCode version,
+   provider/model, OS, prompt shape, active sessions, whether external paths or
+   permission prompts were involved, and debug logs from
+   `--print-logs --log-level DEBUG`.
+
+### Search reliability checklist
+
+```text
+[ ] Direct read used instead of subagent when the file path is known
+[ ] Subagent prompt has explicit scope, limits, and expected final answer
+[ ] glob/grep path is repo-root or narrower, never omitted accidentally
+[ ] Pattern is narrow enough to avoid full-workspace traversal where possible
+[ ] No external absolute paths unless explicitly required
+[ ] No nested `ask` permission flow in delegated/headless work
+[ ] No concurrent broad searches in another OpenCode/Codex session
+[ ] Hang diagnostics captured if a stall recurs
+```
+
+## How the rules interact
 
 - Cleanup (Rule 1) ensures the project is coherent **after** each
   task.
 - Review (Rule 2) ensures the code that lands is sound **before**
   the next task.
-- Together they form a "no slop, no debt" loop: every change lands
-  in a coherent, reviewed state, ready for the next change.
+- Subagent/search reliability (Rule 3) ensures exploration and delegation
+  stay bounded so work does not silently stall.
+- Together they form a "no slop, no debt, no silent hang" loop: every change
+  lands in a coherent, reviewed state, ready for the next change.
 
 If a reviewer finds that an earlier change introduced junk, the
 fix is to clean up that change **before** proceeding — not to
