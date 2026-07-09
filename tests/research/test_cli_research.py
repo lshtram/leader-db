@@ -244,6 +244,10 @@ def _evaluation_payload() -> dict[str, object]:
             {
                 "url": "https://example.test/program",
                 "title": "Program source",
+                "source_confidence": "medium_high",
+                "source_confidence_reason": "Fixture reputable source.",
+                "source_type": "media",
+                "final_evidence_use": "final_evidence",
             }
         ],
         "caveats": ["Broad mobilization question."],

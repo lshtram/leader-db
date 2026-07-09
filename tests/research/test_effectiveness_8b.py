@@ -65,7 +65,15 @@ def test_persist_effectiveness_8b_evaluation_rerun_refreshes_links(
         (
             _evaluation(
                 verdict="supported",
-                citations=(EffectivenessCitation(url="https://example.test/new-source"),),
+                citations=(
+                    EffectivenessCitation(
+                        url="https://example.test/new-source",
+                        source_confidence="medium_high",
+                        source_confidence_reason="Fixture reputable source.",
+                        source_type="media",
+                        final_evidence_use="final_evidence",
+                    ),
+                ),
             ),
         ),
     )
@@ -129,8 +137,22 @@ def _evaluation(
     confidence_score: int | float | None = 70,
     calibration: dict[str, object] | None = None,
     citations: tuple[EffectivenessCitation, ...] = (
-        EffectivenessCitation(url="https://example.test/program", title="Program source"),
-        EffectivenessCitation(url="https://example.test/implementation", title="Implementation"),
+        EffectivenessCitation(
+            url="https://example.test/program",
+            title="Program source",
+            source_confidence="medium_high",
+            source_confidence_reason="Fixture reputable source.",
+            source_type="media",
+            final_evidence_use="final_evidence",
+        ),
+        EffectivenessCitation(
+            url="https://example.test/implementation",
+            title="Implementation",
+            source_confidence="medium_high",
+            source_confidence_reason="Fixture reputable source.",
+            source_type="media",
+            final_evidence_use="final_evidence",
+        ),
     ),
 ) -> Effectiveness8BEvaluation:
     return Effectiveness8BEvaluation(

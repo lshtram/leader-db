@@ -58,7 +58,15 @@ def _evaluation(
         score_1_to_10=7,
         confidence_score=72,
         answer_payload=answer_payload,
-        citations=(CitedEvaluationCitation(url="https://example.test/source"),),
+        citations=(
+            CitedEvaluationCitation(
+                url="https://example.test/source",
+                source_confidence="medium_high",
+                source_confidence_reason="Fixture reputable source.",
+                source_type="media",
+                final_evidence_use="final_evidence",
+            ),
+        ),
     )
 
 

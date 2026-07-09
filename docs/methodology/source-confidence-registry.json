@@ -1,0 +1,178 @@
+{
+  "schema_version": "source-confidence-registry-v1",
+  "purpose": "Non-secret default source-confidence registry for cited manual/internet evidence. Workers must profile every citation with these fields and rate newly discovered sources by analogy before using them.",
+  "confidence_levels": [
+    "high",
+    "medium_high",
+    "medium",
+    "medium_low",
+    "low",
+    "very_low"
+  ],
+  "final_evidence_use_values": [
+    "final_evidence",
+    "context",
+    "discovery_only"
+  ],
+  "required_citation_profile_fields": [
+    "source_confidence",
+    "source_confidence_reason",
+    "source_type",
+    "final_evidence_use"
+  ],
+  "source_diversity_rule": "Low or very_low confidence sources may not be sole support for any score-bearing claim. Prefer at least two independent source types for material claims where available, and explain gaps in closed or low-information environments.",
+  "unlisted_source_policy": {
+    "default_confidence": "medium_low",
+    "source_type": "unlisted",
+    "allowed_use": "Rate by publisher, authorship, evidence proximity, incentives, and claim type before use; upgrade or downgrade in source_confidence_reason.",
+    "final_evidence_use": "context",
+    "caveats": "Do not use an unprofiled source as sole final evidence. Record why the discovered source is reliable enough for the claim type. Add durable high-value sources to this registry after the run."
+  },
+  "source_profiles": [
+    {
+      "source": "local_structured_priors",
+      "domain": "data/outputs/research/*/artifacts/*.json",
+      "default_confidence": "high",
+      "source_type": "structured_dataset",
+      "allowed_use": "Structured local priors and locally ingested datasets are strong final evidence for the fields they directly measure.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Do not treat absence of a local fact as absence of real-world evidence; pair with narrative sources for ruler-specific actions."
+    },
+    {
+      "source": "OSCE/ODIHR",
+      "domain": "osce.org/odihr",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for election administration, media environment, legal framework, and observer findings.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Note mission scope, whether observation was limited, and whether findings cover the target year."
+    },
+    {
+      "source": "European Union election observation missions",
+      "domain": "eods.eu OR eeas.europa.eu",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for observed elections, legal frameworks, campaign conditions, and institutional recommendations.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Use only for directly observed cases or clearly identified EU mission reports."
+    },
+    {
+      "source": "OAS electoral observation",
+      "domain": "oas.org",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for election observation in OAS-covered countries.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Check mission mandate, date, and whether the report addresses entrenchment-relevant institutions."
+    },
+    {
+      "source": "Carter Center",
+      "domain": "cartercenter.org",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for election observation and democratic-process assessments where the Center had mission coverage.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Distinguish direct observation findings from secondary background narrative."
+    },
+    {
+      "source": "International IDEA",
+      "domain": "idea.int",
+      "default_confidence": "high",
+      "source_type": "intergovernmental",
+      "allowed_use": "Final evidence for electoral-system, constitutional, and democracy-assistance records when directly documented.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Use country pages and reports as institutional context; corroborate specific misconduct allegations."
+    },
+    {
+      "source": "Human Rights Watch",
+      "domain": "hrw.org",
+      "default_confidence": "medium_high",
+      "source_type": "ngo",
+      "allowed_use": "Final evidence for documented rights abuses, intimidation, media pressure, and security-force conduct when claims are sourced and dated.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Prefer detailed reports over press summaries; corroborate highly contested or single-source allegations."
+    },
+    {
+      "source": "Amnesty International",
+      "domain": "amnesty.org",
+      "default_confidence": "medium_high",
+      "source_type": "ngo",
+      "allowed_use": "Final evidence for documented repression, prosecutions, detention, and abuse connected to political contestation.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Check whether the evidence is target-year, near-period, or broader ruler-period context."
+    },
+    {
+      "source": "Official election commissions and courts",
+      "domain": "country election commission / judiciary domains",
+      "default_confidence": "medium_high",
+      "source_type": "official_record",
+      "allowed_use": "Final evidence for formal facts such as laws, official results, dates, judgments, procedural rules, and officeholder records.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Use with care for self-assessments, claims of fairness, disputed results, or allegations against the incumbent; corroborate those claims independently.",
+      "claim_type_overrides": [
+        {
+          "claim_type": "formal_fact_or_primary_legal_record",
+          "confidence": "high",
+          "final_evidence_use": "final_evidence",
+          "reason": "Primary source for official text, dates, procedural rules, certified results, or judgments."
+        },
+        {
+          "claim_type": "self_serving_fairness_or_legitimacy_claim",
+          "confidence": "medium_low",
+          "final_evidence_use": "context",
+          "reason": "Official actors have incentives to frame incumbent conduct or institutional independence favorably."
+        }
+      ]
+    },
+    {
+      "source": "Official government sites",
+      "domain": "*.gov, *.gov.*, ministries, presidency, prime minister, ruling-party-controlled state outlets",
+      "default_confidence": "medium_low",
+      "source_type": "official",
+      "allowed_use": "Use with care. Suitable for formal facts and official positions; not sufficient alone for self-serving claims about fairness, legality, restraint, or absence of manipulation.",
+      "final_evidence_use": "context",
+      "caveats": "For self-serving claims, require independent corroboration from observers, courts, NGOs, intergovernmental bodies, or reputable media.",
+      "claim_type_overrides": [
+        {
+          "claim_type": "formal_fact_or_primary_document",
+          "confidence": "medium_high",
+          "final_evidence_use": "final_evidence",
+          "reason": "Official site can be a primary source for text, date, office, law, decree, budget, or procedural publication."
+        },
+        {
+          "claim_type": "self_serving_claim_about_government_fairness_or_restraint",
+          "confidence": "medium_low",
+          "final_evidence_use": "context",
+          "reason": "Self-interested source for claims about its own democratic restraint or legitimacy."
+        }
+      ]
+    },
+    {
+      "source": "Reuters / Associated Press / BBC / major reputable international wire or public-service media",
+      "domain": "reuters.com, apnews.com, bbc.com, and comparable outlets",
+      "default_confidence": "medium_high",
+      "source_type": "media",
+      "allowed_use": "Final evidence for chronology, attributed statements, event reporting, and corroborating details, especially when primary reports are unavailable.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Prefer original observer/legal/NGO sources for analytic conclusions; preserve attribution and uncertainty."
+    },
+    {
+      "source": "Wikipedia",
+      "domain": "wikipedia.org",
+      "default_confidence": "medium_high",
+      "source_type": "encyclopedia",
+      "allowed_use": "Orientation, basic facts, names, dates, office chronology, and discovery of primary sources through references.",
+      "final_evidence_use": "context",
+      "caveats": "Mostly orientation/basic facts. Do not use as sole support for score-bearing manipulation claims; follow citations to primary or higher-confidence sources when possible."
+    },
+    {
+      "source": "Grokipedia",
+      "domain": "grokipedia.com",
+      "default_confidence": "very_low",
+      "source_type": "ai_generated_encyclopedia",
+      "allowed_use": "Discovery only, if encountered. Use only to find leads that are verified elsewhere.",
+      "final_evidence_use": "discovery_only",
+      "caveats": "Very low confidence; never sole support and normally excluded from final evidence."
+    }
+  ]
+}

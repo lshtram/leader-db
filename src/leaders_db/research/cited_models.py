@@ -17,6 +17,15 @@ Verdict = Literal[
 ]
 EvidenceQuality = Literal["high", "medium", "low", "manual_review_required"]
 ConfidenceBand = Literal["high", "medium", "low", "manual_review_required"]
+SourceConfidence = Literal[
+    "high",
+    "medium_high",
+    "medium",
+    "medium_low",
+    "low",
+    "very_low",
+]
+FinalEvidenceUse = Literal["final_evidence", "context", "discovery_only"]
 
 
 def normalize_confidence_score(value: Any) -> Any:
@@ -36,6 +45,10 @@ class CitedEvaluationCitation(BaseModel):
     title: str | None = None
     quote: str | None = None
     evidence_role: str = "citation"
+    source_confidence: SourceConfidence
+    source_confidence_reason: str = Field(min_length=1)
+    source_type: str = Field(min_length=1)
+    final_evidence_use: FinalEvidenceUse
 
 
 class CitedEvaluation(BaseModel):
@@ -92,6 +105,8 @@ def cited_evaluation_json_schema() -> dict[str, Any]:
 __all__ = [
     "CitedEvaluation",
     "CitedEvaluationCitation",
+    "FinalEvidenceUse",
+    "SourceConfidence",
     "cited_evaluation_json_schema",
     "normalize_confidence_score",
 ]

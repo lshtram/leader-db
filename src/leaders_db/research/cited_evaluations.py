@@ -11,6 +11,8 @@ from .cited_calibration import (
 from .cited_models import (
     CitedEvaluation,
     CitedEvaluationCitation,
+    FinalEvidenceUse,
+    SourceConfidence,
     cited_evaluation_json_schema,
     normalize_confidence_score,
 )
@@ -29,6 +31,8 @@ __all__ = [
     "RUBRIC_VERSION_BY_METHODOLOGY_ID",
     "CitedEvaluation",
     "CitedEvaluationCitation",
+    "FinalEvidenceUse",
+    "SourceConfidence",
     "build_cited_evaluation_template",
     "cited_evaluation_json_schema",
     "normalize_confidence_score",

@@ -61,6 +61,13 @@ def build_cited_evaluation_template(
                 "title": "Replace with source title",
                 "quote": "Replace with a short supporting quote or excerpt.",
                 "evidence_role": "citation",
+                "source_confidence": "medium_high",
+                "source_confidence_reason": (
+                    "Replace with the registry-based confidence reason for this "
+                    "source and claim type."
+                ),
+                "source_type": "media",
+                "final_evidence_use": "final_evidence",
             }
         ],
         "caveats": [],
@@ -108,6 +115,12 @@ def _question_specific_calibration_template(methodology_id: str) -> dict[str, An
             "manipulation_status": "unclear",
             "entrenchment_channels": ["unclear"],
             "institutional_remedy_status": "unclear",
+        }
+    if methodology_id == "4B.3":
+        return {
+            "tolerance_status": "unclear",
+            "opposition_tolerance_channels": ["unclear"],
+            "remedy_or_accountability_status": "unclear",
         }
     return {}
 

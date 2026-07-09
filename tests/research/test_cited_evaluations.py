@@ -110,6 +110,14 @@ def test_cited_evaluation_schema_exposes_required_research_fields() -> None:
     assert "citations" in schema["required"]
     assert "methodology_id" in schema["required"]
     assert schema["properties"]["citations"]["minItems"] == 1
+    citation_schema = schema["$defs"]["CitedEvaluationCitation"]
+    for field in (
+        "source_confidence",
+        "source_confidence_reason",
+        "source_type",
+        "final_evidence_use",
+    ):
+        assert field in citation_schema["required"]
 
 
 def test_build_cited_evaluation_template_returns_valid_record() -> None:
@@ -129,6 +137,8 @@ def test_build_cited_evaluation_template_returns_valid_record() -> None:
     assert record.prompt_context
     assert record.answer_payload["calibration"]["rubric_version"] == "1b1_v1"
     assert record.citations[0].url == "https://example.test/source"
+    assert record.citations[0].source_confidence == "medium_high"
+    assert record.citations[0].source_type == "media"
 
 
 def test_build_cited_evaluation_template_uses_4b1_question_guide_rubric() -> None:
@@ -168,6 +178,25 @@ def test_build_cited_evaluation_template_uses_4b2_question_guide_rubric() -> Non
     assert calibration["manipulation_status"] == "unclear"
     assert calibration["entrenchment_channels"] == ["unclear"]
     assert calibration["institutional_remedy_status"] == "unclear"
+
+
+def test_build_cited_evaluation_template_uses_4b3_question_guide_rubric() -> None:
+    template = build_cited_evaluation_template(
+        methodology_id="4B.3",
+        year=2020,
+        iso3="chn",
+        country_name="China",
+        leader_name="Xi Jinping",
+    )
+
+    record = CitedEvaluation.model_validate(template)
+    calibration = record.answer_payload["calibration"]
+    assert record.methodology_id == "4B.3"
+    assert record.iso3 == "CHN"
+    assert calibration["rubric_version"] == "4b3_opposition_tolerance_v1"
+    assert calibration["tolerance_status"] == "unclear"
+    assert calibration["opposition_tolerance_channels"] == ["unclear"]
+    assert calibration["remedy_or_accountability_status"] == "unclear"
 
 
 def test_4b1_scored_evaluation_requires_question_specific_calibration_fields() -> None:
@@ -230,6 +259,46 @@ def test_4b2_scored_evaluation_rejects_invalid_entrenchment_channels() -> None:
     with pytest.raises(ValueError, match="entrenchment_channels"):
         _evaluation(
             methodology_id="4B.2",
+            answer_payload={"calibration": calibration},
+        )
+
+
+def test_4b3_scored_evaluation_requires_question_specific_calibration_fields() -> None:
+    calibration = _calibration() | {"rubric_version": "4b3_opposition_tolerance_v1"}
+
+    with pytest.raises(ValueError, match="tolerance_status"):
+        _evaluation(
+            methodology_id="4B.3",
+            answer_payload={"calibration": calibration},
+        )
+
+
+def test_4b3_scored_evaluation_rejects_invalid_rubric_version() -> None:
+    calibration = _calibration() | {
+        "rubric_version": "4b2_entrenchment_manipulation_v1",
+        "tolerance_status": "mostly_tolerated",
+        "opposition_tolerance_channels": ["protest"],
+        "remedy_or_accountability_status": "partial",
+    }
+
+    with pytest.raises(ValueError, match="4b3_opposition_tolerance_v1"):
+        _evaluation(
+            methodology_id="4B.3",
+            answer_payload={"calibration": calibration},
+        )
+
+
+def test_4b3_scored_evaluation_rejects_invalid_tolerance_channels() -> None:
+    calibration = _calibration() | {
+        "rubric_version": "4b3_opposition_tolerance_v1",
+        "tolerance_status": "mostly_tolerated",
+        "opposition_tolerance_channels": ["mystery_channel"],
+        "remedy_or_accountability_status": "partial",
+    }
+
+    with pytest.raises(ValueError, match="opposition_tolerance_channels"):
+        _evaluation(
+            methodology_id="4B.3",
             answer_payload={"calibration": calibration},
         )
 
@@ -315,7 +384,13 @@ def _evaluation(
     confidence_score: int | float | None = 72,
     answer_payload: dict[str, object] | None = None,
     citations: tuple[CitedEvaluationCitation, ...] = (
-        CitedEvaluationCitation(url="https://example.test/source"),
+        CitedEvaluationCitation(
+            url="https://example.test/source",
+            source_confidence="medium_high",
+            source_confidence_reason="Fixture reputable source.",
+            source_type="media",
+            final_evidence_use="final_evidence",
+        ),
     ),
 ) -> CitedEvaluation:
     return CitedEvaluation(

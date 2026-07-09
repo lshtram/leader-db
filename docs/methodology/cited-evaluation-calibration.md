@@ -158,6 +158,24 @@ fields from `question-guides/4b-2-entrenchment-manipulation.md`:
 | 8-9 | Strong restraint, broad institutional neutrality, and credible remedies for isolated abuses. |
 | 10 | Exemplary restraint and active strengthening of neutral constraints against incumbency abuse. |
 
+## Opposition-tolerance anchor for 4B.3
+
+For `4B.3` political-freedom opposition tolerance, higher is better and means the
+ruler tolerated opposition victories, criticism, satire, investigative journalism,
+peaceful protest, and civil-society monitoring. Use
+`rubric_version = "4b3_opposition_tolerance_v1"` and the question-specific fields
+from `question-guides/4b-3-opposition-tolerance.md`: `tolerance_status`,
+`opposition_tolerance_channels`, and `remedy_or_accountability_status`.
+
+| Score | Anchor |
+|---:|---|
+| 1 | No meaningful opposition/civic space; opposition, criticism, journalism, protest, and civil-society monitoring are systematically criminalized, censored, or crushed. |
+| 2-3 | Severe intolerance across several channels with recurring arrests, violence, bans, closures, legal harassment, or impunity. |
+| 4-5 | Recurring selective restrictions chill civic activity, though some opposition, media, protest, or monitoring space remains. |
+| 6-7 | Broad civic space with notable flaws, episodic disproportionate policing, legal threats, media pressure, or weak remedies. |
+| 8-9 | Strong tolerance, with criticism, opposition activity, media, protest, and civil society generally protected and abuses isolated or remedied. |
+| 10 | Exemplary tolerance and active protection of opposition, criticism, satire, investigative journalism, peaceful protest, and civil-society monitoring. |
+
 ## Bias mechanisms to check
 
 - Visibility bias: open societies produce more reports about smaller violations;

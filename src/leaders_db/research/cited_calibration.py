@@ -7,6 +7,7 @@ from typing import Any
 RUBRIC_VERSION_BY_METHODOLOGY_ID = {
     "4B.1": "4b1_electoral_contestability_v1",
     "4B.2": "4b2_entrenchment_manipulation_v1",
+    "4B.3": "4b3_opposition_tolerance_v1",
 }
 
 CALIBRATION_REQUIRED_FIELDS = (
@@ -71,6 +72,11 @@ CALIBRATION_REQUIRED_FIELDS_BY_METHODOLOGY_ID = {
         "entrenchment_channels",
         "institutional_remedy_status",
     ),
+    "4B.3": (
+        "tolerance_status",
+        "opposition_tolerance_channels",
+        "remedy_or_accountability_status",
+    ),
 }
 
 CALIBRATION_ENUM_FIELDS_BY_METHODOLOGY_ID = {
@@ -112,11 +118,32 @@ CALIBRATION_ENUM_FIELDS_BY_METHODOLOGY_ID = {
             "unclear",
         },
     },
+    "4B.3": {
+        "tolerance_status": {
+            "protected",
+            "mostly_tolerated",
+            "selectively_restricted",
+            "recurring_repression",
+            "systematic_repression",
+            "no_meaningful_space",
+            "unclear",
+        },
+        "remedy_or_accountability_status": {
+            "effective",
+            "partial",
+            "weak",
+            "none",
+            "state_policy",
+            "not_applicable",
+            "unclear",
+        },
+    },
 }
 
 CALIBRATION_LIST_FIELDS_BY_METHODOLOGY_ID = {
     "4B.1": ("contestability_constraints",),
     "4B.2": ("entrenchment_channels",),
+    "4B.3": ("opposition_tolerance_channels",),
 }
 
 CALIBRATION_LIST_VALUE_FIELDS_BY_METHODOLOGY_ID = {
@@ -144,6 +171,22 @@ CALIBRATION_LIST_VALUE_FIELDS_BY_METHODOLOGY_ID = {
             "public_resources",
             "constitutional_or_term_limit_change",
             "party_or_legislature_capture",
+            "none_found",
+            "not_applicable",
+            "unclear",
+        }
+    },
+    "4B.3": {
+        "opposition_tolerance_channels": {
+            "opposition_victories",
+            "criticism_or_satire",
+            "investigative_journalism",
+            "protest",
+            "civil_society_monitoring",
+            "media_pressure",
+            "legal_or_administrative_harassment",
+            "security_force_intimidation",
+            "internet_or_information_controls",
             "none_found",
             "not_applicable",
             "unclear",

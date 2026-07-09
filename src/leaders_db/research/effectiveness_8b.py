@@ -17,6 +17,8 @@ from sqlalchemy.orm import Session
 from .cited_evaluations import (
     CitedEvaluation,
     CitedEvaluationCitation,
+    FinalEvidenceUse,
+    SourceConfidence,
     normalize_confidence_score,
     persist_cited_evaluations,
     validate_score_calibration,
@@ -46,6 +48,10 @@ class EffectivenessCitation(BaseModel):
     title: str | None = None
     quote: str | None = None
     evidence_role: str = "citation"
+    source_confidence: SourceConfidence
+    source_confidence_reason: str = Field(min_length=1)
+    source_type: str = Field(min_length=1)
+    final_evidence_use: FinalEvidenceUse
 
 
 class Effectiveness8BEvaluation(BaseModel):

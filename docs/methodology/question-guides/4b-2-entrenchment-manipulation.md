@@ -52,8 +52,16 @@ The main scoring dimensions are:
 
 ## Required Local Structured Prior Before Internet Research
 
-Before launching any `internet-research` worker, build and attach the local
-structured-prior artifact for the exact ruler/country/year:
+Before launching any `internet-research` worker, read and follow
+[`../local-first-researcher-guide.md`](../local-first-researcher-guide.md). The
+mandatory order is: inspect local guides, query the local DB/artifacts, read the
+source-confidence registry, use preferred external sources, and use general web
+search last. Do not create a
+separate local-prior prep phase as the main research strategy; the local prior is
+one input that tells the worker what the local DB already contains.
+
+Build and attach the local structured-prior artifact for the exact
+ruler/country/year:
 
 ```bash
 leaders-db research build-local-prior \
@@ -72,6 +80,7 @@ leaders-db research build-local-prior-slice \
   --methodology-id 4B.2 \
   --year 2020 \
   --output-dir data/outputs/research/4b2_2020_local_priors \
+  --shard-size 10 \
   --json
 ```
 
@@ -86,6 +95,48 @@ The artifact status must be handled explicitly:
   is corrected; mark the case not applicable/manual review.
 - `error`: do not launch dependent research until `missing_or_empty_reason` is
   inspected and resolved.
+
+Single search-tool policy for this environment: use the direct Parallel Search CLI
+wrapper (`leaders-db research parallel-search`) for discovery and `webfetch` for
+exact known URLs when snippets are insufficient. Do not use Parallel MCP discovery,
+Minimax web search, Brave web/news/image/video/local/place/summarizer searches,
+Playwright/browser searches, duplicate search passes, or unsafe browser code for
+4B.2 evidence discovery. Every shard must emit a `run_profile` as required by
+`docs/process/internet-research-opencode-policy.json`.
+
+Approved 4B.2 discovery command shape:
+
+```bash
+leaders-db research parallel-search \
+  --objective "Find 4B.2 entrenchment/manipulation evidence for <country> <ruler> <year>; prioritize election observers, courts/legal records, official records, NGOs, intergovernmental reports, and reputable media." \
+  --query "<country> <ruler> electoral rules courts media election commission public resources <year>" \
+  --query "<country> election observer report institutional manipulation <year>" \
+  --output <approved-output-dir>/<iso3>-<year>-4b2-parallel-search-01.json \
+  --json
+```
+
+Use the wrapper output as search-result evidence and profile/usage data only.
+Final citations must cite underlying source URLs, not the wrapper JSON file.
+
+Before using any web citation, apply
+[`../source-confidence-registry.json`](../source-confidence-registry.json). Every
+citation must include:
+
+- `source_confidence`: registry confidence or a newly rated confidence for an
+  unlisted source;
+- `source_confidence_reason`: one-sentence reason tied to the publisher, evidence
+  proximity, incentives, and claim type;
+- `source_type`: for example `structured_dataset`, `election_observer`, `ngo`,
+  `court_or_legal`, `official`, `official_record`, `media`, `academic`,
+  `intergovernmental`, `encyclopedia`, or `ai_generated_encyclopedia`;
+- `final_evidence_use`: one of `final_evidence`, `context`, or `discovery_only`.
+
+Do not use low or very-low confidence sources as sole support for any
+score-bearing claim. Grokipedia is very-low/discovery-only. Wikipedia is
+medium-high but mostly for orientation/basic facts and source discovery. Official
+government sites are medium-low for self-serving claims about fairness,
+legitimacy, restraint, or absence of manipulation, but can be higher for formal
+facts such as laws, dates, judgments, and certified results.
 
 ## Researcher Instructions
 
@@ -108,7 +159,8 @@ evidence on:
 
 Researchers should return citations with source roles such as
 `structured_dataset`, `election_observer`, `ngo`, `court_or_legal`, `official`,
-`media`, `academic`, or `intergovernmental`.
+`official_record`, `media`, `academic`, `intergovernmental`, `encyclopedia`, or
+`ai_generated_encyclopedia`, plus the source-confidence fields above.
 
 ## Judge Instructions
 
@@ -142,18 +194,26 @@ the full batch together. The judge must:
 Minimum evidence for a score-bearing record:
 
 - At least one citation.
+- Every citation includes `source_confidence`, `source_confidence_reason`,
+  `source_type`, and `final_evidence_use`.
 - Local structured-prior artifact status and summary in `structured_prior_summary`.
 - Evidence about target-year or near-period institutional manipulation/restraint.
 - Source-mix note explaining whether the record relies heavily on one source type.
+- No low or very-low confidence source is the sole support for a score-bearing
+  claim; use source diversity or explain why only contextual/discovery use was
+  possible.
 - Explicit caveat when the ruler has limited constitutional power over the relevant
   institutions or when no target-year election/institutional change occurred.
 
 Preferred source types:
 
-- structured datasets: V-Dem, Freedom House, BTI, WGI, RSF, Polity where locally
-  available;
+- local structured datasets: V-Dem, Freedom House, BTI, WGI, RSF, Polity, and
+  related structured priors where locally available. Do not re-fetch these from
+  the web for numeric/structured values; use external pages only for
+  ruler-specific narrative, legal, election, or contradiction-resolution detail;
 - election observers: OSCE/ODIHR, OAS, AU, EU, Commonwealth, Carter Center;
 - court/legal/election-commission records;
+- official sanctions, legislative, constitutional, or intergovernmental reports;
 - NGO/intergovernmental reports;
 - reputable local/international media for rule changes, state-resource abuse,
   media pressure, institutional capture, or security-force intimidation.
@@ -222,7 +282,13 @@ Use these 2020 anchors to sanity-check the batch ordering:
 
 - Local structured-prior artifacts exist before internet research and have explicit
   `evidence_found`, `no_evidence_found`, `not_applicable`, or `error` handling.
-- Research records include citations, source roles, and target-period caveats.
+- Researchers read `docs/methodology/local-first-researcher-guide.md` and use the
+  local-first order before any external search.
+- Researchers use only Parallel Search plus allowed exact-URL fetching in this
+  environment; forbidden search/browser alternatives are not used.
+- Research records include citations, source roles, source-confidence fields,
+  final evidence-use labels, and target-period caveats.
+- Research shards include `run_profile` profiling.
 - The watchdog validates every shard output before judge scoring.
 - Every score-bearing record includes `answer_payload.calibration`.
 - Scores distinguish ruler entrenchment from generic democracy quality.

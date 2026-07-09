@@ -82,7 +82,15 @@ def _cited_payload() -> dict[str, object]:
         "confidence_score": 72,
         "claims": [{"claim": "limited nuclear risk exposure"}],
         "answer_payload": {"calibration": _calibration()},
-        "citations": [{"url": "https://example.test/source"}],
+        "citations": [
+            {
+                "url": "https://example.test/source",
+                "source_confidence": "medium_high",
+                "source_confidence_reason": "Fixture reputable source.",
+                "source_type": "media",
+                "final_evidence_use": "final_evidence",
+            }
+        ],
         "caveats": ["Fixture caveat."],
     }
 
