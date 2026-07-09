@@ -54,9 +54,34 @@ calibration worker should apply the shared rubric to all rulers in that batch so
 close cases are judged against one meter. A separate reviewer should then audit
 the batch for common-scale failures and systematic bias.
 
-Before launching an `internet-research` worker, build a local structured-prior
-artifact and include it in the worker prompt/input. This prevents workers from
-refetching structured datasets that are already in the local DB:
+Before launching an `internet-research` worker, require the worker to read
+[`methodology/local-first-researcher-guide.md`](methodology/local-first-researcher-guide.md)
+and the question-specific guide. The mandatory order is local-first: inspect the
+guides, query the local DB/artifacts, use preferred external sources, and use
+general web search last. The approved direct local DB access path for a restricted
+`internet-research` worker is the structured read-only CLI:
+
+```bash
+leaders-db research local-evidence \
+  --methodology-id 4B.1 \
+  --year 2020 \
+  --iso3 USA \
+  --json
+```
+
+This command uses the local structured-prior builder, excludes client-matrix
+source slugs, accepts no arbitrary SQL, and returns artifact-shaped records plus
+status counts. If no `--iso3` is provided, it fails rather than dumping all local
+rows. Do **not** make a separate local-prior prep phase the main strategy;
+instead build a local structured-prior artifact and include it in the worker
+prompt/input as the concrete summary of already-loaded local structured facts
+when durable artifact files are useful:
+
+The durable non-secret OpenCode permission template for restricted workers is
+[`process/internet-research-opencode-policy.json`](process/internet-research-opencode-policy.json).
+Keep `opencode.json` and `.opencode/agent/internet-research.md` local-only;
+copy the tracked permission blocks into those ignored files when needed, then
+restart OpenCode before launching `internet-research` workers.
 
 ```bash
 leaders-db research build-local-prior \
@@ -76,8 +101,22 @@ non-client local facts matched the configured prior mapping, `not_applicable`
 means no included project country-year exists for the requested scope, and
 `error` preserves the same artifact shape with `missing_or_empty_reason` for
 invalid requests or local build failures. Workers should not re-fetch local
-structured datasets such as Freedom House unless the local prior is absent,
-contradictory, or needs ruler-specific/narrative detail.
+structured datasets such as Freedom House, V-Dem, RSF, WGI, BTI, CPI, PTS,
+CIRIGHTS, UCDP, SIPRI, or FAS for numeric / structured priors. Use external pages
+only for narrative, ruler-specific, legal, election, media, or
+contradiction-resolution detail when local facts are insufficient for the
+qualitative question.
+
+Current web-search policy for researcher prompts in this environment: use the
+direct Parallel Search CLI wrapper (`leaders-db research parallel-search`) for
+discovery, and `webfetch` for exact known URLs when snippets are insufficient.
+Forbid Parallel MCP discovery/fetch tools, Minimax web search, Brave generic
+searches, Playwright/browser searches, duplicate search passes, and unsafe
+browser code for routine research discovery. Every score-bearing citation must carry
+`source_confidence`, `source_confidence_reason`, `source_type`, and
+`final_evidence_use` from `docs/methodology/source-confidence-registry.json`, and
+each shard must emit a `run_profile` with timing, local evidence reads, Parallel
+CLI call counts, URL fetch counts, and explicit usage/token unknowns when hidden.
 
 Build a durable all-scope local-prior package for an approved question/year with:
 
@@ -92,14 +131,21 @@ leaders-db research build-local-prior-slice \
 
 This writes one artifact per included country-year under `artifacts/`, plus
 `manifest.json` and `shard_plan.json`. The 2020 `4B.2` local-prior smoke run
-generated 196 artifacts, all `evidence_found`, with 3,088 selected local facts and
-195 artifacts carrying ruler metadata. The package also includes an
-`internet_research_launch_plan.md` with a bounded four-case smoke set. Full
-all-ruler internet research was not launched; it remains pending human approval or
-a safe parent-owned dispatcher with watchdog validation.
+generates 196 artifacts, all `evidence_found`, with 3,088 selected local facts and
+195 artifacts carrying ruler metadata in the current local DB. The regenerated
+clean package also includes an `internet_research_launch_plan.md` that tells
+workers to read the local-first guide, apply source-confidence citation fields,
+emit run profiling, use `leaders-db research parallel-search` for discovery, and
+use `webfetch` for exact URL fetching. Keep 10-case shards for now. Full
+all-ruler internet research must not be launched during process-reset work; it
+remains pending human-approved parent orchestration with watchdog validation.
 
 For sharded `internet-research` runs, validate every worker artifact before using
-or judging it. The parent session should create one status JSON per expected
+or judging it. This is the intended main flow after removal of the experimental
+high-throughput/OpenCode dispatcher: keep the scoped local-evidence command,
+`parallel-search` helper, cited-evaluation schema/template/persistence, question
+guides, calibration contract, and source-confidence registry as the supported
+research/judge path. The parent session should create one status JSON per expected
 output and run:
 
 ```bash

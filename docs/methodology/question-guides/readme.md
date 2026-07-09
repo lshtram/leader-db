@@ -20,18 +20,26 @@ Use lowercase question IDs with dots removed or replaced by hyphens:
 For each question:
 
 1. Draft the question guide from `template.md`.
-2. Select 5-10 rulers/country-years that cover clear high, middle, low, and edge
+2. For `internet_manual` research, require workers to read
+   [`../local-first-researcher-guide.md`](../local-first-researcher-guide.md):
+   local guide, local DB/artifacts, preferred external sources, then general web
+   last. Do not rely on a separate local-prior prep phase as the main strategy.
+   If running restricted OpenCode `internet-research` workers, apply the tracked
+   non-secret permission template in
+   [`../../process/internet-research-opencode-policy.json`](../../process/internet-research-opencode-policy.json)
+   to local ignored config and restart OpenCode before launch.
+3. Select 5-10 rulers/country-years that cover clear high, middle, low, and edge
    cases.
-3. Run `internet-research` evidence passes for each case. Researchers collect
+4. Run `internet-research` evidence passes for each case. Researchers collect
    evidence only; they should not finalize comparative scores unless explicitly
    asked by the guide.
-4. Run one `ruler-quality-judge` batch over all evidence records for that
+5. Run one `ruler-quality-judge` batch over all evidence records for that
    question/year or ruler-period set.
-5. Persist only records that satisfy the cited-evaluation schema and required
+6. Persist only records that satisfy the cited-evaluation schema and required
    `answer_payload.calibration` fields.
-6. Review the batch for score order, missing evidence, source balance, bias
+7. Review the batch for score order, missing evidence, source balance, bias
    checks, and whether each score is justified against neighboring anchors.
-7. Update the guide with lessons learned before using the question at larger
+8. Update the guide with lessons learned before using the question at larger
    scale.
 
 ## Required guide sections

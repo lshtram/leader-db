@@ -15,6 +15,18 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
 - **Visualization workplan approved and Increments 1–4 complete/reviewed (2026-06-23):** `docs/viz-workplan.md` tracks the hybrid `leaders_db.viz` semantic layer + Apache Superset dashboard plan. The core abstraction is `viz_country_year_metrics` + `viz_metric_catalog` plus a generic semantic query layer; `viz_regime_year_population` is explicitly a cached example/proof query, not a bespoke-table pattern for every metric. Increment 3 adds generic agent CLI access through `leaders-db viz-metrics` and `leaders-db viz-query`. Increment 4 adds local Superset compose/config plus `leaders-db viz-build-superset-db`, which builds the read-only SQLite analytic artifact mounted into Superset. The next visualization action is Increment 5: secure client access via Cloudflare Tunnel/Access for `viz.chopsworkshop.com`. **Increment 6 landed 2026-06-25 — investigation-slice vertical slice** (`viz-run-investigation-slice`) wires the updated source architecture (PWT + Maddison + WDI through the unified `SourceIngestRunner`) to a constrained `gdp_per_capita` concept extraction, writes a chart-ready CSV + dependency-free HTML+SVG line chart, and refreshes the Superset SQLite artifact when the canonical core CSV is present (skipping the rebuild cleanly when it is absent). The chart groups by `(country_code, source_id, series_label)` and renders one polyline per indicator-or-recipe series with legend labels `"{country_code} \u00b7 {source_slug} \u00b7 {series_label}"`, so values from different sources or same-source indicators for the same country/year are never chained into a single misleading time-series line. See `docs/viz-workplan.md` §Increment 6 and `docs/testing-guide-viz-superset.md` §Investigation-slice smoke check for the run-book.
 - **Research-engine Increment 9 first slice (2026-06-28):** the selected narrow slice is economic trend publishing over existing Increment 7 concept metrics only. `leaders_db.viz.economic_trends` reads persisted normalized observations through the `EvidenceRepository` boundary, reuses `publish_concept_metrics()` for `concept.gdp_per_capita`, `concept.population`, and `concept.gdp_total`, filters selected countries / year ranges, writes `viz_economic_trends.csv`, and registers that CSV as an optional read-only Superset SQLite table. This proves the clean source/research/viz path for one broader economic trend family without adding dashboard product scope or new source scoring formulas.
 - **Local ruler-period evidence summary helper (2026-06-28):** `leaders-db evidence summarize-ruler-period` now emits compact JSON for local structured concept evidence over a country/year window, using persisted `normalized_observations` through the `EvidenceRepository` boundary and the existing concept catalog. `--leader` is request metadata only; no leader matching, client-matrix evidence, or scoring formula is introduced.
+- **High-throughput/OpenCode dispatcher removed and quarantined (2026-07-09):**
+  The former experimental high-throughput dispatcher is no longer an active or
+  supported surface. Historical pilot artifacts from 2026-07-08/09 remain useful
+  only as obsolete lessons learned and must not be treated as the current flow.
+  The intended score-bearing research path is now the regular agent-driven flow:
+  `leaders-db research local-evidence` for scoped local priors, the approved
+  `leaders-db research parallel-search` helper for bounded discovery, an
+  `internet-research` evidence pass using question guides and source-confidence
+  fields, `ruler-quality-judge` calibration against the cited-evaluation contract,
+  and `leaders-db research persist-cited-evaluations` for durable storage. New
+  outputs should use the cited-evaluation storage/schema; do not create new
+  high-throughput run directories or reintroduce the removed dispatcher.
 - **Data table workplan added (2026-06-29):** `docs/data-table-plan.md` now defines the desired identity, harmonized country-year, ruler-period, question-answer, evidence-link, score, and review tables, with the methodology questions each table supports and the infrastructure phases needed before each table can be completed.
 - **Data-table infrastructure I1 complete (2026-06-29):** the normal working SQLite path is documented as `data/catalog/leaders_db.sqlite`; `leaders-db init-db` applies all checked-in migrations to that default path, and persisted-evidence CLI reads now fail with a friendly initialization message instead of raw missing-table SQL errors.
 - **Data-table infrastructure I2 complete (2026-06-29):** non-dry `leaders-db sources ingest <source>` runs now persist clean-source observations into the initialized working DB by default (or an explicit `--db-url`) through `SourceIngestRunner`; reruns upsert stable `(source_slug, observation_id)` rows rather than duplicating them. `leaders-db sources coverage` reports DB-backed row counts by source, observation family, indicator, min/max year, country count, and missing raw-locator count, with registry-backed statuses for `loaded`, `no_rows`, and `blocked_user_managed` sources. Fixture tests prove idempotency and coverage without touching user raw data.
@@ -418,12 +430,69 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
   artifacts, all `evidence_found`, 3,088 selected local facts, 195 artifacts with
   ruler metadata, `manifest.json`, `shard_plan.json`, and
   `internet_research_launch_plan.md`. No full all-ruler `internet-research` web
-  run was launched because the repo has watchdog validation but no approved safe
-  parent-owned dispatcher that can launch and supervise hundreds of workers.
+  run was launched because this project should not provide a product CLI that
+  launches or supervises OpenCode agents; agents are launched from within
+  OpenCode-managed workflows, with this repo providing only local evidence,
+  schema, validation, and persistence utilities.
   Bounded smoke preparation was limited to local-prior generation and starter
   cited-evaluation templates for USA/CHN; the launch plan lists a four-case smoke
   set (USA, CHN, BLR, NZL) and exact watchdog command templates for a
   human-approved run.
+
+- **D25 process reset for 4B.2 local-first internet research (2026-07-07):** The
+  tainted stopped-run outputs under
+  `data/outputs/research/4b2_2020_local_priors/` were retired by deleting and
+  regenerating a clean start package after guide updates. The package now contains
+  only local artifacts, `manifest.json`, `shard_plan.json`, and
+  `internet_research_launch_plan.md`; no shard status/output evidence files from
+  the stopped run are retained. The durable researcher contract is
+  `docs/methodology/local-first-researcher-guide.md`: researchers must inspect
+  local guides, query `data/catalog/leaders_db.sqlite` / local artifacts, use
+  preferred external sources, and use general web last. The reset explicitly keeps
+  10-case shards and rejects a separate precomputed local-prior prep phase as the
+  main strategy. The selected discovery path is the direct Parallel Search CLI
+  wrapper (`leaders-db research parallel-search`), and exact known URLs use
+  `webfetch`; Parallel MCP discovery/fetch tools are not approved for full-run
+  shards. Minimax web
+  search, Brave generic searches, Playwright/browser searches, duplicate search
+  passes, and unsafe browser code are forbidden in the researcher guide and
+  launch plan. Research artifacts must carry source-confidence citation fields
+  (`source_confidence`, `source_confidence_reason`, `source_type`, and
+  `final_evidence_use`) from `docs/methodology/source-confidence-registry.json`
+  and `run_profile` profiling with timing, local evidence reads, Parallel CLI
+  call counts, URL fetch counts, and usage/token unknowns where tools hide usage.
+  No `internet-research` agents were launched
+  during this reset.
+
+- **D25 safe local-evidence CLI for restricted researchers (2026-07-07):**
+  `leaders-db research local-evidence` is now the approved direct local DB access
+  path for `internet-research`. The command requires a methodology scope, year or
+  period, and at least one repeated `--iso3`; it refuses no-scope requests instead
+  of dumping all DB rows. It reuses the existing local structured-prior builder,
+  queries only approved local-prior tables through structured code, excludes
+  client-matrix source slugs, accepts no arbitrary SQL, and returns JSON with
+  artifact-shaped records plus `status_counts`. The restricted OpenCode
+  `internet-research` permissions now allow only the narrow
+  `leaders-db research local-evidence --*` bash pattern and keep raw SQLite /
+  arbitrary shell denied. Existing sessions may need an OpenCode restart to pick
+  up permission changes.
+
+- **Research-flow preservation after dispatcher removal (2026-07-09):** The D25
+  local-first research pieces are retained as the intended main flow, not removed
+  with the obsolete high-throughput experiment: scoped `research local-evidence`,
+  `research parallel-search`, cited-evaluation schema/template/persistence,
+  calibration docs, question guides, and the source-confidence registry remain
+  active. The lightweight `research_parallel_commands.py` / `parallel_api.py`
+  helper is an approved bounded discovery wrapper for `internet-research`, not a
+  high-throughput dispatcher.
+
+- **Obsolete high-throughput scaffold note (removed 2026-07-09):** The former
+  2026-07-08 experimental high-throughput/OpenCode dispatcher scaffold has been
+  removed from the active CLI/package surface and is not part of the supported
+  research runner. Keep this only as historical context for why the project uses
+  the main agent-driven path instead: scoped local evidence, bounded Parallel
+  Search helper calls, cited internet evidence, calibrated judge output, and
+  persisted cited evaluations.
 
 The prototype has **not yet** implemented the full Stage 3–15 resolution, scoring, validation, and report-generation pipeline. Phase C currently focuses on source acquisition and Stage 2 normalized observations. **First deterministic scorer landed: `social_wellbeing`** — see the Phase D.1 entry below. **Stage 9 narrow single-country read-only seam landed** — see the Phase D.2 entry. The next round focuses on the evidence-bundle contract for the remaining categories, the Stage 3/4 leader resolver, and the per-category scorers that are not yet implemented.
 
@@ -621,17 +690,20 @@ The current completion order to reach D30 is:
    methodology outputs for registered non-8B and 8B questions, writes them
    through `research_question_answers` / `research_answer_evidence_links`, and is
    exposed via `leaders-db research persist-cited-evaluations --input <file.json>`.
-    The researcher/subagent-facing form is now explicit: `leaders-db research
-    cited-evaluation-schema` prints the strict JSON Schema and `leaders-db research
-    cited-evaluation-template` prints a valid starter record for a registered
-     `internet_manual` question. Any score-bearing record must include
-     `answer_payload.calibration`; before running a new question, create/update its
-     guide under `docs/methodology/question-guides/`, run a 5-10 case smoke test,
-     build a local structured prior with `leaders-db research build-local-prior`,
-     pass that artifact to each `internet-research` worker, and use one
-     `ruler-quality-judge` batch to apply the meter across the cases.
-     The 4B.1 electoral-contestability guide now anchors the first 2020 ruler-quality
-     vertical slice, and the cited-evaluation template uses its rubric version.
+   The researcher/subagent-facing form is now explicit: `leaders-db research
+   cited-evaluation-schema` prints the strict JSON Schema and `leaders-db research
+   cited-evaluation-template` prints a valid starter record for a registered
+   `internet_manual` question. Any score-bearing record must include
+   `answer_payload.calibration`; before running a new question, create/update its
+   guide under `docs/methodology/question-guides/`, require workers to read
+   `docs/methodology/local-first-researcher-guide.md`, build a local structured
+   prior with `leaders-db research build-local-prior` or a 10-case-sharded
+   `build-local-prior-slice`, pass that artifact to each `internet-research`
+   worker, and use one `ruler-quality-judge` batch to apply the meter across the
+   cases. The local prior is an input to a local-first worker prompt, not a
+   separate prep phase that replaces the researcher's local DB/artifact checks.
+   The 4B.1 electoral-contestability guide now anchors the first 2020 ruler-quality
+   vertical slice, and the cited-evaluation template uses its rubric version.
     Sharded `internet-research` runs should be parent-owned through `leaders-db
     research validate-shard-output`, including heartbeat/progress messages and a
     progress-staleness window, so missing or silent workers are flagged before
