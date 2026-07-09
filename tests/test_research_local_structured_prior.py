@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, text
 
 from leaders_db.db.engine import init_database
 from leaders_db.research.local_structured_prior import (
+    OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS,
     POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
     LocalPriorPeriod,
     LocalStructuredPriorRequest,
@@ -305,6 +306,42 @@ def test_build_local_prior_4b2_uses_same_political_freedom_mapping_as_4b1(
     assert artifact.question_text.startswith("Did the ruler refrain from manipulating")
     assert "civil_liberties" in POLITICAL_FREEDOM_PRIOR_FIELD_KEYS
     assert artifact.local_facts[0].field_key == "civil_liberties"
+
+
+def test_build_local_prior_4b3_uses_opposition_tolerance_mapping(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_country_year(engine, country_id=1, iso3="BRA", name="Brazil", year=2020)
+    _insert_fact(
+        engine,
+        country_id=1,
+        country_year_id=1,
+        year=2020,
+        field_key="freedom_expression",
+        value_type="number",
+        selected_value_number=0.62,
+        source_slugs=("vdem",),
+        source_observation_ids=("vdem:BRA:2020:freedom_expression",),
+        confidence_score=85,
+    )
+
+    artifact = build_local_structured_prior(
+        engine,
+        LocalStructuredPriorRequest(
+            methodology_id="4B.3",
+            iso3="BRA",
+            period=LocalPriorPeriod(year=2020),
+        ),
+    )
+
+    assert artifact.status == "evidence_found"
+    assert artifact.question_text.startswith("Did the ruler tolerate opposition")
+    assert "freedom_expression" in OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS
+    assert artifact.mapping_note is not None
+    assert "opposition/media/protest/civil-society tolerance" in artifact.mapping_note
+    assert artifact.local_facts[0].field_key == "freedom_expression"
 
 
 def _insert_country_year(

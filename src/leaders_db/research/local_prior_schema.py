@@ -35,6 +35,28 @@ POLITICAL_FREEDOM_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "bti_governance_index",
 )
 
+OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "civil_liberties",
+    "political_liberties",
+    "freedom_expression",
+    "freedom_association",
+    "press_freedom_score",
+    "press_freedom_rank",
+    "voice_and_accountability",
+    "rule_of_law",
+    "wgi_rule_of_law",
+    "accountability",
+    "judicial_constraints",
+    "legislative_constraints",
+    "multiparty_institutions",
+    "liberal_democracy",
+    "electoral_democracy",
+    "regime_type",
+    "bti_democracy_status",
+    "bti_status_index",
+    "bti_governance_index",
+)
+
 
 @dataclass(frozen=True)
 class LocalPriorMapping:
@@ -50,6 +72,15 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
         methodology_ids=("4B.1", "4B.2"),
         field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
         mapping_note="Political-freedom D11 country-year facts usable as structured priors.",
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.3",),
+        field_keys=OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D11 civil-liberties, expression, association, press/media, voice, "
+            "accountability, and rule-of-law facts usable as structured priors for "
+            "opposition/media/protest/civil-society tolerance."
+        ),
     ),
 )
 
@@ -166,6 +197,7 @@ __all__ = [
     "CLIENT_MATRIX_SOURCE_SLUGS",
     "LOCAL_PRIOR_MAPPINGS",
     "LOCAL_PRIOR_METHOD_VERSION",
+    "OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS",
     "POLITICAL_FREEDOM_PRIOR_FIELD_KEYS",
     "LeaderPriorMetadata",
     "LocalPriorCountry",

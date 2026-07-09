@@ -14,6 +14,101 @@ from .research_common import fail
 def register_local_prior_commands(research_app: typer.Typer) -> None:
     research_app.command("build-local-prior")(research_build_local_prior_cmd)
     research_app.command("build-local-prior-slice")(research_build_local_prior_slice_cmd)
+    research_app.command("local-evidence")(research_local_evidence_cmd)
+
+
+def research_local_evidence_cmd(
+    methodology_id: str = typer.Option(..., "--methodology-id"),
+    iso3: list[str] | None = typer.Option(None, "--iso3"),
+    year: int | None = typer.Option(None, "--year"),
+    start_year: int | None = typer.Option(None, "--start-year"),
+    end_year: int | None = typer.Option(None, "--end-year"),
+    output_json: bool = typer.Option(False, "--json"),
+    db_url: str | None = typer.Option(None, "--db-url"),
+) -> None:
+    """Safely read local structured evidence for internet-research workers."""
+
+    from collections import Counter
+
+    from ..db.engine import build_engine
+    from ..db.readiness import DatabaseReadinessError, assert_database_ready
+    from ..db.session import default_sqlite_url
+    from ..research.local_structured_prior import (
+        LocalPriorPeriod,
+        LocalStructuredPriorRequest,
+        build_local_structured_prior,
+    )
+
+    try:
+        period = LocalPriorPeriod(year=year, start_year=start_year, end_year=end_year)
+    except ValueError as exc:
+        _emit_local_evidence_error(
+            str(exc),
+            methodology_id=methodology_id,
+            year=year,
+            start_year=start_year,
+            end_year=end_year,
+            output_json=output_json,
+        )
+
+    requested_iso3s = tuple(dict.fromkeys(code.upper().strip() for code in (iso3 or ())))
+    if not requested_iso3s:
+        _emit_local_evidence_error(
+            "At least one --iso3 is required; this command will not dump all local DB "
+            "rows by default.",
+            methodology_id=methodology_id,
+            year=year,
+            start_year=start_year,
+            end_year=end_year,
+            output_json=output_json,
+        )
+
+    try:
+        engine = build_engine(db_url or default_sqlite_url())
+        assert_database_ready(
+            engine,
+            required_tables=("countries", "country_years", "country_year_facts"),
+        )
+        records = [
+            build_local_structured_prior(
+                engine,
+                LocalStructuredPriorRequest(
+                    methodology_id=methodology_id,
+                    iso3=code,
+                    period=period,
+                ),
+            ).model_dump(mode="json")
+            for code in requested_iso3s
+        ]
+    except (DatabaseReadinessError, SQLAlchemyError, ValueError) as exc:
+        _emit_local_evidence_error(
+            str(exc),
+            methodology_id=methodology_id,
+            year=year,
+            start_year=start_year,
+            end_year=end_year,
+            output_json=output_json,
+        )
+
+    counts = Counter(str(record["status"]) for record in records)
+    payload = {
+        "method_version": "local_evidence_v1",
+        "methodology_id": methodology_id,
+        "period": {"year": year, "start_year": start_year, "end_year": end_year},
+        "requested_iso3": list(requested_iso3s),
+        "record_count": len(records),
+        "status_counts": dict(sorted(counts.items())),
+        "client_matrix_policy": "excluded_as_evidence",
+        "records": records,
+    }
+    if output_json:
+        typer.echo(json.dumps(payload, indent=2, sort_keys=True))
+        if counts.get("error"):
+            raise typer.Exit(1)
+        return
+    typer.echo(f"local_evidence_records: {len(records)}; statuses: {payload['status_counts']}")
+    if counts.get("error"):
+        raise typer.Exit(1)
 
 
 def research_build_local_prior_cmd(
@@ -178,8 +273,37 @@ def _fail_local_prior(message: str, **kwargs: object) -> None:
     _emit_error_artifact(payload, output_json=output_json)
 
 
+def _emit_local_evidence_error(
+    message: str,
+    *,
+    methodology_id: str,
+    year: int | None,
+    start_year: int | None,
+    end_year: int | None,
+    output_json: bool,
+) -> None:
+    payload = {
+        "method_version": "local_evidence_v1",
+        "methodology_id": methodology_id,
+        "period": {"year": year, "start_year": start_year, "end_year": end_year},
+        "requested_iso3": [],
+        "record_count": 0,
+        "status": "error",
+        "status_counts": {"error": 1},
+        "client_matrix_policy": "excluded_as_evidence",
+        "records": [],
+        "missing_or_empty_reason": message,
+    }
+    if output_json:
+        typer.echo(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        typer.echo(f"error: {message}")
+    raise typer.Exit(1)
+
+
 __all__ = [
     "register_local_prior_commands",
     "research_build_local_prior_cmd",
     "research_build_local_prior_slice_cmd",
+    "research_local_evidence_cmd",
 ]

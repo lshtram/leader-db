@@ -87,7 +87,98 @@ def test_build_local_prior_slice_cli_writes_manifest_artifacts_and_shard_plan(
     assert payload["cases_with_ruler_metadata"] == 1
     assert (output_dir / "manifest.json").exists()
     assert (output_dir / "shard_plan.json").exists()
+    launch_plan = output_dir / "internet_research_launch_plan.md"
+    assert launch_plan.exists()
+    launch_plan_text = launch_plan.read_text(encoding="utf-8")
+    assert "docs/methodology/local-first-researcher-guide.md" in launch_plan_text
+    assert "leaders-db research parallel-search" in launch_plan_text
+    assert "webfetch" in launch_plan_text
+    assert "source_confidence" in launch_plan_text
+    assert "run_profile" in launch_plan_text
+    assert "Minimax web search" in launch_plan_text
+    assert "Parallel MCP discovery" in launch_plan_text
+    assert "Brave generic" in launch_plan_text
     assert len(list((output_dir / "artifacts").glob("*.json"))) == 2
+
+
+def test_local_evidence_cli_single_iso_outputs_evidence_found(database_url: str) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_country_year(engine, country_id=1, iso3="USA", name="United States", year=2020)
+    _insert_fact(engine, country_id=1, country_year_id=1, year=2020)
+
+    result = runner.invoke(
+        app,
+        [
+            "research", "local-evidence", "--methodology-id", "4B.2", "--year",
+            "2020", "--iso3", "USA", "--json", "--db-url", database_url,
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["method_version"] == "local_evidence_v1"
+    assert payload["record_count"] == 1
+    assert payload["status_counts"] == {"evidence_found": 1}
+    assert payload["records"][0]["status"] == "evidence_found"
+    assert payload["records"][0]["local_facts"][0]["source_slugs"] == ["freedom_house"]
+
+
+def test_local_evidence_cli_multiple_iso_counts_and_excludes_client_source(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_country_year(engine, country_id=1, iso3="USA", name="United States", year=2020)
+    _insert_country_year(engine, country_id=2, iso3="CAN", name="Canada", year=2020)
+    _insert_fact(engine, country_id=1, country_year_id=1, year=2020)
+    _insert_fact(
+        engine,
+        country_id=2,
+        country_year_id=2,
+        year=2020,
+        source_slugs=("client_existing",),
+        source_observation_ids=("client:CAN:2020",),
+    )
+
+    result = runner.invoke(
+        app,
+        [
+            "research", "local-evidence", "--methodology-id", "4B.2", "--year",
+            "2020", "--iso3", "USA", "--iso3", "CAN", "--json", "--db-url",
+            database_url,
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["record_count"] == 2
+    assert payload["status_counts"] == {"evidence_found": 1, "no_evidence_found": 1}
+    records_by_iso = {record["country"]["iso3"]: record for record in payload["records"]}
+    assert records_by_iso["USA"]["local_facts"][0]["source_slugs"] == ["freedom_house"]
+    assert records_by_iso["CAN"]["status"] == "no_evidence_found"
+    assert records_by_iso["CAN"]["local_facts"] == []
+    assert payload["client_matrix_policy"] == "excluded_as_evidence"
+
+
+def test_local_evidence_cli_missing_iso_returns_stable_error(database_url: str) -> None:
+    init_database(database_url)
+
+    result = runner.invoke(
+        app,
+        [
+            "research", "local-evidence", "--methodology-id", "4B.2", "--year",
+            "2020", "--json", "--db-url", database_url,
+        ],
+    )
+
+    assert result.exit_code == 1, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["status"] == "error"
+    assert payload["records"] == []
+    assert payload["record_count"] == 0
+    assert payload["status_counts"] == {"error": 1}
+    assert "will not dump all local DB rows" in payload["missing_or_empty_reason"]
 
 
 def _insert_country_year(
@@ -120,7 +211,15 @@ def _insert_country_year(
         )
 
 
-def _insert_fact(engine: object, *, country_id: int, country_year_id: int, year: int) -> None:
+def _insert_fact(
+    engine: object,
+    *,
+    country_id: int,
+    country_year_id: int,
+    year: int,
+    source_slugs: tuple[str, ...] = ("freedom_house",),
+    source_observation_ids: tuple[str, ...] = ("freedom_house:USA:2020",),
+) -> None:
     with engine.begin() as conn:  # type: ignore[attr-defined]
         conn.execute(
             text(
@@ -144,8 +243,8 @@ def _insert_fact(engine: object, *, country_id: int, country_year_id: int, year:
                 "country_year_id": country_year_id,
                 "country_id": country_id,
                 "year": year,
-                "source_slugs_json": json.dumps(("freedom_house",)),
-                "source_observation_ids_json": json.dumps(("freedom_house:USA:2020",)),
+                "source_slugs_json": json.dumps(source_slugs),
+                "source_observation_ids_json": json.dumps(source_observation_ids),
             },
         )
 

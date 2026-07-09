@@ -22,6 +22,11 @@ from .local_structured_prior import (
 
 LOCAL_PRIOR_SLICE_METHOD_VERSION = "local_structured_prior_slice_v1"
 
+QUESTION_GUIDE_BY_METHODOLOGY_ID = {
+    "4B.2": "docs/methodology/question-guides/4b-2-entrenchment-manipulation.md",
+    "4B.3": "docs/methodology/question-guides/4b-3-opposition-tolerance.md",
+}
+
 
 class LocalPriorSliceCase(BaseModel):
     """One country-year/ruler case included in an all-scope prior package."""
@@ -153,6 +158,7 @@ def build_local_prior_slice_package(
         json.dumps(manifest.model_dump(mode="json"), indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+    _write_launch_plan(output_dir, manifest=manifest, shard_plan=shard_plan)
     return manifest
 
 
@@ -240,6 +246,171 @@ def _build_shard_plan(artifacts: list[dict[str, Any]], *, shard_size: int) -> di
         "shard_count": len(shards),
         "shards": shards,
     }
+
+
+def _write_launch_plan(
+    output_dir: Path,
+    *,
+    manifest: LocalPriorSliceManifest,
+    shard_plan: dict[str, Any],
+) -> None:
+    """Write durable human launch instructions next to a local-prior package."""
+
+    output_dir_text = manifest.output_dir
+    question_guide = QUESTION_GUIDE_BY_METHODOLOGY_ID.get(
+        manifest.methodology_id,
+        "the relevant guide under docs/methodology/question-guides/",
+    )
+    first_shard_size = 0
+    shards = shard_plan.get("shards")
+    if isinstance(shards, list) and shards:
+        first = shards[0]
+        if isinstance(first, dict):
+            first_shard_size = int(first.get("expected_record_count") or 0)
+    reset_note = _launch_plan_reset_note(manifest)
+    objective_text = (
+        f"Find cited evidence for {manifest.methodology_id} {manifest.year}; prioritize "
+        "primary, observer, legal, NGO, intergovernmental, and reputable media sources."
+    )
+
+    plan = f"""# {manifest.methodology_id} {manifest.year} Internet Research Launch Plan
+
+This package is a clean local-first start package for methodology question
+`{manifest.methodology_id}`. It intentionally does **not** launch
+`internet-research` workers automatically.
+
+## Mandatory local-first process
+
+Every worker and parent dispatcher must read:
+
+1. `docs/methodology/local-first-researcher-guide.md`
+2. `{question_guide}` for `{manifest.methodology_id}`
+3. `docs/methodology/source-confidence-registry.json`
+4. The relevant local-prior artifact from this package
+5. The cited-evaluation schema from `leaders-db research cited-evaluation-schema`
+
+Research order is mandatory: inspect the local question guide, query local
+DB/artifacts, apply the source-confidence registry, use preferred external
+sources, and use general web search only last. Local structured datasets already
+loaded into the DB must not be re-fetched from the web for numeric/structured
+priors.
+
+## Search-tool policy
+
+Use one discovery path only: the direct Parallel Search CLI wrapper
+(`leaders-db research parallel-search`) for discovery, and `webfetch` for exact
+known URLs when snippets are insufficient. Do **not** run Parallel MCP discovery,
+Minimax web search, Brave generic searches, Playwright/browser searches,
+duplicate searches, or unsafe browser code for this research run.
+
+Approved discovery command shape:
+
+```bash
+leaders-db research parallel-search \
+  --objective "{objective_text}" \
+  --query "<country> <ruler> <topic> {manifest.year}" \
+  --query "<country> <topic> report {manifest.year}" \
+  --output {output_dir_text}/<case-id>-parallel-search-01.json \
+  --json
+```
+
+Treat wrapper JSON as discovery/profile evidence only. Final citations must cite
+underlying source URLs, not the wrapper result file.
+
+## Source-confidence and profiling policy
+
+{reset_note}Every citation must include `source_confidence`, `source_confidence_reason`,
+`source_type`, and `final_evidence_use` using
+`docs/methodology/source-confidence-registry.json`. Low and very-low confidence
+sources may not be sole support for score-bearing claims. Grokipedia is
+very-low/discovery-only; Wikipedia is medium-high orientation/basic facts;
+official government sites are medium-low for self-serving fairness/restraint
+claims but can be higher for formal facts.
+
+Every shard must emit a `run_profile` object or sibling profile JSON with timing,
+local evidence reads, Parallel call counts, fetch counts, usage/token fields when
+exposed, and explicit unknowns when the tool hides usage.
+
+## Local-prior package
+
+- Manifest: `{output_dir_text}/manifest.json`
+- Artifacts: `{output_dir_text}/artifacts/`
+- Shard plan: `{output_dir_text}/shard_plan.json`
+- Total cases: {manifest.total_cases}
+- Artifact count: {manifest.artifact_count}
+- Shard size: {shard_plan.get("recommended_shard_size", first_shard_size)}
+- Shard count: {shard_plan.get("shard_count", 0)}
+
+Every `internet-research` worker must receive the corresponding local-prior JSON
+artifact before external search. If local evidence is absent, record `no local
+evidence found` in the output rather than inventing a structured prior.
+
+## Bounded smoke cases
+
+Suggested first smoke set, chosen to cover high/low/edge cases without launching
+hundreds of workers:
+
+1. `USA` / United States / Trump / {manifest.year}
+2. `CHN` / China / Xi Jinping / {manifest.year}
+3. `BLR` / Belarus / Lukashenka / {manifest.year}
+4. `NZL` / New Zealand / Jacinda Ardern / {manifest.year}
+
+For each approved case or shard, give the worker:
+
+- `docs/methodology/local-first-researcher-guide.md`
+- `{question_guide}`
+- `docs/methodology/source-confidence-registry.json`
+- the relevant local-prior artifact from `{output_dir_text}/artifacts/`
+- the cited-evaluation schema from `leaders-db research cited-evaluation-schema`
+- the instruction to collect citations/evidence only, not final comparative scores
+
+## Watchdog template
+
+For each approved shard, create a shard input file listing local-prior artifact
+paths, then validate status/output with:
+
+```bash
+leaders-db research validate-shard-output \\
+  --status {output_dir_text}/<shard-id>-status.json \\
+  --input {output_dir_text}/<shard-id>-input.json \\
+  --output {output_dir_text}/<shard-id>-output.json \\
+  --expected-record-count <N> \\
+  --max-expected-minutes 30 \\
+  --max-progress-stale-minutes 10 \\
+  --json
+```
+
+Record heartbeat/progress updates while work is active:
+
+```bash
+leaders-db research validate-shard-output \\
+  --status {output_dir_text}/<shard-id>-status.json \\
+  --progress-message "queried local DB/artifact and searched election-observer/legal sources" \\
+  --json
+```
+
+## Full-run policy
+
+Full all-ruler internet research remains pending human approval or a parent-owned
+dispatcher that launches bounded shards, requires local-first artifacts, writes
+one status JSON per shard, emits heartbeats, and validates each output before any
+judge/calibration pass. Keep the current 10-case shard size unless the parent
+explicitly changes it.
+"""
+    (output_dir / "internet_research_launch_plan.md").write_text(plan, encoding="utf-8")
+
+
+def _launch_plan_reset_note(manifest: LocalPriorSliceManifest) -> str:
+    """Return methodology-specific stale-output warning text for launch plans."""
+
+    if manifest.methodology_id == "4B.2" and manifest.year == 2020:
+        return (
+            "The next full run starts from a clean 4B.2 2020 state: prior shard\n"
+            "input/status/output files and persisted `4B.2` / 2020 /\n"
+            "`cited_manual_evaluation_v1` answers were removed during preparation. Do not\n"
+            "reuse old shard outputs.\n\n"
+        )
+    return ""
 
 
 def _execute_mappings(bind: Engine | Session, statement: Any, params: dict[str, Any]) -> list[Any]:
