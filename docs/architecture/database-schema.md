@@ -281,6 +281,56 @@ evidence from SQLite without rerunning adapters or opening raw files.
 UNIQUE(`source_slug`, `observation_id`). Indexes support source/family/indicator,
 country-year, and leader-year filters.
 
+### `research_jobs`, `research_job_events`, and `research_job_dependencies`
+
+Migration `0006_research_job_ledger.sql` adds the durable execution ledger for
+ruler dossiers and chapter-year judge batches. The ledger retains the legacy
+internal `question_judge` job-type string for migration compatibility, but each
+such job now represents one complete chapter. Migration
+`0007_research_job_lease_fencing.sql` adds the per-claim fencing token.
+
+`research_jobs` stores a stable `job_key` inside a caller-defined `run_key`, the
+job type, ruler/question scope, exact provider profile/provider/model, status,
+priority, bounded attempts, lease owner/timestamps/token, latest checkpoint, immutable
+input snapshot, result path, error, and quarantine reason. Job keys are unique,
+so replanning a run cannot duplicate work or overwrite an existing checkpoint.
+
+`research_job_events` is the append-only audit trail for planning, claims,
+heartbeats, checkpoints, completion, failure/retry, and quarantine.
+
+`research_job_dependencies` links a question-judge job to every eligible dossier
+job in its run. The atomic claim query excludes a job while any dependency is
+neither completed nor explicitly quarantined/cancelled.
+
+Active workers own time-bounded leases. An expired `claimed` or `running` job may
+be reclaimed by another worker without losing `checkpoint_json`; each reclaim
+increments `attempt_count` and rotates the fencing token. All worker mutations
+require the current token and an unexpired lease. Completed, quarantined, and cancelled jobs never
+re-enter the claim queue.
+
+PostgreSQL claims use `FOR UPDATE SKIP LOCKED` to keep concurrent workers from
+contending on the same head-of-queue row; the outer availability predicate remains
+the portable compare-and-set safety guard. SQLite relies on serialized writes.
+
+### `chapter_scores`
+
+Migration `0003_research_results.sql` introduced the chapter-score table and
+migration `0008_chapter_judgment_payload.sql` rebuilds it for the comparative
+chapter-judge workflow. One row stores one holistic chapter judgment for a
+ruler-year and rubric version, including co-rulers in the same country-year. The
+ten chapter questions remain evidence
+lenses; they are not persisted as ten independent scores.
+
+Alongside `score_1_to_10` and `confidence_score`, the row carries the ruler-year,
+run/job/calibration identities, plausible score bounds, manual-review flag, and
+the complete validated judgment envelope in `judgment_json`. `method_version` is
+the exact chapter-guide rubric version.
+
+Judge publication is lease-fenced: all rows in a batch are upserted and the
+owning research job is completed in one database transaction. An expired or
+superseded worker therefore cannot publish a partial or canonical score batch.
+The judge artifact and dossier job keys preserve the path back to cited evidence.
+
 ### `validation_results`
 
 Per-item validation record. Stage 12 output.

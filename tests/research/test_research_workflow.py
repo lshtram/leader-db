@@ -1,0 +1,24 @@
+from pathlib import Path
+
+import pytest
+
+from leaders_db.research.research_workflow import ResearchWorkflow, load_research_workflow
+
+
+def test_repository_workflow_is_sequential_and_allows_three_review_rounds() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = load_research_workflow(root / "configs/research-workflow.yaml")
+
+    assert workflow.chapter_order == tuple(f"{index}B" for index in range(1, 9))
+    assert workflow.max_review_rounds == 3
+    assert workflow.minimum_source_claim_units_per_chapter == 5
+    assert workflow.maximum_source_claim_units_per_chapter == 20
+
+
+def test_workflow_rejects_missing_or_reordered_chapters() -> None:
+    with pytest.raises(ValueError, match="chapter_order"):
+        ResearchWorkflow(
+            version=1,
+            chapter_order=("2B", "1B"),
+            max_review_rounds=3,
+        )

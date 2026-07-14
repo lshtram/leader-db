@@ -631,6 +631,56 @@ The current vertical-slice single-source formulas are only plumbing checks; the
 main pipeline should replace them with evidence-bundle based scorers before broad
 category validation is treated as meaningful.
 
+For ruler-quality chapters 1B–8B, the ten questions in each chapter are
+overlapping evidence lenses rather than ten independent score outputs. One
+chapter judge applies the chapter guide across all eligible rulers and emits one
+holistic chapter score per ruler. Missing lenses reduce confidence or widen the
+plausible score range; they do not mechanically produce a low score or invalidate
+the dossier. Harmless LLM handoff-format inconsistencies may be normalized with
+warnings, while identity, citation provenance, period attribution, and
+non-invention remain strict.
+
+The primary manual/internet research unit is one persistent session per resolved
+ruler-period across all eight chapters. Its permissive notebook should aim for
+5–20 defensible source-claim units per chapter, while storing each global item once
+and mapping it many-to-many. A source-claim unit is one traceable source supporting
+one materially distinct claim: empty priors, equivalent URLs, excerpt fragments,
+and repeated statements do not increase the count, and same-source units are not
+independent corroboration. Sparse chapters remain valid with candidate rejection
+reasons and explicit missing themes/source types. Deterministic parent QA reconciles
+IDs, mappings, counts, locator families, and obvious temporal/attribution flags.
+A non-scoring, non-searching evidence reviewer inspects every selected chapter
+and returns all recoverable gaps to the same researcher thread. The researcher
+may search directly for up to three review rounds, stopping earlier on a pass or
+credible saturation/access blocker, before separate low-cost formatting.
+Mechanical serialization repair belongs to the formatter, not the researcher.
+The parent must capture and persist the exact Codex thread identifier from the initial
+research event stream and resume that identifier explicitly; newest/last-session
+selection is forbidden under concurrent execution. Broad runs must bind exact resolved
+ruler-year identities in a versioned canonical-hash manifest and use bounded concurrency
+with a failure circuit breaker.
+
+Every such ruler session starts from local structured evidence, not web discovery.
+The parent queries the harmonized country-year fact layer for all selected chapters,
+excludes client-matrix sources, preserves exact source-observation provenance, and
+deduplicates identical facts before they enter the model context. The researcher
+must distinguish country/inherited baselines from ruler-attributable conduct and
+treat missing local rows as gaps rather than favorable or zero observations. Web
+evidence is then used for decisions, attribution, implementation, contrary evidence,
+and themes not answered by the local package.
+
+The executable chapter judge consumes only completed cited dossiers and the
+versioned chapter guide; it performs no new discovery. Its model input is a deterministic,
+source-hash-bound chapter projection containing only the relevant ten lenses and mapped
+evidence. The parent must reserve output context and block an oversized projected batch
+before model invocation. Before publication the
+parent validates exactly one evaluation per available dossier and all
+dossier-local evidence references. It then persists the complete judgment batch
+to `chapter_scores` and completes the owning fenced ledger job in one transaction,
+so an expired worker cannot publish a partial or canonical batch. A separate
+score/order auditor then checks comparative ordering, attribution, missingness,
+source balance, and systematic rubric drift without changing the cited record.
+
 ### Score output example
 
 ```json
@@ -653,7 +703,11 @@ category validation is treated as meaningful.
 
 ## 10. LLM use
 
-LLM calls should be used only where structured data is insufficient.
+For deterministic scoring and constrained adjudication, LLM calls should be used
+only where structured data is insufficient. Ruler-quality evidence research is a
+separate explicit workflow: one persistent researcher starts from local facts, then
+searches directly for cited narrative evidence through all selected chapters until
+reasonable saturation, with the evidence-review and formatting chain defined in §9.
 
 ### Good uses of LLM
 
@@ -665,7 +719,8 @@ LLM calls should be used only where structured data is insufficient.
 * Identify whether a score requires human review.
 * Extract structured claims from a limited set of provided text snippets.
 * Adjudicate a low-confidence evidence bundle using the strict JSON schema.
-* Later, if explicitly enabled, search for and summarize additional cited papers/articles as evidence snippets.
+* In the ruler-quality researcher role, search for and summarize additional cited
+  papers/articles as reusable evidence records.
 
 ### Bad uses of LLM
 
@@ -674,12 +729,13 @@ LLM calls should be used only where structured data is insufficient.
 * Citing sources it has not been given.
 * Making final academic judgments without review.
 * Fetching large datasets repeatedly when local data exists.
-* Performing live web research as the default scoring path.
+* Allowing a scoring adjudicator or chapter judge to browse; external discovery
+  belongs to the separate ruler evidence-researcher role.
 * Silently resolving ambiguous leader identity.
 
 ### LLM input requirements
 
-Each LLM scoring call must include:
+Each constrained LLM scoring/adjudication call must include:
 
 * country
 * year
@@ -699,12 +755,12 @@ source conflict, severe missingness, ambiguous ruler identity, or high delta vs
 client reference. It receives only the evidence bundle, rubric, and provided
 snippets. It must not browse or rely on undocumented facts.
 
-Level 2 is gated external research. It may be added only after Level 1 is stable
-and reviewed, and only behind an explicit config flag. Any new external research
-must be stored as cited snippets with URL or bibliographic reference,
-quote/claim text, retrieval date, relevance, source type, and provenance. These
-snippets support adjudication and human review; they do not become equivalent to
-structured datasets.
+Level 2 is the legacy deterministic-score escalation path for ad hoc evidence gaps;
+it is not the ruler-quality dossier workflow. When used, it remains gated behind an
+explicit config flag and stores cited snippets with URL or bibliographic reference,
+quote/claim text, retrieval date, relevance, source type, and provenance. Ruler-quality
+research instead follows the persistent researcher/evidence-reviewer/formatter chain
+in §9 and produces reusable dossier evidence before any chapter judge runs.
 
 ### Required LLM output format
 

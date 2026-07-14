@@ -9,8 +9,53 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 PriorStatus = Literal["evidence_found", "no_evidence_found", "not_applicable", "error"]
 
-CLIENT_MATRIX_SOURCE_SLUGS = frozenset({"client_existing", "vertical_slice_client_seed"})
-LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v1"
+CLIENT_MATRIX_SOURCE_SLUGS = frozenset(
+    {"client_existing", "client_matrix", "vertical_slice_client_seed"}
+)
+LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v2"
+
+
+def _chapter_methodology_ids(chapter: str) -> tuple[str, ...]:
+    return tuple(f"{chapter}.{question}" for question in range(1, 11))
+
+
+NUCLEAR_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "nuclear_total_inventory",
+    "nuclear_military_stockpile",
+    "nuclear_operational_strategic",
+    "nuclear_operational_nonstrategic",
+    "nuclear_reserve_nondeployed",
+)
+
+INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "state_based_conflict_events",
+    "state_based_conflict_fatalities",
+    "internationalized_conflict_events",
+    "internationalized_conflict_fatalities",
+    "military_spend_constant_usd",
+    "military_spend_per_capita",
+    "military_spend_share_gdp",
+    "military_spend_share_govt",
+)
+
+DOMESTIC_SAFETY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "cirights_civil_political_rights",
+    "cirights_disappearances",
+    "cirights_killings",
+    "cirights_physical_integrity",
+    "cirights_political_imprisonment",
+    "cirights_repression",
+    "cirights_torture",
+    "pts_amnesty_score",
+    "pts_human_rights_watch_score",
+    "pts_state_dept_score",
+    "one_sided_violence_events",
+    "one_sided_violence_fatalities",
+    "physical_integrity",
+    "private_civil_liberties",
+    "extrajudicial_killings",
+    "civil_society_repression",
+)
 
 POLITICAL_FREEDOM_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "political_liberties",
@@ -57,6 +102,46 @@ OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "bti_governance_index",
 )
 
+ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "gdp_per_capita",
+    "gdp_total",
+    "gni_per_capita",
+    "population",
+    "bti_status_index",
+)
+
+SOCIAL_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "hdi",
+    "life_expectancy",
+    "under5_mortality",
+    "bcg_immunization",
+    "dtp3_immunization",
+    "hepb3_immunization",
+    "expected_years_schooling",
+    "mean_years_schooling",
+    "gni_per_capita",
+)
+
+INTEGRITY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "control_of_corruption",
+    "corruption_index",
+    "executive_corruption",
+    "public_corruption",
+    "cpi_score",
+    "rule_of_law",
+    "wgi_rule_of_law",
+    "accountability",
+)
+
+EFFECTIVENESS_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "government_effectiveness",
+    "regulatory_quality",
+    "bti_governance_index",
+    "accountability",
+    "rule_of_law",
+    "wgi_rule_of_law",
+)
+
 
 @dataclass(frozen=True)
 class LocalPriorMapping:
@@ -69,7 +154,33 @@ class LocalPriorMapping:
 
 LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
     LocalPriorMapping(
-        methodology_ids=("4B.1", "4B.2"),
+        methodology_ids=_chapter_methodology_ids("1B"),
+        field_keys=NUCLEAR_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D17 FAS nuclear-force country-year facts provide capability context; "
+            "absence of a row is not evidence of responsible ruler conduct."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=_chapter_methodology_ids("2B"),
+        field_keys=INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D13-D14 UCDP conflict and SIPRI military-expenditure facts provide "
+            "country-year exposure/context, not automatic ruler attribution."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=_chapter_methodology_ids("3B"),
+        field_keys=DOMESTIC_SAFETY_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide "
+            "country-year baselines requiring narrative ruler attribution."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=tuple(
+            item for item in _chapter_methodology_ids("4B") if item != "4B.3"
+        ),
         field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
         mapping_note="Political-freedom D11 country-year facts usable as structured priors.",
     ),
@@ -80,6 +191,38 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
             "D11 civil-liberties, expression, association, press/media, voice, "
             "accountability, and rule-of-law facts usable as structured priors for "
             "opposition/media/protest/civil-society tolerance."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=_chapter_methodology_ids("5B"),
+        field_keys=ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D5 economic level/scale and BTI status facts provide country-year context; "
+            "they do not by themselves establish distribution, causation, or ruler credit."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=_chapter_methodology_ids("6B"),
+        field_keys=SOCIAL_WELLBEING_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D6 HDI, health, education, and income facts provide welfare baselines; "
+            "publication/source-year warnings and ruler attribution still apply."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=_chapter_methodology_ids("7B"),
+        field_keys=INTEGRITY_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D15 corruption, accountability, and rule-of-law facts provide institutional "
+            "context and must not be converted into personal-integrity claims without evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=_chapter_methodology_ids("8B"),
+        field_keys=EFFECTIVENESS_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "D16 governance-capacity facts provide inherited/state-capacity context, not "
+            "proof that the ruler selected goals or implemented them effectively."
         ),
     ),
 )
@@ -195,10 +338,17 @@ def mapping_for_methodology_id(methodology_id: str) -> LocalPriorMapping | None:
 
 __all__ = [
     "CLIENT_MATRIX_SOURCE_SLUGS",
+    "DOMESTIC_SAFETY_PRIOR_FIELD_KEYS",
+    "ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS",
+    "EFFECTIVENESS_PRIOR_FIELD_KEYS",
+    "INTEGRITY_PRIOR_FIELD_KEYS",
+    "INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS",
     "LOCAL_PRIOR_MAPPINGS",
     "LOCAL_PRIOR_METHOD_VERSION",
+    "NUCLEAR_PRIOR_FIELD_KEYS",
     "OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS",
     "POLITICAL_FREEDOM_PRIOR_FIELD_KEYS",
+    "SOCIAL_WELLBEING_PRIOR_FIELD_KEYS",
     "LeaderPriorMetadata",
     "LocalPriorCountry",
     "LocalPriorFact",

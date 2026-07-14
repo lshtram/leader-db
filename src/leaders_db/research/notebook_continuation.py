@@ -1,0 +1,456 @@
+"""Review and resume one direct-search researcher session before formatting."""
+
+from __future__ import annotations
+
+import json
+from dataclasses import dataclass
+from hashlib import sha256
+from pathlib import Path
+from typing import Any
+
+from pydantic import ValidationError
+from sqlalchemy.engine import Engine
+
+from ._codex_worker_setup import WorkerAttempt
+from .codex_worker_command import (
+    build_codex_exec_command,
+    build_codex_resume_command,
+    read_codex_thread_id,
+)
+from .evidence_review import (
+    EvidenceReviewReport,
+    assess_research_notebook,
+    build_evidence_review_prompt,
+    evidence_review_json_schema,
+    validate_review_scope,
+)
+from .job_ledger import checkpoint_job
+from .model_profiles import ResearchModelProfile
+from .research_workflow import ResearchWorkflow
+
+ResearchCheckpoint = tuple[Path, str, Path, str, str]
+
+
+@dataclass(frozen=True)
+class NotebookContinuationResult:
+    """Final notebook after zero or more reviewer-directed resumptions."""
+
+    checkpoint: ResearchCheckpoint
+    qa_reviewed: bool
+    resume_count: int
+
+
+def review_and_resume_notebook_if_needed(
+    engine: Engine,
+    *,
+    checkpoint: ResearchCheckpoint,
+    job: dict[str, Any],
+    worker_id: str,
+    project_root: Path,
+    researcher_profile: ResearchModelProfile,
+    reviewer_profile: ResearchModelProfile,
+    attempt: WorkerAttempt,
+    workflow: ResearchWorkflow,
+    lease_token: str,
+    lease_seconds: int,
+    heartbeat_seconds: int,
+    timeout_seconds: int,
+) -> NotebookContinuationResult:
+    """Review all chapters and resume the same researcher up to the configured cap."""
+
+    current = checkpoint
+    reviewed = False
+    resume_count = 0
+    completed_reports = _completed_review_reports(attempt)
+    if completed_reports and not completed_reports[-1][1].needs_continuation:
+        return NotebookContinuationResult(current, True, 0)
+    if completed_reports:
+        last_round = completed_reports[-1][0]
+        recovered_continuation = _existing_continuation(attempt, last_round)
+        if (
+            recovered_continuation is not None
+            and f"RESEARCH CONTINUATION ROUND {last_round}" not in current[1]
+        ):
+            current = _rehydrate_completed_continuation(
+                checkpoint=current,
+                report=completed_reports[-1][1],
+                recovered=recovered_continuation,
+                attempt=attempt,
+                job=job,
+                round_number=last_round,
+            )
+        start_round = (
+            last_round + 1
+            if recovered_continuation is not None
+            else last_round
+        )
+    else:
+        start_round = 1
+    for round_number in range(start_round, workflow.max_review_rounds + 1):
+        qa = assess_research_notebook(
+            current[1],
+            methodology_ids=tuple(job["input"]["question_ids"]),
+            workflow=workflow,
+        )
+        report = _existing_review_report(attempt, round_number) or _run_evidence_review(
+            engine,
+            job=job,
+            worker_id=worker_id,
+            project_root=project_root,
+            profile=reviewer_profile,
+            attempt=attempt,
+            notebook=current[1],
+            qa=qa,
+            round_number=round_number,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
+        reviewed = True
+        validate_review_scope(report, selected_chapter_ids=qa.selected_chapter_ids)
+        if not report.needs_continuation:
+            break
+        current = _resume_researcher(
+            engine,
+            checkpoint=current,
+            report=report,
+            job=job,
+            worker_id=worker_id,
+            project_root=project_root,
+            profile=researcher_profile,
+            attempt=attempt,
+            round_number=round_number,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
+        resume_count += 1
+    return NotebookContinuationResult(
+        checkpoint=current,
+        qa_reviewed=reviewed,
+        resume_count=resume_count,
+    )
+
+
+def _run_evidence_review(
+    engine: Engine,
+    *,
+    job: dict[str, Any],
+    worker_id: str,
+    project_root: Path,
+    profile: ResearchModelProfile,
+    attempt: WorkerAttempt,
+    notebook: str,
+    qa: Any,
+    round_number: int,
+    lease_token: str,
+    lease_seconds: int,
+    heartbeat_seconds: int,
+    timeout_seconds: int,
+) -> EvidenceReviewReport:
+    suffix = f"round-{round_number:02d}"
+    schema_path = attempt.trusted_dir / f"evidence-review-{suffix}.schema.json"
+    output_path = attempt.trusted_dir / f"evidence-review-{suffix}.json"
+    events_path = attempt.trusted_dir / f"evidence-review-{suffix}.events.jsonl"
+    if _has_indeterminate_review(attempt, round_number):
+        from .codex_worker import WorkerOutputError
+
+        raise WorkerOutputError(
+            f"review round {round_number} has a prior paid call without recoverable output"
+        )
+    (attempt.trusted_dir / f"evidence-review-{suffix}.starting.json").write_text(
+        json.dumps({"job_id": job["id"], "round": round_number}, sort_keys=True),
+        encoding="utf-8",
+    )
+    schema_path.write_text(
+        json.dumps(evidence_review_json_schema(), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    prompt = build_evidence_review_prompt(job=job, notebook=notebook, qa=qa)
+    (attempt.trusted_dir / f"evidence-review-{suffix}.prompt.txt").write_text(
+        prompt, encoding="utf-8"
+    )
+    command = build_codex_exec_command(
+        profile=profile,
+        project_root=project_root,
+        schema_path=schema_path,
+        final_message_path=output_path,
+        writable_dir=attempt.attempt_dir,
+    )
+    checkpoint_job(
+        engine,
+        job_id=int(job["id"]),
+        worker_id=worker_id,
+        lease_token=lease_token,
+        checkpoint={"phase": "evidence_review", "round": round_number},
+    )
+    from .codex_worker import WorkerOutputError, _run_codex
+
+    _run_codex(
+        engine,
+        command=command,
+        prompt=prompt,
+        events_path=events_path,
+        job_id=int(job["id"]),
+        worker_id=worker_id,
+        lease_token=lease_token,
+        lease_seconds=lease_seconds,
+        heartbeat_seconds=heartbeat_seconds,
+        timeout_seconds=timeout_seconds,
+    )
+    try:
+        return EvidenceReviewReport.model_validate_json(
+            output_path.read_text(encoding="utf-8")
+        )
+    except (OSError, ValidationError) as exc:
+        raise WorkerOutputError("evidence reviewer produced invalid output") from exc
+
+
+def _resume_researcher(
+    engine: Engine,
+    *,
+    checkpoint: ResearchCheckpoint,
+    report: EvidenceReviewReport,
+    job: dict[str, Any],
+    worker_id: str,
+    project_root: Path,
+    profile: ResearchModelProfile,
+    attempt: WorkerAttempt,
+    round_number: int,
+    lease_token: str,
+    lease_seconds: int,
+    heartbeat_seconds: int,
+    timeout_seconds: int,
+) -> ResearchCheckpoint:
+    session_id = read_codex_thread_id(checkpoint[0])
+    suffix = f"round-{round_number:02d}"
+    output_path = attempt.attempt_dir / f"research-continuation-{suffix}.md"
+    events_path = attempt.trusted_dir / f"research-continuation-{suffix}.events.jsonl"
+    prompt = _build_resume_prompt(report, round_number=round_number)
+    (attempt.trusted_dir / f"research-continuation-{suffix}.prompt.txt").write_text(
+        prompt, encoding="utf-8"
+    )
+    recovered = _existing_continuation(attempt, round_number)
+    if recovered is None and _has_indeterminate_continuation(attempt, round_number):
+        from .codex_worker import WorkerOutputError
+
+        raise WorkerOutputError(
+            f"research continuation round {round_number} has a prior paid call "
+            "without recoverable output"
+        )
+    command = build_codex_resume_command(
+        profile=profile,
+        session_id=session_id,
+        project_root=project_root,
+        final_message_path=output_path,
+        writable_dir=attempt.attempt_dir,
+    )
+    checkpoint_job(
+        engine,
+        job_id=int(job["id"]),
+        worker_id=worker_id,
+        lease_token=lease_token,
+        checkpoint={
+            "phase": "research_resume",
+            "round": round_number,
+            "session_id": session_id,
+            "chapter_ids": list(report.selected_theme_ids),
+        },
+    )
+    from .codex_worker import WorkerOutputError, _run_codex
+
+    if recovered is None:
+        (attempt.trusted_dir / f"research-continuation-{suffix}.starting.json").write_text(
+            json.dumps({"job_id": job["id"], "round": round_number}, sort_keys=True),
+            encoding="utf-8",
+        )
+        _run_codex(
+            engine,
+            command=command,
+            prompt=prompt,
+            events_path=events_path,
+            job_id=int(job["id"]),
+            worker_id=worker_id,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
+    else:
+        events_path, output_path = recovered
+    if not output_path.is_file() or output_path.stat().st_size > 5_000_000:
+        raise WorkerOutputError("researcher continuation produced no bounded handoff")
+    continuation = output_path.read_text(encoding="utf-8")
+    notebook = (
+        f"{checkpoint[1]}\n\n--- EVIDENCE REVIEW ROUND {round_number} ---\n\n"
+        f"{report.model_dump_json(indent=2)}\n\n"
+        f"--- RESEARCH CONTINUATION ROUND {round_number} ---\n\n{continuation}"
+    )
+    notebook_path = attempt.trusted_dir / f"research-notebook-{suffix}.md"
+    notebook_path.write_text(notebook, encoding="utf-8")
+    notebook_hash = sha256(notebook_path.read_bytes()).hexdigest()
+    events_hash = sha256(events_path.read_bytes()).hexdigest()
+    (attempt.trusted_dir / "research-notebook-checkpoint.json").write_text(
+        json.dumps(
+            {
+                "job_key": job["job_key"],
+                "provider_profile": job["provider_profile"],
+                "provider": job["provider"],
+                "model": job["model"],
+                "phase": "research_review_loop",
+                "review_round": round_number,
+                "session_id": session_id,
+                "notebook_path": str(notebook_path),
+                "notebook_sha256": notebook_hash,
+                "events_path": str(events_path),
+                "events_sha256": events_hash,
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    return events_path, notebook, notebook_path, notebook_hash, events_hash
+
+
+def _completed_review_reports(
+    attempt: WorkerAttempt,
+) -> list[tuple[int, EvidenceReviewReport]]:
+    reports: dict[int, EvidenceReviewReport] = {}
+    for directory in sorted(attempt.trusted_dir.parent.glob("*")):
+        for path in directory.glob("evidence-review-round-*.json"):
+            try:
+                round_number = int(path.stem.rsplit("-", maxsplit=1)[-1])
+                reports[round_number] = EvidenceReviewReport.model_validate_json(
+                    path.read_text(encoding="utf-8")
+                )
+            except (OSError, ValueError, ValidationError):
+                continue
+    return sorted(reports.items())
+
+
+def _existing_review_report(
+    attempt: WorkerAttempt, round_number: int
+) -> EvidenceReviewReport | None:
+    return dict(_completed_review_reports(attempt)).get(round_number)
+
+
+def _existing_continuation(
+    attempt: WorkerAttempt, round_number: int
+) -> tuple[Path, Path] | None:
+    suffix = f"round-{round_number:02d}"
+    job_dir = attempt.attempt_dir.parent.parent
+    for trusted in sorted(attempt.trusted_dir.parent.glob("*"), reverse=True):
+        events_path = trusted / f"research-continuation-{suffix}.events.jsonl"
+        output_path = job_dir / "attempts" / trusted.name / f"research-continuation-{suffix}.md"
+        if (
+            events_path.is_file()
+            and output_path.is_file()
+            and output_path.stat().st_size <= 5_000_000
+        ):
+            from .codex_worker import _events_show_completed_turn
+
+            if _events_show_completed_turn(events_path):
+                return events_path, output_path
+    return None
+
+
+def _rehydrate_completed_continuation(
+    *,
+    checkpoint: ResearchCheckpoint,
+    report: EvidenceReviewReport,
+    recovered: tuple[Path, Path],
+    attempt: WorkerAttempt,
+    job: dict[str, Any],
+    round_number: int,
+) -> ResearchCheckpoint:
+    """Rebuild the durable notebook after a paid continuation completed pre-checkpoint."""
+
+    events_path, output_path = recovered
+    continuation = output_path.read_text(encoding="utf-8")
+    notebook = (
+        f"{checkpoint[1]}\n\n--- EVIDENCE REVIEW ROUND {round_number} ---\n\n"
+        f"{report.model_dump_json(indent=2)}\n\n"
+        f"--- RESEARCH CONTINUATION ROUND {round_number} ---\n\n{continuation}"
+    )
+    suffix = f"round-{round_number:02d}"
+    notebook_path = attempt.trusted_dir / f"research-notebook-{suffix}.md"
+    notebook_path.write_text(notebook, encoding="utf-8")
+    notebook_hash = sha256(notebook_path.read_bytes()).hexdigest()
+    events_hash = sha256(events_path.read_bytes()).hexdigest()
+    (attempt.trusted_dir / "research-notebook-checkpoint.json").write_text(
+        json.dumps(
+            {
+                "job_key": job["job_key"],
+                "provider_profile": job["provider_profile"],
+                "provider": job["provider"],
+                "model": job["model"],
+                "phase": "research_review_loop",
+                "review_round": round_number,
+                "session_id": read_codex_thread_id(checkpoint[0]),
+                "notebook_path": str(notebook_path),
+                "notebook_sha256": notebook_hash,
+                "events_path": str(events_path),
+                "events_sha256": events_hash,
+                "recovered_without_provider_call": True,
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    return events_path, notebook, notebook_path, notebook_hash, events_hash
+
+
+def _has_indeterminate_review(attempt: WorkerAttempt, round_number: int) -> bool:
+    suffix = f"round-{round_number:02d}"
+    for directory in attempt.trusted_dir.parent.glob("*"):
+        if not (directory / f"evidence-review-{suffix}.starting.json").is_file():
+            continue
+        output = directory / f"evidence-review-{suffix}.json"
+        if not output.is_file():
+            return True
+        try:
+            EvidenceReviewReport.model_validate_json(output.read_text(encoding="utf-8"))
+        except (OSError, ValidationError):
+            return True
+    return False
+
+
+def _has_indeterminate_continuation(
+    attempt: WorkerAttempt, round_number: int
+) -> bool:
+    suffix = f"round-{round_number:02d}"
+    job_dir = attempt.attempt_dir.parent.parent
+    for directory in attempt.trusted_dir.parent.glob("*"):
+        if not (directory / f"research-continuation-{suffix}.starting.json").is_file():
+            continue
+        events = directory / f"research-continuation-{suffix}.events.jsonl"
+        output = job_dir / "attempts" / directory.name / f"research-continuation-{suffix}.md"
+        if not events.is_file() or not output.is_file():
+            return True
+        from .codex_worker import _events_show_completed_turn
+
+        if not _events_show_completed_turn(events):
+            return True
+    return False
+
+
+def _build_resume_prompt(report: EvidenceReviewReport, *, round_number: int) -> str:
+    return f"""Resume the same ruler research session for review round {round_number}.
+
+The independent evidence reviewer identified the chapters and gaps below. Search the
+internet directly and iteratively for every selected chapter. Follow event-specific
+and source-specific leads; do not rely on one omnibus query. Add traceable source-claim
+units and summaries to the existing evidence register, preserve contrary evidence and
+attribution limits, and explain when a gap cannot be improved or the chapter is
+saturated. Work only on the immutable ruler-period and do not score.
+
+Reviewer brief:
+{report.model_dump_json(indent=2)}
+"""
+
+
+__all__ = ["NotebookContinuationResult", "review_and_resume_notebook_if_needed"]

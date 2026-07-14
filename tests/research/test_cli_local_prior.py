@@ -3,11 +3,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from sqlalchemy import create_engine, text
 from typer.testing import CliRunner
 
 from leaders_db.cli import app
 from leaders_db.db.engine import init_database
+from leaders_db.identity.coverage import IdentityCoverageDetailRow, IdentityGapClassification
 
 runner = CliRunner()
 
@@ -61,6 +63,7 @@ def test_build_local_prior_cli_exits_one_for_builder_error_artifact(
 def test_build_local_prior_slice_cli_writes_manifest_artifacts_and_shard_plan(
     database_url: str,
     tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)
@@ -68,6 +71,21 @@ def test_build_local_prior_slice_cli_writes_manifest_artifacts_and_shard_plan(
     _insert_country_year(engine, country_id=2, iso3="CAN", name="Canada", year=2020)
     _insert_fact(engine, country_id=1, country_year_id=1, year=2020)
     _insert_ruler_metadata(engine)
+    monkeypatch.setattr(
+        "leaders_db.research.local_prior_slice._identity_coverage_rows",
+        lambda bind, *, year: {
+            "USA": _coverage_detail(
+                iso3="USA",
+                classification="resolved_auto_single_candidate",
+                leader_names=("Donald Trump",),
+            ),
+            "CAN": _coverage_detail(
+                iso3="CAN",
+                classification="source_conflict_manual_review",
+                leader_names=("Justin Trudeau", "Julie Payette"),
+            ),
+        },
+    )
     output_dir = tmp_path / "slice"
 
     result = runner.invoke(
@@ -85,8 +103,19 @@ def test_build_local_prior_slice_cli_writes_manifest_artifacts_and_shard_plan(
     assert payload["artifact_count"] == 2
     assert payload["status_counts"] == {"evidence_found": 1, "no_evidence_found": 1}
     assert payload["cases_with_ruler_metadata"] == 1
+    assert payload["cases_needing_identity_review"] == 1
+    assert payload["research_eligible_cases"] == 1
+    assert payload["quarantined_cases"] == 1
     assert (output_dir / "manifest.json").exists()
     assert (output_dir / "shard_plan.json").exists()
+    quarantine = json.loads((output_dir / "identity_quarantine.json").read_text())
+    assert [case["iso3"] for case in quarantine["cases"]] == ["CAN"]
+    shard_plan = json.loads((output_dir / "shard_plan.json").read_text())
+    assert shard_plan["shard_count"] == 1
+    assert shard_plan["shards"][0]["expected_record_count"] == 1
+    assert shard_plan["shards"][0]["local_prior_paths"] == [
+        str(output_dir / "artifacts" / "4b2_2020_usa_local_prior.json")
+    ]
     launch_plan = output_dir / "internet_research_launch_plan.md"
     assert launch_plan.exists()
     launch_plan_text = launch_plan.read_text(encoding="utf-8")
@@ -98,7 +127,58 @@ def test_build_local_prior_slice_cli_writes_manifest_artifacts_and_shard_plan(
     assert "Minimax web search" in launch_plan_text
     assert "Parallel MCP discovery" in launch_plan_text
     assert "Brave generic" in launch_plan_text
+    assert "identity_quarantine.json" in launch_plan_text
     assert len(list((output_dir / "artifacts").glob("*.json"))) == 2
+
+
+def test_identity_gate_rejects_missing_contested_and_stale_selected_leaders() -> None:
+    from leaders_db.research.local_prior_slice import _identity_research_eligibility
+
+    assert _identity_research_eligibility(None, leader_name="Leader") == (
+        False,
+        "missing_current_identity_diagnostic",
+    )
+    contested = _coverage_detail(
+        iso3="VEN",
+        classification="multiple_candidates_manual_review",
+        leader_names=("Nicolas Maduro", "Juan Guaido"),
+    )
+    assert _identity_research_eligibility(contested, leader_name="Nicolas Maduro") == (
+        False,
+        "identity_classification:multiple_candidates_manual_review",
+    )
+    resolved = _coverage_detail(
+        iso3="ETH",
+        classification="resolved_auto_single_candidate",
+        leader_names=("Abiy Ahmed",),
+    )
+    assert _identity_research_eligibility(resolved, leader_name="Tesfaye Dinka") == (
+        False,
+        "selected_leader_not_in_current_identity_candidates",
+    )
+
+
+def _coverage_detail(
+    *,
+    iso3: str,
+    classification: IdentityGapClassification,
+    leader_names: tuple[str, ...],
+) -> IdentityCoverageDetailRow:
+    return IdentityCoverageDetailRow(
+        iso3=iso3,
+        country_name=iso3,
+        year=2020,
+        included_in_project=True,
+        classification=classification,
+        ruler_count=len(leader_names),
+        source_count=1,
+        source_slugs=("fixture",),
+        leader_names=leader_names,
+        confidence_min=80,
+        confidence_max=80,
+        next_action="fixture",
+        reason="fixture",
+    )
 
 
 def test_local_evidence_cli_single_iso_outputs_evidence_found(database_url: str) -> None:

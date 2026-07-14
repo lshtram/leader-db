@@ -8,9 +8,9 @@ instead, every worker should know what local evidence exists and how to query it
 
 ## Required research order
 
-1. **Inspect the local guides.** Read this guide, the question-specific guide under
-   `docs/methodology/question-guides/`, and the cited-evaluation calibration rules
-   in `docs/methodology/cited-evaluation-calibration.md`.
+1. **Inspect the local guides.** Read this guide, every selected chapter guide under
+   `docs/methodology/chapter-guides/`, and the cited-evaluation calibration rules
+   in `docs/methodology/cited-evaluation-calibration.md` before external research.
 2. **Query local DB/artifacts.** Use the structured read-only CLI
    `leaders-db research local-evidence`, local-prior artifacts, and the CLI
    commands below before opening the web. Internet-research workers must not use
@@ -32,21 +32,31 @@ If local evidence is absent or incomplete, write that explicitly (for example,
 `structured_prior_summary: "no selected local structured evidence found"`). Never
 invent a prior from memory.
 
+For a full ruler-period run, use one persistent researcher thread and work through
+chapters `1B`–`8B` in order. For each accepted source-claim unit, preserve a stable
+evidence ID, exact reference, main-points summary, useful locator or excerpt, period
+and ruler fit, contrary material, and candidate chapter/lens links. Store the item
+once and reuse it wherever it is genuinely relevant. After the initial pass, a
+no-search evidence reviewer checks every selected chapter and returns all recoverable
+gaps to the same thread for at most three rounds. Only after a pass or documented
+saturation/access blocker does a separate no-search formatter serialize the dossier.
+
 ## Search-tool policy for this environment
 
-Use one discovery path only, with the project Parallel Search CLI wrapper as the
-primary path:
+The researcher owns discovery and may perform as many purposeful, chapter-specific
+search iterations as needed for reasonable saturation. Use the search/fetch tools
+available in the active Codex execution profile; the project Parallel Search CLI
+wrapper is one supported path:
 
 - **Discovery:** `leaders-db research parallel-search --objective ... --query ... --output ... --json`
-- **Exact known URLs:** `webfetch`
-- **Fallback exact known URLs:** `webfetch`
+- **Exact known URLs:** the active profile's URL-opening/fetch capability
 
-Do **not** use Minimax web search, Brave web/news/image/video/local/place/summarizer
-searches, Parallel MCP discovery, Playwright/browser searches, duplicate search
-passes, or unsafe browser code for routine evidence discovery. Use Playwright only
-if a future parent explicitly approves a non-search browser task.
+Avoid redundant queries, unsafe browser code, and automation that bypasses the active
+profile's security policy. Tool choice must not create a fixed query allowance or a
+preselected-link packet. Search again when a chapter theme, contrary interpretation,
+source type, attribution question, or reviewer-identified gap remains unresolved.
 
-Approved discovery command shape:
+Supported discovery command shape:
 
 ```bash
 leaders-db research parallel-search \
@@ -61,9 +71,8 @@ The wrapper output is a discovery/profile artifact. Read its `results`,
 `excerpts`, and `usage` fields, but final evidence citations must cite the
 underlying source URLs rather than the wrapper JSON file.
 
-Every shard must emit a `run_profile` object or sibling profile JSON matching
-[`../process/internet-research-opencode-policy.json`](../process/internet-research-opencode-policy.json):
-timing, local-artifact reads, local evidence CLI calls, Parallel CLI calls attempted /
+Every shard must emit a `run_profile` object or sibling profile JSON recording
+timing, local-artifact reads, local evidence CLI calls, search calls attempted /
 succeeded / failed, fetch calls, usage/token fields when exposed, and explicit
 `unknown_not_exposed_by_tool` values when raw usage is unavailable.
 
@@ -121,7 +130,7 @@ Current local evidence layers include:
   `field_key = 'principal_ruler'` when available.
 - `research_question_answers` and `research_answer_evidence_links`: persisted
   D24-D27 answers and their evidence links. Existing answers are context, not a
-  substitute for the current question guide.
+  substitute for the current chapter guide.
 
 Local D11-D17 fact families currently represented through `country_year_facts`
 include:
@@ -146,6 +155,41 @@ include:
 Local facts are incomplete. Missing local facts are a finding to report, not a
 reason to re-fetch local structured datasets from the web.
 
+## Full-ruler local evidence package
+
+Before a full `1B`–`8B` Luna researcher starts, the parent builds one
+question-provenance artifact for every selected lens from `country_year_facts` and
+then inlines a deduplicated `ruler_local_prior_package_v1`. The trusted raw artifact
+retains all per-lens statuses and hashes; the prompt package stores each identical
+fact once with stable `LF###` IDs, its exact source observation IDs, a valid
+`local-prior:<methodology-id>` locator, and candidate chapter/lens links.
+
+The active `local_structured_prior_v2` routing is:
+
+| Chapter | Local fact families | Required interpretation boundary |
+|---|---|---|
+| 1B | FAS nuclear inventory, military stockpile, deployed/nondeployed warheads | Capability context only; absence is not proof of non-nuclear restraint or responsible conduct. |
+| 2B | UCDP state/internationalized conflict; SIPRI military expenditure | Country exposure and resource context; establish ruler role, aggression/defense, and alternatives separately. |
+| 3B | CIRIGHTS, PTS, UCDP one-sided violence, V-Dem physical integrity/repression | Country-year safety/repression baseline; narrative evidence must establish ruler/control attribution. |
+| 4B | V-Dem, Freedom House, RSF, WGI, BTI political-freedom/governance facts | Institutional baseline; do not convert country ratings automatically into personal conduct. |
+| 5B | GDP/GNI per capita, total GDP, population, BTI status | Economic level/scale context; distribution, shocks, causal credit, and policy implementation require additional evidence. |
+| 6B | HDI, life expectancy, mortality, immunization, schooling, GNI per capita | Welfare outcomes/baselines; respect source-year warnings, lags, inherited trends, and attribution. |
+| 7B | WGI/V-Dem/CPI corruption, accountability, and rule-of-law facts | Institutional integrity context; never infer personal honesty, enrichment, or deception from country indicators alone. |
+| 8B | WGI effectiveness/regulatory quality, BTI governance, accountability/rule of law | Inherited state-capacity context; not proof of the ruler's program, execution, adaptation, or causal contribution. |
+
+`candidate_methodology_ids` are routing hints rather than automatic evidence
+mappings. The researcher must first audit the local package by chapter, distinguish
+country/inherited context from ruler-attributable conduct, and state which fact IDs
+are retained, contextual, or unused. It then uses approved internet discovery only
+for missing narrative, attribution, contrary evidence, decisions, implementation,
+and outcomes. A missing database row is never interpreted as a zero event or a
+favorable condition.
+
+The compact package preserves a disposition for every methodology lens. Repeated
+missingness reasons and recommended instruction sets are stored once and referenced
+by ID. Treat `error` as a blocking local-input failure that must remain visible in
+the handoff; internet material must not disguise a database or extraction failure.
+
 ## Approved direct local DB access
 
 The approved direct local DB access path for `internet-research` is the
@@ -155,13 +199,10 @@ excludes client-matrix source slugs, and returns artifact-shaped statuses
 (`evidence_found`, `no_evidence_found`, `not_applicable`, `error`). It does not
 accept user SQL.
 
-The durable OpenCode permission template for this restricted worker path is
-tracked at
-[`../process/internet-research-opencode-policy.json`](../process/internet-research-opencode-policy.json).
-Local files such as `opencode.json` and `.opencode/agent/internet-research.md`
-remain ignored because they may contain machine-specific MCP/auth material. Copy
-only the tracked permission blocks into local OpenCode config when needed, then
-restart OpenCode before launching workers so the policy is reloaded.
+Codex workers use the tracked researcher skill and the permissions of their active
+execution profile. The historical OpenCode permission template is compatibility
+material only and is not the normative research workflow. Never depend on an ignored,
+machine-local OpenCode file to define researcher search scope.
 
 ```bash
 leaders-db research local-evidence \

@@ -1,5 +1,98 @@
 # Workplan
 
+## 2026-07-14 — Ruler research directive reset is normative; implementation verification pending
+
+- The supported role chain is one persistent local-first researcher per resolved
+  ruler-period, a no-search evidence reviewer that inspects every selected chapter and
+  may return gaps to the same researcher thread for up to three rounds, a separate
+  no-search formatter, eight no-search chapter judges, and a final score/order audit.
+- The researcher receives the complete selected chapter guides and deduplicated local
+  facts, works through chapters 1B–8B sequentially, searches directly and iteratively
+  until reasonable saturation or a documented blocker, and stores cited source-claim
+  units once for many-to-many reuse. No preselected packet, fixed query allowance,
+  parent-owned one-shot discovery pass, or one-continuation cap is part of the active
+  design.
+- Earlier dated entries below describe pilots and historical implementation states.
+  Their constrained-discovery recommendations are superseded by this section and
+  must not guide new runs. Runtime code and focused tests still require verification against the
+  updated `configs/research-workflow.yaml` contract before the next paid batch.
+
+## 2026-07-14 — Judge-only v3 diagnostic complete; semantic gate remains
+
+- The judge planner and worker now support an explicit `dossier_run_key`, allowing a
+  fresh judge run to reuse a frozen completed dossier cohort without rerunning research
+  or conflating run identities. Run `2020-diverse-20-luna-judge-v3` reused all 20 v2
+  dossiers and completed eight Luna chapter judges.
+- The v3 contract enforces half-point scores, forbids numeric `recoverable_null`, and
+  requires every numeric score to cite at least one decisive stable evidence ID. The
+  eight guides add chapter-specific direct-evidence and high-anchor gates.
+- The run produced 160 judgments using 1,608,219 tokens at a recorded
+  $2.387242-$3.179249 PAYG-equivalent range. Manual-review flags fell from 130 in v2
+  to 11, while sparse chapters used nulls instead of fabricated midpoints.
+- Independent acceptance audits nevertheless returned overall NO-GO. Accept 4B;
+  3B needs one Ardern high-anchor correction. Chapters 1B, 2B, 5B, 6B, 7B, and 8B
+  still contain named semantic-floor violations. Cross-cutting defects are incomplete
+  `calibrated_against` sets, under-routed recoverable nulls, boilerplate review reasons,
+  and insufficient enforcement of ruler-action and high-anchor predicates.
+- Do not start a second paid case or larger batch yet. The next item is an executable
+  semantic preflight/repair layer for complete calibration membership, null routing,
+  chapter-specific admissibility, 7B personal nexus, and 8B >5/>7 prerequisites,
+  followed by targeted rejudgment of the named cases.
+- Full findings: `docs/reviews/2026-07-14-v3-judge-only-acceptance.md`.
+
+## 2026-07-14 — Methodology gate completed; v2 rejudgment required
+
+- Two independent audits of the complete 160-score smoke output found three release
+  blockers: scores inferred from non-discriminating context, cross-chapter evidence
+  contamination, and manual-review saturation. Chapter 7B's v1 judgments are invalid
+  because general repression and national institutions substituted for personal
+  integrity; 8B also over-rewarded control and plans without execution evidence.
+- The shared calibration contract and all eight chapter guides are revised to v2.
+  They add discriminating-evidence floors, selective manual-review reason types,
+  ordinary half-point precision, chapter-specific admissibility rules, consistent
+  null handling, and stronger high/low anchor prerequisites.
+- The original dossiers and 160 v1 scores remain immutable smoke artifacts. Before
+  v2 judging, repair the named Pashinyan, Merkel-8B, 2B conflict-authority, USA-3B,
+  and contextual-only 1B/5B/6B evidence/projection gaps. Then plan fresh guide-hash-
+  bound judge jobs across all eight chapters and independently review the ordering.
+- Detailed findings and the activation gate are recorded in
+  `docs/reviews/2026-07-14-methodology-gate-2020-diverse-20.md`.
+
+## 2026-07-14 — Frozen 20-ruler Luna batch and eight chapter judges complete
+
+- This frozen historical pilot persisted the exact Codex researcher thread, ran cheap
+  deterministic QA, optionally invoked a no-search/no-score evidence reviewer, and
+  used one bounded parent follow-up before formatting. That one-follow-up design is
+  superseded by the normative directive-reset section above. Phase usage remains
+  separated and aggregated for audit history.
+- The frozen `2020-diverse-20` manifest contains 20 exact eligible ruler-year IDs and
+  validates against the live identity ledger under canonical SHA-256
+  `9fb504ec57209f1c5950aa680930d181224bb68aaa42931fb6aa306da00de2ce`.
+- Batch planning accepts the manifest, one operation plans all eight chapter judges,
+  and the bounded queue supervisor provides concurrency, job, and failure ceilings.
+  Expired final leases now terminate as failed instead of blocking judge dependencies.
+- Judges receive compact, source-hash-bound chapter projections with a conservative
+  context estimate and a 60,000-token output reserve, rather than all full dossiers.
+- The frozen batch completed all 20 ruler-year dossiers: 444 retained evidence
+  records, 419 judge-visible records, 3,841 mappings, and 80 terminal coverage rows
+  per ruler. Recorded successful-artifact usage is 51,752,165 tokens and
+  $18.808036-$35.503421 PAYG-equivalent under the superseded packet-search pilot.
+- All eight chapter-wide Luna judges completed against exactly those 20 dossiers and
+  persisted 160 `chapter_scores` rows: 153 numeric scores and seven explicit
+  insufficient-evidence results. Recorded judge usage is 2,219,225 tokens and
+  $2.512721-$3.635629 PAYG-equivalent. Combined recorded artifacts therefore total
+  53,971,390 tokens and $21.320757-$39.139050; actual subscription billing is not
+  exposed.
+- Live failures led to bounded, reviewed corrections: exact local-prior mapping
+  inference, formatter mapping-visibility checks, complete judge projections embedded
+  in the prompt, rejection of all-null comparative batches, flexible supported/weak
+  lens normalization, subtractive invalid-reference handling with forced manual
+  review, and unambiguous 0-1 to 0-100 confidence normalization. Details are in
+  `docs/reviews/2026-07-14-production-shaped-luna-and-judge-smoke.md`.
+- Remaining methodology gate: review the comparative score ordering and the 122
+  manual-review flags, resolve the seven explicit null cases where better evidence is
+  available, and only then promote the eight chapter guides from smoke/draft status.
+
 ## Current Status
 
 The project scaffold is in place and Phase C Stage 2 adapter work is in the integration tail. We have:
@@ -22,11 +115,205 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
   The intended score-bearing research path is now the regular agent-driven flow:
   `leaders-db research local-evidence` for scoped local priors, the approved
   `leaders-db research parallel-search` helper for bounded discovery, an
-  `internet-research` evidence pass using question guides and source-confidence
-  fields, `ruler-quality-judge` calibration against the cited-evaluation contract,
+  `internet-research` evidence pass using chapter guides and source-confidence
+  fields, `ruler-chapter-judge` calibration against the cited-evaluation contract,
   and `leaders-db research persist-cited-evaluations` for durable storage. New
   outputs should use the cited-evaluation storage/schema; do not create new
   high-throughput run directories or reintroduce the removed dispatcher.
+- **Normative ruler-dossier/chapter-judge topology (revised 2026-07-12):** The target
+  score-bearing workflow is approximately one durable evidence-research session
+  per resolved ruler-period plus one judge session per chapter-year batch. For
+  an illustrative 190-ruler year this means about 190 researcher runs and eight
+  judge runs, not 15,200 ruler-question discovery runs. Each
+  researcher builds familiarity with one ruler and period, persists cited
+  evidence once and indicates relevance to the 80 question lenses without
+  assigning scores. Each chapter judge reads all ten lenses for its chapter
+  across every eligible ruler and emits one holistic chapter score. Lens labels
+  are advisory; missing lenses reduce confidence rather than invalidating a run.
+  Low-cost researcher models are an explicit target, with durable checkpoints,
+  resumability, evidence deduplication, contrary-evidence capture, and coverage
+  accounting required so correctness does not depend on a long context window.
+- **Research readiness gate and Codex roles (2026-07-12):**
+  `leaders-db research readiness` now provides separate non-mutating preflights
+  for `dossier_researcher` and `chapter_judge`. It checks the role-specific DB
+  tables, current identity coverage, selected lens registration and chapter guides,
+  exact ten-lens chapter scope, tracked Codex role skills, provider/model role
+  support, provider configuration and credential-file presence without reading
+  secrets, and safe non-overwriting output paths. The tracked Codex skills are
+  `.agents/skills/ruler-evidence-researcher` (one ruler-period, stable reusable
+  evidence IDs, many-to-many question mapping, checkpoints, no scoring) and
+  `.agents/skills/ruler-chapter-judge` (one chapter across all rulers, one score,
+  no broad discovery). `configs/research-models.yaml` registers the local
+  MiniMax M2.7 low-cost researcher candidate, MiniMax M3 long-context candidate,
+  and Codex session default without claiming unverified prices or quality.
+- **Durable ruler-dossier/chapter-judge job ledger (revised 2026-07-12):** Migration
+  `0006_research_job_ledger.sql` adds run-scoped `research_jobs`, append-only
+  `research_job_events`, and judge-to-dossier `research_job_dependencies`.
+  Migration `0007_research_job_lease_fencing.sql` adds rotating per-claim lease
+  tokens. Claims use an outer compare-and-set guard; every worker mutation
+  requires the current token and an unexpired lease, and judge creation plus all
+  dependency edges commit atomically. PostgreSQL workers use `FOR UPDATE SKIP
+  LOCKED` to avoid false-empty results under head-of-queue contention.
+  Stable job keys make planning idempotent; an atomic SQL claim prevents two
+  concurrent workers from owning one job; time-bounded leases, owner-only
+  heartbeats/checkpoints, expired-lease recovery, bounded retries, explicit
+  quarantine, and immutable event history make long sessions resumable and
+  auditable. Judge jobs remain unclaimable until usable dossier dependencies
+  complete; late failed/quarantined/cancelled dossiers are reconciled into an
+  explicit unavailable-case manifest instead of deadlocking the batch. The CLI under
+  `leaders-db research jobs` supports dossier/judge planning, listing, claiming,
+  heartbeat, checkpoint, completion, failure, retry, and quarantine. The live
+  non-executing `pilot-4b2-2020-v1` plan created 196 Luna dossier jobs (131
+  pending, 65 identity-quarantined) and one Terra 4B.2 judge job with 131
+  dependency edges; a judge claim correctly returned no job before dossiers ran.
+  Model profiles now also include locally catalogued OpenAI
+  `gpt-5.6-luna` and `gpt-5.6-terra` candidates, with role-specific evaluation
+  still required before broad use.
+- **Superseded Codex dossier worker harness pilot (2026-07-12):** `leaders-db research jobs
+  run-one` claims one ruler dossier, invokes the exact persisted
+  Luna/Terra/MiniMax/Codex profile, maintains the fenced lease, and validates a
+  evidence-integrity schema before atomic publication and completion. Harmless
+  ID, mapping, coverage, optional-field, and extra-field inconsistencies are
+  normalized with audit warnings rather than rejecting useful research. The child
+  saw the repository read-only and received only its
+  lease-token-scoped attempt directory as writable. This pilot used parent-side
+  Parallel Search as its only discovery artifact; that restriction is superseded
+  by researcher-directed iterative search. The final Pashinyan/Armenia/2020
+  4B.2 Luna pilot produced six evidence records, passed bounded judge-input QA as
+  `partially_covered`, and exposed a major cost warning: 283,587 total tokens for
+  one ruler/question.
+- **Eight chapter guides replace per-question guides (2026-07-12):** The active
+  methodology now has one draft guide for each chapter `1B`–`8B`. Each contains
+  all ten authoritative questions verbatim as overlapping evidence lenses, one
+  holistic 1–10 chapter rubric, a common judge-output envelope, sparse/historical
+  evidence rules, and comparative smoke cases. The 17 earlier per-question guides
+  and calibration note are archived under `docs/archive/methodology/` for design
+  history only. All eight guides passed independent exact-lens/design review but
+  remain draft until chapter smoke batches and post-test refinement are complete.
+- **Executable chapter judge and durable score publication (2026-07-13):** A
+  dependency-ready internal `question_judge` ledger job now executes the complete
+  chapter role through its configured Codex profile, reads completed ruler
+  dossiers, prohibits new discovery, applies the versioned chapter guide, and
+  validates one evaluation per available dossier plus dossier-local evidence
+  references. The parent records exposed token usage, publishes the immutable
+  artifact, and atomically upserts the judgment envelopes into `chapter_scores`
+  while completing the fenced job. A two-ruler mocked 4B test proves the complete
+  executor-to-database path; an expired-lease regression proves that partial rows
+  cannot publish. This is infrastructure readiness, not real-model calibration.
+- **Superseded gap-driven continuation pilot (2026-07-13):** Dossier jobs then
+  persist a versioned eight-chapter discovery plan, including all search-changing
+  templates and source-priority terms. After the initial dossier is
+  semantically valid, the parent measures accepted final evidence per selected
+  chapter and substantive domains actually used, selects at most three weakest
+  themes, and could perform one targeted Parallel Search follow-up. Results were
+  deduplicated by URL and returned to the same ruler session. The fixed one-round
+  constraints from that pilot are superseded by the directive reset. Search
+  rounds and decisions are hash-auditable; arbitrary child URL opens/citations
+  fail validation. Combined token use includes failed execution attempts,
+  and a hashed completed parent continuation is recoverable on retry without
+  repeating discovery. Independent review closed with no blocker, major, or
+  actionable minor; 50 focused tests, all research tests, Ruff, and the full
+  repository suite pass (29 slow tests skipped by default).
+- **Superseded two-pass notebook/packet pilot (2026-07-13):** Those
+  dossier plans persist a direct-search notebook workflow plus a separate formatter profile.
+  The researcher records references, main-points summaries, period/ruler
+  attribution, contrary material, and chapter/lens relevance in a permissive
+  notebook/handoff instead of satisfying the final JSON schema. A Luna formatter
+  by CLI default converts the handoff into the validated dossier without new
+  research. That pilot used a constrained external-discovery stage and merged the
+  hashed results. The target is 5–20 retained non-duplicative evidence items per
+  chapter, normally about 10; documented shortfalls remain valid and must not be
+  padded. Researcher and formatter usage/cost are retained separately and
+  combined for mixed-model runs. Its approved notebooks and discovery packets were
+  stored outside the child-writable directory, hashed, revalidated, and reused
+  after formatter failure; the retry reruns only formatting and cumulative usage
+  retains the failed formatter call. Per-chapter discovery packets checkpoint as
+  each search succeeded, so a partial failure resumed at the missing chapter and
+  its attempted search cost remains visible. Focused contract, planner,
+  discovery, cost, and readiness tests passed. The packet/search allowance is not
+  active policy.
+- **Random 2025 twelve-guide smoke (2026-07-12):** Three deterministic-random
+- **Two-pass New Zealand/Liberia live benchmark (2026-07-13):** Four complete
+  80-lens pipelines compared Luna and MiniMax M3 researchers with a common Luna
+  formatter and shared per-case discovery. New Zealand/Luna published 15 evidence
+  items, New Zealand/M3 24, Liberia/Luna 12, and Liberia/M3 one local-prior item
+  after an infrastructure-level sandbox refusal. No run met the 5–20 goal in all
+  eight chapters. Independent evidence review rated New Zealand/Luna 7.5/10,
+  Liberia/Luna 7/10, New Zealand/M3 5/10, and Liberia/M3 1/10 as an output rather
+  than an intrinsic model judgment. All children encountered the Codex `bwrap`
+  loopback failure; Luna remained operational through final handoffs, while M3
+  was inconsistent. Aggregate usage was approximately 0.99M–1.77M tokens per
+  pipeline, and the strict formatter alone consumed 83k–452k. The Liberia/M3
+  formatter-only retry reused the verified notebook/discovery and performed no
+  second research pass. Future shared-discovery jobs no longer allocate a second
+  search charge. Required next corrections are tool-free inline research,
+  explicit chapter-yield audit, deterministic parent coverage generation, and
+  evidence-provenance QA. Full findings:
+  `docs/reviews/2026-07-13-two-pass-evidence-yield-benchmark.md`.
+- **Eight independent Luna chapter-researcher smoke (2026-07-13):** Eight fresh,
+  concurrent Luna sessions each researched only one chapter for Jacinda Ardern,
+  New Zealand, 2020, using the matching previously captured ten-result discovery
+  packet and no formatter. All completed and reported 5–10 items per chapter,
+  61 total, with 257,849 combined tokens and an API-equivalent marginal estimate
+  of $0.372–$0.410 using reused discovery (about $0.412–$0.450 with eight fresh
+  searches). Independent review found only about 29 defensible distinct
+  source-claim units: raw counts were inflated by same-source splitting, empty
+  priors, tangential/post-period material, and repeated corpus use. Exact-URL
+  provenance was clean and no researcher scored the ruler. Chapter specialization
+  is promising and materially more token-efficient than the earlier 915,368-token
+  all-chapter Luna research pass, but the next run must count unique source-claim
+  units, exclude empty priors, normally cap same-URL splits at one or two, and
+  replace rejected candidates before the apparent 5–20 target can be trusted.
+  Full findings:
+  `docs/reviews/2026-07-13-eight-chapter-luna-researcher-smoke.md`.
+- **One persistent full-ruler Luna depth/reviewer loop (2026-07-13):** A single
+  Luna researcher retained Jacinda Ardern/New Zealand/2020 familiarity across
+  initial research, adversarial evidence review, revision, and reviewer-guided
+  targeted discovery; a separate persistent Luna session reviewed evidence but
+  never searched, formatted, or scored. The final audit found 29 retained global
+  units, 25 defensible/usable units, four context-only units, and 25 locator
+  families. Chapters `3B`–`8B` reached 5–12 defensible mappings; `1B` remained
+  unsupported directly and `2B` remained thin rather than being padded. Three
+  targeted searches supplied 30 candidates but only three qualified, materially
+  improving `5B`, `6B`, and `8B`. The deliberately exhaustive eight-turn loop
+  consumed 1.648M tokens and an API-equivalent $1.596–$2.235, proving that repeated
+  rewriting/rechecking was uneconomic. Its then-recommended one-review/one-search
+  sequence is superseded by mandatory review of every selected chapter with up to
+  three same-thread gap rounds or saturation. The observed-call proxy for
+  that reduced sequence is about 504k tokens and $0.619–$0.964. Current production
+  code still lacks persistent researcher-thread resume before formatting; this is
+  now explicit in REQ-LLM-021 and the research-engine architecture. Full findings:
+  `docs/reviews/2026-07-13-full-ruler-luna-depth-loop.md`.
+- **All-chapter local-first ruler package (2026-07-13):**
+  `local_structured_prior_v2` now maps every `1B.1`–`8B.10` lens to the relevant
+  harmonized `country_year_facts` families: FAS nuclear; UCDP/SIPRI peace and
+  military; CIRIGHTS/PTS/UCDP/V-Dem domestic safety; V-Dem/Freedom House/RSF/WGI/
+  BTI political freedom; economic level/scale; HDI/health/education; corruption/
+  accountability; and governance capacity. Parent extraction remains before model
+  execution, excludes client-matrix sources, and now carries resolved ruler metadata.
+  The trusted artifact retains all 80 per-lens statuses, while researcher and
+  formatter prompts receive `ruler_local_prior_package_v1`, which stores each
+  identical fact once with stable `LF###` ID, exact source-observation provenance,
+  valid local-prior locator, mapping notes, and candidate lens links. The researcher
+  must audit this package before internet material, treat candidate links as routing
+  rather than proof, distinguish inherited/country context from ruler conduct, and
+  treat absent rows as gaps rather than zeros. On the real New Zealand 2020 case,
+  local coverage improved from three 4B priors to 70 evidence-bearing lens priors
+  across `2B`–`8B`; 549 repeated fact occurrences compact to 48 unique facts from
+  nine source families, reducing the inlined local JSON by 88.9%. `1B` correctly
+  remains an explicit no-local-evidence chapter for that case. Seventy-four focused
+  local-prior, prompt, worker-contract, and CLI tests pass; Ruff is clean.
+- **Random 2025 twelve-guide smoke (2026-07-12):** Three deterministic-random
+  Luna ruler dossiers (Skerrit/Dominica, Aripov/Uzbekistan, and Davis/Bahamas)
+  exercised the 12 newly drafted guides in parallel. All produced substantive,
+  parseable candidates but failed the former strict mapping/coverage contract after one
+  repair, consuming 2.34M cumulative input tokens. Independent review also found
+  exposure-disposition drift, overly broad evidence reuse, weak direct support
+  for `5B.2`/`7B.1`/`7B.2`, and a serious Aripov-versus-Mirziyoyev authority
+  attribution issue. The repair prompt currently omits exact validator errors,
+  and the superseded preselected discovery stage lacked a theme/source sufficiency gate. This failure directly
+  motivated permissive normalization and the eight chapter-score redesign. See
+  `docs/reviews/2026-07-12-random-2025-twelve-guide-smoke.md`.
 - **Data table workplan added (2026-06-29):** `docs/data-table-plan.md` now defines the desired identity, harmonized country-year, ruler-period, question-answer, evidence-link, score, and review tables, with the methodology questions each table supports and the infrastructure phases needed before each table can be completed.
 - **Data-table infrastructure I1 complete (2026-06-29):** the normal working SQLite path is documented as `data/catalog/leaders_db.sqlite`; `leaders-db init-db` applies all checked-in migrations to that default path, and persisted-evidence CLI reads now fail with a friendly initialization message instead of raw missing-table SQL errors.
 - **Data-table infrastructure I2 complete (2026-06-29):** non-dry `leaders-db sources ingest <source>` runs now persist clean-source observations into the initialized working DB by default (or an explicit `--db-url`) through `SourceIngestRunner`; reruns upsert stable `(source_slug, observation_id)` rows rather than duplicating them. `leaders-db sources coverage` reports DB-backed row counts by source, observation family, indicator, min/max year, country count, and missing raw-locator count, with registry-backed statuses for `loaded`, `no_rows`, and `blocked_user_managed` sources. Fixture tests prove idempotency and coverage without touching user raw data.
@@ -416,8 +703,9 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
   ruler-specific/narrative detail. Subagents should receive this artifact before
   internet research begins.
 
-- **D25 4B.2 local-prior vertical-slice package prepared (2026-07-07):** The new
-  guide `docs/methodology/question-guides/4b-2-entrenchment-manipulation.md`
+- **D25 4B.2 local-prior vertical-slice package prepared (2026-07-07; guide now
+  archived):** The historical guide
+  `docs/archive/methodology/per-question-guides-2026-07-12/4b-2-entrenchment-manipulation.md`
   defines the `4b2_entrenchment_manipulation_v1` rubric for the question “Did the
   ruler refrain from manipulating electoral rules, courts, media, election
   commissions, security forces, or public resources to entrench themselves?” and
@@ -438,6 +726,23 @@ The project scaffold is in place and Phase C Stage 2 adapter work is in the inte
   cited-evaluation templates for USA/CHN; the launch plan lists a four-case smoke
   set (USA, CHN, BLR, NZL) and exact watchdog command templates for a
   human-approved run.
+
+- **D25 identity-safe local-prior handoff (2026-07-12):**
+  `leaders-db research build-local-prior-slice` now treats the current
+  `identity ruler-coverage` diagnostic as authoritative at research handoff
+  instead of trusting persisted adjudication status alone. The v2 package keeps
+  all included cases as auditable local-prior artifacts, but only resolved cases
+  whose selected ruler is still among the current evidence-backed candidates
+  enter `shard_plan.json`. Missing diagnostics, missing selected rulers,
+  disputed/low-confidence/multiple-candidate/source-conflict classifications,
+  and stale selections are written to `identity_quarantine.json`. The manifest
+  reports eligible and quarantined counts, and the launch plan forbids launching
+  quarantined cases. Focused regression coverage proves resolved inclusion plus
+  missing, contested, and stale-selection rejection. A live 4B.2/2020 rebuild
+  produced 196 auditable artifacts, 131 research-eligible cases, and 65
+  quarantined cases: 57 current source conflicts, 7 unresolved multiple-candidate
+  cases, and 1 missing identity. Those counts match the independent identity
+  coverage diagnostic, and no quarantined artifact appears in a research shard.
 
 - **D25 process reset for 4B.2 local-first internet research (2026-07-07):** The
   tainted stopped-run outputs under
@@ -523,29 +828,43 @@ future periods may be adjusted as the data-quality picture changes. The old 2023
 focus is now only a diagnostic/client-comparison slice, not the coverage goal.
 After I-phases restore the table foundation, the active research-runner
 goal returns to proving reusable research slices from the question bank without
-new bespoke code for each question/run. The first slice family remains:
+new bespoke code for each question/run. The active ruler-quality slice is now:
 
 ```text
-one question + one year + all in-scope countries
+one ruler-period dossier across all 80 lenses + eight comparative chapter batches
 ```
 
-For each attempted slice, the loop is:
+For each attempted ruler-quality batch, the loop is:
 
-1. choose a question from chapters 1-8 or 1B-8B and a target year;
-2. run the generic inquiry path for all countries;
-3. use all available evidence mechanisms needed for that question: persisted
+1. choose a target year/period and resolve the eligible ruler manifest;
+2. run one resumable evidence session per ruler across all applicable lenses;
+3. use all available evidence mechanisms needed for that dossier: persisted
    structured observations, proxy-year logic, ruler/country scope, cached/web or
    internet-research agent outputs where appropriate, and explicit missing/manual
    review markers when evidence is not available;
-4. persist results to the research result tables (`research_questions`,
-   `research_question_answers`, `research_answer_evidence_links`, and eventually
-   `chapter_scores`);
+4. run one common-meter judge per chapter across every usable ruler dossier and
+   persist the validated envelopes to `chapter_scores`;
 5. inspect whether the result is queryable for visualization and drill-down;
 6. if the run requires code changes, record the infrastructure gap, implement the
    smallest generic improvement, and rerun;
-7. repeat with several randomized Slice 1 cases across chapters 1-8 and then
-   1B-8B. Only after multiple Slice 1 cases run without per-question code changes
-   should we move to Slice 2 (`one question + one country/ruler + all years`).
+7. compare relative ordering, evidence quality, confidence, token use, and cost
+   across low-cost model profiles before scaling to the full ruler manifest.
+
+Cost instrumentation now uses trusted Codex logs and the dated
+`configs/research-pricing.yaml` snapshot. It separates cached/uncached input,
+retains reasoning as an output subset, counts unique Parallel Search calls,
+includes execution retries, and distinguishes API/Codex equivalents from
+unknown subscription billing. Ambiguous long-context application is a range. The
+active benchmark is an all-80-lens 2020 Pashinyan comparison across Luna, Terra,
+MiniMax M2.7, and MiniMax M3; on quality/integrity success, repeat for the sparser
+2020 Skerrit case.
+
+The two-case all-80 benchmark is complete; detailed results are in
+[`docs/reviews/2026-07-13-all80-ruler-model-benchmark.md`](reviews/2026-07-13-all80-ruler-model-benchmark.md).
+Terra published both cases, Luna published Pashinyan and failed Skerrit on an
+unapproved linked-document URL, M3 twice produced nonconforming but partly useful
+raw output, and M2.7 remained runtime-incompatible. Broad 190-ruler launch is held
+pending formatter/provenance/discovery improvements and reviewed chapter guides.
 
 Success for this phase is not high-quality final data yet. Success is that the
 infrastructure is generic enough to run different Slice 1 cases repeatedly, with
@@ -635,9 +954,11 @@ is actually `numeric`. D25-D27 use the generic research answer and evidence-link
 tables by design. `persist_cited_evaluations` is now the generic cited/manual
 import path for registered `internet_manual` questions, with
 `persist-8b-evaluations` retained as an 8B compatibility wrapper. Score-bearing
-cited/manual records must include `answer_payload.calibration`, and
-question-specific guides under `docs/methodology/question-guides/` are now
-required before vertical-slice runs. `leaders-db research list-answers` exports
+cited/manual records must include calibration metadata. This earlier
+per-question persistence surface remains for evidence-detail compatibility, while
+active score-bearing runs now require chapter guides under
+`docs/methodology/chapter-guides/` and persist one chapter score per ruler.
+`leaders-db research list-answers` exports
 persisted answers with question/year/ISO3/method filters as JSON or CSV. D28-D30
 remain future until a pilot category has enough calibrated, evidence-linked
 D24-D27 answer rows.

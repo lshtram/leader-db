@@ -430,7 +430,9 @@ status. The system must distinguish:
 
 ## LLM Adjudication and External Research
 
-The LLM is an escalation layer, not the default scorer.
+The LLM is an escalation layer, not the default deterministic scorer. The Level 1/2
+flow below applies to deterministic-score adjudication only; it does not govern the
+separate ruler-quality dossier workflow later in this section.
 
 ### Level 1 — constrained adjudication
 
@@ -439,7 +441,7 @@ sources, severe missingness, ruler ambiguity, or high client delta. The LLM sees
 only the assembled evidence bundle, category rubric, and strict JSON schema. It
 must not browse or invent facts.
 
-### Level 2 — gated external research
+### Level 2 — gated deterministic-score research
 
 Only after Level 1 is implemented and reviewed, the system may allow an LLM or
 agent to look for additional papers/articles/web sources. This must be explicit
@@ -464,7 +466,62 @@ Forbidden in all LLM modes:
 - citing sources not actually provided or fetched;
 - counting the client matrix as evidence;
 - silently resolving leader identity;
-- publishing an LLM score without strict JSON validation and provenance.
+- publishing an LLM score without identity, citation, period, and provenance validation.
+  Harmless handoff formatting is normalized separately with audit warnings.
+
+Ruler-quality research preparation also has a hard identity boundary. The
+local-prior slice builder recomputes the current identity coverage diagnostic
+instead of trusting a possibly stale persisted adjudication status. Only
+deterministically resolved cases whose selected ruler remains among the current
+evidence-backed candidates are written into `shard_plan.json`. Missing,
+contested, disputed, low-confidence, source-conflict, and stale-selection cases
+remain auditable local-prior artifacts but are listed in
+`identity_quarantine.json` and cannot be dispatched until identity is rebuilt or
+reviewed.
+
+Long dossier and judge runs are coordinated through the migration-0006 research
+job ledger plus migration-0007 lease fencing. Run-scoped stable keys prevent
+duplicate planning; compare-and-set claims, rotating lease tokens, checkpoints,
+bounded retries, quarantine, and append-only events make worker execution
+resumable without stale-worker writes. Eight chapter-judge jobs and their
+eligible ruler-dossier dependencies are created atomically. Judges cannot be
+claimed until usable dependencies finish; terminal unavailable dossiers are
+reconciled into the judge's missing-case manifest instead of blocking forever.
+The executable judge reads those completed dossier artifacts and its versioned
+chapter guide without performing new discovery. Parent-side validation requires
+one evaluation per available dossier and checks every decisive evidence ID
+against that dossier. The immutable batch artifact records model and token usage;
+all `chapter_scores` rows and ledger completion commit atomically under the active
+lease token, preventing stale or partial publication.
+
+Dossier research uses the versioned controls in `configs/research-workflow.yaml`.
+Before research, parent-side `local_structured_prior_v2` extraction covers every
+selected lens across all eight chapters and persists the complete hashed artifact.
+The researcher and formatter receive a deduplicated `ruler_local_prior_package_v1`,
+so identical facts are represented once with source-observation provenance and
+candidate lens links rather than repeated across question payloads. Missing facts
+remain explicit gaps and country-level indicators are not automatically attributed
+to the ruler.
+For the complete eight-chapter scope, one persistent evidence researcher works
+through chapters 1B–8B and searches directly and iteratively to reasonable
+saturation. It writes a schema-light notebook/handoff, aiming for 5–20 defensible
+source-claim units per chapter (normally about 10), while reporting mapped units
+separately from independent locator/source families and accepting documented sparse-case
+shortfalls. A separate configured formatter converts the handoff into the strict
+dossier without new research. A no-search reviewer inspects every chapter and may
+return gaps to the same researcher thread for up to three rounds. After formatting,
+one no-search judge per chapter/year batch applies the common meter across rulers,
+and a score/order auditor checks the resulting comparative ordering and rubric drift.
+
+Trusted parent event logs also supply cached-input and reasoning-output counters.
+The checked-in `configs/research-pricing.yaml` snapshot converts them to
+API-equivalent dollars, Codex-credit equivalents where published, and unique
+Parallel Search charges. These are not actual subscription-plan cash charges.
+Because one Codex execution-turn total can combine multiple provider requests, a
+total above a long-context threshold produces lower and upper bounds.
+
+Search activity is driven by chapter evidence needs, not a fixed call allowance.
+Every researcher, reviewer, formatter, and judge turn remains separately auditable.
 
 ---
 

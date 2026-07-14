@@ -8,6 +8,7 @@ from pathlib import Path
 import typer
 from sqlalchemy.exc import SQLAlchemyError
 
+from ..research.local_prior_schema import LOCAL_PRIOR_METHOD_VERSION
 from .research_common import fail
 
 
@@ -266,7 +267,7 @@ def _fail_local_prior(message: str, **kwargs: object) -> None:
             "before launching dependent research workers."
         ],
         "client_matrix_policy": "excluded_as_evidence",
-        "method_version": "local_structured_prior_v1",
+        "method_version": LOCAL_PRIOR_METHOD_VERSION,
         "mapping_note": None,
     }
     _write_json_if_requested(payload, output_path if isinstance(output_path, Path) else None)

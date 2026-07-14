@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 
+import pytest
 from sqlalchemy import create_engine, text
 
 from leaders_db.db.engine import init_database
 from leaders_db.research.local_structured_prior import (
+    CLIENT_MATRIX_SOURCE_SLUGS,
     OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS,
     POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
     LocalPriorPeriod,
@@ -243,7 +245,10 @@ def test_build_local_prior_unknown_question_returns_error_artifact(database_url:
     assert artifact.model_dump(mode="json")["status"] == "error"
 
 
-def test_build_local_prior_excludes_client_matrix_source_rows(database_url: str) -> None:
+@pytest.mark.parametrize("client_source_slug", sorted(CLIENT_MATRIX_SOURCE_SLUGS))
+def test_build_local_prior_excludes_client_matrix_source_rows(
+    database_url: str, client_source_slug: str
+) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)
     _insert_country_year(engine, country_id=1, iso3="USA", name="United States", year=2020)
@@ -255,8 +260,10 @@ def test_build_local_prior_excludes_client_matrix_source_rows(database_url: str)
         field_key="political_liberties",
         value_type="number",
         selected_value_number=9.0,
-        source_slugs=("client_existing",),
-        source_observation_ids=("client:USA:2020:political_freedom",),
+        source_slugs=(client_source_slug,),
+        source_observation_ids=(
+            f"{client_source_slug}:USA:2020:political_freedom",
+        ),
         confidence_score=99,
     )
 

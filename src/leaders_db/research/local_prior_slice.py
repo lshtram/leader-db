@@ -12,6 +12,11 @@ from sqlalchemy import text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
+from leaders_db.identity.coverage import (
+    IdentityCoverageDetailRow,
+    build_identity_coverage_gap_report,
+)
+
 from .local_structured_prior import (
     LeaderPriorMetadata,
     LocalPriorPeriod,
@@ -20,13 +25,15 @@ from .local_structured_prior import (
     build_local_structured_prior,
 )
 
-LOCAL_PRIOR_SLICE_METHOD_VERSION = "local_structured_prior_slice_v1"
+LOCAL_PRIOR_SLICE_METHOD_VERSION = "local_structured_prior_slice_v2"
 
-QUESTION_GUIDE_BY_METHODOLOGY_ID = {
-    "4B.2": "docs/methodology/question-guides/4b-2-entrenchment-manipulation.md",
-    "4B.3": "docs/methodology/question-guides/4b-3-opposition-tolerance.md",
+RESEARCH_ELIGIBLE_IDENTITY_CLASSIFICATIONS = {
+    "resolved",
+    "resolved_auto_single_candidate",
+    "resolved_auto_role_priority",
+    "resolved_auto_duration_majority",
+    "resolved_auto_year_coverage_majority",
 }
-
 
 class LocalPriorSliceCase(BaseModel):
     """One country-year/ruler case included in an all-scope prior package."""
@@ -41,6 +48,10 @@ class LocalPriorSliceCase(BaseModel):
     ruler_year_id: int | None = None
     identity_classification: str | None = None
     identity_review_status: str | None = None
+    persisted_identity_classification: str | None = None
+    persisted_identity_review_status: str | None = None
+    identity_research_eligible: bool
+    identity_block_reason: str | None = None
 
 
 class LocalPriorSliceManifest(BaseModel):
@@ -59,7 +70,10 @@ class LocalPriorSliceManifest(BaseModel):
     total_local_facts: int
     cases_with_ruler_metadata: int
     cases_needing_identity_review: int
+    research_eligible_cases: int
+    quarantined_cases: int
     shard_plan_path: str
+    quarantine_path: str
     artifacts: list[dict[str, Any]] = Field(default_factory=list)
 
 
@@ -88,11 +102,7 @@ def build_local_prior_slice_package(
     for case in cases:
         if case.leader_name or case.leader_id is not None:
             cases_with_ruler_metadata += 1
-        if case.identity_review_status and case.identity_review_status not in {
-            "resolved",
-            "auto_resolved",
-            "not_needed",
-        }:
+        if not case.identity_research_eligible:
             cases_needing_identity_review += 1
         artifact = build_local_structured_prior(
             bind,
@@ -128,15 +138,28 @@ def build_local_prior_slice_package(
                 "year": year,
                 "leader_name": case.leader_name,
                 "status": artifact.status,
+                "identity_research_eligible": case.identity_research_eligible,
+                "identity_block_reason": case.identity_block_reason,
                 "local_fact_count": fact_count,
                 "path": str(artifact_path),
             }
         )
 
+    eligible_artifacts = [
+        artifact for artifact in artifacts if artifact["identity_research_eligible"]
+    ]
+    quarantined_artifacts = [
+        artifact for artifact in artifacts if not artifact["identity_research_eligible"]
+    ]
     shard_plan_path = output_dir / "shard_plan.json"
-    shard_plan = _build_shard_plan(artifacts, shard_size=shard_size)
+    shard_plan = _build_shard_plan(eligible_artifacts, shard_size=shard_size)
     shard_plan_path.write_text(
         json.dumps(shard_plan, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    quarantine_path = output_dir / "identity_quarantine.json"
+    quarantine_path.write_text(
+        json.dumps({"cases": quarantined_artifacts}, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
 
@@ -151,7 +174,10 @@ def build_local_prior_slice_package(
         total_local_facts=total_local_facts,
         cases_with_ruler_metadata=cases_with_ruler_metadata,
         cases_needing_identity_review=cases_needing_identity_review,
+        research_eligible_cases=len(eligible_artifacts),
+        quarantined_cases=len(quarantined_artifacts),
         shard_plan_path=str(shard_plan_path),
+        quarantine_path=str(quarantine_path),
         artifacts=artifacts,
     )
     (output_dir / "manifest.json").write_text(
@@ -195,19 +221,68 @@ def list_local_prior_slice_cases(
         """
     )
     rows = _execute_mappings(bind, statement, {"year": year, "included_in_project": True})
+    coverage_rows = _identity_coverage_rows(bind, year=year)
     return tuple(
-        LocalPriorSliceCase(
-            iso3=str(row["iso3"]),
-            country_name=str(row["country_name"]),
-            year=int(row["year"]),
-            leader_name=row["leader_name"],
-            leader_id=row["leader_id"],
-            ruler_year_id=row["ruler_year_id"],
-            identity_classification=row["identity_classification"],
-            identity_review_status=row["identity_review_status"],
-        )
+        _local_prior_slice_case(row, coverage_rows.get(str(row["iso3"])))
         for row in rows
     )
+
+
+def _identity_coverage_rows(
+    bind: Engine | Session,
+    *,
+    year: int,
+) -> dict[str, IdentityCoverageDetailRow]:
+    engine = bind if isinstance(bind, Engine) else bind.get_bind()
+    if not isinstance(engine, Engine):
+        raise TypeError("local-prior identity coverage requires an Engine-backed session")
+    report = build_identity_coverage_gap_report(
+        engine,
+        year=year,
+        include_out_of_scope=False,
+    )
+    return {row.iso3: row for row in report.rows}
+
+
+def _local_prior_slice_case(
+    row: Any,
+    coverage: IdentityCoverageDetailRow | None,
+) -> LocalPriorSliceCase:
+    leader_name = row["leader_name"]
+    eligibility, block_reason = _identity_research_eligibility(
+        coverage,
+        leader_name=leader_name,
+    )
+    return LocalPriorSliceCase(
+        iso3=str(row["iso3"]),
+        country_name=str(row["country_name"]),
+        year=int(row["year"]),
+        leader_name=leader_name,
+        leader_id=row["leader_id"],
+        ruler_year_id=row["ruler_year_id"],
+        identity_classification=coverage.classification if coverage else None,
+        identity_review_status="resolved" if eligibility else "needs_review",
+        persisted_identity_classification=row["identity_classification"],
+        persisted_identity_review_status=row["identity_review_status"],
+        identity_research_eligible=eligibility,
+        identity_block_reason=block_reason,
+    )
+
+
+def _identity_research_eligibility(
+    coverage: IdentityCoverageDetailRow | None,
+    *,
+    leader_name: str | None,
+) -> tuple[bool, str | None]:
+    if coverage is None:
+        return False, "missing_current_identity_diagnostic"
+    if coverage.classification not in RESEARCH_ELIGIBLE_IDENTITY_CLASSIFICATIONS:
+        return False, f"identity_classification:{coverage.classification}"
+    if not leader_name:
+        return False, "missing_selected_leader"
+    if leader_name not in coverage.leader_names:
+        return False, "selected_leader_not_in_current_identity_candidates"
+    return True, None
 
 
 def _fact_coverage_bucket(artifact: LocalStructuredPriorArtifact) -> str:
@@ -257,10 +332,8 @@ def _write_launch_plan(
     """Write durable human launch instructions next to a local-prior package."""
 
     output_dir_text = manifest.output_dir
-    question_guide = QUESTION_GUIDE_BY_METHODOLOGY_ID.get(
-        manifest.methodology_id,
-        "the relevant guide under docs/methodology/question-guides/",
-    )
+    chapter_id = manifest.methodology_id.split(".", maxsplit=1)[0].lower()
+    question_guide = f"the {chapter_id} guide under docs/methodology/chapter-guides/"
     first_shard_size = 0
     shards = shard_plan.get("shards")
     if isinstance(shards, list) and shards:
@@ -275,7 +348,7 @@ def _write_launch_plan(
 
     plan = f"""# {manifest.methodology_id} {manifest.year} Internet Research Launch Plan
 
-This package is a clean local-first start package for methodology question
+This package is a clean local-first start package for chapter lens
 `{manifest.methodology_id}`. It intentionally does **not** launch
 `internet-research` workers automatically.
 
@@ -289,7 +362,7 @@ Every worker and parent dispatcher must read:
 4. The relevant local-prior artifact from this package
 5. The cited-evaluation schema from `leaders-db research cited-evaluation-schema`
 
-Research order is mandatory: inspect the local question guide, query local
+Research order is mandatory: inspect the local chapter guide, query local
 DB/artifacts, apply the source-confidence registry, use preferred external
 sources, and use general web search only last. Local structured datasets already
 loaded into the DB must not be re-fetched from the web for numeric/structured
@@ -336,14 +409,20 @@ exposed, and explicit unknowns when the tool hides usage.
 - Manifest: `{output_dir_text}/manifest.json`
 - Artifacts: `{output_dir_text}/artifacts/`
 - Shard plan: `{output_dir_text}/shard_plan.json`
+- Identity quarantine: `{manifest.quarantine_path}`
 - Total cases: {manifest.total_cases}
 - Artifact count: {manifest.artifact_count}
+- Research-eligible cases: {manifest.research_eligible_cases}
+- Identity-quarantined cases: {manifest.quarantined_cases}
 - Shard size: {shard_plan.get("recommended_shard_size", first_shard_size)}
 - Shard count: {shard_plan.get("shard_count", 0)}
 
 Every `internet-research` worker must receive the corresponding local-prior JSON
-artifact before external search. If local evidence is absent, record `no local
-evidence found` in the output rather than inventing a structured prior.
+artifact before external search. Only artifacts present in `shard_plan.json` are
+eligible for research. Never launch cases listed in `identity_quarantine.json`;
+resolve and rebuild their ruler identity first. If local evidence is absent,
+record `no local evidence found` in the output rather than inventing a structured
+prior.
 
 ## Bounded smoke cases
 

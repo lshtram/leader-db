@@ -24,6 +24,7 @@ from datetime import date, datetime
 
 from sqlalchemy import (
     Boolean,
+    CheckConstraint,
     Date,
     DateTime,
     Float,
@@ -530,21 +531,131 @@ class ResearchAnswerEvidenceLink(Base):
     answer: Mapped[ResearchQuestionAnswer] = relationship(back_populates="evidence_links")
 
 
+class ResearchJob(Base):
+    """Durable work item for one ruler dossier or one question judge batch."""
+
+    __tablename__ = "research_jobs"
+    __table_args__ = (
+        CheckConstraint(
+            "job_type IN ('dossier_researcher', 'question_judge')",
+            name="ck_research_jobs_job_type",
+        ),
+        CheckConstraint(
+            "status IN ('pending', 'claimed', 'running', 'completed', 'failed', "
+            "'retryable', 'quarantined', 'cancelled')",
+            name="ck_research_jobs_status",
+        ),
+        CheckConstraint("attempt_count >= 0", name="ck_research_jobs_attempt_count"),
+        CheckConstraint("max_attempts >= 1", name="ck_research_jobs_max_attempts"),
+        Index(
+            "ix_research_jobs_claim_queue",
+            "run_key",
+            "job_type",
+            "status",
+            "priority",
+            "created_at",
+        ),
+        Index("ix_research_jobs_lease", "status", "lease_expires_at"),
+        Index("ix_research_jobs_ruler_year", "iso3", "target_year", "ruler_id"),
+        Index("ix_research_jobs_question_year", "question_id", "target_year"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    job_key: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    run_key: Mapped[str] = mapped_column(String, nullable=False)
+    job_type: Mapped[str] = mapped_column(String, nullable=False)
+    target_year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    period_start_year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    period_end_year: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    iso3: Mapped[str | None] = mapped_column(String(3), nullable=True)
+    country_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    ruler_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    ruler_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    question_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    provider_profile: Mapped[str] = mapped_column(String, nullable=False)
+    provider: Mapped[str] = mapped_column(String, nullable=False)
+    model: Mapped[str] = mapped_column(String, nullable=False)
+    status: Mapped[str] = mapped_column(String, nullable=False)
+    priority: Mapped[int] = mapped_column(Integer, nullable=False, default=100)
+    attempt_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    max_attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=3)
+    claimed_by: Mapped[str | None] = mapped_column(String, nullable=True)
+    claimed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    lease_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    lease_token: Mapped[str | None] = mapped_column(String, nullable=True)
+    heartbeat_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    checkpoint_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    input_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    result_path: Mapped[str | None] = mapped_column(Text, nullable=True)
+    error_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    quarantine_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+    events: Mapped[list[ResearchJobEvent]] = relationship(
+        lambda: ResearchJobEvent,
+        back_populates="job",
+        cascade="all, delete-orphan",
+    )
+
+
+class ResearchJobEvent(Base):
+    """Append-only audit event for a durable research job."""
+
+    __tablename__ = "research_job_events"
+    __table_args__ = (Index("ix_research_job_events_job_time", "job_id", "created_at", "id"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    job_id: Mapped[int] = mapped_column(
+        ForeignKey("research_jobs.id", ondelete="CASCADE"), nullable=False
+    )
+    event_type: Mapped[str] = mapped_column(String, nullable=False)
+    worker_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    payload_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+
+    job: Mapped[ResearchJob] = relationship(back_populates="events")
+
+
+class ResearchJobDependency(Base):
+    """Dependency edge that keeps judge jobs blocked until dossiers finish."""
+
+    __tablename__ = "research_job_dependencies"
+    __table_args__ = (
+        CheckConstraint(
+            "job_id <> depends_on_job_id",
+            name="ck_research_job_dependencies_no_self_reference",
+        ),
+        Index("ix_research_job_dependencies_parent", "depends_on_job_id", "job_id"),
+    )
+
+    job_id: Mapped[int] = mapped_column(
+        ForeignKey("research_jobs.id", ondelete="CASCADE"), primary_key=True
+    )
+    depends_on_job_id: Mapped[int] = mapped_column(
+        ForeignKey("research_jobs.id", ondelete="CASCADE"), primary_key=True
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+
+
 class ChapterScore(Base):
-    """Future aggregate chapter score per ruler-country-year slice."""
+    """Holistic, cited chapter judgment per ruler-country-year slice."""
 
     __tablename__ = "chapter_scores"
     __table_args__ = (
         UniqueConstraint(
             "chapter_id",
             "year",
-            "iso3",
+            "ruler_year_id",
             "method_version",
             name="uq_chapter_score_slice",
         ),
         Index("ix_chapter_scores_chapter_year", "chapter_id", "year"),
         Index("ix_chapter_scores_iso3_year", "iso3", "year"),
         Index("ix_chapter_scores_ruler_name_year", "ruler_name", "year"),
+        Index("ix_chapter_scores_job_key", "job_key"),
+        Index("ix_chapter_scores_ruler_year", "ruler_year_id", "year"),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -552,6 +663,7 @@ class ChapterScore(Base):
     year: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     iso3: Mapped[str] = mapped_column(String(3), nullable=False)
     ruler_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    ruler_year_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
     ruler_name: Mapped[str | None] = mapped_column(String, nullable=True)
     score_1_to_10: Mapped[float | None] = mapped_column(Float, nullable=True)
     confidence_score: Mapped[float | None] = mapped_column(Float, nullable=True)
@@ -561,6 +673,15 @@ class ChapterScore(Base):
     direct_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     proxy_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     method_version: Mapped[str] = mapped_column(String, nullable=False)
+    run_key: Mapped[str | None] = mapped_column(String, nullable=True)
+    job_key: Mapped[str | None] = mapped_column(String, nullable=True)
+    calibration_batch_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    plausible_score_lower: Mapped[float | None] = mapped_column(Float, nullable=True)
+    plausible_score_upper: Mapped[float | None] = mapped_column(Float, nullable=True)
+    manual_review_required: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False
+    )
+    judgment_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=datetime.utcnow
     )

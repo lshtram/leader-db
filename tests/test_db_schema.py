@@ -10,7 +10,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from sqlalchemy import create_engine, inspect, text
+from sqlalchemy.exc import IntegrityError
 
 from leaders_db.db.engine import init_database
 
@@ -40,6 +42,9 @@ def test_init_database_creates_all_tables(database_url: str) -> None:
         "chapter_scores",
         "ruler_identity_adjudications",
         "country_year_facts",
+        "research_jobs",
+        "research_job_events",
+        "research_job_dependencies",
         # Internal to the migration runner.
         "schema_migrations",
     }
@@ -119,6 +124,63 @@ def test_required_columns_present(database_url: str) -> None:
         "research_prompt",
         "producer",
     }.issubset(fact_cols)
+
+    job_cols = {c["name"] for c in inspector.get_columns("research_jobs")}
+    assert {
+        "job_key",
+        "run_key",
+        "job_type",
+        "target_year",
+        "provider_profile",
+        "provider",
+        "model",
+        "status",
+        "attempt_count",
+        "max_attempts",
+        "claimed_by",
+        "lease_expires_at",
+        "lease_token",
+        "heartbeat_at",
+        "checkpoint_json",
+        "input_json",
+        "result_path",
+        "error_json",
+        "quarantine_reason",
+    }.issubset(job_cols)
+
+    chapter_score_cols = {
+        c["name"] for c in inspector.get_columns("chapter_scores")
+    }
+    assert {
+        "ruler_year_id",
+        "run_key",
+        "job_key",
+        "calibration_batch_id",
+        "plausible_score_lower",
+        "plausible_score_upper",
+        "manual_review_required",
+        "judgment_json",
+    }.issubset(chapter_score_cols)
+
+
+def test_research_job_check_constraints_are_enforced(database_url: str) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+
+    with engine.begin() as conn, pytest.raises(IntegrityError):
+        conn.execute(
+            text(
+                """
+                INSERT INTO research_jobs (
+                    job_key, run_key, job_type, target_year, provider_profile,
+                    provider, model, status, max_attempts
+                ) VALUES (
+                    'invalid', 'test', 'unknown', 2020, 'test',
+                    'test', 'test', 'pending', 0
+                )
+                """
+            )
+        )
 
 
 def test_ruler_year_uniqueness_constraint(database_url: str) -> None:
