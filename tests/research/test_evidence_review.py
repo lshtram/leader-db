@@ -222,6 +222,12 @@ def test_notebook_qa_and_reviewer_prompt_use_configured_yield_goals() -> None:
         qa=qa,
     )
 
+    assert "without a precise page/section/paragraph/table/timestamp locator" in prompt
+    assert "recreated under chapter-specific IDs" in prompt
+    assert "any researcher-written score" in prompt
+    assert "Apply the configured marginal-value gate" in prompt
+    assert "never justify another web-research round" in prompt
+
     assert qa.minimum_source_claim_units_per_chapter == 7
     assert qa.minimum_independent_source_families_per_chapter == 4
     assert qa.approximate_source_family_count == 1

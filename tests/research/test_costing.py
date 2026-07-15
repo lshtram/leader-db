@@ -136,6 +136,7 @@ def test_unknown_model_does_not_invent_model_cost(tmp_path: Path) -> None:
     ("provider", "model", "expected_lower", "expected_upper"),
     [
         ("openai", "gpt-5.6-terra", 0.0065, 0.007125),
+        ("openai", "gpt-5.6-sol", 0.013, 0.01425),
         ("minimax", "MiniMax-M2.7", 0.00066, 0.000735),
         ("minimax", "MiniMax-M3", 0.00066, 0.000735),
     ],

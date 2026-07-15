@@ -65,7 +65,8 @@ Permissive evidence-research notebook and handoff:
 Existing candidate from a prior failed validation:
 {json.dumps(existing_candidate, indent=2, sort_keys=True)}
 
-Reviewed minimum distinct source-claim units to preserve by chapter:
+Exact minimum mapped source-claim counts to preserve by chapter after the configured
+80% tolerance is applied to reviewer estimates:
 {json.dumps(evidence_preservation_floors or {}, indent=2, sort_keys=True)}
 
 Requirements:
@@ -84,16 +85,28 @@ Requirements:
 - Set each evidence `url` to either the exact HTTP(S) URL recorded by the researcher or
   `local-prior:<methodology-id>` for a claim taken directly from that question's
   hashed local-prior artifact. No other locator form is valid.
+- Set `source_locator` to the precise PDF page/table/figure, HTML section plus
+  paragraph, legal section, transcript timestamp, dataset row/field, or exact
+  `local-prior:<methodology-id>` locator recorded by the researcher. Use
+  `unknown_not_recorded` only for context or discovery material; an item with a missing
+  or generic locator must not be emitted as `final_evidence`.
+- Set `canonical_fact_key` to a stable value derived from the canonical URL, precise
+  source locator, and normalized materially distinct claim. Reuse the same key and
+  evidence object across chapter mappings; every emitted evidence object must have a
+  unique canonical fact key.
 - Preserve one evidence object per defensible source-claim unit identified in the
   notebook. A source-claim unit is one traceable source supporting one materially
   distinct claim. The same URL may therefore appear in multiple evidence objects;
   do not collapse a report's distinct events, findings, decisions, or outcomes into
   one omnibus record merely because they share a source. Deduplicate only genuinely
   duplicate claims, then indicate every chapter lens each retained unit informs.
+  Conversely, never recreate the same source-locator-claim fact under separate
+  chapter-specific evidence IDs. Preserve one global evidence object and map it to
+  every genuinely relevant chapter lens.
   Mapping and coverage wording are advisory handoff aids, not score-bearing decisions.
-- Treat the evidence review's `defensible_evidence_estimate` for each chapter as a
-  preservation floor for formatting, not a new research target. Retain at least that
-  many distinct mapped source-claim units from the notebook unless the notebook itself
+- Treat the explicit minimum mapped preservation count for each chapter as a
+  formatting floor, not a new research target. Retain at least that many distinct
+  mapped source-claim units from the notebook unless the notebook itself
   explicitly retracts them; never manufacture or split claims mechanically to reach it.
 - Before responding, count unique mapped evidence IDs separately for every chapter and
   verify each count meets the explicit reviewed minimum above. A mapping to one lens in
@@ -109,6 +122,9 @@ Requirements:
   declared evidence ID; never concatenate, abbreviate, or combine evidence IDs.
   Reuse evidence across every genuinely relevant lens rather than leaving it invisible.
 - Collect meaningful contrary evidence and explicit gaps. Do not assign scores.
+- Remove any researcher-written score, score range, anchor, ranking recommendation,
+  or advice to a judge about scoring/null handling; record it as a normalization
+  warning rather than evidence.
 - Use publication_date=unknown_not_exposed_by_source only when a reliable date
   cannot be established; never use null.
 - Map general repression or protest-policing evidence as context unless the claim

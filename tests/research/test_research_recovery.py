@@ -4,13 +4,17 @@ from types import SimpleNamespace
 
 import pytest
 
-from leaders_db.research._codex_worker_artifacts import find_previous_candidate
+from leaders_db.research._codex_worker_artifacts import (
+    candidate_has_valid_references,
+    find_previous_candidate,
+)
 from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.codex_worker import (
     WorkerOutputError,
     _events_show_failed_turn,
     _evidence_preservation_floors,
     _has_indeterminate_formatter_call,
+    _has_indeterminate_initial_research,
     _recover_completed_initial_research,
     _review_report_paths,
     _validate_formatter_evidence_yield,
@@ -168,6 +172,47 @@ def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(
     assert len(candidate["evidence"]) == 3
 
 
+def test_broken_reference_candidate_is_retained_only_for_repair(tmp_path: Path) -> None:
+    current = _attempt(tmp_path, "002-current")
+    prior_attempt = current.attempt_dir.parent / "001-prior"
+    prior_trusted = current.trusted_dir.parent / "001-prior"
+    prior_attempt.mkdir()
+    prior_trusted.mkdir()
+    (prior_trusted / "formatter-complete.marker").write_text(
+        "complete\n", encoding="utf-8"
+    )
+    payload = {
+        "evidence": [_candidate_evidence(1)],
+        "mappings": [
+            {
+                "methodology_id": "2B.1",
+                "evidence_id": "E999",
+                "relation": "supports",
+                "relevance": "Broken but repairable reference.",
+            }
+        ],
+        "coverage": [
+            {
+                "methodology_id": "2B.1",
+                "status": "covered",
+                "evidence_ids": ["E999"],
+                "reason": "Broken but repairable reference.",
+            }
+        ],
+        "methodology_ids": ["2B.1"],
+    }
+    (prior_attempt / "dossier.pending.json").write_text(
+        json.dumps(payload), encoding="utf-8"
+    )
+
+    candidate = find_previous_candidate(
+        current.attempt_dir.parent.parent, attempt_dir=current.attempt_dir
+    )
+
+    assert candidate == payload
+    assert candidate_has_valid_references(candidate) is False
+
+
 def test_first_review_scope_uses_only_job_selected_chapters() -> None:
     job = {"input": {"question_ids": ["2B.1", "2B.2", "5B.1"]}}
 
@@ -196,7 +241,7 @@ def test_formatter_must_preserve_reviewed_source_claim_units(tmp_path: Path) -> 
     (current.trusted_dir / "evidence-review-round-01.json").write_text(
         report.model_dump_json(), encoding="utf-8"
     )
-    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 10}
+    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 8}
     too_sparse = SimpleNamespace(
         mappings=tuple(
             SimpleNamespace(methodology_id="2B.1", evidence_id=f"E{index:03d}")
@@ -214,6 +259,43 @@ def test_formatter_must_preserve_reviewed_source_claim_units(tmp_path: Path) -> 
         )
     )
     _validate_formatter_evidence_yield(sufficient, trusted_dir=current.trusted_dir)
+
+
+def test_sparse_review_estimate_does_not_create_an_undocumented_floor(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    report = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=False,
+        selected_theme_ids=(),
+        chapter_reviews=(
+            ChapterEvidenceReview(
+                chapter_id="1B",
+                defensible_evidence_estimate=2,
+                independent_source_family_estimate=1,
+                attribution_risk="high",
+                substantive_issues=(),
+                missing_themes=("Direct ruler attribution",),
+            ),
+        ),
+        global_findings=(),
+        reviewer_summary="Sparse but honestly documented.",
+    )
+    (current.trusted_dir / "evidence-review-round-01.json").write_text(
+        report.model_dump_json(), encoding="utf-8"
+    )
+    one_unit = SimpleNamespace(
+        mappings=(SimpleNamespace(methodology_id="1B.1", evidence_id="E001"),)
+    )
+    two_units = SimpleNamespace(
+        mappings=(
+            *one_unit.mappings,
+            SimpleNamespace(methodology_id="1B.2", evidence_id="E002"),
+        )
+    )
+
+    with pytest.raises(WorkerOutputError, match="chapters: 1B"):
+        _validate_formatter_evidence_yield(one_unit, trusted_dir=current.trusted_dir)
+    _validate_formatter_evidence_yield(two_units, trusted_dir=current.trusted_dir)
 
 
 def test_formatter_floors_retain_chapters_from_earlier_review_rounds(
@@ -267,7 +349,7 @@ def test_formatter_floors_retain_chapters_from_earlier_review_rounds(
             report.model_dump_json(), encoding="utf-8"
         )
 
-    assert _evidence_preservation_floors(current.trusted_dir) == {"1B": 6, "2B": 10}
+    assert _evidence_preservation_floors(current.trusted_dir) == {"1B": 5, "2B": 8}
 
 
 def test_recovered_continuation_is_merged_into_durable_checkpoint(tmp_path: Path) -> None:
@@ -352,6 +434,47 @@ def test_initial_recovery_preserves_materials_and_handoff(tmp_path: Path) -> Non
     assert recovered is not None
     assert "Detailed evidence register." in recovered[1]
     assert "Research summary." in recovered[1]
+
+
+def test_pre_session_mcp_failure_is_safe_to_retry(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    (prior / "research-starting.json").write_text("{}", encoding="utf-8")
+    (prior / "research-events.jsonl").write_text(
+        "ERROR required MCP server failed to initialize\n", encoding="utf-8"
+    )
+
+    assert _has_indeterminate_initial_research(current.trusted_dir) is False
+
+
+def test_started_initial_thread_without_completion_is_indeterminate(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    (prior / "research-starting.json").write_text("{}", encoding="utf-8")
+    (prior / "research-events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n',
+        encoding="utf-8",
+    )
+
+    assert _has_indeterminate_initial_research(current.trusted_dir) is True
+
+
+def test_explicitly_failed_initial_turn_is_safe_to_retry(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    (prior / "research-starting.json").write_text("{}", encoding="utf-8")
+    (prior / "research-events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n'
+        '{"type":"turn.failed","error":{"message":"provider rejected"}}\n',
+        encoding="utf-8",
+    )
+
+    assert _has_indeterminate_initial_research(current.trusted_dir) is False
 
 
 def test_explicit_failed_turn_is_safe_to_retry(tmp_path: Path) -> None:

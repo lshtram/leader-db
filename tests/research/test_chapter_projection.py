@@ -261,6 +261,8 @@ def _evidence(evidence_id: str, *, final_evidence_use: str) -> dict[str, object]
         "publisher": "Example Publisher",
         "publication_date": "2020-06-01",
         "excerpt": f"Excerpt for {evidence_id}.",
+        "source_locator": f"section-{evidence_id.lower()}",
+        "canonical_fact_key": f"example.test:{evidence_id.lower()}:claim",
         "source_type": "primary",
         "source_confidence": "high",
         "source_confidence_reason": "Contemporaneous primary source.",

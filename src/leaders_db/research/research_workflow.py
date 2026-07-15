@@ -35,6 +35,10 @@ class ResearchWorkflow(BaseModel):
     normal_source_claim_units_per_chapter: int = Field(default=10, ge=1)
     maximum_source_claim_units_per_chapter: int = Field(default=20, ge=1)
     minimum_independent_source_families_per_chapter: int = Field(default=3, ge=1)
+    continuation_minimum_expected_new_units_per_selected_chapter: int = Field(
+        default=2, ge=1
+    )
+    continuation_marginal_value_policy_enabled: Literal[True] = True
 
     @model_validator(mode="after")
     def _coherent(self) -> ResearchWorkflow:

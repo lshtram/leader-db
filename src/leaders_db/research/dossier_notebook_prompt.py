@@ -119,21 +119,39 @@ globally prominent contemporary ruler normally requires substantially more searc
 than an obscure or closed historical case. Record why you believe each chapter is
 saturated or why further improvement is blocked.
 
-Record
-accepted material as you go in `research-materials.md` inside the supplied output
-directory. Markdown, tables, JSON fragments, and prose are all acceptable.
+Record accepted material immediately in `research-materials.md` inside the supplied
+output directory before starting another search. Keep one append-only global evidence
+ledger for the ruler-period. The ledger may use a Markdown table or one JSON object per
+item, but every accepted item must use the same fields and one stable provisional ID.
+Chapter notes and prose may remain flexible; the global evidence ledger may not.
 
 For every retained evidence item record:
 - a stable provisional ID;
+- a canonical fact key formed from the canonical source URL, exact locator, and one
+  materially distinct claim, so the same fact is not recreated under another chapter;
 - exact approved URL or canonical `local-prior:<methodology_id>` locator from the
   supplied fact record;
 - title, publisher, and date when known;
 - factual claim and a concise main-points summary;
-- useful excerpt or precise locator;
+- a precise source locator: PDF page/table/figure, HTML section plus paragraph, legal
+  section, transcript timestamp, dataset row/field, or the supplied exact local-prior
+  locator; also retain a short supporting excerpt when available;
 - source type/confidence and limitations;
 - target-period fit and ruler attribution;
 - contrary or mitigating points;
 - candidate chapters and lenses it can inform.
+
+If the exact underlying URL or locator is unavailable, label the item
+`gateway_only`, `locator_missing`, or `underlying_source_missing` and keep it out of
+the defensible evidence count. A homepage, search-result page, document index,
+`release page`, `article`, or organization name is not a precise locator. Never guess
+a locator. Never bundle multiple URLs or materially distinct claims into one ledger
+item merely to save space; create separate items when their provenance differs.
+
+Before adding a new item, check the ledger for the same canonical fact key. Reuse its
+stable ID and add chapter/lens mappings instead of creating chapter-prefixed copies.
+Local priors are context unless the fact itself directly measures the ruler's conduct;
+they use their supplied stable locator and must not be counted as internet sources.
 
 Aim for 5–20 defensible source-claim units per selected chapter, normally about 10.
 A source-claim unit is one traceable source supporting one materially distinct claim;
@@ -150,8 +168,10 @@ available evidence permits, but do not manufacture diversity. Treat post-period 
 as context unless it directly establishes a target-period fact. Empty or
 `no_evidence_found` priors are gap signals and never retained evidence.
 
-Do not assign scores. Do not use the client matrix. Your final response is a flexible research
-handoff summarizing the global evidence register, chapter yield and source diversity,
+Do not assign scores, score ranges, anchors, ranking recommendations, or advice about
+whether a judge should return a score or null. Do not use the client matrix. Your final
+response is a flexible research handoff summarizing the global evidence register,
+chapter yield and source diversity,
 same-URL splits, cross-chapter reuse, rejected candidates, strongest contrary
 evidence, and unresolved gaps. Self-audit temporal fit, ruler attribution, weak or
 context-only items, and claims lacking independent corroboration. Include a local-data

@@ -514,7 +514,14 @@ rounds as a formatting target, and rejects material evidence loss below the boun
 acceptance floor. Retry recovery considers only structurally valid candidates and
 prefers the candidate with the most declared-and-mapped evidence, rather than simply
 the newest or largest raw array. A no-search reviewer inspects every selected chapter and may
-return gaps to the same researcher thread for up to three rounds. After formatting,
+return gaps to the same researcher thread for up to three rounds. The researcher
+maintains one append-only global evidence ledger rather than chapter-specific copies.
+New records carry canonical source-locator-claim keys and precise locators;
+gateway-only and missing-locator candidates remain non-final. The reviewer excludes
+duplicates, bundled claims, and unauditable locators from its estimate, and a
+configured marginal-value gate prevents web continuation for deterministic cleanup.
+Formatter preservation is proportional to the actual defensible estimate, so an
+honestly sparse chapter does not acquire an undocumented five-item floor. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,
 and a score/order auditor checks the resulting comparative ordering and rubric drift.
 

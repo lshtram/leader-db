@@ -108,7 +108,7 @@ def find_previous_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, An
 
 
 def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] | None:
-    """Score only structurally valid, internally linked formatter candidates."""
+    """Score parseable candidates, retaining broken links for targeted repair."""
 
     raw_evidence = payload.get("evidence")
     raw_mappings = payload.get("mappings")
@@ -128,13 +128,47 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
         return None
     declared_ids = {item.evidence_id for item in evidence}
     selected = {str(item) for item in raw_methodology_ids}
-    mappings_valid = not any(
-        item.evidence_id not in declared_ids or item.methodology_id not in selected
-        for item in mappings
-    )
     coverage_ids = [item.methodology_id for item in coverage]
-    coverage_valid = (
-        len(coverage_ids) == len(selected)
+    if not selected:
+        return None
+    linked_ids = {
+        item.evidence_id
+        for item in mappings
+        if item.evidence_id in declared_ids and item.methodology_id in selected
+    }
+    covered_selected = {item for item in coverage_ids if item in selected}
+    return len(linked_ids), len(covered_selected), len(evidence)
+
+
+def candidate_has_valid_references(payload: dict[str, Any]) -> bool:
+    """Require strict internal links before publishing a prior formatter candidate."""
+
+    raw_evidence = payload.get("evidence")
+    raw_mappings = payload.get("mappings")
+    raw_coverage = payload.get("coverage")
+    raw_methodology_ids = payload.get("methodology_ids")
+    if not all(
+        isinstance(value, list)
+        for value in (raw_evidence, raw_mappings, raw_coverage, raw_methodology_ids)
+    ):
+        return False
+    try:
+        evidence = tuple(DossierEvidence.model_validate(item) for item in raw_evidence)
+        mappings = tuple(EvidenceQuestionMapping.model_validate(item) for item in raw_mappings)
+        coverage = tuple(QuestionCoverage.model_validate(item) for item in raw_coverage)
+    except (ValidationError, TypeError):
+        return False
+    declared_ids = {item.evidence_id for item in evidence}
+    selected = {str(item) for item in raw_methodology_ids}
+    coverage_ids = [item.methodology_id for item in coverage]
+    return (
+        len(declared_ids) == len(evidence)
+        and bool(selected)
+        and not any(
+            item.evidence_id not in declared_ids or item.methodology_id not in selected
+            for item in mappings
+        )
+        and len(coverage_ids) == len(selected)
         and set(coverage_ids) == selected
         and not any(
             evidence_id not in declared_ids
@@ -142,15 +176,6 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
             for evidence_id in item.evidence_ids
         )
     )
-    if (
-        len(declared_ids) != len(evidence)
-        or not selected
-        or not mappings_valid
-        or not coverage_valid
-    ):
-        return None
-    linked_ids = {item.evidence_id for item in mappings}
-    return len(linked_ids), len(coverage_ids), len(evidence)
 
 
 def write_local_priors(
@@ -183,6 +208,7 @@ def write_local_priors(
 
 
 __all__ = [
+    "candidate_has_valid_references",
     "find_previous_candidate",
     "price_codex_usage",
     "read_codex_usage",

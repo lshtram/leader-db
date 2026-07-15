@@ -15,6 +15,9 @@ from pydantic import ValidationError
 from sqlalchemy.engine import Engine
 
 from ._codex_worker_artifacts import (
+    candidate_has_valid_references,
+)
+from ._codex_worker_artifacts import (
     price_codex_usage as _price_codex_usage,
 )
 from ._codex_worker_artifacts import (
@@ -227,6 +230,8 @@ def _reuse_existing_notebook_candidate(
     """Publish a recovered valid formatter candidate without another paid call."""
 
     if candidate is None or research_checkpoint is None:
+        return None
+    if not candidate_has_valid_references(candidate):
         return None
     try:
         dossier = _prepare_dossier(
@@ -601,6 +606,8 @@ def _has_indeterminate_initial_research(trusted_dir: Path) -> bool:
         directory != trusted_dir
         and (directory / "research-starting.json").is_file()
         and not _checkpoint_has_initial_research(directory)
+        and _events_show_turn_started(directory / "research-events.jsonl")
+        and not _events_show_failed_turn(directory / "research-events.jsonl")
         for directory in trusted_dir.parent.glob("*")
         if directory.is_dir()
     )
@@ -624,6 +631,21 @@ def _events_show_completed_turn(events_path: Path) -> bool:
         except json.JSONDecodeError:
             continue
         if isinstance(payload, dict) and payload.get("type") == "turn.completed":
+            return True
+    return False
+
+
+def _events_show_turn_started(events_path: Path) -> bool:
+    """Distinguish a potentially paid model turn from pre-turn startup failure."""
+
+    if not events_path.is_file():
+        return False
+    for line in events_path.read_text(encoding="utf-8").splitlines():
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict) and payload.get("type") == "turn.started":
             return True
     return False
 
@@ -652,7 +674,7 @@ def _validate_formatter_evidence_yield(
     if not review_paths:
         return
 
-    estimates = _reviewed_evidence_estimates(review_paths)
+    estimates = _evidence_preservation_floors(trusted_dir)
     mapped_by_chapter: dict[str, set[str]] = {}
     for item in dossier.mappings:
         chapter_id = item.methodology_id.split(".", maxsplit=1)[0]
@@ -660,7 +682,7 @@ def _validate_formatter_evidence_yield(
     lost = sorted(
         chapter_id
         for chapter_id, estimate in estimates.items()
-        if len(mapped_by_chapter.get(chapter_id, set())) < max(5, math.ceil(estimate * 0.8))
+        if len(mapped_by_chapter.get(chapter_id, set())) < estimate
     )
     if lost:
         raise WorkerOutputError(
@@ -670,13 +692,16 @@ def _validate_formatter_evidence_yield(
 
 
 def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:
-    """Return aggregated chapter source-claim preservation floors across reviews."""
+    """Return explicit 80%-tolerant chapter preservation floors across reviews."""
 
     review_paths = _review_report_paths(trusted_dir)
     if not review_paths:
         return {}
 
-    return _reviewed_evidence_estimates(review_paths)
+    return {
+        chapter_id: math.ceil(estimate * 0.8)
+        for chapter_id, estimate in _reviewed_evidence_estimates(review_paths).items()
+    }
 
 
 def _reviewed_evidence_estimates(review_paths: list[Path]) -> dict[str, int]:

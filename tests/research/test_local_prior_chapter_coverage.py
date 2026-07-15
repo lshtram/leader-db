@@ -264,9 +264,14 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "never concatenate, abbreviate, or combine evidence IDs" in formatter_prompt
     assert "one evidence object per defensible source-claim unit" in formatter_prompt
     assert "do not collapse a report's distinct events" in formatter_prompt
-    assert "`defensible_evidence_estimate` for each chapter as a\n  preservation floor" in (
-        formatter_prompt
-    )
+    assert "Set `source_locator` to the precise PDF page/table/figure" in formatter_prompt
+    assert "Set `canonical_fact_key` to a stable value" in formatter_prompt
+    assert "never recreate the same source-locator-claim fact" in formatter_prompt
+    assert "Remove any researcher-written score" in formatter_prompt
+    assert (
+        "explicit minimum mapped preservation count for each chapter as a\n"
+        "  formatting floor"
+    ) in formatter_prompt
     assert '"2B": 12' in formatter_prompt
     assert "count unique mapped evidence IDs separately for every chapter" in formatter_prompt
     assert "IDs mentioned only in `coverage` do not count" in formatter_prompt

@@ -23,6 +23,17 @@ models:
       threshold_input_tokens: 272000
       rates: {uncached_input: 5.0, cached_input: 0.5, cache_write_input: 6.25, output: 22.5}
     codex_credits: {uncached_input: 62.5, cached_input: 6.25, output: 375.0}
+  openai-sol:
+    provider: openai
+    model: gpt-5.6-sol
+    billing_mode: chatgpt_subscription_with_api_and_codex_equivalents
+    source_url: https://developers.openai.com/api/docs/models/gpt-5.6-sol
+    retrieved_date: '2026-07-15'
+    usd: {uncached_input: 5.0, cached_input: 0.5, cache_write_input: 6.25, output: 30.0}
+    long_context:
+      threshold_input_tokens: 272000
+      rates: {uncached_input: 10.0, cached_input: 1.0, cache_write_input: 12.5, output: 45.0}
+    codex_credits: {uncached_input: 125.0, cached_input: 12.5, output: 750.0}
   minimax-m27:
     provider: minimax
     model: MiniMax-M2.7

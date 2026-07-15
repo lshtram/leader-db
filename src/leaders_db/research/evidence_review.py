@@ -213,6 +213,37 @@ imperfections are not evidence defects. Assess defensible source-claim units, so
 independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
 and exact missing themes. Missing evidence is not negative ruler evidence.
 
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
 Return all selected chapters exactly once. Select every chapter with a material,
 research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
 evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.

@@ -1,5 +1,32 @@
 # Workplan
 
+## 2026-07-15 — Canonical M3 ledger and supervisor-cost pilot completed
+
+- The research notebook contract now requires one append-only global evidence ledger,
+  canonical source-locator-claim keys, precise locators, immediate gateway/missing-
+  locator quarantine, cross-chapter ID reuse, and no researcher scoring advice. The
+  published dossier carries `source_locator` and `canonical_fact_key`; new strict
+  writers must supply auditable values while older v2 artifacts remain readable.
+- Evidence review now distinguishes deterministic consolidation from recoverable web
+  gaps and applies a configured marginal-value gate before another broad continuation.
+  Formatter preservation follows 80% of the reviewer's actual defensible estimate;
+  it no longer invents a five-item floor for an honestly sparse chapter.
+- A Merkel / Germany / 2020 MiniMax-M3 pilot produced a 136 KB final notebook after
+  three continuations. Luna, Terra, and Sol independently returned conditional pass
+  and agreed that broad research should have stopped after round one under the new
+  marginal-value rule. Sol did not produce a materially different release decision.
+- Configured PAYG-equivalent usage through the completed formatter was approximately
+  $1.567 before Parallel search and before an interrupted formatter-repair attempt:
+  M3 $1.227, three Luna reviews $0.145, Luna formatter $0.196. The completed formatter
+  retained 24 evidence items and all 80 coverage rows but under-preserved one reviewed
+  chapter after the sparse-floor correction, so the pilot remains quarantined rather
+  than published. The recovery attempt required semantic repair and was stopped; its
+  partial usage is unknown.
+- Next test: one fresh case with the marginal-value rule active from the first review,
+  normally one broad continuation at most, followed by deterministic consolidation.
+  Keep Luna as default supervisor; Terra or Sol are escalation candidates only when a
+  role-specific quality test changes the substantive decision.
+
 ## 2026-07-15 — Codex/MiniMax-M3/Parallel full ruler-period pilot completed
 
 - Kumaratunga / Sri Lanka / 1997 completed as one local-first MiniMax-M3 researcher

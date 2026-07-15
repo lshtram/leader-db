@@ -1,0 +1,124 @@
+from __future__ import annotations
+
+import pytest
+from pydantic import ValidationError
+
+from leaders_db.research.dossier_models import (
+    DossierEvidence,
+    RulerEvidenceDossier,
+    codex_dossier_json_schema,
+)
+
+
+def test_old_v2_evidence_without_new_audit_fields_remains_readable() -> None:
+    evidence = DossierEvidence.model_validate(_evidence())
+
+    assert evidence.source_locator == "unknown_not_recorded"
+    assert evidence.canonical_fact_key == "unknown_not_recorded"
+
+
+@pytest.mark.parametrize("locator", ["locator_missing", "release page", "document index"])
+def test_new_final_evidence_rejects_generic_locator(locator: str) -> None:
+    payload = _evidence() | {
+        "source_locator": locator,
+        "canonical_fact_key": "source|locator|claim",
+    }
+
+    with pytest.raises(ValidationError, match="precise source locator"):
+        DossierEvidence.model_validate(payload)
+
+
+def test_strict_writer_schema_requires_new_audit_fields() -> None:
+    schema = codex_dossier_json_schema()
+    evidence_schema = schema["$defs"]["DossierEvidence"]
+
+    assert {"source_locator", "canonical_fact_key"}.issubset(evidence_schema["required"])
+
+
+@pytest.mark.parametrize(
+    "partial",
+    [
+        {"source_locator": "PDF p. 4"},
+        {"canonical_fact_key": "source|p4|claim"},
+    ],
+)
+def test_new_writer_cannot_supply_only_one_audit_field(partial: dict[str, str]) -> None:
+    with pytest.raises(ValidationError, match=r"requires a precise|requires a canonical"):
+        DossierEvidence.model_validate(_evidence() | partial)
+
+
+def test_dossier_rejects_duplicate_canonical_fact() -> None:
+    first = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    second = first | {"evidence_id": "E002", "canonical_fact_key": "other-key"}
+
+    with pytest.raises(ValidationError, match="duplicate canonical"):
+        RulerEvidenceDossier.model_validate(_dossier((first, second)))
+
+
+def _evidence() -> dict[str, object]:
+    return {
+        "evidence_id": "E001",
+        "claim": "The primary record reports a dated action.",
+        "url": "https://example.test/report.pdf",
+        "title": "Primary report",
+        "publisher": "Example authority",
+        "publication_date": "2020-06-01",
+        "excerpt": "A short supporting excerpt.",
+        "source_type": "official_record",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary dated record.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2020",
+        "ruler_attribution": "cabinet/government",
+        "contrary_evidence": [],
+    }
+
+
+def _dossier(evidence: tuple[dict[str, object], ...]) -> dict[str, object]:
+    return {
+        "schema_version": "ruler_evidence_dossier_v2",
+        "job_key": "dossier:test",
+        "run_key": "test",
+        "iso3": "NZL",
+        "country_name": "New Zealand",
+        "ruler_id": "1",
+        "ruler_year_id": 1,
+        "ruler_name": "Fixture ruler",
+        "period_start_year": 2020,
+        "period_end_year": 2020,
+        "methodology_ids": ["1B.1"],
+        "evidence": list(evidence),
+        "mappings": [],
+        "coverage": [
+            {
+                "methodology_id": "1B.1",
+                "status": "no_evidence_found",
+                "evidence_ids": [],
+                "reason": "Fixture coverage.",
+            }
+        ],
+        "local_priors": [
+            {
+                "methodology_id": "1B.1",
+                "status": "no_evidence_found",
+                "summary": "No local evidence.",
+                "artifact_path": "fixture.json",
+                "artifact_sha256": "a" * 64,
+            }
+        ],
+        "run_profile": {
+            "provider_profile": "fixture",
+            "provider": "openai",
+            "model": "fixture",
+            "source_mix_note": "Fixture sources.",
+            "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_tokens": 0,
+                "estimated_cost_usd": "unknown_not_exposed_by_tool",
+            },
+        },
+    }

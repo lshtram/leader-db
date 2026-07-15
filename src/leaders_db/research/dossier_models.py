@@ -30,6 +30,8 @@ class DossierEvidence(BaseModel):
     publisher: str = Field(min_length=1)
     publication_date: str = Field(min_length=1)
     excerpt: str = Field(min_length=1)
+    source_locator: str = Field(default="unknown_not_recorded", min_length=1)
+    canonical_fact_key: str = Field(default="unknown_not_recorded", min_length=1)
     source_type: str = Field(min_length=1)
     source_confidence: str = Field(min_length=1)
     source_confidence_reason: str = Field(min_length=1)
@@ -37,6 +39,32 @@ class DossierEvidence(BaseModel):
     period_fit: str = Field(min_length=1)
     ruler_attribution: str = Field(min_length=1)
     contrary_evidence: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def _validate_final_evidence_auditability(self) -> DossierEvidence:
+        """Require new final-evidence writers to provide an auditable locator/key."""
+
+        if self.final_evidence_use != "final_evidence":
+            return self
+        explicit_locator = "source_locator" in self.model_fields_set
+        explicit_key = "canonical_fact_key" in self.model_fields_set
+        if not explicit_locator and not explicit_key:
+            return self
+        generic_locators = {
+            "unknown_not_recorded",
+            "gateway_only",
+            "locator_missing",
+            "underlying_source_missing",
+            "release page",
+            "article",
+            "section page",
+            "document index",
+        }
+        if not explicit_locator or self.source_locator.strip().casefold() in generic_locators:
+            raise ValueError("final evidence requires a precise source locator")
+        if not explicit_key or self.canonical_fact_key == "unknown_not_recorded":
+            raise ValueError("final evidence requires a canonical fact key")
+        return self
 
 
 class EvidenceQuestionMapping(BaseModel):
@@ -198,6 +226,21 @@ class RulerEvidenceDossier(BaseModel):
         evidence_ids = [item.evidence_id for item in self.evidence]
         if len(evidence_ids) != len(set(evidence_ids)):
             raise ValueError("evidence IDs must be unique")
+        canonical_facts: set[tuple[str, str, str]] = set()
+        canonical_keys: set[str] = set()
+        for item in self.evidence:
+            if {"source_locator", "canonical_fact_key"}.issubset(item.model_fields_set):
+                fact = (
+                    item.url.strip().casefold(),
+                    item.source_locator.strip().casefold(),
+                    " ".join(item.claim.split()).casefold(),
+                )
+                if fact in canonical_facts:
+                    raise ValueError("duplicate canonical source-locator-claim fact")
+                canonical_facts.add(fact)
+                if item.canonical_fact_key in canonical_keys:
+                    raise ValueError("canonical fact keys must be unique")
+                canonical_keys.add(item.canonical_fact_key)
         known = set(evidence_ids)
         selected = set(self.methodology_ids)
         if {item.methodology_id for item in self.local_priors} != selected:
