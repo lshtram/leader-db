@@ -23,9 +23,14 @@ from leaders_db.research.evidence_review import ChapterEvidenceReview, EvidenceR
 from leaders_db.research.notebook_continuation import (
     _completed_review_reports,
     _existing_continuation,
+    _existing_review_repair,
+    _existing_supervisor_takeover,
+    _has_indeterminate_supervisor_takeover,
     _initial_expected_review_ids,
     _rehydrate_completed_continuation,
+    _should_use_supervisor_takeover,
 )
+from leaders_db.research.research_workflow import ResearchWorkflow
 
 
 def _attempt(tmp_path: Path, name: str = "002-current") -> WorkerAttempt:
@@ -86,6 +91,24 @@ def test_review_reports_are_recovered_across_attempts(tmp_path: Path) -> None:
     assert _completed_review_reports(current) == [(1, report)]
 
 
+def test_scope_repair_review_is_recovered_across_attempts(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = _attempt(tmp_path, "001-prior")
+    report = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=False,
+        selected_theme_ids=(),
+        chapter_reviews=(),
+        global_findings=(),
+        reviewer_summary="Scope repaired.",
+    )
+    (prior.trusted_dir / "evidence-review-round-03-repair.json").write_text(
+        report.model_dump_json(), encoding="utf-8"
+    )
+
+    assert _existing_review_repair(current, 3) == report
+
+
 def test_completed_continuation_is_recovered_without_new_call(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     prior_trusted = current.trusted_dir.parent / "001-prior"
@@ -98,6 +121,49 @@ def test_completed_continuation_is_recovered_without_new_call(tmp_path: Path) ->
     output.write_text("Recovered evidence.", encoding="utf-8")
 
     assert _existing_continuation(current, 1) == (events, output)
+
+
+def test_completed_supervisor_takeover_is_recovered_without_new_call(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    prior = _attempt(tmp_path, "001-prior")
+    events = prior.trusted_dir / "research-supervisor-takeover-round-02.events.jsonl"
+    events.write_text('{"type":"turn.completed"}\n', encoding="utf-8")
+    output = prior.attempt_dir / "research-supervisor-takeover-round-02.md"
+    output.write_text("Recovered Luna evidence.", encoding="utf-8")
+
+    assert _existing_supervisor_takeover(current, 2) == (events, output)
+    assert _has_indeterminate_supervisor_takeover(current, 2) is False
+
+
+def test_failed_supervisor_takeover_is_safe_to_retry(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = _attempt(tmp_path, "001-prior")
+    (prior.trusted_dir / "research-supervisor-takeover-round-02.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior.trusted_dir / "research-supervisor-takeover-round-02.events.jsonl").write_text(
+        '{"type":"turn.failed"}\n', encoding="utf-8"
+    )
+
+    assert _existing_supervisor_takeover(current, 2) is None
+    assert _has_indeterminate_supervisor_takeover(current, 2) is False
+
+
+def test_started_supervisor_takeover_without_terminal_result_is_indeterminate(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    prior = _attempt(tmp_path, "001-prior")
+    (prior.trusted_dir / "research-supervisor-takeover-round-02.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior.trusted_dir / "research-supervisor-takeover-round-02.events.jsonl").write_text(
+        '{"type":"turn.started"}\n', encoding="utf-8"
+    )
+
+    assert _has_indeterminate_supervisor_takeover(current, 2) is True
 
 
 def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(
@@ -217,6 +283,17 @@ def test_first_review_scope_uses_only_job_selected_chapters() -> None:
     job = {"input": {"question_ids": ["2B.1", "2B.2", "5B.1"]}}
 
     assert _initial_expected_review_ids(job) == ("2B", "5B")
+
+
+def test_luna_takeover_starts_after_two_cheap_research_attempts() -> None:
+    workflow = ResearchWorkflow(
+        version=1,
+        chapter_order=tuple(f"{index}B" for index in range(1, 9)),
+    )
+
+    assert _should_use_supervisor_takeover(round_number=1, workflow=workflow) is False
+    assert _should_use_supervisor_takeover(round_number=2, workflow=workflow) is True
+    assert _should_use_supervisor_takeover(round_number=3, workflow=workflow) is True
 
 
 def test_formatter_must_preserve_reviewed_source_claim_units(tmp_path: Path) -> None:

@@ -15,6 +15,8 @@ def test_repository_workflow_is_sequential_and_allows_three_review_rounds() -> N
     assert workflow.maximum_source_claim_units_per_chapter == 20
     assert workflow.continuation_minimum_expected_new_units_per_selected_chapter == 2
     assert workflow.continuation_marginal_value_policy_enabled is True
+    assert workflow.supervisor_takeover_enabled is True
+    assert workflow.supervisor_takeover_after_research_attempts == 2
 
 
 def test_workflow_rejects_missing_or_reordered_chapters() -> None:

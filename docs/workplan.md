@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-15 — Bounded Luna research takeover added
+
+- A ruler job no longer terminates merely because the cheap researcher or reviewer
+  repeats a recoverable defect. The primary model receives the initial pass and one
+  continuation; from the third research attempt onward, the configured Luna reviewer
+  opens a fresh search-enabled research session over the accumulated notebook and
+  exact review defects. At most two Luna takeover rounds occur under the current
+  three-round review cap, followed by a final all-chapter Luna review and formatting.
+- Every review still covers all eight immutable chapters. If Luna emits only its narrow
+  continuation subset, one bounded no-search repair call corrects the review scope;
+  `selected_theme_ids` remains free to identify only the chapters needing more work.
+- Completed takeover and review-repair calls are recoverable across worker attempts,
+  explicit failed calls are safe to retry, indeterminate paid calls remain quarantined,
+  and Luna takeover usage is priced under Luna rather than MiniMax. Supervisor role
+  compatibility is checked before the review loop starts.
+
 ## 2026-07-15 — M3 batch gate blocked malformed MCP calls and empty publication
 
 - The first `2020-diverse-20-m3-supervised-v1` gate case exposed a MiniMax-specific

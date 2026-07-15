@@ -515,6 +515,13 @@ def _prepare_execution_passes(
         )
         if reviewer is None or "dossier_evidence_reviewer" not in reviewer.roles:
             raise ValueError("job references an unavailable evidence reviewer profile")
+        if (
+            workflow.supervisor_takeover_enabled
+            and "dossier_researcher" not in reviewer.roles
+        ):
+            raise ValueError(
+                "configured supervisor takeover profile does not permit dossier research"
+            )
         if (reviewer.provider, reviewer.model) != (
             job["input"].get("reviewer_provider"),
             job["input"].get("reviewer_model"),
@@ -845,6 +852,18 @@ def _stamp_two_pass_usage(
                         usage,
                         provider=job["provider"],
                         model=job["model"],
+                    )
+                )
+        for takeover_events in sorted(
+            directory.glob("research-supervisor-takeover-round-*.events.jsonl")
+        ):
+            usage = _read_codex_usage(takeover_events)
+            if usage is not None:
+                priced_research.append(
+                    _price_codex_usage(
+                        usage,
+                        provider=str(job["input"]["reviewer_provider"]),
+                        model=str(job["input"]["reviewer_model"]),
                     )
                 )
         for reviewer_events in sorted(

@@ -86,11 +86,7 @@ def review_and_resume_notebook_if_needed(
         )
     else:
         start_round = 1
-    expected_review_ids = (
-        tuple(completed_reports[-1][1].selected_theme_ids)
-        if completed_reports and start_round > 1
-        else _initial_expected_review_ids(job)
-    )
+    expected_review_ids = _initial_expected_review_ids(job)
     for round_number in range(start_round, workflow.max_review_rounds + 1):
         qa = assess_research_notebook(
             current[1],
@@ -113,30 +109,128 @@ def review_and_resume_notebook_if_needed(
             timeout_seconds=timeout_seconds,
         )
         reviewed = True
-        validate_review_scope(
-            report,
-            selected_chapter_ids=qa.selected_chapter_ids,
-            expected_chapter_ids=expected_review_ids,
-        )
+        try:
+            validate_review_scope(
+                report,
+                selected_chapter_ids=qa.selected_chapter_ids,
+                expected_chapter_ids=expected_review_ids,
+            )
+        except ValueError:
+            report = _repair_evidence_review_scope(
+                engine,
+                report=report,
+                job=job,
+                worker_id=worker_id,
+                project_root=project_root,
+                profile=reviewer_profile,
+                attempt=attempt,
+                notebook=current[1],
+                qa=qa,
+                round_number=round_number,
+                expected_chapter_ids=expected_review_ids,
+                lease_token=lease_token,
+                lease_seconds=lease_seconds,
+                heartbeat_seconds=heartbeat_seconds,
+                timeout_seconds=timeout_seconds,
+            )
+            validate_review_scope(
+                report,
+                selected_chapter_ids=qa.selected_chapter_ids,
+                expected_chapter_ids=expected_review_ids,
+            )
         if not report.needs_continuation:
             break
-        expected_review_ids = tuple(report.selected_theme_ids)
-        current = _resume_researcher(
+        takeover = _should_use_supervisor_takeover(
+            round_number=round_number, workflow=workflow
+        )
+        if takeover:
+            if "dossier_researcher" not in reviewer_profile.roles:
+                raise ValueError(
+                    "supervisor takeover profile does not permit dossier research"
+                )
+            current = _run_supervisor_takeover(
+                engine,
+                checkpoint=current,
+                report=report,
+                job=job,
+                worker_id=worker_id,
+                project_root=project_root,
+                profile=reviewer_profile,
+                attempt=attempt,
+                round_number=round_number,
+                lease_token=lease_token,
+                lease_seconds=lease_seconds,
+                heartbeat_seconds=heartbeat_seconds,
+                timeout_seconds=timeout_seconds,
+            )
+        else:
+            current = _resume_researcher(
+                engine,
+                checkpoint=current,
+                report=report,
+                job=job,
+                worker_id=worker_id,
+                project_root=project_root,
+                profile=researcher_profile,
+                attempt=attempt,
+                round_number=round_number,
+                lease_token=lease_token,
+                lease_seconds=lease_seconds,
+                heartbeat_seconds=heartbeat_seconds,
+                timeout_seconds=timeout_seconds,
+            )
+        resume_count += 1
+    if reviewed and report.needs_continuation:
+        qa = assess_research_notebook(
+            current[1],
+            methodology_ids=tuple(job["input"]["question_ids"]),
+            workflow=workflow,
+        )
+        final_round = workflow.max_review_rounds + 1
+        final_report = _existing_review_report(attempt, final_round) or _run_evidence_review(
             engine,
-            checkpoint=current,
-            report=report,
             job=job,
             worker_id=worker_id,
             project_root=project_root,
-            profile=researcher_profile,
+            profile=reviewer_profile,
             attempt=attempt,
-            round_number=round_number,
+            notebook=current[1],
+            qa=qa,
+            round_number=final_round,
             lease_token=lease_token,
             lease_seconds=lease_seconds,
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
-        resume_count += 1
+        try:
+            validate_review_scope(
+                final_report,
+                selected_chapter_ids=qa.selected_chapter_ids,
+                expected_chapter_ids=expected_review_ids,
+            )
+        except ValueError:
+            final_report = _repair_evidence_review_scope(
+                engine,
+                report=final_report,
+                job=job,
+                worker_id=worker_id,
+                project_root=project_root,
+                profile=reviewer_profile,
+                attempt=attempt,
+                notebook=current[1],
+                qa=qa,
+                round_number=final_round,
+                expected_chapter_ids=expected_review_ids,
+                lease_token=lease_token,
+                lease_seconds=lease_seconds,
+                heartbeat_seconds=heartbeat_seconds,
+                timeout_seconds=timeout_seconds,
+            )
+            validate_review_scope(
+                final_report,
+                selected_chapter_ids=qa.selected_chapter_ids,
+                expected_chapter_ids=expected_review_ids,
+            )
     return NotebookContinuationResult(
         checkpoint=current,
         qa_reviewed=reviewed,
@@ -152,6 +246,19 @@ def _initial_expected_review_ids(job: dict[str, Any]) -> tuple[str, ...]:
             str(methodology_id).split(".", maxsplit=1)[0]
             for methodology_id in job["input"]["question_ids"]
         )
+    )
+
+
+def _should_use_supervisor_takeover(
+    *, round_number: int, workflow: ResearchWorkflow
+) -> bool:
+    """Return whether initial research plus continuations exhausted the cheap-model cap."""
+
+    completed_research_attempts = round_number + 1
+    return (
+        workflow.supervisor_takeover_enabled
+        and completed_research_attempts
+        > workflow.supervisor_takeover_after_research_attempts
     )
 
 
@@ -229,6 +336,96 @@ def _run_evidence_review(
         raise WorkerOutputError("evidence reviewer produced invalid output") from exc
 
 
+def _repair_evidence_review_scope(
+    engine: Engine,
+    *,
+    report: EvidenceReviewReport,
+    job: dict[str, Any],
+    worker_id: str,
+    project_root: Path,
+    profile: ResearchModelProfile,
+    attempt: WorkerAttempt,
+    notebook: str,
+    qa: Any,
+    round_number: int,
+    expected_chapter_ids: tuple[str, ...],
+    lease_token: str,
+    lease_seconds: int,
+    heartbeat_seconds: int,
+    timeout_seconds: int,
+) -> EvidenceReviewReport:
+    """Give Luna one bounded correction when a review omits immutable chapters."""
+
+    recovered = _existing_review_repair(attempt, round_number)
+    if recovered is not None:
+        return recovered
+    suffix = f"round-{round_number:02d}-repair"
+    schema_path = attempt.trusted_dir / f"evidence-review-{suffix}.schema.json"
+    output_path = attempt.trusted_dir / f"evidence-review-{suffix}.json"
+    events_path = attempt.trusted_dir / f"evidence-review-{suffix}.events.jsonl"
+    schema_path.write_text(
+        json.dumps(evidence_review_json_schema(), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    prompt = (
+        build_evidence_review_prompt(job=job, notebook=notebook, qa=qa)
+        + "\n\nYour prior review omitted or expanded immutable chapter scope. "
+        + "Return exactly one chapter_reviews row for every chapter in this list: "
+        + ", ".join(expected_chapter_ids)
+        + ". selected_theme_ids may remain a narrower subset. Preserve substantive "
+        + "judgments where valid and correct only the scope/completeness defect.\n\n"
+        + "Prior invalid review:\n"
+        + report.model_dump_json(indent=2)
+    )
+    (attempt.trusted_dir / f"evidence-review-{suffix}.prompt.txt").write_text(
+        prompt, encoding="utf-8"
+    )
+    command = build_codex_exec_command(
+        profile=profile,
+        project_root=project_root,
+        schema_path=schema_path,
+        final_message_path=output_path,
+        writable_dir=attempt.attempt_dir,
+    )
+    checkpoint_job(
+        engine,
+        job_id=int(job["id"]),
+        worker_id=worker_id,
+        lease_token=lease_token,
+        checkpoint={"phase": "evidence_review_repair", "round": round_number},
+    )
+    from .codex_worker import WorkerOutputError, _run_codex
+
+    starting_path = attempt.trusted_dir / f"evidence-review-{suffix}.starting.json"
+    if _has_indeterminate_review_repair(attempt, round_number):
+        raise WorkerOutputError(
+            f"evidence review repair round {round_number} has a prior paid call "
+            "without recoverable output"
+        )
+    starting_path.write_text(
+        json.dumps({"job_id": job["id"], "round": round_number}, sort_keys=True),
+        encoding="utf-8",
+    )
+    _run_codex(
+        engine,
+        command=command,
+        prompt=prompt,
+        events_path=events_path,
+        job_id=int(job["id"]),
+        worker_id=worker_id,
+        lease_token=lease_token,
+        lease_seconds=lease_seconds,
+        heartbeat_seconds=heartbeat_seconds,
+        timeout_seconds=timeout_seconds,
+    )
+    try:
+        return EvidenceReviewReport.model_validate_json(
+            output_path.read_text(encoding="utf-8")
+        )
+    except (OSError, ValidationError) as exc:
+        raise WorkerOutputError("evidence review repair produced invalid output") from exc
+
+
 def _resume_researcher(
     engine: Engine,
     *,
@@ -301,7 +498,11 @@ def _resume_researcher(
         )
     else:
         events_path, output_path = recovered
-    if not output_path.is_file() or output_path.stat().st_size > 5_000_000:
+    if (
+        not output_path.is_file()
+        or output_path.stat().st_size == 0
+        or output_path.stat().st_size > 5_000_000
+    ):
         raise WorkerOutputError("researcher continuation produced no bounded handoff")
     continuation = output_path.read_text(encoding="utf-8")
     notebook = (
@@ -336,6 +537,187 @@ def _resume_researcher(
     return events_path, notebook, notebook_path, notebook_hash, events_hash
 
 
+def _run_supervisor_takeover(
+    engine: Engine,
+    *,
+    checkpoint: ResearchCheckpoint,
+    report: EvidenceReviewReport,
+    job: dict[str, Any],
+    worker_id: str,
+    project_root: Path,
+    profile: ResearchModelProfile,
+    attempt: WorkerAttempt,
+    round_number: int,
+    lease_token: str,
+    lease_seconds: int,
+    heartbeat_seconds: int,
+    timeout_seconds: int,
+) -> ResearchCheckpoint:
+    """Let the supervisor finish recoverable research after the cheap model stalls."""
+
+    suffix = f"round-{round_number:02d}"
+    output_path = attempt.attempt_dir / f"research-supervisor-takeover-{suffix}.md"
+    events_path = attempt.trusted_dir / f"research-supervisor-takeover-{suffix}.events.jsonl"
+    prompt_path = attempt.trusted_dir / f"research-supervisor-takeover-{suffix}.prompt.txt"
+    identity = {
+        key: job.get(key)
+        for key in (
+            "job_key",
+            "iso3",
+            "country_name",
+            "ruler_name",
+            "period_start_year",
+            "period_end_year",
+        )
+    }
+    prompt = f"""You are taking over an incomplete ruler-period evidence research run.
+
+Use direct iterative internet search. Repair the selected recoverable gaps and append
+defensible source-claim units with precise locators, source summaries, period fit,
+ruler attribution, contrary evidence, and chapter/lens links. Preserve usable evidence
+from the accumulated notebook. Do not score the ruler. Return a permissive research
+handoff, not strict JSON. Do not merely describe what should be researched: perform it.
+
+Immutable ruler-period:
+{json.dumps(identity, indent=2)}
+
+Latest evidence review:
+{report.model_dump_json(indent=2)}
+
+Accumulated notebook:
+---
+{checkpoint[1]}
+---
+"""
+    prompt_path.write_text(prompt, encoding="utf-8")
+    recovered = _existing_supervisor_takeover(attempt, round_number)
+    if recovered is None and _has_indeterminate_supervisor_takeover(attempt, round_number):
+        raise RuntimeError(
+            f"supervisor takeover round {round_number} has a prior paid call "
+            "without recoverable output"
+        )
+    command = build_codex_exec_command(
+        profile=profile,
+        project_root=project_root,
+        schema_path=None,
+        final_message_path=output_path,
+        writable_dir=attempt.attempt_dir,
+    )
+    checkpoint_job(
+        engine,
+        job_id=int(job["id"]),
+        worker_id=worker_id,
+        lease_token=lease_token,
+        checkpoint={
+            "phase": "supervisor_research_takeover",
+            "round": round_number,
+            "chapter_ids": list(report.selected_theme_ids),
+            "provider_profile": str(job["input"]["reviewer_profile"]),
+        },
+    )
+    from .codex_worker import WorkerOutputError, _run_codex
+
+    if recovered is None:
+        starting_path = (
+            attempt.trusted_dir / f"research-supervisor-takeover-{suffix}.starting.json"
+        )
+        starting_path.write_text(
+            json.dumps({"job_id": job["id"], "round": round_number}, sort_keys=True),
+            encoding="utf-8",
+        )
+        _run_codex(
+            engine,
+            command=command,
+            prompt=prompt,
+            events_path=events_path,
+            job_id=int(job["id"]),
+            worker_id=worker_id,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
+    else:
+        events_path, output_path = recovered
+    if not output_path.is_file() or output_path.stat().st_size > 5_000_000:
+        raise WorkerOutputError("supervisor takeover produced no bounded handoff")
+    continuation = output_path.read_text(encoding="utf-8")
+    notebook = (
+        f"{checkpoint[1]}\n\n--- EVIDENCE REVIEW ROUND {round_number} ---\n\n"
+        f"{report.model_dump_json(indent=2)}\n\n"
+        f"--- SUPERVISOR RESEARCH TAKEOVER ROUND {round_number} ---\n\n{continuation}"
+    )
+    notebook_path = attempt.trusted_dir / f"research-notebook-{suffix}.md"
+    notebook_path.write_text(notebook, encoding="utf-8")
+    notebook_hash = sha256(notebook_path.read_bytes()).hexdigest()
+    events_hash = sha256(events_path.read_bytes()).hexdigest()
+    (attempt.trusted_dir / "research-notebook-checkpoint.json").write_text(
+        json.dumps(
+            {
+                "job_key": job["job_key"],
+                "provider_profile": job["provider_profile"],
+                "provider": job["provider"],
+                "model": job["model"],
+                "takeover_provider_profile": job["input"]["reviewer_profile"],
+                "takeover_provider": profile.provider,
+                "takeover_model": profile.model,
+                "phase": "supervisor_research_takeover",
+                "review_round": round_number,
+                "notebook_path": str(notebook_path),
+                "notebook_sha256": notebook_hash,
+                "events_path": str(events_path),
+                "events_sha256": events_hash,
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    return events_path, notebook, notebook_path, notebook_hash, events_hash
+
+
+def _existing_supervisor_takeover(
+    attempt: WorkerAttempt, round_number: int
+) -> tuple[Path, Path] | None:
+    """Recover a completed supervisor handoff without purchasing another call."""
+
+    suffix = f"round-{round_number:02d}"
+    job_dir = attempt.attempt_dir.parent.parent
+    for trusted in sorted(attempt.trusted_dir.parent.glob("*"), reverse=True):
+        events_path = trusted / f"research-supervisor-takeover-{suffix}.events.jsonl"
+        output_path = (
+            job_dir
+            / "attempts"
+            / trusted.name
+            / f"research-supervisor-takeover-{suffix}.md"
+        )
+        if events_path.is_file() and output_path.is_file():
+            from .codex_worker import _events_show_completed_turn
+
+            if _events_show_completed_turn(events_path):
+                return events_path, output_path
+    return None
+
+
+def _has_indeterminate_supervisor_takeover(
+    attempt: WorkerAttempt, round_number: int
+) -> bool:
+    """Detect a paid takeover call whose outcome cannot be safely inferred."""
+
+    suffix = f"round-{round_number:02d}"
+    for trusted in attempt.trusted_dir.parent.glob("*"):
+        if trusted == attempt.trusted_dir:
+            continue
+        starting = trusted / f"research-supervisor-takeover-{suffix}.starting.json"
+        events = trusted / f"research-supervisor-takeover-{suffix}.events.jsonl"
+        if starting.is_file() and _existing_supervisor_takeover(attempt, round_number) is None:
+            from .codex_worker import _events_show_failed_turn
+
+            if not _events_show_failed_turn(events):
+                return True
+    return False
+
+
 def _completed_review_reports(
     attempt: WorkerAttempt,
 ) -> list[tuple[int, EvidenceReviewReport]]:
@@ -356,6 +738,41 @@ def _existing_review_report(
     attempt: WorkerAttempt, round_number: int
 ) -> EvidenceReviewReport | None:
     return dict(_completed_review_reports(attempt)).get(round_number)
+
+
+def _existing_review_repair(
+    attempt: WorkerAttempt, round_number: int
+) -> EvidenceReviewReport | None:
+    """Recover a completed scope-repair review from any prior attempt."""
+
+    name = f"evidence-review-round-{round_number:02d}-repair.json"
+    for trusted in sorted(attempt.trusted_dir.parent.glob("*"), reverse=True):
+        path = trusted / name
+        if not path.is_file():
+            continue
+        try:
+            return EvidenceReviewReport.model_validate_json(path.read_text(encoding="utf-8"))
+        except (OSError, ValidationError):
+            continue
+    return None
+
+
+def _has_indeterminate_review_repair(attempt: WorkerAttempt, round_number: int) -> bool:
+    """Detect a paid review-repair call without a recoverable terminal result."""
+
+    suffix = f"round-{round_number:02d}-repair"
+    for trusted in attempt.trusted_dir.parent.glob("*"):
+        if trusted == attempt.trusted_dir:
+            continue
+        starting = trusted / f"evidence-review-{suffix}.starting.json"
+        events = trusted / f"evidence-review-{suffix}.events.jsonl"
+        if not starting.is_file() or _existing_review_repair(attempt, round_number):
+            continue
+        from .codex_worker import _events_show_failed_turn
+
+        if not _events_show_failed_turn(events):
+            return True
+    return False
 
 
 def _existing_continuation(

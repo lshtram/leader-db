@@ -514,7 +514,11 @@ rounds as a formatting target, and rejects material evidence loss below the boun
 acceptance floor. Retry recovery considers only structurally valid candidates and
 prefers the candidate with the most declared-and-mapped evidence, rather than simply
 the newest or largest raw array. A no-search reviewer inspects every selected chapter and may
-return gaps to the same researcher thread for up to three rounds. The researcher
+return gaps for up to three bounded research rounds. The primary low-cost researcher owns
+the initial pass and one continuation; later recoverable gaps trigger a fresh search-enabled
+supervisor session over the accumulated notebook. A final all-chapter review follows the
+last takeover, and an omitted-chapter review receives one bounded scope-repair turn rather
+than failing the ruler job. The researcher
 maintains one append-only global evidence ledger rather than chapter-specific copies.
 New records carry canonical source-locator-claim keys and precise locators;
 gateway-only and missing-locator candidates remain non-final. The reviewer excludes

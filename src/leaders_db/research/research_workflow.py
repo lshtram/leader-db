@@ -39,6 +39,8 @@ class ResearchWorkflow(BaseModel):
         default=2, ge=1
     )
     continuation_marginal_value_policy_enabled: Literal[True] = True
+    supervisor_takeover_enabled: Literal[True] = True
+    supervisor_takeover_after_research_attempts: int = Field(default=2, ge=1, le=3)
 
     @model_validator(mode="after")
     def _coherent(self) -> ResearchWorkflow:
