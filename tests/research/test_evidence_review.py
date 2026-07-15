@@ -101,6 +101,94 @@ def test_evidence_review_scope_and_strict_schema() -> None:
         assert set(definition["required"]) == set(definition["properties"])
 
 
+def test_evidence_review_scope_accepts_global_stop_without_chapter_rows() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [],
+            "global_findings": ["Further research is not actionable under the documented blocker."],
+            "reviewer_summary": "Stop after the configured continuation attempts.",
+        }
+    )
+
+    validate_review_scope(
+        report,
+        selected_chapter_ids=("1B", "2B"),
+        expected_chapter_ids=(),
+    )
+
+
+def test_evidence_review_scope_rejects_first_round_omission() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [],
+            "global_findings": ["Incomplete review."],
+            "reviewer_summary": "Stopped without reviewing chapters.",
+        }
+    )
+
+    with pytest.raises(ValueError, match="selected chapter scope"):
+        validate_review_scope(report, selected_chapter_ids=("1B", "2B"))
+
+
+def test_evidence_review_scope_accepts_later_round_subset() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": True,
+            "selected_theme_ids": ["2B"],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "2B",
+                    "defensible_evidence_estimate": 6,
+                    "independent_source_family_estimate": 3,
+                    "attribution_risk": "medium",
+                    "substantive_issues": ["Ruler attribution needs support."],
+                    "missing_themes": ["Decision chronology"],
+                }
+            ],
+            "global_findings": ["Chapter 1B was closed in the prior round."],
+            "reviewer_summary": "Continue only the peace chapter.",
+        }
+    )
+
+    validate_review_scope(
+        report,
+        selected_chapter_ids=("1B", "2B"),
+        expected_chapter_ids=("2B",),
+    )
+
+
+def test_evidence_review_scope_rejects_scope_expansion() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": True,
+            "selected_theme_ids": ["3B"],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "3B",
+                    "defensible_evidence_estimate": 2,
+                    "independent_source_family_estimate": 1,
+                    "attribution_risk": "high",
+                    "substantive_issues": ["Outside the immutable scope."],
+                    "missing_themes": ["All lenses"],
+                }
+            ],
+            "global_findings": ["Invalid expansion."],
+            "reviewer_summary": "Invalid expansion.",
+        }
+    )
+
+    with pytest.raises(ValueError, match="selected chapter scope"):
+        validate_review_scope(report, selected_chapter_ids=("1B", "2B"))
+
+
 def test_notebook_qa_and_reviewer_prompt_use_configured_yield_goals() -> None:
     workflow = ResearchWorkflow(
         version=1,

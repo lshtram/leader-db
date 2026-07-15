@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import subprocess
 import time
@@ -122,6 +123,7 @@ def execute_claimed_dossier_job(
         local_priors=local_priors,
         existing_candidate=existing_candidate,
         research_notebook=research_notebook,
+        evidence_preservation_floors=_evidence_preservation_floors(attempt.trusted_dir),
     )
     attempt.prompt_path.write_text(prompt, encoding="utf-8")
     command = build_codex_exec_command(
@@ -649,27 +651,49 @@ def _validate_formatter_evidence_yield(
     review_paths = _review_report_paths(trusted_dir)
     if not review_paths:
         return
-    from .evidence_review import EvidenceReviewReport
 
-    review = EvidenceReviewReport.model_validate_json(
-        review_paths[-1].read_text(encoding="utf-8")
-    )
+    estimates = _reviewed_evidence_estimates(review_paths)
     mapped_by_chapter: dict[str, set[str]] = {}
     for item in dossier.mappings:
         chapter_id = item.methodology_id.split(".", maxsplit=1)[0]
         mapped_by_chapter.setdefault(chapter_id, set()).add(item.evidence_id)
     lost = sorted(
-        item.chapter_id
-        for item in review.chapter_reviews
-        if item.defensible_evidence_estimate > 0
-        and len(mapped_by_chapter.get(item.chapter_id, set()))
-        < min(5, item.defensible_evidence_estimate)
+        chapter_id
+        for chapter_id, estimate in estimates.items()
+        if len(mapped_by_chapter.get(chapter_id, set())) < max(5, math.ceil(estimate * 0.8))
     )
     if lost:
         raise WorkerOutputError(
             "formatter retained fewer than the reviewed minimum evidence units for "
             "chapters: " + ", ".join(lost)
         )
+
+
+def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:
+    """Return aggregated chapter source-claim preservation floors across reviews."""
+
+    review_paths = _review_report_paths(trusted_dir)
+    if not review_paths:
+        return {}
+
+    return _reviewed_evidence_estimates(review_paths)
+
+
+def _reviewed_evidence_estimates(review_paths: list[Path]) -> dict[str, int]:
+    """Aggregate the maximum reviewed estimate retained for every chapter."""
+
+    from .evidence_review import EvidenceReviewReport
+
+    estimates: dict[str, int] = {}
+    for path in review_paths:
+        review = EvidenceReviewReport.model_validate_json(path.read_text(encoding="utf-8"))
+        for item in review.chapter_reviews:
+            if item.defensible_evidence_estimate > 0:
+                estimates[item.chapter_id] = max(
+                    estimates.get(item.chapter_id, 0),
+                    item.defensible_evidence_estimate,
+                )
+    return estimates
 
 
 def _review_report_paths(trusted_dir: Path) -> list[Path]:

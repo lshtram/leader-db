@@ -1,5 +1,29 @@
 # Workplan
 
+## 2026-07-15 — Codex/MiniMax-M3/Parallel full ruler-period pilot completed
+
+- Kumaratunga / Sri Lanka / 1997 completed as one local-first MiniMax-M3 researcher
+  thread under Codex, with Parallel as the only search/fetch MCP, three Luna evidence
+  reviews, and a separate no-search Luna formatter. The durable result contains 71
+  evidence records, 243 many-to-many mappings, and dispositions for all 80 lenses.
+- Parallel passed an isolated sequential reliability probe (eight of eight calls).
+  Brave was rejected because its configured plan returned 429 limits, MiniMax search
+  was rejected because it exposed snippets without durable fetch, and Playwright was
+  disabled as unnecessary overhead. The Codex namespace proxy preserves MCP routing
+  for the custom MiniMax provider without using OpenCode.
+- Post-run QC caught formatter over-consolidation: an initial 21-item dossier had
+  collapsed materially distinct claims sharing one source. Formatting now requires
+  one evidence object per source-claim unit, preserves explicit reviewer chapter
+  targets, and validates a bounded 80% evidence-estimate floor. Recovery selects the
+  most information-preserving completed candidate instead of blindly choosing the
+  newest retry. This retains flexibility around approximate reviewer counts while
+  rejecting severe evidence loss.
+- The pilot's recorded M3 research usage was 22,831,470 tokens, mostly cached input,
+  with a $1.89-$3.99 configured PAYG-equivalent range. Reviewer usage was 159,194
+  tokens at $0.19-$0.23 equivalent. Parallel call cost and actual subscription billing
+  were not exposed, and formatter retry costs remain unknown; do not treat this pilot's
+  total as a clean steady-state cost estimate.
+
 ## 2026-07-14 — Ruler research directive reset is normative; implementation verification pending
 
 - The supported role chain is one persistent local-first researcher per resolved

@@ -158,13 +158,24 @@ def assess_research_notebook(
 
 
 def validate_review_scope(
-    report: EvidenceReviewReport, *, selected_chapter_ids: tuple[str, ...]
+    report: EvidenceReviewReport,
+    *,
+    selected_chapter_ids: tuple[str, ...],
+    expected_chapter_ids: tuple[str, ...] | None = None,
 ) -> None:
-    """Reject a reviewer that expands the immutable research scope."""
+    """Reject a reviewer that omits expected chapters or expands immutable scope."""
 
     selected = set(selected_chapter_ids)
+    expected = (
+        selected if expected_chapter_ids is None else set(expected_chapter_ids)
+    )
     reviewed = {item.chapter_id for item in report.chapter_reviews}
-    if reviewed != selected or not set(report.selected_theme_ids).issubset(selected):
+    continuation = set(report.selected_theme_ids)
+    if (
+        not expected.issubset(reviewed)
+        or not reviewed.issubset(selected)
+        or not continuation.issubset(reviewed)
+    ):
         raise ValueError("evidence review differs from the selected chapter scope")
 
 

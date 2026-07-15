@@ -508,7 +508,12 @@ saturation. It writes a schema-light notebook/handoff, aiming for 5–20 defensi
 source-claim units per chapter (normally about 10), while reporting mapped units
 separately from independent locator/source families and accepting documented sparse-case
 shortfalls. A separate configured formatter converts the handoff into the strict
-dossier without new research. A no-search reviewer inspects every chapter and may
+dossier without new research. It preserves materially distinct source-claim units
+even when they share one URL, carries the maximum chapter estimate across review
+rounds as a formatting target, and rejects material evidence loss below the bounded
+acceptance floor. Retry recovery considers only structurally valid candidates and
+prefers the candidate with the most declared-and-mapped evidence, rather than simply
+the newest or largest raw array. A no-search reviewer inspects every selected chapter and may
 return gaps to the same researcher thread for up to three rounds. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,
 and a score/order auditor checks the resulting comparative ordering and rubric drift.

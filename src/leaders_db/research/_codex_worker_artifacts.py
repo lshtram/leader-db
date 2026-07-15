@@ -8,8 +8,16 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
+from pydantic import ValidationError
+
 from .costing import load_research_pricing, price_usage
-from .dossier_models import DossierLocalPrior, DossierUsage
+from .dossier_models import (
+    DossierEvidence,
+    DossierLocalPrior,
+    DossierUsage,
+    EvidenceQuestionMapping,
+    QuestionCoverage,
+)
 
 
 def read_codex_usage(events_path: Path) -> DossierUsage | None:
@@ -71,11 +79,12 @@ def price_codex_usage(
 
 
 def find_previous_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, Any] | None:
-    """Find the newest completed formatter candidate from an earlier attempt."""
+    """Find the most information-preserving completed formatter candidate."""
 
     paths = tuple((job_dir / "attempts").glob("*/dossier.pending.json")) + tuple(
         (job_dir / "attempts").glob("*/dossier.json")
     )
+    candidates: list[tuple[int, int, int, str, dict[str, Any]]] = []
     for path in sorted(paths, reverse=True):
         if path.parent == attempt_dir:
             continue
@@ -87,8 +96,61 @@ def find_previous_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, An
         except (OSError, json.JSONDecodeError):
             continue
         if isinstance(payload, dict):
-            return payload
-    return None
+            score = _candidate_integrity_score(payload)
+            if score is None:
+                continue
+            candidates.append(
+                (*score, str(path), payload)
+            )
+    if not candidates:
+        return None
+    return max(candidates, key=lambda item: item[:4])[4]
+
+
+def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] | None:
+    """Score only structurally valid, internally linked formatter candidates."""
+
+    raw_evidence = payload.get("evidence")
+    raw_mappings = payload.get("mappings")
+    raw_coverage = payload.get("coverage")
+    raw_methodology_ids = payload.get("methodology_ids")
+    has_list_contract = all(
+        isinstance(value, list)
+        for value in (raw_evidence, raw_mappings, raw_coverage, raw_methodology_ids)
+    )
+    if not has_list_contract:
+        return None
+    try:
+        evidence = tuple(DossierEvidence.model_validate(item) for item in raw_evidence)
+        mappings = tuple(EvidenceQuestionMapping.model_validate(item) for item in raw_mappings)
+        coverage = tuple(QuestionCoverage.model_validate(item) for item in raw_coverage)
+    except (ValidationError, TypeError):
+        return None
+    declared_ids = {item.evidence_id for item in evidence}
+    selected = {str(item) for item in raw_methodology_ids}
+    mappings_valid = not any(
+        item.evidence_id not in declared_ids or item.methodology_id not in selected
+        for item in mappings
+    )
+    coverage_ids = [item.methodology_id for item in coverage]
+    coverage_valid = (
+        len(coverage_ids) == len(selected)
+        and set(coverage_ids) == selected
+        and not any(
+            evidence_id not in declared_ids
+            for item in coverage
+            for evidence_id in item.evidence_ids
+        )
+    )
+    if (
+        len(declared_ids) != len(evidence)
+        or not selected
+        or not mappings_valid
+        or not coverage_valid
+    ):
+        return None
+    linked_ids = {item.evidence_id for item in mappings}
+    return len(linked_ids), len(coverage_ids), len(evidence)
 
 
 def write_local_priors(

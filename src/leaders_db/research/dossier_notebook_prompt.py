@@ -50,15 +50,34 @@ def build_research_notebook_prompt(
         f"## {path.relative_to(project_root)}\n\n{path.read_text(encoding='utf-8')}"
         for path in guides
     )
+    required_methodology_paths = (
+        project_root / ".agents/skills/ruler-evidence-researcher/SKILL.md",
+        project_root / "docs/methodology/local-first-researcher-guide.md",
+        project_root / "docs/methodology/ranking-evaluation-criteria.md",
+        project_root / "docs/methodology/source-confidence-registry.json",
+    )
+    required_methodology = "\n\n".join(
+        f"## Required methodology: {path.relative_to(project_root)}\n\n"
+        f"{path.read_text(encoding='utf-8')}"
+        for path in required_methodology_paths
+    )
     local_prior_package = compact_local_priors(local_priors)
-    return f"""Use the ruler-evidence-researcher skill for an evidence-collection pass.
+    return f"""Perform an evidence-collection pass using the complete instructions,
+local facts, and chapter guides inlined below. You do not need to read any local
+instruction or data file: the parent has already supplied everything required here.
 
-Read:
-- .agents/skills/ruler-evidence-researcher/SKILL.md
-- docs/methodology/local-first-researcher-guide.md
-- docs/methodology/ranking-evaluation-criteria.md
-- docs/methodology/source-confidence-registry.json
-{chr(10).join(f'- {path.relative_to(project_root)}' for path in guides)}
+Tool discipline:
+- Use the Parallel `web_search` and `web_fetch` MCP tools for concise discovery and
+  exact-page extraction. Other search/browser MCPs are disabled in this profile after
+  reliability testing. Keep calls sequential so routing, rate, and evidence provenance
+  remain unambiguous.
+- Do not call image or image-inspection tools for text files, test tool access with
+  unrelated paths, inspect system files, or request elevated permissions.
+- The only local write needed is the supplied `research_materials_path`. If writing
+  that notebook is unavailable, continue the research and put the complete handoff
+  in the final response so the parent can persist it.
+- A rejected tool call is not a reason to experiment with other unrelated tools or
+  paths. Continue with available web research and the inlined material.
 
 Job:
 {json.dumps(job_payload, indent=2, sort_keys=True)}
@@ -68,6 +87,9 @@ Deduplicated local structured evidence package:
 
 Research workflow:
     {json.dumps(workflow.model_dump(mode="json"), indent=2, sort_keys=True)}
+
+Required methodology (fully inlined for self-contained execution):
+{required_methodology}
 
 Chapter guides (inlined because some low-cost execution profiles cannot read files):
 {guide_material}
@@ -135,6 +157,12 @@ evidence, and unresolved gaps. Self-audit temporal fit, ruler attribution, weak 
 context-only items, and claims lacking independent corroboration. Include a local-data
 audit stating which supplied fact IDs were retained, used as context, or left unused
 and why. It does not need to match a JSON schema.
+
+Execution requirement for tool-using models: do not finish on a planning statement,
+an internal-thinking marker, or immediately after a search/page-inspection call. Begin
+the research calls promptly; after every tool result either continue the chapter work
+or synthesize the retained evidence. The final response must contain the substantive
+eight-chapter handoff itself, even when the notebook file was written successfully.
 """
 
 

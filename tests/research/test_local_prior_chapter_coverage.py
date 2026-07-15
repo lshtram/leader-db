@@ -38,11 +38,7 @@ def test_local_prior_mappings_cover_all_eighty_ruler_lenses_once() -> None:
         for mapping in LOCAL_PRIOR_MAPPINGS
         for methodology_id in mapping.methodology_ids
     ]
-    expected = {
-        f"{chapter}B.{question}"
-        for chapter in range(1, 9)
-        for question in range(1, 11)
-    }
+    expected = {f"{chapter}B.{question}" for chapter in range(1, 9) for question in range(1, 11)}
 
     assert set(mapped) == expected
     assert len(mapped) == len(set(mapped)) == 80
@@ -141,9 +137,9 @@ def test_compact_local_priors_preserves_explicit_empty_and_error_states() -> Non
     assert package.disposition_reasons[error_disposition.reason_id or ""] == (
         "Database extraction failed."
     )
-    assert package.disposition_instruction_sets[
-        error_disposition.instruction_set_id or ""
-    ] == ("Repair local extraction before relying on the handoff.",)
+    assert package.disposition_instruction_sets[error_disposition.instruction_set_id or ""] == (
+        "Repair local extraction before relying on the handoff.",
+    )
 
 
 def test_compact_local_priors_deduplicates_order_variant_provenance() -> None:
@@ -153,14 +149,10 @@ def test_compact_local_priors_deduplicates_order_variant_provenance() -> None:
     first["warnings"] = ["second", "first"]
     second = {**first}
     second["source_slugs"] = list(reversed(first["source_slugs"]))
-    second["source_observation_ids"] = list(
-        reversed(first["source_observation_ids"])
-    )
+    second["source_observation_ids"] = list(reversed(first["source_observation_ids"]))
     second["warnings"] = list(reversed(first["warnings"]))
 
-    package = compact_local_priors(
-        (_prior_payload("6B.1", first), _prior_payload("6B.2", second))
-    )
+    package = compact_local_priors((_prior_payload("6B.1", first), _prior_payload("6B.2", second)))
 
     assert package.unique_fact_count == 1
     assert package.facts[0].source_slugs == ("undp_hdi", "world_bank_wdi")
@@ -242,6 +234,19 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert '"unique_fact_count": 1' in prompt
     assert '"candidate_methodology_ids"' in prompt
     assert "local-prior:5B.1" in prompt
+    assert "You do not need to read any local\ninstruction or data file" in prompt
+    assert "Do not call image or image-inspection tools" in prompt
+    assert "request elevated permissions" in prompt
+    assert "put the complete handoff\n  in the final response" in prompt
+    assert "Required methodology (fully inlined" in prompt
+    assert "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md" in (prompt)
+    assert "Build one durable evidence dossier per ruler-period" in prompt
+    assert "## Required methodology: docs/methodology/local-first-researcher-guide.md" in (prompt)
+    assert "Every citation must include `source_confidence`" in prompt
+    assert "## Required methodology: docs/methodology/ranking-evaluation-criteria.md" in (prompt)
+    assert "The client/customer 2023 matrix is intentionally absent" in prompt
+    assert "## Required methodology: docs/methodology/source-confidence-registry.json" in (prompt)
+    assert '"final_evidence_use_values"' in prompt
 
     formatter_prompt = build_dossier_prompt(
         job,
@@ -249,6 +254,7 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         worker_output_dir=tmp_path,
         local_priors=priors,
         research_notebook="Research handoff.",
+        evidence_preservation_floors={"2B": 12},
     )
     assert formatter_prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
     assert '"methodology_statuses"' in formatter_prompt
@@ -256,6 +262,14 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         formatter_prompt
     )
     assert "never concatenate, abbreviate, or combine evidence IDs" in formatter_prompt
+    assert "one evidence object per defensible source-claim unit" in formatter_prompt
+    assert "do not collapse a report's distinct events" in formatter_prompt
+    assert "`defensible_evidence_estimate` for each chapter as a\n  preservation floor" in (
+        formatter_prompt
+    )
+    assert '"2B": 12' in formatter_prompt
+    assert "count unique mapped evidence IDs separately for every chapter" in formatter_prompt
+    assert "IDs mentioned only in `coverage` do not count" in formatter_prompt
 
 
 def _insert_scope(engine: object) -> None:

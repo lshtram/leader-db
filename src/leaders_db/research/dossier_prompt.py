@@ -17,6 +17,7 @@ def build_dossier_prompt(
     local_priors: tuple[dict[str, Any], ...] = (),
     existing_candidate: dict[str, Any] | None = None,
     research_notebook: str | None = None,
+    evidence_preservation_floors: dict[str, int] | None = None,
 ) -> str:
     """Build a bounded prompt whose final response must be the dossier JSON."""
 
@@ -64,6 +65,9 @@ Permissive evidence-research notebook and handoff:
 Existing candidate from a prior failed validation:
 {json.dumps(existing_candidate, indent=2, sort_keys=True)}
 
+Reviewed minimum distinct source-claim units to preserve by chapter:
+{json.dumps(evidence_preservation_floors or {}, indent=2, sort_keys=True)}
+
 Requirements:
 - This is only a formatting and normalization pass.
   Interpret its prose, headings, tables, and JSON fragments flexibly. Preserve the
@@ -80,8 +84,23 @@ Requirements:
 - Set each evidence `url` to either the exact HTTP(S) URL recorded by the researcher or
   `local-prior:<methodology-id>` for a claim taken directly from that question's
   hashed local-prior artifact. No other locator form is valid.
-- Deduplicate evidence and indicate which chapter lenses it informs. Mapping and
-  coverage wording are advisory handoff aids, not score-bearing decisions.
+- Preserve one evidence object per defensible source-claim unit identified in the
+  notebook. A source-claim unit is one traceable source supporting one materially
+  distinct claim. The same URL may therefore appear in multiple evidence objects;
+  do not collapse a report's distinct events, findings, decisions, or outcomes into
+  one omnibus record merely because they share a source. Deduplicate only genuinely
+  duplicate claims, then indicate every chapter lens each retained unit informs.
+  Mapping and coverage wording are advisory handoff aids, not score-bearing decisions.
+- Treat the evidence review's `defensible_evidence_estimate` for each chapter as a
+  preservation floor for formatting, not a new research target. Retain at least that
+  many distinct mapped source-claim units from the notebook unless the notebook itself
+  explicitly retracts them; never manufacture or split claims mechanically to reach it.
+- Before responding, count unique mapped evidence IDs separately for every chapter and
+  verify each count meets the explicit reviewed minimum above. A mapping to one lens in
+  a chapter is sufficient to count the retained source-claim unit for that chapter.
+  Count only IDs that have both a complete declaration in `evidence` and at least one
+  row in `mappings`; IDs mentioned only in `coverage` do not count. Ensure every ID in
+  `coverage` is declared in `evidence` and joined through `mappings` before responding.
 - Use simple stable evidence IDs when practical. The parent normalizes harmless ID,
   mapping, and coverage inconsistencies and records warnings rather than rejecting
   otherwise useful research.
@@ -101,9 +120,11 @@ Requirements:
 - The final response must be only one JSON object matching the supplied output schema.
 - Echo the exact job/run/identity/period/model fields from Job input.
 - Record unknown usage fields as unknown_not_exposed_by_tool; never invent usage.
-- If Existing candidate is not null, this is a repair-only retry: preserve its
-  researched claims and citations, correct schema/reference defects, perform the
-  final consistency check, and do not repeat research or broad file reading.
+- If Existing candidate is not null, this is a repair-only retry: preserve its valid
+  claims and citations, but compare it against the complete inlined notebook and
+  restore any defensible source-claim units it collapsed or omitted. Correct
+  schema/reference defects, perform the final consistency check, and do not repeat
+  research or broad file reading outside the supplied materials.
 """
 
 

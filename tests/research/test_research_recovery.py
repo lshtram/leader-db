@@ -1,16 +1,25 @@
+import json
 from pathlib import Path
+from types import SimpleNamespace
 
+import pytest
+
+from leaders_db.research._codex_worker_artifacts import find_previous_candidate
 from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.codex_worker import (
+    WorkerOutputError,
     _events_show_failed_turn,
+    _evidence_preservation_floors,
     _has_indeterminate_formatter_call,
     _recover_completed_initial_research,
     _review_report_paths,
+    _validate_formatter_evidence_yield,
 )
 from leaders_db.research.evidence_review import ChapterEvidenceReview, EvidenceReviewReport
 from leaders_db.research.notebook_continuation import (
     _completed_review_reports,
     _existing_continuation,
+    _initial_expected_review_ids,
     _rehydrate_completed_continuation,
 )
 
@@ -33,6 +42,25 @@ def _attempt(tmp_path: Path, name: str = "002-current") -> WorkerAttempt:
         local_priors=(),
         local_prior_provenance=(),
     )
+
+
+def _candidate_evidence(index: int) -> dict[str, object]:
+    return {
+        "evidence_id": f"E{index:03d}",
+        "claim": f"Claim {index}",
+        "url": f"https://example.test/{index}",
+        "title": f"Source {index}",
+        "publisher": "Fixture publisher",
+        "publication_date": "2020-01-01",
+        "excerpt": "Fixture excerpt.",
+        "source_type": "fixture",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Fixture confidence.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target period",
+        "ruler_attribution": "direct",
+        "contrary_evidence": [],
+    }
 
 
 def test_review_reports_are_recovered_across_attempts(tmp_path: Path) -> None:
@@ -66,6 +94,180 @@ def test_completed_continuation_is_recovered_without_new_call(tmp_path: Path) ->
     output.write_text("Recovered evidence.", encoding="utf-8")
 
     assert _existing_continuation(current, 1) == (events, output)
+
+
+def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path, "003-current")
+    attempts = current.attempt_dir.parent
+    trusted = current.trusted_dir.parent
+    for name, count in (("001-richer", 8), ("002-newer-sparse", 3)):
+        attempt_dir = attempts / name
+        trusted_dir = trusted / name
+        attempt_dir.mkdir()
+        trusted_dir.mkdir()
+        (trusted_dir / "formatter-complete.marker").write_text("complete\n", encoding="utf-8")
+        evidence = [_candidate_evidence(index) for index in range(1, count + 1)]
+        mappings = (
+            []
+            if name == "001-richer"
+            else [
+                {
+                    "methodology_id": "2B.1",
+                    "evidence_id": item["evidence_id"],
+                    "relation": "supports",
+                    "relevance": "Fixture relevance.",
+                }
+                for item in evidence
+            ]
+        )
+        (attempt_dir / "dossier.pending.json").write_text(
+            json.dumps(
+                {
+                    "evidence": evidence,
+                    "mappings": mappings,
+                    "coverage": [
+                        {
+                            "methodology_id": "2B.1",
+                            "status": "covered",
+                            "evidence_ids": [item["evidence_id"] for item in evidence],
+                            "reason": "Fixture coverage.",
+                        }
+                    ],
+                    "methodology_ids": ["2B.1"],
+                }
+            ),
+            encoding="utf-8",
+        )
+    invalid_attempt = attempts / "000-invalid-high-count"
+    invalid_trusted = trusted / "000-invalid-high-count"
+    invalid_attempt.mkdir()
+    invalid_trusted.mkdir()
+    (invalid_trusted / "formatter-complete.marker").write_text("complete\n", encoding="utf-8")
+    (invalid_attempt / "dossier.pending.json").write_text(
+        json.dumps(
+            {
+                "evidence": [
+                    {"evidence_id": f"E{index:03d}"} for index in range(1, 20)
+                ],
+                "mappings": [],
+                "coverage": [],
+                "methodology_ids": ["2B.1"],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    candidate = find_previous_candidate(
+        current.attempt_dir.parent.parent,
+        attempt_dir=current.attempt_dir,
+    )
+
+    assert candidate is not None
+    assert len(candidate["evidence"]) == 3
+
+
+def test_first_review_scope_uses_only_job_selected_chapters() -> None:
+    job = {"input": {"question_ids": ["2B.1", "2B.2", "5B.1"]}}
+
+    assert _initial_expected_review_ids(job) == ("2B", "5B")
+
+
+def test_formatter_must_preserve_reviewed_source_claim_units(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    report = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=False,
+        selected_theme_ids=(),
+        chapter_reviews=(
+            ChapterEvidenceReview(
+                chapter_id="2B",
+                defensible_evidence_estimate=10,
+                independent_source_family_estimate=3,
+                attribution_risk="medium",
+                substantive_issues=(),
+                missing_themes=(),
+            ),
+        ),
+        global_findings=(),
+        reviewer_summary="Formatting may proceed.",
+    )
+    (current.trusted_dir / "evidence-review-round-01.json").write_text(
+        report.model_dump_json(), encoding="utf-8"
+    )
+    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 10}
+    too_sparse = SimpleNamespace(
+        mappings=tuple(
+            SimpleNamespace(methodology_id="2B.1", evidence_id=f"E{index:03d}")
+            for index in range(1, 8)
+        )
+    )
+
+    with pytest.raises(WorkerOutputError, match="chapters: 2B"):
+        _validate_formatter_evidence_yield(too_sparse, trusted_dir=current.trusted_dir)
+
+    sufficient = SimpleNamespace(
+        mappings=(
+            *too_sparse.mappings,
+            SimpleNamespace(methodology_id="2B.2", evidence_id="E008"),
+        )
+    )
+    _validate_formatter_evidence_yield(sufficient, trusted_dir=current.trusted_dir)
+
+
+def test_formatter_floors_retain_chapters_from_earlier_review_rounds(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    first = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=True,
+        selected_theme_ids=("2B",),
+        chapter_reviews=(
+            ChapterEvidenceReview(
+                chapter_id="1B",
+                defensible_evidence_estimate=6,
+                independent_source_family_estimate=2,
+                attribution_risk="low",
+                substantive_issues=(),
+                missing_themes=(),
+            ),
+            ChapterEvidenceReview(
+                chapter_id="2B",
+                defensible_evidence_estimate=8,
+                independent_source_family_estimate=3,
+                attribution_risk="medium",
+                substantive_issues=(),
+                missing_themes=("decision chronology",),
+            ),
+        ),
+        global_findings=(),
+        reviewer_summary="Continue 2B.",
+    )
+    second = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=False,
+        selected_theme_ids=(),
+        chapter_reviews=(
+            ChapterEvidenceReview(
+                chapter_id="2B",
+                defensible_evidence_estimate=10,
+                independent_source_family_estimate=4,
+                attribution_risk="low",
+                substantive_issues=(),
+                missing_themes=(),
+            ),
+        ),
+        global_findings=(),
+        reviewer_summary="Formatting may proceed.",
+    )
+    for number, report in ((1, first), (2, second)):
+        (current.trusted_dir / f"evidence-review-round-{number:02d}.json").write_text(
+            report.model_dump_json(), encoding="utf-8"
+        )
+
+    assert _evidence_preservation_floors(current.trusted_dir) == {"1B": 6, "2B": 10}
 
 
 def test_recovered_continuation_is_merged_into_durable_checkpoint(tmp_path: Path) -> None:

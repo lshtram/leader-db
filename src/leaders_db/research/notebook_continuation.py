@@ -86,6 +86,11 @@ def review_and_resume_notebook_if_needed(
         )
     else:
         start_round = 1
+    expected_review_ids = (
+        tuple(completed_reports[-1][1].selected_theme_ids)
+        if completed_reports and start_round > 1
+        else _initial_expected_review_ids(job)
+    )
     for round_number in range(start_round, workflow.max_review_rounds + 1):
         qa = assess_research_notebook(
             current[1],
@@ -108,9 +113,14 @@ def review_and_resume_notebook_if_needed(
             timeout_seconds=timeout_seconds,
         )
         reviewed = True
-        validate_review_scope(report, selected_chapter_ids=qa.selected_chapter_ids)
+        validate_review_scope(
+            report,
+            selected_chapter_ids=qa.selected_chapter_ids,
+            expected_chapter_ids=expected_review_ids,
+        )
         if not report.needs_continuation:
             break
+        expected_review_ids = tuple(report.selected_theme_ids)
         current = _resume_researcher(
             engine,
             checkpoint=current,
@@ -131,6 +141,17 @@ def review_and_resume_notebook_if_needed(
         checkpoint=current,
         qa_reviewed=reviewed,
         resume_count=resume_count,
+    )
+
+
+def _initial_expected_review_ids(job: dict[str, Any]) -> tuple[str, ...]:
+    """Return selected chapters in first-seen order for the first review round."""
+
+    return tuple(
+        dict.fromkeys(
+            str(methodology_id).split(".", maxsplit=1)[0]
+            for methodology_id in job["input"]["question_ids"]
+        )
     )
 
 
