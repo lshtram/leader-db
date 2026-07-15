@@ -25,6 +25,7 @@ from leaders_db.research.notebook_continuation import (
     _existing_continuation,
     _existing_review_repair,
     _existing_supervisor_takeover,
+    _has_indeterminate_review,
     _has_indeterminate_supervisor_takeover,
     _initial_expected_review_ids,
     _rehydrate_completed_continuation,
@@ -164,6 +165,22 @@ def test_started_supervisor_takeover_without_terminal_result_is_indeterminate(
     )
 
     assert _has_indeterminate_supervisor_takeover(current, 2) is True
+
+
+def test_completed_invalid_review_is_safe_to_repair_on_retry(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = _attempt(tmp_path, "001-prior")
+    (prior.trusted_dir / "evidence-review-round-01.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior.trusted_dir / "evidence-review-round-01.events.jsonl").write_text(
+        '{"type":"turn.completed"}\n', encoding="utf-8"
+    )
+    (prior.trusted_dir / "evidence-review-round-01.json").write_text(
+        '{"schema_version":"invalid"}', encoding="utf-8"
+    )
+
+    assert _has_indeterminate_review(current, 1) is False
 
 
 def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(

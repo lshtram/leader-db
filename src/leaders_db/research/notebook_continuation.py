@@ -848,11 +848,20 @@ def _has_indeterminate_review(attempt: WorkerAttempt, round_number: int) -> bool
         if not (directory / f"evidence-review-{suffix}.starting.json").is_file():
             continue
         output = directory / f"evidence-review-{suffix}.json"
+        events = directory / f"evidence-review-{suffix}.events.jsonl"
+        from .codex_worker import _events_show_completed_turn, _events_show_failed_turn
+
+        if _events_show_failed_turn(events):
+            continue
         if not output.is_file():
+            if _events_show_completed_turn(events):
+                continue
             return True
         try:
             EvidenceReviewReport.model_validate_json(output.read_text(encoding="utf-8"))
         except (OSError, ValidationError):
+            if _events_show_completed_turn(events):
+                continue
             return True
     return False
 
