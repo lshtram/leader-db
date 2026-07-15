@@ -74,6 +74,7 @@ def restore_tool_namespaces(payload: Any) -> Any:
     result = {key: restore_tool_namespaces(value) for key, value in payload.items()}
     name = result.get("name")
     if isinstance(name, str) and name in MCP_TOOL_ALIASES and "namespace" not in result:
+        result = _normalize_research_tool_arguments(result, alias=name)
         result["namespace"], result["name"] = MCP_TOOL_ALIASES[name]
         return result
     if (
@@ -86,6 +87,45 @@ def restore_tool_namespaces(payload: Any) -> Any:
         if server and tool:
             result["namespace"] = f"mcp__{server}"
             result["name"] = tool
+    return result
+
+
+def _normalize_research_tool_arguments(payload: dict[str, Any], *, alias: str) -> dict[str, Any]:
+    """Repair MiniMax's singleton-wrapper encoding for Parallel list arguments."""
+
+    field = {
+        "parallel_web_search": "search_queries",
+        "web_search": "search_queries",
+        "parallel_web_fetch": "urls",
+        "web_fetch": "urls",
+    }.get(alias)
+    if field is None or "arguments" not in payload:
+        return payload
+    raw_arguments = payload["arguments"]
+    encoded = isinstance(raw_arguments, str)
+    if encoded:
+        try:
+            arguments = json.loads(raw_arguments)
+        except json.JSONDecodeError:
+            return payload
+    else:
+        arguments = raw_arguments
+    if not isinstance(arguments, dict):
+        return payload
+    wrapped = arguments.get(field)
+    if not isinstance(wrapped, dict) or set(wrapped) != {"item"}:
+        return payload
+    items = wrapped["item"]
+    if isinstance(items, str):
+        items = [items]
+    if not isinstance(items, list) or not all(isinstance(item, str) for item in items):
+        return payload
+    normalized = dict(arguments)
+    normalized[field] = items
+    result = dict(payload)
+    result["arguments"] = (
+        json.dumps(normalized, separators=(",", ":")) if encoded else normalized
+    )
     return result
 
 

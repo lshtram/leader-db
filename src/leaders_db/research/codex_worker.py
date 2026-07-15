@@ -192,6 +192,7 @@ def execute_claimed_dossier_job(
     except (ValidationError, ValueError) as exc:
         attempt.pending_path.write_text(json.dumps(candidate), encoding="utf-8")
         raise WorkerOutputError("Codex dossier failed semantic validation") from exc
+    _validate_substantive_evidence_yield(dossier)
     _validate_formatter_evidence_yield(dossier, trusted_dir=attempt.trusted_dir)
     _finalize_execution_usage(
         dossier,
@@ -246,6 +247,7 @@ def _reuse_existing_notebook_candidate(
     except (ValidationError, ValueError):
         return None
     try:
+        _validate_substantive_evidence_yield(dossier)
         _validate_formatter_evidence_yield(dossier, trusted_dir=attempt.trusted_dir)
     except WorkerOutputError:
         return None
@@ -689,6 +691,17 @@ def _validate_formatter_evidence_yield(
             "formatter retained fewer than the reviewed minimum evidence units for "
             "chapters: " + ", ".join(lost)
         )
+
+
+def _validate_substantive_evidence_yield(dossier: RulerEvidenceDossier) -> None:
+    """Prevent an all-chapter access failure from becoming a published dossier."""
+
+    selected_chapters = {
+        methodology_id.split(".", maxsplit=1)[0]
+        for methodology_id in dossier.methodology_ids
+    }
+    if len(selected_chapters) > 1 and not dossier.evidence:
+        raise WorkerOutputError("multi-chapter ruler dossier cannot publish with zero evidence")
 
 
 def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:

@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-15 — M3 batch gate blocked malformed MCP calls and empty publication
+
+- The first `2020-diverse-20-m3-supervised-v1` gate case exposed a MiniMax-specific
+  tool-call encoding defect: Parallel list arguments were often emitted as singleton
+  `{"item": ...}` wrappers. Valid early calls were followed by repeated rejected or
+  timed-out searches, and the research handoff collapsed into access-error notes.
+- Post-run QC invalidated the resulting zero-evidence Ardern dossier and quarantined
+  all 19 unspent jobs. An 80-row coverage shell is no longer sufficient for release:
+  the worker publication boundary rejects a multi-chapter dossier with zero evidence
+  while legacy artifacts and legitimate single-chapter sparse results remain readable.
+- The Codex namespace bridge now conservatively normalizes MiniMax's wrapped
+  `search_queries` and `urls` arguments for Parallel search/fetch calls, including SSE
+  responses. The full test suite and focused lint pass. Next action: rerun one fresh
+  Ardern gate under a new run key, then release the remaining 19 only after substantive
+  dossier and judge-projection QC.
+
 ## 2026-07-15 — Canonical M3 ledger and supervisor-cost pilot completed
 
 - The research notebook contract now requires one append-only global evidence ledger,

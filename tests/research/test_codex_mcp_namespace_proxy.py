@@ -124,3 +124,55 @@ def test_routes_bare_names_to_the_selected_parallel_server() -> None:
             "name": "web_fetch",
         },
     ]
+
+
+def test_repairs_minimax_singleton_wrapper_for_parallel_list_arguments() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "parallel_web_search",
+            "arguments": '{"objective":"x","search_queries":{"item":["a","b"]}}',
+        }
+    )
+
+    assert transformed["namespace"] == "mcp__parallel"
+    assert transformed["name"] == "web_search"
+    assert transformed["arguments"] == '{"objective":"x","search_queries":["a","b"]}'
+
+
+def test_repairs_minimax_scalar_wrapper_for_parallel_fetch_urls() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "web_fetch",
+            "arguments": {
+                "objective": "x",
+                "urls": {"item": "https://example.test/source"},
+            },
+        }
+    )
+
+    assert transformed["arguments"]["urls"] == ["https://example.test/source"]
+
+
+def test_sse_transform_repairs_wrapped_parallel_arguments() -> None:
+    body = (
+        b'data: {"type":"response.output_item.done","item":'
+        b'{"type":"function_call","name":"web_search","arguments":'
+        b'"{\\"search_queries\\":{\\"item\\":\\"query\\"}}"}}\n\n'
+    )
+
+    transformed = transform_response_body(body, "text/event-stream")
+
+    assert b'\\"search_queries\\":[\\"query\\"]' in transformed
+    assert b'"namespace":"mcp__parallel"' in transformed
+
+
+def test_invalid_parallel_wrapper_is_preserved_for_normal_validation() -> None:
+    arguments = {"search_queries": {"item": ["valid"], "extra": "invalid"}}
+
+    transformed = restore_tool_namespaces(
+        {"type": "function_call", "name": "web_search", "arguments": arguments}
+    )
+
+    assert transformed["arguments"] == arguments

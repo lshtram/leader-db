@@ -3,6 +3,10 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
+from leaders_db.research.codex_worker import (
+    WorkerOutputError,
+    _validate_substantive_evidence_yield,
+)
 from leaders_db.research.dossier_models import (
     DossierEvidence,
     RulerEvidenceDossier,
@@ -56,6 +60,70 @@ def test_dossier_rejects_duplicate_canonical_fact() -> None:
 
     with pytest.raises(ValidationError, match="duplicate canonical"):
         RulerEvidenceDossier.model_validate(_dossier((first, second)))
+
+
+def test_multi_chapter_dossier_cannot_publish_with_zero_evidence() -> None:
+    payload = _dossier(())
+    payload["methodology_ids"] = ["1B.1", "2B.1"]
+    payload["coverage"] = [
+        {
+            "methodology_id": methodology_id,
+            "status": "no_evidence_found",
+            "evidence_ids": [],
+            "reason": "No evidence found.",
+        }
+        for methodology_id in payload["methodology_ids"]
+    ]
+    payload["local_priors"] = [
+        {
+            "methodology_id": methodology_id,
+            "status": "not_available",
+            "summary": "No local prior.",
+            "artifact_path": "data/none.json",
+            "artifact_sha256": "f" * 64,
+        }
+        for methodology_id in payload["methodology_ids"]
+    ]
+
+    dossier = RulerEvidenceDossier.model_validate(payload)
+
+    with pytest.raises(WorkerOutputError, match="cannot publish with zero evidence"):
+        _validate_substantive_evidence_yield(dossier)
+
+
+def test_single_chapter_zero_evidence_remains_publishable() -> None:
+    dossier = RulerEvidenceDossier.model_validate(_dossier(()))
+
+    _validate_substantive_evidence_yield(dossier)
+
+
+def test_multi_chapter_nonzero_evidence_remains_publishable() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    payload["methodology_ids"] = ["1B.1", "2B.1"]
+    payload["coverage"].append(
+        {
+            "methodology_id": "2B.1",
+            "status": "no_evidence_found",
+            "evidence_ids": [],
+            "reason": "No evidence found.",
+        }
+    )
+    payload["local_priors"].append(
+        {
+            "methodology_id": "2B.1",
+            "status": "not_available",
+            "summary": "No local prior.",
+            "artifact_path": "data/none.json",
+            "artifact_sha256": "f" * 64,
+        }
+    )
+    dossier = RulerEvidenceDossier.model_validate(payload)
+
+    _validate_substantive_evidence_yield(dossier)
 
 
 def _evidence() -> dict[str, object]:
