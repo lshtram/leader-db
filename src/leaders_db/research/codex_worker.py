@@ -747,14 +747,14 @@ def _validate_substantive_evidence_yield(dossier: RulerEvidenceDossier) -> None:
 
 
 def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:
-    """Return explicit 80%-tolerant chapter preservation floors across reviews."""
+    """Return the 80% target rounded to a whole evidence unit per chapter."""
 
     review_paths = _review_report_paths(trusted_dir)
     if not review_paths:
         return {}
 
     return {
-        chapter_id: math.ceil(estimate * 0.8)
+        chapter_id: math.floor(estimate * 0.8 + 0.5)
         for chapter_id, estimate in _reviewed_evidence_estimates(review_paths).items()
     }
 

@@ -521,6 +521,38 @@ def test_latest_review_can_lower_an_earlier_overestimate(tmp_path: Path) -> None
     assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 5}
 
 
+@pytest.mark.parametrize(
+    ("estimate", "expected"),
+    [(0, 0), (1, 1), (2, 2), (3, 2), (4, 3), (5, 4), (6, 5), (7, 6), (8, 6), (9, 7), (10, 8)],
+)
+def test_eighty_percent_target_rounds_to_nearest_evidence_unit(
+    tmp_path: Path, estimate: int, expected: int
+) -> None:
+    current = _attempt(tmp_path)
+    report = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=False,
+        selected_theme_ids=(),
+        chapter_reviews=(
+            ChapterEvidenceReview(
+                chapter_id="6B",
+                defensible_evidence_estimate=estimate,
+                independent_source_family_estimate=3,
+                attribution_risk="medium",
+                substantive_issues=(),
+                missing_themes=(),
+            ),
+        ),
+        global_findings=(),
+        reviewer_summary="Formatting may proceed.",
+    )
+    (current.trusted_dir / "evidence-review-round-01.json").write_text(
+        report.model_dump_json(), encoding="utf-8"
+    )
+
+    assert _evidence_preservation_floors(current.trusted_dir) == {"6B": expected}
+
+
 def test_same_round_repair_supersedes_original_review_estimate(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     for suffix, estimate in (("", 10), ("-repair", 5)):
