@@ -1,5 +1,35 @@
 # Workplan
 
+## 2026-07-16 — MiniMax-M3 supervised 20-ruler cycle completed
+
+- Run `2020-diverse-20-m3-supervised-v2` completed 20 local-first ruler-period
+  dossiers, followed by eight Luna chapter judges under
+  `2020-diverse-20-m3-supervised-v2-judges-v1`. The frozen outputs contain 701
+  evidence records, 80 coverage rows per ruler, and 160 ruler-chapter judgments;
+  124 judgments are numeric, 36 are explicit nulls, and 10 require manual review.
+- Research used MiniMax-M3 for the primary notebook and continuation workload, with
+  Luna evidence review, bounded supervisor takeover after failed cheap-model repair,
+  no-search formatting, and chapter-wide judging. Brave and MiniMax search are the
+  validated M3 MCPs for new calls; Parallel was disabled after repeated 120-second
+  timeouts.
+- Recovery now audits operator-terminated initial and continuation calls, normalizes
+  descriptive review chapter IDs, safely merges exact duplicate facts, reuses
+  deterministically repairable formatter candidates, and applies the latest
+  authoritative reviewer estimate. The preservation policy is an 80% target rounded
+  to the nearest whole evidence unit; strict references, complete mappings, and
+  chapter floors remain publication gates.
+- Recorded successful component usage is approximately 158.1M research tokens,
+  3.80M reviewer tokens, 7.45M formatter tokens, and 1.62M judge tokens. The configured
+  PAYG-equivalent range is about $32.37-$53.97 in aggregate, but actual subscription
+  billing is not exposed and two dossier artifacts lack complete top-level token
+  totals. Cached M3 input dominates the nominal token count.
+- The cycle is operationally complete but is not yet an unconditional larger-batch
+  release gate. Before scaling, audit the sparse Erdoğan dossier (14 evidence items),
+  Piñera's context-only evidence classification, the 36 judge nulls, and the one-shot
+  queue limit that counted retry executions instead of unique completed jobs. Then
+  run the score/order audit over all 160 judgments and decide whether the observed
+  cost range is acceptable.
+
 ## 2026-07-15 — Bounded Luna research takeover added
 
 - A ruler job no longer terminates merely because the cheap researcher or reviewer
