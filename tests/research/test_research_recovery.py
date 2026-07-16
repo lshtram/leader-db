@@ -678,6 +678,63 @@ def test_explicitly_failed_initial_turn_is_safe_to_retry(tmp_path: Path) -> None
     assert _has_indeterminate_initial_research(current.trusted_dir) is False
 
 
+def test_operator_terminated_initial_turn_is_safe_to_retry(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    (prior / "research-starting.json").write_text("{}", encoding="utf-8")
+    (prior / "research-events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n',
+        encoding="utf-8",
+    )
+    (prior / "research-operator-terminated.json").write_text(
+        json.dumps(
+            {
+                "reason": "repeated MCP timeouts",
+                "operator": "test-operator",
+                "thread_id": "thread-1",
+                "terminated_at": "2099-01-01T00:00:00+00:00",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    assert _has_indeterminate_initial_research(current.trusted_dir) is False
+
+
+@pytest.mark.parametrize(
+    "marker",
+    [
+        {},
+        {"reason": "missing audit fields"},
+        {
+            "reason": "stale",
+            "operator": "test-operator",
+            "thread_id": "thread-1",
+            "terminated_at": "2000-01-01T00:00:00+00:00",
+        },
+    ],
+)
+def test_invalid_operator_termination_remains_indeterminate(
+    tmp_path: Path, marker: dict[str, str]
+) -> None:
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    (prior / "research-starting.json").write_text("{}", encoding="utf-8")
+    (prior / "research-events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n',
+        encoding="utf-8",
+    )
+    (prior / "research-operator-terminated.json").write_text(
+        json.dumps(marker), encoding="utf-8"
+    )
+
+    assert _has_indeterminate_initial_research(current.trusted_dir) is True
+
+
 def test_explicit_failed_turn_is_safe_to_retry(tmp_path: Path) -> None:
     events = tmp_path / "codex-events.jsonl"
     events.write_text(

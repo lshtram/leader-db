@@ -7,6 +7,7 @@ import math
 import os
 import subprocess
 import time
+from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
@@ -615,11 +616,38 @@ def _has_indeterminate_initial_research(trusted_dir: Path) -> bool:
         directory != trusted_dir
         and (directory / "research-starting.json").is_file()
         and not _checkpoint_has_initial_research(directory)
+        and not _has_valid_operator_termination(directory)
         and _events_show_turn_started(directory / "research-events.jsonl")
         and not _events_show_failed_turn(directory / "research-events.jsonl")
         for directory in trusted_dir.parent.glob("*")
         if directory.is_dir()
     )
+
+
+def _has_valid_operator_termination(directory: Path) -> bool:
+    """Validate an explicit human cost-risk override for a wedged paid turn."""
+
+    marker_path = directory / "research-operator-terminated.json"
+    starting_path = directory / "research-starting.json"
+    events_path = directory / "research-events.jsonl"
+    try:
+        marker = json.loads(marker_path.read_text(encoding="utf-8"))
+        terminated_at = datetime.fromisoformat(str(marker["terminated_at"]))
+    except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError):
+        return False
+    if not isinstance(marker, dict) or any(
+        not isinstance(marker.get(field), str) or not marker[field].strip()
+        for field in ("reason", "operator", "thread_id")
+    ):
+        return False
+    if terminated_at.tzinfo is None or terminated_at.utcoffset() is None:
+        return False
+    try:
+        if terminated_at.astimezone(UTC).timestamp() < starting_path.stat().st_mtime:
+            return False
+        return marker["thread_id"] == read_codex_thread_id(events_path)
+    except (OSError, ValueError):
+        return False
 
 
 def _checkpoint_has_initial_research(directory: Path) -> bool:
