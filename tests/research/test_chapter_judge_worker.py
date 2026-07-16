@@ -13,8 +13,8 @@ from leaders_db.research.chapter_judge_worker import (
     _find_previous_chapter_candidate,
     _normalize_confidence_scale,
     _normalize_evidence_reference_lists,
+    _normalize_judgment_envelope,
     _normalize_lens_lists,
-    _normalize_null_judgment,
     _prepare_batch,
     execute_claimed_chapter_judge_job,
 )
@@ -137,7 +137,7 @@ def test_null_judgment_requires_full_uncertainty_range() -> None:
     assert judgment.score_1_to_10 is None
 
 
-def test_normalize_null_judgment_repairs_only_null_envelope() -> None:
+def test_normalize_judgment_envelope_repairs_only_explicit_contract_fields() -> None:
     evaluation: dict[str, object] = {
         "score_1_to_10": None,
         "insufficient_evidence_reason": None,
@@ -145,7 +145,7 @@ def test_normalize_null_judgment_repairs_only_null_envelope() -> None:
         "chapter_rationale": "Only contextual evidence was available.",
     }
 
-    _normalize_null_judgment(evaluation)
+    _normalize_judgment_envelope(evaluation)
 
     assert evaluation["insufficient_evidence_reason"] == (
         "The judge returned no defensible score; see the chapter rationale."
@@ -157,12 +157,36 @@ def test_normalize_null_judgment_repairs_only_null_envelope() -> None:
         "insufficient_evidence_reason": None,
         "plausible_score_range": {"lower": 4, "upper": 6},
     }
-    _normalize_null_judgment(scored)
+    _normalize_judgment_envelope(scored)
 
     assert scored["plausible_score_range"] == {"lower": 4, "upper": 6}
 
+    scored_recoverable = {
+        "score_1_to_10": 4,
+        "plausible_score_range": {"lower": 3, "upper": 5},
+        "insufficient_evidence_reason": None,
+        "decisive_positive_evidence": [{"evidence_id": "E001"}],
+        "decisive_negative_evidence": [{"evidence_id": "E002"}],
+        "manual_review_required": True,
+        "manual_review_reason_type": "recoverable_null",
+        "manual_review_reason": "More decisive evidence could materially move the score.",
+    }
+    expected = scored_recoverable | {"manual_review_reason_type": "decisive_source"}
+    _normalize_judgment_envelope(scored_recoverable)
+
+    assert scored_recoverable == expected
+
+    unreviewed_scored = {
+        "score_1_to_10": 4,
+        "manual_review_required": False,
+        "manual_review_reason_type": "recoverable_null",
+    }
+    _normalize_judgment_envelope(unreviewed_scored)
+
+    assert unreviewed_scored["manual_review_reason_type"] == "recoverable_null"
+
     missing_score = {"chapter_rationale": "Malformed candidate."}
-    _normalize_null_judgment(missing_score)
+    _normalize_judgment_envelope(missing_score)
 
     assert missing_score == {"chapter_rationale": "Malformed candidate."}
 

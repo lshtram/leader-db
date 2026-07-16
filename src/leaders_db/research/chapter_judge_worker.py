@@ -364,7 +364,7 @@ def _prepare_batch(
                 item.evidence_id for item in projection_by_key[dossier_key].evidence
             },
         )
-        _normalize_null_judgment(evaluation)
+        _normalize_judgment_envelope(evaluation)
         evaluation.update({
             "iso3": dossier.iso3,
             "ruler_id": dossier.ruler_id,
@@ -421,10 +421,17 @@ def _prepare_batch(
     return batch
 
 
-def _normalize_null_judgment(evaluation: dict[str, Any]) -> None:
-    """Canonicalize an explicit null without inventing a score or evidence."""
+def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
+    """Canonicalize null fields or scored review taxonomy without changing substance."""
 
-    if "score_1_to_10" not in evaluation or evaluation["score_1_to_10"] is not None:
+    if "score_1_to_10" not in evaluation:
+        return
+    if evaluation["score_1_to_10"] is not None:
+        if (
+            evaluation.get("manual_review_required") is True
+            and evaluation.get("manual_review_reason_type") == "recoverable_null"
+        ):
+            evaluation["manual_review_reason_type"] = "decisive_source"
         return
     reason = str(evaluation.get("insufficient_evidence_reason") or "").strip()
     if not reason:
