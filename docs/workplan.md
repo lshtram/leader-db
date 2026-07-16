@@ -29,6 +29,15 @@
   queue limit that counted retry executions instead of unique completed jobs. Then
   run the score/order audit over all 160 judgments and decide whether the observed
   cost range is acceptable.
+- The independent post-run score/order audit returned **NO-GO for substantive ranking
+  use** and diagnostic-only acceptance. All judge citation IDs resolve, and the sampled
+  Xi-2B, Erdoğan-3B, Piñera-4B, and Ardern-8B rationales broadly match their cited
+  evidence. However, evidence completeness is not comparable across rulers: Erdoğan
+  marks 72/80 lenses `no_evidence_found`, while Xi marks all 80 that way despite having
+  evidence mapped into every chapter. Twenty-one of the 36 null scores also occur
+  outside sparse nuclear chapter 1B. Repair under-researched dossiers, reconcile
+  mapping-backed coverage statuses, and route every insufficient-evidence judgment to
+  an explicit research/review queue before rerunning judges or scaling the cohort.
 
 ## 2026-07-15 — Bounded Luna research takeover added
 
