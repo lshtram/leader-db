@@ -3,6 +3,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from pydantic import ValidationError
 
 from leaders_db.research._codex_worker_artifacts import (
     candidate_has_valid_references,
@@ -28,6 +29,7 @@ from leaders_db.research.notebook_continuation import (
     _has_indeterminate_review,
     _has_indeterminate_supervisor_takeover,
     _initial_expected_review_ids,
+    _load_evidence_review,
     _rehydrate_completed_continuation,
     _should_use_supervisor_takeover,
 )
@@ -181,6 +183,107 @@ def test_completed_invalid_review_is_safe_to_repair_on_retry(tmp_path: Path) -> 
     )
 
     assert _has_indeterminate_review(current, 1) is False
+
+
+def test_load_evidence_review_normalizes_question_ids_to_chapters(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "review.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_evidence_review_v1",
+                "needs_continuation": True,
+                "selected_theme_ids": ["1B.4", "1B.7", "2B.2"],
+                "chapter_reviews": [
+                    {
+                        "chapter_id": chapter_id,
+                        "defensible_evidence_estimate": 5,
+                        "independent_source_family_estimate": 3,
+                        "attribution_risk": "medium",
+                        "substantive_issues": [],
+                        "missing_themes": [],
+                    }
+                    for chapter_id in ("1B", "2B")
+                ],
+                "global_findings": [],
+                "reviewer_summary": "Continue both chapters.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    report = _load_evidence_review(path)
+
+    assert report.selected_theme_ids == ("1B", "2B")
+
+
+def test_completed_review_recovery_normalizes_question_ids(tmp_path: Path) -> None:
+    attempt = _attempt(tmp_path)
+    review = {
+        "schema_version": "ruler_evidence_review_v1",
+        "needs_continuation": True,
+        "selected_theme_ids": ["1B.4"],
+        "chapter_reviews": [
+            {
+                "chapter_id": "1B",
+                "defensible_evidence_estimate": 5,
+                "independent_source_family_estimate": 3,
+                "attribution_risk": "medium",
+                "substantive_issues": [],
+                "missing_themes": [],
+            }
+        ],
+        "global_findings": [],
+        "reviewer_summary": "Continue.",
+    }
+    (attempt.trusted_dir / "evidence-review-round-01.json").write_text(
+        json.dumps(review), encoding="utf-8"
+    )
+
+    recovered = _completed_review_reports(attempt)
+
+    assert recovered[0][1].selected_theme_ids == ("1B",)
+
+
+@pytest.mark.parametrize("payload", ["[]", "null", '"review"'])
+def test_load_evidence_review_rejects_non_object_json(
+    tmp_path: Path, payload: str
+) -> None:
+    path = tmp_path / "review.json"
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(ValidationError):
+        _load_evidence_review(path)
+
+
+def test_load_evidence_review_does_not_normalize_unknown_suffix(tmp_path: Path) -> None:
+    path = tmp_path / "review.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_evidence_review_v1",
+                "needs_continuation": True,
+                "selected_theme_ids": ["1B.hallucinated"],
+                "chapter_reviews": [
+                    {
+                        "chapter_id": "1B",
+                        "defensible_evidence_estimate": 5,
+                        "independent_source_family_estimate": 3,
+                        "attribution_risk": "medium",
+                        "substantive_issues": [],
+                        "missing_themes": [],
+                    }
+                ],
+                "global_findings": [],
+                "reviewer_summary": "Continue.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValidationError):
+        _load_evidence_review(path)
 
 
 def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(

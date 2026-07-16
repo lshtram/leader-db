@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
@@ -329,10 +330,8 @@ def _run_evidence_review(
         timeout_seconds=timeout_seconds,
     )
     try:
-        return EvidenceReviewReport.model_validate_json(
-            output_path.read_text(encoding="utf-8")
-        )
-    except (OSError, ValidationError) as exc:
+        return _load_evidence_review(output_path)
+    except (OSError, UnicodeError, json.JSONDecodeError, ValidationError) as exc:
         raise WorkerOutputError("evidence reviewer produced invalid output") from exc
 
 
@@ -419,10 +418,8 @@ def _repair_evidence_review_scope(
         timeout_seconds=timeout_seconds,
     )
     try:
-        return EvidenceReviewReport.model_validate_json(
-            output_path.read_text(encoding="utf-8")
-        )
-    except (OSError, ValidationError) as exc:
+        return _load_evidence_review(output_path)
+    except (OSError, UnicodeError, json.JSONDecodeError, ValidationError) as exc:
         raise WorkerOutputError("evidence review repair produced invalid output") from exc
 
 
@@ -726,10 +723,8 @@ def _completed_review_reports(
         for path in directory.glob("evidence-review-round-*.json"):
             try:
                 round_number = int(path.stem.rsplit("-", maxsplit=1)[-1])
-                reports[round_number] = EvidenceReviewReport.model_validate_json(
-                    path.read_text(encoding="utf-8")
-                )
-            except (OSError, ValueError, ValidationError):
+                reports[round_number] = _load_evidence_review(path)
+            except (OSError, UnicodeError, ValueError, ValidationError):
                 continue
     return sorted(reports.items())
 
@@ -751,8 +746,8 @@ def _existing_review_repair(
         if not path.is_file():
             continue
         try:
-            return EvidenceReviewReport.model_validate_json(path.read_text(encoding="utf-8"))
-        except (OSError, ValidationError):
+            return _load_evidence_review(path)
+        except (OSError, UnicodeError, json.JSONDecodeError, ValidationError):
             continue
     return None
 
@@ -858,12 +853,35 @@ def _has_indeterminate_review(attempt: WorkerAttempt, round_number: int) -> bool
                 continue
             return True
         try:
-            EvidenceReviewReport.model_validate_json(output.read_text(encoding="utf-8"))
-        except (OSError, ValidationError):
+            _load_evidence_review(output)
+        except (OSError, UnicodeError, json.JSONDecodeError, ValidationError):
             if _events_show_completed_turn(events):
                 continue
             return True
     return False
+
+
+def _load_evidence_review(path: Path) -> EvidenceReviewReport:
+    """Load a review, repairing question IDs used as chapter continuation IDs."""
+
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        return EvidenceReviewReport.model_validate(payload)
+    selected = payload.get("selected_theme_ids")
+    if isinstance(selected, list):
+        normalized: list[str] = []
+        for value in selected:
+            if not isinstance(value, str):
+                normalized.append(value)
+                continue
+            if re.fullmatch(r"[1-8]B\.(?:[1-9]|10)", value) is None:
+                normalized.append(value)
+                continue
+            chapter_id = value.split(".", maxsplit=1)[0]
+            if chapter_id not in normalized:
+                normalized.append(chapter_id)
+        payload["selected_theme_ids"] = normalized
+    return EvidenceReviewReport.model_validate(payload)
 
 
 def _has_indeterminate_continuation(
