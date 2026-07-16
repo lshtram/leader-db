@@ -494,6 +494,60 @@ def test_formatter_must_preserve_reviewed_source_claim_units(tmp_path: Path) -> 
     _validate_formatter_evidence_yield(sufficient, trusted_dir=current.trusted_dir)
 
 
+def test_latest_review_can_lower_an_earlier_overestimate(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    for number, estimate in ((1, 10), (2, 6)):
+        report = EvidenceReviewReport(
+            schema_version="ruler_evidence_review_v1",
+            needs_continuation=False,
+            selected_theme_ids=(),
+            chapter_reviews=(
+                ChapterEvidenceReview(
+                    chapter_id="2B",
+                    defensible_evidence_estimate=estimate,
+                    independent_source_family_estimate=3,
+                    attribution_risk="medium",
+                    substantive_issues=(),
+                    missing_themes=(),
+                ),
+            ),
+            global_findings=(),
+            reviewer_summary="Formatting may proceed.",
+        )
+        (current.trusted_dir / f"evidence-review-round-{number:02d}.json").write_text(
+            report.model_dump_json(), encoding="utf-8"
+        )
+
+    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 5}
+
+
+def test_same_round_repair_supersedes_original_review_estimate(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    for suffix, estimate in (("", 10), ("-repair", 5)):
+        report = EvidenceReviewReport(
+            schema_version="ruler_evidence_review_v1",
+            needs_continuation=False,
+            selected_theme_ids=(),
+            chapter_reviews=(
+                ChapterEvidenceReview(
+                    chapter_id="2B",
+                    defensible_evidence_estimate=estimate,
+                    independent_source_family_estimate=3,
+                    attribution_risk="medium",
+                    substantive_issues=(),
+                    missing_themes=(),
+                ),
+            ),
+            global_findings=(),
+            reviewer_summary="Formatting may proceed.",
+        )
+        (current.trusted_dir / f"evidence-review-round-01{suffix}.json").write_text(
+            report.model_dump_json(), encoding="utf-8"
+        )
+
+    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 4}
+
+
 def test_sparse_review_estimate_does_not_create_an_undocumented_floor(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     report = EvidenceReviewReport(

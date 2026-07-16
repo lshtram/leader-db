@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 import subprocess
 import time
 from datetime import UTC, datetime
@@ -759,7 +760,7 @@ def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:
 
 
 def _reviewed_evidence_estimates(review_paths: list[Path]) -> dict[str, int]:
-    """Aggregate the maximum reviewed estimate retained for every chapter."""
+    """Retain the latest reviewed estimate for every chapter."""
 
     from .notebook_continuation import _load_evidence_review
 
@@ -767,23 +768,27 @@ def _reviewed_evidence_estimates(review_paths: list[Path]) -> dict[str, int]:
     for path in review_paths:
         review = _load_evidence_review(path)
         for item in review.chapter_reviews:
-            if item.defensible_evidence_estimate > 0:
-                estimates[item.chapter_id] = max(
-                    estimates.get(item.chapter_id, 0),
-                    item.defensible_evidence_estimate,
-                )
+            estimates[item.chapter_id] = item.defensible_evidence_estimate
     return estimates
 
 
 def _review_report_paths(trusted_dir: Path) -> list[Path]:
     """Return only completed review reports, excluding schema/start markers."""
 
-    return sorted(
+    paths = [
         path
         for directory in trusted_dir.parent.glob("*")
         for path in directory.glob("evidence-review-round-*.json")
         if ".starting." not in path.name and ".schema." not in path.name
-    )
+    ]
+    return sorted(paths, key=_review_report_order)
+
+
+def _review_report_order(path: Path) -> tuple[str, int, bool]:
+    match = re.fullmatch(r"evidence-review-round-(\d+)(-repair)?\.json", path.name)
+    if match is None:
+        return (path.parent.name, -1, False)
+    return (path.parent.name, int(match.group(1)), match.group(2) is not None)
 
 
 def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:
