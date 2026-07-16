@@ -899,6 +899,8 @@ def _has_indeterminate_continuation(
     for directory in attempt.trusted_dir.parent.glob("*"):
         if not (directory / f"research-continuation-{suffix}.starting.json").is_file():
             continue
+        if _has_valid_continuation_termination(directory, suffix):
+            continue
         events = directory / f"research-continuation-{suffix}.events.jsonl"
         output = job_dir / "attempts" / directory.name / f"research-continuation-{suffix}.md"
         if not events.is_file() or not output.is_file():
@@ -908,6 +910,19 @@ def _has_indeterminate_continuation(
         if not _events_show_completed_turn(events):
             return True
     return False
+
+
+def _has_valid_continuation_termination(directory: Path, suffix: str) -> bool:
+    """Validate an explicit operator audit marker for an interrupted continuation."""
+
+    from .codex_worker import _has_valid_operator_termination
+
+    return _has_valid_operator_termination(
+        directory,
+        marker_name=f"research-continuation-{suffix}.operator-terminated.json",
+        starting_name=f"research-continuation-{suffix}.starting.json",
+        events_name=f"research-continuation-{suffix}.events.jsonl",
+    )
 
 
 def _build_resume_prompt(report: EvidenceReviewReport, *, round_number: int) -> str:

@@ -746,6 +746,38 @@ def test_explicit_failed_turn_is_safe_to_retry(tmp_path: Path) -> None:
     assert _events_show_failed_turn(events) is True
 
 
+def test_operator_terminated_continuation_is_safe_to_retry(tmp_path: Path) -> None:
+    from leaders_db.research.notebook_continuation import (
+        _has_indeterminate_continuation,
+    )
+
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    suffix = "round-01"
+    (prior / f"research-continuation-{suffix}.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior / f"research-continuation-{suffix}.events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n',
+        encoding="utf-8",
+    )
+    (prior / f"research-continuation-{suffix}.operator-terminated.json").write_text(
+        json.dumps(
+            {
+                "reason": "operator interrupted the continuation",
+                "operator": "test-operator",
+                "thread_id": "thread-1",
+                "terminated_at": "2099-01-01T00:00:00+00:00",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    assert _has_indeterminate_continuation(current, 1) is False
+
+
 def test_review_report_scan_excludes_start_and_schema_json(tmp_path: Path) -> None:
     trusted = tmp_path / "trusted" / "002-current"
     prior = trusted.parent / "001-prior"

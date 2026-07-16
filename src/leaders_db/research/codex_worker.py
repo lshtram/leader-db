@@ -624,12 +624,18 @@ def _has_indeterminate_initial_research(trusted_dir: Path) -> bool:
     )
 
 
-def _has_valid_operator_termination(directory: Path) -> bool:
+def _has_valid_operator_termination(
+    directory: Path,
+    *,
+    marker_name: str = "research-operator-terminated.json",
+    starting_name: str = "research-starting.json",
+    events_name: str = "research-events.jsonl",
+) -> bool:
     """Validate an explicit human cost-risk override for a wedged paid turn."""
 
-    marker_path = directory / "research-operator-terminated.json"
-    starting_path = directory / "research-starting.json"
-    events_path = directory / "research-events.jsonl"
+    marker_path = directory / marker_name
+    starting_path = directory / starting_name
+    events_path = directory / events_name
     try:
         marker = json.loads(marker_path.read_text(encoding="utf-8"))
         terminated_at = datetime.fromisoformat(str(marker["terminated_at"]))
