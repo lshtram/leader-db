@@ -17,9 +17,6 @@ from pydantic import ValidationError
 from sqlalchemy.engine import Engine
 
 from ._codex_worker_artifacts import (
-    candidate_has_valid_references,
-)
-from ._codex_worker_artifacts import (
     price_codex_usage as _price_codex_usage,
 )
 from ._codex_worker_artifacts import (
@@ -234,8 +231,6 @@ def _reuse_existing_notebook_candidate(
 
     if candidate is None or research_checkpoint is None:
         return None
-    if not candidate_has_valid_references(candidate):
-        return None
     try:
         dossier = _prepare_dossier(
             candidate,
@@ -249,6 +244,7 @@ def _reuse_existing_notebook_candidate(
     except (ValidationError, ValueError):
         return None
     try:
+        _validate_recovered_candidate_references(dossier)
         _validate_substantive_evidence_yield(dossier)
         _validate_formatter_evidence_yield(dossier, trusted_dir=attempt.trusted_dir)
     except WorkerOutputError:
@@ -271,6 +267,24 @@ def _reuse_existing_notebook_candidate(
         lease_token=lease_token,
         lease_seconds=lease_seconds,
     )
+
+
+def _validate_recovered_candidate_references(dossier: RulerEvidenceDossier) -> None:
+    """Require complete joins before reusing a deterministically normalized candidate."""
+
+    mapped_ids = {item.evidence_id for item in dossier.mappings}
+    evidence_ids = {item.evidence_id for item in dossier.evidence}
+    if mapped_ids != evidence_ids:
+        raise WorkerOutputError("recovered candidate contains unmapped evidence")
+    mapping_pairs = {
+        (item.methodology_id, item.evidence_id) for item in dossier.mappings
+    }
+    if any(
+        (coverage.methodology_id, evidence_id) not in mapping_pairs
+        for coverage in dossier.coverage
+        for evidence_id in coverage.evidence_ids
+    ):
+        raise WorkerOutputError("recovered candidate coverage lacks an evidence mapping")
 
 
 def _publish_dossier(

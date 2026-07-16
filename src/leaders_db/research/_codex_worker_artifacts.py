@@ -140,44 +140,6 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
     return len(linked_ids), len(covered_selected), len(evidence)
 
 
-def candidate_has_valid_references(payload: dict[str, Any]) -> bool:
-    """Require strict internal links before publishing a prior formatter candidate."""
-
-    raw_evidence = payload.get("evidence")
-    raw_mappings = payload.get("mappings")
-    raw_coverage = payload.get("coverage")
-    raw_methodology_ids = payload.get("methodology_ids")
-    if not all(
-        isinstance(value, list)
-        for value in (raw_evidence, raw_mappings, raw_coverage, raw_methodology_ids)
-    ):
-        return False
-    try:
-        evidence = tuple(DossierEvidence.model_validate(item) for item in raw_evidence)
-        mappings = tuple(EvidenceQuestionMapping.model_validate(item) for item in raw_mappings)
-        coverage = tuple(QuestionCoverage.model_validate(item) for item in raw_coverage)
-    except (ValidationError, TypeError):
-        return False
-    declared_ids = {item.evidence_id for item in evidence}
-    selected = {str(item) for item in raw_methodology_ids}
-    coverage_ids = [item.methodology_id for item in coverage]
-    return (
-        len(declared_ids) == len(evidence)
-        and bool(selected)
-        and not any(
-            item.evidence_id not in declared_ids or item.methodology_id not in selected
-            for item in mappings
-        )
-        and len(coverage_ids) == len(selected)
-        and set(coverage_ids) == selected
-        and not any(
-            evidence_id not in declared_ids
-            for item in coverage
-            for evidence_id in item.evidence_ids
-        )
-    )
-
-
 def write_local_priors(
     job_dir: Path, local_priors: tuple[dict[str, Any], ...]
 ) -> tuple[DossierLocalPrior, ...]:
@@ -208,7 +170,6 @@ def write_local_priors(
 
 
 __all__ = [
-    "candidate_has_valid_references",
     "find_previous_candidate",
     "price_codex_usage",
     "read_codex_usage",

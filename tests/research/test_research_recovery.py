@@ -5,10 +5,7 @@ from types import SimpleNamespace
 import pytest
 from pydantic import ValidationError
 
-from leaders_db.research._codex_worker_artifacts import (
-    candidate_has_valid_references,
-    find_previous_candidate,
-)
+from leaders_db.research._codex_worker_artifacts import find_previous_candidate
 from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.codex_worker import (
     WorkerOutputError,
@@ -19,6 +16,7 @@ from leaders_db.research.codex_worker import (
     _recover_completed_initial_research,
     _review_report_paths,
     _validate_formatter_evidence_yield,
+    _validate_recovered_candidate_references,
 )
 from leaders_db.research.evidence_review import ChapterEvidenceReview, EvidenceReviewReport
 from leaders_db.research.notebook_continuation import (
@@ -432,7 +430,19 @@ def test_broken_reference_candidate_is_retained_only_for_repair(tmp_path: Path) 
     )
 
     assert candidate == payload
-    assert candidate_has_valid_references(candidate) is False
+
+
+def test_recovered_candidate_rejects_unmapped_evidence() -> None:
+    dossier = SimpleNamespace(
+        evidence=(SimpleNamespace(evidence_id="E001"),),
+        mappings=(),
+        coverage=(
+            SimpleNamespace(methodology_id="1B.1", evidence_ids=()),
+        ),
+    )
+
+    with pytest.raises(WorkerOutputError, match="unmapped evidence"):
+        _validate_recovered_candidate_references(dossier)
 
 
 def test_first_review_scope_uses_only_job_selected_chapters() -> None:

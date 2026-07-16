@@ -173,6 +173,35 @@ def test_normalizer_retains_stronger_duplicate_and_unions_contrary_evidence() ->
     )
 
 
+def test_normalizer_drops_unknown_mapping_before_strict_validation() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    payload["mappings"] = [
+        {
+            "evidence_id": "undeclared-id",
+            "methodology_id": "1B.1",
+            "relation": "supports",
+            "relevance": "Broken formatter reference.",
+        }
+    ]
+    payload["coverage"][0] |= {
+        "status": "covered",
+        "evidence_ids": ["E001"],
+    }
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert dossier.mappings[0].evidence_id == "E001"
+    assert any(
+        "unknown evidence or question" in item
+        for item in dossier.normalization_warnings
+    )
+
+
 def test_multi_chapter_dossier_cannot_publish_with_zero_evidence() -> None:
     payload = _dossier(())
     payload["methodology_ids"] = ["1B.1", "2B.1"]
