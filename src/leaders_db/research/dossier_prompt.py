@@ -70,6 +70,15 @@ Exact minimum mapped source-claim counts to preserve by chapter after the config
 {json.dumps(evidence_preservation_floors or {}, indent=2, sort_keys=True)}
 
 Requirements:
+- BLOCKING PRE-SUBMISSION CHECK: count the distinct evidence IDs mapped to each
+  chapter in the final candidate and compare them with every nonzero minimum above.
+  If any chapter is below its minimum, return to the supplied notebook, recover the
+  omitted defensible source-claim units, and revise the candidate before answering.
+  Do not knowingly submit a below-floor candidate. When an existing candidate is
+  present, treat this as a targeted preservation repair: retain its valid records and
+  restore omitted atomic source-claim units already identified in the supplied
+  notebook. Split a bundled notebook unit only where the notebook itself clearly
+  records materially distinct claims; never inflate the count mechanically.
 - This is only a formatting and normalization pass.
   Interpret its prose, headings, tables, and JSON fragments flexibly. Preserve the
   researcher's claims, citations, caveats, main points, contrary evidence, and gaps;

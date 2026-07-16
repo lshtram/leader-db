@@ -273,6 +273,11 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         "  formatting floor"
     ) in formatter_prompt
     assert '"2B": 12' in formatter_prompt
+    assert "BLOCKING PRE-SUBMISSION CHECK" in formatter_prompt
+    assert "Do not knowingly submit a below-floor candidate" in formatter_prompt
+    assert "do not perform new research" in formatter_prompt
+    assert "Do not search or add facts" in formatter_prompt
+    assert "never manufacture or split claims mechanically" in formatter_prompt
     assert "count unique mapped evidence IDs separately for every chapter" in formatter_prompt
     assert "IDs mentioned only in `coverage` do not count" in formatter_prompt
 
