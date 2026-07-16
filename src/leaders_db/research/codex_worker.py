@@ -727,11 +727,11 @@ def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:
 def _reviewed_evidence_estimates(review_paths: list[Path]) -> dict[str, int]:
     """Aggregate the maximum reviewed estimate retained for every chapter."""
 
-    from .evidence_review import EvidenceReviewReport
+    from .notebook_continuation import _load_evidence_review
 
     estimates: dict[str, int] = {}
     for path in review_paths:
-        review = EvidenceReviewReport.model_validate_json(path.read_text(encoding="utf-8"))
+        review = _load_evidence_review(path)
         for item in review.chapter_reviews:
             if item.defensible_evidence_estimate > 0:
                 estimates[item.chapter_id] = max(

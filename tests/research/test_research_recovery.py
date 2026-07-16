@@ -257,7 +257,7 @@ def test_load_evidence_review_rejects_non_object_json(
         _load_evidence_review(path)
 
 
-def test_load_evidence_review_does_not_normalize_unknown_suffix(tmp_path: Path) -> None:
+def test_load_evidence_review_normalizes_descriptive_theme_suffix(tmp_path: Path) -> None:
     path = tmp_path / "review.json"
     path.write_text(
         json.dumps(
@@ -282,8 +282,9 @@ def test_load_evidence_review_does_not_normalize_unknown_suffix(tmp_path: Path) 
         encoding="utf-8",
     )
 
-    with pytest.raises(ValidationError):
-        _load_evidence_review(path)
+    report = _load_evidence_review(path)
+
+    assert report.selected_theme_ids == ("1B",)
 
 
 def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(
@@ -542,8 +543,11 @@ def test_formatter_floors_retain_chapters_from_earlier_review_rounds(
         reviewer_summary="Formatting may proceed.",
     )
     for number, report in ((1, first), (2, second)):
+        payload = report.model_dump(mode="json")
+        if number == 1:
+            payload["selected_theme_ids"] = ["2B:decision-chronology"]
         (current.trusted_dir / f"evidence-review-round-{number:02d}.json").write_text(
-            report.model_dump_json(), encoding="utf-8"
+            json.dumps(payload), encoding="utf-8"
         )
 
     assert _evidence_preservation_floors(current.trusted_dir) == {"1B": 5, "2B": 8}

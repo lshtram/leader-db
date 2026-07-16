@@ -868,16 +868,23 @@ def _load_evidence_review(path: Path) -> EvidenceReviewReport:
     if not isinstance(payload, dict):
         return EvidenceReviewReport.model_validate(payload)
     selected = payload.get("selected_theme_ids")
+    chapter_reviews = payload.get("chapter_reviews")
+    reviewed_chapters = {
+        item.get("chapter_id")
+        for item in chapter_reviews
+        if isinstance(item, dict)
+    } if isinstance(chapter_reviews, list) else set()
     if isinstance(selected, list):
         normalized: list[str] = []
         for value in selected:
             if not isinstance(value, str):
                 normalized.append(value)
                 continue
-            if re.fullmatch(r"[1-8]B\.(?:[1-9]|10)", value) is None:
+            match = re.match(r"^([1-8]B)(?:[.:].+)?$", value)
+            if match is None or match.group(1) not in reviewed_chapters:
                 normalized.append(value)
                 continue
-            chapter_id = value.split(".", maxsplit=1)[0]
+            chapter_id = match.group(1)
             if chapter_id not in normalized:
                 normalized.append(chapter_id)
         payload["selected_theme_ids"] = normalized
