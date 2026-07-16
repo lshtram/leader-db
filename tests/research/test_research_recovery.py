@@ -257,14 +257,17 @@ def test_load_evidence_review_rejects_non_object_json(
         _load_evidence_review(path)
 
 
-def test_load_evidence_review_normalizes_descriptive_theme_suffix(tmp_path: Path) -> None:
+@pytest.mark.parametrize("theme_id", ["1B.hallucinated", "1B-primary-records"])
+def test_load_evidence_review_normalizes_descriptive_theme_suffix(
+    tmp_path: Path, theme_id: str
+) -> None:
     path = tmp_path / "review.json"
     path.write_text(
         json.dumps(
             {
                 "schema_version": "ruler_evidence_review_v1",
                 "needs_continuation": True,
-                "selected_theme_ids": ["1B.hallucinated"],
+                "selected_theme_ids": [theme_id],
                 "chapter_reviews": [
                     {
                         "chapter_id": "1B",
@@ -285,6 +288,38 @@ def test_load_evidence_review_normalizes_descriptive_theme_suffix(tmp_path: Path
     report = _load_evidence_review(path)
 
     assert report.selected_theme_ids == ("1B",)
+
+
+@pytest.mark.parametrize("theme_id", ["1B-2B", "2B-primary-records"])
+def test_load_evidence_review_rejects_ambiguous_or_unreviewed_theme_prefix(
+    tmp_path: Path, theme_id: str
+) -> None:
+    path = tmp_path / "review.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_evidence_review_v1",
+                "needs_continuation": True,
+                "selected_theme_ids": [theme_id],
+                "chapter_reviews": [
+                    {
+                        "chapter_id": "1B",
+                        "defensible_evidence_estimate": 5,
+                        "independent_source_family_estimate": 3,
+                        "attribution_risk": "medium",
+                        "substantive_issues": [],
+                        "missing_themes": [],
+                    }
+                ],
+                "global_findings": [],
+                "reviewer_summary": "Continue.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValidationError, match="selected continuation themes"):
+        _load_evidence_review(path)
 
 
 def test_formatter_recovery_prefers_candidate_with_more_preserved_evidence(

@@ -880,7 +880,9 @@ def _load_evidence_review(path: Path) -> EvidenceReviewReport:
             if not isinstance(value, str):
                 normalized.append(value)
                 continue
-            match = re.match(r"^([1-8]B)(?:[.:].+)?$", value)
+            match = re.fullmatch(
+                r"([1-8]B)(?:[.:].+|-(?![1-8]B(?:$|[.:-])).+)?", value
+            )
             if match is None or match.group(1) not in reviewed_chapters:
                 normalized.append(value)
                 continue
