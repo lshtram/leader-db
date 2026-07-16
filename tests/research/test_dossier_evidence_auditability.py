@@ -11,6 +11,7 @@ from leaders_db.research.dossier_models import (
     DossierEvidence,
     RulerEvidenceDossier,
     codex_dossier_json_schema,
+    normalize_dossier_candidate,
 )
 
 
@@ -60,6 +61,116 @@ def test_dossier_rejects_duplicate_canonical_fact() -> None:
 
     with pytest.raises(ValidationError, match="duplicate canonical"):
         RulerEvidenceDossier.model_validate(_dossier((first, second)))
+
+
+def test_normalizer_merges_exact_duplicate_fact_and_rewires_references() -> None:
+    first = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    second = first | {
+        "evidence_id": "duplicate-id",
+        "canonical_fact_key": "other-key",
+    }
+    payload = _dossier((first, second))
+    payload["methodology_ids"] = ["1B.1", "2B.1"]
+    payload["mappings"] = [
+        {
+            "evidence_id": "E001",
+            "methodology_id": "1B.1",
+            "relation": "context",
+            "relevance": "First reference.",
+        },
+        {
+            "evidence_id": "duplicate-id",
+            "methodology_id": "2B.1",
+            "relation": "supports",
+            "relevance": "Same fact, duplicate row.",
+        }
+    ]
+    payload["coverage"][0] |= {
+        "status": "covered",
+        "evidence_ids": ["E001", "duplicate-id"],
+    }
+    payload["coverage"].append(
+        {
+            "methodology_id": "2B.1",
+            "status": "covered",
+            "evidence_ids": ["duplicate-id"],
+            "reason": "Second reference.",
+        }
+    )
+    payload["local_priors"].append(
+        {
+            "methodology_id": "2B.1",
+            "status": "no_evidence_found",
+            "summary": "No local evidence.",
+            "artifact_path": "fixture.json",
+            "artifact_sha256": "b" * 64,
+        }
+    )
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1", "2B.1"))
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert [item.evidence_id for item in dossier.evidence] == ["E001"]
+    assert {(item.methodology_id, item.relation) for item in dossier.mappings} == {
+        ("1B.1", "context"),
+        ("2B.1", "supports"),
+    }
+    assert dossier.coverage[0].evidence_ids == ("E001",)
+    assert dossier.coverage[1].evidence_ids == ("E001",)
+    assert any("duplicate canonical fact" in item for item in dossier.normalization_warnings)
+
+
+def test_normalizer_does_not_merge_case_sensitive_url_paths() -> None:
+    first = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source-a|p4|claim",
+    }
+    second = first | {
+        "evidence_id": "E002",
+        "url": "https://example.test/Report.pdf",
+        "canonical_fact_key": "source-b|p4|claim",
+    }
+
+    normalized = normalize_dossier_candidate(
+        _dossier((first, second)), methodology_ids=("1B.1",)
+    )
+
+    assert len(normalized["evidence"]) == 2
+
+
+def test_normalizer_retains_stronger_duplicate_and_unions_contrary_evidence() -> None:
+    first = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+        "final_evidence_use": "context",
+        "source_confidence": "medium",
+        "excerpt": "Short excerpt.",
+        "contrary_evidence": ["First caveat."],
+    }
+    second = first | {
+        "evidence_id": "E002",
+        "canonical_fact_key": "other-key",
+        "final_evidence_use": "final_evidence",
+        "source_confidence": "high",
+        "excerpt": "Longer and more precise supporting excerpt.",
+        "contrary_evidence": ["Second caveat."],
+    }
+
+    normalized = normalize_dossier_candidate(
+        _dossier((first, second)), methodology_ids=("1B.1",)
+    )
+    retained = normalized["evidence"][0]
+
+    assert retained["evidence_id"] == "E001"
+    assert retained["final_evidence_use"] == "final_evidence"
+    assert retained["source_confidence"] == "high"
+    assert retained["contrary_evidence"] == ["First caveat.", "Second caveat."]
+    assert any(
+        "conflicting metadata" in item for item in normalized["normalization_warnings"]
+    )
 
 
 def test_multi_chapter_dossier_cannot_publish_with_zero_evidence() -> None:

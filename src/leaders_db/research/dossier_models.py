@@ -231,7 +231,7 @@ class RulerEvidenceDossier(BaseModel):
         for item in self.evidence:
             if {"source_locator", "canonical_fact_key"}.issubset(item.model_fields_set):
                 fact = (
-                    item.url.strip().casefold(),
+                    item.url.strip(),
                     item.source_locator.strip().casefold(),
                     " ".join(item.claim.split()).casefold(),
                 )
@@ -308,11 +308,28 @@ def normalize_dossier_candidate(
         return normalized
 
     id_map: dict[str, list[str]] = {}
-    for index, item in enumerate(evidence, start=1):
+    deduplicated_evidence: list[object] = []
+    canonical_fact_ids: dict[tuple[str, str, str], str] = {}
+    for item in evidence:
         if not isinstance(item, dict):
+            deduplicated_evidence.append(item)
             continue
-        old_id = str(item.get("evidence_id", f"missing-{index}"))
-        new_id = f"E{index:03d}"
+        old_id = str(item.get("evidence_id", f"missing-{len(deduplicated_evidence) + 1}"))
+        fact = _canonical_source_locator_claim(item)
+        existing_id = canonical_fact_ids.get(fact) if fact is not None else None
+        if existing_id is not None:
+            id_map.setdefault(old_id, []).append(existing_id)
+            retained = next(
+                entry
+                for entry in deduplicated_evidence
+                if isinstance(entry, dict) and entry.get("evidence_id") == existing_id
+            )
+            _merge_duplicate_fact_metadata(retained, item, warnings)
+            warnings.append(
+                f"duplicate canonical fact {old_id!r} merged into {existing_id}"
+            )
+            continue
+        new_id = f"E{len(deduplicated_evidence) + 1:03d}"
         id_map.setdefault(old_id, []).append(new_id)
         if len(id_map[old_id]) > 1:
             warnings.append(
@@ -321,6 +338,12 @@ def normalize_dossier_candidate(
         if old_id != new_id:
             warnings.append(f"evidence ID {old_id!r} normalized to {new_id}")
         item["evidence_id"] = new_id
+        deduplicated_evidence.append(item)
+        if fact is not None:
+            canonical_fact_ids[fact] = new_id
+
+    normalized["evidence"] = deduplicated_evidence
+    evidence = deduplicated_evidence
 
     selected = set(methodology_ids)
     mappings = _normalize_mappings(normalized.get("mappings"), id_map, selected, warnings)
@@ -332,6 +355,58 @@ def normalize_dossier_candidate(
     normalized["coverage"] = coverage
     normalized["normalization_warnings"] = list(dict.fromkeys(warnings))
     return normalized
+
+
+def _canonical_source_locator_claim(item: dict[str, Any]) -> tuple[str, str, str] | None:
+    if not {"url", "source_locator", "claim"}.issubset(item):
+        return None
+    return (
+        str(item["url"]).strip(),
+        str(item["source_locator"]).strip().casefold(),
+        " ".join(str(item["claim"]).split()).casefold(),
+    )
+
+
+def _merge_duplicate_fact_metadata(
+    retained: dict[str, Any], duplicate: dict[str, Any], warnings: list[str]
+) -> None:
+    """Retain the stronger duplicate row and preserve all contrary evidence."""
+
+    ignored = {"evidence_id", "canonical_fact_key", "contrary_evidence"}
+    differing = sorted(
+        key
+        for key in set(retained) | set(duplicate)
+        if key not in ignored and retained.get(key) != duplicate.get(key)
+    )
+    contrary_values = [
+        str(value)
+        for record in (retained, duplicate)
+        for value in record.get("contrary_evidence", [])
+    ]
+    if _evidence_strength(duplicate) > _evidence_strength(retained):
+        retained_id = retained["evidence_id"]
+        retained_key = retained.get("canonical_fact_key")
+        retained.clear()
+        retained.update(duplicate)
+        retained["evidence_id"] = retained_id
+        if retained_key is not None:
+            retained["canonical_fact_key"] = retained_key
+    retained["contrary_evidence"] = list(dict.fromkeys(contrary_values))
+    if differing:
+        warnings.append(
+            "duplicate canonical fact had conflicting metadata; retained the stronger "
+            f"record for fields: {', '.join(differing)}"
+        )
+
+
+def _evidence_strength(item: dict[str, Any]) -> tuple[int, int, int]:
+    use_rank = {"discovery_only": 0, "context": 1, "final_evidence": 2}
+    confidence_rank = {"low": 0, "medium": 1, "high": 2}
+    return (
+        use_rank.get(str(item.get("final_evidence_use")), -1),
+        confidence_rank.get(str(item.get("source_confidence")).casefold(), -1),
+        len(str(item.get("excerpt", ""))),
+    )
 
 
 def _normalize_mappings(
