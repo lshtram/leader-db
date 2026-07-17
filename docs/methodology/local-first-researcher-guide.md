@@ -1,10 +1,10 @@
 # Local-First Researcher Guide
 
 This guide is mandatory for `internet-research` workers on score-bearing manual
-questions. It is the durable process reset: researchers must use the local Leaders
-DB and artifacts first, then preferred external sources, and only then general web
-search. Do not add a separate precomputed local-prior phase as the main strategy;
-instead, every worker should know what local evidence exists and how to query it.
+questions. It is the durable process reset: inspect local Leaders DB evidence first,
+then begin broad web discovery immediately. Discovery is permissive; source quality,
+attribution, temporal fit, and locator rules are applied after candidates have been
+found and opened, not as search filters.
 
 ## Required research order
 
@@ -21,25 +21,30 @@ instead, every worker should know what local evidence exists and how to query it
    `source_confidence_reason`, `source_type`, and `final_evidence_use` with one
    of `final_evidence`, `context`, or `discovery_only`. Rate newly discovered
    sources by analogy and explain the rating.
-4. **Use preferred external sources.** For 4B questions, prioritize election
-   observers, election commissions, courts/legal records, official sanctions or
-   legislative reports, credible NGOs, and then reputable media.
-5. **Use general web last.** General search is for discovering ruler-specific or
-   narrative detail when local structured data and preferred sources are
-   insufficient.
+4. **Discover broadly.** Use general, archive-oriented, source-specific, event-specific,
+   and local-language searches. Do not limit discovery to a pre-approved source list.
+5. **Open, extract, then filter.** Fetch promising underlying pages and documents.
+   Prefer primary records, credible NGOs, intergovernmental bodies, scholarship,
+   archives, and reputable media for final evidence. Weak sources may remain leads.
 
 If local evidence is absent or incomplete, write that explicitly (for example,
 `structured_prior_summary: "no selected local structured evidence found"`). Never
 invent a prior from memory.
 
 For a full ruler-period run, use one persistent researcher thread and work through
-chapters `1B`–`8B` in order. For each accepted source-claim unit, preserve a stable
+chapters `1B`–`8B` and their lenses in order. Begin with one broad ruler-period
+reconnaissance across all chapters, then inspect and reuse the accumulated ledger
+before searching only for each lens's remaining gaps. For each accepted source-claim
+unit, preserve a stable
 evidence ID, exact reference, main-points summary, useful locator or excerpt, period
 and ruler fit, contrary material, and candidate chapter/lens links. Store the item
 once and reuse it wherever it is genuinely relevant. After the initial pass, a
 no-search evidence reviewer checks every selected chapter and returns all recoverable
 gaps to the same thread for at most three rounds. Only after a pass or documented
 saturation/access blocker does a separate no-search formatter serialize the dossier.
+The formatter may normalize and annotate the ledger but may not turn absent mappings
+into `no_evidence_found`; mapped evidence determines coverage, and missing or
+unexplained dispositions remain `research_blocked`.
 
 ## Search-tool policy for this environment
 
@@ -50,6 +55,13 @@ wrapper is one supported path:
 
 - **Discovery:** `leaders-db research parallel-search --objective ... --query ... --output ... --json`
 - **Exact known URLs:** the active profile's URL-opening/fetch capability
+
+Never apply a recent-news freshness filter to historical research. For each chapter,
+keep a lightweight candidate log with query, title, URL, and status (`unopened`,
+`opened`, `accepted`, `rejected`, or `access_blocked`). Candidate logging does not
+require evidence-schema fields. A snippet is never final evidence: open or fetch the
+underlying source first. The 5–20 source-claim target is the filtered evidence ledger,
+not the size of the candidate pool or the number of results inspected.
 
 Avoid redundant queries, unsafe browser code, and automation that bypasses the active
 profile's security policy. Tool choice must not create a fixed query allowance or a

@@ -1,5 +1,111 @@
 # Workplan
 
+## 2026-07-17 — Canonical 2023 population-top-20 research and judges complete
+
+- Frozen batch `2023-population-top20-canonical-full-v1` completed all 20
+  canonically locked ruler dossiers. The dossiers retain 1,058 evidence items and
+  6,339 evidence-to-lens mappings across the 1,600 ruler-lens cells.
+- Batch `2023-population-top20-canonical-full-judges-v1` completed all eight Luna
+  chapter judges on the same 20-ruler cohort, producing 160 chapter evaluations:
+  128 numeric scores and 32 explicit nulls. Forty-nine evaluations carry a manual
+  review flag, including numeric evaluations that remain usable only provisionally.
+- Final recorded usage is 339,890,345 tokens. Configured PAYG-equivalent cost is
+  $42.19-$76.24; this is not an invoice because MiniMax runs under user-managed
+  subscription capacity. Research used 331.43M tokens, evidence review 4.30M,
+  formatting 2.48M, and judging 1.68M.
+- Operational acceptance passed: 20/20 dossiers and 8/8 comparative judge jobs
+  validated, and no worker or MCP proxy remains running. Substantive ranking release
+  remains conditional: every ruler required two Luna supervisor-takeover calls after
+  M3, chapter 7B flagged 18/20 rulers for manual review, and the USA and Thailand
+  dossiers generated implausibly broad non-nuclear nulls. Audit those cases before
+  accepting the batch as comparable ranking data.
+
+## 2026-07-17 — Canonical formal-ruler locks implemented
+
+- Confirmed ruler-year identity now means the publicly recognized formal governing
+  officeholder, not an inferred behind-the-scenes power holder.
+- `identity lock-canonical` persists a `confirmed_locked` adjudication and ruler-year;
+  ordinary adjudication rebuilds preserve it. `identity challenge-canonical` is the only
+  supported reopening path and requires a reason.
+- The reviewed 2023 population-top-20 manifest is ready for canonical application. Identity
+  output is audited separately before any evidence research or chapter judging begins.
+
+## 2026-07-17 — Ruler-analysis arrow contracts documented
+
+- The living ruler-analysis design review now identifies the concrete interface carried
+  across every block boundary, from analysis request and validated ruler identities
+  through readiness, durable jobs, local priors, research notebooks, strict dossiers,
+  chapter projections, comparative judgment batches, and persisted score rows.
+- Ten compact tracked examples use the Argentina/de la Rúa/2000 run identifiers and
+  current schema versions where applicable. Large scientific artifacts are explicitly
+  labeled as excerpts rather than validation fixtures, with omitted repeated arrays
+  called out to prevent the examples from becoming a second schema.
+- Review priority is now boundary-driven: conventional request/readiness/job/persistence
+  internals can be provisionally deferred after contract tests, while local-prior routing,
+  evidence collection/review/formatting, chapter projection, and comparative judgment are
+  the high-value semantic review core.
+
+## 2026-07-17 — Integrated read-only design-review source viewer added
+
+- The ruler-analysis design review now opens repository files in a right-hand pane
+  while preserving the review document on the left, with a full-screen fallback on
+  narrow screens. It renders highlighted source with
+  line numbers, sanitized Markdown with source/rendered modes, formatted JSON, and
+  tabular CSV while retaining VS Code fallback links.
+- `scripts/serve_design_reviews.py` serves only the repository over localhost through
+  Python's static GET/HEAD handler and explicitly rejects mutation methods. Shared
+  viewer assets live under `docs/design-reviews/assets/` so later reviews can reuse
+  the same component.
+- Rendering uses pinned Highlight.js, Marked, DOMPurify, and Papa Parse browser builds;
+  unavailable libraries degrade to escaped plain text. Focused server safety and page
+  retrieval coverage passes.
+
+## 2026-07-17 — Historical discovery reset validated on Argentina 2000 4B
+
+- The prior Argentina dossier's near-empty 4B chapter was traced to process failures,
+  not source scarcity: Brave calls used a past-year filter for a 2000 target, M3 had no
+  guaranteed fetch surface, strict evidence fields were imposed during discovery, the
+  reviewer stopped on predicted marginal value, and formatting orphaned mappings.
+- Research now separates a lightweight candidate pool from accepted evidence. Each
+  chapter uses broad, archive/source-specific, adverse, and local-language discovery;
+  historical searches prohibit recent-news filters; promising sources are opened before
+  evidence filtering; substantial reports may yield multiple distinct located claims.
+- The MiniMax namespace bridge strips Brave recency filters and repairs observed malformed
+  flat MCP names. Fresh formatted dossiers must map every retained evidence item.
+- Diagnostic run `argentina-2000-4b-discovery-reset-v2` exposed excessive 352-way
+  coverage-inferred mapping and a nonterminal final review; both publication paths were
+  blocked. Clean strict run `argentina-2000-4b-discovery-reset-v3` then completed with
+  26 retained/mapped items, 68 selective mappings, 10 publishers, 43 unique notebook
+  URLs, and 35 manifest entries, versus one 4B mapping in the prior dossier. The terminal
+  reviewer estimated 13 defensible units across eight independent source families and
+  explicitly recorded that research rounds ended without full saturation. Remaining
+  concerns are high attribution risk, underreported query accounting, missing Parallel
+  credentials, exhausted Brave quota, and the cost of repeated Luna takeover.
+
+## 2026-07-16 — Sequential ruler-ledger simplification after Erdoğan 4B.6 trace
+
+- The Erdoğan / Türkiye / 2020 / 4B.6 trace proved that the published
+  `no_evidence_found` row was formatter-created missingness: the research notebook
+  already contained directly relevant press-freedom evidence that was discarded or
+  mapped only to another political-freedom lens.
+- The normative flow is now simpler: one persistent M3 ruler session begins with a
+  broad ruler-period reconnaissance across all chapters, then advances through
+  chapters and lenses in order, reusing and mapping the accumulated append-only
+  evidence ledger before searching only for new gaps. One fact remains one global
+  item with many-to-many lens mappings. A minimal stable-key/disposition manifest
+  makes formatter preservation deterministic without duplicating evidence content.
+- Coverage normalization now treats mappings as authoritative. Mapping-backed lenses
+  cannot remain `no_evidence_found`; missing formatter dispositions and unexplained
+  no-evidence claims become `research_blocked`. The formatter must retain every ledger
+  item as evidence, context, discovery material, or an explicitly explained rejection.
+- The reviewer-estimate/80%-preservation-floor mechanism was removed from formatter
+  prompts and runtime validation. The scientific flow remains researcher → bounded
+  reviewer return → no-search formatter → eight judges; lease, retry, and atomic
+  publication controls remain operational safety rather than research stages.
+- Focused normalization, prompt, and recovery tests pass. Next gate: a fresh complete
+  Erdoğan 2020 M3 dossier to measure ledger growth, many-to-many reuse, retained
+  evidence, coverage dispositions, elapsed time, and token/cost convergence.
+
 ## 2026-07-16 — MiniMax-M3 supervised 20-ruler cycle completed
 
 - Run `2020-diverse-20-m3-supervised-v2` completed 20 local-first ruler-period

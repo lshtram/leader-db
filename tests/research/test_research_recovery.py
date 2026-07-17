@@ -10,16 +10,17 @@ from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.codex_worker import (
     WorkerOutputError,
     _events_show_failed_turn,
-    _evidence_preservation_floors,
     _has_indeterminate_formatter_call,
     _has_indeterminate_initial_research,
+    _load_or_recover_research_ledger_manifest,
+    _load_research_ledger_manifest,
     _recover_completed_initial_research,
-    _review_report_paths,
-    _validate_formatter_evidence_yield,
+    _validate_formatter_ledger_accounting,
     _validate_recovered_candidate_references,
 )
 from leaders_db.research.evidence_review import ChapterEvidenceReview, EvidenceReviewReport
 from leaders_db.research.notebook_continuation import (
+    _append_current_ledger_manifest,
     _completed_review_reports,
     _existing_continuation,
     _existing_review_repair,
@@ -29,6 +30,7 @@ from leaders_db.research.notebook_continuation import (
     _initial_expected_review_ids,
     _load_evidence_review,
     _rehydrate_completed_continuation,
+    _require_terminal_review,
     _should_use_supervisor_takeover,
 )
 from leaders_db.research.research_workflow import ResearchWorkflow
@@ -178,6 +180,22 @@ def test_completed_invalid_review_is_safe_to_repair_on_retry(tmp_path: Path) -> 
     )
     (prior.trusted_dir / "evidence-review-round-01.json").write_text(
         '{"schema_version":"invalid"}', encoding="utf-8"
+    )
+
+    assert _has_indeterminate_review(current, 1) is False
+
+
+def test_audited_aborted_review_is_safe_to_retry(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior = _attempt(tmp_path, "001-prior")
+    (prior.trusted_dir / "evidence-review-round-01.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior.trusted_dir / "evidence-review-round-01.events.jsonl").write_text(
+        '{"type":"turn.started"}\n', encoding="utf-8"
+    )
+    (prior.trusted_dir / "evidence-review-round-01.aborted.json").write_text(
+        '{"reason":"stuck process was explicitly terminated"}', encoding="utf-8"
     )
 
     assert _has_indeterminate_review(current, 1) is False
@@ -445,6 +463,142 @@ def test_recovered_candidate_rejects_unmapped_evidence() -> None:
         _validate_recovered_candidate_references(dossier)
 
 
+def test_formatter_may_rewrite_and_consolidate_ledger_items() -> None:
+    notebook = """Research notebook.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"I-1","canonical_fact_key":"fact-1","disposition":"final_evidence"},
+  {"provisional_id":"I-2","canonical_fact_key":"fact-2","disposition":"context"},
+  {"provisional_id":"I-3","canonical_fact_key":"fact-3","disposition":"final_evidence"},
+  {"provisional_id":"R-1","canonical_fact_key":"rejected-1","disposition":"rejected","reason":"Duplicate."}
+]}
+"""
+    collapsed = SimpleNamespace(
+        evidence=(
+            SimpleNamespace(
+                canonical_fact_key="context-does-not-compensate",
+                final_evidence_use="context",
+            ),
+            SimpleNamespace(
+                canonical_fact_key="second-context-does-not-compensate",
+                final_evidence_use="context",
+            ),
+        )
+    )
+
+    with pytest.raises(WorkerOutputError, match=r"collapsed.*0 final.*1 final"):
+        _validate_formatter_ledger_accounting(collapsed, notebook=notebook)
+
+    consolidated = SimpleNamespace(
+        evidence=(
+            SimpleNamespace(
+                canonical_fact_key="rewritten-fact-1",
+                final_evidence_use="final_evidence",
+            ),
+            SimpleNamespace(
+                canonical_fact_key="upgraded-source-for-fact-3",
+                final_evidence_use="final_evidence",
+            ),
+        )
+    )
+    _validate_formatter_ledger_accounting(consolidated, notebook=notebook)
+
+    _validate_formatter_ledger_accounting(
+        consolidated, notebook=notebook + "\nLater reviewer and continuation prose.\n"
+    )
+
+
+def test_research_ledger_manifest_requires_rejection_reason(tmp_path: Path) -> None:
+    path = tmp_path / "research-ledger-manifest.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "R-1",
+                        "canonical_fact_key": "rejected-1",
+                        "disposition": "rejected",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(WorkerOutputError, match="requires a reason"):
+        _load_research_ledger_manifest(path)
+
+
+def test_embedded_research_ledger_manifest_is_recovered(tmp_path: Path) -> None:
+    manifest_path = tmp_path / "research-ledger-manifest.json"
+    handoff_path = tmp_path / "research-handoff.md"
+    handoff_path.write_text(
+        "Notebook prose.\n\n```json\n"
+        '{"schema_version":"ruler_research_ledger_manifest_v1","entries":['
+        '{"provisional_id":"E-1","canonical_fact_key":"fact-1",'
+        '"disposition":"final_evidence"}]}\n```\nMore prose.\n',
+        encoding="utf-8",
+    )
+
+    recovered = _load_or_recover_research_ledger_manifest(
+        manifest_path, handoff_path=handoff_path
+    )
+
+    assert recovered["entries"][0]["canonical_fact_key"] == "fact-1"
+    assert json.loads(manifest_path.read_text(encoding="utf-8")) == recovered
+
+
+def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:
+    handoff_path = tmp_path / "research-handoff.md"
+    handoff_path.write_text(
+        '{"schema_version":"wrong","entries":[]}', encoding="utf-8"
+    )
+
+    assert (
+        _load_or_recover_research_ledger_manifest(
+            tmp_path / "research-ledger-manifest.json", handoff_path=handoff_path
+        )
+        is None
+    )
+
+
+def test_markdown_research_ledger_is_recovered(tmp_path: Path) -> None:
+    handoff_path = tmp_path / "research-handoff.md"
+    handoff_path.write_text(
+        """# Global evidence ledger
+
+## E001 — First item
+- **Canonical fact key:** `https://example.test/a|p2|claim a`
+- **Final use:** `context` pending exact extraction.
+
+## E002 — Second item
+- **Canonical fact key:** `https://example.test/b|s1|claim b`
+- **Final use:** `final_evidence`.
+""",
+        encoding="utf-8",
+    )
+
+    recovered = _load_or_recover_research_ledger_manifest(
+        tmp_path / "research-ledger-manifest.json", handoff_path=handoff_path
+    )
+
+    assert recovered["entries"] == [
+        {
+            "provisional_id": "E001",
+            "canonical_fact_key": "https://example.test/a|p2|claim a",
+            "disposition": "context",
+        },
+        {
+            "provisional_id": "E002",
+            "canonical_fact_key": "https://example.test/b|s1|claim b",
+            "disposition": "final_evidence",
+        },
+    ]
+
+
 def test_first_review_scope_uses_only_job_selected_chapters() -> None:
     job = {"input": {"question_ids": ["2B.1", "2B.2", "5B.1"]}}
 
@@ -460,228 +614,6 @@ def test_luna_takeover_starts_after_two_cheap_research_attempts() -> None:
     assert _should_use_supervisor_takeover(round_number=1, workflow=workflow) is False
     assert _should_use_supervisor_takeover(round_number=2, workflow=workflow) is True
     assert _should_use_supervisor_takeover(round_number=3, workflow=workflow) is True
-
-
-def test_formatter_must_preserve_reviewed_source_claim_units(tmp_path: Path) -> None:
-    current = _attempt(tmp_path)
-    report = EvidenceReviewReport(
-        schema_version="ruler_evidence_review_v1",
-        needs_continuation=False,
-        selected_theme_ids=(),
-        chapter_reviews=(
-            ChapterEvidenceReview(
-                chapter_id="2B",
-                defensible_evidence_estimate=10,
-                independent_source_family_estimate=3,
-                attribution_risk="medium",
-                substantive_issues=(),
-                missing_themes=(),
-            ),
-        ),
-        global_findings=(),
-        reviewer_summary="Formatting may proceed.",
-    )
-    (current.trusted_dir / "evidence-review-round-01.json").write_text(
-        report.model_dump_json(), encoding="utf-8"
-    )
-    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 8}
-    too_sparse = SimpleNamespace(
-        mappings=tuple(
-            SimpleNamespace(methodology_id="2B.1", evidence_id=f"E{index:03d}")
-            for index in range(1, 8)
-        )
-    )
-
-    with pytest.raises(WorkerOutputError, match="chapters: 2B"):
-        _validate_formatter_evidence_yield(too_sparse, trusted_dir=current.trusted_dir)
-
-    sufficient = SimpleNamespace(
-        mappings=(
-            *too_sparse.mappings,
-            SimpleNamespace(methodology_id="2B.2", evidence_id="E008"),
-        )
-    )
-    _validate_formatter_evidence_yield(sufficient, trusted_dir=current.trusted_dir)
-
-
-def test_latest_review_can_lower_an_earlier_overestimate(tmp_path: Path) -> None:
-    current = _attempt(tmp_path)
-    for number, estimate in ((1, 10), (2, 6)):
-        report = EvidenceReviewReport(
-            schema_version="ruler_evidence_review_v1",
-            needs_continuation=False,
-            selected_theme_ids=(),
-            chapter_reviews=(
-                ChapterEvidenceReview(
-                    chapter_id="2B",
-                    defensible_evidence_estimate=estimate,
-                    independent_source_family_estimate=3,
-                    attribution_risk="medium",
-                    substantive_issues=(),
-                    missing_themes=(),
-                ),
-            ),
-            global_findings=(),
-            reviewer_summary="Formatting may proceed.",
-        )
-        (current.trusted_dir / f"evidence-review-round-{number:02d}.json").write_text(
-            report.model_dump_json(), encoding="utf-8"
-        )
-
-    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 5}
-
-
-@pytest.mark.parametrize(
-    ("estimate", "expected"),
-    [(0, 0), (1, 1), (2, 2), (3, 2), (4, 3), (5, 4), (6, 5), (7, 6), (8, 6), (9, 7), (10, 8)],
-)
-def test_eighty_percent_target_rounds_to_nearest_evidence_unit(
-    tmp_path: Path, estimate: int, expected: int
-) -> None:
-    current = _attempt(tmp_path)
-    report = EvidenceReviewReport(
-        schema_version="ruler_evidence_review_v1",
-        needs_continuation=False,
-        selected_theme_ids=(),
-        chapter_reviews=(
-            ChapterEvidenceReview(
-                chapter_id="6B",
-                defensible_evidence_estimate=estimate,
-                independent_source_family_estimate=3,
-                attribution_risk="medium",
-                substantive_issues=(),
-                missing_themes=(),
-            ),
-        ),
-        global_findings=(),
-        reviewer_summary="Formatting may proceed.",
-    )
-    (current.trusted_dir / "evidence-review-round-01.json").write_text(
-        report.model_dump_json(), encoding="utf-8"
-    )
-
-    assert _evidence_preservation_floors(current.trusted_dir) == {"6B": expected}
-
-
-def test_same_round_repair_supersedes_original_review_estimate(tmp_path: Path) -> None:
-    current = _attempt(tmp_path)
-    for suffix, estimate in (("", 10), ("-repair", 5)):
-        report = EvidenceReviewReport(
-            schema_version="ruler_evidence_review_v1",
-            needs_continuation=False,
-            selected_theme_ids=(),
-            chapter_reviews=(
-                ChapterEvidenceReview(
-                    chapter_id="2B",
-                    defensible_evidence_estimate=estimate,
-                    independent_source_family_estimate=3,
-                    attribution_risk="medium",
-                    substantive_issues=(),
-                    missing_themes=(),
-                ),
-            ),
-            global_findings=(),
-            reviewer_summary="Formatting may proceed.",
-        )
-        (current.trusted_dir / f"evidence-review-round-01{suffix}.json").write_text(
-            report.model_dump_json(), encoding="utf-8"
-        )
-
-    assert _evidence_preservation_floors(current.trusted_dir) == {"2B": 4}
-
-
-def test_sparse_review_estimate_does_not_create_an_undocumented_floor(tmp_path: Path) -> None:
-    current = _attempt(tmp_path)
-    report = EvidenceReviewReport(
-        schema_version="ruler_evidence_review_v1",
-        needs_continuation=False,
-        selected_theme_ids=(),
-        chapter_reviews=(
-            ChapterEvidenceReview(
-                chapter_id="1B",
-                defensible_evidence_estimate=2,
-                independent_source_family_estimate=1,
-                attribution_risk="high",
-                substantive_issues=(),
-                missing_themes=("Direct ruler attribution",),
-            ),
-        ),
-        global_findings=(),
-        reviewer_summary="Sparse but honestly documented.",
-    )
-    (current.trusted_dir / "evidence-review-round-01.json").write_text(
-        report.model_dump_json(), encoding="utf-8"
-    )
-    one_unit = SimpleNamespace(
-        mappings=(SimpleNamespace(methodology_id="1B.1", evidence_id="E001"),)
-    )
-    two_units = SimpleNamespace(
-        mappings=(
-            *one_unit.mappings,
-            SimpleNamespace(methodology_id="1B.2", evidence_id="E002"),
-        )
-    )
-
-    with pytest.raises(WorkerOutputError, match="chapters: 1B"):
-        _validate_formatter_evidence_yield(one_unit, trusted_dir=current.trusted_dir)
-    _validate_formatter_evidence_yield(two_units, trusted_dir=current.trusted_dir)
-
-
-def test_formatter_floors_retain_chapters_from_earlier_review_rounds(
-    tmp_path: Path,
-) -> None:
-    current = _attempt(tmp_path)
-    first = EvidenceReviewReport(
-        schema_version="ruler_evidence_review_v1",
-        needs_continuation=True,
-        selected_theme_ids=("2B",),
-        chapter_reviews=(
-            ChapterEvidenceReview(
-                chapter_id="1B",
-                defensible_evidence_estimate=6,
-                independent_source_family_estimate=2,
-                attribution_risk="low",
-                substantive_issues=(),
-                missing_themes=(),
-            ),
-            ChapterEvidenceReview(
-                chapter_id="2B",
-                defensible_evidence_estimate=8,
-                independent_source_family_estimate=3,
-                attribution_risk="medium",
-                substantive_issues=(),
-                missing_themes=("decision chronology",),
-            ),
-        ),
-        global_findings=(),
-        reviewer_summary="Continue 2B.",
-    )
-    second = EvidenceReviewReport(
-        schema_version="ruler_evidence_review_v1",
-        needs_continuation=False,
-        selected_theme_ids=(),
-        chapter_reviews=(
-            ChapterEvidenceReview(
-                chapter_id="2B",
-                defensible_evidence_estimate=10,
-                independent_source_family_estimate=4,
-                attribution_risk="low",
-                substantive_issues=(),
-                missing_themes=(),
-            ),
-        ),
-        global_findings=(),
-        reviewer_summary="Formatting may proceed.",
-    )
-    for number, report in ((1, first), (2, second)):
-        payload = report.model_dump(mode="json")
-        if number == 1:
-            payload["selected_theme_ids"] = ["2B:decision-chronology"]
-        (current.trusted_dir / f"evidence-review-round-{number:02d}.json").write_text(
-            json.dumps(payload), encoding="utf-8"
-        )
-
-    assert _evidence_preservation_floors(current.trusted_dir) == {"1B": 5, "2B": 8}
 
 
 def test_recovered_continuation_is_merged_into_durable_checkpoint(tmp_path: Path) -> None:
@@ -700,6 +632,21 @@ def test_recovered_continuation_is_merged_into_durable_checkpoint(tmp_path: Path
     continuation_events.write_text('{"type":"turn.completed"}\n', encoding="utf-8")
     continuation_output = prior_attempt / "research-continuation-round-01.md"
     continuation_output.write_text("Recovered evidence.", encoding="utf-8")
+    (prior_attempt / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "I-1",
+                        "canonical_fact_key": "continued-fact",
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
     report = EvidenceReviewReport(
         schema_version="ruler_evidence_review_v1",
         needs_continuation=True,
@@ -733,6 +680,8 @@ def test_recovered_continuation_is_merged_into_durable_checkpoint(tmp_path: Path
 
     assert "Initial notebook." in recovered[1]
     assert "Recovered evidence." in recovered[1]
+    assert "continued-fact" in recovered[1]
+    assert (current.attempt_dir / "research-ledger-manifest.json").is_file()
     assert (current.trusted_dir / "research-notebook-checkpoint.json").is_file()
 
 
@@ -754,6 +703,21 @@ def test_initial_recovery_preserves_materials_and_handoff(tmp_path: Path) -> Non
     (prior_attempt / "research-handoff.md").write_text(
         "Research summary.", encoding="utf-8"
     )
+    (prior_attempt / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "I-1",
+                        "canonical_fact_key": "initial-fact",
+                        "disposition": "context",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
     job = {
         "job_key": "dossier:test",
         "provider_profile": "researcher",
@@ -766,6 +730,214 @@ def test_initial_recovery_preserves_materials_and_handoff(tmp_path: Path) -> Non
     assert recovered is not None
     assert "Detailed evidence register." in recovered[1]
     assert "Research summary." in recovered[1]
+    assert "initial-fact" in recovered[1]
+    assert (current.attempt_dir / "research-ledger-manifest.json").is_file()
+
+
+def test_initial_recovery_without_file_uses_embedded_manifest(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    prior_trusted = current.trusted_dir.parent / "001-prior"
+    prior_attempt = current.attempt_dir.parent / "001-prior"
+    prior_trusted.mkdir()
+    prior_attempt.mkdir()
+    (prior_trusted / "research-starting.json").write_text("{}", encoding="utf-8")
+    (prior_trusted / "research-events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.completed"}\n',
+        encoding="utf-8",
+    )
+    (prior_attempt / "research-handoff.md").write_text(
+        "Research.\n```json\n"
+        '{"schema_version":"ruler_research_ledger_manifest_v1","entries":['
+        '{"provisional_id":"E-1","canonical_fact_key":"embedded-fact",'
+        '"disposition":"final_evidence"}]}\n```\n',
+        encoding="utf-8",
+    )
+
+    recovered = _recover_completed_initial_research(
+        attempt=current,
+        job={
+            "job_key": "dossier:test",
+            "provider_profile": "researcher",
+            "provider": "openai",
+            "model": "fixture",
+        },
+    )
+
+    assert recovered is not None
+    assert "embedded-fact" in recovered[1]
+    assert (prior_attempt / "research-ledger-manifest.json").is_file()
+
+
+def test_continuation_recovery_without_adjacent_manifest_uses_markdown_ledger(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    prior_attempt = current.attempt_dir.parent / "001-prior"
+    prior_attempt.mkdir()
+
+    notebook = _append_current_ledger_manifest(
+        """Accumulated notebook.
+
+## E101 — Continued fact
+- **Canonical fact key:** `https://example.test/continued|p4|continued fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+        source_attempt_dir=prior_attempt,
+    )
+
+    assert "https://example.test/continued|p4|continued fact" in notebook
+    assert (prior_attempt / "research-ledger-manifest.json").is_file()
+
+
+def test_continuation_recovery_without_any_ledger_remains_permissive(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    prior_attempt = current.attempt_dir.parent / "001-prior"
+    prior_attempt.mkdir()
+
+    notebook = _append_current_ledger_manifest(
+        "Unaccounted prose.", current, source_attempt_dir=prior_attempt
+    )
+
+    assert notebook == "Unaccounted prose."
+
+
+def test_continuation_manifest_merges_new_notebook_entries(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    manifest_path = current.attempt_dir / "research-ledger-manifest.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "E100",
+                        "canonical_fact_key": "old|p1|fact",
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    notebook = _append_current_ledger_manifest(
+        """## E101 — Continued fact
+- **Canonical fact key:** `new|p2|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+
+    assert '"provisional_id": "E100"' in notebook
+    assert '"provisional_id": "E101"' in notebook
+
+
+def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "E101",
+                        "canonical_fact_key": "old|p1|fact",
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    notebook = _append_current_ledger_manifest(
+        """## E101 — Different fact
+- **Canonical fact key:** `new|p2|different`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+
+    assert '"provisional_id": "E101"' in notebook
+    assert '"provisional_id": "E101-2"' in notebook
+
+
+def test_continuation_manifest_recovers_from_invalid_optional_manifest(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        '{"schema_version":"wrong","entries":[]}', encoding="utf-8"
+    )
+
+    notebook = _append_current_ledger_manifest(
+        """## E201 — Recovered fact
+- **Canonical fact key:** `recovered|p2|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+
+    assert '"provisional_id": "E201"' in notebook
+
+
+def test_continuation_manifest_consolidates_duplicate_canonical_key(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "E100",
+                        "canonical_fact_key": "same|p1|fact",
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    notebook = _append_current_ledger_manifest(
+        """## E101 — Duplicate fact
+- **Canonical fact key:** `same|p1|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+
+    assert '"provisional_id": "E100"' in notebook
+    assert '"provisional_id": "E101"' not in notebook
+
+
+def test_terminal_review_cannot_request_more_research() -> None:
+    report = EvidenceReviewReport(
+        schema_version="ruler_evidence_review_v1",
+        needs_continuation=True,
+        selected_theme_ids=("4B",),
+        chapter_reviews=(
+            ChapterEvidenceReview(
+                chapter_id="4B",
+                defensible_evidence_estimate=1,
+                independent_source_family_estimate=1,
+                attribution_risk="high",
+                substantive_issues=("More research required.",),
+                missing_themes=("Media freedom",),
+            ),
+        ),
+        global_findings=("Not terminal.",),
+        reviewer_summary="Continuation required.",
+    )
+
+    with pytest.raises(ValueError, match="final evidence review"):
+        _require_terminal_review(report)
 
 
 def test_pre_session_mcp_failure_is_safe_to_retry(tmp_path: Path) -> None:
@@ -907,23 +1079,6 @@ def test_operator_terminated_continuation_is_safe_to_retry(tmp_path: Path) -> No
     )
 
     assert _has_indeterminate_continuation(current, 1) is False
-
-
-def test_review_report_scan_excludes_start_and_schema_json(tmp_path: Path) -> None:
-    trusted = tmp_path / "trusted" / "002-current"
-    prior = trusted.parent / "001-prior"
-    trusted.mkdir(parents=True)
-    prior.mkdir()
-    report = prior / "evidence-review-round-03.json"
-    report.write_text("{}", encoding="utf-8")
-    (prior / "evidence-review-round-03.starting.json").write_text(
-        "{}", encoding="utf-8"
-    )
-    (prior / "evidence-review-round-03.schema.json").write_text(
-        "{}", encoding="utf-8"
-    )
-
-    assert _review_report_paths(trusted) == [report]
 
 
 def test_explicit_failed_formatter_is_retryable_but_not_reusable(tmp_path: Path) -> None:

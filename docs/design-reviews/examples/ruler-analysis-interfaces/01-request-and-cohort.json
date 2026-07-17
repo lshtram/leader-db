@@ -1,0 +1,20 @@
+{
+  "example_kind": "representative_analysis_request",
+  "request": {
+    "year": 2000,
+    "requested_ruler_count": 20,
+    "chapter_ids": ["1B", "2B", "3B", "4B", "5B", "6B", "7B", "8B"],
+    "run_key": "2000-scale-20-v1",
+    "provider_profile": "minimax-m3-long-context",
+    "reviewer_profile": "openai-luna-candidate",
+    "formatter_profile": "openai-luna-candidate",
+    "output_root": "research/runs/2000-scale-20-v1"
+  },
+  "cohort_selection": {
+    "selection_mode": "frozen_manifest",
+    "manifest_path": "configs/research-batches/2000-scale-20.yaml",
+    "require_exact_count": 20,
+    "require_resolved_identity": true
+  },
+  "note": "The request references the desired manifest; block 2 validates its exact IDs against live resolved identity state."
+}

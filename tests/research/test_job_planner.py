@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from sqlalchemy import create_engine, text
@@ -8,11 +9,108 @@ from sqlalchemy import create_engine, text
 from leaders_db.db.engine import init_database
 from leaders_db.research.job_ledger import claim_next_job, complete_job, list_jobs
 from leaders_db.research.job_planner import (
+    _validate_dossier_cohort_identity,
     plan_all_chapter_judge_jobs,
     plan_chapter_judge_job,
     plan_dossier_jobs,
 )
 from leaders_db.research.local_prior_slice import LocalPriorSliceCase
+
+
+def test_dossier_cohort_allows_only_append_only_manifest_expansion(
+    database_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    profiles = _profiles(tmp_path)
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: _cases()[:1],
+    )
+    plan_dossier_jobs(
+        engine,
+        year=2020,
+        run_key="expandable",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+    )
+
+    expanded_manifest = SimpleNamespace(
+        year=2020,
+        batch_id="expanded",
+        resolved_content_sha256="new-hash",
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.load_batch_manifest",
+        lambda path: expanded_manifest,
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.validate_batch_manifest_cases",
+        lambda engine, manifest: (
+            _cases()[0],
+            _cases()[0].model_copy(
+                update={
+                    "iso3": "CAN",
+                    "country_name": "Canada",
+                    "leader_name": "Jean Chrétien",
+                    "leader_id": 2,
+                    "ruler_year_id": 20,
+                }
+            ),
+        ),
+    )
+    expanded = plan_dossier_jobs(
+        engine,
+        year=2020,
+        run_key="expandable",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+        batch_manifest_path=tmp_path / "expanded.yaml",
+    )
+    assert expanded.write_result.model_dump() == {
+        "created": 1,
+        "existing": 0,
+        "total": 1,
+    }
+    assert len(list_jobs(engine, run_key="expandable")) == 2
+    judge = plan_chapter_judge_job(
+        engine,
+        year=2020,
+        run_key="expanded-judge",
+        dossier_run_key="expandable",
+        chapter_id="4B",
+        provider_profile="judge",
+        model_profiles_path=profiles,
+    )
+    assert judge.dossier_dependency_count == 2
+    judge_job = next(
+        job for job in list_jobs(engine, run_key="expanded-judge")
+    )
+    assert judge_job["input"]["batch_id"].startswith("append-only:")
+    assert judge_job["input"]["dossier_job_keys"] == [
+        "dossier:expandable:2020:USA:10",
+        "dossier:expandable:2020:CAN:20",
+    ]
+
+    _validate_dossier_cohort_identity(
+        engine,
+        run_key="expandable",
+        year=2020,
+        batch_manifest_sha256="new-hash",
+        included_ruler_year_ids={10, 20},
+    )
+    with pytest.raises(ValueError, match="different dossier batch"):
+        _validate_dossier_cohort_identity(
+            engine,
+            run_key="expandable",
+            year=2020,
+            batch_manifest_sha256="new-hash",
+            included_ruler_year_ids={20},
+        )
 
 
 def test_planner_creates_one_dossier_per_case_and_one_judge_per_chapter(

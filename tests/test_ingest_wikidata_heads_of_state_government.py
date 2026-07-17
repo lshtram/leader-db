@@ -263,9 +263,12 @@ def test_build_query_includes_office_values() -> None:
     q = wikidata_heads_of_state_government_parse.build_head_of_state_government_query(
         office_qids=["Q30461", "Q22857062"]
     )
-    assert "VALUES ?office" in q
+    assert "VALUES ?role" in q
     assert "wd:Q30461" in q
     assert "wd:Q22857062" in q
+    assert "?office wdt:P279* ?role" in q
+    assert "?office wdt:P1001 ?country" in q
+    assert "?person wdt:P27 ?country" not in q
     # The canonical query always has the wikibase:label service for
     # human-readable labels.
     assert "SERVICE wikibase:label" in q
@@ -590,6 +593,7 @@ def test_read_wikidata_returns_full_fixture(
         "person_qid",
         "person_label",
         "office_qid",
+        "role_qid",
         "office_label",
         "start_date",
         "end_date",

@@ -59,8 +59,16 @@ First inspect the whole batch and establish low, middle, high, and edge anchors.
 Then score every available dossier exactly once. Missing lenses reduce confidence
 and widen the plausible range; they do not mechanically lower the score. Use a
 null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. In particular, `research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
 Use half-point score increments. A numeric score must rest on at least one direct,
-ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+ruler-attributed, chapter-discriminating fact. Documented formal authority for a
+national policy, program, appointment, or state action can satisfy ruler attribution
+when the evidence and guide support authority-based responsibility; a personal order
+is not required in every case. Inherited conditions, generic country
 context, intentions, missing implementation evidence, or missing adverse evidence
 cannot determine the score's direction. If that floor is not met, return null with
 the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the

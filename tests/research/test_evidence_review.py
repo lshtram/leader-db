@@ -222,11 +222,11 @@ def test_notebook_qa_and_reviewer_prompt_use_configured_yield_goals() -> None:
         qa=qa,
     )
 
-    assert "without a precise page/section/paragraph/table/timestamp locator" in prompt
+    assert "missing precise locator as a recoverable\nextraction task" in prompt
     assert "recreated under chapter-specific IDs" in prompt
     assert "any researcher-written score" in prompt
-    assert "Apply the configured marginal-value gate" in prompt
-    assert "never justify another web-research round" in prompt
+    assert "Do not use workflow exhaustion" in prompt
+    assert "remain deterministic cleanup rather than web-research tasks" in prompt
 
     assert qa.minimum_source_claim_units_per_chapter == 7
     assert qa.minimum_independent_source_families_per_chapter == 4
@@ -237,6 +237,24 @@ def test_notebook_qa_and_reviewer_prompt_use_configured_yield_goals() -> None:
     }
     assert '"minimum_source_claim_units_per_chapter": 7' in prompt
     assert '"minimum_independent_source_families_per_chapter": 4' in prompt
+
+
+def test_terminal_reviewer_records_residual_gaps_without_more_continuation() -> None:
+    qa = assess_research_notebook(
+        "## 4B\nSparse notebook.",
+        methodology_ids=("4B.1",),
+    )
+
+    prompt = build_evidence_review_prompt(
+        job={"job_key": "dossier:test", "input": {"question_ids": ["4B.1"]}},
+        notebook="## 4B\nSparse notebook.",
+        qa=qa,
+        terminal=True,
+    )
+
+    assert "terminal review after all permitted research rounds" in prompt
+    assert "Set `needs_continuation=false`" in prompt
+    assert "not a claim that the dossier is complete" in prompt
 
 
 def _profile() -> ResearchModelProfile:

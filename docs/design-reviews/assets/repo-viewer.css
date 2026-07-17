@@ -1,0 +1,66 @@
+:root { --repo-viewer-width:54vw; }
+.repo-viewer-backdrop { position:fixed; z-index:1000; top:0; right:0; bottom:0; width:var(--repo-viewer-width); display:none; background:transparent; }
+.repo-viewer-backdrop.is-open { display:block; }
+.repo-viewer { position:absolute; inset:0; display:grid; grid-template-rows:auto auto minmax(0,1fr); color:#17221b; border-left:1px solid #91a298; background:#fbfaf5; box-shadow:-16px 0 42px #07140d2b; overflow:hidden; }
+.repo-viewer-resizer { position:absolute; z-index:4; top:0; bottom:0; left:-6px; width:12px; cursor:col-resize; touch-action:none; }
+.repo-viewer-resizer::after { content:""; position:absolute; top:0; bottom:0; left:5px; width:2px; background:#91a298; transition:.15s; }
+.repo-viewer-resizer:hover::after,.repo-viewer-resizer:focus::after,body.repo-viewer-resizing .repo-viewer-resizer::after { width:4px; left:4px; background:#bc7a24; }
+.repo-viewer-header { display:flex; align-items:center; gap:10px; padding:11px 14px; color:white; background:#173d32; }
+.repo-viewer-title { min-width:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:600 .84rem ui-monospace,SFMono-Regular,Menlo,monospace; }
+.repo-viewer-button { min-height:32px; padding:5px 9px; color:inherit; border:1px solid #ffffff55; border-radius:6px; background:#ffffff10; cursor:pointer; font:inherit; }
+.repo-viewer-button:hover { background:#ffffff22; }
+.repo-viewer-toolbar { display:flex; align-items:center; gap:8px; padding:8px 13px; border-bottom:1px solid #ced5ce; background:#f0f2ec; }
+.repo-viewer-search { flex:1; max-width:390px; min-height:34px; padding:6px 9px; border:1px solid #aeb8ae; border-radius:6px; background:white; }
+.repo-viewer-meta { margin-left:auto; color:#67736b; font-size:.76rem; }
+.repo-viewer-content { min-height:0; height:100%; overflow:auto; overscroll-behavior:contain; scrollbar-gutter:stable; }
+.repo-viewer-content::-webkit-scrollbar { width:13px; height:13px; }
+.repo-viewer-content::-webkit-scrollbar-track { background:#e6e9e3; }
+.repo-viewer-content::-webkit-scrollbar-thumb { border:3px solid #e6e9e3; border-radius:10px; background:#788a7f; }
+.repo-viewer-message { padding:28px; color:#5f6d64; }
+.repo-viewer-source { display:grid; grid-template-columns:auto minmax(0,1fr); min-width:max-content; margin:0; color:#dce8df; background:#1d2923; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+.repo-viewer-lines { padding:16px 11px; color:#7f9488; text-align:right; white-space:pre; border-right:1px solid #405048; user-select:none; }
+.repo-viewer-code { min-width:0; margin:0; padding:16px 18px; background:transparent; white-space:pre; }
+.repo-viewer-markdown { max-width:920px; margin:auto; padding:34px 46px 80px; font:16px/1.65 ui-sans-serif,system-ui,sans-serif; }
+.repo-viewer-markdown h1,.repo-viewer-markdown h2,.repo-viewer-markdown h3 { font-family:Georgia,serif; line-height:1.2; }
+.repo-viewer-markdown table,.repo-viewer-table { border-collapse:collapse; width:100%; }
+.repo-viewer-markdown th,.repo-viewer-markdown td,.repo-viewer-table th,.repo-viewer-table td { padding:7px 9px; border:1px solid #ccd4cd; text-align:left; }
+.repo-viewer-markdown pre { overflow:auto; padding:14px; color:#e8f1ea; background:#1d2923; }
+.repo-viewer-json-tree { min-width:max-content; padding:18px 22px 80px; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+.json-branch { margin:2px 0; }
+.json-branch > summary { display:flex; align-items:baseline; gap:5px; width:max-content; min-width:100%; padding:3px 8px 3px 3px; border-radius:5px; cursor:pointer; list-style:none; }
+.json-branch > summary::-webkit-details-marker { display:none; }
+.json-branch > summary::before { content:"▶"; width:13px; color:#718078; font-size:9px; transition:transform .12s; }
+.json-branch[open] > summary::before { transform:rotate(90deg); }
+.json-branch > summary:hover { background:#e9eee8; }
+.json-children { margin-left:9px; padding-left:17px; border-left:1px solid #d4dbd4; }
+.json-leaf { min-height:25px; padding:2px 8px 2px 20px; border-radius:4px; white-space:pre-wrap; }
+.json-leaf:hover { background:#edf1ec; }
+.json-key { color:#315d7c; font-weight:600; }
+.json-key.is-valuable { padding:1px 4px; color:#164f3f; border-radius:4px; background:#dcebe2; font-weight:800; }
+.json-colon,.json-bracket { color:#6e7771; }
+.json-preview { max-width:480px; overflow:hidden; color:#68766d; text-overflow:ellipsis; white-space:nowrap; font-style:italic; }
+.json-count { padding:0 5px; color:#79531d; border-radius:999px; background:#f5e3c8; font:600 10px/1.7 ui-sans-serif,system-ui,sans-serif; }
+.json-string { color:#8b423d; }
+.json-number { color:#8a570f; font-weight:650; }
+.json-boolean { color:#70488a; font-weight:750; }
+.json-null { color:#7a8580; font-style:italic; }
+.repo-viewer-table-wrap { overflow:auto; padding:18px; }
+.repo-viewer-table { width:max-content; min-width:100%; font-size:.8rem; }
+.repo-viewer-table th { position:sticky; top:0; background:#e5ebe5; }
+body.repo-viewer-open .shell { width:calc(100vw - var(--repo-viewer-width)); grid-template-columns:minmax(0,1fr); }
+body.repo-viewer-resizing { cursor:col-resize; user-select:none; }
+body.repo-viewer-open aside { display:none; }
+body.repo-viewer-open main { grid-column:1; }
+body.repo-viewer-open header { padding-left:clamp(22px,4vw,56px); padding-right:clamp(22px,4vw,56px); }
+body.repo-viewer-open header h2 { font-size:clamp(2rem,3.4vw,3.8rem); }
+body.repo-viewer-open .content { padding-left:22px; padding-right:22px; }
+body.repo-viewer-open .flow-wrap { overflow-x:auto; }
+@media (max-width:1000px) {
+  .repo-viewer-backdrop { inset:0; width:auto; background:#12251d99; }
+  .repo-viewer-resizer { display:none; }
+  .repo-viewer { inset:2vh 2vw; border:1px solid #91a298; border-radius:12px; box-shadow:0 24px 80px #07140ddd; }
+  body.repo-viewer-open { overflow:hidden; }
+  body.repo-viewer-open .shell { width:auto; }
+  body.repo-viewer-open aside { display:block; width:auto; padding:30px 22px; }
+}
+@media (max-width:760px) { .repo-viewer{inset:0;border-radius:0}.repo-viewer-header{flex-wrap:wrap}.repo-viewer-markdown{padding:24px 18px 60px}.repo-viewer-meta{display:none} }

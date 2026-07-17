@@ -17,7 +17,8 @@ The first prototype is not expected to fully replace human judgment. It should c
 * Collect data for one target year at a time.
 * Initial target year: 2023.
 * Identify countries above the project population threshold, initially matching the client’s 2023 approach.
-* Identify the actual ruler or dominant ruling figure for each country-year.
+* Identify the publicly recognized holder of the formal governing office for each
+  country-year. Do not substitute an alleged behind-the-scenes power holder.
 * Collect external indicators relevant to the project’s main scoring categories.
 * Generate provisional category scores for each ruler.
 * Compare generated values against the existing client matrix for 2023.
@@ -73,7 +74,9 @@ For each target year, the system should collect and store:
 * Start date
 * End date
 * Was leader in office during target year?
-* Was leader the actual ruler or formal officeholder?
+* Was the leader the formal governing officeholder for the country's constitutional
+  system (president, prime minister/chancellor, absolute monarch, or constitutionally
+  supreme office)?
 * Shared-rule flag
 * Disputed-rule flag
 * Junta / monarch / prime minister / president / supreme leader / party leader / military ruler classification
@@ -500,7 +503,8 @@ For each country-year:
 1. Pull candidate leaders from Archigos, Leader Survival, REIGN, Wikidata/Wikipedia, and other external leader-identity sources.
 2. Normalize leader names.
 3. Compare names, dates, and office titles.
-4. Select likely actual ruler.
+4. Select the formal governing officeholder and persist the confirmed ruler-year as a
+   canonical lock.
 5. Mark confidence and disagreement.
 
 The client matrix leader string is loaded only as the validation reference for comparison and review flags; it is not evidence supporting the system-selected ruler.
@@ -520,7 +524,12 @@ Rules:
 
 * If at least two structured sources agree on leader and dates, mark high confidence.
 * If the client leader differs from structured sources, keep both and flag review.
-* If a president and prime minister coexist, determine actual ruler based on dataset coding, office power, and country system.
+* If a president and prime minister coexist, select the office constitutionally responsible
+  for governing: normally the president in a presidential system and the prime minister or
+  chancellor in a parliamentary system. Do not infer a hidden or philosophical ruler.
+* Once reviewed and confirmed, a ruler-year identity is immutable during ordinary rebuilds,
+  ingestion, research, and scoring. Reopening it requires an explicit challenged status,
+  reason, and subsequent replacement lock.
 * If junta/shared leadership exists, allow multiple leaders or a composite ruler record.
 
 Output:

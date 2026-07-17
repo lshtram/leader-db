@@ -1,0 +1,21 @@
+{
+  "example_kind": "ResearchReadinessReport_shape",
+  "mode": "dossier_researcher",
+  "year": 2000,
+  "methodology_ids": ["1B.1", "1B.2", "...", "8B.10"],
+  "provider_profile": "minimax-m3-long-context",
+  "provider": "minimax",
+  "model": "MiniMax-M3",
+  "eligible_ruler_count": 20,
+  "quarantined_ruler_count": 0,
+  "ready": true,
+  "checks": [
+    {"check_id": "database_tables", "status": "pass", "message": "Required research and identity tables exist."},
+    {"check_id": "methodology", "status": "pass", "message": "All 80 methodology IDs and eight guides resolve."},
+    {"check_id": "role_skills", "status": "pass", "message": "Researcher role skill is present."},
+    {"check_id": "model_profile", "status": "pass", "message": "Selected profile supports dossier research."},
+    {"check_id": "output_path", "status": "pass", "message": "Output path is project-contained and safe."},
+    {"check_id": "identity_eligibility", "status": "pass", "message": "20 cases are eligible."}
+  ],
+  "note": "Compact ResearchReadinessReport excerpt; the live methodology_ids array contains all 80 exact IDs and checks carry details objects."
+}

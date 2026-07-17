@@ -252,7 +252,10 @@ def _local_prior_slice_case(
     eligibility, block_reason = _identity_research_eligibility(
         coverage,
         leader_name=leader_name,
+        persisted_classification=row["identity_classification"],
+        persisted_review_status=row["identity_review_status"],
     )
+    is_canonical_lock = row["identity_review_status"] == "confirmed_locked"
     return LocalPriorSliceCase(
         iso3=str(row["iso3"]),
         country_name=str(row["country_name"]),
@@ -260,7 +263,11 @@ def _local_prior_slice_case(
         leader_name=leader_name,
         leader_id=row["leader_id"],
         ruler_year_id=row["ruler_year_id"],
-        identity_classification=coverage.classification if coverage else None,
+        identity_classification=(
+            row["identity_classification"]
+            if is_canonical_lock
+            else coverage.classification if coverage else None
+        ),
         identity_review_status="resolved" if eligibility else "needs_review",
         persisted_identity_classification=row["identity_classification"],
         persisted_identity_review_status=row["identity_review_status"],
@@ -273,7 +280,11 @@ def _identity_research_eligibility(
     coverage: IdentityCoverageDetailRow | None,
     *,
     leader_name: str | None,
+    persisted_classification: str | None = None,
+    persisted_review_status: str | None = None,
 ) -> tuple[bool, str | None]:
+    if persisted_review_status == "confirmed_locked":
+        return _canonical_lock_eligibility(persisted_classification, leader_name)
     if coverage is None:
         return False, "missing_current_identity_diagnostic"
     if coverage.classification not in RESEARCH_ELIGIBLE_IDENTITY_CLASSIFICATIONS:
@@ -282,6 +293,16 @@ def _identity_research_eligibility(
         return False, "missing_selected_leader"
     if leader_name not in coverage.leader_names:
         return False, "selected_leader_not_in_current_identity_candidates"
+    return True, None
+
+
+def _canonical_lock_eligibility(
+    classification: str | None, leader_name: str | None
+) -> tuple[bool, str | None]:
+    if classification != "resolved_canonical_formal_office":
+        return False, "invalid_canonical_lock_classification"
+    if not leader_name:
+        return False, "missing_selected_leader"
     return True, None
 
 

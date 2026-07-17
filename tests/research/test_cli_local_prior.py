@@ -158,6 +158,17 @@ def test_identity_gate_rejects_missing_contested_and_stale_selected_leaders() ->
     )
 
 
+def test_identity_gate_accepts_a_canonical_lock() -> None:
+    from leaders_db.research.local_prior_slice import _identity_research_eligibility
+
+    assert _identity_research_eligibility(
+        None,
+        leader_name="Locked Leader",
+        persisted_classification="resolved_canonical_formal_office",
+        persisted_review_status="confirmed_locked",
+    ) == (True, None)
+
+
 def _coverage_detail(
     *,
     iso3: str,

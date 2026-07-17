@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from typing import Annotated
 
 import typer
@@ -17,6 +18,49 @@ identity_app = typer.Typer(
     no_args_is_help=True,
 )
 app.add_typer(identity_app, name="identity")
+
+
+@identity_app.command("lock-canonical")
+def identity_lock_canonical_cmd(
+    manifest: Path = typer.Option(..., "--manifest", exists=True, dir_okay=False),
+    db_url: str | None = typer.Option(None, "--db-url"),
+) -> None:
+    """Persist reviewed formal ruler-year identities as immutable canonical choices."""
+
+    from ..db.engine import build_engine
+    from ..db.session import default_sqlite_url
+    from ..identity.canonical_locks import (
+        apply_canonical_identity_locks,
+        load_canonical_identity_manifest,
+    )
+
+    result = apply_canonical_identity_locks(
+        build_engine(db_url or default_sqlite_url()),
+        load_canonical_identity_manifest(manifest),
+    )
+    typer.echo(f"locked: {result.locked}")
+    typer.echo(f"ruler_years_created: {result.ruler_years_created}")
+    for iso3, ruler_name, ruler_year_id in result.identities:
+        typer.echo(f"{iso3}\t{ruler_year_id}\t{ruler_name}")
+
+
+@identity_app.command("challenge-canonical")
+def identity_challenge_canonical_cmd(
+    iso3: str = typer.Option(..., "--iso3"),
+    year: int = typer.Option(..., "--year"),
+    reason: str = typer.Option(..., "--reason"),
+    db_url: str | None = typer.Option(None, "--db-url"),
+) -> None:
+    """Explicitly reopen one canonical lock for exceptional correction."""
+
+    from ..db.engine import build_engine
+    from ..db.session import default_sqlite_url
+    from ..identity.canonical_locks import challenge_canonical_identity_lock
+
+    challenge_canonical_identity_lock(
+        build_engine(db_url or default_sqlite_url()), iso3=iso3, year=year, reason=reason
+    )
+    typer.echo(f"challenged: {iso3}/{year}")
 
 
 @identity_app.command("build-ruler-years")

@@ -15,11 +15,22 @@ from typing import Any
 MCP_TOOL_ALIASES = {
     "brave_llm_context": ("mcp__brave", "brave_llm_context"),
     "brave_web_search": ("mcp__brave", "brave_web_search"),
+    "fetch": ("mcp__fetch", "fetch"),
+    "fetch_url": ("mcp__fetch", "fetch"),
     "minimax_web_search": ("mcp__minimax", "web_search"),
     "parallel_web_fetch": ("mcp__parallel", "web_fetch"),
     "parallel_web_search": ("mcp__parallel", "web_search"),
     "web_fetch": ("mcp__parallel", "web_fetch"),
     "web_search": ("mcp__parallel", "web_search"),
+}
+
+MALFORMED_MCP_TOOL_ALIASES = {
+    "mcp__parallelweb_search": "parallel_web_search",
+    "mcp__parallelweb_fetch": "parallel_web_fetch",
+    "mcp__bravebrave_web_search": "brave_web_search",
+    "mcp__bravebrave_llm_context": "brave_llm_context",
+    "mcp__minimaxweb_search": "minimax_web_search",
+    "mcp__fetchfetch": "fetch",
 }
 
 
@@ -64,17 +75,42 @@ def expand_namespace_tools(payload: Any) -> Any:
     return result
 
 
-def restore_tool_namespaces(payload: Any) -> Any:
+def restore_tool_namespaces(
+    payload: Any, *, strip_search_freshness: bool = True
+) -> Any:
     """Convert flat MCP function names back to Codex namespace/name pairs."""
 
     if isinstance(payload, list):
-        return [restore_tool_namespaces(item) for item in payload]
+        return [
+            restore_tool_namespaces(
+                item, strip_search_freshness=strip_search_freshness
+            )
+            for item in payload
+        ]
     if not isinstance(payload, dict):
         return payload
-    result = {key: restore_tool_namespaces(value) for key, value in payload.items()}
+    result = {
+        key: restore_tool_namespaces(
+            value, strip_search_freshness=strip_search_freshness
+        )
+        for key, value in payload.items()
+    }
     name = result.get("name")
+    if (
+        strip_search_freshness
+        and result.get("namespace") == "mcp__brave"
+        and name == "brave_web_search"
+    ):
+        return _remove_brave_recency_filter(result)
+    if isinstance(name, str) and name in MALFORMED_MCP_TOOL_ALIASES:
+        name = MALFORMED_MCP_TOOL_ALIASES[name]
+        result["name"] = name
     if isinstance(name, str) and name in MCP_TOOL_ALIASES and "namespace" not in result:
-        result = _normalize_research_tool_arguments(result, alias=name)
+        result = (
+            _remove_brave_recency_filter(result)
+            if name == "brave_web_search" and strip_search_freshness
+            else _normalize_research_tool_arguments(result, alias=name)
+        )
         result["namespace"], result["name"] = MCP_TOOL_ALIASES[name]
         return result
     if (
@@ -91,7 +127,7 @@ def restore_tool_namespaces(payload: Any) -> Any:
 
 
 def _normalize_research_tool_arguments(payload: dict[str, Any], *, alias: str) -> dict[str, Any]:
-    """Repair MiniMax's singleton-wrapper encoding for Parallel list arguments."""
+    """Normalize research calls emitted by custom-provider models."""
 
     field = {
         "parallel_web_search": "search_queries",
@@ -129,7 +165,32 @@ def _normalize_research_tool_arguments(payload: dict[str, Any], *, alias: str) -
     return result
 
 
-def transform_response_body(body: bytes, content_type: str) -> bytes:
+def _remove_brave_recency_filter(payload: dict[str, Any]) -> dict[str, Any]:
+    """Prevent recent-news filtering from suppressing historical results."""
+
+    raw_arguments = payload.get("arguments")
+    encoded = isinstance(raw_arguments, str)
+    if encoded:
+        try:
+            arguments = json.loads(raw_arguments)
+        except json.JSONDecodeError:
+            return payload
+    else:
+        arguments = raw_arguments
+    if not isinstance(arguments, dict) or "freshness" not in arguments:
+        return payload
+    normalized = dict(arguments)
+    normalized.pop("freshness", None)
+    result = dict(payload)
+    result["arguments"] = (
+        json.dumps(normalized, separators=(",", ":")) if encoded else normalized
+    )
+    return result
+
+
+def transform_response_body(
+    body: bytes, content_type: str, *, strip_search_freshness: bool = True
+) -> bytes:
     """Restore namespace metadata in JSON or server-sent-event responses."""
 
     if "text/event-stream" not in content_type:
@@ -137,7 +198,12 @@ def transform_response_body(body: bytes, content_type: str) -> bytes:
             payload = json.loads(body)
         except json.JSONDecodeError:
             return body
-        return json.dumps(restore_tool_namespaces(payload), separators=(",", ":")).encode()
+        return json.dumps(
+            restore_tool_namespaces(
+                payload, strip_search_freshness=strip_search_freshness
+            ),
+            separators=(",", ":"),
+        ).encode()
     output: list[bytes] = []
     for line in body.splitlines(keepends=True):
         if not line.startswith(b"data:"):
@@ -154,7 +220,12 @@ def transform_response_body(body: bytes, content_type: str) -> bytes:
         except json.JSONDecodeError:
             output.append(line)
             continue
-        transformed = json.dumps(restore_tool_namespaces(payload), separators=(",", ":")).encode()
+        transformed = json.dumps(
+            restore_tool_namespaces(
+                payload, strip_search_freshness=strip_search_freshness
+            ),
+            separators=(",", ":"),
+        ).encode()
         output.append(prefix + b": " + transformed + ending)
     return b"".join(output)
 
@@ -202,7 +273,11 @@ class NamespaceProxyHandler(BaseHTTPRequestHandler):
             with urllib.request.urlopen(request, timeout=self.server.timeout) as response:
                 response_body = response.read()
                 content_type = response.headers.get("Content-Type", "application/json")
-                transformed = transform_response_body(response_body, content_type)
+                transformed = transform_response_body(
+                    response_body,
+                    content_type,
+                    strip_search_freshness=not self.server.allow_search_freshness,
+                )
                 routed_names = sorted(
                     {
                         match.decode()
@@ -236,10 +311,12 @@ class NamespaceProxyServer(ThreadingHTTPServer):
         address: tuple[str, int],
         upstream: str,
         timeout: float,
+        allow_search_freshness: bool,
     ) -> None:
         super().__init__(address, NamespaceProxyHandler)
         self.upstream = upstream.rstrip("/")
         self.timeout = timeout
+        self.allow_search_freshness = allow_search_freshness
 
 
 def parse_args() -> argparse.Namespace:
@@ -248,6 +325,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--upstream", default="https://api.minimax.io")
     parser.add_argument("--timeout", type=float, default=7200.0)
+    parser.add_argument("--allow-search-freshness", action="store_true")
     return parser.parse_args()
 
 
@@ -257,6 +335,7 @@ def main() -> None:
         (args.host, args.port),
         upstream=args.upstream,
         timeout=args.timeout,
+        allow_search_freshness=args.allow_search_freshness,
     )
     server.serve_forever()
 

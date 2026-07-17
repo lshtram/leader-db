@@ -310,6 +310,7 @@ def normalize_dossier_candidate(
     id_map: dict[str, list[str]] = {}
     deduplicated_evidence: list[object] = []
     canonical_fact_ids: dict[tuple[str, str, str], str] = {}
+    canonical_keys: set[str] = set()
     for item in evidence:
         if not isinstance(item, dict):
             deduplicated_evidence.append(item)
@@ -338,6 +339,13 @@ def normalize_dossier_candidate(
         if old_id != new_id:
             warnings.append(f"evidence ID {old_id!r} normalized to {new_id}")
         item["evidence_id"] = new_id
+        canonical_key = str(item.get("canonical_fact_key", "")).strip()
+        if canonical_key and canonical_key in canonical_keys:
+            item["canonical_fact_key"] = "|".join(fact) if fact is not None else canonical_key
+            warnings.append(
+                f"duplicate canonical fact key for {old_id!r} replaced by its source fact key"
+            )
+        canonical_keys.add(str(item.get("canonical_fact_key", "")).strip())
         deduplicated_evidence.append(item)
         if fact is not None:
             canonical_fact_ids[fact] = new_id
@@ -510,20 +518,62 @@ def _normalize_coverage(
         "research_blocked",
     }
     for methodology_id in methodology_ids:
-        item = by_id.get(methodology_id, {})
+        item = by_id.get(methodology_id)
+        mapped = {
+            entry["evidence_id"]
+            for entry in mappings
+            if entry["methodology_id"] == methodology_id
+        }
+        if item is None:
+            output.append(
+                {
+                    "methodology_id": methodology_id,
+                    "status": "partially_covered" if mapped else "research_blocked",
+                    "evidence_ids": sorted(mapped),
+                    "reason": (
+                        "Coverage inferred from retained evidence mappings."
+                        if mapped
+                        else "Formatter supplied no explicit researcher coverage disposition."
+                    ),
+                }
+            )
+            warnings.append(
+                f"{methodology_id} lacked an explicit coverage disposition"
+            )
+            continue
         raw_evidence_ids = item.get("evidence_ids")
         evidence_id_values = (
             raw_evidence_ids if isinstance(raw_evidence_ids, (list, tuple)) else ()
         )
-        evidence_ids = [
+        referenced_evidence_ids = {
             normalized_id
             for value in (str(entry) for entry in evidence_id_values)
             if value in id_map
             for normalized_id in id_map[value]
-        ]
-        status = str(item.get("status", "no_evidence_found"))
+        }
+        inferred = referenced_evidence_ids - mapped
+        for evidence_id in sorted(inferred):
+            mappings.append(
+                {
+                    "evidence_id": evidence_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": (
+                        "Mapping inferred from the formatter's explicit coverage "
+                        "reference."
+                    ),
+                }
+            )
+        if inferred:
+            mapped.update(inferred)
+            warnings.append(
+                f"{methodology_id} mappings were inferred from explicit coverage "
+                "references"
+            )
+        evidence_ids = sorted(mapped)
+        status = str(item.get("status", "research_blocked"))
         if status not in allowed:
-            status = "partially_covered" if evidence_ids else "no_evidence_found"
+            status = "partially_covered" if evidence_ids else "research_blocked"
             warnings.append(f"{methodology_id} coverage wording was normalized")
         if evidence_ids and status in {"no_evidence_found", "not_applicable", "research_blocked"}:
             status = "partially_covered"
@@ -531,32 +581,29 @@ def _normalize_coverage(
                 f"{methodology_id} retained contextual evidence despite its original status"
             )
         if not evidence_ids and status in {"covered", "partially_covered"}:
-            status = "no_evidence_found"
-            warnings.append(f"{methodology_id} coverage status lacked evidence and was downgraded")
-        mapped = {
-            entry["evidence_id"]
-            for entry in mappings
-            if entry["methodology_id"] == methodology_id
+            status = "research_blocked"
+            warnings.append(f"{methodology_id} coverage status lacked evidence and was blocked")
+        reason = str(item.get("reason") or "").strip()
+        generic_missing_reasons = {
+            "",
+            "no evidence found",
+            "no explicit coverage explanation supplied.",
+            "no explicit coverage explanation supplied",
+            "not enough evidence",
+            "insufficient evidence",
         }
-        for evidence_id in evidence_ids:
-            if evidence_id not in mapped:
-                mappings.append(
-                    {
-                        "evidence_id": evidence_id,
-                        "methodology_id": methodology_id,
-                        "relation": "context",
-                        "relevance": "Mapping inferred from the worker's coverage reference.",
-                    }
-                )
-                warnings.append(
-                    f"{methodology_id} mapping for {evidence_id} was inferred from coverage"
-                )
+        if status == "no_evidence_found" and reason.casefold() in generic_missing_reasons:
+            status = "research_blocked"
+            reason = "Researcher supplied no search-specific missing-evidence explanation."
+            warnings.append(
+                f"{methodology_id} unexplained no-evidence status was blocked"
+            )
         output.append(
             {
                 "methodology_id": methodology_id,
                 "status": status,
                 "evidence_ids": list(dict.fromkeys(evidence_ids)),
-                "reason": str(item.get("reason") or "No explicit coverage explanation supplied."),
+                "reason": reason or "Explicit researcher disposition retained.",
             }
         )
     return output

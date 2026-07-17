@@ -11,6 +11,12 @@ confidence-scored database of political leaders and category ratings. It is
 designed to reproduce, challenge, explain, and validate the customer's existing
 2023 matrix against independent external evidence.
 
+Design-review HTML pages may reuse the read-only repository viewer under
+`docs/design-reviews/assets/`. `scripts/serve_design_reviews.py` binds a static server
+to localhost, constrains file resolution to an explicit source/documentation allowlist
+inside the repository, and rejects mutation methods. The browser component fetches only repository-relative files and renders
+source, sanitized Markdown, JSON, and CSV without changing project data.
+
 The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,
 source authority, factual claims, leader identity, or category scoring.
@@ -18,7 +24,7 @@ source authority, factual claims, leader identity, or category scoring.
 ## Scope
 
 **In scope (§2):** one target year at a time, initially 2023; countries above the
-client's population threshold; actual ruler or dominant ruling figure per
+client's population threshold; canonical, locked formal governing officeholder per
 country-year; external indicators per scoring category; evidence-bundle based
 provisional category scores; confidence scores; client-matrix comparison;
 manual-review queue; source provenance; reproducible local data lake.
@@ -503,17 +509,23 @@ candidate lens links rather than repeated across question payloads. Missing fact
 remain explicit gaps and country-level indicators are not automatically attributed
 to the ruler.
 For the complete eight-chapter scope, one persistent evidence researcher works
-through chapters 1B–8B and searches directly and iteratively to reasonable
-saturation. It writes a schema-light notebook/handoff, aiming for 5–20 defensible
+through chapters 1B–8B and their lenses in order. It begins with one broad
+ruler-period reconnaissance, then builds a lightweight candidate URL pool for each
+chapter using broad, archive/source-specific, adverse, and local-language searches.
+Historical searches do not use recent-news filters. Candidate discovery precedes
+source admissibility: promising underlying pages and documents are opened, claims and
+locators are extracted, and only then are accepted items added to the growing ledger.
+It writes a schema-light
+notebook/handoff plus a minimal stable-key/disposition accounting manifest, aiming
+for 5–20 defensible
 source-claim units per chapter (normally about 10), while reporting mapped units
 separately from independent locator/source families and accepting documented sparse-case
 shortfalls. A separate configured formatter converts the handoff into the strict
-dossier without new research. It preserves materially distinct source-claim units
-even when they share one URL, carries the maximum chapter estimate across review
-rounds as a formatting target, and rejects material evidence loss below the bounded
-acceptance floor. Retry recovery considers only structurally valid candidates and
-prefers the candidate with the most declared-and-mapped evidence, rather than simply
-the newest or largest raw array. A no-search reviewer inspects every selected chapter and may
+dossier without new research. It preserves every ledger item with an explicit use or
+rejection reason and all genuine many-to-many mappings. Mapping-backed coverage is
+authoritative; absent or unexplained formatting output remains `research_blocked`
+rather than becoming `no_evidence_found`. Retry recovery considers only structurally
+valid candidates. A no-search reviewer inspects every selected chapter and may
 return gaps for up to three bounded research rounds. The primary low-cost researcher owns
 the initial pass and one continuation; later recoverable gaps trigger a fresh search-enabled
 supervisor session over the accumulated notebook. A final all-chapter review follows the
@@ -521,11 +533,13 @@ last takeover, and an omitted-chapter review receives one bounded scope-repair t
 than failing the ruler job. The researcher
 maintains one append-only global evidence ledger rather than chapter-specific copies.
 New records carry canonical source-locator-claim keys and precise locators;
-gateway-only and missing-locator candidates remain non-final. The reviewer excludes
-duplicates, bundled claims, and unauditable locators from its estimate, and a
-configured marginal-value gate prevents web continuation for deterministic cleanup.
-Formatter preservation is proportional to the actual defensible estimate, so an
-honestly sparse chapter does not acquire an undocumented five-item floor. After formatting,
+gateway-only and missing-locator candidates remain non-final but identified sources
+with missing locators are recoverable extraction tasks rather than proof of absence.
+The reviewer excludes duplicates and bundled claims, requires continuation for named
+unfetched sources or incomplete discovery patterns, and does not use predicted marginal
+value or workflow exhaustion as a saturation finding.
+An honestly sparse chapter remains valid when the researcher records the searches,
+rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,
 and a score/order auditor checks the resulting comparative ordering and rubric drift.
 

@@ -31,6 +31,8 @@ from .commands_identity import (
     identity_app,
     identity_build_adjudications_cmd,
     identity_build_ruler_years_cmd,
+    identity_challenge_canonical_cmd,
+    identity_lock_canonical_cmd,
     identity_ruler_coverage_cmd,
 )
 from .commands_research import (
@@ -98,6 +100,8 @@ __all__ = [
     "identity_app",
     "identity_build_adjudications_cmd",
     "identity_build_ruler_years_cmd",
+    "identity_challenge_canonical_cmd",
+    "identity_lock_canonical_cmd",
     "identity_ruler_coverage_cmd",
     "ingest_client_matrix",
     "ingest_source",

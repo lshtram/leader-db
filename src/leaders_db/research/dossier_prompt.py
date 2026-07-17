@@ -17,16 +17,13 @@ def build_dossier_prompt(
     local_priors: tuple[dict[str, Any], ...] = (),
     existing_candidate: dict[str, Any] | None = None,
     research_notebook: str | None = None,
-    evidence_preservation_floors: dict[str, int] | None = None,
 ) -> str:
     """Build a bounded prompt whose final response must be the dossier JSON."""
 
     question_ids = tuple(job["input"].get("question_ids", ()))
     if not question_ids:
         raise ValueError("dossier job has no selected question IDs")
-    guides = list(
-        dict.fromkeys(_guide_path(project_root, methodology_id) for methodology_id in question_ids)
-    )
+    del project_root
     payload = {
         "job_key": job["job_key"],
         "run_key": job["run_key"],
@@ -44,14 +41,9 @@ def build_dossier_prompt(
         "worker_output_dir": str(worker_output_dir),
     }
     local_prior_package = compact_local_priors(local_priors)
-    return f"""Use the ruler-evidence-researcher skill for this job.
-
-Read these required files before research:
-- .agents/skills/ruler-evidence-researcher/SKILL.md
-- docs/methodology/local-first-researcher-guide.md
-- docs/methodology/ranking-evaluation-criteria.md
-- docs/methodology/source-confidence-registry.json
-{chr(10).join(f'- {path.relative_to(project_root)}' for path in guides)}
+    return f"""Format the supplied completed research notebook. This is a no-search,
+no-scoring serialization task. The parent has already performed research and supplied
+the applicable guide material; do not read researcher or judge directives again.
 
 Job input:
 {json.dumps(payload, indent=2, sort_keys=True)}
@@ -65,24 +57,21 @@ Permissive evidence-research notebook and handoff:
 Existing candidate from a prior failed validation:
 {json.dumps(existing_candidate, indent=2, sort_keys=True)}
 
-Exact minimum mapped source-claim counts to preserve by chapter after the configured
-80% tolerance is applied to reviewer estimates:
-{json.dumps(evidence_preservation_floors or {}, indent=2, sort_keys=True)}
-
 Requirements:
-- BLOCKING PRE-SUBMISSION CHECK: count the distinct evidence IDs mapped to each
-  chapter in the final candidate and compare them with every nonzero minimum above.
-  If any chapter is below its minimum, return to the supplied notebook, recover the
-  omitted defensible source-claim units, and revise the candidate before answering.
-  Do not knowingly submit a below-floor candidate. When an existing candidate is
-  present, treat this as a targeted preservation repair: retain its valid records and
-  restore omitted atomic source-claim units already identified in the supplied
-  notebook. Split a bundled notebook unit only where the notebook itself clearly
-  records materially distinct claims; never inflate the count mechanically.
 - This is only a formatting and normalization pass.
   Interpret its prose, headings, tables, and JSON fragments flexibly. Preserve the
   researcher's claims, citations, caveats, main points, contrary evidence, and gaps;
   do not perform new research or discard material merely because its format varies.
+  Formatting quality does not determine whether evidence existed. Preserve every
+  materially distinct final claim, but consolidate repetitive context rows and
+  equivalent source treatments when that makes the dossier clearer. If an item cannot
+  be normalized safely, retain its caveat or gap instead of silently deleting it.
+- The supplied notebook includes a `ruler_research_ledger_manifest_v1` accounting
+  index. Use it to prevent evidence collapse. You may rewrite canonical fact keys,
+  combine compatible local/context rows, and substitute a stronger cited source for
+  the same claim. The formatted dossier must contain at least as many evidence records
+  as the manifest contains `final_evidence` entries. Manifest entries marked
+  `rejected` must not be emitted as evidence.
 - Treat the local structured priors above as the required local-first
   step. Do not rerun the local-evidence CLI when those payloads are present.
 - Never use the client matrix as evidence.
@@ -112,17 +101,18 @@ Requirements:
   Conversely, never recreate the same source-locator-claim fact under separate
   chapter-specific evidence IDs. Preserve one global evidence object and map it to
   every genuinely relevant chapter lens.
+  Treat the latest evidence review's per-chapter defensible-evidence estimate as an
+  accounting check. When it estimates five or more units for a chapter, expose at least
+  five distinct atomic evidence objects to that chapter unless the notebook itself shows
+  that the estimate double-counted or the material is not defensible. Never collapse a
+  multi-finding report into one omnibus object merely to shorten the response.
   Mapping and coverage wording are advisory handoff aids, not score-bearing decisions.
-- Treat the explicit minimum mapped preservation count for each chapter as a
-  formatting floor, not a new research target. Retain at least that many distinct
-  mapped source-claim units from the notebook unless the notebook itself
-  explicitly retracts them; never manufacture or split claims mechanically to reach it.
-- Before responding, count unique mapped evidence IDs separately for every chapter and
-  verify each count meets the explicit reviewed minimum above. A mapping to one lens in
-  a chapter is sufficient to count the retained source-claim unit for that chapter.
-  Count only IDs that have both a complete declaration in `evidence` and at least one
-  row in `mappings`; IDs mentioned only in `coverage` do not count. Ensure every ID in
-  `coverage` is declared in `evidence` and joined through `mappings` before responding.
+  Mapping is many-to-many. Add every directly relevant lens recorded or clearly
+  indicated by the notebook; never select only one preferred lens for an evidence
+  item that informs several questions. Coverage is a view over these mappings, not an
+  independent reason to hide mapped evidence.
+- Before responding, ensure every ID in `coverage` is declared in `evidence` and
+  joined through `mappings`.
 - Use simple stable evidence IDs when practical. The parent normalizes harmless ID,
   mapping, and coverage inconsistencies and records warnings rather than rejecting
   otherwise useful research.
@@ -130,6 +120,15 @@ Requirements:
   judges can see it. Every mapping and coverage `evidence_id` must exactly equal one
   declared evidence ID; never concatenate, abbreviate, or combine evidence IDs.
   Reuse evidence across every genuinely relevant lens rather than leaving it invisible.
+  Complete chapter routing before detailed lens bookkeeping: every selected chapter must
+  receive all evidence objects that the notebook explicitly links to that chapter. It is
+  acceptable to use one representative lens mapping per relevant chapter when the exact
+  lens fit is uncertain; the chapter judge will apply all ten lenses. Do not emit only one
+  mapping per evidence object when the notebook links it to several chapters.
+- Use `no_evidence_found` only when the researcher explicitly records searches for
+  that lens and gives a specific reason no usable evidence was found. If the notebook
+  lacks an explicit disposition, use `research_blocked`; never manufacture
+  `no_evidence_found` because formatting produced no mapping.
 - Collect meaningful contrary evidence and explicit gaps. Do not assign scores.
 - Remove any researcher-written score, score range, anchor, ranking recommendation,
   or advice to a judge about scoring/null handling; record it as a normalization
@@ -151,14 +150,4 @@ Requirements:
   schema/reference defects, perform the final consistency check, and do not repeat
   research or broad file reading outside the supplied materials.
 """
-
-
-def _guide_path(project_root: Path, methodology_id: str) -> Path:
-    chapter = methodology_id.split(".", maxsplit=1)[0].lower()
-    matches = tuple((project_root / "docs/methodology/chapter-guides").glob(f"{chapter}-*.md"))
-    if len(matches) != 1:
-        raise ValueError(f"chapter guide unavailable or ambiguous for {methodology_id}")
-    return matches[0]
-
-
 __all__ = ["build_dossier_prompt"]

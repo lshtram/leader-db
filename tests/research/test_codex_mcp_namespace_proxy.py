@@ -176,3 +176,94 @@ def test_invalid_parallel_wrapper_is_preserved_for_normal_validation() -> None:
     )
 
     assert transformed["arguments"] == arguments
+
+
+def test_removes_brave_freshness_filter_from_research_search() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "brave_web_search",
+            "arguments": '{"query":"Argentina 2000","freshness":"py","count":10}',
+        }
+    )
+
+    assert transformed["namespace"] == "mcp__brave"
+    assert transformed["name"] == "brave_web_search"
+    assert transformed["arguments"] == '{"query":"Argentina 2000","count":10}'
+
+
+def test_repairs_minimax_malformed_flat_namespace_name() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "mcp__parallelweb_search",
+            "arguments": {"search_queries": ["Argentina 2000"]},
+        }
+    )
+
+    assert transformed["namespace"] == "mcp__parallel"
+    assert transformed["name"] == "web_search"
+
+
+def test_routes_fetch_url_alias() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "fetch_url",
+            "arguments": {"url": "https://example.test/report"},
+        }
+    )
+
+    assert transformed["namespace"] == "mcp__fetch"
+    assert transformed["name"] == "fetch"
+
+
+def test_routes_native_fetch_alias() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "fetch",
+            "arguments": {"url": "https://example.test/report"},
+        }
+    )
+
+    assert transformed["namespace"] == "mcp__fetch"
+    assert transformed["name"] == "fetch"
+
+
+def test_explicit_current_mode_preserves_brave_freshness() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "brave_web_search",
+            "arguments": {"query": "Argentina 2026", "freshness": "py"},
+        },
+        strip_search_freshness=False,
+    )
+
+    assert transformed["arguments"]["freshness"] == "py"
+
+
+def test_removes_historical_freshness_from_namespaced_call() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "namespace": "mcp__brave",
+            "name": "brave_web_search",
+            "arguments": {"query": "Argentina 2000", "freshness": "py"},
+        }
+    )
+
+    assert "freshness" not in transformed["arguments"]
+
+
+def test_historical_mode_removes_freshness_without_year_in_query() -> None:
+    transformed = restore_tool_namespaces(
+        {
+            "type": "function_call",
+            "name": "brave_web_search",
+            "arguments": {"query": "de la Rua press freedom", "freshness": "py"},
+        }
+    )
+
+    assert "freshness" not in transformed["arguments"]

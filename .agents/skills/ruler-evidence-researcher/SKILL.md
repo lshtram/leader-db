@@ -31,22 +31,29 @@ research.
    represented locally merely to restate its numeric values, and never interpret a
    missing local row as a zero or favorable condition.
    Resolve compact disposition references when explaining missingness. Treat an
-   `error` status as a blocking local-input failure and keep it visible in the
-   handoff; internet evidence must not silently replace a broken extraction.
-3. Work through chapters `1B` to `8B` in order. For each chapter, plan and perform
-   as many internet searches as needed to understand the material events, decisions,
-   outcomes, contrary interpretations, and attribution questions for the ruler-period.
-   Search by event and evidence theme, not by issuing one omnibus query or one query
-   per lens. Continue until the chapter is reasonably saturated or further searching
-   is unlikely to improve it; explain the stopping judgment.
-4. Persist every accepted evidence item immediately under a stable evidence ID.
+   `error` status as a blocking local-input failure and keep it visible separately.
+   Web research may continue, but it does not repair or conceal the local error.
+3. Work through chapters `1B` to `8B`, and their lenses, in order in the same
+   researcher session. Begin each chapter with broad discovery before judging source
+   admissibility: use varied event, institution, archive, source-family, and local-
+   language queries to build a candidate URL pool. Search results are candidates, not
+   evidence. Never use a recent-news filter for a historical period. Then open the
+   promising pages, reports, and PDFs; extract claims and locators; and only then decide
+   what belongs in the evidence ledger. Before each lens, reuse and map the accumulated
+   ledger, then search for remaining events, contrary interpretations, or attribution
+   gaps. Continue until the chapter is reasonably saturated or a specific access
+   blocker is documented.
+4. Persist every accepted evidence item immediately under a stable evidence ID in the
+   permissive notebook. A separate machine-readable ledger manifest is optional and must
+   never block a substantive handoff when the execution profile cannot write files.
    Record the claim, source, URL, publisher, date, short excerpt, source type,
    source confidence, period fit, ruler attribution, and contrary evidence.
    Aim for 5–20 defensible source-claim units per selected chapter, with 10 as the
    normal target. One unit is one traceable source supporting one materially
    distinct claim; headings, excerpt fragments, empty priors, equivalent URLs, and
-   repeated statements do not create new units. Normally retain no more than two
-   units from one URL and justify exceptions. Report chapter mappings separately
+   repeated statements do not create new units. A substantial report may support more
+   than two distinct claims when each has its own locator and material meaning; report
+   source concentration rather than discarding them. Report chapter mappings separately
    from independent locator/source families. This is a research-depth goal, not a
    publication gate: sparse or closed-information cases remain valid when the
    notebook records inspected candidates, rejection reasons, usable evidence, and
@@ -65,9 +72,10 @@ research.
    source as it is accepted, including its reference, main-points summary, useful
    excerpts or locators, temporal fit, attribution, contrary points, and candidate
    chapter/lens links. Do not spend the research pass satisfying a strict final schema.
-9. Finish only when each applicable question is marked `covered`,
-   `partially_covered`, `no_evidence_found`, `not_applicable`, or
-   `research_blocked` with a reason.
+9. Finish with chapter-level candidate, accepted-evidence, and gap notes plus suggested
+   lens links. The formatter derives exact per-lens coverage from explicit mappings;
+   the researcher need not manufacture 80 terminal status rows. An empty theme still
+   requires recorded targeted searches and a specific explanation.
 10. Self-audit the register before handoff: empty priors never count; post-period
     material is context unless it establishes a target-period fact; same-source
     splits are non-independent; country/institutional evidence is not automatically

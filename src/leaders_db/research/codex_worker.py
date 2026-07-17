@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import math
 import os
 import re
 import subprocess
@@ -125,7 +124,6 @@ def execute_claimed_dossier_job(
         local_priors=local_priors,
         existing_candidate=existing_candidate,
         research_notebook=research_notebook,
-        evidence_preservation_floors=_evidence_preservation_floors(attempt.trusted_dir),
     )
     attempt.prompt_path.write_text(prompt, encoding="utf-8")
     command = build_codex_exec_command(
@@ -192,7 +190,8 @@ def execute_claimed_dossier_job(
         attempt.pending_path.write_text(json.dumps(candidate), encoding="utf-8")
         raise WorkerOutputError("Codex dossier failed semantic validation") from exc
     _validate_substantive_evidence_yield(dossier)
-    _validate_formatter_evidence_yield(dossier, trusted_dir=attempt.trusted_dir)
+    _validate_formatter_ledger_accounting(dossier, notebook=research_notebook or "")
+    _validate_recovered_candidate_references(dossier)
     _finalize_execution_usage(
         dossier,
         job=job,
@@ -246,7 +245,9 @@ def _reuse_existing_notebook_candidate(
     try:
         _validate_recovered_candidate_references(dossier)
         _validate_substantive_evidence_yield(dossier)
-        _validate_formatter_evidence_yield(dossier, trusted_dir=attempt.trusted_dir)
+        _validate_formatter_ledger_accounting(
+            dossier, notebook=research_checkpoint[1]
+        )
     except WorkerOutputError:
         return None
     _finalize_execution_usage(
@@ -443,6 +444,13 @@ def _run_research_notebook_pass(
         "complete\n", encoding="utf-8"
     )
     materials_path = attempt.attempt_dir / "research-materials.md"
+    manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
+    try:
+        manifest = _load_or_recover_research_ledger_manifest(
+            manifest_path, handoff_path=handoff_path
+        )
+    except WorkerOutputError:
+        manifest = None
     parts = [
         path.read_text(encoding="utf-8")
         for path in (materials_path, handoff_path)
@@ -450,6 +458,11 @@ def _run_research_notebook_pass(
     ]
     if not parts:
         raise WorkerOutputError("researcher produced no notebook or handoff")
+    if manifest is not None:
+        parts.append(
+            "--- RESEARCH LEDGER MANIFEST ---\n\n"
+            + json.dumps(manifest, indent=2, sort_keys=True)
+        )
     notebook = "\n\n--- RESEARCH HANDOFF ---\n\n".join(parts)
     notebook_path = attempt.trusted_dir / "research-notebook.md"
     notebook_path.write_text(notebook, encoding="utf-8")
@@ -602,6 +615,22 @@ def _recover_completed_initial_research(
             for path in (materials_path, handoff_path)
             if path.is_file() and path.stat().st_size <= 5_000_000
         ]
+        prior_manifest_path = prior_attempt / "research-ledger-manifest.json"
+        try:
+            manifest = _load_or_recover_research_ledger_manifest(
+                prior_manifest_path, handoff_path=handoff_path
+            )
+        except WorkerOutputError:
+            manifest = None
+        if manifest is not None:
+            current_manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
+            current_manifest_path.write_text(
+                json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
+            )
+            parts.append(
+                "--- RESEARCH LEDGER MANIFEST ---\n\n"
+                + json.dumps(manifest, indent=2, sort_keys=True)
+            )
         notebook = "\n\n--- RESEARCH HANDOFF ---\n\n".join(parts)
         notebook_path = attempt.trusted_dir / "research-notebook.md"
         notebook_path.write_text(notebook, encoding="utf-8")
@@ -723,32 +752,6 @@ def _events_show_failed_turn(events_path: Path) -> bool:
     return False
 
 
-def _validate_formatter_evidence_yield(
-    dossier: RulerEvidenceDossier, *, trusted_dir: Path
-) -> None:
-    """Reject a formatter that makes reviewed chapter evidence disappear."""
-
-    review_paths = _review_report_paths(trusted_dir)
-    if not review_paths:
-        return
-
-    estimates = _evidence_preservation_floors(trusted_dir)
-    mapped_by_chapter: dict[str, set[str]] = {}
-    for item in dossier.mappings:
-        chapter_id = item.methodology_id.split(".", maxsplit=1)[0]
-        mapped_by_chapter.setdefault(chapter_id, set()).add(item.evidence_id)
-    lost = sorted(
-        chapter_id
-        for chapter_id, estimate in estimates.items()
-        if len(mapped_by_chapter.get(chapter_id, set())) < estimate
-    )
-    if lost:
-        raise WorkerOutputError(
-            "formatter retained fewer than the reviewed minimum evidence units for "
-            "chapters: " + ", ".join(lost)
-        )
-
-
 def _validate_substantive_evidence_yield(dossier: RulerEvidenceDossier) -> None:
     """Prevent an all-chapter access failure from becoming a published dossier."""
 
@@ -760,49 +763,161 @@ def _validate_substantive_evidence_yield(dossier: RulerEvidenceDossier) -> None:
         raise WorkerOutputError("multi-chapter ruler dossier cannot publish with zero evidence")
 
 
-def _evidence_preservation_floors(trusted_dir: Path) -> dict[str, int]:
-    """Return the 80% target rounded to a whole evidence unit per chapter."""
+def _load_research_ledger_manifest(path: Path) -> dict[str, Any]:
+    """Load the researcher's minimal evidence-accounting index."""
 
-    review_paths = _review_report_paths(trusted_dir)
-    if not review_paths:
-        return {}
-
-    return {
-        chapter_id: math.floor(estimate * 0.8 + 0.5)
-        for chapter_id, estimate in _reviewed_evidence_estimates(review_paths).items()
-    }
-
-
-def _reviewed_evidence_estimates(review_paths: list[Path]) -> dict[str, int]:
-    """Retain the latest reviewed estimate for every chapter."""
-
-    from .notebook_continuation import _load_evidence_review
-
-    estimates: dict[str, int] = {}
-    for path in review_paths:
-        review = _load_evidence_review(path)
-        for item in review.chapter_reviews:
-            estimates[item.chapter_id] = item.defensible_evidence_estimate
-    return estimates
-
-
-def _review_report_paths(trusted_dir: Path) -> list[Path]:
-    """Return only completed review reports, excluding schema/start markers."""
-
-    paths = [
-        path
-        for directory in trusted_dir.parent.glob("*")
-        for path in directory.glob("evidence-review-round-*.json")
-        if ".starting." not in path.name and ".schema." not in path.name
-    ]
-    return sorted(paths, key=_review_report_order)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise WorkerOutputError("researcher produced no valid ledger manifest") from exc
+    if not isinstance(payload, dict) or payload.get("schema_version") != (
+        "ruler_research_ledger_manifest_v1"
+    ):
+        raise WorkerOutputError("researcher ledger manifest has an invalid version")
+    entries = payload.get("entries")
+    if not isinstance(entries, list):
+        raise WorkerOutputError("researcher ledger manifest entries must be a list")
+    seen: set[str] = set()
+    allowed = {"final_evidence", "context", "discovery_only", "rejected"}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise WorkerOutputError("researcher ledger manifest entry must be an object")
+        key = str(entry.get("canonical_fact_key", "")).strip()
+        provisional_id = str(entry.get("provisional_id", "")).strip()
+        disposition = str(entry.get("disposition", ""))
+        if not key or not provisional_id or disposition not in allowed or key in seen:
+            raise WorkerOutputError("researcher ledger manifest entry is invalid")
+        if disposition == "rejected" and not str(entry.get("reason", "")).strip():
+            raise WorkerOutputError("rejected ledger entry requires a reason")
+        seen.add(key)
+    return payload
 
 
-def _review_report_order(path: Path) -> tuple[str, int, bool]:
-    match = re.fullmatch(r"evidence-review-round-(\d+)(-repair)?\.json", path.name)
-    if match is None:
-        return (path.parent.name, -1, False)
-    return (path.parent.name, int(match.group(1)), match.group(2) is not None)
+def _load_or_recover_research_ledger_manifest(
+    path: Path, *, handoff_path: Path
+) -> dict[str, Any] | None:
+    """Use a valid optional manifest without making it a research gate."""
+
+    if path.is_file():
+        try:
+            return _load_research_ledger_manifest(path)
+        except WorkerOutputError:
+            pass
+    try:
+        handoff = handoff_path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    decoder = json.JSONDecoder()
+    marker = '"schema_version"'
+    for marker_index in (
+        index for index in range(len(handoff)) if handoff.startswith(marker, index)
+    ):
+        object_start = handoff.rfind("{", 0, marker_index)
+        if object_start < 0:
+            continue
+        try:
+            candidate, _ = decoder.raw_decode(handoff[object_start:])
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(candidate, dict) or candidate.get("schema_version") != (
+            "ruler_research_ledger_manifest_v1"
+        ):
+            continue
+        path.write_text(
+            json.dumps(candidate, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        try:
+            return _load_research_ledger_manifest(path)
+        except WorkerOutputError:
+            continue
+    entries = _recover_markdown_ledger_entries(handoff)
+    if entries:
+        candidate = {
+            "schema_version": "ruler_research_ledger_manifest_v1",
+            "entries": entries,
+        }
+        path.write_text(
+            json.dumps(candidate, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        return _load_research_ledger_manifest(path)
+    return None
+
+
+def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, str]]:
+    """Recover explicitly labeled evidence rows from a permissive Markdown ledger."""
+
+    headings = list(re.finditer(r"(?m)^##\s+([A-Za-z]+-?\d+)\b", handoff))
+    entries: list[dict[str, str]] = []
+    seen_keys: set[str] = set()
+    for index, heading in enumerate(headings):
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(handoff)
+        section = handoff[heading.end() : end]
+        key_match = re.search(
+            r"(?mi)^- \*\*Canonical fact key:\*\*\s*`([^`]+)`", section
+        )
+        if key_match is None:
+            continue
+        key = key_match.group(1).strip()
+        if not key or key in seen_keys:
+            continue
+        use_match = re.search(r"(?mi)^- \*\*Final use:\*\*\s*([^\n]+)", section)
+        use = use_match.group(1).lower() if use_match else "context"
+        disposition = next(
+            (
+                value
+                for value in ("final_evidence", "discovery_only", "rejected")
+                if value in use
+            ),
+            "context",
+        )
+        entry = {
+            "provisional_id": heading.group(1),
+            "canonical_fact_key": key,
+            "disposition": disposition,
+        }
+        if disposition == "rejected":
+            entry["reason"] = use_match.group(1).strip() if use_match else "rejected"
+        entries.append(entry)
+        seen_keys.add(key)
+    return entries
+
+
+def _validate_formatter_ledger_accounting(
+    dossier: RulerEvidenceDossier, *, notebook: str
+) -> None:
+    """Prevent formatter collapse while allowing consolidation and source upgrades."""
+
+    marker = "--- RESEARCH LEDGER MANIFEST ---"
+    if marker not in notebook:
+        return
+    try:
+        manifest, _ = json.JSONDecoder().raw_decode(
+            notebook.rsplit(marker, maxsplit=1)[1].lstrip()
+        )
+    except json.JSONDecodeError:
+        return
+    minimum_evidence_count = sum(
+        entry.get("disposition") == "final_evidence"
+        for entry in manifest.get("entries", [])
+    )
+    emitted_final_count = sum(
+        item.final_evidence_use == "final_evidence" for item in dossier.evidence
+    )
+    emitted_substantive_count = sum(
+        item.final_evidence_use in {"final_evidence", "context"}
+        for item in dossier.evidence
+    )
+    minimum_final_count = (minimum_evidence_count + 1) // 2
+    if (
+        emitted_substantive_count < minimum_evidence_count
+        or emitted_final_count < minimum_final_count
+    ):
+        raise WorkerOutputError(
+            "formatter collapsed the ruler ledger below its final-evidence count "
+            f"({emitted_final_count} final and {emitted_substantive_count} substantive "
+            f"emitted; {minimum_final_count} final and {minimum_evidence_count} "
+            "substantive required)"
+        )
 
 
 def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:

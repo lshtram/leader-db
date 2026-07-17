@@ -180,7 +180,11 @@ def validate_review_scope(
 
 
 def build_evidence_review_prompt(
-    *, job: dict[str, Any], notebook: str, qa: NotebookQAReport
+    *,
+    job: dict[str, Any],
+    notebook: str,
+    qa: NotebookQAReport,
+    terminal: bool = False,
 ) -> str:
     """Build a strict, no-search reviewer prompt without ruler scoring."""
 
@@ -205,7 +209,19 @@ def build_evidence_review_prompt(
             "period_end_year",
         )
     }
+    terminal_instruction = (
+        """
+This is the terminal review after all permitted research rounds. Do not request
+another continuation. Set `needs_continuation=false` and `selected_theme_ids=[]`.
+Preserve every residual issue and missing theme, and state explicitly in
+`global_findings` that research rounds were exhausted without full saturation. This
+is a terminal research conclusion, not a claim that the dossier is complete.
+"""
+        if terminal
+        else ""
+    )
     return f"""You are an evidence-quality reviewer, not a ruler judge.
+{terminal_instruction}
 
 Review the schema-light notebook for the immutable ruler-period below. Do not browse,
 open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
@@ -214,7 +230,7 @@ independence, target-period fit, ruler attribution, contrary evidence, local-fac
 and exact missing themes. Missing evidence is not negative ruler evidence.
 
 Treat these as substantive evidence defects rather than formatting preferences:
-- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a claim whose underlying source cannot be identified or does not support it;
 - a homepage, search result, document index, or labels such as `release page` or
   `article` used as though they were precise locators;
 - a gateway source used without its underlying source URL;
@@ -228,21 +244,18 @@ Treat these as substantive evidence defects rather than formatting preferences:
 - any researcher-written score, score range, anchor, ranking recommendation, or advice
   that a judge should score or return null.
 
-Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
-`defensible_evidence_estimate`. Put deterministic cleanup defects in
-`substantive_issues`; select a chapter for continuation only when web research can
-materially recover an underlying source, locator, attribution fact, contrary source,
-or missing event theme.
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
 
-Apply the configured marginal-value gate before selecting any continuation chapter.
-A further broad round is justified only when it is reasonably likely to add at least
-`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
-precisely located source-claim units in that selected chapter, or to close a material
-ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
-lens dispositions, count reconciliation, and formatter work are deterministic cleanup
-and never justify another web-research round. After one continuation, prefer stopping
-broad research and naming at most three optional targeted themes when the remaining
-gaps are mainly attribution-limited or show diminishing returns.
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
 
 Return all selected chapters exactly once. Select every chapter with a material,
 research-recoverable attribution, temporal, source-quality, event-coverage, contrary-

@@ -1771,6 +1771,55 @@ def test_second_pass_year_coverage_majority_resolves_transition_review_row(
     assert json.loads(fact.quality_signals_json)["temporal_fit_score"] == pytest.approx(275 / 365)
 
 
+def test_year_coverage_does_not_select_formal_only_head_over_actual_rulers(
+    database_url: str,
+) -> None:
+    engine = _init_grid(database_url, start_year=2023, end_year=2023)
+    write_observations(
+        engine,
+        [
+            _identity_observation(
+                "ceremonial-president",
+                leader_name="Ceremonial President",
+                year=2023,
+                extension={
+                    "start_date": "2023-01-01",
+                    "end_date": "2023-12-31",
+                    "is_actual_ruler": False,
+                    "is_formal_leader": True,
+                },
+            ),
+            _identity_observation(
+                "actual-majority",
+                leader_name="Actual Majority Leader",
+                year=2023,
+                extension={"start_date": "2023-01-01", "end_date": "2023-08-13"},
+            ),
+            _identity_observation(
+                "actual-caretaker",
+                leader_name="Actual Caretaker",
+                year=2023,
+                extension={"start_date": "2023-08-14", "end_date": "2023-12-31"},
+            ),
+        ],
+    )
+    build_ruler_identity(engine, start_year=2023, end_year=2023)
+
+    build_ruler_identity_adjudications(engine, start_year=2023, end_year=2023)
+
+    with engine.connect() as conn:
+        adjudication = conn.execute(
+            select(
+                RulerIdentityAdjudication.selected_leader_name,
+                RulerIdentityAdjudication.classification,
+            )
+            .join(Country, Country.id == RulerIdentityAdjudication.country_id)
+            .where(RulerIdentityAdjudication.year == 2023, Country.iso3 == "AAA")
+        ).one()
+    assert adjudication.selected_leader_name == "Actual Majority Leader"
+    assert adjudication.classification == "resolved_auto_year_coverage_majority"
+
+
 def test_second_pass_clear_margin_below_majority_remains_needs_review(
     database_url: str,
 ) -> None:

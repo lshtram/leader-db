@@ -538,6 +538,64 @@ def test_prepare_batch_rejects_self_only_calibration_and_discovery_only_evidence
         )
 
 
+def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) -> None:
+    methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
+    dossier_jobs = [
+        _fixture_dossier_job(index=index, iso3=iso3, methodology_ids=methodology_ids)
+        for index, iso3 in enumerate(("AAA", "BBB"), start=1)
+    ]
+    dossiers = tuple(
+        (
+            tmp_path / f"dossier-{index}.json",
+            RulerEvidenceDossier.model_validate(
+                _dossier_payload(job, methodology_ids=methodology_ids)
+            ),
+        )
+        for index, job in enumerate(dossier_jobs, start=1)
+    )
+    candidate = _judge_candidate(
+        dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+        iso3s=("AAA", "BBB"),
+    )
+    candidate["evaluations"].append(
+        json.loads(json.dumps(candidate["evaluations"][0]))
+    )
+
+    batch = _prepare_batch(
+        candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=dossiers,
+        projections=_projections(dossiers, chapter_id="4B"),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert len(batch.evaluations) == 2
+
+    conflicting = _judge_candidate(
+        dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+        iso3s=("AAA", "BBB"),
+    )
+    duplicate = json.loads(json.dumps(conflicting["evaluations"][0]))
+    duplicate["score_1_to_10"] = 2
+    conflicting["evaluations"].append(duplicate)
+    with pytest.raises(ValueError, match="conflicting duplicate"):
+        _prepare_batch(
+            conflicting,
+            job=_fixture_judge_job(
+                dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+                methodology_ids=methodology_ids,
+            ),
+            dossiers=dossiers,
+            projections=_projections(dossiers, chapter_id="4B"),
+            rubric_version="chapter_4b_v1",
+            events_path=tmp_path / "events.jsonl",
+        )
+
+
 def test_prepare_batch_rejects_all_null_multi_ruler_result(tmp_path: Path) -> None:
     methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
     dossier_jobs = [

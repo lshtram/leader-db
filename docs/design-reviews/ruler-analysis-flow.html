@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ruler analysis · 1B–8B design review</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  <link rel="stylesheet" href="assets/repo-viewer.css">
+  <style>
+    :root { --ink:#18211b; --muted:#617067; --paper:#f4f1e8; --card:#fffdf7; --line:#cfd5ca; --green:#195c49; --mint:#dcebe2; --gold:#bc7a24; --blue:#315d7c; --rose:#8b423d; --shadow:0 14px 38px #24362a16; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:15px/1.55 Inter, ui-sans-serif, system-ui, sans-serif; }
+    a { color:var(--blue); text-underline-offset:3px; }
+    code { font:0.9em ui-monospace, SFMono-Regular, Menlo, monospace; background:#eef0e9; border-radius:4px; padding:.12rem .32rem; }
+    .shell { display:grid; grid-template-columns:270px minmax(0,1fr); min-height:100vh; }
+    aside { position:sticky; top:0; height:100vh; overflow:auto; padding:30px 22px; color:#f8fbf6; background:#173d32; }
+    aside .eyebrow { color:#afd1c0; }
+    aside h1 { margin:.35rem 0 1rem; font:700 1.25rem/1.2 Georgia, serif; }
+    aside a { display:block; padding:7px 10px; color:#dcebe2; text-decoration:none; border-left:2px solid #ffffff24; }
+    aside a:hover { color:white; border-color:#e0ad62; background:#ffffff0b; }
+    aside .small { margin-top:24px; color:#b8c9c0; font-size:.8rem; }
+    main { min-width:0; }
+    header { padding:72px clamp(24px,6vw,90px) 54px; background:linear-gradient(120deg,#f7f1e4,#e1eee4); border-bottom:1px solid var(--line); }
+    .eyebrow { text-transform:uppercase; letter-spacing:.15em; font-size:.72rem; font-weight:800; color:var(--green); }
+    h2,h3 { font-family:Georgia,serif; line-height:1.16; }
+    header h2 { max-width:900px; margin:.45rem 0 1rem; font-size:clamp(2.2rem,5vw,4.8rem); letter-spacing:-.035em; }
+    header p { max-width:830px; font-size:1.08rem; color:#46544c; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+    .pill { padding:6px 10px; border:1px solid #9db2a5; border-radius:999px; font-size:.78rem; background:#ffffff8f; }
+    .content { max-width:1280px; margin:auto; padding:42px clamp(18px,4vw,56px) 100px; }
+    .callout { padding:20px 24px; margin:0 0 32px; border-left:4px solid var(--gold); background:#fff8e8; box-shadow:var(--shadow); }
+    .flow-wrap { overflow-x:auto; padding:24px; border:1px solid var(--line); border-radius:16px; background:var(--card); box-shadow:var(--shadow); }
+    .flow { display:grid; grid-template-columns:repeat(5,minmax(170px,1fr)); gap:28px 34px; min-width:940px; counter-reset:step; }
+    .node { counter-increment:step; position:relative; min-height:132px; padding:18px; color:inherit; text-decoration:none; border:1px solid #b9c5bb; border-radius:13px; background:white; transition:.18s ease; }
+    .node:hover { transform:translateY(-3px); border-color:var(--green); box-shadow:0 10px 22px #1b493719; }
+    .node:before { content:counter(step); display:grid; place-items:center; width:27px; height:27px; margin-bottom:9px; color:white; border-radius:50%; background:var(--green); font-weight:800; }
+    .node:not(:nth-child(5)):not(:nth-child(10)):after { content:'→'; position:absolute; right:-25px; top:47%; color:var(--gold); font-size:24px; }
+    .node strong { display:block; margin-bottom:5px; font-family:Georgia,serif; }
+    .node span { color:var(--muted); font-size:.83rem; }
+    .node.role { background:#f4f9f5; }
+    .node.score { background:#edf5fa; }
+    section.detail { scroll-margin-top:24px; margin-top:58px; padding-top:10px; border-top:1px solid var(--line); }
+    .section-head { display:grid; grid-template-columns:58px 1fr; gap:18px; align-items:start; }
+    .num { display:grid; place-items:center; width:48px; height:48px; color:white; border-radius:13px; background:var(--green); font:700 1.2rem Georgia,serif; }
+    section h3 { margin:0 0 7px; font-size:1.65rem; }
+    .summary { max-width:900px; margin:0; color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:22px; }
+    .panel { min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:12px; background:var(--card); }
+    .panel h4 { margin:0 0 10px; color:var(--green); text-transform:uppercase; letter-spacing:.09em; font-size:.72rem; }
+    .panel ul { margin:.35rem 0; padding-left:1.15rem; }
+    .file { display:flex; align-items:baseline; gap:7px; margin:7px 0; }
+    .file a:first-child { overflow-wrap:anywhere; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.82rem; }
+    .ide { flex:none; text-decoration:none; font-size:.7rem; color:var(--green); border:1px solid #a9b9ad; border-radius:4px; padding:1px 4px; }
+    .why { margin:1px 0 10px 0; color:var(--muted); font-size:.82rem; }
+    .status { display:inline-block; padding:2px 7px; border-radius:999px; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; }
+    .implemented { color:#175341; background:#dcebe2; }
+    .required { color:#6f4817; background:#f5e3c8; }
+    .gap { color:#793b36; background:#f1dcd9; }
+    pre { overflow:auto; padding:14px; color:#eaf2ec; border-radius:8px; background:#20332a; font-size:.78rem; line-height:1.5; }
+    .legend { display:flex; gap:14px; flex-wrap:wrap; margin:18px 0 0; color:var(--muted); font-size:.8rem; }
+    .back { display:inline-block; margin-top:16px; font-size:.78rem; }
+    footer { margin-top:70px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); }
+    .inventory-tools { display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 14px; }
+    .inventory-tools input,.inventory-tools select { min-height:40px; padding:8px 11px; color:var(--ink); border:1px solid #aeb9ae; border-radius:7px; background:white; font:inherit; }
+    .inventory-tools input { flex:1 1 330px; }
+    .inventory-wrap { overflow:auto; max-height:72vh; border:1px solid var(--line); border-radius:12px; background:white; }
+    .inventory { width:100%; border-collapse:collapse; font-size:.82rem; }
+    .inventory th { position:sticky; top:0; z-index:1; padding:10px; color:white; text-align:left; background:#244a3e; }
+    .inventory td { padding:9px 10px; vertical-align:top; border-bottom:1px solid #e2e5df; }
+    .inventory tr:hover td { background:#f8f5ec; }
+    .inventory .path { min-width:300px; overflow-wrap:anywhere; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .inventory .path a { font-family:inherit; }
+    .inventory .block { white-space:nowrap; }
+    .inventory-count { color:var(--muted); font-size:.82rem; }
+    .s-mandatory { color:#fff; background:#195c49; }
+    .s-important { color:#143f59; background:#dcebf4; }
+    .s-nice-to-have { color:#624313; background:#f6e6c8; }
+    .s-might-be-redundant { color:#783e39; background:#f0d9d6; }
+    .s-might-be-too-much { color:#4f465c; background:#e9e1ef; }
+    .contract-table { width:100%; border-collapse:collapse; margin-top:20px; font-size:.84rem; background:white; }
+    .contract-table th,.contract-table td { padding:11px 12px; vertical-align:top; text-align:left; border:1px solid #d6dbd3; }
+    .contract-table th { color:white; background:#244a3e; }
+    .contract-table td:first-child { white-space:nowrap; font-weight:800; color:var(--green); }
+    .focus-high { color:#7d332e; background:#f1dcd9; }
+    .focus-medium { color:#6f4817; background:#f5e3c8; }
+    .focus-low { color:#175341; background:#dcebe2; }
+    @media (max-width:850px) { .shell{display:block} aside{position:relative;height:auto} aside nav{columns:2} .grid{grid-template-columns:1fr} header{padding-top:42px} }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <div class="eyebrow">Living design review</div>
+    <h1>Ruler analysis<br>1B–8B · 80 lenses</h1>
+    <nav>
+      <a href="#flow">Overall flow</a>
+      <a href="#interfaces">Arrow interfaces</a>
+      <a href="#request">1 · Request & scope</a>
+      <a href="#identity">2 · Resolve rulers</a>
+      <a href="#readiness">3 · Readiness gate</a>
+      <a href="#planning">4 · Plan dossier jobs</a>
+      <a href="#priors">5 · Build local priors</a>
+      <a href="#research">6 · Research 80 lenses</a>
+      <a href="#review-format">7 · Review & format</a>
+      <a href="#judge-plan">8 · Plan 8 judges</a>
+      <a href="#judging">9 · Comparative judging</a>
+      <a href="#scores">10 · Persist scores</a>
+      <a href="#inventory">Complete inventory</a>
+      <a href="#review-notes">Design-review notes</a>
+    </nav>
+    <p class="small">File names open in the browser. The “VS Code” badge uses the editor URL handler and jumps directly to the same local file.</p>
+  </aside>
+
+  <main>
+    <header>
+      <div class="eyebrow">Leaders Database · architecture walkthrough</div>
+      <h2>From “analyze these rulers” to eight calibrated scores each</h2>
+      <p>This page maps the current executable path for a year-specific ruler cohort. It separates orchestration code, durable data, agent directives, and methodology—so we can review each layer without confusing the 80 evidence lenses with 80 final scores.</p>
+      <div class="meta"><span class="pill">8 chapters</span><span class="pill">10 lenses per chapter</span><span class="pill">1 dossier per ruler-period</span><span class="pill">1 judge per chapter and cohort</span><span class="pill">8 scores per ruler</span><span class="pill">Click a file to inspect it here</span></div>
+    </header>
+
+    <div class="content">
+      <div class="callout"><strong>The central design choice.</strong> Evidence collection is ruler-centric: one persistent researcher builds a reusable ledger across 1B–8B. Scoring is chapter-centric: each judge sees one chapter across the entire cohort and applies one comparative meter. The ten lenses organize evidence; they are not separately scored and averaged.</div>
+
+      <section id="flow">
+        <div class="eyebrow">Clickable map</div>
+        <h3>Top-level execution flow</h3>
+        <div class="flow-wrap">
+          <div class="flow">
+            <a class="node" href="#request"><strong>Request & cohort</strong><span>Year, X rulers, run key, model profiles, chapter scope</span></a>
+            <a class="node" href="#identity"><strong>Resolve identities</strong><span>Exact ruler-year rows; quarantine disputes</span></a>
+            <a class="node" href="#readiness"><strong>Preflight</strong><span>DB, skills, guides, models, paths, eligible identities</span></a>
+            <a class="node" href="#planning"><strong>Plan dossier jobs</strong><span>One durable job per eligible ruler-period</span></a>
+            <a class="node" href="#priors"><strong>Assemble local priors</strong><span>Deduplicated structured facts routed to 80 lenses</span></a>
+            <a class="node role" href="#research"><strong>Persistent research</strong><span>One cited evidence ledger; chapters 1B→8B</span></a>
+            <a class="node role" href="#review-format"><strong>Review & format</strong><span>Up to 3 gap rounds, then strict dossier</span></a>
+            <a class="node" href="#judge-plan"><strong>Plan 8 judges</strong><span>Each waits for the complete dossier cohort</span></a>
+            <a class="node role" href="#judging"><strong>Comparative judgment</strong><span>Ten lenses → one calibrated chapter score</span></a>
+            <a class="node score" href="#scores"><strong>Persist scores</strong><span>X × 8 chapter rows, confidence and review flags</span></a>
+          </div>
+        </div>
+        <div class="legend"><span><span class="status implemented">implemented</span> executable seam exists</span><span><span class="status required">directive</span> methodology/agent contract</span><span><span class="status gap">review gap</span> required design not clearly automated</span></div>
+      </section>
+
+      <section class="detail" id="interfaces"><div class="section-head"><div class="num">↔</div><div><h3>The contracts carried by each arrow</h3><p class="summary">A block can be internally complex while exposing a small, testable handoff. These boundaries are the most useful units for deciding whether to inspect implementation now or accept a block provisionally after its contract and examples pass.</p></div></div>
+        <div class="callout" style="margin-top:22px"><strong>How to use this map.</strong> First verify the boundary shape, invariants, provenance, and failure behavior. If those are simple and covered by focused tests, defer the block's internal review. Spend deeper review time where semantic information is selected, discarded, attributed, or converted into scores.</div>
+        <div class="flow-wrap"><table class="contract-table">
+          <thead><tr><th>Arrow</th><th>Interface transmitted onward</th><th>What the consumer relies on</th><th>Example</th><th>Review focus now</th></tr></thead>
+          <tbody>
+            <tr><td>1 → 2</td><td>Explicit analysis request and cohort-selection reference<br><a href="../../src/leaders_db/cli/research_job_commands.py">CLI authority</a></td><td>Year, requested X, chapters, run key, profiles, output root and selection mode. If a frozen manifest is requested, block 2 must validate its IDs rather than trust free-text names.</td><td><a href="examples/ruler-analysis-interfaces/01-request-and-cohort.json">analysis request JSON</a></td><td><span class="status focus-low">lower</span> Simple once selection policy and required count behavior are explicit.</td></tr>
+            <tr><td>2 → 3</td><td>Resolved ruler-case records and validated frozen manifest<br><a href="../../src/leaders_db/research/batch_manifest.py">manifest validator</a></td><td>Canonical country/ruler IDs, exact period, selected ruler name, manifest hash, eligibility and explicit quarantine reason. No downstream block may silently change identity.</td><td><a href="examples/ruler-analysis-interfaces/02-resolved-ruler-cohort-2023-top20.json">current 2023 top-20 cohort JSON</a><br><a href="examples/ruler-analysis-interfaces/02-resolved-ruler-case.json">minimal single-case example</a></td><td><span class="status focus-medium">medium</span> High consequence, but potentially defer internals after sampled identity QA and eligibility tests.</td></tr>
+            <tr><td>3 → 4</td><td><code>ResearchReadinessReport</code><br><a href="../../src/leaders_db/research/readiness.py">schema + builder</a></td><td>One boolean <code>ready</code> backed by named pass/fail checks for DB, methods, guides, skills, models, paths and eligible identities.</td><td><a href="examples/ruler-analysis-interfaces/03-readiness-report.json">readiness JSON</a></td><td><span class="status focus-low">lower</span> A classic gate: inspect failures and tests; implementation detail is low scientific value.</td></tr>
+            <tr><td>4 → 5</td><td><code>ResearchJobSpec</code> persisted as a ledger row<br><a href="../../src/leaders_db/research/job_ledger.py">schema + store</a></td><td>Immutable job/run/case scope, profiles, attempt ceiling and <code>input_payload</code>. Lease state is operational metadata, not scientific content.</td><td><a href="examples/ruler-analysis-interfaces/04-dossier-job-spec.json">job-spec JSON</a></td><td><span class="status focus-low">lower</span> Defer if idempotency, dependency, lease and recovery tests are green.</td></tr>
+            <tr><td>5 → 6</td><td><code>ruler_local_prior_package_v1</code><br><a href="../../src/leaders_db/research/local_prior_package.py">schema + compactor</a></td><td>Deduplicated <code>LF###</code> facts, exact local locators and observation IDs, per-lens dispositions, warnings and candidate mappings. Mappings are hints, not attribution.</td><td><a href="../../research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json">REAL: USA full 80-lens local-priors.json</a><br><a href="examples/ruler-analysis-interfaces/05-local-prior-package.json">small shape example</a></td><td><span class="status focus-high">high</span> Semantic routing and missingness errors can bias every later stage.</td></tr>
+            <tr><td>6 → 7</td><td>Permissive research notebook plus candidate/ledger checkpoints<br><a href="../../src/leaders_db/research/evidence_review.py">review contract</a></td><td>Cited source-claim units, locators, queries, accepted/rejected candidates, many-to-many lens relevance, contrary evidence and explicit gaps—without scores.</td><td><a href="../../research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/research-notebook.md">REAL: USA final research notebook</a><br><a href="../../research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/research-notebook-round-01.md">REAL: first-round notebook</a></td><td><span class="status focus-high">highest</span> This is where evidence completeness, attribution and source balance are created.</td></tr>
+            <tr><td>7 → 8</td><td><code>EvidenceReviewReport</code>, then strict <code>ruler_evidence_dossier_v2</code><br><a href="../../src/leaders_db/research/dossier_models.py">dossier schema</a></td><td>Reviewer continuation decision and a fully normalized dossier: stable evidence, mappings, all 80 coverage dispositions, gaps, local-prior provenance and run profile.</td><td><a href="../../research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/evidence-review-round-04.json">REAL: USA final review report</a><br><a href="../../research/runs/2023-population-top20-gate5-v1/jobs/404/attempts/001-80247fc3-fea/dossier.json">REAL: USA complete strict dossier</a></td><td><span class="status focus-high">highest</span> Critical loss/invention boundary between permissive research and scientific judge input.</td></tr>
+            <tr><td>8 → 9</td><td>Twenty or X <code>ruler_chapter_projection_v1</code> files plus exact guide and batch metadata<br><a href="../../src/leaders_db/research/chapter_projection.py">projection schema</a></td><td>Exactly ten lenses for one chapter, source dossier path/hash, only chapter-relevant evidence, explicit missingness, common cohort and context estimate.</td><td><a href="../../research/runs/2023-population-top20-gate5-judges-v1/jobs/408/attempts/001-b481a33f-ebe/chapter-inputs/USA-15811.json">REAL: USA chapter projection</a><br><a href="../../research/runs/2023-population-top20-gate5-judges-v1/jobs/408/attempts/001-b481a33f-ebe/chapter-inputs/BRA-16162.json">REAL: Brazil same-cohort projection</a></td><td><span class="status focus-high">highest</span> Review for cross-chapter contamination, evidence loss and cohort/calibration integrity.</td></tr>
+            <tr><td>9 → 10</td><td><code>ruler_chapter_judgment_v1</code> batch<br><a href="../../src/leaders_db/research/chapter_judge_models.py">judgment schema</a></td><td>One score or justified null per ruler, confidence/range, decisive evidence IDs, anchors, attribution, lens support, review flags and run profile.</td><td><a href="../../research/runs/2023-population-top20-gate5-judges-v1/jobs/408/attempts/001-b481a33f-ebe/chapter-judgment.json">REAL: complete four-ruler chapter judgment</a><br><a href="../../research/runs/2023-population-top20-gate5-judges-v1/jobs/408/attempts/001-b481a33f-ebe/prompt.txt">REAL: exact judge prompt</a></td><td><span class="status focus-high">highest</span> Direct scientific output; inspect rubric adherence, ordering and null behavior.</td></tr>
+            <tr><td>10 → user</td><td>Transactional <code>chapter_scores</code> rows plus immutable batch artifact<br><a href="../../src/leaders_db/research/chapter_score_store.py">persistence gate</a></td><td>X × 8 independently traceable ruler/chapter/year results. Persistence must preserve the judgment rather than reinterpret it.</td><td><a href="examples/ruler-analysis-interfaces/10-persisted-score-row.json">persisted row JSON</a></td><td><span class="status focus-medium">medium</span> Storage is simple; release audit and downstream presentation remain important.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="grid">
+          <div class="panel"><h4>Provisional defer candidates</h4><p>Blocks 1, 3, 4 and most of 10 expose conventional, deterministic interfaces. Block 2 is consequential but can also be provisionally accepted when identity coverage is sampled and quarantine rules are demonstrably enforced.</p></div>
+          <div class="panel"><h4>Value-generating review core</h4><p>Start with boundaries 5→6, 6→7, 7→8, 8→9 and 9→10. These decide what evidence enters, what disappears, how ruler responsibility is attributed, how chapters remain isolated, and how evidence becomes comparative scores.</p></div>
+        </div>
+        <p class="why"><strong>Example policy:</strong> the review links directly to complete runtime artifacts whenever the current run has produced them. Small examples remain only as secondary schema illustrations and are explicitly labeled as such. Runtime links identify their real ruler, phase and run.</p>
+        <a class="back" href="#flow">↑ Back to flow</a>
+      </section>
+
+      <section class="detail" id="request"><div class="section-head"><div class="num">1</div><div><h3>Request and cohort definition</h3><p class="summary">The human request becomes an explicit year, run key, provider profiles, output root, and either all eligible ruler-years or a frozen batch manifest containing exactly X resolved cases. A manifest is the reproducible way to say “these X rulers.”</p></div></div><div class="grid">
+        <div class="panel"><h4>Executable entrypoints</h4><div class="file"><a href="../../src/leaders_db/cli/commands_research.py">commands_research.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/cli/commands_research.py">VS Code</a></div><p class="why">Registers the <code>leaders-db research</code> command tree.</p><div class="file"><a href="../../src/leaders_db/cli/research_job_commands.py">research_job_commands.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/cli/research_job_commands.py">VS Code</a></div><p class="why">Defines <code>plan-dossiers</code> and <code>plan-chapter-judge</code>.</p><div class="file"><a href="../../src/leaders_db/research/batch_manifest.py">batch_manifest.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/batch_manifest.py">VS Code</a></div><p class="why">Validates a frozen X-ruler cohort against live identity data.</p></div>
+        <div class="panel"><h4>Configs and directives</h4><div class="file"><a href="../../configs/research-batches/2020-diverse-20.yaml">example batch manifest</a><a class="ide" href="#" data-editor-path="configs/research-batches/2020-diverse-20.yaml">VS Code</a></div><div class="file"><a href="../../configs/research-models.yaml">research-models.yaml</a><a class="ide" href="#" data-editor-path="configs/research-models.yaml">VS Code</a></div><div class="file"><a href="../../configs/research-workflow.yaml">research-workflow.yaml</a><a class="ide" href="#" data-editor-path="configs/research-workflow.yaml">VS Code</a></div><pre>leaders-db research jobs plan-dossiers \
+  --year YEAR --run-key RUN \
+  --batch-manifest configs/research-batches/BATCH.yaml \
+  --provider-profile PROFILE --output-root research/RUN</pre></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="identity"><div class="section-head"><div class="num">2</div><div><h3>Resolve and qualify ruler identities</h3><p class="summary">Research cannot silently decide who ruled. The identity layer supplies exact ruler and ruler-year IDs, period boundaries, classification and review state. Unresolved or quarantined cases stay out of score-bearing work.</p></div></div><div class="grid">
+        <div class="panel"><h4>Code</h4><div class="file"><a href="../../src/leaders_db/identity/ruler_identity.py">identity/ruler_identity.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/identity/ruler_identity.py">VS Code</a></div><p class="why">Builds ruler entities and overlapping ruler-year spells from identity observations.</p><div class="file"><a href="../../src/leaders_db/identity/adjudications.py">identity/adjudications.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/identity/adjudications.py">VS Code</a></div><p class="why">Persists principal-ruler adjudication and readiness state.</p><div class="file"><a href="../../src/leaders_db/research/local_prior_slice.py">research/local_prior_slice.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/local_prior_slice.py">VS Code</a></div><p class="why">Checks whether an identity is eligible for research.</p></div>
+        <div class="panel"><h4>Durable data</h4><ul><li><code>leaders</code>, <code>ruler_spells</code>, <code>ruler_years</code></li><li><code>ruler_identity_adjudications</code></li><li>Frozen manifest fields: <code>ruler_year_id</code>, <code>ruler_id</code>, <code>iso3</code>, <code>ruler_name</code></li></ul><div class="file"><a href="../../docs/architecture/database-schema.md">database-schema.md</a><a class="ide" href="#" data-editor-path="docs/architecture/database-schema.md">VS Code</a></div><p><span class="status implemented">implemented</span> Identity is a hard gate, not an evidence-research side effect.</p></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="readiness"><div class="section-head"><div class="num">3</div><div><h3>Fail-closed readiness gate</h3><p class="summary">Before jobs are written, a non-mutating preflight checks required DB tables, all selected methodology IDs and guides, role skills, model-role support and credentials, safe output paths, workflow configuration, and eligible identities.</p></div></div><div class="grid">
+        <div class="panel"><h4>Code and command</h4><div class="file"><a href="../../src/leaders_db/research/readiness.py">research/readiness.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/readiness.py">VS Code</a></div><div class="file"><a href="../../src/leaders_db/cli/research_readiness_commands.py">research_readiness_commands.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/cli/research_readiness_commands.py">VS Code</a></div><pre>leaders-db research readiness \
+  --mode dossier_researcher --year YEAR \
+  --provider-profile PROFILE --output-dir research/RUN</pre></div>
+        <div class="panel"><h4>Normative inputs</h4><div class="file"><a href="../../AGENTS.md">AGENTS.md</a><a class="ide" href="#" data-editor-path="AGENTS.md">VS Code</a></div><div class="file"><a href="../../docs/methodology/cited-evaluation-calibration.md">cited-evaluation-calibration.md</a><a class="ide" href="#" data-editor-path="docs/methodology/cited-evaluation-calibration.md">VS Code</a></div><p class="why">Defines the required role chain, missing-evidence behavior, bias checks and score envelope.</p><p><span class="status implemented">implemented</span> Planning calls the same readiness seam automatically.</p></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="planning"><div class="section-head"><div class="num">4</div><div><h3>Plan one durable dossier job per ruler</h3><p class="summary">The planner writes immutable job scope and execution profiles into a lease-based ledger. Jobs can be claimed, checkpointed, retried, quarantined and resumed without confusing duplicate attempts or letting stale workers publish.</p></div></div><div class="grid">
+        <div class="panel"><h4>Planning and ledger</h4><div class="file"><a href="../../src/leaders_db/research/job_planner.py">research/job_planner.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/job_planner.py">VS Code</a></div><p class="why"><code>plan_dossier_jobs</code> / <code>plan_single_dossier_job</code> create the ruler jobs.</p><div class="file"><a href="../../src/leaders_db/research/job_ledger.py">research/job_ledger.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/job_ledger.py">VS Code</a></div><p class="why">Atomic leases, dependency checks, fencing tokens, checkpoints and terminal transitions.</p></div>
+        <div class="panel"><h4>Execution control</h4><div class="file"><a href="../../src/leaders_db/cli/research_worker_commands.py">research_worker_commands.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/cli/research_worker_commands.py">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/queue_runner.py">research/queue_runner.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/queue_runner.py">VS Code</a></div><p class="why">One-shot worker and bounded queue supervisor with failure ceilings.</p><ul><li>Primary unit: <code>dossier_researcher</code> job</li><li>Expected count: X eligible ruler-periods</li><li>Storage: research job/dependency/event tables plus artifact paths</li></ul></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="priors"><div class="section-head"><div class="num">5</div><div><h3>Build the local-first prior package</h3><p class="summary">Before searching the web, each job queries already-ingested country-year and identity evidence. Per-lens provenance is retained, then duplicate facts are compacted into stable <code>LF###</code> records with candidate mappings. These mappings route attention; they do not prove ruler attribution.</p></div></div><div class="grid">
+        <div class="panel"><h4>Code and data</h4><div class="file"><a href="../../src/leaders_db/research/local_prior_slice.py">local_prior_slice.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/local_prior_slice.py">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/local_prior_package.py">local_prior_package.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/local_prior_package.py">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/local_structured_prior.py">local_structured_prior.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/local_structured_prior.py">VS Code</a></div><ul><li><code>country_year_facts</code> (preferred harmonized facts)</li><li><code>normalized_observations</code> and raw locators</li><li><code>ruler_identity_adjudications</code></li></ul></div>
+        <div class="panel"><h4>Researcher directive</h4><div class="file"><a href="../../docs/methodology/local-first-researcher-guide.md">local-first-researcher-guide.md</a><a class="ide" href="#" data-editor-path="docs/methodology/local-first-researcher-guide.md">VS Code</a></div><p class="why">Defines the local-before-web order and chapter-to-fact-family routing boundaries.</p><div class="file"><a href="../../src/leaders_db/cli/research_local_prior_commands.py">research_local_prior_commands.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/cli/research_local_prior_commands.py">VS Code</a></div><pre>leaders-db research local-evidence \
+  --methodology-id 4B.2 --year YEAR --iso3 ISO --json</pre></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="research"><div class="section-head"><div class="num">6</div><div><h3>One persistent researcher covers all 80 lenses</h3><p class="summary">The researcher audits local facts, performs broad ruler-period reconnaissance, then moves through chapters 1B to 8B. Accepted source-claim units enter one append-only ledger with stable evidence IDs and may map to many lenses. The researcher records contrary evidence and gaps but never assigns scores.</p></div></div><div class="grid">
+        <div class="panel"><h4>Agent contract and prompts</h4><div class="file"><a href="../../.agents/skills/ruler-evidence-researcher/SKILL.md">ruler-evidence-researcher/SKILL.md</a><a class="ide" href="#" data-editor-path=".agents/skills/ruler-evidence-researcher/SKILL.md">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/dossier_notebook_prompt.py">dossier_notebook_prompt.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/dossier_notebook_prompt.py">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/notebook_continuation.py">notebook_continuation.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/notebook_continuation.py">VS Code</a></div><p class="why">Builds the initial research instruction and resumes the same thread for selected gaps.</p></div>
+        <div class="panel"><h4>Methodology and runtime</h4><div class="file"><a href="../../docs/methodology/ranking-evaluation-criteria.md">ranking-evaluation-criteria.md</a><a class="ide" href="#" data-editor-path="docs/methodology/ranking-evaluation-criteria.md">VS Code</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/readme.md">chapter-guides/</a><a class="ide" href="#" data-editor-path="docs/methodology/chapter-guides/readme.md">VS Code</a></div><div class="file"><a href="../../docs/methodology/source-confidence-registry.json">source-confidence-registry.json</a><a class="ide" href="#" data-editor-path="docs/methodology/source-confidence-registry.json">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/codex_worker.py">codex_worker.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/codex_worker.py">VS Code</a></div><p class="why">Orchestrates research execution, checkpoint recovery, validation and publication.</p></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="review-format"><div class="section-head"><div class="num">7</div><div><h3>No-search review loop, then strict formatting</h3><p class="summary">A separate evidence reviewer examines every selected chapter without doing research or scoring. Recoverable gaps return to the same researcher thread for up to three rounds. After pass or credible saturation, a separate no-search formatter converts the permissive notebook into the validated dossier schema.</p></div></div><div class="grid">
+        <div class="panel"><h4>Review and formatting code</h4><div class="file"><a href="../../src/leaders_db/research/evidence_review.py">evidence_review.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/evidence_review.py">VS Code</a></div><p class="why">Assesses coverage, gaps and marginal value of another continuation.</p><div class="file"><a href="../../src/leaders_db/research/dossier_prompt.py">dossier_prompt.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/dossier_prompt.py">VS Code</a></div><p class="why">Builds the strict formatter prompt; formatter may normalize but not add evidence.</p><div class="file"><a href="../../src/leaders_db/research/dossier_models.py">dossier_models.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/dossier_models.py">VS Code</a></div></div>
+        <div class="panel"><h4>Validated dossier handoff</h4><ul><li><code>RulerEvidenceDossier</code>: exact ruler/period/run scope</li><li><code>DossierEvidence</code>: stable <code>E###</code>, claim, URL, locator, canonical fact key, confidence and attribution</li><li><code>EvidenceQuestionMapping</code>: many-to-many evidence ↔ lens relation</li><li><code>QuestionCoverage</code>: all selected lens dispositions</li><li><code>DossierRunProfile</code>: model, searches, sources and usage</li></ul><p><span class="status implemented">implemented</span> Publication rejects semantically invalid and zero-evidence multi-chapter dossiers.</p></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="judge-plan"><div class="section-head"><div class="num">8</div><div><h3>Plan eight dependency-gated chapter judges</h3><p class="summary">After the dossier cohort is complete, the planner creates one job for each chapter. Each job depends on every eligible dossier, freezes the guide version/hash and cohort, and can optionally reuse a completed dossier run under a new judge run key.</p></div></div><div class="grid">
+        <div class="panel"><h4>Code and command</h4><div class="file"><a href="../../src/leaders_db/research/job_planner.py">job_planner.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/job_planner.py">VS Code</a></div><p class="why"><code>plan_all_chapter_judge_jobs</code> creates exactly eight jobs and validates a common cohort.</p><div class="file"><a href="../../src/leaders_db/research/chapter_projection.py">chapter_projection.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/chapter_projection.py">VS Code</a></div><p class="why">Projects each full dossier into compact chapter-specific judge input.</p><pre>leaders-db research jobs plan-chapter-judge \
+  --year YEAR --run-key JUDGE_RUN --dossier-run-key DOSSIER_RUN \
+  --all-chapters --provider-profile PROFILE \
+  --output-root research/JUDGE_RUN</pre></div>
+        <div class="panel"><h4>Dependency shape</h4><pre>X completed ruler dossiers
+    ├── 1B judge (depends on all X)
+    ├── 2B judge (depends on all X)
+    ├── ...
+    └── 8B judge (depends on all X)</pre><p>Unavailable/quarantined dossiers remain explicit rather than silently shrinking the comparison set.</p><p><span class="status implemented">implemented</span> A judge cannot be claimed before its dossier dependencies are terminal and usable.</p></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="judging"><div class="section-head"><div class="num">9</div><div><h3>Judge one chapter across the full cohort</h3><p class="summary">Each no-search judge owns one chapter and all eligible rulers. It reads the exact guide, establishes high/middle/low/edge anchors, reviews ten lenses per ruler, compares adjacent cases, and emits one half-point chapter score—or a justified null—plus confidence and calibration evidence.</p></div></div><div class="grid">
+        <div class="panel"><h4>Agent and runtime</h4><div class="file"><a href="../../.agents/skills/ruler-chapter-judge/SKILL.md">ruler-chapter-judge/SKILL.md</a><a class="ide" href="#" data-editor-path=".agents/skills/ruler-chapter-judge/SKILL.md">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/chapter_judge_prompt.py">chapter_judge_prompt.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/chapter_judge_prompt.py">VS Code</a></div><div class="file"><a href="../../src/leaders_db/research/chapter_judge_worker.py">chapter_judge_worker.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/chapter_judge_worker.py">VS Code</a></div></div>
+        <div class="panel"><h4>Eight exact guides</h4><div class="file"><a href="../../docs/methodology/chapter-guides/1b-nuclear-existential-risk.md">1B · Nuclear / existential responsibility</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/2b-international-peace.md">2B · International peace</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/3b-domestic-safety.md">3B · Domestic safety</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/4b-political-freedom.md">4B · Political freedom</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/5b-economic-wellbeing.md">5B · Economic well-being</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/6b-social-wellbeing.md">6B · Social well-being</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/7b-integrity.md">7B · Integrity</a></div><div class="file"><a href="../../docs/methodology/chapter-guides/8b-effectiveness.md">8B · Effectiveness</a></div></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="scores"><div class="section-head"><div class="num">10</div><div><h3>Validate and persist X × 8 chapter results</h3><p class="summary">The judge output is schema-validated, cross-checked against the owned job, cohort, dossier evidence IDs and guide version, then persisted transactionally. The scientific output is one row per ruler/chapter/year, carrying much more than the numeric score.</p></div></div><div class="grid">
+        <div class="panel"><h4>Schema and persistence</h4><div class="file"><a href="../../src/leaders_db/research/chapter_judge_models.py">chapter_judge_models.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/chapter_judge_models.py">VS Code</a></div><p class="why">Validates score increments, null semantics, evidence references, lens sets, ranges and review reasons.</p><div class="file"><a href="../../src/leaders_db/research/chapter_score_store.py">chapter_score_store.py</a><a class="ide" href="#" data-editor-path="src/leaders_db/research/chapter_score_store.py">VS Code</a></div><p class="why">Persists the batch only while the worker owns a valid lease, then completes the job.</p></div>
+        <div class="panel"><h4>Result envelope</h4><ul><li><code>score_1_to_10</code> in half-point increments, or justified null</li><li><code>confidence_score</code> and <code>plausible_score_range</code></li><li>decisive positive, negative and contrary evidence IDs</li><li>baseline/constraints and ruler attribution</li><li>supported and missing/weak lenses</li><li>lower/higher anchor rejection</li><li>release-blocking manual-review type and reason</li><li>provider/model/usage run profile</li></ul><p><span class="status implemented">implemented</span> The database table is <code>chapter_scores</code>; completed batch JSON remains an immutable artifact.</p></div>
+      </div><a class="back" href="#flow">↑ Back to flow</a></section>
+
+      <section class="detail" id="inventory"><div class="section-head"><div class="num">Σ</div><div><h3>Comprehensive implementation and directive inventory</h3><p class="summary">This is the authoritative file index for the current review. It includes the active path, supporting infrastructure, directives, persistence, focused tests, and adjacent legacy surfaces that could affect or confuse the design. “Mandatory” means the present contract or normal execution fails without it; it does not mean the file can never be refactored.</p></div></div>
+        <div class="callout" style="margin-top:22px"><strong>Status rubric.</strong> <b>Mandatory</b>: required for correctness, execution, or the normative scientific contract. <b>Important</b>: material support, verification, observability, or explanation. <b>Nice-to-have</b>: useful convenience or non-critical documentation. <b>Might-be-redundant</b>: overlaps the active path or appears to be a superseded surface worth consolidation review. <b>Might-be-too-much</b>: valuable history or narrow infrastructure whose maintenance cost may exceed its current role.</div>
+        <div class="inventory-tools"><input id="inventory-search" type="search" placeholder="Filter by file, block, status, role, or explanation…"><select id="inventory-status"><option value="">All statuses</option><option>mandatory</option><option>important</option><option>nice-to-have</option><option>might-be-redundant</option><option>might-be-too-much</option></select><select id="inventory-block"><option value="">All blocks</option></select></div>
+        <p class="inventory-count" id="inventory-count"></p>
+        <div class="inventory-wrap"><table class="inventory"><thead><tr><th>Block</th><th>File</th><th>Status</th><th>Kind</th><th>Why it is here</th></tr></thead><tbody id="inventory-body"></tbody></table></div>
+        <p class="why" style="margin-top:14px"><strong>Boundary:</strong> generated dossiers, notebooks, event logs, processed datasets, database files, and individual raw-source bundles are runtime data, not implementation files, so they are described by location rather than listed one by one. General source adapters are upstream of this review and will be inventoried when we deepen block 5. Archived per-question guides are intentionally classified as design history rather than active instructions.</p>
+      </section>
+
+      <section class="detail" id="review-notes"><div class="section-head"><div class="num">!</div><div><h3>Design-review notes for our next pass</h3><p class="summary">These are the first seams worth inspecting together when we deepen this document.</p></div></div><div class="grid">
+        <div class="panel"><h4>Clear strengths</h4><ul><li>The run topology avoids <code>X × 80</code> duplicated research passes.</li><li>Identity, citations, periods and job ownership have hard validation boundaries.</li><li>Evidence is reusable many-to-many and separates research from judgment.</li><li>Comparative chapter judging gives every ruler a shared meter.</li><li>Missing evidence affects confidence and nullability, not ruler quality by default.</li></ul></div>
+        <div class="panel"><h4>Open review points</h4><p><span class="status gap">review gap</span> The methodology requires a final score/order auditor, but the current research package does not expose an equally obvious dedicated auditor worker/planner/store seam. We should verify whether this is manual review only or incomplete automation.</p><p><span class="status gap">review gap</span> “X rulers” is operationally represented by a hand-authored/frozen manifest or all eligible cases; cohort selection policy itself deserves a clearer product-level interface.</p><p><span class="status required">next depth</span> Add concrete schemas, table columns, artifact directory examples, prompt excerpts, failure/recovery state diagrams, and one end-to-end worked ruler.</p><p><span class="status required">viewer refinement — noted, not implemented</span> Default every top-level JSON item to collapsed. As we understand each artifact, add file-aware semantic views rather than relying only on a generic JSON tree. For <code>local-priors.json</code>, present each top-level item explicitly as one evidence lens, show its lens/question identity in the collapsed heading, and emphasize the facts found when expanded. The current generic viewer remains accepted for this priors review.</p></div>
+      </div></section>
+
+      <footer><strong>Document status:</strong> initial top-level map, based on repository state reviewed 2026-07-17. This is a living design-review artifact; later sections should preserve the distinction between normative methodology, current implementation and proposed changes.</footer>
+    </div>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.6/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
+<script>
+const inventoryText = String.raw`
+Cross-cutting|AGENTS.md|mandatory|directive|Repository-wide rules, required role chain, evidence boundaries, review and hygiene.
+Cross-cutting|docs/workplan.md|important|status|Current implementation state, active gates and superseded decisions.
+Cross-cutting|docs/requirements/top-level-requirements.md|mandatory|directive|Authoritative product and pipeline requirements.
+Cross-cutting|docs/requirements/core.md|important|directive|Tracked requirement baseline tied to implementation.
+Cross-cutting|docs/process/coding-guidelines.md|mandatory|directive|Implementation and review rules for every code-bearing change.
+Cross-cutting|docs/process/operational-hygiene.md|mandatory|directive|Cleanup, review and coherence requirements.
+Cross-cutting|docs/architecture/research-engine.md|important|architecture|Defines ruler-centric research and chapter-centric judging topology.
+Cross-cutting|docs/architecture/research-engine-implementation.md|important|architecture|Object, artifact, persistence and execution blueprint.
+Cross-cutting|docs/architecture/overview.md|important|architecture|Places ruler research within the wider Leaders DB system.
+Cross-cutting|docs/architecture/database-schema.md|important|architecture|Explains persistent tables; SQL migrations remain authoritative for execution.
+Cross-cutting|docs/architecture/local-data-store.md|important|directive|Defines allowed storage layers and artifact placement.
+Cross-cutting|configs/README.md|nice-to-have|documentation|Explains research configuration responsibilities and naming.
+Cross-cutting|src/leaders_db/research/__init__.py|might-be-redundant|package facade|Exports the older generic research API, not the main dossier worker surface.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/01-request-and-cohort.json|important|example|Representative request and cohort-selection reference for arrow 1→2.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/02-resolved-ruler-case.json|important|example|Resolved canonical ruler case and validated manifest membership for arrow 2→3.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/02-resolved-ruler-cohort-2023-top20.json|mandatory|current snapshot|Complete current 2023 population-top-20 identity handoff for arrow 2→3, including eligible and quarantined cases.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/03-readiness-report.json|important|example|Compact readiness-gate response for arrow 3→4.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/04-dossier-job-spec.json|important|example|Durable job creation contract for arrow 4→5.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/05-local-prior-package.json|important|example|Compact local-prior package shape for arrow 5→6.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/06-research-notebook-handoff.md|important|example|Permissive researcher-to-reviewer notebook shape for arrow 6→7.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/07-evidence-review-and-dossier.json|important|example|Review decision and strict dossier handoff for arrow 7→8.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/08-chapter-projection.json|important|example|One ruler's chapter-only judge projection for arrow 8→9.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/09-chapter-judgment-batch.json|important|example|Comparative judge batch handoff for arrow 9→10.
+Interfaces|docs/design-reviews/examples/ruler-analysis-interfaces/10-persisted-score-row.json|important|example|Logical persisted score view at the final boundary.
+1 Request|src/leaders_db/cli/_app.py|mandatory|entrypoint|Owns the root Typer application used by all research commands.
+1 Request|src/leaders_db/cli/commands_research.py|mandatory|entrypoint|Registers the research command tree and its subcommands.
+1 Request|src/leaders_db/cli/research_common.py|important|CLI support|Shared error and input helpers for research CLI commands.
+1 Request|src/leaders_db/cli/research_job_commands.py|mandatory|CLI|Plans dossier and chapter jobs and exposes ledger operations.
+1 Request|src/leaders_db/research/batch_manifest.py|mandatory|cohort schema|Validates frozen X-ruler manifests against resolved live identities.
+1 Request|configs/research-batches/2020-diverse-20.yaml|nice-to-have|example manifest|Reproducible historical smoke cohort and schema example.
+1 Request|configs/research-batches/2000-scale-pilot-5.yaml|nice-to-have|batch manifest|Current small 2000-scale pilot cohort.
+1 Request|configs/research-batches/2000-scale-20.yaml|nice-to-have|batch manifest|Current 2000-scale batch cohort.
+1 Request|configs/research-batches/2000-scale-extension-15.yaml|nice-to-have|batch manifest|Current 2000-scale extension cohort.
+1 Request|tests/research/test_batch_manifest.py|important|test|Protects frozen cohort schema, hashes and live-identity validation.
+2 Identity|src/leaders_db/identity/ruler_identity.py|mandatory|identity code|Builds resolved rulers, aliases, spells and ruler-year rows.
+2 Identity|src/leaders_db/identity/adjudications.py|mandatory|identity code|Selects and persists principal-ruler adjudication state.
+2 Identity|src/leaders_db/identity/coverage.py|important|identity QA|Reports missing, disputed, multiple and low-confidence ruler coverage.
+2 Identity|src/leaders_db/cli/commands_identity.py|important|CLI|Human-facing identity build, adjudication and inspection commands.
+2 Identity|src/leaders_db/db/migrations/0004_ruler_identity_adjudications.sql|mandatory|migration|Creates the adjudication persistence required by research eligibility.
+2 Identity|tests/test_identity_ruler_identity.py|important|test|Protects ruler identity and adjudication behavior used by cohort planning.
+3 Readiness|src/leaders_db/research/readiness.py|mandatory|preflight|Fails closed on tables, guides, skills, models, paths and identity eligibility.
+3 Readiness|src/leaders_db/cli/research_readiness_commands.py|mandatory|CLI|Exposes dossier and chapter-judge readiness checks.
+3 Readiness|src/leaders_db/research/model_profiles.py|mandatory|configuration code|Validates role-capable provider/model execution profiles.
+3 Readiness|src/leaders_db/research/research_workflow.py|mandatory|configuration code|Validates ordered chapters, review rounds and research-depth controls.
+3 Readiness|configs/research-models.yaml|mandatory|configuration|Selects providers/models and allowed roles without storing credentials.
+3 Readiness|configs/research-workflow.yaml|mandatory|configuration|Active chapter order and evidence-review workflow contract.
+3 Readiness|tests/research/test_research_readiness_profiles.py|important|test|Protects fail-closed preflight and profile compatibility.
+3 Readiness|tests/research/test_research_workflow.py|important|test|Protects workflow configuration semantics.
+4 Job planning|src/leaders_db/research/job_planner.py|mandatory|orchestration|Creates immutable dossier and chapter jobs plus dependencies.
+4 Job planning|src/leaders_db/research/job_ledger.py|mandatory|orchestration|Atomic claim, lease, fencing, checkpoint and transition contract.
+4 Job planning|src/leaders_db/research/_job_ledger_store.py|mandatory|persistence helper|Internal guarded job/event writes used by the ledger.
+4 Job planning|src/leaders_db/research/job_ledger_queries.py|important|query helper|Lists and inspects durable job state.
+4 Job planning|src/leaders_db/research/job_ledger_admin.py|important|admin helper|Audited retry, quarantine and invalidation operations.
+4 Job planning|src/leaders_db/research/queue_runner.py|important|supervisor|Bounded isolated workers, failure ceilings and queue draining.
+4 Job planning|src/leaders_db/cli/research_worker_commands.py|mandatory|CLI|Runs one job or a bounded queue and publishes terminal state.
+4 Job planning|src/leaders_db/db/migrations/0006_research_job_ledger.sql|mandatory|migration|Creates jobs, dependencies and events.
+4 Job planning|src/leaders_db/db/migrations/0007_research_job_lease_fencing.sql|mandatory|migration|Adds fencing needed to prevent stale worker publication.
+4 Job planning|tests/research/test_job_planner.py|important|test|Protects cohort planning, immutable scope and dependencies.
+4 Job planning|tests/research/test_job_ledger.py|important|test|Protects leases, retries, dependencies and terminal transitions.
+4 Job planning|tests/research/test_cli_job_ledger.py|important|test|Protects operator-facing ledger commands.
+4 Job planning|tests/research/test_queue_runner.py|important|test|Protects bounded supervisor and circuit-breaker behavior.
+5 Local priors|src/leaders_db/research/local_prior_slice.py|mandatory|prior builder|Builds per-lens provenance artifacts and checks research eligibility.
+5 Local priors|src/leaders_db/research/local_prior_package.py|mandatory|prior builder|Deduplicates facts into the compact ruler-level LF ledger.
+5 Local priors|src/leaders_db/research/local_prior_query.py|mandatory|query layer|Reads bounded structured evidence without arbitrary SQL.
+5 Local priors|src/leaders_db/research/local_prior_schema.py|mandatory|schema|Validates trusted local-prior artifacts and dispositions.
+5 Local priors|src/leaders_db/research/local_structured_prior.py|mandatory|routing|Maps structured fact families to methodology lenses and boundaries.
+5 Local priors|src/leaders_db/research/local_evidence_summary.py|important|prompt support|Compacts local evidence for safe model context.
+5 Local priors|src/leaders_db/cli/research_local_prior_commands.py|important|CLI|Exposes local-evidence and prior-building commands.
+5 Local priors|src/leaders_db/db/migrations/0002_normalized_observations.sql|mandatory|migration|Creates source-level normalized evidence queried by priors.
+5 Local priors|src/leaders_db/db/migrations/0005_country_year_facts.sql|mandatory|migration|Creates the preferred harmonized fact layer.
+5 Local priors|tests/research/test_cli_local_prior.py|important|test|Protects safe, bounded local-prior CLI behavior.
+5 Local priors|tests/research/test_local_prior_chapter_coverage.py|important|test|Protects 80-lens routing and interpretation boundaries.
+6 Research|.agents/skills/ruler-evidence-researcher/SKILL.md|mandatory|agent directive|Normative researcher role, workflow, evidence fields and boundaries.
+6 Research|.agents/skills/ruler-evidence-researcher/agents/openai.yaml|important|agent metadata|Declares the skill's OpenAI-facing metadata/default prompt surface.
+6 Research|docs/methodology/local-first-researcher-guide.md|mandatory|agent directive|Local-before-web research process and source treatment.
+6 Research|docs/methodology/ranking-evaluation-criteria.md|mandatory|question catalog|Defines all 1B–8B lens questions and conceptual target.
+6 Research|docs/methodology/source-confidence-registry.json|mandatory|evidence policy|Controls source confidence, allowed uses and caveats.
+6 Research|src/leaders_db/research/registry.py|mandatory|question registry|Executable registry for methodology IDs and their specifications.
+6 Research|src/leaders_db/research/dossier_notebook_prompt.py|mandatory|prompt builder|Creates the permissive all-chapter research instruction.
+6 Research|src/leaders_db/research/notebook_continuation.py|mandatory|continuation engine|Resumes the exact researcher thread against reviewed gaps.
+6 Research|src/leaders_db/research/codex_worker.py|mandatory|worker|Runs research, review, formatting, recovery and publication.
+6 Research|src/leaders_db/research/_codex_worker_setup.py|mandatory|worker helper|Prepares job scope, profiles, priors and attempt state.
+6 Research|src/leaders_db/research/_codex_worker_artifacts.py|mandatory|artifact helper|Owns trusted attempt paths, hashes and immutable artifact handling.
+6 Research|src/leaders_db/research/codex_worker_command.py|mandatory|execution adapter|Constructs safe non-interactive Codex start/resume commands.
+6 Research|src/leaders_db/research/parallel_api.py|important|search adapter|Supported external discovery client/wrapper integration.
+6 Research|src/leaders_db/cli/research_parallel_commands.py|important|CLI|Exposes the supported Parallel discovery command.
+6 Research|scripts/codex_mcp_namespace_proxy.py|important|compatibility|Normalizes custom-provider MCP search/fetch calls.
+6 Research|src/leaders_db/research/costing.py|important|cost audit|Normalizes provider usage and auditable cost estimates.
+6 Research|configs/research-pricing.yaml|important|configuration|Versioned price snapshot for comparable run economics.
+6 Research|tests/research/test_question_registry_ruler_quality.py|important|test|Protects the complete ruler-quality registry.
+6 Research|tests/research/test_question_registry_chapters_5_to_8.py|important|test|Extra registry coverage; may overlap the full registry test.
+6 Research|tests/research/test_question_registry.py|might-be-redundant|test|Generic registry coverage overlapping ruler-specific tests.
+6 Research|tests/research/test_codex_mcp_namespace_proxy.py|important|test|Protects provider-specific research-tool normalization.
+6 Research|tests/research/test_cli_parallel_api.py|important|test|Protects discovery wrapper inputs and outputs.
+6 Research|tests/research/test_costing.py|important|test|Protects usage/cost accounting.
+7 Review/format|src/leaders_db/research/evidence_review.py|mandatory|review code|Validates all selected chapters and selects recoverable gaps.
+7 Review/format|src/leaders_db/research/dossier_prompt.py|mandatory|formatter prompt|Converts reviewed notebook content to the strict dossier contract.
+7 Review/format|src/leaders_db/research/dossier_models.py|mandatory|schema|Defines evidence, mappings, coverage, priors and run profile.
+7 Review/format|tests/research/test_evidence_review.py|important|test|Protects review scope, gap logic and marginal-value behavior.
+7 Review/format|tests/research/test_dossier_evidence_auditability.py|mandatory|test|Protects evidence locator, canonical fact and deduplication integrity.
+7 Review/format|tests/research/test_research_recovery.py|important|test|Protects retry/recovery without duplicate paid work or unsafe publication.
+8 Judge planning|src/leaders_db/research/chapter_guides.py|mandatory|guide loader|Loads exact guide text, chapter IDs, rubric versions and hashes.
+8 Judge planning|src/leaders_db/research/chapter_projection.py|mandatory|projection|Builds compact source-bound judge inputs from full dossiers.
+8 Judge planning|tests/research/test_chapter_projection.py|important|test|Protects chapter isolation, reference validity and projection content.
+9 Judging|.agents/skills/ruler-chapter-judge/SKILL.md|mandatory|agent directive|Normative comparative judge role and boundaries.
+9 Judging|docs/methodology/cited-evaluation-calibration.md|mandatory|scoring directive|Shared score envelope, sparse-evidence rules and bias controls.
+9 Judging|docs/methodology/chapter-guides/readme.md|mandatory|guide index|Declares the eight active guides and superseded guide history.
+9 Judging|docs/methodology/chapter-guides/1b-nuclear-existential-risk.md|mandatory|chapter guide|Exact 1B evidence admissibility, anchors and scoring rules.
+9 Judging|docs/methodology/chapter-guides/2b-international-peace.md|mandatory|chapter guide|Exact 2B evidence admissibility, anchors and scoring rules.
+9 Judging|docs/methodology/chapter-guides/3b-domestic-safety.md|mandatory|chapter guide|Exact 3B evidence admissibility, anchors and scoring rules.
+9 Judging|docs/methodology/chapter-guides/4b-political-freedom.md|mandatory|chapter guide|Exact 4B evidence admissibility, anchors and scoring rules.
+9 Judging|docs/methodology/chapter-guides/5b-economic-wellbeing.md|mandatory|chapter guide|Exact 5B evidence admissibility, anchors and scoring rules.
+9 Judging|docs/methodology/chapter-guides/6b-social-wellbeing.md|mandatory|chapter guide|Exact 6B evidence admissibility, anchors and scoring rules.
+9 Judging|docs/methodology/chapter-guides/7b-integrity.md|mandatory|chapter guide|Exact 7B personal-integrity admissibility and scoring rules.
+9 Judging|docs/methodology/chapter-guides/8b-effectiveness.md|mandatory|chapter guide|Exact 8B promise-to-execution admissibility and scoring rules.
+9 Judging|src/leaders_db/research/chapter_judge_prompt.py|mandatory|prompt builder|Embeds the exact guide, cohort and authoritative projections.
+9 Judging|src/leaders_db/research/chapter_judge_worker.py|mandatory|worker|Executes and validates one comparative chapter batch.
+9 Judging|tests/research/test_chapter_judge_worker.py|mandatory|test|Protects comparative scope, semantics, recovery and evidence references.
+10 Scores|src/leaders_db/research/chapter_judge_models.py|mandatory|schema|Defines half-point scores, nulls, confidence, anchors and review flags.
+10 Scores|src/leaders_db/research/chapter_score_store.py|mandatory|persistence|Transactionally persists a valid owned batch and completes its job.
+10 Scores|src/leaders_db/db/migrations/0008_chapter_judgment_payload.sql|mandatory|migration|Adds chapter score payload and calibration columns.
+10 Scores|src/leaders_db/db/migrations/0003_research_results.sql|important|migration|Creates earlier answer/evidence tables still used for local context and compatibility.
+10 Scores|tests/research/test_cited_calibration.py|might-be-redundant|test|Protects the earlier cited-evaluation calibration path, adjacent to chapter judging.
+Operations|src/leaders_db/research/watchdog.py|important|validation|Validates shard progress/output and records operational failures.
+Operations|src/leaders_db/cli/research_watchdog_commands.py|important|CLI|Exposes shard-output validation for operators.
+Operations|tests/research/test_watchdog.py|important|test|Protects progress and output validation.
+Design history|docs/reviews/2026-07-12-eight-chapter-redesign.md|important|review|Explains the shift from per-question scoring to eight chapters.
+Design history|docs/reviews/2026-07-12-codex-dossier-worker-pilot.md|nice-to-have|review|Early executable dossier-worker findings.
+Design history|docs/reviews/2026-07-13-all80-ruler-model-benchmark.md|important|review|Tests the all-80-lens researcher design.
+Design history|docs/reviews/2026-07-13-eight-chapter-luna-researcher-smoke.md|important|review|Evidence on full-chapter researcher behavior.
+Design history|docs/reviews/2026-07-13-executable-chapter-judge.md|important|review|Records the executable comparative judge design.
+Design history|docs/reviews/2026-07-13-full-ruler-luna-depth-loop.md|important|review|Documents iterative evidence-depth behavior.
+Design history|docs/reviews/2026-07-13-gap-driven-discovery-continuation.md|important|review|Explains reviewer-driven continuation.
+Design history|docs/reviews/2026-07-14-production-shaped-luna-and-judge-smoke.md|important|acceptance review|Full cohort/judge smoke findings and fixes.
+Design history|docs/reviews/2026-07-14-methodology-gate-2020-diverse-20.md|mandatory|acceptance review|Documents semantic blockers that invalidate earlier scores.
+Design history|docs/reviews/2026-07-14-v3-judge-only-acceptance.md|mandatory|acceptance review|Latest recorded judge acceptance gate and remaining blockers.
+Legacy adjacent|src/leaders_db/research/acquisition.py|might-be-redundant|legacy engine|Generic acquisition seam predating the dossier researcher.
+Legacy adjacent|src/leaders_db/research/artifacts.py|might-be-redundant|legacy engine|Generic research-run artifact writer distinct from dossier artifacts.
+Legacy adjacent|src/leaders_db/research/models.py|might-be-redundant|legacy engine|Generic research models coexist with dedicated dossier/judge schemas.
+Legacy adjacent|src/leaders_db/research/planner.py|might-be-redundant|legacy engine|Generic question planner is not the dossier job planner.
+Legacy adjacent|src/leaders_db/research/dataset_builder.py|might-be-redundant|legacy engine|Builds generic analytical datasets, not judge projections.
+Legacy adjacent|src/leaders_db/research/runner.py|might-be-redundant|legacy engine|Runs one generic question rather than one ruler dossier.
+Legacy adjacent|src/leaders_db/research/slice_runner.py|might-be-redundant|legacy engine|Older research slice execution surface.
+Legacy adjacent|src/leaders_db/research/sql_repository.py|might-be-redundant|legacy engine|Generic evidence repository alongside local-prior queries.
+Legacy adjacent|src/leaders_db/research/results_store.py|might-be-redundant|legacy engine|Persists generic answers rather than chapter score batches.
+Legacy adjacent|src/leaders_db/research/cited_models.py|might-be-redundant|legacy cited path|Earlier per-evaluation schema overlaps dossier/judge contracts.
+Legacy adjacent|src/leaders_db/research/cited_evaluations.py|might-be-redundant|legacy cited path|Earlier cited evaluation API retained for compatibility.
+Legacy adjacent|src/leaders_db/research/cited_calibration.py|might-be-redundant|legacy cited path|Earlier per-evaluation calibration validator.
+Legacy adjacent|src/leaders_db/research/cited_persistence.py|might-be-redundant|legacy cited path|Earlier cited result persistence path.
+Legacy adjacent|src/leaders_db/research/cited_templates.py|might-be-redundant|legacy cited path|Earlier strict evaluation template builder.
+Legacy adjacent|src/leaders_db/research/effectiveness_8b.py|might-be-redundant|legacy prototype|Single-question/8B prototype superseded by eight-chapter judging.
+Legacy adjacent|src/leaders_db/research/question_2_1.py|might-be-too-much|legacy prototype|Narrow question-specific implementation conflicts with current reusable topology.
+Legacy adjacent|src/leaders_db/research/country_year_fact_answers.py|nice-to-have|context builder|Persists structured fact answers that may enrich local context.
+Legacy adjacent|src/leaders_db/cli/research_answer_commands.py|nice-to-have|CLI|Operates generic/local fact answer surfaces outside the core run.
+Legacy adjacent|src/leaders_db/cli/research_cited_commands.py|might-be-redundant|CLI|Exposes earlier cited-evaluation persistence alongside the new job path.
+Legacy adjacent|tests/research/test_cli_research.py|might-be-redundant|test|Protects generic research CLI rather than the dossier workflow.
+Legacy adjacent|tests/research/test_cli_research_cited.py|might-be-redundant|test|Protects earlier cited schema/template commands.
+Legacy adjacent|tests/research/test_cli_research_persist_cited.py|might-be-redundant|test|Protects earlier cited persistence path.
+Legacy adjacent|tests/research/test_cited_evaluations.py|might-be-redundant|test|Protects earlier cited evaluation model.
+Legacy adjacent|tests/research/test_effectiveness_8b.py|might-be-redundant|test|Protects superseded single-chapter prototype semantics.
+Legacy adjacent|tests/research/test_acquisition_planning.py|nice-to-have|test|Generic acquisition planning remains useful but is not core execution.
+Legacy adjacent|tests/research/test_runner_artifacts.py|might-be-redundant|test|Tests generic runner artifacts rather than dossier artifacts.
+Legacy adjacent|tests/research/test_scope_expansion.py|nice-to-have|test|Generic planning infrastructure test.
+Legacy adjacent|tests/research/test_sql_repository.py|nice-to-have|test|Generic evidence repository verification.
+Legacy adjacent|tests/research/test_question_classification.py|nice-to-have|test|Generic question classification, not required by explicit batch requests.
+Legacy adjacent|tests/research/test_unsupported_question.py|nice-to-have|test|Protects generic planner refusal behavior.
+Archive|docs/archive/methodology/per-question-guides-2026-07-12/|might-be-too-much|archived directory|Superseded question-by-question guides; useful only for design archaeology.
+`;
+
+const rows = inventoryText.trim().split('\n').map(line => {
+  const [block,path,status,kind,why] = line.split('|');
+  return {block,path,status,kind,why};
+});
+const body = document.querySelector('#inventory-body');
+const search = document.querySelector('#inventory-search');
+const statusSelect = document.querySelector('#inventory-status');
+const blockSelect = document.querySelector('#inventory-block');
+const count = document.querySelector('#inventory-count');
+const blocks = [...new Set(rows.map(row => row.block))];
+for (const block of blocks) blockSelect.add(new Option(block, block));
+const esc = value => value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+function renderInventory() {
+  const query = search.value.trim().toLowerCase();
+  const visible = rows.filter(row => (!statusSelect.value || row.status === statusSelect.value) && (!blockSelect.value || row.block === blockSelect.value) && (!query || Object.values(row).join(' ').toLowerCase().includes(query)));
+  body.innerHTML = visible.map(row => {
+    const relative = row.path.endsWith('/') ? `../../${row.path}` : `../../${row.path}`;
+    const ide = row.path.endsWith('/') ? '' : `<a class="ide" href="#" data-editor-path="${esc(row.path)}">VS Code</a>`;
+    return `<tr><td class="block">${esc(row.block)}</td><td class="path"><a href="${esc(relative)}">${esc(row.path)}</a> ${ide}</td><td><span class="status s-${esc(row.status)}">${esc(row.status)}</span></td><td>${esc(row.kind)}</td><td>${esc(row.why)}</td></tr>`;
+  }).join('');
+  count.textContent = `${visible.length} of ${rows.length} inventoried entries shown`;
+}
+search.addEventListener('input', renderInventory);
+statusSelect.addEventListener('change', renderInventory);
+blockSelect.addEventListener('change', renderInventory);
+renderInventory();
+</script>
+<script src="assets/repo-viewer.js"></script>
+</body>
+</html>

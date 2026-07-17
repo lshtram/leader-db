@@ -141,6 +141,30 @@ def test_normalizer_does_not_merge_case_sensitive_url_paths() -> None:
     assert len(normalized["evidence"]) == 2
 
 
+def test_normalizer_replaces_reused_key_with_distinct_source_fact_key() -> None:
+    first = _evidence() | {
+        "canonical_fact_key": "shared-key",
+        "source_locator": "PDF p. 4",
+    }
+    second = first | {
+        "evidence_id": "E002",
+        "source_locator": "HTML section 2",
+        "claim": "A materially different claim from the same source.",
+    }
+
+    normalized = normalize_dossier_candidate(
+        _dossier((first, second)), methodology_ids=("1B.1",)
+    )
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert [item.canonical_fact_key for item in dossier.evidence] == [
+        "shared-key",
+        "https://example.test/report.pdf|html section 2|"
+        "a materially different claim from the same source.",
+    ]
+    assert any("source fact key" in item for item in dossier.normalization_warnings)
+
+
 def test_normalizer_retains_stronger_duplicate_and_unions_contrary_evidence() -> None:
     first = _evidence() | {
         "source_locator": "PDF p. 4",
@@ -173,7 +197,7 @@ def test_normalizer_retains_stronger_duplicate_and_unions_contrary_evidence() ->
     )
 
 
-def test_normalizer_drops_unknown_mapping_before_strict_validation() -> None:
+def test_normalizer_infers_context_mapping_from_explicit_coverage_reference() -> None:
     evidence = _evidence() | {
         "source_locator": "PDF p. 4",
         "canonical_fact_key": "source|p4|claim",
@@ -195,11 +219,74 @@ def test_normalizer_drops_unknown_mapping_before_strict_validation() -> None:
     normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
     dossier = RulerEvidenceDossier.model_validate(normalized)
 
+    assert len(dossier.mappings) == 1
     assert dossier.mappings[0].evidence_id == "E001"
+    assert dossier.mappings[0].methodology_id == "1B.1"
+    assert dossier.mappings[0].relation == "context"
+    assert dossier.coverage[0].status == "covered"
+    assert dossier.coverage[0].evidence_ids == ("E001",)
     assert any(
-        "unknown evidence or question" in item
+        "mappings were inferred from explicit coverage references" in item
         for item in dossier.normalization_warnings
     )
+
+
+def test_mapping_is_authoritative_for_coverage_and_repairs_false_missingness() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    payload["mappings"] = [
+        {
+            "evidence_id": "E001",
+            "methodology_id": "1B.1",
+            "relation": "supports",
+            "relevance": "The retained evidence directly informs this lens.",
+        }
+    ]
+    payload["coverage"][0] = {
+        "methodology_id": "1B.1",
+        "status": "no_evidence_found",
+        "evidence_ids": [],
+        "reason": "The formatter omitted the evidence reference.",
+    }
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+    coverage = normalized["coverage"][0]
+
+    assert coverage["status"] == "partially_covered"
+    assert coverage["evidence_ids"] == ["E001"]
+
+
+def test_missing_coverage_row_becomes_blocked_not_no_evidence() -> None:
+    payload = _dossier(())
+    payload["coverage"] = []
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+
+    assert normalized["coverage"] == [
+        {
+            "methodology_id": "1B.1",
+            "status": "research_blocked",
+            "evidence_ids": [],
+            "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        }
+    ]
+
+
+@pytest.mark.parametrize(
+    "placeholder",
+    ["", "No evidence found", "No explicit coverage explanation supplied."],
+)
+def test_unexplained_no_evidence_becomes_research_blocked(placeholder: str) -> None:
+    payload = _dossier(())
+    payload["coverage"][0]["reason"] = placeholder
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+
+    assert normalized["coverage"][0]["status"] == "research_blocked"
+    assert "search-specific" in normalized["coverage"][0]["reason"]
 
 
 def test_multi_chapter_dossier_cannot_publish_with_zero_evidence() -> None:

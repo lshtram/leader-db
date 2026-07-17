@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from hashlib import sha256
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict
@@ -117,6 +118,34 @@ def plan_dossier_jobs(
         batch_manifest_sha256=(
             manifest.resolved_content_sha256 if manifest is not None else None
         ),
+        included_ruler_year_ids={
+            case.ruler_year_id for case in cases if case.ruler_year_id is not None
+        },
+    )
+    existing_jobs = tuple(
+        job
+        for job in list_jobs(engine, run_key=run_key, job_type="dossier_researcher")
+        if job["target_year"] == year
+    )
+    existing_hashes = {
+        job["input"].get("batch_manifest_sha256") for job in existing_jobs
+    }
+    expanding_manifest = bool(existing_jobs) and existing_hashes != {
+        manifest.resolved_content_sha256 if manifest is not None else None
+    }
+    existing_ruler_year_ids = {
+        int(job["input"]["ruler_year_id"])
+        for job in existing_jobs
+        if job["input"].get("ruler_year_id") is not None
+    }
+    cases_to_plan = (
+        tuple(
+            case
+            for case in cases
+            if case.ruler_year_id not in existing_ruler_year_ids
+        )
+        if expanding_manifest
+        else cases
     )
     specs = tuple(
         _dossier_spec(
@@ -137,7 +166,7 @@ def plan_dossier_jobs(
                 manifest.resolved_content_sha256 if manifest else None
             ),
         )
-        for case in cases
+        for case in cases_to_plan
     )
     result = create_jobs(engine, specs)
     eligible = sum(spec.status == "pending" for spec in specs)
@@ -267,13 +296,8 @@ def plan_chapter_judge_job(
     cohort_hashes = {
         job["input"].get("batch_manifest_sha256") for job in scoped_dossier_jobs
     }
-    if len(cohort_hashes) != 1:
-        raise ValueError("chapter judge dossier cohort mixes batch manifests")
-    cohort_hash = next(iter(cohort_hashes))
     cohort_ids = {job["input"].get("batch_id") for job in scoped_dossier_jobs}
-    if len(cohort_ids) != 1:
-        raise ValueError("chapter judge dossier cohort mixes batch identifiers")
-    cohort_id = next(iter(cohort_ids))
+    cohort_hash, cohort_id = _judge_cohort_identity(cohort_hashes, cohort_ids)
     dossier_jobs = tuple(
         job
         for job in scoped_dossier_jobs
@@ -335,6 +359,19 @@ def plan_chapter_judge_job(
     )
 
 
+def _judge_cohort_identity(
+    manifest_hashes: set[str | None], batch_ids: set[str | None]
+) -> tuple[str | None, str | None]:
+    """Represent a single manifest or its validated append-only lineage."""
+
+    if len(manifest_hashes) == 1 and len(batch_ids) == 1:
+        return next(iter(manifest_hashes)), next(iter(batch_ids))
+    hashes = sorted(value or "unmanifested" for value in manifest_hashes)
+    identifiers = sorted(value or "unmanifested" for value in batch_ids)
+    lineage_hash = sha256("|".join(hashes).encode("utf-8")).hexdigest()
+    return lineage_hash, "append-only:" + "+".join(identifiers)
+
+
 def plan_all_chapter_judge_jobs(
     engine: Engine,
     *,
@@ -378,8 +415,9 @@ def _validate_dossier_cohort_identity(
     run_key: str,
     year: int,
     batch_manifest_sha256: str | None,
+    included_ruler_year_ids: set[int],
 ) -> None:
-    """Prevent one run key from silently accumulating multiple ruler cohorts."""
+    """Permit only explicit append-only expansion of a frozen ruler cohort."""
 
     existing = tuple(
         job
@@ -387,7 +425,16 @@ def _validate_dossier_cohort_identity(
         if job["target_year"] == year
     )
     hashes = {job["input"].get("batch_manifest_sha256") for job in existing}
-    if hashes and hashes != {batch_manifest_sha256}:
+    existing_ids = {
+        int(job["input"]["ruler_year_id"])
+        for job in existing
+        if job["input"].get("ruler_year_id") is not None
+    }
+    if (
+        hashes
+        and hashes != {batch_manifest_sha256}
+        and not existing_ids.issubset(included_ruler_year_ids)
+    ):
         raise ValueError(
             "run_key/year already belongs to a different dossier batch manifest"
         )

@@ -328,7 +328,7 @@ def _read_candidate(path: Path) -> dict[str, Any]:
     return candidate
 
 
-def _prepare_batch(
+def _prepare_batch(  # noqa: PLR0912
     candidate: dict[str, Any],
     *,
     job: dict[str, Any],
@@ -346,6 +346,26 @@ def _prepare_batch(
     raw_evaluations = candidate.get("evaluations")
     if not isinstance(raw_evaluations, list):
         raise ValueError("chapter batch evaluations must be a list")
+    deduplicated: list[dict[str, Any]] = []
+    emitted_by_key: dict[str, dict[str, Any]] = {}
+    for evaluation in raw_evaluations:
+        if not isinstance(evaluation, dict):
+            raise ValueError("chapter evaluation must be an object")
+        dossier_key = str(evaluation.get("dossier_job_key", ""))
+        prior = emitted_by_key.get(dossier_key)
+        if prior is not None:
+            comparable_fields = (
+                "score_1_to_10",
+                "manual_review_required",
+                "insufficient_evidence_reason",
+            )
+            if any(prior.get(field) != evaluation.get(field) for field in comparable_fields):
+                raise ValueError("chapter evaluation has conflicting duplicate judgments")
+            continue
+        deduplicated.append(evaluation)
+        emitted_by_key[dossier_key] = evaluation
+    raw_evaluations = deduplicated
+    candidate["evaluations"] = raw_evaluations
     seen: set[str] = set()
     for evaluation in raw_evaluations:
         if not isinstance(evaluation, dict):

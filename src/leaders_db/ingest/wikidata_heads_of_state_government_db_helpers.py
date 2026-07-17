@@ -199,7 +199,8 @@ def _build_observation_rows(
     rows: list[SourceObservation] = []
     for _, raw_row in df.iterrows():
         office_qid = str(raw_row.get("office_qid") or "").strip()
-        spec = specs_by_office.get(office_qid)
+        role_qid = str(raw_row.get("role_qid") or office_qid).strip()
+        spec = specs_by_office.get(role_qid)
         if spec is None:
             # Binding for an office QID not in the catalog. The
             # SPARQL query is built from the catalog's office_qids,

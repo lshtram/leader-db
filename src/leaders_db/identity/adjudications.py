@@ -139,6 +139,8 @@ def build_ruler_identity_adjudications(
                     RulerIdentityAdjudication.country_year_id == country_year.id
                 )
             )
+            if existing is not None and existing.review_status == "confirmed_locked":
+                continue
             if existing is None:
                 session.add(
                     RulerIdentityAdjudication(
@@ -365,7 +367,7 @@ def _candidate_payload(row: RulerYear, spell: RulerSpell) -> dict[str, Any]:
     return {
         "ruler_year_id": row.id,
         "leader_id": row.leader_id,
-        "leader_name": row.system_selected_leader_name,
+        "leader_name": row.leader.full_name,
         "match_status": row.match_status,
         "review_status": row.review_status,
         "confidence_score": row.confidence_score,
@@ -396,8 +398,10 @@ def _second_pass_year_coverage_decision(  # noqa: PLR0911
         return None
     if _has_hard_review_flag(ruler_rows):
         return None
+    actual_rows = [(row, spell) for row, spell in ruler_rows if spell.is_actual_ruler]
+    eligible_rows = actual_rows or ruler_rows
     by_leader: dict[int, tuple[RulerYear, int]] = {}
-    for row, spell in ruler_rows:
+    for row, spell in eligible_rows:
         days = _days_in_year(spell, year)
         existing = by_leader.get(row.leader_id)
         if existing is None or days > existing[1]:
@@ -410,7 +414,7 @@ def _second_pass_year_coverage_decision(  # noqa: PLR0911
     runner_up_days = ordered[1][1]
     days_in_year = _year_day_count(year)
     selected_ratio = selected_days / days_in_year
-    total_distinct_days = _distinct_covered_days(ruler_rows, year)
+    total_distinct_days = _distinct_covered_days(eligible_rows, year)
     if total_distinct_days / days_in_year <= MIN_RELIABLE_YEAR_COVERAGE_RATIO:
         return None
     if selected_days == runner_up_days:

@@ -1,0 +1,45 @@
+{
+  "example_kind": "CompactLocalPriorPackage_excerpt",
+  "schema_version": "ruler_local_prior_package_v1",
+  "source_prior_count": "80 for a full 1B-8B run",
+  "unique_fact_count": "computed after deduplication",
+  "status_counts": {
+    "evidence_found": "count",
+    "no_evidence_found": "count"
+  },
+  "methodology_statuses": {
+    "1B.1": "no_evidence_found",
+    "2B.1": "evidence_found",
+    "4B.2": "evidence_found"
+  },
+  "methodology_dispositions": {
+    "1B.1": {"status": "no_evidence_found", "reason_id": "R001", "instruction_set_id": "I001"}
+  },
+  "facts": [
+    {
+      "fact_id": "LF001",
+      "locator": "local-prior:2B.1",
+      "year": 2000,
+      "field_key": "ucdp_state_based_conflict_events",
+      "label": "State-based conflict events",
+      "value": 0,
+      "value_type": "integer",
+      "source_slugs": ["ucdp"],
+      "source_observation_ids": ["example-observation-id"],
+      "confidence": 90,
+      "warnings": [],
+      "candidate_methodology_ids": ["2B.1", "2B.2"],
+      "chapter_ids": ["2B"]
+    }
+  ],
+  "chapters": [
+    {
+      "chapter_id": "2B",
+      "methodology_ids": ["2B.1", "2B.2", "...", "2B.10"],
+      "status_counts": {"evidence_found": 10},
+      "fact_ids": ["LF001", "..."],
+      "mapping_notes": ["Country exposure is context; establish ruler role separately."]
+    }
+  ],
+  "note": "Shape-only tracked excerpt; counts and repeated methodology dispositions, facts, and chapter views are omitted. Candidate mappings are routing hints, not proof."
+}

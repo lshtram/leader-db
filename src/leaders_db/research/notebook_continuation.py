@@ -232,6 +232,7 @@ def review_and_resume_notebook_if_needed(
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
             )
+        _require_terminal_review(final_report)
     return NotebookContinuationResult(
         checkpoint=current,
         qa_reviewed=reviewed,
@@ -248,6 +249,21 @@ def _initial_expected_review_ids(job: dict[str, Any]) -> tuple[str, ...]:
             for methodology_id in job["input"]["question_ids"]
         )
     )
+
+
+def _require_terminal_review(report: EvidenceReviewReport) -> None:
+    """Block formatting when the final reviewer still requests research."""
+
+    if report.needs_continuation:
+        raise ValueError("final evidence review still requires substantive research")
+
+
+def _is_terminal_review_round(job: dict[str, Any], round_number: int) -> bool:
+    """Identify the review after all configured continuation rounds."""
+
+    payload = job.get("input", {}).get("research_workflow")
+    workflow = ResearchWorkflow.model_validate(payload) if payload is not None else None
+    return workflow is not None and round_number > workflow.max_review_rounds
 
 
 def _should_use_supervisor_takeover(
@@ -297,7 +313,12 @@ def _run_evidence_review(
         json.dumps(evidence_review_json_schema(), indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    prompt = build_evidence_review_prompt(job=job, notebook=notebook, qa=qa)
+    prompt = build_evidence_review_prompt(
+        job=job,
+        notebook=notebook,
+        qa=qa,
+        terminal=_is_terminal_review_round(job, round_number),
+    )
     (attempt.trusted_dir / f"evidence-review-{suffix}.prompt.txt").write_text(
         prompt, encoding="utf-8"
     )
@@ -367,7 +388,12 @@ def _repair_evidence_review_scope(
         encoding="utf-8",
     )
     prompt = (
-        build_evidence_review_prompt(job=job, notebook=notebook, qa=qa)
+        build_evidence_review_prompt(
+            job=job,
+            notebook=notebook,
+            qa=qa,
+            terminal=_is_terminal_review_round(job, round_number),
+        )
         + "\n\nYour prior review omitted or expanded immutable chapter scope. "
         + "Return exactly one chapter_reviews row for every chapter in this list: "
         + ", ".join(expected_chapter_ids)
@@ -507,6 +533,9 @@ def _resume_researcher(
         f"{report.model_dump_json(indent=2)}\n\n"
         f"--- RESEARCH CONTINUATION ROUND {round_number} ---\n\n{continuation}"
     )
+    notebook = _append_current_ledger_manifest(
+        notebook, attempt, source_attempt_dir=output_path.parent
+    )
     notebook_path = attempt.trusted_dir / f"research-notebook-{suffix}.md"
     notebook_path.write_text(notebook, encoding="utf-8")
     notebook_hash = sha256(notebook_path.read_bytes()).hexdigest()
@@ -569,11 +598,27 @@ def _run_supervisor_takeover(
     }
     prompt = f"""You are taking over an incomplete ruler-period evidence research run.
 
-Use direct iterative internet search. Repair the selected recoverable gaps and append
-defensible source-claim units with precise locators, source summaries, period fit,
-ruler attribution, contrary evidence, and chapter/lens links. Preserve usable evidence
-from the accumulated notebook. Do not score the ruler. Return a permissive research
-handoff, not strict JSON. Do not merely describe what should be researched: perform it.
+Work through every selected chapter one at a time. For each chapter, search broadly,
+open the promising underlying pages or reports, then run targeted and contrary searches
+until the recoverable tasks in the review have actually been attempted. Do not spend the
+whole pass on the first or weakest chapter. Five to twenty defensible source-claim units
+per chapter is the normal goal, but report an honest shortfall when the evidence is not
+available. A single source may yield several atomic units when it contains materially
+different events, findings, decisions, or outcomes.
+
+Append defensible source-claim units with precise locators, source summaries, period fit,
+ruler attribution, contrary evidence, and chapter/lens links. Attribution may be direct,
+authority-based, or explicitly limited: do not demand proof of a personal order when a
+ruler's formal authority, documented program, or responsibility for national policy is
+the relevant fact. Persistent earlier facts such as assets, conflicts, institutional
+changes, or inherited policies may be used when the notebook explains why they remained
+relevant during the target period; do not mislabel them as target-year events.
+
+Preserve usable evidence from the accumulated notebook. Do not score the ruler. Return a
+permissive research handoff, not strict JSON. Do not merely describe what should be
+researched: perform it.
+Update `research-ledger-manifest.json` whenever you add, reject, or change the
+disposition of a ledger item.
 
 Immutable ruler-period:
 {json.dumps(identity, indent=2)}
@@ -643,6 +688,9 @@ Accumulated notebook:
         f"{checkpoint[1]}\n\n--- EVIDENCE REVIEW ROUND {round_number} ---\n\n"
         f"{report.model_dump_json(indent=2)}\n\n"
         f"--- SUPERVISOR RESEARCH TAKEOVER ROUND {round_number} ---\n\n{continuation}"
+    )
+    notebook = _append_current_ledger_manifest(
+        notebook, attempt, source_attempt_dir=output_path.parent
     )
     notebook_path = attempt.trusted_dir / f"research-notebook-{suffix}.md"
     notebook_path.write_text(notebook, encoding="utf-8")
@@ -808,6 +856,9 @@ def _rehydrate_completed_continuation(
         f"{report.model_dump_json(indent=2)}\n\n"
         f"--- RESEARCH CONTINUATION ROUND {round_number} ---\n\n{continuation}"
     )
+    notebook = _append_current_ledger_manifest(
+        notebook, attempt, source_attempt_dir=output_path.parent
+    )
     suffix = f"round-{round_number:02d}"
     notebook_path = attempt.trusted_dir / f"research-notebook-{suffix}.md"
     notebook_path.write_text(notebook, encoding="utf-8")
@@ -841,6 +892,8 @@ def _has_indeterminate_review(attempt: WorkerAttempt, round_number: int) -> bool
     suffix = f"round-{round_number:02d}"
     for directory in attempt.trusted_dir.parent.glob("*"):
         if not (directory / f"evidence-review-{suffix}.starting.json").is_file():
+            continue
+        if (directory / f"evidence-review-{suffix}.aborted.json").is_file():
             continue
         output = directory / f"evidence-review-{suffix}.json"
         events = directory / f"evidence-review-{suffix}.events.jsonl"
@@ -932,14 +985,96 @@ def _build_resume_prompt(report: EvidenceReviewReport, *, round_number: int) -> 
 
 The independent evidence reviewer identified the chapters and gaps below. Search the
 internet directly and iteratively for every selected chapter. Follow event-specific
-and source-specific leads; do not rely on one omnibus query. Add traceable source-claim
+and source-specific leads; do not rely on one omnibus query or apply recent-news
+filters to historical research. Expand the candidate pool with broad, archive,
+source-family, adverse/contrary, and local-language queries. Then open or fetch the
+promising underlying sources and extract precise locators. Add traceable source-claim
 units and summaries to the existing evidence register, preserve contrary evidence and
 attribution limits, and explain when a gap cannot be improved or the chapter is
 saturated. Work only on the immutable ruler-period and do not score.
+Update `research-ledger-manifest.json` whenever you add, reject, or change the
+disposition of a ledger item.
 
 Reviewer brief:
 {report.model_dump_json(indent=2)}
 """
+
+
+def _append_current_ledger_manifest(
+    notebook: str,
+    attempt: WorkerAttempt,
+    *,
+    source_attempt_dir: Path | None = None,
+) -> str:
+    """Append the current accounting index after a continuation changes the ledger."""
+
+    from .codex_worker import (
+        WorkerOutputError,
+        _load_research_ledger_manifest,
+        _recover_markdown_ledger_entries,
+    )
+
+    manifest_path = (source_attempt_dir or attempt.attempt_dir) / (
+        "research-ledger-manifest.json"
+    )
+    try:
+        manifest = (
+            _load_research_ledger_manifest(manifest_path)
+            if manifest_path.is_file()
+            else {"schema_version": "ruler_research_ledger_manifest_v1", "entries": []}
+        )
+    except WorkerOutputError:
+        manifest = {"schema_version": "ruler_research_ledger_manifest_v1", "entries": []}
+    recovered_entries = _recover_markdown_ledger_entries(notebook)
+    entries_by_id: dict[str, dict[str, Any]] = {
+        str(entry["provisional_id"]): entry for entry in manifest.get("entries", [])
+    }
+    ids_by_key = {
+        str(entry["canonical_fact_key"]): provisional_id
+        for provisional_id, entry in entries_by_id.items()
+    }
+    for entry in recovered_entries:
+        normalized_entry = dict(entry)
+        provisional_id = str(normalized_entry["provisional_id"])
+        canonical_key = str(normalized_entry["canonical_fact_key"])
+        prior = entries_by_id.get(provisional_id)
+        if prior is not None and prior["canonical_fact_key"] != canonical_key:
+            provisional_id = _next_available_provisional_id(
+                provisional_id, entries_by_id
+            )
+            normalized_entry["provisional_id"] = provisional_id
+        existing_id = ids_by_key.get(canonical_key)
+        if existing_id is not None and existing_id != provisional_id:
+            continue
+        entries_by_id[provisional_id] = normalized_entry
+        ids_by_key[canonical_key] = provisional_id
+    if not entries_by_id:
+        return notebook
+    manifest["entries"] = list(entries_by_id.values())
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    current_manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
+    if manifest_path != current_manifest_path:
+        current_manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
+        )
+    return (
+        notebook
+        + "\n\n--- RESEARCH LEDGER MANIFEST ---\n\n"
+        + json.dumps(manifest, indent=2, sort_keys=True)
+    )
+
+
+def _next_available_provisional_id(
+    base_id: str, entries_by_id: dict[str, dict[str, Any]]
+) -> str:
+    """Deterministically disambiguate a researcher-reused provisional ID."""
+
+    suffix = 2
+    while f"{base_id}-{suffix}" in entries_by_id:
+        suffix += 1
+    return f"{base_id}-{suffix}"
 
 
 __all__ = ["NotebookContinuationResult", "review_and_resume_notebook_if_needed"]

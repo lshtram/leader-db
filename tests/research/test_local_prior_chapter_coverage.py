@@ -234,19 +234,22 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert '"unique_fact_count": 1' in prompt
     assert '"candidate_methodology_ids"' in prompt
     assert "local-prior:5B.1" in prompt
-    assert "You do not need to read any local\ninstruction or data file" in prompt
+    assert "Do not read\nadditional local files during this worker run" in prompt
     assert "Do not call image or image-inspection tools" in prompt
     assert "request elevated permissions" in prompt
-    assert "put the complete handoff\n  in the final response" in prompt
+    assert "put the complete handoff in the final response" in prompt
     assert "Required methodology (fully inlined" in prompt
-    assert "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md" in (prompt)
-    assert "Build one durable evidence dossier per ruler-period" in prompt
-    assert "## Required methodology: docs/methodology/local-first-researcher-guide.md" in (prompt)
-    assert "Every citation must include `source_confidence`" in prompt
-    assert "## Required methodology: docs/methodology/ranking-evaluation-criteria.md" in (prompt)
-    assert "The client/customer 2023 matrix is intentionally absent" in prompt
+    assert (
+        "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md"
+        not in prompt
+    )
+    assert "## Required methodology: docs/methodology/local-first-researcher-guide.md" not in prompt
+    assert "## Required methodology: docs/methodology/ranking-evaluation-criteria.md" not in prompt
     assert "## Required methodology: docs/methodology/source-confidence-registry.json" in (prompt)
     assert '"final_evidence_use_values"' in prompt
+    assert "build a lightweight\ncandidate pool" in prompt
+    assert "not a search-results ceiling" in prompt
+    assert "Never request a recency or recent-news filter" in prompt
 
     formatter_prompt = build_dossier_prompt(
         job,
@@ -254,7 +257,6 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         worker_output_dir=tmp_path,
         local_priors=priors,
         research_notebook="Research handoff.",
-        evidence_preservation_floors={"2B": 12},
     )
     assert formatter_prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
     assert '"methodology_statuses"' in formatter_prompt
@@ -268,18 +270,11 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "Set `canonical_fact_key` to a stable value" in formatter_prompt
     assert "never recreate the same source-locator-claim fact" in formatter_prompt
     assert "Remove any researcher-written score" in formatter_prompt
-    assert (
-        "explicit minimum mapped preservation count for each chapter as a\n"
-        "  formatting floor"
-    ) in formatter_prompt
-    assert '"2B": 12' in formatter_prompt
-    assert "BLOCKING PRE-SUBMISSION CHECK" in formatter_prompt
-    assert "Do not knowingly submit a below-floor candidate" in formatter_prompt
     assert "do not perform new research" in formatter_prompt
     assert "Do not search or add facts" in formatter_prompt
-    assert "never manufacture or split claims mechanically" in formatter_prompt
-    assert "count unique mapped evidence IDs separately for every chapter" in formatter_prompt
-    assert "IDs mentioned only in `coverage` do not count" in formatter_prompt
+    assert "Mapping is many-to-many" in formatter_prompt
+    assert "never manufacture" in formatter_prompt
+    assert "use `research_blocked`" in formatter_prompt
 
 
 def _insert_scope(engine: object) -> None:

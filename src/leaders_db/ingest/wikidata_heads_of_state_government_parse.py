@@ -114,18 +114,16 @@ def build_head_of_state_government_query(
     The query uses the canonical Wikidata pattern for "who is / was
     the head of state of country X":
 
-    - ``?person wdt:P39 ?office`` (truthy: person has the office)
-    - ``?person wdt:P27 ?country`` (truthy: person's country of
-      citizenship)
+    - ``?office wdt:P279* ?role`` (the concrete national office is a
+      head-of-state/government role)
+    - ``?office wdt:P1001 ?country`` (the office applies to the country)
     - ``?person p:P39 ?statement`` (full statement)
     - ``?statement pq:P580 ?start`` (start time qualifier)
     - ``OPTIONAL { ?statement pq:P582 ?end }`` (end time qualifier)
 
-    The country-of-citizenship qualifier pattern is more reliable
-    than ``pq:P27`` on the P39 statement (which is inconsistently
-    populated across Wikidata). The country is linked via the
-    person item, which has consistent ``wdt:P27`` for every
-    historical leader.
+    Linking through the office's jurisdiction avoids assigning a person to
+    every country of citizenship and also captures concrete offices such as
+    national presidencies and premierships that subclass the generic roles.
 
     Returns:
         A SPARQL query string with no leading whitespace; the query
@@ -180,25 +178,14 @@ def build_head_of_state_government_query(
             f"    FILTER(!BOUND(?end) || YEAR(?end) >= {year_int})\n"
         )
 
-    # Build one triple-pattern UNION per office_qid so a single
-    # SPARQL query can fetch multiple roles (head of state + head
-    # of government) in a single round-trip.
-    patterns: list[str] = []
-    for office_qid in normalised:
-        patterns.append(
-            "    {\n"
-            f"      ?person wdt:P39 wd:{office_qid} .\n"
-            "    }"
-        )
-    office_union = "\n    UNION\n".join(patterns)
-
     query = (
         "SELECT ?country ?countryLabel ?person ?personLabel "
-        "?office ?officeLabel ?start ?end ?statement WHERE {\n"
-        f"    VALUES ?office {{ {office_values} }}\n"
+        "?office ?officeLabel ?role ?start ?end ?statement WHERE {\n"
+        f"    VALUES ?role {{ {office_values} }}\n"
         f"{country_clause}"
-        f"{office_union}\n"
-        "    ?person wdt:P27 ?country .\n"
+        "    ?office wdt:P279* ?role .\n"
+        "    ?office wdt:P1001 ?country .\n"
+        "    ?person wdt:P31 wd:Q5 .\n"
         "    ?person p:P39 ?statement .\n"
         "    ?statement ps:P39 ?office .\n"
         "    ?statement pq:P580 ?start .\n"
@@ -344,6 +331,7 @@ def parse_sparql_bindings(
         person_label = _binding_value(binding, "personLabel")
         office = _binding_value(binding, "office")
         office_label = _binding_value(binding, "officeLabel")
+        role = _binding_value(binding, "role")
         start_date = _binding_value(binding, "start", allow_none=True)
         end_date = _binding_value(binding, "end", allow_none=True)
         statement_uri = _binding_value(binding, "statement")
@@ -365,6 +353,7 @@ def parse_sparql_bindings(
                 "person_qid": person_qid_resolved,
                 "person_label": person_label,
                 "office_qid": office_qid_resolved,
+                "role_qid": _strip_wikidata_uri(role) if role else office_qid,
                 "office_label": office_label,
                 "start_date": start_date,
                 "end_date": end_date,
@@ -382,6 +371,7 @@ def parse_sparql_bindings(
             "person_qid",
             "person_label",
             "office_qid",
+            "role_qid",
             "office_label",
             "start_date",
             "end_date",
