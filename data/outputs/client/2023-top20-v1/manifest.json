@@ -1,0 +1,56 @@
+{
+  "schema_version": "leaders_db_client_release_manifest_v1",
+  "release_id": "2023-top20-v1",
+  "status": "provisional",
+  "target_year": 2023,
+  "cohort_size": 20,
+  "original": {
+    "research_run_key": "2023-population-top20-canonical-full-v1",
+    "judge_run_key": "2023-population-top20-canonical-full-judges-v1",
+    "archive_path": "research/archives/2023-population-top20-canonical-complete-original.tar.zst",
+    "archive_sha256": "c110716ce38f74922b61efda9eb292a3c7f4d91b17dfd4e5bc9d0c23a0d684cc",
+    "git_checkpoint": "2fc9a58"
+  },
+  "override_policy": "Use replacement results for USA and THA; use original results for the other 18 rulers. Preserve null as null.",
+  "package_archive": {
+    "path": "research/archives/2023-top20-usa-tha-repair-client-package.tar.zst",
+    "sha256": "f370c06f3222867579393616964d6b02f1bcdec2d859815736c870fa07a3ae3e"
+  },
+  "replacements": [
+    {
+      "iso3": "USA",
+      "ruler_name": "Joe Biden",
+      "ruler_year_id": 15811,
+      "dossier_path": "research/runs/2023-top20-usa-tha-repair-v1/jobs/445/attempts/002-fd95c870-17f/dossier.json",
+      "evidence_count": 58,
+      "mapping_count": 352,
+      "scores": {"1B": 7.0, "2B": 5.5, "3B": 6.0, "4B": null, "5B": 6.5, "6B": 6.0, "7B": 6.5, "8B": 6.5},
+      "confidence": {"1B": 72, "2B": 70, "3B": 68, "4B": 27, "5B": 78, "6B": 74, "7B": 78, "8B": 72}
+    },
+    {
+      "iso3": "THA",
+      "ruler_name": "Prayut Chanocha",
+      "ruler_year_id": 17130,
+      "dossier_path": "research/runs/2023-top20-usa-tha-repair-v1/jobs/446/attempts/003-f0351d03-931/dossier.json",
+      "evidence_count": 33,
+      "mapping_count": 308,
+      "scores": {"1B": null, "2B": 6.0, "3B": 4.5, "4B": null, "5B": 5.0, "6B": null, "7B": null, "8B": 4.5},
+      "confidence": {"1B": 5, "2B": 46, "3B": 72, "4B": 24, "5B": 48, "6B": 27, "7B": 34, "8B": 43}
+    }
+  ],
+  "repair_usage": {
+    "recorded_successful_calls": 30,
+    "input_tokens": 35594093,
+    "cached_input_tokens": 32863616,
+    "output_tokens": 276662,
+    "total_tokens": 35870755,
+    "cost_note": "Provider billing was not exposed; do not treat token-equivalent estimates as an invoice."
+  },
+  "limitations": [
+    "Repaired judgments require final cross-batch calibration against the complete 20-ruler cohort.",
+    "The 4B outputs are explicit substantive nulls; fractional confidence serialization was normalized to the 0-100 scale only in this presentation manifest.",
+    "Thailand 1B, 6B, and 7B remain explicit nulls and were not imputed.",
+    "The client matrix is validation-only and was not used as evidence."
+  ],
+  "attributions_path": "docs/sources/attributions.md"
+}

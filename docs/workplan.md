@@ -1,5 +1,23 @@
 # Workplan
 
+## 2026-07-17 — USA/Thailand repair and provisional client package complete
+
+- The original canonical 2023 twenty-ruler research and judge outputs remain frozen
+  in the checksummed archive recorded at Git checkpoint `2fc9a58`; repairs used new
+  run keys and did not overwrite original artifacts.
+- Targeted M3 research with Luna review/takeover/formatting produced validated
+  replacement dossiers for Joe Biden/USA (58 evidence items, 352 mappings) and
+  Prayut Chanocha/Thailand (33 consolidated evidence items, 308 mappings). Original
+  blocked-lens counts fell from 71 to 10 for USA and from 44 to zero for Thailand.
+- Seven of eight repaired chapter-judge jobs validated. Chapter 4B produced stable
+  substantive nulls on all three attempts but serialized confidence as fractions;
+  the client manifest preserves the nulls and normalizes only their presentation
+  confidence to 27/24. Thailand also remains explicitly null for 1B, 6B, and 7B.
+- `data/outputs/client/2023-top20-v1/` now provides a human-readable report and a
+  viewer-oriented JSON manifest combining original results for eighteen rulers with
+  explicit USA/Thailand overrides. The repair/client package is frozen at SHA-256
+  `f370c06f3222867579393616964d6b02f1bcdec2d859815736c870fa07a3ae3e`.
+
 ## 2026-07-17 — Canonical 2023 population-top-20 research and judges complete
 
 - Frozen batch `2023-population-top20-canonical-full-v1` completed all 20
