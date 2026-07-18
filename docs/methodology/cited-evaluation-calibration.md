@@ -44,15 +44,22 @@ not automatically lower the score or make a dossier invalid. A chapter is
 `insufficient_evidence` only when the available record cannot support a defensible
 holistic comparison.
 
-This distinction does not authorize a fabricated midpoint. A score requires at
-least one ruler-attributed, chapter-discriminating fact about a choice, action,
-implementation, restraint, remedy, or outcome. Country baselines, generic
-structured priors, official plans, silence, and the absence of reported misconduct
-may supply context but cannot by themselves determine the sign of the judgment.
-When plausible exposure exists but the dossier lacks discriminating evidence, emit
-`insufficient_evidence` and a targeted continuation request. When no meaningful
-opportunity existed, record that exposure explicitly and judge only documented
-choices; do not micro-rank non-exposure.
+This distinction does not authorize a fabricated midpoint. Evidence review asks a
+plain question: does the chapter contain enough concrete, relevant material about
+governing choices, actions, implementation, restraint, remedies, or outcomes to
+support a balanced judgment? Source counts and country indicators cannot answer that
+question by themselves. When the answer is no, research continues with the exact
+missing themes; when the record remains genuinely insufficient, the judge returns a
+null rather than inventing a midpoint.
+
+Attribution is proportional to the chapter. For Chapters 1B–6B and 8B, documented
+formal authority and responsibility for national policy, appointments, command,
+implementation, tolerance, or remedy can establish ruler responsibility without a
+personal order. Shared authority and real constraints lower attribution strength; they
+do not erase it. Chapter 7B evaluates personal integrity and therefore requires a
+personal nexus such as the ruler's own statement, interest, benefit, appointment,
+response to scrutiny, concealment, correction, or knowingly protected network. Country
+baselines, official plans, silence, and absence of reported misconduct remain context.
 
 ## Common chapter-judgment envelope
 

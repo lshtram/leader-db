@@ -1,0 +1,569 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:AFG:7190",
+  "iso3": "AFG",
+  "country_name": "Afghanistan",
+  "ruler_name": "Mullah Omar",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 16,
+  "approximate_source_family_count": 8,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 16 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 8 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research handoff — Mullah Omar, Afghanistan, 2000
+
+## Run profile and research status
+
+- **Case:** Mullah Omar, Afghanistan/AFG, ruler-period 2000.
+- **Ruler ID:** `1406`
+- **Ruler-year ID:** `7190`
+- **Research mode:** local-first, one global evidence ledger reused across chapters.
+- **Client matrix:** not used.
+- **Local package:** audited first.
+- **Internet research:** sequential discovery searches were performed. Exact-page fetching was unavailable in this execution profile; therefore web-derived items below are provisional unless otherwise stated and should not be counted as fully defensible until exact source extraction is completed.
+- **Tool limitation:** subsequent searches were rate-limited. This is a research blocker, not evidence of absence.
+- **Scoring:** no scores, score ranges, anchors, ranking recommendations, or null recommendations assigned.
+
+## Broad reconnaissance
+
+In 2000, Mullah Omar was the Taliban’s supreme leader and de facto head of the Islamic Emirate. The period combined:
+
+- continuing civil war and substantial conflict exposure;
+- Taliban control over much of Afghanistan but weak and uneven state capacity;
+- severe restrictions on women’s employment, education, political participation, and public life;
+- reports of Taliban abuses against ethnic and religious minorities;
+- a July 2000 decree banning opium cultivation and trafficking;
+- international diplomatic pressure over Taliban support or sanctuary for Osama bin Laden;
+- UN sanctions and an arms embargo adopted in December 2000.
+
+The local structured evidence is strongest for country-year context. External research is needed primarily for:
+
+- Omar’s personal authority and attribution;
+- direct decisions, orders, tolerance, or remedies;
+- conflict initiation and conduct;
+- policy implementation;
+- contrary evidence;
+- changes from inherited conditions.
+
+---
+
+# Global evidence ledger
+
+## E001 — Taliban leadership authority and centrality
+
+- **Canonical fact key:** `https://nsarchive2.gwu.edu/NSAEBB/NSAEBB295/index.htm|summary document|Mullah Omar preeminent role in Taliban decision-making`
+- **URL:** https://nsarchive2.gwu.edu/NSAEBB/NSAEBB295/index.htm
+- **Title/publisher/date:** *The Structure and Leadership of the Taliban 1996–2002*; National Security Archive; page dated 13 November 2009 in discovery.
+- **Claim:** The discovery result reports that Mullah Omar was “stronger than ever” and played “the preeminent role in Taliban decision-making.”
+- **Locator/excerpt:** Exact HTML locator was not fetched; the quoted language is from the search snippet. `locator_missing`.
+- **Source profile:** Archival/declassified-document collection; provisionally `medium_high` for historical organizational chronology. Exact underlying document and contemporaneous provenance require verification.
+- **Final use:** `context` pending exact extraction.
+- **Temporal fit:** Broad 1996–2002 context; relevant to Omar’s 2000 de facto authority.
+- **Attribution:** Supports high-level authority, not personal direction of every subordinate act.
+- **Candidate mappings:** 2B, 3B, 4B, 5B, 6B, 7B, 8B, especially authority and attribution lenses.
+
+## E002 — UN Resolution 1333 and Taliban sanctuary/training-camp demands
+
+- **Canonical fact key:** `https://main.un.org/securitycouncil/en/s/res/1333-%282000%29|resolution 1333 operative measures|Taliban sanctuary and arms embargo`
+- **URL:** https://main.un.org/securitycouncil/en/s/res/1333-%282000%29
+- **Title/publisher/date:** UN Security Council Resolution 1333 (2000); UN Security Council; 19 December 2000.
+- **Claim:** The Security Council expanded air and financial measures, imposed an arms embargo on Taliban-controlled territory, and demanded action concerning Osama bin Laden and terrorist training camps/sanctuary.
+- **Locator/excerpt:** Exact paragraphs were not fetched. Discovery snippet states: “Expands the air embargo and financial embargo ... imposes arms embargo ...”. `locator_missing`.
+- **Source profile:** Official legal/institutional record; `high` for the resolution’s formal adoption and operative text once verified.
+- **Final use:** `context` pending exact extraction; suitable for `final_evidence` for formal facts after verification.
+- **Temporal fit:** Direct target-period event.
+- **Attribution:** Measures were directed at Taliban authorities, but the resolution alone does not prove Omar’s personal intent or control over al-Qaeda.
+- **Candidate mappings:** 1B.1, 1B.4, 1B.6, 1B.10; 2B.1, 2B.2, 2B.5, 2B.6, 2B.7, 2B.10; 8B.9, 8B.10.
+
+## E003 — HRW documentation of a May 2000 Hazara massacre
+
+- **Canonical fact key:** `https://www.hrw.org/reports/2001/afghanistan/afghan101-04.htm|May 2000 section|Taliban attack on Hazaras and other minorities`
+- **URL:** https://www.hrw.org/reports/2001/afghanistan/afghan101-04.htm
+- **Title/publisher/date:** “Massacre at Robatak Pass, May 2000”; Human Rights Watch; search result dated 10 May 2000.
+- **Claim:** The HRW result states that the Yakaolang massacre followed previous Taliban attacks on Hazaras and other ethnic minorities in north-central Afghanistan.
+- **Locator/excerpt:** Exact report text was not fetched; only the search snippet is available. `locator_missing`.
+- **Source profile:** NGO human-rights investigation; provisionally `medium_high` for documented rights-abuse claims, subject to report methodology and corroboration.
+- **Final use:** `context` pending exact extraction.
+- **Temporal fit:** Target-year event.
+- **Attribution:** Taliban organizational attribution is indicated, but Omar’s personal order, knowledge, tolerance, or remedy is unresolved.
+- **Contrary/limits:** The snippet does not establish casualty totals, command chain, or whether Omar ordered or tolerated the event.
+- **Candidate mappings:** 3B.1, 3B.2, 3B.5, 3B.7, 3B.9, 3B.10; 2B.4, 2B.5, 2B.9; 4B.7; 6B.3, 6B.6, 6B.8; 8B.5, 8B.6.
+
+## E004 — UN/official record of women’s employment restrictions
+
+- **Canonical fact key:** `https://www.un.org/womenwatch/afghanistan/documents/ECN6-2001-2-Add1.pdf|report section|Taliban edicts banning women from work and limiting UN/NGO access`
+- **URL:** https://www.un.org/womenwatch/afghanistan/documents/ECN6-2001-2-Add1.pdf
+- **Title/publisher/date:** UN Economic and Social Council document; 25 January 2001.
+- **Claim:** The search result reports that Taliban edicts banning women from working and limiting UN/NGO access to Afghan women continued into the period around 2000–2001.
+- **Locator/excerpt:** Exact PDF page was not fetched. `locator_missing`.
+- **Source profile:** Intergovernmental report; provisionally `high`/`medium_high` for formal policy documentation once the passage is verified.
+- **Final use:** `context` pending exact extraction.
+- **Temporal fit:** Near-period reporting; must distinguish 2000 policy from 2001 reporting.
+- **Attribution:** Establishes Taliban policy continuity, not necessarily Omar’s individual authorship or uniform implementation.
+- **Candidate mappings:** 3B.7, 3B.8; 4B.6, 4B.7; 5B.8; 6B.1–6B.4, 6B.7–6B.9; 8B.2, 8B.6.
+
+## E005 — Mullah Omar’s July 2000 opium decree
+
+- **Canonical fact key:** `https://1997-2001.state.gov/www/regions/sa/facts_taliban_drugs.html|28 July 2000 fact sheet|Omar opium cultivation and trafficking ban`
+- **URL:** https://1997-2001.state.gov/www/regions/sa/facts_taliban_drugs.html
+- **Title/publisher/date:** “The Taliban And The Afghan Drug Trade”; U.S. Department of State archive; 20 December 2000.
+- **Claim:** The search result states that on 28 July 2000 Mullah Omar issued a ban on opium cultivation and trafficking, repeated it in October, and ordered Taliban enforcement.
+- **Locator/excerpt:** Exact HTML section and paragraph were not fetched. `locator_missing`.
+- **Source profile:** Contemporaneous official fact sheet; provisionally `medium_high` for dated decree chronology, `medium_low` for motive and broader enforcement characterization.
+- **Final use:** `context` pending exact extraction; potentially `final_evidence` for the formal decree/date after verification.
+- **Temporal fit:** Direct target-year ruler-attributed policy act.
+- **Contrary/limits:** The decree’s motivation, enforcement consistency, effects on farmers, and distinction between cultivation and trafficking require independent research.
+- **Candidate mappings:** 2B.8; 5B.1, 5B.4, 5B.7, 5B.9; 6B.1, 6B.6, 6B.8; 7B.8; 8B.1, 8B.2, 8B.3, 8B.6, 8B.8, 8B.10.
+
+## E006 — UN report on humanitarian/conflict context and Omar diplomatic contact
+
+- **Canonical fact key:** `https://unama.unmissions.org/sites/default/files/18%20September%202000.pdf|A/55/393-S/2000/875|Mullah Omar meeting and Afghanistan situation`
+- **URL:** https://unama.unmissions.org/sites/default/files/18%20September%202000.pdf
+- **Title/publisher/date:** A/55/393–S/2000/875; UN General Assembly/Security Council; 18 September 2000.
+- **Claim:** The search result reports that on 5 September a UN representative was received in Kandahar by Mullah Mohammad Omar and held a separate meeting.
+- **Locator/excerpt:** Exact PDF page was not fetched. `locator_missing`.
+- **Source profile:** Official UN report; `high` for formal meeting/date after verification, `medium` for substantive interpretation.
+- **Temporal fit:** Direct target-year diplomatic contact.
+- **Attribution:** Demonstrates Omar’s role as an interlocutor, not cooperation, good faith, or successful de-escalation.
+- **Candidate mappings:** 2B.1, 2B.6, 2B.7, 2B.10; 4B.1, 4B.4; 8B.9.
+
+## E007 — Academic outcome claim concerning the opium ban
+
+- **Canonical fact key:** `https://www.sciencedirect.com/science/article/abs/pii/S0955395904000945|study abstract|99 percent reduction after Taliban ban`
+- **URL:** https://www.sciencedirect.com/science/article/abs/pii/S0955395904000945
+- **Title/publisher/date:** Academic evaluation of the Taliban crackdown against opium-poppy cultivation; ScienceDirect; full metadata not extracted.
+- **Claim:** The result states that the ban was enforced in late 2000 and the following year, producing a 99% reduction in cultivated opium-poppy area.
+- **Locator/excerpt:** Abstract snippet only; exact article and locator were not fetched. `locator_missing`.
+- **Source profile:** Academic secondary analysis; provisionally `medium_high` for a quantified outcome if methods and timeframe are verified.
+- **Temporal fit:** Outcome begins in the target year and extends post-period. Later material is context unless it directly establishes 2000 implementation.
+- **Attribution:** Potentially links Omar’s decree to implementation, but causal attribution and coercive effects require examination.
+- **Contrary/limits:** Trade may have continued; farmer costs and distributional consequences are unresolved.
+- **Candidate mappings:** 5B.1, 5B.7, 5B.9, 5B.10; 6B.6; 8B.6, 8B.7, 8B.8, 8B.10.
+
+## E008 — State Department 2000 rights report and regime structure
+
+- **Canonical fact key:** `https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/sa/721.htm|2000 Afghanistan report|Omar Head of State and Commander of Faithful`
+- **URL:** https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/sa/721.htm
+- **Title/publisher/date:** Afghanistan Country Report on Human Rights Practices; U.S. Department of State archive; 2000 reporting year.
+- **Claim:** The search result states that a 1997 Taliban edict renamed the country the Islamic Emirate of Afghanistan, with Mullah Omar as Head of State and Commander of the Faithful.
+- **Locator/excerpt:** Exact report passage was not fetched. `locator_missing`.
+- **Source profile:** Official human-rights report; provisionally `medium_high` for office chronology and formal institutional facts, `medium` for contested rights interpretations.
+- **Temporal fit:** Historical institutional baseline relevant to 2000.
+- **Attribution:** Supports formal authority but not personal responsibility for every local act.
+- **Candidate mappings:** 3B, 4B, 7B, 8B authority and attribution lenses.
+
+---
+
+# Local structured evidence audit
+
+## Chapter 1B — Nuclear/existential risk
+
+- All 1B lenses are locally `no_evidence_found` under disposition reason `R001`.
+- No FAS fact matched the configured local fields.
+- This is **not evidence** that Afghanistan had no nuclear capability, that Omar acted responsibly, or that the country faced no catastrophic-risk exposure.
+- No target-period narrative nuclear/existential evidence was retained.
+- Remaining gaps: authority over nuclear or dual-use risk, rhetoric, safeguards, treaties, crisis behavior, and catastrophic-risk governance.
+
+## Chapter 2B — International peace
+
+Retained as contextual country-year facts:
+
+- **LF001:** internationalized conflict events = `0`
+- **LF002:** internationalized conflict fatalities = `0`
+- **LF003:** state-based conflict events = `194`
+- **LF004:** state-based conflict fatalities = `5,235`
+
+All are UCDP 2000 facts with confidence 80 and source observation IDs preserved in the supplied package. They measure country exposure and severity, not Omar’s role, initiation, defensive necessity, civilian conduct, proxy control, or peace efforts.
+
+Narrative additions: E002 and E006.
+
+## Chapter 3B — Domestic safety
+
+Retained as country-year context:
+
+- **LF005–LF011:** CIRIGHTS civil/political rights, disappearances, killings, physical integrity, political imprisonment, repression, and torture; all supplied values are `0`.
+- **LF012:** V-Dem civil-society repression = `-2.065`
+- **LF013:** V-Dem extrajudicial killings = `-3.066`
+- **LF014–LF015:** UCDP one-sided violence events = `12`; fatalities = `156`
+- **LF016–LF017:** V-Dem physical/private civil liberties = `0.022` each
+- **LF018–LF019:** PTS Amnesty and State Department scores = `5` each
+
+These establish a severe country-year safety/repression baseline, but do not alone establish Omar’s personal command, knowledge, tolerance, or remedy.
+
+Narrative additions: E003, E004, E008.
+
+## Chapter 4B — Political freedom
+
+Retained as institutional context:
+
+- **LF020:** V-Dem accountability = `-1.697`
+- **LF021:** civil liberties = `0.026`
+- **LF022:** electoral democracy = `0.073`
+- **LF023:** freedom of association = `0.038`
+- **LF024:** freedom of expression = `0.021`
+- **LF025:** judicial constraints = `0.196`
+- **LF026:** legislative constraints — **missing**
+- **LF027:** liberal democracy = `0.022`
+- **LF028:** multiparty institutions = `0`
+- **LF029:** political liberties = `0.024`
+- **LF030:** regime type = `0`
+- **LF031:** rule of law = `0.095`
+- **LF032:** suffrage = `1.0`
+- **LF033:** WGI voice and accountability = `-2.0314`
+- **LF034:** WGI rule of law = `-1.7807`
+
+LF026 has an explicit missing-value warning for V-Dem `v2xlg_legcon`; it must remain a data-quality gap, not be treated as zero.
+
+Narrative additions: E004 and E008.
+
+## Chapter 5B — Economic well-being
+
+Retained as levels and scale context:
+
+- **LF035:** real GDP per capita = `502.37`
+- **LF036:** total GDP = `11.28bn`
+- **LF037:** GNI per capita = `1,047.34`
+- **LF038:** population = `22,461` thousand
+
+These do not establish distribution, macroeconomic policy, implementation, ruler credit, or household welfare.
+
+Narrative additions: E005 and E007.
+
+## Chapter 6B — Social well-being
+
+Retained as welfare baselines:
+
+- **LF037:** GNI per capita = `1,047.34`
+- **LF039:** expected years of schooling = `5.856`
+- **LF040:** HDI = `0.34`
+- **LF041:** life expectancy = `55.298`
+- **LF042:** mean years of schooling = `1.264`
+
+These are lagged country-level outcomes and require care regarding war, donors, inherited conditions, and ruler attribution.
+
+Narrative addition: E004.
+
+## Chapter 7B — Integrity
+
+Retained only as institutional context:
+
+- **LF020:** accountability = `-1.697`
+- **LF031:** rule of law = `0.095`
+- **LF034:** WGI rule of law = `-1.7807`
+- **LF043:** WGI control of corruption = `-1.2717`
+- **LF044:** V-Dem corruption = `0.787`
+- **LF045:** executive corruption = `0.805`
+- **LF046:** public corruption = `0.699`
+
+These cannot be personalized into claims about Omar’s honesty, enrichment, deception, nepotism, or scrutiny response.
+
+No direct ruler-specific integrity item was retained.
+
+## Chapter 8B — Effectiveness
+
+Retained as inherited/state-capacity context:
+
+- **LF020:** accountability = `-1.697`
+- **LF031:** rule of law = `0.095`
+- **LF034:** WGI rule of law = `-1.7807`
+- **LF047:** government effectiveness = `-2.1739`
+- **LF048:** regulatory quality = `-2.0803`
+
+These do not prove Omar’s effectiveness. Narrative candidates E001, E005, E006, E007, and E008 provide partial material on authority, policy choice, diplomacy, and implementation, but not a complete program-to-results record.
+
+---
+
+# Chapter-by-chapter research handoff
+
+## 1B
+
+- **Local facts:** none; explicit `no_evidence_found` under R001.
+- **Internet items:** none retained.
+- **Search themes:** nuclear exposure, existential-risk authority, safeguards, treaties, rhetoric, dual-use technologies, crisis conduct.
+- **Coverage:** all lenses remain `research_blocked`.
+- **Source-claim units:** 0.
+- **Independent source families:** 0.
+- **Reason for stopping:** no plausible target-period exposure located and subsequent search access was rate-limited.
+- **Missing themes:** nuclear/dual-use authority, rhetoric, command safety, nonproliferation, crisis communication, and posture change.
+
+## 2B
+
+- **Local context:** LF001–LF004.
+- **Narrative items:** E002, E006.
+- **Coverage:** partial for international conduct and diplomatic contact; most ruler-attribution lenses remain blocked.
+- **Missing:** Omar’s response to bin Laden, initiation and alternatives, military conduct, civilian protection, proxy/arms relationships, accountability, and end-state change.
+- **Source families:** UN/official records plus UCDP local structured data.
+- **Reason for stopping:** exact extraction unavailable and rate-limiting prevented further targeted searches.
+
+## 3B
+
+- **Local context:** LF005–LF019.
+- **Narrative items:** E003, E004, E008.
+- **Coverage:** partial for Taliban-attributed violence, restrictive social policy, and formal authority.
+- **Missing:** Omar’s direct orders or knowledge, scope and recurrence, remedies, security-force oversight, protest treatment, incitement, crisis response, and contrary evidence.
+- **Source families:** HRW, UN, U.S. State Department, CIRIGHTS, PTS, UCDP, V-Dem.
+- **Reason for stopping:** exact HRW/UN extraction unavailable.
+
+## 4B
+
+- **Local context:** LF020–LF034.
+- **Narrative items:** E004, E008; E006 provides only diplomatic-authority context.
+- **Coverage:** institutional baseline and some policy-restriction context; direct ruler conduct remains largely blocked.
+- **Missing:** legal decrees, courts, opposition, media, civic organization, protest, political equality, transfer rules, and coercive enforcement.
+- **Data gap:** LF026 legislative constraints is explicitly missing.
+- **Source families:** UN, U.S. State Department, V-Dem, WGI.
+
+## 5B
+
+- **Local context:** LF035–LF038.
+- **Narrative items:** E005, E007.
+- **Coverage:** one ruler-attributed economic policy domain, opium suppression.
+- **Missing:** macroeconomic stability, fiscal/monetary policy, appointments, market rules, distribution, household effects, infrastructure/productivity investment, and shock management.
+- **Source families:** U.S. State Department, academic analysis, Maddison, UNDP.
+- **Reason for stopping:** evidence was too narrow to establish a full economic policy portfolio.
+
+## 6B
+
+- **Local context:** LF037, LF039–LF042.
+- **Narrative item:** E004.
+- **Coverage:** restrictive social-policy evidence only; no verified positive service-delivery record.
+- **Missing:** health, education implementation, water, sanitation, food security, social protection, vulnerable-group distribution, professional management, measurement, crisis response, and durability.
+- **Source families:** UN and UNDP/local structured data.
+- **Reason for stopping:** narrow evidence and near-period/post-period reporting concerns.
+
+## 7B
+
+- **Local context:** LF020, LF031, LF034, LF043–LF046.
+- **Narrative items:** none accepted.
+- **Coverage:** no direct ruler-specific integrity evidence.
+- **Search themes:** personal wealth, family/business interests, appointments, truthfulness, investigations, patronage, promises, concealment.
+- **Disposition:** all lenses `research_blocked`; generic corruption indicators remain context only.
+- **Source families:** local V-Dem/WGI only.
+- **Reason for stopping:** direct personal nexus was not established before tool rate limits.
+
+## 8B
+
+- **Local context:** LF020, LF031, LF034, LF047–LF048.
+- **Narrative items:** E001, E005, E006, E007, E008.
+- **Coverage:** partial for authority, one policy decree, diplomatic contact, and one quantified implementation outcome.
+- **Missing:** frozen program portfolio, budgets, appointments, coordination, territorial implementation, independent outcomes across multiple priorities, adaptation, durability, and alternative causal explanations.
+- **Source families:** National Security Archive, U.S. State Department, UN, academic analysis, V-Dem/WGI.
+- **Reason for stopping:** available items do not establish a complete program-to-results chain.
+
+---
+
+# Rejected and discovery-only candidates
+
+- Wikipedia pages on Mullah Omar, the Taliban, women, war crimes, and sanctions: orientation/discovery only.
+- Grokipedia: `very_low`, discovery-only, excluded from final evidence.
+- EBSCO starter page, The Globalist, Reddit, general blogs, and generic search-result/index pages: rejected because evidence proximity, provenance, or precise target-period locators were inadequate.
+- Post-2000 Taliban material: not used to establish 2000 facts. Later material may be useful only as clearly labeled retrospective context.
+
+# Source-mix and attribution audit
+
+The strongest available source families are:
+
+- UN formal records;
+- contemporaneous or archived U.S. State Department records;
+- Human Rights Watch investigations;
+- academic analysis;
+- local UCDP, CIRIGHTS, PTS, V-Dem, WGI, Maddison, and UNDP priors.
+
+However, the web items are currently provisional because exact-page extraction was unavailable. Several have `locator_missing` and should not be counted as fully defensible until fetched.
+
+The central attribution gap is the link from Taliban policy or operations to Omar’s:
+
+- direct order;
+- knowledge;
+- tolerance;
+- benefit;
+- remedy or failure to remedy;
+- practical ability to control subordinates.
+
+The principal potentially mitigating evidence is Omar’s anti-opium decree and reported diplomatic contacts. These are not sufficient to establish broad restraint, good faith, or competent governance without exact extraction and independent corroboration.
+
+# Priority continuation searches
+
+1. Fetch the exact text of Resolution 1333 and the 2000 UN Afghanistan reports; document Omar’s response to bin Laden, sanctuary, and training camps.
+2. Fetch the exact HRW May 2000 material on Yakaolang/Robatak; extract casualty estimates, perpetrators, command links, and contrary evidence.
+3. Fetch exact UN and State Department passages on women’s employment, education, aid access, and implementation.
+4. Locate contemporaneous evidence on opposition, courts, media, protest, civic organization, and political participation.
+5. Verify the opium decree, implementation, cultivation/trade distinction, farmer effects, motive debate, and whether enforcement was sustained.
+6. Locate budgets, appointments, administrative records, and humanitarian/donor evidence for health, education, food, and infrastructure.
+7. Search primary or academic records for Omar’s personal finances, family interests, appointments, accountability responses, and truthfulness.
+8. Establish Omar’s 2000 governing-program portfolio and independently test implementation, outcome, adaptation, and durability across more than one policy domain.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB295/index.htm|summary document|Mullah Omar preeminent role in Taliban decision-making",
+      "disposition": "context",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://main.un.org/securitycouncil/en/s/res/1333-%282000%29|resolution 1333 operative measures|Taliban sanctuary and arms embargo",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/reports/2001/afghanistan/afghan101-04.htm|May 2000 section|Taliban attack on Hazaras and other minorities",
+      "disposition": "context",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.un.org/womenwatch/afghanistan/documents/ECN6-2001-2-Add1.pdf|report section|Taliban edicts banning women from work and limiting UN/NGO access",
+      "disposition": "context",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/www/regions/sa/facts_taliban_drugs.html|28 July 2000 fact sheet|Omar opium cultivation and trafficking ban",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://unama.unmissions.org/sites/default/files/18%20September%202000.pdf|A/55/393-S/2000/875|Mullah Omar meeting and Afghanistan situation",
+      "disposition": "context",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.sciencedirect.com/science/article/abs/pii/S0955395904000945|study abstract|99 percent reduction after Taliban ban",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/sa/721.htm|2000 Afghanistan report|Omar Head of State and Commander of Faithful",
+      "disposition": "context",
+      "provisional_id": "E008"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

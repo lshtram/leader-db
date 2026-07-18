@@ -785,8 +785,14 @@ def _load_research_ledger_manifest(path: Path) -> dict[str, Any]:
         key = str(entry.get("canonical_fact_key", "")).strip()
         provisional_id = str(entry.get("provisional_id", "")).strip()
         disposition = str(entry.get("disposition", ""))
+        chapter_ids = entry.get("chapter_ids", [])
         if not key or not provisional_id or disposition not in allowed or key in seen:
             raise WorkerOutputError("researcher ledger manifest entry is invalid")
+        if not isinstance(chapter_ids, list) or any(
+            not re.fullmatch(r"[1-8]B", str(chapter_id))
+            for chapter_id in chapter_ids
+        ):
+            raise WorkerOutputError("researcher ledger manifest chapter_ids are invalid")
         if disposition == "rejected" and not str(entry.get("reason", "")).strip():
             raise WorkerOutputError("rejected ledger entry requires a reason")
         seen.add(key)
@@ -843,37 +849,56 @@ def _load_or_recover_research_ledger_manifest(
     return None
 
 
-def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, str]]:
+def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
     """Recover explicitly labeled evidence rows from a permissive Markdown ledger."""
 
-    headings = list(re.finditer(r"(?m)^##\s+([A-Za-z]+-?\d+)\b", handoff))
-    entries: list[dict[str, str]] = []
+    headings = list(
+        re.finditer(
+            r"(?m)^(?:#{2,4}\s+(?:Item\s+)?|-\s+\*\*(?:ID\s+)?)"
+            r"((?=[A-Za-z0-9._-]*\d)[A-Za-z0-9][A-Za-z0-9._-]+)",
+            handoff,
+        )
+    )
+    entries: list[dict[str, Any]] = []
     seen_keys: set[str] = set()
     for index, heading in enumerate(headings):
         end = headings[index + 1].start() if index + 1 < len(headings) else len(handoff)
         section = handoff[heading.end() : end]
         key_match = re.search(
-            r"(?mi)^- \*\*Canonical fact key:\*\*\s*`([^`]+)`", section
+            r"(?mi)(?:canonical[_ ]fact[_ ]key|canonical key)\*{0,2}:\*{0,2}"
+            r"\s*`?([^`\n]+)",
+            section,
         )
-        if key_match is None:
+        url_match = re.search(r"(?mi)(?:\*?URL\*?|Citation):.*?(https?://[^\s)`]+)", section)
+        if key_match is None and url_match is None:
             continue
-        key = key_match.group(1).strip()
+        key = (
+            key_match.group(1).strip()
+            if key_match is not None
+            else f"recovered:{url_match.group(1).rstrip('.,')}|{heading.group(1)}"
+        )
         if not key or key in seen_keys:
             continue
-        use_match = re.search(r"(?mi)^- \*\*Final use:\*\*\s*([^\n]+)", section)
-        use = use_match.group(1).lower() if use_match else "context"
-        disposition = next(
-            (
-                value
-                for value in ("final_evidence", "discovery_only", "rejected")
-                if value in use
-            ),
-            "context",
+        use_match = re.search(
+            r"(?mi)(?:final use|disposition|role)\*{0,2}:\*{0,2}\s*([^\n]+)",
+            section,
         )
+        use = use_match.group(1).lower() if use_match else "final_evidence"
+        if "rejected" in use:
+            disposition = "rejected"
+        elif "discovery_only" in use or "discovery only" in use:
+            disposition = "discovery_only"
+        elif "context" in use or "baseline" in use:
+            disposition = "context"
+        else:
+            disposition = "final_evidence"
         entry = {
             "provisional_id": heading.group(1),
             "canonical_fact_key": key,
             "disposition": disposition,
+            "chapter_ids": sorted(
+                set(re.findall(r"\b([1-8]B)(?:\.\d+)?\b", heading.group(0) + section))
+            ),
         }
         if disposition == "rejected":
             entry["reason"] = use_match.group(1).strip() if use_match else "rejected"
@@ -896,28 +921,42 @@ def _validate_formatter_ledger_accounting(
         )
     except json.JSONDecodeError:
         return
-    minimum_evidence_count = sum(
-        entry.get("disposition") == "final_evidence"
+    expected = {
+        str(entry["canonical_fact_key"]): entry
         for entry in manifest.get("entries", [])
-    )
-    emitted_final_count = sum(
-        item.final_evidence_use == "final_evidence" for item in dossier.evidence
-    )
-    emitted_substantive_count = sum(
-        item.final_evidence_use in {"final_evidence", "context"}
+        if entry.get("disposition") == "final_evidence"
+    }
+    emitted = {
+        item.canonical_fact_key: item
         for item in dossier.evidence
-    )
-    minimum_final_count = (minimum_evidence_count + 1) // 2
-    if (
-        emitted_substantive_count < minimum_evidence_count
-        or emitted_final_count < minimum_final_count
-    ):
+        if item.final_evidence_use == "final_evidence"
+    }
+    missing_keys = sorted(set(expected) - set(emitted))
+    if missing_keys:
         raise WorkerOutputError(
-            "formatter collapsed the ruler ledger below its final-evidence count "
-            f"({emitted_final_count} final and {emitted_substantive_count} substantive "
-            f"emitted; {minimum_final_count} final and {minimum_evidence_count} "
-            "substantive required)"
+            "formatter omitted accepted final evidence: " + ", ".join(missing_keys[:5])
         )
+    mapped_chapters: dict[str, set[str]] = {}
+    evidence_key_by_id = {
+        item.evidence_id: item.canonical_fact_key for item in dossier.evidence
+    }
+    for mapping in dossier.mappings:
+        key = evidence_key_by_id.get(mapping.evidence_id)
+        if key:
+            mapped_chapters.setdefault(key, set()).add(
+                mapping.methodology_id.split(".", maxsplit=1)[0]
+            )
+    routing_failures = {
+        key: sorted(set(entry.get("chapter_ids", [])) - mapped_chapters.get(key, set()))
+        for key, entry in expected.items()
+        if set(entry.get("chapter_ids", [])) - mapped_chapters.get(key, set())
+    }
+    if routing_failures:
+        summary = ", ".join(
+            f"{key}=>{'/'.join(chapters)}"
+            for key, chapters in list(routing_failures.items())[:5]
+        )
+        raise WorkerOutputError("formatter dropped accepted chapter routing: " + summary)
 
 
 def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:

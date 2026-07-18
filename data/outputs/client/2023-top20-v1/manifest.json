@@ -11,7 +11,7 @@
     "archive_sha256": "c110716ce38f74922b61efda9eb292a3c7f4d91b17dfd4e5bc9d0c23a0d684cc",
     "git_checkpoint": "2fc9a58"
   },
-  "override_policy": "Use replacement results for USA and THA; use original results for the other 18 rulers. Preserve null as null.",
+  "override_policy": "Use replacement results for USA and THA, including the auditable corrected-methodology Thailand 4B and 6B judgments; use original results for the other 18 rulers. Preserve remaining nulls as null.",
   "package_archive": {
     "path": "research/archives/2023-top20-usa-tha-repair-client-package.tar.zst",
     "sha256": "f370c06f3222867579393616964d6b02f1bcdec2d859815736c870fa07a3ae3e"
@@ -24,8 +24,8 @@
       "dossier_path": "research/runs/2023-top20-usa-tha-repair-v1/jobs/445/attempts/002-fd95c870-17f/dossier.json",
       "evidence_count": 58,
       "mapping_count": 352,
-      "scores": {"1B": 7.0, "2B": 5.5, "3B": 6.0, "4B": null, "5B": 6.5, "6B": 6.0, "7B": 6.5, "8B": 6.5},
-      "confidence": {"1B": 72, "2B": 70, "3B": 68, "4B": 27, "5B": 78, "6B": 74, "7B": 78, "8B": 72}
+      "scores": {"1B": 7.0, "2B": 5.5, "3B": 6.0, "4B": 7.0, "5B": 6.5, "6B": 6.0, "7B": 6.5, "8B": 6.5},
+      "confidence": {"1B": 72, "2B": 70, "3B": 68, "4B": 62, "5B": 78, "6B": 74, "7B": 78, "8B": 72}
     },
     {
       "iso3": "THA",
@@ -34,8 +34,8 @@
       "dossier_path": "research/runs/2023-top20-usa-tha-repair-v1/jobs/446/attempts/003-f0351d03-931/dossier.json",
       "evidence_count": 33,
       "mapping_count": 308,
-      "scores": {"1B": null, "2B": 6.0, "3B": 4.5, "4B": null, "5B": 5.0, "6B": null, "7B": null, "8B": 4.5},
-      "confidence": {"1B": 5, "2B": 46, "3B": 72, "4B": 24, "5B": 48, "6B": 27, "7B": 34, "8B": 43}
+      "scores": {"1B": null, "2B": 6.0, "3B": 4.5, "4B": 4.5, "5B": 5.0, "6B": 5.5, "7B": 5.0, "8B": 4.5},
+      "confidence": {"1B": 5, "2B": 46, "3B": 72, "4B": 55, "5B": 48, "6B": 52, "7B": 30, "8B": 43}
     }
   ],
   "repair_usage": {
@@ -48,8 +48,8 @@
   },
   "limitations": [
     "Repaired judgments require final cross-batch calibration against the complete 20-ruler cohort.",
-    "The 4B outputs are explicit substantive nulls; fractional confidence serialization was normalized to the 0-100 scale only in this presentation manifest.",
-    "Thailand 1B, 6B, and 7B remain explicit nulls and were not imputed.",
+    "All non-1B nulls were rejudged under the proportional-attribution rule, with recovered notebook evidence and narrowly targeted supplementation recorded separately.",
+    "Chapter 1B nulls remain explicit where no documented nuclear or existential-risk exposure exists.",
     "The client matrix is validation-only and was not used as evidence."
   ],
   "attributions_path": "docs/sources/attributions.md"

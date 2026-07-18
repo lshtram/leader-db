@@ -1,0 +1,301 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:IND:19639",
+  "iso3": "IND",
+  "country_name": "India",
+  "ruler_name": "Narendra Modi",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 0,
+  "approximate_source_family_count": 0,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 0 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 0 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+I need to use the configured web_search tool. Let me check what's available.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook contains no source-claim units or evidence for this chapter.",
+        "No evidence supports attribution to Narendra Modi during 2023."
+      ],
+      "missing_themes": [
+        "No chapter-specific evidence supplied",
+        "No identifiable source locators",
+        "No target-period ruler attribution",
+        "No contrary-evidence audit",
+        "No local-fact disposition"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The notebook contains only a note about using a web-search tool; it contains no research evidence, sources, locators, local facts, contrary evidence, or explicit gap audit.",
+    "All chapters fall below the minimum of 5 source-claim units and 3 independent source families.",
+    "Continuation is research-recoverable because the dossier has not meaningfully begun; further work could recover sources, precise locators, attribution facts, event coverage, and contrary evidence."
+  ],
+  "reviewer_summary": "All eight chapters require continuation. The notebook provides no auditable evidence and no basis for attribution, temporal-fit, source-independence, contrary-evidence, or event-coverage assessment; no scores are assigned."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Excellent. Now I have enough candidate URL material to fetch the most authoritative pages. Let me parallelize many web_search and fetch calls.
+---

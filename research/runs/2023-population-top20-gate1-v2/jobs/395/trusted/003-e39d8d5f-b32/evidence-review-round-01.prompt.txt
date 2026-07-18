@@ -1,0 +1,461 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+  "iso3": "CHN",
+  "country_name": "China",
+  "ruler_name": "Xi Jinping",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 0,
+  "approximate_source_family_count": 0,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 0 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 0 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+I have already gathered enough evidence from the 10+ web sources, official documents, and structured priors. Let me finalize the comprehensive handoff.
+
+# 3. Chapter-by-chapter handoff (research, no scoring)
+
+## 1B Nuclear & Existential-Risk Responsibility
+
+Chapter fact count is 0 because the 1B mapping package found no local fact rows; local D17/FAS national-level nuclear fact is absent from the package and the chapter is downstream of capability only. The chapter must therefore be built from internet evidence with a posture/exposure gate.
+
+**Exposure classification:** material_exposure. Xi is CCP general secretary, state president, and CMC chair; final authority over doctrine, modernization, arms-control posture, and crisis behavior. Inherited baseline: a growing but still smaller nuclear arsenal relative to the US and Russia, no declared arms-race posture, and a longstanding no-first-use declaratory policy.
+
+**Defensible target-period evidence (final_evidence, medium-high unless noted):**
+
+- WEB-001 (FAS, 16 Jan 2024): ~500 warheads, 440 deliverable, expansion is among the largest and fastest. Supports **1B.1, 1B.3, 1B.4, 1B.7, 1B.10**. Period fit is retrospective. Ruler attribution: structural rather than personal, but the campaign is the named program.
+- WEB-002 (FAS/Bloomberg, 16 Jan 2024): procurement-corruption concerns about missile/silo reliability. Supports **1B.3, 1B.7**; supports also **7B.5/7B.7/8B.4**. Keep as context/contrary: not a verified defect, and the underlying Bloomberg article was not directly inspected.
+- WEB-003 (Arms Control Association, Dec 2023): first bilateral arms-control meeting with the US since 2018 on 6 Nov 2023; covers NPT, nuclear security, nonproliferation, BWC, CWC, outer space. Supports **1B.4, 1B.8, 1B.9**. Ruler attribution is at the level of the Xi administration; no public personal statement.
+- WEB-004 (ACA, Dec 2023): Xi–Biden 15 Nov 2023 agreement to continue working-level arms-control consultations. Direct ruler attribution. Supports **1B.4, 1B.8, 1B.9**.
+- WEB-005 (BBC, 16 Nov 2023): Xi–Biden restored military-to-military communication and a presidential hotline. Supports **1B.8, 1B.9, 2B.1, 2B.7**. Direct ruler attribution; the channel had been cut by China after Speaker Pelosi’s 2022 Taiwan visit, so the restoration is mixed-motive.
+
+**No_evidence/wishlist:**
+
+- I did not find a direct 2023 Xi speech on nuclear doctrine, restraint, no-first-use reaffirmation, or any 2023 PRC ratification of an arms-control instrument.
+- No public 2023 incident of nuclear or radiological crisis behavior was identified.
+- WEB-002 and the related Bloomberg reporting were not opened; treat as context.
+
+**Implicit crisis exposure:** The Pelosi-visit cutoff of mil-to-mil communication created a documented near-miss channel of escalation risk in 2022; restoration in 2023 (WEB-005) reduced that exposure, but only after months of US-side concern. This supports **1B.8** positively.
+
+**Source mix (1B):** FAS (specialized NGO), Arms Control Association (specialized NGO), BBC (public-service media). Three independent source families.
+
+## 2B International Peace, Restraint, Lawful Security
+
+Local priors supply LF001–LF004 (SIPRI military expenditure).
+
+**Exposure classification:** material_exposure, including inherited US-China tension, Ukraine war posture, and Taiwan friction.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- WEB-005 (BBC, 16 Nov 2023): Xi–Biden restored mil-to-mil communication and a presidential hotline. **2B.1, 2B.7, 2B.10**; direct ruler attribution.
+- WEB-004 (ACA, Dec 2023): continuation of arms-control/nonproliferation work agreed at the top. **2B.1, 2B.7**.
+- WEB-006 (HRW, 11 Jan 2024 and World Report 2024): China continued to lend support to Russia after the ICC arrest warrant against Putin; Xi met Putin in Moscow shortly after the warrant, and hosted Syrian President Assad in Beijing in September 2023. **2B.2, 2B.5, 2B.7, 2B.10**. Source: medium-high NGO.
+- WEB-007 (HRW, World Report 2024): In 2023 Beijing launched the Global Security Initiative, Global Development Initiative, and Global Civilization Initiative. **2B.6, 2B.10**. Context for the alternative-rules framing, not direct evidence of a specific aggressive choice.
+- WEB-008 (Amnesty 2025 report — backward-looking, cite as context, low for 2023 specific): No public HRW/Amnesty 2023 *specific* statement on a discrete cross-border incident was located; the Amnesty 2025 report confirms continued transnational repression and corporate-state ties. **2B.5, 2B.8**.
+- WEB-009 (PRC MOFA, 6 Nov 2023 readout as paraphrased in ACA): reaffirmed P5 cooperation, NPT, BWC, CWC, and "common, comprehensive, cooperative, sustainable security." **2B.6, 2B.7**. Source: official; conditional for self-serving framing per registry; usable for text and existence of stated positions, not for substantive implementation. **final_evidence_use=context**.
+
+**No public evidence found in this run:**
+
+- A specific 2023 cross-border clash, casualty, or armed intervention attributable to China.
+- A confirmed 2023 Xi decision to halt or accept an arms-control instrument.
+
+**LP-001 (SIPRI):** context for 2B.3 (genuine defensive vs prestige), 2B.8 (military spending), 2B.10 (end-state). China’s 2023 military spending at ~1.6% of GDP is well below Cold War and current US levels but reflects continued high absolute investment; the supplied priors do not show whether spending enriched a specific network or intimidation purpose.
+
+**Source mix (2B):** SIPRI (local structured), ACA (specialized NGO), BBC (public-service media), HRW (medium-high NGO), Amnesty (medium-high NGO), PRC MOFA (official/context). Five independent source families.
+
+## 3B Domestic Safety, Restraint, Protection
+
+Local priors LF005–LF011 and LP-002.
+
+**Exposure classification:** material_exposure. Xi holds operational authority over the security apparatus and the political-legal system.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- WEB-010 (HRW World Report 2024 and 11 Jan 2024 press release): repression "intensified in 2023," Uyghur policies continue to "amount to crimes against humanity," including the well-known case of Rahile Dawut's life sentence; "no independent civil society" in China. **3B.1, 3B.2, 3B.5, 3B.6, 3B.8**. Period fit: 2023.
+- WEB-011 (HRW World Report 2024, more specifically): "In November, crowds across the country mourned… Li Keqiang"; online posts praising his reform-era line were tolerated enough that people felt they could comment, suggesting both continued control and a thin opening. **3B.6, 3B.8, 3B.9**. Useful for both pressure and partial tolerance.
+- WEB-012 (US State Department Country Reports on Human Rights Practices 2023 — China, Feb 2024): the U.S. State Department report on China in 2023 documents arbitrary detention, political prisoners, surveillance, online censorship, and the liuzhi detention system; no public independent corroboration of the precise claims. **3B.1, 3B.2, 3B.4**. Source: official US government; registry treatment is context unless corroborated, but the report is consistent with HRW/Amnesty patterns. **final_evidence_use=context** for self-serving elements, **final_evidence** for the broad finding of ongoing documented abuse.
+- WEB-013 (Amnesty, 31 Aug 2023): OHCHR report on Xinjiang one-year anniversary; international response "woefully inadequate"; Xi visited Urumqi the same week and called for tightening controls on "illegal religious activities." **3B.1, 3B.2, 3B.3, 3B.7**. Source: medium-high NGO. Direct ruler attribution (Xi’s own visit-and-call).
+- WEB-014 (Amnesty, 2025 report — backward-looking; cite carefully as 2023-context): documents intensifying censorship including internet-military-info management measures (Feb 2023), transnational repression targeting exiled dissidents, and crackdown on activists. **3B.1, 3B.2, 3B.5, 3B.8**.
+
+**Sparse lens notes:**
+
+- 3B.7 (vulnerable groups): 2023 evidence on women, children, ethnic minorities, Uyghurs, Tibetans, Hong Kong, and pensioners is broad and converging. The BBC summary of February 2023 protests by pensioners against cuts to their medical insurance is from HRW (World Report 2024) and is **context** for 3B.6, 3B.7.
+- 3B.9 (crisis response): 3B-relevant crisis in 2023 is the post-zero-Covid wave. WEB-015 (PRC Leader, March 2023) and the HRW World Report 2024 jointly document that the post-exit wave was chaotic, with no official investigation; this is **context** for 3B.6, 3B.9, **not** direct 6B evidence.
+- 3B.10 (end-state): Combined WEB-010, WEB-013, WEB-014, and LP-002 all point to a country-baseline continuation or intensification; the prior year (2022) and the post-period reports do not support an "improved" trajectory.
+
+**Source mix (3B):** HRW (medium-high NGO), Amnesty (medium-high NGO), US State Department report (context), BBC (public-service media), local V-Dem/PTS. Five independent source families.
+
+## 4B Political Freedom vs Authoritarian Rule
+
+Local priors LF012–LF029 and LP-003.
+
+**Exposure classification:** material_exposure. Xi is the architect of the post-2012 institutional concentration and the 2018 constitutional change removing presidential term limits; he also chairs the National Security Commission and the Central Foreign Affairs Commission.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- LP-003: V-Dem polyarchy `0.074`, liberal democracy `0.037`, association `0.038`, expression `0.042`, regime type `0`, multiparty `0`, Freedom House civil liberties `6`, political rights `7`, RSF press rank `179`. **4B.1, 4B.2, 4B.3, 4B.4, 4B.5, 4B.6, 4B.7**. Baseline/context for ruler attribution, not direct evidence of specific actions.
+- WEB-016 (PRC Leader, June 2023): "For the first time since he rose to power a decade ago, Xi Jinping now has an economic team of his own"; the new premier Li Qiang was previously Xi's chief of staff; Vice Premier Ding Xuexiang previously ran Xi's office; the executive VP now controls the financial sector. **4B.5, 4B.7**. Ruler attribution: very high; the appointments are the program.
+- WEB-017 (PRC Leader, June 2023 — same piece): Government reorganization transferring finance, science and technology, and Hong Kong/Macao portfolios from state to party organs. **4B.4, 4B.5, 4B.7**. Direct ruler attribution.
+- WEB-010 (HRW): "no independent civil society" and continued persecution of Uyghurs, Tibetans, and Hong Kong activists. **4B.3, 4B.5, 4B.6, 4B.7, 4B.8**.
+- WEB-011 (HRW): the public mourning of Li Keqiang in November 2023 and the open online circulation of his reform-era quote. **4B.3, 4B.8, 4B.9**. Both protective and repressive in the same year.
+- WEB-018 (BBC, 16 Nov 2023): Biden called Xi a "dictator" after the summit; Chinese foreign ministry called the remark "extremely wrong" but the meeting itself was framed as a positive reset. **4B.3, 4B.5, 4B.8**. Not strictly internal politics; included as evidence about the regime’s posture on contested authority narratives.
+- WEB-019 (CNN, 22 Oct 2022; Reuters, 23 Oct 2022 — both from the prior 20th Party Congress; 2023 is Xi's first full year of the new Politburo): the 7-member Politburo Standing Committee is dominated by loyalists, including Vice President Wang Huning (not a direct Xi client but seen as ideologically aligned) and the 6 alternates are loyalists. **4B.5, 4B.7, 4B.8**. The earlier press reports are post-event 2022 but feed the 2023 power structure.
+
+**Sparse lens notes:**
+
+- 4B.2 (manipulation of rules, courts, media): no public 2023 election; the political-competition lens is largely procedural. The **Counter-Espionage Law amendment** (July 2023, as noted in the US State Department 2023 report and HRW) is a concrete 2023 ruler-level act that expands tools against foreign firms and could be wielded against citizens. **4B.2, 4B.5, 4B.9**. Source: US government; corroborated by HRW.
+- 4B.6 (independent media): WEB-014 (Amnesty 2025 report covers 2023 events) documents deletion of Caixin and Southern Weekly investigative reports on a police-custody death in June 2023. **4B.6**. Ruler attribution: indirect through censorship apparatus; the regime did not officially confirm the deletions.
+- 4B.7 (political equality for minorities): WEB-013 (Xi's Urumqi visit) and ongoing Uyghur/Tibet/Hong Kong repression. **4B.7**.
+- 4B.8 (term limits and succession): The 2018 constitutional removal of term limits is structural; PRC Leader (June 2023) argues Xi's appointments of a "team for the next decade" suggests he may pursue a fourth term at the 2027 Congress. **4B.8**. Use as **context** for trajectory, not as direct 2023 action.
+- 4B.9 (surveillance and digital controls): Internet-military-info management measures (Feb 2023), online censorship rules (~60,000 documented by Citizen Lab), and the September 2023 Cyberspace Administration campaign against "inciting hostility" and "pessimism" (Amnesty 2025 report covering 2023). **4B.9**.
+
+**Source mix (4B):** V-Dem, BTI, Freedom House, RSF (local priors); HRW (medium-high NGO); Amnesty (medium-high NGO); PRC Leader (specialized political commentary); BBC; US State Department. Six independent source families.
+
+## 5B Economic Well-Being and Prosperity
+
+Local priors LF015 (BTI status), LF030–LF032 (WDI), plus the Local-002 bundle.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- WEB-015 (PRC Leader, March 2023): the zero-Covid exit was abrupt, prepared, and economically costly; officials had strong political incentives to avoid signaling any move away from the policy during 2022. The pandemic narrative was "reshaped" by the official propaganda apparatus after the exit. **5B.6, 5B.7, 5B.9**. Ruler attribution: high.
+- WEB-020 (World Bank China Economic Update — December 2023, project page 14 Dec 2023): 2023 GDP growth projected at 5.2% before slowing to 4.5% in 2024; weakness in real estate and tepid global demand cited. **5B.1, 5B.3, 5B.9, 5B.10**. Source: high (IFI).
+- WEB-021 (IMF Article IV 2023 — as quoted in search snippet): urban youth unemployment reached 21.3% in June 2023, up from ~10% in 2018. **5B.1, 5B.3, 5B.8, 5B.9**. Source: high (IFI). The IMF direct URL returned 403, so the snippet is used as discovery; the IMF reference is corroborated by BBC and Reuters.
+- WEB-022 (BBC, 15 Aug 2023): China suspended publication of youth-unemployment data after the record high; central bank cut rates by 15bp to 2.5% in a separate move. **5B.3, 5B.7, 5B.9**. Ruler attribution: government-level, very likely with Xi's knowledge; "covering your mouth" rhetorical backlash on Weibo shows elite-vs-public tension.
+- WEB-023 (Guardian, 18 Aug 2023): property crisis deepens; Country Garden in default risk; Evergrande files Chapter 15; rate cut "too drastic a change in a very short period of time." 40% of home-sales had defaulted. **5B.1, 5B.3, 5B.5, 5B.9, 5B.10**. Ruler attribution: structural and visible.
+- WEB-024 (PRC Leader, March 2023 on common prosperity): policy toward common prosperity remained slogan-heavy; redistribution policies (property tax, progressive income tax, estate tax, capital gains tax) not implemented in 2023; emphasis on "bootstrapped" prosperity and warning against welfare-state traps. **5B.1, 5B.5, 5B.7, 5B.8**. Ruler attribution: high.
+- WEB-025 (BBC, 16 Nov 2023): Xi–Biden agreement on fentanyl precursor controls, seen by Biden as a deliverable. **5B.3, 5B.5**. Ruler attribution: direct at the summit level.
+
+**Sparse lens notes:**
+
+- 5B.2 (appointments): WEB-016 (PRC Leader, June 2023) — the new economic team is entirely Xi's loyalists. The PRC Leader piece argues Beijing’s behavior, including expanded financial-sector anticorruption investigations, consultancies raids, and a revised espionage law, "seem to suggest that this team does not have any real autonomy or influence." This is relevant to both 5B.2 and 7B.5.
+- 5B.4 (rules for entrepreneurship): the 2021 tech crackdown effects persisted through 2023; no new 2023 statutory entitlement reforms were located in this run.
+- 5B.6 (productivity foundations): No specific 2023 infrastructure, education, or technology program with quantified execution was located beyond the common-prosperity rhetoric.
+- 5B.8 (distribution): Xi's 2023 common-prosperity messaging is documented (WEB-024), but concrete redistribution tools did not advance.
+- 5B.9 (shock management): 2023 shocks included the post-Covid wave (WEB-015), youth unemployment (WEB-022), and the property sector (WEB-023). Each is a documented failure or limitation.
+- 5B.10 (end-state): combine the above: end-period growth 5.2%, slowing to 4.5% projected for 2024; youth unemployment record; property unresolved; tariffs likely in the future; redistribution unchanged.
+
+**Source mix (5B):** World Bank, IMF, NBS, RSF, BBC, Guardian, PRC Leader, Amnesty (context). Eight independent source families.
+
+## 6B Social Well-Being and Human Development
+
+Local D6 facts are absent. Chapter must be built from internet evidence and from context already in 5B.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- WEB-015 (PRC Leader, March 2023): chaotic post-zero-Covid exit, refusal to import Western mRNA vaccines or include Pfizer's Paxlovid in national insurance, an estimated 80% population infection between early December 2022 and mid-January 2023, and disputed official deaths around 60,000 versus academic estimates around 1.87 million. **6B.1, 6B.6, 6B.10**. Ruler attribution: high (direct orders, including rejection of Western vaccines). Source: medium-high analytical commentary.
+- WEB-026 (HRW World Report 2024 and the State Department 2023 report): health-system strain, restrictive covid controls, social-welfare access through existing schemes. **6B.2, 6B.5**. Context.
+- WEB-027 (ChinaFile/PRC Leader on common prosperity, March 2023): no progress on property tax, progressive income tax, estate tax, or capital gains tax; the 2023 redirection away from redistribution. **6B.2, 6B.3, 6B.8**.
+- WEB-022 (BBC, 15 Aug 2023): pensioner protests in February 2023 against cuts to medical insurance (HRW also reported this) — a documented 2023 episode of public dissatisfaction with welfare reductions. **6B.1, 6B.6, 6B.7**.
+- WEB-028 (search snippet, IISS 2023 strategic comment on common prosperity): the IISS piece (discoverable) notes that common prosperity continues to focus on elite crackdown rather than redistribution. **6B.1, 6B.5, 6B.7**. **final_evidence_use=context** because the direct page could not be opened.
+
+**Sparse lens notes:**
+
+- 6B.2 (basic health, education, water, sanitation, housing, food): no specific 2023 R&D or coverage expansion in the run, only continued stagnation and benefit cuts.
+- 6B.3 (vulnerable groups): pensioner cut protests are the most concrete 2023 event in this run. The Uyghur, Tibetan, and Hong Kong experiences are also relevant (3B/4B).
+- 6B.4 (professional administration): no direct 2023 evidence.
+- 6B.5 (evidence/correction): suspending youth-unemployment data is an example of suppressing rather than publishing evidence; this is a cross-link to 5B and 8B.
+- 6B.7 (no political conditionality): no direct 2023 evidence that welfare was used punitively, but the politics of "common prosperity" and the increased state role over NGOs suggest no broad improvement.
+- 6B.8 (dignity): the Uyghur forced-labor, the COVID mismanagement, and the censorship of investigative reports of deaths-in-custody all bear on dignity and equal opportunity.
+- 6B.9 (durable institutions): Xi's term-limit removal and the consolidation of party over state tend against durable, ruler-independent institutions.
+- 6B.10 (end-state): The end-period picture combines a chaotic public-health exit, an absence of redistribution, and a fragile household balance sheet (the property crisis is a household-wealth event).
+
+**Source mix (6B):** PRC Leader, HRW, BBC, IISS, ChinaFile. Five independent source families, but most are context rather than direct 2023 human-development domain evidence.
+
+## 7B Personal Integrity and Honesty
+
+Local priors LF033–LF036 and LP-005. Note that LP-005 is national-level context, not personal-integrity evidence.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- WEB-029 (Bloomberg, 29 June 2012, as summarized in ChinaFile, summer 2012): "Bloomberg Unearths Xi Jinping's Family Fortune"; documents extended-family assets including a luxury flat in Hong Kong under his sister's name. Source: high-credibility original investigative reporting; subsequently cited in 2012–2016. **7B.3, 7B.4**. Period fit: pre-2023 history; the network structures it describes persisted into 2023 absent contrary evidence. **final_evidence_use=context** because the underlying ownership structures are not a 2023 act and were not directly opened in 2023.
+- WEB-030 (New York Times, 7 April 2016, as cited; not directly opened in this run): Panama Papers implicate Xi's relatives and other Chinese elites in offshore holdings. **7B.3, 7B.4, 7B.7**. **final_evidence_use=context**.
+- WEB-031 (BBC and RUSI, 2026 retrospective; cite as context): Xi's continuing anti-corruption campaign is widely seen as both a corrective drive and a loyalty test. **7B.5, 7B.7, 7B.9**. **final_evidence_use=context** because the source is a 2026 retrospective.
+- WEB-032 (RUSI, 2025: a 2026 report discussing anti-corruption during Xi's tenure): "the results have been ambivalent: the campaign has helped him consolidate internal leadership and civic support, cleanse some institutions…" **7B.5, 7B.9**. **final_evidence_use=context** for retrospective interpretation.
+- WEB-016 (PRC Leader, June 2023): "team of loyalists," "complete control of the State Council should allow Xi to better implement his security-centered economic policy." **7B.5, 7B.9**. Direct ruler attribution for the appointments; the policy choice to appoint loyalists is itself a personal choice.
+- WEB-033 (WEB-002, Bloomberg-procurement-corruption story as reported by FAS): allegations of missile-procurement corruption and a follow-up purge. **7B.5, 7B.7, 7B.9**. **final_evidence_use=context** until the underlying story is directly read.
+- WEB-034 (counter-espionage law, July 2023): vague amendments that leave foreign firms and Chinese citizens uncertain about previously acceptable business practices; HRW (2024) and US State Department 2023 report both document. **7B.7**. Direct ruler attribution via legislation.
+
+**Sparse lens notes:**
+
+- 7B.1 (truthfulness): the 2023 "decisive victory" framing over the pandemic is documented (SCMP cited in search, but SCMP not directly opened); Xi’s 15 Nov 2023 statement that Taiwan is "the most dangerous issue" is a documented public statement, but it is contested by Taiwan/US framings, not factually false. **final_evidence_use=context**.
+- 7B.2 (correction): no public 2023 correction of the zero-Covid narrative; the propaganda apparatus "reshaped" the narrative rather than admitting failure. **7B.2, 7B.6, 7B.10**.
+- 7B.3 (separating interests): no 2023 disclosure of personal assets or new family-business divestment; the offshore-history pre-2023 facts remain the relevant context.
+- 7B.4 (family enrichment): pre-2023 offshore-network exposure remains the relevant context; no 2023 event contradicts or supersedes it.
+- 7B.5 (competent appointments vs loyalists): WEB-016 and the persistent 2023 financial-sector purges strongly support the "loyalists" pattern.
+- 7B.6 (independent investigation): 2023 raids on Mintz Group (March), Bain (April), and "Xi Jinping Thought" classes for foreign financial-firm staff document the squeeze on outside scrutiny. **7B.6**. Direct ruler attribution via the apparatus; specific source HRW 2024.
+- 7B.7 (concealment/state power): counter-espionage law + raids + transnational repression; documentary direct ruler attribution.
+- 7B.8 (keeping promises): the public record in 2023 is mixed; common-prosperity redirection and zero-Covid reversal are not broken promises in the formal sense, but they document programmatic discontinuity.
+- 7B.9 (nepotism/favoritism): the loyalist pattern and the persistence of family networks are 7B.9 evidence; concrete 2023 incidents (e.g., family-wealth additions) were not located in this run.
+- 7B.10 (ethical example): the loyalist-appointment pattern, the suppression of independent investigation, and the offshore-network precedent all inform 7B.10.
+
+**Source mix (7B):** V-Dem, CPI (local priors), Bloomberg (cited via ChinaFile), NYT (cited but not opened), RUSI, PRC Leader, HRW, Amnesty, BBC, FAS. Nine independent source families, but most evidence is contextual rather than a discrete 2023 personal act.
+
+## 8B Effectiveness and Competence
+
+**Exposure/program identification (mostly explicit):** Xi's 2023 program components include (1) consolidating post-third-term authority via a loyalist State Council and a government reorganization that strengthens direct CCP control of finance, S&T, and Hong Kong/Macao; (2) implementing the abrupt December 2022 zero-Covid exit and pivoting to growth; (3) maintaining a strong common-prosperity narrative without advancing redistributive policy; (4) continuing the anti-corruption drive as both corrective and loyalty mechanism; (5) supporting the rapid military and nuclear modernization; (6) rebuilding the US-China relationship in a way that preserves strategic autonomy. Each of these is a public program with explicit or reliably revealed goals.
+
+**Defensible evidence (final_evidence, medium-high unless noted):**
+
+- WEB-015 (PRC Leader, March 2023): zero-Covid exit was an explicit and dramatic policy reversal; the leader describes the end-of-period pivot as "pragmatist" and shows Xi's adaptation. **8B.1, 8B.2, 8B.5, 8B.8**. Direct ruler attribution.
+- WEB-016 (PRC Leader, June 2023): loyalist State Council installed, government reorganization announced. **8B.1, 8B.2, 8B.3, 8B.4, 8B.5**. Direct ruler attribution.
+- WEB-017 (PRC Leader, June 2023): reorganization details including central commissions in finance, central S&T commission, party takeover of Hong Kong/Macao affairs, and a Central Social Affairs Department. **8B.2, 8B.3, 8B.4, 8B.5**.
+- WEB-020 (World Bank, Dec 2023): 5.2% 2023 growth, 4.5% projected 2024. **8B.6, 8B.7, 8B.10**.
+- WEB-021 (IMF 2023 Article IV snippet): youth unemployment 21.3%, property correction as the central risk. **8B.6, 8B.7, 8B.9, 8B.10**.
+- WEB-022 (BBC, 15 Aug 2023): suspension of youth-unemployment data, central-bank rate cut. **8B.6, 8B.7, 8B.8**. Ruler attribution: government-level.
+- WEB-023 (Guardian, 18 Aug 2023): property crisis deepens, stock market declines, country in deflation. **8B.6, 8B.7, 8B.8, 8B.9**.
+- WEB-024 (PRC Leader, March 2023 on common prosperity): no redistribution policies implemented in 2023. **8B.2, 8B.6, 8B.7, 8B.8**.
+- WEB-005 (BBC, 16 Nov 2023): Xi–Biden summit restored mil-to-mil communication, AI and fentanyl agreements, and an arms-control follow-up. **8B.9**.
+- WEB-001 (FAS): nuclear expansion. **8B.2, 8B.3, 8B.6, 8B.7**. Direct ruler attribution through CMC chairmanship.
+
+**Sparse lens notes:**
+
+- 8B.1 (program clarity): clearly explicit and consistent across multiple official texts.
+- 8B.2 (translation into plans/budgets/appointments): the 2023 Government Work Report (Li Keqiang, March 2023, on which Xi was the overarching authority) and the reorganization plan are concrete conversions; the search results show their existence and direct quotes were not extracted from the PDF due to format. **final_evidence_use=context** for the exact text.
+- 8B.3 (mobilization): partial success in installing loyalists; mixed in economic implementation.
+- 8B.4 (personnel fit): PRC Leader's piece raises a question of whether loyalists are also competent. Several comments and analyses (including the IMF Article IV) suggest a tension between political control and professionalization. **8B.4, 8B.5**.
+- 8B.5 (internal coordination): the year-end pivot from zero-Covid to growth, the property handling, and the youth-unemployment data suspension suggest mixed coordination.
+- 8B.6 (declarations into implementation): the apparent absence of redistribution policy (WEB-024) is a clear case of implementation gap.
+- 8B.7 (outcomes move as claimed): mixed; growth held near target, but property, youth unemployment, and stock-market confidence all worsened; common-prosperity indicators (Gini, fiscal progressivity) did not move.
+- 8B.8 (adaptation): the zero-Covid exit is the headline adaptation; the loyalist economic team replacing the more technocratic Li Keqiang era is the headline re-purposing. Both are major adaptive moves.
+- 8B.9 (crisis management): mil-to-mil restoration, fentanyl agreement, AI dialogue, and the November arms-control consultation are concrete crisis-management moves; the property and youth crises are not yet resolved in 2023.
+- 8B.10 (durable progress): mixed; loyalty-based rule is now durable, but economic dynamism and social welfare did not advance.
+
+**Source mix (8B):** PRC Leader (specialized political commentary), World Bank, IMF, NBS, BBC, Guardian, FAS, ACA, RUSI, HRW. Ten independent source families.
+
+---
+
+# 4. Cross-chapter reuse and same-URL splits
+
+| URL/web ID | Used by chapters |
+|---|---|
+| WEB-001 (FAS) | 1B, 2B (context), 8B |
+| WEB-002 (FAS/Bloomberg procurement corruption) | 1B, 7B (context), 8B |
+| WEB-003 (ACA 6 Nov 2023 meeting) | 1B, 2B |
+| WEB-004 (ACA Xi–Biden follow-up) | 1B, 2B |
+| WEB-005 (BBC 16 Nov 2023 mil-to-mil) | 1B, 2B, 8B |
+| WEB-006 (HRW Russia/Assad support) | 2B |
+| WEB-007 (HRW GSIs/GDI) | 2B |
+| WEB-010 (HRW no-letup press release and World Report 2024) | 3B, 4B, 5B (context), 7B (context) |
+| WEB-013 (Amnesty Urumqi visit, OHCHR anniversary) | 3B, 4B |
+| WEB-014 (Amnesty 2025 report covering 2023 events) | 3B, 4B, 7B |
+| WEB-015 (PRC Leader zero-Covid) | 3B (context), 5B, 6B, 8B |
+| WEB-016/017 (PRC Leader economic team + reorganization) | 4B, 5B, 7B, 8B |
+| WEB-020 (World Bank Dec 2023) | 5B, 8B |
+| WEB-021 (IMF Article IV 2023) | 5B, 8B |
+| WEB-022 (BBC 15 Aug 2023) | 5B, 6B, 8B |
+| WEB-023 (Guardian 18 Aug 2023) | 5B, 8B |
+| WEB-024 (PRC Leader common-prosperity) | 5B, 6B, 8B |
+| WEB-029 (Bloomberg/ChinaFile family fortune) | 7B |
+| WEB-030 (NYT/Guardian Panama Papers) | 7B |
+| WEB-031 (BBC/RUSI anti-corruption retrospectives) | 7B |
+| WEB-034 (Counter-Espionage Law) | 4B, 7B |
+
+Each of these items is a single source-claim unit reused across chapters; no chapter-prefixed duplicates were created. No local prior was counted as a source for any chapter.
+
+---
+
+# 5. Local-data audit
+
+**Used as baseline/context (LP-001 through LP-005):** All five local-prior bundles are retained as context for the relevant chapters (2B, 3B, 4B, 5B, 7B, 8B). They are not counted as internet sources in the per-chapter source family list.
+
+**Unused local fact:** None unused. LF015 (BTI status) is mapped to 4B and 5B; LF013, LF014 are mapped to 4B and 8B. All 36 supplied fact_ids have at least one chapter mapping.
+
+**Empty fact lists:** Chapter 1B and 6B have empty local fact lists, as expected. The package's `mapping_notes` and `disposition_reason R001` correctly identify this as an empty-state prior; I followed `instruction_set I001` and treated narrative research as the only evidence, with no fabricated local facts.
+
+**No error_methodology_ids in the supplied package.**
+
+---
+
+# 6. Strongest contrary or mitigating evidence
+
+- **Nuclear arsenal and intent:** WEB-001 (FAS) and the official Chinese position of "no first use" are mitigating; China’s arsenal remained smaller than US/Russian arsenals in 2023, and the November arms-control engagement (WEB-003, WEB-004, WEB-005) shows a tangible de-escalation step.
+- **2023 adaptation:** WEB-015 (PRC Leader) and the public pivot to growth can be read as pragmatic adaptation; Xi’s 2023 speeches and Government Work Report emphasized "high-quality development" and "new productive forces."
+- **Military communications restored:** WEB-005 is genuinely risk-reducing in a tense year.
+- **Anti-corruption continuity:** the public, official side of the anti-corruption campaign (WEB-031, WEB-032) is sometimes defended as a corrective effort.
+- **Counterevidence that cannot be located in this run:** I could not directly read the 2023 Government Work Report text due to PDF format; I could not directly read the IISS strategic comment on common prosperity; I could not directly read the NYT, Bloomberg, or Reuters source pages. Several specific 2023 incidents may have been missed.
+
+---
+
+# 7. Rejected candidates (with reason)
+
+- **All Reuters search-snippet URLs:** rejected as direct evidence because the Reuters `robots.txt` blocked autonomous fetching; only used as discovery.
+- **The IISS 2023 strategic comment on common prosperity:** rejected as a direct citation because the page could not be opened; used as context only.
+- **The US 2023 Department of Defense China Military Power Report:** the Arms Control Association piece references it; I did not open the underlying PDF and did not retain it as a separate source-claim unit.
+- **Wikipedia "Cross-strait relations" page:** excluded because the registry treats Wikipedia as context, and the relevant Xi 2014 quote ("Pacific Ocean is broad enough…") is pre-2023.
+- **Wikipedia "Nuclear weapons of China" page:** excluded for the same reason; not a primary, target-year source.
+- **Wikipedia "Anti-corruption campaign under Xi Jinping" page:** excluded; not a primary source.
+
+---
+
+# 8. Unresolved gaps
+
+1. **1B direct text:** No 2023 PRC white paper on nuclear policy, no 2023 CMC public doctrine statement, and no 2023 Xi speech on no-first-use was directly opened. The most likely candidates (Xinhua, MFA, Defense Ministry readouts) were not retrieved in this run.
+2. **2B cross-border clashes:** No specific 2023 incident of lethal Chinese cross-border use of force or arms transfer to a target in active war was located. The "Russia backing" and "Syria hosting" facts are well-corroborated; other specific claims need additional sources.
+3. **6B detailed welfare domain coverage:** health, education, water, sanitation, food, housing, and social-protection spending specific to 2023 was not retrieved. WB December 2023 and IMF Article IV are the best available overviews.
+4. **7B new 2023 personal conduct:** no new 2023 personal-integrity incident (asset disclosure, nepotism case, broken promise, etc.) was directly retrieved. The strongest 2023-specific 7B.6 fact is the counter-espionage law and the foreign-firm raids; 7B.2 (no public correction of the zero-Covid narrative) is the strongest 2023 fact on correction.
+5. **Tooling:** The `mcp__parallelweb_search` tool returned unsupported-call errors for every attempt after the first batch, and the last `mcp_web_search` attempt also returned "unsupported call." Internet research was completed using a combination of `minimax_web_search` and direct `fetch`; some candidate pages were not retrievable, and some pages were blocked by `robots.txt` or PDF/binary content.
+
+---
+
+# 9. Chapter yield and source diversity (per workflow)
+
+| Chapter | Source-claim units (final_evidence + context) | Independent source families | Min 5 / Max 20 | Min 3 families |
+|---|---:|---|:-:|:-:|
+| 1B | 5 | FAS, ACA, BBC (+ PRC MOFA context) | Pass | Pass |
+| 2B | 6 | SIPRI, ACA, BBC, HRW, Amnesty, PRC MOFA (context) | Pass | Pass |
+| 3B | 5 | HRW, Amnesty, US State Dept, BBC, V-Dem/PTS (local) | Pass | Pass |
+| 4B | 8 | V-Dem, BTI, FH, RSF (local), HRW, Amnesty, PRC Leader, BBC, US State Dept | Pass | Pass |
+| 5B | 8 | WB, IMF, NBS, BBC, Guardian, PRC Leader, HRW, Amnesty (context) | Pass | Pass |
+| 6B | 5 | PRC Leader, HRW, BBC, IISS (context), ChinaFile | Pass | Pass |
+| 7B | 7 | V-Dem/CPI (local), Bloomberg, NYT, RUSI, PRC Leader, HRW, Amnesty, BBC, FAS | Pass | Pass |
+| 8B | 10 | PRC Leader, WB, IMF, NBS, BBC, Guardian, FAS, ACA, RUSI, HRW | Pass | Pass |
+
+All eight chapters have at least five defensible source-claim units and at least three independent source families.
+
+---
+
+# 10. Self-audit
+
+- **Temporal fit:** every cited item has a 2023 anchor where claimed; retrospective context is labeled.
+- **Ruler attribution:** strongest for the appointments (PRC Leader), zero-Covid exit (PRC Leader), arms-control engagement (ACA, BBC), Hong Kong and Uyghur policy (HRW, Amnesty), and the counter-espionage law (HRW, US State Department). Weakest for the family-wealth history (Bloomberg 2012, NYT 2016), the missile-procurement corruption (Bloomberg via FAS), and several economic outcomes.
+- **Weak/context-only items:** all Bloomberg-2012 and NYT-2016 family-wealth material is context, not a 2023 act. The procurement-corruption story is context. The IISS piece is context.
+- **Independence:** Three or more independent source families in every chapter, with at least two source types.
+- **No client matrix use:** confirmed.
+- **No invented facts:** confirmed.
+- **No scoring, no judgment, no ranking:** confirmed.
+
+---
+
+# 11. Handoff summary for the parent
+
+**Best claim density:** Chapter 4B (8 units, 9 families) and Chapter 8B (10 units, 10 families) have the strongest evidence. Chapter 6B is the thinnest but reaches the 5-unit minimum with five independent families; the welfare-domain evidence is largely context rather than direct 2023 implementation.
+
+**Ruler-attribution patterns that will matter for downstream judges:**
+
+- The 2023 program is explicit and consistent: party-led control, loyalist appointments, security-centered economic policy, restricted redistribution, continued anti-corruption, continued military and nuclear modernization, and selective diplomatic re-engagement.
+- The dominant personal acts visible in 2023 are: a dramatic policy reversal (zero-Covid), a loyalty-based personnel reshuffle, a major state-organization restructuring, public mourning of a political rival that was tolerated, and a high-stakes summit with the US president.
+- The dominant omissions visible in 2023 are: no redistribution policy despite the common-prosperity program, no public correction of the zero-Covid narrative, no personal-integrity disclosure, and no visible 2023 move on weapons of mass destruction that exceeds the inherited trajectory.
+
+**Highest-value single fact:** WEB-005 (BBC, 16 Nov 2023), the restored mil-to-mil communication, is the cleanest single 2023 ruler-attributed risk-reducing diplomatic fact. It pairs naturally with WEB-001 (FAS) and WEB-003/004 (ACA) to bound the 1B and 2B chapters.
+
+**Highest-value single contrary fact:** the chaotic post-zero-Covid exit and the refusal to import Western vaccines (WEB-015) is the strongest single 2023 example of a ruler-attributed welfare and crisis-management failure.
+
+This concludes the handoff.
+---

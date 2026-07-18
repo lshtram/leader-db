@@ -1,0 +1,1172 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. In particular, `research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact. Documented formal authority for a
+national policy, program, appointment, or state action can satisfy ruler attribution
+when the evidence and guide support authority-based responsibility; a personal order
+is not required in every case. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:4B",
+  "run_key": "2023-top20-usa-tha-repair-judges-v1",
+  "chapter_id": "4B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:4B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E003",
+          "E041",
+          "E051"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Democratic institutions, federal safeguards, courts, voting enforcement, and media norms are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.2",
+        "reason": "Voting and speech constraints are covered, with most adverse evidence attributable to courts or states.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.3",
+        "reason": "Media, protest, and social-media contacts are documented.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.4",
+        "reason": "Electoral and judicial constraints are documented.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.5",
+        "reason": "No material 2023 personality-cult or loyalty-test pattern was identified after targeted searches.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.6",
+        "reason": "Expression, press, protest, and transparency evidence is available.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.7",
+        "reason": "Voting, asylum, and federal enforcement evidence is available.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.8",
+        "reason": "Response to adverse judicial constraint is directly documented.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.9",
+        "reason": "Courts, press, and social-media governance evidence is available.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.10",
+        "reason": "Federal constraint and contrary evidence are adequately represented for 2023.",
+        "status": "research_blocked"
+      }
+    ],
+    "estimated_input_tokens": 4290,
+    "evidence": [
+      {
+        "canonical_fact_key": "local-prior:4B.1|LF011-LF025|USA-2023-democracy-context",
+        "claim": "Supplied 2023 V-Dem, Freedom House, and RSF fields show strong democratic and civil-liberties institutions with a weaker press-freedom position.",
+        "contrary_evidence": [],
+        "evidence_id": "E003",
+        "excerpt": "LF011-LF025; exact values retained in supplied local prior.",
+        "final_evidence_use": "context",
+        "period_fit": "exact 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "V-Dem, Freedom House, and RSF local structured priors",
+        "ruler_attribution": "Institutional country context, not proof of Biden conduct.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct supplied structured fields.",
+        "source_locator": "local-prior:4B.1",
+        "source_type": "structured local prior",
+        "title": "U.S. democracy and freedom context",
+        "url": "local-prior:4B.1"
+      },
+      {
+        "canonical_fact_key": "https://www.fbi.gov/news/speeches-and-testimony/oversight-of-section-702-of-the-foreign-intelligence-surveillance-act-and-related-surveillance-authorities|lines-206-216|improper-protest-queries-and-reforms",
+        "claim": "FBI testimony acknowledged improper Section 702 queries involving peaceful protesters and described post-2021 training, approvals, and accountability reforms.",
+        "contrary_evidence": [
+          "The testimony also reports improved compliance after reforms.",
+          "Historical improper queries are not automatically Biden-directed conduct."
+        ],
+        "evidence_id": "E041",
+        "excerpt": "FBI describes improper protest-related queries and safeguards.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 testimony concerning prior and current safeguards",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Federal Bureau of Investigation",
+        "ruler_attribution": "Federal surveillance institution; direct presidential responsibility unresolved.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official congressional testimony.",
+        "source_locator": "Lines 206-216",
+        "source_type": "official testimony",
+        "title": "Oversight of Section 702 and related surveillance authorities",
+        "url": "https://www.fbi.gov/news/speeches-and-testimony/oversight-of-section-702-of-the-foreign-intelligence-surveillance-act-and-related-surveillance-authorities"
+      },
+      {
+        "canonical_fact_key": "https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/|opening-and-divestiture-section|cabinet-ethics-compliance",
+        "claim": "CREW found a strong pattern of senior Biden officials complying with divestiture obligations, while recommending stronger restrictions on individual stocks and family-business interests.",
+        "contrary_evidence": [
+          "The review concerns officials and filings, not Biden's own personal finances.",
+          "CREW still identified policy weaknesses."
+        ],
+        "evidence_id": "E051",
+        "excerpt": "CREW reports cabinet divestiture compliance and remaining ethics recommendations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 review of administration filings",
+        "publication_date": "2023-04-17",
+        "publisher": "Citizens for Responsibility and Ethics in Washington",
+        "ruler_attribution": "Administration ethics framework; not proof of every appointment's competence.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Nonpartisan ethics NGO analysis of OGE filings.",
+        "source_locator": "Opening and cabinet divestiture sections",
+        "source_type": "ethics NGO analysis",
+        "title": "Biden administration financial disclosures show strong pattern of compliance",
+        "url": "https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E003",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Local democracy context."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "150115894e7c460cf01192d2e2e20c82f0f47c5ce332baa3a590ac23dbf880bb",
+      "source_mix_note": "Evidence mix includes official government and intergovernmental records, inspector-general and GAO audits, official statistics, specialist NGOs, reputable media, policy institutes, fact-checkers, and local structured priors. Local priors are context only. Some source families remain concentrated in nuclear arms-control and selected integrity episodes; several official primary documents were inaccessible in the research run.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "eef0457b8e2faf43682bf5ccc38b83a4e982e7b9808a572bd30f3cd3f1d837ba",
+    "unresolved_gaps": [
+      "Detailed classified nuclear command-and-control safeguards, completed fail-safe review findings, and independent start/end 2023 posture measurement.",
+      "Iran, North Korea, Saudi, and allied proliferation-restraint evidence beyond the South Korean record.",
+      "Primary 2023 Israel arms-transfer records, incident-level civilian-harm accountability, and causal evidence linking Biden diplomacy to the November Gaza pause.",
+      "Complete ATACMS, F-16, targeting, prisoner-treatment, and accountability records for Ukraine.",
+      "Direct DHS/DOJ inspector-general records and complete federal protest-surveillance evidence.",
+      "Independent IRA, infrastructure, climate, CHIPS, and portfolio-wide implementation audits; competition policy and procurement evidence.",
+      "Maternal, rural-health, reproductive-care, childcare, school-recovery, and longer-term welfare delivery evidence.",
+      "Underlying disclosure review, campaign-finance patterns, donor/appointment influence, and broader factual-correction sample.",
+      "No local structured priors were supplied for 1B or 6B; this is a documented local-field gap, not evidence of no activity."
+    ]
+  },
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Thailand",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E010",
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Official election results and institutional constraints are both represented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E012",
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.2",
+        "reason": "Election certification and Pita-renomination proceedings are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.3",
+        "reason": "Expression, association, and institutional constraint evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E013",
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.4",
+        "reason": "Institutional and judicial actions are documented with non-personal attribution caveats.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.5",
+        "reason": "Military reshuffle signature and institutional governance evidence retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.6",
+        "reason": "Political and expression constraints are represented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.7",
+        "reason": "Evidence is available but direct ruler attribution remains incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.8",
+        "reason": "Election administration, certification, and transition milestones are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.9",
+        "reason": "Judicial and electoral institutional evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E015",
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.10",
+        "reason": "Competitiveness, institutional blockage, and contrary evidence are represented.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 7937,
+    "evidence": [
+      {
+        "canonical_fact_key": "prd:181946:ect-preliminary-results",
+        "claim": "Thai Election Commission preliminary results placed Move Forward first in party-list votes with 14,233,895 votes and reported approximately 75.2% turnout.",
+        "contrary_evidence": [
+          "Later institutional proceedings prevented the winning party's leader from becoming prime minister."
+        ],
+        "evidence_id": "E010",
+        "excerpt": "Thai government PRD reports the preliminary results and turnout.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "14 May 2023 election",
+        "publication_date": "2023-05-15",
+        "publisher": "Thai Government Public Relations Department",
+        "ruler_attribution": "Election outcome; Prayut personally enabling or obstructing the result is not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Government report of official election results.",
+        "source_locator": "Report section stating preliminary results and turnout.",
+        "source_type": "official government report",
+        "title": "Election Commission preliminary results",
+        "url": "https://thailand.prd.go.th/en/content/category/detail/id/48/iid/181946"
+      },
+      {
+        "canonical_fact_key": "prd:190994:ect-certifies-500-mps",
+        "claim": "Thailand's Election Commission certified all 500 elected MPs on 19 June 2023 while preserving possible later challenges.",
+        "contrary_evidence": [
+          "Certification proceeded while fraud investigations remained incomplete."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "The PRD reports certification of all 500 MPs and the qualification caveat.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "19 June 2023",
+        "publication_date": "2023-06-19",
+        "publisher": "Thai Government Public Relations Department",
+        "ruler_attribution": "Election-administration milestone; no direct Prayut instruction established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Government report of certification action.",
+        "source_locator": "Report body describing certification and reserved challenges.",
+        "source_type": "official government report",
+        "title": "Election Commission certifies 500 MPs",
+        "url": "https://thailand.prd.go.th/en/content/category/detail/id/48/iid/190994"
+      },
+      {
+        "canonical_fact_key": "voa:2023-07-13:pita-first-vote",
+        "claim": "On 13 July 2023 the joint parliamentary sitting rejected Pita Limjaroenrat's nomination; 324 votes supported him, below the 376 required.",
+        "contrary_evidence": [
+          "The election itself proceeded on schedule and produced a highly competitive result."
+        ],
+        "evidence_id": "E012",
+        "excerpt": "VOA reports the 324 votes in favor and the 376-vote requirement.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "13 July 2023",
+        "publication_date": "2023-07-13",
+        "publisher": "VOA News",
+        "ruler_attribution": "Parliamentary outcome; direct Prayut instruction is not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporaneous vote reporting with vote totals.",
+        "source_locator": "Article body paragraph reporting the vote totals.",
+        "source_type": "news report",
+        "title": "Thailand's Pita falls short in first vote for prime minister",
+        "url": "https://www.voanews.com/a/thailand-s-pita-falls-short-in-first-vote-for-prime-minister/7179162.html"
+      },
+      {
+        "canonical_fact_key": "nation:40029514:regulation-151-pita-renomination",
+        "claim": "On 19 July 2023 Parliament voted that Pita could not be renominated under parliamentary Regulation 151; Nation Thailand reported 395 of 715 votes for that interpretation.",
+        "contrary_evidence": [
+          "The Constitutional Court later ruled 8\u20131 that the iTV shareholding did not violate the Constitution."
+        ],
+        "evidence_id": "E013",
+        "excerpt": "Nation Thailand reports the parliamentary procedural vote and its tally.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "19 July 2023",
+        "publication_date": "2023-07-19",
+        "publisher": "Nation Thailand",
+        "ruler_attribution": "Parliamentary majority and party actors; no personal Prayut instruction established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct contemporaneous parliamentary reporting.",
+        "source_locator": "Article body reporting Regulation 151 and vote tally.",
+        "source_type": "news report",
+        "title": "Parliament blocks Pita renomination",
+        "url": "https://www.nationthailand.com/thailand/politics/40029514"
+      },
+      {
+        "canonical_fact_key": "ap:fc24957735c693b21988029ebacec5f2:2024-pita-itv-ruling",
+        "claim": "In January 2024 the Constitutional Court ruled 8\u20131 that Pita's iTV shareholding did not violate the Constitution.",
+        "contrary_evidence": [],
+        "evidence_id": "E015",
+        "excerpt": "AP reports the later 8\u20131 ruling.",
+        "final_evidence_use": "context",
+        "period_fit": "Post-period contrary context",
+        "publication_date": "2024-01-24",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Post-period judicial context, not Prayut-attributable.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Major news report of court decision.",
+        "source_locator": "Article body reporting the 8\u20131 ruling.",
+        "source_type": "news report",
+        "title": "Thai court ruling on Pita iTV shares",
+        "url": "https://apnews.com/article/fc24957735c693b21988029ebacec5f2"
+      },
+      {
+        "canonical_fact_key": "worldbank:gep-jan2024:thailand-2023-real-gdp-growth-1.9",
+        "claim": "Thailand's real GDP growth in 2023 was 1.9%.",
+        "contrary_evidence": [
+          "Tourism, private consumption, employment, and investment indicators also improved during parts of 2023."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "World Bank Global Economic Prospects table lists Thailand's 2023 real-GDP growth at 1.9%.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2024-01-01",
+        "publisher": "World Bank",
+        "ruler_attribution": "Country-level outcome; no direct Prayut policy-causal chain established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct underlying World Bank report locator.",
+        "source_locator": "Real-GDP growth table for Thailand, 2023.",
+        "source_type": "multilateral report",
+        "title": "Global Economic Prospects, January 2024",
+        "url": "https://documents1.worldbank.org/curated/en/099159101082419813/pdf/IDU1079447f81a6f81463a1b235156a74338379b.pdf"
+      },
+      {
+        "canonical_fact_key": "boi:nation-40029226:2023-h1-investment-applications",
+        "claim": "Thailand's BOI recorded 891 investment-promotion applications worth THB 364.42 billion during January\u2013June 2023, including substantial electronics, food-processing, automobile, and EV projects.",
+        "contrary_evidence": [],
+        "evidence_id": "E017",
+        "excerpt": "Nation Thailand reports BOI application totals and sector composition.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "January\u2013June 2023",
+        "publication_date": "2023-07-01",
+        "publisher": "Nation Thailand",
+        "ruler_attribution": "Implementation output of BOI/government machinery; personal Prayut authorship not established.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporaneous reporting of official BOI figures.",
+        "source_locator": "Article body reporting 891 applications and THB 364.42 billion.",
+        "source_type": "news report",
+        "title": "BOI investment applications in first half of 2023",
+        "url": "https://www.nationthailand.com/thailand/economy/40029226"
+      },
+      {
+        "canonical_fact_key": "worldbank:2023-12-thailand-economic-monitor:exports-fiscal-consolidation",
+        "claim": "World Bank reported that 2023 growth was dampened by contracting goods exports and ongoing fiscal consolidation.",
+        "contrary_evidence": [],
+        "evidence_id": "E018",
+        "excerpt": "World Bank Thailand Economic Monitor describes export contraction and fiscal consolidation.",
+        "final_evidence_use": "context",
+        "period_fit": "2023",
+        "publication_date": "2023-12-14",
+        "publisher": "World Bank",
+        "ruler_attribution": "Macroeconomic context; no direct Prayut policy ownership established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Multilateral economic-monitor release.",
+        "source_locator": "Release body, paragraphs describing 2023 growth dampeners.",
+        "source_type": "multilateral report",
+        "title": "Thai economy to recover in 2024",
+        "url": "https://www.worldbank.org/en/news/press-release/2023/12/14/thai-economy-to-recover-in-2024-driven-by-tourism-exports-recovery"
+      },
+      {
+        "canonical_fact_key": "imf:24-35:2023-inflation-fiscal-discipline",
+        "claim": "The IMF reported fiscal-discipline commitments, gradual monetary normalization, and average inflation of 1.3% in 2023.",
+        "contrary_evidence": [],
+        "evidence_id": "E019",
+        "excerpt": "IMF country report summarizes fiscal and inflation conditions.",
+        "final_evidence_use": "context",
+        "period_fit": "2023",
+        "publication_date": "2024-02-01",
+        "publisher": "IMF",
+        "ruler_attribution": "Macroeconomic context involving autonomous institutions and post-handover decisions.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official IMF country report.",
+        "source_locator": "Thailand Country Report 24/35, macroeconomic discussion.",
+        "source_type": "multilateral report",
+        "title": "Thailand: 2024 Article IV / Country Report 24/35",
+        "url": "https://www.imf.org/-/media/files/publications/cr/2024/english/1thaea2024001.pdf"
+      }
+    ],
+    "iso3": "THA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=17; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E010",
+        "methodology_id": "4B.1",
+        "relation": "supports",
+        "relevance": "Official election result."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "4B.2",
+        "relation": "supports",
+        "relevance": "First Pita vote."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "4B.4",
+        "relation": "supports",
+        "relevance": "Second nomination procedural vote."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.8",
+        "relation": "supports",
+        "relevance": "Election certification milestone."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "4B.10",
+        "relation": "mitigates",
+        "relevance": "Later contrary legal outcome."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "3006",
+    "ruler_name": "Prayut Chanocha",
+    "ruler_year_id": 17130,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ad79783e02523b8129c973b314f3f1f3f9b66c95030a3da2ea667799b0b31ce1",
+      "source_mix_note": "Evidence mixes official Thai and U.S. government releases, multilateral reports, UN materials, international and domestic NGOs, major news reporting, and supplied structured local priors. Country-level and institutional sources are explicitly limited where personal ruler attribution is not documented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "4b2af7075640b13af352d4f19ffdb61e4cebcbf916ba72960e479585fe831b07",
+    "unresolved_gaps": [
+      "No direct 2023 personal-integrity finding involving Prayut was recovered.",
+      "No clearly Prayut-authored 2023 economic or social-policy decision was recovered.",
+      "No evidence establishes that Prayut personally directed the Senate, Election Commission, or Constitutional Court actions involving Pita.",
+      "Cumulative protest statistics require strict temporal separation of the post-22-August period.",
+      "Direct source locators for some legacy Wikipedia-routed claims remain incomplete; those claims are not emitted as final evidence.",
+      "The notebook identifies further possible research themes, but this formatter performed no new research.",
+      "Local-prior placeholder provenance must be replaced by the parent with complete hashed artifact provenance before validation."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 4B Political Freedom vs Authoritarian Rule
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `4B`
+- Category: political freedom vs authoritarian rule
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_4b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The ten questions below are complementary evidence lenses. They direct collection and expose different mechanisms; they are not independent gates or equally weighted sub-scores.
+
+## Ten Evidence Lenses
+
+1. **4B.1** — Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?
+2. **4B.2** — Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?
+3. **4B.3** — Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?
+4. **4B.4** — Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?
+5. **4B.5** — Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?
+6. **4B.6** — Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?
+7. **4B.7** — Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
+8. **4B.8** — Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?
+9. **4B.9** — Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?
+10. **4B.10** — Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?
+
+## Researcher Evidence Plan
+
+Collect a reusable, cited ruler-period dossier; do not score the chapter. Follow the local-first researcher guide and source-confidence registry. Start with local V-Dem, BTI, RSF, Freedom House/Polity when available, election and constitutional records, then search only unresolved gaps. Prefer election observers, courts, legislatures, audit/election bodies, UN or regional institutions, rights and press-freedom organizations, academic histories, and reputable local/international reporting. Official claims are useful for acts and stated intent but require independent checks for effects.
+
+Seek evidence on election quality and alternation; institutional capture or restraint; treatment of opposition, protest, journalists, NGOs and satire; court and legislative independence; appointments and politicization; censorship, propaganda and digital controls; political inclusion; term limits and succession; and inherited-to-left trajectory. Preserve favorable, adverse and contrary evidence. One item may support several lenses when the relationship is real; do not duplicate the source merely to fill every lens. Flexible prose and coverage labels are acceptable if citations and meaning remain recoverable.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Separate inherited regime conditions from the ruler's choices. Credit opening, restraint, remedies and durable institution-building; debit capture, repression, erosion and knowing failure to prevent abuses within the ruler's authority. Record formal versus de facto authority, coalition constraints, subnational responsibility, conflict/emergency context and timing. Do not award a ruler an inherited democracy automatically or blame a new ruler for every inherited restriction.
+
+Historical and obscure cases will have uneven records. Use contemporary archives, constitutional histories and reputable scholarship; note temporal distance and disagreement. Missing lenses lower confidence and may alter qualitative weight, but never invalidate a dossier or mechanically force a neutral/low score. Silence is especially weak evidence in closed systems.
+
+An inherited democracy establishes context, not ruler merit. Scores of 8 or above
+require direct target-period evidence that the ruler respected or strengthened
+contestability, transfer rules, civic/media space, or independent constraints when
+those constraints had practical force. A 9 normally requires meaningful pressure or
+consequential strengthening. If a projection claims coverage but contains no cited
+chapter evidence, return null and flag `projection_integrity`; do not infer a score
+from the country baseline. Post-window events may be used only as retrospective
+evidence about a target-period act, must be labeled, and may not silently expand the
+period under judgment.
+
+## Chapter Judge and Lens Weighting
+
+One judge scores the complete ruler batch with a common meter. Judge the overall freedom people could exercise and the ruler's contribution to it. Weight lenses qualitatively by consequence, ruler responsibility, duration, breadth, source strength and period fit. Electoral contestability, coercive closure, institutional constraints, civic/media space and transfer rules will often be decisive; minor administrative incidents should not outweigh systematic capture. `4B.10` synthesizes trajectory and must not double-count every underlying event. Redundancy is intentional: corroborating lenses increase confidence, not arithmetic weight.
+
+The judge may score with only part of the lens set when the available evidence establishes the regime and ruler pattern. State which lenses are strong, weak or unavailable and why. Never manufacture a per-lens score or average.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler systematically eliminates meaningful political choice and independent constraint through repression, captured institutions, censorship, entrenchment and/or refusal of lawful transfer. |
+| 2–3 | Severe authoritarian rule dominates across several consequential mechanisms; opposition and oversight exist only narrowly or at substantial risk. |
+| 4–5 | Material competition or civic space coexists with recurring manipulation, capture, exclusion or intimidation; the ruler's contribution is mixed or erosive. |
+| 6–7 | Meaningful political freedom and constraints operate, but important ruler-attributable flaws, unequal access, pressure or institutional weaknesses remain. |
+| 8–9 | The ruler consistently respects broad contestability, rights, independent institutions and transfer rules, with isolated or credibly remedied shortcomings. |
+| 10 | Exceptional, durable protection and strengthening of pluralism and neutral constraints, including when those constraints threaten the ruler's own power. |
+
+## Common Chapter-Judge Output Envelope
+
+The chapter result should use the shared semantic envelope below. Exact field spelling can be normalized cheaply after LLM handoff; no useful judgment should be rejected only for synonymous wording.
+
+- `chapter_id`: `4B`
+- `rubric_version`: `chapter_4b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extra: `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language values are acceptable; preserve meaning rather than enforcing brittle enums.
+
+## Calibration, Confidence, and Bias Checks
+
+Check visibility and silence-under-repression bias, population and incident-volume bias, regime-type comparability, election-cycle timing, wartime/emergency claims, formal-versus-de-facto authority, English-language/search-access bias, and recency. Compare rulers with similar inherited systems as well as the full batch. High reporting volume in open societies is not itself worse performance.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Kim Jong Un | North Korea | 2012–2023 | closed personalist low anchor and silence bias |
+| Alexander Lukashenka | Belarus | 2020 | manipulated election and coercive entrenchment |
+| Vladimir Putin | Russia | 2012–2023 | long-run institutional erosion and transfer avoidance |
+| Narendra Modi | India | 2014–2023 | competitive elections with contested civic/institutional record |
+| Donald Trump | United States | 2020–2021 | transfer stress test within resilient institutions |
+| Nelson Mandela | South Africa | 1994–1999 | democratic transition, inclusion and voluntary departure |
+| Angela Merkel | Germany | 2005–2021 | high institutional-restraint comparison |
+| Jacinda Ardern | New Zealand | 2017–2023 | high freedom with crisis/emergency scrutiny |
+| Lee Kuan Yew | Singapore | 1965–1990 | prosperity-versus-contestability edge case |
+| Violeta Chamorro | Nicaragua | 1990–1997 | less-visible historical transition, institutional constraint and gender comparison |
+
+## Acceptance Checklist
+
+- Scores above `7` require affirmative ruler-attributed self-binding, protection, or
+  expansion of freedom; inherited democratic institutions alone cannot establish a
+  high anchor.
+
+- All ten exact lenses remain visible, but only one chapter score is produced.
+- Research is local-first, cited, source-profiled, period-fit and preserves contrary evidence.
+- The judge scores the full batch with one rubric and records adjacent comparisons.
+- Baseline, de facto authority, ruler attribution and trajectory are explicit.
+- Missing lenses reduce confidence and never invalidate the dossier.
+- Flexible LLM wording/statuses are accepted when evidence and uncertainty are recoverable.
+- Systematic mechanisms outweigh article count and isolated events.
+- Bias checks and anchor rejections are substantive.
+- Smoke cases are reviewed together before this draft is activated.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

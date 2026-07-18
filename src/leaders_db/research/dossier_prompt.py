@@ -67,11 +67,12 @@ Requirements:
   equivalent source treatments when that makes the dossier clearer. If an item cannot
   be normalized safely, retain its caveat or gap instead of silently deleting it.
 - The supplied notebook includes a `ruler_research_ledger_manifest_v1` accounting
-  index. Use it to prevent evidence collapse. You may rewrite canonical fact keys,
-  combine compatible local/context rows, and substitute a stronger cited source for
-  the same claim. The formatted dossier must contain at least as many evidence records
-  as the manifest contains `final_evidence` entries. Manifest entries marked
-  `rejected` must not be emitted as evidence.
+  index. Use it to prevent evidence collapse. Every manifest entry marked
+  `final_evidence` must appear in the dossier with the same canonical fact key and must
+  remain mapped to at least one lens in every recorded `chapter_ids` chapter. Do not
+  rewrite its key, merge it away, or substitute another source during formatting.
+  Source upgrades and disposition changes belong in research before formatting.
+  Manifest entries marked `rejected` must not be emitted as evidence.
 - Treat the local structured priors above as the required local-first
   step. Do not rerun the local-evidence CLI when those payloads are present.
 - Never use the client matrix as evidence.
@@ -101,11 +102,9 @@ Requirements:
   Conversely, never recreate the same source-locator-claim fact under separate
   chapter-specific evidence IDs. Preserve one global evidence object and map it to
   every genuinely relevant chapter lens.
-  Treat the latest evidence review's per-chapter defensible-evidence estimate as an
-  accounting check. When it estimates five or more units for a chapter, expose at least
-  five distinct atomic evidence objects to that chapter unless the notebook itself shows
-  that the estimate double-counted or the material is not defensible. Never collapse a
-  multi-finding report into one omnibus object merely to shorten the response.
+  Never collapse a multi-finding report into one omnibus object merely to shorten the
+  response. Evidence counts are depth diagnostics, not an alternative to preserving the
+  manifest's exact accepted facts and chapter routing.
   Mapping and coverage wording are advisory handoff aids, not score-bearing decisions.
   Mapping is many-to-many. Add every directly relevant lens recorded or clearly
   indicated by the notebook; never select only one preferred lens for an evidence

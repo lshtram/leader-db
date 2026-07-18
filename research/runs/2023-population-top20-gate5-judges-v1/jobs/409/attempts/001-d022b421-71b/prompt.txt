@@ -1,0 +1,2132 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate5-judges-v1:2023:2B",
+  "run_key": "2023-population-top20-gate5-judges-v1",
+  "chapter_id": "2B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate5-judges-v1:2023:2B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+    "iso3": "IDN",
+    "ruler_id": "2636",
+    "ruler_year_id": 16200,
+    "ruler_name": "Joko Widodo",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:NGA:15772",
+    "iso3": "NGA",
+    "ruler_id": "2774",
+    "ruler_year_id": 15772,
+    "ruler_name": "Bola Ahmed Tinubu",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:BRA:16162",
+    "iso3": "BRA",
+    "ruler_id": "2841",
+    "ruler_year_id": 16162,
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "2B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E001",
+          "E014",
+          "E015",
+          "E016",
+          "E017"
+        ],
+        "methodology_id": "2B.1",
+        "reason": "Military context, Ukraine support rationale, and Gaza conflict context are available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E016",
+          "E017"
+        ],
+        "methodology_id": "2B.2",
+        "reason": "The cluster-munition transfer is directly attributable to Biden, with humanitarian-risk caveats.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E016",
+          "E017"
+        ],
+        "methodology_id": "2B.3",
+        "reason": "Transfer safeguards, necessity rationale, and civilian-risk evidence are available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E016",
+          "E017"
+        ],
+        "methodology_id": "2B.4",
+        "reason": "Civilian-protection positions and contrary Gaza/cluster evidence are retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E046"
+        ],
+        "methodology_id": "2B.5",
+        "reason": "Humanitarian-risk and recipient-safeguard evidence is available; downstream outcomes remain incomplete.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E047"
+        ],
+        "methodology_id": "2B.6",
+        "reason": "Official rationales and monitoring mechanisms are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E016",
+          "E018"
+        ],
+        "methodology_id": "2B.7",
+        "reason": "UN diplomacy and defense-production rationale are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "2B.8",
+        "reason": "Military-spending context and arms-transfer evidence are available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "2B.9",
+        "reason": "Recipient safeguards and mitigation claims are documented, with outcome gaps.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E048"
+        ],
+        "methodology_id": "2B.10",
+        "reason": "Mixed conflict, diplomatic, and humanitarian evidence is available.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 8981,
+    "evidence": [
+      {
+        "canonical_fact_key": "local-prior:2B.1|military-expenditure-scale-and-share",
+        "claim": "The supplied package reports 2023 US military expenditure of approximately 943,032.8 constant-USD units, $2,674.69 per capita, 3.2937% of GDP, and 8.7481% of government spending.",
+        "contrary_evidence": [
+          "Spending magnitude does not establish aggression, restraint, necessity, procurement integrity, or Biden's personal decisions."
+        ],
+        "evidence_id": "E001",
+        "excerpt": "LF001-LF004.",
+        "final_evidence_use": "context",
+        "period_fit": "Exact 2023 country-year context; not automatic ruler attribution.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "SIPRI structured observations",
+        "ruler_attribution": "None established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured local-prior facts.",
+        "source_locator": "local-prior:2B.1",
+        "source_type": "structured_dataset",
+        "title": "US military expenditure observations",
+        "url": "local-prior:2B.1"
+      },
+      {
+        "canonical_fact_key": "https://news.un.org/en/story/2023/10/1142507|US-veto-humanitarian-pauses-resolution|2023-Gaza-veto",
+        "claim": "The United States cast the sole vote against a Brazilian-led Security Council resolution calling for humanitarian pauses in Gaza on 2023-10-18; the US cited omission of Israel's right of self-defense.",
+        "contrary_evidence": [
+          "The US said it would continue civilian-protection diplomacy and direct diplomacy; the resolution concerned pauses rather than necessarily a permanent ceasefire."
+        ],
+        "evidence_id": "E014",
+        "excerpt": "Twelve members voted in favour while the United States voted against; the US said the resolution did not mention Israel's right of self-defence.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 foreign-policy act.",
+        "publication_date": "2023-10-18",
+        "publisher": "UN News",
+        "ruler_attribution": "Strong Biden-administration attribution through the US vote and stated rationale.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Intergovernmental official proceeding.",
+        "source_locator": "Opening vote totals and \u201cUS rejection\u201d section.",
+        "source_type": "intergovernmental_record",
+        "title": "Israel-Gaza crisis: US vetoes Security Council resolution",
+        "url": "https://news.un.org/en/story/2023/10/1142507"
+      },
+      {
+        "canonical_fact_key": "https://news.un.org/en/story/2023/10/1142507|civilian-protection-and-direct-diplomacy|2023-Gaza-policy-position",
+        "claim": "The US representative stated that the administration would emphasize protection of civilians, media, humanitarian workers, and UN officials, and pointed to Biden's visit and direct diplomacy.",
+        "contrary_evidence": [
+          "Protection rhetoric coexisted with the veto and continued support for Israeli military operations; actual protection outcomes require independent evidence."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "The US said it would continue emphasizing civilian protection and noted Biden's direct diplomacy.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 diplomatic position.",
+        "publication_date": "2023-10-18",
+        "publisher": "UN News",
+        "ruler_attribution": "Direct Biden-administration policy-position attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Official proceeding reporting the US representative's statement.",
+        "source_locator": "\u201cUS rejection\u201d paragraphs beginning \u201cShe said that though the US could not support\u201d and \u201cAmbassador Thomas-Greenfield also noted.\u201d",
+        "source_type": "intergovernmental_record",
+        "title": "US civilian-protection and direct-diplomacy position in Gaza",
+        "url": "https://news.un.org/en/story/2023/10/1142507"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/news/2023/07/14/us-cluster-munition-transfer-ukraine-ignores-history-civilian-harm|opening-and-danger-sections|Biden-cluster-transfer-civilian-risk",
+        "claim": "Biden personally decided to transfer DPICM cluster munitions to Ukraine; HRW said these weapons create foreseeable immediate and long-lived civilian dangers and weaken a norm followed by more than 120 countries.",
+        "contrary_evidence": [
+          "Russia had extensively used cluster weapons; Ukraine faced severe ammunition shortages; Ukraine agreed to record use and the US promised clearance support."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "President Joe Biden's recent decision; cluster munitions endanger civilians during strikes and for months, years, or decades afterward.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 decision.",
+        "publication_date": "2023-07-14",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Direct personal presidential decision.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Detailed weapons and civilian-harm analysis by established NGO; advocacy caveat applies.",
+        "source_locator": "Opening four paragraphs; \u201cEvery Submunition Presents a Danger\u201d; \u201cA Humanitarian Threat.\u201d",
+        "source_type": "human_rights_ngo",
+        "title": "US Cluster Munition Transfer to Ukraine Ignores History of Civilian Harm",
+        "url": "https://www.hrw.org/news/2023/07/14/us-cluster-munition-transfer-ukraine-ignores-history-civilian-harm"
+      },
+      {
+        "canonical_fact_key": "https://www.congress.gov/crs_external_products/RS/HTML/RS22907.web.html|cluster-transfer-mitigation-rationale|2023-DPICM-safeguards",
+        "claim": "CRS records that the administration transferred DPICM cluster munitions under presidential drawdown authority and cited a submunition unexploded-ordnance rate below 2.35%, Ukrainian assurances, non-urban use, location records, and demining commitments.",
+        "contrary_evidence": [
+          "Civilian outcomes remain unresolved; safeguards and necessity do not eliminate foreseeable humanitarian risk."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "CRS summarizes the administration's stated transfer authority, necessity rationale, assurances, monitoring, and demining commitments.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct July 2023 policy and transfer.",
+        "publication_date": "2023",
+        "publisher": "Congressional Research Service",
+        "ruler_attribution": "Formal administration rationale under presidential drawdown authority.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Congressional research analysis of primary policy records.",
+        "source_locator": "CRS cluster-munition analysis, sections on July 2023 transfer, safeguards, and rationale.",
+        "source_type": "congressional_research",
+        "title": "Cluster Munitions: Background and Issues for Congress",
+        "url": "https://www.congress.gov/crs_external_products/RS/HTML/RS22907.web.html"
+      },
+      {
+        "canonical_fact_key": "https://www.congress.gov/crs-product/R48182|defense-production-rationale-and-contrary-arguments|Ukraine-support-2023",
+        "claim": "CRS documents the administration's defense-industrial rationale for Ukraine support, including national interest, Ukrainian victory, domestic production, and readiness, alongside congressional and expert arguments about opportunity costs and finite resources.",
+        "contrary_evidence": [
+          "The record contains competing arguments about opportunity costs and resource constraints; it does not establish overall security effectiveness."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "CRS describes national-interest, victory, production, readiness, and resource-allocation arguments.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 policy and support context.",
+        "publication_date": "2024",
+        "publisher": "Congressional Research Service",
+        "ruler_attribution": "Shared administration, congressional, alliance, and industrial-policy attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Congressional research report.",
+        "source_locator": "Sections addressing defense production, Ukraine support rationale, and opportunity costs.",
+        "source_type": "congressional_research",
+        "title": "Defense Production for Ukraine: Background and Issues for Congress",
+        "url": "https://www.congress.gov/crs-product/R48182"
+      },
+      {
+        "canonical_fact_key": "https://www.govinfo.gov/app/details/DCPD-202300133|memorandum-scope-and-objectives|2023-arms-transfer-human-rights-standard",
+        "claim": "Biden's February 2023 Conventional Arms Transfer memorandum strengthened the human-rights standard by directing that transfers be prohibited where the US assessed weapons were more likely than not to facilitate serious international crimes, with monitoring requirements.",
+        "contrary_evidence": [
+          "Later GAO found no transfers were stopped under the updated policy and that agencies generally relied on existing processes."
+        ],
+        "evidence_id": "E046",
+        "excerpt": "The memorandum establishes a more-likely-than-not serious-international-crimes standard and monitoring objectives.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 presidential policy.",
+        "publication_date": "2023-02",
+        "publisher": "Office of the Federal Register",
+        "ruler_attribution": "Formal presidential policy.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official memorandum record.",
+        "source_locator": "Memorandum scope and objectives.",
+        "source_type": "presidential_memorandum",
+        "title": "National Security Memorandum DCPD-202300133",
+        "url": "https://www.govinfo.gov/app/details/DCPD-202300133"
+      },
+      {
+        "canonical_fact_key": "https://files.gao.gov/reports/GAO-25-107077/index.html|lines-268-290-and-343-344|civilian-harm-response-mechanism",
+        "claim": "The State Department began implementing Civilian Harm Incident Response Guidance in August 2023, requiring identification, assessment, documentation, and recommended responses to civilian-harm reports involving US-origin defense articles.",
+        "contrary_evidence": [
+          "GAO found no transfers were stopped under the revised policy and that the mechanism initially lacked a channel for outside allegations."
+        ],
+        "evidence_id": "E047",
+        "excerpt": "GAO describes CHIRG implementation and its limitations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 implementation.",
+        "publication_date": "2025",
+        "publisher": "US Government Accountability Office",
+        "ruler_attribution": "Administration-level State Department action.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official audit with precise line locators.",
+        "source_locator": "Lines 268\u2013290 and 343\u2013344.",
+        "source_type": "government_audit",
+        "title": "Civilian-harm response mechanism",
+        "url": "https://files.gao.gov/reports/GAO-25-107077/index.html"
+      },
+      {
+        "canonical_fact_key": "https://www.un.org/unispal/document/detailed-findings-on-military-operations-and-attacks-carried-out-in-the-occupied-palestinian-territory-from-7-october-to-31-december-2023/|October-December-2023-situation-findings|Gaza-civilian-harm-context",
+        "claim": "UN reporting documented extensive civilian displacement, casualties, damage to civilian infrastructure, and humanitarian-access constraints in Gaza during October\u2013December 2023.",
+        "contrary_evidence": [
+          "Hamas attacks, hostage-taking, and rocket fire are also documented; the findings do not by themselves attribute Gaza harms to Biden or US weapons."
+        ],
+        "evidence_id": "E048",
+        "excerpt": "UN thematic and situation findings on civilian harm and humanitarian conditions.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact October\u2013December 2023 conflict context.",
+        "publication_date": "2024",
+        "publisher": "United Nations",
+        "ruler_attribution": "Primarily conflict-party and recipient attribution; US responsibility requires separate evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Intergovernmental conflict documentation.",
+        "source_locator": "October\u2013December 2023 thematic and situation-report findings.",
+        "source_type": "intergovernmental_report",
+        "title": "Gaza civilian-harm and humanitarian context",
+        "url": "https://www.un.org/unispal/document/detailed-findings-on-military-operations-and-attacks-carried-out-in-the-occupied-palestinian-territory-from-7-october-to-31-december-2023/"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "2B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Military-spending country-year context."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.2",
+        "relation": "contradicts",
+        "relevance": "Direct presidential cluster-munition decision and civilian-risk critique."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "2B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "2B.3",
+        "relation": "supports",
+        "relevance": "Official transfer safeguards and necessity rationale."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.4",
+        "relation": "supports",
+        "relevance": "US Security Council vote and rationale."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "2B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "2B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "2B.5",
+        "relation": "supports",
+        "relevance": "Presidential human-rights transfer standard."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "2B.6",
+        "relation": "supports",
+        "relevance": "Civilian-harm response mechanism."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.7",
+        "relation": "supports",
+        "relevance": "Civilian-protection position and direct diplomacy."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "2B.7",
+        "relation": "supports",
+        "relevance": "Defense-industrial rationale and contrary resource arguments."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Gaza civilian-harm environment."
+      }
+    ],
+    "methodology_ids": [
+      "2B.1",
+      "2B.2",
+      "2B.3",
+      "2B.4",
+      "2B.5",
+      "2B.6",
+      "2B.7",
+      "2B.8",
+      "2B.9",
+      "2B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ff3350678016784d82ba204f7c4a6fb286419aaf5cee6e8c5fbc6a8606b6d44e",
+      "source_mix_note": "Evidence mixes structured local priors, official government and intergovernmental records, congressional research, independent statistical and audit reports, research institutes, journalism, and human-rights or civil-liberties NGOs. Source concentration remains material in HRW, KFF, Brookings, CMS, and Arms Control Association/White House splits; local priors remain contextual. Locator-incomplete and discovery-only candidates were excluded from final evidence.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "219e9d3f8804b737e07600c66af5ace94399dbec32ba314209a9341e1d011ec6",
+    "unresolved_gaps": [
+      "1B: no complete end-2023 independent nuclear-risk, command-and-control, or safeguard-implementation assessment.",
+      "2B: no complete evidence of downstream cluster-munition civilian consequences, Ukraine escalation restraint, Gaza arms-transfer monitoring, or recipient accountability.",
+      "3B: federal oversight is documented, but durable remedies, protest treatment, federal prison and Guantanamo conditions, surveillance, and hate-crime outcomes remain incomplete.",
+      "4B: 2023-specific press-access and criticism-treatment evidence is limited; social-media litigation remains locator-incomplete and preliminary.",
+      "5B: completed CHIPS, IRA, and IIJA outputs, realized wages and employment attribution, inflation causation, labor, antitrust, and distributional outcomes remain incomplete.",
+      "6B: independent service-quality, prescription-drug outcomes, SNAP, housing outcomes, disability, veteran, disaster, and education-recovery evaluations remain incomplete.",
+      "7B: no adjudicated personal-benefit, quid-pro-quo, obstruction, ethics, gifts, nepotism, or independent clearing finding was established.",
+      "8B: no completed cross-portfolio outcome evaluation; macroeconomic and crisis outcomes remain materially confounded.",
+      "Researcher could not persist research-materials.md or research-ledger-manifest.json because the supplied environment was read-only; all substantive handoff material was supplied inline."
+    ]
+  },
+  {
+    "chapter_id": "2B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Indonesia",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E001",
+          "E004"
+        ],
+        "methodology_id": "2B.1",
+        "reason": "Direct presidential Myanmar diplomacy evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003"
+        ],
+        "methodology_id": "2B.2",
+        "reason": "Regional restraint and diplomatic posture evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E004",
+          "E005"
+        ],
+        "methodology_id": "2B.3",
+        "reason": "Chair-level security and legitimacy evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E005"
+        ],
+        "methodology_id": "2B.4",
+        "reason": "Security and civilian-protection evidence is limited but present in the chapter ledger.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E006"
+        ],
+        "methodology_id": "2B.5",
+        "reason": "Security-policy evidence is limited and partly institutional.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002"
+        ],
+        "methodology_id": "2B.6",
+        "reason": "Presidential diplomatic statements and contrary HRW evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E003"
+        ],
+        "methodology_id": "2B.7",
+        "reason": "Myanmar peace-process and ASEAN-chair evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003"
+        ],
+        "methodology_id": "2B.8",
+        "reason": "Military-spending local context is preserved in local priors; no direct ruler spending claim emitted.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E006"
+        ],
+        "methodology_id": "2B.9",
+        "reason": "Accountability evidence remains limited.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E002",
+          "E006"
+        ],
+        "methodology_id": "2B.10",
+        "reason": "Target-period ASEAN and Myanmar evidence.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 6050,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://setkab.go.id/serukan-penghentian-kekerasan-di-myanmar-presiden-mari-cari-solusi-bersama/#presidential-call",
+        "claim": "On 8 May 2023 Jokowi called for an immediate end to violence in Myanmar, dialogue, and continued ASEAN implementation of the Five-Point Consensus.",
+        "contrary_evidence": [
+          "HRW reported that Indonesia's February ASEAN chair statement used weak language and lacked concrete enforcement."
+        ],
+        "evidence_id": "E001",
+        "excerpt": "Jokowi called for an immediate end to Myanmar violence and continued implementation of the Five-Point Consensus.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-05-08",
+        "publisher": "Indonesian Cabinet Secretariat",
+        "ruler_attribution": "Direct presidential statement.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Official record of a presidential statement; self-assessment caveat applies to claims of effectiveness.",
+        "source_locator": "HTML article, presidential statement dated 8 May 2023",
+        "source_type": "official government source",
+        "title": "Presiden: Mari Cari Solusi Bersama untuk Myanmar",
+        "url": "https://setkab.go.id/serukan-penghentian-kekerasan-di-myanmar-presiden-mari-cari-solusi-bersama/"
+      },
+      {
+        "canonical_fact_key": "https://www.thejakartapost.com/world/2023/08/08/jokowi-says-myanmar-solution-needs-political-will-from-all-sides#political-will",
+        "claim": "On 8 August 2023 Jokowi said resolving Myanmar required political will from all sides and that ASEAN had to move forward as a big ship.",
+        "contrary_evidence": [
+          "HRW found limited enforcement in the chair's Myanmar response."
+        ],
+        "evidence_id": "E002",
+        "excerpt": "Resolving Myanmar required political will from all sides; ASEAN must move forward as a big ship.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-08-08",
+        "publisher": "The Jakarta Post",
+        "ruler_attribution": "Direct presidential diplomatic posture.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Reputable national media report with a specific presidential statement.",
+        "source_locator": "HTML article, paragraphs reporting Jokowi's Myanmar remarks",
+        "source_type": "national media",
+        "title": "Jokowi says Myanmar solution needs political will from all sides",
+        "url": "https://www.thejakartapost.com/world/2023/08/08/jokowi-says-myanmar-solution-needs-political-will-from-all-sides"
+      },
+      {
+        "canonical_fact_key": "https://apnews.com/article/cd61e2c08df78c7e130cd3035285048#asean-chair",
+        "claim": "At the September 2023 ASEAN summit hosted by Indonesia, leaders transferred the 2026 chairmanship away from Myanmar to the Philippines.",
+        "contrary_evidence": [
+          "The ASEAN five-point process did not produce a successful peace settlement."
+        ],
+        "evidence_id": "E003",
+        "excerpt": "ASEAN leaders decided Myanmar would not hold the 2026 chairmanship.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-09-06",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Chair-level institutional decision; not proof of unilateral Jokowi direction.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "International news report of a documented ASEAN decision.",
+        "source_locator": "HTML article, September 2023 ASEAN summit decision",
+        "source_type": "international media",
+        "title": "ASEAN leaders transfer 2026 chairmanship from Myanmar",
+        "url": "https://apnews.com/article/cd61e2c08df78c7e130cd3035285048"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/news/2023/03/31/indonesias-asean-leadership-tested-myanmar#weak-language",
+        "claim": "HRW reported that Indonesia's February 2023 ASEAN chair statement on Myanmar used weak language and lacked concrete enforcement, while Indonesia pursued behind-the-scenes UN planning.",
+        "contrary_evidence": [
+          "HRW also reported diplomatic engagement and an implementation plan.",
+          "Jokowi publicly called for dialogue and implementation in May and August."
+        ],
+        "evidence_id": "E004",
+        "excerpt": "The chair's statement contained only meek language; behind closed doors Indonesia reportedly pursued an implementation plan.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-03-31",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Indirect chair-policy evidence; not direct personal presidential direction.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Independent NGO assessment with event-specific reporting.",
+        "source_locator": "HTML section 'Behind closed doors' and paragraph on the February chair statement",
+        "source_type": "international NGO",
+        "title": "Indonesia's ASEAN Leadership Tested by Myanmar",
+        "url": "https://www.hrw.org/news/2023/03/31/indonesias-asean-leadership-tested-myanmar"
+      },
+      {
+        "canonical_fact_key": "https://www.asiamaior.org/the-journal/19-asia-maior-vol-xxxv-2024/indonesia-2023-24-jokowis-endgame-and-the-politics-of-dynasty.html#papua-security",
+        "claim": "Asia Maior reported that Jokowi's earlier humane approach to Papua was replaced by a more security-based approach, with police and army given the green light to intensify operations and controls placed on reporting civilian deaths.",
+        "contrary_evidence": [
+          "The notebook also records Jokowi's March 2023 Papua directive as development and welfare oriented.",
+          "Institutional accountability examples were recorded by Human Rights Monitor."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "The police and army were given the green light to intensify their military operations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "cross_period_covers_2023",
+        "publication_date": "2024-01-01",
+        "publisher": "Asia Maior",
+        "ruler_attribution": "Direct scholarly attribution of policy direction, though the precise publication date is not exposed.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Peer-reviewed area-studies source; retrospective attribution requires temporal caution.",
+        "source_locator": "HTML section 3.2, paragraph on Papua's security-based approach",
+        "source_type": "peer-reviewed journal",
+        "title": "Indonesia 2023-24: Jokowi's Endgame and the Politics of Dynasty",
+        "url": "https://www.asiamaior.org/the-journal/19-asia-maior-vol-xxxv-2024/indonesia-2023-24-jokowis-endgame-and-the-politics-of-dynasty.html"
+      },
+      {
+        "canonical_fact_key": "https://asean.org/wp-content/uploads/2023/09/01.FINAL-ASEAN-LEADERS-REVIEW-AND-DECISION-ON-THE-IMPLEMENTATION-OF-THE-5PC-1.pdf#review",
+        "claim": "The September 2023 ASEAN leaders' review recorded continued engagement and humanitarian assistance under the Five-Point Consensus process.",
+        "contrary_evidence": [
+          "The researcher could not extract the PDF body in the worker session.",
+          "The document is official self-assessment and is retained as context."
+        ],
+        "evidence_id": "E006",
+        "excerpt": "ASEAN Leaders' Review and Decision on the Implementation of the Five-Point Consensus.",
+        "final_evidence_use": "context",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-09-05",
+        "publisher": "ASEAN Secretariat",
+        "ruler_attribution": "Chair-level institutional context; not personal ruler evidence.",
+        "source_confidence": "context",
+        "source_confidence_reason": "Official self-assessment and underlying PDF text was not extractable in the supplied notebook.",
+        "source_locator": "PDF, exact page not recorded",
+        "source_type": "official intergovernmental document",
+        "title": "ASEAN Leaders' Review and Decision on the Implementation of the 5PC",
+        "url": "https://asean.org/wp-content/uploads/2023/09/01.FINAL-ASEAN-LEADERS-REVIEW-AND-DECISION-ON-THE-IMPLEMENTATION-OF-THE-5PC-1.pdf"
+      }
+    ],
+    "iso3": "IDN",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "2B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "2B.1",
+        "relation": "supports",
+        "relevance": "Direct presidential diplomacy."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "2B.1",
+        "relation": "contradicts",
+        "relevance": "Weak enforcement contrary evidence."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "2B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "2B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.3",
+        "relation": "supports",
+        "relevance": "Security-policy attribution."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "2B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "2B.6",
+        "relation": "supports",
+        "relevance": "Diplomatic posture."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "2B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "2B.7",
+        "relation": "supports",
+        "relevance": "ASEAN institutional outcome."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "2B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Official ASEAN review."
+      }
+    ],
+    "methodology_ids": [
+      "2B.1",
+      "2B.2",
+      "2B.3",
+      "2B.4",
+      "2B.5",
+      "2B.6",
+      "2B.7",
+      "2B.8",
+      "2B.9",
+      "2B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2636",
+    "ruler_name": "Joko Widodo",
+    "ruler_year_id": 16200,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "49418b81f84d0fcc7031f5ab67236723dcf0440ea3bd2ae6b994899398c2b6d2",
+      "source_mix_note": "Researcher supplied NGO, academic-index, peer-reviewed journal, official government, intergovernmental, international-financial-institution, national-statistics, national-media, and international-media sources. Official and self-assessment sources are retained with stated limitations; same-event corroborations were not treated as independent distinct claims.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "165fb47b1a38b970c191ec028e866165bd0bfe37ca539e8ce9aa6f91ec4287a3",
+    "unresolved_gaps": [
+      "No direct evidence that Jokowi personally directed Constitutional Court Decision 90/PUU-XXI/2023.",
+      "No defensible 2023 personal asset-enrichment or personal-disclosure misconduct event was recovered.",
+      "Papua accountability remains substantially institutional and subordinate rather than personally presidential.",
+      "No documented 2023 corrective action after a flagship implementation failure was recovered.",
+      "BRIN performance evidence is conflicting and must remain split between retrospective criticism and the 2023 indicators publication.",
+      "Precise claim-level locators for some retrospective EAF and Asia Maior material remain section-level rather than page-level."
+    ]
+  },
+  {
+    "chapter_id": "2B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Nigeria",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E025"
+        ],
+        "methodology_id": "2B.1",
+        "reason": "Primary ECOWAS and State House records cover sanctions, possible force, dialogue, and envoy diplomacy.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E002",
+          "E003"
+        ],
+        "methodology_id": "2B.2",
+        "reason": "Collective authorization of possible force is documented; broader conflict audit remains incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.3",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.4",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.5",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.6",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E004",
+          "E005"
+        ],
+        "methodology_id": "2B.7",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E025"
+        ],
+        "methodology_id": "2B.8",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.9",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.10",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      }
+    ],
+    "estimated_input_tokens": 5718,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://ecowas.int/wp-content/uploads/2023/07/Final-Communique_Extra-Summit-on-Niger.pdf|communique30jul2023|niger-sanctions-force-authorization",
+        "claim": "ECOWAS condemned Niger's coup, imposed restrictions, dispatched an envoy, and authorized further measures potentially including force if demands were unmet.",
+        "contrary_evidence": [
+          "The decision was collective, not solely Tinubu's.",
+          "The communiqu\u00e9 also mandated diplomacy; Nigeria did not invade Niger in 2023."
+        ],
+        "evidence_id": "E002",
+        "excerpt": "ECOWAS imposed sanctions and authorized all necessary measures while pursuing restoration of constitutional order.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "30 July 2023.",
+        "publication_date": "2023-07-30",
+        "publisher": "ECOWAS",
+        "ruler_attribution": "Collective ECOWAS decision under Tinubu's chairmanship.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary regional communiqu\u00e9.",
+        "source_locator": "PDF communiqu\u00e9, decision sections; exact page not recorded",
+        "source_type": "official regional communiqu\u00e9",
+        "title": "Final Communiqu\u00e9: Extraordinary Summit on Niger",
+        "url": "https://ecowas.int/wp-content/uploads/2023/07/Final-Communique_Extra-Summit-on-Niger.pdf"
+      },
+      {
+        "canonical_fact_key": "https://statehouse.gov.ng/first-extraordinary-summit-of-the-ecowas-authority-of-heads-of-state-and-government-on-the-political-situation-in-niger/|30jul2023|ecowas-response",
+        "claim": "Under Tinubu's ECOWAS chairmanship, the bloc condemned the coup and authorized measures necessary to restore constitutional order.",
+        "contrary_evidence": [
+          "Collective attribution limits personal attribution."
+        ],
+        "evidence_id": "E003",
+        "excerpt": "State House report on the first extraordinary ECOWAS summit and its Niger decisions.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "30 July 2023.",
+        "publication_date": "2023-07-30",
+        "publisher": "State House of Nigeria",
+        "ruler_attribution": "Tinubu chaired the regional process; decision was collective.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporaneous official report.",
+        "source_locator": "HTML report, summit decision paragraphs",
+        "source_type": "official government report",
+        "title": "First Extraordinary Summit on Niger",
+        "url": "https://statehouse.gov.ng/first-extraordinary-summit-of-the-ecowas-authority-of-heads-of-state-and-government-on-the-political-situation-in-niger/"
+      },
+      {
+        "canonical_fact_key": "https://statehouse.gov.ng/niger-republic-at-2nd-ecowas-extraordinary-summit-president-tinubu-champions-dialogue-to-resolve-impasse/|10aug2023|dialogue",
+        "claim": "Tinubu described dialogue and negotiation as the bedrock of the Niger response and cited mediation teams and special envoys.",
+        "contrary_evidence": [
+          "Dialogue coexisted with sanctions and authorization of possible force."
+        ],
+        "evidence_id": "E004",
+        "excerpt": "Tinubu champions dialogue to resolve the Niger impasse.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "10 August 2023.",
+        "publication_date": "2023-08-10",
+        "publisher": "State House of Nigeria",
+        "ruler_attribution": "Direct presidential statement and ECOWAS diplomatic posture.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporaneous official report.",
+        "source_locator": "HTML paragraphs 28-44",
+        "source_type": "official government report",
+        "title": "President Tinubu Champions Dialogue",
+        "url": "https://statehouse.gov.ng/niger-republic-at-2nd-ecowas-extraordinary-summit-president-tinubu-champions-dialogue-to-resolve-impasse/"
+      },
+      {
+        "canonical_fact_key": "https://statehouse.gov.ng/president-tinubu-dispatches-envoy-to-niamey-urges-robust-dialogue-to-end-impasse/|03aug2023|envoy",
+        "claim": "Tinubu dispatched a delegation led by Abdulsalami Abubakar to negotiate with Niger's coup leaders.",
+        "contrary_evidence": [
+          "The mission did not restore constitutional rule during 2023."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "State House reported Tinubu's dispatch of an envoy to Niamey and call for robust dialogue.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "3 August 2023.",
+        "publication_date": "2023-08-03",
+        "publisher": "State House of Nigeria",
+        "ruler_attribution": "Direct executive and regional diplomatic action.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporaneous official report.",
+        "source_locator": "HTML report, envoy-dispatch paragraphs",
+        "source_type": "official government report",
+        "title": "President Tinubu Dispatches Envoy to Niamey",
+        "url": "https://statehouse.gov.ng/president-tinubu-dispatches-envoy-to-niamey-urges-robust-dialogue-to-end-impasse/"
+      },
+      {
+        "canonical_fact_key": "https://www.amnesty.org/en/latest/news/2023/12/nigeria-military-attempting-to-cover-up-mass-killing-of-civilians/|07dec2023|tudun-biri",
+        "claim": "Amnesty reported that Nigerian military airstrikes on 3 December killed more than 120 civilians at a religious gathering and that military explanations were contradictory.",
+        "contrary_evidence": [
+          "Tinubu expressed condolences and ordered an investigation.",
+          "Operational responsibility is institutional; presidential direction or knowledge is not established."
+        ],
+        "evidence_id": "E006",
+        "excerpt": "Amnesty reported mass civilian casualties, contradictory military explanations, and demands for independent investigation and remedy.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "3 December 2023.",
+        "publication_date": "2023-12-07",
+        "publisher": "Amnesty International",
+        "ruler_attribution": "Relevant to Tinubu as commander-in-chief; operational responsibility remains institutional.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporaneous incident investigation by a high-authority rights organization.",
+        "source_locator": "HTML paragraphs 61-78",
+        "source_type": "human-rights investigation",
+        "title": "Nigeria: Military Attempting to Cover Up Mass Killing of Civilians",
+        "url": "https://www.amnesty.org/en/latest/news/2023/12/nigeria-military-attempting-to-cover-up-mass-killing-of-civilians/"
+      },
+      {
+        "canonical_fact_key": "local-prior:2B.1|military-spend-constant-usd|2023",
+        "claim": "Nigeria's 2023 military expenditure was approximately USD 1.78 billion in constant dollars.",
+        "contrary_evidence": [
+          "Country-year exposure is not evidence of Tinubu's personal intent or restraint."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "Supplied local structured prior LF001.",
+        "final_evidence_use": "context",
+        "period_fit": "2023.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Local structured evidence package",
+        "ruler_attribution": "Country-year baseline only.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied hashed local-prior artifact.",
+        "source_locator": "local-prior:2B.1",
+        "source_type": "local structured prior",
+        "title": "SIPRI Military Expenditure Prior",
+        "url": "local-prior:2B.1"
+      }
+    ],
+    "iso3": "NGA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:NGA:15772",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "2B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E002",
+        "methodology_id": "2B.1",
+        "relation": "supports",
+        "relevance": "Collective regional response and possible-force authorization"
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "2B.1",
+        "relation": "supports",
+        "relevance": "ECOWAS diplomatic response"
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "2B.1",
+        "relation": "supports",
+        "relevance": "Dialogue position"
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the exact local-prior lens locator."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "2B.2",
+        "relation": "contradicts",
+        "relevance": "Possible coercive military response"
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "2B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "2B.7",
+        "relation": "supports",
+        "relevance": "Negotiation and mediation"
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.7",
+        "relation": "supports",
+        "relevance": "Envoy diplomacy"
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "2B.8",
+        "relation": "context",
+        "relevance": "Military-spending country baseline"
+      }
+    ],
+    "methodology_ids": [
+      "2B.1",
+      "2B.2",
+      "2B.3",
+      "2B.4",
+      "2B.5",
+      "2B.6",
+      "2B.7",
+      "2B.8",
+      "2B.9",
+      "2B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2774",
+    "ruler_name": "Bola Ahmed Tinubu",
+    "ruler_year_id": 15772,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "cc1eece5d4acfe3fb5a2f5a5ac2599975a00886b3f240fb499bc7465e14b99a1",
+      "source_mix_note": "Final evidence mixes IAEA, ECOWAS, Nigerian State House, Amnesty, HRW, AP, Access Now, NBS, World Bank, WHO, National Assembly, Channels Television, and Al Jazeera. Wikipedia and current/retrospective portal material were bounded to context or discovery where appropriate. Country indicators remain context unless explicitly identified as local structured baselines.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "36205f1324c6e81c77d16fd8bf27acc72eba7d8501014592a88482bcd1794444",
+    "unresolved_gaps": [
+      "Complete authoritative nuclear/non-possession and broader catastrophic-risk exposure audit.",
+      "Foreign-policy audit beyond the Niger crisis, including arms transfers, proxies, cross-border operations, and international-law compliance.",
+      "Target-period emergency powers, surveillance, security-force accountability, and full protest-treatment audit.",
+      "Direct presidential nexus for press incidents, opposition treatment outside litigation, and executive influence over courts.",
+      "Verified fiscal savings, reinvestment, full cost-of-living trajectory, and correction after adverse effects.",
+      "Education delivery, full-year poverty and household-income measures, and verified welfare-transfer reach.",
+      "Tinubu asset declaration, personal financial interests, conflicts, and direct records concerning any investigation involving Tinubu.",
+      "Extracted 2023 budget execution reports, delivery milestones, personnel competence, coordination, and year-end security outcomes."
+    ]
+  },
+  {
+    "chapter_id": "2B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Brazil",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E005",
+          "E006",
+          "E007"
+        ],
+        "methodology_id": "2B.1",
+        "reason": "Weapons non-transfer and peace diplomacy are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.2",
+        "reason": "No direct evidence of Brazilian military conduct abroad was captured.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E006"
+        ],
+        "methodology_id": "2B.3",
+        "reason": "Ukraine policy and UN voting behavior are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.4",
+        "reason": "No defensible arms-transfer or proxy evidence was captured.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.5",
+        "reason": "No direct civilian-protection finding was captured.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E006",
+          "E007"
+        ],
+        "methodology_id": "2B.6",
+        "reason": "UN voting and Gaza diplomacy evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E006",
+          "E007"
+        ],
+        "methodology_id": "2B.7",
+        "reason": "Peace mediation, restraint, and multilateral diplomacy documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.8",
+        "reason": "Military spending is context only; no ruler-specific defense-priority evidence captured.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "2B.9",
+        "reason": "No military-accountability proceeding was captured.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E006",
+          "E007"
+        ],
+        "methodology_id": "2B.10",
+        "reason": "International-law and peace-diplomacy evidence is present but incomplete.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 4776,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en|paras.90-99|Ukraine weapons refusal and mediation",
+        "claim": "Lula stated that Brazil would not send weapons or ammunition to Ukraine and pursued a neutral mediation initiative.",
+        "contrary_evidence": [
+          "The analysis characterizes the neutral approach as insufficiently coercive and potentially weak on accountability."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "Carnegie, \u201cBrazil\u2019s Approach to the War in Ukraine,\u201d paras. 90\u201399.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 foreign-policy position.",
+        "publication_date": "2023-12-01",
+        "publisher": "Carnegie Endowment for International Peace",
+        "ruler_attribution": "Directly attributed to Lula and his administration.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Specialist foreign-policy analysis with paragraph locator.",
+        "source_locator": "HTML section \u201cBrazil\u2019s Approach to the War in Ukraine,\u201d paras. 90\u201399",
+        "source_type": "policy_research",
+        "title": "Brazil in the Emerging World Order",
+        "url": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en"
+      },
+      {
+        "canonical_fact_key": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en|paras.91-95|UN votes and neutrality",
+        "claim": "Brazil opposed Russia\u2019s invasion in multiple UN votes and supported withdrawal of Russian troops, but abstained on Russia\u2019s Human Rights Council suspension and did not join the U.S.-led coalition.",
+        "contrary_evidence": [
+          "Neutrality and the HRC abstention were criticized as weakening accountability."
+        ],
+        "evidence_id": "E006",
+        "excerpt": "Carnegie, paras. 91\u201395.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 foreign-policy record.",
+        "publication_date": "2023-12-01",
+        "publisher": "Carnegie Endowment for International Peace",
+        "ruler_attribution": "Brazilian government position; shared institutional responsibility.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Specialist analysis with precise paragraph locator.",
+        "source_locator": "HTML paras. 91\u201395",
+        "source_type": "policy_research",
+        "title": "Brazil in the Emerging World Order",
+        "url": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en"
+      },
+      {
+        "canonical_fact_key": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en|paras.85-86|Gaza ceasefire effort",
+        "claim": "Brazil led a United Nations Security Council ceasefire effort concerning Gaza in October 2023; the proposal was vetoed by the United States.",
+        "contrary_evidence": [],
+        "evidence_id": "E007",
+        "excerpt": "Carnegie, paras. 85\u201386.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 diplomacy.",
+        "publication_date": "2023-12-01",
+        "publisher": "Carnegie Endowment for International Peace",
+        "ruler_attribution": "Brazilian diplomatic initiative under Lula\u2019s administration.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Specialist foreign-policy analysis with paragraph locator.",
+        "source_locator": "HTML paras. 85\u201386",
+        "source_type": "policy_research",
+        "title": "Brazil in the Emerging World Order",
+        "url": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en"
+      }
+    ],
+    "iso3": "BRA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:BRA:16162",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "2B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D13-D14 UCDP conflict and SIPRI military-expenditure facts provide country-year exposure/context, not automatic ruler attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.1",
+        "relation": "supports",
+        "relevance": "Weapons non-transfer and mediation."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "2B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.6",
+        "relation": "context",
+        "relevance": "Mixed UN voting and neutrality context."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "2B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "2B.7",
+        "relation": "supports",
+        "relevance": "Gaza ceasefire diplomacy."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "2B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "2B.1",
+      "2B.2",
+      "2B.3",
+      "2B.4",
+      "2B.5",
+      "2B.6",
+      "2B.7",
+      "2B.8",
+      "2B.9",
+      "2B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2841",
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "ruler_year_id": 16162,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "a86d527dbfd7ad6a86ef6f8b1c90dd152b4b1758bf0f1938ef1601200b9eef10",
+      "source_mix_note": "No new research performed. Retained supplied evidence from intergovernmental, official government, official statistics, NGO, policy-analysis, legal-analysis, specialist civil-society, and local structured-prior sources. Country-level and inherited evidence remains attribution-limited.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "436988b02f4cc6537bc5f7116789a4f954fe86443f5287ba1defd319c14f60e2",
+    "unresolved_gaps": [
+      "Chapter 1B: biological-risk governance, command-and-control audits, and catastrophic-risk crisis decisions.",
+      "Chapter 2B: Brazilian foreign military conduct, arms/proxy responsibility, civilian protection, and military accountability.",
+      "Chapter 3B: federal police-reform orders, nationwide remedies, subnational attribution, and surveillance/emergency-power evidence.",
+      "Chapter 4B: opposition treatment, protest restrictions, media-owner pressure, executive-judiciary relations, and self-binding commitments.",
+      "Chapter 5B: tax-distributional effects, appointments, investment/productivity, regional economic effects, and independent fiscal implementation.",
+      "Chapter 6B: education, sanitation, housing quality, disability, and durable nationwide service outcomes.",
+      "Chapter 7B: personal assets, conflicts, family/business benefits, procurement, disclosures, corrections, and obstruction.",
+      "Chapter 8B: durable portfolio outcomes, primary implementation records, coordination, adaptation, and state-capacity measurement.",
+      "The supplied local prior contains explicit no-evidence states for all 1B and 6B methodology IDs; these are gaps, not negative evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 2B — International Peace, Restraint, And Lawful Security
+
+Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+
+## Chapter Identity
+
+- Chapter: `2B`
+- Rating: international peace versus aggression and war
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_2b_v3`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter evaluates whether a ruler used diplomacy and force responsibly, avoided
+aggression, constrained partners and proxies, protected civilians, pursued peace, and
+left international relations more peaceful and lawful. It does not equate military
+spending or battlefield victory with aggression, demand pacifism in the face of attack,
+or blame a ruler automatically for an inherited war. Domestic repression belongs
+primarily in Chapter 3B; economic opportunity cost is contextual here. The client
+matrix is never evidence.
+
+## Ten Evidence Lenses
+
+1. **2B.1:** Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed, rather than treating force as the preferred first option?
+2. **2B.2:** Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, covert destabilization, or proxy conflict beyond defensive necessity?
+3. **2B.3:** Did the ruler distinguish genuine defensive security needs from prestige, revenge, nationalism, manufactured threats, diversionary politics, or regime-survival motives?
+4. **2B.4:** Did the ruler respect civilian protection, humanitarian law, prisoner treatment, necessity, and proportionality in military operations?
+5. **2B.5:** Did the ruler restrain security forces, militias, allies, proxies, clients, and arms recipients from atrocities or destabilization, and accept responsibility for foreseeable proxy conduct?
+6. **2B.6:** Did the ruler truthfully explain security threats to the public, or manipulate intelligence, fear, historical grievance, and misinformation to build support for conflict?
+7. **2B.7:** Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, lawful settlements, or post-conflict reconciliation when possible?
+8. **2B.8:** Did the ruler use military spending and mobilization to meet real security needs, or to enrich networks, reward security elites, intimidate neighbors, or project personal strength?
+9. **2B.9:** Did the ruler accept accountability for military failures, civilian harm, illegal conduct, and later evidence that contradicted the stated justification for conflict?
+10. **2B.10:** Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them, accounting for inherited conflicts and external constraints?
+
+The lens statuses and wording are advisory. Missing lenses reduce confidence; they do
+not invalidate the dossier, force zero, or require a rigid status vocabulary.
+
+## Researcher Guidance
+
+Begin with resolved identity and local D13 UCDP and D14 SIPRI facts. Research coherent
+themes: inherited conflicts and threat environment; initiation and alternatives;
+objectives/justifications; conduct and civilian harm; proxy/arms-recipient control;
+public claims; negotiations and settlements; military patronage; accountability; and
+end-state change. Reuse evidence across lenses when substantively justified.
+
+Prefer UCDP/PA-X/UN records, treaties and court findings, ICRC and UN humanitarian
+reporting, official operational/legal records, legislative or independent inquiries,
+credible NGOs, peer-reviewed histories, and reputable reporting. Distinguish allegation,
+documented event, legal finding, command policy, foreseeable consequence, and ruler
+direction. Belligerent official claims require independent corroboration. Researchers
+collect cited claims and counterevidence, not a final score.
+
+Establish a conflict/exposure gate before judging: active or inherited interstate
+war, cross-border operations, proxy support, coercive diplomacy, peace-process
+authority, or a documented absence of such exposure. If conflict exposure is
+plausible but initiation, alternatives, civilian conduct, proxy control, and ruler
+authority are absent, continue research or return null rather than assigning a
+midpoint. Purely domestic repression and ordinary policing belong in 3B. Nuclear
+threats enter 2B only when they materially serve an international conflict or
+coercive-security choice; nuclear-risk responsibility itself belongs in 1B.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+Use diplomatic archives, contemporaneous records, military histories, peace agreements,
+and later scholarship for older rulers, labeling hindsight and contested causation.
+Closed regimes and wartime censorship make silence especially weak evidence; triangulate
+opposing claims, neutral monitoring, satellite/event data, refugee testimony, and later
+investigations. A ruler without an international crisis is a limited-exposure case, not
+automatically an exemplary peacemaker. Unknown conduct lowers confidence. Score a thin
+record cautiously when the central peace/aggression choices are nevertheless clear.
+
+## Attribution And Inherited Baseline
+
+Identify formal and practical command, coalition constraints, parliamentary/cabinet
+roles, patron-state influence, and whether the ruler initiated, adopted, escalated,
+restrained, ended, or could realistically change inherited policy. Do not attribute every
+military act personally; do attribute ordered, authorized, systematically tolerated,
+foreseeably enabled, concealed, or unremedied conduct in proportion to authority. Judge
+both absolute conduct and change from inherited war, alliances, threats, and territorial
+disputes.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Clear aggressive war, annexation, extreme proxy destabilization, or systematic unlawful conduct driven or sustained by the ruler, with grave consequences and rejection of peace/accountability. |
+| 2–3 | Severe recurring aggression, escalation, civilian disregard, proxy abuse, manipulated justification, or obstruction of credible peace, with weak restraint. |
+| 4–5 | Materially mixed record: legitimate security concerns or some diplomacy coexist with avoidable escalation, disproportionate conduct, proxy failures, or missed peace opportunities. |
+| 6–7 | Generally defensive, restrained, and diplomacy-oriented conduct with meaningful flaws, limited harmful episodes, weak accountability, or constrained peace outcomes. |
+| 8–9 | Strong sustained restraint, civilian protection, credible diplomacy, proxy control, truthful justification, accountability, and consequential improvement in peace. |
+| 10 | Exceptional, durable, and well-evidenced leadership that prevented or ended grave conflict and strengthened lawful peace despite major pressure and real alternatives. |
+
+A score of 6 or above requires demonstrated restraint, lawful security conduct, or
+peace action—not peaceful rhetoric or the mere absence of known aggression. A score
+below 4 requires direct chapter-relevant evidence of ruler-attributed aggression,
+reckless escalation, grave civilian/proxy conduct, or obstruction of credible peace.
+
+Lens weights are qualitative and unequal. Aggressive initiation, mass civilian harm, or
+ending a major inherited war may dominate multiple lesser indicators. Do not compute a
+ten-item average. Defensive necessity mitigates initiation but never erases duties of
+proportionality, civilian protection, truth, proxy restraint, and accountability.
+Scoring is opportunity-adjusted. Limited conflict exposure or authority is not itself a
+high or low score. Consistent responsible restraint can justify a high score when the
+ruler faced meaningful choices—such as credible escalation, coercion, arms-transfer, or
+peace opportunities—and chose well within actual authority. If no discriminating
+international-security opportunity exists, return null with an explicit exposure
+assessment rather than treating quiet circumstances as proven excellence or assigning
+a fabricated midpoint.
+
+## Judge Workflow Across Rulers
+
+### V3 international-conduct gate
+
+A numeric score requires documented target-period international conduct attributable
+to the ruler. Domestic protest handling, internal repression, inherited conflict
+exposure, and an adverse outcome without a supported causal or restraint judgment do
+not meet the floor. No documented external conduct means null, not a neutral score.
+
+One Chapter 2B judge reviews the full comparison batch. Establish inherited conflicts,
+threats, authority, and credible alternatives; identify aggressor/defender and mixed-role
+cases; compare severity, scale, duration, intent, restraint, consequences, and peace
+efforts; provisionally order cases; then assign one score and confidence per ruler. State
+decisive positive and negative evidence, counterevidence, attribution, baseline change,
+and rejected adjacent anchors. Recheck the complete ordering for great-power, victor,
+and visibility bias. If sharding is unavoidable, use overlapping anchors and a final
+cross-shard calibration.
+
+## Minimum Evidence And Graceful Degradation
+
+Require at least one traceable relevant citation, structured priors or an explained
+`not_available`, and explicit authority, conflict exposure, temporal fit, and inherited
+baseline. Serious score-changing allegations should not rest solely on one belligerent
+or low-confidence source. Extreme/high-confidence ratings normally need independent
+source types. Missing proxy, internal deliberation, or accountability evidence reduces
+confidence; it does not invalidate the dossier. Withhold only where identity, central
+attribution, or citation authenticity prevents a defensible judgment.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check winner/loser and hindsight bias; great-power and media visibility; defensive-threat
+context; conflict duration and population scale; asymmetric and proxy warfare; official
+and belligerent-source bias; legal-finding versus allegation; inherited-war attribution;
+peace-opportunity counterfactuals; recency; and cross-ruler anchor consistency. Do not
+count event volume as culpability without role, or treat failed negotiations as bad faith
+without credible alternatives and conduct evidence.
+
+## Chapter-Specific Calibration Fields
+
+- `chapter_rubric_version`: `chapter_2b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `conflict_exposure_and_inherited_baseline`
+- `ruler_command_authority_and_attribution`
+- `initiation_role_and_defensive_necessity`
+- `credible_peaceful_alternatives`
+- `civilian_harm_and_lawful_conduct`
+- `proxy_ally_and_arms_recipient_responsibility`
+- `diplomacy_ceasefire_and_settlement_record`
+- `truth_and_accountability_record`
+- `end_state_change`
+- `source_mix`, `information_environment`, and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+Generic calibration values should be interpreted contextually; an inapplicable enum may
+be marked `not_applicable` with explanation rather than forced into misleading language.
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Vladimir Putin | Russia | 2022 | aggressive-war low anchor |
+| George W. Bush | United States | 2003 | war-of-choice and justification case |
+| Tony Blair | United Kingdom | 2003 | coalition authority/accountability case |
+| Volodymyr Zelenskyy | Ukraine | 2022 | defensive-war and conduct constraints |
+| Nelson Mandela | South Africa | 1994–1999 | reconciliation and regional diplomacy high case |
+| Mikhail Gorbachev | Soviet Union | 1985–1991 | de-escalation/end inherited confrontation |
+| Abiy Ahmed | Ethiopia | 2018–2022 | peacemaking-to-war mixed trajectory |
+| Lyndon B. Johnson | United States | 1964–1968 | inherited conflict escalation |
+| Ellen Johnson Sirleaf | Liberia | 2006–2017 | post-conflict peace and limited-capacity diplomacy |
+| Angela Merkel | Germany | 2014–2015 | non-belligerent crisis diplomacy exposure |
+
+## Draft Acceptance Checklist
+
+- All ten exact lens texts appear.
+- Research distinguishes role, necessity, conduct, proxy responsibility, and peace effort.
+- One comparative judge produces one score and confidence per ruler.
+- Lenses are unequal and non-arithmetic; missing lenses only reduce confidence.
+- Inherited wars, actual authority, and credible alternatives are explicit.
+- Contrary evidence and underlying citations survive handoff.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

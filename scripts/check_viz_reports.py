@@ -21,6 +21,9 @@ TIMEOUT_SECONDS = 15
 REPORT_PATHS = (
     "/reports/",
     "/reports/country-metrics-dashboard.html",
+    "/reports/leaders-2023/",
+    "/reports/leaders-2023/data.json",
+    "/reports/leaders-2023/attributions.md",
     "/reports/briefs/us-equity-ownership.html",
     "/reports/briefs/us-market-size-baseline.html",
 )

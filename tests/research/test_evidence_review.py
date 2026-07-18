@@ -227,6 +227,9 @@ def test_notebook_qa_and_reviewer_prompt_use_configured_yield_goals() -> None:
     assert "any researcher-written score" in prompt
     assert "Do not use workflow exhaustion" in prompt
     assert "remain deterministic cleanup rather than web-research tasks" in prompt
+    assert "formal responsibility" in prompt
+    assert "Chapter 7B requires a personal-integrity" in prompt
+    assert "Do not pass a chapter merely because it has several sources" in prompt
 
     assert qa.minimum_source_claim_units_per_chapter == 7
     assert qa.minimum_independent_source_families_per_chapter == 4

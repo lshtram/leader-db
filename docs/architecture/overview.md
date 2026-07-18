@@ -17,6 +17,12 @@ to localhost, constrains file resolution to an explicit source/documentation all
 inside the repository, and rejects mutation methods. The browser component fetches only repository-relative files and renders
 source, sanitized Markdown, JSON, and CSV without changing project data.
 
+The static client-results viewer under `docs/client-results/<release>/` is a
+separate read-only reporting surface. A deterministic build script joins frozen
+dossiers and chapter judgments to the client workbook, writes a repository-local
+JSON payload, and presents ruler-by-chapter score pairs, null-aware MSE, evidence
+lenses, citations, and judge rationale. Client values remain comparison data only.
+
 The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,
 source authority, factual claims, leader identity, or category scoring.
@@ -516,13 +522,14 @@ Historical searches do not use recent-news filters. Candidate discovery precedes
 source admissibility: promising underlying pages and documents are opened, claims and
 locators are extracted, and only then are accepted items added to the growing ledger.
 It writes a schema-light
-notebook/handoff plus a minimal stable-key/disposition accounting manifest, aiming
+notebook/handoff plus a minimal stable-key/disposition/chapter accounting manifest, aiming
 for 5–20 defensible
 source-claim units per chapter (normally about 10), while reporting mapped units
 separately from independent locator/source families and accepting documented sparse-case
 shortfalls. A separate configured formatter converts the handoff into the strict
-dossier without new research. It preserves every ledger item with an explicit use or
-rejection reason and all genuine many-to-many mappings. Mapping-backed coverage is
+dossier without new research. Every accepted final-evidence key must survive unchanged
+and remain routed to every chapter in the manifest; otherwise formatting fails.
+Mapping-backed coverage is
 authoritative; absent or unexplained formatting output remains `research_blocked`
 rather than becoming `no_evidence_found`. Retry recovery considers only structurally
 valid candidates. A no-search reviewer inspects every selected chapter and may
@@ -542,6 +549,10 @@ An honestly sparse chapter remains valid when the researcher records the searche
 rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,
 and a score/order auditor checks the resulting comparative ordering and rubric drift.
+Every judge attempt also writes a null-recovery queue from the judgment's existing
+reason, weak-lens, and review fields. Recoverable nulls are marked for continuation in
+the same ruler-research workflow for no more than two targeted rounds; the queue does
+not launch that continuation and no additional worker role is introduced.
 
 Trusted parent event logs also supply cached-input and reasoning-output counters.
 The checked-in `configs/research-pricing.yaml` snapshot converts them to

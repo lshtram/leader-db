@@ -1,0 +1,740 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+  "iso3": "IDN",
+  "country_name": "Indonesia",
+  "ruler_name": "Joko Widodo",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 14,
+  "approximate_source_family_count": 13,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 14 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 13 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+I have a comprehensive evidence base now. Let me compile the complete handoff into the final response. The exec sandbox is broken, so I cannot write the research-materials.md or research-ledger-manifest.json files — I'll deliver the complete handoff inline as the contract permits.
+
+---
+
+# RESEARCH HANDOFF — Joko Widodo (Indonesia) 2023 Ruler-Period
+
+## Header & Run Profile
+
+- Ruler: Joko Widodo ("Jokowi"), President of Indonesia
+- Period: 2023 (target year; Jokowi's second-term, last full calendar year)
+- ISO3: IDN · Ruler ID: 2636 · Ruler-Year ID: 16200
+- Run key: `2023-population-top20-gate5-v1`
+- Dossier job key: `dossier:2023-population-top20-gate5-v1:2023:IDN:16200`
+- Researcher role: permissive, internet-enabled evidence researcher
+- Workflow profile: `chapter_judge_search_enabled=false`, `formatter_search_enabled=false`, `researcher_direct_iterative_search=true`, `local_facts_before_internet=true`
+- File write status: BOTH the supplied `research_materials_path` and `research_ledger_manifest_path` are unreachable from this worker because the execution sandbox returns `bwrap: loopback: Operation not permitted` on every `exec_command` invocation (verified by multiple independent attempts). The complete handoff below is delivered in-line per the contract: "If writing either is unavailable, continue the research and put the complete handoff in the final response for parent persistence."
+
+---
+
+## 1. Local Baseline Assessment (from inlined structured evidence package)
+
+### 1.1 Facts catalogued and quality of fit
+
+The package supplies 36 deduped facts across six sources, all 2023, all country-year, all attributed to a specific observation. They are structured priors; none of them is a ruler-attributed narrative event. They were inspected before any web discovery call (per disposition instructions `I001`/`I002`). Mapping notes distinguish structured country-year context from directly attributable ruler conduct.
+
+| Fact ID | Field | Value | Source | Chapter reuse | Confidence (local) | Direct ruler evidence? |
+|---|---|---|---|---|---|---|
+| LF001 | military_spend_constant_usd | 11055.51 (USD m) | SIPRI | 2B context | 80 | No — country baseline |
+| LF002 | military_spend_per_capita | 40.21 USD | SIPRI | 2B context | 80 | No |
+| LF003 | military_spend_share_gdp | 0.821% | SIPRI | 2B context | 80 | No |
+| LF004 | military_spend_share_govt | 4.94% | SIPRI | 2B context | 80 | No |
+| LF005 | civil_society_repression | 0.80 | V-Dem v2csreprss | 3B, 4B | 80 | Country-year only |
+| LF006 | extrajudicial_killings | 0.845 | V-Dem v2clkill | 3B | 80 | Country-year only |
+| LF007 | physical_integrity | 0.714 | V-Dem v2x_clphy | 3B | 80 | Country-year only |
+| LF008 | private_civil_liberties | 0.732 | V-Dem v2x_clpriv | 3B | 80 | Country-year only |
+| LF009 | pts_amnesty_score | 3.0 | PTS | 3B | 80 | Country-year only |
+| LF010 | pts_human_rights_watch_score | 3.0 | PTS | 3B | 80 | Country-year only |
+| LF011 | pts_state_dept_score | 3.0 | PTS | 3B | 80 | Country-year only |
+| LF012 | accountability | 0.789 | V-Dem v2x_accountability | 4B, 7B, 8B | 80 | Country-year only |
+| LF013 | bti_democracy_status | 6.3 | BTI | 4B | 80 | Country-year only |
+| LF014 | bti_governance_index | 5.48 | BTI | 4B, 8B | 80 | Country-year only |
+| LF015 | bti_status_index | 6.19 | BTI | 4B, 5B | 80 | Country-year only |
+| LF016 | civil_liberties | 4.0 (Freedom House, lower=better) | FH | 4B | 80 | Country-year only |
+| LF017 | electoral_democracy | 0.538 | V-Dem v2x_polyarchy | 4B | 80 | Country-year only |
+| LF018 | freedom_association | 0.695 | V-Dem v2x_frassoc_thick | 4B | 80 | Country-year only |
+| LF019 | freedom_expression | 0.619 | V-Dem v2x_freexp | 4B | 80 | Country-year only |
+| LF020 | judicial_constraints | 0.529 | V-Dem v2x_jucon | 4B | 80 | Country-year only |
+| LF021 | legislative_constraints | 0.553 | V-Dem v2xlg_legcon | 4B | 80 | Country-year only |
+| LF022 | liberal_democracy | 0.348 | V-Dem v2x_libdem | 4B | 80 | Country-year only |
+| LF023 | multiparty_institutions | 0.313 | V-Dem v2x_mpi | 4B | 80 | Country-year only |
+| LF024 | political_liberties | 2.0 (FH, lower=better) | FH | 4B | 80 | Country-year only |
+| LF025 | press_freedom_rank | 108 | RSF | 4B | 80 | Country-year only |
+| LF026 | press_freedom_score | 54.83 | RSF | 4B | 80 | Country-year only |
+| LF027 | regime_type | 2.0 (V-Dem electoral autocracy band) | V-Dem v2x_regime | 4B | 80 | Country-year only |
+| LF028 | rule_of_law | 0.385 | V-Dem v2x_rule | 4B, 7B, 8B | 80 | Country-year only |
+| LF029 | suffrage | 1.0 (universal) | V-Dem v2x_suffr | 4B | 80 | Country-year only |
+| LF030 | gdp_per_capita | 4876 USD | WDI | 5B | 80 | Country-year only |
+| LF031 | gdp_total | 1.371 trillion USD | WDI | 5B | 80 | Country-year only |
+| LF032 | population | 281.19 million | WDI | 5B | 80 | Country-year only |
+| LF033 | corruption_index | 0.769 | V-Dem v2x_corr | 7B | 80 | Country-year only |
+| LF034 | cpi_score | 34 | Transparency CPI | 7B | 80 | Country-year only |
+| LF035 | executive_corruption | 0.714 | V-Dem v2x_execorr | 7B | 80 | Country-year only |
+| LF036 | public_corruption | 0.757 | V-Dem v2x_pubcorr | 7B | 80 | Country-year only |
+
+**Local data audit:** All 36 facts are kept as **context** (country-year baseline), none as direct ruler-attributed conduct. Disposition instructions `I001`/`I002` are respected — no local dataset was re-fetched. **No fact was rejected.** The `error_methodology_ids` array is empty (no local extraction failure to flag).
+
+### 1.2 Methodology status summary inherited from the package
+
+- `1B.*` and `6B.*` arrived as `no_evidence_found` — i.e. no D17/FAS nuclear-force rows and no D6 HDI/health/education/income rows matched the local-prior field keys. These chapters are genuine research gaps rather than extraction errors.
+- `2B.*`–`5B.*`, `7B.*`, `8B.*` arrived as `evidence_found` (country-year structured prior available).
+- All `R001` reason codes = "no selected non-client country_year_facts matched the configured local-prior field keys" — a coverage gap, not a judge-level data-quality flag.
+
+### 1.3 Ruler-period reconnaissance (synthesis before chapter work)
+
+The 2023 horizon is the **last full calendar year of Jokowi's second (and constitutionally final) term** (his second term ends 20 October 2024). Major themes that recur across every chapter are:
+
+1. **Constitutional Court age-limit ruling (16 Oct 2023)** opening Gibran Rakabuming Raka (Jokowi's eldest son) to the vice-presidential ticket alongside Prabowo Subianto.
+2. **Ethics panel ruling on Chief Justice Anwar Usman (Nov 2023)** finding a serious ethical violation by Jokowi's brother-in-law for not recusing; demoted from chief-justice post, but the Gibran-eligibility decision itself stood.
+3. **Rempang Eco-City protests (Sept 2023)** — forced eviction of ethnic-Malay residents on Rempang Island for a Chinese-backed US$11.5 billion industrial project; Jokowi publicly reversed the forced-eviction stance after clashes.
+4. **ASEAN chairmanship** and the **Myanmar Five-Point Consensus** stalemate; Indonesia declined to escalate.
+5. **Whoosh high-speed rail (KCIC) launch (Oct 2023)** — first HSR in Southeast Asia, connecting Jakarta–Bandung; built with Chinese partnership, overshot original budget and timetable.
+6. **El Niño-driven food inflation** — Bank Indonesia raised policy rate to 6%, government disbursed Rp 9.9 trillion (food + cash assistance).
+7. **Anti-corruption crisis** — KPK Chairman Firli Bahuri named suspect in extortion of ex-Agriculture Minister Syahrul Yasin Limpo (Nov 2023).
+8. **Papua security operations** and civilian casualty events.
+9. **New criminal code signed Jan 2023** with provisions criminalising cohabitation, blasphemy expansion, insult of officials — to take effect 2026.
+
+This skeleton was used to bound chapter-level searches (avoiding spurious "did anything happen in 2023" framing).
+
+---
+
+## 2. Chapter-by-chapter Evidence Ledger
+
+### CHAPTER 1B — Nuclear and Existential-Risk Responsibility
+
+**Disposition from package:** all ten lenses `no_evidence_found`, instruction set `I001` (no local structured prior; web research permitted and necessary).
+
+**Local prior fit:** Indonesia is a non-nuclear state. The D17/FAS rows in the source registry were not matched by the local-prior field-key for this country-year. This is not a local-extraction failure (no `error_methodology_ids`); it is an actual absence of FAS nuclear-force records for Indonesia, consistent with Indonesia's status as a non-nuclear-weapon state.
+
+**Web research performed:**
+- Targeted search: "Indonesia 2023 NPT nuclear nonproliferation disarmament position IAEA" (rate-limited by upstream, repeated attempts blocked).
+- Inspected IISS, Springer, BTI 2026 report, Asia Maior Vol XXXV 2024 chapter — no record of any Jokowi-era nuclear risk-bearing choice, escalation, threat, crisis command decision, treaty signature, or safeguard reform in 2023.
+
+**Exposure assessment (per chapter guide §"Sparse, Historical, And Closed-Regime Evidence"):** **No discriminating opportunity in 2023.** Indonesia has no nuclear weapons, no declared latent nuclear-weapons program, no operational reactor-fuel-cycle choices of existential scope in 2023 (the research reactors at Serpong and Yogyakarta-Gajah Mada are small civilian facilities under IAEA safeguards; no 2023 expansion decision surfaced), no nuclear threats in conflict, and no cyber/biological/AI catastrophic pathway with documented ruler-level choice. Jokowi did not chair ASEAN's crisis response on any nuclear-armed adversary in 2023.
+
+**Rejected candidates:**
+- General BTI 2026 / Asia Maior 2024 narratives — no nuclear chapter evidence.
+- IISS, Laksmana, Wardhani foreign-policy pieces on ASEAN / Myanmar / great-power management — no nuclear-risk content surfaced.
+
+**Lens coverage assessment (per chapter guide):** All ten lenses (`1B.1`–`1B.10`) carry the same disposition: **no_discriminating_opportunity**. Per the chapter guide: "no_discriminating_opportunity also produces a null: it documents why the ruler cannot be discriminatingly scored and must not be ranked against materially exposed rulers."
+
+**Source-claim units retained for this chapter: 0** (none — no target-period ruler-attributed nuclear or existential-risk conduct to evidence). The package's `no_evidence_found` is confirmed and reinforced; the chapter is a null candidate that the judge should not penalise by comparison with materially exposed rulers.
+
+**Strongest contrary evidence searched for and not found:** any 2023 statement by Jokowi on nuclear weapons; any IAEA inspection anomaly; any revelation about Indonesian dual-use research. None surfaced in the discovery set.
+
+---
+
+### CHAPTER 2B — International Peace, Restraint, and Lawful Security
+
+**Disposition from package:** all ten lenses `evidence_found` via SIPRI structured priors; instruction set `I002`.
+
+**Local prior fit:** LF001–LF004 (SIPRI) provide country-year military-expenditure baselines (≈0.82% of GDP, ≈4.94% of govt spending, $11.06 bn constant-USD, $40.21 per capita) — these are **context** for inherited posture, not direct ruler attribution. The chapter's lens set is satisfied on the prior side but must be enriched with narrative for any actual ruler-attributed international conduct.
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-A1 | ASEAN chairmanship: Indonesia held the ASEAN chair in 2023, organising summits; ASEAN did **not** press Myanmar junta to implement any provision of the Five-Point Consensus. | HRW Indonesia chapter 2024 (https://www.hrw.org/world-report/2024/country-chapters/indonesia), "Key International Actors" paragraph; corroborated by ASEAN Leaders' Review (https://asean.org/wp-content/uploads/2023/09/01.FINAL-ASEAN-LEADERS-REVIEW-AND-DECISION-ON-THE-IMPLEMENTATION-OF-THE-5PC-1.pdf) | NGO + official ASEAN document · HRW medium_high, ASEAN official document = context (self-assessment) | Target-year (2023) | Indirect — Foreign Minister Retno Marsudi ran the chair; Jokowi set the strategic posture | 2B.6, 2B.7, 2B.10 | No (new) | Mixed — chair-ship is a peace opportunity; outcome was constrained by consensus rule, not escalated |
+| IM23-A2 | HRW (March 2023): chair's statement at February Foreign Ministers' Retreat "contained only meek language" on Myanmar, urging 5PC implementation without concrete enforcement. | HRW (https://www.hrw.org/news/2023/03/31/indonesias-asean-leadership-tested-myanmar), section beginning "Behind closed doors" | NGO · medium_high | Target-year | Ruler's foreign-policy team; structural limit = ASEAN consensus rule | 2B.1, 2B.6, 2B.7 | No | Evidence of restraint-via-consensus, not of strong advocacy for consequences (Article 20 of ASEAN Charter suspension threat) |
+| IM23-A3 | HRW (March 2023): Indonesia "did not materialize" reported plans for a military envoy; established a low-profile envoy's office instead, headed by Marsudi. | HRW (same URL), paragraph "Rather than appointing an individual as special envoy" | NGO · medium_high | Target-year | Direct (ruler-set channel) | 2B.5, 2B.7, 2B.8 | No | Modest, transparent restraint rather than escalation |
+| IM23-A4 | East Asia Forum (Jan 2024 retrospective on 2023): Jokowi hosted ASEAN chairmanship; Indonesia launched Whoosh HSR; "success in managing the economy, especially in controlling inflation and providing welfare to disadvantaged groups." | East Asia Forum, Siwage Dharma Negara (ISEAS) (https://eastasiaforum.org/2024/01/29/jokowis-final-act/) | Reputable academic-affiliated media · medium_high | Retrospective on 2023 | Indirect — economic narrative; relevant for 2B.8 (military/economic balance) and 2B.7 (peaceful regional engagement) | 2B.8, 2B.7 | No | Provides regional peace-and-trade context |
+| IM23-A5 | Asia Maior Vol XXXV (2024) chapter: "Jokowi's foreign policy has been seen by the Indonesian public as more show than substance… Compared to SBY, Jokowi could boast few successes to match SBY's mediation of internal communal conflicts… Jokowi's interventions in Myanmar, targeted at finding a resolution… proved fruitless." | Asia Maior Vol XXXV 2024 (https://www.asiamaior.org/the-journal/19-asia-maior-vol-xxxv-2024/indonesia-2023-24-jokowis-endgame-and-the-politics-of-dynasty.html), §3.1 | Peer-reviewed area-studies journal · medium_high | Retrospective on 2023 | Direct | 2B.7, 2B.10 | No | Independent scholarly assessment; against HKW's optimistic narrative |
+
+**Reuse / cross-chapter mapping:** None of the above were pre-staged in the local package; they are all freshly added narrative items.
+
+**Lens coverage assessment:**
+
+- `2B.1` (diplomacy vs force as first option): partial — ASEAN chair restraint suggests preference for diplomacy; Myanmar outcome shows limits.
+- `2B.2` (no wars of choice / cross-border coercion by Indonesia in 2023): well-evidenced by absence — no interstate conflict initiation by Indonesia in 2023 surfaced.
+- `2B.3` (genuine defensive vs prestige motive): no major 2023 external threat to defend against; ASEAN chair role was status-seeking but non-coercive.
+- `2B.4` (civilian protection / IHL): no 2023 Indonesian expeditionary operations in 2023 surfaced; not directly evidence-bearing.
+- `2B.5` (restrain proxies / allies): **limited.** Papua operations are domestic and belong in 3B, not 2B.
+- `2B.6` (truthful threat explanation): not strongly evidenced — no major deception claim.
+- `2B.7` (credible ceasefires / peace efforts): partially evidenced — Myanmar 5PC effort but did not produce ceasefire or enforcement.
+- `2B.8` (military spending for real security vs patronage): LF001–LF004 give the baseline; no source surfaced that 2023 spending rose for patronage reasons.
+- `2B.9` (accountability for failures / illegal conduct): no major 2023 international accountability episode surfaced.
+- `2B.10` (end-state change): regional environment unchanged; ASEAN centrality rhetoric not converted to Myanmar pressure.
+
+**Source mix:** 1 NGO (HRW), 1 ASEAN official document (context-only), 1 peer-reviewed area-studies journal (Asia Maior), 1 reputable Asia-affairs outlet (East Asia Forum). Three source families for the four retained items. Mostly target-period fit; some are retrospective assessments of 2023.
+
+**Filtered ledger size:** 4 substantive source-claim units (the ASEAN official document is **context-only**, not final evidence). Below the 5-unit minimum guideline but the chapter's central evidence (peace / aggression) is thin by nature for Indonesia in 2023: Indonesia initiated no conflict, hosted no crisis, and ran one multilateral chairmanship that produced limited but real diplomacy. **Decision:** record the gap, do not pad.
+
+**No internet sources fabricated;** the `official government` self-assessment (ASEAN 5PC review) is rated `context` per the source-confidence registry.
+
+---
+
+### CHAPTER 3B — Domestic Safety, Restraint, and Protection
+
+**Disposition from package:** all ten lenses `evidence_found` via V-Dem/PTS priors; instruction set `I002`.
+
+**Local prior fit:** LF005–LF011 (V-Dem civil-society repression 0.80; extrajudicial killings 0.845; physical integrity 0.714; private civil liberties 0.732; PTS three-scores all 3/5). These are **country-year structured priors**; they tell the chapter that the country-year context is repressive-leaning but do not, by themselves, attribute acts to Jokowi.
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-D1 | Freedom House 2024 (covering 2023): "Deadly confrontations involving security forces remain common in the Papua region, and have increased in geographic scope, intensity, and frequency since 2018. Security forces have been implicated in torture and extrajudicial killings, particularly in Papua." | Freedom House 2024 Indonesia (https://freedomhouse.org/country/indonesia/freedom-world/2024), section F3 | Reputable democracy-data NGO · medium_high | Target-year | Indirect (chain of command to president as commander-in-chief) | 3B.1, 3B.2, 3B.10 | No | Establishes Papua as a recurring severe-violence lens |
+| IM23-D2 | Freedom House 2024: In **August 2023**, Human Rights Monitor said that security forces' conduct in **2021 operations in Papua may amount to crimes against humanity.** | Freedom House 2024, section F3, para beginning "In August 2023" | Reputable democracy-data NGO · medium_high | Target-year (2023 reporting on 2021 conduct) | Indirect — failure to investigate/remedy | 3B.1, 3B.4, 3B.7 | No | Establishes accountability gap |
+| IM23-D3 | Freedom House 2024: In **October 2023**, an armed Papuan group attacked miners in Yahukimo Regency, killing at least 13 people in the worst attack on civilians by Papuan separatists since 2018. | Freedom House 2024, section F3, para beginning "In October" | NGO · medium_high | Target-year | Non-state actor (context for state-protection duty) | 3B.7, 3B.10 | No | Non-state violence lens |
+| IM23-D4 | HRW Indonesia chapter 2024: in **December 2022**, a special court in Makassar acquitted an army officer, Isak Sattu, of charges related to the 2014 Paniai massacre; victims' families expressed distrust. | HRW Indonesia 2024 (https://www.hrw.org/world-report/2024/country-chapters/indonesia), section "Papua Provinces" | NGO · medium_high | Pre-period (2022) event referenced in 2023 reporting | Indirect — impunity in security forces | 3B.1, 3B.4 | No | Accountability-failure evidence |
+| IM23-D5 | HRW Indonesia 2024: in **April 2023**, Haris Azhar and Fatia Maulidiyanti went on trial in Jakarta for criminal defamation pursuant to a complaint by Coordinating Minister Luhut Binsar Pandjaitan under the ITE Law. | HRW Indonesia 2024, section "Papua Provinces" | NGO · medium_high | Target-year | Direct (minister filing complaint; Jokowi cabinet member) | 3B.1, 3B.2, 3B.8 | No | SLAPP-style prosecution pattern |
+| IM23-D6 | HRW Indonesia 2024: in **March 2023**, Komnas Perempuan held its first hearing on mandatory dress regulations; female students/parents testified to widespread bullying of those refusing to wear hijab. | HRW Indonesia 2024, section "Women's and Girls' Rights" | NGO · medium_high | Target-year | Indirect (state and school administration) | 3B.7 | No | Group-targeting lens |
+| IM23-D7 | HRW Indonesia 2024: government designated "armed criminal groups" as terrorist organisations in 2021; in 2023 authorities continued to arrest and prosecute Indigenous Papuans for expressing views in support of peaceful self-determination. | HRW Indonesia 2024, section "Papua Provinces" | NGO · medium_high | Target-year | Direct (security-force conduct) | 3B.1, 3B.5, 3B.8 | No | Softens scope of physical-integrity lens |
+| IM23-D8 | HRW Indonesia 2024: In **July 2023**, Constitutional Court partially granted a petition to make guardianship of people with psychosocial/intellectual disabilities optional; UN CRPD pressed Indonesia to eradicate *pasung* (shackling); seven people with psychosocial disabilities who were shackled died on Flores Island between June and September. | HRW Indonesia 2024, section "Disability Rights" | NGO + UN treaty body · medium_high | Target-year | Indirect — institutional reform with credible positive signal + persistent serious abuse | 3B.4, 3B.7 | No | Mixed positive/negative lens for vulnerable groups |
+| IM23-D9 | Freedom House 2024: In **January 2023**, Jokowi acknowledged 12 major human rights abuses committed by the government, including the 1965–66 massacres, and promised compensation, though he did not offer a formal apology. | Freedom House 2024, section F4 | Reputable democracy-data NGO · medium_high | Target-year | Direct — Jokowi statement, 2023 admission | 3B.4, 3B.10 | No | Mixed — recognition without apology |
+| IM23-D10 | Freedom House 2024: In **September 2023**, Rempang Island protests: authorities sought to evict several thousand residents; Jokowi reversed course on forced eviction after clashes. Residents reported subsequent pressure to accept a relocation offer. | Freedom House 2024, section G2 | Reputable democracy-data NGO · medium_high | Target-year | Direct — Jokowi policy reversal | 3B.5, 3B.8, 3B.9 | No | Mixed — crisis-response concession under pressure |
+| IM23-D11 | BTI 2026 Indonesia report (covering 2023): "the absence of massive human rights violations and — except for unrest in the Papua provinces — the general conditions of political stability and reduced political polarization." | BTI 2026 Indonesia (https://bti-project.org/en/reports/country-report/IDN), summary paragraph | Bertelsmann academic index · medium_high | Period-fit | Indirect assessment | 3B.6, 3B.10 | No | Contrarian positive evidence on general stability |
+
+**Reuse / cross-chapter mapping:** IM23-D1, IM23-D2, IM23-D7 are reused in 4B (Papua political freedom / protest / press space). IM23-D10 is reused in 4B and 5B. IM23-D9 is reused in 4B and 7B. **Do not duplicate under chapter-prefixed IDs.**
+
+**Lens coverage assessment:**
+- `3B.1` (state violence): strong — Papua security-force conduct (IM23-D1, IM23-D2, IM23-D7); Paniai acquittal (IM23-D4); Luhut SLAPP (IM23-D5).
+- `3B.2` (security-force and aligned-actor abuse): strong — multiple sources confirm recurring Papua conduct and impunity patterns.
+- `3B.3` (incitement): no direct 2023 incitement statement surfaced.
+- `3B.4` (oversight / remedy): mixed — Komnas Perempuan hearing (IM23-D6); January 2023 Jokowi recognition without apology (IM23-D9); Constitutional Court disability decision (IM23-D8); Paniai acquittal undermines remedy (IM23-D4).
+- `3B.5` (emergency / surveillance): partially evidenced — UU ITE amendments December 2023, MR5 platform rules, designation of Papuan groups as terrorist.
+- `3B.6` (fear reduction without state terror): mixed — IM23-D11 (BTI positive) vs IM23-D1/D7 (Papua).
+- `3B.7` (vulnerable groups): partially evidenced — hijab bullying (IM23-D6), *pasung* deaths (IM23-D8), Yahukimo attack (IM23-D3).
+- `3B.8` (peaceful protest): mixed — Rempang reversal (IM23-D10); Papuan protest prosecution (IM23-D7).
+- `3B.9` (crisis response): partially evidenced — Rempang crisis response (IM23-D10).
+- `3B.10` (end-state change): mixed — IM23-D11 vs IM23-D1/D2/D7.
+
+**Source mix:** Freedom House (1), HRW (1), BTI (1) — three independent source organisations, two source types (NGO + academic index). Sufficient diversity.
+
+**Filtered ledger size:** 11 substantive source-claim units. Comfortably inside the 5–20 band.
+
+---
+
+### CHAPTER 4B — Political Freedom vs Authoritarian Rule
+
+**Disposition from package:** all ten lenses `evidence_found` via V-Dem/BTI/RSF/FH priors; instruction set `I002`.
+
+**Local prior fit:** LF012–LF029 (V-Dem electoral democracy 0.538, liberal democracy 0.348, freedom_expression 0.619, freedom_association 0.695, judicial_constraints 0.529, legislative_constraints 0.553, rule_of_law 0.385, accountability 0.789, multiparty_institutions 0.313, regime_type 2.0 = electoral autocracy band; BTI status 6.19, BTI democracy 6.3, BTI governance 5.48; FH political_rights 2, civil_liberties 4; RSF rank 108, score 54.83). **All context** — country-year structured priors.
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-P1 | On **16 October 2023**, Indonesia's Constitutional Court issued ruling 90/PUU-XXI/2023 (7-to-2) — the panel rejected lowering the minimum age for presidential/vice-presidential candidates but added an exception for those "who served or currently holding a position as regional leader through the elections," allowing Gibran Rakabuming Raka (age 36, mayor of Surakarta, Jokowi's eldest son) to run as Prabowo Subianto's vice-presidential running mate. Chief Justice Anwar Usman did not recuse despite being Jokowi's brother-in-law and Gibran's uncle. | AP News (https://apnews.com/article/indonesia-constitutional-court-minimum-age-presidential-candidate-6a610ea14a4c6f4070c0bf68078f5a72); ConstitutionNet (https://constitutionnet.org/news/indonesia-constitutional-court-creates-exception-age-requirement-run-offices-president-and); Al Jazeera (https://www.aljazeera.com/amp/news/2023/10/16/indonesian-court-rules-on-presidential-candidate-eligibility) | Reputable international wire · medium_high | Target-year | Indirect (executive influence on court; family relationship makes de facto influence well-documented) | 4B.1, 4B.2, 4B.4, 4B.5, 4B.8, 4B.10 | No | Most-cited single 2023 event for this chapter |
+| IM23-P2 | In **November 2023**, the Constitutional Court's ethics panel found Chief Justice Anwar Usman committed ethical violations over his handling of the October age-limit ruling; he was demoted from the chief-justice post and barred from adjudicating electoral disputes in 2024, but the panel had no authority to reverse the eligibility decision itself. | Freedom House 2024 (https://freedomhouse.org/country/indonesia/freedom-world/2024), section F1 | Reputable democracy-data NGO · medium_high | Target-year | Indirect (institutional remedy) | 4B.4, 4B.6 | No | Mixed: remedy exists but cannot undo the contested decision |
+| IM23-P3 | BTI 2026 Indonesia report: "Jokowi then bent constitutional rules to pave the way for building political dynasty when the Constitutional Court controversially cleared the way for his eldest son to run as Prabowo's running mate even though he did not meet the minimum age requirement of 40. The court's then-chief justice, Anwar Usman, who is also Jokowi's brother-in-law, was later found guilty of an ethics violation… The 2024 presidential election was widely described as the most unfair and rigged since the end of the authoritarian New Order in 1998. The Prabowo-Gibran ticket received massive support from the state apparatus, most local governments, most media, and the army and police." | BTI 2026 (https://bti-project.org/en/reports/country-report/IDN) | Bertelsmann academic index · medium_high | Period-fit (2023–24 context, retrospective) | Direct | 4B.1, 4B.2, 4B.5, 4B.8, 4B.10 | No | Central contrary / pattern evidence |
+| IM23-P4 | Asia Maior Vol XXXV 2024: "Jokowi's authoritarian turn was functional to the implementation of grand infrastructure development projects… After vainly attempting to have his term extended, he not only chose to back Prabowo… but also manipulated the Constitutional Court to ensure that his eldest son, the 37-year-old Gibran Rakabuming Raka, could put his name forward as Prabowo's running mate." | Asia Maior Vol XXXV 2024 (https://www.asiamaior.org/the-journal/19-asia-maior-vol-xxxv-2024/indonesia-2023-24-jokowis-endgame-and-the-politics-of-dynasty.html), §1 | Peer-reviewed area-studies journal · medium_high | Period-fit | Direct | 4B.1, 4B.2, 4B.8, 4B.10 | No | Scholarly consolidation |
+| IM23-P5 | East Asia Forum (Jan 2024): "Jokowi has diverged from PDI-P's stance by supporting Prabowo Subianto instead of Ganjar Pranowo in the 2024 general elections… the more serious accusation is his manoeuvre to use state institutions to his advantage — like when he used the Constitutional Court to change the age limit of vice presidential candidates to accommodate Gibran's candidacy." | East Asia Forum (https://eastasiaforum.org/2024/01/29/jokowis-final-act/) | Reputable academic-affiliated media · medium_high | Retrospective on 2023 | Direct | 4B.1, 4B.2, 4B.5 | No | International view corroborates |
+| IM23-P6 | Freedom House 2024: In **2023**, the DPR passed amendments to the UU ITE; the International Commission of Jurists criticised the amended law's provisions on purportedly false information and criminal defamation, though it contains a public-interest exception. The amended UU ITE prohibits expression that fosters "feelings of hatred or hostility" for protected individuals; **the amended law was not signed by the president by year's end**. | Freedom House 2024, section D4 | Reputable democracy-data NGO · medium_high | Target-year | Direct (presidential signature status) | 4B.6, 4B.9 | No | Censorship legislative context |
+| IM23-P7 | Freedom House 2024: In **September 2023**, Rempang Island protests — protesters opposing a development project on the island of Rempang held a demonstration in Batam, clashed with security forces, who used tear gas and water cannon; **at least 40 people were arrested**. Jokowi subsequently reversed the forced-eviction policy (per section G2). | Freedom House 2024, sections D4 / G2 | Reputable democracy-data NGO · medium_high | Target-year | Direct | 4B.3, 4B.5, 4B.8 | No | Mixed — initial crackdown, then partial reversal |
+| IM23-P8 | Freedom House 2024: no journalists were killed in 2023, but an explosive device was detonated outside the home of Papuan journalist Victor Mambor in January; an investigation identified no suspects before it was closed. | Freedom House 2024, section D1 | Reputable democracy-data NGO · medium_high | Target-year | Indirect (security environment) | 4B.6 | No | Single-incident lens |
+| IM23-P9 | Freedom House 2024: Haris Azhar and Fatia Maulidiyanti trial (defamation under UU ITE for discussing military involvement in Papua mining) began April 2023, ongoing at year's end. | Freedom House 2024, section E2 | Reputable democracy-data NGO · medium_high | Target-year | Direct (ministerial complaint) | 4B.3, 4B.6, 4B.7 | No | NGO intimidation lens |
+| IM23-P10 | BTI 2026 Indonesia report: Reporters Without Borders' **2024 World Press Freedom Index ranked Indonesia 111th out of 180 countries**; journalists investigating local corruption are often subjected to intimidation, including arrest or physical violence, by police and TNI soldiers; self-censorship is high. | BTI 2026 Indonesia, "Freedom of expression" section | Bertelsmann academic index · medium_high | Period-fit (cross-period) | Indirect | 4B.6 | No | Press-freedom pattern; corroborated by LF025/LF026 |
+| IM23-P11 | BTI 2026: "in no previous presidential election has an incumbent president abused administrative powers as strikingly as did Joko Widodo in 2024, when he openly supported the candidacy of Prabowo Subianto and running mate Gibran… large sums from state coffers were mobilized to support the Prabowo-Gibran campaign, with the disbursement mostly declared as social aid (bantuan sosial)… Local government staffers and military and police units were also pressured to support the Prabowo-Gibran campaign." | BTI 2026 Indonesia, "Free and fair elections" section | Bertelsmann academic index · medium_high | Period-fit (cross-period) | Direct | 4B.2, 4B.5, 4B.10 | No | Resource-capture pattern |
+
+**Reuse / cross-chapter mapping:** IM23-P2, IM23-P6, IM23-P9 reused in 7B (rule of law / accountability). IM23-P7 reused in 3B and 5B. IM23-P11 reused in 7B. None duplicated.
+
+**Lens coverage assessment:**
+- `4B.1` (electoral contestability): strong — central evidence is the Constitutional Court age-limit ruling and dynasty pattern (IM23-P1, IM23-P3, IM23-P4, IM23-P5).
+- `4B.2` (manipulation of rules): strong — IM23-P1, IM23-P3, IM23-P11.
+- `4B.3` (tolerance of opposition): mixed — Luhut defamation trial (IM23-P9) is direct negative; Constitutional Court ethics remedy (IM23-P2) is positive but limited.
+- `4B.4` (independent courts / oversight): mixed — IM23-P2 (ethics panel) vs IM23-P1 (questionable ruling).
+- `4B.5` (avoid personality cults / party capture / politicised institutions): strong — IM23-P3, IM23-P5, IM23-P11.
+- `4B.6` (independent media): mixed — RSF rank (LF025/LF026 + IM23-P10), Victor Mambor attack (IM23-P8), UU ITE amendments not signed (IM23-P6), Luhut SLAPP (IM23-P9).
+- `4B.7` (political equality): weak — no 2023 affirmative action; Luhut SLAPP and pro-Prabowo state apparatus pressures tilt negative.
+- `4B.8` (term limits / succession): strong — dynasty pattern is the central 2023 evidence; term limit is observed in form but bent via court.
+- `4B.9` (surveillance / digital controls): partially evidenced — MR5 platform rules, UU ITE amendments.
+- `4B.10` (trajectory): negative — three independent sources (BTI, Asia Maior, Freedom House) describe democratic recession.
+
+**Source mix:** Freedom House (1), BTI (1), HRW (transitively via IM23-P9), Asia Maior (1), East Asia Forum (1), AP News / Al Jazeera / ConstitutionNet (IM23-P1 — three independent wires for the same event). Six independent organisations, four source types (NGO, academic index, peer-reviewed journal, reputable media). Sufficient diversity.
+
+**Filtered ledger size:** 11 substantive source-claim units. Within the 5–20 band.
+
+---
+
+### CHAPTER 5B — Economic Well-Being and Prosperity
+
+**Disposition from package:** all ten lenses `evidence_found` via WDI priors; instruction set `I002`.
+
+**Local prior fit:** LF015 (BTI status 6.19), LF030 (GDP per capita $4,876), LF031 (GDP total $1.371 trillion), LF032 (population 281.19 million) — all 2023 country-year structured priors. **Context only.**
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-E1 | East Asia Forum (Jan 2024): "Jokowi's continued public support, is arguably due to his administration's success in managing the economy, especially in controlling inflation and providing welfare to disadvantaged groups… The government spent 177.5 trillion rupiah (US$11.4 billion) on People's Business Credit, a subsidy program to support small-scale entrepreneurs… the government responded with price stabilisation policies and social assistance" totalling Rp 2.7 trillion food assistance + Rp 7.5 trillion direct cash assistance to poor households in response to El Niño food inflation. | East Asia Forum (https://eastasiaforum.org/2024/01/29/jokowis-final-act/) | Reputable academic-affiliated media · medium_high | Target-year | Direct — government spending decisions | 5B.1, 5B.3, 5B.6, 5B.7, 5B.9 | LF015 (BTI context) | Crisis-response narrative |
+| IM23-E2 | East Asia Forum: "Despite losing at the World Trade Organization, Indonesia will continue its downstreaming program through the export ban policy. After banning nickel ore exports in 2020, the government extended the ban to bauxite in mid-2023." Resource nationalism is politically popular; all three presidential candidates agreed to continue. | East Asia Forum (same URL) | Reputable academic-affiliated media · medium_high | Target-year | Direct — executive trade-policy decision | 5B.1, 5B.4, 5B.6 | LF030/LF031 context | Strategic industrial-policy choice |
+| IM23-E3 | East Asia Forum: "Bank Indonesia increased its policy interest rate to 6 per cent to defend the domestic currency and maintain price stability. Interest rates, together with other fiscal policy tools, were used to support small businesses." | East Asia Forum (same URL), paragraph beginning "On the monetary side" | Reputable academic-affiliated media · medium_high | Target-year | Direct — central-bank policy (BI is independent; coordinated with executive) | 5B.3, 5B.7, 5B.9 | LF030/LF031 context | Macro-stability policy |
+| IM23-E4 | East Asia Forum: "In 2023, Indonesia successfully held the ASEAN chairmanship and hosted the FIFA U-17 World Cup, the first FIFA tournament held in Southeast Asia. Indonesia also launched its first high-speed railway 'Whoosh' connecting Jakarta and Bandung, with a planned extension to Surabaya." | East Asia Forum (same URL), opening paragraph | Reputable academic-affiliated media · medium_high | Target-year | Direct — executive flagship-infrastructure launch | 5B.6, 5B.10 | LF030/LF031 context | Productivity-foundation infrastructure |
+| IM23-E5 | Asia Maior Vol XXXV 2024: "By the end of the Jokowi presidency, gross national income per-capita continued to be stuck below US$ 4,000 (US$ 3,953 in 2023)… the percentage of the 280 million Indonesian population living below the International Poverty Line of US$ 1.90 per day, as of September 2024, was just under 9% (8.56)… income gap between the few rich and the poor in Indonesia has been increasing. In the years under review, Indonesia remains a deeply unequal society, where 1% of the 280-million population owns over 50% of the wealth." | Asia Maior Vol XXXV 2024, §2.8 | Peer-reviewed area-studies journal · medium_high | Period-fit (cross-period) | Indirect — outcome attribution requires caveat | 5B.8, 5B.10 | LF030/LF031 context | Distribution and trajectory lens |
+| IM23-E6 | Asia Maior Vol XXXV 2024: "in the penultimate two years of Jokowi's incumbency (2021-2022) the budget for his core policy, infrastructure development, increased by 22.2% to US$ 30 billion, while spending on education fell 4% from 17.94 to 13.93%" — described as a structural mismatch. | Asia Maior Vol XXXV 2024, §2.5 | Peer-reviewed area-studies journal · medium_high | Pre-period (2021–22), referenced in 2023 retrospective | Direct | 5B.6, 5B.7 | No | Investment-mix lens |
+| IM23-E7 | Asia Maior Vol XXXV 2024: "the construction of Ibu Kota Nusantara (IKN), the future new capital, got under way in earnest in East Kalimantan… in September 2024, Jokowi amended Government Regulation No.23 of 2023, which had banned sea sand exports, thus reopening them" — controversial decision. | Asia Maior Vol XXXV 2024, §2.5 and §2.5 | Peer-reviewed area-studies journal · medium_high | Cross-period | Direct | 5B.6, 5B.8 | No | Flagship mega-project lens |
+| IM23-E8 | BTI 2026 Indonesia: "Indonesia's GDP growth rate has returned to pre-pandemic levels, and stable growth of around 5% is expected in the near future. Commodity exports to countries such as India and China are booming. The Indonesian government has made some efforts toward 'downstreaming'… This is a sound strategy, but more investment is needed before the desired effects can be fully realized… Indonesia grapples with several structural weaknesses. These include an underperforming education system, inadequate environmental protection policies and widespread corruption." | BTI 2026 Indonesia, summary | Bertelsmann academic index · medium_high | Period-fit | Indirect assessment | 5B.3, 5B.6, 5B.10 | LF015/LF030/LF031 context | Mixed overall |
+| IM23-E9 | The Diplomat (Dec 2023): "Launched during President Joko 'Jokowi' Widodo's administration, this ambitious megaplan seeks to create Nusantara, a new capital city, from scratch on the island of Borneo, at a cost of 466 trillion rupiah (nearly $30 billion) by 2045… struggle to attract foreign investment." | The Diplomat (https://thediplomat.com/2023/12/14/where-indonesias-presidential-candidates-stand-on-the-new-capital-project/) | Reputable international magazine · medium_high | Target-year | Direct — executive flagship | 5B.6, 5B.7, 5B.10 | No | IKN execution narrative |
+
+**Reuse / cross-chapter mapping:** IM23-E4 reused in 8B (effectiveness). IM23-E6 reused in 6B (social wellbeing — education spending). IM23-E7 reused in 3B (community displacement) and 8B. None duplicated.
+
+**Lens coverage assessment:**
+- `5B.1` (broad prosperity intent): mixed — IM23-E1 (welfare), IM23-E2 (downstreaming), IM23-E4 (infrastructure).
+- `5B.2` (competent appointments): partially evidenced — no direct 2023 personnel-change evidence surfaced.
+- `5B.3` (macro stability): strong — IM23-E1 (inflation control), IM23-E3 (BI rate hike).
+- `5B.4` (fair rules): mixed — IM23-E2 (downstreaming is contested by WTO), IM23-E9 (IKN struggles to attract investment).
+- `5B.5` (anti-corruption / capture): cross-referenced to 7B (KPK/Firli case).
+- `5B.6` (productivity foundations): strong — Whoosh HSR (IM23-E4), IKN (IM23-E7, IM23-E9), downstreaming (IM23-E2); offset by education-spending decline (IM23-E6).
+- `5B.7` (evidence-based correction): partially evidenced — IM23-E3 macro response.
+- `5B.8` (fair distribution): mixed — IM23-E1 (cash + food assistance to poor) vs IM23-E5 (1% owns >50%, education-spend decline).
+- `5B.9` (shock management): strong — El Niño response (IM23-E1), BI rate hike (IM23-E3).
+- `5B.10` (trajectory): mixed — BTI positive on growth (IM23-E8) vs Asia Maior negative on distribution (IM23-E5).
+
+**Source mix:** East Asia Forum (1), Asia Maior (1), The Diplomat (1), BTI (1) — four independent organisations, three source types (reputable media, peer-reviewed journal, academic index). Sufficient diversity.
+
+**Filtered ledger size:** 9 substantive source-claim units. Within band.
+
+---
+
+### CHAPTER 6B — Social Well-Being and Human Development
+
+**Disposition from package:** all ten lenses `no_evidence_found` (D6 HDI / health / education / income not present in local-prior field-key list); instruction set `I001`. **Note:** this is a genuine absence of country-year D6 rows, not an extraction error.
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-S1 | East Asia Forum: "El Nino conditions disrupted food production, driving up food inflation, especially rice prices. The government responded with price stabilisation policies and social assistance to protect the purchasing power of the poor and vulnerable. Social assistance policies included an additional 2.7 trillion Indonesian rupiah (US$173.2 million) in food assistance and 7.5 trillion rupiah (US$481.5 million) in direct cash assistance to poor households." | East Asia Forum (https://eastasiaforum.org/2024/01/29/jokowis-final-act/) | Reputable academic-affiliated media · medium_high | Target-year | Direct — executive social-assistance disbursement | 6B.2, 6B.3, 6B.6, 6B.9 | No | Crisis-targeted assistance lens |
+| IM23-S2 | East Asia Forum: "The government spent 177.5 trillion rupiah (US$11.4 billion) on People's Business Credit, a subsidy program to support small-scale entrepreneurs, like street food vendors, amid rising interest rates." | East Asia Forum (same URL) | Reputable academic-affiliated media · medium_high | Target-year | Direct | 6B.4, 6B.7 | No | Subsidised-credit lens |
+| IM23-S3 | HRW Indonesia 2024: Komnas Perempuan (August 2023) hearing on mandatory dress regulations; female students testified to widespread bullying of those refusing to wear hijab, including non-Muslims facing expulsion or pressure. | HRW Indonesia 2024, section "Women's and Girls' Rights" | NGO · medium_high | Target-year | Indirect — institutional complicity | 6B.3, 6B.8 | No | Vulnerable-group dignity lens |
+| IM23-S4 | HRW Indonesia 2024: UN Committee on the Rights of Persons with Disabilities called on Indonesia to eradicate *pasung* (shackling); seven people with psychosocial disabilities died on Flores Island between June and September while shackled. | HRW Indonesia 2024, section "Disability Rights" | NGO + UN treaty body · medium_high | Target-year | Indirect — institutional | 6B.3, 6B.6 | No | Vulnerable-group crisis lens |
+| IM23-S5 | BTI 2026 Indonesia: ongoing establishment of a public welfare state system through BPJS (Social Health Insurance Agency) is described as "a positive step, given the large number of people with low incomes and poor living standards." | BTI 2026 Indonesia, summary | Bertelsmann academic index · medium_high | Period-fit | Indirect | 6B.2, 6B.9, 6B.10 | No | Health-insurance continuity lens |
+| IM23-S6 | Asia Maior Vol XXXV 2024: education spending fell 4% (from 17.94% to 13.93%) in the second term while infrastructure spending increased 22.2% to US$30 billion. PISA 2022: Indonesia ranked 69/81 in maths, 67 in science, 71 in reading — only the Philippines and Cambodia (among ASEAN countries surveyed) ranked lower. | Asia Maior Vol XXXV 2024, §2.5 and §2.7 | Peer-reviewed area-studies journal · medium_high | Period-fit (cross-period) | Direct — budget-allocation choice | 6B.2, 6B.4, 6B.6, 6B.10 | No | Education outcomes lens |
+| IM23-S7 | Asia Maior Vol XXXV 2024: "According to BPS data from December 2024, 92.6% of Indonesian households had access to safe drinking water and 83.6% had access to basic sanitation. Again, there are significant differences between more developed islands, such as Java, and the eastern regions, particularly the Papua provinces. However, probably due to different definitions, these data from the Indonesian government stand in stark contrast to data from the World Bank, which estimated that just 30.3% of the population had access to safely managed drinking water in 2022." | BTI 2026 Indonesia, "Basic administration" section | Bertelsmann academic index (paraphrasing WB + BPS) · medium_high | Cross-period | Indirect — institutional outcome | 6B.2, 6B.8 | No | Basic-access lens |
+
+**Reuse / cross-chapter mapping:** IM23-S1, IM23-S2 already in 5B (do not duplicate). IM23-S3, IM23-S4 already in 3B. None re-registered.
+
+**Lens coverage assessment:**
+- `6B.1` (welfare as core purpose): partially evidenced — BPJS (IM23-S5), El Niño response (IM23-S1).
+- `6B.2` (basic services access): mixed — water/sanitation gains on Java, deficit in Papua (IM23-S7); education declines (IM23-S6).
+- `6B.3` (vulnerable groups): mixed — cash + food to poor (IM23-S1); hijab bullying (IM23-S3); *pasung* deaths (IM23-S4).
+- `6B.4` (professional / competent administration): partially evidenced — credit subsidy (IM23-S2); education outcomes (IM23-S6).
+- `6B.5` (evidence-based correction): no direct 2023 evidence surfaced.
+- `6B.6` (crisis response): strong — El Niño (IM23-S1); *pasung* (IM23-S4).
+- `6B.7` (avoid political conditionality): mixed — IM23-S1 is non-targeted; IM23-S2 (subsidised credit) is a small-business subsidy.
+- `6B.8` (dignity / equality of opportunity): partially evidenced — water disparity (IM23-S7), hijab bullying (IM23-S3).
+- `6B.9` (durable institutions): mixed — BPJS continuity (IM23-S5); centralisation of research under BRIN undermining academic freedom (referenced in Asia Maior §2.10).
+- `6B.10` (trajectory): mixed — IM23-S5 (BPJS), IM23-S6 (education decline), IM23-S7 (access disparity).
+
+**Source mix:** East Asia Forum (1), HRW (1), BTI (1), Asia Maior (1) — four independent organisations, three source types. Sufficient diversity.
+
+**Filtered ledger size:** 7 substantive source-claim units. Within band. Above the 5-unit minimum.
+
+**Same-URL splits:** No. Each item references a materially distinct claim with a distinct locator within the source.
+
+---
+
+### CHAPTER 7B — Ruler Personal Integrity and Honesty
+
+**Disposition from package:** all ten lenses `evidence_found` via V-Dem/CPI priors; instruction set `I002`.
+
+**Local prior fit:** LF012 (V-Dem accountability 0.789), LF028 (V-Dem rule_of_law 0.385), LF033 (V-Dem corruption_index 0.769), LF034 (CPI 34/100), LF035 (V-Dem executive_corruption 0.714), LF036 (V-Dem public_corruption 0.757). **Country-year context only.**
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-I1 | BBC (Nov 2023): "Police said there was enough evidence to link Firli Bahuri, chairman of the Corruption Eradication Commission (KPK), to corruption at the country's ministry of agriculture. Former agriculture minister Syahrul Yasin Limpo was himself detained in a corruption case last month. Officers said they had uncovered foreign exchange transaction documents and US dollars worth 7.4bn Indonesian Rupiah ($477,730)… 'a state official extorted money at the agriculture ministry from 2020 to 2023'." Police named Firli suspect on 22 Nov 2023. | BBC News (https://www.bbc.com/news/world-67509472) | Major public-service media · medium_high | Target-year | Indirect — Jokowi publicly responded that he would "respect the process of law" | 7B.1, 7B.4, 7B.6, 7B.7 | LF033/LF034 context | Central integrity incident for 2023 |
+| IM23-I2 | The Jakarta Post (Nov 2023): "Firli, a former police inspector general, is a suspect in alleged extortion of money from Syahrul Yasin Limpo, the ex-agriculture minister who was arrested after being named a suspect in a corruption case last month… Firli was named the KPK chief in 2019, around the same time critics said changes to the law governing the agency had weakened it, triggering a series of 'save the KPK' protests… Former agriculture minister Limpo resigned in October because of the allegations levelled at him. He is the sixth minister to be investigated for corruption since President Joko 'Jokowi' Widodo took office in 2014." | The Jakarta Post (https://www.thejakartapost.com/indonesia/2023/11/23/police-name-kpk-chief-firli-as-suspect-in-alleged-extortion.html) | Reputable national media · medium_high | Target-year | Direct — "sixth minister since 2014" implicates Jokowi's tenure | 7B.4, 7B.5, 7B.7, 7B.9 | LF033/LF034 context | Pattern-of-cabinet-corruption evidence |
+| IM23-I3 | Asia News Network (Nov 2023): "Jokowi dismisses Firli, names interim KPK chief." | Asia News Network (https://asianews.network/jokowi-dismisses-firli-names-interim-kpk-chief/) | Reputable regional media · medium_high | Target-year | Direct — Jokowi dismissal action | 7B.1, 7B.2, 7B.6, 7B.7 | No | Ruler corrective action |
+| IM23-I4 | Freedom House 2024: "In 2022, human rights activists Haris Azhar and Fatia Maulidiyanti were formally charged with defaming a government minister under the UU ITE. The charges stemmed from a 2021 YouTube video in which Azhar and Maulidiyanti discussed the military's involvement in mining activity in Papua. The trial began in April 2023 and was ongoing at year's end." | Freedom House 2024, section E2 | Reputable democracy-data NGO · medium_high | Target-year | Direct — ministerial complaint, judicial process | 7B.6, 7B.7 | LF012/LF028 context | Accountability-mechanism lens |
+| IM23-I5 | Freedom House 2024: UU ITE amendments passed by DPR in December 2023; "the amended UU ITE also prohibits expression that fosters 'feelings of hatred or hostility' for protected individuals. The amended law was not signed by the president by year's end." | Freedom House 2024, section D4 | Reputable democracy-data NGO · medium_high | Target-year | Direct — Jokowi did not sign by year-end | 7B.8 | No | Promise / restraint lens |
+| IM23-I6 | BTI 2026 Indonesia: "the revision of the laws governing the working of the Corruption Eradication Commission (KPK) had a similar goal [to Job Creation Laws]. They originated from the need to make bureaucrats feel more secure in implementing government projects given that a very large number of bureaucrats had earlier been prosecuted by the KPK for alleged corruption." | BTI 2026 Indonesia (https://bti-project.org/en/reports/country-report/IDN), §2.4 | Bertelsmann academic index · medium_high | Period-fit (cross-period) | Direct — Jokowi-era reform weakened KPK | 7B.5, 7B.6, 7B.7 | LF033/LF034 context | Structural-weakening of anti-corruption body |
+| IM23-I7 | Asia Maior Vol XXXV 2024: "the Indonesian public eventually realised that Jokowi's legislation was essentially a continuation of the economic policy of Suharto's New Order, only now with new euphemistic names… the results were the same: the extraction of natural resources and the privileging of foreign investors to the detriment of local stakeholders." | Asia Maior Vol XXXV 2024, §2.4 | Peer-reviewed area-studies journal · medium_high | Period-fit | Direct | 7B.5, 7B.7, 7B.8 | No | Critique of structural integrity |
+| IM23-I8 | Asia Maior Vol XXXV 2024: "the sale of [honorary doctorates] for political favours. This was recently highlighted by Tempo magazine in a special number entitled 'Obral Guru Besar' ('Flogging off Professorships'). Such scandals reflect the further erosion of academic principles." | Asia Maior Vol XXXV 2024, §2.7 | Peer-reviewed area-studies journal · medium_high | Period-fit | Indirect — pattern evidence under Jokowi | 7B.9 | No | Favoritism pattern |
+| IM23-I9 | Asia Maior Vol XXXV 2024: "Kompas Daily reported its investigation into professional malpractice in Indonesia's leading government universities. Focusing on the way in which academic articles were placed by university professors in international Scopus accredited journals, its report described numerous manipulative practices… An estimated 17% of all articles published by Indonesian academics in 2016-17 were placed in such journals." | Asia Maior Vol XXXV 2024, §2.7 | Peer-reviewed area-studies journal · medium_high | Period-fit (cross-period) | Indirect — institutional capture | 7B.7, 7B.10 | No | Broader integrity-pattern evidence |
+| IM23-I10 | BTI 2026 Indonesia: "vague wording leaves many loopholes for the malevolent suppression of freedom of expression" re: 2022 criminal code provisions; Indonesia's Freedom of Public Information Act (2008) "requires all public bodies and government institutions to provide citizens with information about almost every aspect of their operations. In practice, however, there are limitations, and many government institutions still refuse to provide information to the public." | BTI 2026 Indonesia, "Freedom of expression" section | Bertelsmann academic index · medium_high | Period-fit | Indirect | 7B.6, 7B.7 | LF012/LF028 context | Institutional transparency gap |
+| IM23-I11 | Freedom House 2024 (Jan 2023): "Jokowi acknowledged 12 major human rights abuses committed by the government, including the 1965–66 massacres, and promised compensation, though he did not offer a formal apology. Papuan activists criticized the government, saying it did not sufficiently acknowledge abuses committed against Papuans." | Freedom House 2024, section F4 | Reputable democracy-data NGO · medium_high | Target-year | Direct — Jokowi statement | 7B.1, 7B.2, 7B.8 | No | Truthfulness vs admission lens — partial positive |
+
+**Reuse / cross-chapter mapping:** IM23-I4, IM23-I5 reused in 4B. IM23-I6 reused in 8B (governance execution). IM23-I11 reused in 3B. None duplicated.
+
+**Lens coverage assessment:**
+- `7B.1` (truth-telling): mixed — Jokowi's January 2023 admission (IM23-I11) is positive; prevarication on Constitutional Court interference is negative.
+- `7B.2` (admit error / correct): partially evidenced — January 2023 admission (IM23-I11); Firli dismissal (IM23-I3).
+- `7B.3` (separation of interests): no direct 2023 evidence surfaced.
+- `7B.4` (self-enrichment): no direct 2023 evidence surfaced; the dynasty / Gibran candidacy pattern (IM23-I7 + 4B evidence) is adjacent but not a direct self-enrichment claim.
+- `7B.5` (competent appointments): partially evidenced — KPK weakening + Firli episode (IM23-I1, IM23-I2, IM23-I6).
+- `7B.6` (tolerate independent investigation): mixed — Firli case (IM23-I1, IM23-I3); Luhut SLAPP (IM23-I4); press and information access (IM23-I10).
+- `7B.7` (concealment / obstruction): partially evidenced — UU ITE amendments not yet signed (IM23-I5); Luhut SLAPP ongoing (IM23-I4); KPK weakening (IM23-I6).
+- `7B.8` (keep promises): partially evidenced — January 2023 admission without apology (IM23-I11); resource-nationalism continuation.
+- `7B.9` (nepotism / favoritism): partially evidenced — university honorary-doctorate sales (IM23-I8); dynasty pattern.
+- `7B.10` (model ethical standards): negative — pattern evidence (IM23-I8, IM23-I9, IM23-I7).
+
+**Source mix:** BBC (1), The Jakarta Post (1), Asia News Network (1), Freedom House (1), BTI (1), Asia Maior (1) — six independent organisations, three source types (international wire, national media, NGO, academic index, peer-reviewed journal). Sufficient diversity.
+
+**Filtered ledger size:** 11 substantive source-claim units. Within band.
+
+---
+
+### CHAPTER 8B — Ruler Effectiveness and Competence
+
+**Disposition from package:** all ten lenses `evidence_found` via BTI/V-Dem priors; instruction set `I002`.
+
+**Local prior fit:** LF012 (V-Dem accountability 0.789), LF014 (BTI governance 5.48), LF028 (V-Dem rule_of_law 0.385). **Country-year context only.**
+
+**Web research performed and accepted evidence:**
+
+| Provisional ID | Claim | URL / locator | Source type & confidence | Period fit | Ruler attribution | Supported lenses | Reuse from local | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IM23-F1 | East Asia Forum: "In 2023, Indonesia successfully held the ASEAN chairmanship and hosted the FIFA U-17 World Cup, the first FIFA tournament held in Southeast Asia. Indonesia also launched its first high-speed railway 'Whoosh' connecting Jakarta and Bandung, with a planned extension to Surabaya." | East Asia Forum (https://eastasiaforum.org/2024/01/29/jokowis-final-act/) | Reputable academic-affiliated media · medium_high | Target-year | Direct | 8B.1, 8B.2, 8B.6, 8B.10 | LF014 context | Program delivery (Whoosh, ASEAN, FIFA U-17) |
+| IM23-F2 | East Asia Forum: "SOEs have played a critical role in the success of Jokowi's infrastructure completion, thus contributing to the President's popularity. This reliance on SOEs has expedited projects' implementation. Yet it has caused large financial debts for the SOEs, requiring capital injections from the state budget." | East Asia Forum (same URL) | Reputable academic-affiliated media · medium_high | Period-fit | Direct | 8B.3, 8B.4, 8B.5 | No | SOE mobilisation / coordination / debt pattern |
+| IM23-F3 | East Asia Forum: "Jokowi wants to ensure that basic infrastructure will be ready in 2024 when he plans to celebrate Indonesia's anniversary in Nusantara. Nevertheless, private investors (both domestic and foreign) will likely hold off on committing new funding until the next government is confirmed." | East Asia Forum (same URL) | Reputable academic-affiliated media · medium_high | Period-fit | Direct | 8B.7, 8B.8, 8B.10 | No | Goal-progress / investor-confidence lens |
+| IM23-F4 | Asia Maior Vol XXXV 2024: "Jokowi's authoritarian turn was functional to the implementation of grand infrastructure development projects, which needed substantial foreign investments. In order to realize them, Jokowi did not hesitate to create unfavourable conditions for local communities, in particular by the implementation of «National Strategic Projects», giving access to community and privately-owned land." | Asia Maior Vol XXXV 2024, §1 | Peer-reviewed area-studies journal · medium_high | Period-fit | Direct | 8B.1, 8B.3, 8B.6, 8B.8 | No | Revealed program + implementation choice |
+| IM23-F5 | The Diplomat (Dec 2023): "The future of Indonesia's new capital stands as one of the pivotal policy questions ahead of the upcoming 2024 elections… This ambitious megaplan seeks to create Nusantara, a new capital city, from scratch on the island of Borneo, at a cost of 466 trillion rupiah (nearly $30 billion) by 2045." All three candidates committed to continuation (one with caveats). | The Diplomat (https://thediplomat.com/2023/12/14/where-indonesias-presidential-candidates-stand-on-the-new-capital-project/) | Reputable international magazine · medium_high | Target-year | Direct | 8B.1, 8B.7, 8B.10 | No | IKN program-stability lens |
+| IM23-F6 | BTI 2026 Indonesia: "Critics argue that in the 2024 elections, Joko Widodo ensured that the KPU leadership supported the Prabowo-Gibran campaign by significantly increasing their salaries and extending their terms of office shortly before the election date." | BTI 2026 Indonesia, "Free and fair elections" section | Bertelsmann academic index · medium_high | Period-fit (cross-period) | Direct | 8B.3, 8B.5 | No | Personnel / institutional capture lens |
+| IM23-F7 | BTI 2026 Indonesia: "Rapid, stable growth of around 5% is expected in the near future. Commodity exports to countries such as India and China are booming." | BTI 2026 Indonesia, summary | Bertelsmann academic index · medium_high | Period-fit | Indirect | 8B.7, 8B.10 | LF014 context | Macro outcome lens |
+| IM23-F8 | Asia Maior Vol XXXV 2024: "BRIN… After three years in existence, this heavily centralised national scientific body continued to be plagued by bureaucracy and had been unable to produce even one significant research finding or innovation. Meanwhile, Jokowi himself also seemed to have lost interest in the institution." | Asia Maior Vol XXXV 2024, §2.9 | Peer-reviewed area-studies journal · medium_high | Period-fit | Direct — by presidential decree | 8B.5, 8B.7 | No | Adaptation / institutional failure lens |
+| IM23-F9 | Asia Maior Vol XXXV 2024: "BRIN has taken over from its predecessor, LIPI, in continuing important field research on the economic impact of development projects is Papua… The food estate developments were one of Jokowi's major economic projects. Unfortunately, all too often they were situated in ecologically vulnerable areas… the development involved two million hectares of wetlands, savannah and pockets of tropical rainforest which the World Wildlife Fund (WWF) has called a 'global treasure' on account of its biodiversity… the Indonesian army is taking a leading role in this controversial development." | Asia Maior Vol XXXV 2024, §2.10 | Peer-reviewed area-studies journal · medium_high | Period-fit | Direct | 8B.2, 8B.3, 8B.5, 8B.6 | No | Merauke food-estate execution lens |
+| IM23-F10 | BTI 2026 Indonesia: "the quality of democracy in Indonesia continued to decline. The figure bearing primary responsibility for this democratic recession was former President Joko Widodo (often referred to as Jokowi), who sought to extend his political power after serving the two five-year terms allowed by the constitution." | BTI 2026 Indonesia, summary | Bertelsmann academic index · medium_high | Period-fit | Direct | 8B.1, 8B.10 | No | Trajectory / program-mismatch lens |
+| IM23-F11 | East Asia Forum: "Healthy domestic consumption is reflected by continued growth in the digital economy, particularly in the e-commerce sector… Finance Minister Sri Mulyani stated that in 2023 Indonesia's digital economy would surge to US$82 billion, marking an 8 per cent increase from 2022." | East Asia Forum (same URL) | Reputable academic-affiliated media · medium_high | Target-year | Direct — government programme | 8B.3, 8B.6 | LF031 context | Digital-economy execution lens |
+| IM23-F12 | The Diplomat (Dec 2023): "the country's new president, Prabowo Subianto… built his career as the husband of former strongman Suharto's daughter. In various statements, he has made clear that he does not support a liberal democratic order. Under Prabowo, an increasing number of military personnel have entered high political positions." | The Diplomat (same URL), IKN context | Reputable international magazine · medium_high | Cross-period | Indirect | 8B.5, 8B.10 | No | Coordination / succession lens |
+
+**Reuse / cross-chapter mapping:** IM23-F4 already in 4B (dynasty / authoritarian turn). IM23-F11 already in 5B. None duplicated.
+
+**Lens coverage assessment:**
+- `8B.1` (clear program): strong — infrastructure / IKN / downstreaming / ASEAN chair (IM23-F1, IM23-F4, IM23-F5, IM23-F11).
+- `8B.2` (translation to priorities / plans / budgets): strong — Whoosh HSR launch, IKN, Merauke food estate (IM23-F1, IM23-F5, IM23-F9).
+- `8B.3` (mobilisation / coordination): mixed — SOE-led infrastructure completion (IM23-F2); military role in Merauke (IM23-F9); digital-economy growth (IM23-F11).
+- `8B.4` (capable personnel): mixed — SOE reliance (IM23-F2); BRIN underperformance (IM23-F8).
+- `8B.5` (internal discipline / coordination): mixed — SOEs (IM23-F2); BRIN dysfunction (IM23-F8); Prabowo succession personnel capture (IM23-F12).
+- `8B.6` (observable implementation): strong — Whoosh launch (IM23-F1), IKN construction (IM23-F5), Merauke (IM23-F9).
+- `8B.7` (outcomes move in claimed direction): mixed — ASEAN / Whoosh delivered; IKN struggling for foreign investment (IM23-F3); BRIN failed to produce findings (IM23-F8); 5% growth (IM23-F7).
+- `8B.8` (adaptation): partially evidenced — Rempang reversal (4B cross-ref) is a positive; BRIN inertia (IM23-F8) is negative.
+- `8B.9` (crisis management): partially evidenced — Rempang, El Niño response (5B cross-ref); Firli dismissal (7B cross-ref).
+- `8B.10` (end-state trajectory): mixed — 5% growth (IM23-F7) but democratic recession (IM23-F10); IKN continues but investor-shy (IM23-F5).
+
+**Source mix:** East Asia Forum (1), Asia Maior (1), The Diplomat (1), BTI (1) — four independent organisations, three source types. Sufficient diversity.
+
+**Filtered ledger size:** 12 substantive source-claim units. Within band. Above the 5-unit minimum.
+
+---
+
+## 3. Cross-Chapter Synthesis
+
+### 3.1 Same-URL splits and reuse
+
+Several URLs are reused across chapters for distinct lens questions. They are not same-URL splits (each lens maps a materially different claim / locator within the URL) but are listed here for the formatter's awareness:
+
+- `freedomhouse.org/country/indonesia/freedom-world/2024` — used in 3B (D1, D4, F1, F3, F4, G2), 4B (D1, D4, F1, G2), 6B (E2), 7B (D4, E2, F4).
+- `eastasiaforum.org/2024/01/29/jokowis-final-act/` — used in 2B, 4B, 5B, 6B, 8B.
+- `asiamaior.org/.../indonesia-2023-24...html` — used in 3B, 4B, 5B, 6B, 7B, 8B.
+- `bti-project.org/en/reports/country-report/IDN` — used in 4B, 5B, 6B, 7B, 8B.
+- `hrw.org/world-report/2024/country-chapters/indonesia` — used in 2B, 3B, 6B.
+- `thediplomat.com/2023/12/14/where-indonesias-presidential-candidates-stand-on-the-new-capital-project/` — used in 5B, 8B.
+
+In every case the supporting locator and the material claim differ. Reuse is via many-to-many lens mapping on a stable evidence ID, not via ledger duplication. **No item was created under a chapter-prefixed ID.**
+
+### 3.2 Independent source families (counted by domain/parent organisation)
+
+| Organisation | Source type | Items contributed |
+|---|---|---|
+| Human Rights Watch (hrw.org) | International NGO | IM23-A1, IM23-A2, IM23-A3, IM23-D4, IM23-D5, IM23-D6, IM23-D7, IM23-D8, IM23-S3, IM23-S4 |
+| Freedom House | International NGO (democracy data) | IM23-D1, IM23-D2, IM23-D3, IM23-D9, IM23-D10, IM23-I4, IM23-I5, IM23-I11, IM23-P2, IM23-P6, IM23-P7, IM23-P8, IM23-P9 |
+| Bertelsmann BTI | Academic / index | IM23-D11, IM23-I6, IM23-I10, IM23-P3, IM23-P10, IM23-P11, IM23-S5, IM23-S7, IM23-E8, IM23-F6, IM23-F7, IM23-F10 |
+| Asia Maior (peer-reviewed area studies) | Academic journal | IM23-A5, IM23-D (indirect), IM23-E5, IM23-E6, IM23-E7, IM23-I7, IM23-I8, IM23-I9, IM23-F4, IM23-F8, IM23-F9, IM23-S6 |
+| East Asia Forum / ISEAS | Reputable academic-affiliated media | IM23-A4, IM23-E1, IM23-E2, IM23-E3, IM23-E4, IM23-F1, IM23-F2, IM23-F3, IM23-F11, IM23-S1, IM23-S2, IM23-P5 |
+| The Diplomat | Reputable international magazine | IM23-E9, IM23-F5, IM23-F12 |
+| BBC News | Major public-service media | IM23-I1 |
+| The Jakarta Post | National media | IM23-I2 |
+| Asia News Network | Regional media | IM23-I3 |
+| AP News / Al Jazeera / ConstitutionNet | Major international wires | IM23-P1 (three corroborating wires) |
+| ASEAN Secretariat | Official document (context only) | IM23-A1 (secondary, context-only) |
+
+Eleven independent source families (the ASEA
+---
+
+
+Your prior review omitted or expanded immutable chapter scope. Return exactly one chapter_reviews row for every chapter in this list: 1B, 2B, 3B, 4B, 5B, 6B, 7B, 8B. selected_theme_ids may remain a narrower subset. Preserve substantive judgments where valid and correct only the scope/completeness defect.
+
+Prior invalid review:
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 3,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "IM23-A1 bundles chairmanship, summit organization, Myanmar policy, and two sources into one item.",
+        "The ASEAN document is described as context-only and should not support the defensible count.",
+        "Several claims attribute Foreign Minister or ASEAN conduct to Jokowi without evidence of his direction, ownership, or authority-based responsibility.",
+        "The chapter reports a four-unit ledger while also saying only four items exist and one is excluded; count reconciliation is incomplete.",
+        "The claim that no conflict initiation surfaced is absence-based and should not substitute for targeted evidence."
+      ],
+      "missing_themes": [
+        "Indonesian ruler-level security and defense decisions",
+        "2023 military or security accountability",
+        "Concrete peace-process outcomes or counterfactual alternatives",
+        "Precise attribution of Jokowi's direction over ASEAN policy"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Countrywide and subordinate security-force conduct is repeatedly attributed indirectly to Jokowi without evidence of direction, knowledge, tolerance, correction, or authority-based responsibility.",
+        "IM23-D2 concerns 2021 conduct reported in 2023 and must not be treated as a 2023 event.",
+        "IM23-D3 is non-state conduct and cannot directly evidence ruler performance without a separately sourced protection or response fact.",
+        "IM23-D5 attributes a minister's complaint and prosecution to Jokowi's conduct without evidence of presidential involvement.",
+        "The notebook uses negative or mixed lens conclusions and 'strong' coverage language that approaches judge advice, although no numerical score is given."
+      ],
+      "missing_themes": [
+        "Direct presidential or executive accountability for Papua security conduct",
+        "2023 civilian-casualty event documentation",
+        "Security-force investigation, discipline, and remedy outcomes",
+        "Contrary evidence on protection and restraint outside Papua",
+        "Local-fact disposition audit with field-level exclusions or reuse decisions"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 3,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "IM23-P1 bundles multiple materially distinct claims and three corroborating sources under one provisional ID.",
+        "The Constitutional Court ruling and family relationship do not by themselves prove executive influence; the notebook repeatedly upgrades allegation or inference to direct attribution.",
+        "IM23-P3 and IM23-P11 rely heavily on 2024 election outcomes and post-period claims, presented as period-fit evidence for 2023.",
+        "IM23-P9 attributes a minister's complaint to Jokowi without evidence of presidential direction or tolerance.",
+        "The reuse statement claims stable global IDs, but the notebook still uses chapter-scoped IM23-P IDs and inconsistent cross-chapter references.",
+        "Statements such as 'strong,' 'negative,' and 'central evidence' are researcher framing that could steer a judge."
+      ],
+      "missing_themes": [
+        "Evidence of Jokowi's direction, knowledge, or benefit from Constitutional Court manipulation",
+        "2023 electoral-administration conduct rather than 2024 election outcomes",
+        "Contrary evidence on institutional checks and political contestability",
+        "Direct ruler responsibility for media, protest, and prosecution restrictions",
+        "Precise source-unit separation for the age-limit ruling and its ethical aftermath"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "IM23-E1 bundles multiple programs, spending amounts, and inflation-response claims.",
+        "IM23-E3 attributes Bank Indonesia's independent interest-rate decision to the executive without evidence of presidential direction or control.",
+        "IM23-E5 uses September 2024 poverty data and later outcomes as evidence for the 2023 target period.",
+        "IM23-E6 is primarily 2021–2022 evidence, and IM23-E7 includes a September 2024 policy change; both require strict temporal separation.",
+        "Several outcome claims are attributed to Jokowi without sufficient causal evidence linking national outcomes to his decisions."
+      ],
+      "missing_themes": [
+        "Distributional and regional 2023 outcomes",
+        "Education, health, and basic-service outcomes in the target year",
+        "Independent evaluation of downstreaming and trade-policy effects",
+        "Evidence of competent appointments and anti-corruption safeguards",
+        "Target-period evidence distinguishing executive action from independent central-bank action"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 3,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "IM23-S7 identifies Asia Maior as the source in the claim but gives a BTI locator, so the underlying source and precise support are not reliably identifiable.",
+        "IM23-S6 combines budget allocation, PISA results, and multiple periods into one evidence item.",
+        "IM23-S3, IM23-S4, IM23-S5, and IM23-S7 mainly describe institutional or country conditions without evidence of Jokowi's direction, knowledge, correction, or authority-based responsibility.",
+        "The claimed chapter count excludes reused items but does not provide a reconciled global ledger showing their stable IDs and mappings.",
+        "The notebook mentions BRIN evidence in lens coverage without a corresponding evidence item."
+      ],
+      "missing_themes": [
+        "2023 health, education, income, and human-development indicators",
+        "National and regional basic-service outcomes for 2023",
+        "Evidence-based correction or institutional learning",
+        "Access, quality, and equity evidence beyond crisis assistance",
+        "Direct attribution of welfare-system performance to Jokowi"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "IM23-I2 treats corruption investigations involving ministers as evidence against Jokowi's personal integrity without evidence of direction, knowledge, benefit, tolerance, or obstruction.",
+        "IM23-I4 attributes a minister's defamation complaint to Jokowi's integrity without presidential involvement evidence.",
+        "IM23-I6, IM23-I7, IM23-I8, and IM23-I9 make broad structural or retrospective claims that are not tightly fitted to 2023 and do not establish personal ruler conduct.",
+        "IM23-I1 and IM23-I3 concern the KPK chair and Jokowi's response, but the causal and accountability relationship is under-specified.",
+        "The chapter includes researcher conclusions such as 'negative,' 'partial positive,' and 'pattern evidence' that may steer judging."
+      ],
+      "missing_themes": [
+        "Direct evidence concerning Jokowi's personal enrichment or conflicts of interest",
+        "2023 procurement, asset, disclosure, or financial-integrity evidence",
+        "Contrary evidence on presidential transparency and correction",
+        "Clear separation between ruler conduct, ministerial conduct, and institutional corruption",
+        "Target-period evidence of appointments and anti-corruption enforcement"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "IM23-F1 bundles ASEAN, FIFA, and Whoosh achievements into one evidence item.",
+        "IM23-F2 attributes SOE debt and implementation performance directly to Jokowi without sufficiently identifying his specific direction or corrective responsibility.",
+        "IM23-F6 and IM23-F10 rely on 2024 election-period or retrospective claims and should not be treated as clean 2023 evidence.",
+        "IM23-F9 contains extensive claims about a food-estate project, land, ecology, and military involvement without separating source-claim units or establishing Jokowi's specific authority-based responsibility.",
+        "IM23-F12 is cross-period and largely concerns Prabowo, so it is weak evidence for Jokowi's 2023 effectiveness.",
+        "The lens labels 'strong,' 'mixed,' and 'partially evidenced' are researcher assessment language that may function as judge guidance."
+      ],
+      "missing_themes": [
+        "Target-period delivery metrics, budgets, deadlines, and implementation results",
+        "Independent evaluation of Whoosh, IKN, food-estate, BRIN, and SOE performance",
+        "Evidence of corrective adaptation after implementation failures",
+        "Competence and appointment evidence tied to Jokowi's decisions",
+        "Contrary evidence on administrative effectiveness outside flagship projects"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The notebook is not a reliable immutable evidence handoff: it remains an inline narrative, uses provisional chapter-oriented IDs, and does not demonstrate a single reconciled global evidence ledger with many-to-many lens mappings.",
+    "The local-fact audit is asserted but not sufficiently explicit about field-level acceptance, rejection, and chapter reuse; country-year facts are correctly treated as context rather than direct ruler evidence.",
+    "Many items bundle multiple sources or materially distinct claims, while several allegedly direct ruler-attributed claims concern ministers, courts, security forces, central-bank decisions, institutions, or later outcomes.",
+    "Post-period 2024 outcomes and retrospective claims are repeatedly mixed into a 2023 dossier.",
+    "The notebook contains researcher-written null, ranking, strength, and judge-direction language, which must be removed from evidence handoff material.",
+    "Precise URLs are generally present for most web items, but some locators are only section or paragraph descriptions, and IM23-S7 has a source/locator mismatch.",
+    "1B was not selected for continuation because the notebook gives a credible no-discriminating-opportunity explanation plus repeated access blocking; its zero evidence count is not negative ruler evidence."
+  ],
+  "reviewer_summary": "Continue research for 2B–8B. The dossier has recoverable attribution, temporal-fit, source-unit, contrary-evidence, and event-coverage gaps across these chapters. 1B may remain closed as a documented no-discriminating-opportunity/blocker case. Cleanup, splitting, deduplication, neutral wording, and count reconciliation should follow research continuation and are not themselves research tasks."
+}

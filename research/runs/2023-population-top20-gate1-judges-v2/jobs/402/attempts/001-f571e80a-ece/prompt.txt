@@ -1,0 +1,1002 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:7B",
+  "run_key": "2023-population-top20-gate1-judges-v2",
+  "chapter_id": "7B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:7B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "7B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "China",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.1",
+        "reason": "Truthfulness evidence is limited to narrative-shaping and contested public claims.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.2",
+        "reason": "No direct public correction was found; narrative reshaping retained as context.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.3",
+        "reason": "No 2023 asset-disclosure evidence; historical wealth material retained only as context.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.4",
+        "reason": "No 2023 family-enrichment or divestment event was found.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.5",
+        "reason": "Xi-directed anti-corruption oversight and loyalist appointments retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.6",
+        "reason": "Inspection, anti-corruption, raid, and accountability evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.7",
+        "reason": "Institutional concealment, counter-espionage, and repression evidence retained with attribution caveat.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.8",
+        "reason": "No clear broken-promise event was found.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.9",
+        "reason": "Loyalist appointments retained; personal nepotism evidence remains absent.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "7B.10",
+        "reason": "Institutional integrity and oversight evidence retained; personal ethical example remains unresolved.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 7605,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://english.www.gov.cn/news/topnews/202301/11/content_WS63be0c99c6d0a757729e5529.html|10-Jan-2023|Xi-anti-corruption-priorities",
+        "claim": "Xi attended the CCDI plenum in January 2023 and set anti-corruption priorities covering finance, state-owned enterprises, judicial and public-security sectors, and misuse of officials' family influence.",
+        "contrary_evidence": [
+          "This establishes oversight responsibility, not personal honesty or absence of conflicts."
+        ],
+        "evidence_id": "E029",
+        "excerpt": "Xi set the year's anti-corruption priorities, including finance, SOEs, judicial and public-security sectors, and family influence.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct January 2023 event.",
+        "publication_date": "2023-01-10",
+        "publisher": "State Council of China / Xinhua",
+        "ruler_attribution": "Direct Xi oversight attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official report of Xi's speech and priorities.",
+        "source_locator": "CCDI plenum report, anti-corruption-priorities paragraphs.",
+        "source_type": "official government report",
+        "title": "Xi Jinping addresses CCDI plenum",
+        "url": "https://english.www.gov.cn/news/topnews/202301/11/content_WS63be0c99c6d0a757729e5529.html"
+      },
+      {
+        "canonical_fact_key": "https://english.www.gov.cn/news/202309/28/content_WS65153b2ac6d0868f4e8e2e74.html|28-Sep-2023|inspection-rectification",
+        "claim": "Xi chaired a September 2023 Political Bureau review of an inspection report and called for rectification and intensified anti-corruption work in finance and state-owned enterprises.",
+        "contrary_evidence": [
+          "The evidence concerns institutional correction, not personal integrity.",
+          "No direct personal-corruption or family-benefit event was found."
+        ],
+        "evidence_id": "E030",
+        "excerpt": "The report instructed inspected organizations to rectify problems and intensified anti-corruption work in finance and SOEs.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct September 2023 event.",
+        "publication_date": "2023-09-28",
+        "publisher": "State Council of China / Xinhua",
+        "ruler_attribution": "Direct Xi-chaired institutional oversight.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official report with named chair and action.",
+        "source_locator": "Political Bureau review report, rectification paragraphs.",
+        "source_type": "official government report",
+        "title": "Xi chairs review of inspection report",
+        "url": "https://english.www.gov.cn/news/202309/28/content_WS65153b2ac6d0868f4e8e2e74.html"
+      },
+      {
+        "canonical_fact_key": "https://www.scjc.gov.cn/scjc/zhyw01/2024/1/25/c5070445dd934b0a81b874cb6a2991f9.shtml|2023|anti-corruption-statistics",
+        "claim": "CCDI statistics reported 626,000 cases opened and 610,000 people disciplined in 2023.",
+        "contrary_evidence": [
+          "These are institutional accountability statistics and do not prove Xi's personal honesty, lack of benefit, or lack of obstruction."
+        ],
+        "evidence_id": "E031",
+        "excerpt": "626,000 cases were opened and 610,000 people were disciplined in 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 figures published January 2024.",
+        "publication_date": "2024-01-25",
+        "publisher": "Central Commission for Discipline Inspection",
+        "ruler_attribution": "Institutional accountability attribution only.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official disciplinary statistics.",
+        "source_locator": "2023 disciplinary statistics table and summary.",
+        "source_type": "official government statistics",
+        "title": "CCDI 2023 disciplinary statistics",
+        "url": "https://www.scjc.gov.cn/scjc/zhyw01/2024/1/25/c5070445dd934b0a81b874cb6a2991f9.shtml"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Freedom-of-Expression|Li-Keqiang-mourning-Nov-2023",
+        "claim": "Crowds mourned former Premier Li Keqiang in November 2023, and online circulation of his reform-era quote provided a limited episode of tolerated public criticism.",
+        "contrary_evidence": [
+          "The same report documents censorship and repression elsewhere in the period."
+        ],
+        "evidence_id": "E032",
+        "excerpt": "Crowds across the country mourned Li Keqiang; people shared a reform-and-opening quote as subtle criticism of Xi.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct November 2023 episode reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional tolerance and public-expression context; no direct Xi authorization located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named event and quoted online expression.",
+        "source_locator": "Freedom of Expression section, Li Keqiang mourning paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Freedom-of-Expression|foreign-firm-raids-June-2023",
+        "claim": "In 2023 authorities raided Mintz and Bain offices and required financial-firm staff to attend Xi Jinping Thought classes.",
+        "contrary_evidence": [
+          "These are institutional actions; they do not alone establish personal dishonesty or Xi's direct operational order."
+        ],
+        "evidence_id": "E033",
+        "excerpt": "Authorities raided Mintz in March and Bain in April; financial-firm staff attended Xi Jinping Thought classes in June.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 events reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional attribution; Xi-level responsibility indirect.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named firms and months supplied.",
+        "source_locator": "Freedom of Expression section, foreign-firm pressure paragraphs.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      }
+    ],
+    "iso3": "CHN",
+    "job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "7B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.5",
+        "relation": "supports",
+        "relevance": "Xi-directed anti-corruption oversight."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.6",
+        "relation": "supports",
+        "relevance": "Inspection-based institutional correction."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.6",
+        "relation": "supports",
+        "relevance": "Institutional accountability statistics."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.7",
+        "relation": "supports",
+        "relevance": "Institutional pressure on independent scrutiny."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.8",
+        "relation": "mitigates",
+        "relevance": "Limited tolerated public criticism."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "7B.1",
+      "7B.2",
+      "7B.3",
+      "7B.4",
+      "7B.5",
+      "7B.6",
+      "7B.7",
+      "7B.8",
+      "7B.9",
+      "7B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "1432",
+    "ruler_name": "Xi Jinping",
+    "ruler_year_id": 15833,
+    "run_key": "2023-population-top20-gate1-v2",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "0879ac6c1cacfd9eb078a3ed8c46816fc66d540a60171d3e53ff06509d38efb3",
+      "source_mix_note": "Retained official Chinese records, specialist NGOs, public-service and general media, policy commentary, and local structured priors. Source-family overlap, mediated official claims, self-reporting, and institutional-versus-personal attribution limitations are explicitly preserved.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "46a854deff8f51e057bb7cb04c63a898f837765f014d568305169937d3b9a69a",
+    "unresolved_gaps": [
+      "No direct Xi procurement order or personal direction for nuclear modernization was found.",
+      "No specific 2023 nuclear or radiological crisis was found.",
+      "No 2023 lethal Chinese cross-border incident or confirmed Chinese arms transfer to Russia was recovered.",
+      "Direct Xi decisions or orders linking him to specific domestic abuses remain limited.",
+      "Education, housing, water, sanitation, food, and broad service-quality evidence remains incomplete and predominantly official.",
+      "No direct 2023 personal asset, family-benefit, personal-corruption, truthful-disclosure, or broken-promise event was found.",
+      "No precise 2023 election, succession, or term-limit event was recovered.",
+      "COVID mortality and vaccine-policy claims remain disputed and should remain qualified.",
+      "IMF and World Bank snippets, unopened Bloomberg material, post-period Amnesty material, and unsupported historical wealth claims remain context or rejected and are not used as final evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 7B. Ruler Personal Integrity and Honesty
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment; v1 invalid
+
+## Chapter Identity
+
+- Chapter: `7B`
+- Category: `ruler_personal_integrity_and_honesty`
+- Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
+- Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
+- Rubric version: `chapter_7b_v3`
+
+## Chapter Purpose
+
+Assess whether the ruler uses public office honestly and for public rather than
+personal, family, business, factional, or patronage advantage. The chapter joins
+truthfulness, correction, conflicts of interest, self-enrichment, appointments,
+independent scrutiny, concealment, commitments, favoritism, and ethical example
+into one final 1-10 integrity score.
+
+The ten questions are evidence lenses, not ten equally weighted sub-scores.
+Evidence may illuminate several lenses, and missing evidence for one lens lowers
+confidence rather than invalidating the dossier or preventing a chapter score.
+
+## Ten Evidence Lenses
+
+The question text below is authoritative and must not be paraphrased in the
+research manifest.
+
+| ID | Evidence lens |
+|---|---|
+| **7B.1** | Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners, especially on matters where deception would protect power or reputation? |
+| **7B.2** | Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they knowingly mislead, double down, blame others, and punish truth-tellers? |
+| **7B.3** | Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, law enforcement, and foreign policy? |
+| **7B.4** | Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, opaque foundations, or hidden conflicts of interest? |
+| **7B.5** | Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men to protect personal power or self-dealing? |
+| **7B.6** | Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, associates, and concealed official decisions? |
+| **7B.7** | Does the ruler use state power to conceal illegal, destructive, or self-serving activity, protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, media, and whistleblowers? |
+| **7B.8** | Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions, manipulate public information, and conceal tradeoffs for personal advantage? |
+| **7B.9** | Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, enforcement, and access to public information? |
+| **7B.10** | Does the ruler model ethical standards that improve public trust, or normalize deliberate lying, impunity, self-dealing, conflicts of interest, and cynicism? |
+
+## Scope and Non-Goals
+
+- Judge conduct attributable to the ruler, including conduct knowingly directed,
+  enabled, protected, or tolerated by the ruler's close governing network.
+- Do not infer personal dishonesty from a country's inherited corruption level.
+- Do not equate policy disagreement, honest error, changed policy after new
+  evidence, rhetoric, secrecy justified by genuine security/privacy/diplomatic
+  needs, or an unproved allegation with deception or corruption.
+- Do not reward polished communications, formal ethics rules, prosecutions of
+  rivals, or selective transparency without evidence of genuine practice.
+- Do not score general competence, prosperity, freedom, or popularity except
+  where the facts directly demonstrate integrity or abuse of office.
+- Never use the client matrix as evidence.
+
+Country corruption indicators, authoritarian institutions, censorship, detention,
+human-rights abuse, and political-freedom conditions are context only unless the
+evidence establishes a direct nexus to ruler-specific deception, personal or network
+benefit, favoritism, concealment, obstruction of scrutiny, retaliation against an
+integrity investigation, or deliberate abuse of office. Lenses 7B.7 and 7B.10 do not
+convert every repressive act into personal dishonesty. Score those acts primarily in
+3B/4B unless that integrity nexus is evidenced.
+
+## Researcher Workflow and Evidence Themes
+
+Follow the local-first researcher guide and source-confidence registry. Query the
+exact ruler/country/year or bounded period locally before web discovery. Treat
+WGI, V-Dem, and CPI as country-level context and triangulation, not proof of the
+ruler's personal conduct.
+
+Research by themes that cut across lenses, not by ten isolated searches:
+
+1. Material public statements, corrections, sworn evidence, and documented
+   concealment, including examples of costly candor and adverse findings.
+2. Assets, beneficial ownership, gifts, business/family interests, procurement,
+   licensing, regulation, pardons, campaign finance, and foreign-policy benefits.
+3. Appointments and access patterns: competence, kinship, donor/client ties,
+   loyalty demands, and whether appointees facilitate self-dealing or impunity.
+4. Courts, prosecutors, auditors, legislatures, ethics bodies, inquiries,
+   journalists, and whistleblowers: independence, obstruction, retaliation,
+   remedies, and ruler response.
+5. Promise and commitment records, ethical rules, institutional reforms, and
+   whether practice strengthened or normalized trust and accountability.
+
+Prefer primary legal and financial records, judgments, audit/inquiry findings,
+legislative records, asset declarations, procurement records, official
+transcripts, sanctions findings with stated evidence, reputable investigative
+reporting, and serious academic histories. Official sources are strong for the
+fact that a statement, appointment, filing, or rule exists, but conditional for
+self-serving claims of honesty. Allegations must remain allegations; seek an
+independent finding, underlying record, response, and contrary evidence.
+
+Each accepted item should retain its citation, date, claim, period fit, source
+type/confidence, ruler-attribution assessment, and uncertainty. Reuse a stable
+evidence item across every relevant lens. Coverage descriptions may use natural
+language; no exact status vocabulary is required.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual
+claim; source URL, title, publisher, and publication/access date where available;
+source type and confidence with a short reason; a quotation or precise locator
+when available; target-year/ruler-period fit; ruler attribution and
+inherited-baseline relevance; its positive, negative, mixed, contextual, or
+contrary role; and the supported lens IDs. Fields may be normalized later and
+natural-language equivalents are acceptable. The substantive minimum is a
+traceable source, intelligible claim, temporal fit, attribution, and evidence
+role. One item may support multiple lenses without duplication.
+
+## Attribution, Sparse Evidence, and Historical Cases
+
+Separate personal direction or tolerance from inherited institutions and acts of
+family, ministers, parties, businesses, or security services. Consider formal and
+informal authority, time in office, credible knowledge, ability to intervene,
+action after notice, coalition constraints, and whether the ruler benefited.
+Close-associate misconduct is not automatically the ruler's, but repeated benefit,
+protection, appointment, obstruction, or failure to act after credible notice can
+support attribution.
+
+For older, obscure, closed, short-tenure, or poorly archived cases, use the best
+available contemporary records and reputable later scholarship. Do not interpret
+silence as integrity where reporting and accountability were suppressed. A dossier
+with only a few strong themes can still be judged; narrow coverage, one-sided
+archives, weak attribution, or missing adverse-case searches should reduce
+confidence and may widen the defensible score range. Do not manufacture lens
+coverage or impose a modern disclosure regime anachronistically.
+
+Silence, favorable institutions, or the absence of reported allegations cannot prove
+integrity. Scores above 5 require affirmative ruler-specific evidence of candor,
+separation of interests, correction, professional appointments, or acceptance of
+genuine scrutiny. Scores below 4 require ruler-specific recurring deception,
+self-dealing, favoritism, patronage, concealment, or obstruction. If neither side is
+supported by traceable ruler-specific conduct, return null rather than rewarding or
+punishing the information environment.
+
+## Holistic 1-10 Chapter Rubric
+
+Synthesize the ruler's pattern, materiality, intent, personal benefit, use of state
+power, duration, corrective behavior, and institutional effect. Severe direct
+self-dealing or obstruction may properly dominate several weaker positive lenses;
+conversely, an isolated error should not outweigh a broad record of candor and
+accountability. Do not average lens labels or count citations.
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Deliberate deception, personal or family extraction, cronyism, and state-backed concealment/impunity are central instruments of rule and materially corrupt public office. |
+| 2-3 | Severe or recurring dishonesty, conflicts, self-dealing, favoritism, or obstruction span important domains; independent accountability is attacked or largely ineffective. |
+| 4-5 | A material mixed record: meaningful integrity safeguards or honest conduct coexist with recurring deception, patronage, conflicts, broken commitments, or weak accountability. |
+| 6-7 | Generally honest and public-serving conduct with real scrutiny and correction, but notable lapses, opacity, favoritism, conflicts, or accountability weaknesses remain. |
+| 8-9 | Strong, sustained truthfulness, separation of interests, professional public service, openness to scrutiny, correction, and ethical example; credible lapses are rare and remedied. |
+| 10 | Exceptional and durable integrity under adverse incentives: costly candor, exemplary separation of interests, robust independent accountability, and institutions strengthened against self-dealing and impunity. |
+
+## Confidence
+
+Report confidence separately on a 0-100 scale. Base it on source authority and
+independence, ruler attribution, temporal fit, information environment, diversity
+of themes and source types, contrary-evidence search, and agreement. Evidence
+volume alone is not confidence. Missing lenses normally lower confidence; they do
+not mechanically lower the chapter score. State the most plausible score range
+when uncertainty is material.
+
+## One-Judge Comparative Workflow
+
+One judge owns 7B for the target year/period across all eligible rulers:
+
+1. Read every dossier's 7B evidence and explicit gaps without demanding uniform
+   coverage terminology or perfect mapping tables.
+2. Separate identity-quarantined cases; retain sparse cases with reduced
+   confidence rather than discarding them.
+3. Establish provisional low, middle, and high batch anchors using diverse
+   regimes, periods, visibility levels, and evidence environments.
+4. Make tentative holistic scores, then compare neighboring cases for consistent
+   thresholds of intent, materiality, personal benefit, obstruction, correction,
+   and attribution.
+5. Revisit outliers and cases whose score rests mainly on country indicators,
+   official self-report, accusation volume, or media visibility.
+6. Emit one final chapter score, confidence/range, rationale, strongest positive
+   and negative evidence, missing themes, contrary evidence, and review flag.
+
+## Common Chapter-Judge Output Envelope
+
+The judge returns one object per ruler using these exact semantic field names so
+all eight chapter outputs can be normalized by the same inexpensive formatter:
+
+- `chapter_id`: `7B`
+- `rubric_version`: `chapter_7b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing
+  stable evidence IDs
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Harmless serialization differences can be repaired after judgment, but the
+semantic envelope must be complete. A null score is reserved for evidence too
+thin or untraceable to support any responsible range, unresolved identity, or
+attribution too uncertain to judge—not merely missing lenses or flexible coverage
+wording.
+
+## Chapter-Specific Calibration
+
+Use the common bias checks in `cited-evaluation-calibration.md`, interpreted at
+chapter level, plus:
+
+- `rubric_version`: `chapter_7b_v3`
+- `integrity_pattern`: `systemic_abuse`, `recurring_serious_abuse`, `mixed`,
+  `generally_high_integrity`, `exceptional_integrity`, or `unclear`
+- `deception_pattern`: `strategic_systematic`, `recurring_material`, `mixed`,
+  `limited`, `not_shown`, or `unclear`
+- `personal_benefit_evidence`: `direct`, `strong_inference`, `limited`,
+  `not_shown`, or `unclear`
+- `accountability_response`: `obstructed_or_retalitated`, `impunity`, `partial`,
+  `accepted_and_corrected`, `strengthened`, or `unclear`
+- `conflict_and_patronage_pattern`: `systemic`, `recurring`, `mixed`, `limited`,
+  `not_shown`, or `unclear`
+- `ruler_attribution`: concise assessment of direction, knowledge, benefit,
+  protection/tolerance, authority, and action after notice
+- `lens_strengths` and `lens_gaps`: concise ID lists with natural-language notes
+- `defensible_score_range`: lower and upper score under current evidence
+
+Explicitly check visibility/fact-checking bias, silence under repression,
+allegation-versus-finding, family/associate attribution, repetition of one scandal,
+anachronistic disclosure expectations, and whether national corruption conditions
+were wrongly personalized.
+
+## Smoke-Test Set
+
+These are calibration roles, not predetermined scores.
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---|---|
+| Richard Nixon | United States | 1972-1974 | documented deception, concealment, institutions, and remedy |
+| Donald Trump | United States | 2017-2020 | high visibility, business conflicts, appointments, and fact-check volume |
+| Nelson Mandela | South Africa | 1994-1999 | high-integrity candidate requiring genuine adverse search |
+| Lee Kuan Yew | Singapore | 1965-1990 | low-corruption governance with constrained scrutiny |
+| Ferdinand Marcos | Philippines | 1972-1986 | family enrichment, patronage, authoritarian archive |
+| Angela Merkel | Germany | 2005-2021 | long-tenure, high-anchor candidate and policy-change boundary |
+| Vladimir Putin | Russia | 2000-2022 | closed environment, associates, concealment, and attribution |
+| José Mujica | Uruguay | 2010-2015 | modest-lifestyle reputation versus institutional evidence |
+| Mobutu Sese Seko | Zaire | 1965-1997 | personal rule and extraction in a sparse historical record |
+| Jacinda Ardern | New Zealand | 2020-2022 | crisis candor, correction, and high-visibility scrutiny |
+| Ellen Johnson Sirleaf | Liberia | 2006-2018 | post-conflict institutions, family allegations, and lower-visibility evidence |
+| Indira Gandhi | India | 1966-1977 | historical woman ruler, emergency accountability, and non-Western archives |
+| Maria Liberia-Peters | Netherlands Antilles | 1984-1986 | lower-visibility woman ruler and sparse-evidence confidence discipline |
+
+## Acceptance Checklist
+
+- Every numeric score requires direct ruler-specific integrity evidence: a personal
+  act, disclosure, conflict response, truthfulness episode, accountability choice, or
+  comparably attributable pattern. Generic repression, institutional strength, and
+  absence of reported scandal are context only. Without the personal nexus, return
+  null rather than `5`; evidence explicitly described as absent cannot support above
+  `5`.
+
+- All ten authoritative lenses are present verbatim and treated as overlapping,
+  non-equal evidence lenses.
+- Local-first order, source-confidence fields, citations, and run profile are
+  retained.
+- Evidence items satisfy the common traceability, temporal-fit, attribution,
+  evidence-role, and lens-link semantics.
+- Ruler conduct is separated from inherited national corruption and associate
+  conduct is attributed explicitly.
+- Allegations, findings, honest error, secrecy, deception, correction, benefit,
+  and obstruction are distinguished.
+- Missing lenses reduce confidence rather than invalidate or mechanically depress
+  the score.
+- One judge compares all rulers with one holistic rubric and records adjacent-case
+  calibration.
+- Final output uses the common chapter-judge envelope, including adjacent-anchor
+  comparisons and an explicit manual-review flag.
+- Smoke testing and revision occur before production activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

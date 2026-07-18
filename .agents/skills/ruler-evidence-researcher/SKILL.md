@@ -33,6 +33,11 @@ research.
    Resolve compact disposition references when explaining missingness. Treat an
    `error` status as a blocking local-input failure and keep it visible separately.
    Web research may continue, but it does not repair or conceal the local error.
+   Establish one reusable authority baseline for the ruler: formal office, national
+   policy and appointment responsibility, command or party authority where relevant,
+   and material legal or coalition constraints. Cite it once and reuse it across
+   chapters; do not demand proof of a personal order for ordinary authority-based
+   responsibility. Personal-integrity claims still require a personal nexus.
 3. Work through chapters `1B` to `8B`, and their lenses, in order in the same
    researcher session. Begin each chapter with broad discovery before judging source
    admissibility: use varied event, institution, archive, source-family, and local-
@@ -81,6 +86,10 @@ research.
     splits are non-independent; country/institutional evidence is not automatically
     ruler-attributable; and global IDs, chapter mappings, and reported counts must
     reconcile.
+11. Do not declare a chapter ready merely because it has several sources or local
+    indicators. Confirm that its concrete evidence is sufficient to present the
+    relevant governing conduct, important contrary material, and attribution fairly.
+    Otherwise continue the exact missing themes or document a credible blocker.
 
 ## Boundaries
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from sqlalchemy import create_engine, text
@@ -16,6 +17,7 @@ from leaders_db.research.chapter_judge_worker import (
     _normalize_judgment_envelope,
     _normalize_lens_lists,
     _prepare_batch,
+    _write_null_recovery_queue,
     execute_claimed_chapter_judge_job,
 )
 from leaders_db.research.chapter_projection import build_ruler_chapter_projection
@@ -52,6 +54,46 @@ def test_normalize_lens_lists_preserves_supported_weak_overlap_as_note() -> None
     ]
     assert evaluation["manual_review_reason"].count("4B.2") == 1
     assert "weak source diversity" in evaluation["manual_review_reason"]
+
+
+def test_null_recovery_queue_reuses_existing_judgment_fields(tmp_path: Path) -> None:
+    evaluation = SimpleNamespace(
+        score_1_to_10=None,
+        manual_review_reason_type="recoverable_null",
+        dossier_job_key="dossier:test",
+        iso3="NZL",
+        ruler_year_id=12,
+        ruler_name="Test Ruler",
+        chapter_id="4B",
+        insufficient_evidence_reason="Relevant conduct was not recovered.",
+        missing_or_weak_lenses=("4B.2", "4B.6"),
+        manual_review_reason="Research the ruler's response to constraints.",
+    )
+    batch = SimpleNamespace(
+        job_key="chapter-judge:test:4B",
+        chapter_id="4B",
+        evaluations=(evaluation,),
+    )
+    projection = SimpleNamespace(job_key="dossier:test", evidence=(1, 2, 3))
+    path = tmp_path / "null-recovery.json"
+
+    _write_null_recovery_queue(batch, projections=((tmp_path, projection),), path=path)
+
+    payload = json.loads(path.read_text())
+    assert payload["request_count"] == 1
+    assert payload["requests"][0] == {
+        "chapter_id": "4B",
+        "current_evidence_count": 3,
+        "dossier_job_key": "dossier:test",
+        "iso3": "NZL",
+        "maximum_research_rounds": 2,
+        "missing_or_weak_lenses": ["4B.2", "4B.6"],
+        "next_action": "resume_same_ruler_research",
+        "reason": "Relevant conduct was not recovered.",
+        "requested_follow_up": "Research the ruler's response to constraints.",
+        "ruler_name": "Test Ruler",
+        "ruler_year_id": 12,
+    }
 
 
 def test_normalize_evidence_references_drops_unknown_id_without_guessing() -> None:
@@ -339,6 +381,13 @@ profiles:
         assert "Embedded chapter projections (authoritative judge inputs)" in prompt
         assert "A cited political-freedom fact." in prompt
         assert "Do not invoke shell commands" in prompt
+        assert all(
+            text in prompt
+            for text in (
+                "formal responsibility for national policy",
+                "Chapter 7B requires a personal-integrity nexus",
+            )
+        )
         command = kwargs["command"]
         result_path = Path(command[command.index("--output-last-message") + 1])
         candidate = _judge_candidate(

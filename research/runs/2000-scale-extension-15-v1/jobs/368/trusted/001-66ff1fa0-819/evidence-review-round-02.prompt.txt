@@ -1,0 +1,2085 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:PAK:7827",
+  "iso3": "PAK",
+  "country_name": "Pakistan",
+  "ruler_name": "Musharraf",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 69,
+  "approximate_source_family_count": 15,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 15 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Evidence-collection handoff: Pervez Musharraf — Pakistan, 2000
+
+**Job:** `dossier:2000-scale-pilot-5-v1:2000:PAK:7827`  
+**Ruler:** Pervez Musharraf  
+**Target period:** Calendar year 2000  
+**Research status:** Substantive pass completed, but **not fully saturated** because repeated search-rate limits and exact-page extraction failures prevented several follow-up searches.  
+**Persistence status:** Writing `research-materials.md` and `research-ledger-manifest.json` was attempted at the supplied location, but the sandbox command failed before writing (`bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`). The complete handoff follows for parent persistence.
+
+No client-matrix material was used. No chapter scores, ranges, or ranking recommendations are supplied.
+
+---
+
+## 1. Broad ruler-period reconnaissance
+
+Musharraf entered 2000 as Pakistan’s de facto chief executive following the 12 October 1999 military coup. The principal inherited and early-period conditions were:
+
+- military government after suspension of representative institutions;
+- a nuclear-armed rivalry with India following the 1998 nuclear tests and 1999 Kargil conflict;
+- conflict and coercive activity associated with Kashmir;
+- Pakistani state support for the Taliban in Afghanistan;
+- severe fiscal, debt, and investor-confidence problems;
+- low human development and marked inequality;
+- entrenched public-sector and executive corruption;
+- weak rule of law, accountability, and government effectiveness.
+
+The most useful external source families found were:
+
+1. contemporaneous US State Department human-rights reporting;
+2. court/legal chronology reported by reputable media;
+3. Congressional Research Service nuclear-proliferation analysis;
+4. Human Rights Watch reporting on Afghanistan and Pakistani support to the Taliban;
+5. contemporaneous reporting on Pakistan’s nuclear command arrangements and CTBT policy;
+6. Musharraf’s stated governing agenda and near-period assessments of implementation.
+
+---
+
+# 2. Global evidence ledger
+
+## E001 — Human-rights abuses and political arrests in 2000
+
+- **Canonical fact key:** `https://www.refworld.org/docid/3ae6aaa4c.html|overview-and-sections-1-2|security-forces-serious-abuses-and-political-arrests`
+- **URL:** https://www.refworld.org/docid/3ae6aaa4c.html
+- **Title:** *Country Report on Human Rights Practices 2000 — Pakistan*
+- **Publisher/date:** US Department of State; published 2001 and republished by Refworld
+- **Locator/excerpt:** Report overview and sections 1–2. Search extraction states: “Members of the security forces committed numerous serious human rights abuses.” It also reports that:
+  - approximately 300 Muslim clerics and students were arrested in Lahore during May protests against Musharraf’s proposed blasphemy-law changes;
+  - more than 500 Pakistan People’s Party activists were arrested in September for anti-regime and anti-army slogans.
+- **Claim:** During Musharraf’s military government, security forces committed serious abuses, and authorities conducted large political and protest-related arrests.
+- **Main-points summary:** The report supplies direct target-year evidence of coercive treatment of dissent. It also reportedly characterized the press as able to publish relatively freely, which is material contrary evidence against describing 2000 as complete information closure.
+- **Source type/confidence:** Government human-rights report; `medium_high`.
+- **Confidence reason:** Detailed contemporaneous country reporting, but produced by a foreign government and not equivalent to a judicial finding.
+- **Final use:** `final_evidence`
+- **Temporal fit:** Direct calendar-2000 evidence.
+- **Ruler attribution:** Government and security institutions operated under Musharraf’s de facto authority. The political arrests have strong regime-level attribution; individual abuses are not necessarily personally ordered by Musharraf.
+- **Contrary/mitigating points:** Relative press freedom; no basis to attribute every reported abuse directly to Musharraf.
+- **Candidate mappings:** 3B.1, 3B.2, 3B.5, 3B.8, 3B.9; 4B.3, 4B.6, 4B.7, 4B.10; contextual to 7B.6–7.
+
+## E002 — Supreme Court conditionally validates military takeover
+
+- **Canonical fact key:** `https://www.nytimes.com/2000/05/13/world/pakistan-court-upholds-coup-but-orders-reforms.html|opening-and-court-order|coup-upheld-three-year-reform-election-timetable`
+- **URL:** https://www.nytimes.com/2000/05/13/world/pakistan-court-upholds-coup-but-orders-reforms.html
+- **Title:** “Pakistan Court Upholds Coup but Orders Reforms”
+- **Publisher/date:** New York Times, 13 May 2000
+- **Locator/excerpt:** Article opening and description of the court order. The discovery extract reports that the court imposed a timetable that Musharraf had refused to provide.
+- **Claim:** Pakistan’s Supreme Court validated the military takeover under a necessity rationale but imposed a deadline for political and constitutional restoration.
+- **Main-points summary:** The source confirms both the extra-constitutional character of Musharraf’s rule and the existence of a judicial constraint that was not initially volunteered by the ruler.
+- **Source type/confidence:** Reputable media report of a court ruling; `medium_high`.
+- **Confidence reason:** Strong for chronology and reported disposition, although the underlying judgment would be preferable.
+- **Final use:** `final_evidence`
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Strong for the military takeover and Musharraf’s refusal to supply an early timetable.
+- **Contrary/mitigating points:** The court remained capable of imposing a boundary; political institutions were constrained but not entirely absent.
+- **Candidate mappings:** 4B.1, 4B.2, 4B.4, 4B.8, 4B.10; 7B.6–8; 8B.9–10.
+
+## E003 — Concentration of authority after the 1999 coup
+
+- **Canonical fact key:** `https://www.nytimes.com/1999/10/15/world/pakistan-military-completes-seizure-of-all-authority.html|opening|constitution-parliament-suspended-chief-executive`
+- **URL:** https://www.nytimes.com/1999/10/15/world/pakistan-military-completes-seizure-of-all-authority.html
+- **Title:** “Pakistan Military Completes Seizure of All Authority”
+- **Publisher/date:** New York Times, 15 October 1999
+- **Locator/excerpt:** Opening passage/search extract reports that Musharraf suspended the Constitution, dismissed Parliament, and proclaimed himself chief executive.
+- **Claim:** The immediate baseline inherited into 2000 was a ruler-led military seizure that concentrated executive authority and displaced elected institutions.
+- **Source type/confidence:** Reputable media; `medium_high`.
+- **Final use:** `context`
+- **Temporal fit:** Three months before the target year; establishes the ruler-created baseline but is not itself a 2000 act.
+- **Ruler attribution:** Direct.
+- **Contrary/mitigating points:** The coup was reported as bloodless; later judicial intervention imposed a timetable.
+- **Candidate mappings:** 4B.1–5, 4B.8, 4B.10; 8B.1, 8B.3, 8B.5, 8B.9.
+
+## E004 — Nuclear command-and-control institution established
+
+- **Canonical fact key:** `https://www.theguardian.com/world/2000/mar/16/india.kashmir|paragraph-on-command-centre|musharraf-established-nuclear-command-control-centre`
+- **URL:** https://www.theguardian.com/world/2000/mar/16/india.kashmir
+- **Title:** “Pakistan’s nuclear strength revealed”
+- **Publisher/date:** The Guardian, 16 March 2000
+- **Locator/excerpt:** The contemporaneous extract reports that Musharraf insisted Pakistan would retain its nuclear arsenal and had established a nuclear command-and-control centre the previous month.
+- **Claim:** In February 2000, Musharraf’s government established a formal nuclear command-and-control body.
+- **Main-points summary:** This is a direct target-year institutional action relevant to custody, safety, and command discipline. Continued commitment to retaining the arsenal is a counterweight to interpreting it as broad disarmament or risk reduction.
+- **Source type/confidence:** Media; `medium_high`.
+- **Confidence reason:** Strong contemporaneous chronology; the source does not establish whether the institution was operationally effective.
+- **Final use:** `final_evidence`
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Strong at government/ruler level.
+- **Contrary/mitigating points:** Institutional creation does not prove effective safety, civilian oversight, or reduced operational risk.
+- **Candidate mappings:** 1B.1, 1B.3, 1B.7, 1B.10; 8B.2–6.
+
+## E005 — Musharraf resisted a late-2000 CTBT push
+
+- **Canonical fact key:** `https://frontline.thehindu.com/world-affairs/article30250302.ece|section-on-ctbt-end-2000|musharraf-did-not-accept-ministers-ctbt-push`
+- **URL:** https://frontline.thehindu.com/world-affairs/article30250302.ece
+- **Title:** “Pakistan’s nuclear dilemma”
+- **Publisher/date:** Frontline/The Hindu, contemporaneous 2000–01
+- **Locator/excerpt:** The extracted passage reports that Pakistan claimed no objection in principle to the CTBT, but that the Finance and Foreign Ministers unsuccessfully pressed Musharraf to agree to the treaty near the end of 2000.
+- **Claim:** Musharraf retained strategic ambiguity and did not accept a late-2000 internal push for CTBT adherence.
+- **Source type/confidence:** Reputable regional magazine/media; `medium`.
+- **Confidence reason:** Valuable contemporaneous narrative, but the underlying cabinet record was unavailable and independent corroboration remains desirable.
+- **Final use:** `final_evidence`
+- **Temporal fit:** Direct late-2000.
+- **Ruler attribution:** Specific to Musharraf.
+- **Contrary/mitigating points:** Pakistan tied its position to India, reflecting a genuine regional-security constraint; this is not evidence of a nuclear test or explicit nuclear-use threat.
+- **Candidate mappings:** 1B.1, 1B.4, 1B.7, 1B.10; 7B.5; 8B.4, 8B.8.
+
+## E006 — Congressional proliferation assessment
+
+- **Canonical fact key:** `https://www.everycrsreport.com/reports/RL30623.html|pakistan-section-2000|nuclear-missile-proliferation-and-export-statement`
+- **URL:** https://www.everycrsreport.com/reports/RL30623.html
+- **Title:** *Nuclear Weapons and Ballistic Missile Proliferation in India and Pakistan: Issues for Congress*
+- **Publisher/date:** Congressional Research Service, 2000
+- **Locator/excerpt:** Pakistan section. The extracted material cites a Pakistan Atomic Energy Commission member saying in July 2000 that Pakistan was ready to export “peaceful nuclear capability” to developing countries. It also notes developments that raised hopes of renewed India-Pakistan dialogue.
+- **Claim:** Pakistan’s target-year posture remained a subject of nuclear and missile proliferation concern, while an official nuclear-export statement and prospective dialogue developments pulled in different directions.
+- **Source type/confidence:** Legislative research report; `high`.
+- **Confidence reason:** High-quality synthesis and chronology. The quoted export statement is itself based on indirect FBIS reporting.
+- **Final use:** `final_evidence`
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Country/government context; weak personal attribution because no evidence establishes that Musharraf directed the export statement.
+- **Contrary/mitigating points:** “Peaceful” export is not proof of weapons proliferation; dialogue prospects are mitigating evidence.
+- **Candidate mappings:** 1B.4, 1B.6, 1B.9, 1B.10; 2B.1, 2B.7.
+
+## E007 — Kargil responsibility as immediate inherited baseline
+
+- **Canonical fact key:** `https://nuclearweaponarchive.org/India/KargilRCB.html|discussion-of-pakistan-leadership|musharraf-discussed-kargil-operation-with-political-leadership`
+- **URL:** https://nuclearweaponarchive.org/India/KargilRCB.html
+- **Title:** *Kargil Review Committee Report* reproduction
+- **Publisher/date:** Government of India committee; report issued around 2000 and reproduced by Nuclear Weapon Archive
+- **Locator/excerpt:** Section discussing Pakistani decision-making. It states that Musharraf disclosed the operation had been discussed with political leadership in November 1998 and later; the committee inferred high-level consultation.
+- **Claim:** The immediate India-Pakistan security crisis inherited into 2000 was connected to an operation in whose planning Musharraf, then army chief, held a senior role.
+- **Source type/confidence:** Official adversary-state inquiry reproduced by specialist archive; `medium`.
+- **Confidence reason:** Formal inquiry but with belligerent/adversarial incentives; underlying Pakistani records were unavailable.
+- **Final use:** `context`
+- **Temporal fit:** Pre-period baseline; not evidence of a new 2000 initiation.
+- **Ruler attribution:** Relevant to Musharraf’s authority and prior choices, but the source’s causal inferences are contested.
+- **Contrary/mitigating points:** Must not be treated as neutral or sole proof of responsibility.
+- **Candidate mappings:** 1B.5, 1B.8; 2B.2, 2B.3, 2B.6, 2B.10; 8B.9.
+
+## E008 — Pakistani operational support for the Taliban in late 2000
+
+- **Canonical fact key:** `https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf|reported-pakistani-support-late-2000|aircraft-troop-rotations-and-planning-support`
+- **URL:** https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf
+- **Title:** *Afghanistan: Crisis of Impunity*
+- **Publisher/date:** Human Rights Watch, 2001
+- **Locator/excerpt:** PDF passage/search extraction reports that Pakistani aircraft assisted Taliban troop rotations during late-2000 combat; senior Pakistani intelligence and army members were involved in planning operations; and private or semi-private Pakistani support occurred with government officials’ knowledge.
+- **Claim:** Pakistan provided material and operational support to the Taliban in late 2000, indicating proxy or partner-war involvement beyond diplomacy.
+- **Source type/confidence:** NGO report; `medium_high`.
+- **Confidence reason:** Detailed near-period investigation; nevertheless, some operational claims are reported allegations and need attention to underlying sourcing.
+- **Final use:** `final_evidence`
+- **Temporal fit:** Direct late-2000.
+- **Ruler attribution:** Musharraf exercised de facto command over the army and intelligence establishment, supporting institutional attribution. The source does not show a personal written order.
+- **Contrary/mitigating points:** Exact personal direction and some operational details remain uncertain.
+- **Candidate mappings:** 2B.2–5, 2B.7, 2B.10; 8B.3, 8B.5, 8B.9.
+
+## E009 — Musharraf’s stated governing agenda
+
+- **Canonical fact key:** `https://1997-2001.state.gov/briefings/statements/1999/ps991017.html|summary-of-musharraf-speech|seven-point-recovery-accountability-agenda`
+- **URL:** https://1997-2001.state.gov/briefings/statements/1999/ps991017.html
+- **Title:** “Pakistan: General Musharraf’s Speech”
+- **Publisher/date:** US Department of State archive, 17 October 1999
+- **Locator:** Archived page describing Musharraf’s governing speech.
+- **Claim:** Musharraf’s announced program included restoring confidence, reviving the economy, ensuring accountability, depoliticizing institutions, devolving authority, and restoring law and order.
+- **Source type/confidence:** Official diplomatic archive pointing to a ruler speech; `medium_high` for the stated program.
+- **Final use:** `context`
+- **Locator warning:** `gateway_only` unless the parent can verify the full transcript text and exact section.
+- **Temporal fit:** Immediately pre-period; establishes the program carried into 2000.
+- **Ruler attribution:** Direct personal statement.
+- **Contrary/mitigating points:** A declared program does not establish implementation or outcomes.
+- **Candidate mappings:** 5B.1–7, 5B.10; 6B.1, 6B.9; 7B.8, 7B.10; 8B.1–2.
+
+## E010 — Contemporary account of accountability and economic-recovery priorities
+
+- **Canonical fact key:** `https://www.wrmea.org/2000-july/musharraf-s-military-government-receives-judicial-endorsement-for-three-year-rule-in-pakistan.html|paragraph-on-priorities|accountability-economic-recovery-constitutional-refinement`
+- **URL:** https://www.wrmea.org/2000-july/musharraf-s-military-government-receives-judicial-endorsement-for-three-year-rule-in-pakistan.html
+- **Title:** “Musharraf’s Military Government Receives Judicial Endorsement for Three-Year Rule”
+- **Publisher/date:** Washington Report on Middle East Affairs, July 2000
+- **Locator/excerpt:** Paragraph identifying regime priorities: “accountability,” “the cleansing process,” “economic recovery measures,” and possible “refinement” of political and constitutional instruments.
+- **Claim:** Contemporary reporting confirms the military government’s explicit accountability and economic-recovery program and the court-granted three-year window.
+- **Source type/confidence:** Specialist magazine; `medium_low`.
+- **Confidence reason:** Secondary and potentially advocacy-oriented; should not be sole support.
+- **Final use:** `context`
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Strong for the announced program.
+- **Contrary/mitigating points:** Does not establish implementation, fairness, or success.
+- **Candidate mappings:** 4B.8; 5B.1, 5B.3; 7B.8; 8B.1–2, 8B.9.
+
+## E011 — Mixed near-period assessment of early economic and political results
+
+- **Canonical fact key:** `https://www.theguardian.com/world/2001/jun/25/pakistan.guardianleaders|paragraph-reviewing-since-1999|some-corruption-economy-progress-but-suspended-politics-kashmir-taliban-isolation`
+- **URL:** https://www.theguardian.com/world/2001/jun/25/pakistan.guardianleaders
+- **Title:** “Musharraf’s coup”
+- **Publisher/date:** The Guardian editorial, 25 June 2001
+- **Locator/excerpt:** Paragraph reviewing the period since 1999. It describes “some progress” against corruption and in restoring order to the indebted economy; estimates growth at 4% and notes rising exports and reserves; but says political life remained suspended, Kashmir violence increased, and Pakistan was isolated over Taliban links.
+- **Claim:** A near-period retrospective describes a materially mixed early record.
+- **Source type/confidence:** Media editorial; `medium`.
+- **Final use:** `context`
+- **Temporal fit:** Reviews 1999 through mid-2001 and cannot isolate calendar 2000 precisely.
+- **Ruler attribution:** General regime-level assessment; causal attribution remains weak.
+- **Contrary/mitigating points:** Positive economic claims are post-period estimates and editorial judgments.
+- **Candidate mappings:** 2B.10; 4B.10; 5B.3, 5B.5, 5B.10; 7B.10; 8B.7, 8B.10.
+
+## E012 — Human-rights package addressing women and children
+
+- **Canonical fact key:** `https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)72533-2/abstract|abstract|musharraf-announced-women-children-human-rights-package`
+- **URL:** https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)72533-2/abstract
+- **Title:** “Pakistan unveils wide-ranging changes to human-rights procedures”
+- **Publisher/date:** The Lancet, 2000
+- **Locator/excerpt:** Abstract/search extract says Musharraf announced a human-rights package promoting women’s and children’s rights and treating honour killings as murder.
+- **Claim:** Musharraf personally announced target-year legal and procedural reforms directed at vulnerable groups.
+- **Source type/confidence:** Reputable medical-journal news; `medium_high`.
+- **Confidence reason:** Strong for the announcement, weaker for implementation and effects.
+- **Final use:** `final_evidence` for the formal action or announcement only.
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Direct personal announcement.
+- **Contrary/mitigating points:** Implementation and enforcement were not established; E001 documents continuing abuses and protest arrests.
+- **Candidate mappings:** 3B.4, 3B.7, 3B.9; 6B.1, 6B.3, 6B.8; 8B.1–2, 8B.6.
+
+---
+
+# 3. Local-data audit
+
+## Chapter 1B
+
+No selected local structured fact matched the configured 1B fields. All ten 1B dispositions were `no_evidence_found` under reason R001. These empty priors were **not retained as evidence**. Their absence is only a gap signal.
+
+External evidence E004–E006 addresses:
+
+- nuclear command arrangements;
+- CTBT policy;
+- proliferation/export context;
+- prospective India-Pakistan dialogue.
+
+## Chapter 2B
+
+LF001–LF008 were retained as **country-year exposure and resource context**, all for 2000, confidence 80, with no warnings:
+
+- LF001: 26 internationalized-conflict events;
+- LF002: 58 internationalized-conflict fatalities;
+- LF003: military expenditure about 5.10 billion constant USD;
+- LF004: military expenditure about 19.48 per capita;
+- LF005: military expenditure about 4.17% of GDP;
+- LF006: military expenditure about 22.42% of government expenditure;
+- LF007: 27 state-based-conflict events;
+- LF008: 59 state-based-conflict fatalities.
+
+These facts do not establish aggressor status, defensive necessity, civilian conduct, or Musharraf’s personal responsibility. E007–E008 supply some narrative role and command-context evidence.
+
+## Chapter 3B
+
+LF009–LF023 were retained as country-year repression and physical-safety context. All are 2000 observations without warnings.
+
+The local signals are internally mixed:
+
+- CIRIGHTS reports zero for killings, torture, and political imprisonment;
+- UCDP reports zero one-sided-violence events and fatalities;
+- but CIRIGHTS repression is 4 and physical integrity 1;
+- PTS reports Amnesty 3 and State Department 4;
+- V-Dem physical integrity is 0.339 and the extrajudicial-killings indicator is −0.845.
+
+These signals cannot be mechanically interpreted as either safety or abuse. E001 provides direct narrative incidents and regime-level patterns.
+
+## Chapter 4B
+
+Retained as institutional context:
+
+- LF024–LF029;
+- LF031–LF038.
+
+Notable values include:
+
+- accountability 0.179;
+- electoral democracy 0.205;
+- liberal democracy 0.094;
+- multiparty institutions 0;
+- regime type 0;
+- WGI voice and accountability −1.220;
+- V-Dem rule of law 0.258;
+- WGI rule of law −1.000.
+
+Contrary or nuancing indicators include:
+
+- freedom of expression 0.727;
+- civil liberties 0.508;
+- suffrage 1.0.
+
+**LF030 was left unused** because legislative constraints had a missing value and an explicit upstream warning. It was not interpreted as zero or as absent legislative constraint.
+
+E002–E003 provide ruler-attribution evidence for the institutional closure.
+
+## Chapter 5B
+
+LF039–LF042 were retained as economic-level and scale context:
+
+- real GDP per capita: 3154.51;
+- total GDP: approximately 459.8 billion in the supplied harmonized units;
+- GNI per capita: 3280.21;
+- population field: 145759.03, apparently in thousands.
+
+No warnings were supplied. These values do not establish distribution, trajectory, policy quality, or causal credit. E009–E011 provide limited program and near-period implementation context.
+
+## Chapter 6B
+
+LF041 and LF043–LF046 were retained as the human-development baseline:
+
+- HDI 0.434;
+- life expectancy 62.102 years;
+- expected schooling 4.662 years;
+- mean schooling 3.287 years;
+- GNI per capita 3280.21.
+
+All are 2000 observations without warnings. They do not show Musharraf-caused change. E012 supplies one ruler-attributed reform announcement but no implementation result.
+
+## Chapter 7B
+
+LF024, LF035, LF038, and LF047–LF050 were retained strictly as institutional integrity context:
+
+- WGI control of corruption −0.895;
+- V-Dem political corruption 0.752;
+- V-Dem executive corruption 0.67;
+- V-Dem public-sector corruption 0.729;
+- weak accountability and rule of law.
+
+They cannot establish Musharraf’s personal honesty, deception, enrichment, conflicts, or favoritism. The web pass did not recover strong ruler-personal financial or asset evidence.
+
+## Chapter 8B
+
+LF024, LF035, LF038, LF051, and LF052 were retained as inherited governance-capacity context:
+
+- government effectiveness −0.492;
+- regulatory quality −0.767;
+- low accountability;
+- weak rule of law.
+
+These do not prove Musharraf’s strategic clarity, execution, adaptation, or causal contribution. E009–E012 provide program evidence and a limited implementation/outcome trail.
+
+## Local-input errors
+
+There were **no `error_methodology_ids`**. LF030 is an ordinary explicit missing-value observation, not an extraction error.
+
+---
+
+# 4. Chapter-by-chapter coverage
+
+## 1B — Nuclear and existential-risk responsibility
+
+### Evidence reused or added
+
+- E004: nuclear command-and-control institution;
+- E005: CTBT decision;
+- E006: proliferation and export context;
+- E007: Kargil baseline.
+
+### Lens dispositions
+
+| Lens | Reused/new IDs | Disposition |
+|---|---|---|
+| 1B.1 | E004, E005, E006 | Partially covered: formal command action alongside retained arsenal and CTBT hesitation |
+| 1B.2 | None | `no_evidence_found` after nuclear-rhetoric search; no reliable target-year threat statement recovered |
+| 1B.3 | E004 | Covered for institutional creation; operational effectiveness remains unknown |
+| 1B.4 | E005, E006 | Partially covered; CTBT non-agreement and dialogue context |
+| 1B.5 | E007 | Partial/context only; Kargil is pre-period and contested |
+| 1B.6 | E006 | Partially covered; export statement is weakly attributable and framed as peaceful capability |
+| 1B.7 | E004, E005 | Partial: institution and ministerial disagreement; personnel quality not established |
+| 1B.8 | E007 | Partial/context only; no direct target-year crisis-management record recovered |
+| 1B.9 | E006 | Partial; only nuclear-export/dual-use context |
+| 1B.10 | E004–E006 | Partial; command institution and CTBT/proliferation posture point in mixed directions |
+
+### Yield and diversity
+
+- **Mapped defensible web units:** 4
+- **Independent organizations/families:** Guardian, Frontline/The Hindu, CRS, Kargil inquiry/archive
+- **Source types:** media, legislative research, official inquiry
+- **Same-URL splits:** none
+
+### Saturation judgment and gaps
+
+Below the five-unit target. Missing:
+
+- exact doctrine and nuclear-use rhetoric;
+- command-safety operational evidence;
+- inspection or treaty implementation;
+- 2000 missile-testing or force-modernization decisions;
+- direct crisis communications;
+- expert appointment records.
+
+Further search had expected value but was constrained by tool failures.
+
+---
+
+## 2B — International peace, restraint, and lawful security
+
+### Evidence reused or added
+
+- LF001–LF008 as context;
+- E006: dialogue possibilities;
+- E007: Kargil baseline;
+- E008: Taliban operational support;
+- E011: near-period mixed regional assessment.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 2B.1 | E006 | Partial: prospective dialogue evidence, but no complete diplomatic record |
+| 2B.2 | E007, E008 | Covered in part: prior Kargil role and late-2000 support to Taliban operations |
+| 2B.3 | E007 | Partial: security rationale versus military/nationalist incentives remains contested |
+| 2B.4 | None | `no_evidence_found` after civilian-conduct search |
+| 2B.5 | E008 | Partial: partner/proxy support shown; restraint or remedial action not shown |
+| 2B.6 | E007 | Partial/context: competing explanations exist; direct public-misrepresentation evidence not recovered |
+| 2B.7 | E006 | Partial: dialogue prospects, but no verified target-year settlement initiative |
+| 2B.8 | LF003–LF006 | Partial/context only; burden known, purpose and patronage not established |
+| 2B.9 | None | `no_evidence_found` after accountability search |
+| 2B.10 | E007, E008, E011 | Partial; inherited Kargil crisis, Taliban support, Kashmir tension, and isolation |
+
+### Yield and diversity
+
+- **Web units:** 4
+- **Structured contextual units:** 8
+- **Independent web organizations:** CRS, Indian inquiry/archive, HRW, Guardian
+- **Source types:** legislative research, official inquiry, NGO, media
+
+### Gaps
+
+- direct orders and command chains;
+- civilian harm and humanitarian-law conduct;
+- Kashmir infiltration policy in 2000;
+- credible peace or ceasefire initiatives;
+- military accountability;
+- independent corroboration of Taliban operational details.
+
+---
+
+## 3B — Domestic safety, restraint, and protection
+
+### Evidence reused or added
+
+- LF009–LF023 as context;
+- E001: abuses and political arrests;
+- E012: human-rights package.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 3B.1 | E001, local PTS/CIRIGHTS/V-Dem facts | Covered at country/regime level; personal direction uncertain |
+| 3B.2 | E001 | Partial: serious security-force abuses; punishment/remedy remains unclear |
+| 3B.3 | None | `no_evidence_found` after incitement search |
+| 3B.4 | E012 | Partial: announced procedural protection; implementation unknown |
+| 3B.5 | E001 | Covered for broad protest/political arrests |
+| 3B.6 | E001 plus local conflict/repression facts | Partial; no clear evidence that insecurity declined without coercive substitution |
+| 3B.7 | E012 | Partial: women’s and children’s package; minority and enforcement evidence missing |
+| 3B.8 | E001 | Covered: large arrests connected to protest and anti-regime slogans |
+| 3B.9 | E001, E012 | Partial: coercive protest response alongside reform announcement |
+| 3B.10 | E001 and local priors | Partial; no robust inherited-to-end trajectory evidence |
+
+### Yield and diversity
+
+- **Defensible web units:** 2
+- **Organizations:** US State Department/Refworld and The Lancet
+- **Source types:** government human-rights reporting and journal news
+
+### Below-five explanation
+
+One comprehensive report contained several distinct incidents, but it was retained as one unit rather than fragmented to inflate counts. Missing:
+
+- independent prison and torture investigations;
+- implementation of the women/children package;
+- minority and sectarian violence response;
+- protest policing from local civil-society sources;
+- remedies or prosecutions for security-force abuse.
+
+---
+
+## 4B — Political freedom versus authoritarian rule
+
+### Evidence reused or added
+
+- LF024–LF038 except missing LF030, as context;
+- E001–E003;
+- E010–E011.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 4B.1 | E002, E003 | Covered: elected institutions displaced; restoration timetable imposed externally |
+| 4B.2 | E002, E003 | Covered in substantial part: military takeover and concentration of authority |
+| 4B.3 | E001 | Covered: anti-regime and protest arrests; relatively free press is contrary evidence |
+| 4B.4 | E002 | Partial: court retained some constraint, but evidence of ruler strengthening constraints is absent |
+| 4B.5 | E003 | Partial: military concentration/politicization; personality-cult evidence not recovered |
+| 4B.6 | E001 | Partial: press retained some relative freedom; broader censorship pressure unclear |
+| 4B.7 | E001 | Partial: protest and religious-law context, but political equality evidence incomplete |
+| 4B.8 | E002, E010 | Covered for the externally imposed restoration timetable and three-year rule framework |
+| 4B.9 | None | `no_evidence_found` after surveillance/digital-control search |
+| 4B.10 | E001–E003, E011 | Covered for broad trajectory: military closure and suspended political life, with institutional/press caveats |
+
+### Yield and diversity
+
+- **Mapped web units:** 5
+- **Independent organizations:** US State Department, New York Times, WRMEA, Guardian
+- **Source types:** government report, reputable media, specialist media
+- **Contrary evidence:** court constraint and relative press freedom
+
+### Remaining gaps
+
+- underlying Supreme Court judgment;
+- local-government/devolution legal record;
+- exact election timetable and implementation;
+- election-party rules;
+- media-owner pressure;
+- surveillance or telecommunications controls.
+
+---
+
+## 5B — Economic well-being and prosperity
+
+### Evidence reused or added
+
+- LF039–LF042 as context;
+- E009–E011.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 5B.1 | E009, E010 | Partial: explicit recovery/accountability program; broad-benefit intent not independently established |
+| 5B.2 | None | `no_evidence_found` for economic appointee independence and competence |
+| 5B.3 | E010, E011 | Partial: debt/economic stabilization priority and near-period improvement claim |
+| 5B.4 | E009 | Partial declaration only |
+| 5B.5 | E009, E011 | Partial: anti-corruption agenda and claimed early progress; capture/selectivity unclear |
+| 5B.6 | E009 | Partial declaration only |
+| 5B.7 | E009 | Partial: agenda exists, but evidence-driven correction not established |
+| 5B.8 | None | `no_evidence_found` after distribution search |
+| 5B.9 | E010, E011 | Partial: inherited economic crisis and claimed stabilization |
+| 5B.10 | E011 | Partial/context; post-period review cannot isolate 2000 |
+
+### Yield and diversity
+
+- **Web units:** 3
+- **Organizations:** US State Department archive, WRMEA, Guardian
+- **Source types:** official archive, specialist media, reputable media
+
+### Missing evidence
+
+- exact IMF standby/program documents;
+- budget execution and tax reforms;
+- finance-team appointments and delegated authority;
+- inflation, debt, employment, and fiscal movement attributable to 2000 policy;
+- poverty and inequality effects;
+- privatization and competition-policy records;
+- calendar-2000 implementation evaluation.
+
+The attempted IMF and reform searches were interrupted by rate limiting.
+
+---
+
+## 6B — Social well-being and human development
+
+### Evidence reused or added
+
+- LF041 and LF043–LF046 as context;
+- E012;
+- E009 as a declared-program gateway.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 6B.1 | E012, E009 | Partial: welfare and vulnerable-group aims announced |
+| 6B.2 | None | `no_evidence_found` for delivered health, education, water, or sanitation access |
+| 6B.3 | E012 | Partial: women and children explicitly addressed |
+| 6B.4 | None | `no_evidence_found` for professional social-service management |
+| 6B.5 | None | `no_evidence_found` for measurement and transparent correction |
+| 6B.6 | None | `no_evidence_found`; no adequately documented target-year crisis-response record recovered |
+| 6B.7 | None | `no_evidence_found` after politicized-benefit search |
+| 6B.8 | E012 | Partial: dignity/protection intent; implementation unknown |
+| 6B.9 | E009 | Partial/context: devolution and institutional claims only |
+| 6B.10 | None beyond baseline | Partial baseline only; no ruler-attributable trajectory evidence |
+
+### Yield and diversity
+
+- **Final web units:** 1
+- **Gateway/context units:** 1
+- **Organizations/types:** Lancet journal news and US diplomatic archive
+
+### Missing source types and themes
+
+- UNICEF or WHO program evidence;
+- education and health budgets;
+- child-health or school-access program implementation;
+- water and sanitation policy;
+- social-protection delivery;
+- vulnerable-group distribution;
+- independent program evaluation;
+- durable institutional reforms.
+
+---
+
+## 7B — Personal integrity and honesty
+
+### Evidence reused or added
+
+- LF024, LF035, LF038, LF047–LF050 as institutional context only;
+- E001–E003 and E009–E011 only where they provide an accountability, scrutiny, or commitment nexus.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 7B.1 | None | `no_evidence_found` for ruler-specific truthfulness episodes |
+| 7B.2 | None | `no_evidence_found` for corrections, knowingly false statements, or punishment of truth-tellers with an integrity nexus |
+| 7B.3 | None | `no_evidence_found` for personal/family/business conflict |
+| 7B.4 | None | `no_evidence_found` for ruler or family profit from office |
+| 7B.5 | E005 | Partial only: ministers unsuccessfully advocated CTBT; does not establish crony appointments |
+| 7B.6 | E001–E003 | Partial: constrained political scrutiny, but personal-integrity nexus is weak |
+| 7B.7 | E001–E003 | Partial/context: state coercion and concentrated authority; no specific concealment of self-serving conduct shown |
+| 7B.8 | E002, E009 | Partial: announced restoration/reform commitments versus refusal to set an initial timetable |
+| 7B.9 | None | `no_evidence_found` for ruler-specific nepotism or favoritism |
+| 7B.10 | E010, E011 | Partial/context: accountability agenda and claimed early progress, but no personal ethical pattern established |
+
+### Yield and diversity
+
+There is **no decisive ruler-personal integrity evidence unit** in this pass. Country corruption indicators are contextual only.
+
+### Exact missing themes
+
+- National Accountability Bureau statute, case record, and evidence of selectivity;
+- asset declarations;
+- family business or financial conflicts;
+- gifts, contracts, or procurement benefits;
+- appointment and nepotism records;
+- documented false statements and later correction;
+- obstruction of an investigation into Musharraf personally;
+- independent findings rather than broad corruption conditions.
+
+---
+
+## 8B — Effectiveness and competence
+
+### Evidence reused or added
+
+- LF024, LF035, LF038, LF051, LF052 as inherited capacity context;
+- E003–E005;
+- E008–E012.
+
+### Frozen program components supported by evidence
+
+1. consolidation and management of military rule;
+2. economic recovery and restoration of confidence;
+3. accountability and anti-corruption;
+4. devolution and institutional restructuring;
+5. law and order;
+6. nuclear command institutionalization;
+7. regional influence/security policy, including Afghanistan and India.
+
+### Lens dispositions
+
+| Lens | IDs | Disposition |
+|---|---|---|
+| 8B.1 | E009, E010 | Covered: a reasonably clear governing program was publicly stated |
+| 8B.2 | E004, E009, E012 | Partial: command institution and reform package show conversion into formal action |
+| 8B.3 | E003, E008 | Partial: military/security apparatus mobilization and external-support capacity |
+| 8B.4 | E005 | Partial: ministers operated and disagreed, but broader personnel effectiveness is unknown |
+| 8B.5 | E003, E008 | Partial: strong central control and coordinated security support, with attribution caveats |
+| 8B.6 | E004, E012 | Partial: some declarations became institutions or packages; implementation depth unclear |
+| 8B.7 | E011 | Partial/context: claimed growth, exports, and reserves, but post-period and not cleanly attributable |
+| 8B.8 | E005 | Partial: refusal of ministers’ CTBT recommendation shows decision control, not necessarily effective adaptation |
+| 8B.9 | E002, E003, E008 | Covered in part: court management, regime consolidation, and regional security relationships |
+| 8B.10 | E011 | Partial: mixed early movement; economic stabilization claims coexist with political closure and international isolation |
+
+### Yield and diversity
+
+- **Mapped web units:** 9
+- **Independent organizations:** New York Times, Guardian, Frontline/The Hindu, HRW, US State Department archive, WRMEA, Lancet
+- **Source types:** official archive, media, NGO, legal/court reporting, journal news
+- **Same-URL splits:** none
+
+### Principal unresolved issues
+
+- exact budgets and milestones for the seven-point agenda;
+- devolution-plan implementation during calendar 2000;
+- appointments and personnel quality;
+- anti-corruption enforcement and selectivity;
+- attributable economic outcomes;
+- evidence of tactical learning;
+- durability beyond announcement or institutional design.
+
+---
+
+# 5. Rejected and discovery-only candidates
+
+1. **Military Wiki/Fandom National Command Authority page**
+   - **Disposition:** Rejected
+   - **Reason:** Low-confidence derivative source; E004 supplies a contemporaneous reputable-media account.
+
+2. **Wikipedia NPT result**
+   - **Disposition:** Discovery only/rejected from ledger
+   - **Reason:** Generic treaty background without a case-specific target-year claim.
+
+3. **ResearchGate snippets and inaccessible academic abstracts**
+   - **Disposition:** Rejected
+   - **Reason:** Underlying text and exact locators were unavailable, or post-period synthesis could not support an exact 2000 claim.
+
+4. **Guardian articles about the 2002 India-Pakistan nuclear crisis**
+   - **Disposition:** Rejected from target-period evidence
+   - **Reason:** Events postdate 2000 and did not directly establish a target-period action beyond retrospective speculation.
+
+5. **Later Frontline commentary on devolution**
+   - **Disposition:** Not retained
+   - **Reason:** Exact target-year implementation passage was not extracted.
+
+6. **Search-result or organization landing pages**
+   - **Disposition:** Not counted
+   - **Reason:** A homepage, index, or snippet without an exact underlying locator is not defensible evidence.
+
+---
+
+# 6. Self-audit
+
+## Temporal fit
+
+- **Direct 2000:** E001, E002, E004, E005, E006, E008, E010, E012.
+- **Pre-period baseline/program:** E003, E007, E009.
+- **Post-period context only:** E011.
+- Pre- and post-period records must not be silently treated as target-year actions.
+
+## Ruler attribution
+
+Strongest ruler attribution:
+
+- E002: takeover/timetable stance;
+- E004: command institution under Musharraf;
+- E005: CTBT decision specifically attributed to Musharraf;
+- E009: personally announced program;
+- E012: personally announced human-rights package.
+
+Weaker or institutional attribution:
+
+- E001: regime/security-force abuses, but not every incident personally ordered;
+- E006: PAEC export statement not shown to be Musharraf-directed;
+- E008: Pakistani military/intelligence support under his command, but no direct order recovered;
+- all local structured indicators: country-level context.
+
+## Strongest contrary or mitigating evidence
+
+- The press reportedly retained relative freedom in 2000 (E001).
+- The Supreme Court retained enough institutional force to impose a restoration timetable (E002).
+- Musharraf announced a human-rights package addressing women, children, and honour killings (E012).
+- Near-period reporting described some progress on economic order and corruption (E011).
+- Nuclear command-and-control institutionalization may indicate a safety improvement even though its operation was not demonstrated (E004).
+
+These points mitigate, but do not erase:
+
+- military displacement of elected institutions;
+- large political and protest arrests;
+- serious reported security-force abuses;
+- CTBT hesitation;
+- operational support to the Taliban;
+- weak rule of law and accountability;
+- low institutional and human-development baselines.
+
+## Claims lacking independent corroboration
+
+Most in need of corroboration:
+
+- E005’s account of internal CTBT deliberations;
+- E006’s nuclear-export statement and its policy significance;
+- E008’s detailed aircraft and operational-planning allegations;
+- E011’s early economic improvement assessment;
+- implementation of E012’s human-rights package.
+
+## Same-URL splits
+
+None. Each retained URL supports one materially distinct ledger claim. Evidence was reused across chapters rather than duplicated.
+
+## Cross-chapter reuse
+
+The most heavily reused items are:
+
+- E001: domestic repression and political freedom;
+- E002: political freedom, accountability, and regime management;
+- E004: nuclear responsibility and implementation capacity;
+- E009: economic, social, integrity, and effectiveness program;
+- E011: peace, political, economic, integrity, and effectiveness context;
+- E012: domestic protection, social welfare, and implementation.
+
+## Tool and saturation limitation
+
+Search calls were initiated promptly and continued by chapter theme. However:
+
+- several Brave searches returned `429 Too Many Requests`;
+- the exact-page extraction endpoint first rejected location parameters and then returned `API_VERSION_NOT_FOUND`;
+- the supplied environment had no Parallel `web_fetch` MCP tool exposed;
+- writing the notebook failed because the execution sandbox could not initialize loopback networking.
+
+Consequently, 4B and 8B have the strongest coverage; 1B and 2B have meaningful but incomplete coverage; 3B has one strong comprehensive report plus one reform item; 5B and 6B remain thin; and 7B lacks the direct personal-integrity evidence needed for a well-developed dossier.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.refworld.org/docid/3ae6aaa4c.html|overview-and-sections-1-2|security-forces-serious-abuses-and-political-arrests",
+      "disposition": "final_evidence",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.nytimes.com/2000/05/13/world/pakistan-court-upholds-coup-but-orders-reforms.html|opening-and-court-order|coup-upheld-three-year-reform-election-timetable",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.nytimes.com/1999/10/15/world/pakistan-military-completes-seizure-of-all-authority.html|opening|constitution-parliament-suspended-chief-executive",
+      "disposition": "context",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.theguardian.com/world/2000/mar/16/india.kashmir|paragraph-on-command-centre|musharraf-established-nuclear-command-control-centre",
+      "disposition": "final_evidence",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://frontline.thehindu.com/world-affairs/article30250302.ece|section-on-ctbt-end-2000|musharraf-did-not-accept-ministers-ctbt-push",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.everycrsreport.com/reports/RL30623.html|pakistan-section-2000|nuclear-missile-proliferation-and-export-statement",
+      "disposition": "final_evidence",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://nuclearweaponarchive.org/India/KargilRCB.html|discussion-of-pakistan-leadership|musharraf-discussed-kargil-operation-with-political-leadership",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf|reported-pakistani-support-late-2000|aircraft-troop-rotations-and-planning-support",
+      "disposition": "final_evidence",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/briefings/statements/1999/ps991017.html|summary-of-musharraf-speech|seven-point-recovery-accountability-agenda",
+      "disposition": "context",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://www.wrmea.org/2000-july/musharraf-s-military-government-receives-judicial-endorsement-for-three-year-rule-in-pakistan.html|paragraph-on-priorities|accountability-economic-recovery-constitutional-refinement",
+      "disposition": "context",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.theguardian.com/world/2001/jun/25/pakistan.guardianleaders|paragraph-reviewing-since-1999|some-corruption-economy-progress-but-suspended-politics-kashmir-taliban-isolation",
+      "disposition": "context",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)72533-2/abstract|abstract|musharraf-announced-women-children-human-rights-package",
+      "disposition": "final_evidence",
+      "provisional_id": "E012"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 3,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "E006 bundles nuclear-export and dialogue claims and should be split before counting.",
+        "E007 is pre-period, contested context rather than direct 2000 evidence.",
+        "Several locators are descriptive extraction labels rather than independently verifiable precise locators."
+      ],
+      "missing_themes": [
+        "Exact nuclear doctrine and use rhetoric",
+        "Operational command-and-control safety evidence",
+        "Treaty implementation or inspection evidence",
+        "2000 missile-testing or force-modernization decisions",
+        "Direct crisis communications",
+        "Expert appointment records"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 1,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E006 bundles materially distinct proliferation and dialogue claims.",
+        "E008 bundles aircraft support, troop rotations, planning, and government knowledge claims.",
+        "LF001–LF008 are country-level exposure and military-context facts, not ruler-attributable conduct.",
+        "E007 is inherited pre-period context."
+      ],
+      "missing_themes": [
+        "Direct orders and command chains",
+        "Civilian harm and humanitarian-law conduct",
+        "Kashmir policy during 2000",
+        "Peace or ceasefire initiatives",
+        "Military accountability",
+        "Independent corroboration of Taliban operational details"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 1,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E001 bundles broad abuses, clerical arrests, and political arrests; it should not be counted as multiple units.",
+        "E001 supports regime-level attribution but not personal ordering of individual abuses.",
+        "Local repression indicators are country-level context and cannot establish Musharraf’s personal responsibility."
+      ],
+      "missing_themes": [
+        "Independent prison and torture investigations",
+        "Implementation of the women-and-children package",
+        "Minority and sectarian-violence response",
+        "Local civil-society evidence on protest policing",
+        "Remedies or prosecutions for security-force abuse"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "E001 is a bundled human-rights report and cannot support multiple independent chapter units.",
+        "E010 bundles regime priorities with the court-granted governing period.",
+        "E011 is post-period, retrospective, bundled context and cannot isolate calendar 2000.",
+        "Institutional indicators require attribution caution; they do not independently establish ruler-directed conduct."
+      ],
+      "missing_themes": [
+        "Underlying Supreme Court judgment",
+        "Local-government and devolution legal record",
+        "Exact election timetable and implementation",
+        "Election-party rules",
+        "Media-owner pressure",
+        "Surveillance or telecommunications controls"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E009 is explicitly gateway-only and excluded.",
+        "E010 bundles accountability, economic recovery, and constitutional claims.",
+        "E011 is post-period, bundled, and not cleanly attributable to 2000.",
+        "Local GDP and income values establish scale or baseline only, not policy quality or causal credit."
+      ],
+      "missing_themes": [
+        "IMF program documentation",
+        "Budget execution and tax reforms",
+        "Finance-team appointments and delegated authority",
+        "Inflation, debt, employment, and fiscal movement attributable to 2000 policy",
+        "Poverty and inequality effects",
+        "Privatization and competition-policy records",
+        "Calendar-2000 implementation evaluation"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 1,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E009 is gateway-only and excluded.",
+        "E012 establishes an announcement, not implementation or effects.",
+        "Human-development indicators are baseline observations and do not demonstrate Musharraf-caused change."
+      ],
+      "missing_themes": [
+        "Health, education, water, and sanitation delivery evidence",
+        "Professional social-service management",
+        "Measurement and transparent correction",
+        "Target-year crisis-response record",
+        "Politicized-benefit evidence",
+        "Social-protection delivery",
+        "Independent program evaluation",
+        "Durable institutional reforms"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Country corruption and accountability indicators are institutional context, not evidence of Musharraf’s personal integrity.",
+        "E005 concerns a policy disagreement and does not establish cronyism or personal dishonesty.",
+        "No defensible ruler-personal integrity unit was recovered."
+      ],
+      "missing_themes": [
+        "Personal truthfulness episodes",
+        "Corrections or knowingly false statements",
+        "Personal, family, or business conflicts",
+        "Personal or family enrichment",
+        "National Accountability Bureau records and selectivity",
+        "Asset declarations",
+        "Procurement, gifts, or contract benefits",
+        "Nepotism or favoritism records",
+        "Obstruction of a personal investigation",
+        "Independent ruler-specific integrity findings"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E008 bundles multiple operational-support claims and should not be counted as several units.",
+        "E009 is gateway-only and excluded.",
+        "E010 and E011 bundle materially distinct program and outcome claims; E011 is also post-period.",
+        "Several units demonstrate announcements or institutional design without implementation or outcome evidence."
+      ],
+      "missing_themes": [
+        "Exact budgets and milestones for the governing agenda",
+        "Devolution implementation during 2000",
+        "Appointments and personnel quality",
+        "Anti-corruption enforcement and selectivity",
+        "Attributable economic outcomes",
+        "Evidence of tactical learning",
+        "Durability beyond announcements or institutional design"
+      ]
+    }
+  ],
+  "global_findings": [
+    "All eight chapters have material research-recoverable gaps and should continue under the configured marginal-value gate.",
+    "The dossier contains approximately 12 ledger items, but many are bundled, gateway-only, post-period, context-only, or locator-deficient; the claimed 34-locator yield should not be treated as 34 defensible source-claim units.",
+    "Source-family diversity is substantially below the configured threshold in most chapters, especially 3B, 5B, 6B, and 7B.",
+    "Local facts were generally used appropriately as country-year context, with explicit avoidance of treating missing values as zeros or ruler-attributable evidence.",
+    "Ruler attribution is strongest for Musharraf’s takeover stance, nuclear-institution action, CTBT decision, and personal announcements; it is weak for country-level indicators and subordinate military or intelligence conduct.",
+    "No researcher-written scores, score ranges, ranking advice, or judge-directed scoring instructions were found.",
+    "Further research should target new underlying sources and precise locators; deduplication, splitting, reconciliation, and formatter work do not justify continuation by themselves."
+  ],
+  "reviewer_summary": "Continue the same researcher thread for all eight chapters. The handoff is careful about local-fact limits and attribution, but its usable evidence is much thinner than the reported locator count because several entries are bundled, gateway-only, retrospective, or imprecisely located. The largest recoverable gaps concern personal integrity, social and economic implementation, civilian conduct, nuclear doctrine and safety, and direct ruler attribution for security-policy actions."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+# Review round 1 continuation — Musharraf, Pakistan, 2000
+
+**Scope remains immutable:** Pervez Musharraf, Pakistan, calendar year 2000.  
+**No scoring or ranking advice is provided.**
+
+The previous register could not be updated on disk. A second write attempt to the supplied output directory again failed before execution:
+
+```text
+bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted
+```
+
+The parent should append this handoff to `research-materials.md` and merge the manifest changes listed below into `research-ledger-manifest.json`.
+
+Search proceeded iteratively by chapter and event. Repeated `429 Too Many Requests` responses continued to block some follow-ups, and no working exact-page fetch tool was exposed. New items below are limited to sources whose extracted material identifies a distinct underlying claim and usable article/report section.
+
+---
+
+# 1. Ledger reconciliation from reviewer findings
+
+## E006 split into two canonical facts
+
+The former E006 improperly bundled proliferation/export and diplomatic-dialogue claims.
+
+### E006A — Pakistani nuclear-export statement
+
+- **Canonical fact key:** `https://www.everycrsreport.com/reports/RL30623.html|Pakistan-section-citation-to-15-July-2000-FBIS|PAEC-member-peaceful-nuclear-export-statement`
+- **Disposition:** `final_evidence`
+- **Claim:** A CRS report cited a July 2000 statement by a Pakistan Atomic Energy Commission member that Pakistan was ready to export “peaceful nuclear capability” to developing countries.
+- **Limit:** Weak personal attribution to Musharraf and indirect underlying provenance through FBIS.
+- **Mappings:** 1B.6, 1B.9.
+- **Change:** Supersedes the proliferation portion of E006.
+
+### E006B — Resumption of US-Pakistan nonproliferation talks
+
+- **Canonical fact key:** `https://www.everycrsreport.com/reports/RL30623.html|Pakistan-section-paragraph-beginning-On-June-15-2000|US-Pakistan-nonproliferation-talks-resumed`
+- **Disposition:** `final_evidence`
+- **Claim/excerpt:** CRS reports: “On June 15, 2000, the United States and Pakistan resumed talks on nonproliferation issues after a 16-month hiatus.” Deputy Secretary Strobe Talbott urged Pakistan to sign the CTBT.
+- **Source:** *Nuclear Weapons and Ballistic Missile Proliferation in India and Pakistan: Issues for Congress*, Congressional Research Service, 2000.
+- **Source type/confidence:** Legislative research; `high`.
+- **Temporal fit:** Direct target-year event.
+- **Attribution:** Government-level diplomacy during Musharraf’s rule; evidence does not establish his personal negotiating instructions.
+- **Contrary/mitigating point:** Resuming talks is evidence of engagement even though Pakistan did not sign the CTBT in 2000.
+- **Mappings:** 1B.1, 1B.4, 1B.8; 2B.1, 2B.7.
+- **Change:** Supersedes the dialogue portion of E006.
+
+### Original E006 disposition
+
+- **Change to:** `rejected`
+- **Reason:** Bundled two materially distinct claims. Replaced by E006A and E006B.
+
+## E008 split into separately countable claims
+
+The former E008 bundled aircraft support, operational planning, and government knowledge.
+
+### E008A — Pakistani aircraft assisted Taliban troop rotations
+
+- **Canonical fact key:** `https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf|passage-on-Pakistani-support-late-2000|Pakistani-aircraft-assisted-Taliban-troop-rotations`
+- **Disposition:** `final_evidence`
+- **Claim:** HRW reports that Pakistani aircraft assisted troop rotations by Taliban forces during combat operations in late 2000.
+- **Source type/confidence:** NGO investigation; `medium_high`.
+- **Temporal fit:** Direct late-2000.
+- **Attribution:** Pakistani state/military-level; personal Musharraf order not shown.
+- **Mappings:** 2B.2, 2B.5, 2B.10; 8B.3, 8B.5, 8B.9.
+
+### E008B — Pakistani military and intelligence personnel allegedly helped plan operations
+
+- **Canonical fact key:** `https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf|same-support-passage-distinct-sentence|senior-Pakistani-intelligence-and-army-personnel-involved-in-planning`
+- **Disposition:** `final_evidence`
+- **Claim:** HRW reports that senior Pakistani intelligence and army members were involved in planning Taliban military operations.
+- **Source type/confidence:** NGO investigation; `medium_high`.
+- **Temporal fit:** Direct late-2000 reporting.
+- **Attribution:** Institutional attribution is significant because Musharraf combined de facto national authority with army leadership. The source still does not establish a direct personal order.
+- **Mappings:** 2B.2, 2B.5; 8B.3, 8B.5, 8B.9.
+
+### E008C — Private and semi-private support occurred with officials’ knowledge
+
+- **Canonical fact key:** `https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf|same-support-passage-government-knowledge-sentence|Pakistani-private-support-with-government-official-knowledge`
+- **Disposition:** `final_evidence`
+- **Claim:** HRW reports that private and semi-private Pakistani agencies provided extensive Taliban support with government officials’ knowledge.
+- **Temporal fit:** Direct late-2000.
+- **Attribution:** Supports knowing-tolerance analysis but not proof that Musharraf personally approved every support channel.
+- **Mappings:** 2B.5, 2B.9, 2B.10; 8B.3, 8B.5.
+- **Same-URL exception:** Three items are retained from this PDF because they are materially distinct operational claims—aircraft logistics, planning participation, and official knowledge. They must not be treated as independent source families.
+
+### Original E008 disposition
+
+- **Change to:** `rejected`
+- **Reason:** Bundled three distinct operational claims. Replaced by E008A–E008C.
+
+## E001 remains one omnibus report unit
+
+E001 should continue to count as one source-claim unit for its broad finding of serious security-force abuses. The separate arrests should not be counted as independent-source corroboration unless serialized as distinct claims from the same URL. For this continuation, they remain under E001 to avoid artificial inflation.
+
+---
+
+# 2. New evidence items
+
+## E013 — Pakistan flight-tested the Hatf-1 in February 2000
+
+- **Provisional ID:** E013
+- **Canonical fact key:** `https://nuclearweaponarchive.org/Pakistan/PakNPower.html|chronology-entry-February-2000|Pakistan-flight-tested-Hatf-1`
+- **URL:** https://nuclearweaponarchive.org/Pakistan/PakNPower.html
+- **Title:** “Pakistan’s Nuclear Weapons Program — Pakistan as a Nuclear Power”
+- **Publisher/date:** Nuclear Weapon Archive; page date not exposed
+- **Locator/excerpt:** Chronology passage stating: “Pakistan flight-tested its 100 km-range Hatf-1 in February 2000.”
+- **Claim:** Pakistan conducted a target-year flight test of the short-range Hatf-1 missile.
+- **Main-points summary:** This is direct evidence of delivery-system activity during Musharraf’s rule. The page does not itself establish whether the tested missile was assigned a nuclear role or whether Musharraf personally ordered the test.
+- **Source type/confidence:** Specialist technical archive; `medium`.
+- **Confidence reason:** Useful technical chronology, but not an official test record and not independently corroborated in the present pass.
+- **Final use:** `final_evidence` with corroboration desirable.
+- **Temporal fit:** Direct February 2000.
+- **Ruler attribution:** Government/military-level; Musharraf was chief executive and army chief, but direct personal authorization was not recovered.
+- **Contrary/limits:** Short range and nuclear mission are not established by this source alone.
+- **Mappings:** 1B.1, 1B.3, 1B.10; contextual to 2B.8 and 8B.3.
+
+## E014 — Pakistan resumed formal nonproliferation engagement with the United States
+
+This is E006B above and should be added as a new countable item after retiring bundled E006.
+
+## E015 — Hizbul Mujahideen’s July 2000 Kashmir ceasefire and reported government role
+
+- **Provisional ID:** E015
+- **Canonical fact key:** `https://frontline.thehindu.com/cover-story/article30254806.ece|paragraph-on-Hizbul-ceasefire-and-Pakistani-reaction|allegations-government-engineered-ceasefire`
+- **URL:** https://frontline.thehindu.com/cover-story/article30254806.ece
+- **Title:** “A considered strategy”
+- **Publisher/date:** Frontline/The Hindu, 2000
+- **Locator/excerpt:** Passage on the Hizbul Mujahideen ceasefire. It reports a Pakistani press consensus that the group could not have made the decision without approval from its parent organization, while Jamaat-e-Islami leader Qazi Hussain Ahmad accused the Musharraf government of engineering the ceasefire to please the United States.
+- **Claim:** A major Kashmiri militant organization announced a ceasefire in 2000, and contemporary Pakistani actors disputed whether the Musharraf government had helped engineer it.
+- **Source type/confidence:** Regional media analysis; `medium`.
+- **Final use:** `final_evidence` for the existence of the contemporary attribution dispute, not proof that Musharraf directed the ceasefire.
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Contested; retain as contrary evidence rather than a settled ruler action.
+- **Contrary/mitigating points:** The accusation came from a hostile domestic actor; independent proof of government control was not recovered. Fundamentalist groups’ threats against Musharraf nevertheless suggest they perceived possible government restraint.
+- **Mappings:** 2B.1, 2B.5, 2B.7, 2B.10; 8B.8, 8B.9.
+
+## E016 — Pakistan proposed talks during the late-2000 Kashmir ceasefire episode
+
+- **Provisional ID:** E016
+- **Canonical fact key:** `https://frontline.thehindu.com/the-nation/article30249630.ece|paragraph-on-22-December-editor-meeting|Musharraf-proposed-Pakistan-India-APHC-talks`
+- **URL:** https://frontline.thehindu.com/the-nation/article30249630.ece
+- **Title:** “Ceasefire and peace drama”
+- **Publisher/date:** Frontline/The Hindu, late 2000 or early 2001
+- **Locator/excerpt:** Passage reporting that, at a 22 December dinner with Islamabad newspaper editors, Musharraf referred to Pakistan’s proposal for talks among Pakistan, India, and the All Parties Hurriyat Conference.
+- **Claim:** Musharraf publicly advanced a tripartite-talks proposal during the December 2000 Kashmir ceasefire context.
+- **Source type/confidence:** Regional media; `medium`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Direct 22 December 2000.
+- **Ruler attribution:** Direct reported statement by Musharraf.
+- **Contrary/limits:** A public proposal does not establish good-faith negotiations or cessation of militant support; E008A–C and other Kashmir evidence complicate the record.
+- **Mappings:** 2B.1, 2B.7, 2B.10; 8B.1, 8B.9.
+
+## E017 — MQM detainees reportedly tortured in custody
+
+- **Provisional ID:** E017
+- **Canonical fact key:** `https://www.refworld.org/docid/3ae6aaa4c.html|section-1c-or-1d-MQM-detention-passage|MQM-members-reportedly-tortured-in-custody`
+- **URL:** https://www.refworld.org/docid/3ae6aaa4c.html
+- **Title:** *Country Report on Human Rights Practices 2000 — Pakistan*
+- **Publisher/date:** US Department of State, 2001; Refworld republication
+- **Locator/excerpt:** Section discussing detention and torture of MQM members. Search extraction states that MQM officials reported more than 700 members arrested over two years and that many were reportedly tortured in custody.
+- **Claim:** Opposition-party detainees were reportedly subjected to custodial torture during a period extending into Musharraf’s 2000 rule.
+- **Source type/confidence:** Government human-rights report; `medium_high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Two-year reporting window overlaps predecessor and Musharraf periods; exact incident dates require caution.
+- **Ruler attribution:** Security-institution pattern, not direct evidence of personal orders. Some of the arrests may predate Musharraf.
+- **Contrary/limits:** Based in part on MQM officials’ reports; no independent prosecution or judgment recovered.
+- **Mappings:** 3B.1, 3B.2, 3B.4, 3B.5.
+- **Same-URL note:** This is a distinct physical-integrity claim from E001’s broad overview. It is not an independent source family.
+
+## E018 — November 2000 anti-Ahmadi mob attack
+
+- **Provisional ID:** E018
+- **Canonical fact key:** `https://www.refworld.org/docid/403dd20b14.html|passage-on-10-November-2000-Ahmadi-mosque-attack|mob-killed-and-mutilated-Ahmadis`
+- **URL:** https://www.refworld.org/docid/403dd20b14.html
+- **Title:** “Pakistan: Treatment of Lahori Ahmadis (1996–present)”
+- **Publisher/date:** Immigration and Refugee Board material on Refworld; post-period compilation citing Amnesty International
+- **Locator/excerpt:** Passage on 10 November 2000 reports that a local cleric led a mob shouting anti-Ahmadi slogans, broke into a mosque, attacked those inside, and mutilated the bodies of people killed.
+- **Claim:** A severe sectarian attack against Ahmadis occurred during the target year.
+- **Source type/confidence:** Government country-of-origin research citing NGO reporting; `medium_high`.
+- **Final use:** `final_evidence` for the event.
+- **Temporal fit:** Direct 10 November 2000 fact established retrospectively.
+- **Ruler attribution:** Non-state violence. No evidence in the extracted passage that Musharraf ordered, incited, or knowingly tolerated the particular attack.
+- **Contrary/limits:** The government’s preventive or remedial response was not recovered; use primarily to establish exposure and the vulnerable-group protection gap.
+- **Mappings:** 3B.3, 3B.7, 3B.9, 3B.10.
+
+## E019 — Press operated relatively freely but self-censored on military matters
+
+- **Provisional ID:** E019
+- **Canonical fact key:** `https://www.refworld.org/docid/3ae6aaa4c.html|section-2a-press-freedom-passage|relative-freedom-self-censorship-military-issues`
+- **URL:** https://www.refworld.org/docid/3ae6aaa4c.html
+- **Title:** *Country Report on Human Rights Practices 2000 — Pakistan*
+- **Publisher/date:** US Department of State, 2001; Refworld
+- **Locator/excerpt:** Section 2.a press passage: “The press was able to publish relatively freely; however, several journalists practiced self-censorship, especially on sensitive issues related to the military.” The report also says there was no systematic harassment campaign against newspapers or commentators.
+- **Claim:** Pakistan’s 2000 press environment was materially mixed: publication space persisted, but military-sensitive reporting produced self-censorship.
+- **Source type/confidence:** Government human-rights report; `medium_high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** The military-sensitive chilling environment is regime-level context under Musharraf; no direct individual threat or order is identified in this passage.
+- **Contrary/mitigating points:** Explicit evidence against a finding of comprehensive or systematic press suppression.
+- **Mappings:** 4B.3, 4B.6, 4B.9, 4B.10; contextual to 3B.8 and 7B.6.
+
+## E020 — CPJ warned about press freedom under Musharraf’s military government
+
+- **Provisional ID:** E020
+- **Canonical fact key:** `https://cpj.org/2000/02/cpj-releases-special-report-on-journalism-in-pakis/|release-summary-final-sentence|CPJ-concerns-under-Musharraf-military-rule`
+- **URL:** https://cpj.org/2000/02/cpj-releases-special-report-on-journalism-in-pakis/
+- **Title:** “CPJ Releases Special Report on Journalism in Pakistan”
+- **Publisher/date:** Committee to Protect Journalists, February 2000
+- **Locator/excerpt:** Release summary says the report raised concerns about press freedom under Musharraf’s military regime despite his promises to respect civil liberties.
+- **Claim:** A specialist press-freedom organization identified early concerns under military rule while distinguishing those concerns from documented severe abuses by the preceding Sharif government.
+- **Source type/confidence:** Press-freedom NGO; `medium_high`.
+- **Final use:** `context` because the extracted release states concern more clearly than target-year incidents.
+- **Temporal fit:** Direct February 2000.
+- **Ruler attribution:** Regime-level.
+- **Contrary/limits:** The page emphasizes that serious attacks predated Musharraf; concern is not itself proof of a target-year violation.
+- **Mappings:** 4B.3, 4B.6, 4B.10.
+
+## E021 — Supreme Court imposed a three-year civilian-return deadline
+
+- **Provisional ID:** E021
+- **Canonical fact key:** `https://www.nytimes.com/2000/05/13/world/pakistan-court-upholds-coup-but-orders-reforms.html|opening-summary|three-year-return-to-civilian-government-deadline`
+- **URL:** https://www.nytimes.com/2000/05/13/world/pakistan-court-upholds-coup-but-orders-reforms.html
+- **Title:** “Pakistan Court Upholds Coup but Orders Reforms”
+- **Publisher/date:** New York Times, 13 May 2000
+- **Locator/excerpt:** Opening summary states that the Supreme Court ruled the October coup lawful but set a three-year deadline for return to civilian government.
+- **Claim:** The exact restoration rule reported in 2000 was a three-year deadline for return to civilian government.
+- **Source type/confidence:** Reputable media reporting a legal ruling; `medium_high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** The deadline was imposed on Musharraf’s government, not voluntarily created by him.
+- **Contrary/limits:** The underlying judgment remained unrecovered. E021 clarifies E002 rather than providing an independent source.
+- **Mappings:** 4B.1, 4B.4, 4B.8, 4B.10; 8B.9.
+- **Reconciliation:** E002 may remain as the broader court/timetable item, but E021 should not be counted independently from E002 unless E002 is retired. Preferred action: retire E002 as bundled and retain E021 as the precise deadline claim.
+
+## E022 — Devolution Plan approved in August 2000
+
+- **Provisional ID:** E022
+- **Canonical fact key:** `https://www.justice.gov/file/276126/dl?inline=|citation-note-to-Dawn-6-August-2000-and-discussion-of-plan|Musharraf-government-approved-Devolution-Plan`
+- **URL:** https://www.justice.gov/file/276126/dl?inline=
+- **Title:** *Devolution in Pakistan: Reform or Regression?*
+- **Publisher/date:** International Crisis Group report mirrored by US Department of Justice, 22 March 2004
+- **Locator/excerpt:** Discussion and citation note referencing “Approve Devolution Plan,” *Dawn*, 6 August 2000.
+- **Claim:** Musharraf’s government approved a national devolution plan in August 2000.
+- **Source type/confidence:** NGO policy report mirrored by official archive; `medium_high`.
+- **Final use:** `context` pending exact PDF-page verification.
+- **Locator status:** `locator_missing` because the exact PDF page could not be extracted in this profile.
+- **Temporal fit:** Establishes a direct August 2000 formal action retrospectively.
+- **Ruler attribution:** Strong at government/ruler-program level.
+- **Contrary/limits:** Later report title and analysis frame devolution as contested; approval does not prove genuine decentralization or implementation.
+- **Mappings:** 4B.4, 4B.5, 4B.10; 6B.9; 8B.2, 8B.6.
+
+## E023 — Local elections began on 31 December 2000
+
+- **Provisional ID:** E023
+- **Canonical fact key:** `https://www.ecoi.net/en/document/1164660.html|paragraph-citing-NRB-election-schedule|local-election-phases-began-December-2000`
+- **URL:** https://www.ecoi.net/en/document/1164660.html
+- **Title:** “Results of the recent municipal elections in Pakistan”
+- **Publisher/date:** Immigration and Refugee Board of Canada/ecoI, post-period
+- **Locator/excerpt:** Passage citing Pakistan’s National Reconstruction Bureau states that local elections took place in five scheduled phases in 96 districts between December 2000 and August 2001. The 2001 State Department report independently dates the first phase to 31 December 2000.
+- **Claim:** Implementation of the local-government plan began within the target year, although almost all phases occurred in 2001.
+- **Source type/confidence:** Government country-information report citing official election records; `medium_high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Only the first day/phase falls inside 2000; later phases are context.
+- **Ruler attribution:** Government implementation under Musharraf.
+- **Contrary/limits:** Elections were conducted on a nonparty basis, and the evidence does not establish national contestability or institutional independence.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.5, 4B.10; 8B.2, 8B.6, 8B.10.
+
+## E024 — IMF approved a conditional ten-month program in late 2000
+
+- **Provisional ID:** E024
+- **Canonical fact key:** `https://www.nytimes.com/2000/12/01/world/pakistan-to-receive-major-loan-from-imf.html|opening-and-conditions-paragraph|IMF-loan-conditioned-on-tax-deficit-privatization`
+- **URL:** https://www.nytimes.com/2000/12/01/world/pakistan-to-receive-major-loan-from-imf.html
+- **Title:** “Pakistan To Receive Major Loan From I.M.F.”
+- **Publisher/date:** New York Times, 1 December 2000
+- **Locator/excerpt:** Opening and conditions paragraph reports that funds would be distributed over ten months only if Pakistan increased tax collection, reduced its budget deficit, and privatized public enterprises.
+- **Claim:** By December 2000, Musharraf’s government had secured a conditional IMF arrangement organized around tax mobilization, deficit reduction, and privatization.
+- **Source type/confidence:** Reputable media reporting an intergovernmental program; `medium_high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Direct December 2000.
+- **Ruler attribution:** Government-level agreement under Musharraf; exact policy authorship and implementation by year-end are not established.
+- **Contrary/limits:** Loan approval and conditional commitments do not prove implementation or beneficial effects.
+- **Mappings:** 5B.1, 5B.3–5, 5B.7, 5B.9; 8B.1–2, 8B.6.
+
+## E025 — IMF described the program’s macroeconomic objectives
+
+- **Provisional ID:** E025
+- **Canonical fact key:** `https://www.elibrary.imf.org/view/journals/002/2001/024/article-A003-en.xml|executive-board-assessment-program-objectives|reserves-balance-of-payments-public-debt`
+- **URL:** https://www.elibrary.imf.org/view/journals/002/2001/024/article-A003-en.xml
+- **Title:** “IMF Concludes Article IV Consultation with Pakistan”
+- **Publisher/date:** International Monetary Fund, 2001
+- **Locator/excerpt:** Executive Board assessment states that the program aimed to strengthen the balance-of-payments position, rebuild official reserves, and reduce public-sector indebtedness.
+- **Claim:** The late-2000 program had concrete macroeconomic objectives rather than only general recovery rhetoric.
+- **Source type/confidence:** Intergovernmental primary program assessment; `high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Published in 2001 about the contemporaneous program; target-period program fact.
+- **Ruler attribution:** Government/program level. It does not isolate Musharraf’s role from finance officials or IMF conditionality.
+- **Contrary/limits:** Objectives are not outcomes; the program’s distributional costs are not assessed in the extracted passage.
+- **Mappings:** 5B.1, 5B.3, 5B.7, 5B.9; 8B.1–2.
+
+## E026 — Shaukat Aziz appointed finance minister as a civilian banker
+
+- **Provisional ID:** E026
+- **Canonical fact key:** `https://www.nytimes.com/1999/10/26/world/pakistan-military-says-7-civilians-will-join-new-government.html|paragraph-listing-civilian-appointees|Shaukat-Aziz-appointed-finance-minister`
+- **URL:** https://www.nytimes.com/1999/10/26/world/pakistan-military-says-7-civilians-will-join-new-government.html
+- **Title:** “Pakistan Military Says 7 Civilians Will Join New Government”
+- **Publisher/date:** New York Times, 26 October 1999
+- **Locator/excerpt:** Paragraph listing civilian appointees states that Shaukat Aziz, described as a banker, would become finance minister.
+- **Claim:** Musharraf selected a civilian banking professional as finance minister immediately before the target year.
+- **Source type/confidence:** Reputable media; `medium_high`.
+- **Final use:** `context`.
+- **Temporal fit:** Pre-period appointment governing through 2000.
+- **Ruler attribution:** Direct appointment by Musharraf’s new government.
+- **Contrary/limits:** Professional background alone does not establish competence, independence, or beneficial policy.
+- **Mappings:** 5B.2, 5B.7; 8B.4.
+
+## E027 — Later IMF retrospective identifies a coherent, Musharraf-backed strategy
+
+- **Provisional ID:** E027
+- **Canonical fact key:** `https://www.imf.org/en/News/Articles/2015/09/28/04/54/vc092303|paragraph-describing-strategy-and-Musharraf-ownership|fiscal-debt-private-activity-education-health-strategy`
+- **URL:** https://www.imf.org/en/News/Articles/2015/09/28/04/54/vc092303
+- **Title:** “Pakistan and the IMF: A Relation of Trust”
+- **Publisher/date:** IMF article by Henri Ghesquiere, 2003; later web migration date
+- **Locator/excerpt:** Paragraph describes a strategy combining fiscal discipline, debt relief, institutional reform for private activity, and better education and health expenditure; it says Musharraf articulated it as home-grown rather than imposed.
+- **Claim:** A later IMF representative attributed political ownership of a coherent economic-development strategy to Musharraf.
+- **Source type/confidence:** Intergovernmental official commentary; `medium_high`.
+- **Final use:** `context`.
+- **Temporal fit:** Post-period retrospective; strategy evolved beyond 2000 and cannot be treated wholly as a target-year achievement.
+- **Ruler attribution:** Directly identifies Musharraf as an advocate, but source incentives favor the IMF program relationship.
+- **Contrary/limits:** Not an independent evaluation of effects; later strategy may not reflect 2000 implementation.
+- **Mappings:** 5B.1, 5B.6–7, 5B.10; 6B.1–2; 8B.1, 8B.7, 8B.10.
+
+## E028 — Musharraf created the National Accountability Bureau with broad punitive authority
+
+- **Provisional ID:** E028
+- **Canonical fact key:** `https://www.nytimes.com/1999/11/18/world/defaulters-are-arrested-in-pakistan.html|opening|Musharraf-created-NAB-14-year-default-penalty`
+- **URL:** https://www.nytimes.com/1999/11/18/world/defaulters-are-arrested-in-pakistan.html
+- **Title:** “Defaulters Are Arrested In Pakistan”
+- **Publisher/date:** New York Times, 18 November 1999
+- **Locator/excerpt:** Opening reports that Musharraf established the National Accountability Bureau under a new law giving it authority to imprison willful defaulters for up to 14 years.
+- **Claim:** Musharraf operationalized his accountability program by creating a powerful bureau immediately before 2000.
+- **Source type/confidence:** Reputable media; `medium_high`.
+- **Final use:** `context`.
+- **Temporal fit:** Pre-period institution operating in 2000.
+- **Ruler attribution:** Direct.
+- **Contrary/limits:** Creation and coercive authority do not establish fair or nonselective enforcement.
+- **Mappings:** 5B.5; 7B.6, 7B.9, 7B.10; 8B.2, 8B.3, 8B.6.
+
+## E029 — NAB stated scope and broad prosecution powers during 2000
+
+- **Provisional ID:** E029
+- **Canonical fact key:** `https://www.refworld.org/docid/3ae6aaa4c.html|NAB-accountability-passage|government-scope-claims-and-broad-powers`
+- **URL:** https://www.refworld.org/docid/3ae6aaa4c.html
+- **Title:** *Country Report on Human Rights Practices 2000 — Pakistan*
+- **Publisher/date:** US Department of State, 2001; Refworld
+- **Locator/excerpt:** NAB/accountability passage says the Musharraf government stated it would not target genuine business failures or small defaulters and apparently did not do so; it also notes that NAB possessed broad prosecutorial powers.
+- **Claim:** In 2000 the accountability regime combined formal limits on its stated target population with broad coercive authority.
+- **Source type/confidence:** Government human-rights report; `medium_high`.
+- **Final use:** `final_evidence`.
+- **Temporal fit:** Direct 2000.
+- **Ruler attribution:** Regime-level.
+- **Contrary/mitigating points:** The report’s observation that genuine failures and small defaulters were apparently not targeted is evidence against an entirely indiscriminate campaign; broad powers still create selectivity and due-process concerns.
+- **Mappings:** 5B.5; 7B.6–7, 7B.9–10; 8B.2, 8B.6.
+
+---
+
+# 3. Rejected or context-only candidates added during round 1
+
+## R005 — 2002 ICG finding of selective NAB targeting
+
+- **URL:** https://www.refworld.org/docid/403dd20f10.html
+- **Disposition:** `rejected` for target-year evidence
+- **Reason:** The quoted International Crisis Group finding concerns electoral pressure and selective targeting in 2002. It does not directly establish that the same conduct occurred in calendar 2000.
+- **Discovery value:** Identifies NAB selectivity as a later pattern requiring target-year corroboration.
+
+## R006 — 2001 IMF technical memorandum tables
+
+- **URL:** https://www.imf.org/external/np/loi/2001/pak/04/112201b.pdf
+- **Disposition:** `context`
+- **Reason:** Contains 2000/01 baseline data but mostly describes November 2001 prior actions and targets. It cannot establish calendar-2000 implementation without exact fiscal-period parsing.
+
+## R007 — 2004 ICG devolution report without extracted PDF page
+
+- **URL:** https://www.justice.gov/file/276126/dl?inline=
+- **Disposition:** `context` / `locator_missing`
+- **Reason:** Strong source lead, but exact PDF page was unavailable through the active profile. E022 should remain outside the defensible unit count until verified.
+
+## R008 — Post-2000 personal-integrity allegations
+
+- **Disposition:** `rejected`
+- **Reason:** Searches for Musharraf assets, family business interests, and personal enrichment did not recover a traceable finding tied to calendar 2000. Later allegations cannot silently establish target-period conduct.
+
+---
+
+# 4. Chapter continuation results
+
+## 1B continuation
+
+### New or reconciled evidence
+
+- E006A: nuclear-export statement;
+- E006B/E014: resumed US-Pakistan nonproliferation talks;
+- E013: Hatf-1 flight test;
+- E004 and E005 reused.
+
+### Gap results
+
+- **Exact doctrine/use rhetoric:** Not materially improved. Search found a 2002 explicit nuclear-use statement, but it was rejected as post-period.
+- **Operational command safety:** Only the formal command institution remains established. No target-year evidence of permissive-action links, personnel reliability, custody procedures, accident reviews, or exercises was recovered.
+- **Treaty/inspection evidence:** Improved through E006B’s direct record of resumed nonproliferation talks. No CTBT signature or inspection implementation.
+- **Missile testing:** Improved by E013.
+- **Direct crisis communications:** Partially improved through E006B’s diplomatic engagement; no nuclear-crisis hotline or direct India communication record found.
+- **Expert appointments:** Not improved.
+
+### Round-1 yield
+
+Four direct target-year units now exist from three principal families: Guardian, CRS, Frontline, plus the specialist technical archive. Attribution remains medium because missile and diplomatic actions are largely government-level.
+
+### Saturation judgment
+
+Further improvement would require primary National Command Authority documents, official test notices, CTBT diplomatic records, or contemporaneous technical assessments. These were not discoverable through the available indexed material. Chapter remains incomplete but is closer to marginal saturation for accessible web sources.
+
+---
+
+## 2B continuation
+
+### New or reconciled evidence
+
+- E008A–E008C replace bundled E008;
+- E015: disputed government involvement in Hizbul ceasefire;
+- E016: Musharraf tripartite-talks proposal;
+- E006B: nonproliferation engagement;
+- E013 supplies military capability context but not aggression evidence.
+
+### Gap results
+
+- **Direct orders/command chains:** Not recovered. HRW supports army/intelligence participation and official knowledge but not a Musharraf order.
+- **Civilian harm/IHL:** Not materially improved; no sufficiently precise 2000 operational report found.
+- **Kashmir policy during 2000:** Improved through E015 and E016, showing both a ceasefire episode and a direct Musharraf talks proposal.
+- **Peace/ceasefire initiatives:** Improved through E015–E016.
+- **Military accountability:** Not improved.
+- **Taliban corroboration:** HRW claims were split for provenance clarity, but an independent source family was not recovered.
+
+### Diversity and same-URL accounting
+
+The three E008 items count as three distinct claims but only one source family and one URL. They must not be interpreted as independent corroboration. Frontline supplies a second organization for the Kashmir peace/diplomacy theme, while CRS supplies a third for nonproliferation engagement.
+
+### Saturation judgment
+
+The chapter still lacks reliable civilian-conduct and command-order evidence. Accessible sources support a mixed policy pattern: partner/proxy military support and continued Kashmir involvement alongside direct public talk proposals and a contested militant ceasefire. More searches would be valuable only if they reached UN records, Pakistani command documentation, or independent contemporaneous Afghanistan/Kashmir monitoring.
+
+---
+
+## 3B continuation
+
+### New evidence
+
+- E017: custodial torture allegations involving MQM detainees;
+- E018: November 2000 anti-Ahmadi attack;
+- E019: self-censorship and absence of systematic press harassment, relevant mainly to 4B but also protest/fear context.
+
+### Gap results
+
+- **Independent prison/torture investigations:** Partly improved by E017, but it remains within the same State Department report family and partly overlaps the preceding two years.
+- **Women-and-children package implementation:** Not improved beyond E012’s announcement.
+- **Minority/sectarian violence:** Improved by E018.
+- **Local civil-society protest-policing evidence:** Not recovered. HRCP organization records were discoverable but no exact 2000 report passage was available.
+- **Remedies/prosecutions for security-force abuse:** Not recovered.
+
+### Attribution and contrary evidence
+
+E018 establishes non-state sectarian violence but not state direction or Musharraf’s failure after notice. E017 establishes a reported custody-abuse pattern with only regime-level attribution. E012 remains contrary evidence of a reform initiative without demonstrated implementation.
+
+### Saturation judgment
+
+The chapter remains under-diversified. Further progress requires a full HRCP 2000 annual report, Amnesty’s annual report sections, court records, or police accountability proceedings. These were not retrievable with precise locators in the active profile.
+
+---
+
+## 4B continuation
+
+### New evidence
+
+- E019: press freedom combined with military-sensitive self-censorship;
+- E020: CPJ’s early military-rule concerns;
+- E021: exact reported three-year civilian-return deadline;
+- E022: devolution-plan approval, but locator missing;
+- E023: first local-election phase began on 31 December 2000.
+
+### Gap results
+
+- **Underlying Supreme Court judgment:** Search identified *Syed Zafar Ali Shah v. General Pervez Musharraf*, PLD 2000 SC 869, but did not recover the exact judgment PDF. E021 preserves the reported deadline; underlying judgment remains missing.
+- **Devolution legal record:** Improved by E022 and E023. Provincial ordinances largely followed in 2001, so they are outside the target year.
+- **Election timetable/implementation:** Improved by E021 and E023.
+- **Election-party rules:** E023 establishes that local elections were nonparty, though most implementation fell in 2001.
+- **Media-owner pressure:** Not recovered.
+- **Surveillance/telecommunications controls:** Not recovered.
+- **Press environment:** Improved substantially by E019 and independently contextualized by E020.
+
+### Contrary evidence
+
+E019 is important: the press retained real publication space, and the report did not find a systematic harassment campaign, even as journalists self-censored on military-sensitive matters. Devolution implementation began, but under nonparty rules and without restoring national electoral government in 2000.
+
+### Saturation judgment
+
+The chapter is now reasonably saturated for accessible target-year public records. The remaining high-value sources are the underlying Supreme Court judgment, exact Devolution Plan document, and target-year media-owner or surveillance cases.
+
+---
+
+## 5B continuation
+
+### New evidence
+
+- E024: conditional IMF arrangement;
+- E025: IMF program objectives;
+- E026: professional finance-minister appointment;
+- E027: later IMF account of Musharraf-backed strategy;
+- E028–E029: accountability institution and enforcement context.
+
+### Gap results
+
+- **IMF program documentation:** Materially improved by E024–E025.
+- **Budget/tax reforms:** E024 establishes tax, deficit, and privatization conditions; actual execution by year-end remains unshown.
+- **Finance-team appointments:** Improved by E026.
+- **Inflation, debt, employment, and fiscal movement:** Objectives are established; attributable target-year outcomes remain weak.
+- **Poverty/inequality effects:** Not improved.
+- **Privatization/competition:** E024 establishes a privatization commitment, not completed transactions.
+- **Calendar-2000 implementation evaluation:** Still weak. E011 and E027 remain post-period context.
+
+### Attribution limits
+
+The economic program was jointly shaped by finance officials and IMF conditionality. E026 supports Musharraf’s personnel choice but not Aziz’s independence or effectiveness. Approval of a program does not prove implementation or household benefit.
+
+### Saturation judgment
+
+The economic-policy architecture is now traceable, but outcome and distribution evidence remains insufficiently granular. Further work should target IMF staff report tables for FY1999/2000 and FY2000/01, the Pakistan Economic Survey 2000–01, the 2000–01 federal budget, and World Bank program evaluations. These exact documents were not recoverable in the active pass.
+
+---
+
+## 6B continuation
+
+### New/contextual evidence
+
+- E027: later IMF description of a strategy including education and health spending;
+- E023: devolution implementation could affect local service institutions but does not prove delivery;
+- E018: vulnerable-group exposure;
+- E012 remains the sole direct personal welfare/protection announcement.
+
+### Gap results
+
+- **Health/education/water/sanitation delivery:** Not improved with direct target-year implementation evidence.
+- **Professional management:** Not recovered.
+- **Measurement/correction:** Not recovered.
+- **Crisis response:** No target-year crisis-response record with precise attribution was recovered.
+- **Politicized benefits:** Not recovered.
+- **Social protection:** Not recovered.
+- **Independent evaluation:** Not recovered.
+- **Durable institutions:** Devolution was initiated, but most legal and electoral implementation occurred after 2000 and service-delivery effects were not established.
+
+### Saturation judgment
+
+Despite targeted searches for budget, health, education, poverty, and service delivery, no additional defensible target-year implementation unit emerged. The chapter remains sparse. The likely recoverable evidence lies in contemporaneous World Bank Social Action Program reviews, UNICEF/WHO country-program documents, Pakistan’s 2000–01 budget, or the later I-PRSP’s historical baseline. Those require exact-document retrieval unavailable here.
+
+---
+
+## 7B continuation
+
+### New evidence
+
+- E028: Musharraf-created NAB;
+- E029: broad NAB powers combined with stated/observed limits;
+- R005: later evidence of selectivity rejected for target-year use.
+
+### Gap results
+
+- **Truthfulness/corrections:** Not recovered.
+- **Personal/family/business conflicts:** Not recovered.
+- **Personal or family enrichment:** Not recovered.
+- **NAB record and selectivity:** Institution and powers improved through E028–E029; target-year selective-enforcement proof remains absent.
+- **Asset declarations:** Not recovered.
+- **Procurement/gifts/contracts:** Not recovered.
+- **Nepotism:** Not recovered.
+- **Obstruction of personal investigation:** Not recovered.
+- **Independent ruler-specific finding:** Not recovered.
+
+### Attribution boundary
+
+E028–E029 demonstrate Musharraf’s accountability architecture and its broad coercive powers. They do **not** establish personal honesty, corruption, enrichment, or deliberate selectivity. Later evidence that NAB pressured opposition politicians concerns 2002 and was rejected for the immutable period.
+
+### Saturation judgment
+
+The direct personal-integrity gap could not be materially improved. Search results were dominated by later-tenure allegations or generic national corruption. Under the target-period boundary, the defensible record remains institutional rather than personal.
+
+---
+
+## 8B continuation
+
+### New evidence
+
+- E013: missile test;
+- E016: direct Kashmir-talks proposal;
+- E022–E023: devolution plan and first implementation phase;
+- E024–E025: concrete IMF program and objectives;
+- E026: finance-team appointment;
+- E028–E029: NAB creation and operation;
+- E008A–E008C: separately traceable support mechanisms.
+
+### Gap results
+
+- **Budgets/milestones:** IMF conditions and program objectives improved this theme, but exact budget appropriations remain missing.
+- **Devolution implementation:** Improved by E023; implementation began on the final day of 2000.
+- **Appointments/personnel:** Improved by E026.
+- **Anti-corruption enforcement/selectivity:** Institution and broad powers are established; target-year selectivity remains unclear.
+- **Attributable economic outcomes:** Still weak; E011 remains post-period context.
+- **Tactical learning:** Partial evidence from engaging in talks and accepting formal program architecture, but no clear failure-correction episode.
+- **Durability:** Not established within one year; later records cannot silently answer the 2000 question.
+
+### Program-to-action chain now documented
+
+The continuation strengthens the link between announced goals and formal action:
+
+- nuclear command institution;
+- missile testing;
+- NAB creation and active authority;
+- IMF program with measurable conditions;
+- professional finance appointment;
+- devolution-plan approval;
+- first local-election phase;
+- talks proposal in the Kashmir ceasefire context.
+
+It remains much weaker on implementation depth, outcomes, adaptation, and durability.
+
+### Saturation judgment
+
+8B is the most developed chapter after 4B. Further target-year research would have diminishing value unless exact budgets, cabinet minutes, program reviews, or Pakistan Economic Survey tables become available.
+
+---
+
+# 5. Round-1 manifest changes
+
+The parent should apply the following conceptual entries:
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries_to_add_or_change": [
+    {
+      "provisional_id": "E006",
+      "disposition": "rejected",
+      "reason": "Bundled proliferation and dialogue claims; replaced by E006A and E006B."
+    },
+    {
+      "provisional_id": "E006A",
+      "canonical_fact_key": "everycrs-RL30623|Pakistan-section-15-July-2000-FBIS|PAEC-peaceful-nuclear-export",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E006B",
+      "canonical_fact_key": "everycrs-RL30623|On-June-15-2000-paragraph|nonproliferation-talks-resumed",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E008",
+      "disposition": "rejected",
+      "reason": "Bundled aircraft logistics, operational planning, and government-knowledge claims; replaced by E008A-E008C."
+    },
+    {
+      "provisional_id": "E008A",
+      "canonical_fact_key": "hrw-Afghan0701|late-2000-support-passage|aircraft-assisted-troop-rotations",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E008B",
+      "canonical_fact_key": "hrw-Afghan0701|late-2000-support-passage|army-intelligence-planning",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E008C",
+      "canonical_fact_key": "hrw-Afghan0701|late-2000-support-passage|private-support-government-knowledge",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E013",
+      "canonical_fact_key": "nuclearweaponarchive-PakNPower|February-2000-chronology|Hatf-1-flight-test",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E015",
+      "canonical_fact_key": "frontline-considered-strategy|Hizbul-ceasefire-passage|disputed-government-role",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E016",
+      "canonical_fact_key": "frontline-ceasefire-peace-drama|22-December-editor-meeting|tripartite-talks-proposal",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E017",
+      "canonical_fact_key": "refworld-3ae6aaa4c|MQM-detention-passage|reported-custodial-torture",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E018",
+      "canonical_fact_key": "refworld-403dd20b14|10-November-2000|anti-Ahmadi-mob-attack",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E019",
+      "canonical_fact_key": "refworld-3ae6aaa4c|section-2a|press-relative-freedom-self-censorship",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E020",
+      "canonical_fact_key": "cpj-2000-02|release-summary|press-freedom-concerns-under-military-rule",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E021",
+      "canonical_fact_key": "nyt-2000-05-13|opening-summary|three-year-civilian-return-deadline",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E022",
+      "canonical_fact_key": "justice-276126|citation-to-6-August-2000|Devolution-Plan-approved",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E023",
+      "canonical_fact_key": "ecoi-1164660|NRB-election-schedule|first-local-election-phase-December-2000",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E024",
+      "canonical_fact_key": "nyt-2000-12-01|loan-conditions-paragraph|tax-deficit-privatization-program",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E025",
+      "canonical_fact_key": "imf-2001-024|program-objectives|reserves-balance-payments-public-debt",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E026",
+      "canonical_fact_key": "nyt-1999-10-26|civilian-appointees|Shaukat-Aziz-finance-minister",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E027",
+      "canonical_fact_key": "imf-vc092303|strategy-paragraph|Musharraf-program-ownership",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E028",
+      "canonical_fact_key": "nyt-1999-11-18|opening|NAB-created-with-14-year-penalty",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E029",
+      "canonical_fact_key": "refworld-3ae6aaa4c|NAB-passage|stated-scope-and-broad-powers",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "R005",
+      "canonical_fact_key": "refworld-403dd20f10|ICG-October-2002|NAB-selectivity",
+      "disposition": "rejected",
+      "reason": "Evidence concerns 2002 electoral pressure rather than calendar 2000."
+    },
+    {
+      "provisional_id": "R006",
+      "canonical_fact_key": "imf-112201b|2000-01-baseline|later-prior-actions",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "R007",
+      "canonical_fact_key": "justice-276126|devolution-report|exact-page-unavailable",
+      "disposition": "rejected",
+      "reason": "Exact PDF locator was unavailable; discovery support only until verified."
+    },
+    {
+      "provisional_id": "R008",
+      "canonical_fact_key": "web-search|post-2000-Musharraf-assets-allegations|outside-period",
+      "disposition": "rejected",
+      "reason": "Later allegations did not directly establish personal conduct in 2000."
+    }
+  ]
+}
+```
+
+---
+
+# 6. Round-1 global conclusion
+
+Research continuation materially improved:
+
+- 1B missile-testing and nonproliferation diplomacy;
+- 2B Kashmir diplomacy and the provenance of Taliban-support claims;
+- 3B custodial-torture and sectarian-violence exposure;
+- 4B press conditions, election timing, and devolution implementation;
+- 5B IMF program content, economic appointments, and policy operationalization;
+- 8B the program-to-formal-action chain.
+
+It did **not** materially solve:
+
+- operational nuclear-command safety;
+- direct Musharraf orders for proxy or conflict conduct;
+- civilian-harm and military-accountability evidence;
+- implementation of the women-and-children package;
+- calendar-2000 health, education, water, sanitation, or social-protection delivery;
+- ruler-personal integrity, enrichment, conflicts, nepotism, or truthfulness;
+- attributable household economic outcomes;
+- durable implementation and adaptation beyond institutional design.
+
+The remaining gaps are now increasingly source-access problems rather than broad discovery problems. High-value continuation would require exact primary documents or archival reports rather than more general search-result discovery.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.refworld.org/docid/3ae6aaa4c.html|overview-and-sections-1-2|security-forces-serious-abuses-and-political-arrests",
+      "disposition": "final_evidence",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.nytimes.com/2000/05/13/world/pakistan-court-upholds-coup-but-orders-reforms.html|opening-and-court-order|coup-upheld-three-year-reform-election-timetable",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.nytimes.com/1999/10/15/world/pakistan-military-completes-seizure-of-all-authority.html|opening|constitution-parliament-suspended-chief-executive",
+      "disposition": "context",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.theguardian.com/world/2000/mar/16/india.kashmir|paragraph-on-command-centre|musharraf-established-nuclear-command-control-centre",
+      "disposition": "final_evidence",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://frontline.thehindu.com/world-affairs/article30250302.ece|section-on-ctbt-end-2000|musharraf-did-not-accept-ministers-ctbt-push",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.everycrsreport.com/reports/RL30623.html|pakistan-section-2000|nuclear-missile-proliferation-and-export-statement",
+      "disposition": "final_evidence",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://nuclearweaponarchive.org/India/KargilRCB.html|discussion-of-pakistan-leadership|musharraf-discussed-kargil-operation-with-political-leadership",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/reports/2001/afghan2/Afghan0701.pdf|reported-pakistani-support-late-2000|aircraft-troop-rotations-and-planning-support",
+      "disposition": "final_evidence",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/briefings/statements/1999/ps991017.html|summary-of-musharraf-speech|seven-point-recovery-accountability-agenda",
+      "disposition": "context",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://www.wrmea.org/2000-july/musharraf-s-military-government-receives-judicial-endorsement-for-three-year-rule-in-pakistan.html|paragraph-on-priorities|accountability-economic-recovery-constitutional-refinement",
+      "disposition": "context",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.theguardian.com/world/2001/jun/25/pakistan.guardianleaders|paragraph-reviewing-since-1999|some-corruption-economy-progress-but-suspended-politics-kashmir-taliban-isolation",
+      "disposition": "context",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)72533-2/abstract|abstract|musharraf-announced-women-children-human-rights-package",
+      "disposition": "final_evidence",
+      "provisional_id": "E012"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

@@ -1,0 +1,1438 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. In particular, `research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact. Documented formal authority for a
+national policy, program, appointment, or state action can satisfy ruler attribution
+when the evidence and guide support authority-based responsibility; a personal order
+is not required in every case. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:6B",
+  "run_key": "2023-top20-usa-tha-repair-judges-v1",
+  "chapter_id": "6B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:6B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E032",
+          "E033",
+          "E034",
+          "E035",
+          "E036",
+          "E037",
+          "E038",
+          "E056"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "Health, welfare, education, and disaster evidence is available; rural access and broader service gaps remain.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E032",
+          "E033",
+          "E034",
+          "E035",
+          "E036",
+          "E037",
+          "E056"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Poverty, coverage, food, housing, disaster, and maternal-health evidence is substantial.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E032",
+          "E033",
+          "E034",
+          "E035",
+          "E036"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Vulnerable-group and coverage outcomes are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E037",
+          "E038",
+          "E056"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Maternal health, schooling, absenteeism, and disaster response are covered.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E032",
+          "E033",
+          "E036",
+          "E037"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "Health access and food/housing security evidence is available; rural access remains a gap.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E033",
+          "E034",
+          "E035",
+          "E036"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "Poverty, asylum, food, housing, and coverage harms are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E038"
+        ],
+        "methodology_id": "6B.7",
+        "reason": "Education and institutional safety evidence is present, though childcare and longer-term recovery remain gaps.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E031",
+          "E033",
+          "E034",
+          "E036"
+        ],
+        "methodology_id": "6B.8",
+        "reason": "Detention, asylum, debt, housing, and material-security effects are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E033",
+          "E036",
+          "E056",
+          "E057"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Implementation and durability evidence exists but independent long-term evaluation remains limited.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E032",
+          "E033",
+          "E034",
+          "E035",
+          "E036",
+          "E037",
+          "E038",
+          "E056"
+        ],
+        "methodology_id": "6B.10",
+        "reason": "Broad welfare evidence is available with attribution and durability caveats.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 9976,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|specific-SAVE-plan-rules|SAVE-operational-design",
+        "claim": "The SAVE plan raised protected income, prevented unpaid monthly interest from increasing balances, and established earlier forgiveness for some low-balance borrowers.",
+        "contrary_evidence": [
+          "Administration savings and beneficiary estimates are self-reported.",
+          "Later litigation is outside the target period."
+        ],
+        "evidence_id": "E031",
+        "excerpt": "Fact-sheet bullets describe payment, interest, and forgiveness rules.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact August 2023",
+        "publication_date": "2023-08-22",
+        "publisher": "Archived White House",
+        "ruler_attribution": "Direct Biden administration program.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record.",
+        "source_locator": "SAVE-plan rule bullets",
+        "source_type": "official fact sheet",
+        "title": "Fact Sheet: The Biden-Harris Administration Launches the SAVE Plan",
+        "url": "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/"
+      },
+      {
+        "canonical_fact_key": "https://www.cms.gov/newsroom/fact-sheets/marketplace-2023-open-enrollment-period-report-final-national-snapshot|opening-and-national-table|2023-marketplace-enrollment",
+        "claim": "About 16.3 million people selected 2023 Marketplace plans, including 3.6 million new consumers.",
+        "contrary_evidence": [
+          "Plan selection is not necessarily effectuated enrollment.",
+          "State marketplaces and subsidies contribute to attribution."
+        ],
+        "evidence_id": "E032",
+        "excerpt": "CMS reports 16.3 million selections and the new/returning breakdown.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 coverage selection",
+        "publication_date": "2023",
+        "publisher": "Centers for Medicare & Medicaid Services",
+        "ruler_attribution": "Federal policy and outreach contributed; sole presidential causation not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official administrative data.",
+        "source_locator": "Opening paragraph and first national table",
+        "source_type": "official administrative report",
+        "title": "Marketplace 2023 Open Enrollment Period Report",
+        "url": "https://www.cms.gov/newsroom/fact-sheets/marketplace-2023-open-enrollment-period-report-final-national-snapshot"
+      },
+      {
+        "canonical_fact_key": "https://www.kff.org/medicaid/10-things-to-know-about-the-unwinding-of-the-medicaid-continuous-enrollment-provision/|intro-and-sections-1-3|Medicaid-unwinding-risk",
+        "claim": "The March 2023 end of continuous Medicaid enrollment created projected disenrollment risk of 7.8\u201324.4 million people, including many potentially still eligible.",
+        "contrary_evidence": [
+          "Congress set the end date; states administered renewals.",
+          "Some people could move to Marketplace or employer coverage."
+        ],
+        "evidence_id": "E033",
+        "excerpt": "KFF reports federal and state projections and the shared administrative structure.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 transition",
+        "publication_date": "2023-06-09",
+        "publisher": "KFF",
+        "ruler_attribution": "Shared congressional, federal, and state attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Health-policy research synthesis.",
+        "source_locator": "Introduction and sections 1-3",
+        "source_type": "health-policy analysis",
+        "title": "10 Things to Know About the Unwinding of the Medicaid Continuous Enrollment Provision",
+        "url": "https://www.kff.org/medicaid/10-things-to-know-about-the-unwinding-of-the-medicaid-continuous-enrollment-provision/"
+      },
+      {
+        "canonical_fact_key": "https://nlihc.org/resource/hud-releases-2023-annual-homeless-assessment-report|opening-and-population-sections|2023-homelessness-increase",
+        "claim": "Approximately 653,100 people experienced homelessness in the 2023 point-in-time count, a 12% increase and the highest count since 2007.",
+        "contrary_evidence": [
+          "Point-in-time counts are snapshots.",
+          "Housing supply, rents, states, localities, migration, and expired pandemic supports complicate attribution."
+        ],
+        "evidence_id": "E034",
+        "excerpt": "NLIHC summarizes HUD's 2023 AHAR and subgroup disparities.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 count",
+        "publication_date": "2023-12-18",
+        "publisher": "National Low Income Housing Coalition summarizing HUD",
+        "ruler_attribution": "National outcome; presidential attribution limited.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Policy NGO reporting official HUD data.",
+        "source_locator": "Opening four paragraphs",
+        "source_type": "housing-policy report",
+        "title": "HUD Releases 2023 Annual Homeless Assessment Report",
+        "url": "https://nlihc.org/resource/hud-releases-2023-annual-homeless-assessment-report"
+      },
+      {
+        "canonical_fact_key": "https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates",
+        "claim": "In 2023 the official poverty rate fell to 11.1%, while the Supplemental Poverty Measure rose to 12.9% and SPM child poverty rose to 13.7%.",
+        "contrary_evidence": [
+          "Official and supplemental measures moved in opposite directions.",
+          "Congress, inflation, expired pandemic supports, and states complicate attribution."
+        ],
+        "evidence_id": "E035",
+        "excerpt": "Census summary bullets report the official, SPM, and child-poverty changes.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 outcome",
+        "publication_date": "2024-09-10",
+        "publisher": "U.S. Census Bureau",
+        "ruler_attribution": "Outcome only; presidential contribution not isolated.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official statistics.",
+        "source_locator": "Summary bullets under Official Poverty Measure and Supplemental Poverty Measure",
+        "source_type": "official statistics",
+        "title": "Poverty in the United States: 2023",
+        "url": "https://www.census.gov/library/publications/2024/demo/p60-283.html"
+      },
+      {
+        "canonical_fact_key": "https://www.cdc.gov/pcd/issues/2024/24_0121.htm|abstract-results-and-introduction|SNAP-rent-assistance-material-security",
+        "claim": "A CDC-published study found SNAP emergency allotments and emergency rental assistance were associated with greater food sufficiency, and rental aid with being current on rent.",
+        "contrary_evidence": [
+          "The study is observational.",
+          "Programs involved federal legislation and state/local administration."
+        ],
+        "evidence_id": "E036",
+        "excerpt": "Abstract reports associations between emergency supports and material security.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "June 2022-May 2023",
+        "publication_date": "2024",
+        "publisher": "CDC Preventing Chronic Disease",
+        "ruler_attribution": "Shared federal, state, and local program attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Peer-reviewed government journal.",
+        "source_locator": "Abstract Results and opening introduction",
+        "source_type": "peer-reviewed government study",
+        "title": "SNAP Emergency Allotments, Emergency Rent Assistance, Rent Burden, and Housing and Food Security",
+        "url": "https://www.cdc.gov/pcd/issues/2024/24_0121.htm"
+      },
+      {
+        "canonical_fact_key": "https://www.cdc.gov/nchs/data/hestat/maternal-mortality/2023/maternal-mortality-rates-2023.htm|lines-49-58|2023-maternal-mortality",
+        "claim": "CDC reported a 2023 Black maternal-mortality rate of 50.3 per 100,000 live births versus 14.5 for White women, with data-quality limitations.",
+        "contrary_evidence": [
+          "The statistic is an outcome and does not identify Biden causation.",
+          "CDC noted some overall and subgroup declines."
+        ],
+        "evidence_id": "E037",
+        "excerpt": "CDC reports the racial disparity and rates.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Centers for Disease Control and Prevention",
+        "ruler_attribution": "National health outcome; multilevel causes.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official vital-statistics release.",
+        "source_locator": "Lines 49-58",
+        "source_type": "official statistics",
+        "title": "Maternal mortality rates, 2023",
+        "url": "https://www.cdc.gov/nchs/data/hestat/maternal-mortality/2023/maternal-mortality-rates-2023.htm"
+      },
+      {
+        "canonical_fact_key": "https://www.ed.gov/teaching-and-administration/supporting-students/chronic-absenteeism|lines-190-230|2022-23-absenteeism",
+        "claim": "Education Department data showed chronic absenteeism falling from about 31% in 2021\u201322 to 28% in 2022\u201323, with 20 states above 30%.",
+        "contrary_evidence": [
+          "The measure remains severe and does not establish federal presidential causation."
+        ],
+        "evidence_id": "E038",
+        "excerpt": "Department summary reports the national decline and state variation.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022-23 school year",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Department of Education",
+        "ruler_attribution": "Education outcome with federal, state, and local causes.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official education data.",
+        "source_locator": "Lines 190-230",
+        "source_type": "official government data",
+        "title": "Chronic absenteeism",
+        "url": "https://www.ed.gov/teaching-and-administration/supporting-students/chronic-absenteeism"
+      },
+      {
+        "canonical_fact_key": "https://www.presidency.ucsb.edu/documents/fact-sheet-biden-harris-administrations-response-the-maui-wildfires|opening-through-response-bullets|Maui-federal-mobilization",
+        "claim": "Biden signed a major-disaster declaration within hours of the Maui fires and federal agencies deployed personnel, search-and-rescue resources, supplies, and assistance.",
+        "contrary_evidence": [
+          "Official self-report establishes mobilization, not adequacy or long-term recovery.",
+          "E084 identifies a FirstNet service failure during the response."
+        ],
+        "evidence_id": "E056",
+        "excerpt": "Fact sheet lists declaration, personnel, supplies, and assistance.",
+        "final_evidence_use": "context",
+        "period_fit": "exact August 2023",
+        "publication_date": "2023-08-15",
+        "publisher": "American Presidency Project reproducing White House fact sheet",
+        "ruler_attribution": "Direct disaster declaration and federal mobilization; adequacy not established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record reproduction.",
+        "source_locator": "Opening three paragraphs and response bullet list",
+        "source_type": "official fact sheet",
+        "title": "Biden-Harris Administration\u2019s Response to the Maui Wildfires",
+        "url": "https://www.presidency.ucsb.edu/documents/fact-sheet-biden-harris-administrations-response-the-maui-wildfires"
+      },
+      {
+        "canonical_fact_key": "https://www.oversight.gov/reports/audit/nationwide-public-safety-broadband-network-was-not-always-available-first-responders|audit-findings|Maui-FirstNet-service-failure",
+        "claim": "Commerce OIG later found FirstNet services were not always effective during the 2023 Maui response because of inadequate service, continuity planning, and reporting.",
+        "contrary_evidence": [
+          "The finding concerns one service component and does not establish overall response failure or presidential responsibility."
+        ],
+        "evidence_id": "E057",
+        "excerpt": "Oversight audit identifies FirstNet availability and planning deficiencies.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "retrospective evidence about August 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Commerce Office of Inspector General",
+        "ruler_attribution": "Agency implementation failure; presidential responsibility indirect.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official oversight audit.",
+        "source_locator": "Audit findings section",
+        "source_type": "official audit",
+        "title": "Nationwide Public Safety Broadband Network was not always available to first responders",
+        "url": "https://www.oversight.gov/reports/audit/nationwide-public-safety-broadband-network-was-not-always-available-first-responders"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "6B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E032",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Maternal mortality disparity."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "6B.2",
+        "relation": "supports",
+        "relevance": "Marketplace enrollment."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.2",
+        "relation": "supports",
+        "relevance": "Food and rent security."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.3",
+        "relation": "contradicts",
+        "relevance": "Medicaid unwinding risk."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.4",
+        "relation": "supports",
+        "relevance": "Attendance improvement with remaining severity."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.6",
+        "relation": "contradicts",
+        "relevance": "Homelessness increase."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E057",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "150115894e7c460cf01192d2e2e20c82f0f47c5ce332baa3a590ac23dbf880bb",
+      "source_mix_note": "Evidence mix includes official government and intergovernmental records, inspector-general and GAO audits, official statistics, specialist NGOs, reputable media, policy institutes, fact-checkers, and local structured priors. Local priors are context only. Some source families remain concentrated in nuclear arms-control and selected integrity episodes; several official primary documents were inaccessible in the research run.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "eef0457b8e2faf43682bf5ccc38b83a4e982e7b9808a572bd30f3cd3f1d837ba",
+    "unresolved_gaps": [
+      "Detailed classified nuclear command-and-control safeguards, completed fail-safe review findings, and independent start/end 2023 posture measurement.",
+      "Iran, North Korea, Saudi, and allied proliferation-restraint evidence beyond the South Korean record.",
+      "Primary 2023 Israel arms-transfer records, incident-level civilian-harm accountability, and causal evidence linking Biden diplomacy to the November Gaza pause.",
+      "Complete ATACMS, F-16, targeting, prisoner-treatment, and accountability records for Ukraine.",
+      "Direct DHS/DOJ inspector-general records and complete federal protest-surveillance evidence.",
+      "Independent IRA, infrastructure, climate, CHIPS, and portfolio-wide implementation audits; competition policy and procurement evidence.",
+      "Maternal, rural-health, reproductive-care, childcare, school-recovery, and longer-term welfare delivery evidence.",
+      "Underlying disclosure review, campaign-finance patterns, donor/appointment influence, and broader factual-correction sample.",
+      "No local structured priors were supplied for 1B or 6B; this is a documented local-field gap, not evidence of no activity."
+    ]
+  },
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Thailand",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E020",
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "NHSO universal-coverage outcomes provide target-period social-service evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Learning reform and health-benefit evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E021",
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Health-service and coverage outcomes retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E022",
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Learning Promotion Act evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "NHSO service and benefit expansion documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "Education reform evidence retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.7",
+        "reason": "Social-policy evidence is institutional rather than personally attributed.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E023",
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.8",
+        "reason": "Coverage and HDI indicators retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Relevant social outcomes are documented, with attribution caveats.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "6B.10",
+        "reason": "UNDP HDI context and 2023 service outcomes retained.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 6493,
+    "evidence": [
+      {
+        "canonical_fact_key": "nhso:ucs-604:2023-coverage-outcomes",
+        "claim": "NHSO reported 2023 universal-coverage reforms including outpatient-anywhere, inpatient-anywhere, and Cancer Anywhere, with more than 47 million people covered and over 1.81 million outpatient-anywhere visits.",
+        "contrary_evidence": [],
+        "evidence_id": "E020",
+        "excerpt": "NHSO reports coverage and service-use outcomes for 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2023-12-31",
+        "publisher": "National Health Security Office",
+        "ruler_attribution": "Institutional health-system delivery; personal Prayut direction not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official NHSO achievement report.",
+        "source_locator": "Article body reporting 2023 coverage and service-use figures.",
+        "source_type": "official government report",
+        "title": "UCS elevated throughout 2023",
+        "url": "https://eng.nhso.go.th/view/1/DescriptionNews/UCS-elevated-Throughout-2023/604/EN-US"
+      },
+      {
+        "canonical_fact_key": "nhso:ucs-604:2023-new-benefits",
+        "claim": "NHSO reported new 2023 benefits including hepatitis-B, thalassemia, syphilis, HIV self-testing, BRCA and newborn screening, genetic screening, and dental implants.",
+        "contrary_evidence": [],
+        "evidence_id": "E021",
+        "excerpt": "NHSO lists new universal-coverage benefits introduced or expanded in 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2023-12-31",
+        "publisher": "National Health Security Office",
+        "ruler_attribution": "Institutional policy/output; personal Prayut ownership not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official health-system report with enumerated benefits.",
+        "source_locator": "Article body listing new 2023 benefits.",
+        "source_type": "official government report",
+        "title": "NHSO 2023 benefit expansion",
+        "url": "https://eng.nhso.go.th/view/1/DescriptionNews/UCS-elevated-Throughout-2023/604/EN-US"
+      },
+      {
+        "canonical_fact_key": "thailand-go-th:learning-promotion-act-2566",
+        "claim": "Thailand's Promotion of Learning Act B.E. 2566 took effect on 19 May 2023 and elevated non-formal and informal education into a Department of Learning Promotion.",
+        "contrary_evidence": [],
+        "evidence_id": "E022",
+        "excerpt": "Thai government description of the law and its effective date.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "19 May 2023",
+        "publication_date": "2023-05-19",
+        "publisher": "Thai Government",
+        "ruler_attribution": "Target-period legal reform; personal Prayut authorship not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official government policy description.",
+        "source_locator": "Article body describing the Act and effective date.",
+        "source_type": "official government release",
+        "title": "Promotion of Learning Act B.E. 2566",
+        "url": "https://thailand.go.th/public/issue-focus-detail/001_06_051?hl=en"
+      },
+      {
+        "canonical_fact_key": "undp-thailand:2022-hdi-0.803-ihdi-0.681",
+        "claim": "UNDP reported Thailand's 2022 HDI at 0.803, rank 66 of 193, with inequality-adjusted HDI of 0.681.",
+        "contrary_evidence": [],
+        "evidence_id": "E023",
+        "excerpt": "UNDP reports Thailand's HDI and inequality-adjusted HDI.",
+        "final_evidence_use": "context",
+        "period_fit": "2022 indicator context for 2023 period",
+        "publication_date": "2024-03-13",
+        "publisher": "UNDP Thailand",
+        "ruler_attribution": "Country indicator; not directly attributable to Prayut.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct UNDP release rather than Wikipedia gateway.",
+        "source_locator": "Release paragraphs 24\u201343.",
+        "source_type": "UN agency release",
+        "title": "Thailand's human development index improved to pre-COVID level",
+        "url": "https://www.undp.org/thailand/press-releases/thailands-human-development-index-improved-pre-covid-level-yet-more-collective-actions-are-needed-accelerate-progress-finds"
+      },
+      {
+        "canonical_fact_key": "nacc:2023-09-prayut-cabinet-asset-submission",
+        "claim": "NACC stated that Prayut and his ministers were required to submit asset-and-liability accounts after leaving office, with submissions due between 6 September and 4 November 2023.",
+        "contrary_evidence": [
+          "No admissible Prayut-specific compliance finding or violation was recovered."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "NACC records the post-office asset-submission requirement and deadline.",
+        "final_evidence_use": "context",
+        "period_fit": "Post-handover accountability-system context",
+        "publication_date": "2023-09-22",
+        "publisher": "National Anti-Corruption Commission of Thailand",
+        "ruler_attribution": "Accountability requirement, not evidence of personal compliance or misconduct.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official NACC notice.",
+        "source_locator": "Notice body describing former PM and cabinet submission deadlines.",
+        "source_type": "official government notice",
+        "title": "Asset-and-liability submission requirement after leaving office",
+        "url": "https://www.nacc.go.th/categorydetail/2019122712514151207005112EK12853/20230922184733"
+      },
+      {
+        "canonical_fact_key": "bangkokpost:2639189:reshuffle-countersigned-prayut",
+        "claim": "The 2023 annual military reshuffle was countersigned by caretaker Prime Minister Prayut Chan-o-cha and took effect on 1 October 2023.",
+        "contrary_evidence": [
+          "The notebook does not establish that the signature evidences improper motive, personal benefit, or effectiveness."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "Bangkok Post reports the Royal Gazette personnel command and Prayut's countersignature.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Directly 2023; signature in late August and implementation in October",
+        "publication_date": "2023-08-31",
+        "publisher": "Bangkok Post",
+        "ruler_attribution": "Direct executive signature by Prayut.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Named-reporting direct article citing Royal Gazette action.",
+        "source_locator": "Article body paragraph stating the command was countersigned by Prayut.",
+        "source_type": "news report",
+        "title": "Royal command appoints 762 military officers",
+        "url": "https://www.bangkokpost.com/thailand/general/2639189/royal-command-appoints-762-military-officers"
+      }
+    ],
+    "iso3": "THA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "6B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E020",
+        "methodology_id": "6B.1",
+        "relation": "supports",
+        "relevance": "Universal-coverage service outcome."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "6B.3",
+        "relation": "supports",
+        "relevance": "Expanded health benefits."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "6B.4",
+        "relation": "supports",
+        "relevance": "Education-law reform."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Direct UNDP human-development indicator."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "3006",
+    "ruler_name": "Prayut Chanocha",
+    "ruler_year_id": 17130,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ad79783e02523b8129c973b314f3f1f3f9b66c95030a3da2ea667799b0b31ce1",
+      "source_mix_note": "Evidence mixes official Thai and U.S. government releases, multilateral reports, UN materials, international and domestic NGOs, major news reporting, and supplied structured local priors. Country-level and institutional sources are explicitly limited where personal ruler attribution is not documented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "4b2af7075640b13af352d4f19ffdb61e4cebcbf916ba72960e479585fe831b07",
+    "unresolved_gaps": [
+      "No direct 2023 personal-integrity finding involving Prayut was recovered.",
+      "No clearly Prayut-authored 2023 economic or social-policy decision was recovered.",
+      "No evidence establishes that Prayut personally directed the Senate, Election Commission, or Constitutional Court actions involving Pita.",
+      "Cumulative protest statistics require strict temporal separation of the post-22-August period.",
+      "Direct source locators for some legacy Wikipedia-routed claims remain incomplete; those claims are not emitted as final evidence.",
+      "The notebook identifies further possible research themes, but this formatter performed no new research.",
+      "Local-prior placeholder provenance must be replaced by the parent with complete hashed artifact provenance before validation."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 6B Social Well-Being and Human Development
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `6B`
+- Category: ruler intention and action for social well-being and human development
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_6b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
+
+## Ten Evidence Lenses
+
+1. **6B.1** — Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?
+2. **6B.2** — Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?
+3. **6B.3** — Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?
+4. **6B.4** — Did the ruler fund and manage social services with competent professionals rather than patronage networks?
+5. **6B.5** — Did the ruler use evidence, measurement, and transparent correction to improve service delivery?
+6. **6B.6** — Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?
+7. **6B.7** — Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?
+8. **6B.8** — Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?
+9. **6B.9** — Did the ruler build durable social institutions that would survive beyond their personal rule?
+10. **6B.10** — Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?
+
+## Researcher Evidence Plan
+
+Build a reusable cited dossier; do not assign the chapter score. Follow the local-first researcher guide and source-confidence registry. Start with local UNDP, WHO/WDI, education, poverty/inequality and V-Dem equality priors. Add national statistics and household surveys; WHO, UNICEF/JMP, UNESCO, ILO, FAO/WFP, UN-Habitat, UNHCR, World Bank and regional banks; audits and program evaluations; peer-reviewed histories; and credible civil-society/local reporting. Document definitions and time-series breaks.
+
+Collect evidence on revealed welfare priority; effective access, affordability, quality and uptake across health, education, water, sanitation, housing, food and protection; distribution to vulnerable groups; professional administration; measurement and correction; crisis preparation/response; political conditionality or punishment; dignity and opportunity; institutional durability; and inherited-to-left life chances. Separate promises, budgets, delivery and outcomes. Preserve contrary evidence, subnational variation, donor roles and shocks. Evidence may inform several lenses; no formal label vocabulary or complete mapping table is required.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Assess improvement and avoidable harm from the inherited health, education, income, infrastructure, demographic, geographic, conflict and state-capacity baseline. Separate ruler decisions from demographic trends, predecessor pipelines, donors, local governments, war, disaster and disease novelty. Credit preparation, allocation, implementation and correction proportionately to authority. High absolute welfare inherited by a ruler is not automatically high ruler performance; low absolute levels do not automatically imply failure.
+
+Historical cases may lack comparable surveys or complete domain coverage. Use mortality, schooling, nutrition, budgets, institutional histories and credible contemporary accounts without pretending modern precision. Explicitly mark missing or contested domains. Missing lenses lower confidence only; they never invalidate the dossier, prohibit a chapter score or count as deterioration. Closed-system silence requires caution.
+
+Missing domains do not mechanically invalidate a dossier, but the absence of any
+ruler-attributed discriminating welfare action, implementation, remedy, or outcome
+does prohibit a score. Country baselines and generic priors cannot set the score's
+direction. Scores of 6 or above require independently supported baseline-adjusted
+gains attributable in meaningful part to the ruler; scores of 2–3 require severe,
+avoidable ruler-linked deprivation, exclusion, or destructive mismanagement. A high
+inherited welfare level plus adequate crisis administration may support a moderate
+positive score, but not an 8–9 without broad contribution or consequential protection.
+
+## Chapter Judge and Lens Weighting
+
+One judge applies one meter across all rulers. Weight lenses qualitatively by severity and breadth of suffering or improvement, ruler responsibility, baseline-adjusted magnitude, equity, durability, source strength and period fit. Avoidable famine, mass denial or transformative universal provision can dominate narrower programs. A flagship service cannot stand for the portfolio, but complete evidence across seven services is not required. Professional appointments and measurement matter insofar as they support delivery. `6B.10` synthesizes rather than double-counts.
+
+Question redundancy is a feature: several lenses may corroborate the same welfare orientation and institutional mechanism. State which lenses and service domains are well evidenced, uncertain or unavailable. Judge overall life chances and ruler contribution; do not average lens scores.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Ruler action or knowing, feasible neglect causes catastrophic widespread suffering, systematic exclusion or destruction of basic human-development capacity. |
+| 2–3 | Severe avoidable deprivation, discriminatory denial, politicized provision or repeated destructive mismanagement dominates several important welfare areas. |
+| 4–5 | Some genuine improvement coexists with major gaps, exclusion, patronage, poor quality, crisis failure or weak durability; overall contribution is mixed. |
+| 6–7 | Clear baseline-adjusted gains in ordinary people's welfare and access, with meaningful remaining inequality, quality, coverage or institutional weaknesses. |
+| 8–9 | Large, broad, equitable and durable human-development gains are independently supported, including credible protection of vulnerable groups and crisis resilience. |
+| 10 | Exceptional feasible transformation of life chances and dignity through near-universal effective provision and durable, inclusive institutions beyond personal rule. |
+
+## Common Chapter-Judge Output Envelope
+
+The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
+
+- `chapter_id`: `6B`
+- `rubric_version`: `chapter_6b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extras: `evidenced_service_domains`, `distribution_and_dignity`,
+`crisis_context`, `institutional_durability`, and `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language descriptions are preferred to false enum precision.
+
+## Calibration, Confidence, and Bias Checks
+
+Check national-average versus group/region bias, income and baseline comparability, demographic lag, donor/subnational attribution, conflict/disaster/pandemic context, open-versus-closed data quality, official-statistics manipulation, survivorship, measurement breaks, population scale, present-day-standard/hindsight bias and visibility bias. Compare feasible improvement as well as absolute levels; do not excuse deliberate exclusion because a country is poor.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Park Chung-hee | South Korea | 1961–1979 | rapid gains, low baseline and authoritarian distribution caveats |
+| Lee Kuan Yew | Singapore | 1965–1990 | housing/health/education and durable-state high comparison |
+| Lula da Silva | Brazil | 2003–2010 | social protection, food security and inequality |
+| Ellen Johnson Sirleaf | Liberia | 2006–2018 | post-conflict rebuilding, donor role and Ebola shock |
+| Paul Kagame | Rwanda | 2000–2023 | health gains with data openness and rights/distribution checks |
+| Narendra Modi | India | 2014–2023 | sanitation/protection scale versus quality and uneven access |
+| Hugo Chávez | Venezuela | 1999–2013 | early access gains versus politicization and durability |
+| Nicolae Ceaușescu | Romania | 1981–1989 | austerity-driven deprivation low anchor |
+| Kim Jong Il | North Korea | 1994–2011 | famine, state responsibility and closed-information uncertainty |
+| Jacinda Ardern | New Zealand | 2020–2022 | high baseline, pandemic response and inequality test |
+| Sirimavo Bandaranaike | Sri Lanka | 1960–1965 | less-visible historical, food/education policy and gender comparison |
+
+## Acceptance Checklist
+
+- A numeric score requires a ruler-attributed social-welfare action and some evidence
+  of delivery, implementation, remedy, or attributable outcome. A budget announcement
+  or inherited human-development level alone is insufficient.
+
+- The exact ten lenses remain visible and produce one chapter score only.
+- Evidence is local-first, cited, source-profiled and reusable across real lens relationships.
+- Baseline, shocks, ruler authority, implementation and outcomes are separated.
+- Access, quality, affordability, distribution, dignity and durability are considered without rigid domain gates.
+- Missing lenses/domains reduce confidence and never invalidate or count as failure.
+- One judge calibrates all rulers with the same chapter rubric.
+- Flexible LLM wording and incomplete mappings remain acceptable.
+- Bias checks and adjacent-anchor rejections are case-specific.
+- Smoke cases are judged together before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

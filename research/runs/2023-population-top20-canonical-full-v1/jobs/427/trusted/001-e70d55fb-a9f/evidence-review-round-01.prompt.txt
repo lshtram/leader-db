@@ -1,0 +1,937 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:JPN:16637",
+  "iso3": "JPN",
+  "country_name": "Japan",
+  "ruler_name": "Fumio Kishida",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 29,
+  "approximate_source_family_count": 12,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 29 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 12 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research Handoff — Kishida, Japan 2023 (Dossier ID 16637)
+
+**Note on file writes:** The supplied `research_materials_path` and `research_ledger_manifest_path` were unreachable: `exec_command` returned `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted` for every directory check, mkdir, and write attempt under the run attempt folder. The complete handoff is therefore returned inline as the parent persistence artifact, in the same shape the markdown file and manifest would have held.
+
+---
+
+## 0. Ruler-period baseline
+
+- **Ruler:** Fumio Kishida (岸田 文雄); 100th Prime Minister of Japan; LDP president.
+- **Period:** 2023 calendar year (ruler_year_id 16637). He entered office 4 Oct 2021; he resigned in 2024 (announced 14 Aug 2024). The full 2023 window is firmly inside his tenure.
+- **Background:** From Hiroshima 1st district, former Foreign Minister (2012–2017) under Abe. Kōchikai faction member (resigned from the faction Jan 2024 after slush-fund scandal; this is just outside the 2023 window but prefigured by the November 2023 scandal). His signature program is "new capitalism" / "dividend-style" redistributive growth, with the G7 Hiroshima Summit and the NSS+defense buildup as the second major program line. ([Wikipedia — Fumio Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [Cambridge PDY 2023, Hino (2024)](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E))
+- **Pre-existing material (local priors supplied):** 33 facts (LF001–LF033) across 8 chapters; 60/80 lenses marked `evidence_found`, 20/80 marked `no_evidence_found`. All chapter 1B and 6B priors are `no_evidence_found`, so the chapters below lean entirely on internet research for the in-scope themes.
+- **Local-prior reliability note:** All 33 facts use V-Dem, Freedom House, RSF, WDI, SIPRI, UCDP, PTS, CPI as direct structured sources; the package instructions make clear these are "context" priors unless they directly measure ruler conduct, and "do not re-fetch … when this artifact contains relevant non-contradictory facts." I have therefore not refetched the V-Dem/RSF/CPI/WDI/World Bank fields and have only used web sources to add ruler-attribution, narrative detail, and counterevidence.
+
+## 1. Tooling and discovery notes
+
+- `web_search` (the `mcp__parallelweb_search` backend) was intermittent: many calls returned `unsupported call: mcp__parallelweb_search` even after returning valid results in earlier turns. The `brave_web_search` and `brave_llm_context` tools were quota-exhausted. The reliable path was the `fetch` tool against primary sources (Wikipedia article bodies, Human Rights Watch country chapter, Cambridge Political Data Yearbook, Nippon.com, official government and observer URLs).
+- `exec_command` is sandboxed: directory ops under the supplied `research_materials_path` are blocked, so the per-chapter notebook is provided inline below and a parallel `research-ledger-manifest.json` is provided as a fenced code block.
+
+## 2. Local-prior audit (which supplied facts were reused, contextualized, or set aside)
+
+| Fact ID | Field | Source slug | Disposition |
+|---|---|---|---|
+| LF001–LF004 | SIPRI military expenditure (constant USD, per-capita, %GDP, %govt) | sipri_milex | Reused for 2B context; chapter judge will decide whether ruler-attribution is supportable. |
+| LF005–LF008 | V-Dem civil-society repression, extrajudicial killings, physical-integrity, private civil liberties | vdem | Reused for 3B prior. |
+| LF009–LF011 | PTS Amnesty / HRW / State Dept human-rights scores (1.0) | pts | Reused for 3B prior; treated as country context. |
+| LF012 | V-Dem accountability | vdem | Reused across 4B / 7B / 8B. |
+| LF013, LF021 | Freedom House political rights, civil liberties (1.0) | freedom_house | Reused for 4B prior. |
+| LF014, LF015, LF016, LF017, LF018, LF019, LF020, LF024, LF026 | V-Dem polyarchy, free expression, association, judicial/legislative constraints, liberal democracy, multiparty, regime type, suffrage | vdem | Reused for 4B prior. |
+| LF022, LF023 | RSF press-freedom rank (68), score (63.95) | rsf_press_freedom | Reused for 4B prior. |
+| LF025 | V-Dem rule of law | vdem | Reused across 4B / 7B / 8B. |
+| LF027–LF029 | WDI GDP per capita (USD 33,836), GDP total (USD 4.21 trillion), population (124.5 million) | world_bank_wdi | Reused for 5B prior. |
+| LF030, LF032, LF033 | V-Dem political-corruption index (0.05), executive corruption (0.093), public-sector corruption (0.036) | vdem | Reused for 7B prior. |
+| LF031 | CPI 2023 score 73 | transparency_cpi | Reused for 7B prior. |
+
+Unused for chapter scoring but carried for attribution: the slate reflects Japan 2023 — a long-stable high-income democracy with high V-Dem/FH/RSF/CPI scores — so each fact is context for the inherited baseline, not a ruler-specific 2023 act. The local-prior package's `R001` reason is correct for chapter 1B and 6B: no selected non-client country_year_fact matches the local-prior field keys for the in-scope themes; this handoff supplies the narrative evidence instead.
+
+## 3. Per-chapter dossier
+
+Each chapter section records: (a) the local-prior base, (b) the 2023 internet-sourced evidence items, (c) lens coverage, (d) contrary evidence, (e) source concentration, and (f) what remains a gap. The numbering scheme `E#.#` is provisional and stable within this notebook. Each evidence item is keyed to the URL+claim.
+
+### Chapter 1B — Nuclear and Existential-Risk Responsibility
+
+**Local prior base:** none. All ten 1B lenses are `no_evidence_found`. The D17/FAS nuclear-force country-year facts that the package mentions are not in the supplied fact list; the package explicitly notes that absence of a row is not evidence of responsible conduct.
+
+**Items (source-claim units):**
+
+- E1.1 — Kishida hosted the 49th G7 summit in Hiroshima on 19–21 May 2023, deliberately selecting the city as a setting for nuclear non-proliferation diplomacy; the leaders' communiqué covered Russia/Ukraine, nuclear non-proliferation, and economic security. ([Wikipedia — 49th G7 summit](https://en.wikipedia.org/wiki/49th_G7_summit)) — supports 1B.2, 1B.4, 1B.10.
+- E1.2 — Kishida's 31 March 2023 contributed article to *Diplomacy* magazine states Japan holds the G7 presidency and that the Hiroshima summit will address nuclear threats. ([WorldJpn — Kishida "Contributed Article"](https://worldjpn.net/documents/texts/exdpm/20230331.O1E.html)) — supports 1B.2.
+- E1.3 — Kishida's Hiroshima-Action-Plan-styled G7 agenda linked to "Kishida clearly used the setting well to bring abstract threats into tangible action steps." ([Bulletin of the Atomic Scientists, May 2023](https://thebulletin.org/2023/05/in-hiroshima-the-g7-economies-leverage-global-security-gains/)) — supports 1B.1, 1B.4, 1B.10.
+- E1.4 — Japan sits under the U.S. nuclear umbrella; Kishida neither escalated nor pulled away from extended deterrence in 2023. ([Wikipedia — Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [Cambridge PDY 2023, Hino](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — context for 1B.5, 1B.6.
+- E1.5 — IAEA approved the Fukushima Daiichi ALPS-treated water release plan in July 2023, with Kishida's government authorising TEPCO to begin discharge on 24 August 2023; the IAEA's review covered 1B.9-style dual-use/peaceful-nuclear governance but the discharge itself is a civilian-peaceful use, not an existential-risk decision. ([Wikipedia — Discharge of radioactive water of the Fukushima Daiichi NPP](https://en.wikipedia.org/wiki/Discharge_of_radioactive_water_of_the_Fukushima_Daiichi_Nuclear_Power_Plant)) — context for 1B.9, 1B.10.
+- E1.6 — Kishida's government endorsed Kishida's continued consultation with nuclear-state counterparts in 2023, including the Camp David trilateral in August, which contains a casus foederis commitment but explicitly "does not mirror Article 5." ([Wikipedia — American–Japanese–Korean trilateral pact](https://en.wikipedia.org/wiki/American%E2%80%93Japanese%E2%80%93Korean_trilateral_pact)) — supports 1B.4, 1B.7, 1B.10.
+
+**Lens coverage:** Strong on 1B.1, 1B.2, 1B.4, 1B.10 (G7 Hiroshima, IAEA/ALPS); 1B.3 / 1B.7 / 1B.8 are weakly evidenced; 1B.5 / 1B.6 / 1B.9 are essentially contextual. No Kishida-attributed nuclear-rhetoric, command-safety, proliferation, or dual-use catastrophe evidence.
+
+**Source mix:** 3 source families (Wikipedia primary historical record, Bulletin of the Atomic Scientists analytical, WorldJpn primary text). Two source types (academic/journal + official text).
+
+**Gaps:** No FAS/SIPRI Japan-specific 2023 nuclear-posture record fetched; no Kishida-attributed command-safety or safeguard decision; no Kishida-attributed proliferation, crisis decision, or AI/biotech dual-use action.
+
+### Chapter 2B — International Peace, Restraint, and Lawful Security
+
+**Local prior base:** LF001–LF004 (SIPRI military expenditure). Japan 2023 SIPRI totals: $45,863 m constant-USD; $385.79 per capita; 1.097% of GDP; 2.92% of government spending — already a major military buildup trajectory in absolute terms.
+
+**Items:**
+
+- E2.1 — Kishida is the first Asian leader to impose sanctions on Russia and Belarus following the February 2022 invasion of Ukraine; in 2023 he sustained sanctions and authorized civilian aid. ([Wikipedia — Fumio Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 2B.1, 2B.6, 2B.7.
+- E2.2 — Kishida signed the Japan-UK Reciprocal Access Agreement with Rishi Sunak on 11 January 2023 in London — the first RAA with a European country. ([Wikipedia — Reciprocal Access Agreement](https://en.wikipedia.org/wiki/Reciprocal_Access_Agreement)) — supports 2B.1, 2B.8.
+- E2.3 — Kishida participated in the Camp David trilateral (18 August 2023) producing a casus foederis-style commitment with the U.S. and South Korea. ([Wikipedia — American–Japanese–Korean trilateral pact](https://en.wikipedia.org/wiki/American%E2%80%93Japanese%E2%80%93Korean_trilateral_pact)) — supports 2B.1, 2B.7.
+- E2.4 — Japan hosted the 49th G7 summit in Hiroshima (19–21 May 2023), with G7 leaders issuing a statement on economic coercion and a standalone statement on Ukraine, and expanding the outreach list to include Brazil, India, Indonesia, Vietnam, etc. ([Wikipedia — 49th G7 summit](https://en.wikipedia.org/wiki/49th_G7_summit); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 2B.1, 2B.7.
+- E2.5 — Defense buildup: the National Security Strategy, National Defense Strategy, and Defense Buildup Program were adopted in December 2022, but their legislative implementation continued through 2023, with the Diet passing the Defence Fiscal Resource Bill in 2023 allowing incremental tax increases to fund the buildup toward 2% of GDP by 2027. ([Wikipedia — Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [APLN, "Japan's National Security Strategy: Responding to Unprecedented Challenges", Mar 2023](https://www.apln.network/analysis/policy-briefs/japans-national-security-strategy-responding-to-unprecedented-challenges); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 2B.8.
+- E2.6 — Japan-Korea thaw: in March 2023, President Yoon ended Korean government requests that Japanese companies compensate wartime laborers; Kishida reciprocated. ([Wikipedia — American–Japanese–Korean trilateral pact](https://en.wikipedia.org/wiki/American%E2%80%93Japanese%E2%80%93Korean_trilateral_pact)) — supports 2B.7, 2B.10.
+- E2.7 — Myanmar complicity caveat: in January 2023, HRW found Yokogawa Bridge Corp. (a Japanese firm) apparently transferred about US$2 million to a Myanmar-military-owned conglomerate for the Bago River Bridge; in April 2023, Tokyo confirmed the Myanmar military misused two Japan-funded ships in Rakhine State. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — contrary for 2B.5, 2B.7.
+- E2.8 — Defense and security cooperation agreements with Australia (RAA signed Jan 2022, in force 2023) and the UK (RAA signed Jan 2023); the Philippines RAA talks began November 2023. ([Wikipedia — Reciprocal Access Agreement](https://en.wikipedia.org/wiki/Reciprocal_Access_Agreement)) — supports 2B.1, 2B.7.
+
+**Lens coverage:** Strong on 2B.1, 2B.7, 2B.8; adequate on 2B.2 (no initiation; Japan is a defender) and 2B.5 (limited contravention); partial on 2B.6 (no public-deception scandal during 2023); thin on 2B.4 (no wartime civilian-harm claim) and 2B.9 (no accountability controversy in 2023); well-evidenced on 2B.10 (peaceful thaw with Korea; sustained sanctions; new security architecture).
+
+**Source mix:** Wikipedia, primary diplomatic reporting (HRW), and academic (Cambridge PDY, APLN). Three source types, four organizations.
+
+**Gaps:** No Kishida-attributed ceasefire negotiation or peace-treaty signing in 2023; no new arms-control signature; no public intelligence-manipulation finding.
+
+### Chapter 3B — Domestic Safety, Restraint, and Protection
+
+**Local prior base:** LF005–LF011. V-Dem civil-society repression 2.93, extrajudicial killings 3.11, physical-integrity 0.96, private civil liberties 0.92; PTS Amnesty/HRW/State Dept scores 1.0.
+
+**Items:**
+
+- E3.1 — Pipe-bomb assassination attempt on Kishida at Saikazaki fishing port, Wakayama, on 15 April 2023 by Ryūji Kimura (24); Kishida was evacuated unharmed; the bomb exploded 50 seconds later, injuring two. Kimura was indicted for attempted murder in September 2023. ([Wikipedia — Attempted assassination of Fumio Kishida](https://en.wikipedia.org/wiki/Attempted_assassination_of_Fumio_Kishida); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 3B.1, 3B.5, 3B.9.
+- E3.2 — Iwao Hakamada retrial began in late October 2023, after 57+ years on death row; this is the fifth post-conviction death-penalty retrial in Japan. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 3B.4, 3B.10.
+- E3.3 — There were no executions in Japan in 2023 (carried over into 2024 and 2025). ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan); [Wikipedia — Death penalty in Japan](https://en.wikipedia.org/wiki/Death_penalty_in_Japan)) — supports 3B.1.
+- E3.4 — In May 2023, an HRW report documented Japan's "hostage justice" system as abusive; the Diet revised the Criminal Procedure Code in the same month to introduce GPS-based alternatives to pre-trial detention, partially responding. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 3B.4, 3B.5.
+- E3.5 — June 2023: the Diet passed the Immigration Control and Refugee Recognition Act amendment, allowing deportation of asylum seekers who apply more than twice — Human Rights Watch assessed it "creates new obstacles." ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan); [Freedom House 2024 Japan](https://freedomhouse.org/country/japan/freedom-world/2024)) — adverse for 3B.1, 3B.6, 3B.7.
+- E3.6 — Foreign technical intern training program: a government-mandated expert panel in May 2023 recommended abolishing the program, citing human-rights violations (sub-minimum wages, illegal overtime, forced return of whistleblowers); the program continued. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — adverse for 3B.7.
+- E3.7 — Japan's criminal conviction rate is >99%; pre-trial interrogation videotaping applies only to ~3% of cases (serious crimes). ([Wikipedia — Press freedom in Japan / criminal-justice coverage](https://en.wikipedia.org/wiki/Press_freedom_in_Japan)) — context for 3B.1, 3B.4.
+- E3.8 — October 2023: the Tokyo High Court found North Korea liable for human-rights violations under the "Paradise on Earth" campaign that relocated ~93,000 ethnic Koreans and Japanese to North Korea between 1959 and 1984. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — context, not 2023 government action.
+- E3.9 — No specific Kishida-attributed incitement / hate-rhetoric episodes located in 2023. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan); Freedom House 2024) — context.
+- E3.10 — The Yoshikazu Higashitani ("GaaSyy") YouTuber expulsion from the House of Councillors (March 15, 2023) and arrest (June 4, 2023) show the Diet acting on absentee membership; a low-magnitude accountability event. ([Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — context for 3B.4.
+
+**Lens coverage:** Strong on 3B.1 (no executions; death-row retrial begins), 3B.2 (state violence quota low), 3B.4 (hostage-justice review, GPS alternative), 3B.9 (attempted assassination response); adequate on 3B.7 (foreign-worker protection under Kishida is partial and contested); thinner on 3B.5 (emergency powers), 3B.6, 3B.8, 3B.10 (long-baseline).
+
+**Source mix:** HRW (medium_high ngo), Wikipedia (medium_high encyclopedia), Freedom House (high intergovernmental), Cambridge PDY (high academic). Four source types, three or more independent families.
+
+**Gaps:** No Kishida-attributed incitement; no systematic protest-violence episode in 2023; limited 2023 crisis-specific attribution; foreign-detention and asylum-deportation adverse items are partially inheritable.
+
+### Chapter 4B — Political Freedom vs Authoritarian Rule
+
+**Local prior base:** LF012–LF026. V-Dem polyarchy 0.826, free expression 0.868, free association 0.925, judicial constraints 0.871, legislative constraints 0.901, liberal democracy 0.745, multiparty 0.727, regime type 3 (electoral democracy), suffrage 1.0; Freedom House PR/CL both 1.0; RSF rank 68, score 63.95; rule of law 0.958; accountability 1.503.
+
+**Items:**
+
+- E4.1 — Cabinet reshuffle on 13 September 2023 aimed at "change"; the cabinet was noted for the relatively high number of women in official positions, and included members of rival factions in high-ranking posts ahead of the 2024 LDP leadership election. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 4B.2, 4B.4, 4B.5, 4B.7.
+- E4.2 — Civil-service hiring of women in fiscal 2023 reached 38.7%, an all-time record; women in career-track posts hit 35.9%. ([Nippon.com — Japan Data, 21 June 2023](https://www.nippon.com/en/japan-data/h01703/)) — supports 4B.7.
+- E4.3 — In February 2023, Kishida's executive secretary Masayoshi Arai said: "I would not want to live next to, or look at the homosexual. If same-sex marriage were legalized, some people would abandon their country." He was fired the following day. ([Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — adverse for 4B.6, 4B.7, 4B.9.
+- E4.4 — June 2023: the Diet passed the LGBT Understanding Promotion Act, the first law on sexual orientation and gender identity in Japan, but observers said the law was not comprehensive. The age of consent was raised from 13 to 16. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan); [Freedom House 2024 Japan](https://freedomhouse.org/country/japan/freedom-world/2024); [Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — supports 4B.7, 4B.8 (mixed).
+- E4.5 — Penal-code reform (June 2023) redefined rape to include "nonconsensual sexual intercourse" across eight scenarios and removed the "violence or intimidation" requirement; statute of limitations raised from 10 to 15 years. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 4B.7.
+- E4.6 — The Diet passed the first anti-LGBT-discrimination law in June 2023, but campaigners and HRW noted the bill does not create legal penalties for discrimination; the wording was changed from outlawing "discrimination" to outlawing "unfair discrimination." ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — mixed for 4B.6, 4B.7.
+- E4.7 — In October 2023, the Supreme Court ruled the country's mandatory sterilization surgery for transgender legal gender recognition was unconstitutional. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 4B.7.
+- E4.8 — In July 2023, the Supreme Court ruled the trade ministry's bathroom ban on a transgender woman employee was illegal. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 4B.7.
+- E4.9 — Foreign technical intern training program: HRW and other critics documented passport confiscation, sub-minimum wages, illegal overtime, and forced return of whistleblowers; a government panel in May 2023 recommended abolition. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — adverse for 4B.7, 4B.9.
+- E4.10 — Asylum grants: of 3,772 applicants in 2022, only 202 were recognized as refugees, with 1,760 (1,682 from Myanmar) granted "humanitarian consideration." ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — adverse for 4B.7.
+- E4.11 — June 2023: the Diet amended the Immigration Control and Refugee Recognition Act to permit deportation of asylum seekers who apply more than twice; in August 2023, the government offered a one-time residency to ~140 nonresident minors. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan); [Freedom House 2024 Japan](https://freedomhouse.org/country/japan/freedom-world/2024)) — mixed for 4B.7, 4B.9.
+- E4.12 — The slush-fund scandal (Nov–Dec 2023) revealed the LDP's Seiwakai and Shisuikai factions failed to report >¥600 m in campaign funds; Kishida removed four Abe-faction ministers on 14 December 2023; Kishida resigned from Kōchikai in January 2024 (outside 2023 window but provoked by 2023 events). ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — mixed for 4B.1, 4B.2, 4B.4.
+- E4.13 — Press freedom: RSF Japan 2023 score 63.95, rank 68/180; structural kisha club press-conference system, business/political pressure noted. ([RSF Japan country page](https://rsf.org/en/country/japan)) — context for 4B.6.
+- E4.14 — In December 2022, both Diet houses passed resolutions highlighting human-rights abuses in Xinjiang, Tibet, Inner Mongolia, and Hong Kong without naming China; rare move for Japan. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — context, not 2023 action.
+
+**Lens coverage:** Strong on 4B.5 (resignation of Arai), 4B.7 (LGBT/transgender reform, civil-service record), 4B.8 (Diet passed laws); mixed on 4B.2 (slush fund); adequate on 4B.4 (judiciary constraints — Supreme Court rulings), 4B.6 (RSF context, but no Kishida-attributed media-pressure action located).
+
+**Source mix:** HRW (medium_high ngo), Freedom House (high intergovernmental), Cambridge PDY (high academic), Nippon.com (medium-high data reporting), Wikipedia (medium-high encyclopedia), RSF (medium-high press NGO). Four source types, five or more independent organizations.
+
+**Gaps:** No Kishida-attributed direct media-pressure or journalist-detention episode in 2023; no constitutional/amendment action; opposition-press freedom claim is structural rather than incident-based.
+
+### Chapter 5B — Economic Well-Being and Prosperity
+
+**Local prior base:** LF027–LF029. WDI: real GDP per capita USD 33,836; total GDP USD 4.21 trillion; population 124.5 million.
+
+**Items:**
+
+- E5.1 — Inflation for 2023 reached 3.1%, highest since 1981/1982; food costs and yen depreciation were major drivers. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E); [Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — supports 5B.3, 5B.9.
+- E5.2 — The yen weakened past ¥150/USD in November 2023, matching the 32-year low that triggered BoJ intervention in 2022. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 5B.3, 5B.9.
+- E5.3 — The FY2023 budget of ¥114.4 trillion was a record high, passed 28 March 2023; a supplementary ¥13.2 trillion budget was passed in November 2023, mostly for stimulus to combat rising consumer prices. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 5B.3, 5B.9.
+- E5.4 — "New capitalism" / wage-growth program: Kishida's signature redistributive program, with the highest wage growth in 30 years driven by record shunto wage increases. ([Wikipedia — Fumio Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida)) — supports 5B.1, 5B.2, 5B.6.
+- E5.5 — March 2023: Kishida's press conference listed "wage increases" as a top priority, committing to "wage increases that keep pace with" prices. ([Kantei — Press Conference 17 March 2023](https://japan.kantei.go.jp/101_kishida/statement/202303/_00015.html)) — supports 5B.1, 5B.9.
+- E5.6 — International student employment: 52.5% of surveyed international students received job offers as of July 2023, the highest since 2017; Japanese-student offer rate was 86.0%. ([Nippon.com — Japan Data, 22 Sep 2023](https://www.nippon.com/en/japan-data/h01776/)) — supports 5B.2, 5B.4.
+- E5.7 — "Alumni recruitment" (rehiring former employees): 55.5% of surveyed HR managers said their firm is willing to rehire former employees; reflects labor shortage. ([Nippon.com — Japan Data, 4 Oct 2023](https://www.nippon.com/en/japan-data/h01800/)) — supports 5B.2, 5B.4.
+- E5.8 — Food self-sufficiency on production value fell to a record low 58% in FY2022 (data published 2023); 17 points below the FY2030 target of 75%. Calorie basis held at 38%. ([Nippon.com — Japan Data, 22 Aug 2023](https://www.nippon.com/en/japan-data/h01758/)) — supports 5B.3, 5B.6, 5B.7.
+- E5.9 — Kishida's "new capitalism" announcements: in the policy speech, Kishida stated his administration would pursue redistributive policies to raise wages and expand the middle class. ([Wikipedia — Fumio Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida)) — supports 5B.1, 5B.2.
+- E5.10 — Kishida's overall program is generally identified with: defense buildup, G7 Hiroshima presidency, structural wage growth, and post-Unification-Church party cleanup. ([Wikipedia — Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 5B.1, 5B.2, 5B.10.
+
+**Lens coverage:** Strong on 5B.1, 5B.3, 5B.9; adequate on 5B.2 (international-student/alumni), 5B.4, 5B.6; thinner on 5B.5, 5B.7, 5B.8, 5B.10 (limited within-year evidence).
+
+**Source mix:** Cambridge PDY (high academic), Wikipedia (medium-high), Nippon.com (medium-high data), Kantei (high official). Three source types, four organizations.
+
+**Gaps:** No Kishida-attributed specific labor-market reform or distributional-policy 2023 evidence beyond rhetoric; no specific antitrust/capture or chaebol-style reform; no detailed household-distribution data for 2023; no specific green-transition/clean-energy program narrative beyond GX Basic Policy context.
+
+### Chapter 6B — Social Well-Being and Human Development
+
+**Local prior base:** none. All ten 6B lenses are `no_evidence_found` per the package (D6 HDI/health/education/income fields are not in the supplied fact list).
+
+**Items:**
+
+- E6.1 — 1 April 2023: Masanobu Ogura was appointed to the new position of Minister of State for Policies Related to Children and Minister of State for Youth Empowerment, unifying oversight of declining-birth-rate policy. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 6B.1, 6B.2, 6B.3, 6B.7, 6B.9.
+- E6.2 — The "Children and Families Agency" was created on 1 April 2023 with the consolidation of child-policy functions. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 6B.1, 6B.7, 6B.9.
+- E6.3 — Fiscal 2023 JASSO scholarship program: ¥1.2 trillion budget; 22.6% in grants (¥260.1 billion), ~80% in repayable loans. From FY2024, grant scholarships will expand to include middle-income households with 3+ children (raising eligibility cap from ¥3.8 m to ~¥6 m). ([Nippon.com — Japan Data, 28 Sep 2023](https://www.nippon.com/en/japan-data/h01791/)) — supports 6B.2, 6B.3, 6B.5.
+- E6.4 — Kishida government's child-policy reform: in September 2023, the cabinet replacement of Ogura with Ayuko Kato followed international criticism of Japan for sending a man, then-incumbent Ogura, to the G7 Ministerial Meeting on Gender Equality and Women's Empowerment in June. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 6B.3, 6B.5, 6B.8.
+- E6.5 — In April 2023, Japan approved medical abortion (mifepristone), a procedural change from procedural-only availability; spousal authorization still required. ([HRW Japan 2024](https://www.hrw.org/world-report/2024/country-chapters/japan)) — supports 6B.2, 6B.7, 6B.8.
+- E6.6 — Heatwave mortality: in 2023 Japan recorded its hottest summer on record; per the 2024 MHLW Vital Statistics Report, 1,651 persons died from heatstroke in 2023. ([Nippon.com — Japan Data, 24 Aug 2023](https://www.nippon.com/en/japan-data/h01768/); [Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — supports 6B.6.
+- E6.7 — Ishikawa earthquake (5 May 2023, M6.5) caused 1 death, 49 injuries, and damaged the Noto Peninsula. ([Wikipedia — 2023 Ishikawa earthquake](https://en.wikipedia.org/wiki/2023_Ishikawa_earthquake)) — context for 6B.6, 6B.9.
+- E6.8 — Heatwave alerts: the Ministry of the Environment and Japan Meteorological Agency issue WBGT-based heatstroke alerts prompting AC use and limiting outdoor activity; reported ~10,000 emergency transports in the last week of July 2023 alone. ([Nippon.com — Japan Data, 24 Aug 2023](https://www.nippon.com/en/japan-data/h01768/)) — supports 6B.5, 6B.6.
+- E6.9 — Kishida established the "Children and Families Agency" (CFA) — a new ministry-level body — in April 2023, the first new ministry since 2001; the goal is to address Japan's declining birth rate. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 6B.1, 6B.9.
+- E6.10 — Civil-service female hiring reached 38.7% in FY2023 (record); women in career-track roles hit 35.9%. ([Nippon.com — Japan Data, 21 June 2023](https://www.nippon.com/en/japan-data/h01703/)) — supports 6B.3, 6B.8.
+
+**Lens coverage:** Adequate on 6B.1, 6B.3, 6B.6, 6B.7, 6B.9; partial on 6B.2, 6B.5, 6B.8; thin on 6B.4, 6B.10.
+
+**Source mix:** Cambridge PDY (high academic), HRW (medium_high ngo), Wikipedia (medium_high), Nippon.com (medium-high data). Four source types, four organizations.
+
+**Gaps:** No specific 2023 HDI / life-expectancy / IMR / school-enrollment ruler-attribution data point; no detailed 6B.4 professional-administration evidence; no specific 6B.7 political-conditionality evidence (e.g., pensions, food, permits) for 2023.
+
+### Chapter 7B — Ruler Personal Integrity and Honesty
+
+**Local prior base:** LF012 (accountability), LF025 (rule of law), LF030–LF033 (V-Dem political-corruption 0.05, executive corruption 0.093, public-sector corruption 0.036), LF031 (CPI 2023 score 73).
+
+**Items:**
+
+- E7.1 — The LDP slush-fund scandal (surfaced November 2023): the LDP's Seiwa Seisaku Kenkyūkai (Abe faction) and Shisuikai (Nikai faction) failed to report over ¥600 million in campaign funds and stored them in illegal slush funds; the National Police Agency raided both factions' headquarters. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — adverse for 7B.1, 7B.2, 7B.4, 7B.5, 7B.7, 7B.9, 7B.10.
+- E7.2 — On 13 December 2023, Kishida removed four Seiwakai ministers (Chief Cabinet Secretary Hirokazu Matsuno, METI Minister Yasutoshi Nishimura, MIC Minister Junji Suzuki, and Agriculture Minister Ichiro Miyashita) plus Deputy Defense Minister Hiroyuki Miyazawa. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 7B.6, 7B.8.
+- E7.3 — On 8 December 2023, Kishida, alongside other LDP members, was questioned by opposition lawmakers in a National Diet meeting; he stated the scandal was being investigated and ordered the LDP to stop fundraising. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — supports 7B.1, 7B.6.
+- E7.4 — On 18 January 2024, Kishida announced the dissolution of his own Kōchikai faction; the Shisuikai and Seiwa Seisaku Kenkyūkai factions also announced dissolutions. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — supports 7B.5, 7B.6, 7B.8, 7B.9, 7B.10 (post-period effect of 2023 act).
+- E7.5 — Kishida resigned from Kōchikai in late 2023/early 2024 when his faction became implicated, although he was not personally implicated. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 7B.1, 7B.3, 7B.5.
+- E7.6 — Kishida's approval ratings: 23% as of 13 December 2023 (lowest since 2012 LDP return to power), 17% as of 22 December 2023; 79% disapproval in an 18 December 2023 Mainichi poll (highest since the end of WWII). ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — context, not a 7B-specific fact.
+- E7.7 — Unification Church (UC) link investigation: in October 2022, Kishida ordered an investigation into the UC and instructed LDP members to sever ties; the Ministry of Education investigated and the government stated the UC had engaged in illegal acts. The Tokyo District Court ordered dissolution of the UC in March 2025. ([Wikipedia — Criticism of the Unification Church in Japan](https://en.wikipedia.org/wiki/Criticism_of_the_Unification_Church_in_Japan)) — supports 7B.6, 7B.7, 7B.9.
+- E7.8 — 2 February 2023: Executive Secretary Masayoshi Arai made anti-LGBT comments; Kishida fired him the following day. ([Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — supports 7B.5, 7B.6.
+- E7.9 — 22 February 2023: Mitsubishi Aircraft announced complete withdrawal from the Mitsubishi SpaceJet program — a government-supported industrial project. ([Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — context for 7B.6 (industrial policy transparency).
+- E7.10 — Kishida promised legal reforms and anti-corruption measures after the slush-fund scandal; he promised to act as a "ball of fire." ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — supports 7B.1, 7B.2, 7B.8.
+- E7.11 — CPI 2023 Japan score 73 — strong on inherited baseline. (LF031, local-prior; not refetched per I002.)
+- E7.12 — V-Dem 2023 political corruption index 0.05, executive corruption 0.093, public corruption 0.036 — strong inherited baseline. (LF030/LF032/LF033, local-prior.)
+
+**Lens coverage:** Strong on 7B.1, 7B.5, 7B.6, 7B.7, 7B.9; mixed on 7B.2 (initially denial, then removal; finally dissolution announcement Jan 2024); weak on 7B.3, 7B.4, 7B.8, 7B.10.
+
+**Source mix:** Wikipedia (medium-high), Cambridge PDY (high academic). Two source types, two organizations — but cross-confirmed.
+
+**Gaps:** No detailed personal-asset disclosure or family-business-nexus 2023 evidence; no donor-appointment scandal at the personal level (associates only); no specific public-statement-veracity scandal with documented personal deception.
+
+### Chapter 8B — Ruler Effectiveness and Competence
+
+**Local prior base:** LF012 (accountability), LF025 (rule of law).
+
+**Items:**
+
+- E8.1 — Program (explicit): "new capitalism" / "dividend-style" redistributive growth; raising wages; expanding the middle class. ([Wikipedia — Fumio Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [Kantei — Press Conference 17 March 2023](https://japan.kantei.go.jp/101_kishida/statement/202303/_00015.html)) — supports 8B.1, 8B.2.
+- E8.2 — Program (explicit + revealed): defense buildup, G7 Hiroshima presidency, structural wage growth, party cleanup. ([Wikipedia — Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 8B.1, 8B.2.
+- E8.3 — Operationalization: 13 September 2023 cabinet reshuffle increased women in cabinet from 2 to 5 and appointed 11 new ministers to their first Cabinet positions; included members of rival factions in high-ranking posts to consolidate ahead of the 2024 leadership race. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 8B.2, 8B.4, 8B.5.
+- E8.4 — Mobilization: G7 Hiroshima summit (19–21 May 2023) achieved stated objectives on Russia/Ukraine, economic coercion, and nuclear non-proliferation. ([Wikipedia — 49th G7 summit](https://en.wikipedia.org/wiki/49th_G7_summit)) — supports 8B.3, 8B.6, 8B.9.
+- E8.5 — Adaptation: After 22–24 August 2023 Fukushima ALPS discharge, China banned Japanese fish imports. The government continued the discharge per IAEA's safety review. ([Wikipedia — Discharge of radioactive water of the Fukushima Daiichi NPP](https://en.wikipedia.org/wiki/Discharge_of_radioactive_water_of_the_Fukushima_Daiichi_Nuclear_Power_Plant); [Wikipedia — 2023 in Japan](https://en.wikipedia.org/wiki/2023_in_Japan)) — supports 8B.8, 8B.9.
+- E8.6 — Crisis management: 15 April 2023 pipe-bomb assassination attempt; Kishida was evacuated unharmed; the G7 summit was held without security issues despite the event. ([Wikipedia — Attempted assassination of Fumio Kishida](https://en.wikipedia.org/wiki/Attempted_assassination_of_Fumio_Kishida); [Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 8B.9.
+- E8.7 — Outcome (positive): highest wage growth in 30 years. ([Wikipedia — Fumio Kishida](https://en.wikipedia.org/wiki/Fumio_Kishida)) — supports 8B.7, 8B.10.
+- E8.8 — Outcome (negative): Kishida's approval fell to 17% by 22 December 2023 (lowest since 2012); LDP lost its majorities in the 2024 general election and 2025 House of Councillors election partly as a downstream effect of the slush-fund scandal. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — adverse for 8B.7, 8B.10.
+- E8.9 — Personnel & coordination: Taro Kono was retained as Minister for Digital Transformation despite controversy over his handling of the My Number Card data breach; Heisei Kenkyūkai leader Motegi was made LDP Secretary-General in a move to reduce his ability to criticise Kishida. ([Wikipedia — LDP slush fund scandal](https://en.wikipedia.org/wiki/LDP_slush_fund_scandal)) — mixed for 8B.4, 8B.5.
+- E8.10 — Personnel: 1 April 2023 appointment of Masanobu Ogura as Minister of State for Policies Related to Children / Youth Empowerment, replaced 13 September 2023 by Ayuko Kato after international criticism. ([Hino 2024](https://www.cambridge.org/core/journals/political-data-yearbook/article/japan-political-developments-and-data-in-2023/B10DAD91EE667E9C180A502B13D0331E)) — supports 8B.4, 8B.8.
+- E8.11 — Morality separation: chapter 8B scores the execution of the program, regardless of its moral direction. The wage-growth + G7 + defense-buildup + cleanup program is a mix of potentially positive and harmful components; execution is judged on operational terms, not approval. ([Ch. 8B rubric] — explicit) — note.
+- E8.12 — Foreign-policy diplomacy: 11 January 2023 RAA with the UK, August 2023 Camp David trilateral, 18 March 2023 Korea thaw, Kishida's FOIP speech at ICWA in May 2023. ([Wikipedia — Reciprocal Access Agreement](https://en.wikipedia.org/wiki/Reciprocal_Access_Agreement); [Wikipedia — American–Japanese–Korean trilateral pact](https://en.wikipedia.org/wiki/American%E2%80%93Japanese%E2%80%93Korean_trilateral_pact); [Japan.go.jp — "New Plan for a 'Free and Open Indo-Pacific'"](https://www.japan.go.jp/kizuna/2023/05/new_plan_for_free_and_open_indo-pacific.html)) — supports 8B.3, 8B.6, 8B.7, 8B.9, 8B.10.
+
+**Lens coverage:** Strong on 8B.1, 8B.2, 8B.3, 8B.4, 8B.6, 8B.7, 8B.9, 8B.10; mixed on 8B.5 (cabinet reshuffle internal politics), 8B.8 (mixed adaptation — the LDP kept the discharge running; the slush-fund response was initially slow, then the cabinet was reshuffled and four ministers removed).
+
+**Source mix:** Wikipedia (medium-high), Cambridge PDY (high academic), Kantei (high official), Japan.go.jp (high official), Bulletin of the Atomic Scientists (high). Four source types, five organizations.
+
+**Gaps:** No 2023 reformist legislative outcome data; no specific 8B.5 internal-coordination failure data; no detailed timeline of post-Kishida career outcomes within 2023.
+
+## 4. Cross-chapter reuse and source concentration
+
+- **LF012 (V-Dem accountability 1.503)** and **LF025 (V-Dem rule of law 0.958)** appear as priors in 4B, 7B, and 8B. They are not used to score ruler conduct; they are inherited-baseline context.
+- The single highest-yield source for the dossier is **Wikipedia — Fumio Kishida** (overview, with attributions to G7 Hiroshima, Fukushima discharge, Camp David, LDP slush fund, attempted assassination, defense buildup, Korea thaw, Kishida resignation). It is the most concentrated source: about 8 of the 80+ items trace back to this article. The chapter judge will want to triangulate these high-volume claims with at least one independent source. Cambridge PDY 2023 (Hino 2024) provides that triangulation for the LDP/faction/cabinet events; the Bulletin of the Atomic Scientists for G7 Hiroshima; HRW for the 3B/4B human-rights items; Freedom House for 4B. RSF for 4B press freedom. Reuters, AP, and other wires were blocked by robots.txt; this is a known gap.
+- The same-URL split is concentrated in Wikipedia (Fumio Kishida) and the Cambridge PDY 2023 article; these are the two pillars of the dossier and are appropriately cross-referenced by Nippon.com and HRW for different lenses.
+
+## 5. Rejected candidates and why
+
+- **grokipedia.com** (per registry, `very_low`, `discovery_only`) — not used; would have been excluded even if encountered.
+- **MOFA Japan bluebook 2024** (mofa.go.jp) — `robots.txt` blocks fetch; the URL is preserved for the judge as a future verification path, but the content was not retrieved.
+- **Transparency International CPI 2023 press release** — `robots.txt` blocks; the CPI score 73 is in the local-prior package (LF031), so no internet refetch was needed.
+- **IAEA page on Fukushima** — 403; IAEA 2023 Annual Report coverage and 5 July 2023 review are reflected in Wikipedia summaries, which are themselves adequate for the dossier.
+- **Reuters, AP, BBC, Reuters-specific articles on Kishida** — all blocked by robots.txt. The dossier therefore leans on Wikipedia, HRW, Freedom House, Cambridge PDY, Nippon.com, and primary government sites, which is sufficient for the search result quality required by the workflow.
+- **Brave web_search / Brave LLM context** — quota exhausted at the start of the run; the `web_search` backend was used instead. No claim in this dossier depends solely on a Brave-only source.
+
+## 6. Strongest contrary evidence and unresolved gaps
+
+- **Chapter 7B counter:** The LDP slush-fund scandal is the strongest contrary evidence; it is documented, ongoing, and implicates the entire LDP apparatus including factions adjacent to Kishida (though not Kishida personally). The removal of four cabinet ministers on 14 December 2023 and Kishida's eventual January 2024 dissolution of Kōchikai and 14 August 2024 resignation are the strongest 7B-specific actions by Kishida in 2023.
+- **Chapter 4B counter:** The LGBT Understanding Promotion Act, while a first, was criticized for weak language ("unfair discrimination") and no penalties; the penal code still required spousal authorization for abortion; the ICRRA amendment permits deportation of repeat asylum applicants.
+- **Chapter 2B counter:** The Myanmar incidents (Yokogawa Bridge Corp.; misuse of Japan-funded ships by Myanmar military) show that Japan-funded entities were diverted to military use; Kishida's response was limited to Tokyo confirming the misuse.
+- **Chapter 3B counter:** The ICRRA amendment and the foreign technical intern program reforms that have not progressed are the strongest adverse evidence for vulnerable-group protection.
+- **Gaps:**
+  - No public-asset-disclosure document for Kishida 2023; personal-asset narrative relies on the Unification Church link (associates, not personal).
+  - No specific 6B.4 professional-administration 2023 evidence; the new Children and Families Agency is the only structural item.
+  - No 1B FAS-style fact in the local package; the dossier covers 1B via the G7 Hiroshima summit and Camp David trilateral but lacks a direct FAS/SIPRI Japan nuclear-posture 2023 narrative.
+
+## 7. Ruler-attribution and temporal-fit self-audit
+
+- Every accepted item has a 2023 date or is part of an ongoing 2023 process (the slush-fund scandal surfaced in November 2023; resolutions on LGBT understanding, criminal procedure, and penal-code reform were passed in June 2023; cabinet reshuffles in September and December 2023; G7 Hiroshima in May 2023; Camp David in August 2023; Fukushima discharge August 2023; RAA-UK January 2023; attempted assassination April 2023; LGBT Understanding Promotion Act and Penal Code reform June 2023; budget March and November 2023; NSS/defense legislation first half of 2023).
+- Items LF001–LF033 are 2023 country-year facts; they describe the inherited baseline plus the year's country-level measurement. They are not ruler-attributed unless paired with a 2023 ruler act.
+- The Arai firing (E4.3 / E7.8) is directly attributed to the cabinet; Kishida's role is "the following day" fired him.
+- The LDP slush-fund response (E7.1–E7.5) is directly attributed: Kishida ordered ministers removed, the LDP to stop fundraising, and (in January 2024) the factions dissolved.
+
+---
+
+## 8. Research-ledger-manifest.json (inline)
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "ruler_id": 2895,
+  "ruler_name": "Fumio Kishida",
+  "country_iso3": "JPN",
+  "period_start_year": 2023,
+  "period_end_year": 2023,
+  "entries": [
+    {"provisional_id": "E1.1", "canonical_fact_key": "en.wikipedia.org/49th_G7_summit#host_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E1.2", "canonical_fact_key": "worldjpn.net/20230331.O1E#kishida_diplomacy_magazine", "disposition": "final_evidence"},
+    {"provisional_id": "E1.3", "canonical_fact_key": "thebulletin.org/2023/05/in-hiroshima-the-g7-economies-leverage-global-security-gains/#kishida_hiroshima_action_plan", "disposition": "context"},
+    {"provisional_id": "E1.4", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#us_nuclear_umbrella_2023", "disposition": "context"},
+    {"provisional_id": "E1.5", "canonical_fact_key": "en.wikipedia.org/Discharge_of_radioactive_water_of_the_Fukushima_Daiichi_Nuclear_Power_Plant#iaea_approval_aug_24_2023", "disposition": "context"},
+    {"provisional_id": "E1.6", "canonical_fact_key": "en.wikipedia.org/American–Japanese–Korean_trilateral_pact#camp_david_principles_aug_18_2023", "disposition": "context"},
+    {"provisional_id": "E2.1", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#first_asian_sanctions_russia_belarus", "disposition": "final_evidence"},
+    {"provisional_id": "E2.2", "canonical_fact_key": "en.wikipedia.org/Reciprocal_Access_Agreement#japan_uk_jan_11_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E2.3", "canonical_fact_key": "en.wikipedia.org/American–Japanese–Korean_trilateral_pact#casus_foederis_aug_18_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E2.4", "canonical_fact_key": "en.wikipedia.org/49th_G7_summit#hiroshima_may_19_21_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E2.5", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#defence_fiscal_resource_bill_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E2.6", "canonical_fact_key": "en.wikipedia.org/American–Japanese–Korean_trilateral_pact#yoon_mar_2023_laborers", "disposition": "context"},
+    {"provisional_id": "E2.7", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#myanmar_yokogawa_bridge", "disposition": "context"},
+    {"provisional_id": "E2.8", "canonical_fact_key": "en.wikipedia.org/Reciprocal_Access_Agreement#australia_uk_philippines_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E3.1", "canonical_fact_key": "en.wikipedia.org/Attempted_assassination_of_Fumio_Kishida#april_15_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E3.2", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#hakamada_retrial_oct_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E3.3", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#no_executions_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E3.4", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#hostage_justice_may_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E3.5", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#icrra_june_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E3.6", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#technical_intern_may_2023_panel", "disposition": "final_evidence"},
+    {"provisional_id": "E3.7", "canonical_fact_key": "en.wikipedia.org/Press_freedom_in_Japan#criminal_justice_99pct_conviction", "disposition": "context"},
+    {"provisional_id": "E3.8", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#tokyo_high_court_north_korea_oct_2023", "disposition": "context"},
+    {"provisional_id": "E3.9", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#kishida_2023_incitement_absence", "disposition": "discovery_only"},
+    {"provisional_id": "E3.10", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#gaasyy_expulsion_march_2023", "disposition": "context"},
+    {"provisional_id": "E4.1", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#sept_13_2023_reshuffle", "disposition": "final_evidence"},
+    {"provisional_id": "E4.2", "canonical_fact_key": "nippon.com/en/japan-data/h01703#women_civil_service_38.7pct_fy2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.3", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#arai_feb_3_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.4", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#lgbt_understanding_act_jun_16_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.5", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#rape_penal_code_reform_jun_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.6", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#lgbt_act_fair_discrimination", "disposition": "final_evidence"},
+    {"provisional_id": "E4.7", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#trans_sterilization_unconstitutional_oct_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.8", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#trans_bathroom_jul_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.9", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#foreign_intern_may_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E4.10", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#asylum_recognition_2022", "disposition": "context"},
+    {"provisional_id": "E4.11", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#icrra_deportation_aug_2023_minors", "disposition": "final_evidence"},
+    {"provisional_id": "E4.12", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#dec_14_2023_minister_removal", "disposition": "final_evidence"},
+    {"provisional_id": "E4.13", "canonical_fact_key": "rsf.org/en/country/japan#index_2023_press_freedom", "disposition": "context"},
+    {"provisional_id": "E4.14", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#hr_resolutions_dec_2022_2023", "disposition": "context"},
+    {"provisional_id": "E5.1", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#inflation_3.1pct_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E5.2", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#yen_150_usd_nov_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E5.3", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#budget_114_4_trillion", "disposition": "final_evidence"},
+    {"provisional_id": "E5.4", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#new_capitalism_wage_growth_30yr_high", "disposition": "final_evidence"},
+    {"provisional_id": "E5.5", "canonical_fact_key": "japan.kantei.go.jp/101_kishida/statement/202303/_00015#wage_increase_priority", "disposition": "final_evidence"},
+    {"provisional_id": "E5.6", "canonical_fact_key": "nippon.com/en/japan-data/h01776#intl_students_52.5pct_offers_jul_2023", "disposition": "context"},
+    {"provisional_id": "E5.7", "canonical_fact_key": "nippon.com/en/japan-data/h01800#alumni_recruitment_55.5pct_oct_2023", "disposition": "context"},
+    {"provisional_id": "E5.8", "canonical_fact_key": "nippon.com/en/japan-data/h01758#food_self_sufficiency_58pct_fy2022", "disposition": "final_evidence"},
+    {"provisional_id": "E5.9", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#new_capitalism_redistributive", "disposition": "final_evidence"},
+    {"provisional_id": "E5.10", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#program_inventory_2023", "disposition": "context"},
+    {"provisional_id": "E6.1", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#ogura_minister_children_apr_1_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E6.2", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#children_families_agency_apr_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E6.3", "canonical_fact_key": "nippon.com/en/japan-data/h01791#jasso_scholarship_1.2t_fy2023", "disposition": "final_evidence"},
+    {"provisional_id": "E6.4", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#kato_replaces_ogura_sep_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E6.5", "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#abortion_pill_apr_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E6.6", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#heatwave_1651_deaths_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E6.7", "canonical_fact_key": "en.wikipedia.org/2023_Ishikawa_earthquake#may_5_2023", "disposition": "context"},
+    {"provisional_id": "E6.8", "canonical_fact_key": "nippon.com/en/japan-data/h01768#heatstroke_alerts_aug_2023", "disposition": "context"},
+    {"provisional_id": "E6.9", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#children_families_agency_first_new_ministry_2001", "disposition": "final_evidence"},
+    {"provisional_id": "E6.10", "canonical_fact_key": "nippon.com/en/japan-data/h01703#women_civil_service_record_fy2023", "disposition": "final_evidence"},
+    {"provisional_id": "E7.1", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#nov_2023_seiwakai_shisuikai", "disposition": "final_evidence"},
+    {"provisional_id": "E7.2", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#dec_13_2023_four_ministers", "disposition": "final_evidence"},
+    {"provisional_id": "E7.3", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#dec_8_2023_diet_questioning", "disposition": "final_evidence"},
+    {"provisional_id": "E7.4", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#jan_18_2024_kochikai_dissolution", "disposition": "final_evidence"},
+    {"provisional_id": "E7.5", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#kishida_resigns_kochikai", "disposition": "final_evidence"},
+    {"provisional_id": "E7.6", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#approval_17pct_dec_22_2023", "disposition": "context"},
+    {"provisional_id": "E7.7", "canonical_fact_key": "en.wikipedia.org/Criticism_of_the_Unification_Church_in_Japan#kishida_2022_investigation", "disposition": "context"},
+    {"provisional_id": "E7.8", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#arai_fired_feb_3_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E7.9", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#mitsubishi_spacejet_withdrawal_feb_2023", "disposition": "context"},
+    {"provisional_id": "E7.10", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#kishida_ball_of_fire", "disposition": "final_evidence"},
+    {"provisional_id": "E7.11", "canonical_fact_key": "local-prior:7B.31_cpi_score_73", "disposition": "final_evidence"},
+    {"provisional_id": "E7.12", "canonical_fact_key": "local-prior:7B.30_v2x_corr_0.05", "disposition": "context"},
+    {"provisional_id": "E8.1", "canonical_fact_key": "japan.kantei.go.jp/101_kishida/statement/202303/_00015#new_capitalism", "disposition": "final_evidence"},
+    {"provisional_id": "E8.2", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#program_inventory", "disposition": "final_evidence"},
+    {"provisional_id": "E8.3", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#sept_13_2023_reshuffle_11_new_5_women", "disposition": "final_evidence"},
+    {"provisional_id": "E8.4", "canonical_fact_key": "en.wikipedia.org/49th_G7_summit#outcomes_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E8.5", "canonical_fact_key": "en.wikipedia.org/Discharge_of_radioactive_water_of_the_Fukushima_Daiichi_Nuclear_Power_Plant#discharge_aug_24_2023", "disposition": "final_evidence"},
+    {"provisional_id": "E8.6", "canonical_fact_key": "en.wikipedia.org/Attempted_assassination_of_Fumio_Kishida#g7_security_response", "disposition": "final_evidence"},
+    {"provisional_id": "E8.7", "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#wage_growth_30yr_high", "disposition": "final_evidence"},
+    {"provisional_id": "E8.8", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#downstream_2024_2025_losses", "disposition": "final_evidence"},
+    {"provisional_id": "E8.9", "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#kono_motegi_reshuffle_assignments", "disposition": "context"},
+    {"provisional_id": "E8.10", "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#ogura_kato_children_minister", "disposition": "final_evidence"},
+    {"provisional_id": "E8.11", "canonical_fact_key": "chapter_8b_rubric#morality_separation_check", "disposition": "context"},
+    {"provisional_id": "E8.12", "canonical_fact_key": "en.wikipedia.org/Reciprocal_Access_Agreement#japan_uk_2023_foip_camp_david", "disposition": "final_evidence"}
+  ]
+}
+```
+
+## 9. Final research-handoff summary
+
+- **Chapter yield (filtered ledger size per chapter):**
+  - 1B: 6 items (E1.1–E1.6); 1 of 10 lenses weakly covered, 9 weak/contextual.
+  - 2B: 8 items (E2.1–E2.8); 8–9 of 10 lenses covered.
+  - 3B: 10 items (E3.1–E3.10); 7–8 of 10 lenses covered.
+  - 4B: 14 items (E4.1–E4.14); 9–10 of 10 lenses covered.
+  - 5B: 10 items (E5.1–E5.10); 8–9 of 10 lenses covered.
+  - 6B: 10 items (E6.1–E6.10); 8–9 of 10 lenses covered.
+  - 7B: 12 items (E7.1–E7.12); 7–8 of 10 lenses covered.
+  - 8B: 12 items (E8.1–E8.12); 9–10 of 10 lenses covered.
+- **Source diversity:** Wikipedia, HRW, Freedom House, Cambridge PDY, Nippon.com, RSF, Kantei, Bulletin of the Atomic Scientists, Japan.go.jp. At least 4 source types (encyclopedia, NGO, intergovernmental, academic, primary government, professional magazine) and 8+ independent organizations across chapters.
+- **Same-URL concentration:** Wikipedia — Fumio Kishida (8 items); Cambridge PDY 2023 (8 items); Wikipedia — LDP slush fund scandal (8 items); Wikipedia — Attempted assassination of Fumio Kishida (2 items); HRW Japan 2024 (8 items). Triangulation of all high-concentration items is provided.
+- **Cross-chapter reuse:** LF012 (V-Dem accountability) and LF025 (V-Dem rule of law) reused across 4B / 7B / 8B; the G7 Hiroshima summit is reused across 1B / 2B / 8B; the LDP slush-fund scandal is reused across 4B / 7B / 8B; the cabinet reshuffle of 13 September 2023 is reused across 4B / 7B / 8B; the LGBT Understanding Promotion Act and the 2 February 2023 Arai firing are reused across 4B / 7B.
+- **Strongest contrary evidence:** LDP slush-fund scandal (7B / 8B adverse); ICRRA June 2023 amendment (3B / 4B adverse); Myanmar incidents via Japanese companies (2B adverse); weak LGBT Understanding Promotion Act (4B mixed).
+- **Strongest favorable evidence:** G7 Hiroshima Summit outcomes (1B / 2B / 8B); Camp David trilateral and Japan-UK RAA (2B / 8B); highest wage growth in 30 years (5B / 8B); first anti-LGBT-discrimination law (4B); Children and Families Agency creation (6B / 8B); penal-code rape reform (4B); Supreme Court rulings on transgender rights (4B); removal of four ministers over slush-fund scandal (7B); dissolution of all implicated LDP factions (7B post-period).
+- **Unresolved gaps:** No personal-asset-disclosure narrative; no 6B.4 professional-administration evidence; no FAS/SIPRI Japan nuclear-posture 2023 narrative; no Reuters/AP/BBC primary wires (blocked by robots.txt); no Kishida-attributed incitement, intelligence manipulation, or peace-treaty signature in 2023.
+- **Persistence note:** The complete handoff is the inline content of this response. The two supplied file paths under `…/jobs/427/attempts/001-e70d55fb-a9f/` could not be written because the sandboxed `exec_command` tool is not allowed to create directories or write files outside the read-only filesystem mount. No local writes were made; the parent can persist the response body and the manifest JSON above in place of the unavailable file artifacts.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "country_iso3": "JPN",
+  "entries": [
+    {
+      "canonical_fact_key": "en.wikipedia.org/49th_G7_summit#host_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E1.1"
+    },
+    {
+      "canonical_fact_key": "worldjpn.net/20230331.O1E#kishida_diplomacy_magazine",
+      "disposition": "final_evidence",
+      "provisional_id": "E1.2"
+    },
+    {
+      "canonical_fact_key": "thebulletin.org/2023/05/in-hiroshima-the-g7-economies-leverage-global-security-gains/#kishida_hiroshima_action_plan",
+      "disposition": "context",
+      "provisional_id": "E1.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#us_nuclear_umbrella_2023",
+      "disposition": "context",
+      "provisional_id": "E1.4"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Discharge_of_radioactive_water_of_the_Fukushima_Daiichi_Nuclear_Power_Plant#iaea_approval_aug_24_2023",
+      "disposition": "context",
+      "provisional_id": "E1.5"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/American\u2013Japanese\u2013Korean_trilateral_pact#camp_david_principles_aug_18_2023",
+      "disposition": "context",
+      "provisional_id": "E1.6"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#first_asian_sanctions_russia_belarus",
+      "disposition": "final_evidence",
+      "provisional_id": "E2.1"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Reciprocal_Access_Agreement#japan_uk_jan_11_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E2.2"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/American\u2013Japanese\u2013Korean_trilateral_pact#casus_foederis_aug_18_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E2.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/49th_G7_summit#hiroshima_may_19_21_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E2.4"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#defence_fiscal_resource_bill_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E2.5"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/American\u2013Japanese\u2013Korean_trilateral_pact#yoon_mar_2023_laborers",
+      "disposition": "context",
+      "provisional_id": "E2.6"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#myanmar_yokogawa_bridge",
+      "disposition": "context",
+      "provisional_id": "E2.7"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Reciprocal_Access_Agreement#australia_uk_philippines_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E2.8"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Attempted_assassination_of_Fumio_Kishida#april_15_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E3.1"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#hakamada_retrial_oct_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E3.2"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#no_executions_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E3.3"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#hostage_justice_may_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E3.4"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#icrra_june_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E3.5"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#technical_intern_may_2023_panel",
+      "disposition": "final_evidence",
+      "provisional_id": "E3.6"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Press_freedom_in_Japan#criminal_justice_99pct_conviction",
+      "disposition": "context",
+      "provisional_id": "E3.7"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#tokyo_high_court_north_korea_oct_2023",
+      "disposition": "context",
+      "provisional_id": "E3.8"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#kishida_2023_incitement_absence",
+      "disposition": "discovery_only",
+      "provisional_id": "E3.9"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#gaasyy_expulsion_march_2023",
+      "disposition": "context",
+      "provisional_id": "E3.10"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#sept_13_2023_reshuffle",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.1"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01703#women_civil_service_38.7pct_fy2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.2"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#arai_feb_3_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#lgbt_understanding_act_jun_16_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.4"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#rape_penal_code_reform_jun_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.5"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#lgbt_act_fair_discrimination",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.6"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#trans_sterilization_unconstitutional_oct_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.7"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#trans_bathroom_jul_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.8"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#foreign_intern_may_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.9"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#asylum_recognition_2022",
+      "disposition": "context",
+      "provisional_id": "E4.10"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#icrra_deportation_aug_2023_minors",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.11"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#dec_14_2023_minister_removal",
+      "disposition": "final_evidence",
+      "provisional_id": "E4.12"
+    },
+    {
+      "canonical_fact_key": "rsf.org/en/country/japan#index_2023_press_freedom",
+      "disposition": "context",
+      "provisional_id": "E4.13"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#hr_resolutions_dec_2022_2023",
+      "disposition": "context",
+      "provisional_id": "E4.14"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#inflation_3.1pct_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.1"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#yen_150_usd_nov_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.2"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#budget_114_4_trillion",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#new_capitalism_wage_growth_30yr_high",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.4"
+    },
+    {
+      "canonical_fact_key": "japan.kantei.go.jp/101_kishida/statement/202303/_00015#wage_increase_priority",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.5"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01776#intl_students_52.5pct_offers_jul_2023",
+      "disposition": "context",
+      "provisional_id": "E5.6"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01800#alumni_recruitment_55.5pct_oct_2023",
+      "disposition": "context",
+      "provisional_id": "E5.7"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01758#food_self_sufficiency_58pct_fy2022",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.8"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#new_capitalism_redistributive",
+      "disposition": "final_evidence",
+      "provisional_id": "E5.9"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#program_inventory_2023",
+      "disposition": "context",
+      "provisional_id": "E5.10"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#ogura_minister_children_apr_1_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.1"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#children_families_agency_apr_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.2"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01791#jasso_scholarship_1.2t_fy2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#kato_replaces_ogura_sep_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.4"
+    },
+    {
+      "canonical_fact_key": "hrw.org/world-report/2024/country-chapters/japan#abortion_pill_apr_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.5"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#heatwave_1651_deaths_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.6"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_Ishikawa_earthquake#may_5_2023",
+      "disposition": "context",
+      "provisional_id": "E6.7"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01768#heatstroke_alerts_aug_2023",
+      "disposition": "context",
+      "provisional_id": "E6.8"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#children_families_agency_first_new_ministry_2001",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.9"
+    },
+    {
+      "canonical_fact_key": "nippon.com/en/japan-data/h01703#women_civil_service_record_fy2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E6.10"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#nov_2023_seiwakai_shisuikai",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.1"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#dec_13_2023_four_ministers",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.2"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#dec_8_2023_diet_questioning",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#jan_18_2024_kochikai_dissolution",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.4"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#kishida_resigns_kochikai",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.5"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#approval_17pct_dec_22_2023",
+      "disposition": "context",
+      "provisional_id": "E7.6"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Criticism_of_the_Unification_Church_in_Japan#kishida_2022_investigation",
+      "disposition": "context",
+      "provisional_id": "E7.7"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#arai_fired_feb_3_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.8"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#mitsubishi_spacejet_withdrawal_feb_2023",
+      "disposition": "context",
+      "provisional_id": "E7.9"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#kishida_ball_of_fire",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.10"
+    },
+    {
+      "canonical_fact_key": "local-prior:7B.31_cpi_score_73",
+      "disposition": "final_evidence",
+      "provisional_id": "E7.11"
+    },
+    {
+      "canonical_fact_key": "local-prior:7B.30_v2x_corr_0.05",
+      "disposition": "context",
+      "provisional_id": "E7.12"
+    },
+    {
+      "canonical_fact_key": "japan.kantei.go.jp/101_kishida/statement/202303/_00015#new_capitalism",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.1"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#program_inventory",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.2"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#sept_13_2023_reshuffle_11_new_5_women",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.3"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/49th_G7_summit#outcomes_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.4"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Discharge_of_radioactive_water_of_the_Fukushima_Daiichi_Nuclear_Power_Plant#discharge_aug_24_2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.5"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Attempted_assassination_of_Fumio_Kishida#g7_security_response",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.6"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Fumio_Kishida#wage_growth_30yr_high",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.7"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#downstream_2024_2025_losses",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.8"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/LDP_slush_fund_scandal#kono_motegi_reshuffle_assignments",
+      "disposition": "context",
+      "provisional_id": "E8.9"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/2023_in_Japan#ogura_kato_children_minister",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.10"
+    },
+    {
+      "canonical_fact_key": "chapter_8b_rubric#morality_separation_check",
+      "disposition": "context",
+      "provisional_id": "E8.11"
+    },
+    {
+      "canonical_fact_key": "en.wikipedia.org/Reciprocal_Access_Agreement#japan_uk_2023_foip_camp_david",
+      "disposition": "final_evidence",
+      "provisional_id": "E8.12"
+    }
+  ],
+  "period_end_year": 2023,
+  "period_start_year": 2023,
+  "ruler_id": 2895,
+  "ruler_name": "Fumio Kishida",
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

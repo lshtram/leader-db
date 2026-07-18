@@ -64,13 +64,15 @@ bookkeeping, not binding admissibility decisions. Apply every cited chapter evid
 item to the ten lenses yourself. In particular, `research_blocked` means that the
 formatter did not record a complete lens disposition; it does not erase relevant
 chapter evidence or require a null score.
-Use half-point score increments. A numeric score must rest on at least one direct,
-ruler-attributed, chapter-discriminating fact. Documented formal authority for a
-national policy, program, appointment, or state action can satisfy ruler attribution
-when the evidence and guide support authority-based responsibility; a personal order
-is not required in every case. Inherited conditions, generic country
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
 context, intentions, missing implementation evidence, or missing adverse evidence
-cannot determine the score's direction. If that floor is not met, return null with
+cannot determine the score's direction. If the record remains insufficient, return null with
 the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
 decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
 manual review for a concrete issue that could materially change the chapter result;
@@ -82,6 +84,18 @@ batch with multiple rulers, `calibrated_against` must name at least one other
 available dossier job key. Put guide-specific additions such as `trajectory` in
 the `chapter_specific` field/value list. Natural language inside semantic fields
 is welcome.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
 
 Retry context: {repair_note}
 

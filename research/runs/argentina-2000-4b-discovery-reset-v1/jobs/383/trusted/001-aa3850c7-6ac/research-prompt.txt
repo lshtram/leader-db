@@ -1,0 +1,1120 @@
+Perform an evidence-collection pass using the complete instructions,
+local facts, and chapter guides inlined below. You do not need to read any local
+instruction or data file: the parent has already supplied everything required here.
+
+Tool discipline:
+- Use the Parallel `web_search` and `web_fetch` MCP tools for concise discovery and
+  exact-page extraction. Other search/browser MCPs are disabled in this profile after
+  reliability testing. Keep calls sequential so routing, rate, and evidence provenance
+  remain unambiguous.
+- Do not call image or image-inspection tools for text files, test tool access with
+  unrelated paths, inspect system files, or request elevated permissions.
+- The only local write needed is the supplied `research_materials_path`. If writing
+  that notebook is unavailable, continue the research and put the complete handoff
+  in the final response so the parent can persist it.
+- A rejected tool call is not a reason to experiment with other unrelated tools or
+  paths. Continue with available web research and the inlined material.
+- Never request a recency or recent-news filter for a historical ruler-period. Search
+  results are discovery candidates; open or fetch promising underlying sources before
+  deciding whether they are evidence.
+
+Job:
+{
+  "country_name": "Argentina",
+  "iso3": "ARG",
+  "job_key": "dossier:argentina-2000-4b-discovery-reset-v1:2000:ARG:2414",
+  "methodology_ids": [
+    "4B.1",
+    "4B.2",
+    "4B.3",
+    "4B.4",
+    "4B.5",
+    "4B.6",
+    "4B.7",
+    "4B.8",
+    "4B.9",
+    "4B.10"
+  ],
+  "period_end_year": 2000,
+  "period_start_year": 2000,
+  "research_ledger_manifest_path": "/home/liorshtram/projects/leaders-db/research/runs/argentina-2000-4b-discovery-reset-v1/jobs/383/attempts/001-aa3850c7-6ac/research-ledger-manifest.json",
+  "research_materials_path": "/home/liorshtram/projects/leaders-db/research/runs/argentina-2000-4b-discovery-reset-v1/jobs/383/attempts/001-aa3850c7-6ac/research-materials.md",
+  "ruler_id": "545",
+  "ruler_name": "de la Rua",
+  "ruler_year_id": 2414,
+  "run_key": "argentina-2000-4b-discovery-reset-v1"
+}
+
+Deduplicated local structured evidence package:
+{
+  "chapters": [
+    {
+      "chapter_id": "4B",
+      "fact_ids": [
+        "LF001",
+        "LF002",
+        "LF003",
+        "LF004",
+        "LF005",
+        "LF006",
+        "LF007",
+        "LF008",
+        "LF009",
+        "LF010",
+        "LF011",
+        "LF012",
+        "LF013",
+        "LF014",
+        "LF015"
+      ],
+      "mapping_notes": [
+        "Political-freedom D11 country-year facts usable as structured priors.",
+        "D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance."
+      ],
+      "methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      }
+    }
+  ],
+  "disposition_instruction_sets": {
+    "I001": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+    ]
+  },
+  "disposition_reasons": {},
+  "error_methodology_ids": [],
+  "facts": [
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF001",
+      "field_key": "accountability",
+      "label": "Accountability",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_accountability"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 1.499,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF002",
+      "field_key": "civil_liberties",
+      "label": "Civil liberties",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_civlib"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.937,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF003",
+      "field_key": "electoral_democracy",
+      "label": "Electoral democracy",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_polyarchy"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.833,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF004",
+      "field_key": "freedom_association",
+      "label": "Freedom of association",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_frassoc_thick"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.915,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF005",
+      "field_key": "freedom_expression",
+      "label": "Freedom of expression",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_freexp"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.956,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF006",
+      "field_key": "judicial_constraints",
+      "label": "Judicial constraints",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_jucon"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.718,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF007",
+      "field_key": "legislative_constraints",
+      "label": "Legislative constraints",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2xlg_legcon"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.727,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF008",
+      "field_key": "liberal_democracy",
+      "label": "Liberal democracy",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_libdem"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.67,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF009",
+      "field_key": "multiparty_institutions",
+      "label": "Multiparty institutions",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_mpi"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.737,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF010",
+      "field_key": "political_liberties",
+      "label": "Political civil liberties",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_clpol"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.955,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF011",
+      "field_key": "regime_type",
+      "label": "Regime type",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_regime"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 2.0,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF012",
+      "field_key": "rule_of_law",
+      "label": "Rule of law",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_rule"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.698,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF013",
+      "field_key": "suffrage",
+      "label": "Suffrage",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_suffr"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 1.0,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF014",
+      "field_key": "voice_and_accountability",
+      "label": "Voice and accountability",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "world_bank_wgi:ARG:2000:wgi_voice_and_accountability"
+      ],
+      "source_slugs": [
+        "world_bank_wgi"
+      ],
+      "value": 0.41834697127342224,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF015",
+      "field_key": "wgi_rule_of_law",
+      "label": "WGI rule of law",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "world_bank_wgi:ARG:2000:wgi_rule_of_law"
+      ],
+      "source_slugs": [
+        "world_bank_wgi"
+      ],
+      "value": -0.21440449357032776,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    }
+  ],
+  "methodology_dispositions": {
+    "4B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    }
+  },
+  "methodology_statuses": {
+    "4B.1": "evidence_found",
+    "4B.10": "evidence_found",
+    "4B.2": "evidence_found",
+    "4B.3": "evidence_found",
+    "4B.4": "evidence_found",
+    "4B.5": "evidence_found",
+    "4B.6": "evidence_found",
+    "4B.7": "evidence_found",
+    "4B.8": "evidence_found",
+    "4B.9": "evidence_found"
+  },
+  "no_evidence_methodology_ids": [],
+  "not_applicable_methodology_ids": [],
+  "schema_version": "ruler_local_prior_package_v1",
+  "source_prior_count": 10,
+  "status_counts": {
+    "evidence_found": 10
+  },
+  "unique_fact_count": 15
+}
+
+Research workflow:
+    {
+  "chapter_judge_search_enabled": false,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "continuation_marginal_value_policy_enabled": true,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "formatter_search_enabled": false,
+  "local_facts_before_internet": true,
+  "max_review_rounds": 3,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "researcher_direct_iterative_search": true,
+  "researcher_receives_complete_selected_guides": true,
+  "researcher_session_scope": "one_ruler_period",
+  "review_continuation_session": "same_researcher_thread",
+  "score_order_audit_required": true,
+  "supervisor_takeover_after_research_attempts": 2,
+  "supervisor_takeover_enabled": true,
+  "version": 1
+}
+
+Required methodology (fully inlined for self-contained execution):
+## Required methodology: docs/methodology/source-confidence-registry.json
+
+{
+  "schema_version": "source-confidence-registry-v1",
+  "purpose": "Non-secret default source-confidence registry for cited manual/internet evidence. Workers must profile every citation with these fields and rate newly discovered sources by analogy before using them.",
+  "confidence_levels": [
+    "high",
+    "medium_high",
+    "medium",
+    "medium_low",
+    "low",
+    "very_low"
+  ],
+  "final_evidence_use_values": [
+    "final_evidence",
+    "context",
+    "discovery_only"
+  ],
+  "required_citation_profile_fields": [
+    "source_confidence",
+    "source_confidence_reason",
+    "source_type",
+    "final_evidence_use"
+  ],
+  "source_diversity_rule": "Low or very_low confidence sources may not be sole support for any score-bearing claim. Prefer at least two independent source types for material claims where available, and explain gaps in closed or low-information environments.",
+  "unlisted_source_policy": {
+    "default_confidence": "medium_low",
+    "source_type": "unlisted",
+    "allowed_use": "Rate by publisher, authorship, evidence proximity, incentives, and claim type before use; upgrade or downgrade in source_confidence_reason.",
+    "final_evidence_use": "context",
+    "caveats": "Do not use an unprofiled source as sole final evidence. Record why the discovered source is reliable enough for the claim type. Add durable high-value sources to this registry after the run."
+  },
+  "source_profiles": [
+    {
+      "source": "local_structured_priors",
+      "domain": "data/outputs/research/*/artifacts/*.json",
+      "default_confidence": "high",
+      "source_type": "structured_dataset",
+      "allowed_use": "Structured local priors and locally ingested datasets are strong final evidence for the fields they directly measure.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Do not treat absence of a local fact as absence of real-world evidence; pair with narrative sources for ruler-specific actions."
+    },
+    {
+      "source": "OSCE/ODIHR",
+      "domain": "osce.org/odihr",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for election administration, media environment, legal framework, and observer findings.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Note mission scope, whether observation was limited, and whether findings cover the target year."
+    },
+    {
+      "source": "European Union election observation missions",
+      "domain": "eods.eu OR eeas.europa.eu",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for observed elections, legal frameworks, campaign conditions, and institutional recommendations.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Use only for directly observed cases or clearly identified EU mission reports."
+    },
+    {
+      "source": "OAS electoral observation",
+      "domain": "oas.org",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for election observation in OAS-covered countries.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Check mission mandate, date, and whether the report addresses entrenchment-relevant institutions."
+    },
+    {
+      "source": "Carter Center",
+      "domain": "cartercenter.org",
+      "default_confidence": "high",
+      "source_type": "election_observer",
+      "allowed_use": "Final evidence for election observation and democratic-process assessments where the Center had mission coverage.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Distinguish direct observation findings from secondary background narrative."
+    },
+    {
+      "source": "International IDEA",
+      "domain": "idea.int",
+      "default_confidence": "high",
+      "source_type": "intergovernmental",
+      "allowed_use": "Final evidence for electoral-system, constitutional, and democracy-assistance records when directly documented.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Use country pages and reports as institutional context; corroborate specific misconduct allegations."
+    },
+    {
+      "source": "Human Rights Watch",
+      "domain": "hrw.org",
+      "default_confidence": "medium_high",
+      "source_type": "ngo",
+      "allowed_use": "Final evidence for documented rights abuses, intimidation, media pressure, and security-force conduct when claims are sourced and dated.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Prefer detailed reports over press summaries; corroborate highly contested or single-source allegations."
+    },
+    {
+      "source": "Amnesty International",
+      "domain": "amnesty.org",
+      "default_confidence": "medium_high",
+      "source_type": "ngo",
+      "allowed_use": "Final evidence for documented repression, prosecutions, detention, and abuse connected to political contestation.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Check whether the evidence is target-year, near-period, or broader ruler-period context."
+    },
+    {
+      "source": "Official election commissions and courts",
+      "domain": "country election commission / judiciary domains",
+      "default_confidence": "medium_high",
+      "source_type": "official_record",
+      "allowed_use": "Final evidence for formal facts such as laws, official results, dates, judgments, procedural rules, and officeholder records.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Use with care for self-assessments, claims of fairness, disputed results, or allegations against the incumbent; corroborate those claims independently.",
+      "claim_type_overrides": [
+        {
+          "claim_type": "formal_fact_or_primary_legal_record",
+          "confidence": "high",
+          "final_evidence_use": "final_evidence",
+          "reason": "Primary source for official text, dates, procedural rules, certified results, or judgments."
+        },
+        {
+          "claim_type": "self_serving_fairness_or_legitimacy_claim",
+          "confidence": "medium_low",
+          "final_evidence_use": "context",
+          "reason": "Official actors have incentives to frame incumbent conduct or institutional independence favorably."
+        }
+      ]
+    },
+    {
+      "source": "Official government sites",
+      "domain": "*.gov, *.gov.*, ministries, presidency, prime minister, ruling-party-controlled state outlets",
+      "default_confidence": "medium_low",
+      "source_type": "official",
+      "allowed_use": "Use with care. Suitable for formal facts and official positions; not sufficient alone for self-serving claims about fairness, legality, restraint, or absence of manipulation.",
+      "final_evidence_use": "context",
+      "caveats": "For self-serving claims, require independent corroboration from observers, courts, NGOs, intergovernmental bodies, or reputable media.",
+      "claim_type_overrides": [
+        {
+          "claim_type": "formal_fact_or_primary_document",
+          "confidence": "medium_high",
+          "final_evidence_use": "final_evidence",
+          "reason": "Official site can be a primary source for text, date, office, law, decree, budget, or procedural publication."
+        },
+        {
+          "claim_type": "self_serving_claim_about_government_fairness_or_restraint",
+          "confidence": "medium_low",
+          "final_evidence_use": "context",
+          "reason": "Self-interested source for claims about its own democratic restraint or legitimacy."
+        }
+      ]
+    },
+    {
+      "source": "Reuters / Associated Press / BBC / major reputable international wire or public-service media",
+      "domain": "reuters.com, apnews.com, bbc.com, and comparable outlets",
+      "default_confidence": "medium_high",
+      "source_type": "media",
+      "allowed_use": "Final evidence for chronology, attributed statements, event reporting, and corroborating details, especially when primary reports are unavailable.",
+      "final_evidence_use": "final_evidence",
+      "caveats": "Prefer original observer/legal/NGO sources for analytic conclusions; preserve attribution and uncertainty."
+    },
+    {
+      "source": "Wikipedia",
+      "domain": "wikipedia.org",
+      "default_confidence": "medium_high",
+      "source_type": "encyclopedia",
+      "allowed_use": "Orientation, basic facts, names, dates, office chronology, and discovery of primary sources through references.",
+      "final_evidence_use": "context",
+      "caveats": "Mostly orientation/basic facts. Do not use as sole support for score-bearing manipulation claims; follow citations to primary or higher-confidence sources when possible."
+    },
+    {
+      "source": "Grokipedia",
+      "domain": "grokipedia.com",
+      "default_confidence": "very_low",
+      "source_type": "ai_generated_encyclopedia",
+      "allowed_use": "Discovery only, if encountered. Use only to find leads that are verified elsewhere.",
+      "final_evidence_use": "discovery_only",
+      "caveats": "Very low confidence; never sole support and normally excluded from final evidence."
+    }
+  ]
+}
+
+
+Chapter guides (inlined because some low-cost execution profiles cannot read files):
+## docs/methodology/chapter-guides/4b-political-freedom.md
+
+# 4B Political Freedom vs Authoritarian Rule
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `4B`
+- Category: political freedom vs authoritarian rule
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_4b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The ten questions below are complementary evidence lenses. They direct collection and expose different mechanisms; they are not independent gates or equally weighted sub-scores.
+
+## Ten Evidence Lenses
+
+1. **4B.1** — Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?
+2. **4B.2** — Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?
+3. **4B.3** — Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?
+4. **4B.4** — Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?
+5. **4B.5** — Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?
+6. **4B.6** — Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?
+7. **4B.7** — Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
+8. **4B.8** — Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?
+9. **4B.9** — Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?
+10. **4B.10** — Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?
+
+## Researcher Evidence Plan
+
+Collect a reusable, cited ruler-period dossier; do not score the chapter. Follow the local-first researcher guide and source-confidence registry. Start with local V-Dem, BTI, RSF, Freedom House/Polity when available, election and constitutional records, then search only unresolved gaps. Prefer election observers, courts, legislatures, audit/election bodies, UN or regional institutions, rights and press-freedom organizations, academic histories, and reputable local/international reporting. Official claims are useful for acts and stated intent but require independent checks for effects.
+
+Seek evidence on election quality and alternation; institutional capture or restraint; treatment of opposition, protest, journalists, NGOs and satire; court and legislative independence; appointments and politicization; censorship, propaganda and digital controls; political inclusion; term limits and succession; and inherited-to-left trajectory. Preserve favorable, adverse and contrary evidence. One item may support several lenses when the relationship is real; do not duplicate the source merely to fill every lens. Flexible prose and coverage labels are acceptable if citations and meaning remain recoverable.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Separate inherited regime conditions from the ruler's choices. Credit opening, restraint, remedies and durable institution-building; debit capture, repression, erosion and knowing failure to prevent abuses within the ruler's authority. Record formal versus de facto authority, coalition constraints, subnational responsibility, conflict/emergency context and timing. Do not award a ruler an inherited democracy automatically or blame a new ruler for every inherited restriction.
+
+Historical and obscure cases will have uneven records. Use contemporary archives, constitutional histories and reputable scholarship; note temporal distance and disagreement. Missing lenses lower confidence and may alter qualitative weight, but never invalidate a dossier or mechanically force a neutral/low score. Silence is especially weak evidence in closed systems.
+
+An inherited democracy establishes context, not ruler merit. Scores of 8 or above
+require direct target-period evidence that the ruler respected or strengthened
+contestability, transfer rules, civic/media space, or independent constraints when
+those constraints had practical force. A 9 normally requires meaningful pressure or
+consequential strengthening. If a projection claims coverage but contains no cited
+chapter evidence, return null and flag `projection_integrity`; do not infer a score
+from the country baseline. Post-window events may be used only as retrospective
+evidence about a target-period act, must be labeled, and may not silently expand the
+period under judgment.
+
+## Chapter Judge and Lens Weighting
+
+One judge scores the complete ruler batch with a common meter. Judge the overall freedom people could exercise and the ruler's contribution to it. Weight lenses qualitatively by consequence, ruler responsibility, duration, breadth, source strength and period fit. Electoral contestability, coercive closure, institutional constraints, civic/media space and transfer rules will often be decisive; minor administrative incidents should not outweigh systematic capture. `4B.10` synthesizes trajectory and must not double-count every underlying event. Redundancy is intentional: corroborating lenses increase confidence, not arithmetic weight.
+
+The judge may score with only part of the lens set when the available evidence establishes the regime and ruler pattern. State which lenses are strong, weak or unavailable and why. Never manufacture a per-lens score or average.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler systematically eliminates meaningful political choice and independent constraint through repression, captured institutions, censorship, entrenchment and/or refusal of lawful transfer. |
+| 2–3 | Severe authoritarian rule dominates across several consequential mechanisms; opposition and oversight exist only narrowly or at substantial risk. |
+| 4–5 | Material competition or civic space coexists with recurring manipulation, capture, exclusion or intimidation; the ruler's contribution is mixed or erosive. |
+| 6–7 | Meaningful political freedom and constraints operate, but important ruler-attributable flaws, unequal access, pressure or institutional weaknesses remain. |
+| 8–9 | The ruler consistently respects broad contestability, rights, independent institutions and transfer rules, with isolated or credibly remedied shortcomings. |
+| 10 | Exceptional, durable protection and strengthening of pluralism and neutral constraints, including when those constraints threaten the ruler's own power. |
+
+## Common Chapter-Judge Output Envelope
+
+The chapter result should use the shared semantic envelope below. Exact field spelling can be normalized cheaply after LLM handoff; no useful judgment should be rejected only for synonymous wording.
+
+- `chapter_id`: `4B`
+- `rubric_version`: `chapter_4b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extra: `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language values are acceptable; preserve meaning rather than enforcing brittle enums.
+
+## Calibration, Confidence, and Bias Checks
+
+Check visibility and silence-under-repression bias, population and incident-volume bias, regime-type comparability, election-cycle timing, wartime/emergency claims, formal-versus-de-facto authority, English-language/search-access bias, and recency. Compare rulers with similar inherited systems as well as the full batch. High reporting volume in open societies is not itself worse performance.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Kim Jong Un | North Korea | 2012–2023 | closed personalist low anchor and silence bias |
+| Alexander Lukashenka | Belarus | 2020 | manipulated election and coercive entrenchment |
+| Vladimir Putin | Russia | 2012–2023 | long-run institutional erosion and transfer avoidance |
+| Narendra Modi | India | 2014–2023 | competitive elections with contested civic/institutional record |
+| Donald Trump | United States | 2020–2021 | transfer stress test within resilient institutions |
+| Nelson Mandela | South Africa | 1994–1999 | democratic transition, inclusion and voluntary departure |
+| Angela Merkel | Germany | 2005–2021 | high institutional-restraint comparison |
+| Jacinda Ardern | New Zealand | 2017–2023 | high freedom with crisis/emergency scrutiny |
+| Lee Kuan Yew | Singapore | 1965–1990 | prosperity-versus-contestability edge case |
+| Violeta Chamorro | Nicaragua | 1990–1997 | less-visible historical transition, institutional constraint and gender comparison |
+
+## Acceptance Checklist
+
+- Scores above `7` require affirmative ruler-attributed self-binding, protection, or
+  expansion of freedom; inherited democratic institutions alone cannot establish a
+  high anchor.
+
+- All ten exact lenses remain visible, but only one chapter score is produced.
+- Research is local-first, cited, source-profiled, period-fit and preserves contrary evidence.
+- The judge scores the full batch with one rubric and records adjacent comparisons.
+- Baseline, de facto authority, ruler attribution and trajectory are explicit.
+- Missing lenses reduce confidence and never invalidate the dossier.
+- Flexible LLM wording/statuses are accepted when evidence and uncertainty are recoverable.
+- Systematic mechanisms outweigh article count and isolated events.
+- Bias checks and anchor rejections are substantive.
+- Smoke cases are reviewed together before this draft is activated.
+
+
+Your task is research, not final formatting. Start with the deduplicated local
+package before inspecting internet discovery. Establish a chapter-by-chapter local
+baseline: which facts exist, their exact years/sources/warnings, what they measure,
+what is only country or inherited-capacity context, and which attribution or narrative
+gaps require internet evidence. Do not re-fetch a structured dataset already supplied
+locally. Absence of a local row is a gap, not proof that the real-world condition was
+zero, peaceful, safe, responsible, or inapplicable. The package's
+`candidate_methodology_ids` are routing hints, not proof that a fact directly answers
+every listed lens; decide and explain actual reuse yourself.
+Any `error_methodology_ids` entry is a local-input failure, not ordinary missing
+evidence: flag it as a blocking data-quality issue in the handoff and never conceal
+it by substituting web evidence. Use the referenced disposition reason and guidance
+to distinguish an extraction error, absent country-year, empty mapped fields, and a
+genuinely inapplicable lens.
+
+Before lens work, perform one broad ruler-period reconnaissance to understand the
+ruler, period, major events, and likely source families across all eight chapters.
+Then work through chapters 1B to 8B, and the ten lenses inside each chapter, in order.
+This is one continuing ruler research session and one growing evidence library, not
+80 independent research tasks. Before every lens,
+inspect the accumulated ledger and map any already relevant evidence. Search again
+only for the material themes, contrary interpretations, or attribution links that the
+current lens still lacks. Append genuinely new evidence and continue; never restart
+the ruler research or reproduce an existing fact merely because a new lens can use it.
+Do not stop after one broad query. At the start of each chapter, build a lightweight
+candidate pool with several differently framed searches: broad topic, event-specific,
+named source/archive, adverse or contrary, and local-language searches where useful.
+Record query, title, URL, and candidate status without satisfying the evidence schema.
+Search tools expose a ranked sample rather than the whole web, so paginate when
+supported and vary queries. Then open promising pages and documents, extract exact
+claims and locators, and filter them into the evidence ledger. Adjust depth to evidence
+abundance: a globally
+prominent contemporary ruler normally requires substantially more searching than an
+obscure or closed historical case. Record why each lens is covered, partly covered,
+explicitly searched without usable evidence, or blocked, and why each chapter is
+saturated before moving on.
+
+Record accepted material immediately in `research-materials.md` inside the supplied
+output directory before starting another search. Keep one append-only global evidence
+ledger for the ruler-period. The ledger may use a Markdown table or one JSON object per
+item, but every accepted item must use the same fields and one stable provisional ID.
+When file writing is available, also maintain `research-ledger-manifest.json` at the
+supplied path as a small accounting index with this shape:
+`{"schema_version":"ruler_research_ledger_manifest_v1","entries":[...]}`.
+Each entry must contain `provisional_id`, `canonical_fact_key`, and `disposition`, where
+disposition is `final_evidence`, `context`, `discovery_only`, or `rejected`. A rejected
+entry must also contain a specific `reason`. Update the manifest whenever the ledger
+changes. This is not a second evidence format: it is only the complete key/disposition
+index used to prove that formatting did not silently lose notebook material.
+Chapter notes and prose may remain flexible. The manifest is an optional accounting aid:
+never shorten, distort, or abandon substantive research merely to satisfy it. A complete
+permissive notebook remains the authoritative handoff when the model cannot write the file.
+
+For every retained evidence item record:
+- a stable provisional ID;
+- a canonical fact key formed from the canonical source URL, exact locator, and one
+  materially distinct claim, so the same fact is not recreated under another chapter;
+- exact approved URL or canonical `local-prior:<methodology_id>` locator from the
+  supplied fact record;
+- title, publisher, and date when known;
+- factual claim and a concise main-points summary;
+- a precise source locator: PDF page/table/figure, HTML section plus paragraph, legal
+  section, transcript timestamp, dataset row/field, or the supplied exact local-prior
+  locator; also retain a short supporting excerpt when available;
+- source type/confidence and limitations;
+- target-period fit and ruler attribution;
+- contrary or mitigating points;
+- candidate chapters and lenses it can inform.
+
+If the exact underlying URL or locator is unavailable, label the item
+`gateway_only`, `locator_missing`, or `underlying_source_missing` and keep it out of
+the defensible evidence count. A homepage, search-result page, document index,
+`release page`, `article`, or organization name is not a precise locator. Never guess
+a locator. Never bundle multiple URLs or materially distinct claims into one ledger
+item merely to save space; create separate items when their provenance differs.
+
+Before adding a new item, check the entire ruler ledger for the same canonical fact
+key. Reuse its stable ID and add every genuinely relevant chapter/lens mapping instead
+of creating chapter-prefixed copies. Mapping is deliberately many-to-many: do not pick
+one "best" lens and hide the evidence from other lenses it directly informs.
+Local priors are context unless the fact itself directly measures the ruler's conduct;
+they use their supplied stable locator and must not be counted as internet sources.
+
+Aim for 5–20 defensible source-claim units per selected chapter, normally about 10.
+This is the filtered ledger size, not a search-results ceiling.
+A source-claim unit is one traceable source supporting one materially distinct claim;
+a heading, excerpt, paragraph, empty prior, alternate/AMP URL, or repeated statement
+is not another item. A long report may support several materially distinct claims when
+each has a precise locator; retain them and report source concentration instead of
+using a per-URL cap. Reuse one stable item across chapters instead of duplicating it globally.
+This is a goal, not a hard gate: never pad, invent, or lower source standards to meet
+a count. If a chapter remains below five, inspect every supplied candidate, record
+candidate-level rejection reasons, and name the exact missing themes and source types.
+
+For each lens, explicitly list the stable IDs reused from earlier work, stable IDs
+newly added for this lens, searches attempted for remaining gaps, and its final
+coverage disposition. `no_evidence_found` is permitted only after explicit searches
+are recorded with a specific explanation; otherwise use `research_blocked`. For each
+chapter, report both mapped source-claim units and independent locator/source
+families. Seek at least three source organizations and two source types when the
+available evidence permits, but do not manufacture diversity. Treat post-period material
+as context unless it directly establishes a target-period fact. Empty or
+`no_evidence_found` priors are gap signals and never retained evidence.
+
+Do not assign scores, score ranges, anchors, ranking recommendations, or advice about
+whether a judge should return a score or null. Do not use the client matrix. Your final
+response is a flexible research handoff summarizing the global evidence register,
+chapter yield and source diversity,
+same-URL splits, cross-chapter reuse, rejected candidates, strongest contrary
+evidence, and unresolved gaps. Self-audit temporal fit, ruler attribution, weak or
+context-only items, and claims lacking independent corroboration. Include a local-data
+audit stating which supplied fact IDs were retained, used as context, or left unused
+and why. It does not need to match a JSON schema.
+
+Execution requirement for tool-using models: do not finish on a planning statement,
+an internal-thinking marker, or immediately after a search/page-inspection call. Begin
+the research calls promptly; after every tool result either continue the chapter work
+or synthesize the retained evidence. The final response must contain the substantive
+eight-chapter handoff itself, even when the notebook file was written successfully.

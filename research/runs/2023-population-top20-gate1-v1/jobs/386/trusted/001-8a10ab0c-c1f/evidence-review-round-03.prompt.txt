@@ -1,0 +1,1524 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-gate1-v1:2023:CHN:15833",
+  "iso3": "CHN",
+  "country_name": "China",
+  "ruler_name": "Xi Jinping",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 34,
+  "approximate_source_family_count": 17,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 34 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 17 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed as a substantive handoff below. The environment rejected the attempted writes to the supplied paths, so the complete notebook and manifest content could not be persisted by this worker. No local files were read beyond the material inlined in the task.
+
+## Scope and method
+
+I began with the supplied local structured package, then performed broad ruler-period reconnaissance and targeted web research for Xi Jinping, China, 2023. Supplied structured datasets were not re-fetched.
+
+This is evidence collection only. No chapter scores, score ranges, anchor recommendations, ranking recommendations, or null recommendations are assigned.
+
+## Local baseline audit
+
+All supplied local facts are 2023 country-year observations, confidence `80`, with no warnings, and exact `local-prior:<methodology_id>` locators.
+
+- **1B — Nuclear/existential risk:** no local facts. All ten lenses are `no_evidence_found`. The package explicitly warns that the absence of D17/FAS facts is not evidence of responsible conduct, non-exposure, or zero risk.
+- **2B — International peace/security:** LF001–LF004, SIPRI military expenditure:
+  - Constant USD: `292,220,763,057`
+  - Per capita: `208.01`
+  - Share of GDP: `1.6215%`
+  - Share of government spending: `4.9537%`
+  
+  These establish military-resource exposure only. They do not establish aggression, defensive necessity, civilian conduct, or Xi’s personal responsibility.
+- **3B — Domestic safety:** LF005–LF011:
+  - V-Dem civil-society repression: `-1.878`
+  - Extrajudicial killings: `0.259`
+  - Physical-integrity liberties: `0.344`
+  - Private civil liberties: `0.113`
+  - PTS Amnesty: `4`
+  - PTS Human Rights Watch: `4`
+  - PTS State Department: `5`
+  
+  These are country-level safety/repression baselines requiring ruler attribution.
+- **4B — Political freedom:** LF012–LF029 include:
+  - V-Dem accountability: `-1.275`
+  - BTI democracy status: `3.1833`
+  - BTI governance: `4.9966`
+  - Freedom House civil liberties: `6`
+  - Freedom House political rights: `7`
+  - V-Dem electoral democracy: `.074`
+  - Association: `.038`
+  - Expression: `.042`
+  - Judicial constraints: `.043`
+  - Legislative constraints: `.106`
+  - Liberal democracy: `.037`
+  - Multiparty institutions: `0`
+  - Regime type: `0`
+  - Suffrage: `1`
+  - RSF press-freedom rank: `179`
+  - RSF press-freedom score: `22.97`
+  - V-Dem rule of law: `.232`
+  
+  These are extensive country/regime priors, not automatically Xi-specific evidence.
+- **5B — Economic wellbeing:** LF015 and LF030–LF032:
+  - BTI status index: `4.7524`
+  - Real GDP per capita: `12,951.18`
+  - GDP total: approximately `18.270T`
+  - Population: `1,410,710,000`
+  
+  These provide baseline and scale context but do not prove policy implementation, distribution, or ruler credit.
+- **6B — Social wellbeing:** no local facts. All ten lenses are `no_evidence_found`; the package explicitly treats this as a gap rather than evidence of poor or strong welfare performance.
+- **7B — Personal integrity:** LF012, LF028, LF033–LF036:
+  - Accountability: `-1.275`
+  - Rule of law: `.232`
+  - Political corruption: `.525`
+  - CPI: `42`
+  - Executive corruption: `.534`
+  - Public corruption: `.498`
+  
+  These are institutional and country-level context. They cannot establish Xi’s personal honesty, self-dealing, or conflicts of interest without a direct ruler nexus.
+- **8B — Effectiveness:** LF012, LF014, LF028:
+  - Accountability
+  - BTI governance
+  - Rule of law
+  
+  These describe governance capacity and institutional context, not proof that Xi selected, implemented, or achieved particular goals.
+
+No `error_methodology_ids` were supplied. Empty local states are treated as explicit research gaps, not as zeroes or proof of inapplicability.
+
+# Global evidence register
+
+## E001 — 2023 repression and social-control pattern
+
+- **Canonical fact key:**  
+  `https://www.hrw.org/world-report/2024/country-chapters/china#intro-2023-repression|2023 repression and social control under Xi`
+- **Source:** Human Rights Watch, *World Report 2024: China*, published 2024, reporting on 2023.
+- **URL:** https://www.hrw.org/world-report/2024/country-chapters/china
+- **Precise locator:** HTML introductory paragraphs.
+- **Claim:** HRW reports that repression deepened during Xi’s tenure; policies toward Uyghurs and other Turkic Muslims in Xinjiang continued; Tibetans faced forced assimilation; independent civil society was effectively absent; Beijing maintained extensive control over Hong Kong; and counter-espionage targeting expanded in 2023.
+- **Source profile:** `medium_high`; `ngo`; `final_evidence`.
+- **Limitations:** Advocacy perspective, difficult verification in closed regions, and incomplete attribution to Xi personally for individual acts.
+- **Temporal fit:** Target year, with 2024 publication.
+- **Attribution:** Strong for Xi-era central-government direction and party-state policy; weaker for personal ordering of each local incident.
+- **Role and mappings:** Negative/contextual evidence for `3B.1–3B.10`, `4B.1–4B.10`, `7B.7`, `7B.10`, `8B.3`, `8B.5`, `8B.6`, `8B.10`.
+- **Contrary/mitigating points:** HRW also notes that Beijing moderated some aggressive rhetoric toward Western countries to attract investment and that public questioning persisted despite risk.
+
+## E002 — Censorship and punishment of expression
+
+- **Canonical fact key:**  
+  `https://www.hrw.org/world-report/2024/country-chapters/china#freedom-expression|2023 censorship and expression cases`
+- **Source:** Human Rights Watch, *World Report 2024: China*.
+- **URL:** https://www.hrw.org/world-report/2024/country-chapters/china
+- **Precise locator:** HTML section “Freedom of Expression.”
+- **Claims:**
+  - Fang Bin was released in April after three years in detention.
+  - Journalist Zhang Zhan remained in custody and was transferred to a prison hospital in July.
+  - Uyghur student Kamile Wayit received a three-year sentence after sharing a video of the late-2022 protests.
+  - A comedy company was fined RMB 14.7 million after a military-related joke.
+  - Professor Yang Shaozheng received a 4.5-year sentence after criticizing the cost of government personnel.
+  - Researchers identified approximately 60,000 censorship rules across Chinese search platforms.
+  - Authorities censored public mourning following a school-roof collapse.
+- **Source profile:** `medium_high`; `ngo`; `final_evidence`.
+- **Limitations:** Some details are linked to secondary reporting; HRW’s framing is advocacy-oriented.
+- **Temporal fit:** Target year.
+- **Attribution:** Direct state-institution involvement; Xi-level attribution is system-level rather than evidence of personal case-by-case orders.
+- **Role and mappings:** Negative evidence for `3B.1–3B.5`, `3B.8–3B.9`; `4B.2–4B.6`, `4B.9`; `7B.7`, `7B.10`; `8B.5–8B.6`.
+- **Contrary/mitigating points:** Some protesters and activists were released or granted bail; the evidence does not establish Xi’s personal review of each case.
+
+## E003 — Religious control and civic restriction
+
+- **Canonical fact key:**  
+  `https://www.hrw.org/world-report/2024/country-chapters/china#religion|2023 religious Sinicization and civic control`
+- **Source:** Human Rights Watch, *World Report 2024: China*.
+- **URL:** https://www.hrw.org/world-report/2024/country-chapters/china
+- **Precise locator:** HTML section “Freedom of Religion.”
+- **Claims:**
+  - HRW links expanded state control of religion to Xi’s 2016 “Sinicization” direction.
+  - Authorities arrested, detained, and disrupted independent religious groups.
+  - Regulations effective in September 2023 required religious venues to incorporate CCP ideology.
+  - Mosques were altered or closed in Muslim-majority areas.
+  - A rare Hui Muslim protest occurred in Yunnan.
+  - Beijing transferred a Catholic bishop in Shanghai without consulting the Vatican, contrary to the 2018 accord.
+- **Source profile:** `medium_high`; `ngo`; `final_evidence`.
+- **Limitations:** Regional information gaps and advocacy framing.
+- **Temporal fit:** Target year.
+- **Attribution:** Stronger for Xi-linked central ideological direction and national policy; weaker for local implementation details.
+- **Role and mappings:** Negative evidence for `3B.5`, `3B.7`, `3B.8`, `3B.9`; `4B.3`, `4B.4`, `4B.5`, `4B.7`, `4B.9`; `8B.1–8B.6`.
+- **Contrary/mitigating points:** The occurrence of a rare protest demonstrates some civic contestation; no evidence of policy correction was retrieved.
+
+## E004 — Lawyers, defenders, and accountability cases
+
+- **Canonical fact key:**  
+  `https://www.hrw.org/world-report/2024/country-chapters/china#defenders|2023 prosecutions and harassment of lawyers/defenders`
+- **Source:** Human Rights Watch, *World Report 2024: China*.
+- **URL:** https://www.hrw.org/world-report/2024/country-chapters/china
+- **Precise locator:** HTML section “Attacks on Human Rights Defenders.”
+- **Claims:**
+  - Tang Jitian was released after a 398-day disappearance.
+  - Qin Yongpei received a five-year sentence.
+  - Xu Zhiyong and Ding Jiaxi received 14- and 12-year sentences.
+  - Yu Wensheng and Xu Yan were arrested while traveling to meet an EU ambassador.
+  - Lawyers and relatives faced house arrest, harassment, and forced moves.
+  - Guo Feixiong received an eight-year sentence.
+- **Source profile:** `medium_high`; `ngo`; `final_evidence`.
+- **Limitations:** Some details depend on linked sources that were not separately retrieved during this pass.
+- **Temporal fit:** Target year.
+- **Attribution:** Direct state attribution; Xi-level attribution remains through central system and policy, not personal orders.
+- **Role and mappings:** Negative evidence for `3B.1–3B.5`, `3B.8`; `4B.3–4B.6`, `4B.9`; `7B.6–7B.7`; `8B.5–8B.6`.
+- **Contrary/mitigating points:** Formal court proceedings are documented, but their fairness and independence require separate corroboration.
+
+## E005 — HRW annual assessment of 2023
+
+- **Canonical fact key:**  
+  `https://www.hrw.org/news/2024/01/11/china-no-letup-xi-jinpings-repressive-rule#release|HRW 2023 annual assessment`
+- **Source:** Human Rights Watch, “China: No Letup in Xi Jinping’s Repressive Rule,” 11 January 2024.
+- **URL:** https://www.hrw.org/news/2024/01/11/china-no-letup-xi-jinpings-repressive-rule
+- **Precise locator:** Opening paragraphs.
+- **Claims:**
+  - HRW states that repression and social controls intensified in 2023.
+  - It says the government moderated some aggressive rhetoric toward Western countries to attract investment as the economy slowed.
+  - It reports no official investigation into the handling of the COVID-19 outbreak.
+  - Citizens and journalists seeking accountability were harassed, detained, or prosecuted.
+  - HRW describes social and economic uncertainty linked to the government’s human-rights record.
+- **Source profile:** `medium_high`; `ngo`; `context` for broad causal claims, final evidence for the fact that HRW made the assessment.
+- **Limitations:** Analytical and advocacy source; not a neutral causal estimate.
+- **Temporal fit:** Target year, published January 2024.
+- **Attribution:** Xi-era central-government attribution; personal causation remains limited.
+- **Role and mappings:** Negative with mitigating evidence for `3B.4`, `3B.5`, `3B.8`, `3B.9`; `4B.6`, `4B.9`, `4B.10`; `5B.1`, `5B.7`, `5B.9`, `5B.10`; `7B.7`, `7B.10`; `8B.8`, `8B.9`.
+- **Contrary/mitigating points:** Rhetorical moderation toward Western countries suggests adaptation to investment conditions but not substantive political liberalization.
+
+## E006 — Official 2023 macroeconomic outcomes
+
+- **Canonical fact key:**  
+  `https://www.stats.gov.cn/english/PressRelease/202402/t20240228_1947918.html#general-outlook|2023 official GDP employment population CPI`
+- **Source:** National Bureau of Statistics of China, *Statistical Communiqué of the PRC on 2023 National Economic and Social Development*, 29 February 2024.
+- **URL:** https://www.stats.gov.cn/english/PressRelease/202402/t20240228_1947918.html
+- **Precise locator:** HTML sections “General Outlook,” population table, employment, CPI, and foreign-exchange-reserves passages.
+- **Claims:**
+  - GDP was 126,058.2 billion yuan, up 5.2%.
+  - Per-capita GDP was 89,358 yuan, up 5.4%.
+  - Population reached 1,409.67 million, down 2.08 million from 2022.
+  - Average urban surveyed unemployment was 5.2%.
+  - CPI increased 0.2%.
+  - Foreign-exchange reserves reached $3.238 trillion.
+  - Equipment manufacturing value added increased 6.8%.
+  - High-tech manufacturing increased 2.7%.
+  - New-energy vehicle output reached 9.443 million, up 30.3%.
+- **Source profile:** `medium_high`; `official_record`; `final_evidence` for reported statistics and official policy framing, context for causal claims.
+- **Limitations:** Official aggregates do not establish distribution, quality, household welfare, or counterfactual attribution; potential official-statistics limitations require independent corroboration.
+- **Temporal fit:** 2023 figures, published February 2024.
+- **Attribution:** The release attributes the policy direction to the CPC Central Committee with Xi at its core, but the figures alone do not prove Xi’s causal contribution.
+- **Role and mappings:** Context/mixed evidence for `5B.3`, `5B.6`, `5B.9`, `5B.10`; `6B.10`; `8B.7`, `8B.10`.
+- **Contrary/mitigating points:** The same release reports population decline and housing-price weakness in many cities; official statistics do not establish broad distributional gains.
+
+## E007 — Taiwan military drills after vice-president transit
+
+- **Canonical fact key:**  
+  `https://www.reuters.com/world/asia-pacific/taiwan-vp-eye-storm-china-drills-protest-us-visit-2023-08-19/|2023 PLA drills after Taiwan vice-president transit`
+- **Source:** Reuters search result, “Taiwan VP in eye of the storm as China drills to protest US visit,” 18 August 2023.
+- **Status:** `discovery_only`.
+- **Reason:** Reuters direct retrieval was blocked by robots. The search snippet is not a precise locator and cannot serve as defensible final evidence.
+- **Potential mappings:** `1B.2`, `1B.8`; `2B.1–2B.3`, `2B.6–2B.10`.
+
+## E008 — U.S.-China military communications and Taiwan risk
+
+- **Canonical fact key:**  
+  `https://www.reuters.com/world/us/veiled-swipe-china-blinken-tells-apec-us-believes-free-region-2023-11-14/|2023 APEC military-to-military contacts and Taiwan issue`
+- **Source:** Reuters search result concerning the APEC period.
+- **Status:** `discovery_only`.
+- **Reason:** Direct retrieval was blocked by robots; only a search snippet was available.
+- **Potential mappings:** `1B.8`; `2B.1`, `2B.3`, `2B.6`, `2B.7`, `2B.10`.
+
+# Chapter handoff
+
+## 1B — Nuclear/existential risk
+
+- **Local baseline:** No evidence supplied.
+- **Research performed:** Broad searches for Xi’s 2023 nuclear policy, FAS/CRS assessments, Taiwan crisis signaling, arms control, and military communications.
+- **Defensible retained evidence:** None.
+- **Discovery candidates:** E007 and E008, both blocked Reuters pages; FAS/CRS search results were not retained because no precise 2023 target-period locator was retrieved.
+- **Gaps:** Nuclear rhetoric, command-and-control, safeguards, arms-control conduct, proliferation policy, cyber/AI/biological risk governance, crisis de-escalation, and change from inherited posture.
+- **Status:** Explicitly under-researched; absence of local and web evidence is not evidence of responsible conduct or non-exposure.
+
+## 2B — International peace/security
+
+- **Local baseline:** LF001–LF004 provide military-spending exposure only.
+- **Research performed:** Taiwan drills, APEC, U.S.-China military communications, diplomacy.
+- **Defensible retained evidence:** None from the internet.
+- **Discovery candidates:** E007 and E008, both discovery-only.
+- **Gaps:** Whether Xi initiated or escalated coercion, available peaceful alternatives, defensive necessity, civilian/proxy conduct, public justification, negotiations, accountability, and end-state change.
+- **Status:** Military-resource context is available, but ruler-attributed international conduct remains unresolved.
+
+## 3B — Domestic safety/protection
+
+- **Local baseline:** LF005–LF011 show a strongly adverse country-level repression and physical-integrity context.
+- **Defensible retained evidence:** E001–E004.
+- **Strong coverage:** State detention, disappearances, punishment of expression, censorship, defender persecution, religious coercion, and suppression of civic activity.
+- **Partial coverage:** Vulnerable groups, crisis response, remedies, and trajectory.
+- **Weak coverage:** Ordinary public safety, non-state violence, nationwide prevalence, direct Xi orders, and effective accountability.
+- **Source diversity:** Four claim units from one NGO family; local structured families provide triangulation but are not narrative ruler-attribution evidence.
+
+## 4B — Political freedom
+
+- **Local baseline:** LF012–LF029 provide extensive adverse country-level democracy, civil-liberty, accountability, press-freedom, and institutional-constraint priors.
+- **Defensible retained evidence:** E001–E005.
+- **Strong coverage:** Treatment of critics, civic organizations, media, censorship, religious autonomy, and accountability defenders.
+- **Partial coverage:** Electoral contestability, institutional capture, minority political equality, and trajectory.
+- **Weak coverage:** Succession/term-limit conduct during the target year.
+- **Source diversity:** Five claim units, principally one HRW source family; insufficient independent-source diversity for high-confidence use.
+
+## 5B — Economic wellbeing
+
+- **Local baseline:** LF015, LF030–LF032.
+- **Defensible retained evidence:** E006 for official figures; E005 as contextual/contrary evidence.
+- **Evidence:** Official 2023 GDP, per-capita GDP, employment, CPI, industrial upgrading, technology, reserves, and demographic outcomes.
+- **Gaps:** Distribution, median/household welfare, competition and property rules, appointments, corruption/favoritism, implementation quality, and independent causal attribution.
+- **Source diversity:** Two source types and organizations, but only two claim units; insufficient for a full chapter dossier.
+
+## 6B — Social wellbeing
+
+- **Local baseline:** None.
+- **Defensible retained evidence:** E006 as formal outcome context; E005 as contextual evidence concerning COVID accountability and social/economic effects.
+- **Gaps:** Health-system delivery, education, water/sanitation, housing, social protection, vulnerable-group distribution, dignity, professional management, evidence-based correction, and durable institutions.
+- **Attribution:** No direct Xi-attributed welfare implementation was retrieved.
+
+## 7B — Personal integrity/honesty
+
+- **Local baseline:** LF012, LF028, LF033–LF036 are country/institutional corruption context only.
+- **Defensible ruler-specific evidence:** None.
+- **Usable contextual evidence:** E001–E005 document accountability suppression and institutional conditions, but do not prove personal dishonesty, self-enrichment, conflicts, nepotism, or deliberate deception by Xi.
+- **Gaps:** Assets, family/business interests, appointments, personal statements and corrections, scrutiny of Xi’s conduct, conflicts of interest, concealment, promises, and direct benefit.
+- **Important limitation:** National corruption or authoritarian conditions were not personalized.
+
+## 8B — Effectiveness/competence
+
+- **Local baseline:** LF012, LF014, LF028 provide governance-capacity context.
+- **Defensible retained evidence:** E006 for formal 2023 outcomes and stated policy framing; E003 for implementation of ideological/social-control mechanisms; E005 as contrary evidence concerning repression, uncertainty, and adaptation.
+- **Potential program themes:** High-quality development, modern industrial capacity, technological innovation, reform/opening, security-development, social stability, and regime-control/ideological consolidation.
+- **Partial coverage:** Program direction, some implementation, industrial and macro outcomes, and regime-control execution.
+- **Gaps:** Personnel competence, coordination, adaptation after failure, independently verified outcomes, counterfactual attribution, durability, and breadth across the full program portfolio.
+- **Moral-separation note:** Repressive or illiberal objectives must be evaluated morally in other chapters; this chapter’s evidence collection distinguishes execution from moral worth.
+
+# Rejected and discovery-only candidates
+
+- **Reuters Taiwan and APEC pages:** Discovery-only because direct retrieval was blocked by robots; snippets do not provide acceptable precise locators.
+- **FAS/CRS nuclear materials:** Not retained as evidence because search results did not yield a retrieved, precise, target-period 2023 source adequate for this pass.
+- **Government work-report URL:** One candidate returned 404 and another was inaccessible through the retrieval tool; no unsupported claim was made from it.
+- **Linked secondary sources within HRW:** Not separately promoted to evidence unless directly retrieved, to avoid guessed provenance or bundled claims.
+
+# Source-family accounting
+
+- **Final internet source families:** Human Rights Watch; National Bureau of Statistics of China.
+- **Final internet source types:** NGO; official statistical record.
+- **Discovery-only families:** Reuters; FAS/CRS; OHCHR/UN candidate materials.
+- **Local structured families used as supplied context:** SIPRI, V-Dem, PTS, BTI, Freedom House, RSF, and World Bank WDI.
+
+# Self-audit
+
+- HRW’s single World Report URL was split into distinct evidence items by section and materially distinct claims; no chapter-prefixed duplicates were created.
+- E001–E005 are intentionally reusable across Chapters 3B, 4B, 7B, and 8B where the claim directly bears on multiple lenses.
+- E006 is reused across Chapters 5B, 6B, and 8B, but only as formal statistical/context evidence.
+- E007 and E008 remain excluded from the defensible evidence count.
+- Local facts were not treated as internet sources.
+- Country-level indicators were not converted into personal conduct claims.
+- Missing local rows were retained as gaps rather than interpreted substantively.
+- No score or score recommendation was produced.
+
+
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#intro-2023-repression|2023 repression and social control under Xi",
+      "disposition": "context",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#freedom-expression|2023 censorship and expression cases",
+      "disposition": "context",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#religion|2023 religious Sinicization and civic control",
+      "disposition": "context",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#defenders|2023 prosecutions and harassment of lawyers/defenders",
+      "disposition": "context",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2024/01/11/china-no-letup-xi-jinpings-repressive-rule#release|HRW 2023 annual assessment",
+      "disposition": "context",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.stats.gov.cn/english/PressRelease/202402/t20240228_1947918.html#general-outlook|2023 official GDP employment population CPI",
+      "disposition": "context",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/asia-pacific/taiwan-vp-eye-storm-china-drills-protest-us-visit-2023-08-19/|2023 PLA drills after Taiwan vice-president transit",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/us/veiled-swipe-china-blinken-tells-apec-us-believes-free-region-2023-11-14/|2023 APEC military-to-military contacts and Taiwan issue",
+      "disposition": "context",
+      "provisional_id": "E008"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "No defensible target-period evidence was retained.",
+        "The Reuters entries are search-result snippets with blocked retrieval and cannot support claims.",
+        "Promising FAS/CRS candidates were identified but not fetched to precise, usable locators."
+      ],
+      "missing_themes": [
+        "2023 nuclear doctrine and signaling",
+        "command-and-control and safeguards",
+        "arms-control conduct",
+        "proliferation policy",
+        "cyber, biological, and AI existential-risk governance",
+        "crisis de-escalation",
+        "change from inherited posture"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "SIPRI local facts establish military-resource exposure, not conduct or Xi responsibility.",
+        "The only international-security candidates are discovery-only Reuters snippets.",
+        "The chapter lacks independent corroboration and ruler-attributed event evidence."
+      ],
+      "missing_themes": [
+        "Xi-directed initiation or escalation of coercion",
+        "peaceful alternatives and defensive necessity",
+        "civilian or proxy conduct",
+        "public justification",
+        "negotiation and crisis management",
+        "accountability and end-state change"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 12,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E001-E004 contain multiple materially distinct claims bundled within section-level evidence items and require deterministic splitting.",
+        "The retained narrative evidence is effectively one HRW source family; local V-Dem and PTS facts are country-level priors, not independent ruler-attribution evidence.",
+        "Most attribution is to state institutions or Xi-era policy, not to Xi personally."
+      ],
+      "missing_themes": [
+        "ordinary public safety",
+        "non-state violence",
+        "nationwide prevalence",
+        "crisis response",
+        "remedies and effective accountability",
+        "trajectory",
+        "direct Xi orders or documented knowledge, tolerance, correction, or obstruction"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 16,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E001-E005 are predominantly one HRW family, so source independence is materially insufficient.",
+        "Several evidence items bundle numerous distinct incidents and propositions under one locator.",
+        "Local democracy, civil-liberty, press-freedom, and institutional indicators are regime-level context and do not independently establish Xi-specific responsibility."
+      ],
+      "missing_themes": [
+        "electoral contestability",
+        "institutional capture",
+        "minority political equality",
+        "succession and term-limit conduct in 2023",
+        "trajectory",
+        "independent corroboration beyond HRW"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "E006 bundles many separate macroeconomic statistics and outcomes into one evidence item.",
+        "Official figures establish reported outcomes, not Xi's causal contribution, distributional effects, or implementation quality.",
+        "E005 is broad contextual assessment rather than independent outcome evidence."
+      ],
+      "missing_themes": [
+        "distribution and median or household welfare",
+        "competition and property rules",
+        "appointments and favoritism",
+        "policy implementation quality",
+        "independent corroboration of official statistics",
+        "counterfactual and causal attribution",
+        "trajectory and policy correction"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The local package contains no social-wellbeing facts, so the chapter has a major evidence-yield gap.",
+        "E006 provides limited official macro/outcome context, not social-service delivery or welfare distribution.",
+        "E005 supplies broad contextual criticism but no independently verified, ruler-attributed social-welfare events."
+      ],
+      "missing_themes": [
+        "health-system delivery",
+        "education",
+        "water and sanitation",
+        "housing",
+        "social protection",
+        "vulnerable-group distribution",
+        "dignity and access",
+        "professional management",
+        "evidence-based correction",
+        "durable institutions"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook explicitly retains no defensible ruler-specific integrity evidence.",
+        "Country-level corruption, rule-of-law, and accountability indicators cannot establish Xi's personal honesty or self-dealing.",
+        "E001-E005 concern institutional repression and accountability conditions, not personal misconduct; targeted research is needed for a direct ruler nexus and contrary evidence."
+      ],
+      "missing_themes": [
+        "assets and family or business interests",
+        "appointments and nepotism",
+        "personal statements and corrections",
+        "conflicts of interest",
+        "concealment or deliberate deception",
+        "direct personal benefit",
+        "independent scrutiny of Xi's conduct"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E006, E003, and E005 provide partial outcome, implementation, and adaptation context but do not establish that Xi selected, implemented, or achieved the relevant goals.",
+        "E006 bundles multiple distinct outcomes under one evidence item.",
+        "Local governance-capacity indicators are institutional context rather than proof of Xi-specific effectiveness; independent outcome and attribution evidence is missing."
+      ],
+      "missing_themes": [
+        "personnel competence",
+        "coordination",
+        "adaptation after failure",
+        "independently verified outcomes",
+        "counterfactual attribution",
+        "durability",
+        "breadth across the program portfolio",
+        "policy correction"
+      ]
+    }
+  ],
+  "global_findings": [
+    "All eight chapters have material, research-recoverable gaps and therefore require continuation.",
+    "The final internet evidence is concentrated in two source families: HRW and China's National Bureau of Statistics; discovery-only Reuters material does not count.",
+    "The notebook's source-claim units need deterministic splitting and count reconciliation, but those cleanup tasks do not substitute for additional research.",
+    "Local facts are generally used with appropriate caveats; the principal remaining problem is converting country-level context into supported ruler attribution.",
+    "The notebook states that local-data disposition auditing is not explicit, so each chapter needs an explicit local-fact disposition record.",
+    "No scores, score ranges, anchors, rankings, or judge advice were assigned."
+  ],
+  "reviewer_summary": "Continue the same ruler-period research thread for every chapter. The dossier has useful local context and some target-year HRW/NBS material, but evidence is concentrated in two families, several items bundle distinct claims, and major attribution, contrary-evidence, event-coverage, and independent-corroboration gaps remain. The most urgent gaps are 1B, 2B, 6B, and 7B, but 3B, 4B, 5B, and 8B also have material recoverable deficiencies."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Review round 1 research is complete for all eight chapters. I continued the same immutable ruler-period scope: Xi Jinping, China, 2023. No score, score range, anchor, ranking recommendation, or judge advice was assigned.
+
+The environment again rejected the attempted filesystem write with:
+
+> `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`
+
+Therefore I could not update the supplied `research-materials.md` or `research-ledger-manifest.json`. The complete append-only continuation handoff is included below for parent persistence.
+
+# New evidence register entries
+
+## E009 — Arms Control Association: nuclear modernization and uncertainty
+
+- **Canonical fact key:**  
+  `https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program#main|2023 nuclear modernization, doctrine uncertainty, alerting and centralized control`
+- **Source:** Fiona S. Cunningham, “The Unknowns About China’s Nuclear Modernization Program,” *Arms Control Today*, June 2023.
+- **URL:** https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program
+- **Locator:** Article opening; section “A Thin Margin for Error”; discussion of alerting and warhead handling.
+- **Claim:** China was rapidly modernizing its nuclear capabilities, including more survivable retaliatory forces, silo construction, and systems that could provide coercive leverage in a conventional conflict. The article states that China historically maintained strict civilian control and a retaliatory/no-first-use posture, but available evidence did not establish a clear decision to adopt launch-on-warning or nuclear first use. It also describes uncertainty over revised launch procedures and shortened warning times.
+- **Source profile:** `medium_high`; arms-control analysis; `final_evidence`.
+- **Limitations:** Specialist analytical source rather than a primary Chinese record; motive and intent remain uncertain.
+- **Temporal fit:** Published June 2023 and directly addresses the target-period posture.
+- **Attribution:** The article’s opening caption states that Xi and the Central Military Commission must approve placing nuclear weapons on alert or launching them. Modernization is therefore highly relevant to top-level authority, but specific intent remains unresolved.
+- **Role/lenses:** Mixed/negative risk context for `1B.1`, `1B.2`, `1B.3`, `1B.5`, `1B.7`, `1B.8`, `1B.10`.
+- **Contrary/mitigating evidence:** Continued official no-first-use reaffirmation; no clear evidence that China adopted first use; historical centralized civilian control reduces accidental or unauthorized-use risk.
+
+## E010 — CSIS ChinaPower nuclear-force profile
+
+- **Canonical fact key:**  
+  `https://chinapower.csis.org/china-nuclear-weapons/#historic-posture|China nuclear strategy, no-first-use, modernization and Xi-era force changes`
+- **Source:** ChinaPower Project, Center for Strategic and International Studies, “How is China Modernizing its Nuclear Forces?”
+- **URL:** https://chinapower.csis.org/china-nuclear-weapons/
+- **Locator:** Sections “China’s Historic Nuclear Strategy and Posture” and “China’s Shifting Nuclear Posture.”
+- **Claim:** China’s historical posture emphasized assured retaliation, low alert, a minimum-level arsenal, and no first use. Under Xi, China pursued sweeping PLA modernization and expansion of its nuclear forces, raising questions about whether its posture is changing.
+- **Source profile:** `medium_high`; research-institute analysis; `final_evidence` for technical synthesis, not sole proof of official intent.
+- **Temporal fit:** The page uses 2023/2024 open-source material and links the 2023 Pentagon report. Later data are not silently treated as 2023 facts.
+- **Attribution:** Xi-era modernization and earlier PLA reforms are attributed at leadership/policy level; specific operational decisions remain uncertain.
+- **Role/lenses:** `1B.1`, `1B.2`, `1B.3`, `1B.7`, `1B.8`, `1B.10`.
+- **Contrary/mitigating evidence:** Official no-first-use remains; the page notes uncertainty and skepticism around when China might depart from it.
+
+## E011 — 2023 Pentagon China military-power report
+
+- **Canonical fact key:**  
+  `https://media.defense.gov/2023/Oct/19/2003323409/-1/-1/1/2023-military-and-security-developments-involving-the-peoples-republic-of-china.pdf#2023-report-nuclear-use-statement|2023 DoD assessment of Chinese nuclear policy`
+- **Source:** U.S. Department of Defense, *Military and Security Developments Involving the People’s Republic of China 2023*, 19 October 2023.
+- **Status:** `discovery_only`.
+- **Reason:** Direct retrieval was blocked by the source’s robots policy. Search results exposed a snippet stating that Xi said nuclear weapons must not be used and nuclear wars should not be fought, but no precise page locator or underlying text was retrieved.
+- **Potential mappings:** `1B.2`, `1B.3`, `1B.8`, `1B.10`.
+
+## E012 — CFR Taiwan security background and recent developments
+
+- **Canonical fact key:**  
+  `https://www.cfr.org/global-conflict-tracker/conflict/confrontation-over-taiwan#recent-developments|PRC coercive Taiwan posture, military exercises and diplomatic alternatives`
+- **Source:** Council on Foreign Relations, “Confrontation Over Taiwan,” Global Conflict Tracker.
+- **URL:** https://www.cfr.org/global-conflict-tracker/conflict/confrontation-over-taiwan
+- **Locator:** “Background” and “Recent Developments” sections.
+- **Claim:** The PRC claims Taiwan as part of China, states a preference for peaceful reunification while reserving force, and since 2016 has cut official communication with Taiwan while using economic sanctions, diplomatic pressure, and heightened military activity. The page records intensified air and naval activity and describes risks of miscalculation and severe global economic disruption.
+- **Source profile:** `medium_high`; intergovernmental/think-tank analysis; `final_evidence` for chronology and policy context, not sole evidence of Xi’s personal intent.
+- **Temporal fit:** Mixed historical and later-updated page. Only passages describing the 2023-era pattern should be used for the target year; the page’s later update date is a limitation.
+- **Attribution:** PRC/PLA policy; Xi-specific attribution is indirect except where the page discusses the current leadership trajectory.
+- **Role/lenses:** `2B.1`, `2B.2`, `2B.3`, `2B.6`, `2B.7`, `2B.10`; contextual support for `1B.8`.
+- **Contrary/mitigating evidence:** The PRC officially states a preference for peaceful reunification. Taiwan’s political choices and U.S. policy are relevant external factors. The page does not establish that Xi personally ordered each 2023 drill.
+
+## E013 — 2023 USCC annual-report candidate
+
+- **Canonical fact key:**  
+  `https://www.uscc.gov/sites/default/files/2023-11/Chapter_1_Section_2--U.S.-China_Security_and_Foreign_Affairs.pdf#2023-china-security-section|2023 USCC assessment of Chinese security and foreign affairs`
+- **Source:** U.S.-China Economic and Security Review Commission, 2023 Annual Report, Chapter 1 Section 2.
+- **Status:** `discovery_only`.
+- **Reason:** Direct retrieval returned PDF structural data but no usable extracted page text or precise page locator. Search results referenced a July 2023 report that Xi instructed the military to deepen war planning, but the underlying claim was not accepted without readable source text.
+- **Potential mappings:** `2B.1–2B.3`, `2B.6`, `2B.8`, `2B.10`; `8B.3`, `8B.9`.
+
+## E014 — Asia Maior analysis of Xi’s 2023 agenda
+
+- **Canonical fact key:**  
+  `https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#introduction|2023 Xi agenda: recovery, ideological rectification, cadre training and technological self-reliance`
+- **Source:** “China in 2023: Stimulating Economic Recovery along with Patriotic Education,” *Asia Maior*, volume XXXIV.
+- **URL:** https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html
+- **Locator:** “Introduction” and opening “Party and Politics” sections.
+- **Claims:**
+  - 2023 saw intensified Party ideological rectification through political gatherings, institutional reforms, and new laws.
+  - Xi’s leadership sought to project economic resilience after the pandemic.
+  - “Chinese-style modernization,” ideological unity, patriotic education, economic recovery, technological self-reliance, and cadre training were central parts of the leadership agenda.
+  - Senior-level CCDI investigations reportedly increased by 40% compared with 2022.
+  - Qin Gang, Li Shangfu, and other senior officials were removed during 2023.
+- **Source profile:** `medium_high`; academic/area-studies analysis; `final_evidence` for the article’s documented synthesis.
+- **Limitations:** Specific numerical or event claims should be corroborated with the article’s underlying sources where possible.
+- **Temporal fit:** Directly focused on 2023.
+- **Attribution:** Strongly attributes the agenda to Xi and the CCP leadership. Implementation and outcome claims remain partly inferential.
+- **Role/lenses:** `5B.1`, `5B.6`, `5B.7`, `5B.9`, `5B.10`; `7B.5`, `7B.7`, `7B.9`, `7B.10`; `8B.1–8B.10`; `4B.4`, `4B.5`, `4B.10`.
+- **Contrary/mitigating evidence:** The article notes discrepancies between Chinese and non-Chinese economic sources, a flawed recovery, and the possibility that security and authority priorities displaced stronger measures to support domestic demand and confidence.
+
+## E015 — World Bank China Economic Update, December 2023
+
+- **Canonical fact key:**  
+  `https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf#2023-household-property-income-and-economic-outlook|China household/property sector and macroeconomic constraints`
+- **Source:** World Bank, *China Economic Update — December 2023*.
+- **URL:** https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf
+- **Status:** `context`, pending locator recovery.
+- **Locator limitation:** The PDF was retrieved only as raw PDF structure; no reliable page/table locator could be extracted in this run.
+- **Claim from search/document metadata:** Fewer than half of Chinese households have property income, and property income is a small share of household income compared with advanced economies. The report addresses property-sector weakness and macroeconomic rebalancing.
+- **Source profile:** `high`; World Bank/intergovernmental economic analysis.
+- **Potential mappings:** `5B.3`, `5B.4`, `5B.8`, `5B.9`, `5B.10`; `6B.10`; `8B.7`, `8B.10`.
+- **Reason not counted as fully defensible:** Precise page/table locator was not recovered.
+
+## E016 — UNDP China in Numbers 2023 candidate
+
+- **Canonical fact key:**  
+  `https://www.undp.org/sites/g/files/zskgke326/files/2024-03/china_in_numbers_2023-final.pdf#2023-youth-unemployment-and-human-development|China 2023 human-development and youth-employment indicators`
+- **Source:** UNDP, *China in Numbers (2023)*.
+- **URL:** https://www.undp.org/sites/g/files/zskgke326/files/2024-03/china_in_numbers_2023-final.pdf
+- **Status:** `discovery_only`.
+- **Reason:** UNDP robots policy blocked retrieval. Search results reported youth unemployment reaching 21.3% by June 2023, but no precise page/table locator was available.
+- **Potential mappings:** `5B.8`, `5B.9`, `5B.10`; `6B.2`, `6B.3`, `6B.8`, `6B.10`.
+
+## E017 — Asia Maior economic-recovery and policy-tradeoff analysis
+
+- **Canonical fact key:**  
+  `https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#economy-analysis|2023 economic recovery, source discrepancies and security-versus-demand tradeoff`
+- **Source:** Same *Asia Maior* article as E014, distinct section-level claim.
+- **Locator:** Introduction, paragraphs discussing post-COVID recovery and the second-quarter slowdown.
+- **Claim:** The article reports a strong official recovery narrative but notes a significant second-quarter slowdown. It argues that prioritizing Xi’s authority, security challenges, and ideological modernization narrative may have displaced stronger measures to stimulate domestic demand and consumer confidence.
+- **Source profile:** `medium_high`; academic/area-studies analysis; `final_evidence` for the author’s interpretation, not sole proof of causal displacement.
+- **Temporal fit:** 2023-focused.
+- **Attribution:** Xi/CCP agenda attribution is explicit; causal claims remain analytical and qualified.
+- **Role/lenses:** Contrary/mixed evidence for `5B.3`, `5B.7`, `5B.9`, `5B.10`; `8B.7`, `8B.8`, `8B.9`, `8B.10`.
+- **Contrary points:** Official statistics reported growth and industrial expansion; the article does not claim economic collapse.
+
+## E018 — Freedom House minority-control and coercive social-policy context
+
+- **Canonical fact key:**  
+  `https://freedomhouse.org/country/china/freedom-world/2023#xinjiang-tibet-minority-control|minority control, coercive education and demographic policy`
+- **Source:** Freedom House, *Freedom in the World 2023: China*.
+- **URL:** https://freedomhouse.org/country/china/freedom-world/2023
+- **Locator:** Retrieved opening paragraphs on Xinjiang, Tibet, minority regions, detention, forced sterilization, labor transfer, and boarding schools.
+- **Claims:** Freedom House reports coercive detention and political reeducation, forced-sterilization allegations, forced-labor and relocation concerns, and Mandarin-only boarding-school policies affecting Uyghur, Tibetan, and other minority communities.
+- **Source profile:** `medium_high`; rights-monitoring NGO; `final_evidence`.
+- **Limitations:** Advocacy orientation, source-access limitations, and mixed temporal coverage.
+- **Temporal fit:** The report is from 2023, but much evidence concerns policies beginning before or spanning the target year. Use as ruler-period/context evidence rather than a strictly 2023 event source.
+- **Attribution:** Chinese authorities and national policy; direct Xi personal attribution is not established by this page.
+- **Role/lenses:** `3B.1`, `3B.5`, `3B.7`, `3B.10`; `4B.3`, `4B.7`, `4B.10`; `6B.3`, `6B.8`; `8B.3`, `8B.5`, `8B.6`, `8B.10`.
+- **Contrary/mitigating evidence:** The government describes some programs as voluntary or educational; Freedom House disputes that characterization and cites external evidence. The disagreement must remain explicit.
+
+## E019 — Freedom House term-limit and entrenchment candidate
+
+- **Canonical fact key:**  
+  `https://freedomhouse.org/country/china/freedom-world/2023#term-limits|presidential term-limit removal and political entrenchment`
+- **Source:** Freedom House, *Freedom in the World 2023: China*.
+- **Status:** `context`, pending precise locator.
+- **Claim:** Xi orchestrated constitutional changes abolishing presidential term limits, clearing the way for continued tenure.
+- **Source profile:** `medium_high`; rights-monitoring NGO; context pending direct section extraction.
+- **Temporal limitation:** The underlying constitutional change occurred in 2018, outside the immutable target year. It can inform the inherited political baseline and 2023 succession context, but must not be treated as a 2023 event.
+- **Potential mappings:** `4B.1`, `4B.2`, `4B.4`, `4B.8`, `4B.10`; `8B.1`, `8B.3`, `8B.9`, `8B.10`.
+
+# Chapter continuation notes
+
+## 1B — Nuclear/existential risk
+
+E009 and E010 provide two independent technical/research source families. They establish:
+
+- rapid nuclear modernization during the target period;
+- increased survivability and diversified force options;
+- historical centralized civilian control;
+- continued no-first-use doctrine;
+- uncertainty over launch-on-warning and nuclear first-use adoption;
+- possible future or current coercive leverage in conventional conflict.
+
+They do **not** establish:
+
+- a personal 2023 Xi decision to adopt first use;
+- unsafe command-and-control;
+- proliferation assistance;
+- a specific 2023 arms-control failure;
+- direct crisis de-escalation or escalation by Xi;
+- definitive change from the inherited posture.
+
+E011 remains discovery-only because the 2023 Pentagon report could not be retrieved to a precise locator.
+
+## 2B — International peace/security
+
+E012 adds a second independent source family beyond HRW/NBS for the Taiwan conflict context. It documents:
+
+- the PRC’s stated preference for peaceful reunification while reserving force;
+- cessation of official Taiwan communication after 2016;
+- economic and diplomatic coercion;
+- heightened military activity;
+- risks of miscalculation and global disruption.
+
+The chapter still lacks a fully retrieved, precise 2023 event source establishing:
+
+- Xi’s personal order for a specific drill;
+- whether peaceful alternatives were available in the particular event;
+- defensive necessity versus coercion;
+- civilian or proxy conduct;
+- accountability and post-event correction.
+
+E013 remains discovery-only because its PDF text and page locator were not recovered.
+
+## 3B — Domestic safety
+
+E018 adds a second rights-monitoring family and specific minority-related evidence concerning:
+
+- detention and political reeducation;
+- alleged forced sterilization;
+- forced labor and relocation;
+- coercive education;
+- ethnic and religious identity suppression.
+
+Temporal fit is mixed and direct Xi attribution remains limited. It strengthens evidence for state-linked physical-integrity and vulnerable-group concerns, but not for every 2023 incident or for direct personal orders.
+
+Remaining gaps:
+
+- ordinary public safety;
+- non-state violence;
+- national prevalence;
+- crisis response;
+- effective remedies;
+- direct Xi knowledge, tolerance, correction, or obstruction;
+- target-year trajectory.
+
+The prior E001–E004 items should be deterministically split by individual claim in the formatter. Their bundled structure is a serialization issue, not a reason to discard the underlying claims.
+
+## 4B — Political freedom
+
+E018 supplies non-HRW corroboration for coercive control of minority communities and constrained civic, religious, and cultural space.
+
+E019 is retained only as historical/context material pending precise locator recovery. It may inform the inherited baseline and succession context, but the constitutional amendment itself is not a 2023 event.
+
+Remaining gaps:
+
+- electoral contestability;
+- institutional capture and formal/de facto independence;
+- minority political equality in 2023;
+- succession and term-limit conduct specifically in 2023;
+- independent election-related evidence beyond HRW and local indicators;
+- trajectory from the immediate inherited baseline.
+
+## 5B — Economic wellbeing
+
+E014 and E017 add academic analysis of:
+
+- Xi’s explicit/revealed development agenda;
+- ideological and security priorities;
+- technological self-reliance;
+- cadre training;
+- official recovery narratives;
+- second-quarter slowdown;
+- possible displacement of domestic-demand support by security and authority priorities;
+- competing Chinese and non-Chinese assessments.
+
+E015 is a high-confidence World Bank candidate, but its precise page/table locator was not recovered and it remains context pending recovery.
+
+E016 is discovery-only because UNDP retrieval was blocked.
+
+Remaining gaps:
+
+- distribution and median/household welfare;
+- competition and property rules;
+- appointments and favoritism;
+- implementation quality;
+- independently corroborated official statistics;
+- counterfactual attribution;
+- policy correction and trajectory.
+
+## 6B — Social wellbeing
+
+E006 remains formal macro/outcome context rather than social-service evidence.
+
+E018 adds minority-related education, coercive relocation/labor, dignity, and distribution concerns, but is not a comprehensive social-service record and is partly pre-2023.
+
+E016 is discovery-only.
+
+Remaining gaps:
+
+- health-system delivery;
+- education quality and access;
+- water and sanitation;
+- housing;
+- social protection;
+- vulnerable-group distribution;
+- dignity and equal access;
+- professional management;
+- evidence-based correction;
+- durable social institutions.
+
+## 7B — Personal integrity
+
+E014 adds governance-network and anti-corruption leads:
+
+- increased senior-level CCDI investigations;
+- removal of Qin Gang and Li Shangfu;
+- removal of additional senior military officials;
+- competing interpretations of whether anti-corruption efforts strengthened institutions or prioritized Xi’s security and control.
+
+This does **not** establish Xi’s personal integrity, dishonesty, self-dealing, or personal benefit.
+
+Remaining gaps:
+
+- Xi’s assets and family/business interests;
+- appointments and nepotism;
+- personal statements and corrections;
+- conflicts of interest;
+- deliberate concealment or deception;
+- direct personal benefit;
+- independent scrutiny of Xi’s own conduct;
+- meaningful response to scrutiny.
+
+## 8B — Effectiveness/competence
+
+E014 and E017 provide the strongest continuation evidence for a target-period program portfolio:
+
+- ideological consolidation and patriotic education;
+- Chinese-style modernization;
+- economic recovery;
+- technological self-reliance;
+- cadre training;
+- security and regime-control objectives.
+
+E009 and E010 provide a parallel strategic-modernization program involving nuclear forces.
+
+E018 documents implementation of coercive minority-control mechanisms relevant to regime-control execution, without treating that implementation as morally positive.
+
+Remaining gaps:
+
+- personnel competence;
+- cross-ministry and regional coordination;
+- adaptation after policy failure;
+- independent outcomes;
+- counterfactual attribution;
+- durability;
+- breadth across the full portfolio;
+- policy correction.
+
+# Local-fact disposition audit
+
+- **Used as context:** LF001–LF004 for 2B military-resource exposure.
+- **Used as context:** LF005–LF011 for 3B country-level repression and safety priors.
+- **Used as context:** LF012–LF029 for 4B political-freedom and institutional priors.
+- **Used as context:** LF015 and LF030–LF032 for 5B economic baseline and scale.
+- **Used as context:** LF012, LF028, LF033–LF036 for 7B institutional corruption/accountability conditions.
+- **Used as context:** LF012, LF014, LF028 for 8B governance-capacity conditions.
+- **Not used as direct ruler evidence:** all local facts, because none directly measures Xi’s personal conduct.
+- **Empty local states:** all 1B and 6B lenses remain explicit `no_evidence_found`; no absent local row was interpreted as absence of real-world evidence.
+- **Error dispositions:** none supplied.
+
+# Candidate dispositions for manifest update
+
+The following entries should be appended to the existing manifest:
+
+- `E009` — `final_evidence`
+- `E010` — `final_evidence`
+- `E011` — `discovery_only`, reason: underlying source blocked and no precise locator
+- `E012` — `final_evidence`
+- `E013` — `discovery_only`, reason: PDF text/page locator unavailable
+- `E014` — `final_evidence`
+- `E015` — `context`, reason: high-value source but precise PDF locator unavailable
+- `E016` — `discovery_only`, reason: UNDP retrieval blocked and no precise locator
+- `E017` — `final_evidence`
+- `E018` — `final_evidence`
+- `E019` — `context`, reason: historical claim outside target year and precise direct locator not recovered
+
+No previous item was silently reclassified.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#intro-2023-repression|2023 repression and social control under Xi",
+      "disposition": "context",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#freedom-expression|2023 censorship and expression cases",
+      "disposition": "context",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#religion|2023 religious Sinicization and civic control",
+      "disposition": "context",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#defenders|2023 prosecutions and harassment of lawyers/defenders",
+      "disposition": "context",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2024/01/11/china-no-letup-xi-jinpings-repressive-rule#release|HRW 2023 annual assessment",
+      "disposition": "context",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.stats.gov.cn/english/PressRelease/202402/t20240228_1947918.html#general-outlook|2023 official GDP employment population CPI",
+      "disposition": "context",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/asia-pacific/taiwan-vp-eye-storm-china-drills-protest-us-visit-2023-08-19/|2023 PLA drills after Taiwan vice-president transit",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/us/veiled-swipe-china-blinken-tells-apec-us-believes-free-region-2023-11-14/|2023 APEC military-to-military contacts and Taiwan issue",
+      "disposition": "context",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program#main|2023 nuclear modernization, doctrine uncertainty, alerting and centralized control",
+      "disposition": "context",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://chinapower.csis.org/china-nuclear-weapons/#historic-posture|China nuclear strategy, no-first-use, modernization and Xi-era force changes",
+      "disposition": "context",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://media.defense.gov/2023/Oct/19/2003323409/-1/-1/1/2023-military-and-security-developments-involving-the-peoples-republic-of-china.pdf#2023-report-nuclear-use-statement|2023 DoD assessment of Chinese nuclear policy",
+      "disposition": "context",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.cfr.org/global-conflict-tracker/conflict/confrontation-over-taiwan#recent-developments|PRC coercive Taiwan posture, military exercises and diplomatic alternatives",
+      "disposition": "context",
+      "provisional_id": "E012"
+    },
+    {
+      "canonical_fact_key": "https://www.uscc.gov/sites/default/files/2023-11/Chapter_1_Section_2--U.S.-China_Security_and_Foreign_Affairs.pdf#2023-china-security-section|2023 USCC assessment of Chinese security and foreign affairs",
+      "disposition": "context",
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#introduction|2023 Xi agenda: recovery, ideological rectification, cadre training and technological self-reliance",
+      "disposition": "context",
+      "provisional_id": "E014"
+    },
+    {
+      "canonical_fact_key": "https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf#2023-household-property-income-and-economic-outlook|China household/property sector and macroeconomic constraints",
+      "disposition": "context",
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.undp.org/sites/g/files/zskgke326/files/2024-03/china_in_numbers_2023-final.pdf#2023-youth-unemployment-and-human-development|China 2023 human-development and youth-employment indicators",
+      "disposition": "context",
+      "provisional_id": "E016"
+    },
+    {
+      "canonical_fact_key": "https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#economy-analysis|2023 economic recovery, source discrepancies and security-versus-demand tradeoff",
+      "disposition": "context",
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/china/freedom-world/2023#xinjiang-tibet-minority-control|minority control, coercive education and demographic policy",
+      "disposition": "context",
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/china/freedom-world/2023#term-limits|presidential term-limit removal and political entrenchment",
+      "disposition": "context",
+      "provisional_id": "E019"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E009 and E010 provide useful, target-period technical evidence but remain analytical rather than primary evidence of Xi's specific decisions.",
+        "No direct evidence establishes Xi's personal 2023 choice regarding first use, launch-on-warning, safeguards, or crisis conduct.",
+        "E011 remains discovery-only and is incorrectly labeled context in the manifest."
+      ],
+      "missing_themes": [
+        "2023 nuclear doctrine and signaling",
+        "command-and-control safety",
+        "arms-control conduct",
+        "proliferation policy",
+        "cyber, biological, and AI existential-risk governance",
+        "crisis de-escalation",
+        "change from inherited posture"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E012 supplies broad Taiwan-policy context but is not a precise, target-period account of a specific Xi-attributed event.",
+        "The Reuters and USCC candidates cannot count because retrieval or precise locators failed; the manifest mislabels them as context.",
+        "Military-spending local facts remain exposure context only."
+      ],
+      "missing_themes": [
+        "Xi-directed initiation or escalation of coercion",
+        "specific 2023 event evidence",
+        "peaceful alternatives and defensive necessity",
+        "civilian or proxy conduct",
+        "public justification",
+        "negotiation and crisis management",
+        "accountability and end-state change"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 16,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E001-E004 remain materially bundled and require splitting into atomic source-claim units.",
+        "E018 adds an independent rights-monitoring family but has mixed temporal coverage and primarily attributes conduct to authorities or national policy.",
+        "The dossier still lacks sufficient direct ruler attribution for individual detention, coercion, and minority-policy claims."
+      ],
+      "missing_themes": [
+        "ordinary public safety",
+        "non-state violence",
+        "nationwide prevalence",
+        "2023 trajectory",
+        "crisis response",
+        "effective remedies and accountability",
+        "direct Xi knowledge, tolerance, correction, obstruction, or authority-based responsibility"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 20,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Most narrative evidence remains concentrated in HRW, with Freedom House providing only a second family.",
+        "E001-E005 contain multiple distinct incidents and propositions under section-level locators.",
+        "E019 concerns a 2018 event and cannot be presented as a 2023 event; its precise locator is also unresolved.",
+        "Country-level institutional indicators do not independently establish Xi-specific responsibility."
+      ],
+      "missing_themes": [
+        "electoral contestability in 2023",
+        "institutional capture and formal or de facto independence",
+        "minority political equality",
+        "2023 succession and term-limit conduct",
+        "trajectory from the inherited baseline",
+        "independent election-related corroboration"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 14,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "E006 bundles numerous statistics and outcomes that require deterministic splitting.",
+        "E014 and E017 are distinct claim groups but belong to the same source family and contain qualified causal interpretations.",
+        "E015 is a credible, recoverable source but lacks a precise page or table locator and should not yet count as defensible evidence.",
+        "Reported outcomes do not by themselves establish Xi's causal contribution or policy effectiveness."
+      ],
+      "missing_themes": [
+        "distribution and median or household welfare",
+        "competition and property rules",
+        "appointments and favoritism",
+        "implementation quality",
+        "independent corroboration of official statistics",
+        "counterfactual causal attribution",
+        "policy correction and trajectory"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The absence of local social-wellbeing facts leaves a major evidence-yield gap, not negative evidence.",
+        "E006 supplies macroeconomic context rather than social-service delivery or welfare distribution.",
+        "E018 contributes mixed-period minority education and coercion evidence, but not a comprehensive social-welfare record or direct Xi attribution.",
+        "E016 is a promising but unfetched or locator-deficient candidate."
+      ],
+      "missing_themes": [
+        "health-system delivery",
+        "education quality and access",
+        "water and sanitation",
+        "housing",
+        "social protection",
+        "vulnerable-group distribution",
+        "dignity and equal access",
+        "professional management",
+        "evidence-based correction",
+        "durable social institutions"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "No retained evidence establishes a ruler-specific integrity claim.",
+        "Country-level corruption, rule-of-law, and accountability indicators remain institutional context only.",
+        "E014's senior-official investigations and removals do not establish Xi's personal honesty, dishonesty, self-dealing, or benefit, and require contrary and direct-personal research."
+      ],
+      "missing_themes": [
+        "assets and family or business interests",
+        "appointments and nepotism",
+        "personal statements and corrections",
+        "conflicts of interest",
+        "concealment or deliberate deception",
+        "direct personal benefit",
+        "independent scrutiny of Xi's conduct",
+        "meaningful response to scrutiny"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 17,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "E006, E003, E005, E014, and E017 provide outcome, implementation, and agenda context but do not consistently establish Xi's selection, execution, or causal achievement of goals.",
+        "E009 and E010 add strategic-modernization context, but not measurable effectiveness or correction evidence.",
+        "E006 remains bundled across multiple outcomes; local governance indicators are institutional context rather than ruler-specific effectiveness evidence.",
+        "The dossier lacks independent verification and sufficiently broad portfolio coverage."
+      ],
+      "missing_themes": [
+        "personnel competence",
+        "cross-ministry and regional coordination",
+        "adaptation after failure",
+        "independently verified outcomes",
+        "counterfactual attribution",
+        "durability",
+        "breadth across the program portfolio",
+        "policy correction"
+      ]
+    }
+  ],
+  "global_findings": [
+    "Continuation remains warranted for all eight chapters because each has a material, research-recoverable gap in attribution, temporal fit, source quality, event coverage, contrary evidence, or evidence yield.",
+    "The manifest misclassifies several discovery-only or locator-deficient entries as context, including E007, E008, E011, E013, E016, and pending-locator E015; this is a substantive source-status defect.",
+    "Final evidence remains concentrated in a small number of source families. Shared-source reuse is appropriate, but source-family independence is still insufficient for several chapters.",
+    "Several evidence items bundle materially distinct claims under one locator, especially E001-E006 and E014; deterministic splitting and count reconciliation are required after research, not as a substitute for it.",
+    "Local facts are now explicitly dispositioned as context and not direct ruler evidence. Empty local states remain research gaps, not negative evidence.",
+    "Promising recoverable candidates remain unfetched or lack precise locators, including nuclear, security, economic, and social-wellbeing materials.",
+    "No researcher-written scores, score ranges, anchors, rankings, or judge advice were identified."
+  ],
+  "reviewer_summary": "Continue the same researcher thread for every chapter. Round 1 improved nuclear, Taiwan, economic, minority-policy, and program-agenda coverage, but did not resolve the dossier's material attribution and event-specific gaps. All eight chapters still have recoverable deficiencies; 1B, 2B, 6B, and 7B remain especially underdeveloped, while 3B, 4B, 5B, and 8B also require further targeted research and contrary-evidence coverage."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+## Research handoff — Xi Jinping, China, 2023
+
+Direct research recovered four defensible source-claim units. No score or score recommendation was assigned.
+
+### E020 — 2023 Chinese NPT and nuclear-risk statement
+
+- **Source:** Chinese Ministry of Foreign Affairs, statement by Arms Control Director-General Sun Xiaobo, Vienna, August 2023.
+- **Locator:** “First,” lines 82–87; “Second,” lines 88–92; “Thirdly,” lines 93–97.
+- **Claim:** China reaffirmed no-first-use “at any time and under any circumstances,” minimum necessary nuclear capabilities, opposition to arms races, support for strategic-risk reduction, mutual no-first-use negotiations, negative security assurances, and continued NPT/nonproliferation engagement. The statement attributes broader initiatives to Xi and records his position that nuclear weapons cannot be used and nuclear war must not be fought. [Source](https://www.fmprc.gov.cn/eng./xw/wjbxw/202405/t20240530_11343590.html)
+- **Period fit:** Directly within the 2023 target period.
+- **Ruler attribution:** Xi is directly named for the nuclear-war position; operational doctrine remains attributed to China’s state apparatus, not proven as Xi’s personal decision.
+- **Contrary evidence:** Arms Control Association reports rapid modernization, possible future coercive leverage, and uncertainty about posture change, while also noting continued no-first-use and centralized civilian control. [Source](https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program)
+- **Links:** `1B.1`, `1B.2`, `1B.3`, `1B.5`, `1B.7`, `1B.8`, `1B.10`.
+
+### E021 — August 2023 PLA exercises around Taiwan
+
+- **Source:** Xinhua, reporting the Eastern Theater Command statement.
+- **Locator:** 19 August 2023 article, paragraphs 1–3.
+- **Claim:** The PLA launched joint air-and-sea patrols and exercises around Taiwan, training vessel-aircraft coordination and control of air and sea space. The command described the activity as a warning against Taiwan-independence forces and external involvement. [Source](https://english.news.cn/20230819/d6981ac0ad5b46eb8f8fce6949ae1fec/c.html)
+- **Period fit:** Exact target-year event.
+- **Ruler attribution:** Directly establishes PLA/Eastern Theater Command conduct. It does not establish that Xi personally ordered the exercise.
+- **Contrary evidence:** The official rationale characterizes the action as warning/deterrence responding to perceived provocation; no independent evidence was found establishing defensive necessity or peaceful alternatives.
+- **Links:** `2B.1`, `2B.2`, `2B.3`, `2B.6`, `2B.7`, `2B.8`, `2B.10`; limited contextual link to `1B.8`.
+
+### E022 — UNICEF China 2023 social-service implementation
+
+- **Source:** UNICEF China, *Annual Review 2023* and “2023: Year in Review.”
+- **Locators:** Annual Review PDF pp. 1–4; online sections “Child Protection Systems,” “Child-Friendly Cities,” “Partnership for Education,” and “Adolescent Mental Health.”
+- **Claim:** In 2023, UNICEF and Chinese government partners trained health workers, supported early-childhood and mental-health services, trained educators, developed inclusive education models, strengthened child-protection systems in four provinces, supported services for more than two million children, and contributed to accessibility, online-protection, and childcare policies. [PDF](https://www.unicef.org/china/en/media/26881/file/A%20YEAR%20OF%20PROGRESS%20FOR%20CHILDREN%20IN%20CHINA%20AND%20BEYOND.pdf) [Online summary](https://www.unicef.cn/en/2023-in-review)
+- **Period fit:** Directly reports 2023 activities and outputs.
+- **Ruler attribution:** Establishes state/ministerial implementation and international-partner cooperation, not Xi’s personal selection or supervision.
+- **Contrary evidence:** The report explicitly identifies remaining vulnerability among children in poorer regions, children with disabilities, and migrant-affected children.
+- **Links:** `6B.1`, `6B.2`, `6B.3`, `6B.5`, `6B.6`, `6B.7`, `6B.8`, `6B.9`, `6B.10`; implementation context for `8B.3`, `8B.5`, `8B.7`, `8B.10`.
+
+### E023 — Household distribution and property-sector constraints
+
+- **Source:** World Bank, *China Economic Update — December 2023*.
+- **Locator:** PDF printed pp. 47–48, text surrounding Figure 27, especially the “Property income effect” discussion.
+- **Claim:** Household debt reached 62% of GDP in 2023; 62% of household debt related to housing purchases; average non-mortgage expenditure fell 22% after home purchase; fewer than half of households had property income; and property income represented a small share of household income relative to advanced economies. [Source](https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf)
+- **Period fit:** December 2023 update; some underlying household survey estimates use earlier data and are not themselves 2023 observations.
+- **Ruler attribution:** Country-level distributional and macroeconomic constraints; no direct Xi attribution.
+- **Contrary evidence:** The World Bank also reported 2023 recovery supported by services demand, manufacturing investment, and infrastructure stimulus, while describing the recovery as fragile and consumer confidence as weak. [Source](https://www.worldbank.org/en/news/press-release/2023/12/14/sustained-policy-support-and-deeper-structural-reforms-to-revive-china-s-growth-momentum)
+- **Links:** `5B.3`, `5B.4`, `5B.8`, `5B.9`, `5B.10`; `6B.10`; `8B.7`, `8B.8`, `8B.10`.
+
+## Ledger disposition changes required
+
+The filesystem write was attempted but rejected by the environment with:
+
+`bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`
+
+Therefore the manifest could not be persisted. Apply these changes to `research-ledger-manifest.json`:
+
+- Reclassify `E007`, `E008`, and `E011` as `discovery_only`.
+- Keep `E013` as `discovery_only`.
+- Keep `E015` as `context` pending exact locator recovery.
+- Reclassify `E016` as `discovery_only`.
+- Keep `E019` as `context`, explicitly historical/non-2023.
+- Add:
+  - `E020` — `final_evidence`
+  - `E021` — `final_evidence`
+  - `E022` — `final_evidence`
+  - `E023` — `final_evidence`
+
+The accumulated E001–E006 and E009–E010 evidence remains usable, subject to the prior review’s attribution and bundled-claim limitations.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#intro-2023-repression|2023 repression and social control under Xi",
+      "disposition": "context",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#freedom-expression|2023 censorship and expression cases",
+      "disposition": "context",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#religion|2023 religious Sinicization and civic control",
+      "disposition": "context",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china#defenders|2023 prosecutions and harassment of lawyers/defenders",
+      "disposition": "context",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/news/2024/01/11/china-no-letup-xi-jinpings-repressive-rule#release|HRW 2023 annual assessment",
+      "disposition": "context",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.stats.gov.cn/english/PressRelease/202402/t20240228_1947918.html#general-outlook|2023 official GDP employment population CPI",
+      "disposition": "context",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/asia-pacific/taiwan-vp-eye-storm-china-drills-protest-us-visit-2023-08-19/|2023 PLA drills after Taiwan vice-president transit",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/us/veiled-swipe-china-blinken-tells-apec-us-believes-free-region-2023-11-14/|2023 APEC military-to-military contacts and Taiwan issue",
+      "disposition": "context",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program#main|2023 nuclear modernization, doctrine uncertainty, alerting and centralized control",
+      "disposition": "context",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://chinapower.csis.org/china-nuclear-weapons/#historic-posture|China nuclear strategy, no-first-use, modernization and Xi-era force changes",
+      "disposition": "context",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://media.defense.gov/2023/Oct/19/2003323409/-1/-1/1/2023-military-and-security-developments-involving-the-peoples-republic-of-china.pdf#2023-report-nuclear-use-statement|2023 DoD assessment of Chinese nuclear policy",
+      "disposition": "context",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.cfr.org/global-conflict-tracker/conflict/confrontation-over-taiwan#recent-developments|PRC coercive Taiwan posture, military exercises and diplomatic alternatives",
+      "disposition": "context",
+      "provisional_id": "E012"
+    },
+    {
+      "canonical_fact_key": "https://www.uscc.gov/sites/default/files/2023-11/Chapter_1_Section_2--U.S.-China_Security_and_Foreign_Affairs.pdf#2023-china-security-section|2023 USCC assessment of Chinese security and foreign affairs",
+      "disposition": "context",
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#introduction|2023 Xi agenda: recovery, ideological rectification, cadre training and technological self-reliance",
+      "disposition": "context",
+      "provisional_id": "E014"
+    },
+    {
+      "canonical_fact_key": "https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf#2023-household-property-income-and-economic-outlook|China household/property sector and macroeconomic constraints",
+      "disposition": "context",
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.undp.org/sites/g/files/zskgke326/files/2024-03/china_in_numbers_2023-final.pdf#2023-youth-unemployment-and-human-development|China 2023 human-development and youth-employment indicators",
+      "disposition": "context",
+      "provisional_id": "E016"
+    },
+    {
+      "canonical_fact_key": "https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#economy-analysis|2023 economic recovery, source discrepancies and security-versus-demand tradeoff",
+      "disposition": "context",
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/china/freedom-world/2023#xinjiang-tibet-minority-control|minority control, coercive education and demographic policy",
+      "disposition": "context",
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/china/freedom-world/2023#term-limits|presidential term-limit removal and political entrenchment",
+      "disposition": "context",
+      "provisional_id": "E019"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

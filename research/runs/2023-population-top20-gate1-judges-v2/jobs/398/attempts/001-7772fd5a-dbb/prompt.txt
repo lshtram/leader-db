@@ -1,0 +1,943 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:3B",
+  "run_key": "2023-population-top20-gate1-judges-v2",
+  "chapter_id": "3B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:3B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "3B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "China",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.1",
+        "reason": "Named detention, sentencing, Xinjiang, and Tibet evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.2",
+        "reason": "Specific repression and censorship events retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.3",
+        "reason": "Uyghur, Tibetan, Hong Kong, and named-victim evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.4",
+        "reason": "Specific detention and legal-process evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.5",
+        "reason": "Civil-society and transnational-repression evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.6",
+        "reason": "Li Keqiang mourning and censorship evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.7",
+        "reason": "Child-development and vulnerable-group evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.8",
+        "reason": "Named repression and limited tolerance evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.9",
+        "reason": "COVID-exit crisis evidence retained as disputed and qualified.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "3B.10",
+        "reason": "Trajectory evidence retained, with institutional attribution caveat.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 7315,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Attacks-on-Human-Rights-Defenders|Xu-Ding-Yu-Lu-Rahile-Hong-Kong-2023",
+        "claim": "HRW documented multiple 2023 disappearances, detentions, long prison sentences, Rahile Dawut's life sentence, and Hong Kong National Security Law arrests and bounty warrants.",
+        "contrary_evidence": [
+          "These events establish state or institutional conduct more securely than Xi-specific direction, knowledge, or correction responsibility."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "The report lists named lawyers, activists, journalists, Rahile Dawut, and Hong Kong targets with dates and sentences.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period events reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional/party-state attribution; no direct Xi order located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named individuals, dates, and legal outcomes are specified.",
+        "source_locator": "Attacks on Human Rights Defenders, Xinjiang, and Hong Kong sections.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Xinjiang|Xi-August-2023-success",
+        "claim": "Xi visited Xinjiang in August 2023 and described his Xinjiang policies as a success despite the UN-documented abuse record.",
+        "contrary_evidence": [
+          "The claim is direct for Xi's visit and statement but not proof that he personally ordered every regional abuse."
+        ],
+        "evidence_id": "E012",
+        "excerpt": "Xi visited Xinjiang and pronounced that his policies in Xinjiang were a success.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct August 2023 visit reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Direct Xi attribution for visit and statement; systemic attribution for underlying policies.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named ruler, month, and quoted characterization.",
+        "source_locator": "Xinjiang section, Xi visit paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Freedom-of-Expression|Caixin-Southern-Weekly-June-2023",
+        "claim": "Caixin and Southern Weekly investigative reports on an alleged death in police custody were deleted in June 2023.",
+        "contrary_evidence": [
+          "The notebook also records a limited episode of public mourning and online criticism around Li Keqiang."
+        ],
+        "evidence_id": "E013",
+        "excerpt": "Both reports were swiftly deleted from official websites and social-media platforms.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct June 2023 censorship events reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional censorship attribution; no direct Xi order located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Specific outlets, month, and action identified.",
+        "source_locator": "Freedom of Expression section, censorship paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Tibet|Geshe-Phende-Gyaltsen-January-2023",
+        "claim": "A Tibetan monk, Geshe Phende Gyaltsen, died in police custody in January 2023 after arrest in 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E014",
+        "excerpt": "The monk died in police custody in January 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct January 2023 outcome reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional security attribution; no direct Xi order located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named individual and date supplied.",
+        "source_locator": "Tibet section, Geshe Phende Gyaltsen paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.stats.gov.cn/sj/zxfb/202501/t20250124_1958440.html|2023-child-development|mortality-education-access",
+        "claim": "Official 2023 child-development data report lower infant and under-five mortality, improved compulsory-education retention, and expanded child-health access, providing positive contrary evidence.",
+        "contrary_evidence": [
+          "The report is official and does not by itself establish equitable realized access or Xi-specific responsibility."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "The report records improved child-health, education-retention, and access indicators for 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 outcomes reported in a later official statistical release.",
+        "publication_date": "2025-01-24",
+        "publisher": "National Bureau of Statistics of China",
+        "ruler_attribution": "Indirect state-program attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official statistical report with specified 2023 outcomes.",
+        "source_locator": "2023 child-development monitoring report, health and education outcome tables.",
+        "source_type": "official statistics",
+        "title": "2023 child-development monitoring report",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202501/t20250124_1958440.html"
+      }
+    ],
+    "iso3": "CHN",
+    "job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "3B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=7; mapping_note=D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide country-year baselines requiring narrative ruler attribution.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.1",
+        "relation": "supports",
+        "relevance": "Xi-linked Xinjiang policy statement."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.2",
+        "relation": "supports",
+        "relevance": "Named repression events."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.3",
+        "relation": "supports",
+        "relevance": "Tibetan custody death."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.6",
+        "relation": "supports",
+        "relevance": "Censorship event."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "3B.10",
+        "relation": "mitigates",
+        "relevance": "Positive child-development outcomes."
+      }
+    ],
+    "methodology_ids": [
+      "3B.1",
+      "3B.2",
+      "3B.3",
+      "3B.4",
+      "3B.5",
+      "3B.6",
+      "3B.7",
+      "3B.8",
+      "3B.9",
+      "3B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "1432",
+    "ruler_name": "Xi Jinping",
+    "ruler_year_id": 15833,
+    "run_key": "2023-population-top20-gate1-v2",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "0879ac6c1cacfd9eb078a3ed8c46816fc66d540a60171d3e53ff06509d38efb3",
+      "source_mix_note": "Retained official Chinese records, specialist NGOs, public-service and general media, policy commentary, and local structured priors. Source-family overlap, mediated official claims, self-reporting, and institutional-versus-personal attribution limitations are explicitly preserved.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "46a854deff8f51e057bb7cb04c63a898f837765f014d568305169937d3b9a69a",
+    "unresolved_gaps": [
+      "No direct Xi procurement order or personal direction for nuclear modernization was found.",
+      "No specific 2023 nuclear or radiological crisis was found.",
+      "No 2023 lethal Chinese cross-border incident or confirmed Chinese arms transfer to Russia was recovered.",
+      "Direct Xi decisions or orders linking him to specific domestic abuses remain limited.",
+      "Education, housing, water, sanitation, food, and broad service-quality evidence remains incomplete and predominantly official.",
+      "No direct 2023 personal asset, family-benefit, personal-corruption, truthful-disclosure, or broken-promise event was found.",
+      "No precise 2023 election, succession, or term-limit event was recovered.",
+      "COVID mortality and vaccine-policy claims remain disputed and should remain qualified.",
+      "IMF and World Bank snippets, unopened Bloomberg material, post-period Amnesty material, and unsupported historical wealth claims remain context or rejected and are not used as final evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 3B — Domestic Safety, Restraint, And Protection
+
+Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+
+## Chapter Identity
+
+- Chapter: `3B`
+- Rating: domestic safety versus violence, oppression, and incitement
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_3b_v3`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter asks whether people were protected from state and politically tolerated
+violence, whether coercive institutions were restrained and accountable, whether the
+ruler reduced fear without substituting state terror, and whether vulnerable groups and
+peaceful civic activity were protected. It does not score ordinary crime alone, political
+freedom wholesale, international battlefield conduct, or government popularity. Public
+safety gains do not excuse torture or collective punishment, while isolated misconduct
+with credible remedy is not equivalent to state policy. The client matrix is not evidence.
+
+## Ten Evidence Lenses
+
+1. **3B.1:** Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment?
+2. **3B.2:** Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes?
+3. **3B.3:** Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups?
+4. **3B.4:** Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors?
+5. **3B.5:** Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control?
+6. **3B.6:** Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate?
+7. **3B.7:** Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect?
+8. **3B.8:** Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment?
+9. **3B.9:** Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle?
+10. **3B.10:** Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them?
+
+Lens status names are advisory. Missing lenses lower confidence, not validity, and never
+mechanically zero the chapter. Natural-language coverage differences can be normalized
+later without rejecting useful evidence.
+
+## Researcher Guidance
+
+Start with resolved ruler identity and local D12 facts: PTS, CIRIGHTS, V-Dem, and UCDP
+one-sided violence. Research integrated themes: physical-integrity abuse; security-force
+and aligned-actor conduct; ruler rhetoric; oversight/remedies; emergency and surveillance
+powers; state versus non-state fear; vulnerable-group protection; protest treatment;
+crisis response; and inherited-to-end safety. Collect evidence once and map it wherever
+materially relevant; do not inflate ten lenses with duplicate prose.
+
+Prefer UN mechanisms, courts and legal records, independent inquiries/ombuds institutions,
+PTS/CIRIGHTS/V-Dem/UCDP, reputable human-rights NGOs, credible local civil society,
+academic work, and high-quality reporting. Official sources can establish laws,
+appointments, prosecutions, and formal statistics but need corroboration for claims of
+restraint or legitimacy. Distinguish incident, recurring pattern, widespread practice,
+systematic policy, command/order, tolerated impunity, failure to prevent, and genuine
+remedy. Preserve positive and contrary evidence. Researchers do not finalize scores.
+
+Require a physical-safety nexus. Generic policy failure, economic or pandemic
+coordination, election controversy, and civil-liberties erosion belong elsewhere
+unless they directly expose people to state terror, political/identity violence,
+arbitrary detention, torture, killing, or preventable severe insecurity within this
+chapter. Classify adverse evidence by severity, scale, recurrence, state nexus,
+ruler attribution, and remedy before selecting an anchor.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+Use archives, truth commissions, court files, contemporaneous diplomatic/human-rights
+reports, demographic evidence, oral histories with corroboration, and later scholarship
+for older cases. In closed or highly repressive environments, few complaints or reports
+may reflect fear, censorship, inaccessible regions, or destroyed records. Triangulate
+victim, external monitor, administrative, event, and retrospective sources; never infer
+safety from silence. Conversely, open societies generate abundant reporting of lesser
+violations. Missing lens evidence lowers confidence. A defensible chapter score may rest
+on fewer strong lenses when they establish overall severity and responsibility.
+
+## Attribution And Inherited Baseline
+
+Resolve the ruler's formal and practical control over police, military, intelligence,
+prisons, governors, party forces, militias, and prosecutors. Attribute direct orders,
+public incitement, policy, appointments, systematic tolerance, obstruction of remedy,
+or failure to act where capacity and notice are evidenced. Do not transfer every local
+crime or autonomous abuse to the ruler. Compare inherited violence, institutional
+capacity, conflict and communal conditions with end-of-period outcomes, while judging
+the means used: reducing insurgent violence through state terror is not improvement.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Systematic state terror or mass political/identity violence is directed, incited, protected, or deliberately enabled by the ruler, with pervasive fear and no remedy. |
+| 2–3 | Severe recurring killings, torture, disappearances, imprisonment, collective punishment, aligned-actor violence, or incitement with broad impunity and weak protection. |
+| 4–5 | Significant abuse, selective repression, emergency-power misuse, group vulnerability, or recurring impunity, but violence is not fully generalized and some safeguards operate. |
+| 6–7 | No systematic terror and meaningful protection/oversight, but serious recurring police, detention, protest, minority, crisis-response, or accountability failures remain. |
+| 8–9 | Strong protection and restraint, rare serious abuse, credible independent remedies, vulnerable-group protection, open reporting, and sustained improvement in safety. |
+| 10 | Exceptional, durable, and well-evidenced protection from both political violence and preventable insecurity, with robust restraint/accountability even under severe pressure. |
+
+Scores below 4 require ruler-attributed physical-integrity or severe domestic-safety
+evidence, not adjacent-chapter harms. Scores of 8 or above require direct
+target-period evidence of ruler-attributed protection, restraint, or effective remedy
+from multiple independent source types; inherited institutional quality or low
+reported abuse alone is insufficient. A 9 normally requires meaningful pressure or
+consequential improvement. When evidence establishes conditions but not ruler
+contribution, cap the attribution claim and widen the range rather than over-crediting
+the inherited baseline.
+
+The ten lenses are qualitatively unequal and need no arithmetic aggregation. Systematic
+killing or torture can dominate many institutional positives; robust accountability can
+distinguish isolated violations from policy. Outcomes, means, severity, prevalence,
+duration, ruler responsibility, vulnerability, and remedy determine the holistic score.
+
+## Judge Workflow Across Rulers
+
+### V3 release-review gate
+
+Ordinary source limits, plausible ranges, and attribution caveats belong in confidence
+and rationale. Flag manual review only when a specific unresolved issue could move the
+score by at least one point or materially reorder adjacent rulers.
+
+One Chapter 3B judge reads all ruler dossiers in the batch. Establish information
+environment, inherited safety conditions, conflict/crime context, authority, and source
+coverage; classify severity, scale, responsibility, and accountability; compare anchor
+and edge cases; provisionally order rulers; then issue one chapter score and confidence
+per ruler. Explain decisive harms and protections, counterevidence, attribution, baseline
+change, and rejected adjacent bands. Recheck the complete ordering for open-society
+visibility, closed-regime silence, population, and conflict bias. Shards require shared
+anchors and final cross-shard calibration.
+
+## Minimum Evidence And Graceful Degradation
+
+A score requires at least one traceable relevant citation, a structured prior or
+explained `not_available`, and explicit temporal fit, information environment, ruler
+authority, severity, and remedy assessment. Extreme or high-confidence scores normally
+require multiple independent source types. One credible grave event may be decisive but
+must not automatically establish a nationwide pattern. Unknown protest, prison, or group
+protection evidence lowers confidence. Withhold for unresolved identity, fake/untraceable
+citations, or attribution too uncertain to judge—not for harmless coverage terminology
+or incomplete lens mappings.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check visibility, silence under repression, population and geographic scale, conflict
+context, state-versus-non-state responsibility, protected-group underreporting, official
+crime statistics, source-type and advocacy blind spots, incident-versus-pattern inflation,
+remedy versus impunity, inherited baseline, recency, and shared cross-ruler anchors. Do
+not treat reporting volume as severity, lower crime as proof of lawful rule, or formal
+oversight bodies as effective without evidence of independence and remedy.
+
+## Chapter-Specific Calibration Fields
+
+- `chapter_rubric_version`: `chapter_3b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `severity_band`: none/isolated/recurring/widespread/systematic/mass
+- `state_responsibility`: direct/state-aligned/tolerated/failed-to-prevent/non-state/unclear
+- `accountability_and_remedy`
+- `information_environment`
+- `inherited_safety_baseline` and `end_state_change`
+- `ruler_authority_and_attribution`
+- `physical_integrity_and_detention_assessment`
+- `aligned_actor_and_security_force_assessment`
+- `incitement_and_crisis_response`
+- `vulnerable_group_and_protest_protection`
+- `source_mix` and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Bashar al-Assad | Syria | 2011–2020 | mass/systematic state-violence low anchor |
+| Augusto Pinochet | Chile | 1973–1989 | historical repression and later records |
+| Rodrigo Duterte | Philippines | 2016–2022 | crime reduction claims versus extrajudicial killing |
+| Paul Kagame | Rwanda | 2000–2023 | safety/order versus closed-regime repression |
+| Narendra Modi | India | 2002 / 2014–2023 | communal violence, attribution, scale edge |
+| Michelle Bachelet | Chile | 2006–2010 | open-reporting, policing, and accountability case |
+| Jacinda Ardern | New Zealand | 2019 | crisis response and minority protection high case |
+| Nelson Mandela | South Africa | 1994–1999 | inherited violence and reconciliation constraints |
+| Nayib Bukele | El Salvador | 2022–2023 | public safety versus mass detention/emergency powers |
+| Hissene Habre | Chad | 1982–1990 | historical closed-regime low anchor |
+
+## Draft Acceptance Checklist
+
+- All ten exact lens texts appear.
+- Evidence separates severity, scale, responsibility, remedy, and information access.
+- One comparative judge produces one holistic score and confidence per ruler.
+- Missing lenses lower confidence and do not invalidate or mechanically zero a case.
+- Attribution and inherited safety are explicit; lawful outcomes and means are distinct.
+- Contrary evidence and citations are preserved.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

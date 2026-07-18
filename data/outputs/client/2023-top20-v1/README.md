@@ -29,10 +29,10 @@ explicit insufficient-evidence determination, not a zero and not a midpoint.
 | 1B | 7.0 | 72 | null | 5 |
 | 2B | 5.5 | 70 | 6.0 | 46 |
 | 3B | 6.0 | 68 | 4.5 | 72 |
-| 4B | null | 27 | null | 24 |
+| 4B | 7.0 | 62 | 4.5 | 55 |
 | 5B | 6.5 | 78 | 5.0 | 48 |
-| 6B | 6.0 | 74 | null | 27 |
-| 7B | 6.5 | 78 | null | 34 |
+| 6B | 6.0 | 74 | 5.5 | 52 |
+| 7B | 6.5 | 78 | 5.0 | 30 |
 | 8B | 6.5 | 72 | 4.5 | 43 |
 
 The 4B judge produced the same substantive null determination three times. Its final
@@ -41,10 +41,21 @@ candidate used fractional confidence values (`0.27` and `0.24`) instead of the r
 those values as 27 and 24 while preserving the failed candidates unchanged. It does
 not convert the nulls into invented scores.
 
-Thailand's 1B null is expected for a non-nuclear ruler-period without a documented
-discriminating catastrophic-risk decision. Thailand's 6B and 7B nulls reflect weak
-personal attribution despite meaningful country and institutional evidence. They may
-be filled later by explicit manual adjudication, but must not be silently imputed.
+Thailand's 4B and 6B chapters were rejudged from the frozen dossier under the
+proportional-attribution rule adopted on 2026-07-18. Formal executive responsibility
+now receives appropriate weight without requiring proof of a personal order. The 1B
+null remains appropriate for a non-nuclear ruler-period without documented exposure,
+and 7B was assigned a low-confidence midpoint from the narrow personal record rather
+than from country-level silence.
+
+## Corrected-methodology completion
+
+All remaining non-1B nulls were rejudged under the proportional-attribution rule.
+The correction preserves the original artifacts and records its judgments separately
+in `corrected-methodology-remaining-judgments.json`. Pakistan 2B evidence was restored
+from the original notebook; Vietnam 6B received narrowly targeted cited supplementation.
+The resulting public matrix has no non-1B null chapter scores. Chapter 1B nulls remain
+where the ruler-period had no documented nuclear or existential-risk exposure.
 
 ## Repair effect
 
@@ -123,3 +134,22 @@ by the pipeline are attributed as follows, using the normative project wording:
 
 The complete normative attribution and licensing record is
 `docs/sources/attributions.md`.
+
+## Interactive comparison viewer
+
+The read-only viewer is at `docs/client-results/2023-top20/index.html`. Rebuild its
+payload with:
+
+```bash
+.venv/bin/python scripts/build_client_results_viewer.py
+```
+
+Serve it from the repository root with:
+
+```bash
+.venv/bin/python scripts/serve_design_reviews.py \
+  --page docs/client-results/2023-top20/index.html
+```
+
+The viewer keeps automated and client scores separate, computes MSE only over
+numeric pairs, and links each chapter back to its lens-level evidence and judgment.

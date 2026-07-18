@@ -1,0 +1,1710 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate5-judges-v1:2023:1B",
+  "run_key": "2023-population-top20-gate5-judges-v1",
+  "chapter_id": "1B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate5-judges-v1:2023:1B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+    "iso3": "IDN",
+    "ruler_id": "2636",
+    "ruler_year_id": 16200,
+    "ruler_name": "Joko Widodo",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:NGA:15772",
+    "iso3": "NGA",
+    "ruler_id": "2774",
+    "ruler_year_id": 15772,
+    "ruler_name": "Bola Ahmed Tinubu",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:BRA:16162",
+    "iso3": "BRA",
+    "ruler_id": "2841",
+    "ruler_year_id": 16162,
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E010",
+          "E011"
+        ],
+        "methodology_id": "1B.1",
+        "reason": "Direct 2023 administration policy and technical nuclear-posture evidence were retained; implementation and end-period risk outcomes remain incomplete.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E010",
+          "E011"
+        ],
+        "methodology_id": "1B.2",
+        "reason": "Nuclear posture and deterrence evidence is available, with incomplete crisis-signaling coverage.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E010",
+          "E011"
+        ],
+        "methodology_id": "1B.3",
+        "reason": "Arms-control, modernization, and emerging-technology safeguards evidence is available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009"
+        ],
+        "methodology_id": "1B.4",
+        "reason": "Risk-reduction and posture evidence is available; implementation remains incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E011"
+        ],
+        "methodology_id": "1B.5",
+        "reason": "Modernization and deterrence activity are documented, but end-period risk assessment is incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009"
+        ],
+        "methodology_id": "1B.6",
+        "reason": "Multilateral and technical policy evidence is available; no complete outcome assessment was retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E013"
+        ],
+        "methodology_id": "1B.7",
+        "reason": "Deterrence and emerging-technology posture evidence is available.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E010",
+          "E011",
+          "E012"
+        ],
+        "methodology_id": "1B.8",
+        "reason": "Formal safeguards and implementation mechanisms are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009"
+        ],
+        "methodology_id": "1B.9",
+        "reason": "Risk-reduction proposals are documented, but effectiveness is unresolved.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E008",
+          "E009",
+          "E010",
+          "E011"
+        ],
+        "methodology_id": "1B.10",
+        "reason": "Mixed nuclear-policy evidence is available; independent end-period risk assessment remains a gap.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 8270,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|arms-control-and-risk-reduction-program",
+        "claim": "The Biden administration said it would remain within New START central limits while Russia did, engage Russia on a post-2026 framework, engage China without preconditions, and pursue P5 launch notification, crisis communication, transparency, and human-in-the-loop safeguards.",
+        "contrary_evidence": [
+          "The speech documents proposals and commitments, not agreement, implementation, force reduction, or improved end posture."
+        ],
+        "evidence_id": "E008",
+        "excerpt": "The United States is ready to engage Russia now to manage nuclear risks and develop a post-2026 arms-control framework; ready to engage China without preconditions.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 administration policy.",
+        "publication_date": "2023-06-02",
+        "publisher": "Arms Control Association reproducing White House remarks",
+        "ruler_attribution": "Strong administration attribution; delivered by Jake Sullivan.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Official policy speech reproduced by specialist nuclear-policy organization.",
+        "source_locator": "Sections beginning \u201crather than waiting to resolve all of our bilateral differences\u201d and \u201cThe P5 provides an opportunity.\u201d",
+        "source_type": "official_policy_statement",
+        "title": "Remarks by National Security Advisor Jake Sullivan for the Arms Control Association Annual Forum",
+        "url": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual"
+      },
+      {
+        "canonical_fact_key": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|emerging-technology-guardrails",
+        "claim": "The administration linked AI, hypersonic, cyber, and space systems to escalation risks and cited a US commitment not to conduct destructive direct-ascent ASAT testing, alongside proposed military-AI and space norms.",
+        "contrary_evidence": [
+          "No independent evidence here establishes compliance, competitor adoption, or consequential risk reduction."
+        ],
+        "evidence_id": "E009",
+        "excerpt": "With the advent of Artificial Intelligence, this entire picture only becomes more complex; the US committed not to conduct destructive direct-ascent anti-satellite missile testing.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 administration policy.",
+        "publication_date": "2023-06-02",
+        "publisher": "Arms Control Association reproducing White House remarks",
+        "ruler_attribution": "Administration-level attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Official policy statement reproduced by specialist organization.",
+        "source_locator": "Section beginning \u201cThe fielding of weapons based on emerging technologies.\u201d",
+        "source_type": "official_policy_statement",
+        "title": "Emerging-technology arms-control and risk guardrails",
+        "url": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual"
+      },
+      {
+        "canonical_fact_key": "https://fas.org/publication/2022-nuclear-posture-review/|opening-analysis|Biden-NPR-risk-reduction-disappointment",
+        "claim": "FAS assessed the Biden administration's governing nuclear policy as rejecting campaign support for no-first-use and sole-purpose and as disappointing from an arms-control and risk-reduction perspective, while resisting some new weapons proposals.",
+        "contrary_evidence": [
+          "FAS credited the administration with resisting calls to add new nuclear weapons and supporting retirement or cancellation of some capabilities."
+        ],
+        "evidence_id": "E010",
+        "excerpt": "The NPR explicitly rejects both no-first-use and sole-purpose for now; from an arms-control and risk-reduction perspective, the NPR is a disappointment.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 assessment of policy governing 2023; inherited-policy context.",
+        "publication_date": "2022-10-27",
+        "publisher": "Federation of American Scientists",
+        "ruler_attribution": "Biden administration policy, constrained by Defense Department, strategic conditions, and Congress.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Independent technical assessment by established nuclear-force specialists.",
+        "source_locator": "Opening paragraphs through \u201cFrom an arms control and risk reduction perspective.\u201d",
+        "source_type": "technical_ngo_analysis",
+        "title": "The 2022 Nuclear Posture Review: Arms Control Subdued By Military Rivalry",
+        "url": "https://fas.org/publication/2022-nuclear-posture-review/"
+      },
+      {
+        "canonical_fact_key": "https://fas.org/publication/2022-nuclear-posture-review/|force-structure-sections|modernization-retirements-and-low-yield-retention",
+        "claim": "The administration continued the inherited nuclear-triad, command-and-control, and infrastructure modernization program; retained W76-2 and accelerated B61-12 deployment, while seeking B83-1 retirement and SLCM-N cancellation.",
+        "contrary_evidence": [
+          "Modernization does not itself prove reckless use; Congress opposed some retirements and no 2023 accident or launch-risk outcome was identified."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "The modernization program was essentially the same program supported by two prior administrations; FAS called the accelerated B61-12 deployment timing odd.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Policy inherited into and implemented during 2023.",
+        "publication_date": "2022-10-27",
+        "publisher": "Federation of American Scientists",
+        "ruler_attribution": "Mixed administration, predecessor, military, congressional, and alliance attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Technical force-structure analysis.",
+        "source_locator": "Sections addressing modernization, B83-1, SLCM-N, W76-2, and B61-12 deployment.",
+        "source_type": "technical_ngo_analysis",
+        "title": "Nuclear modernization, retirements, and low-yield retention",
+        "url": "https://fas.org/publication/2022-nuclear-posture-review/"
+      },
+      {
+        "canonical_fact_key": "https://www.energy.gov/nnsa/articles/nnsa-delivers-2023-stockpile-stewardship-and-management-plan-congress|lines-161-172|2023-stockpile-modernization",
+        "claim": "NNSA's FY2023 Stockpile Stewardship and Management Plan operationalized the administration's nuclear policy through scheduled warhead modernization, B61-12 and W88 production, and a safe-and-secure stockpile objective.",
+        "contrary_evidence": [
+          "Continued modernization cuts against simple risk-reduction claims; the evidence does not establish reduced overall nuclear risk."
+        ],
+        "evidence_id": "E012",
+        "excerpt": "The plan describes scheduled modernization and maintaining a safe, secure, and effective stockpile.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 implementation evidence.",
+        "publication_date": "2023",
+        "publisher": "National Nuclear Security Administration",
+        "ruler_attribution": "Administration-level implementation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official NNSA plan record.",
+        "source_locator": "NNSA release, lines 161\u2013172.",
+        "source_type": "official_plan",
+        "title": "NNSA delivers 2023 Stockpile Stewardship and Management Plan to Congress",
+        "url": "https://www.energy.gov/nnsa/articles/nnsa-delivers-2023-stockpile-stewardship-and-management-plan-congress"
+      },
+      {
+        "canonical_fact_key": "https://www.defense.gov/News/Releases/Release/Article/3626886/fact-sheet-department-of-defense-concludes-decisive-year-in-the-indo-pacific-re/|2023-nuclear-deterrence-deployments|B52-SSBN-Korea",
+        "claim": "The Defense Department reported deployment of a nuclear-capable B-52 to the Korean Peninsula and an Ohio-class SSBN port visit to South Korea during 2023, indicating visible deterrence signaling and force-posture activity.",
+        "contrary_evidence": [
+          "Attribution is administration-level, not solely personal to Biden; the record does not establish whether the activity reduced or increased risk."
+        ],
+        "evidence_id": "E013",
+        "excerpt": "The fact sheet identifies the B-52 deployment and Ohio-class SSBN port visit as 2023 Indo-Pacific activities.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 force-posture evidence.",
+        "publication_date": "2023",
+        "publisher": "US Department of Defense",
+        "ruler_attribution": "Administration and Defense Department attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official fact sheet.",
+        "source_locator": "2023 Indo-Pacific fact sheet, nuclear-deterrence deployment passages.",
+        "source_type": "official_fact_sheet",
+        "title": "Department of Defense concludes decisive year in the Indo-Pacific region",
+        "url": "https://www.defense.gov/News/Releases/Release/Article/3626886/fact-sheet-department-of-defense-concludes-decisive-year-in-the-indo-pacific-re/"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "1B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.1",
+        "relation": "supports",
+        "relevance": "Arms-control and risk-reduction policy."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.2",
+        "relation": "contradicts",
+        "relevance": "Independent adverse assessment of nuclear doctrine."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "Emerging-technology safeguards."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.5",
+        "relation": "contradicts",
+        "relevance": "Modernization and force-structure continuation."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Visible deterrence signaling."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.8",
+        "relation": "supports",
+        "relevance": "Target-year stockpile implementation."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ff3350678016784d82ba204f7c4a6fb286419aaf5cee6e8c5fbc6a8606b6d44e",
+      "source_mix_note": "Evidence mixes structured local priors, official government and intergovernmental records, congressional research, independent statistical and audit reports, research institutes, journalism, and human-rights or civil-liberties NGOs. Source concentration remains material in HRW, KFF, Brookings, CMS, and Arms Control Association/White House splits; local priors remain contextual. Locator-incomplete and discovery-only candidates were excluded from final evidence.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "219e9d3f8804b737e07600c66af5ace94399dbec32ba314209a9341e1d011ec6",
+    "unresolved_gaps": [
+      "1B: no complete end-2023 independent nuclear-risk, command-and-control, or safeguard-implementation assessment.",
+      "2B: no complete evidence of downstream cluster-munition civilian consequences, Ukraine escalation restraint, Gaza arms-transfer monitoring, or recipient accountability.",
+      "3B: federal oversight is documented, but durable remedies, protest treatment, federal prison and Guantanamo conditions, surveillance, and hate-crime outcomes remain incomplete.",
+      "4B: 2023-specific press-access and criticism-treatment evidence is limited; social-media litigation remains locator-incomplete and preliminary.",
+      "5B: completed CHIPS, IRA, and IIJA outputs, realized wages and employment attribution, inflation causation, labor, antitrust, and distributional outcomes remain incomplete.",
+      "6B: independent service-quality, prescription-drug outcomes, SNAP, housing outcomes, disability, veteran, disaster, and education-recovery evaluations remain incomplete.",
+      "7B: no adjudicated personal-benefit, quid-pro-quo, obstruction, ethics, gifts, nepotism, or independent clearing finding was established.",
+      "8B: no completed cross-portfolio outcome evaluation; macroeconomic and crisis outcomes remain materially confounded.",
+      "Researcher could not persist research-materials.md or research-ledger-manifest.json because the supplied environment was read-only; all substantive handoff material was supplied inline."
+    ]
+  },
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Indonesia",
+    "coverage": [
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.1",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.2",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.3",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.4",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.5",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.6",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.7",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.8",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.9",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.10",
+        "reason": "The researcher explicitly documented no discriminating nuclear or existential-risk opportunity in 2023.",
+        "status": "no_evidence_found"
+      }
+    ],
+    "estimated_input_tokens": 3453,
+    "evidence": [],
+    "iso3": "IDN",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "1B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2636",
+    "ruler_name": "Joko Widodo",
+    "ruler_year_id": 16200,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "49418b81f84d0fcc7031f5ab67236723dcf0440ea3bd2ae6b994899398c2b6d2",
+      "source_mix_note": "Researcher supplied NGO, academic-index, peer-reviewed journal, official government, intergovernmental, international-financial-institution, national-statistics, national-media, and international-media sources. Official and self-assessment sources are retained with stated limitations; same-event corroborations were not treated as independent distinct claims.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "165fb47b1a38b970c191ec028e866165bd0bfe37ca539e8ce9aa6f91ec4287a3",
+    "unresolved_gaps": [
+      "No direct evidence that Jokowi personally directed Constitutional Court Decision 90/PUU-XXI/2023.",
+      "No defensible 2023 personal asset-enrichment or personal-disclosure misconduct event was recovered.",
+      "Papua accountability remains substantially institutional and subordinate rather than personally presidential.",
+      "No documented 2023 corrective action after a flagship implementation failure was recovered.",
+      "BRIN performance evidence is conflicting and must remain split between retrospective criticism and the 2023 indicators publication.",
+      "Precise claim-level locators for some retrospective EAF and Asia Maior material remain section-level rather than page-level."
+    ]
+  },
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Nigeria",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E001"
+        ],
+        "methodology_id": "1B.1",
+        "reason": "IAEA safeguards-status evidence is present, but complete capability/exposure audit remains incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.2",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.3",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.4",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.5",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.6",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.7",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.8",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.9",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E001"
+        ],
+        "methodology_id": "1B.10",
+        "reason": "Safeguards context is documented; no ruler-attributable catastrophic-risk decision was recovered.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 3893,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=NG|lines112-123|nigeria-npt-safeguards",
+        "claim": "Nigeria's NPT safeguards agreement has been in force since 1988 and its Additional Protocol since 2007.",
+        "contrary_evidence": [
+          "Safeguards status does not establish complete absence of dual-use, radiological, biological, or other catastrophic-risk capability."
+        ],
+        "evidence_id": "E001",
+        "excerpt": "The IAEA country factsheet records Nigeria's NPT safeguards agreement and Additional Protocol status.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Institutional status applying during 2023.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "International Atomic Energy Agency",
+        "ruler_attribution": "State-level legal and safeguards framework; not a Tinubu personal action.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Authoritative IAEA country factsheet.",
+        "source_locator": "lines 112-123",
+        "source_type": "official international organization",
+        "title": "Nigeria Country Factsheet",
+        "url": "https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=NG"
+      }
+    ],
+    "iso3": "NGA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:NGA:15772",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "1B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "IAEA safeguards status"
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Institutional risk-governance context"
+      }
+    ],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2774",
+    "ruler_name": "Bola Ahmed Tinubu",
+    "ruler_year_id": 15772,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "cc1eece5d4acfe3fb5a2f5a5ac2599975a00886b3f240fb499bc7465e14b99a1",
+      "source_mix_note": "Final evidence mixes IAEA, ECOWAS, Nigerian State House, Amnesty, HRW, AP, Access Now, NBS, World Bank, WHO, National Assembly, Channels Television, and Al Jazeera. Wikipedia and current/retrospective portal material were bounded to context or discovery where appropriate. Country indicators remain context unless explicitly identified as local structured baselines.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "36205f1324c6e81c77d16fd8bf27acc72eba7d8501014592a88482bcd1794444",
+    "unresolved_gaps": [
+      "Complete authoritative nuclear/non-possession and broader catastrophic-risk exposure audit.",
+      "Foreign-policy audit beyond the Niger crisis, including arms transfers, proxies, cross-border operations, and international-law compliance.",
+      "Target-period emergency powers, surveillance, security-force accountability, and full protest-treatment audit.",
+      "Direct presidential nexus for press incidents, opposition treatment outside litigation, and executive influence over courts.",
+      "Verified fiscal savings, reinvestment, full cost-of-living trajectory, and correction after adverse effects.",
+      "Education delivery, full-year poverty and household-income measures, and verified welfare-transfer reach.",
+      "Tinubu asset declaration, personal financial interests, conflicts, and direct records concerning any investigation involving Tinubu.",
+      "Extracted 2023 budget execution reports, delivery milestones, personnel competence, coordination, and year-end security outcomes."
+    ]
+  },
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Brazil",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E005"
+        ],
+        "methodology_id": "1B.1",
+        "reason": "Direct nuclear safeguards, non-diversion, cybersecurity, and disarmament evidence was retained; broader catastrophic-risk themes remain incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E003",
+          "E004",
+          "E005"
+        ],
+        "methodology_id": "1B.2",
+        "reason": "Direct but limited evidence on disarmament and risk-reduction conduct.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002"
+        ],
+        "methodology_id": "1B.3",
+        "reason": "IAEA safeguards consultations and planned naval-propulsion facilities are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E005"
+        ],
+        "methodology_id": "1B.4",
+        "reason": "Safeguards, non-diversion, and TPNW-support evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.5",
+        "reason": "No defensible target-year evidence on this lens was captured.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E003"
+        ],
+        "methodology_id": "1B.6",
+        "reason": "National cybersecurity policy provides institutional dual-use governance context.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E003"
+        ],
+        "methodology_id": "1B.7",
+        "reason": "Cybersecurity governance is documented, but broader catastrophic-risk governance is absent.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E005"
+        ],
+        "methodology_id": "1B.8",
+        "reason": "Cybersecurity and nuclear-disarmament policy evidence retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.9",
+        "reason": "No direct target-year catastrophic-risk decision was captured.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "1B.10",
+        "reason": "No defensible evidence on this lens was captured.",
+        "status": "no_evidence_found"
+      }
+    ],
+    "estimated_input_tokens": 6115,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.iaea.org/sites/default/files/documents/govinf2023-11.pdf|pp.1-2 paras.4-10|Brazil naval propulsion material not for weapons and safeguarded",
+        "claim": "Brazil stated that naval-propulsion nuclear material would not be used for nuclear weapons and that relevant fuel-cycle facilities were under IAEA and ABACC safeguards.",
+        "contrary_evidence": [],
+        "evidence_id": "E001",
+        "excerpt": "IAEA GOV/INF/2023/11, pp. 1\u20132, paras. 4\u201310.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 safeguards record.",
+        "publication_date": "2023-05-31",
+        "publisher": "International Atomic Energy Agency",
+        "ruler_attribution": "Institutional federal policy; not solely a Lula personal act.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary intergovernmental safeguards record with page-level locator.",
+        "source_locator": "PDF pp. 1\u20132, paras. 4\u201310",
+        "source_type": "intergovernmental_primary",
+        "title": "GOV/INF/2023/11",
+        "url": "https://www.iaea.org/sites/default/files/documents/govinf2023-11.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.iaea.org/sites/default/files/documents/govinf2023-11.pdf|p.3 paras.11-14|May 25 preliminary information and ongoing consultations",
+        "claim": "IAEA consultations with Brazil on naval nuclear propulsion safeguards remained ongoing in 2023, and Brazil supplied preliminary information on planned facilities through ABACC on 25 May 2023.",
+        "contrary_evidence": [],
+        "evidence_id": "E002",
+        "excerpt": "IAEA GOV/INF/2023/11, p. 3, paras. 11\u201314.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 process update.",
+        "publication_date": "2023-05-31",
+        "publisher": "International Atomic Energy Agency",
+        "ruler_attribution": "Institutional federal process; shared with ABACC and IAEA.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary intergovernmental record with precise paragraph locator.",
+        "source_locator": "PDF p. 3, paras. 11\u201314",
+        "source_type": "intergovernmental_primary",
+        "title": "GOV/INF/2023/11",
+        "url": "https://www.iaea.org/sites/default/files/documents/govinf2023-11.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/D11856.htm|arts.1-7|National Cybersecurity Policy",
+        "claim": "Lula signed Decree 11.856/2023 establishing Brazil\u2019s National Cybersecurity Policy and a multisector cybersecurity committee, including critical-infrastructure resilience, risk management, rights protection, and international cooperation.",
+        "contrary_evidence": [],
+        "evidence_id": "E003",
+        "excerpt": "Decree 11.856/2023, arts. 1\u20137.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 decree.",
+        "publication_date": "2023-12-27",
+        "publisher": "Presid\u00eancia da Rep\u00fablica do Brasil",
+        "ruler_attribution": "Direct presidential signature; implementation is institutional.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary legal text.",
+        "source_locator": "Legal text, arts. 1\u20137",
+        "source_type": "official_legal_source",
+        "title": "Decreto 11.856/2023",
+        "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/D11856.htm"
+      },
+      {
+        "canonical_fact_key": "https://www.icanw.org/brazil_and_indonesia_likely_to_ratify_tpnw_soon|G7 Hiroshima|Lula TPNW statement",
+        "claim": "At the May 2023 G7 summit in Hiroshima, Lula said nuclear weapons remain a continuing danger and that Brazil hoped to ratify the Treaty on the Prohibition of Nuclear Weapons.",
+        "contrary_evidence": [],
+        "evidence_id": "E004",
+        "excerpt": "ICAN quotes Lula\u2019s May 2023 Hiroshima statement supporting TPNW ratification.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 statement.",
+        "publication_date": "2023-07-07",
+        "publisher": "International Campaign to Abolish Nuclear Weapons",
+        "ruler_attribution": "Direct quotation attributed to Lula.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Specialist civil-society source quoting a ruler-specific public statement.",
+        "source_locator": "HTML section on Lula\u2019s G7 Hiroshima statement",
+        "source_type": "civil_society_specialist",
+        "title": "Brazil and Indonesia likely to ratify TPNW soon",
+        "url": "https://www.icanw.org/brazil_and_indonesia_likely_to_ratify_tpnw_soon"
+      },
+      {
+        "canonical_fact_key": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en|paras.90-99|Ukraine weapons refusal and mediation",
+        "claim": "Lula stated that Brazil would not send weapons or ammunition to Ukraine and pursued a neutral mediation initiative.",
+        "contrary_evidence": [
+          "The analysis characterizes the neutral approach as insufficiently coercive and potentially weak on accountability."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "Carnegie, \u201cBrazil\u2019s Approach to the War in Ukraine,\u201d paras. 90\u201399.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 foreign-policy position.",
+        "publication_date": "2023-12-01",
+        "publisher": "Carnegie Endowment for International Peace",
+        "ruler_attribution": "Directly attributed to Lula and his administration.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Specialist foreign-policy analysis with paragraph locator.",
+        "source_locator": "HTML section \u201cBrazil\u2019s Approach to the War in Ukraine,\u201d paras. 90\u201399",
+        "source_type": "policy_research",
+        "title": "Brazil in the Emerging World Order",
+        "url": "https://carnegieendowment.org/research/2023/12/brazil-in-the-emerging-world-order?center=china&lang=en"
+      }
+    ],
+    "iso3": "BRA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:BRA:16162",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "1B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D17 FAS nuclear-force country-year facts provide capability context; absence of a row is not evidence of responsible ruler conduct.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.1",
+        "relation": "supports",
+        "relevance": "Direct safeguards and non-diversion evidence."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "1B.2",
+        "relation": "supports",
+        "relevance": "Nuclear-disarmament statement."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "Ongoing IAEA consultation and facility-information process."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.6",
+        "relation": "supports",
+        "relevance": "National cybersecurity governance."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2841",
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "ruler_year_id": 16162,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "a86d527dbfd7ad6a86ef6f8b1c90dd152b4b1758bf0f1938ef1601200b9eef10",
+      "source_mix_note": "No new research performed. Retained supplied evidence from intergovernmental, official government, official statistics, NGO, policy-analysis, legal-analysis, specialist civil-society, and local structured-prior sources. Country-level and inherited evidence remains attribution-limited.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "436988b02f4cc6537bc5f7116789a4f954fe86443f5287ba1defd319c14f60e2",
+    "unresolved_gaps": [
+      "Chapter 1B: biological-risk governance, command-and-control audits, and catastrophic-risk crisis decisions.",
+      "Chapter 2B: Brazilian foreign military conduct, arms/proxy responsibility, civilian protection, and military accountability.",
+      "Chapter 3B: federal police-reform orders, nationwide remedies, subnational attribution, and surveillance/emergency-power evidence.",
+      "Chapter 4B: opposition treatment, protest restrictions, media-owner pressure, executive-judiciary relations, and self-binding commitments.",
+      "Chapter 5B: tax-distributional effects, appointments, investment/productivity, regional economic effects, and independent fiscal implementation.",
+      "Chapter 6B: education, sanitation, housing quality, disability, and durable nationwide service outcomes.",
+      "Chapter 7B: personal assets, conflicts, family/business benefits, procurement, disclosures, corrections, and obstruction.",
+      "Chapter 8B: durable portfolio outcomes, primary implementation records, coordination, adaptation, and state-capacity measurement.",
+      "The supplied local prior contains explicit no-evidence states for all 1B and 6B methodology IDs; these are gaps, not negative evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 1B — Nuclear And Existential-Risk Responsibility
+
+Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+
+## Chapter Identity
+
+- Chapter: `1B`
+- Rating: nuclear and global existential-risk responsibility
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_1b_v3`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter asks whether the ruler used the risk-bearing powers actually available
+to them responsibly, reduced catastrophic danger, and left a safer posture. A high
+score means prudent restraint, credible safeguards, good-faith risk reduction, and
+responsible crisis behavior. A low score means reckless escalation, proliferation,
+unsafe control, coercive nuclear shielding, or knowingly increased catastrophic risk.
+
+It does not rank rulers by arsenal size alone, reward non-nuclear rulers automatically,
+or penalize a ruler merely because they inherited a dangerous posture. Conventional
+military strength, generic environmental policy, prestige, and peaceful rhetoric are
+not substitutes for demonstrated existential-risk choices. Non-nuclear cyber,
+biological, or AI policy belongs here only where a credible catastrophic pathway and
+ruler-level choice are shown. The client matrix is never evidence.
+
+## Ten Evidence Lenses
+
+These are complementary prompts for evidence collection, not ten independent scores:
+
+1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
+2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
+3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
+4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
+5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
+6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
+7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
+8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
+9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
+10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
+
+Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
+confidence; they do not invalidate the dossier, mechanically produce zero, or require
+exact status vocabulary.
+
+## Researcher Guidance
+
+Follow the local-first researcher guide. Start with the resolved ruler-period and local
+D17/FAS facts, then check SIPRI and FAS narrative material. Search by themes rather
+than issuing ten repetitive searches: inherited capability and authority; arsenal and
+doctrine change; safeguards/command systems; treaties and inspections; threats and
+crises; proliferation relationships; expert appointments; catastrophic dual-use policy;
+and end-of-period posture.
+
+Prefer IAEA, UNODA/UN treaty records, CTBTO, treaty inspection bodies, declassified or
+contemporaneous official records, SIPRI/FAS technical assessments, legislative or
+inquiry records, serious scholarship, and reputable reporting. Official claims about
+restraint or safety need independent corroboration; official texts remain strong for
+formal doctrine, appointments, treaty acts, and dated statements. Preserve contrary
+evidence and uncertainty. Do not infer responsible rhetoric from silence or safety from
+the absence of reported accidents.
+
+Record reusable evidence once and point it to every materially relevant lens. Separate
+target-year evidence, broader ruler-period evidence, inherited baseline, and later
+retrospective evidence. The researcher describes evidence and attribution but does not
+assign the final chapter score.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+For non-nuclear rulers with no plausible authority or exposure, document that limited
+exposure; do not manufacture activity or award an automatic `10`. For older cases use
+archives, treaty records, memoirs cautiously, cabinet/command histories, and later
+scholarship, marking retrospective and contested claims. In closed regimes, missing
+reporting is weak evidence: triangulate external monitoring, satellite/technical
+assessments, defectors only with corroboration, and adversarial-source caveats. A thin
+record may still support a cautious chapter score when the known exposure and choices
+are clear; otherwise widen the confidence interval or flag review.
+
+Classify exposure before scoring as `material_exposure`,
+`limited_exposure_with_choices`, `no_discriminating_opportunity`, or
+`unknown_due_to_evidence_gap`. The last category normally produces a null and a
+targeted research continuation. `No_discriminating_opportunity` also produces a null:
+it documents why the ruler cannot be discriminatingly scored and must not be ranked
+against materially exposed rulers. Generic multilateralism,
+civil nuclear phase-out, or the absence of nuclear rhetoric is contextual unless tied
+to a ruler-attributed catastrophic-risk choice.
+
+## Attribution And Inherited Baseline
+
+Establish what authority the ruler personally held over doctrine, forces, diplomacy,
+appointments, and crisis decisions. Quarantine acts of predecessors, military bodies,
+coalition partners, or dominant patrons unless adoption, direction, knowing tolerance,
+or failure to use available corrective authority is evidenced. Judge change from the
+inherited posture alongside absolute risk: inheriting a huge arsenal is not itself
+culpability, while expanding or recklessly using it is; prudent reduction deserves
+credit even when the remaining stockpile is large.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler deliberately or recklessly created extreme catastrophic danger through escalation, proliferation, unsafe control, coercive nuclear use/shielding, or crisis conduct, with no credible restraint. |
+| 2–3 | Severe risk-increasing conduct across important domains; safeguards or restraint were weak, instrumental, repeatedly violated, or overwhelmed by dangerous choices. |
+| 4–5 | Mixed or weak responsibility: meaningful restraint in some areas but consequential escalation, obstruction, unsafe governance, or deterioration in others. |
+| 6–7 | Generally responsible risk management and some tangible risk reduction, with notable omissions, ambiguity, inherited constraints, or inconsistent conduct. |
+| 8–9 | Strong, sustained, and consequential restraint, safeguards, diplomacy, expert governance, and crisis prudence that materially improved the posture. |
+| 10 | Exceptional, durable, and well-evidenced leadership that substantially reduced catastrophic risk across the ruler's actual sphere of authority while resisting powerful contrary incentives. |
+
+The lenses are qualitatively and non-equally weighted. Crisis escalation, actual
+weapon use, proliferation, and command safety can dominate several weaker signals.
+No arithmetic average, equal ten-percent weighting, or minimum lens count is required.
+Exposure matters: the judge evaluates available choices, consequences, and authority.
+Scoring is opportunity-adjusted. Limited exposure or authority is not automatically a
+high or low score. A ruler may earn a high score when meaningful risk-bearing choices
+arose and the ruler consistently exercised responsible restraint within their actual
+authority. When no discriminating opportunity exists, return null with an explicit
+exposure assessment; do not manufacture excellence, blame, or a midpoint from mere
+non-exposure.
+
+Scores of 6 or above require a direct ruler-attributed risk-bearing choice. Scores of
+8 or above additionally require consequential improvement or restraint supported by
+multiple independent source types. Country posture or silence alone cannot support a
+score.
+
+## Judge Workflow Across Rulers
+
+### V3 direct-evidence gate
+
+A numeric score requires a target-period choice, action, restraint, remedy, or
+outcome within the ruler's actual nuclear or existential-risk authority. Generic
+nuclear posture, inherited arsenals, speeches, and pre- or post-period treaties are
+context only. If no such target-period fact exists, return null; do not manufacture
+a neutral or favorable score from low exposure.
+
+One Chapter 1B judge applies this rubric across all eligible rulers in the comparison
+batch. The judge first inventories exposure and inherited posture, reads every dossier,
+identifies common anchors and edge cases, provisionally orders rulers, then assigns one
+chapter score and confidence to each. It must explain the decisive evidence, meaningful
+counterevidence, attribution, change from baseline, and why adjacent higher/lower bands
+were rejected. Revisit the full ordering after scoring; use overlapping anchor cases if
+context limits require shards. Preserve citations and flag research gaps without
+turning formatting differences into substantive failures.
+
+## Minimum Evidence And Graceful Degradation
+
+A score needs at least one traceable, relevant source and a stated structured prior or
+`not_available`, plus an explicit exposure/authority and temporal-fit assessment.
+High-confidence extreme scores normally require multiple independent source types and
+evidence of consequential conduct. Sparse lenses, unknown appointments, or unavailable
+internal control details lower confidence rather than mechanically lower the score.
+If identity, core attribution, or citation authenticity is unresolved, withhold the
+score for review; ordinary incomplete coverage is not a publication blocker.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check visibility and secrecy, nuclear/non-nuclear exposure, great-power attention,
+survivorship and hindsight, adversarial intelligence claims, rhetoric-versus-capability,
+population/state-size irrelevance, inherited arsenals, crisis opportunity, source type,
+recency, and consistent cross-ruler calibration. Do not equate report volume with risk,
+treat a treaty signature as implementation, or reward a ruler for lacking capacity they
+never sought or controlled.
+
+## Chapter-Specific Calibration Fields
+
+Alongside common calibration metadata, record:
+
+- `chapter_rubric_version`: `chapter_1b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `exposure_profile`: nuclear authority, latent/dual-use exposure, crisis exposure
+- `inherited_risk_posture` and `end_posture`
+- `ruler_authority_and_attribution`
+- `decisive_risk_increasing_evidence`
+- `decisive_risk_reducing_evidence`
+- `crisis_and_command_safety_assessment`
+- `source_mix`, `information_environment`, and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+The generic abuse-oriented calibration enums may be `not_applicable` with explanation;
+chapter-specific fields carry the substantive calibration.
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Mikhail Gorbachev | Soviet Union | 1985–1991 | major inherited arsenal; arms-control improvement |
+| John F. Kennedy | United States | 1962 | severe crisis and de-escalation evidence |
+| Nikita Khrushchev | Soviet Union | 1962 | severe crisis, mixed escalation/de-escalation |
+| Ronald Reagan | United States | 1981–1989 | rhetoric-to-arms-control mixed trajectory |
+| Vladimir Putin | Russia | 2022 | nuclear shielding and threat rhetoric low anchor |
+| Kim Jong Un | North Korea | 2012–2023 | proliferation, testing, closed information environment |
+| F. W. de Klerk | South Africa | 1989–1994 | voluntary disarmament edge/high case |
+| Indira Gandhi | India | 1974 | nuclear-test decision and historical attribution case |
+| Jacinda Ardern | New Zealand | 2017–2023 | non-nuclear/limited-exposure edge case |
+| Boris Yeltsin | Russia | 1991–1999 | inherited-control and institutional-capacity edge |
+
+## Draft Acceptance Checklist
+
+- Exact texts for all ten registry lenses are present.
+- Research uses local priors and cited underlying sources.
+- Evidence is reusable across lenses and contrary evidence is preserved.
+- One judge calibrates one chapter score across a varied ruler batch.
+- Missing lenses affect confidence, not validity or a mechanical score.
+- Attribution, inherited posture, secrecy, and exposure are explicit.
+- Adjacent-anchor explanations are substantive.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

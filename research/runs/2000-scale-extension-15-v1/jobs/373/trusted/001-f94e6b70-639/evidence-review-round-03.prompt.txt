@@ -1,0 +1,1861 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:VEN:1365",
+  "iso3": "VEN",
+  "country_name": "Venezuela",
+  "ruler_name": "Hugo Chavez",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 40,
+  "approximate_source_family_count": 15,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 15 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research handoff — Hugo Chávez, Venezuela, 2000
+
+**Case:** Venezuela (VEN), Hugo Chávez, target year 2000  
+**Ruler-period:** 2000 only  
+**Research mode:** local-first evidence collection; no scoring performed  
+**Client matrix:** not used  
+**Local package:** 50 unique facts, 80 source observations, 70 methodology lenses with local evidence, 10 nuclear lenses with no local mapped evidence  
+**Internet-search limitation:** available web search was rate-limited after several searches; exact-page extraction was not available in this execution profile. Search-result pages and snippets were used only as discovery leads unless a precise underlying locator was available. No unsupported web claim is treated as defensible final evidence.
+
+---
+
+## 1. Broad reconnaissance
+
+The 2000 period was an important transition year:
+
+- Chávez had been president since February 1999.
+- Venezuela had adopted a new constitution in December 1999 after a constituent-assembly process initiated through referendum.
+- Presidential, legislative, and regional elections were held on 30 July 2000 under the new constitutional framework.
+- Chávez was reelected for a new six-year term, and his political coalition obtained a commanding position in the new unicameral National Assembly.
+- The year appears to combine meaningful electoral legitimacy and institutional redesign with early concentration of political power and weak checks.
+- The main economic and social evidence available for 2000 is country-level and should be treated as baseline/context unless tied to a specific Chávez policy, implementation decision, or attributable outcome.
+- Local indicators show moderate-to-low political and institutional constraints, substantial corruption risk, weak rule of law, and meaningful civil-liberties/repression concerns.
+- No local nuclear facts were supplied. Venezuela was not identified in the supplied package as having a nuclear arsenal, but that absence must not be interpreted as proof of responsible nuclear conduct.
+
+The major research themes are therefore:
+
+1. constitutional redesign and executive/institutional authority;
+2. 2000 electoral contestability and election administration;
+3. opposition, media, civil-society, and judicial constraints;
+4. security-force conduct and domestic physical-integrity protection;
+5. relations with Colombia and armed groups;
+6. economic program, oil dependence, public-sector management, and appointments;
+7. social-welfare priorities and early delivery;
+8. Chávez’s governing program, mobilization, and policy execution;
+9. ruler-specific integrity evidence, which is especially sparse for the single target year.
+
+---
+
+# 2. Local structured baseline audit
+
+## 1B — Nuclear / existential-risk responsibility
+
+**Local facts:** none.  
+**Status:** all ten lenses `no_evidence_found`, with reason `R001`: no selected local country-year fact matched the configured nuclear field keys.
+
+No FAS nuclear-force row was supplied for this country-year. This is an explicit local gap, not evidence that Venezuela had no nuclear capability or that Chávez acted responsibly.
+
+**Internet gap themes:**
+
+- nuclear or dual-use capability and authority;
+- nuclear treaty/safeguard status;
+- nuclear rhetoric or threat behavior;
+- command-and-control or military safety;
+- proliferation or technology-transfer conduct;
+- catastrophic-risk policy in the target period.
+
+No defensible internet evidence was retained for this chapter.
+
+---
+
+## 2B — International peace, restraint, and lawful security
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF001 | Internationalized conflict events | 0 | 2000 | UCDP |
+| LF002 | Internationalized conflict fatalities | 0 | 2000 | UCDP |
+| LF003 | Military expenditure per capita | 73.6002 | 2000 | SIPRI |
+| LF004 | Military expenditure share of GDP | 0.01527 | 2000 | SIPRI |
+| LF005 | State-based conflict events | 0 | 2000 | UCDP |
+| LF006 | State-based conflict fatalities | 0 | 2000 | UCDP |
+
+**Interpretation:**
+
+These facts establish a relatively low recorded country-year conflict exposure and a moderate military-spending burden. They do **not** establish:
+
+- whether Chávez was peaceful or aggressive;
+- whether Venezuela supported Colombian armed groups;
+- whether the country acted defensively;
+- whether cross-border or proxy activity was concealed;
+- whether the ruler pursued diplomacy or manipulated threats.
+
+The zero UCDP values must not be treated as proof of peaceful conduct.
+
+**Internet research status:** no defensible target-period narrative evidence retained. Search leads identified possible Colombia–Venezuela tensions and later allegations concerning armed-group relationships, but the available snippets were either undated, later-period, secondary, or lacked an exact locator. They remain discovery-only leads.
+
+---
+
+## 3B — Domestic safety, restraint, and protection
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF007 | CIRIGHTS civil and political rights | 4 | 2000 | CIRIGHTS |
+| LF008 | Disappearances | 2 | 2000 | CIRIGHTS |
+| LF009 | Killings | 0 | 2000 | CIRIGHTS |
+| LF010 | Physical integrity | 4 | 2000 | CIRIGHTS |
+| LF011 | Political imprisonment | 2 | 2000 | CIRIGHTS |
+| LF012 | Repression | 9 | 2000 | CIRIGHTS |
+| LF013 | Torture | 0 | 2000 | CIRIGHTS |
+| LF014 | Civil-society repression | 0.46 | 2000 | V-Dem |
+| LF015 | Extrajudicial killings | 1.21 | 2000 | V-Dem |
+| LF016 | One-sided violence events | 40 | 2000 | UCDP |
+| LF017 | One-sided violence fatalities | 27 | 2000 | UCDP |
+| LF018 | Physical-integrity liberties | 0.78 | 2000 | V-Dem |
+| LF019 | Private civil liberties | 0.848 | 2000 | V-Dem |
+| LF020 | PTS Amnesty score | 2 | 2000 | PTS |
+| LF021 | PTS State Department score | 3 | 2000 | PTS |
+
+**Interpretation:**
+
+The local package indicates a mixed country-year safety record:
+
+- PTS and CIRIGHTS suggest nontrivial but not maximum political-terror exposure.
+- The CIRIGHTS repression value is high and should be treated as a significant adverse prior, subject to the source’s coding definition.
+- V-Dem’s extrajudicial-killing value and UCDP one-sided violence values indicate meaningful violence-related concerns.
+- The indicators are country-level. They do not by themselves establish that Chávez personally ordered, tolerated, or remedied the underlying conduct.
+- The absence of a positive torture or killing value in one source is not proof that such conduct did not occur.
+- Ruler-specific evidence is needed on police, military, prisons, intelligence services, protest handling, oversight, investigation, and Chávez’s rhetoric or orders.
+
+**Internet research status:** no defensible target-period narrative item retained. Search results surfaced Human Rights Watch and Amnesty materials, but available results were predominantly later-period pages or general country pages without a verified 2000-specific locator. They remain discovery-only.
+
+---
+
+## 4B — Political freedom versus authoritarian rule
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF022 | Accountability | 0.497 | 2000 | V-Dem |
+| LF023 | Civil liberties | 0.769 | 2000 | V-Dem |
+| LF024 | Electoral democracy | 0.573 | 2000 | V-Dem |
+| LF025 | Freedom of association | 0.772 | 2000 | V-Dem |
+| LF026 | Freedom of expression | 0.625 | 2000 | V-Dem |
+| LF027 | Judicial constraints | 0.329 | 2000 | V-Dem |
+| LF028 | Legislative constraints | 0.295 | 2000 | V-Dem |
+| LF029 | Liberal democracy | 0.31 | 2000 | V-Dem |
+| LF030 | Multiparty institutions | 0.359 | 2000 | V-Dem |
+| LF031 | Political liberties | 0.695 | 2000 | V-Dem |
+| LF032 | Regime type | 2 | 2000 | V-Dem |
+| LF033 | Rule of law | 0.211 | 2000 | V-Dem |
+| LF034 | Suffrage | 1.0 | 2000 | V-Dem |
+| LF035 | Voice and accountability | -0.06879 | 2000 | World Bank WGI |
+| LF036 | Rule of law | -0.86523 | 2000 | World Bank WGI |
+
+**Interpretation:**
+
+The local prior supports the following cautious description:
+
+- Formal suffrage and electoral participation were present.
+- Electoral democracy and civil liberties were not absent, but were substantially weaker than the suffrage value alone would suggest.
+- Judicial and legislative constraints were particularly weak.
+- Liberal democracy, multiparty institutions, accountability, and rule of law were low.
+- This is compatible with a competitive or electorally legitimate system with weak institutional checks.
+- It does not alone prove Chávez manipulated the 2000 election, suppressed opposition, or personally captured institutions.
+
+**Internet discovery leads:**
+
+- A Carter Center result concerning a later Venezuelan election states that the Center observed the 1999 constitutional referendum and the July 2000 election; this is useful as a lead for direct archival material, but the search result did not provide a precise 2000 report locator.
+- A U.S. Library of Congress / Federal Research Division result titled **“Venezuela under President Chavez”**, dated August 8, 2000, appeared to discuss the July 2000 “mega-election,” but the precise document content and locator were not retrieved.
+- A Human Rights Watch World Report 2000 result stated that Chávez promised a new constitution and reform against corruption, patronage, and nepotism. The result was an orientation lead, not a retained target-year evidence item.
+
+No exact-page election-observer or legal-record item was retained because the required underlying locator was not available.
+
+---
+
+## 5B — Economic well-being and prosperity
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF037 | Real GDP per capita | 13,992.61 | 2000 | Maddison Project / PWT |
+| LF038 | Total GDP | 330,236,202,250 | 2000 | Maddison Project / PWT |
+| LF039 | GNI per capita | 16,072.35 | 2000 | UNDP HDI |
+| LF040 | Population | 23,600.76 thousand | 2000 | Maddison Project / PWT |
+
+**Interpretation:**
+
+These facts describe Venezuela’s economic level and scale. They do not establish:
+
+- Chávez’s economic intentions;
+- the policy decisions adopted in 2000;
+- whether appointments were competent;
+- whether macroeconomic management was prudent;
+- whether oil revenues or inherited structures drove the outcomes;
+- whether gains were distributed broadly;
+- whether Chávez corrected mistakes or built sustainable institutions.
+
+The local package contains no inequality, poverty, inflation, unemployment, household-income, fiscal, or policy-implementation fact for this scope.
+
+**Internet discovery leads:**
+
+- Search results from Britannica and general historical sources described Chávez’s presidency and later economic developments.
+- Several results linked early-2000s oil-price increases to expanded fiscal resources and later social spending, but they were broad retrospective narratives rather than precise 2000 evidence.
+- No exact fiscal, budget, central-bank, or policy document was retrieved.
+
+No defensible internet evidence retained.
+
+---
+
+## 6B — Social well-being and human development
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF039 | GNI per capita | 16,072.35 | 2000 | UNDP HDI |
+| LF041 | Expected years of schooling | 10.453 | 2000 | UNDP HDI |
+| LF042 | HDI | 0.699 | 2000 | UNDP HDI |
+| LF043 | Life expectancy | 72.478 years | 2000 | UNDP HDI |
+| LF044 | Mean years of schooling | 7.818 | 2000 | UNDP HDI |
+
+**Interpretation:**
+
+The local facts establish a moderate human-development baseline. They do not establish:
+
+- whether Chávez caused improvement or inherited the trajectory;
+- program budgets, delivery, access, or quality;
+- distribution across regions and groups;
+- use of welfare for political loyalty;
+- institutional durability;
+- crisis preparation or response.
+
+A later Human Rights Watch result stated that healthcare improvements during the broader Chávez period included increased life expectancy and falling infant mortality from 1998 to 2013, while also describing early healthcare progress as rapid and initially promising. Because this result concerns a broad later period and no precise passage was retrieved, it was not retained as final evidence for 2000. It remains a discovery lead for future exact-page extraction.
+
+---
+
+## 7B — Integrity and honesty
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF022 | Accountability | 0.497 | 2000 | V-Dem |
+| LF033 | Rule of law | 0.211 | 2000 | V-Dem |
+| LF036 | WGI rule of law | -0.86523 | 2000 | World Bank |
+| LF045 | Control of corruption | -0.64268 | 2000 | World Bank |
+| LF046 | Political corruption index | 0.894 | 2000 | V-Dem |
+| LF047 | Executive corruption | 0.859 | 2000 | V-Dem |
+| LF048 | Public-sector corruption | 0.83 | 2000 | V-Dem |
+
+**Interpretation:**
+
+The local package indicates severe institutional corruption risk and weak rule-of-law context. These are not personal-integrity findings.
+
+No supplied local fact establishes:
+
+- Chávez’s personal enrichment;
+- family or associate benefit;
+- conflicts of interest;
+- direct deception;
+- retaliation against investigators;
+- asset concealment;
+- appointment favoritism;
+- response to allegations.
+
+The chapter therefore requires ruler-specific narrative evidence before any personal-integrity conclusion can be responsibly made.
+
+No defensible internet evidence retained.
+
+---
+
+## 8B — Effectiveness and competence
+
+**Retained local facts:**
+
+| ID | Local fact | Value | Year | Source |
+|---|---|---:|---:|---|
+| LF022 | Accountability | 0.497 | 2000 | V-Dem |
+| LF033 | Rule of law | 0.211 | 2000 | V-Dem |
+| LF036 | WGI rule of law | -0.86523 | 2000 | World Bank |
+| LF049 | Government effectiveness | -0.69270 | 2000 | World Bank |
+| LF050 | Regulatory quality | -0.31923 | 2000 | World Bank |
+
+**Interpretation:**
+
+These facts provide inherited/state-capacity context:
+
+- government effectiveness was weak;
+- regulatory quality was below the WGI reference mean;
+- rule of law and accountability were weak.
+
+They do not establish Chávez’s program, implementation, coordination, appointments, adaptation, or attributable results.
+
+**Internet discovery leads:**
+
+- Search results identified the 1999 constitution and the July 2000 “mega-election” as important evidence for Chávez’s institutional and power-consolidation program.
+- Search results referenced later 2001 enabling legislation and 49 decrees, but those actions fall outside the target year and cannot be used as target-year evidence except as clearly labeled later context.
+- No exact budget, administrative implementation, or program-evaluation source for 2000 was retrieved.
+
+No defensible internet evidence retained.
+
+---
+
+# 3. Global evidence ledger
+
+No internet item met the standard for a retained defensible source-claim unit because exact underlying page extraction was unavailable or the search result lacked a sufficient locator. The following are discovery-only leads:
+
+| Lead | Source | Why not retained |
+|---|---|---|
+| D01 | Carter Center, Venezuela election materials | Search result referenced Venezuelan elections and Carter Center observation, but no exact 2000 report/page locator was retrieved. |
+| D02 | U.S. Library of Congress / Federal Research Division, “Venezuela under President Chavez,” Aug. 8, 2000 | Search result identified a likely contemporaneous source, but the underlying document was not extracted. |
+| D03 | Human Rights Watch, World Report 2000 — Venezuela | Search snippet supported orientation about constitutional and anti-corruption promises, but no precise source passage was retrieved. |
+| D04 | Human Rights Watch, “A Decade Under Chávez” | Later retrospective source; useful for broader context but not target-year exact evidence without page extraction. |
+| D05 | Human Rights Watch humanitarian-emergency report | Search snippet described early healthcare gains over 1998–2013; broad-period and later publication, not a precise 2000 claim. |
+| D06 | U.S. State Department human-rights report archive | Search results identified the 2000 report collection, but the Venezuela-specific 2000 text was not extracted. |
+| D07 | Britannica, “The Hugo Chávez presidency” | General historical context; no exact 2000 passage retrieved. |
+| D08 | Constitutional and election-history pages | Useful orientation for the 1999 constitution and 2000 election, but not retained as final evidence without exact source verification. |
+| D09 | Colombia–Venezuela relations / armed-group leads | Search snippets raised possible cross-border and armed-group issues, but did not establish a target-year Chávez-attributed act. |
+| D10 | Later political-freedom and judiciary assessments | Mostly post-2000 evidence; cannot silently expand the target year. |
+
+---
+
+# 4. Chapter yield and source diversity
+
+| Chapter | Local mapped units | Local source families | Internet defensible units | Internet source families | Main gap |
+|---|---:|---:|---:|---:|---|
+| 1B | 0 | 0 | 0 | 0 | Nuclear authority, safeguards, rhetoric, risk choices |
+| 2B | 6 | 2 | 0 | 0 | Aggressor/defender role, proxies, diplomacy, civilian conduct |
+| 3B | 15 | 4 | 0 | 0 | Direct Chávez attribution, security-force conduct, remedy, protest |
+| 4B | 15 | 3 | 0 | 0 | Election observation, institutional capture, media/opposition treatment |
+| 5B | 4 | 3 | 0 | 0 | Policy, appointments, implementation, distribution, shocks |
+| 6B | 5 | 1 | 0 | 0 | Social-policy action, delivery, equity, durability |
+| 7B | 7 | 3 | 0 | 0 | Personal conduct, conflicts, family/associate benefit, scrutiny |
+| 8B | 5 | 3 | 0 | 0 | Program identification, implementation, adaptation, results |
+
+The local package is relatively strong for country-level political, safety, economic, welfare, corruption, and governance priors but weak for direct ruler attribution. The most urgent narrative chapters are 4B, 3B, 5B, 7B, and 8B.
+
+---
+
+# 5. Cross-chapter reuse
+
+The following local facts were reused across chapters as contextual priors:
+
+- **LF022 accountability:** 4B, 7B, 8B.
+- **LF033 rule of law:** 4B, 7B, 8B.
+- **LF036 WGI rule of law:** 4B, 7B, 8B.
+- **LF039 GNI per capita:** 5B, 6B.
+- **LF014–LF021 safety/repression indicators:** primarily 3B.
+- **LF024, LF025, LF026, LF027, LF028, LF029, LF030, LF031, LF032, LF034, LF035:** primarily 4B.
+- **LF045–LF048 corruption indicators:** primarily 7B.
+- **LF049–LF050 governance-capacity indicators:** primarily 8B.
+- **LF037–LF040:** primarily 5B.
+- **LF041–LF044:** primarily 6B.
+
+No same-URL internet splits were retained. No duplicated internet claim was created under multiple chapters.
+
+---
+
+# 6. Rejected or context-only evidence
+
+## Local evidence disposition
+
+All 50 local facts were retained in the research audit, but their evidentiary role is not uniform.
+
+### Retained as structured context/prior
+
+- LF001–LF006: conflict exposure and military-spending context.
+- LF007–LF021: domestic safety and repression priors.
+- LF022–LF036: political/institutional priors.
+- LF037–LF040: economic level and scale.
+- LF039, LF041–LF044: human-development baseline.
+- LF045–LF050: corruption and governance-capacity context.
+
+### Not sufficient as direct ruler conduct
+
+Every local fact is country-year or inherited-institution evidence rather than a direct Chávez action, except insofar as later narrative research can establish attribution. None should independently establish personal integrity, peacefulness, political freedom, effectiveness, or social/economic credit.
+
+### Nuclear package
+
+No local nuclear fact existed. The ten 1B lenses remain explicitly `no_evidence_found` under reason R001.
+
+---
+
+# 7. Strongest contrary and mitigating considerations
+
+## Political freedom
+
+**Mitigating/positive considerations:**
+
+- Chávez’s political transformation had electoral and constitutional authorization.
+- The 2000 election appears to have been a genuine contest involving opposition candidates.
+- Suffrage was fully present in the local V-Dem data.
+- Electoral democracy and civil-liberties values were not zero.
+
+**Adverse considerations:**
+
+- Judicial constraints, legislative constraints, liberal democracy, multiparty institutions, accountability, and rule of law were weak in the local data.
+- The constitutional redesign and executive dominance require direct evidence on whether institutional change was genuinely pluralist or an instrument of entrenchment.
+- Search leads indicate that later observers and rights organizations viewed institutional independence as deteriorating, but later evidence cannot automatically be projected backward to 2000.
+
+## Domestic safety
+
+**Mitigating/positive considerations:**
+
+- PTS scores were not at the highest terror levels.
+- CIRIGHTS did not record a positive torture or killing value in the supplied fields.
+- V-Dem private civil liberties and physical-integrity values were not uniformly catastrophic.
+
+**Adverse considerations:**
+
+- CIRIGHTS repression was high.
+- V-Dem extrajudicial-killing and UCDP one-sided-violence values indicate meaningful violence concerns.
+- The local data do not resolve whether these were inherited, autonomous, subnational, or ruler-directed.
+
+## Economy and welfare
+
+**Mitigating/positive considerations:**
+
+- Venezuela entered the period with substantial income, GDP scale, and moderate human development.
+- Search discovery suggests later evidence of early healthcare gains during Chávez’s broader tenure.
+
+**Adverse considerations:**
+
+- The 2000 data do not distinguish inherited conditions from Chávez’s policy effects.
+- Oil dependence and external commodity conditions are likely important confounders, but no target-year policy or fiscal source was extracted.
+- No distribution, poverty, household, or implementation evidence was retained.
+
+## Integrity
+
+- The local corruption and rule-of-law indicators are adverse institutional context.
+- They do not establish Chávez’s personal dishonesty or self-dealing.
+- No defensible ruler-specific personal-integrity evidence was collected in this pass.
+
+## Effectiveness
+
+- Chávez’s constitutional and electoral project appears to have produced significant institutional and political change, which is potentially relevant to implementation and power-consolidation effectiveness.
+- However, no exact implementation chain was retrieved for 2000, and no outcome evidence was separated from inherited capacity, oil conditions, or later developments.
+- The 2001 enabling-law evidence discovered in search is post-period context and must not be silently imported into the 2000 judgment.
+
+---
+
+# 8. Lens coverage and unresolved gaps
+
+## 1B
+
+All lenses remain `no_evidence_found` because no local nuclear facts were supplied and no exact external evidence was retained.
+
+## 2B
+
+- **Partially covered by local priors:** 2B.1, 2B.2, 2B.3, 2B.4, 2B.5, 2B.6, 2B.7, 2B.8, 2B.9, 2B.10.
+- **Missing:** ruler role in internationalized conflict, proxy support, coercive diplomacy, peace initiatives, civilian-protection choices, and military-spending rationale.
+- **Specific searches attempted:** Venezuela Chávez 2000 foreign policy; Colombia–Venezuela relations; FARC/ELN and Chávez; Venezuelan military expenditure and regional relations.
+- **Reason not improved:** available results were either later, general, secondary, or lacked exact target-period locators.
+
+## 3B
+
+- **Partially covered by local priors:** all ten lenses.
+- **Missing:** direct ruler attribution, security-force chain of command, protest response, prison and detention evidence, investigation/remedy, incitement, vulnerable-group protection.
+- **Specific searches attempted:** Venezuela 2000 human-rights report; Chávez security forces; political imprisonment; Amnesty/HRW country reports.
+- **Reason not improved:** archival pages were not extracted; returned results were mostly later-period or general country pages.
+
+## 4B
+
+- **Partially covered by local priors:** all ten lenses.
+- **Potentially strongest external theme:** 1999 constitutional process and 2000 election.
+- **Missing:** observer conclusions, election administration, media access, opposition treatment, court/legislative independence, appointments, constitutional transfer constraints, and de facto executive power.
+- **Specific searches attempted:** Carter Center Venezuela 2000 election; Library of Congress Chávez 2000; Venezuela constitution and institutional structure.
+- **Reason not improved:** exact Carter Center and Library of Congress documents were not fetched; orientation pages were not promoted to final evidence.
+
+## 5B
+
+- **Partially covered by local priors:** all ten lenses only at baseline level.
+- **Missing:** budget, macroeconomic decisions, central-bank relations, oil policy, appointments, property/competition rules, distribution, crisis response, and implementation.
+- **Specific searches attempted:** Chávez 2000 economy; oil revenue; economic policy; budget and social programs.
+- **Reason not improved:** search results were broad retrospective sources, not precise 2000 policy records.
+
+## 6B
+
+- **Partially covered by local priors:** all ten lenses at baseline level.
+- **Missing:** concrete 2000 health/education/social-protection initiatives, budgets, delivery, regional distribution, politicization, and durable institution-building.
+- **Specific searches attempted:** Chávez early healthcare, education, social spending, welfare programs.
+- **Reason not improved:** available HRW result concerned 1998–2013 and lacked exact-page extraction; no target-year implementation source was obtained.
+
+## 7B
+
+- **Local context only:** all ten lenses.
+- **Missing:** personal statements and corrections, assets, family/associate benefit, procurement, appointments, scrutiny, retaliation, promises, and conflicts.
+- **Specific searches attempted:** Chávez corruption, patronage, nepotism, constitutional promises, personal integrity.
+- **Reason not improved:** search results were general or institutional and did not establish a direct ruler-specific claim with adequate provenance.
+
+## 8B
+
+- **Partially covered by local priors:** all ten lenses only as state-capacity context.
+- **Potential program evidence:** constitutional transformation, electoral refoundation, and Bolivarian political project.
+- **Missing:** explicit 2000 program documents, budgets, appointments, execution milestones, adaptation, and attributable outcomes.
+- **Specific searches attempted:** Chávez governing program, 1999 constitution, 2000 election, 2000/2001 enabling law.
+- **Reason not improved:** the strongest implementation lead concerned 2001, outside the target year; no exact 2000 implementation record was retrieved.
+
+---
+
+# 9. Information-environment assessment
+
+The case is not fully closed, but the available search pass was constrained by:
+
+- limited availability of archived 2000 pages;
+- many search results pointing to later Chávez/Maduro periods;
+- retrospective sources that merge Chávez’s full tenure rather than isolate 2000;
+- official and opposition narratives likely requiring corroboration;
+- insufficient exact-page extraction in this execution profile;
+- inability to verify several promising observer and government documents.
+
+This means silence is not probative. The principal unresolved issue is not a lack of country-level indicators but a lack of directly attributed, target-period narrative evidence.
+
+---
+
+# 10. Recommended continuation targets
+
+A subsequent researcher thread should prioritize exact retrieval of:
+
+1. **Carter Center or other observer report for the July 30, 2000 election.**
+2. **U.S. State Department Country Report on Human Rights Practices for 2000 — Venezuela.**
+3. **Human Rights Watch World Report 2000/2001 Venezuela chapter.**
+4. **Text and legal analysis of the 1999 Constitution**, especially executive powers, judicial independence, legislature, electoral institutions, and emergency authority.
+5. **Contemporaneous Venezuelan government program, budget, and presidential addresses for 2000.**
+6. **Central-bank and IMF/World Bank documentation for 2000 macroeconomic policy.**
+7. **Contemporaneous reporting on Colombia, ELN/FARC, border security, and Chávez’s public statements.**
+8. **Evidence on appointments and institutional staffing**, especially courts, electoral bodies, military command, and economic ministries.
+9. **Specific social-program implementation evidence** before the later “missions” period.
+10. **Ruler-specific corruption, patronage, or integrity records**, with allegations clearly separated from findings.
+
+---
+
+## Final handoff summary
+
+The local evidence establishes a country-year baseline of:
+
+- no supplied nuclear evidence;
+- no recorded UCDP state-based or internationalized conflict in 2000;
+- moderate military spending;
+- meaningful repression and one-sided-violence signals;
+- electoral participation and formal suffrage alongside weak judicial, legislative, liberal-democratic, accountability, and rule-of-law indicators;
+- moderate economic and human-development levels;
+- high institutional corruption risk and weak governance capacity.
+
+The local package does **not** establish Chávez’s personal responsibility for these conditions. The most important research gaps are ruler attribution, target-year institutional decisions, election quality, security-force conduct, economic/social implementation, personal integrity, and program-to-results effectiveness. No chapter score, score range, ranking recommendation, or null recommendation is made in this handoff.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "No retained evidence units exist.",
+        "The local absence is correctly treated as a gap, not as evidence of responsible conduct.",
+        "Exact target-period external sources and locators are missing."
+      ],
+      "missing_themes": [
+        "Nuclear or dual-use capability and authority",
+        "Treaty and safeguards status",
+        "Nuclear rhetoric or threat behavior",
+        "Command-and-control and military safety",
+        "Proliferation or technology-transfer conduct",
+        "Catastrophic-risk policy"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "All local units are country-level conflict and spending context, not ruler-attributed conduct.",
+        "All internet leads lack precise locators and are correctly excluded.",
+        "The dossier does not resolve whether zero recorded conflict reflects peaceful conduct or measurement limits."
+      ],
+      "missing_themes": [
+        "Chávez’s ruler-specific role in internationalized conflict",
+        "Proxy or armed-group support",
+        "Coercive diplomacy and threat behavior",
+        "Peace initiatives and restraint",
+        "Civilian-protection choices",
+        "Military-spending rationale"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 15,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Local indicators are country-level and cannot establish Chávez’s personal responsibility.",
+        "No retained external item has a precise locator or target-period narrative attribution.",
+        "The mixed local indicators are appropriately presented as contrary/contextual evidence rather than a ruler finding."
+      ],
+      "missing_themes": [
+        "Security-force chain of command",
+        "Chávez’s orders, knowledge, tolerance, or remedy",
+        "Protest handling",
+        "Prison and detention conditions",
+        "Investigation and accountability",
+        "Incitement and vulnerable-group protection"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 15,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook overstates local source diversity: the listed facts come from V-Dem and World Bank WGI, not three independent families.",
+        "The Carter Center and Library of Congress items are discovery leads without precise underlying locators.",
+        "Local institutional indices do not prove election manipulation, suppression, or personal institutional capture."
+      ],
+      "missing_themes": [
+        "2000 election observation conclusions",
+        "Election administration and contestability",
+        "Media access and opposition treatment",
+        "Judicial and legislative independence",
+        "Appointments and institutional control",
+        "Constitutional transfer constraints and de facto executive power"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook overstates local source diversity: the listed facts identify Maddison/PWT and UNDP, not three independent families.",
+        "Economic level and scale facts do not establish Chávez’s intentions, choices, implementation, or results.",
+        "Retrospective oil and social-spending claims lack precise target-period locators and are correctly excluded."
+      ],
+      "missing_themes": [
+        "2000 budget and macroeconomic decisions",
+        "Oil policy and public-sector management",
+        "Appointments and economic governance",
+        "Distributional effects",
+        "Crisis response and implementation",
+        "Central-bank or fiscal relations"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "All listed local units derive from the UNDP HDI family, below the configured minimum diversity.",
+        "Human-development baselines do not establish Chávez’s policy action or causal credit.",
+        "The later 1998–2013 healthcare lead is correctly excluded from final target-year evidence."
+      ],
+      "missing_themes": [
+        "Concrete 2000 health, education, and social-protection initiatives",
+        "Budgets and delivery",
+        "Regional and group distribution",
+        "Politicization or clientelism",
+        "Institutional durability",
+        "Attributable outcomes"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook overstates local source diversity: the listed facts come from V-Dem and World Bank WGI, not three independent families.",
+        "Institutional corruption and rule-of-law indicators are not personal-integrity findings.",
+        "No ruler-specific allegation, finding, or response has a precise external locator."
+      ],
+      "missing_themes": [
+        "Personal statements, corrections, and truthfulness",
+        "Assets and personal enrichment",
+        "Family or associate benefit",
+        "Procurement and appointment favoritism",
+        "Investigation, scrutiny, and retaliation",
+        "Conflicts of interest"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook overstates local source diversity: the listed facts come from V-Dem and World Bank WGI, not three independent families.",
+        "State-capacity indicators do not establish Chávez’s program execution or competence.",
+        "The strongest implementation lead concerns 2001 and is correctly excluded from target-period evidence."
+      ],
+      "missing_themes": [
+        "Explicit 2000 governing program documents",
+        "Budgets and implementation milestones",
+        "Appointments and administrative coordination",
+        "Adaptation and correction",
+        "Attributable policy outcomes",
+        "Separation of 2000 evidence from post-period enabling legislation"
+      ]
+    }
+  ],
+  "global_findings": [
+    "No retained internet source-claim unit is defensible: the notebook reports zero precise locators and all discovery leads are appropriately excluded.",
+    "The local facts are generally usable as structured country-year or institutional context, but they provide little direct ruler attribution.",
+    "The chapter-level local source-family counts are inflated for 4B, 5B, 7B, and 8B; corrected estimates are 2, 2, 2, and 2 respectively.",
+    "The notebook correctly avoids scores, score ranges, ranking advice, and treating missing nuclear evidence as negative evidence.",
+    "The local-data disposition is described narratively, but the required audit is not explicit in a deterministic source-by-lens disposition structure.",
+    "Continuation is justified for every chapter: each has material missing themes, zero retained external units, and plausible targeted recovery of at least two precisely located units or a material attribution blocker."
+  ],
+  "reviewer_summary": "All eight chapters require continuation. The dossier has useful structured local baselines and good caveats, but no defensible external source-claim units, no precise web locators, and high ruler-attribution risk throughout. Continue in the same researcher thread with targeted retrieval of the listed missing themes, prioritizing exact contemporaneous election, human-rights, constitutional, policy, foreign-relations, and ruler-specific records. Deterministic reconciliation and formatting work should not trigger additional research."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+# Review-round-1 continuation handoff — Hugo Chávez, Venezuela, 2000
+
+**Researcher:** same ruler-period session  
+**Target:** Venezuela, Hugo Chávez, immutable year 2000  
+**Scope:** targeted continuation across all eight reviewed chapters  
+**Scoring:** none performed  
+**Client matrix:** not used  
+**Notebook/manifest update:** unavailable in this execution profile; no local file was modified. The complete append-only handoff and manifest-ready entries are included below.
+
+## Continuation result
+
+The review round recovered several usable, traceable source-claim units from search-result-level discovery, but exact-page extraction remained unavailable. I therefore distinguish:
+
+- **Final-evidence candidates:** exact source URL and materially distinct claim were identifiable, but the page text was not independently fetched in this profile. These should be verified by the formatter/reviewer before publication.
+- **Context/discovery-only leads:** useful for directing future retrieval but not sufficient as evidence.
+- **Rejected claims:** not retained because they were post-period, unsupported by the retrieved material, or lacked adequate attribution.
+
+Because the execution profile did not permit reliable exact-page fetching, I have not represented search-result snippets as quotations. No scores or score ranges are supplied.
+
+---
+
+# 1. New evidence register
+
+## E-R1-001 — Venezuela’s NPT and safeguards posture
+
+- **Canonical fact key:** `https://carnegieendowment.org/research/2008/12/venezuela-a-nuclear-profile|search-result-summary|Venezuela had positive nonproliferation credentials and was party to Latin American nuclear-weapons prohibition arrangements`
+- **URL:** https://carnegieendowment.org/research/2008/12/venezuela-a-nuclear-profile
+- **Title:** “Venezuela: A Nuclear Profile”
+- **Publisher:** Carnegie Endowment for International Peace
+- **Date:** December 18, 2008
+- **Claim:** The search result describes Venezuela’s nonproliferation credentials as positive and identifies its participation in regional nuclear restraint arrangements.
+- **Main points:** This is useful for nuclear baseline and treaty-status orientation, but it is published eight years after the target year and the retrieved snippet does not provide the complete treaty/safeguards inventory.
+- **Locator:** `search-result-summary; exact page section not retrieved`
+- **Source type/confidence:** expert policy institute; `medium_high` provisionally.
+- **Confidence reason:** Carnegie is a reputable specialist institution, but the claim is being taken from a search result rather than a fetched passage and is retrospective.
+- **Final evidence use:** `context` pending exact-page verification.
+- **Period fit:** broader historical context; not a direct 2000 act.
+- **Ruler attribution:** none established. It concerns national treaty posture, not a Chávez decision in 2000.
+- **Contrary/limitations:** later source; does not establish implementation, safeguards compliance in 2000, or ruler conduct.
+- **Candidate mapping:** 1B.3, 1B.4, 1B.10.
+- **Disposition:** `context`.
+
+## E-R1-002 — Venezuela had little nuclear infrastructure and was an NPT party
+
+- **Canonical fact key:** `https://www.nti.org/analysis/articles/venezuelas-search-nuclear-power/|search-result-summary|Venezuela had little nuclear infrastructure and was party to the NPT and regional treaty`
+- **URL:** https://www.nti.org/analysis/articles/venezuelas-search-nuclear-power/
+- **Title:** “Venezuela’s Search for Nuclear Power”
+- **Publisher:** Nuclear Threat Initiative
+- **Date:** May 6, 2009
+- **Claim:** The search result states that Venezuela had almost no nuclear infrastructure or expertise and was party to the NPT and the relevant regional nuclear-weapons-free-zone framework.
+- **Main points:** This helps characterize limited nuclear exposure and formal nonproliferation context. It does not establish Chávez’s target-year choices.
+- **Locator:** `search-result-summary; exact page section not retrieved`
+- **Source type/confidence:** specialist nuclear-security organization; `medium_high` provisionally.
+- **Confidence reason:** NTI is a recognized nuclear-risk source, but only the search result was available and the publication is later than 2000.
+- **Final evidence use:** `context` pending exact-page verification.
+- **Period fit:** later source describing historical posture.
+- **Ruler attribution:** no direct Chávez attribution.
+- **Contrary/limitations:** later nuclear ambitions discussed in the broader Chávez period cannot be projected to 2000.
+- **Candidate mapping:** 1B.1, 1B.3, 1B.4, 1B.10.
+- **Disposition:** `context`.
+
+## E-R1-003 — Chávez’s later public support for nuclear disarmament
+
+- **Canonical fact key:** `https://venezuelanalysis.com/news/4355/|search-result-summary|Chávez publicly supported Obama’s nuclear-disarmament call in 2009`
+- **URL:** https://venezuelanalysis.com/news/4355/
+- **Title:** “Venezuela’s Chávez Declares Support for Obama’s Nuclear Disarmament”
+- **Publisher:** Venezuela Analysis
+- **Date:** April 7, 2009
+- **Claim:** Chávez publicly expressed support for Barack Obama’s call for nuclear disarmament.
+- **Main points:** This is a ruler-attributed nuclear-rhetoric item, but it is nine years after the target year.
+- **Locator:** `search-result-summary; exact page text not retrieved`
+- **Source type/confidence:** political/news outlet; `medium_low` provisionally.
+- **Confidence reason:** The claim is directly attributed in the title/result, but publisher incentives and lack of exact-page extraction limit confidence.
+- **Final evidence use:** `discovery_only` for the 2000 dossier.
+- **Period fit:** post-period; cannot support a 2000 claim.
+- **Ruler attribution:** direct Chávez attribution for 2009 only.
+- **Contrary/limitations:** outside target year; no retroactive inference.
+- **Candidate mapping:** 1B.1, 1B.2, 1B.4, 1B.10.
+- **Disposition:** `discovery_only`.
+
+## E-R1-004 — Chávez’s relationship with Colombian armed groups shifted after 1999
+
+- **Canonical fact key:** `https://insightcrime.org/venezuela-organized-crime-news/eln-in-venezuela/|search-result-summary|Insight Crime describes a shift toward friendlier Venezuelan relations with ELN and FARC after Chávez took office`
+- **URL:** https://insightcrime.org/venezuela-organized-crime-news/eln-in-venezuela/
+- **Title:** “ELN in Venezuela”
+- **Publisher:** InSight Crime
+- **Date:** unknown
+- **Claim:** The search result says Chávez’s arrival in 1999 marked a shift toward friendlier relations with the ELN and FARC.
+- **Main points:** This is a potentially relevant ruler-attribution lead for proxy/support and border-security research. It does not, by itself, establish material support, safe haven, command, financing, arms, or a specific 2000 decision.
+- **Locator:** `search-result-summary; exact page section not retrieved`
+- **Source type/confidence:** investigative organized-crime research organization; `medium` provisionally.
+- **Confidence reason:** InSight Crime is useful for regional armed-group research, but the result is a summary and the precise underlying claim, dates, and sourcing were not retrieved.
+- **Final evidence use:** `context` pending exact-page verification and corroboration.
+- **Period fit:** begins in 1999 and may cover the target period, but exact 2000 fit is unverified.
+- **Ruler attribution:** indirect; attributes a broad policy shift to Chávez’s arrival, not a specific order or act.
+- **Contrary/limitations:** possible conflation of diplomatic posture, tolerance, and material support; must be corroborated.
+- **Candidate mapping:** 2B.2, 2B.3, 2B.5, 2B.6, 2B.8, 2B.10.
+- **Disposition:** `context`.
+
+## E-R1-005 — July 2000 elections were held under the new constitution
+
+- **Canonical fact key:** `https://en.wikipedia.org/wiki/Venezuelan_presidential_election,_2000|search-result-summary|The July 30, 2000 Venezuelan elections were the first held under the 1999 Constitution`
+- **URL:** https://en.wikipedia.org/wiki/Venezuelan_presidential_election,_2000
+- **Title:** “2000 Venezuelan General Election”
+- **Publisher:** Wikipedia
+- **Date:** unknown
+- **Claim:** General elections were held on July 30, 2000, and were the first elections conducted under the newly adopted 1999 Constitution; Chávez ran for a full six-year term.
+- **Main points:** This confirms the election’s temporal and constitutional setting. It is basic orientation, not evidence of fairness or manipulation.
+- **Locator:** `search-result-summary; exact article section not retrieved`
+- **Source type/confidence:** encyclopedia; `medium_high` for basic dates/orientation, not for contested electoral claims.
+- **Final evidence use:** `context`.
+- **Period fit:** direct target year.
+- **Ruler attribution:** Chávez was the incumbent candidate and beneficiary of the constitutional transition; no misconduct established.
+- **Contrary/limitations:** Wikipedia is not sufficient for election-quality or entrenchment claims; primary election records and observer reports remain needed.
+- **Candidate mapping:** 4B.1, 4B.2, 4B.8, 4B.10, 8B.1, 8B.2.
+- **Disposition:** `context`.
+
+## E-R1-006 — The 2000 election produced a commanding Chávez coalition in the National Assembly
+
+- **Canonical fact key:** `https://en.wikipedia.org/wiki/Presidency_of_Hugo_Ch%C3%A1vez|search-result-summary|Chávez was reelected in 2000 and his coalition won a commanding National Assembly position`
+- **URL:** https://en.wikipedia.org/wiki/Presidency_of_Hugo_Ch%C3%A1vez
+- **Title:** “History of Venezuela (1999–present)” / Chávez presidency
+- **Publisher:** Wikipedia
+- **Date:** unknown
+- **Claim:** The search result states that Chávez was reelected in 2000, and his coalition obtained 101 of 165 National Assembly seats.
+- **Main points:** The result provides a concrete institutional outcome relevant to governing capacity and legislative control.
+- **Locator:** `search-result-summary; exact article section not retrieved`
+- **Source type/confidence:** encyclopedia; `medium_high` for basic electoral facts pending primary verification.
+- **Final evidence use:** `context` pending official results verification.
+- **Period fit:** direct target year.
+- **Ruler attribution:** electoral outcome benefited Chávez and his coalition; causation and institutional consequences remain unresolved.
+- **Contrary/limitations:** does not prove manipulation or coercive capture; requires official results and observer evidence.
+- **Candidate mapping:** 4B.1, 4B.2, 4B.4, 4B.8, 8B.3, 8B.5, 8B.10.
+- **Disposition:** `context`.
+
+## E-R1-007 — The 1999 constitutional process created a new institutional framework
+
+- **Canonical fact key:** `https://guides.loc.gov/law-venezuela/constitution|search-result-summary|Library of Congress provides a constitutional-law guide covering Venezuela’s constitution and branches`
+- **URL:** https://guides.loc.gov/law-venezuela/constitution
+- **Title:** “Constitution — Guide to Law Online: Venezuela”
+- **Publisher:** Law Library of Congress
+- **Date:** unknown
+- **Claim:** The Library of Congress guide identifies resources concerning Venezuela’s constitution and executive, legislative, and judicial branches.
+- **Main points:** The guide is a reliable gateway to primary constitutional materials, but the search result did not expose the relevant legal provisions.
+- **Locator:** `gateway_only; exact constitutional provision not retrieved`
+- **Source type/confidence:** official legal research guide; `high` as a gateway, not as evidence of a substantive claim.
+- **Final evidence use:** `discovery_only`.
+- **Period fit:** relevant to the constitutional framework in force during 2000.
+- **Ruler attribution:** constitutional process was Chávez-led politically, but the guide itself does not establish his role.
+- **Contrary/limitations:** gateway cannot be counted as a substantive source-claim unit.
+- **Candidate mapping:** 4B.1, 4B.2, 4B.4, 4B.8, 8B.1, 8B.2.
+- **Disposition:** `discovery_only`.
+
+## E-R1-008 — Constitution converted the legislature to a unicameral body
+
+- **Canonical fact key:** `https://en.wikipedia.org/wiki/Constitution_of_Venezuela|search-result-summary|The 1999 Constitution converted Venezuela’s formerly bicameral Congress into a unicameral legislature`
+- **URL:** https://en.wikipedia.org/wiki/Constitution_of_Venezuela
+- **Title:** “Constitution of Venezuela”
+- **Publisher:** Wikipedia
+- **Date:** unknown
+- **Claim:** The search result states that the 1999 Constitution converted the former bicameral Congress into a unicameral legislature and reduced some of its former powers.
+- **Main points:** This is potentially relevant to institutional redesign and legislative constraints, but the result is not a substitute for the constitutional text or legal scholarship.
+- **Locator:** `search-result-summary; exact article section not retrieved`
+- **Source type/confidence:** encyclopedia; `medium` for orientation.
+- **Final evidence use:** `context` pending primary legal verification.
+- **Period fit:** constitutional framework in force during 2000.
+- **Ruler attribution:** Chávez was the political sponsor of the refounding process, but institutional effects were mediated by the constituent assembly and referendum.
+- **Contrary/limitations:** the claim about reduced powers requires legal-text comparison; cannot infer authoritarian intent solely from unicameralism.
+- **Candidate mapping:** 4B.2, 4B.4, 4B.8, 8B.1, 8B.2.
+- **Disposition:** `context`.
+
+## E-R1-009 — Plan Bolívar 2000 launched under Chávez and used military/civilian mobilization
+
+- **Canonical fact key:** `https://en.wikipedia.org/wiki/Plan_Bol%C3%ADvar_2000|search-result-summary|Plan Bolívar 2000 was launched in February 1999 and was a Chávez administration civic-military social program`
+- **URL:** https://en.wikipedia.org/wiki/Plan_Bol%C3%ADvar_2000
+- **Title:** “Plan Bolívar 2000”
+- **Publisher:** Wikipedia
+- **Date:** unknown
+- **Claim:** Plan Bolívar 2000 was launched on February 27, 1999, under Chávez and involved the military in social and infrastructure activities; it continued into the target year and was cancelled in 2002.
+- **Main points:** This is a direct lead for Chávez’s welfare, state-mobilization, and military-role program. It may provide target-period implementation evidence if verified through contemporaneous official or independent reporting.
+- **Locator:** `search-result-summary; exact article section not retrieved`
+- **Source type/confidence:** encyclopedia; `medium` pending primary corroboration.
+- **Final evidence use:** `context` pending verification.
+- **Period fit:** program began before and operated during 2000; target-year continuation must be verified.
+- **Ruler attribution:** direct program attribution to Chávez’s administration; operational outcomes and personal direction need corroboration.
+- **Contrary/limitations:** Wikipedia result references a U.S. State Department characterization, but the underlying report was not retrieved. Program delivery, auditing, and distributional effects remain unknown.
+- **Candidate mapping:** 5B.1, 5B.6, 5B.8, 6B.1, 6B.2, 6B.4, 6B.5, 6B.9, 8B.2, 8B.3, 8B.6.
+- **Disposition:** `context`.
+
+## E-R1-010 — Chávez ordered military branches to design anti-poverty and civic-development programs
+
+- **Canonical fact key:** `https://en.wikipedia.org/wiki/History_of_Venezuela_(1999%E2%80%93present)|search-result-summary|In April 1999 Chávez ordered military branches to devise poverty and civic-development programs`
+- **URL:** https://en.wikipedia.org/wiki/History_of_Venezuela_(1999%E2%80%93present)
+- **Title:** “History of Venezuela (1999–present)”
+- **Publisher:** Wikipedia
+- **Date:** unknown
+- **Claim:** The search result states that in April 1999 Chávez ordered all military branches to devise programs addressing poverty and civic/social development, leading to Plan Bolívar 2000.
+- **Main points:** This is a specific ruler-attributed instruction and is stronger than a generic country baseline, though it predates 2000 and must be used as inherited program context unless 2000 continuation is documented.
+- **Locator:** `search-result-summary; exact article section not retrieved`
+- **Source type/confidence:** encyclopedia; `medium` pending corroboration.
+- **Final evidence use:** `context`.
+- **Period fit:** pre-period action with possible continuing target-year implementation.
+- **Ruler attribution:** direct attribution in the search result.
+- **Contrary/limitations:** does not establish program success, professional management, audit, or nonpoliticized delivery.
+- **Candidate mapping:** 5B.1, 5B.6, 6B.1, 6B.2, 6B.4, 8B.1, 8B.2, 8B.3.
+- **Disposition:** `context`.
+
+## E-R1-011 — Plan Bolívar 2000 was intended as an anti-poverty program
+
+- **Canonical fact key:** `https://www.history.com/articles/bolivarian-revolution-chavez|search-result-summary|A Chávez anti-poverty program called Plan Bolívar 2000 was launched soon after he took office`
+- **URL:** https://www.history.com/articles/bolivarian-revolution-chavez
+- **Title:** “What Was Venezuela’s Bolivarian Revolution?”
+- **Publisher:** HISTORY
+- **Date:** unknown
+- **Claim:** The search result states that Chávez launched Plan Bolívar 2000 soon after taking office as an anti-poverty program and promoted a new constitution.
+- **Main points:** This independently points to the program’s stated social purpose and the linkage between constitutional refounding and welfare agenda.
+- **Locator:** `search-result-summary; exact page section not retrieved`
+- **Source type/confidence:** public-history/media; `medium` provisionally.
+- **Confidence reason:** secondary source and incomplete page extraction; useful corroboration but not a primary implementation record.
+- **Final evidence use:** `context`.
+- **Period fit:** program originated in 1999 and likely continued into 2000; continuation must be verified.
+- **Ruler attribution:** direct broad attribution to Chávez.
+- **Contrary/limitations:** no budget, delivery, audit, or measured outcome in the retrieved material.
+- **Candidate mapping:** 5B.1, 6B.1, 6B.2, 8B.1, 8B.6.
+- **Disposition:** `context`.
+
+## E-R1-012 — Chávez’s refounding project retained support among poorer Venezuelans in early 2000
+
+- **Canonical fact key:** `https://nacla.org/refounding-republic-political-project-chavismo/|search-result-summary|A May/June 2000 NACLA report described Chávez as retaining substantial popular support, especially among poor Venezuelans, while opposition among affluent groups was growing`
+- **URL:** https://nacla.org/refounding-republic-political-project-chavismo/
+- **Title:** “Refounding the Republic: The Political Project of Chavismo”
+- **Publisher:** North American Congress on Latin America
+- **Date:** May/June 2000
+- **Claim:** The search result describes Chávez as retaining considerable support among poorer Venezuelans while hostility among richer groups was growing; it also reports public concern about corruption and social conditions.
+- **Main points:** This is a contemporaneous political-context source. It may help identify Chávez’s social coalition and opposition environment, but popularity is not evidence of welfare delivery or integrity.
+- **Locator:** `search-result-summary; exact article passage not retrieved`
+- **Source type/confidence:** regional political analysis; `medium` provisionally.
+- **Confidence reason:** contemporaneous and regionally focused, but the exact passage and underlying interview/reporting context were not fetched.
+- **Final evidence use:** `context`.
+- **Period fit:** direct target period.
+- **Ruler attribution:** identifies Chávez’s political support and opposition context; does not establish policy causation.
+- **Contrary/limitations:** popularity may reflect identity, dissatisfaction with prior parties, or political messaging rather than outcomes.
+- **Candidate mapping:** 4B.3, 4B.7, 5B.8, 6B.3, 8B.1.
+- **Disposition:** `context`.
+
+## E-R1-013 — Chávez sought to use OPEC coordination to influence oil policy in 2000
+
+- **Canonical fact key:** `https://phenomenalworld.org/interviews/oil-wars/|search-result-summary|A retrospective interview describes the 2000 Caracas OPEC summit as a major Chávez-era coordination event`
+- **URL:** https://phenomenalworld.org/interviews/oil-wars/
+- **Title:** “Oil Wars”
+- **Publisher:** Phenomenal World
+- **Date:** unknown
+- **Claim:** The search result describes the 2000 Caracas OPEC summit as an important meeting in which Chávez played a prominent role in convening OPEC members.
+- **Main points:** This is a potentially useful target-year foreign-economic policy event. It may illuminate Chávez’s oil strategy, international influence, and macroeconomic priorities.
+- **Locator:** `search-result-summary; exact interview passage not retrieved`
+- **Source type/confidence:** interview/analysis; `medium_low` provisionally.
+- **Confidence reason:** retrospective interview and unclear authorship/evidentiary basis; requires corroboration with OPEC records or contemporaneous reporting.
+- **Final evidence use:** `context`.
+- **Period fit:** direct 2000 event, but exact date and Chávez’s formal role require verification.
+- **Ruler attribution:** broad attribution to Chávez’s leadership of Venezuela; exact decision authority not established.
+- **Contrary/limitations:** convening or influencing OPEC does not establish good economic management or domestic welfare.
+- **Candidate mapping:** 2B.1, 2B.3, 2B.8, 5B.1, 5B.3, 5B.6, 8B.1, 8B.3, 8B.9.
+- **Disposition:** `context`.
+
+## E-R1-014 — Chávez’s government sought to reverse Venezuela’s prior OPEC posture
+
+- **Canonical fact key:** `https://www.masterresource.org/venezuela-energy-policy/venezuela-oil-under-statism/|search-result-summary|A policy analysis describes Chávez and oil minister Ali Rodríguez Araque as reversing prior Venezuelan OPEC/output policy`
+- **URL:** https://www.masterresource.org/venezuela-energy-policy/venezuela-oil-under-statism/
+- **Title:** “Venezuelan Oil: Statism to Liberation?”
+- **Publisher:** Master Resource
+- **Date:** unknown
+- **Claim:** The search result states that Chávez and oil minister Ali Rodríguez Araque reversed the prior government’s approach, which had emphasized output and disregarded OPEC quotas, toward greater OPEC coordination and price objectives.
+- **Main points:** This is a policy-choice lead relevant to economic governance and international coordination.
+- **Locator:** `search-result-summary; exact page section not retrieved`
+- **Source type/confidence:** energy-policy analysis; `medium_low` provisionally.
+- **Confidence reason:** publisher perspective may be ideologically slanted; requires OPEC or contemporaneous independent corroboration.
+- **Final evidence use:** `context`.
+- **Period fit:** describes Chávez’s early period and likely includes 2000.
+- **Ruler attribution:** attributes strategic direction to Chávez and his oil minister.
+- **Contrary/limitations:** policy direction alone does not establish macroeconomic outcomes, fiscal prudence, or broad distribution.
+- **Candidate mapping:** 2B.8, 5B.1, 5B.3, 5B.6, 8B.2, 8B.3.
+- **Disposition:** `context`.
+
+---
+
+# 2. Chapter-by-chapter continuation
+
+## 1B — Nuclear and existential-risk responsibility
+
+### Reused local evidence
+
+No local nuclear facts. The absence remains a gap.
+
+### New evidence and mapping
+
+- **E-R1-001:** treaty/nonproliferation context; 1B.3, 1B.4, 1B.10.
+- **E-R1-002:** low infrastructure and NPT context; 1B.1, 1B.3, 1B.4, 1B.10.
+- **E-R1-003:** later Chávez disarmament rhetoric; discovery-only for 1B.1, 1B.2, 1B.4, 1B.10.
+
+### Targeted searches attempted
+
+1. Venezuela nuclear capability and IAEA safeguards.
+2. Venezuela NPT and Latin American nuclear-weapons-free-zone status.
+3. Chávez nuclear rhetoric and nuclear-energy policy.
+4. Venezuela nuclear command-and-control or proliferation.
+5. Chávez catastrophic-risk and dual-use policy.
+
+### Result
+
+The search recovered a plausible historical nonproliferation baseline and a later Chávez disarmament statement, but not a target-year ruler-attributed choice. No 2000 nuclear threat, safeguards decision, command-safety decision, proliferation act, or dual-use policy was recovered.
+
+### Saturation/blocker explanation
+
+**Blocked by target-period scarcity and exact-page access.** The available results concern later nuclear-energy discussions (2008–2011) or general treaty posture. Further queries would likely produce the same later-period material unless an IAEA/UN treaty archive or contemporaneous Venezuelan diplomatic record is directly retrieved.
+
+---
+
+## 2B — International peace, restraint, and lawful security
+
+### Reused local evidence
+
+LF001–LF006 remain country-level context only:
+
+- zero recorded state-based and internationalized conflict events/fatalities;
+- SIPRI military spending per capita and GDP share.
+
+### New evidence and mapping
+
+- **E-R1-004:** possible post-1999 shift toward friendlier relations with ELN/FARC; 2B.2, 2B.3, 2B.5, 2B.6, 2B.8, 2B.10.
+- **E-R1-013:** 2000 OPEC summit and Chávez’s regional coordination role; 2B.1, 2B.3, 2B.8.
+- **E-R1-014:** reported reversal toward OPEC coordination; 2B.8 and contextual 2B.1/2B.3.
+
+### Targeted searches attempted
+
+1. Chávez 2000 and Colombia/ELN/FARC.
+2. Chávez border policy and armed-group safe haven.
+3. 2000 OPEC summit and Chávez.
+4. Venezuela military spending rationale.
+5. Chávez peace initiatives and international diplomacy.
+
+### Result
+
+The review recovered:
+
+- a plausible lead concerning Chávez’s changed relationship with Colombian armed groups;
+- two policy-analysis leads about Chávez’s 2000 OPEC role and oil coordination.
+
+It did not recover:
+
+- a precise 2000 order or material-support record involving ELN/FARC;
+- a reliable source distinguishing tolerance, diplomacy, safe haven, and active proxy support;
+- civilian-protection or international humanitarian-law evidence;
+- a target-year peace agreement, ceasefire, or conflict-de-escalation act;
+- a contemporaneous explanation of military expenditure.
+
+### Contrary evidence and attribution limits
+
+- Local UCDP records show no recorded state-based or internationalized conflict, which is a mitigating country-year signal but not proof of Chávez’s restraint.
+- The InSight Crime lead may describe diplomatic openness rather than material support.
+- OPEC coordination is not itself evidence of peacefulness or aggression.
+
+### Saturation/blocker explanation
+
+**Partially improved but still attribution-blocked.** Two to three source families were identified, but exact event-level evidence and independent corroboration are missing. The proxy-support question requires direct archival, intelligence, court, sanctions, or contemporaneous diplomatic evidence.
+
+---
+
+## 3B — Domestic safety, restraint, and protection
+
+### Reused local evidence
+
+LF007–LF021 remain country-level priors:
+
+- CIRIGHTS repression and physical-integrity components;
+- PTS scores;
+- V-Dem civil-society, physical-integrity, and extrajudicial-killing values;
+- UCDP one-sided violence;
+- no automatic attribution to Chávez.
+
+### New evidence and mapping
+
+No new defensible target-year evidence unit was retained.
+
+Searches identified:
+
+- U.S. State Department’s general archive for 2000 reports;
+- Amnesty and HRW country pages;
+- later reports describing protest, detention, and repression.
+
+These were not promoted because the available results did not expose the Venezuela 2000 text or precise passages.
+
+### Targeted searches attempted
+
+1. `Venezuela 2000 human rights report Chavez police prisons`.
+2. `Venezuela 2000 political prisoners detention`.
+3. `Venezuela 2000 security forces protest`.
+4. `site:1997-2001.state.gov Venezuela 2000 human rights`.
+5. Amnesty/HRW Venezuela 2000.
+
+### Result
+
+No exact target-year narrative evidence was recovered for:
+
+- security-force chain of command;
+- Chávez orders or knowledge;
+- protest response;
+- prison conditions;
+- investigations or remedies;
+- incitement or vulnerable-group protection.
+
+### Saturation/blocker explanation
+
+**Blocked by archive retrieval.** The U.S. State Department archive is the most promising direct source, but only the general report index was returned. Later HRW/Amnesty results cannot substitute for a 2000-specific account. Continued research should use a direct archived report URL or PDF retrieval rather than further omnibus search.
+
+---
+
+## 4B — Political freedom versus authoritarian rule
+
+### Reused local evidence
+
+Corrected local source families:
+
+- V-Dem;
+- World Bank WGI.
+
+The local data establish institutional context but not personal manipulation.
+
+### New evidence and mapping
+
+- **E-R1-005:** July 30, 2000 election under the 1999 Constitution; 4B.1, 4B.8, 4B.10.
+- **E-R1-006:** Chávez reelection and coalition control of 101/165 National Assembly seats; 4B.1, 4B.2, 4B.4, 4B.8, 4B.10.
+- **E-R1-007:** Library of Congress constitutional-law gateway; discovery-only for 4B.1, 4B.2, 4B.4, 4B.8.
+- **E-R1-008:** unicameral legislature and reduced legislative powers; 4B.2, 4B.4, 4B.8.
+- **E-R1-012:** contemporaneous NACLA account of Chávez’s support among poorer citizens and growing opposition among affluent groups; 4B.3, 4B.7.
+- **E-R1-010/E-R1-011:** constitutional and social refounding program; contextual for 4B.1, 4B.3, 4B.5, 4B.10.
+
+### Targeted searches attempted
+
+1. 2000 election date, candidates, and constitutional basis.
+2. Carter Center Venezuela 2000 election observation.
+3. Library of Congress Venezuela constitutional materials.
+4. unicameral National Assembly and legislative constraints.
+5. opposition and social coalition during 2000.
+6. media access and institutional independence.
+
+### Result
+
+The continuation improved the chronology and institutional context:
+
+- the 2000 election was held under the new Constitution;
+- Chávez was reelected;
+- his coalition held a commanding legislative position;
+- the constitutional refounding changed the structure of government;
+- contemporary analysis described strong support among poorer citizens and growing hostility from richer groups.
+
+However, no direct 2000 observer report was retrieved. The search result titled **“Center Finds Democracy Thwarted in Venezuela”** appears to concern a later election, not 2000, and is therefore not used for the target year.
+
+### Contrary evidence and attribution limits
+
+- The existence of an election and substantial popular support is contrary to a simple closed-regime characterization.
+- Institutional centralization and legislative dominance do not prove manipulation.
+- The Library of Congress guide is only a gateway; constitutional provisions remain to be extracted from the primary text.
+
+### Saturation/blocker explanation
+
+**Partially improved; election-quality question remains blocked.** Basic event and institutional facts are now better supported, but the critical missing evidence is the contemporaneous observer assessment of administration, media, opposition access, and contestability.
+
+---
+
+## 5B — Economic well-being and prosperity
+
+### Reused local evidence
+
+LF037–LF040 remain baseline/scale context only. Corrected source families are Maddison/PWT and UNDP.
+
+### New evidence and mapping
+
+- **E-R1-009:** Plan Bolívar 2000 as a Chávez civic-military social program; 5B.1, 5B.6, 5B.8.
+- **E-R1-010:** Chávez ordered military branches to devise anti-poverty and civic-development programs; pre-period action with target-year continuation to verify; 5B.1, 5B.6.
+- **E-R1-011:** independent secondary description of Plan Bolívar 2000 as an anti-poverty program; 5B.1.
+- **E-R1-013:** 2000 OPEC summit and Chávez’s international oil coordination; 5B.1, 5B.3, 5B.6.
+- **E-R1-014:** reported policy reversal toward OPEC coordination and price objectives; 5B.1, 5B.3, 5B.6.
+- **E-R1-012:** contemporaneous social coalition context; 5B.8.
+
+### Targeted searches attempted
+
+1. Venezuela 2000 budget and fiscal policy.
+2. Chávez oil policy, PDVSA, and OPEC in 2000.
+3. Plan Bolívar 2000 budget and implementation.
+4. economic appointments and public-sector management.
+5. distribution, poverty, and household effects.
+6. central-bank and IMF relations.
+
+### Result
+
+The strongest recovery is a ruler-attributed policy direction:
+
+- Chávez ordered military branches to design anti-poverty/civic-development programs.
+- Plan Bolívar 2000 appears to have operated through the target period.
+- Chávez and his oil minister appear to have pursued stronger OPEC coordination, with the 2000 Caracas summit as a key event.
+
+No precise budget, audited expenditure, central-bank decision, inflation response, household-distribution result, or 2000 implementation milestone was recovered.
+
+### Contrary evidence and attribution limits
+
+- The social program may demonstrate intent and mobilization, but not competent or broad-based economic stewardship.
+- OPEC coordination may support price stabilization but can also reflect state-centered oil management; the evidence does not resolve effects.
+- Later oil dependence and economic failure cannot be imported into the 2000 judgment.
+
+### Saturation/blocker explanation
+
+**Partially improved.** The policy-intent and state-mobilization gaps are narrower, but implementation, distribution, fiscal relations, and target-year outcome evidence remain unavailable. The next best step is direct retrieval of 2000 Venezuelan budget documents, OPEC communiqués, and contemporary IMF/ECLAC reports.
+
+---
+
+## 6B — Social well-being and human development
+
+### Reused local evidence
+
+LF039 and LF041–LF044 remain UNDP HDI baseline facts only. There is one local source family for this domain.
+
+### New evidence and mapping
+
+- **E-R1-009:** Plan Bolívar 2000 social and infrastructure program; 6B.1, 6B.2, 6B.4, 6B.9.
+- **E-R1-010:** Chávez’s direct order for military anti-poverty and civic-development programs; 6B.1, 6B.2, 6B.4.
+- **E-R1-011:** Plan Bolívar 2000 described as anti-poverty program; 6B.1, 6B.2.
+- **E-R1-012:** social coalition and poor Venezuelans’ support; 6B.3, but only context, not welfare outcome.
+- **E-R1-013/E-R1-014:** oil-policy context potentially relevant to fiscal capacity; not direct social delivery evidence.
+
+### Targeted searches attempted
+
+1. Plan Bolívar 2000 health and education delivery.
+2. Chávez 2000 social programs and army civic action.
+3. Venezuela 2000 education and health budget.
+4. regional and group distribution.
+5. welfare clientelism and institutional durability.
+
+### Result
+
+The continuation recovered direct evidence leads for Chávez’s welfare orientation and mobilization, especially Plan Bolívar 2000. It did not recover:
+
+- 2000 health or education output data;
+- beneficiary counts or regional distribution;
+- budget execution;
+- independent program evaluation;
+- evidence of politicized allocation;
+- institutional durability beyond the program’s existence.
+
+### Contrary evidence and attribution limits
+
+- The program’s anti-poverty purpose is evidence of stated intention, not successful delivery.
+- Military involvement may improve reach in some areas but raises questions about professional administration and accountability.
+- Later Chávez-era healthcare gains cannot be assigned to 2000 without a time series and implementation evidence.
+
+### Saturation/blocker explanation
+
+**Partially improved but delivery remains blocked.** Further generic searches are unlikely to improve the case without direct contemporary budget/program records.
+
+---
+
+## 7B — Integrity and honesty
+
+### Reused local evidence
+
+LF022, LF033, LF036, and LF045–LF048 remain institutional context only. Corrected local source families are V-Dem and WGI.
+
+### New evidence and mapping
+
+- **E-R1-012:** contemporaneous NACLA account referencing public concern about corruption and Chávez’s political project; contextual for 7B.1, 7B.2, 7B.10.
+- **E-R1-009/E-R1-010:** Plan Bolívar 2000’s military-administered social program may become relevant to procurement, oversight, or patronage only if records show how funds were managed; currently contextual for 7B.5, 7B.7, 7B.9.
+- Search results concerning later appointments, family politics, and corruption were not retained because they lacked precise target-year attribution or concerned later periods.
+
+### Targeted searches attempted
+
+1. Chávez 2000 corruption and anti-corruption promises.
+2. Plan Bolívar 2000 auditing and procurement.
+3. family/associate appointments in 2000.
+4. PDVSA appointments and conflicts of interest.
+5. personal assets and public disclosures.
+6. investigation, scrutiny, and retaliation.
+
+### Result
+
+No target-year personal integrity finding was recovered. The only useful contemporary lead is that corruption and the failure of prior political parties were salient in Chávez’s political project. This does not show whether Chávez personally told the truth, enriched himself, tolerated favoritism, or accepted scrutiny.
+
+### Saturation/blocker explanation
+
+**Blocked by lack of ruler-specific primary records.** Institutional corruption indicators and general allegations cannot satisfy the chapter’s personal-nexus requirement. Future progress requires asset declarations, appointment records, procurement audits, court records, legislative inquiries, or contemporaneous investigative reporting.
+
+---
+
+## 8B — Effectiveness and competence
+
+### Reused local evidence
+
+LF022, LF033, LF036, LF049, and LF050 remain inherited/state-capacity context. Corrected local source families are V-Dem and WGI.
+
+### New evidence and mapping
+
+- **E-R1-005:** election and constitutional framework; 8B.1, 8B.2.
+- **E-R1-006:** Chávez reelection and coalition control of the National Assembly; 8B.3, 8B.5, 8B.10.
+- **E-R1-008:** constitutional redesign and unicameral legislature; 8B.1, 8B.2.
+- **E-R1-009:** Plan Bolívar 2000 as a state-mobilization program; 8B.2, 8B.3, 8B.6.
+- **E-R1-010:** direct order to military branches to devise civic-development programs; 8B.1, 8B.2, 8B.3.
+- **E-R1-013/E-R1-014:** OPEC coordination and oil-policy direction; 8B.1, 8B.3, 8B.9.
+- **E-R1-012:** contemporaneous political support and coalition context; 8B.1, 8B.3.
+
+### Targeted searches attempted
+
+1. Chávez’s 2000 governing program.
+2. 1999 Constitution as a strategic/state-building program.
+3. 2000 election and legislative mobilization.
+4. Plan Bolívar 2000 implementation.
+5. appointments and administrative coordination.
+6. OPEC 2000 and policy influence.
+7. adaptation, correction, and attributable outcomes.
+
+### Result
+
+The continuation established a more coherent candidate program:
+
+- constitutional refounding;
+- electoral and legislative consolidation;
+- civic-military anti-poverty mobilization;
+- stronger state direction of oil policy and OPEC coordination.
+
+It did not recover sufficient direct evidence for:
+
+- budgets and milestones;
+- competent appointments;
+- implementation quality;
+- corrective adaptation;
+- attributable 2000 outcomes;
+- durability.
+
+### Contrary evidence and attribution limits
+
+- Electoral and legislative success demonstrates mobilization and political reach, but not competent policy execution.
+- Plan Bolívar 2000 demonstrates a concrete program architecture, but not delivery quality.
+- OPEC influence demonstrates international coordination potential, but not domestic economic results.
+- The 2001 enabling law remains outside the target period and is not used as target-year evidence.
+
+### Saturation/blocker explanation
+
+**Partially improved.** Program identification and mobilization evidence improved, but the execution chain remains incomplete. Direct 2000 budgets, decrees, administrative reports, and program evaluations are needed.
+
+---
+
+# 3. Updated source-family accounting
+
+The earlier reviewer correctly identified inflated local source-family counts. Corrected counts remain:
+
+| Chapter | Local families after correction | New external families identified in review | Notes |
+|---|---:|---:|---|
+| 1B | 0 | Carnegie, NTI, Venezuela Analysis | Mostly later/context; no target-year final unit |
+| 2B | 2 | InSight Crime, Phenomenal World, Master Resource | Attribution and exact locators unresolved |
+| 3B | 4 | State Department archive, Amnesty, HRW | Archive pages not extracted; no retained target-year unit |
+| 4B | 2 | Carter Center, Library of Congress, NACLA, Wikipedia | Election observer report not retrieved; several items context only |
+| 5B | 2 | HISTORY, Master Resource, Phenomenal World, NACLA | Program and oil-policy leads; no audited implementation |
+| 6B | 1 | HISTORY, NACLA, Wikipedia | Program-intent evidence only |
+| 7B | 2 | NACLA | No personal-integrity finding |
+| 8B | 2 | Library of Congress, HISTORY, NACLA, Wikipedia, energy-policy sources | Program/mobilization leads; implementation incomplete |
+
+The external-family counts are **discovery-family counts**, not defensible independent-source counts, because exact page extraction and claim verification were not available.
+
+---
+
+# 4. Rejected and non-promoted candidates
+
+## Rejected for target-period use
+
+1. **Later 2009 Chávez nuclear-disarmament statement:** relevant to 1B but outside 2000.
+2. **2010–2011 nuclear-energy discussion:** later than target year.
+3. **Later Colombia/FARC safe-haven allegations:** not direct evidence of a 2000 act.
+4. **2001 enabling law and 49 decrees:** outside immutable target year.
+5. **Later Chávez-era healthcare outcomes:** broad period and not isolated to 2000.
+6. **Later judiciary-packing assessments:** may establish later trajectory but cannot silently establish 2000 facts.
+7. **Current Amnesty/HRW pages:** not target-year evidence without an exact historical section.
+8. **Grokipedia results:** very-low confidence and discovery-only; not used.
+9. **Wikipedia claims about corruption, nepotism, or electoral irregularities:** not used as sole support for contested ruler-specific claims.
+
+## Context-only candidates
+
+- E-R1-001 through E-R1-002: nuclear posture/treaty context.
+- E-R1-004: armed-group relationship lead.
+- E-R1-005 through E-R1-006: election chronology and coalition outcome.
+- E-R1-008: constitutional institutional context.
+- E-R1-009 through E-R1-011: Plan Bolívar 2000 and anti-poverty program.
+- E-R1-012: contemporaneous political coalition context.
+- E-R1-013 through E-R1-014: OPEC/oil-policy direction.
+
+---
+
+# 5. Manifest-ready reconciliation
+
+Because the supplied `research-ledger-manifest.json` could not be written, the following is the complete intended append-only manifest entry set. Existing entries from the prior round should be preserved; these entries should be appended or merged by `provisional_id`.
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries_to_append": [
+    {
+      "provisional_id": "E-R1-001",
+      "canonical_fact_key": "https://carnegieendowment.org/research/2008/12/venezuela-a-nuclear-profile|search-result-summary|Venezuela had positive nonproliferation credentials and was party to Latin American nuclear prohibition arrangements",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-002",
+      "canonical_fact_key": "https://www.nti.org/analysis/articles/venezuelas-search-nuclear-power/|search-result-summary|Venezuela had little nuclear infrastructure and was party to NPT and regional treaty",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-003",
+      "canonical_fact_key": "https://venezuelanalysis.com/news/4355/|search-result-summary|Chávez publicly supported Obama nuclear-disarmament call in 2009",
+      "disposition": "discovery_only"
+    },
+    {
+      "provisional_id": "E-R1-004",
+      "canonical_fact_key": "https://insightcrime.org/venezuela-organized-crime-news/eln-in-venezuela/|search-result-summary|Relations with ELN and FARC reportedly became friendlier after Chávez took office",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-005",
+      "canonical_fact_key": "https://en.wikipedia.org/wiki/Venezuelan_presidential_election,_2000|search-result-summary|July 30 2000 elections were first held under 1999 Constitution",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-006",
+      "canonical_fact_key": "https://en.wikipedia.org/wiki/Presidency_of_Hugo_Ch%C3%A1vez|search-result-summary|Chávez reelected in 2000 and coalition won 101 of 165 Assembly seats",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-007",
+      "canonical_fact_key": "https://guides.loc.gov/law-venezuela/constitution|gateway_only|Library of Congress constitutional-law guide",
+      "disposition": "discovery_only"
+    },
+    {
+      "provisional_id": "E-R1-008",
+      "canonical_fact_key": "https://en.wikipedia.org/wiki/Constitution_of_Venezuela|search-result-summary|1999 Constitution converted Congress to unicameral legislature and reduced some former powers",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-009",
+      "canonical_fact_key": "https://en.wikipedia.org/wiki/Plan_Bol%C3%ADvar_2000|search-result-summary|Plan Bolívar 2000 was a Chávez administration civic-military social program operating from 1999 into 2002",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-010",
+      "canonical_fact_key": "https://en.wikipedia.org/wiki/History_of_Venezuela_(1999%E2%80%93present)|search-result-summary|Chávez ordered military branches to devise anti-poverty and civic-development programs in April 1999",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-011",
+      "canonical_fact_key": "https://www.history.com/articles/bolivarian-revolution-chavez|search-result-summary|Plan Bolívar 2000 was launched as an anti-poverty program under Chávez",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-012",
+      "canonical_fact_key": "https://nacla.org/refounding-republic-political-project-chavismo/|search-result-summary|May/June 2000 NACLA account described Chávez support among poor Venezuelans and growing opposition among affluent groups",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-013",
+      "canonical_fact_key": "https://phenomenalworld.org/interviews/oil-wars/|search-result-summary|2000 Caracas OPEC summit was a major Chávez-era coordination event",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E-R1-014",
+      "canonical_fact_key": "https://www.masterresource.org/venezuela-energy-policy/venezuela-oil-under-statism/|search-result-summary|Chávez and Ali Rodríguez Araque reversed prior Venezuelan OPEC/output policy",
+      "disposition": "context"
+    }
+  ]
+}
+```
+
+---
+
+# 6. Final review-round status
+
+- **1B:** improved nuclear baseline context; target-year ruler conduct remains blocked.
+- **2B:** improved armed-group and OPEC-policy leads; proxy attribution and exact 2000 conduct remain unresolved.
+- **3B:** no recoverable target-year ruler-attributed external evidence; archive retrieval remains the blocker.
+- **4B:** improved election chronology, constitutional, legislative, and coalition context; exact observer conclusions remain missing.
+- **5B:** recovered Chávez-attributed Plan Bolívar 2000 and OPEC-policy leads; implementation and distribution remain missing.
+- **6B:** recovered welfare-program intention and mobilization leads; delivery and outcomes remain missing.
+- **7B:** no personal-integrity finding recovered; institutional context remains non-personalized.
+- **8B:** improved identification of Chávez’s constitutional, political-mobilization, welfare, and oil-policy programs; execution and outcome chain remains incomplete.
+
+No final score, score range, ranking, or recommendation is provided.
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "4B",
+    "5B",
+    "6B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "No defensible evidence units exist.",
+        "All continuation items remain later-period, locator-missing context or discovery leads.",
+        "The notebook provides a credible target-period scarcity and access-blocker explanation; further broad research is unlikely to meet the marginal-value gate."
+      ],
+      "missing_themes": [
+        "Target-period nuclear capability and authority",
+        "Treaty and safeguards status in 2000",
+        "Nuclear rhetoric or threat behavior",
+        "Command-and-control and military safety",
+        "Proliferation or technology-transfer conduct",
+        "Catastrophic-risk policy"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Local units are country-level conflict and spending context, not ruler-attributed conduct.",
+        "The armed-group lead does not distinguish diplomatic openness, tolerance, safe haven, and material support.",
+        "The OPEC items are locator-missing context and do not establish peacefulness, aggression, or security conduct."
+      ],
+      "missing_themes": [
+        "Chávez-attributed role in internationalized conflict",
+        "Proxy or armed-group support",
+        "Coercive diplomacy and threat behavior",
+        "Peace initiatives and restraint",
+        "Civilian-protection choices",
+        "Military-spending rationale"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 15,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "All retained units are country-level indicators without direct Chávez attribution.",
+        "The State Department, Amnesty, and HRW materials were not extracted to precise target-period locators.",
+        "The notebook gives a credible archive-retrieval blocker; another broad round is unlikely to improve the dossier under the stated access conditions."
+      ],
+      "missing_themes": [
+        "Security-force chain of command",
+        "Chávez orders, knowledge, tolerance, or remedy",
+        "Protest handling",
+        "Prison and detention conditions",
+        "Investigation and accountability",
+        "Incitement and vulnerable-group protection"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 15,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Local source diversity is correctly limited to V-Dem and World Bank WGI.",
+        "Election chronology and coalition results remain context-only because precise primary or observer locators are missing.",
+        "A targeted retrieval of the 2000 Carter Center or comparable observer record could plausibly recover at least two defensible units or close a material election-quality attribution gap."
+      ],
+      "missing_themes": [
+        "2000 election observation conclusions",
+        "Election administration and contestability",
+        "Media access and opposition treatment",
+        "Judicial and legislative independence",
+        "Appointments and institutional control",
+        "Constitutional transfer constraints and de facto executive power"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Economic level and scale facts do not establish Chávez’s choices, implementation, or results.",
+        "Plan Bolívar 2000 and OPEC claims remain locator-missing context rather than defensible external units.",
+        "Targeted retrieval of 2000 budget, OPEC, and macroeconomic records could plausibly add at least two precise units."
+      ],
+      "missing_themes": [
+        "2000 budget and macroeconomic decisions",
+        "Oil policy and public-sector management",
+        "Appointments and economic governance",
+        "Distributional effects",
+        "Crisis response and implementation",
+        "Central-bank or fiscal relations"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "All local units derive from the UNDP HDI family and provide baseline context only.",
+        "Plan Bolívar 2000 items establish possible intent and mobilization, not delivery or outcomes, and lack precise locators.",
+        "Targeted retrieval of contemporaneous program, budget, or implementation records could plausibly add at least two defensible units."
+      ],
+      "missing_themes": [
+        "Concrete 2000 health, education, and social-protection initiatives",
+        "Budgets and delivery",
+        "Regional and group distribution",
+        "Politicization or clientelism",
+        "Institutional durability",
+        "Attributable outcomes"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Institutional corruption and rule-of-law indicators are not personal-integrity findings.",
+        "The NACLA item is contextual and locator-missing; no personal allegation or finding is retained.",
+        "The notebook identifies a ruler-specific primary-record blocker, making another broad research round unlikely to satisfy the marginal-value gate."
+      ],
+      "missing_themes": [
+        "Personal statements, corrections, and truthfulness",
+        "Assets and personal enrichment",
+        "Family or associate benefit",
+        "Procurement and appointment favoritism",
+        "Investigation, scrutiny, and retaliation",
+        "Conflicts of interest"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "State-capacity indicators do not establish Chávez’s program execution or competence.",
+        "Constitutional, welfare, and OPEC leads remain locator-missing context, not defensible external evidence.",
+        "Targeted retrieval of 2000 program, budget, and administrative records could plausibly add at least two precise units."
+      ],
+      "missing_themes": [
+        "Explicit 2000 governing program documents",
+        "Budgets and implementation milestones",
+        "Appointments and administrative coordination",
+        "Adaptation and correction",
+        "Attributable policy outcomes",
+        "Separation of 2000 evidence from post-period enabling legislation"
+      ]
+    }
+  ],
+  "global_findings": [
+    "No external item is defensible: every continuation item is explicitly context, discovery-only, gateway-only, post-period, or lacks a precise locator.",
+    "The local evidence estimates are usable as source-claim units for country-year context, but high attribution risk remains across all chapters.",
+    "The corrected independent-family estimates exclude discovery-only external families and preserve only defensible local source families.",
+    "The notebook correctly preserves stable local fact IDs and does not recreate internet claims across chapter-specific IDs.",
+    "The explicit local-data disposition audit remains incomplete as a deterministic source-by-lens structure; this is cleanup, not a continuation reason.",
+    "Continuation passes the marginal-value gate only for 4B, 5B, 6B, and 8B, where targeted primary or contemporaneous records could plausibly add at least two precise units per chapter. Broad continuation is not justified for the remaining chapters."
+  ],
+  "reviewer_summary": "One continuation round improved contextual orientation but produced no defensible external evidence because precise locators remained unavailable. Continue only with narrowly targeted retrieval for 4B election observation and constitutional records, 5B economic and budget records, 6B program delivery records, and 8B contemporaneous implementation records. Chapters 1B, 3B, 7B have credible scarcity or access-blocker explanations; chapter 2B remains attribution-limited with diminishing returns and does not meet the marginal-value gate. No scores or score advice are present."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Completed a targeted continuation for 4B, 5B, 6B, and 8B without scoring Chávez.
+
+The research recovered these defensible source-claim units:
+
+- `E-R2-001` — Carter Center, final report pp. 63–65: high turnout, peaceful voting, 20% machine problems, parallel count showing Chávez at 57.8%; presidential result appeared representative, while other offices required further audit. Maps to 4B.1, 4B.2, 4B.8, 4B.10. [Carter Center report](https://cartercentee50c07c05.blob.core.windows.net/blobcartercentee50c07c05/wp-content/uploads/2025/09/venezuela-2000-final-rpt.pdf)
+
+- `E-R2-002` — Carter Center, pp. 70–72: CNE appointment and election scheduling faced legal controversy and government pressure; the Center judged the July process flawed and not fully successful. Maps to 4B.2, 4B.4, 4B.5, 4B.8, 8B.1, 8B.2.
+
+- `E-R2-003` — Carter Center, pp. 30–31: Chávez’s constitutional proposal included presidential control over the armed forces, presidential reelection, and a six-year term; accelerated drafting reduced debate and civil-society participation. The source describes a proposal, not every final constitutional provision. Maps to 4B.4, 4B.8, 8B.1, 8B.2.
+
+- `E-R2-004` — USDA Foreign Agricultural Service, Venezuela Agricultural Development Plan report, pp. 1–2: a February 2000 plan presented by Chávez targeted food security, rural development, employment, cultivation, and agricultural finance, with 731 billion bolívares allocated. Maps to 5B.1, 5B.2, 5B.3, 5B.6, 5B.8, 8B.2, 8B.3, 8B.6. [USDA report](https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Venezuela%27s+Agricultural+Plan+for+2000+and+Beyond_Caracas_Venezuela_02-14-2000.pdf)
+
+- `E-R2-005` — Presidential Decree 654, January 23, 2000: Chávez cancelled 2.625 billion bolívares in 2000 National Electoral Council budget credits, including transfers to political parties, and assigned execution to the finance minister. This establishes a ruler-attributed budget decision, not its motive or effect. Maps to 4B.2, 4B.5, 4B.8, 5B.1, 5B.6, 8B.3. [Decree text](https://venezuela.justia.com/federales/decretos/decreto-n-654/gdoc/)
+
+- `E-R2-006` — SciELO scholarly assessment, lines 146–158: Plan Bolívar 2000 was coordinated directly by Chávez and executed by the armed forces, covering housing, education infrastructure, ambulatory health, food, and employment; the article reports weak coordination, concentrated resources, and corruption/arbitrariness allegations. Maps to 6B.1, 6B.2, 6B.4, 6B.5, 6B.9, 8B.2, 8B.3, 8B.6. [SciELO article](https://ve.scielo.org/scielo.php?pid=S1012-25082004000100004&script=sci_arttext)
+
+- `E-R2-007` — Same SciELO assessment, lines 163–177: the 2000 social agenda included maternal-child care, housing, displaced persons, productive employment, participation, and education; social spending rose from 9% of GDP in 1999 to 11% in 2000, while maternal and infant mortality reductions stagnated. Maps to 5B.6, 6B.1, 6B.2, 6B.3, 6B.9, 8B.6, 8B.9. Attribution is limited because the assessment covers a broader 1999–2003 period.
+
+- `E-R2-008` — OPEC Solemn Declaration II, p. 13: Chávez invited OPEC heads of state and government to the September 27–28, 2000 Caracas summit; the declaration linked oil sovereignty with national development. Maps to 5B.1, 5B.3, 5B.6, 8B.1, 8B.9. [OPEC declaration](https://www.opec.org/opec_web/static_files_project/media/downloads/publications/Solemn_Declaration_I-III.pdf)
+
+- `E-R2-009` — Carter Center, pp. 44–46: the CNE sanctioned Chávez for using state television and national radio for a March 16 event and required campaign costs to be paid from campaign funds. This is direct evidence of incumbent-resource concerns and an institutional response. Maps to 4B.3, 4B.5, 4B.7, 4B.8.
+
+The Carter PDF is used for more than two units because these are materially distinct claims from separate sections—constitutional design, election administration, and incumbent media use—with the exception explicitly justified.
+
+Updated chapter status:
+
+- 4B: materially repaired; now has direct observer evidence on election quality, institutional pressure, constitutional concentration, and incumbent media use.
+- 5B: materially repaired; now has a target-year agricultural plan, budget scale, financing structure, and OPEC coordination evidence.
+- 6B: materially repaired; now has program design, Chávez attribution, implementation structure, spending context, and contrary evidence on coordination and outcomes.
+- 8B: materially repaired; now has explicit constitutional, agricultural, social-mobilization, electoral-budget, and OPEC-policy actions.
+- No score or score advice supplied.
+
+I could not update `research-ledger-manifest.json`: local shell access and filesystem writes are blocked by the current sandbox (`bwrap: loopback: Failed RTM_NEWADDR`). The following IDs and dispositions should be appended unchanged:
+
+`E-R2-001` through `E-R2-009` → `disposition: "evidence"`.
+
+Existing `E-R1-*` dispositions remain unchanged.
+---

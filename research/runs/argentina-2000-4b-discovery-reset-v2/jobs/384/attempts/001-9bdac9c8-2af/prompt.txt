@@ -1,0 +1,2368 @@
+Use the ruler-evidence-researcher skill for this job.
+
+Read these required files before research:
+- .agents/skills/ruler-evidence-researcher/SKILL.md
+- docs/methodology/local-first-researcher-guide.md
+- docs/methodology/ranking-evaluation-criteria.md
+- docs/methodology/source-confidence-registry.json
+- docs/methodology/chapter-guides/4b-political-freedom.md
+
+Job input:
+{
+  "country_name": "Argentina",
+  "iso3": "ARG",
+  "job_key": "dossier:argentina-2000-4b-discovery-reset-v2:2000:ARG:2414",
+  "methodology_ids": [
+    "4B.1",
+    "4B.2",
+    "4B.3",
+    "4B.4",
+    "4B.5",
+    "4B.6",
+    "4B.7",
+    "4B.8",
+    "4B.9",
+    "4B.10"
+  ],
+  "model": "MiniMax-M3",
+  "period_end_year": 2000,
+  "period_start_year": 2000,
+  "provider": "minimax",
+  "provider_profile": "minimax-m3-long-context",
+  "ruler_id": "545",
+  "ruler_name": "de la Rua",
+  "ruler_year_id": 2414,
+  "run_key": "argentina-2000-4b-discovery-reset-v2",
+  "worker_output_dir": "/home/liorshtram/projects/leaders-db/research/runs/argentina-2000-4b-discovery-reset-v2/jobs/384/attempts/001-9bdac9c8-2af"
+}
+
+Deduplicated local structured evidence (client matrix excluded):
+{
+  "chapters": [
+    {
+      "chapter_id": "4B",
+      "fact_ids": [
+        "LF001",
+        "LF002",
+        "LF003",
+        "LF004",
+        "LF005",
+        "LF006",
+        "LF007",
+        "LF008",
+        "LF009",
+        "LF010",
+        "LF011",
+        "LF012",
+        "LF013",
+        "LF014",
+        "LF015"
+      ],
+      "mapping_notes": [
+        "Political-freedom D11 country-year facts usable as structured priors.",
+        "D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance."
+      ],
+      "methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      }
+    }
+  ],
+  "disposition_instruction_sets": {
+    "I001": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+    ]
+  },
+  "disposition_reasons": {},
+  "error_methodology_ids": [],
+  "facts": [
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF001",
+      "field_key": "accountability",
+      "label": "Accountability",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_accountability"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 1.499,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF002",
+      "field_key": "civil_liberties",
+      "label": "Civil liberties",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_civlib"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.937,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF003",
+      "field_key": "electoral_democracy",
+      "label": "Electoral democracy",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_polyarchy"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.833,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF004",
+      "field_key": "freedom_association",
+      "label": "Freedom of association",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_frassoc_thick"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.915,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF005",
+      "field_key": "freedom_expression",
+      "label": "Freedom of expression",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_freexp"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.956,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF006",
+      "field_key": "judicial_constraints",
+      "label": "Judicial constraints",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_jucon"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.718,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF007",
+      "field_key": "legislative_constraints",
+      "label": "Legislative constraints",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2xlg_legcon"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.727,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF008",
+      "field_key": "liberal_democracy",
+      "label": "Liberal democracy",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_libdem"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.67,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF009",
+      "field_key": "multiparty_institutions",
+      "label": "Multiparty institutions",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_mpi"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.737,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF010",
+      "field_key": "political_liberties",
+      "label": "Political civil liberties",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_clpol"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.955,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF011",
+      "field_key": "regime_type",
+      "label": "Regime type",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_regime"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 2.0,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF012",
+      "field_key": "rule_of_law",
+      "label": "Rule of law",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_rule"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 0.698,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF013",
+      "field_key": "suffrage",
+      "label": "Suffrage",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "vdem:ARG:2000:v2x_suffr"
+      ],
+      "source_slugs": [
+        "vdem"
+      ],
+      "value": 1.0,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF014",
+      "field_key": "voice_and_accountability",
+      "label": "Voice and accountability",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "world_bank_wgi:ARG:2000:wgi_voice_and_accountability"
+      ],
+      "source_slugs": [
+        "world_bank_wgi"
+      ],
+      "value": 0.41834697127342224,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    },
+    {
+      "candidate_methodology_ids": [
+        "4B.1",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9",
+        "4B.10"
+      ],
+      "chapter_ids": [
+        "4B"
+      ],
+      "confidence": 80,
+      "fact_id": "LF015",
+      "field_key": "wgi_rule_of_law",
+      "label": "WGI rule of law",
+      "locator": "local-prior:4B.1",
+      "source_observation_ids": [
+        "world_bank_wgi:ARG:2000:wgi_rule_of_law"
+      ],
+      "source_slugs": [
+        "world_bank_wgi"
+      ],
+      "value": -0.21440449357032776,
+      "value_type": "number",
+      "warnings": [],
+      "year": 2000
+    }
+  ],
+  "methodology_dispositions": {
+    "4B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": null,
+      "status": "evidence_found"
+    }
+  },
+  "methodology_statuses": {
+    "4B.1": "evidence_found",
+    "4B.10": "evidence_found",
+    "4B.2": "evidence_found",
+    "4B.3": "evidence_found",
+    "4B.4": "evidence_found",
+    "4B.5": "evidence_found",
+    "4B.6": "evidence_found",
+    "4B.7": "evidence_found",
+    "4B.8": "evidence_found",
+    "4B.9": "evidence_found"
+  },
+  "no_evidence_methodology_ids": [],
+  "not_applicable_methodology_ids": [],
+  "schema_version": "ruler_local_prior_package_v1",
+  "source_prior_count": 10,
+  "status_counts": {
+    "evidence_found": 10
+  },
+  "unique_fact_count": 15
+}
+
+Permissive evidence-research notebook and handoff:
+# Research handoff — Argentina, Fernando de la Rúa, 2000
+
+## Execution status
+
+I began with the supplied local structured package and then attempted broad ruler-period reconnaissance and targeted political-freedom discovery.
+
+Web discovery identified several potentially useful reports, but the available Brave tools returned quota-exhaustion errors. The alternate search tool returned discovery results but offered no exact-page extraction facility. Local notebook writing was also unavailable because the execution sandbox failed before running the write command. Consequently:
+
+- No search-result snippet was promoted to final evidence.
+- No exact web source-claim unit was added.
+- The complete substantive handoff is provided below for the parent to persist.
+- No score, score range, anchor, ranking recommendation, or advice on whether a judge should score was produced.
+
+---
+
+## 1. Ruler-period reconnaissance
+
+Fernando de la Rúa was president of Argentina during the target year 2000. The supplied structured data depict Argentina in 2000 as an electoral democracy with:
+
+- high measured civil liberties;
+- high freedom of expression and association;
+- universal suffrage;
+- functioning multiparty institutions;
+- meaningful judicial and legislative constraints;
+- weaker aggregate rule-of-law results than its civil-liberties results;
+- a positive but not exceptionally strong World Bank voice-and-accountability estimate.
+
+These observations establish a country-year institutional baseline. They do **not** by themselves establish:
+
+- which conditions de la Rúa inherited;
+- whether he actively respected or strengthened them;
+- whether he manipulated electoral, judicial, legislative, media, or administrative institutions;
+- his responsibility for any abuses by federal or subnational security forces;
+- whether political freedom improved or deteriorated during 2000.
+
+The narrative research therefore needed to focus primarily on ruler attribution, inherited conditions, opposition and protest treatment, media pressure, institutional appointments, congressional relations, the reported Senate bribery controversy, and the trajectory from accession through the end of 2000.
+
+Only Chapter 4B was selected and supplied. There was no methodological basis here for conducting substantive 1B–3B or 5B–8B research; those chapters should be reported as outside the selected evidence scope, not as having no evidence.
+
+---
+
+# 2. Global evidence register
+
+All retained items below derive from the supplied local package. The package reports no warnings for any item and no `error_methodology_ids`.
+
+## LF001 — Accountability
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_accountability`
+- **Approved locator:** `local-prior:4B.1`
+- **Source observation:** `vdem:ARG:2000:v2x_accountability`
+- **Publisher/source:** V-Dem
+- **Year:** 2000
+- **Claim:** Argentina’s V-Dem accountability value was `1.499`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_accountability`.
+- **Source profile:** Structured dataset; high confidence for the field directly measured; final evidence for that field.
+- **Period fit:** Exact target year.
+- **Ruler attribution:** Country-level institutional condition; does not independently establish a de la Rúa action or intention.
+- **Limitations:** The supplied package does not provide scale interpretation or comparison years.
+- **Candidate lenses:** 4B.4 and 4B.10; contextual relevance to other lenses.
+
+## LF002 — Civil liberties
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_civlib`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_civlib`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Civil-liberties value `0.937`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_civlib`.
+- **Confidence/use:** High; final evidence for the measured country-year field.
+- **Period fit:** Exact.
+- **Attribution:** Country-level outcome, not direct evidence of presidential conduct.
+- **Candidate lenses:** 4B.3, 4B.6, 4B.7, 4B.9, 4B.10.
+
+## LF003 — Electoral democracy
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_polyarchy`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_polyarchy`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Electoral-democracy value `0.833`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_polyarchy`.
+- **Confidence/use:** High; final evidence for the measured field.
+- **Attribution:** Strong evidence of country-year contestability, but not direct evidence that de la Rúa personally refrained from manipulation.
+- **Candidate lenses:** 4B.1, 4B.2, 4B.8, 4B.10.
+
+## LF004 — Freedom of association
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_frassoc_thick`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_frassoc_thick`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Freedom-of-association value `0.915`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_frassoc_thick`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Country-level condition; narrative evidence is required concerning government treatment of unions, NGOs, opposition organizations, and demonstrations.
+- **Candidate lenses:** 4B.3, 4B.7, 4B.10.
+
+## LF005 — Freedom of expression
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_freexp`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_freexp`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Freedom-of-expression value `0.956`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_freexp`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Does not establish whether de la Rúa protected media freedom actively or merely governed within inherited protections.
+- **Candidate lenses:** 4B.3, 4B.6, 4B.10.
+
+## LF006 — Judicial constraints
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_jucon`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_jucon`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Judicial-constraints value `0.718`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_jucon`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Institutional constraint context; no direct evidence about appointments, compliance with judgments, or attempted interference.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.10.
+
+## LF007 — Legislative constraints
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2xlg_legcon`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2xlg_legcon`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Legislative-constraints value `0.727`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2xlg_legcon`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Indicates practical legislative constraint, but does not resolve government conduct toward Congress or the reported labor-reform/Senate bribery controversy.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.10.
+
+## LF008 — Liberal democracy
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_libdem`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_libdem`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Liberal-democracy value `0.670`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_libdem`.
+- **Confidence/use:** High for the aggregate field.
+- **Attribution:** Broad country-level synthesis; not itself evidence of ruler merit.
+- **Candidate lenses:** General Chapter 4B context and 4B.10.
+
+## LF009 — Multiparty institutions
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_mpi`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_mpi`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Multiparty-institutions value `0.737`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_mpi`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Establishes multiparty institutional context, not whether the president treated opposition parties fairly.
+- **Candidate lenses:** 4B.1, 4B.2, 4B.3, 4B.8, 4B.10.
+
+## LF010 — Political civil liberties
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_clpol`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_clpol`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Political-civil-liberties value `0.955`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_clpol`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Country-level result rather than direct evidence of federal executive action.
+- **Candidate lenses:** 4B.3, 4B.6, 4B.7, 4B.9, 4B.10.
+
+## LF011 — Regime type
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_regime`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_regime`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Regime-type coded value `2.0`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_regime`.
+- **Confidence/use:** High for the raw coded value.
+- **Limitation:** The package does not supply codebook semantics. The numerical code must not be translated into a regime label by guesswork.
+- **Attribution:** Country classification, not direct ruler conduct.
+- **Candidate lenses:** 4B.10 and broad regime context.
+
+## LF012 — Rule of law
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_rule`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_rule`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Rule-of-law value `0.698`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_rule`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Institutional context. Direct evidence remains necessary concerning presidential compliance with law and oversight.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.10.
+
+## LF013 — Suffrage
+
+- **Canonical fact key:** `local-prior:4B.1#vdem:ARG:2000:v2x_suffr`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `vdem:ARG:2000:v2x_suffr`
+- **Source/year:** V-Dem, 2000
+- **Claim:** Suffrage value `1.0`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `v2x_suffr`.
+- **Confidence/use:** High for measured field.
+- **Attribution:** Formal political-inclusion baseline; does not establish equal practical access or de la Rúa’s contribution.
+- **Candidate lenses:** 4B.1 and 4B.7.
+
+## LF014 — Voice and accountability
+
+- **Canonical fact key:** `local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_voice_and_accountability`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `world_bank_wgi:ARG:2000:wgi_voice_and_accountability`
+- **Source/year:** World Bank WGI, 2000
+- **Claim:** Voice-and-accountability estimate `0.41834697127342224`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `wgi_voice_and_accountability`.
+- **Confidence/use:** High for the aggregate indicator.
+- **Attribution:** Country-level composite; not ruler-specific.
+- **Candidate lenses:** 4B.1, 4B.3, 4B.10.
+
+## LF015 — WGI rule of law
+
+- **Canonical fact key:** `local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_rule_of_law`
+- **Locator:** `local-prior:4B.1`
+- **Observation:** `world_bank_wgi:ARG:2000:wgi_rule_of_law`
+- **Source/year:** World Bank WGI, 2000
+- **Claim:** Rule-of-law estimate `-0.21440449357032776`.
+- **Exact locator:** Dataset row/field `ARG`, 2000, `wgi_rule_of_law`.
+- **Confidence/use:** High for the measured aggregate indicator.
+- **Attribution:** Country-level result; no direct presidential attribution.
+- **Contrary/mitigating relationship:** It provides an important counterweight to the high civil-liberties and expression indicators: political openness coexisted with weaker aggregate rule-of-law performance.
+- **Candidate lenses:** 4B.4, 4B.5, 4B.10.
+
+---
+
+# 3. Chapter 4B evidence synthesis by lens
+
+## 4B.1 — Acceptance of meaningful electoral contestability
+
+- **Reused IDs:** LF003, LF009, LF013, LF014.
+- **New IDs:** None.
+- **What is established:** Argentina had substantial electoral-democracy and multiparty-institution values in 2000, universal suffrage, and a positive WGI voice-and-accountability estimate.
+- **What is not established:** Whether de la Rúa personally accepted constraints and potential defeat; whether any election held during 2000 was sufficiently consequential to test self-binding; whether his administration manipulated access or resources.
+- **Searches attempted:**
+  - `Argentina Fernando de la Rua 2000 political freedom human rights report`
+  - `site:2009-2017.state.gov Argentina 2000 human rights press freedom assembly de la Rua`
+  - broad search covering government, opposition, media, protest, courts, and elections.
+- **Coverage disposition:** **Partly covered.** Strong country-year institutional context; insufficient ruler-attributed narrative evidence.
+
+## 4B.2 — Electoral or institutional manipulation to entrench power
+
+- **Reused IDs:** LF003, LF006, LF007, LF009, LF012, LF015.
+- **New IDs:** None.
+- **What is established:** Competitive and constraining institutions existed, while rule-of-law measures were materially weaker than civil-liberties measures.
+- **Key unresolved theme:** The reported 2000 Senate bribery controversy is potentially material because it concerns alleged executive efforts to secure passage of labor legislation. A 2013 State Department search result mentioned a later case involving former president de la Rúa and senior cabinet members, but the underlying passage was not extracted and the later legal outcome was not researched. It cannot be treated as evidence here.
+- **Coverage disposition:** **Partly covered.** No verified ruler-attributed manipulation evidence.
+
+## 4B.3 — Tolerance of opposition, criticism, journalism, protest, and civil society
+
+- **Reused IDs:** LF002, LF004, LF005, LF009, LF010, LF014.
+- **New IDs:** None.
+- **What is established:** Civil liberties, association, expression, and political civil liberties were all high at the country-year level.
+- **Narrative gaps:** Treatment of demonstrations and strikes; federal versus provincial police responsibility; opposition criticism; satire; investigative reporting; NGO monitoring.
+- **Coverage disposition:** **Partly covered.** Aggregate conditions are well represented; ruler actions are not.
+
+## 4B.4 — Independent courts, legislatures, and oversight bodies
+
+- **Reused IDs:** LF001, LF006, LF007, LF012, LF015.
+- **New IDs:** None.
+- **What is established:** Judicial and legislative constraints were meaningful but not maximal; V-Dem and WGI rule-of-law measures indicate institutional weakness relative to the exceptionally high civil-liberties indicators.
+- **Narrative gaps:** Judicial appointments, Supreme Court relations, compliance with adverse rulings, congressional bargaining, audit bodies, federalism and local-government autonomy.
+- **Coverage disposition:** **Partly covered.** Institutional baseline only.
+
+## 4B.5 — Personality cult, intimidation, loyalty tests, party capture, or politicization
+
+- **Reused IDs:** LF006, LF007, LF012, LF015 as broad constraints/context.
+- **New IDs:** None.
+- **What is established:** Nothing direct about personality cults, loyalty tests, patronage, or politicization.
+- **Search attempted:** Broad and institutional-manipulation searches described above.
+- **Coverage disposition:** **No usable direct evidence found after explicit discovery searches.** Search-tool quota prevented exact extraction. This is not evidence that such conduct was absent.
+
+## 4B.6 — Independent media and information access
+
+- **Reused IDs:** LF002, LF005, LF010.
+- **New IDs:** None.
+- **What is established:** High country-year civil-liberties and expression indicators.
+- **What remains unresolved:** Pressure on owners or journalists, use of government advertising, defamation actions, censorship, propaganda, access to public information, and whether any adverse incidents were federal or subnational.
+- **Coverage disposition:** **Partly covered.** Country-level outcome only.
+
+## 4B.7 — Political equality for minorities, women, excluded groups, regions, and unpopular views
+
+- **Reused IDs:** LF002, LF004, LF010, LF013.
+- **New IDs:** None.
+- **What is established:** Universal suffrage and high general political/civil-liberties measures.
+- **What remains unresolved:** Practical equality, representation, discrimination, indigenous and minority political participation, women’s political access, treatment of unpopular viewpoints, and unequal regional access.
+- **Coverage disposition:** **No ruler-specific evidence found.** Formal baseline exists, but equality and attribution gaps remain.
+
+## 4B.8 — Term limits, succession, coalition commitments, and constitutional transfer
+
+- **Reused IDs:** LF003, LF009.
+- **New IDs:** None.
+- **Discovery candidate:** The 1999 State Department result snippet states that voters elected de la Rúa and characterizes the election as free and fair. Because the page was not extracted, it remains discovery-only.
+- **What remains unresolved:** Any 2000 conduct testing succession or term-limit restraint; compliance with coalition commitments; whether accession and transfer were constitutionally routine; the role of coalition strains.
+- **Coverage disposition:** **Partly covered.** Democratic succession context exists, but exact narrative support was not extracted.
+
+## 4B.9 — Surveillance, digital controls, shutdowns, or administrative harassment
+
+- **Reused IDs:** LF002, LF005, LF010 only as broad freedom context.
+- **New IDs:** None.
+- **What is established:** No direct evidence regarding surveillance, internet controls, shutdowns, or administrative harassment.
+- **Coverage disposition:** **No usable direct evidence found after explicit searching.** The lack of an item must not be treated as proof of absence, especially for surveillance.
+
+## 4B.10 — Inherited-to-left trajectory in political freedom and democratic resilience
+
+- **Reused IDs:** LF001–LF015.
+- **New IDs:** None.
+- **What is established:** A detailed cross-sectional country-year profile: robust electoral and civil-liberties conditions alongside weaker rule-of-law and only moderate institutional-constraint/accountability indicators.
+- **What is missing:** Comparable 1999 and 2001 values or reliable narrative evidence of reforms and erosion during 2000; ruler-specific causal attribution; durable institutional effects.
+- **Coverage disposition:** **Partly covered.** Cross-sectional baseline is strong, but trajectory is unresolved.
+
+---
+
+# 4. Internet discovery candidate pool
+
+These are **not** defensible evidence because no exact underlying claim and locator were extracted.
+
+## D001 — U.S. Department of State, 2000 Argentina report
+
+- **URL:** https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm
+- **Title:** “Argentina”
+- **Publisher:** U.S. Department of State
+- **Apparent document:** 2000 Country Reports on Human Rights Practices.
+- **Candidate relevance:** Political system, elections, security-force conduct, assembly, association, press, discrimination, and judiciary.
+- **Disposition:** `discovery_only`
+- **Reason:** `underlying_source_missing` for evidentiary purposes; search result only, no exact section/paragraph extracted.
+- **Potential confidence if extracted:** Medium-high government human-rights reporting, subject to institutional perspective and corroboration for contested claims.
+
+## D002 — U.S. Department of State, 1999 Argentina report
+
+- **URL:** https://1997-2001.state.gov/global/human_rights/1999_hrp_report/argentin.html
+- **Title:** “U.S. Department of State, Human Rights Reports for 1999: Argentina”
+- **Candidate relevance:** Inherited baseline, October 1999 election, accession.
+- **Search-result lead:** The snippet says de la Rúa was elected and the elections were considered free and fair.
+- **Disposition:** `discovery_only`
+- **Reason:** No exact page section or paragraph extracted; prior-year source requiring careful temporal labeling.
+
+## D003 — State Department 2001 Argentina report
+
+- **URL:** https://2009-2017.state.gov/j/drl/rls/hrrpt/2001/wha/8278.htm
+- **Candidate relevance:** May contain retrospective 2000 facts and transition into 2001.
+- **Disposition:** `discovery_only`
+- **Reason:** Post-window report not opened; any retrospective claim would require a precise locator and target-period link.
+
+## D004 — Human Rights Watch retrospective page
+
+- **URL:** https://www.hrw.org/legacy/wr2k3/americas1.html
+- **Title:** “Americas: Argentina”
+- **Publisher:** Human Rights Watch
+- **Candidate relevance:** Later de la Rúa-period protest and emergency conduct.
+- **Disposition:** `discovery_only`
+- **Reason:** Search snippet concerns December 2001, outside the 2000 target window. It cannot silently expand the judgment period.
+
+## D005 — State Department 2013 report mentioning the Senate case
+
+- **URL:** https://2009-2017.state.gov/j/drl/rls/hrrpt/2013/wha/220414.htm
+- **Candidate relevance:** Later legal proceedings concerning allegations that de la Rúa administration officials bribed senators in 2000.
+- **Disposition:** `discovery_only`
+- **Reason:** Post-period, search-result snippet only, no exact locator or disposition of the case. Allegation, evidence, and ultimate legal findings must be distinguished.
+
+## Rejected candidates
+
+- Freedom House 2023 country report: rejected for this target period because it concerns 2023 and does not directly establish a 2000 fact.
+- Argentina Foreign Ministry general human-rights page: rejected as non-period-specific and self-serving for government fairness claims.
+- ResearchGate result: rejected because no underlying paper was extracted and the snippet was too vague.
+- A 2006 secondary PDF discovered in search: rejected because no exact content or locator was extracted.
+
+---
+
+# 5. Chapter yield and source diversity
+
+## Chapter 4B
+
+- **Mapped local source-claim units:** 15.
+- **Defensible internet source-claim units:** 0.
+- **Independent source organizations:** 2:
+  - V-Dem
+  - World Bank WGI
+- **Source types:** One broad type—structured cross-national datasets.
+- **Independent locators:** 15 distinct dataset observation/field combinations, though all use the supplied canonical local-prior gateway locator.
+- **Source concentration:** High. Thirteen of fifteen facts come from V-Dem; two come from WGI.
+- **Narrative-source diversity:** None could be defensibly retained due lack of exact-page extraction.
+- **Normal target status:** The chapter has ample structured observations numerically, but fewer than five ruler-attributed narrative source-claim units. It should not be treated as narratively saturated.
+
+No same-URL splits were retained. No web page was split into multiple claims.
+
+---
+
+# 6. Cross-lens reuse
+
+The strongest legitimate reuse relationships are:
+
+- **LF003 electoral democracy:** 4B.1, 4B.2, 4B.8, 4B.10.
+- **LF005 freedom of expression:** 4B.3, 4B.6, 4B.10.
+- **LF006/LF007 constraints:** 4B.2, 4B.4, 4B.5, 4B.10.
+- **LF012/LF015 rule of law:** 4B.2, 4B.4, 4B.5, 4B.10.
+- **LF013 suffrage:** 4B.1 and 4B.7.
+- **LF002/LF004/LF010 civic freedoms:** 4B.3, 4B.6, 4B.7, 4B.9, and trajectory context.
+
+These are mappings, not separate evidence units. They should retain their existing LF IDs rather than being copied under each lens.
+
+---
+
+# 7. Strongest contrary or mitigating evidence
+
+The most important internal tension in the local evidence is:
+
+- Argentina’s civil liberties, expression, association, political liberties, and suffrage indicators were high.
+- Its rule-of-law and institutional-constraint profile was appreciably weaker:
+  - V-Dem rule of law: `0.698`;
+  - WGI rule of law: `-0.21440449357032776`;
+  - judicial constraints: `0.718`;
+  - legislative constraints: `0.727`;
+  - liberal democracy: `0.670`.
+
+This means the evidence should not be summarized merely as “high political freedom.” It depicts broad civic and electoral openness coexisting with institutional and rule-of-law weaknesses.
+
+No exact narrative evidence was obtained that could attribute either the favorable civic-space pattern or adverse institutional weaknesses to de la Rúa personally.
+
+---
+
+# 8. Unresolved gaps and best continuation targets
+
+Highest-value unresolved themes:
+
+1. **The 1999 transfer and inherited baseline**
+   - Exact election-observer or contemporary report.
+   - Whether the election and transfer were free, fair, accepted, and constitutionally routine.
+
+2. **The 2000 Senate bribery controversy**
+   - Contemporaneous congressional, prosecutorial, judicial, or reputable investigative sources.
+   - Precise distinction among allegation, evidence, executive attribution, later acquittal or other disposition.
+   - Its relevance to legislative independence and institutional manipulation.
+
+3. **Protests and security-force conduct during 2000**
+   - Exact event dates, deaths/injuries/arrests, responsible police level, executive authority, investigations, and remedies.
+   - Federal versus provincial responsibility is essential.
+
+4. **Media freedom**
+   - Contemporary press-freedom report or human-rights report.
+   - Government advertising, ownership pressure, defamation, threats, censorship, or access-to-information actions.
+
+5. **Courts and appointments**
+   - Judicial-reform policies, Supreme Court relations, appointment processes, compliance with decisions, and inherited Menem-era institutional conditions.
+
+6. **Coalition and congressional relations**
+   - Whether the Alianza government respected coalition commitments and legislative constraints.
+   - Avoid converting ordinary coalition conflict into political-freedom evidence without a direct mechanism.
+
+7. **Political equality**
+   - Women, minorities, indigenous groups, excluded regions, and unpopular viewpoints.
+   - Separate formal suffrage from practical equality.
+
+8. **Surveillance and administrative harassment**
+   - Contemporary rights reports or legal records.
+   - Absence from current materials is a research gap, not an absence finding.
+
+9. **Trajectory**
+   - Comparable pre-2000 and end-of-2000 evidence.
+   - Concrete changes enacted during the target year and their durability.
+
+Preferred source families for continuation:
+
+- the exact 2000 U.S. State Department report;
+- Amnesty International annual reporting;
+- Human Rights Watch annual reporting;
+- Inter-American Commission on Human Rights material;
+- Committee to Protect Journalists or equivalent contemporary press-freedom reporting;
+- Argentine congressional and judicial records;
+- reputable Argentine newspaper archives;
+- academic histories focused on the Alianza government and institutional politics.
+
+---
+
+# 9. Local-data audit
+
+## Retained and used
+
+All supplied facts were retained:
+
+- LF001–LF015.
+
+They were used as high-confidence structured evidence for the fields they directly measure and as country-year context for Chapter 4B.
+
+## Context-only limitations
+
+All fifteen facts are country-level observations. None directly records a specific de la Rúa decision. They therefore cannot independently establish ruler merit, blame, restraint, manipulation, or reform.
+
+Special limitations:
+
+- **LF011:** Raw regime code retained, but not substantively interpreted because codebook semantics were not supplied.
+- **LF014 and LF015:** Aggregate perception-based governance estimates, useful as broad context but not direct event evidence.
+- **LF008:** Aggregate liberal-democracy index risks double-counting components if used alongside its constituent dimensions.
+- **LF001:** Scale interpretation was not provided, so the raw value should be used cautiously.
+
+## Unused facts
+
+None were entirely unused. LF011 was retained only as coded context and needs a codebook before meaningful interpretation.
+
+## Local-input quality
+
+- `error_methodology_ids`: none.
+- `no_evidence_methodology_ids`: none.
+- `not_applicable_methodology_ids`: none.
+- Warnings: none across LF001–LF015.
+- All local observations fit the exact target year 2000.
+- The central unresolved issue is ruler attribution, not temporal fit.
+
+---
+
+# 10. Manifest handoff
+
+The parent can persist this accounting manifest. Canonical keys preserve each supplied source observation rather than using a generic fact number:
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {
+      "provisional_id": "LF001",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_accountability",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF002",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_civlib",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF003",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_polyarchy",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF004",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_frassoc_thick",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF005",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_freexp",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF006",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_jucon",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF007",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2xlg_legcon",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF008",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_libdem",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF009",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_mpi",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF010",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_clpol",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF011",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_regime",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "LF012",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_rule",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF013",
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_suffr",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF014",
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_voice_and_accountability",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "LF015",
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_rule_of_law",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "D001",
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only"
+    },
+    {
+      "provisional_id": "D002",
+      "canonical_fact_key": "https://1997-2001.state.gov/global/human_rights/1999_hrp_report/argentin.html#underlying-source-not-extracted",
+      "disposition": "discovery_only"
+    },
+    {
+      "provisional_id": "D003",
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2001/wha/8278.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only"
+    },
+    {
+      "provisional_id": "D004",
+      "canonical_fact_key": "https://www.hrw.org/legacy/wr2k3/americas1.html#outside-window-source-not-extracted",
+      "disposition": "discovery_only"
+    },
+    {
+      "provisional_id": "D005",
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2013/wha/220414.htm#retrospective-allegation-not-extracted",
+      "disposition": "discovery_only"
+    }
+  ]
+}
+```
+
+## Final self-audit
+
+- **Temporal fit:** Exact for every retained local fact.
+- **Ruler attribution:** Weak throughout; all retained evidence is country-level.
+- **Independent corroboration:** V-Dem and WGI provide some cross-source corroboration for broad governance conditions, but no narrative corroboration.
+- **Weak/context-only evidence:** LF011; all discovery candidates.
+- **Claims lacking exact locators:** Every web discovery candidate; none was promoted.
+- **Post-period evidence:** D003–D005 remain discovery-only and must be used only if exact retrospective target-year claims are extracted and clearly labeled.
+- **Client matrix:** Not used.
+- **Score-bearing conclusions:** None produced.
+- **Research saturation:** Not reached. The web-extraction quota was the blocker.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF001"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_civlib",
+      "disposition": "final_evidence",
+      "provisional_id": "LF002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_polyarchy",
+      "disposition": "final_evidence",
+      "provisional_id": "LF003"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_frassoc_thick",
+      "disposition": "final_evidence",
+      "provisional_id": "LF004"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_freexp",
+      "disposition": "final_evidence",
+      "provisional_id": "LF005"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_jucon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF006"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2xlg_legcon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF007"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_libdem",
+      "disposition": "final_evidence",
+      "provisional_id": "LF008"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_mpi",
+      "disposition": "final_evidence",
+      "provisional_id": "LF009"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_clpol",
+      "disposition": "final_evidence",
+      "provisional_id": "LF010"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_regime",
+      "disposition": "context",
+      "provisional_id": "LF011"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_rule",
+      "disposition": "final_evidence",
+      "provisional_id": "LF012"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_suffr",
+      "disposition": "final_evidence",
+      "provisional_id": "LF013"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_voice_and_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF014"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_rule_of_law",
+      "disposition": "final_evidence",
+      "provisional_id": "LF015"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D001"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/global/human_rights/1999_hrp_report/argentin.html#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D002"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2001/wha/8278.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/legacy/wr2k3/americas1.html#outside-window-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D004"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2013/wha/220414.htm#retrospective-allegation-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D005"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "4B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 15,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "All retained evidence is country-level and does not establish de la Rúa's personal conduct or responsibility.",
+        "Discovery candidates are correctly excluded, but exact underlying sections and locators were not extracted.",
+        "The chapter reports research exhaustion due to access/quota failure rather than credible saturation or a durable access blocker.",
+        "The source-family count is two, below the configured minimum of three; the approximate count of four is not supported by the retained evidence.",
+        "The raw V-Dem regime code is not interpretable without its codebook.",
+        "The cross-sectional indicators should not be presented as evidence of improvement, deterioration, or ruler-caused institutional outcomes."
+      ],
+      "missing_themes": [
+        "Direct evidence of de la Rúa's acceptance of electoral contestability, self-binding, and non-manipulation.",
+        "Precise evidence on the 2000 Senate bribery controversy, including executive direction, knowledge, benefit, obstruction, and legal disposition.",
+        "Contemporaneous evidence on protests, strikes, security-force conduct, responsible authority level, investigations, and remedies.",
+        "Ruler-attributed evidence on media pressure, government advertising, censorship, journalist treatment, and information access.",
+        "Evidence on judicial appointments, Supreme Court relations, compliance with adverse rulings, and oversight institutions.",
+        "Evidence concerning loyalty tests, patronage, party capture, intimidation, or politicization.",
+        "Evidence on practical political equality for women, minorities, indigenous groups, excluded regions, and unpopular viewpoints.",
+        "Evidence on coalition commitments, congressional relations, succession restraint, and constitutional transfer.",
+        "Evidence on surveillance, administrative harassment, shutdowns, or digital controls.",
+        "Comparable 1999 and 2001 evidence establishing inherited conditions, within-period change, and durable effects.",
+        "The local-prior locator is a recoverable gateway-level locator; underlying dataset artifacts or source URLs are not supplied.",
+        "The dossier is highly concentrated in V-Dem and World Bank WGI and lacks independent contemporary narrative corroboration."
+      ]
+    }
+  ],
+  "global_findings": [
+    "The notebook correctly avoids scores, score ranges, ranking advice, and promotion of search snippets.",
+    "Local facts are temporally fitted to 2000 and generally defensible for the measured country-year fields, but they provide weak ruler attribution.",
+    "Duplicated cross-lens copies are avoided through stable LF identifiers.",
+    "Continuation is warranted because exact source extraction, attribution recovery, contrary evidence, and multiple missing event themes remain researchable.",
+    "Missing evidence must not be treated as negative evidence about de la Rúa."
+  ],
+  "reviewer_summary": "Chapter 4B has a usable country-year baseline of approximately 15 defensible local source-claim units from two independent source families, but no defensible contemporary narrative units and high attribution risk. The notebook has not reached credible saturation; continuation should target precise extraction and ruler-attributed evidence across all ten lenses, especially the Senate controversy, protests and security forces, media, courts, coalition relations, equality, surveillance, and 1999–2001 trajectory."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+# Review-round 1 continuation handoff  
+## Argentina — Fernando de la Rúa — 2000 — Chapter 4B
+
+Research continued from the prior evidence register. No score or score range was assigned.
+
+The web tools again became quota-limited after a small number of searches. Search-result discovery was possible, but exact-page fetching was unavailable in this execution environment. Therefore, I retained only source claims that were sufficiently recoverable from the returned source records and explicitly marked all snippet-only material as discovery-only. No search-result snippet was treated as a defensible final evidence unit.
+
+The local structured evidence remains unchanged. It consists of LF001–LF015 from V-Dem and World Bank WGI.
+
+---
+
+## 1. New evidence register
+
+### E001 — 2000 Senate bribery allegations concerned labor-reform legislation
+
+- **Provisional ID:** `E001`
+- **Canonical fact key:** `https://www.chicagotribune.com/2000/11/03/scandal-unemployment-mar-first-year-in-office-for-argentine-president/#bribery-scandal-labor-reform-claim`
+- **URL:** https://www.chicagotribune.com/2000/11/03/scandal-unemployment-mar-first-year-in-office-for-argentine-president/
+- **Title:** “Scandal, Unemployment Mar First Year in Office for Argentine President”
+- **Publisher:** Chicago Tribune
+- **Publication date:** November 3, 2000
+- **Source type:** Reputable media
+- **Source confidence:** Medium-high
+- **Final evidence use:** `context`
+- **Claim:** The contemporary article’s search extract states that the alleged bribery scandal occurred during de la Rúa’s effort to advance labor legislation.
+- **Main-point summary:** The scandal was contemporaneous with the president’s legislative program and therefore directly relevant to executive-legislative relations, legislative independence, coalition stability, and possible institutional manipulation.
+- **Precise locator:** Exact article section or paragraph was not available because the page could not be fetched. This is a gateway-level locator only.
+- **Supporting excerpt:** “In de la Rua’s case, the damage has been particularly severe because the bribery scandal is alleged to have occurred during a push for labor …”
+- **Target-period fit:** Exact contemporaneous date in 2000; the alleged conduct concerns the target year.
+- **Ruler attribution:** The article directly connects the alleged scandal to de la Rúa’s legislative push, but the extract does not establish that he ordered, knew of, benefited from, or obstructed bribery.
+- **Contrary/mitigating points:** This is an allegation, not a finding of fact. The excerpt does not establish the eventual legal disposition.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.10.
+- **Disposition:** `context`
+- **Reason for context rather than final evidence:** Exact-page locator unavailable and the returned material is a search extract rather than a verified article passage.
+
+---
+
+### E002 — Senate bribery allegations threatened the governing coalition
+
+- **Provisional ID:** `E002`
+- **Canonical fact key:** `https://www.wyso.org/2000-09-15/argentine-corruption#senate-scandal-ruling-coalition`
+- **URL:** https://www.wyso.org/2000-09-15/argentine-corruption
+- **Title:** “Argentine Corruption”
+- **Publisher:** WYSO / NPR
+- **Publication date:** September 15, 2000
+- **Source type:** Public-service media
+- **Source confidence:** Medium-high
+- **Final evidence use:** `context`
+- **Claim:** The contemporary NPR report described a bribery scandal in the Argentine Senate as threatening the governing coalition of President de la Rúa.
+- **Main-point summary:** The scandal was not merely a judicial or legislative incident; it had immediate consequences for coalition cohesion and the government’s political legitimacy.
+- **Precise locator:** Exact transcript timestamp or page paragraph was unavailable because the page could not be fetched.
+- **Supporting excerpt:** “NPR’s Martin Kaste in Buenos Aires reports a bribery scandal in the Argentine Senate is threatening the ruling coalition of President …”
+- **Target-period fit:** Exact; published September 15, 2000.
+- **Ruler attribution:** The report links the political consequences to de la Rúa’s ruling coalition, but does not prove personal presidential involvement.
+- **Contrary/mitigating points:** Coalition damage can result from allegations or perceived failure to investigate; it does not itself prove bribery or executive direction.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.8, 4B.10.
+- **Disposition:** `context`
+- **Reason:** Gateway/search extract only; no exact underlying transcript locator.
+
+---
+
+### E003 — Senators surrendered or offered to surrender immunity amid the scandal
+
+- **Provisional ID:** `E003`
+- **Canonical fact key:** `http://www.cnn.com/2000/WORLD/americas/09/01/argentina.bribes.02.reut/#senator-immunity`
+- **URL:** http://www.cnn.com/2000/WORLD/americas/09/01/argentina.bribes.02.reut/
+- **Title:** “Bribe Charges Shake Argentina’s Senate”
+- **Publisher:** CNN, carrying Reuters
+- **Publication date:** September 1, 2000
+- **Source type:** International wire media
+- **Source confidence:** Medium-high
+- **Final evidence use:** `context`
+- **Claim:** The search extract states that three senators gave up immunity from prosecution and four others offered to resign their seats as the bribery scandal threatened the Senate.
+- **Main-point summary:** The scandal generated concrete institutional reactions by legislators, indicating a serious public and political crisis around allegations tied to Senate voting.
+- **Precise locator:** Exact article paragraph was not accessible.
+- **Supporting excerpt:** “Three senators gave up their immunity from prosecution Friday and four others offered to quit their seats as a bribery scandal threatened to …”
+- **Target-period fit:** Exact; September 1, 2000.
+- **Ruler attribution:** None established beyond the scandal’s relationship to the government’s legislative agenda.
+- **Contrary/mitigating points:** Institutional reaction to allegations is not proof that the alleged bribes occurred.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.8, 4B.10.
+- **Disposition:** `context`
+- **Reason:** Exact-page extraction unavailable.
+
+---
+
+### E004 — The allegations concerned senators accepting money for a labor-reform vote
+
+- **Provisional ID:** `E004`
+- **Canonical fact key:** `https://www.washingtonpost.com/archive/politics/2000/10/11/bribery-scandal-singes-argentine-anti-graft-crusader/6e32f5a2-9e4d-497d-8011-3b4a249cf6ca/#senators-labor-reform`
+- **URL:** https://www.washingtonpost.com/archive/politics/2000/10/11/bribery-scandal-singes-argentine-anti-graft-crusader/6e32f5a2-9e4d-497d-8011-3b4a249cf6ca/
+- **Title:** “Bribery Scandal Singes Argentine Anti-Graft Crusader”
+- **Publisher:** The Washington Post
+- **Publication date:** October 11, 2000
+- **Source type:** Reputable international media
+- **Source confidence:** Medium-high
+- **Final evidence use:** `context`
+- **Claim:** The search extract states that eleven senators were under investigation for allegedly accepting bribes to vote for a labor-reform bill central to the president’s agenda.
+- **Main-point summary:** The allegation directly implicated legislative voting and the government’s core legislative program, making it relevant to possible executive pressure or corruption, though not conclusive of either.
+- **Precise locator:** Exact article paragraph was unavailable.
+- **Supporting excerpt:** “11 senators are under investigation for allegedly accepting bribes to vote for a labor reform bill that is at the core of the president’s …”
+- **Target-period fit:** Exact; October 11, 2000.
+- **Ruler attribution:** The president’s legislative agenda is identified, but there is no proof in the extract that de la Rúa authorized or knew about payments.
+- **Contrary/mitigating points:** “Under investigation” and “allegedly” are material qualifiers.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.10.
+- **Disposition:** `context`
+- **Reason:** Search extract only; underlying article not fetched.
+
+---
+
+### E005 — Contemporary reporting described the scandal as damaging de la Rúa’s presidency
+
+- **Provisional ID:** `E005`
+- **Canonical fact key:** `https://archive.globalpolicy.org/nations/launder/general/2000/1011af.htm#coalition-damage`
+- **URL:** https://archive.globalpolicy.org/nations/launder/general/2000/1011af.htm
+- **Title:** “Bribery Scandal Singes Argentine Anti-Graft Crusader”
+- **Publisher/archive:** Global Policy Forum archive, reproducing or linking Washington Post material
+- **Publication date:** October 11, 2000
+- **Source type:** Archived media reproduction
+- **Source confidence:** Medium
+- **Final evidence use:** `context`
+- **Claim:** The search extract states that de la Rúa’s popularity had fallen and that his center-left governing coalition was at risk of rupturing over the Senate bribery scandal.
+- **Main-point summary:** The scandal had visible political consequences and weakened the governing coalition during the target year.
+- **Precise locator:** Exact archived article section unavailable.
+- **Supporting excerpt:** “De la Rua’s popularity has plummeted, and his governing center-left coalition is in danger of rupturing over a bribery scandal in the Senate …”
+- **Target-period fit:** Exact; October 2000.
+- **Ruler attribution:** Political impact is linked to the presidency and coalition, but no direct culpability is established.
+- **Contrary/mitigating points:** A fall in popularity may reflect political responsibility, perceived failure to respond, or generalized scandal effects; the extract cannot distinguish these.
+- **Candidate lenses:** 4B.2, 4B.5, 4B.8, 4B.10.
+- **Disposition:** `context`
+- **Reason:** Archive/search extract only; source may reproduce another outlet’s material.
+
+---
+
+### E006 — Contemporary press-freedom reporting linked a protest to de la Rúa’s failure to dismiss officials implicated in the scandal
+
+- **Provisional ID:** `E006`
+- **Canonical fact key:** `https://cpj.org/2001/03/attacks-on-the-press-2000-argentina/#protest-officials-bribery`
+- **URL:** https://cpj.org/2001/03/attacks-on-the-press-2000-argentina/
+- **Title:** “Attacks on the Press 2000: Argentina”
+- **Publisher:** Committee to Protect Journalists
+- **Publication date:** March 19, 2001
+- **Source type:** Press-freedom NGO
+- **Source confidence:** Medium-high
+- **Final evidence use:** `context`
+- **Claim:** The search extract says that a protest occurred against de la Rúa’s failure to dismiss two officials implicated in the bribery scandal; it also states that the scandal forced Senate President José Genoud to resign.
+- **Main-point summary:** A press-freedom organization’s retrospective 2000 report links the scandal to demands for executive accountability and a senior Senate resignation.
+- **Precise locator:** Exact report section or paragraph was unavailable.
+- **Supporting excerpt:** “… protest against de la Rúa’s failure to dismiss two officials implicated in the bribery scandal. The scandal also forced Senator José Genoud …”
+- **Target-period fit:** The report is published in 2001 but explicitly concerns 2000 events; this must be treated as retrospective reporting about the target period.
+- **Ruler attribution:** The reported failure to dismiss officials is directly attributed to de la Rúa, but the extract does not identify the officials, explain the allegations, or establish the legal basis for dismissal.
+- **Contrary/mitigating points:** The report may be documenting a press-related protest rather than independently adjudicating the underlying allegations.
+- **Candidate lenses:** 4B.2, 4B.3, 4B.5, 4B.6, 4B.10.
+- **Disposition:** `context`
+- **Reason:** Exact-page extraction unavailable; post-period publication requires careful retrospective labeling.
+
+---
+
+### E007 — Later reporting states that de la Rúa and seven others were acquitted in the bribery case
+
+- **Provisional ID:** `E007`
+- **Canonical fact key:** `https://www.aljazeera.com/amp/news/2013/12/24/former-argentina-president-cleared-of-bribery#2013-acquittal`
+- **URL:** https://www.aljazeera.com/amp/news/2013/12/24/former-argentina-president-cleared-of-bribery
+- **Title:** “Former Argentina President Cleared of Bribery”
+- **Publisher:** Al Jazeera
+- **Publication date:** December 24, 2013
+- **Source type:** International media
+- **Source confidence:** Medium-high
+- **Final evidence use:** `context`
+- **Claim:** The search extract reports that de la Rúa and seven others, including a former labor minister, senators, and a congressional worker, were acquitted of charges involving payments.
+- **Main-point summary:** The later legal disposition materially qualifies the 2000 allegations. The dossier must not treat the contemporary scandal as an adjudicated finding that de la Rúa bribed senators.
+- **Precise locator:** Exact article paragraph unavailable.
+- **Target-period fit:** The acquittal is outside the target year but directly bears retrospectively on the legal status of allegations arising from 2000.
+- **Ruler attribution:** The existence of charges involved de la Rúa, but the reported acquittal is contrary evidence against treating the alleged bribery as established fact.
+- **Contrary/mitigating points:** The search extract does not provide the court’s reasoning, whether all factual findings were rejected, or whether separate conduct remained disputed.
+- **Candidate lenses:** 4B.2, 4B.4, 4B.5, 4B.10.
+- **Disposition:** `context`
+- **Reason:** Post-period legal report; exact-page extraction and judicial reasoning unavailable.
+
+---
+
+## 2. Updated lens log
+
+### 4B.1 — Electoral contestability
+
+- **Reused local IDs:** LF003, LF009, LF013, LF014.
+- **New IDs:** None.
+- **Searches attempted:**
+  - Argentina 2000 de la Rúa political freedom and human-rights reporting.
+  - 1999 election and free/fair election discovery.
+  - Spanish-language variants concerning elections and constitutional democracy.
+- **Result:** No exact election-observer or official electoral source was fetched.
+- **Disposition:** **Partly covered.**
+- **Remaining gap:** Direct evidence of de la Rúa’s acceptance of possible electoral defeat and self-binding.
+
+### 4B.2 — Non-manipulation of electoral and state institutions
+
+- **Reused IDs:** LF003, LF006, LF007, LF009, LF012, LF015.
+- **New IDs:** E001, E003, E004, E005, E006, E007.
+- **Newly improved theme:** The Senate controversy is now supported by multiple contemporary media reports and a later reported acquittal, though only at context level because exact pages were inaccessible.
+- **Result:** Evidence establishes that a serious bribery allegation affected a labor-reform vote and threatened the governing coalition. It does not establish executive direction, knowledge, benefit, or obstruction.
+- **Disposition:** **Partly covered, materially improved but still high attribution risk.**
+
+### 4B.3 — Opposition, protest, journalism, and civil society
+
+- **Reused IDs:** LF002, LF004, LF005, LF010, LF014.
+- **New IDs:** E006.
+- **Result:** CPJ discovery provides a ruler-attributed lead concerning failure to dismiss officials and a related protest. No exact section was extracted, and no broader protest/security-force record was obtained.
+- **Disposition:** **Partly covered.**
+- **Remaining gap:** Contemporaneous protest events, police conduct, official responsibility, investigations, remedies, and treatment of opposition organizations.
+
+### 4B.4 — Courts, legislature, and oversight
+
+- **Reused IDs:** LF001, LF006, LF007, LF012, LF015.
+- **New IDs:** E001, E003, E004, E006, E007.
+- **Result:** The Senate controversy and later acquittal make the legislative-integrity and legal-disposition dimensions concrete, but there is still no direct evidence on judicial appointments, Supreme Court relations, compliance with adverse judgments, or oversight bodies.
+- **Disposition:** **Partly covered.**
+
+### 4B.5 — Politicization, loyalty tests, intimidation, and capture
+
+- **Reused IDs:** LF006, LF007, LF012, LF015.
+- **New IDs:** E001, E004, E005, E006, E007.
+- **Result:** The scandal provides a possible institutional-capture or patronage lead, but the evidence remains allegation-level and does not prove a personalist or systematic loyalty regime.
+- **Disposition:** **Partly covered for the Senate controversy; no evidence for personality cult, loyalty tests, or broader politicization.**
+
+### 4B.6 — Media independence and information access
+
+- **Reused IDs:** LF002, LF005, LF010.
+- **New IDs:** E006.
+- **Result:** CPJ is a relevant source family and the search extract directly references a protest concerning executive failure to dismiss implicated officials. It does not yet provide a full 2000 press-freedom assessment or specific media-pressure incidents.
+- **Disposition:** **Partly covered.**
+- **Remaining gap:** Government advertising, censorship, journalist threats, defamation, ownership pressure, and public-information access.
+
+### 4B.7 — Political equality
+
+- **Reused IDs:** LF002, LF004, LF010, LF013.
+- **New IDs:** None.
+- **Result:** No new exact evidence.
+- **Disposition:** **No direct ruler-attributed evidence found.**
+- **Remaining gap:** Women, indigenous and other minorities, excluded regions, and unpopular viewpoints.
+
+### 4B.8 — Transfer, succession, and coalition commitments
+
+- **Reused IDs:** LF003, LF009.
+- **New IDs:** E002, E005.
+- **Result:** Contemporary reporting indicates serious coalition strain from the Senate scandal. This is relevant to coalition commitments and legislative governance but does not establish a violation of succession rules or term limits.
+- **Disposition:** **Partly covered.**
+- **Remaining gap:** Exact evidence on constitutional transfer, coalition agreements, and de la Rúa’s conduct toward succession constraints.
+
+### 4B.9 — Surveillance and administrative harassment
+
+- **Reused IDs:** LF002, LF005, LF010.
+- **New IDs:** None.
+- **Result:** No usable evidence found.
+- **Disposition:** **No evidence found after explicit discovery attempts.**
+- **Caution:** This is a search gap, not evidence of absence.
+
+### 4B.10 — Trajectory and democratic resilience
+
+- **Reused IDs:** LF001–LF015.
+- **New IDs:** E001–E007.
+- **Result:** The new material establishes a politically damaging 2000 institutional controversy, coalition strain, and a later acquittal that complicates causal interpretation. It does not establish a broad trajectory of political-freedom deterioration or improvement.
+- **Disposition:** **Partly covered.**
+- **Remaining gap:** Comparable 1999 and 2001 indicators, concrete reforms or erosions, and durable effects.
+
+---
+
+## 3. Source-family update
+
+The retained source-family landscape is now:
+
+1. **V-Dem** — structured dataset.
+2. **World Bank WGI** — structured dataset.
+3. **Chicago Tribune** — contemporary international media.
+4. **WYSO/NPR** — contemporary public-service media.
+5. **Reuters via CNN** — contemporary international wire media.
+6. **Washington Post** — contemporary international media.
+7. **Committee to Protect Journalists** — press-freedom NGO, retrospective 2000 report published in 2001.
+8. **Al Jazeera** — later international media reporting on legal disposition.
+
+However, only V-Dem and WGI provide exact retained local locators. The new web items remain context-level because exact-page extraction failed. The nominal source-family count has improved, but the chapter still lacks defensible exact-locator contemporary narrative units.
+
+Source concentration remains substantial:
+
+- The local quantitative baseline is concentrated in V-Dem.
+- The new narrative material is concentrated around one theme: the Senate bribery controversy.
+- The protest/media lead E006 is related to the same controversy.
+- No source-family diversity was obtained for surveillance, equality, judicial appointments, or security-force conduct.
+
+---
+
+## 4. Contrary evidence and attribution limits
+
+The most important contrary evidence added is E007:
+
+- Contemporary reports describe serious bribery allegations involving a labor-reform vote.
+- Later reporting states that de la Rúa and seven others were acquitted.
+- Therefore, the scandal can be retained as evidence of a major institutional controversy and its political consequences, but not as proof that de la Rúa bribed senators.
+
+Additional attribution limits:
+
+- E001, E002, E004, and E005 connect the scandal to de la Rúa’s legislative agenda or governing coalition but do not prove his knowledge or authorization.
+- E006 reports a protest against his failure to dismiss implicated officials, which is more directly ruler-attributed, but the exact article passage and factual details were not available.
+- The evidence does not resolve whether executive responsibility consisted of ordering wrongdoing, knowing tolerance, failure to investigate, or merely political association with the legislative program.
+
+---
+
+## 5. Remaining gaps after review round 1
+
+The following gaps remain open:
+
+1. Exact 2000 State Department human-rights report sections for assembly, press, judiciary, police, discrimination, and elections.
+2. Exact contemporaneous documentation of protests, strikes, police use of force, and investigations.
+3. Direct evidence concerning de la Rúa’s knowledge, authorization, response, or obstruction in the Senate controversy.
+4. Judicial record and reasoning for the later acquittal.
+5. Judicial appointments, Supreme Court relations, and compliance with adverse judgments.
+6. Government advertising, media pressure, journalist treatment, censorship, and information access.
+7. Practical political equality for women, indigenous groups, minorities, regions, and unpopular viewpoints.
+8. Surveillance, administrative harassment, and any 2000 digital-control issues.
+9. 1999 baseline and 2001 comparison evidence.
+10. Underlying URLs and exact dataset artifacts for the supplied local-prior observations.
+
+Some gaps could not be improved in this round because the search quota prevented exact-page retrieval. They should not be converted into negative findings.
+
+---
+
+## 6. Manifest additions
+
+The following entries should be appended to `research-ledger-manifest.json`:
+
+```json
+[
+  {
+    "provisional_id": "E001",
+    "canonical_fact_key": "https://www.chicagotribune.com/2000/11/03/scandal-unemployment-mar-first-year-in-office-for-argentine-president/#bribery-scandal-labor-reform-claim",
+    "disposition": "context"
+  },
+  {
+    "provisional_id": "E002",
+    "canonical_fact_key": "https://www.wyso.org/2000-09-15/argentine-corruption#senate-scandal-ruling-coalition",
+    "disposition": "context"
+  },
+  {
+    "provisional_id": "E003",
+    "canonical_fact_key": "http://www.cnn.com/2000/WORLD/americas/09/01/argentina.bribes.02.reut/#senator-immunity",
+    "disposition": "context"
+  },
+  {
+    "provisional_id": "E004",
+    "canonical_fact_key": "https://www.washingtonpost.com/archive/politics/2000/10/11/bribery-scandal-singes-argentine-anti-graft-crusader/6e32f5a2-9e4d-497d-8011-3b4a249cf6ca/#senators-labor-reform",
+    "disposition": "context"
+  },
+  {
+    "provisional_id": "E005",
+    "canonical_fact_key": "https://archive.globalpolicy.org/nations/launder/general/2000/1011af.htm#coalition-damage",
+    "disposition": "context"
+  },
+  {
+    "provisional_id": "E006",
+    "canonical_fact_key": "https://cpj.org/2001/03/attacks-on-the-press-2000-argentina/#protest-officials-bribery",
+    "disposition": "context"
+  },
+  {
+    "provisional_id": "E007",
+    "canonical_fact_key": "https://www.aljazeera.com/amp/news/2013/12/24/former-argentina-president-cleared-of-bribery#2013-acquittal",
+    "disposition": "context"
+  }
+]
+```
+
+No prior item changed disposition. All new web items remain out of the defensible exact-locator evidence count until the underlying pages or documents can be opened and the claims checked directly.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF001"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_civlib",
+      "disposition": "final_evidence",
+      "provisional_id": "LF002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_polyarchy",
+      "disposition": "final_evidence",
+      "provisional_id": "LF003"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_frassoc_thick",
+      "disposition": "final_evidence",
+      "provisional_id": "LF004"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_freexp",
+      "disposition": "final_evidence",
+      "provisional_id": "LF005"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_jucon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF006"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2xlg_legcon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF007"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_libdem",
+      "disposition": "final_evidence",
+      "provisional_id": "LF008"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_mpi",
+      "disposition": "final_evidence",
+      "provisional_id": "LF009"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_clpol",
+      "disposition": "final_evidence",
+      "provisional_id": "LF010"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_regime",
+      "disposition": "context",
+      "provisional_id": "LF011"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_rule",
+      "disposition": "final_evidence",
+      "provisional_id": "LF012"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_suffr",
+      "disposition": "final_evidence",
+      "provisional_id": "LF013"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_voice_and_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF014"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_rule_of_law",
+      "disposition": "final_evidence",
+      "provisional_id": "LF015"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D001"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/global/human_rights/1999_hrp_report/argentin.html#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D002"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2001/wha/8278.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/legacy/wr2k3/americas1.html#outside-window-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D004"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2013/wha/220414.htm#retrospective-allegation-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D005"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "4B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 15,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "All retained local evidence is country-level and does not establish de la Rúa's personal conduct or responsibility.",
+        "The seven continuation items remain search-result or gateway extracts without precise underlying locators, so they are excluded from the defensible estimate but remain recoverable research leads.",
+        "The notebook reports quota and extraction failure rather than credible saturation or a durable access-blocker explanation.",
+        "The retained evidence is concentrated in V-Dem and World Bank WGI; no defensible contemporary narrative source-claim units were added.",
+        "The raw V-Dem regime code is not substantively interpretable without its codebook.",
+        "Cross-sectional indicators must not be presented as evidence of improvement, deterioration, or ruler-caused outcomes.",
+        "The Senate allegations require explicit separation of allegation, political consequence, executive attribution, and later acquittal."
+      ],
+      "missing_themes": [
+        "Direct evidence of de la Rúa's acceptance of electoral contestability, self-binding, and non-manipulation.",
+        "Precise evidence on the 2000 Senate bribery controversy, including executive direction, knowledge, benefit, obstruction, and legal disposition.",
+        "Contemporaneous evidence on protests, strikes, security-force conduct, responsible authority level, investigations, and remedies.",
+        "Ruler-attributed evidence on media pressure, government advertising, censorship, journalist treatment, and information access.",
+        "Evidence on judicial appointments, Supreme Court relations, compliance with adverse rulings, and oversight institutions.",
+        "Evidence concerning loyalty tests, patronage, party capture, intimidation, or politicization.",
+        "Evidence on practical political equality for women, minorities, indigenous groups, excluded regions, and unpopular viewpoints.",
+        "Evidence on coalition commitments, congressional relations, succession restraint, and constitutional transfer.",
+        "Evidence on surveillance, administrative harassment, shutdowns, or digital controls.",
+        "Comparable 1999 and 2001 evidence establishing inherited conditions, within-period change, and durable effects.",
+        "Underlying dataset artifacts or source URLs for the local-prior gateway locators."
+      ]
+    }
+  ],
+  "global_findings": [
+    "The notebook correctly avoids scores, ranking advice, and promotion of snippets as final evidence.",
+    "The 15 local units are usable for their identified country-year fields, with exact target-period fit, but their local-prior locators remain recoverable gateway-level references rather than complete underlying source locators.",
+    "Cross-lens reuse uses stable LF identifiers and does not create duplicated evidence units.",
+    "Missing evidence is not negative evidence about de la Rúa.",
+    "Continuation can materially improve the dossier by recovering precise locators and attribution, contrary evidence, and missing event coverage; this is not workflow exhaustion or saturation."
+  ],
+  "reviewer_summary": "Chapter 4B remains materially underdeveloped for ruler-attributed evaluation. It has 15 defensible local country-year source-claim units from two independent source families, but no defensible exact-locator contemporary narrative units and high attribution risk. The identified Senate, protest, media, institutional, equality, surveillance, and trajectory gaps remain research-recoverable and require continuation."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Internet continuation completed; no score was assigned.
+
+I recovered seven exact-locator source-claim units:
+
+- **R2E001 — HRW, World Report 2001, Argentina, lines 46–47:** De la Rúa’s administration did not obstruct European prosecutions of former military personnel and provided only consular assistance. Supports 4B.2, 4B.4, 4B.10; direct evidence of restraint, but limited to this issue. [Source](https://www.hrw.org/legacy/wr2k1/americas/argentina.html)
+- **R2E002 — HRW, lines 66:** On April 19, 2000, Federal Police violently suppressed an anti-labor-reform demonstration; 35 were wounded and 50 detained. Supports 4B.3 and 4B.10. Ruler attribution is indirect: federal police conduct, not proven presidential order. [Source](https://www.hrw.org/legacy/wr2k1/americas/argentina.html)
+- **R2E003 — HRW, lines 48–65:** Reports torture, deaths in custody, alleged police abuses, and investigations across Santiago del Estero, Corrientes, Jujuy, Córdoba, and Buenos Aires Province. Supports 4B.3, 4B.4, 4B.7, 4B.10. Responsibility is predominantly provincial or police-level; do not attribute automatically to de la Rúa. [Source](https://www.hrw.org/legacy/wr2k1/americas/argentina.html)
+- **R2E004 — HRW, lines 67–69:** Journalists faced bomb threats, intimidation, surveillance, legal harassment, and death threats linked to provincial political authorities. Supports 4B.6 and 4B.9. Evidence is ruler-adjacent, not proof of federal executive direction. [Source](https://www.hrw.org/legacy/wr2k1/americas/argentina.html)
+- **R2E005 — Freedom House, pp. 59–61:** The 1999 election was generally free and fair; de la Rúa introduced anti-corruption measures, appointed a reform-minded Federal Police chief, dismissed a military tribunal, and faced coalition rupture after uncertainty over investigating congressional vote-buying. Supports 4B.1, 4B.2, 4B.4, 4B.8, 4B.10. The same source records inherited Menem-era judicial politicization and the unresolved Senate allegations. [Source](https://freedomhouse.org/sites/default/files/2020-02/Freedom_in_the_World_2000-2001_complete_book.pdf)
+- **R2E006 — International Press Institute, 2000 World Press Freedom Review, p. 19:** Reports subtle improvement in the government’s approach to press freedom, while noting continuing intimidation and harassment by locally connected actors. Supports 4B.6 and 4B.10. [Source](https://www.infoamerica.org/documentos_pdf/ipi_ar_00.pdf)
+- **R2E007 — Argentine Public Prosecutor’s Office, 17 Dec. 2015, lines 136–144:** Federal Cassation confirmed acquittals in the Senate bribery case because the evidence did not exceed reasonable doubt; the case concerned alleged conduct in March–April 2000 tied to obtaining votes for labor reform. Supports 4B.2, 4B.4, 4B.5, 4B.10. This is important contrary evidence: the scandal is established as an investigation and institutional crisis, not as proven bribery by de la Rúa. [Source](https://www.fiscales.gob.ar/fiscalias/coimas-en-el-senado-casacion-confirmo-las-absoluciones-de-los-imputados/)
+
+The local manifest could not be updated because filesystem access failed repeatedly with a sandbox network-namespace error (`bwrap: loopback: Failed RTM_NEWADDR`). Append these seven entries to `research-ledger-manifest.json` with disposition `final_evidence` and IDs `R2E001`–`R2E007`.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF001"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_civlib",
+      "disposition": "final_evidence",
+      "provisional_id": "LF002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_polyarchy",
+      "disposition": "final_evidence",
+      "provisional_id": "LF003"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_frassoc_thick",
+      "disposition": "final_evidence",
+      "provisional_id": "LF004"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_freexp",
+      "disposition": "final_evidence",
+      "provisional_id": "LF005"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_jucon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF006"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2xlg_legcon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF007"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_libdem",
+      "disposition": "final_evidence",
+      "provisional_id": "LF008"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_mpi",
+      "disposition": "final_evidence",
+      "provisional_id": "LF009"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_clpol",
+      "disposition": "final_evidence",
+      "provisional_id": "LF010"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_regime",
+      "disposition": "context",
+      "provisional_id": "LF011"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_rule",
+      "disposition": "final_evidence",
+      "provisional_id": "LF012"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_suffr",
+      "disposition": "final_evidence",
+      "provisional_id": "LF013"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_voice_and_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF014"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_rule_of_law",
+      "disposition": "final_evidence",
+      "provisional_id": "LF015"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D001"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/global/human_rights/1999_hrp_report/argentin.html#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D002"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2001/wha/8278.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/legacy/wr2k3/americas1.html#outside-window-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D004"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2013/wha/220414.htm#retrospective-allegation-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D005"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 3 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "4B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 20,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The recovered evidence materially improves coverage, but R2E003, R2E005, and some other items combine multiple distinct claims or events and require deterministic splitting and lens remapping.",
+        "The exact-locator evidence remains concentrated in a limited set of source families and around the Senate controversy, protests, and press conditions.",
+        "HRW evidence on provincial abuses and locally connected actors must not be attributed directly to de la Rúa without federal authority or responsibility evidence.",
+        "The Senate bribery material correctly includes contrary legal evidence, but allegation, political consequence, executive attribution, and acquittal must remain distinct.",
+        "Local indicators are defensible for measured country-year fields but remain mostly country-level context rather than ruler-attributed evidence.",
+        "The raw V-Dem regime code remains uninterpretable without its codebook."
+      ],
+      "missing_themes": [
+        "Direct presidential responsibility for federal-police conduct during protests, including direction, knowledge, investigation, and remedy.",
+        "Precise attribution of knowledge, authorization, benefit, tolerance, or obstruction in the Senate bribery controversy.",
+        "Judicial appointments, Supreme Court relations, compliance with adverse rulings, and oversight institutions.",
+        "Broader evidence on media pressure, government advertising, censorship, journalist treatment, and information access.",
+        "Practical political equality for women, minorities, indigenous groups, excluded regions, and unpopular viewpoints.",
+        "Surveillance, administrative harassment, shutdowns, or digital controls.",
+        "Comparable 1999 and 2001 evidence establishing inherited conditions, within-period change, and durable effects.",
+        "Underlying source artifacts or URLs for the local-prior dataset locators."
+      ]
+    }
+  ],
+  "global_findings": [
+    "Continuation produced recoverable exact-locator evidence and contrary legal evidence; the dossier is no longer limited to local structured context.",
+    "The evidence handoff still has material attribution, event-coverage, and trajectory gaps that further research could improve.",
+    "Bundled claims, duplicate-source relationships, and count reconciliation are deterministic cleanup issues, not reasons to discard the recovered sources.",
+    "Missing evidence must not be treated as negative evidence about de la Rúa."
+  ],
+  "reviewer_summary": "Chapter 4B has a usable mixed dossier with approximately 20 defensible source-claim units across six independent source families, including newly recovered contemporary and retrospective exact-locator evidence. Attribution risk remains high because much evidence concerns country institutions, police or provincial actors, and allegations not directly tied to presidential knowledge or action. Further research remains warranted for attribution, institutional conduct, equality, surveillance, and 1999–2001 trajectory themes."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 3 ---
+
+Research continuation completed without scoring.
+
+I recovered and split the following defensible units:
+
+- `R3E001` — State Department 2000 report: 1999 elections were considered free and fair; exact report overview. Supports 4B.1, 4B.8, 4B.10.
+- `R3E002` — Federal Police reported to the Interior Minister; provincial police to governors. Establishes attribution boundaries for police abuses. Supports 4B.3, 4B.4, 4B.10. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E003` — De la Rúa nominated two federal judges from Magistrates Council lists; neither was confirmed by the Senate. Supports 4B.4 and 4B.10. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E004` — April labor-reform protest: federal police clashes injured more than 30 demonstrators, including rubber-bullet injuries. Supports 4B.3 and 4B.10; does not establish presidential ordering. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E005` — Government generally respected speech and press rights, but public officials harassed, threatened, and criticized journalists. Supports 4B.6. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E006` — Wiretap-control proposals remained unenacted in 2000; authorized wiretaps continued under a Menem-era decree. Supports 4B.9 and 4B.10. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E007` — Gender quotas increased women’s congressional representation; only two of 72 senators were women and no Supreme Court justice was a woman. Supports 4B.7. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E008` — Human-rights groups operated without government restriction; government cooperation was general but not always responsive. Supports 4B.3, 4B.4, 4B.10. [Source](https://www.refworld.org/reference/annualreport/usdos/2001/25982)
+- `R3E009` — De la Rúa created an Anti-Corruption Bureau, investigated former-official wrongdoing, and tightened disclosure rules. Supports 4B.2, 4B.4, 4B.10. [Source](https://www.everycrsreport.com/reports/RS20781.html)
+- `R3E010` — He retained two officials associated with the Senate scandal; Vice President Álvarez resigned in protest. Supports 4B.2, 4B.4, 4B.8, 4B.10. This is direct response evidence, not proof of bribery. [Source](https://www.everycrsreport.com/reports/RS20781.html)
+- `R3E011` — ICJ reported continuing political influence over provincial courts while describing the new Magistrates Council as a partial institutional improvement. Supports 4B.4 and 4B.10. [Source](https://www.icj.org/wp-content/uploads/2001/08/argentina_attacks_justice_2000.pdf)
+- `R3E012` — CELS characterized 2000 national-government responses to organized roadblocks as repression and criminalization of union delegates and unemployed workers. Supports 4B.3 and 4B.10; attribution is to government policy, not necessarily the president personally. [Source](https://www.cels.org.ar/web/capitulos/criminalizacion-y-represion-de-las-protestas-sociales/)
+- `R3E013` — IPI reported subtle improvement in the national government’s press-freedom approach while documenting continuing intimidation by locally connected actors. Supports 4B.6 and 4B.10. [Source](https://www.infoamerica.org/documentos_pdf/ipi_ar_00.pdf)
+
+The Senate material remains carefully separated:
+
+- allegation and legislative context;
+- coalition and executive-response consequences;
+- retention of implicated officials;
+- later acquittal because evidence did not exceed reasonable doubt.
+
+No claim of proven presidential bribery is retained.
+
+I also verified the previously supplied HRW units, including the April 19 Federal Police suppression, European prosecutions not obstructed by the administration, provincial abuses, and journalist threats. [HRW source](https://www.hrw.org/legacy/wr2k1/americas/argentina.html)
+
+The manifest update could not be persisted: both shell access and `apply_patch` failed with `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`. The required additions are `R3E001`–`R3E013`; existing bundled `R2E005` should be split and retained only as contextual evidence. No score or ranking conclusion was produced.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF001"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_civlib",
+      "disposition": "final_evidence",
+      "provisional_id": "LF002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_polyarchy",
+      "disposition": "final_evidence",
+      "provisional_id": "LF003"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_frassoc_thick",
+      "disposition": "final_evidence",
+      "provisional_id": "LF004"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_freexp",
+      "disposition": "final_evidence",
+      "provisional_id": "LF005"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_jucon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF006"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2xlg_legcon",
+      "disposition": "final_evidence",
+      "provisional_id": "LF007"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_libdem",
+      "disposition": "final_evidence",
+      "provisional_id": "LF008"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_mpi",
+      "disposition": "final_evidence",
+      "provisional_id": "LF009"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_clpol",
+      "disposition": "final_evidence",
+      "provisional_id": "LF010"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_regime",
+      "disposition": "context",
+      "provisional_id": "LF011"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_rule",
+      "disposition": "final_evidence",
+      "provisional_id": "LF012"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#vdem:ARG:2000:v2x_suffr",
+      "disposition": "final_evidence",
+      "provisional_id": "LF013"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_voice_and_accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "LF014"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1#world_bank_wgi:ARG:2000:wgi_rule_of_law",
+      "disposition": "final_evidence",
+      "provisional_id": "LF015"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D001"
+    },
+    {
+      "canonical_fact_key": "https://1997-2001.state.gov/global/human_rights/1999_hrp_report/argentin.html#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D002"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2001/wha/8278.htm#underlying-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D003"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/legacy/wr2k3/americas1.html#outside-window-source-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D004"
+    },
+    {
+      "canonical_fact_key": "https://2009-2017.state.gov/j/drl/rls/hrrpt/2013/wha/220414.htm#retrospective-allegation-not-extracted",
+      "disposition": "discovery_only",
+      "provisional_id": "D005"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+Existing candidate from a prior failed validation:
+null
+
+Requirements:
+- This is only a formatting and normalization pass.
+  Interpret its prose, headings, tables, and JSON fragments flexibly. Preserve the
+  researcher's claims, citations, caveats, main points, contrary evidence, and gaps;
+  do not perform new research or discard material merely because its format varies.
+  Formatting quality does not determine whether evidence existed. Preserve every
+  materially distinct final claim, but consolidate repetitive context rows and
+  equivalent source treatments when that makes the dossier clearer. If an item cannot
+  be normalized safely, retain its caveat or gap instead of silently deleting it.
+- The supplied notebook includes a `ruler_research_ledger_manifest_v1` accounting
+  index. Use it to prevent evidence collapse. You may rewrite canonical fact keys,
+  combine compatible local/context rows, and substitute a stronger cited source for
+  the same claim. The formatted dossier must contain at least as many evidence records
+  as the manifest contains `final_evidence` entries. Manifest entries marked
+  `rejected` must not be emitted as evidence.
+- Treat the local structured priors above as the required local-first
+  step. Do not rerun the local-evidence CLI when those payloads are present.
+- Never use the client matrix as evidence.
+- Do not search or add facts. The researcher has already completed direct internet
+  research and reviewer-directed continuations in the notebook.
+- Treat every `error_methodology_ids` entry as a blocking local-input failure, not
+  missing evidence that internet material can silently replace. Preserve its compact
+  disposition reason and instructions in the resulting gap or warning.
+- Set each evidence `url` to either the exact HTTP(S) URL recorded by the researcher or
+  `local-prior:<methodology-id>` for a claim taken directly from that question's
+  hashed local-prior artifact. No other locator form is valid.
+- Set `source_locator` to the precise PDF page/table/figure, HTML section plus
+  paragraph, legal section, transcript timestamp, dataset row/field, or exact
+  `local-prior:<methodology-id>` locator recorded by the researcher. Use
+  `unknown_not_recorded` only for context or discovery material; an item with a missing
+  or generic locator must not be emitted as `final_evidence`.
+- Set `canonical_fact_key` to a stable value derived from the canonical URL, precise
+  source locator, and normalized materially distinct claim. Reuse the same key and
+  evidence object across chapter mappings; every emitted evidence object must have a
+  unique canonical fact key.
+- Preserve one evidence object per defensible source-claim unit identified in the
+  notebook. A source-claim unit is one traceable source supporting one materially
+  distinct claim. The same URL may therefore appear in multiple evidence objects;
+  do not collapse a report's distinct events, findings, decisions, or outcomes into
+  one omnibus record merely because they share a source. Deduplicate only genuinely
+  duplicate claims, then indicate every chapter lens each retained unit informs.
+  Conversely, never recreate the same source-locator-claim fact under separate
+  chapter-specific evidence IDs. Preserve one global evidence object and map it to
+  every genuinely relevant chapter lens.
+  Mapping and coverage wording are advisory handoff aids, not score-bearing decisions.
+  Mapping is many-to-many. Add every directly relevant lens recorded or clearly
+  indicated by the notebook; never select only one preferred lens for an evidence
+  item that informs several questions. Coverage is a view over these mappings, not an
+  independent reason to hide mapped evidence.
+- Before responding, ensure every ID in `coverage` is declared in `evidence` and
+  joined through `mappings`.
+- Use simple stable evidence IDs when practical. The parent normalizes harmless ID,
+  mapping, and coverage inconsistencies and records warnings rather than rejecting
+  otherwise useful research.
+- Every retained evidence item must appear in at least one `mappings` row so chapter
+  judges can see it. Every mapping and coverage `evidence_id` must exactly equal one
+  declared evidence ID; never concatenate, abbreviate, or combine evidence IDs.
+  Reuse evidence across every genuinely relevant lens rather than leaving it invisible.
+- Use `no_evidence_found` only when the researcher explicitly records searches for
+  that lens and gives a specific reason no usable evidence was found. If the notebook
+  lacks an explicit disposition, use `research_blocked`; never manufacture
+  `no_evidence_found` because formatting produced no mapping.
+- Collect meaningful contrary evidence and explicit gaps. Do not assign scores.
+- Remove any researcher-written score, score range, anchor, ranking recommendation,
+  or advice to a judge about scoring/null handling; record it as a normalization
+  warning rather than evidence.
+- Use publication_date=unknown_not_exposed_by_source only when a reliable date
+  cannot be established; never use null.
+- Map general repression or protest-policing evidence as context unless the claim
+  explains its specific incumbent-entrenchment mechanism.
+- State source-type limitations and diversity in run_profile.source_mix_note.
+- Populate local_priors with one schema-valid placeholder for every selected
+  methodology ID using `methodology_statuses`; the parent replaces them with its
+  complete hashed provenance before validation.
+- The final response must be only one JSON object matching the supplied output schema.
+- Echo the exact job/run/identity/period/model fields from Job input.
+- Record unknown usage fields as unknown_not_exposed_by_tool; never invent usage.
+- If Existing candidate is not null, this is a repair-only retry: preserve its valid
+  claims and citations, but compare it against the complete inlined notebook and
+  restore any defensible source-claim units it collapsed or omitted. Correct
+  schema/reference defects, perform the final consistency check, and do not repeat
+  research or broad file reading outside the supplied materials.

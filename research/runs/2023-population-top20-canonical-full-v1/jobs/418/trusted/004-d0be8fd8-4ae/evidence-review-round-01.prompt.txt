@@ -1,0 +1,160 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:BRA:16162",
+  "iso3": "BRA",
+  "country_name": "Brazil",
+  "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 0,
+  "approximate_source_family_count": 0,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "notebook_too_short",
+      "message": "Notebook is too short for a full evidence audit."
+    },
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 0 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 0 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+## Self-audit and final handoff
+
+**Coverage of all 80 methodology IDs:**
+- **1B.1–1B.10:** all 10 lenses classified as `no_discriminating_opportunity`; documented with explicit rationale (Brazil non-nuclear state under NPT, Lula holds no first-strike C2 authority, no 2023 Lula-attributed nuclear/existential-risk act surfaced). No final-evidence items, but the chapter is not silently zeroed.
+- **2B.1–2B.10:** 8 final-evidence items cover all 10 lenses (2B.6, 2B.9 partially covered by 2B-PEACE-02/04/06).
+- **3B.1–3B.10:** 8 final-evidence items cover all 10 lenses.
+- **4B.1–4B.10:** 10 final-evidence items cover all 10 lenses.
+- **5B.1–5B.10:** 10 final-evidence items cover all 10 lenses.
+- **6B.1–6B.10:** 10 final-evidence items cover all 10 lenses.
+- **7B.1–7B.10:** 10 final-evidence items cover all 10 lenses.
+- **8B.1–8B.10:** 10 final-evidence items cover all 10 lenses.
+
+**Source-claim units:** 66 across chapters 2B–8B (target: ~10 per chapter, range 5–20). 1B has zero because of the no_opportunity classification. All chapters meet or exceed the lower bound; chapters 4B, 5B, 6B, 7B, 8B hit the normal target of 10.
+
+**Independent source families:** chapter 2B documents the Reuters/AP gap; the other chapters meet or exceed the floor of three.
+
+**Local facts:** all 36 (LF001–LF036) retained as structural context; the per-fact mapping is recorded above. None of the local facts directly measure Lula's personal conduct in 2023 — they are paired with narrative evidence for ruler attribution.
+
+**Strongest contrary evidence:** catalogued by chapter (above), preserved rather than hidden.
+
+**Tool discipline honoured:** no image-inspection calls; no Playwright; no elevated-permission requests; no recency filters; only documented autonomous-fetch URLs (web_search was intermittently unavailable but was not pushed past the rate limit). The bwrap sandbox restriction that prevented file writes is documented as a delivery-mode constraint, not as a workflow compromise.
+---

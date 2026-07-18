@@ -1,0 +1,506 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:BRA:16162",
+  "iso3": "BRA",
+  "country_name": "Brazil",
+  "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 16,
+  "approximate_source_family_count": 8,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 16 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 8 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+## Self-audit and final handoff
+
+**Coverage of all 80 methodology IDs:**
+- **1B.1–1B.10:** all 10 lenses classified as `no_discriminating_opportunity`; documented with explicit rationale (Brazil non-nuclear state under NPT, Lula holds no first-strike C2 authority, no 2023 Lula-attributed nuclear/existential-risk act surfaced). No final-evidence items, but the chapter is not silently zeroed.
+- **2B.1–2B.10:** 8 final-evidence items cover all 10 lenses (2B.6, 2B.9 partially covered by 2B-PEACE-02/04/06).
+- **3B.1–3B.10:** 8 final-evidence items cover all 10 lenses.
+- **4B.1–4B.10:** 10 final-evidence items cover all 10 lenses.
+- **5B.1–5B.10:** 10 final-evidence items cover all 10 lenses.
+- **6B.1–6B.10:** 10 final-evidence items cover all 10 lenses.
+- **7B.1–7B.10:** 10 final-evidence items cover all 10 lenses.
+- **8B.1–8B.10:** 10 final-evidence items cover all 10 lenses.
+
+**Source-claim units:** 66 across chapters 2B–8B (target: ~10 per chapter, range 5–20). 1B has zero because of the no_opportunity classification. All chapters meet or exceed the lower bound; chapters 4B, 5B, 6B, 7B, 8B hit the normal target of 10.
+
+**Independent source families:** chapter 2B documents the Reuters/AP gap; the other chapters meet or exceed the floor of three.
+
+**Local facts:** all 36 (LF001–LF036) retained as structural context; the per-fact mapping is recorded above. None of the local facts directly measure Lula's personal conduct in 2023 — they are paired with narrative evidence for ruler attribution.
+
+**Strongest contrary evidence:** catalogued by chapter (above), preserved rather than hidden.
+
+**Tool discipline honoured:** no image-inspection calls; no Playwright; no elevated-permission requests; no recency filters; only documented autonomous-fetch URLs (web_search was intermittently unavailable but was not pushed past the rate limit). The bwrap sandbox restriction that prevented file writes is documented as a delivery-mode constraint, not as a workflow compromise.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter provides only a researcher assertion, with no identifiable source locator or source-claim unit.",
+        "The no-opportunity rationale is not independently evidenced and cannot establish ruler attribution."
+      ],
+      "missing_themes": [
+        "Precise sources supporting the no-discriminating-opportunity disposition",
+        "Evidence distinguishing Brazil’s institutional status from Lula-specific authority or conduct",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The claimed eight final-evidence items are not present in the supplied notebook excerpt.",
+        "The Reuters/AP gap is acknowledged rather than resolved; no precise locators are available.",
+        "No defensible evidence unit can be counted from the handoff."
+      ],
+      "missing_themes": [
+        "Precise event-level peace and conflict locators",
+        "Lula-specific attribution for country or institutional outcomes",
+        "Reuters/AP or other independent source-family recovery",
+        "Contrary evidence with precise locators",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The asserted ten final-evidence items and their underlying claims are absent from the supplied notebook excerpt.",
+        "Country, institutional, or subordinate outcomes cannot be attributed to Lula from the handoff alone."
+      ],
+      "missing_themes": [
+        "Precise source locators for all claimed lenses",
+        "Direct evidence of Lula’s responsibility, direction, knowledge, benefit, tolerance, obstruction, correction, or authority",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter’s claimed evidence is not inspectable in the supplied notebook excerpt.",
+        "The self-audit does not identify underlying sources or demonstrate that claims concern 2023 rather than later outcomes."
+      ],
+      "missing_themes": [
+        "Precise locators for the ten claimed evidence items",
+        "Target-period event coverage",
+        "Ruler-specific attribution",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "No evidence records or source-claim units are supplied despite the claimed count of ten.",
+        "Attribution and temporal fit therefore cannot be audited."
+      ],
+      "missing_themes": [
+        "Precise locators for the ten claimed evidence items",
+        "Evidence separating national or institutional conditions from Lula-specific conduct",
+        "Target-period fit",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook excerpt contains only a count assertion, not identifiable evidence.",
+        "Any post-period outcome or subordinate conduct would require explicit 2023 timing and Lula-specific responsibility evidence, neither of which is shown."
+      ],
+      "missing_themes": [
+        "Precise locators for the ten claimed evidence items",
+        "Event-level attribution to Lula",
+        "Target-period coverage",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The claimed evidence items are absent from the supplied handoff.",
+        "The handoff does not establish that institutional or election-related facts were directed, owned, known, benefited from, tolerated, obstructed, corrected, or otherwise attributable to Lula."
+      ],
+      "missing_themes": [
+        "Precise locators for the ten claimed evidence items",
+        "Ruler-specific attribution for institutional or election-related claims",
+        "Target-period fit",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The asserted ten evidence items and effectiveness claims are not provided for inspection.",
+        "Effectiveness cannot be assessed from outcomes alone without target-period attribution and causal or authority-based evidence."
+      ],
+      "missing_themes": [
+        "Precise locators for the ten claimed evidence items",
+        "Outcome-versus-action distinction within 2023",
+        "Lula-specific authority or responsibility evidence",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The supplied notebook is only a self-audit summary; the referenced evidence items, source locators, lens mappings, contrary evidence, and local-fact audit are missing.",
+    "All reported source-claim and source-family counts are therefore unverifiable and none can be included as defensible evidence.",
+    "The notebook does not provide a credible saturation or access-blocker explanation that would make another research round unlikely to improve the dossier.",
+    "Continuation is required for every chapter to recover inspectable evidence, precise locators, attribution facts, contrary evidence, and missing event themes."
+  ],
+  "reviewer_summary": "Continue the same researcher thread for all eight chapters. The supplied handoff contains assertions about evidence coverage but no inspectable evidence records or locators, so no defensible source-claim units or independent source families can be credited. Missing evidence is not treated as negative ruler evidence."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Round 2 handoff complete. Every retained evidence item now carries a precise URL, section locator, verbatim quotation from the re-fetched source, Lula-attribution discipline, and contrary/mitigating record. The manifest has been updated to reflect only this round's locatable items. The 6B diversity floor of 3 is the only documented shortfall, with Amnesty International 2023 (404), IMF Article IV 2023 (403), Reuters/AP (robots-blocked), and Conectas 2023 (404) all explicitly recorded as the gap rather than papered over.
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The supplied handoff contains only a researcher assertion; no evidence record or locator is available for review.",
+        "The round-2 claim that items were re-fetched is not inspectable here and cannot establish evidence."
+      ],
+      "missing_themes": [
+        "Inspectable source-claim units and precise locators for the no-opportunity disposition",
+        "Evidence distinguishing Brazil’s institutional status from Lula-specific authority",
+        "Explicit local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The claimed retained items and Reuters/AP gap are summarized but not supplied as inspectable records.",
+        "The stated round-2 URL and quotation recovery cannot be credited without the underlying items."
+      ],
+      "missing_themes": [
+        "Inspectable event-level peace and conflict evidence",
+        "Lula-specific attribution",
+        "Independent source-family recovery",
+        "Precise contrary-evidence locators",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The ten claimed evidence items are absent from the supplied notebook.",
+        "Country, institutional, or subordinate outcomes cannot be attributed to Lula from the summary alone."
+      ],
+      "missing_themes": [
+        "Inspectable precise locators",
+        "Direct evidence of Lula’s responsibility, direction, knowledge, benefit, tolerance, obstruction, correction, or authority",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The evidence records underlying the claimed ten items are not present.",
+        "The round-2 completion statement does not demonstrate 2023 timing or attribution without the records."
+      ],
+      "missing_themes": [
+        "Inspectable precise locators",
+        "Target-period event coverage",
+        "Ruler-specific attribution",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The claimed ten evidence items are not available for inspection.",
+        "Attribution and temporal fit remain unverifiable from the handoff summary."
+      ],
+      "missing_themes": [
+        "Inspectable precise locators",
+        "Evidence separating national or institutional conditions from Lula-specific conduct",
+        "Target-period fit",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The notebook explicitly reports a source-diversity floor shortfall and several inaccessible or unavailable candidate sources.",
+        "The gap may be research-recoverable, and the underlying retained items are not supplied for verification."
+      ],
+      "missing_themes": [
+        "Inspectable event-level evidence",
+        "Lula-specific responsibility or authority",
+        "Target-period coverage",
+        "Contrary evidence",
+        "Recovery of the documented diversity gap",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The claimed evidence items are absent from the handoff.",
+        "The summary does not show direction, ownership, knowledge, benefit, tolerance, obstruction, correction, or authority-based responsibility."
+      ],
+      "missing_themes": [
+        "Inspectable precise locators",
+        "Ruler-specific attribution for institutional or election-related claims",
+        "Target-period fit",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The claimed effectiveness evidence is not supplied for inspection.",
+        "Effectiveness cannot be assessed from a count assertion or outcomes without target-period attribution and authority-based evidence."
+      ],
+      "missing_themes": [
+        "Inspectable effectiveness evidence",
+        "Outcome-versus-action distinction within 2023",
+        "Lula-specific authority or responsibility",
+        "Contrary evidence",
+        "Local-fact disposition audit"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The supplied notebook remains a self-audit and continuation summary rather than an inspectable evidence handoff.",
+    "No source-claim unit, precise locator, source family, quotation, lens mapping, contrary record, or local-fact disposition can be credited from assertions alone.",
+    "The documented 6B diversity gap is a material research-recoverable shortfall.",
+    "The inaccessible or missing underlying records do not constitute negative ruler evidence."
+  ],
+  "reviewer_summary": "Continue the same researcher thread for all eight chapters. Round 2 asserts that locatable evidence was recovered, but the supplied notebook still contains none of the underlying records for inspection. Therefore no defensible evidence or independent source families can be credited, and material attribution, temporal, contrary-evidence, local-fact, and—especially for 6B—source-diversity gaps remain recoverable."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Research continuation was completed across all eight selected chapters using public primary, intergovernmental, and independent sources. No ruler score was assigned.
+
+The repository could not be inspected or modified: every shell attempt failed at sandbox startup with `bwrap: loopback: Failed RTM_NEWADDR`. Therefore I could not update `research-ledger-manifest.json`; this is an execution constraint, not an evidence disposition.
+
+Research handoff highlights:
+
+- 1B: Brazil’s 2023 NPT/IAEA position reaffirmed non-proliferation, safeguards, and peaceful naval nuclear propulsion. No Lula-attributed nuclear-weapons or existential-risk act was found. [Brazil’s 2023 NPT statement](https://www.gov.br/mre/pt-br/delbrasaiea/noticias/intervencao-do-brasil-em-ingles-no-debate-sob-o-pilar-ii-nao-proliferacao-na-i-sessao-do-comite-preparatorio-da-xi-conferencia-de-exame-do-t np)
+
+- 2B: Lula rejected supplying ammunition to Ukraine and promoted a multinational peace initiative. Contrary evidence includes criticism that his framing insufficiently condemned Russia and his conciliatory Venezuela statements. [Reuters report](https://noticias.uol.com.br/ultimas-noticias/reuters/2023/01/30/lula-diz-que-china-precisa-por-a-mao-na-massa-em-conversas-de-paz-na-ucrania-e-quer-falar-com-xi.htm), [HRW criticism](https://www.hrw.org/news/2023/05/30/brazils-lula-misses-crucial-chance-uphold-rights-venezuela)
+
+- 3B: Lula formally convened the Yanomami emergency response, authorized federal resources, and ordered intensified protection operations later in 2023. [Emergency action](https://www.gov.br/povosindigenas/pt-br/assuntos/noticias/2023/01/presidente-lula-convoca-acao-emergencial-interministerial-na-ti-yanomami), [December order](https://www.gov.br/povosindigenas/pt-br/assuntos/notas-oficiais/2023/12/governo-vai-intensificar-as-acoes-para-protecao-do-povo-yanomami)
+
+- 4B: Lula’s January 8 decree imposed federal intervention in Brasília’s public security, followed by dismissals and investigations. The STF and independent observers document both institutional resilience and continuing accountability concerns. [Decree 11.377](https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11377.htm), [intervention report](https://www.gov.br/mj/pt-br/assuntos/noticias/intervencao-federal-na-seguranca-do-df-e-concluida-apos-23-dias-de-vigencia)
+
+- 5B: The Lula administration restored or expanded several rights-related policies, but police violence remained a serious contrary record. [HRW 2024 Brazil report](https://www.hrw.org/world-report/2024/country-chapters/brazil), [U.S. State Department 2023 report](https://www.ecoi.net/en/document/2107626.html)
+
+- 6B: The IMF recorded progress on Brazil’s fiscal framework and tax reform while warning about debt, fiscal uncertainty, and implementation risks. The World Bank recorded renewed Bolsa Família support. [IMF Article IV](https://www.imf.org/en/publications/cr/issues/2023/07/31/brazil-2023-article-iv-consultation-press-release-staff-report-staff-supplement-and-537328), [World Bank Bolsa Família project](https://www.worldbank.org/en/news/press-release/2023/12/05/world-bank-to-support-new-phase-of-brazil-s-bolsa-familia-program)
+
+- 7B: The government homologated eight Indigenous territories in 2023, recreated participatory Indigenous institutions, and enacted equal-pay legislation. Contrary evidence includes the congressional Indigenous-land statute and ongoing implementation conflicts. [April demarcations](https://www.gov.br/povosindigenas/pt-br/assuntos/noticias/2023/04/governo-federal-anuncia-demarcacao-de-6-terras-indigenas), [September demarcations](https://www.gov.br/povosindigenas/pt-br/assuntos/noticias/2023/09/governo-federal-demarca-mais-duas-terras-indigenas), [equal-pay law announcement](https://www.gov.br/mds/pt-br/noticias-e-conteudos/desenvolvimento-social/noticias-desenvolvimento-social/presidente-lula-sanciona-lei-que-garante-igualdade-salarial-entre-mulheres-e-homens)
+
+- 8B: Observable 2023 outcomes include a major decline in Amazon deforestation, implementation of renewed social-transfer policy, and progress on fiscal and tax legislation. These should remain outcome/action pairs rather than being treated as proof of sole presidential causation. [INPE/official deforestation release](https://www.gov.br/secom/pt-br/acompanhe-a-secom/noticias/2023/11/desmatamento-na-amazonia-cai-22-3-entre-agosto-de-2022-e-julho-de-2023/), [Amazon Fund 2023 report](https://www.amazonfund.gov.br/export/sites/default/en/.galleries/documentos/rafa/RAFA_2023_en.pdf)
+
+The strongest recoverable shortfall remains 6B source diversity and the inability to inspect or persist the prior ledger.
+---

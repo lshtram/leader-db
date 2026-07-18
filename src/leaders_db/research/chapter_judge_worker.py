@@ -92,6 +92,11 @@ def execute_claimed_chapter_judge_job(
     )
     batch, existing = _recover_previous_chapter_batch(attempt=attempt, job=job)
     if batch is not None:
+        _write_null_recovery_queue(
+            batch,
+            projections=attempt.projections,
+            path=attempt.attempt_dir / "null-recovery.json",
+        )
         _publish_batch(
             engine,
             batch=batch,
@@ -173,6 +178,11 @@ def execute_claimed_chapter_judge_job(
         )
     except (ValidationError, ValueError) as exc:
         raise WorkerOutputError("Codex chapter judgment failed semantic validation") from exc
+    _write_null_recovery_queue(
+        batch,
+        projections=attempt.projections,
+        path=attempt.attempt_dir / "null-recovery.json",
+    )
     _publish_batch(
         engine,
         batch=batch,
@@ -184,6 +194,51 @@ def execute_claimed_chapter_judge_job(
         lease_seconds=lease_seconds,
     )
     return attempt.result_path, batch
+
+
+def _write_null_recovery_queue(
+    batch: ChapterJudgmentBatch,
+    *,
+    projections: tuple[tuple[Path, RulerChapterProjection], ...],
+    path: Path,
+) -> None:
+    """Persist a bounded follow-up queue from existing null-judgment fields."""
+
+    evidence_counts = {
+        projection.job_key: len(projection.evidence) for _, projection in projections
+    }
+    requests = []
+    for evaluation in batch.evaluations:
+        if evaluation.score_1_to_10 is not None:
+            continue
+        recoverable = evaluation.manual_review_reason_type == "recoverable_null"
+        requests.append(
+            {
+                "dossier_job_key": evaluation.dossier_job_key,
+                "iso3": evaluation.iso3,
+                "ruler_year_id": evaluation.ruler_year_id,
+                "ruler_name": evaluation.ruler_name,
+                "chapter_id": evaluation.chapter_id,
+                "current_evidence_count": evidence_counts.get(
+                    evaluation.dossier_job_key, 0
+                ),
+                "reason": evaluation.insufficient_evidence_reason,
+                "missing_or_weak_lenses": list(evaluation.missing_or_weak_lenses),
+                "requested_follow_up": evaluation.manual_review_reason,
+                "next_action": (
+                    "resume_same_ruler_research" if recoverable else "substantive_review"
+                ),
+                "maximum_research_rounds": 2 if recoverable else 0,
+            }
+        )
+    payload = {
+        "schema_version": "chapter_null_recovery_v1",
+        "judge_job_key": batch.job_key,
+        "chapter_id": batch.chapter_id,
+        "request_count": len(requests),
+        "requests": requests,
+    }
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _initialize_attempt(

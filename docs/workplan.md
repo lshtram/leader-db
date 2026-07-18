@@ -1,5 +1,47 @@
 # Workplan
 
+## 2026-07-18 — Evidence preservation and null-recovery simplification
+
+- Consolidated attribution in the common calibration contract: formal responsibility
+  can support Chapters 1B–6B and 8B without a personal order, while Chapter 7B keeps
+  its required personal-integrity nexus. Removed repeated per-guide directives.
+- Replaced formatter count tolerance with an enforceable preservation invariant:
+  every accepted final-evidence key must survive unchanged and remain routed to every
+  chapter recorded by research. Permissive Markdown manifest recovery now recognizes
+  the handoff styles that previously lost Hasina and Pakistan evidence.
+- Evidence review now decides substantive readiness from the concrete record rather
+  than source counts. Each judge attempt emits one bounded null-recovery queue using
+  its existing reasons and weak-lens fields; no new worker role or job topology was
+  added.
+- Rebuilt the provisional client-results viewer with an explicit methodology-update
+  notice. Every null chapter now exposes its retained evidence count, weak lenses,
+  requested follow-up, and bounded recovery status while preserving the frozen scores
+  and citations from the original release.
+
+## 2026-07-18 — Interactive 2023 client-results viewer
+
+- Added a deterministic viewer-data build that joins the frozen top-20 dossiers,
+  chapter judgments, repaired USA/Thailand overrides, exact 80-question registry,
+  and the original client workbook without feeding client values into research.
+- Added a local static comparison page with rulers on rows and chapters on columns.
+  Each cell keeps automated and client scores visually distinct; ruler and overall
+  MSE exclude nulls. Selecting a cell opens the complete eight-chapter record with
+  ten lenses per chapter, evidence summaries and source links, and judge rationale.
+- The current provisional release contains 20 rulers and 144 numeric comparison
+  cells with overall MSE 1.571. Every non-1B null was rejudged under proportional
+  attribution using frozen evidence, recovered notebooks, or narrowly targeted cited
+  supplementation. Unsupported 1B exposure cases remain explicit nulls.
+- Published the same read-only viewer through the existing Cloudflare Access portal
+  at `https://viz.chopsworkshop.com/reports/leaders-2023/`. The nginx proxy mounts
+  the viewer and normative attribution record read-only; the portal health check now
+  verifies the viewer HTML, JSON payload, and attribution endpoint.
+- Replaced specialist-shorthand rationale presentation with self-contained public
+  abstracts for all 160 ruler-chapter records. The current abstracts begin with the
+  overall appraisal and score, explain decisive favorable and unfavorable evidence,
+  state attribution limits, and conclude against higher/lower anchors. The common
+  judge prompt, judge skill, and all eight chapter guides now require this structure
+  for future batches.
+
 ## 2026-07-17 — USA/Thailand repair and provisional client package complete
 
 - The original canonical 2023 twenty-ruler research and judge outputs remain frozen

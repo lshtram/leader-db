@@ -1,0 +1,784 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:ARG:2414",
+  "iso3": "ARG",
+  "country_name": "Argentina",
+  "ruler_name": "de la Rua",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 10,
+  "approximate_source_family_count": 9,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 10 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 9 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed to the extent permitted by the available web-search profile. The supplied notebook and manifest could not be written because the execution environment rejected the filesystem command before it ran. The substantive handoff is below.
+
+# Argentina — Fernando de la Rúa — 2000  
+`ARG | ruler_id=545 | ruler_year_id=2414`
+
+## Scope and method
+
+This was an evidence-collection pass only. No chapter scores, score ranges, rankings, or judge recommendations were assigned.
+
+The supplied local structured package was audited first. Internet research was used only for ruler-specific narrative, attribution, policy, legal, coalition, and contrary evidence. The client matrix was not used.
+
+Search-provider rate limiting and unavailable exact-page extraction limited further research. Several URLs below were identified through search results but could not be fetched to paragraph-, page-, or section-level precision. Such items should be strengthened during continuation.
+
+---
+
+# 1. Local structured baseline audit
+
+## Chapter 1B — Nuclear / existential risk
+
+All ten lenses were supplied as `no_evidence_found`, with disposition reason `R001`: no selected non-client country-year facts matched the configured nuclear field keys.
+
+This is an explicit local-data gap. It is **not** evidence that Argentina had no nuclear capability, that de la Rúa exercised responsible restraint, or that no relevant 2000 conduct occurred.
+
+A web result from NTI provides general context that Argentina operated within the NPT and ABACC safeguards framework. This is not a de la Rúa-specific 2000 action and should remain context only.
+
+## Chapter 2B — International peace
+
+Local facts:
+
+- `LF001`: 0 internationalized conflict events.
+- `LF002`: 0 internationalized conflict fatalities.
+- `LF007`: 0 state-based conflict events.
+- `LF008`: 0 state-based conflict fatalities.
+- `LF003`: SIPRI military expenditure, constant USD: 4,246.409 million.
+- `LF004`: military expenditure per capita: 88.272 USD.
+- `LF005`: military expenditure share of GDP: 1.1488%.
+- `LF006`: military expenditure share of government spending: 4.0698%.
+
+These are country-year exposure and resource-context indicators. They do not establish that de la Rúa personally chose diplomacy, avoided aggression, restrained proxies, or improved regional peace.
+
+## Chapter 3B — Domestic safety
+
+Local facts:
+
+- `LF009`: CIRIGHTS civil and political rights: 5.
+- `LF010`: CIRIGHTS disappearances: 2.
+- `LF011`: CIRIGHTS killings: 0.
+- `LF012`: CIRIGHTS physical integrity: 3.
+- `LF013`: CIRIGHTS political imprisonment: 1.
+- `LF014`: CIRIGHTS repression: 8.
+- `LF015`: CIRIGHTS torture: 0.
+- `LF016`: V-Dem civil-society repression: 2.449.
+- `LF017`: V-Dem extrajudicial killings: 2.667.
+- `LF018`: UCDP one-sided violence events: 0.
+- `LF019`: UCDP one-sided violence fatalities: 0.
+- `LF020`: V-Dem physical-integrity liberties: 0.945.
+- `LF021`: V-Dem private civil liberties: 0.922.
+- `LF022`: PTS Amnesty score: 2.
+- `LF023`: PTS State Department score: 2.
+
+These establish a country-year safety/repression baseline. They do not identify whether de la Rúa ordered, tolerated, remedied, or failed to prevent particular abuses.
+
+## Chapter 4B — Political freedom
+
+Local facts:
+
+- `LF024`: V-Dem accountability: 1.499.
+- `LF025`: civil liberties: 0.937.
+- `LF026`: electoral democracy: 0.833.
+- `LF027`: freedom of association: 0.915.
+- `LF028`: freedom of expression: 0.956.
+- `LF029`: judicial constraints: 0.718.
+- `LF030`: legislative constraints: 0.727.
+- `LF031`: liberal democracy: 0.670.
+- `LF032`: multiparty institutions: 0.737.
+- `LF033`: political liberties: 0.955.
+- `LF034`: regime type: 2.
+- `LF035`: V-Dem rule of law: 0.698.
+- `LF036`: suffrage: 1.
+- `LF037`: WGI voice and accountability: 0.4183.
+- `LF038`: WGI rule of law: −0.2144.
+
+These describe the institutional environment. They do not by themselves establish personal democratic commitment, tolerance of opposition, protection of media, or willingness to accept constraints.
+
+## Chapter 5B — Economic well-being
+
+- `LF039`: real GDP per capita: 14,368.943.
+- `LF040`: total GDP: approximately 536.481 billion USD.
+- `LF041`: GNI per capita: 18,080.925.
+- `LF042`: population: approximately 37.336 million.
+
+These are level and scale indicators only. They provide no direct evidence about distribution, implementation, policy quality, or ruler credit.
+
+## Chapter 6B — Social well-being
+
+- `LF043`: expected years of schooling: 15.688.
+- `LF044`: HDI: 0.780.
+- `LF045`: life expectancy: 73.926 years.
+- `LF046`: mean years of schooling: 8.800.
+
+These are welfare baselines, not ruler-attributed outcomes or evidence of service delivery.
+
+## Chapter 7B — Integrity
+
+Local context:
+
+- `LF047`: WGI control of corruption: −0.1724.
+- `LF048`: V-Dem political corruption: 0.459.
+- `LF049`: V-Dem executive corruption: 0.347.
+- `LF050`: V-Dem public-sector corruption: 0.457.
+- Also relevant: `LF024`, `LF035`, `LF038`.
+
+These do not establish de la Rúa’s personal honesty, self-dealing, conflicts of interest, or obstruction of investigation.
+
+## Chapter 8B — Effectiveness
+
+Local context:
+
+- `LF051`: WGI government effectiveness: −0.0280.
+- `LF052`: WGI regulatory quality: 0.1823.
+- Also relevant: `LF024`, `LF035`, `LF038`.
+
+These describe inherited/state capacity. They do not demonstrate that de la Rúa translated a program into implementation or produced attributable results.
+
+No `error_methodology_ids` were supplied.
+
+---
+
+# 2. Broad ruler-period reconnaissance
+
+Fernando de la Rúa became president in December 1999 as the Alliance candidate, a coalition involving the Radical Civic Union and Frepaso. Search results identify an electoral program emphasizing:
+
+- renewed economic growth;
+- lower corruption;
+- lower unemployment;
+- lower crime;
+- fiscal order and spending restraint;
+- labor-law reform;
+- business promotion and employment.
+
+The inherited context included recession, unemployment, substantial debt/deficit pressures, and fragile coalition cohesion.
+
+The principal ruler-specific event discovered for 2000 was the Senate vote-buying scandal surrounding labor reform. Vice President Carlos Álvarez resigned on 6 October 2000 after publicly denouncing corruption and criticizing de la Rúa’s handling of the investigation. The allegation later became the subject of a corruption trial; separate later reporting indicates de la Rúa was ultimately cleared/acquitted, which is material contrary evidence. The exact court decision was not obtained during this pass.
+
+Economic policy in 2000 centered on spending restraint, tax increases, maintaining peso-dollar parity, labor flexibility, and IMF-supported stabilization. The severe December 2001 protest repression and resignation crisis are outside the target year and were not treated as target-year evidence.
+
+---
+
+# 3. Global evidence ledger
+
+## E001 — Electoral program and stated goals
+
+- **URL:** https://www.pbs.org/wgbh/commandingheights/lo/countries/ar/ar_full.html
+- **Title/publisher:** “Argentina,” PBS Commanding Heights.
+- **Claim:** De la Rúa won the presidency promising renewed growth and lower corruption, unemployment, and crime.
+- **Use:** Direct evidence of campaign goals; not evidence of implementation or success.
+- **Source profile:** Public-service explanatory media; medium-high confidence by analogy; final evidence for campaign chronology/program, not outcomes.
+- **Temporal fit:** Pre-target election and directly relevant to the 2000 governing program.
+- **Potential mappings:** 5B.1, 5B.3, 5B.7, 5B.10, 8B.1, 8B.2, 8B.6, 8B.10.
+- **Limitations:** Exact paragraph locator and publication date were not extracted.
+
+## E002 — Labor reform and business-promotion measures
+
+- **URL:** https://1997-2001.state.gov/background_notes/argentina_0010_bgn.html
+- **Title/publisher:** “Background Notes: Argentina,” U.S. Department of State.
+- **Claim:** The de la Rúa administration pursued labor-law reform and business-promotion measures intended to stimulate economic growth and employment.
+- **Use:** Formal policy chronology and stated objective.
+- **Source profile:** Official background record; medium-high confidence for formal policy description; context for effects.
+- **Temporal fit:** Target-period administration.
+- **Potential mappings:** 5B.1, 5B.3, 5B.4, 5B.6, 8B.1, 8B.2, 8B.6.
+- **Limitations:** Does not establish that policies worked or were fairly distributed.
+
+## E003 — Corruption trial concerning labor reform
+
+- **URL:** https://www.bbc.com/news/world-latin-america-19263669
+- **Title/publisher:** “Former Argentine president de la Rua in corruption trial,” BBC, 15 August 2012.
+- **Claim:** A trial began concerning accusations that de la Rúa bribed senators to approve a labor-reform bill in 2000.
+- **Use:** Evidence that a ruler-specific legal allegation existed and concerned a target-year policy.
+- **Source profile:** Public-service media; medium-high confidence for chronology and existence of proceedings; final evidence for the allegation, not proof of guilt.
+- **Temporal fit:** Target-year conduct described retrospectively.
+- **Potential mappings:** 5B.4, 5B.5, 7B.3, 7B.4, 7B.6, 7B.7, 7B.9, 8B.2, 8B.6.
+- **Limitations/contrary:** Later reporting indicates de la Rúa was cleared/acquitted. The exact court judgment was not obtained.
+
+## E004 — Senate scandal and coalition-confidence crisis
+
+- **URL:** http://www.cnn.com/2000/WORLD/americas/09/15/argentina.bribes.reut/
+- **Title/publisher:** “De la Rua returns to Argentina to handle scandal,” CNN carrying Reuters, 15 September 2000.
+- **Claim:** Alleged Senate vote-buying created a major political-confidence crisis; Álvarez publicly pressed the issue and de la Rúa’s handling was contested.
+- **Use:** Contemporaneous chronology and attributed political response.
+- **Source profile:** Wire media; medium-high confidence for chronology and attributed statements.
+- **Temporal fit:** Direct target-year evidence.
+- **Potential mappings:** 4B.4, 4B.5, 5B.5, 7B.1, 7B.2, 7B.6, 7B.7, 7B.8, 7B.10, 8B.3, 8B.5.
+- **Limitations:** Does not establish presidential authorization of bribery.
+
+## E005 — Labor reform passed
+
+- **URL:** https://archive.nytimes.com/www.nytimes.com/library/world/americas/042800argentina-labor.html?eafs_enabled=false
+- **Title/publisher:** “Argentina’s President Wins Reform of Rigid Labor Code,” The New York Times, 28 April 2000.
+- **Claim:** Congress passed de la Rúa’s labor reform, presented as a measure intended to reduce unemployment, reported around 14 percent.
+- **Use:** Direct evidence linking the ruler’s stated objective to legislative implementation.
+- **Source profile:** Major newspaper; medium-high confidence for reported legislative chronology and stated purpose.
+- **Temporal fit:** Direct target-year evidence.
+- **Potential mappings:** 5B.1, 5B.4, 5B.7, 8B.2, 8B.6.
+- **Contrary material:** Search results indicate union opposition and concern that the reform weakened worker protections.
+- **Limitations:** No retained evidence of employment outcomes or distributional effects.
+
+## E006 — Police/prison abuses and Corrientes intervention
+
+- **URL:** https://2009-2017.state.gov/j/drl/rls/hrrpt/2000/wha/690.htm
+- **Title/publisher:** “Argentina,” U.S. Department of State Country Reports on Human Rights Practices for 2000.
+- **Claims:**
+  - Federal and provincial police and prison guards continued to commit human-rights abuses.
+  - In December 1999, de la Rúa requested and received congressional permission to suspend all three branches of the Corrientes provincial government.
+- **Use:** Target-year domestic-safety context and evidence of a formal exercise of federal authority.
+- **Source profile:** Official human-rights report; medium-high confidence for reported conditions and formal acts, with official-source caveats.
+- **Temporal fit:** Police/prison conditions target year; Corrientes intervention is pre-period context.
+- **Potential mappings:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.8, 3B.9, 4B.4, 8B.3, 8B.5.
+- **Limitations:** Does not demonstrate a nationwide presidential policy of abuse or failure to remedy; provincial and federal attribution must be separated.
+
+## E007 — First-year multiparty-government context
+
+- **URL:** https://www.refworld.org/reference/annualreport/freehou/2001/en/95569
+- **Title/publisher:** “Freedom in the World 2001 — Argentina,” Freedom House via Refworld.
+- **Claim:** During its first year, the multiparty de la Rúa government confronted public corruption and economic difficulties.
+- **Use:** Independent NGO context for coalition and governance pressures.
+- **Source profile:** NGO annual report; medium-high confidence for broad political context.
+- **Temporal fit:** Retrospective coverage of the first year.
+- **Potential mappings:** 4B.1, 4B.4, 4B.8, 5B.3, 7B.6, 8B.3, 8B.5.
+- **Limitations:** Broad summary; weak causal attribution.
+
+## E008 — Fiscal-order and anti-corruption program
+
+- **URL:** https://www.refworld.org/reference/annualreport/freehou/2001/en/31232
+- **Title/publisher:** “Freedom in the World 2002 — Argentina,” Freedom House via RefWorld, 18 December 2001.
+- **Claim:** Upon taking office, de la Rúa sought to put government accounts in order, cut spending, raise taxes, and pursue anti-corruption and labor reforms.
+- **Use:** Independent retrospective evidence of explicit program and policy priorities.
+- **Source profile:** NGO annual report; medium-high confidence for program chronology.
+- **Temporal fit:** Target-period goals described in later reporting.
+- **Potential mappings:** 5B.1, 5B.3, 5B.7, 5B.9, 5B.10, 8B.1, 8B.2, 8B.6, 8B.10.
+- **Limitations:** Later 2001 crisis material must not be silently converted into 2000 outcomes.
+
+## E009 — Álvarez’s account of investigation handling
+
+- **URL:** https://digitalrepository.unm.edu/cgi/viewcontent.cgi?article=13839&context=notisur
+- **Title/publisher:** “Argentine President De la Rua Dismisses Spy Chief...,” NotiSur archive, University of New Mexico, 2000.
+- **Claim:** The report says Álvarez accused de la Rúa of failing to support an investigation into Senate corruption; de la Rúa dismissed the intelligence chief.
+- **Use:** Contemporaneous, contested evidence about accountability response and a personnel decision.
+- **Source profile:** Regional news archive; medium confidence because the underlying article/source chain was not fully extracted; context, not sole support for wrongdoing.
+- **Temporal fit:** Target year.
+- **Potential mappings:** 4B.4, 7B.2, 7B.6, 7B.7, 7B.10, 8B.4, 8B.8.
+- **Contrary/limits:** The dismissal could represent accountability, political management, or both. The allegation requires primary records and court findings.
+
+## E010 — Nuclear safeguards context
+
+- **URL:** https://www.nti.org/countries/argentina/
+- **Title/publisher:** “Argentina,” Nuclear Threat Initiative.
+- **Claim:** Argentina’s nuclear posture is associated with NPT nonproliferation and ABACC safeguards.
+- **Use:** Context for inherited nuclear restraint/safeguard institutions only.
+- **Source profile:** Specialist NGO/think tank; medium-high confidence; context only.
+- **Temporal fit:** General historical context, not a direct 2000 ruler action.
+- **Potential mappings:** 1B.1, 1B.3, 1B.4, 1B.10.
+- **Limitations:** No de la Rúa-specific decision, rhetoric, command-safety action, or target-year change identified.
+
+---
+
+# 4. Chapter-by-chapter research handoff
+
+## 1B — Nuclear / existential responsibility
+
+### Local baseline
+
+All ten local nuclear lenses were explicitly empty under `R001`. No local FAS facts were available in the package.
+
+### Internet evidence
+
+Only E010 was retained, and only as contextual evidence concerning Argentina’s NPT/ABACC framework.
+
+### Lens coverage
+
+All ten lenses remain weak or blocked:
+
+- No target-year nuclear rhetoric identified.
+- No target-year command-and-control or safety decision identified.
+- No nuclear treaty, inspection, disarmament, or proliferation decision attributable to de la Rúa identified.
+- No existential-risk crisis, dual-use technology, or nuclear posture change identified.
+- No evidence establishing the end-of-year posture relative to the inherited posture.
+
+The absence of nuclear conflict or nuclear reporting must not be treated as proof of responsible leadership.
+
+### Source mix
+
+One external source family, NTI, plus the explicit local-data gap. This is below the requested diversity target.
+
+### Continuation needs
+
+IAEA/ABACC records for 2000; UN treaty records; presidential or foreign-ministry statements; nuclear budget/appointment material; specialist histories of Argentina’s safeguards and nonproliferation policy.
+
+---
+
+## 2B — International peace
+
+### Local baseline
+
+UCDP reports zero state-based and internationalized conflict events and fatalities, and zero one-sided violence events/fatalities in 2000. SIPRI reports modest military spending relative to GDP and government expenditure.
+
+These facts show no recorded conflict exposure in the supplied country-year data. They do not prove de la Rúa made discriminating diplomatic or restraint choices.
+
+### Narrative evidence
+
+E001, E002, E004, E007, and E008 provide political/economic context but no strong evidence of:
+
+- war initiation;
+- cross-border coercion;
+- proxy support;
+- military escalation;
+- peace negotiations;
+- civilian protection in foreign operations;
+- accountability for international conduct.
+
+### Lens coverage
+
+The lenses are partly informed by the low-conflict local baseline and the lack of discovered external conflict, but no direct ruler-attributed peace choice was established.
+
+Specific gaps:
+
+- diplomatic alternatives and de-escalation choices;
+- regional relations and Mercosur diplomacy;
+- military doctrine and mobilization;
+- proxy/arms activity;
+- security rhetoric;
+- international-law conduct;
+- peace initiatives and end-state change.
+
+### Source mix
+
+Local UCDP/SIPRI plus PBS, U.S. State, Freedom House, and CNN/Reuters. Six broad source families, but limited direct international-security evidence.
+
+---
+
+## 3B — Domestic safety
+
+### Local baseline
+
+The local package indicates comparatively limited aggregate political terror by PTS and UCDP measures, but also records nonzero disappearances, political imprisonment, repression, and extrajudicial-killing indicators. The baseline is mixed and should not be reduced to either “safe” or “repressive.”
+
+### Narrative evidence
+
+E006 reports that police and prison guards continued to commit human-rights abuses in 2000. This establishes a domestic-safety problem but not a de la Rúa-directed national policy.
+
+E006 also records de la Rúa’s formal intervention in Corrientes before the target year. That fact may inform questions about federal authority and institutional action, but the supplied evidence does not show whether the intervention protected residents, violated rights, or produced durable remedy.
+
+### Lens coverage
+
+Partially informed:
+
+- 3B.1–3B.2: police/prison abuse context.
+- 3B.4: formal institutional authority and possible oversight context.
+- 3B.5: possible federal intervention context, but not target-year emergency-power analysis.
+- 3B.8–3B.9: weakly informed; no target-year protest-response record.
+
+Unresolved:
+
+- presidential incitement;
+- police chain of command;
+- torture and detention practices attributable to federal authorities;
+- complaint and remedy systems;
+- minority/vulnerable-group protection;
+- peaceful protest and civic organization during 2000;
+- changes from inherited safety conditions.
+
+The December 2001 protest repression was not used as target-year evidence.
+
+---
+
+## 4B — Political freedom
+
+### Local baseline
+
+The local V-Dem/WGI indicators describe Argentina as an electoral and multiparty democracy with comparatively high civil liberties and expression/association scores, but weaker judicial, legislative, accountability, and rule-of-law indicators.
+
+This is an institutional baseline, not direct evidence of de la Rúa’s personal contribution.
+
+### Narrative evidence
+
+- E001 establishes electoral entry and campaign commitments.
+- E004 and E009 document a major coalition/accountability crisis involving Álvarez and the Senate scandal.
+- E006 provides a formal record of federal intervention in Corrientes.
+- E007 supports the characterization of a multiparty government under corruption and economic pressure.
+
+### Lens coverage
+
+Partly covered:
+
+- 4B.1: elected entry and stated program.
+- 4B.4: accountability institutions and contested investigation handling.
+- 4B.5: coalition/personal-network concerns remain unresolved.
+- 4B.8: coalition durability and vice-presidential resignation are relevant.
+
+Weak or missing:
+
+- election administration and contestability details;
+- treatment of opposition victories;
+- media pressure or protection;
+- investigative journalism and civil-society monitoring;
+- judicial independence in concrete cases;
+- term-limit/succession behavior;
+- surveillance or administrative harassment;
+- target-year trajectory from inherited institutions.
+
+A precise election-observer or constitutional record was not obtained.
+
+---
+
+## 5B — Economic well-being
+
+### Local baseline
+
+GDP, GNI, population, and total GDP provide an income/scale baseline only. No distributional, household, employment, poverty, or implementation data were supplied.
+
+### Narrative evidence
+
+- E001: campaign goals included growth and reduced unemployment.
+- E002: labor reform and business-promotion measures were pursued.
+- E005: labor reform passed Congress and was presented as a means of reducing unemployment.
+- E008: fiscal order, spending cuts, tax increases, labor reform, and anti-corruption were identified as governing priorities.
+- E004/E007: political coalition and corruption pressures complicated implementation.
+
+### Lens coverage
+
+Partly covered:
+
+- 5B.1: broad prosperity was an explicit goal.
+- 5B.3: fiscal stabilization and spending restraint were explicit.
+- 5B.4: labor and business rules were actively pursued.
+- 5B.5: corruption/capture concerns are directly relevant through the Senate scandal.
+- 5B.7: policy rationale and political response are partly visible.
+- 5B.9: crisis management intent is visible, but results are not.
+
+Weak or missing:
+
+- appointments and professional economic management;
+- budget execution;
+- inflation, employment, and output outcomes during 2000;
+- household welfare and distribution;
+- poverty and regional effects;
+- IMF assessments;
+- correction/adaptation after policy failure;
+- attributable end-of-year trajectory.
+
+The recession and inherited debt cannot be assigned to de la Rúa without a more detailed baseline and causal analysis.
+
+---
+
+## 6B — Social well-being
+
+### Local baseline
+
+HDI, life expectancy, schooling, and GNI per capita establish a moderate/high national welfare baseline, but no ruler-specific welfare action was supplied.
+
+### Internet evidence
+
+No retained source directly documented de la Rúa’s 2000:
+
+- health or education budgets;
+- social-protection expansion;
+- service delivery;
+- vulnerable-group targeting;
+- poverty reduction;
+- crisis preparation;
+- professional administration;
+- measurement/correction;
+- institutional durability.
+
+### Lens coverage
+
+All ten lenses remain blocked or very weak because the local indicators are country-level outcomes and the narrative search did not produce direct social-policy implementation evidence.
+
+Exact gaps include health and education appropriations, service-access data, poverty/social-protection policy, distribution, and target-year program evaluations.
+
+---
+
+## 7B — Integrity and honesty
+
+### Local baseline
+
+WGI, V-Dem, accountability, and rule-of-law indicators establish institutional corruption context only. They cannot establish personal integrity.
+
+### Narrative evidence
+
+This is the strongest chapter for ruler-specific evidence, though still unresolved:
+
+- E003 documents the later corruption trial concerning alleged bribery of senators for the 2000 labor reform.
+- E004 documents the contemporaneous Senate vote-buying scandal and coalition-confidence crisis.
+- E009 records Álvarez’s accusation that de la Rúa failed to support the investigation and documents a personnel action.
+- E001/E008 establish that anti-corruption was part of the public program.
+
+### Lens coverage
+
+Most directly relevant to:
+
+- 7B.3: separation of state decisions from political bargaining;
+- 7B.4: possible office-related benefit, but no personal enrichment was established;
+- 7B.5: political-network/appointment questions remain unresolved;
+- 7B.6: tolerance of investigation;
+- 7B.7: possible obstruction or failure to support scrutiny, allegation only;
+- 7B.8: commitment and political reversal;
+- 7B.9: transactional politics;
+- 7B.10: public ethical example and coalition trust.
+
+Weak or unresolved:
+
+- habitual truthfulness;
+- admission/correction of false claims;
+- personal/family financial benefit;
+- asset declarations;
+- appointment conflicts;
+- independent investigation outcome.
+
+Important contrary evidence: later reporting indicates that de la Rúa was cleared/acquitted. The exact court record was not obtained, so the allegation and contrary outcome must both remain visible.
+
+---
+
+## 8B — Effectiveness and competence
+
+### Program identified
+
+The available evidence supports a mostly explicit governing program involving:
+
+- economic growth;
+- reduced unemployment;
+- fiscal order;
+- spending restraint;
+- tax increases;
+- labor-market reform;
+- business promotion;
+- anti-corruption;
+- maintaining monetary/financial stability.
+
+### Narrative evidence
+
+- E001/E002/E008 establish the program.
+- E005 establishes legislative implementation of labor reform.
+- E004/E007/E009 establish coalition fracture, political pressure, and contested accountability handling.
+- Local WGI/V-Dem facts provide inherited institutional-capacity context only.
+
+### Lens coverage
+
+Partly covered:
+
+- 8B.1: program identification.
+- 8B.2: labor legislation and fiscal measures show some operationalization.
+- 8B.3: coalition mobilization was attempted but later fractured.
+- 8B.4: appointments remain weakly documented.
+- 8B.5: coalition coordination problems are documented.
+- 8B.6: labor reform reached legislative implementation.
+
+Weak or missing:
+
+- independently measured outcomes;
+- budget and agency execution;
+- personnel competence;
+- adaptation after the Senate scandal;
+- crisis management;
+- durability;
+- end-of-period progress across the whole portfolio.
+
+The local government-effectiveness indicator cannot substitute for a ruler-specific program-to-implementation-to-results chain. Moral effects of labor reform or austerity should be handled in other chapters and not automatically deducted in 8B; the missing issue here is execution evidence.
+
+---
+
+# 5. Source diversity and reuse
+
+## Internet evidence
+
+Ten provisional evidence units were retained:
+
+- nine substantive final/context units;
+- one nuclear item, E010, retained as context only.
+
+The main source families were:
+
+1. PBS;
+2. U.S. Department of State;
+3. BBC;
+4. CNN/Reuters;
+5. The New York Times;
+6. Freedom House via RefWorld;
+7. University of New Mexico/NotiSur archive;
+8. Nuclear Threat Initiative.
+
+The source types include public-service media, official records, wire reporting, newspaper reporting, NGO annual reporting, archive reporting, and specialist think-tank material.
+
+## Same-URL handling
+
+No same-URL splits were created.
+
+E004 and E009 overlap thematically on the Senate scandal but are not treated as fully independent without checking whether the archive reproduces the same wire account. E003 is distinct in that it concerns the later trial chronology.
+
+## Cross-chapter reuse
+
+- E001, E002, E005, and E008 are reused across 5B and 8B because they establish the same economic program and implementation chain.
+- E003, E004, and E009 are reused across 4B, 5B, 7B, and 8B where they genuinely bear on accountability, political institutions, corruption risk, policy passage, coalition coordination, and execution.
+- E006 is reused across 3B, 4B, and 8B for police-abuse context, formal federal authority, and institutional capacity.
+- Local facts were reused as contextual priors in their configured chapters but were not converted into personal conduct evidence.
+
+---
+
+# 6. Rejected or discovery-only material
+
+- Wikipedia pages on de la Rúa, the 2000 bribery scandal, the presidency, and the economic crisis were used for orientation/discovery only and not retained as final evidence.
+- Grokipedia results were rejected as very-low-confidence discovery-only material.
+- The BBC trial report was retained only for the existence and chronology of the allegation, not for guilt.
+- Later reports indicating acquittal/clearance were not retained as a separate evidence item because the underlying court decision was not obtained; they remain a mandatory contrary-evidence lead.
+- December 2001 protest and resignation reporting was excluded from target-year evidence. It may be relevant to a broader ruler-period dossier but cannot silently be treated as 2000 conduct.
+
+---
+
+# 7. Complete local fact disposition
+
+All supplied local facts were audited:
+
+- `LF001–LF008`: retained as Chapter 2B contextual priors.
+- `LF009–LF023`: retained as Chapter 3B contextual priors.
+- `LF024–LF038`: retained as Chapters 4B, 7B, and 8B contextual priors.
+- `LF039–LF042`: retained as Chapter 5B contextual priors.
+- `LF043–LF046`: retained as Chapter 6B contextual priors.
+- `LF047–LF050`: retained as Chapter 7B contextual priors.
+- `LF051–LF052`: retained as Chapter 8B contextual priors.
+
+No fact was treated as a missing-row zero, favorable condition, or proof of ruler responsibility. No local fact was discarded as invalid; the limitation is interpretive: these fields measure country-year or inherited institutional conditions rather than direct ruler conduct.
+
+---
+
+# 8. Main unresolved gaps
+
+1. **Nuclear:** target-year IAEA/ABACC records, treaty acts, presidential statements, safeguards, nuclear doctrine, command/safety, and any change in posture.
+2. **International peace:** foreign-policy chronology, regional diplomacy, military doctrine, arms/proxy activity, and ruler-attributed peace initiatives.
+3. **Domestic safety:** police and prison chain of command, remedies, investigations, protest handling, vulnerable-group protection, and direct presidential responsibility.
+4. **Political freedom:** election observation, media conditions, opposition treatment, judicial independence, civic-space evidence, and constitutional/transfer conduct.
+5. **Economic:** budget execution, employment/inflation/output outcomes, household distribution, IMF assessments, appointments, and policy correction.
+6. **Social welfare:** health/education/social-protection decisions, delivery, access, vulnerable groups, and durability.
+7. **Integrity:** primary court records, de la Rúa’s statements, investigation files, asset/financial records, appointment conflicts, and final legal disposition.
+8. **Effectiveness:** implementation records, ministerial appointments, agency performance, measurable outcomes, adaptation after the coalition fracture, and portfolio-level trajectory.
+9. **Exact locators:** several retained URLs need exact HTML paragraphs, PDF pages, legal sections, or transcript locators before being treated as fully defensible evidence.
+10. **Continuation:** provider rate limits prevented a fuller second-round search and exact-page extraction.
+
+The strongest current ruler-specific evidence concerns the 2000 labor-reform/Senate-corruption controversy and the resulting coalition/accountability breakdown. The strongest caution is that the allegations remain contested, and the later acquittal/clearance must be retrieved and preserved alongside the adverse reporting.
+---

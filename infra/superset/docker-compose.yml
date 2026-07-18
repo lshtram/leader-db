@@ -78,6 +78,8 @@ services:
     volumes:
       - ./nginx-conf:/etc/nginx/conf.d:ro
       - ./reports:/usr/share/nginx/html/reports:ro
+      - ../../docs/client-results/2023-top20:/usr/share/nginx/html/leaders-2023:ro
+      - ../../docs/sources/attributions.md:/usr/share/nginx/html/leaders-attributions.md:ro
       - ${MARKET_RESEARCH_ROOT:-/home/liorshtram/projects/markets-research}/reports/briefs/html:/usr/share/nginx/html/briefs:ro
       - ${MARKET_RESEARCH_ROOT:-/home/liorshtram/projects/markets-research}/reports/visualizations:/usr/share/nginx/html/visualizations:ro
 

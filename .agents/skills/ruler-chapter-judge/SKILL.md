@@ -30,11 +30,20 @@ the cited evidence for the chapter before judging.
    before finalizing.
 5. Weight lenses by relevance, evidence strength, ruler authority, and the chapter
    guide. Do not mechanically average ten lens scores.
+   Apply attribution proportionally: formal responsibility can support Chapters
+   1B–6B and 8B without a personal order; Chapter 7B requires a personal-integrity
+   nexus. Shared authority affects weight and confidence rather than automatically
+   erasing the evidence.
 6. Lower confidence for missing lenses, sparse historical records, weak source
    diversity, closed information environments, or uncertain attribution. Do not
    convert missing evidence into an automatic low score.
 7. Preserve major positive, negative, contrary, and contextual evidence and emit
    targeted follow-up requests for material gaps.
+8. Write the chapter rationale as a self-contained abstract for a new reader:
+   begin with the overall appraisal, explain the decisive cases and why they matter,
+   distinguish findings from allegations and inherited context, and close by tying
+   the balance of evidence to the score. Define unfamiliar events and acronyms on
+   first mention; never begin with unexplained dossier shorthand.
 
 ## Boundaries
 

@@ -1,0 +1,1180 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:RUS:15707",
+  "iso3": "RUS",
+  "country_name": "Russian Federation",
+  "ruler_name": "Vladimir Putin",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 34,
+  "approximate_source_family_count": 12,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 34 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 12 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research handoff: Vladimir Putin — Russian Federation — 2023
+
+I completed a constrained local-first evidence pass across Chapters 1B–8B. The requested files could not be persisted because the read-only execution environment rejected the write command before execution (`bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`). The complete substantive handoff follows for parent persistence.
+
+## 1. Research status and limitations
+
+- **No client-matrix evidence was used.**
+- The supplied local package was reviewed before internet research.
+- Brave discovery failed with quota/rate-limit errors.
+- MiniMax Search and direct Fetch were used as fallbacks.
+- Several promising sources were inaccessible or unusable:
+  - Reuters blocked autonomous fetching.
+  - A Congressional Research Service page returned HTTP 403.
+  - The US State Department PDF produced unusable embedded-image/base64 extraction.
+  - Amnesty’s canonical Russia report URL had rolled forward to the 2025 report.
+  - A Carnegie page could not be simplified.
+- This pass **did not reach reasonable saturation** for a globally prominent contemporary ruler.
+- Best coverage: **2B, 3B, 4B, and 8B**.
+- Weakest coverage: **5B, 6B, and 7B**.
+- No scores, ranges, anchors, or scoring recommendations are included.
+
+---
+
+# 2. Local-first chapter baseline
+
+## 1B — Nuclear and existential risk
+
+No local structured fact was supplied. This is an explicit extraction/mapping gap, not evidence of safe conduct or no exposure.
+
+Internet evidence was needed for:
+
+- Putin’s nuclear authority;
+- nuclear rhetoric;
+- arms-control decisions;
+- Ukraine-linked nuclear coercion;
+- crisis communications and de-escalation;
+- command safety;
+- end-of-year risk posture.
+
+## 2B — International peace
+
+Local facts retained as country-year context:
+
+- **LF001:** SIPRI military expenditure, constant USD, 2023: `108959.52968754475`
+- **LF002:** SIPRI military expenditure per capita, 2023: `749.6365875477042`
+- **LF003:** SIPRI military expenditure share of GDP, 2023: `0.05271702793917057`
+- **LF004:** SIPRI military expenditure share of government spending, 2023: `0.14765737525488165`
+
+These facts measure military-resource exposure. They do not independently establish aggression, unlawful conduct, available diplomatic alternatives, or Putin’s responsibility.
+
+## 3B — Domestic safety
+
+Local country-level priors retained:
+
+- **LF005:** V-Dem civil-society repression, 2023: `-1.94`
+- **LF006:** V-Dem extrajudicial killings, 2023: `-0.924`
+- **LF007:** V-Dem physical-integrity liberties, 2023: `0.258`
+- **LF008:** V-Dem private civil liberties, 2023: `0.499`
+- **LF009:** PTS Amnesty score, 2023: `4`
+- **LF010:** PTS Human Rights Watch score, 2023: `4`
+- **LF011:** PTS State Department score, 2023: `5`
+
+These establish an adverse country-year baseline but require narrative evidence about state mechanisms, severity, remedies, Putin’s authority, and personal or policy attribution.
+
+## 4B — Political freedom
+
+Local structured priors retained:
+
+- **LF012:** accountability, V-Dem: `-0.745`
+- **LF013:** BTI democracy status: `3.4333333333333336`
+- **LF014:** BTI governance index: `2.5530864197530865`
+- **LF015:** BTI status index: `4.180952380952381`
+- **LF016:** Freedom House civil liberties: `6`
+- **LF017:** V-Dem electoral democracy: `0.19`
+- **LF018:** V-Dem freedom of association: `0.159`
+- **LF019:** V-Dem freedom of expression: `0.11`
+- **LF020:** V-Dem judicial constraints: `0.06`
+- **LF021:** V-Dem legislative constraints: `0.073`
+- **LF022:** V-Dem liberal democracy: `0.065`
+- **LF023:** V-Dem multiparty institutions: `0.003`
+- **LF024:** Freedom House political rights: `7`
+- **LF025:** RSF press-freedom rank: `164`
+- **LF026:** RSF press-freedom score: `34.77`
+- **LF027:** V-Dem regime type: `1`
+- **LF028:** V-Dem rule of law: `0.134`
+- **LF029:** V-Dem suffrage: `1`
+
+These directly describe institutional conditions but not every causal mechanism. In particular, LF029 indicates formal franchise, not meaningful electoral contestability.
+
+## 5B — Economic well-being
+
+Retained country context:
+
+- **LF015:** BTI status index
+- **LF030:** real GDP per capita, 2023: `14159.3876953125`
+- **LF031:** total GDP, 2023: `2071505725030.58`
+- **LF032:** population, 2023: `143826130`
+
+These do not establish distribution, household conditions, policy intent, shock response, implementation, or Putin’s contribution.
+
+## 6B — Social well-being
+
+No local structured fact was supplied. This is a gap, not evidence that social conditions or policies were absent.
+
+Needed evidence includes:
+
+- health and education access;
+- social protection;
+- vulnerable-group distribution;
+- service quality;
+- crisis response;
+- realized outcomes;
+- Putin-attributed choices.
+
+## 7B — Personal integrity
+
+Country-level context retained:
+
+- **LF012:** accountability
+- **LF028:** rule of law
+- **LF033:** V-Dem political corruption: `0.78`
+- **LF034:** CPI score: `26`
+- **LF035:** V-Dem executive corruption: `0.753`
+- **LF036:** V-Dem public-sector corruption: `0.774`
+
+These must not be personalized automatically. They do not independently prove that Putin lied, personally profited, created a conflict of interest, or obstructed a specific investigation.
+
+## 8B — Effectiveness
+
+Context retained:
+
+- **LF012:** accountability
+- **LF014:** BTI governance index
+- **LF028:** rule of law
+
+These measure state/institutional conditions, not whether Putin articulated a program, mobilized institutions, adapted, or achieved his chosen goals.
+
+No `error_methodology_ids` were supplied.
+
+---
+
+# 3. Global evidence ledger
+
+## E001 — Putin’s suspension of New START
+
+- **Canonical fact key:**  
+  `https://www.armscontrol.org/act/2023-03/news/russia-suspends-new-start#opening|Putin-suspended-New-START`
+- **Disposition:** `final_evidence`
+- **URL:** https://www.armscontrol.org/act/2023-03/news/russia-suspends-new-start
+- **Title:** “Russia Suspends New START”
+- **Publisher:** Arms Control Association
+- **Date:** March 2023
+- **Precise locator:** Opening through paragraphs beginning “I am compelled…” and “Less than a month earlier…”
+- **Claim:** On 21 February 2023, Putin personally announced that Russia was suspending participation in New START. He connected resumption to ending US support for Ukraine and including France and the United Kingdom in arms-control talks. Russia had also refused inspections and postponed a required implementation meeting.
+- **Supporting excerpt:** Putin said, “I am compelled to announce today that Russia is suspending its participation.”
+- **Main points:** The decision weakened the remaining treaty limiting US and Russian strategic arsenals and linked arms-control cooperation to the Ukraine war.
+- **Source type/confidence:** Arms-control specialist NGO; `medium_high`; detailed and dated, with direct quotations and references to government compliance reporting.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Direct 2023 decision.
+- **Ruler attribution:** High; personally announced by Putin.
+- **Contrary/mitigating points:** Russia suspended rather than withdrew. The source reported that Russia likely remained under the central warhead limit at the end of 2022. Russia cited reciprocal-access disputes.
+- **Mappings:** 1B.1, 1B.2, 1B.4, 1B.5, 1B.8, 1B.10; 2B.3, 2B.6.
+
+## E002 — UN findings concerning Russian conduct in Ukraine
+
+- **Canonical fact key:**  
+  `https://ukraine.un.org/en/250021-un-commission-inquiry-ukraine-finds-continued-war-crimes-and-human-rights-violations-gravely#opening|Russian-authorities-2023-war-crimes`
+- **Disposition:** `final_evidence`
+- **URL:** https://ukraine.un.org/en/250021-un-commission-inquiry-ukraine-finds-continued-war-crimes-and-human-rights-violations-gravely
+- **Title:** “UN Commission of Inquiry on Ukraine finds continued war crimes and human rights violations”
+- **Publisher:** United Nations in Ukraine / Independent International Commission of Inquiry
+- **Date:** 20 October 2023
+- **Precise locator:** Opening and paragraphs addressing Uman, torture, sexual violence, and child transfers.
+- **Claim:** UN investigators documented indiscriminate attacks and the war crimes of torture, rape and other sexual violence, and unlawful child deportation by Russian authorities or forces.
+- **Supporting details:** A Russian attack on an apartment building in Uman in April 2023 killed 24 civilians. The Commission described torture by Russian authorities as widespread and systematic in several detention settings.
+- **Source type/confidence:** UN independent investigative commission; `high`; direct investigation with a linked formal report.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Exact 2023 conduct.
+- **Ruler attribution:** Strong state and command context, but the page does not prove that Putin personally ordered each incident. Policy/war-level attribution is stronger than incident-level attribution.
+- **Contrary/mitigating points:** The Commission also recorded three cases of Ukrainian human-rights violations. Specific command-chain responsibility requires further evidence.
+- **Mappings:** 2B.2, 2B.4, 2B.5, 2B.9, 2B.10. Limited 3B reuse only where a domestic or Russian-detention nexus is separately established.
+
+## E003 — Concentration of Russia’s political system under Putin
+
+- **Canonical fact key:**  
+  `https://freedomhouse.org/country/russia/freedom-world/2024#overview|Putin-concentrated-authoritarian-system-2023`
+- **Disposition:** `final_evidence`
+- **URL:** https://freedomhouse.org/country/russia/freedom-world/2024
+- **Title:** “Russia: Freedom in the World 2024”
+- **Publisher:** Freedom House
+- **Date:** 2024, assessing 2023
+- **Precise locator:** Overview.
+- **Claim:** Freedom House states that power is concentrated in Putin’s hands and describes subservient courts and security forces, controlled media, a pliable legislature, manipulated elections, and suppression of genuine opposition. Restrictions intensified after the full-scale invasion.
+- **Source type/confidence:** Democracy NGO; `medium_high`; systematic annual methodology, with advocacy and aggregation limitations.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Direct assessment of 2023.
+- **Ruler attribution:** Explicitly identifies Putin and the Kremlin regime.
+- **Contrary/mitigating points:** Broad synthesis; event and legal details should be supported by more granular sources where possible.
+- **Mappings:** 4B.1–4B.6, 4B.8, 4B.10; 3B.5, 3B.8; 7B.6 and 7B.7 as context only unless an integrity nexus is established; 8B.1, 8B.3, 8B.9 for a revealed regime-control program.
+
+## E004 — Media control and journalist detentions in 2023
+
+- **Canonical fact key:**  
+  `https://freedomhouse.org/country/russia/freedom-world/2024#D1|2023-journalist-arrests-media-control`
+- **Disposition:** `final_evidence`
+- **URL/title/publisher/date:** Same as E003.
+- **Precise locator:** Section D1.
+- **Claim:** The government controlled national television and most radio and print outlets; more than 300 outlets had been forced to suspend activities. Authorities arrested Wall Street Journal correspondent Evan Gershkovich in March 2023 and detained Radio Free Europe/Radio Liberty journalist Alsu Kurmasheva in October, adding military “fake information” charges in December.
+- **Source type/confidence:** Freedom House; `medium_high`.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Exact 2023 events.
+- **Ruler attribution:** Federal authorities under Putin; personal direction in the individual cases is not demonstrated.
+- **Contrary/mitigating points:** Russian authorities alleged espionage or legal violations; this evidence establishes detention and the broader control environment, not final adjudication of the charges.
+- **Mappings:** 4B.3, 4B.6, 4B.9; 3B.5, 3B.8.
+
+## E005 — NGO closures and foreign-agent expansion
+
+- **Canonical fact key:**  
+  `https://freedomhouse.org/country/russia/freedom-world/2024#E2|2023-NGO-closures-foreign-agent-law`
+- **Disposition:** `final_evidence`
+- **URL/title/publisher/date:** Same as E003.
+- **Precise locator:** Section E2.
+- **Claim:** By mid-2023, 649 organizations and individuals were listed as foreign agents. Authorities closed organizations including the SOVA Center and Moscow Helsinki Group, designated 53 entities “undesirable,” and Putin signed an August law criminalizing collaboration with unregistered foreign NGOs.
+- **Source type/confidence:** Freedom House; `medium_high`.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Exact 2023 conduct.
+- **Ruler attribution:** Direct for the law signed by Putin; systemic for closures and designations.
+- **Limitations:** The page does not reproduce the primary statutory text.
+- **Mappings:** 3B.5, 3B.8; 4B.3, 4B.6, 4B.9, 4B.10; 7B.6 and 7B.7 where suppression affects integrity scrutiny.
+
+## E006 — Due process, detention abuse, and political prisoners
+
+- **Canonical fact key:**  
+  `https://freedomhouse.org/country/russia/freedom-world/2024#F2-F3|2023-due-process-torture-political-prisoners`
+- **Disposition:** `final_evidence`
+- **URL/title/publisher/date:** Same as E003.
+- **Precise locator:** Sections F2 and F3.
+- **Claim:** The judiciary lacked independence. Authorities arrested three of Alexei Navalny’s lawyers in October 2023. Draft enforcement involved raids and threats, while an April law reduced defense and appeal protections. Freedom House cited a September UN report warning that detainees risked death from persistent torture and ill-treatment. Navalny and Aleksey Gorinov were secretly transferred and inaccessible to families and lawyers in December.
+- **Source type/confidence:** Freedom House drawing partly on UN and other reporting; `medium_high`.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Exact 2023 conduct.
+- **Ruler attribution:** Federal system and policy under Putin; direct personal orders generally not shown.
+- **Limitations:** Compound evidence item. The formatter should split subclaims if each is relied on independently. The underlying September UN report was not fetched.
+- **Mappings:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.8; 4B.3, 4B.4; 7B.6, 7B.7.
+
+## E007 — Inherited war-censorship architecture
+
+- **Canonical fact key:**  
+  `https://www.hrw.org/world-report/2023/country-chapters/russian-federation#opening|war-censorship-and-Putin-signed-laws`
+- **Disposition:** `context`
+- **URL:** https://www.hrw.org/world-report/2023/country-chapters/russian-federation
+- **Title:** “World Report 2023: Russian Federation”
+- **Publisher:** Human Rights Watch
+- **Date:** 2023, principally covering 2022 events
+- **Precise locator:** Opening and Freedom of Expression.
+- **Claim:** On 4 March 2022, Putin signed laws effectively outlawing anti-war speech and protest, carrying penalties of up to 15 years. Authorities had opened more than 4,500 administrative and 100 criminal cases by October 2022.
+- **Source type/confidence:** Human-rights NGO; `medium_high`.
+- **Final-evidence use:** `context`
+- **Target-period fit:** Prior-year baseline continuing into 2023, not direct target-year conduct.
+- **Ruler attribution:** Direct for Putin’s signature.
+- **Mappings:** 3B.5, 3B.8; 4B.3, 4B.6, 4B.9, 4B.10.
+
+## E008 — Putin’s enactment of a war-oriented 2024 budget
+
+- **Canonical fact key:**  
+  `https://www.sipri.org/media/press-release/2023/russias-new-budget-law-signals-determination-see-war-ukraine-through-according-new-sipri-analysis#opening|Putin-signed-2024-war-budget`
+- **Disposition:** `final_evidence`
+- **URL:** https://www.sipri.org/media/press-release/2023/russias-new-budget-law-signals-determination-see-war-ukraine-through-according-new-sipri-analysis
+- **Title:** “Russia’s new budget law signals determination to see the war in Ukraine through”
+- **Publisher:** Stockholm International Peace Research Institute
+- **Date:** 13 December 2023
+- **Precise locator:** Opening and first four substantive paragraphs.
+- **Claim:** Putin signed the 2024–26 budget on 27 November 2023. SIPRI estimated planned 2024 military spending at 29 percent above 2023 in real terms, 7.1 percent of GDP, and 35 percent of total government expenditure. Planned shares for housing, education, and healthcare declined, and budget transparency deteriorated.
+- **Source type/confidence:** Independent research institute; `high` for military-budget analysis; linked detailed report.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** A 2023 enactment governing planned 2024 expenditure.
+- **Ruler attribution:** Direct presidential signature.
+- **Contrary/mitigating points:** These are enacted plans, not realized expenditure or welfare outcomes. A declining budget share does not itself prove falling absolute service delivery.
+- **Mappings:** 2B.2, 2B.8, 2B.10; 5B.1, 5B.3, 5B.6, 5B.9, 5B.10; 6B.1, 6B.2, 6B.4, 6B.9; 8B.1, 8B.2, 8B.6, 8B.10.
+
+## E009 — Wagner mutiny and vulnerabilities in Putin’s system
+
+- **Canonical fact key:**  
+  `https://fiia.fi/en/publication/russia-after-the-wagner-mutiny#introduction|Wagner-mutiny-exposed-Putin-system-vulnerability`
+- **Disposition:** `final_evidence`
+- **URL:** https://fiia.fi/en/publication/russia-after-the-wagner-mutiny
+- **Title:** “Russia after the Wagner mutiny”
+- **Publisher:** Finnish Institute of International Affairs
+- **Date:** October 2023
+- **Precise locator:** Summary, Introduction, and “Risk aversion leads to regime vulnerability.”
+- **Claim:** The June 2023 mutiny exposed passivity among elites and authorities, weak control over informal violent actors, and a system encouraging inaction. Wagner’s autonomy and lack of direct Ministry of Defence supervision created structural risk. The authors assess that Putin likely had an incomplete picture and expected Prigozhin to submit.
+- **Source type/confidence:** Independent foreign-policy institute; `medium_high` for expert analysis.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Exact 2023 event.
+- **Ruler attribution:** Explicit causal attribution to Putin’s governing system; some claims about Putin’s knowledge are probabilistic.
+- **Contrary/mitigating points:** The analysis recognizes uncertainty over how much Putin knew.
+- **Mappings:** 2B.5, 2B.9; 3B.2 where domestic monopoly of violence is relevant; 7B.2, 7B.5, 7B.9, 7B.10; 8B.3–8B.5, 8B.8–8B.10.
+
+## E010 — Loyalty, patronage, and informal implementation networks
+
+- **Canonical fact key:**  
+  `https://fiia.fi/en/publication/russia-after-the-wagner-mutiny#prigozhin-network|Putin-loyalty-patronage-informal-actors`
+- **Disposition:** `final_evidence`
+- **URL/title/publisher/date:** Same as E009.
+- **Precise locator:** Discussion of oligarch groups, Prigozhin’s rise, and unofficial actors.
+- **Claim:** The paper states that Putin’s Leningrad-era associates were rewarded for loyalty. Prigozhin accumulated wealth through Kremlin services and developed roles in trolling, foreign-election influence, and covert military operations by anticipating the regime’s unofficial needs.
+- **Source type/confidence:** FIIA expert analysis; `medium_high`.
+- **Final-evidence use:** `final_evidence`
+- **Target-period fit:** Broader ruler-period mechanism illuminated by the 2023 mutiny.
+- **Ruler attribution:** Strong network/system attribution; does not establish personal financial benefit to Putin.
+- **Limitations:** Primary financial records are still needed for personal-enrichment claims.
+- **Mappings:** 2B.5; 5B.2, 5B.5; 7B.3–7B.5, 7B.9; 8B.2–8B.5.
+
+## E011 — Post-mutiny restructuring of coercive actors
+
+- **Canonical fact key:**  
+  `https://www.ponarseurasia.org/the-kremlins-dilemma-effectiveness-versus-loyalty-in-the-case-of-prigozhins-wagner-pmc/#post-Prigozhin|Kremlin-restructured-PMC-control`
+- **Disposition:** `context`
+- **URL:** https://www.ponarseurasia.org/the-kremlins-dilemma-effectiveness-versus-loyalty-in-the-case-of-prigozhins-wagner-pmc/
+- **Title:** “The Kremlin’s Dilemma: Effectiveness versus Loyalty in the Case of Prigozhin’s Wagner PMC”
+- **Publisher:** PONARS Eurasia
+- **Date:** Not visible in fetched text; retrospective and post-2023
+- **Precise locator:** Opening and “Redut and Convoy: Post-Prigozhin Attempts at Creating Loyal but Effective PMCs.”
+- **Claim:** Following the mutiny and Prigozhin’s death, operational control shifted toward the Ministry of Defence, GRU, Rosgvardiya, and loyal officials. The restructuring prioritized loyalty and prevention of autonomous armed actors.
+- **Source type/confidence:** Academic policy network; `medium`.
+- **Final-evidence use:** `context`
+- **Target-period fit:** Retrospective evidence about the response to a 2023 event.
+- **Ruler attribution:** Putin-specific direction is inferred rather than established through a primary order.
+- **Contrary/mitigating points:** The restructuring may strengthen regime control while reducing operational effectiveness.
+- **Mappings:** 2B.5; 8B.4, 8B.5, 8B.8, 8B.9.
+
+---
+
+# 4. Chapter-by-chapter handoff
+
+## 1B — Nuclear and existential-risk responsibility
+
+### Discovery queries
+
+- `Putin Russia 2023 nuclear arms control threats Ukraine`
+- `Russia 2023 New START suspension Putin official UN arms control`
+- Named-source searches for Reuters, CRS, and Arms Control Association
+
+### Yield
+
+- **Mapped internet units:** E001
+- **Independent internet source families:** 1
+- **Source types:** Arms-control NGO
+- **Local units:** None
+
+### Coverage
+
+E001 directly covers:
+
+- ruler-level arms-control action;
+- linkage between nuclear arms control and the Ukraine war;
+- weakened inspection/data-exchange arrangements;
+- consequential deterioration in nuclear transparency.
+
+### Contrary evidence
+
+- Suspension was not withdrawal.
+- Russia reportedly remained under the central New START warhead limit at the preceding assessment point.
+- Russia cited reciprocal-access problems.
+
+### Unresolved themes
+
+- Putin’s specific 2023 nuclear threats and rhetoric;
+- tactical nuclear deployments to Belarus;
+- 2023 CTBT-related action;
+- command-and-control and accident-prevention safeguards;
+- crisis communication channels;
+- expert appointments and nuclear decision structure;
+- biological, cyber, AI, or other catastrophic-risk policy;
+- independently documented de-escalatory choices.
+
+### Status
+
+Not saturated and below the desired five source-claim units.
+
+---
+
+## 2B — International peace, restraint, and lawful security
+
+### Discovery queries
+
+- Broad Putin/Ukraine reconnaissance
+- `UN Commission Russia Ukraine 2023 war crimes civilian attacks report`
+- `Russia 2023 poverty healthcare education social spending war budget report`
+- Searches concerning Wagner, Prigozhin, proxy control, and military administration
+
+### Yield
+
+- **Local context:** LF001–LF004
+- **Internet units:** E001, E002, E008, E009, E010, E011
+- **Independent organizations:** Arms Control Association, United Nations Commission, SIPRI, FIIA, PONARS
+- **Source types:** UN investigative body, specialist NGO, research institutes, academic policy network
+
+### Strongly covered themes
+
+- continued war prioritization;
+- documented civilian harm and war crimes;
+- weak control of proxy or semi-autonomous armed actors;
+- resource mobilization for continuing war;
+- reduced nuclear arms-control cooperation linked to the conflict.
+
+### Attribution limits
+
+- E002 establishes Russian state/force conduct but not personal Putin orders for each incident.
+- E009 and E010 attribute structural proxy-control failures to Putin’s system but remain expert analysis.
+- LF001–LF004 are resource context only.
+
+### Contrary evidence
+
+- The UN Commission documented some Ukrainian violations.
+- New START suspension stopped short of withdrawal.
+- E011 suggests the Kremlin adapted to the Wagner failure by tightening control.
+
+### Unresolved themes
+
+- 2023 ceasefire and negotiation record;
+- credible peaceful alternatives considered or rejected;
+- primary Putin transcripts explaining war objectives;
+- treatment of prisoners and remedies linked to command policy;
+- accountability for civilian harm;
+- independent evidence concerning arms recipients and other proxies;
+- meaningful target-year de-escalation.
+
+### Status
+
+Near the minimum evidence count but still not reasonably saturated.
+
+---
+
+## 3B — Domestic safety, restraint, and protection
+
+### Discovery queries
+
+- `Russia 2023 human rights repression Putin HRW Amnesty`
+- Targeted Freedom House, Human Rights Watch, State Department, and Amnesty searches
+- Wagner/domestic monopoly-of-violence searches
+
+### Yield
+
+- **Local context:** LF005–LF011
+- **Internet units:** E003–E007 and E009
+- **Independent internet organizations:** Freedom House, Human Rights Watch, FIIA
+- **Source types:** Human-rights/democracy NGOs and policy institute
+
+### Strongly covered themes
+
+- severe country-year repression baseline;
+- coercive use of law and detention;
+- torture and ill-treatment risk;
+- political-prisoner and defense-lawyer treatment;
+- restrictions on peaceful dissent and civil organization;
+- weak independent remedies;
+- domestic command vulnerability exposed by the Wagner mutiny.
+
+### Attribution limits
+
+- Direct Putin attribution is strongest for signed laws and the governing structure.
+- Individual abuse cases are attributable primarily to federal authorities or institutions, not necessarily personal orders.
+- The local V-Dem and PTS indicators measure country conditions rather than Putin’s direct conduct.
+
+### Contrary or mitigating evidence
+
+- No strong target-year evidence of corrective investigations or remedies was located.
+- The 2022 HRW evidence is inherited context rather than target-year proof.
+
+### Unresolved themes
+
+- vulnerable-group protection in 2023;
+- women, children, minorities, migrants, and LGBT people with target-year locators;
+- domestic crisis response and spontaneous flare-ups;
+- prosecution or discipline of abusive officers;
+- regional variation, especially Chechnya;
+- direct Putin rhetoric involving incitement or dehumanization;
+- reliable target-year imprisonment counts.
+
+### Status
+
+Material coverage exists but source concentration is high and several lenses remain thin.
+
+---
+
+## 4B — Political freedom
+
+### Discovery queries
+
+Political-freedom research was integrated with the repression searches. No supplied structured source was re-fetched.
+
+### Yield
+
+- **Local units:** LF012–LF029
+- **Internet units:** E003–E007
+- **Internet source families:** Freedom House and Human Rights Watch
+- **Source types:** Democracy and human-rights NGOs
+
+### Strongly covered themes
+
+- concentration of power in Putin’s hands;
+- weak judicial and legislative constraints;
+- controlled media environment;
+- journalist detention;
+- NGO closures and foreign-agent/undesirable designations;
+- repression of anti-war expression;
+- executive entrenchment and lack of meaningful contestability.
+
+### Important local-prior caution
+
+LF029 records universal or formal suffrage but does not show meaningful electoral competition. It should be treated as a formal-right counterpoint, not evidence of genuine political freedom.
+
+### Contrary evidence
+
+- Formal suffrage remained present.
+- Some nominal opposition factions and legal institutions continued to exist, although E003 describes them as pliable or subservient.
+
+### Unresolved themes
+
+- no target-year national presidential election to observe;
+- 2023 regional-election observer findings;
+- specific opposition-party registration and ballot-access cases;
+- target-year term-limit or succession action;
+- direct primary legal records for the NGO and censorship laws;
+- credible favorable evidence of institutional restraint;
+- minority and gender political inclusion.
+
+### Status
+
+Substantial structured and narrative coverage, but internet evidence is heavily concentrated in Freedom House.
+
+---
+
+## 5B — Economic well-being and prosperity
+
+### Discovery queries
+
+- `Russia economy social welfare 2023 IMF World Bank Putin`
+- `Russia 2023 poverty healthcare education social spending war budget report`
+- Searches concerning sanctions, inflation, budget allocation, and patronage
+
+### Yield
+
+- **Local context:** LF015, LF030–LF032
+- **Internet units:** E008 and E010
+- **Independent internet organizations:** SIPRI and FIIA
+- **Source types:** Research institutes
+
+### Evidence contribution
+
+- E008 establishes a direct Putin-attributed budget decision prioritizing military expenditure and reducing the shares allocated to some civilian categories.
+- E010 provides broader patronage and loyalty-network context.
+- LF030–LF032 establish national economic scale, not stewardship.
+
+### Attribution and causal limits
+
+- GDP and population cannot establish ruler competence or economic welfare.
+- The budget evidence concerns future planned spending, not realized outcomes.
+- Patronage evidence does not by itself demonstrate aggregate economic impact.
+
+### Unresolved themes
+
+- realized 2023 GDP growth and its war-spending contribution;
+- inflation and Bank of Russia response;
+- real household income and poverty;
+- labor shortages and mobilization effects;
+- sanctions adaptation and import substitution;
+- fiscal sustainability;
+- distribution across regions and classes;
+- economic appointments and delegated authority;
+- property rights, competition, and oligarchic favoritism;
+- independent implementation evaluations.
+
+### Status
+
+Below five defensible internet units and not saturated.
+
+---
+
+## 6B — Social well-being and human development
+
+### Discovery queries
+
+- `Russia 2023 poverty healthcare education social spending war budget report`
+- Broader economy/welfare searches
+- Amnesty and World Bank candidate inspection
+
+### Yield
+
+- **Local context:** None
+- **Internet units:** E008 only
+- **Organizations/types:** SIPRI research analysis
+
+### Evidence contribution
+
+E008 is a policy-priority signal:
+
+- Putin signed the budget;
+- planned shares for education, healthcare, and housing declined;
+- military spending increased sharply.
+
+It does **not** establish actual service delivery, access, quality, welfare outcomes, or effects on vulnerable groups.
+
+### Rejected candidates
+
+- Amnesty canonical page had rolled to 2025.
+- An older World Bank health-spending page lacked target-period fit.
+- Search-result snippets and generic homepages were not retained.
+
+### Unresolved themes
+
+Nearly all substantive themes remain open:
+
+- health outcomes and access;
+- education access and quality;
+- housing, sanitation, food security, and social protection;
+- poverty and pension adequacy;
+- vulnerable groups and regional disparities;
+- mobilized soldiers’ families and war casualties;
+- service professionalism and politicization;
+- evidence-based correction;
+- crisis response;
+- durable institution building;
+- Putin-attributed welfare actions with implementation evidence.
+
+### Status
+
+Severely under-researched and not saturated.
+
+---
+
+## 7B — Personal integrity and honesty
+
+### Discovery queries
+
+- `Putin personal wealth corruption associates 2023 investigation sanctions findings`
+- Searches for oligarch networks, patronage, suppression of investigators, and Prigozhin’s relationship to the Kremlin
+
+### Yield
+
+- **Local context:** LF012, LF028, LF033–LF036
+- **Internet units:** E005, E006, E009, E010
+- **Independent organizations:** Freedom House and FIIA
+- **Source types:** Democracy NGO and policy institute
+
+### Evidence contribution
+
+- E010 describes loyalty-based patronage and informal actors.
+- E005 and E006 show suppression of civil-society and legal scrutiny.
+- E009 suggests that Putin’s system discouraged honest internal reporting and left him with incomplete information.
+
+### Critical attribution cautions
+
+- Country corruption indicators cannot be converted into claims of Putin’s personal corruption.
+- E010 does not prove that Putin personally profited.
+- Suppression of NGOs and lawyers is integrity evidence only where connected to concealment, anti-corruption scrutiny, or obstruction of investigation.
+- No precise 2023 asset, beneficial-ownership, court, or audit finding was secured.
+
+### Rejected candidates
+
+Search results concerning Putin’s wealth were mainly:
+
+- older allegations;
+- Facebook posts;
+- post-period sanction lists;
+- unlocated summaries.
+
+They were not accepted.
+
+### Unresolved themes
+
+- target-year primary financial or beneficial-ownership records;
+- direct personal/family enrichment;
+- documented false statements and corrections;
+- material promises kept or broken;
+- independent inquiry responses;
+- retaliation against a specific integrity investigation;
+- asset declarations and conflicts;
+- contrary evidence of candor or separation of interests.
+
+### Status
+
+Ruler-specific integrity evidence remains limited. Not saturated.
+
+---
+
+## 8B — Effectiveness and competence
+
+### Discovery queries
+
+- `Putin 2023 corruption governance effectiveness Prigozhin mobilization`
+- Targeted FIIA and PONARS searches
+- War-budget and restructuring searches
+
+### Yield
+
+- **Local context:** LF012, LF014, LF028
+- **Internet units:** E003, E008–E011
+- **Independent organizations:** Freedom House, SIPRI, FIIA, PONARS
+- **Source types:** Democracy NGO, research institutes, academic policy network
+
+### Identified program components
+
+Evidence supports at least three revealed or explicit components:
+
+1. continued prosecution of the Ukraine war and international influence;
+2. domestic regime control and suppression of dissent;
+3. mobilization and control of fiscal, military, and informal coercive machinery.
+
+This is not yet a complete frozen governing portfolio.
+
+### Evidence of operationalization or progress
+
+- E008 shows clear budgetary operationalization of the war priority.
+- E003 shows continued effectiveness in concentrating political control and closing civic space.
+- E011 suggests post-mutiny adaptation toward tighter control of semi-autonomous armed groups.
+
+### Evidence of failure or fragility
+
+- E009 describes the Wagner mutiny as exposing serious coordination failures, passive institutions, weak supervision, and incomplete information reaching Putin.
+- E010 shows reliance on informal loyal actors to compensate for official inefficiency.
+- E011’s mitigating adaptation may trade operational effectiveness for loyalty.
+
+### Attribution limits
+
+- Local governance indicators are inherited/system context.
+- Regime survival cannot stand as the full portfolio.
+- Later restructuring evidence is retrospective.
+- Budget plans show inputs and priorities, not necessarily durable success.
+
+### Unresolved themes
+
+- complete 2023 governing portfolio;
+- primary strategy and budget documents;
+- battlefield objectives versus results;
+- defense-industrial mobilization;
+- economic adaptation;
+- crisis management beyond Wagner;
+- personnel changes and their effects;
+- outcome durability;
+- independent evidence spanning more than regime control and war mobilization.
+
+### Status
+
+Useful mixed implementation/failure evidence, but not saturated.
+
+---
+
+# 5. Rejected and blocked candidates
+
+| ID | Candidate | Disposition | Reason |
+|---|---|---|---|
+| R001 | Reuters, Putin/New START article | Rejected | Robots blocked page; search snippet is not evidence |
+| R002 | CRS IF12672 | Rejected | HTTP 403; underlying source unavailable |
+| R003 | US State Department Russia 2023 Human Rights Report PDF | Rejected | Fetch returned embedded image/base64 without usable text or precise locator |
+| R004 | Amnesty canonical Russia report | Rejected | Current URL contains 2025 report, not target-year evidence |
+| R005 | Carnegie article on Russia’s 2024 budget | Rejected | Page could not be simplified; no extracted locator |
+| R006 | Wikipedia results | Discovery only | Orientation only; better underlying sources were sought |
+| R007 | Facebook/YouTube results | Rejected | Weak provenance and no precise underlying locator |
+| R008 | Post-2023 or future material not establishing a 2023 fact | Rejected/context | Temporal mismatch |
+| R009 | Generic IMF/World Bank homepages | Rejected | Homepage or broad gateway, not a precise target-year claim locator |
+
+---
+
+# 6. Source diversity and concentration
+
+## Defensible accepted internet evidence
+
+- **11 ledger items**
+  - 9 final-evidence items
+  - 2 context items
+- **Main organizations:**
+  - Arms Control Association
+  - United Nations Independent International Commission of Inquiry
+  - Freedom House
+  - Human Rights Watch
+  - SIPRI
+  - Finnish Institute of International Affairs
+  - PONARS Eurasia
+- **Source types:**
+  - UN investigative body
+  - specialist NGO
+  - democracy/human-rights NGOs
+  - research institutes
+  - academic policy network
+
+## Same-URL splits
+
+Freedom House was split into materially distinct, precisely located claims:
+
+- E003 — Overview/system concentration
+- E004 — D1/media control and journalist detention
+- E005 — E2/NGO restrictions
+- E006 — F2/F3/due process and physical integrity
+
+E006 remains compound and should be divided during formatting if its subclaims are cited independently.
+
+FIIA was split into:
+
+- E009 — Wagner mutiny and governing-system vulnerability
+- E010 — patronage and informal implementation networks
+
+## Concentration concerns
+
+- 3B and 4B rely heavily on Freedom House.
+- 1B relies on one accepted organization.
+- 5B–7B lack sufficient independent source diversity.
+- No accepted claim relies solely on a search-result snippet.
+
+---
+
+# 7. Strongest contrary and mitigating evidence
+
+1. **New START:** Russia suspended rather than withdrew, and the central numerical limit was reportedly still likely being observed around the preceding assessment point.
+2. **UN Ukraine findings:** The Commission also documented a small number of Ukrainian violations, although this does not negate its findings concerning Russian forces.
+3. **Wagner response:** Later restructuring indicates that the Kremlin adapted by bringing armed actors under tighter formal control.
+4. **Political freedom:** Formal suffrage remained present, but this is weak contrary evidence because it does not establish meaningful contestability.
+5. **Budget allocation:** Falling social-spending shares do not prove falling absolute expenditure or service outcomes.
+6. **Economic indicators:** Russia’s large GDP and measurable per-capita output are context, not evidence of Putin’s policy contribution.
+7. **Integrity:** The available evidence does not establish direct personal enrichment by Putin in 2023.
+
+---
+
+# 8. Local-data audit
+
+## Retained as context
+
+- **2B:** LF001–LF004
+- **3B:** LF005–LF011
+- **4B:** LF012–LF029
+- **5B:** LF015, LF030–LF032
+- **7B:** LF012, LF028, LF033–LF036
+- **8B:** LF012, LF014, LF028
+
+All supplied facts:
+
+- concern 2023;
+- carry supplied confidence `80`;
+- have no supplied warnings;
+- use exact local-prior locators.
+
+## Special handling
+
+- **LF029**, formal suffrage, is retained only as contextual/contrary information. It does not demonstrate meaningful choice, fair elections, or alternation.
+- No local fact was treated as direct evidence of Putin’s personal conduct unless narrative evidence independently supplied attribution.
+- No supplied fact was discarded for quality.
+- Chapters **1B and 6B** had explicit empty local states. Those empty states were recorded as gaps and not entered as evidence.
+- There were no local extraction errors identified in `error_methodology_ids`.
+
+---
+
+# 9. Required manifest content
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {
+      "provisional_id": "E001",
+      "canonical_fact_key": "https://www.armscontrol.org/act/2023-03/news/russia-suspends-new-start#opening|Putin-suspended-New-START",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E002",
+      "canonical_fact_key": "https://ukraine.un.org/en/250021-un-commission-inquiry-ukraine-finds-continued-war-crimes-and-human-rights-violations-gravely#opening|Russian-authorities-2023-war-crimes",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E003",
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#overview|Putin-concentrated-authoritarian-system-2023",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E004",
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#D1|2023-journalist-arrests-media-control",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E005",
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#E2|2023-NGO-closures-foreign-agent-law",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E006",
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#F2-F3|2023-due-process-torture-political-prisoners",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E007",
+      "canonical_fact_key": "https://www.hrw.org/world-report/2023/country-chapters/russian-federation#opening|war-censorship-and-Putin-signed-laws",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "E008",
+      "canonical_fact_key": "https://www.sipri.org/media/press-release/2023/russias-new-budget-law-signals-determination-see-war-ukraine-through-according-new-sipri-analysis#opening|Putin-signed-2024-war-budget",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E009",
+      "canonical_fact_key": "https://fiia.fi/en/publication/russia-after-the-wagner-mutiny#introduction|Wagner-mutiny-exposed-Putin-system-vulnerability",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E010",
+      "canonical_fact_key": "https://fiia.fi/en/publication/russia-after-the-wagner-mutiny#prigozhin-network|Putin-loyalty-patronage-informal-actors",
+      "disposition": "final_evidence"
+    },
+    {
+      "provisional_id": "E011",
+      "canonical_fact_key": "https://www.ponarseurasia.org/the-kremlins-dilemma-effectiveness-versus-loyalty-in-the-case-of-prigozhins-wagner-pmc/#post-Prigozhin|Kremlin-restructured-PMC-control",
+      "disposition": "context"
+    },
+    {
+      "provisional_id": "R001",
+      "canonical_fact_key": "https://www.reuters.com/world/putin-update-russias-elite-ukraine-war-major-speech-2023-02-21/|fetch-blocked",
+      "disposition": "rejected",
+      "reason": "Robots blocked underlying page; search snippet is not evidence."
+    },
+    {
+      "provisional_id": "R002",
+      "canonical_fact_key": "https://www.congress.gov/crs_external_products/IF/HTML/IF12672.html|fetch-blocked",
+      "disposition": "rejected",
+      "reason": "HTTP 403; underlying source unavailable."
+    },
+    {
+      "provisional_id": "R003",
+      "canonical_fact_key": "https://www.state.gov/wp-content/uploads/2024/03/528267_RUSSIA-2023-HUMAN-RIGHTS-REPORT.pdf|unusable-extraction",
+      "disposition": "rejected",
+      "reason": "Fetch returned embedded image/base64 without a precise text locator."
+    },
+    {
+      "provisional_id": "R004",
+      "canonical_fact_key": "https://www.amnesty.org/en/location/europe-and-central-asia/eastern-europe-and-central-asia/russia/report-russia/|rolled-to-2025",
+      "disposition": "rejected",
+      "reason": "Canonical page currently contains the 2025 report, not target-year evidence."
+    },
+    {
+      "provisional_id": "R005",
+      "canonical_fact_key": "https://carnegieendowment.org/russia-eurasia/politika/2023/09/russias-2024-budget-shows-its-planning-for-a-long-war-in-ukraine|fetch-failed",
+      "disposition": "rejected",
+      "reason": "Page could not be simplified and no precise locator was extracted."
+    }
+  ]
+}
+```
+
+## Final self-audit
+
+- **Temporal fit:** E001–E006, E008, and E009 directly address 2023. E007 is prior-year baseline; E010 is broader ruler-period evidence; E011 is retrospective context.
+- **Ruler attribution:** Strongest for New START suspension, Putin’s signature of the NGO law, and Putin’s signature of the budget. Weaker for individual abuses and battlefield incidents.
+- **Context-only safeguards:** Local indicators, E007, and E011 were not elevated beyond their evidentiary role.
+- **Independent corroboration gaps:** Nuclear rhetoric, welfare outcomes, personal enrichment, and economic shock management remain insufficiently corroborated.
+- **Most important continuation priorities:** primary 2023 nuclear transcripts and Belarus/CTBT records; UN/ICRC evidence on command responsibility and peace efforts; target-year welfare and household indicators paired with policy choices; financial/legal integrity records; and independent economic and implementation analyses.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/act/2023-03/news/russia-suspends-new-start#opening|Putin-suspended-New-START",
+      "disposition": "final_evidence",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://ukraine.un.org/en/250021-un-commission-inquiry-ukraine-finds-continued-war-crimes-and-human-rights-violations-gravely#opening|Russian-authorities-2023-war-crimes",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#overview|Putin-concentrated-authoritarian-system-2023",
+      "disposition": "final_evidence",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#D1|2023-journalist-arrests-media-control",
+      "disposition": "final_evidence",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#E2|2023-NGO-closures-foreign-agent-law",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://freedomhouse.org/country/russia/freedom-world/2024#F2-F3|2023-due-process-torture-political-prisoners",
+      "disposition": "final_evidence",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2023/country-chapters/russian-federation#opening|war-censorship-and-Putin-signed-laws",
+      "disposition": "context",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.sipri.org/media/press-release/2023/russias-new-budget-law-signals-determination-see-war-ukraine-through-according-new-sipri-analysis#opening|Putin-signed-2024-war-budget",
+      "disposition": "final_evidence",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://fiia.fi/en/publication/russia-after-the-wagner-mutiny#introduction|Wagner-mutiny-exposed-Putin-system-vulnerability",
+      "disposition": "final_evidence",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://fiia.fi/en/publication/russia-after-the-wagner-mutiny#prigozhin-network|Putin-loyalty-patronage-informal-actors",
+      "disposition": "final_evidence",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.ponarseurasia.org/the-kremlins-dilemma-effectiveness-versus-loyalty-in-the-case-of-prigozhins-wagner-pmc/#post-Prigozhin|Kremlin-restructured-PMC-control",
+      "disposition": "context",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/putin-update-russias-elite-ukraine-war-major-speech-2023-02-21/|fetch-blocked",
+      "disposition": "rejected",
+      "provisional_id": "R001",
+      "reason": "Robots blocked underlying page; search snippet is not evidence."
+    },
+    {
+      "canonical_fact_key": "https://www.congress.gov/crs_external_products/IF/HTML/IF12672.html|fetch-blocked",
+      "disposition": "rejected",
+      "provisional_id": "R002",
+      "reason": "HTTP 403; underlying source unavailable."
+    },
+    {
+      "canonical_fact_key": "https://www.state.gov/wp-content/uploads/2024/03/528267_RUSSIA-2023-HUMAN-RIGHTS-REPORT.pdf|unusable-extraction",
+      "disposition": "rejected",
+      "provisional_id": "R003",
+      "reason": "Fetch returned embedded image/base64 without a precise text locator."
+    },
+    {
+      "canonical_fact_key": "https://www.amnesty.org/en/location/europe-and-central-asia/eastern-europe-and-central-asia/russia/report-russia/|rolled-to-2025",
+      "disposition": "rejected",
+      "provisional_id": "R004",
+      "reason": "Canonical page currently contains the 2025 report, not target-year evidence."
+    },
+    {
+      "canonical_fact_key": "https://carnegieendowment.org/russia-eurasia/politika/2023/09/russias-2024-budget-shows-its-planning-for-a-long-war-in-ukraine|fetch-failed",
+      "disposition": "rejected",
+      "provisional_id": "R005",
+      "reason": "Page could not be simplified and no precise locator was extracted."
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

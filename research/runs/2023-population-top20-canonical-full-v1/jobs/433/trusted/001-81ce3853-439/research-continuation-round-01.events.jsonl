@@ -1,0 +1,17 @@
+{"type":"thread.started","thread_id":"019f7092-b619-73b0-91bb-e77b4b12759e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I'll continue the research session for Thailand/Prayut 2023. The notebook was empty because previous search calls were rejected. Let me first verify the output directory exists, then do real research across all eight chapters with direct fetch and the working web_search."}}
+2026-07-17T14:56:53.037452Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"Exec commands are not available. Let me confirm via the existing context — the path was supplied in the job block, so I'll write the artifacts directly. Let me focus on real research using the Fetch tool and intermittent web_search."}}
+{"type":"item.started","item":{"id":"item_2","type":"mcp_tool_call","server":"fetch","tool":"fetch","arguments":{"max_length":20000,"url":"https://www.amnesty.org/en/documents/asa39/7452/2024/en/"},"result":null,"error":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"mcp_tool_call","server":"fetch","tool":"fetch","arguments":{"max_length":20000,"url":"https://www.amnesty.org/en/documents/asa39/7452/2024/en/"},"result":{"content":[{"type":"text","text":"Failed to fetch https://www.amnesty.org/en/documents/asa39/7452/2024/en/ - status code 404"}],"structured_content":null},"error":null,"status":"failed"}}
+2026-07-17T14:57:00.762827Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:04.676961Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:09.124194Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:13.125368Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:18.935615Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:22.221741Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:27.028433Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+2026-07-17T14:57:32.052409Z ERROR codex_core::tools::router: error=unsupported call: mcp__parallelweb_search
+{"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Web_search is repeatedly failing. Let me try the minimax web search tool."}}
+{"type":"turn.completed","usage":{"input_tokens":1661274,"cached_input_tokens":1579520,"output_tokens":1922,"reasoning_output_tokens":0}}

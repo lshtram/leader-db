@@ -13,6 +13,7 @@ all non-report, non-visualization fallback paths to Superset.
 | `/superset/welcome/` | Superset app container through nginx | Interactive Superset BI UI and dashboards |
 | `/reports/` | nginx static files | Customer-facing report landing page |
 | `/reports/country-metrics-dashboard.html` | nginx static file | Standalone country metrics dashboard generated ahead of time |
+| `/reports/leaders-2023/` | bind mount from `docs/client-results/2023-top20/` | Interactive Leaders Database client-score comparison and evidence viewer |
 | `/reports/briefs/us-equity-ownership.html` | bind mount from `markets-research` | Static research brief |
 | `/reports/briefs/us-market-size-baseline.html` | bind mount from `markets-research` | Static research brief |
 | `/visualizations/...` | bind mount from `markets-research` | Pre-rendered PNG graphs used by the briefs |
@@ -70,6 +71,8 @@ The proxy mounts:
 
 ```text
 infra/superset/reports/                                      -> /usr/share/nginx/html/reports
+docs/client-results/2023-top20                               -> /usr/share/nginx/html/leaders-2023
+docs/sources/attributions.md                                 -> /usr/share/nginx/html/leaders-attributions.md
 $MARKET_RESEARCH_ROOT/reports/briefs/html                    -> /usr/share/nginx/html/briefs
 $MARKET_RESEARCH_ROOT/reports/visualizations                 -> /usr/share/nginx/html/visualizations
 ```
@@ -159,6 +162,7 @@ This verifies:
 
 - `/reports/` returns HTTP 200.
 - `/reports/country-metrics-dashboard.html` returns HTTP 200.
+- the Leaders Database viewer, JSON payload, and attribution record return HTTP 200.
 - both market-research brief pages return HTTP 200.
 - every `<img>` referenced by both brief pages returns HTTP 200 and a non-trivial
   response body.

@@ -1,0 +1,1573 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. In particular, `research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact. Documented formal authority for a
+national policy, program, appointment, or state action can satisfy ruler attribution
+when the evidence and guide support authority-based responsibility; a personal order
+is not required in every case. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:5B",
+  "run_key": "2023-top20-usa-tha-repair-judges-v1",
+  "chapter_id": "5B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:5B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "5B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E004",
+          "E030",
+          "E031",
+          "E035",
+          "E043",
+          "E044",
+          "E058"
+        ],
+        "methodology_id": "5B.1",
+        "reason": "Economic scale, employment claims, CHIPS, SAVE, deficit, and macro evidence are present.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E030",
+          "E045",
+          "E055"
+        ],
+        "methodology_id": "5B.2",
+        "reason": "Industrial and clean-energy program design is documented, but completed outcomes remain limited.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E035",
+          "E043",
+          "E044"
+        ],
+        "methodology_id": "5B.3",
+        "reason": "Deficit and inflation evidence is available with shared Federal Reserve, Congress, and external-cause attribution.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E030",
+          "E042",
+          "E045",
+          "E055"
+        ],
+        "methodology_id": "5B.4",
+        "reason": "CHIPS and IRA implementation mechanisms and oversight risks are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "5B.5",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E030",
+          "E031",
+          "E045",
+          "E055"
+        ],
+        "methodology_id": "5B.6",
+        "reason": "Program delivery and implementation evidence is substantial.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E030",
+          "E043",
+          "E044",
+          "E058"
+        ],
+        "methodology_id": "5B.7",
+        "reason": "Claims, projections, fiscal effects, and causal limitations are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E031",
+          "E034",
+          "E035",
+          "E036",
+          "E045"
+        ],
+        "methodology_id": "5B.8",
+        "reason": "Distributional and welfare effects are covered, though outcomes remain mixed.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E031",
+          "E035",
+          "E043",
+          "E044",
+          "E058"
+        ],
+        "methodology_id": "5B.9",
+        "reason": "Fiscal, policy-correction, and outcome evidence is available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E030",
+          "E035",
+          "E042",
+          "E043",
+          "E044",
+          "E058"
+        ],
+        "methodology_id": "5B.10",
+        "reason": "Economic outcomes and implementation evidence are substantial, with causal limitations.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 9627,
+    "evidence": [
+      {
+        "canonical_fact_key": "local-prior:5B.1|LF026-LF028|USA-2023-economic-context",
+        "claim": "Supplied 2023 WDI facts report U.S. GDP per capita, total GDP, and population.",
+        "contrary_evidence": [],
+        "evidence_id": "E004",
+        "excerpt": "LF026-LF028; exact values retained in supplied local prior.",
+        "final_evidence_use": "context",
+        "period_fit": "exact 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "World Bank WDI local structured prior",
+        "ruler_attribution": "Economic scale context only; cannot establish policy competence or distribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct supplied structured fields.",
+        "source_locator": "local-prior:5B.1",
+        "source_type": "structured local prior",
+        "title": "U.S. economic-scale context",
+        "url": "local-prior:5B.1"
+      },
+      {
+        "canonical_fact_key": "https://www.nist.gov/news-events/news/2023/02/biden-harris-administration-launches-first-chips-america-funding|opening-and-program-priorities|first-CHIPS-funding-opportunity",
+        "claim": "Commerce launched the first CHIPS manufacturing-incentive opportunity with milestone-linked disbursement, due diligence, private co-investment, workforce, childcare, and inclusive-growth criteria.",
+        "contrary_evidence": [
+          "Launch and design do not establish completed production or economic effects.",
+          "E080 identifies planning and coordination weaknesses."
+        ],
+        "evidence_id": "E030",
+        "excerpt": "NIST describes the funding opportunity and taxpayer/workforce safeguards.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact February 2023",
+        "publication_date": "2023-02-28",
+        "publisher": "National Institute of Standards and Technology",
+        "ruler_attribution": "Administration execution of bipartisan legislation.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record.",
+        "source_locator": "Opening five paragraphs and program-priority bullets",
+        "source_type": "official government release",
+        "title": "Biden-Harris Administration Launches First CHIPS for America Funding Opportunity",
+        "url": "https://www.nist.gov/news-events/news/2023/02/biden-harris-administration-launches-first-chips-america-funding"
+      },
+      {
+        "canonical_fact_key": "https://www.bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|specific-SAVE-plan-rules|SAVE-operational-design",
+        "claim": "The SAVE plan raised protected income, prevented unpaid monthly interest from increasing balances, and established earlier forgiveness for some low-balance borrowers.",
+        "contrary_evidence": [
+          "Administration savings and beneficiary estimates are self-reported.",
+          "Later litigation is outside the target period."
+        ],
+        "evidence_id": "E031",
+        "excerpt": "Fact-sheet bullets describe payment, interest, and forgiveness rules.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact August 2023",
+        "publication_date": "2023-08-22",
+        "publisher": "Archived White House",
+        "ruler_attribution": "Direct Biden administration program.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record.",
+        "source_locator": "SAVE-plan rule bullets",
+        "source_type": "official fact sheet",
+        "title": "Fact Sheet: The Biden-Harris Administration Launches the SAVE Plan",
+        "url": "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/"
+      },
+      {
+        "canonical_fact_key": "https://nlihc.org/resource/hud-releases-2023-annual-homeless-assessment-report|opening-and-population-sections|2023-homelessness-increase",
+        "claim": "Approximately 653,100 people experienced homelessness in the 2023 point-in-time count, a 12% increase and the highest count since 2007.",
+        "contrary_evidence": [
+          "Point-in-time counts are snapshots.",
+          "Housing supply, rents, states, localities, migration, and expired pandemic supports complicate attribution."
+        ],
+        "evidence_id": "E034",
+        "excerpt": "NLIHC summarizes HUD's 2023 AHAR and subgroup disparities.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 count",
+        "publication_date": "2023-12-18",
+        "publisher": "National Low Income Housing Coalition summarizing HUD",
+        "ruler_attribution": "National outcome; presidential attribution limited.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Policy NGO reporting official HUD data.",
+        "source_locator": "Opening four paragraphs",
+        "source_type": "housing-policy report",
+        "title": "HUD Releases 2023 Annual Homeless Assessment Report",
+        "url": "https://nlihc.org/resource/hud-releases-2023-annual-homeless-assessment-report"
+      },
+      {
+        "canonical_fact_key": "https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates",
+        "claim": "In 2023 the official poverty rate fell to 11.1%, while the Supplemental Poverty Measure rose to 12.9% and SPM child poverty rose to 13.7%.",
+        "contrary_evidence": [
+          "Official and supplemental measures moved in opposite directions.",
+          "Congress, inflation, expired pandemic supports, and states complicate attribution."
+        ],
+        "evidence_id": "E035",
+        "excerpt": "Census summary bullets report the official, SPM, and child-poverty changes.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 outcome",
+        "publication_date": "2024-09-10",
+        "publisher": "U.S. Census Bureau",
+        "ruler_attribution": "Outcome only; presidential contribution not isolated.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official statistics.",
+        "source_locator": "Summary bullets under Official Poverty Measure and Supplemental Poverty Measure",
+        "source_type": "official statistics",
+        "title": "Poverty in the United States: 2023",
+        "url": "https://www.census.gov/library/publications/2024/demo/p60-283.html"
+      },
+      {
+        "canonical_fact_key": "https://www.cdc.gov/pcd/issues/2024/24_0121.htm|abstract-results-and-introduction|SNAP-rent-assistance-material-security",
+        "claim": "A CDC-published study found SNAP emergency allotments and emergency rental assistance were associated with greater food sufficiency, and rental aid with being current on rent.",
+        "contrary_evidence": [
+          "The study is observational.",
+          "Programs involved federal legislation and state/local administration."
+        ],
+        "evidence_id": "E036",
+        "excerpt": "Abstract reports associations between emergency supports and material security.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "June 2022-May 2023",
+        "publication_date": "2024",
+        "publisher": "CDC Preventing Chronic Disease",
+        "ruler_attribution": "Shared federal, state, and local program attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Peer-reviewed government journal.",
+        "source_locator": "Abstract Results and opening introduction",
+        "source_type": "peer-reviewed government study",
+        "title": "SNAP Emergency Allotments, Emergency Rent Assistance, Rent Burden, and Housing and Food Security",
+        "url": "https://www.cdc.gov/pcd/issues/2024/24_0121.htm"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-23-106726|lines-266-295|agency-spending-management-risks",
+        "claim": "GAO identified fraud-risk, cost-control, grants-management, and expertise challenges across agencies implementing infrastructure, IRA, and CHIPS programs.",
+        "contrary_evidence": [
+          "The findings identify risks and recommendations, not portfolio-wide failure."
+        ],
+        "evidence_id": "E042",
+        "excerpt": "GAO describes cross-agency management risks and recommendation status.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 oversight",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Shared agency and administration management responsibility.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official oversight testimony/report.",
+        "source_locator": "Lines 266-295",
+        "source_type": "official audit/testimony",
+        "title": "Agency spending-management risks",
+        "url": "https://www.gao.gov/products/gao-23-106726"
+      },
+      {
+        "canonical_fact_key": "https://www.cbo.gov/publication/59640|lines-33-45|FY2023-deficit-debt",
+        "claim": "CBO reported a nearly $1.7 trillion FY2023 deficit, equal to 6.3% of GDP, with public debt reaching 97.3% of GDP.",
+        "contrary_evidence": [
+          "Fiscal outcomes reflect Congress, prior policy, economic conditions, and monetary policy as well as executive action."
+        ],
+        "evidence_id": "E043",
+        "excerpt": "CBO reports the FY2023 deficit and debt ratios.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "FY2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Congressional Budget Office",
+        "ruler_attribution": "Macro/fiscal outcome; presidential attribution shared.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent official budget analysis.",
+        "source_locator": "Lines 33-45",
+        "source_type": "official budget analysis",
+        "title": "FY2023 deficit and debt",
+        "url": "https://www.cbo.gov/publication/59640"
+      },
+      {
+        "canonical_fact_key": "https://www.cbo.gov/publication/59056|lines-31-40|fiscal-policy-inflation",
+        "claim": "CBO found fiscal policy amplified inflation under supply constraints; Brookings analysis attributed pandemic-era inflation to global prices, supply shocks, demand shifts, fiscal policy, and Federal Reserve decisions.",
+        "contrary_evidence": [
+          "Causal attribution is mixed and not solely presidential."
+        ],
+        "evidence_id": "E044",
+        "excerpt": "Supplied handoff records CBO and Brookings explanations of inflation causes.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 retrospective macro analysis",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "CBO and Brookings",
+        "ruler_attribution": "Shared macroeconomic attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent budget and policy analyses.",
+        "source_locator": "CBO lines 31-40; Brookings article on pandemic-era inflation",
+        "source_type": "official and policy analysis",
+        "title": "Fiscal and monetary causes of inflation",
+        "url": "https://www.cbo.gov/publication/59056"
+      },
+      {
+        "canonical_fact_key": "https://home.treasury.gov/news/press-releases/jy1533|lines-605-619|IRA-delivery-and-fraud-controls",
+        "claim": "Treasury and IRS established direct pay, credit transferability, pre-filing registration, eligibility rules, and anti-fraud controls for IRA clean-energy credits.",
+        "contrary_evidence": [
+          "Mechanisms and guidance do not establish completed economic outcomes."
+        ],
+        "evidence_id": "E045",
+        "excerpt": "Treasury describes delivery mechanisms and controls.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 implementation",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Department of the Treasury",
+        "ruler_attribution": "Administration implementation of enacted legislation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official Treasury release.",
+        "source_locator": "Lines 605-619",
+        "source_type": "official government release",
+        "title": "IRA delivery and fraud controls",
+        "url": "https://home.treasury.gov/news/press-releases/jy1533"
+      },
+      {
+        "canonical_fact_key": "https://www.commerce.gov/sites/default/files/2023-06/Upcoming-Announcements-6232023.pdf|pages-1-3|implementation-timeline",
+        "claim": "Commerce's June 2023 implementation timeline listed funding opportunities, application windows, expected awards, and amounts for CHIPS, broadband, and climate programs.",
+        "contrary_evidence": [
+          "Scheduled milestones are not completed outcomes.",
+          "Many awards were still rolling out late in 2023 or later."
+        ],
+        "evidence_id": "E055",
+        "excerpt": "Timeline records staged program rollout and expected award dates.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "June 2023 planning",
+        "publication_date": "2023-06",
+        "publisher": "U.S. Department of Commerce",
+        "ruler_attribution": "Administration program management under enacted legislation.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official implementation document.",
+        "source_locator": "Pages 1-3",
+        "source_type": "official program timeline",
+        "title": "Upcoming program announcements and implementation timeline",
+        "url": "https://www.commerce.gov/sites/default/files/2023-06/Upcoming-Announcements-6232023.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed",
+        "claim": "PolitiFact found a factual core in Biden's job-creation claims but said he overstated historical comparability and made insufficiently supported or conflated infrastructure, wildfire, and noncompete claims.",
+        "contrary_evidence": [
+          "Several claims were substantially accurate or had a factual core."
+        ],
+        "evidence_id": "E058",
+        "excerpt": "Fact-check sections address jobs, noncompetes, infrastructure, and wildfire claims.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact February 2023 statements",
+        "publication_date": "2023-02-08",
+        "publisher": "PolitiFact",
+        "ruler_attribution": "Direct personal public statements.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Professional fact-checking organization.",
+        "source_locator": "Sections on 12 million jobs, noncompetes, infrastructure, and wildfire claims",
+        "source_type": "fact-checking analysis",
+        "title": "Fact-checking Joe Biden\u2019s 2023 State of the Union address",
+        "url": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "5B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E004",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Local economic-scale context."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Deficit and debt outcome."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "5B.4",
+        "relation": "supports",
+        "relevance": "CHIPS implementation design."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "5B.4",
+        "relation": "contradicts",
+        "relevance": "Management and grant risks."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "5B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "5B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "5B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "5B.6",
+        "relation": "supports",
+        "relevance": "SAVE operational design."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "5B.6",
+        "relation": "supports",
+        "relevance": "IRA delivery mechanisms."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "5B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "5B.8",
+        "relation": "contradicts",
+        "relevance": "Mixed poverty outcomes."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mixed inflation causation."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "5B.1",
+      "5B.2",
+      "5B.3",
+      "5B.4",
+      "5B.5",
+      "5B.6",
+      "5B.7",
+      "5B.8",
+      "5B.9",
+      "5B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "150115894e7c460cf01192d2e2e20c82f0f47c5ce332baa3a590ac23dbf880bb",
+      "source_mix_note": "Evidence mix includes official government and intergovernmental records, inspector-general and GAO audits, official statistics, specialist NGOs, reputable media, policy institutes, fact-checkers, and local structured priors. Local priors are context only. Some source families remain concentrated in nuclear arms-control and selected integrity episodes; several official primary documents were inaccessible in the research run.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "eef0457b8e2faf43682bf5ccc38b83a4e982e7b9808a572bd30f3cd3f1d837ba",
+    "unresolved_gaps": [
+      "Detailed classified nuclear command-and-control safeguards, completed fail-safe review findings, and independent start/end 2023 posture measurement.",
+      "Iran, North Korea, Saudi, and allied proliferation-restraint evidence beyond the South Korean record.",
+      "Primary 2023 Israel arms-transfer records, incident-level civilian-harm accountability, and causal evidence linking Biden diplomacy to the November Gaza pause.",
+      "Complete ATACMS, F-16, targeting, prisoner-treatment, and accountability records for Ukraine.",
+      "Direct DHS/DOJ inspector-general records and complete federal protest-surveillance evidence.",
+      "Independent IRA, infrastructure, climate, CHIPS, and portfolio-wide implementation audits; competition policy and procurement evidence.",
+      "Maternal, rural-health, reproductive-care, childcare, school-recovery, and longer-term welfare delivery evidence.",
+      "Underlying disclosure review, campaign-finance patterns, donor/appointment influence, and broader factual-correction sample.",
+      "No local structured priors were supplied for 1B or 6B; this is a documented local-field gap, not evidence of no activity."
+    ]
+  },
+  {
+    "chapter_id": "5B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Thailand",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E016",
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.1",
+        "reason": "Direct World Bank growth data and local economic priors retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.2",
+        "reason": "Economic evidence is available but not fully ruler-attributed.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E018",
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.3",
+        "reason": "Investment and macroeconomic output evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.4",
+        "reason": "Evidence is indirect for individual ruler decisions.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.5",
+        "reason": "Poverty and distribution context retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E017",
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.6",
+        "reason": "Investment and fiscal-consolidation context retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.7",
+        "reason": "Investment and tourism-related outcomes retained with attribution caveats.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.8",
+        "reason": "Poverty, inequality, and macroeconomic context retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.9",
+        "reason": "Growth and investment outcomes retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "5B.10",
+        "reason": "Growth, poverty, investment, and fiscal-context evidence retained.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 7371,
+    "evidence": [
+      {
+        "canonical_fact_key": "worldbank:gep-jan2024:thailand-2023-real-gdp-growth-1.9",
+        "claim": "Thailand's real GDP growth in 2023 was 1.9%.",
+        "contrary_evidence": [
+          "Tourism, private consumption, employment, and investment indicators also improved during parts of 2023."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "World Bank Global Economic Prospects table lists Thailand's 2023 real-GDP growth at 1.9%.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2024-01-01",
+        "publisher": "World Bank",
+        "ruler_attribution": "Country-level outcome; no direct Prayut policy-causal chain established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct underlying World Bank report locator.",
+        "source_locator": "Real-GDP growth table for Thailand, 2023.",
+        "source_type": "multilateral report",
+        "title": "Global Economic Prospects, January 2024",
+        "url": "https://documents1.worldbank.org/curated/en/099159101082419813/pdf/IDU1079447f81a6f81463a1b235156a74338379b.pdf"
+      },
+      {
+        "canonical_fact_key": "boi:nation-40029226:2023-h1-investment-applications",
+        "claim": "Thailand's BOI recorded 891 investment-promotion applications worth THB 364.42 billion during January\u2013June 2023, including substantial electronics, food-processing, automobile, and EV projects.",
+        "contrary_evidence": [],
+        "evidence_id": "E017",
+        "excerpt": "Nation Thailand reports BOI application totals and sector composition.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "January\u2013June 2023",
+        "publication_date": "2023-07-01",
+        "publisher": "Nation Thailand",
+        "ruler_attribution": "Implementation output of BOI/government machinery; personal Prayut authorship not established.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporaneous reporting of official BOI figures.",
+        "source_locator": "Article body reporting 891 applications and THB 364.42 billion.",
+        "source_type": "news report",
+        "title": "BOI investment applications in first half of 2023",
+        "url": "https://www.nationthailand.com/thailand/economy/40029226"
+      },
+      {
+        "canonical_fact_key": "worldbank:2023-12-thailand-economic-monitor:exports-fiscal-consolidation",
+        "claim": "World Bank reported that 2023 growth was dampened by contracting goods exports and ongoing fiscal consolidation.",
+        "contrary_evidence": [],
+        "evidence_id": "E018",
+        "excerpt": "World Bank Thailand Economic Monitor describes export contraction and fiscal consolidation.",
+        "final_evidence_use": "context",
+        "period_fit": "2023",
+        "publication_date": "2023-12-14",
+        "publisher": "World Bank",
+        "ruler_attribution": "Macroeconomic context; no direct Prayut policy ownership established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Multilateral economic-monitor release.",
+        "source_locator": "Release body, paragraphs describing 2023 growth dampeners.",
+        "source_type": "multilateral report",
+        "title": "Thai economy to recover in 2024",
+        "url": "https://www.worldbank.org/en/news/press-release/2023/12/14/thai-economy-to-recover-in-2024-driven-by-tourism-exports-recovery"
+      },
+      {
+        "canonical_fact_key": "nhso:ucs-604:2023-coverage-outcomes",
+        "claim": "NHSO reported 2023 universal-coverage reforms including outpatient-anywhere, inpatient-anywhere, and Cancer Anywhere, with more than 47 million people covered and over 1.81 million outpatient-anywhere visits.",
+        "contrary_evidence": [],
+        "evidence_id": "E020",
+        "excerpt": "NHSO reports coverage and service-use outcomes for 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2023-12-31",
+        "publisher": "National Health Security Office",
+        "ruler_attribution": "Institutional health-system delivery; personal Prayut direction not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official NHSO achievement report.",
+        "source_locator": "Article body reporting 2023 coverage and service-use figures.",
+        "source_type": "official government report",
+        "title": "UCS elevated throughout 2023",
+        "url": "https://eng.nhso.go.th/view/1/DescriptionNews/UCS-elevated-Throughout-2023/604/EN-US"
+      },
+      {
+        "canonical_fact_key": "nhso:ucs-604:2023-new-benefits",
+        "claim": "NHSO reported new 2023 benefits including hepatitis-B, thalassemia, syphilis, HIV self-testing, BRCA and newborn screening, genetic screening, and dental implants.",
+        "contrary_evidence": [],
+        "evidence_id": "E021",
+        "excerpt": "NHSO lists new universal-coverage benefits introduced or expanded in 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2023-12-31",
+        "publisher": "National Health Security Office",
+        "ruler_attribution": "Institutional policy/output; personal Prayut ownership not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official health-system report with enumerated benefits.",
+        "source_locator": "Article body listing new 2023 benefits.",
+        "source_type": "official government report",
+        "title": "NHSO 2023 benefit expansion",
+        "url": "https://eng.nhso.go.th/view/1/DescriptionNews/UCS-elevated-Throughout-2023/604/EN-US"
+      },
+      {
+        "canonical_fact_key": "thailand-go-th:learning-promotion-act-2566",
+        "claim": "Thailand's Promotion of Learning Act B.E. 2566 took effect on 19 May 2023 and elevated non-formal and informal education into a Department of Learning Promotion.",
+        "contrary_evidence": [],
+        "evidence_id": "E022",
+        "excerpt": "Thai government description of the law and its effective date.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "19 May 2023",
+        "publication_date": "2023-05-19",
+        "publisher": "Thai Government",
+        "ruler_attribution": "Target-period legal reform; personal Prayut authorship not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official government policy description.",
+        "source_locator": "Article body describing the Act and effective date.",
+        "source_type": "official government release",
+        "title": "Promotion of Learning Act B.E. 2566",
+        "url": "https://thailand.go.th/public/issue-focus-detail/001_06_051?hl=en"
+      },
+      {
+        "canonical_fact_key": "undp-thailand:2022-hdi-0.803-ihdi-0.681",
+        "claim": "UNDP reported Thailand's 2022 HDI at 0.803, rank 66 of 193, with inequality-adjusted HDI of 0.681.",
+        "contrary_evidence": [],
+        "evidence_id": "E023",
+        "excerpt": "UNDP reports Thailand's HDI and inequality-adjusted HDI.",
+        "final_evidence_use": "context",
+        "period_fit": "2022 indicator context for 2023 period",
+        "publication_date": "2024-03-13",
+        "publisher": "UNDP Thailand",
+        "ruler_attribution": "Country indicator; not directly attributable to Prayut.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct UNDP release rather than Wikipedia gateway.",
+        "source_locator": "Release paragraphs 24\u201343.",
+        "source_type": "UN agency release",
+        "title": "Thailand's human development index improved to pre-COVID level",
+        "url": "https://www.undp.org/thailand/press-releases/thailands-human-development-index-improved-pre-covid-level-yet-more-collective-actions-are-needed-accelerate-progress-finds"
+      }
+    ],
+    "iso3": "THA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "5B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=4; mapping_note=D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E016",
+        "methodology_id": "5B.1",
+        "relation": "supports",
+        "relevance": "Direct 2023 GDP growth measure."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Export and fiscal context."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "5B.6",
+        "relation": "supports",
+        "relevance": "Investment implementation output."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "5B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "5B.1",
+      "5B.2",
+      "5B.3",
+      "5B.4",
+      "5B.5",
+      "5B.6",
+      "5B.7",
+      "5B.8",
+      "5B.9",
+      "5B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "3006",
+    "ruler_name": "Prayut Chanocha",
+    "ruler_year_id": 17130,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ad79783e02523b8129c973b314f3f1f3f9b66c95030a3da2ea667799b0b31ce1",
+      "source_mix_note": "Evidence mixes official Thai and U.S. government releases, multilateral reports, UN materials, international and domestic NGOs, major news reporting, and supplied structured local priors. Country-level and institutional sources are explicitly limited where personal ruler attribution is not documented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "4b2af7075640b13af352d4f19ffdb61e4cebcbf916ba72960e479585fe831b07",
+    "unresolved_gaps": [
+      "No direct 2023 personal-integrity finding involving Prayut was recovered.",
+      "No clearly Prayut-authored 2023 economic or social-policy decision was recovered.",
+      "No evidence establishes that Prayut personally directed the Senate, Election Commission, or Constitutional Court actions involving Pita.",
+      "Cumulative protest statistics require strict temporal separation of the post-22-August period.",
+      "Direct source locators for some legacy Wikipedia-routed claims remain incomplete; those claims are not emitted as final evidence.",
+      "The notebook identifies further possible research themes, but this formatter performed no new research.",
+      "Local-prior placeholder provenance must be replaced by the parent with complete hashed artifact provenance before validation."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 5B Economic Well-Being and Prosperity
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `5B`
+- Category: ruler intention and action for economic well-being and prosperity
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_5b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The ten questions are overlapping lenses on one judgment: whether the ruler used available authority competently and fairly to improve durable economic opportunity.
+
+## Ten Evidence Lenses
+
+1. **5B.1** — Did the ruler intend and act to create broad-based, sustainable prosperity rather than extract rents, buy loyalty, or maximize short-term popularity?
+2. **5B.2** — Did the ruler appoint competent economic professionals and empower them, rather than loyalists, family members, business partners, or ideological yes-men?
+3. **5B.3** — Did the ruler protect macroeconomic stability, fiscal responsibility, monetary credibility, and long-term investment conditions?
+4. **5B.4** — Did the ruler create fair rules for entrepreneurship, competition, property rights, trade, investment, and job creation?
+5. **5B.5** — Did the ruler resist corruption, favoritism, monopolies, oligarchic capture, and politically connected business privileges?
+6. **5B.6** — Did the ruler invest in productivity foundations: infrastructure, education, health, technology, administrative capacity, and predictable regulation?
+7. **5B.7** — Did the ruler make economic policy based on evidence and correction of mistakes, or on slogans, denial, patronage, and scapegoating?
+8. **5B.8** — Did the ruler distribute economic gains fairly across regions, classes, genders, and groups rather than privileging regime supporters?
+9. **5B.9** — Did the ruler manage shocks, inflation, unemployment, debt, sanctions, commodity changes, or crises with competence and honesty?
+10. **5B.10** — Did the ruler leave the economy on a stronger trajectory than they inherited, accounting for external constraints?
+
+## Researcher Evidence Plan
+
+Build one cited evidence dossier without scoring. Follow the local-first researcher guide and source-confidence registry. Start with local WDI, PIP, WGI, V-Dem, CPI, BTI and other available time series. Then use national statistics, budgets and audits; central-bank and fiscal records; IMF, World Bank, ILO, OECD and regional-bank analysis; peer-reviewed work; and credible investigative/local reporting. Treat government claims as context unless independently corroborated.
+
+Collect policy choices and implementation concerning development strategy, appointments and genuine delegated authority, inflation/debt/fiscal/monetary management, market and property rules, corruption/capture, productivity investment, evidence-based correction, distribution, crisis response and inherited-to-left trajectory. Separate announcements, appropriations, implementation and outcomes. Record household/median conditions and inequality alongside averages; identify commodity cycles, sanctions, wars, disasters, global financial conditions and donor programs. Reuse evidence across genuinely related lenses and permit flexible coverage language.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Judge choices against feasible options at the inherited income, capacity, debt, institutions, geography, resource base and security environment. Do not credit commodity windfalls or global booms automatically, and do not debit unavoidable shocks without assessing preparation and response. Separate central ruler authority from independent central banks, legislatures, predecessor programs, subnational action and external assistance. Outcomes inform the record but do not prove attribution by themselves.
+
+Older or lower-capacity cases may lack modern indicators. Use fiscal archives, price/wage series, historical scholarship, contemporary reports and observable institutional choices. Missing lenses reduce confidence; they never invalidate research or impose a score cap. Where only outcomes survive, state attribution uncertainty rather than inventing intent.
+
+Baseline conditions and outcomes without a ruler-attributed policy or response are
+context only and cannot determine the score's direction. If no discriminating choice,
+implementation, or response is evidenced, return null. Scores outside 4–6 require
+ruler-attributed policy plus independent implementation or outcome evidence; scores
+of 2–3 require demonstrated dominant predation, instability, exclusion, or repeated
+harmful choices, not low national income or closed-system opacity. For annual crisis
+years, distinguish shock preparation and response from the inherited long-run
+trajectory and do not treat one year's outcome as the whole tenure.
+
+## Chapter Judge and Lens Weighting
+
+One judge compares the whole ruler batch. Weight evidence qualitatively by material welfare consequence, breadth, duration, ruler control, baseline-adjusted change, source strength and sustainability. Catastrophic predation or stabilization may dominate several smaller policies. Appointments matter through their consequences and independence, not résumé prestige alone. Distribution, durability and household security prevent headline GDP from dominating. `5B.10` is a synthesis, not an extra arithmetic vote.
+
+Ten lenses provide redundancy: missing appointment evidence may be offset by strong direct evidence of policy and results; abundant macro data cannot erase capture or exclusion. State strong and weak lenses, confidence and unresolved contradictions. Produce one score only.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Ruler-driven predation, catastrophic mismanagement or systematic economic exclusion destroys broad and durable prosperity. |
+| 2–3 | Extraction, cronyism, reckless instability or repeated incompetent choices dominate, with little effective correction or broad counterweight. |
+| 4–5 | Material gains and competent choices coexist with serious instability, capture, exclusion, weak implementation or unsustainable policy; trajectory is mixed. |
+| 6–7 | The ruler makes substantially competent, broadly beneficial choices and leaves improvement, but notable distributional, institutional, stability or durability weaknesses remain. |
+| 8–9 | Sustained, independently supported stewardship creates broad opportunity, stability, productive capacity and resilience with limited material failures. |
+| 10 | Exceptional baseline-adjusted transformation combines broad household gains, fair institutions, resilience and durable capacity while resisting strong extractive incentives. |
+
+## Common Chapter-Judge Output Envelope
+
+The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
+
+- `chapter_id`: `5B`
+- `rubric_version`: `chapter_5b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extras: `external_conditions`, `distribution_and_household_effects`,
+and `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Flexible natural language is valid.
+
+## Calibration, Confidence, and Bias Checks
+
+Check income/baseline comparability, commodity and foreign-aid windfalls, crisis and sanctions context, GDP-average versus household/distribution bias, survivorship and data-quality bias, official-statistics manipulation, population/scale, regional heterogeneity, recency, hindsight and ideological bias. Do not prefer state-led or market-led policy as such; judge evidenced effects, rights, resilience and feasible alternatives.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Seretse Khama | Botswana | 1966–1980 | resource stewardship and low-baseline institution building |
+| Lee Kuan Yew | Singapore | 1965–1990 | transformation, distribution and authoritarian-context separation |
+| Park Chung-hee | South Korea | 1961–1979 | rapid growth with coercion, chaebol and baseline caveats |
+| Deng Xiaoping | China | 1978–1992 | large reform gains and distribution/institution attribution |
+| Lula da Silva | Brazil | 2003–2010 | inclusion, commodity conditions and durability |
+| Narendra Modi | India | 2014–2023 | investment/formalization versus jobs, distribution and favoritism |
+| Hugo Chávez | Venezuela | 1999–2013 | early welfare gains versus oil dependence and sustainability |
+| Mobutu Sese Seko | Zaire | 1965–1997 | predation and institutional destruction low anchor |
+| Ellen Johnson Sirleaf | Liberia | 2006–2018 | post-conflict constraint and donor-attribution test |
+| Liz Truss | United Kingdom | 2022 | very short tenure and market-shock attribution edge case |
+| Maria da Lourdes Pintasilgo | Portugal | 1979–1980 | less-visible historical, short-tenure and gender calibration case |
+
+## Acceptance Checklist
+
+- A numeric score requires a ruler-attributed economic choice plus evidence of
+  implementation, remedy, or attributable outcome. Plans, rhetoric, inherited
+  macroeconomic conditions, and generic country indicators cannot set its direction.
+
+- The exact ten lenses guide evidence but yield one chapter score.
+- Local priors, citations, confidence profiles, contrary evidence and period distinctions are preserved.
+- Announcements, implementation, outcomes and ruler attribution are separated.
+- Baseline, shocks, distribution, household welfare and sustainability are explicit.
+- Missing lenses reduce confidence and never invalidate or mechanically cap the chapter.
+- One judge compares the complete batch using one meter.
+- Flexible statuses/wording are normalized later rather than treated as research failure.
+- Ideology and national-income level are not score shortcuts.
+- Smoke cases are calibrated together before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

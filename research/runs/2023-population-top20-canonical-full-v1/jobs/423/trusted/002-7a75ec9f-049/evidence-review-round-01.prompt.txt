@@ -1,0 +1,477 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:ETH:16783",
+  "iso3": "ETH",
+  "country_name": "Ethiopia",
+  "ruler_name": "Abiy Ahmed",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 28,
+  "approximate_source_family_count": 20,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 28 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 20 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Excellent. I now have abundant material across chapters. Let me write the comprehensive handoff.
+
+---
+
+# RESEARCH HANDOFF — Abiy Ahmed (Ethiopia), ruler-period 2023
+
+## Summary
+
+This is the global evidence ledger for **ruler 2310 (Abiy Ahmed), Ethiopia (ETH), target year 2023**, organized for the 8 chapter judging pipeline. Because the sandbox blocks filesystem writes, the entire handoff is contained below (the target paths are noted at the top). Local structured priors (LF001–LF036) were used as the baseline. Internet discovery added many narrative/government-attribution items, especially for chapters 2B, 3B, and 4B. The chapter-level dedup, source-family counts, and reuse map are summarized at the end.
+
+**Target paths (blocked, material in this message):**
+- `research_materials_path = /home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-canonical-full-v1/jobs/423/attempts/002-7a75ec9f-049/research-materials.md`
+- `research_ledger_manifest_path = /home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-canonical-full-v1/jobs/423/attempts/002-7a75ec9f-049/research-ledger-manifest.json`
+
+## Per-chapter evidence register
+
+Each evidence item below carries: stable provisional ID; canonical fact key (`URL | locator | one-line claim`); URL/locator; publisher and date; claim; locator precision; source type and confidence; target-period fit; attribution; contrary points; candidate chapters/lenses.
+
+---
+
+### CHAPTER 1B — Nuclear and existential-risk responsibility
+
+**Exposure profile.** Ethiopia in 2023 is a non-nuclear state. Abiy Ahmed has no direct nuclear, biological, or strategic-catastrophic-risk authority in this period; the prior package records no D17/FAS row for Ethiopia for 2023 (no nuclear-armed ballistic-missile carrier, no FAS nuclear-force profile). No 2023-era news recorded a decision by Abiy to seek or abandon nuclear capability. The post-period announcement of Ethiopia's nuclear-power exploration (2024) is outside the ruler-period and is **context only**.
+
+**Lens mapping for 1B.1–1B.10.** All ten lenses classify as `no_discriminating_opportunity` for the target period: there is no target-period fact establishing a personal risk-bearing choice inside Abiy's actual nuclear/existential-risk authority. The standard "limited_exposure_with_choices" framing applies — Ethiopia is bound by NPT and the Pelindaba Treaty, and the IAEA Additional Protocol has been in force since 2019. None of the 2023 NPT PrepCom events list Ethiopia as a positive or obstructionist actor.
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E1B-01 | https://geneva.usmission.gov/2023/08/04/ \| §"Statement by the United States on Nuclear Disarmament"; Ethiopia listed in NPT signatory list | https://geneva.usmission.gov/2023/08/04/statement-by-the-united-states-on-nuclear-disarmament-and-security-assurances/ | U.S. Mission Geneva; 4 Aug 2023 | Ethiopia listed among NPT states parties supportive of disarmament language during 2023 NPT PrepCom | HTML body, "Ethiopia" line in the statement-attribution list | Government statement (medium_high) | 2023 fit | Ruler-period context only — no Abiy-attributed choice | 1B.4, 1B.10 | context |
+| E1B-02 | https://docs-library.unoda.org/General_Assembly_First_Committee_-Seventy-Eighth_session_(2023)/ethiopia.pdf \| Statement text | https://docs-library.unoda.org/General_Assembly_First_Committee_-Seventy-Eighth_session_(2023)/ethiopia.pdf | UNODA / Permanent Mission of Ethiopia; UNGA 78 First Committee, 2023 | Ethiopia's 2023 UN First Committee statement reaffirms its non-nuclear status under the Pelindaba nuclear-weapon-free zone and NPT obligations, calls for nuclear disarmament | PDF, "Pelindaba" paragraph and disarmament call | Official government record (medium_high, primary on policy stance) | 2023 fit | Attributed to Federal Government of Ethiopia / institutionally to PM Abiy | 1B.1, 1B.4, 1B.10 | context |
+| E1B-03 | https://banmonitor.org/profiles/ethiopia \| "Ethiopia voted in favour of adopting the Treaty on the Prohibition of Nuclear Weapons (TPNW) at the UN Diplomatic Conference in 2017" | https://banmonitor.org/profiles/ethiopia | Nuclear Weapons Ban Monitor (academic consortium) | Ethiopia voted for TPNW adoption in 2017 (pre-period) — establishing an institutional non-proliferation baseline | HTML; key finding line | Intergovernmental/encyclopedia tracker (medium_high) | Out of period, context | Institutional baseline only | 1B.1, 1B.4 | context |
+| E1B-04 | https://nucet.pensoft.net/article/155487/ \| "An agreement for the application of nuclear safeguards in accordance with the non-proliferation treaty was signed by Ethiopia and the IAEA in ..." | https://nucet.pensoft.net/article/155487/ | Nuclear Engineering and Technology / Mekonen, 2025 | Ethiopia's safeguards framework (NPT + Additional Protocol in force 2019) is the inherited baseline | Academic article, cited | Academic (medium_high) | 2023 baseline | Institutional baseline | 1B.3, 1B.4, 1B.10 | context |
+
+**Chapter 1B summary.** Approximately 60–80 defensible items would normally be expected; for this chapter we expose **0 source-claim units with target-period ruler-attributed conduct** (no 2023 events with material ruler-attributed risk-bearing choices were located). 1B.1–1B.10 all map to `no_discriminating_opportunity` / "limited_exposure_with_choices" — no nuclear rhetoric, no treaties signed by Abiy personally in 2023, no nuclear or dual-use catastrophic-risk decisions. The non-discovery is itself a defensible judgment for a non-nuclear ruler. Reuse: not applicable across other chapters in 2023.
+
+---
+
+### CHAPTER 2B — International peace, restraint, and lawful security
+
+This chapter has the **most abundant cited evidence** for Abiy 2023. Pretoria implementation, Amhara/Fano insurgency, Eritrean-force non-withdrawal, accountability choices, and proxy/non-state-actor control all cluster here.
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E2B-01 | https://www.voanews.com/amp/ethiopia-pm-holds-first-meeting-with-tigray-leaders-since-peace-deal-/6946911.html \| ¶ "A peace deal between Abiy's government and the Tigray People's Liberation Front, or TPLF, signed in South Africa's capital Pretoria in November last year..." | https://www.voanews.com/amp/ethiopia-pm-holds-first-meeting-with-tigray-leaders-since-peace-deal-/6946911.html | VOA News, 3 Feb 2023 | Abiy met TPLF delegation 3 February 2023 — first such meeting since the Pretoria agreement — at a southern Ethiopian resort; PM "passed decisions about increasing Flights, Banking & other issues that would boost trust & ease lives of civilians" | Article body, paragraphs 1–6 | International wire (medium_high) | 2023 fit | Abiy Ahmed direct, official | 2B.1, 2B.7, 2B.10 | final_evidence |
+| E2B-02 | https://www.voanews.com/amp/.../6946911.html \| ¶ "While the TPLF announced it has begun disarming, local residents and aid workers say the Eritrean army and forces from the neighboring region of Amhara remain in parts of Tigray and accuse them of murder, rape and looting." | https://www.voanews.com/amp/ethiopia-pm-holds-first-meeting-with-tigray-leaders-since-peace-deal-/6946911.html | VOA News, 3 Feb 2023 | Eritrean forces and Amhara forces remained in parts of Tigray after the ceasefire; residents accused them of murder, rape, looting despite TPLF beginning disarmament | Article paragraph 7 | International wire; corroborated by HRW | 2023 fit | Eritrean forces; Amhara forces — proxy/ally responsibility attaches to federal authorities (Abiy) per Pretoria Agreement | 2B.2, 2B.5, 2B.10 | final_evidence |
+| E2B-03 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Conflict in Northern Ethiopia" | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 (covering 2023) | Months after the truce, Eritrean forces in Tigray committed rape/sexual violence, including sexual slavery, extrajudicial executions, abductions, and pillaged property in areas they occupied | "Conflict in Northern Ethiopia" section, paragraphs 1–2 | NGO, medium_high (Amnesty corroboration) | 2023 fit, after November 2022 ceasefire | Eritrean forces (de facto ally of the Ethiopian federal government) — implication for Abiy's proxy/ally responsibility lens 2B.5 | 2B.5, 2B.10 | final_evidence |
+| E2B-04 | https://www.hrw.org/news/2023/03/22/ethiopia-us-recognizes-atrocities-conflict \| ¶ "Secretary Blinken, in a speech ... announced that all parties to the conflict in northern Ethiopia had committed war crimes. The State Department determined that the Ethiopian defense forces, the Eritrean military and forces from the Amhara region specifically, had also committed crimes against humanity..." | https://www.hrw.org/news/2023/03/22/ethiopia-us-recognizes-atrocities-conflict | Human Rights Watch, 22 Mar 2023 | U.S. State Department formal determination (20 Mar 2023) that Ethiopian defense forces, the Eritrean military, and Amhara forces committed war crimes and crimes against humanity (rape, murder, sexual violence, persecution, deportation/forcible transfer, ethnic cleansing in Western Tigray) | Article body | NGO + primary US determination (medium_high to high) | 2023 fit; foreign-ministry statement | Ethiopian federal government (Abiy's command), Eritrean ally, Amhara regional forces | 2B.4, 2B.5, 2B.9 | final_evidence |
+| E2B-05 | https://www.theafricareport.com/294340/us-accuses-ethiopia-of-crimes-against-humanity-in-warning-to-abiy/ \| §"Fighting words" | https://www.theafricareport.com/294340/us-accuses-ethiopia-of-crimes-against-humanity-in-warning-to-abiy/ | The Africa Report, 21 Mar 2023 | U.S. Secretary of State Antony Blinken formally accused Ethiopian and Eritrean forces of crimes against humanity in Tigray, raising stakes on all parties to respect the November 2022 ceasefire | Article body, paragraph 1 | Major reputable international outlet (medium_high) | 2023 fit | U.S. statement; Ethiopian and Eritrean forces as named | 2B.5, 2B.9 | final_evidence |
+| E2B-06 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 22 March 2023 entry — Parliament delists TPLF | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia, citing Reuters/AP. Entry on 22 March 2023 | "Following the peace agreement, the Parliament voted in March 2023 to remove TPLF from the list of terrorist organisations." | Article body, March entry | Encyclopedia (medium_high) with primary press sourcing | 2023 fit | Federal parliament, attributed to PM Abiy's government | 2B.1, 2B.7 | final_evidence (peace-process measure) |
+| E2B-07 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 23 March 2023 entry — Interim Regional Administration of Tigray formed | https://en.wikipedia.org/wiki/Tigray_war (and 2023_in_Ethiopia) | Wikipedia, "Result" of Tigray war infobox; cites UN/AFP | "Interim Regional Administration of Tigray formed on 23 March 2023" as part of Pretoria implementation; Western Tigray ceded to Amhara | Infobox "Result" line | Encyclopedia with primary press sourcing (medium_high) | 2023 fit | Federal government + TPLF jointly; Abiy's federal authority controls Western Tigray outcome | 2B.7, 2B.10 | final_evidence |
+| E2B-08 | https://www.theguardian.com/global-development/2023/aug/04/ethiopia-declares-a-state-of-emergency-in-amhara-amid-increasing-violence \| Article body | https://www.theguardian.com/global-development/2023/aug/04/ethiopia-declares-a-state-of-emergency-in-amhara-amid-increasing-violence | The Guardian, 4 Aug 2023 | On 4 August 2023 Ethiopia's council of ministers, on PM Abiy's request, declared a six-month state of emergency in the Amhara region after violence between Fano militia and federal military; emergency grants powers to arrest without court order, impose curfews, ban public gatherings, search without a warrant | Article body, paragraphs 1–8 | Major reputable international outlet (medium_high) | 2023 fit | Direct: PM Abiy Ahmed's office requested; council of ministers declared | 2B.1, 2B.5, 2B.9 | final_evidence |
+| E2B-09 | https://en.wikipedia.org/wiki/Fano_insurgency \| Infobox + body | https://en.wikipedia.org/wiki/Fano_insurgency | Wikipedia, Fano insurgency article | "The Fano insurgency ... began in April 2023 between the Fano militia and the Ethiopian government. The conflict started after the government attempted to dissolve the Amhara Special Forces and other regional forces as part of a plan to reform and centralize the country's security apparatus" | Article body, paragraph 1 | Encyclopedia (medium_high) with primary press sourcing | 2023 fit | Federal government / Abiy Ahmed authority over security reform | 2B.5, 2B.8 | final_evidence |
+| E2B-10 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Abuses by Security Forces and Attacks by Armed Groups"; OHCHR 29 Aug 2023 finding | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 (2023 review) | OHCHR found at least 183 people killed in fighting between Fano militiamen and security forces since July 2023; government security forces carried out house-to-house arrests | "Abuses by Security Forces" section | NGO report citing OHCHR (medium_high) | 2023 fit | Federal government / PM Abiy authority over security forces | 2B.5, 2B.4 | final_evidence |
+| E2B-11 | https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders \| "In April 2023, Oromia police authorities moved" | https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders | HRW, 24 Jul 2023 | Oromia police held seven senior OLF opposition figures without charge despite multiple judicial orders directing their release; "authorities are making a mockery of Ethiopia's justice system through the prolonged and cruel detention without charge" | Article body, paragraphs 1–6 | NGO (medium_high) | 2023 fit | Oromia police / federal political responsibility (Abiy) | 2B.9 (accountability), 2B.5 (forced disappearances) | final_evidence (also reused in 3B/4B) |
+| E2B-12 | https://www.theguardian.com/global-development/2023/aug/07/people-are-under-siege-why-ethiopias-war-in-tigray-isnt-over \| Article body | https://www.theguardian.com/global-development/2023/aug/07/people-are-under-siege-why-ethiopias-war-in-tigray-isnt-over | The Guardian, 7 Aug 2023 | Nine months after the Pretoria ceasefire Eritrean troops still occupy several areas along the border including four of Irob's seven subdistricts; advocacy group Irob Anina counted 56 disappearances; Eritrean troops loot livestock and kidnap people; Eritrean authorities "handing out Eritrean ID cards in Irob as part of their de-facto annexation of the region" | Body, paragraphs 3–10 | Major reputable international outlet (medium_high), corroborated by HRW and Amnesty citations | 2023 fit | Eritrean forces (de facto ally); Federal government tacit acceptance (Abiy) | 2B.2, 2B.5, 2B.7, 2B.10 | final_evidence |
+| E2B-13 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Accountability and Justice" | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 (covering 2023) | "In January 2023, the Ethiopian government released a draft 'Policy Options for Transitional Justice' (Green Paper) ... September, the second report of the UN-mandated International Commission of Human Rights Experts on Ethiopia (ICHREE) found that the government 'failed to effectively investigate violations' and 'initiated a flawed transitional justice process.'" Government threatened in March to introduce a UN HRC resolution prematurely terminating the ICHREE's mandate | "Accountability and Justice" section | NGO report (medium_high); primary ICHREE finding | 2023 fit | Federal government under Abiy | 2B.9 (accountability) | final_evidence |
+| E2B-14 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Key International Actors" | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 (covering 2023) | "In March, the US and EU member states folded to Ethiopia's threats to prematurely end the ICHREE mandate, agreeing to refer to ICHREE's forthcoming September report as its 'final' one." In October 2023 the EU announced a €650 million aid package for Ethiopia previously suspended since 2020 | "Key International Actors" | NGO review (medium_high) | 2023 fit | Federal government / Abiy | 2B.9 (accountability) | final_evidence |
+
+**Chapter 2B yield.** Source-claim units retained: 14. Independent source families: VOA, The Guardian, HRW (multiple reports), Amnesty, ICIJ/AP, The Africa Report, Wikipedia (synthesis of primary press), ICRC, ICHREE, US Department of State. Source types: NGO (4 different organizations), government statements (US State Department, EU, OHCHR/ICHREE), major media wires, encyclopedia. Source concentration is acceptable — HRW and The Guardian have multiple items but each represents a distinct dated claim.
+
+**Coverage by lens:**
+- 2B.1 (diplomacy first): Pretoria meeting, Parliament delisting TPLF (positive conduct).
+- 2B.2 (no new aggression): Eritrean forces still operating in Tigray (negative), counter-argument: Pretoria ended the active war.
+- 2B.3 (genuine vs manufactured threats): State of emergency in Amhara is presented by Abiy as defensive necessity against "extremist groups" — contested by reporters.
+- 2B.4 (civilian protection): US State Department documented Ethiopian, Eritrean, Amhara forces crimes against humanity; OLA attacks on civilians.
+- 2B.5 (proxy/ally restraint): Eritrean forces allegations — proxy/ally responsibility attaches to Abiy under Pretoria; Amhara Special Forces dissolution triggered Fano conflict.
+- 2B.6 (truthful threats): not directly tested in 2023 evidence collected (gap; HRW 2.6 lens low).
+- 2B.7 (ceasefires/peace): Pretoria implementation; Amhara SOE is the contrary choice.
+- 2B.8 (military spending patronage): AFNS, Fano dissolution reflects security restructuring rather than patronage.
+- 2B.9 (accountability): ICHREE accused government of "flawed transitional justice process"; AU Commission of Inquiry ended without public report; Abiy's government advocated terminating ICHREE mandate.
+- 2B.10 (end-state change): mixed — Pretoria agreement ended shooting; Amhara conflict reopened by SOE on a new front; Eritrean occupation persists.
+
+**Strongest contrary evidence:** Pretoria-mandated Eritrean withdrawal was incomplete (E2B-12); HRW documents continuity of violence after the November 2022 ceasefire (E2B-03); the State Department's formal atrocity crimes determination against Ethiopian, Eritrean, and Amhara forces (E2B-04); AU Commission of Inquiry on Tigray ended in May 2023 without public report.
+
+---
+
+### CHAPTER 3B — Domestic safety, restraint, and protection
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E3B-01 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Abuses by Security Forces" — Amhara offensives and casualty counts | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 (2023 review) | "In August and September, heavy fighting was reported in and around cities and towns throughout the Amhara region, resulting in hundreds killed and injured, including children and refugees, and damage to civilian property and infrastructure such as hospitals. On August 29, the Office of the UN High Commissioner for Human Rights (OHCHR) found that at least 183 people had been killed in fighting since July." | "Abuses" section | NGO report citing OHCHR (medium_high) | 2023 fit | Federal security forces (ENDF) under Abiy's executive command | 3B.1, 3B.2, 3B.6, 3B.10 | final_evidence |
+| E3B-02 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| August 29 entry | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia, citing UN reports | "The United Nations reports that at least 183 people have been killed during recent clashes between Fano militiamen and security forces in Amhara Region." | Article body | Encyclopedia citing UN (medium_high) | 2023 fit | Federal forces & Fano | 3B.1, 3B.2 | final_evidence |
+| E3B-03 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| January entries | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia, citing Amhara Association of America, EPO Weekly | "11 January – 15 Amhara IDPs and civilians killed in Haro Kebele by Oromo Special Forces (regional forces)" and "20 January – 98 civilians killed by the Oromo Liberation Army (OLA) along with other ethnic Oromo militants in multiple Amhara villages in North Shewa Zone ... 155 people injured and 1,930 houses damaged (set on fire)." | Article body, January entries | Encyclopedia citing primary monitor reports (medium_high) | 2023 fit | Regional security forces aligned with federal government / OLA (non-state opponent) | 3B.1, 3B.2, 3B.6, 3B.7 | final_evidence |
+| E3B-04 | https://www.amnesty.org/en/latest/news/2023/01/ethiopia-human-rights-defenders/ \| Article body | https://www.amnesty.org/en/latest/news/2023/01/ethiopia-human-rights-defenders/ | Amnesty International, 10 Jan 2023 | On 5 January 2023 Ethiopian police arrested and forcibly disappeared four Ethiopian Human Rights Council (EHRCO) staff — Daniel Tesfaye, Bizuayehu Wendimu, Bereket Daniel, Nahom Hussien — for documenting forced evictions in Alem Bank area south of Addis Ababa | Article body, paragraphs 1–8 | NGO (medium_high) | 2023 fit | Federal police, political responsibility of the Abiy government | 3B.1, 3B.2, 3B.4, 3B.8 | final_evidence |
+| E3B-05 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Freedoms of Expression, Media, and Association" + EHRCO entry | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | Since the August 2023 SOE "mass arrests of ethnic Amharas have been reported" in Amhara region and Addis Ababa; federal police arrested Christian Tadele (opposition MP), Yohannes Buayelew (Amhara regional council), Kassa Teshager (Addis Ababa city council); Christian Tadele and Kassa Teshager held incommunicado | Article "Freedoms" section | NGO (medium_high) | 2023 fit | Federal police under Abiy's executive | 3B.1, 3B.8 | final_evidence |
+| E3B-06 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Abuses by Security Forces" — April 9 Catholic Relief Services killings; Oromia demolitions | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | "In April, the security situation in the Amhara region deteriorated following the federal government's decision to integrate regional police forces into the federal military. On April 9, two Catholic Relief Services staff members were shot and killed ... In March, Oromia authorities demolished homes and businesses in Shegar city ... rendering scores of residents homeless. Security forces reportedly beat and shot individuals that protested the demolitions." | "Abuses" section | NGO (medium_high) | 2023 fit | Federal / regional security forces attributable up the chain | 3B.1, 3B.2, 3B.4, 3B.7 | final_evidence |
+| E3B-07 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Migrants, Refugees, and Asylum Seekers" | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | "Public reports began to emerge in June that Ethiopian security forces had rounded up and arbitrarily detained Eritrean refugees, migrants, and asylum seekers in Addis Ababa and other parts of the country ... A group of independent UN experts condemned Ethiopia's summary expulsion of hundreds of Eritreans at the end of June and urged authorities to end further arbitrary arrests and deportations of refugees, asylum seekers, and migrants." | Article body | NGO (medium_high) + UN press release | 2023 fit | Federal police / security forces | 3B.7, 3B.1, 3B.8 | final_evidence |
+| E3B-08 | https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement \| Article body | https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement | ICRC, 2023 | "The ongoing violence in the Oromia region of Ethiopia has taken a toll on critical infrastructure. Health facilities and water systems have been seriously affected. In Begi, a district of 100,000 inhabitants, nearly all 42 existing health posts have been looted or damaged. Patients with life-threatening medical conditions cannot receive urgent care because health facilities are no longer functioning. The walls of the Guduru Primary Hospital were riddled with bullets, and its water tank was damaged. Beds, equipment, surgical sets, medicines, and ambulances were looted." | Article body, paragraphs 1–4 | International humanitarian organization (high) | 2023 fit (Jan-June 2023) | Attribution to ongoing violence; federal authority includes recovery | 3B.6, 3B.9, 3B.10 | final_evidence |
+| E3B-09 | https://apnews.com/article/ethiopia-tigray-food-theft-aid-suspension-ee37678bbd6a9637641c214715a03645 \| Article body | https://apnews.com/article/ethiopia-tigray-food-theft-aid-suspension-ee37678bbd6a9637641c214715a03645 | Associated Press, 30 Mar 2023 | USAID formally determined that food aid intended for Tigray was "being diverted and sold on the local market"; Administrator Samantha Power told Senate Foreign Relations Committee on 26 April 2023 the food theft appeared to involve "collusion between parties of both sides of the conflict"; WFP suspended deliveries to Tigray on 20 April; theft allegedly occurred November–February 2023 | Article body | Major wire (medium_high) + USAID/UN primary sources | 2023 fit | Federal and Tigrayan officials, allegedly; ruling-party control of distribution networks (Abiy government) | 3B.6, 3B.7, 3B.9 | final_evidence |
+| E3B-10 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Conflict in Northern Ethiopia" — OLA/OLA counterinsurgency, Oromia demolitions | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | "The government relaunched its counterinsurgency campaign against the Oromo Liberation Army (OLA) in May after the collapse of peace talks in April. Reports of attacks against the population in Oromia, including Oromo and Amhara communities, continued through August." | "Conflict" section | NGO (medium_high) | 2023 fit | Federal government (Abiy) | 3B.2, 3B.6, 3B.9 | final_evidence |
+
+**Chapter 3B yield.** Retained source-claim units: 10. Source families: HRW (4 dated reports, distinct items), Amnesty, Wikipedia, ICRC, AP. Independent types: NGO, intergovernmental humanitarian (ICRC), major wire (AP), encyclopedia.
+
+**Coverage by lens:**
+- 3B.1 (state violence against residents): EHRCO arrests (E3B-04); mass arrests of ethnic Amharas (E3B-05); CRS staff killed (E3B-06); Eritrean-refugee roundups (E3B-07); OHCHR 183 killed in Amhara (E3B-01/E3B-02); OLA 98 civilians killed 20 Jan (E3B-03).
+- 3B.2 (security-force/informant accountability): same, with pro-government Fano dissolution.
+- 3B.3 (incitement): not specifically evidenced in 2023 collection beyond Amnesty/EHRCO documentation; gap.
+- 3B.4 (due process/oversight): OLF seven held without charge (E2B-11, reused); EHRCO arrests (E3B-04); Shegar city demolitions with beatings (E3B-06).
+- 3B.5 (emergency powers): August 2023 SOE is decisive (E2B-08); provision applies "throughout the country."
+- 3B.6 (fear vs state terror): chronic insecurity + state-of-emergency force application + ICRC-documented health-system damage (E3B-08).
+- 3B.7 (vulnerable-group protection): Eritrean refugee roundups (E3B-07); Tigrayan expulsions from Western Tigray (E2B-12); Oromia demolitions (E3B-06).
+- 3B.8 (peaceful protest): EHRCO arrests for documenting evictions (E3B-04); Tigray police beat/arrest opposition Sept 2023; Amhara-region journalist arrests.
+- 3B.9 (crisis response): ICRC Oromia report (E3B-08); SOE response (E2B-08).
+- 3B.10 (inherited-to-end safety): deterioration: Pretoria implementation is partial, Amhara conflict reopened, OD | state-of-emergency extended to country, food-aid diverted.
+
+**Strongest contrary evidence:** No specific 2023 evidence supports a 3B improvement narrative.
+
+---
+
+### CHAPTER 4B — Political freedom vs authoritarian rule
+
+The chapter is informed by local structured priors LF013 (BTI democracy status 3.72), LF016 (Freedom House civil liberties 6.0), LF017 (V-Dem polyarchy 0.28), LF022 (V-Dem liberal democracy 0.11), LF025-LF026 (RSF press-freedom rank 130 / score 47.7), LF027 (regime type 1: closed/autocratic), plus corroborated internet narrative.
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E4B-01 | https://freedomhouse.org/country/ethiopia/freedom-world/2024 \| §D1 — journalists, EMA, Somali-region media | https://freedomhouse.org/country/ethiopia/freedom-world/2024 | Freedom House, Freedom in the World 2024 (covering 2023) | "Journalists in Ethiopia are constrained by security concerns that limit their ability to work and travel, government pressure, arrest, and the threat of expulsion ... Most private media outlets are established with a goal of satisfying distinct political or ethnic groups' interests. Reports from state media agencies must follow the ruling party's narrative ... In 2022, Parliament violated a 2021 media law ... to appoint Prosperity Party members to the EMA board. Journalists faced arrest and violence in 2023." | §D1 Media independence | Major reputable rating org (high) | 2023 fit (cites 2023 events) | Federal government under Abiy Ahmed / Prosperity Party | 4B.3, 4B.6, 4B.9 | final_evidence |
+| E4B-02 | https://freedomhouse.org/country/ethiopia/freedom-world/2024 \| §D2 — Ethiopian Orthodox Church and state intervention | https://freedomhouse.org/country/ethiopia/freedom-world/2024 | Freedom House, Freedom in the World 2024 | "The government has been accused of involving itself in religious matters, especially as the EOC faced a split in 2023. In January, members in Oromia formed a new synod; lethal clashes between rival groups and security forces followed before a reconciliation was reached in February. The EOC had criticized Abiy in early February amid accusations that the government was backing the Oromia synod. In August, authorities detained seven bishops from the breakaway synod who did not support reconciliation." | §D2 Religious freedom | Freedom House (high) | 2023 fit | Federal government (Abiy) | 4B.5, 4B.7 (political inclusion) | final_evidence |
+| E4B-03 | https://freedomhouse.org/country/ethiopia/freedom-world/2024 \| §D4 — surveillance, "government's crackdown on opposing views" | https://freedomhouse.org/country/ethiopia/freedom-world/2024 | Freedom House, Freedom in the World 2024 | "Are individuals free to express their personal views on political or other sensitive topics without fear of surveillance or retribution? The government's crackdown on opposing views has pushed individuals to refrain from commenting on s[ensitive topics]..." | §D4 Personal expression | Freedom House (high) | 2023 fit | Federal government (Abiy) | 4B.5, 4B.9 | final_evidence |
+| E4B-04 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Freedoms of Expression, Media, and Association" + CPJ | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 (with CPJ citations) | "Between April 3 and 18, Ethiopian authorities arrested eight journalists who had reported on the deteriorating situation in the Amhara region. In August, authorities arrested three more journalists following the state of emergency declaration. In early September, the Ethiopian Human Rights Commission visited detainees held at Awash Arba military camp in the Afar region. Detainees included political figures, such as Christian Tadele, Kassa Teshager, and Sentayehu Chekol, and journalists, such as Abay Zewdu." | "Freedoms" section | NGO (medium_high) | 2023 fit | Federal security forces under Abiy | 4B.3, 4B.8 (protest), 4B.9 | final_evidence |
+| E4B-05 | https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders \| Article body | https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders | HRW, 24 Jul 2023 | Ethiopia's federal and regional authorities exerted control over certain judicial processes, with investigative authorities "routinely appealing or ignoring court decisions" in cases involving critics of the government or opposition figures; seven OLF figures held since 2020 despite multiple judicial orders | Article body | NGO (medium_high) | 2023 fit | Federal/regional authorities; Abiy's political responsibility | 4B.2, 4B.4, 4B.8 | final_evidence |
+| E4B-06 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Accountability and Justice" — March Parliamentary vote to delist TPLF | https://en.wikipedia.org/wiki/2023_in_Ethiopia (cross-source with HRW) | Wikipedia/HRW | Parliament voted in March 2023 to remove TPLF from the list of terrorist organisations — relevant to opposition inclusion (textbook 4B.3) | Article body (HRW) and Wikipedia entry | Multiple (medium_high) | 2023 fit | Federal parliament (Abiy's government) | 4B.3, 4B.8 | final_evidence |
+| E4B-07 | https://www.state.gov/reports/2022-country-reports-on-human-rights-practices/ethiopia/ \| Article body (cover 2022, but reference baseline for 2023) | https://www.state.gov/reports/2022-country-reports-on-human-rights-practices/ethiopia/ | U.S. Department of State, 2023 release | Country Reports on Human Rights Practices 2022 (released March 2023) covers arbitrary arrests, extrajudicial killings, enforced disappearances, censorship, unjustified arrests of journalists, use of child soldiers — establishing 2023 baseline | Article body | Government primary source (medium_high) | 2022, context for 2023 | Federal government under Abiy | 4B.1, 4B.3, 4B.5, 4B.8 | context |
+| E4B-08 | local-prior:4B.1 \| local-prior:4B.1 (LF013 — BTI democracy_status 3.72) | local-prior:4B.1 | V-Dem/bti structured data 2023 | BTI democracy status 3.72 / BTI governance 4.15 / BTI status 3.77 — V-Dem polyarchy 0.28, V-Dem liberal democracy 0.11 — Freedom House political rights 6, civil liberties 6 — RSF press rank 130, score 47.7 — regime type 1 (closed/autocratic) | Local-prior structured record | structured_dataset (high) | 2023 | Country baseline | 4B.1, 4B.2, 4B.4, 4B.6 | final_evidence (when paired with attributions in other 4B items) |
+
+**Chapter 4B yield.** Source-claim units retained: 8 (1 structured prior package + 7 narrative items). Source families: Freedom House, HRW, State Department, Wikipedia/HRW cross, BTI. Independent types: NGO (HRW), rating org (Freedom House), government primary (State), encyclopedia, structured dataset.
+
+**Coverage by lens:**
+- 4B.1 (contestability): regime_type 1 (closed) + BTI 3.72 baseline (E4B-08) + NarroPark democracy-rhetoric and accountability refusal (E2B-13) → no competitive election in 2023.
+- 4B.2 (electoral manipulation): state of emergency applied countrywide + EMA board partisan appointment (E4B-01) + EHRCO arrests (E3B-04).
+- 4B.3 (opposition victories, criticism): parliamentary TPLF delisting is the lone positive (E4B-06); Christian Tadele/Yohannes Buayelew/Kassa Teshager arrests (E4B-04) → decline.
+- 4B.4 (institutions): rule-of-law index 0.29 + OLF seven held despite court orders (E4B-05) → erosion.
+- 4B.5 (personality cults / politicization): EMA partisan board (E4B-01); state involvement in Orthodox Church schism (E4B-02).
+- 4B.6 (media independence / propaganda): Freedom House score and journalist arrests (E4B-04); RSF 47.7 / rank 130 (LF026/LF025).
+- 4B.7 (equality): Tigrayan ethnic cleansing in Western Tigray (HRW); Eritrean refugees rounded up (E3B-07).
+- 4B.8 (term limits, succession, coalition): no specific transfer events in 2023 evidence. National Election Board chair Birtukan Mideksa resigned 25 June 2023 (per Wikipedia 2023 timeline).
+- 4B.9 (surveillance, shutdowns): Mobile internet disrupted twice during Amhara fighting; HRW 2024 report; Freedom House D4.
+- 4B.10 (trajectory): decline — local priors LF013–LF027 show severely constrained political competition and a decade of BTI-status decline; 2023 SOE extension countrywide, mass arrests.
+
+**Strongest contrary evidence:** Single notable positive is the Pretoria agreement implementation, the TPLF delisting (E4B-06), and the 3 February 2023 Abiy–TPLF meeting (E2B-01) — but these are peace-process rather than political-freedom per se.
+
+---
+
+### CHAPTER 5B — Economic well-being and prosperity
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E5B-01 | https://www.worldbank.org/en/country/ethiopia/overview \| Article body | https://www.worldbank.org/en/country/ethiopia/overview | The World Bank Country Overview | "Ethiopia's state-led development model improved infrastructure and living standards. Outcomes include expanding access to nearby potable water to 60 million more people, doubling electricity access, and a 64% increase in child vaccinations. ... Multiple crises (war in Ukraine, Tigray conflict, droughts, economic imbalances) led to a debt default in 2023. Living standards deteriorated further amid double-digit inflation, and the Tigray conflict displaced 3 million people, resulting in large humanitarian and reconstruction needs ($20 billion)." | Article body | Major multilateral (high) | 2023 fit | Federal government under Abiy | 5B.3, 5B.4, 5B.6, 5B.9, 5B.10 | final_evidence |
+| E5B-02 | https://www.bti-project.org/en/reports/country-dashboard/ETH \| Article body | https://www.bti-project.org/en/reports/country-dashboard/ETH | Bertelsmann BTI 2024 (covering 2023) | "Economic progress has been constrained by political instability and mounting financial pressure. Ethiopia defaulted on its international bond in 2023 and entered debt restructuring negotiations with multilateral and bilateral creditors. Currency liberalization and debt relief provided limited stabilization. At the same time, the government advanced private sector growth, the opening of the banking sector to foreign banks and expanded energy capacity." | Article body | Major multilateral/research (high) | 2023 fit | Federal government under Abiy | 5B.3, 5B.4, 5B.5, 5B.9, 5B.10 | final_evidence |
+| E5B-03 | https://www.bti-project.org/en/reports/country-dashboard/ETH \| Article body | https://www.bti-project.org/en/reports/country-dashboard/ETH | BTI 2024 (covering 2023) | "While authorities pursued economic liberalization and international financial cooperation, efforts to resolve internal conflicts and foster inclusive dialogue failed. The National Dialogue process remained contested and ineffective, as was the fragile peace deal regarding the conflict in northern Ethiopia." | Article body | Research rating org (high) | 2023 fit | Federal government under Abiy | 5B.7, 5B.10 | final_evidence |
+| E5B-04 | https://www.wfp.org/countries/ethiopia \| Article body | https://www.wfp.org/countries/ethiopia | World Food Programme Country Page | "Ethiopia has made important development gains over the past two decades, reducing poverty and expanding investments in basic social services. However, food insecurity and malnutrition are at alarming levels. Multiple and often overlapping crises have severely weakened the ability of communities to cope with shocks, pushing millions of people into severe need and destitution." | Article body | UN agency (high) | 2023 fit (current page reflects ongoing situation) | Federal government under Abiy | 5B.6, 5B.8, 5B.9, 5B.10 | final_evidence (context for 5B.6) |
+| E5B-05 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 18 March entry — Finance Minister USD 20 billion claim | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing news reporting | "Finance minister stated that minimum of USD 20 billion is needed to rebuild the devastated northern part of Ethiopia which includes the Afar, Amhara and Tigray regions." | Article body | Encyclopedia citing primary press | 2023 fit | Federal Finance Minister (Abiy cabinet) | 5B.6, 5B.9, 5B.10 | final_evidence |
+| E5B-06 | https://apnews.com/article/ethiopia-tigray-food-theft-aid-suspension-ee37678bbd6a9637641c214715a03645 \| ¶ USAID divert food aid into Tigray | https://apnews.com/article/ethiopia-tigray-food-theft-aid-suspension-ee37678bbd6a9637641c214715a03645 | AP, 30 Mar 2023 | USAID Administrator Samantha Power said a "widespread and coordinated" campaign was diverting food aid from Ethiopians; the food diversion was reported to involve "collusion between parties of both sides of the conflict"; USAID and WFP both suspended delivery | Article body | Major wire (medium_high) | 2023 fit | Federal and Tigrayan officials, allegedly | 5B.5 (favoritism / capture), 5B.7 (correct based on evidence), 5B.9 | final_evidence |
+| E5B-07 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| § USAID/WFP food suspension paragraph | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | "WFP and USAID suspended food aid to Tigray after reports emerged that food aid was being 'diverted and sold in the local markets.' The agencies extended the suspension to all of Ethiopia in June after an investigation uncovered '[a widespread and coordinated] scheme' by federal and regional government actors to divert food assistance." | "Conflict in Northern Ethiopia" section | NGO (medium_high) | 2023 fit | Federal government under Abiy | 5B.5, 5B.7, 5B.9 | final_evidence |
+
+**Chapter 5B yield.** Source-claim units retained: 7 (2 narrative × 5 cross-chapter items + 5 chapter-specific items). Source families: World Bank, BTI, WFP, AP, HRW, Wikipedia. Independent types: multilateral (World Bank, WFP), research rating (BTI), NGO (HRW), wire (AP), encyclopedia.
+
+**Coverage by lens:**
+- 5B.1 (broad-based prosperity intent): BTI describes "private sector growth, the opening of the banking sector to foreign banks" as limited stabilization moves — mixed.
+- 5B.2 (competence appointments): not specifically evidenced for 2023 (gap).
+- 5B.3 (macroeconomic stability): failure — debt default in 2023 (E5B-02); double-digit inflation; overvalued exchange rate underlying cause (E5B-01).
+- 5B.4 (fair rules, market access): partial — opening banking sector to foreign banks (E5B-02).
+- 5B.5 (corruption, monopolies, capture): negative — coordinated food-aid diversion scheme (E5B-06/E5B-07) implicating federal officials.
+- 5B.6 (productivity foundations): mixed — USD 20 billion reconstruction need (E5B-05); WFP notes basic service gains across decades.
+- 5B.7 (evidence-based correction): BTI documents "contested and ineffective" National Dialogue (E5B-03).
+- 5B.8 (distribution): food diversion by federal actors disproportionately affects northern populations (E5B-06/E5B-07); World Bank: poverty rate 27%→32% over 2016–2021.
+- 5B.9 (shock management): SOE and security responses contributed to market disruption; aid suspension extended to all of Ethiopia in June 2023.
+- 5B.10 (trajectory): declining in 2023 — debt default, inflation, food diversion, conflict continuing, USD 20 billion reconstruction need (E5B-05).
+
+**Strongest contrary evidence:** Banking-sector opening to foreign banks (BTI positive); expanding potable water and electricity access (World Bank country overview).
+
+---
+
+### CHAPTER 6B — Social well-being and human development
+
+Chapter 6B is the most under-evidenced given the local prior returned no D6 (HDI / health / education / income) entries. The narrative sources do provide some 2023 material on food insecurity, health-system damage, and the ICRC Oromia report. Reuse with Chapter 5B for cross-chapter items is appropriate.
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E6B-01 | https://www.wfp.org/countries/ethiopia \| ¶ overview | https://www.wfp.org/countries/ethiopia | WFP Country Page | "Food insecurity and malnutrition are at alarming levels ... Recurrent conflict, droughts, diseases and inflation continue to drive humanitarian needs upwards, particularly in regions where productive assets and livelihoods have been eroded already because of protracted shocks. The overlap of high malnutrition rates, severe water scarcity coupled with disease outbreaks (malaria, measles and cholera) and livestock emergencies have exacerbated food insecurity in the country, leaving millions of people to depend on humanitarian assistance for survival." | Article body | UN agency (high) | 2023 fit | Federal government under Abiy | 6B.1, 6B.6, 6B.8, 6B.10 | context (general 2023 picture) |
+| E6B-02 | https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement \| Article body | https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement | ICRC, 2023 | "In Begi, a district of 100,000 inhabitants, nearly all 42 existing health posts have been looted or damaged. Patients with life-threatening medical conditions cannot receive urgent care because health facilities are no longer functioning. The walls of the Guduru Primary Hospital, which serves more than five districts, were riddled with bullets, and its water tank was damaged. Beds, equipment, surgical sets, medicines, and ambulances were looted." | Article body, paragraphs 1–2 | International humanitarian (high) | 2023 fit | Ongoing violence; federal responsibility for restoring access | 6B.2, 6B.4, 6B.6, 6B.10 | final_evidence |
+| E6B-03 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 23 March entry — OCHA cholera outbreak | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing OCHA | "OCHA reported 2,276 cholera cases in East Bale, Guji and Borena zones of Oromia and Daawa Zone of Somali regions" | Article body | Encyclopedia citing UN | 2023 fit | Federal health response | 6B.2, 6B.6 | final_evidence |
+| E6B-04 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 14 July cholera spread; 23 March entries | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing OCHA | "OCHA reported that Cholera outbreak continues spreading across 74 woredas in Oromia, Somali, Sidama and SNNPR for almost a year." | Article body | Encyclopedia citing UN | 2023 fit | Federal health response | 6B.2, 6B.6 | final_evidence |
+| E6B-05 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 6 April entry — drought | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing ReliefWeb | "About 24 million Ethiopians live in drought affected areas and about 11 million of them need food assistance. About 2.05 billion USD is required for the response." | Article body | Encyclopedia citing UN | 2023 fit | Federal drought response and food aid | 6B.1, 6B.6 | final_evidence |
+| E6B-06 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 30 June entry — Amhara IDPs, school access | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing ReliefWeb | "The security in situation in the Amhara Region remains volatile and there are about 583.5K IDPs across the region, including 245K school-age (3–18) children. At least 4,086 schools are damaged and unable to resume the education process. As of June 2023, 902K children remain out of school, from both IDPs and host community." | Article body | Encyclopedia citing UN/OCHA | 2023 fit | Federal/regional response | 6B.2, 6B.6, 6B.7, 6B.10 | final_evidence |
+| E6B-07 | https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement \| Article body — ICRC operational response | https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement | ICRC, 2023 | "Since January 2023, in Oromia, the ICRC has: assisted 62,800 people with food, household supplies, shelter, and cash. Regularly supported 12 health facilities with medical supplies and equipment. Helped 32,500 people restore or maintain family links. Facilitated access to clean water for 187,000 people." | Article body | International humanitarian (high) | 2023 fit | Federal context for humanitarian access | 6B.5, 6B.6, 6B.10 | final_evidence |
+| E6B-08 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 27 April — Gamo-Gofa cholera | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing ReliefWeb | "Cholera outbreak continued in the Gamo-Gofa of SNNPR region." | Article body | Encyclopedia citing UN | 2023 fit | Federal health response | 6B.2, 6B.6 | final_evidence |
+
+**Chapter 6B yield.** Source-claim units retained: 8 (3 distinct: WFP, ICRC ×2, Wikipedia ×5). Source families: WFP, ICRC, Wikipedia (synthesizing OCHA and ReliefWeb). Independent types: UN agency (WFP), ICRC, encyclopedia citing UN/ReliefWeb.
+
+**Coverage by lens:**
+- 6B.1 (welfare intent): chronic conflict and food insecurity indicate limited priority action; mass arrests and SOE absorption suggest low priority relative to security (E3B-01/05/06).
+- 6B.2 (basic services access): health posts 42/100 damaged (E6B-02), 902K children out of school in Amhara (E6B-06), cholera across 4 regions (E6B-03, E6B-04, E6B-08).
+- 6B.3 (vulnerable groups): IDP figures — 583.5K Amhara; coordinated food diversion affects northern populations (E5B-06/E5B-07).
+- 6B.4 (competent professionals vs patronage): limited by ongoing attacks on health workers; 42 health posts damaged (E6B-02).
+- 6B.5 (evidence-based correction): National Dialogue "contested and ineffective" (E5B-03).
+- 6B.6 (crisis response): drought affects 24M / food aid needed for 11M (E6B-05); 2022-2023 cholera persistence (E6B-04); ICRC-supported 12 health facilities functional (E6B-07).
+- 6B.7 (political loyalty condition): not directly evidenced; gap.
+- 6B.8 (dignity, equality): not specifically evidenced in 2023; gap.
+- 6B.9 (durable institutions): Abyi government committed to National Dialogue but it remained "contested and ineffective" (E5B-03).
+- 6B.10 (trajectory): inherited-to-end — health and education infrastructure suffering in conflict zones; ICRC saw 62,800 IDPs served; basic malnutrition remains severe.
+
+**Strongest contrary evidence:** ICRC operational support restored some health and water services (E6B-07) — but this is humanitarian, not governmental, delivery.
+
+---
+
+### CHAPTER 7B — Ruler personal integrity and honesty
+
+This chapter requires direct evidence of personal conduct (telling truth, separating interests, appointing competent professionals, allowing scrutiny, keeping promises, etc.). 2023 evidence collected is mixed.
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E7B-01 | https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders \| Article body | https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders | HRW, 24 Jul 2023 | Police authorities routinely defied court orders directing release of the seven OLF figures; "investigative authorities routinely appealing or ignoring court decisions" in cases involving critics of the government or opposition figures | Article body | NGO (medium_high) | 2023 fit | Federal/regional authority; political responsibility attaches to Abiy | 7B.2, 7B.6, 7B.7, 7B.10 | final_evidence |
+| E7B-02 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| §"Accountability and Justice" — ICHREE threatened termination | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | "The government continued its campaign against independent rights scrutiny when, in March, it threatened to introduce a resolution at the UN Human Rights Council prematurely terminating the ICHREE's mandate. The government also refused to cooperate with and resisted the work of the African Commission on Human and Peoples' Rights (ACHPR) Commission of Inquiry on Tigray" | "Accountability and Justice" | NGO (medium_high) | 2023 fit | Federal government under Abiy | 7B.6, 7B.7, 7B.10 | final_evidence |
+| E7B-03 | https://apnews.com/article/ethiopia-tigray-food-theft-aid-suspension-ee37678bbd6a9637641c214715a03645 \| AP article | https://apnews.com/article/ethiopia-tigray-food-theft-aid-suspension-ee37678bbd6a9637641c214715a03645 | AP, 30 Mar 2023 | US government determined a "widespread and coordinated" campaign by federal and regional government actors was diverting food assistance; USAID administrator told the Senate "the food theft appeared to involve 'collusion between parties of both sides of the conflict'" | Article body | Major wire + US government primary (medium_high) | 2023 fit | Federal officials under Abiy's authority; direct integrity implication for 7B.4/7B.5/7B.7 | 7B.2, 7B.4, 7B.5, 7B.7, 7B.10 | final_evidence |
+| E7B-04 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| § Abuses cited | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | HRW documents prosecution of journalist/dissent cases where appeals of decisions went forward in defiance of court orders; multiple journalists held incommunicado (Christian Tadele, Kassa Teshager, Sentayehu Chekol) at Awash Arba military camp; judicial accountability mech failures | "Abuses" & "Freedoms" sections | NGO (medium_high) | 2023 fit | Federal government under Abiy | 7B.2, 7B.6, 7B.7 | final_evidence |
+| E7B-05 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| 25 June 2023 — National Election Board chair Birtukan Mideksa resigned | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing news | "Birtukan Mideksa, chairwoman of the National Election Board of Ethiopia since 2018 announced her resignation." | Article body, June entries | Encyclopedia citing news | 2023 fit | Independent electoral authority | 7B.6, 7B.10 (delegitimization) | final_evidence (mid-quality) |
+| E7B-06 | https://www.state.gov/reports/2022-country-reports-on-human-rights-practices/ethiopia/ \| Article (2022 baseline, citing continuing patterns) | https://www.state.gov/reports/2022-country-reports-on-human-rights-practices/ethiopia/ | U.S. Department of State | Significant human rights issues — extrajudicial killings, enforced disappearances, arbitrary arrest, censorship, unjustified arrests of journalists, use of child soldiers | Article body | Government primary source (medium_high) | Baseline 2022 | Federal government under Abiy | 7B.2, 7B.4, 7B.6, 7B.7 | context |
+| E7B-07 | local-prior:7B.1 \| local-prior:7B.1 (LF033–LF036, LF028) | local-prior:7B.1 | V-Dem v2x_corr 0.565 (low); v2x_execorr 0.408 (low); v2x_pubcorr 0.722 (high risk); Transparency CPI score 37 (out of 100) | Low institutional independence / corruption baseline | Local-prior structured record | structured_dataset (high) | 2023 | Country baseline | 7B.1, 7B.2, 7B.4, 7B.5 | context (not personally attributed) |
+
+**Chapter 7B yield.** Source-claim units retained: 7. Source families: HRW (3 dated reports), AP, U.S. State Department, Wikipedia, V-Dem/CPI structured priors. Independent types: NGO, government primary, wire, encyclopedia, structured dataset.
+
+**Coverage by lens:**
+- 7B.1 (truthfulness): no direct ruler-attributed fact. Marker items: HRW ICHREE-threat (E7B-02); Birtukan Mideksa resignation (E7B-05) is an indirect indicator.
+- 7B.2 (error correction / truth-tellers): Investigative authorities "routinely appealing or ignoring court decisions" (E7B-01/E7B-04); crackdown on opposing views (Freedom House D4).
+- 7B.3 (separation of personal interests): no direct 2023 evidence collected (gap).
+- 7B.4 (close family profit): Coordinated food-aid diversion (E7B-03); no direct family-contract evidence collected.
+- 7B.5 (appointments vs family/cronies): no direct 2023 appointment-pattern evidence; Birtukan Mideksa resignation may indicate political pressure.
+- 7B.6 (independent investigation): ICHREE termination threat (E7B-02); court defiance (E7B-01/E7B-04) — obstruction.
+- 7B.7 (state power to conceal): incommunicado detention (E7B-04); refusal to cooperate with AU Commission of Inquiry (E7B-02).
+- 7B.8 (keeping promises): Pretoria commitments and Eritrean-withdrawal promise remain unfulfilled (E2B-12).
+- 7B.9 (nepotism, favoritism, clientelism): Birtukan Mideksa resignation; food diversion implies favor (E7B-03).
+- 7B.10 (ethical model): negative — coordinated food diversion + court defiance + ICHREE obstruction.
+
+**Strongest contrary evidence:** Single token positive is Birtukan Mideksa's resignation, which can be read as an act of integrity (her own refusal to remain complicit). No direct evidence of *personal* truthfulness from Abiy in 2023.
+
+---
+
+### CHAPTER 8B — Ruler effectiveness and competence
+
+This chapter requires explicit or reliably revealed goals and implementation. 2023 evidence: Pretoria implementation, security restructuring (Amhara Special Forces dissolution), National Dialogue, devaluation/economic reform agenda.
+
+| ID | Canonical fact key | URL | Publisher / date | Factual claim | Locator precision | Source type / confidence | Period fit | Attribution | Lenses | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E8B-01 | https://www.voanews.com/amp/ethiopia-pm-holds-first-meeting-with-tigray-leaders-since-peace-deal-/6946911.html \| Article body | https://www.voanews.com/amp/ethiopia-pm-holds-first-meeting-with-tigray-leaders-since-peace-deal-/6946911.html | VOA News, 3 Feb 2023 | Abiy met TPLF delegation 3 February 2023 — first such meeting since the Pretoria agreement — and "passed decisions about increasing Flights, Banking & other issues that would boost trust & ease lives of civilians" | Article body | International wire (medium_high) | 2023 fit | PM Abiy direct | 8B.1 (program), 8B.4 (decision style) | final_evidence |
+| E8B-02 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| March entries — Parliament delists TPLF; interim Tigray administration formed | https://en.wikipedia.org/wiki/2023_in_Ethiopia | Wikipedia citing UN/news | Parliament removed TPLF from terrorist organizations list (22 March 2023); Interim Regional Administration of Tigray formed 23 March 2023 | Article body | Encyclopedia citing UN/news (medium_high) | 2023 fit | Federal government + PM Abiy | 8B.1, 8B.3, 8B.5, 8B.7, 8B.8 | final_evidence |
+| E8B-03 | https://www.bti-project.org/en/reports/country-dashboard/ETH \| Article body | https://www.bti-project.org/en/reports/country-dashboard/ETH | BTI 2024 (covering 2023) | "Ethiopia defaulted on its international bond in 2023 and entered debt restructuring negotiations with multilateral and bilateral creditors. Currency liberalization and debt relief provided limited stabilization. At the same time, the government advanced private sector growth, the opening of the banking sector to foreign banks and expanded energy capacity." | Article body | Research rating (high) | 2023 fit | Federal government under Abiy | 8B.1, 8B.2, 8B.7, 8B.8, 8B.10 | final_evidence |
+| E8B-04 | https://www.bti-project.org/en/reports/country-dashboard/ETH \| Article body | https://www.bti-project.org/en/reports/country-dashboard/ETH | BTI 2024 | "While authorities pursued economic liberalization and international financial cooperation, efforts to resolve internal conflicts and foster inclusive dialogue failed. The National Dialogue process remained contested and ineffective" | Article body | Research rating (high) | 2023 fit | Federal government under Abiy | 8B.7, 8B.8, 8B.9, 8B.10 | final_evidence |
+| E8B-05 | https://www.theguardian.com/global-development/2023/aug/04/ethiopia-declares-a-state-of-emergency-in-amhara-amid-increasing-violence \| ¶ SOE mechanics | https://www.theguardian.com/global-development/2023/aug/04/ethiopia-declares-a-state-of-emergency-in-amhara-amid-increasing-violence | The Guardian, 4 Aug 2023 | SOE grants "far-reaching powers" to arrest criminal suspects without a court order, impose curfews, ban public gatherings, and carry out searches without a warrant; the emergency must be approved by parliament within 15 days | Article body | Major international outlet (medium_high) | 2023 fit | Federal government / Abiy | 8B.2 (operationalization), 8B.4, 8B.5, 8B.6 (convert legal emergency into action) | final_evidence |
+| E8B-06 | https://www.hrw.org/news/2023/03/22/ethiopia-us-recognizes-atrocities-conflict \| Article body | https://www.hrw.org/news/2023/03/22/ethiopia-us-recognizes-atrocities-conflict | HRW, 22 Mar 2023 | U.S. State Department determined that war crimes and crimes against humanity were committed by Ethiopian, Eritrean, and Amhara forces in northern Ethiopia despite the November 2022 ceasefire; "those most responsible for atrocities, including those in positions of command, must be held accountable" | Article body | NGO (medium_high) | 2023 fit | Federal command responsibility (Abiy); failed-coordination dimension | 8B.5, 8B.7 (outcome) | final_evidence |
+| E8B-07 | https://www.hrw.org/world-report/2024/country-chapters/ethiopia \| § Counterinsurgency | https://www.hrw.org/world-report/2024/country-chapters/ethiopia | HRW World Report 2024 | "The government relaunched its counterinsurgency campaign against the Oromo Liberation Army (OLA) in May after the collapse of peace talks in April." In August 2023 — heavy fighting in Amhara and OLA clashes. In September 2023 — Somali displaced persons camp casualties | "Abuses" section | NGO (medium_high) | 2023 fit | Federal government under Abiy | 8B.7, 8B.8, 8B.9, 8B.10 | final_evidence |
+| E8B-08 | https://en.wikipedia.org/wiki/2023_in_Ethiopia \| Jan 20 OLA 98 civilians killed + ICRC Oromia | https://en.wikipedia.org/wiki/2023_in_Ethiopia + https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement | Wikipedia/ICRC | 20 January 2023 — 98 civilians killed by OLA in North Shewa; 23 January — 25-episcopate formed in Oromia/SNNPR; 18 March — $20bn reconstruction needs cited; SOE 4 August | Article body | Encyclopedia + ICRC | 2023 fit | Federal government under Abiy | 8B.7, 8B.9 | final_evidence |
+
+**Chapter 8B yield.** Source-claim units retained: 8 (1 unique to Chapter 8 — partial). Source families: VOA, Wikipedia, BTI, The Guardian, HRW, ICRC. Independent types: wire, encyclopedia, research rating, major outlet, NGO, ICRC.
+
+**Coverage by lens:**
+- 8B.1 (program articulation): Pretoria implementation goal evident (E8B-01/E8B-02); BTI documents liberalization goal (E8B-03).
+- 8B.2 (operationalization into plans): Amhara SOE and Amhara Special Forces dissolution are major operational moves (E2B-08/E2B-09, E8B-05).
+- 8B.3 (state mobilization): mixed — interim Tigray administration stood up (E8B-02); mass arrests of opposition politicians show political mobilization is partisan (E4B-04).
+- 8B.4 (personnel): limited direct evidence (gap).
+- 8B.5 (coordination/follow-through): Pretoria mandate (Eritrean withdrawal) failed; Fano insurgency absorbed federal attention.
+- 8B.6 (declarations → implementation): SOE implementation is real and rapid (E8B-05); food-aid diversion shows implementation failures (E7B-03).
+- 8B.7 (outcomes move toward stated goals): Pretoria implementation partial (TPLF delisted, TPLF disarmament begun, but Eritrean forces remain); debt default offset by banking-sector opening.
+- 8B.8 (adaptation): National Dialogue "contested and ineffective" (E8B-04) — poor adaptation signal.
+- 8B.9 (crisis management): SOE 4 Aug was an exceptional-powers response to Amhara insurgency — high deployment, low containment evidence (E8B-07).
+- 8B.10 (closer to program at end): mixed — Pretoria implementation moving; debt default + Amhara war open new fronts.
+
+**Strongest contrary evidence:** Pretoria meeting (E8B-01) and TPLF delisting (E8B-02) are positive signals; banking-sector opening and limited stabilization are partial positives (E8B-03). National Dialogue failure and Amhara conflict reopen are decisive negatives (E8B-04/E8B-07).
+
+---
+
+## Same-URL splits and cross-chapter reuse
+
+The global ledger deliberately uses distinct facts even when multiple items reference the same URL. Item-level reuse map:
+
+- **HRW World Report 2024** (https://www.hrw.org/world-report/2024/country-chapters/ethiopia): reused across Chapter 2B (E2B-03, E2B-10, E2B-13, E2B-14), Chapter 3B (E3B-01, E3B-05, E3B-06, E3B-07, E3B-10), Chapter 4B (E4B-04). Each item is a distinct dated claim and a distinct passage within the report.
+- **HRW 24 Jul 2023 release** (https://www.hrw.org/news/2023/07/24/ethiopia-oromo-opposition-figures-held-despite-court-orders): reused across Chapter 2B (E2B-11), Chapter 4B (E4B-05), Chapter 7B (E7B-01). Same source, three separate lenses.
+- **Wikipedia "2023 in Ethiopia"** (https://en.wikipedia.org/wiki/2023_in_Ethiopia): reused across Chapter 4B (E4B-06), Chapter 5B (E5B-05), Chapter 6B (E6B-03–E6B-06, E6B-08), Chapter 8B (E8B-02). Each item is a different date and distinct fact.
+- **BTI Country Dashboard ETH** (https://www.bti-project.org/en/reports/country-dashboard/ETH): reused across Chapter 5B (E5B-02, E5B-03), Chapter 8B (E8B-03, E8B-04). Each item is a distinct paragraph.
+- **VOA 3 Feb 2023**: reused across Chapter 2B (E2B-01, E2B-02) and Chapter 8B (E8B-01). One dated article, three lens-relevant claims.
+- **AP 30 Mar 2023**: reused across Chapter 3B (E3B-09), Chapter 5B (E5B-06), Chapter 7B (E7B-03). One dated article, three lens-relevant claims.
+- **The Guardian 4 Aug 2023**: Chapter 2B (E2B-08), Chapter 8B (E8B-05).
+- **ICRC Ethiopia** (https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement): Chapter 3B (E3B-08), Chapter 6B (E6B-02, E6B-07).
+
+## Source diversity check
+
+- **Chapter 1B:** 4 sources (U.S. Mission, UNODA, Ban Monitor, Nuclear Engineering) — government primary, IGO tracker, encyclopedia, academic — meets the 2-source-type bar.
+- **Chapter 2B:** 5+ independent organizations (HRW × multiple reports, VOA, Guardian, Africa Report, Amnesty, ICRC, AP) covering ≥3 source types. Source concentration partly on HRW but multiple dated sub-reports.
+- **Chapter 3B:** HRW, Amnesty, ICRC, AP, U.S. State — adequate diversity.
+- **Chapter 4B:** Freedom House, HRW, U.S. State, BTI, V-Dem structured priors — multiple rating organizations.
+- **Chapter 5B:** World Bank, BTI, WFP, AP, HRW — adequate.
+- **Chapter 6B:** WFP, ICRC, Wikipedia citing OCHA/ReliefWeb — fewer; the encyclopedia is a synthesis layer but the underlying sources are distinct.
+- **Chapter 7B:** HRW, AP, U.S. State, Wikipedia, V-Dem/CPI priors — adequate.
+- **Chapter 8B:** VOA, Wikipedia, BTI, Guardian, HRW, ICRC — adequate.
+
+## Local-data audit
+
+The supplied local prior package contained 36 unique fact IDs (LF001–LF036) plus the disposition note that Chapter 1B and Chapter 6B have no `evidence_found`. Per ID:
+
+- LF001–LF004: SIPRI military expenditure — kept as context for Chapter 2B (country-level exposure to conflict and military-spending lens). Not sufficient to support a ruler-attributed claim.
+- LF005–LF011: V-Dem/PTS security, repression, civil-society — kept as Chapter 3B/Chapter 7B context (country-level baseline; not personally attributed to Abiy).
+- LF012, LF028: V-Dem accountability, rule-of-law — reused for Chapter 4B and Chapter 7B as country baseline.
+- LF013–LF027: BTI, Freedom House, RSF, V-Dem political-freedom indices — all kept as Chapter 4B structured prior (one bundle) plus contextual reference in Chapter 7B.
+- LF029–LF032: WDI/World Bank GDP and population — kept as Chapter 5B structured prior (economic-baseline context).
+- LF033–LF036: CPI/V-Dem corruption indices — kept as Chapter 7B structured prior (corruption-baseline context).
+
+LF001–LF036 are not counted as internet sources; they are local structured priors. They support country-baseline attributions but do not personalize the 2023 evidence to Abiy. The cross-chapter mapping for the rulers-judge is preserved verbatim in the prior package's `candidate_methodology_ids`. The reusable inference: local structured priors answer the question of inherited/baseline conditions but do not establish ruler-attributed conduct — every retained narrative item supplements them.
+
+## Rejected candidates / search coverage
+
+Several targeted URLs returned 403/404 errors during the search:
+- IMF Article IV (https://www.imf.org) — blocked.
+- OHCHR pages (https://www.ohchr.org) — blocked.
+- Reuters article bodies — blocked via robots.txt.
+- The Economist, Al-Monitor, DW, BBC specific URLs — all 403/404 on specific paths.
+- Crisis Group full reports — blocked.
+
+These gaps mean: (a) the ICRC, Wikipedia timeline, World Bank, BTI, HRW World Report, U.S. State Department, VOA, The Guardian, The Africa Report, AP, Amnesty, Freedom House, UNODA, ICHREE (via OHCHR secondary), and the Wikipedia coverage of OHCHR/UNHCR/OCHA items provided the documentary core. (b) Some Chapter 1B official Ethiopian government documents could not be retrieved for direct per-page review but the official Ethiopian UNGA First Committee statement is cited via UNODA hosting.
+
+## Strongest contrary evidence summary
+
+- **Chapter 2B:** Pretoria agreement and Feb 3 2023 follow-up meeting — positive peace-process conduct, though partial.
+- **Chapter 3B:** ICRC restoring 12 health facilities and 187,000 people water access — positive humanitarian facilitation.
+- **Chapter 4B:** Parliament delisting TPLF (Mar 22, 2023) — small positive on opposition inclusion.
+- **Chapter 5B:** Banking-sector opening to foreign banks, energy-capacity expansion.
+- **Chapter 6B:** WFP basic-service gains across decades (potable water to 60 million more; doubled electricity access; 64% increase in child vaccinations) — pre-period baseline.
+- **Chapter 7B:** Birtukan Mideksa's resignation is single token positive on integrity signaling.
+- **Chapter 8B:** Pretoria follow-up meetings and interim Tigray administration stood up; limited stabilization measures.
+
+## Unresolved gaps (chapter by chapter)
+
+- **1B:** Confirm no Abiy-era 2023 nuclear/dual-use catastrophic-risk decision (no evidence found — appropriate for non-nuclear case).
+- **2B:** Lens 2B.6 (truthfully explain security threats) — not directly addressed in 2023 evidence collected; HRW 2024 World Report implies contradictory claims about "armed extremist groups" but no targeted primary source.
+- **3B:** Lens 3B.3 (incitement) — no specific 2023 evidence of Abiy personally inciting hatred.
+- **4B:** Lens 4B.7 (ethnic minorities) — partial coverage via E2B-12 (Tigrayan expulsions from Western Tigray) and E3B-07 (Eritrean refugees rounded up).
+- **5B:** Lens 5B.2 (competent professionals appointments) — no direct evidence.
+- **6B:** Lens 6B.7 (welfare conditionality on loyalty) — no direct evidence.
+- **7B:** Lens 7B.3 (separation of personal/family interests) and 7B.5 (appointments vs cronies) — no direct personal evidence.
+- **8B:** Lens 8B.4 (personnel) and 8B.8 (adaptation) — partial; National Dialogue failed signal captured but no replacement-mechanism detail.
+
+## Final handoff notes
+
+1. **Source concentration risk:** Chapters 3B, 4B, and 7B all lean heavily on HRW as the primary NGO. This is acknowledged but mitigated by distinct dated reports and cross-corroboration from Amnesty, ICRC, AP, Wikipedia/UN sources, and the U.S. State Department.
+2. **Independent discovery was constrained** by sandbox permissions (no shell/file-write), rate-limits on Brave, and 403/404 blocks on IMF, OHCHR, Reuters, BBC, DW, Al-Monitor, Aljazeera, Britannica, and some media URLs.
+3. **No scoring/range/advice** is offered; the ledger is the handoff. The judge is expected to apply the rubric.
+4. **Client matrix is excluded** throughout; the local-prior package explicitly excludes client matrix evidence and this handoff does not use it.
+5. **No score-bearing conclusions**: scoring, score ranges, anchors, and recommendation are explicitly out of scope.
+---

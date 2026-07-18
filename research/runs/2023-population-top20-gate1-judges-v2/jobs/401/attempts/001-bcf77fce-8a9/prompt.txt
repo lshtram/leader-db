@@ -1,0 +1,849 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:6B",
+  "run_key": "2023-population-top20-gate1-judges-v2",
+  "chapter_id": "6B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:6B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "6B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "China",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.1",
+        "reason": "COVID, pensioner, child-health, and healthcare evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.2",
+        "reason": "Medical-insurance financing and service-implementation evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.3",
+        "reason": "Rural, child, pensioner, and vulnerable-group evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.4",
+        "reason": "Professional-administration evidence remains sparse.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.5",
+        "reason": "Healthcare administration and evidence-suppression evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.6",
+        "reason": "COVID exit and medical-insurance evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.7",
+        "reason": "Pensioner and vulnerable-group evidence retained; political conditionality remains unresolved.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.8",
+        "reason": "Dignity and redistribution evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.9",
+        "reason": "Durable institutional evidence remains sparse.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "6B.10",
+        "reason": "Mixed welfare end-state evidence retained.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 8056,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.nhsa.gov.cn/art/2023/7/28/art_105_11110.html|policy-interpretation|medical-insurance-financing",
+        "claim": "China's 2023 resident medical-insurance policy set financing at RMB 1,020 per person, including a minimum RMB 640 government subsidy, targeted roughly 70% inpatient reimbursement, and sought 99%+ coverage for low-income rural residents.",
+        "contrary_evidence": [
+          "Official policy targets do not establish realized equitable access or service quality."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "Financing was set at 1,020 yuan per person, including a 640-yuan minimum government subsidy; coverage targets were above 99% for low-income rural residents.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct July 2023 policy interpretation.",
+        "publication_date": "2023-07-28",
+        "publisher": "National Healthcare Security Administration",
+        "ruler_attribution": "Official implementation attribution, not personal Xi attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official policy record with quantified provisions.",
+        "source_locator": "Policy interpretation, financing and coverage paragraphs.",
+        "source_type": "official government",
+        "title": "2023 resident medical-insurance financing policy",
+        "url": "https://www.nhsa.gov.cn/art/2023/7/28/art_105_11110.html"
+      },
+      {
+        "canonical_fact_key": "https://english.www.gov.cn/archive/statistics/202404/06/content_WS6610e179c6d0868f4e8e5c86.html|2023|major-disease-insurance-outcomes",
+        "claim": "An official report states that 11.56 million residents benefited from major-disease insurance in 2023 and that nearly one billion people were covered by basic medical insurance.",
+        "contrary_evidence": [
+          "This is a retrospective official report and does not establish realized equality of access."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "11.56 million residents benefited from major-disease insurance in 2023; nearly one billion people were covered by basic medical insurance.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 figures reported in April 2024.",
+        "publication_date": "2024-04-06",
+        "publisher": "State Council of China / Xinhua",
+        "ruler_attribution": "Indirect state-program attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official statistical report with clear 2023 figures.",
+        "source_locator": "Statistics report, 2023 medical-insurance outcome paragraph.",
+        "source_type": "official government report",
+        "title": "China's medical-insurance coverage and major-disease insurance outcomes",
+        "url": "https://english.www.gov.cn/archive/statistics/202404/06/content_WS6610e179c6d0868f4e8e5c86.html"
+      },
+      {
+        "canonical_fact_key": "https://www.mof.gov.cn/en/reports/202311/P020231129565240759289.pdf|pp:8,22-27|education-health-social-security",
+        "claim": "The 2023 Ministry of Finance implementation report records education spending, increased compulsory-education funding, student-loan relief, and increased social-security and healthcare expenditure.",
+        "contrary_evidence": [
+          "The report is official and does not by itself establish service quality or Xi-specific responsibility."
+        ],
+        "evidence_id": "E026",
+        "excerpt": "The report records RMB 4.2166 trillion in education spending, support for rural schools, loan relief for approximately four million graduates, and increased social expenditure.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "November 2023 implementation report covering the target year.",
+        "publication_date": "2023-11",
+        "publisher": "Ministry of Finance of China",
+        "ruler_attribution": "Indirect fiscal-program attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official implementation report with page locators.",
+        "source_locator": "PDF pages 8 and 22\u201327.",
+        "source_type": "official government report",
+        "title": "Ministry of Finance implementation report",
+        "url": "https://www.mof.gov.cn/en/reports/202311/P020231129565240759289.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.stats.gov.cn/english/PressRelease/202310/t20231026_1943920.html|Q1-Q3-2023|household-income",
+        "claim": "Official household data for the first three quarters of 2023 reported urban disposable-income growth of 5.2% and rural growth of 7.6%, with increased education and healthcare spending.",
+        "contrary_evidence": [
+          "Property stress and youth-unemployment concerns remain contrary evidence in the same period."
+        ],
+        "evidence_id": "E027",
+        "excerpt": "Urban disposable income grew 5.2% and rural disposable income grew 7.6% in the first three quarters of 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 household data.",
+        "publication_date": "2023-10-26",
+        "publisher": "National Bureau of Statistics of China",
+        "ruler_attribution": "Indirect national-outcome attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official household survey release.",
+        "source_locator": "First-three-quarters household survey tables and income paragraph.",
+        "source_type": "official statistics",
+        "title": "Household income and expenditure, first three quarters of 2023",
+        "url": "https://www.stats.gov.cn/english/PressRelease/202310/t20231026_1943920.html"
+      },
+      {
+        "canonical_fact_key": "https://www.prcleader.org/post/the-sudden-end-of-zero-covid-an-investigation|opening-paragraphs|exit-vaccine-policy",
+        "claim": "The December 2022 zero-COVID exit was abrupt and chaotic, and the government rejected more advanced Western vaccines and an imported Pfizer antiviral in the national insurance program.",
+        "contrary_evidence": [
+          "The notebook records this as analytical commentary with disputed mortality estimates; it should not be treated as settled mortality fact."
+        ],
+        "evidence_id": "E028",
+        "excerpt": "Local officials were not prepared for reopening; the government refused advanced Western vaccines and excluded an imported Pfizer antiviral from health insurance.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "March 2023 analysis of the late-2022/early-2023 policy pivot.",
+        "publication_date": "2023-03-01",
+        "publisher": "PRC Leader / Minxin Pei",
+        "ruler_attribution": "High-level policy attribution, but interpretation remains analytical.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Specialist account with explicit policy and timing claims.",
+        "source_locator": "Opening paragraphs on the exit and vaccine policy.",
+        "source_type": "specialized political commentary",
+        "title": "The Sudden End of Zero-Covid: An Investigation",
+        "url": "https://www.prcleader.org/post/the-sudden-end-of-zero-covid-an-investigation"
+      }
+    ],
+    "iso3": "CHN",
+    "job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.1",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.2",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.4",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.5",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.6",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.8",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.9",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "6B.10",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=D6 HDI, health, education, and income facts provide welfare baselines; publication/source-year warnings and ruler attribution still apply.; missing_reason=No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.2",
+        "relation": "supports",
+        "relevance": "Healthcare financing implementation."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.3",
+        "relation": "mitigates",
+        "relevance": "Positive household-income evidence."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.5",
+        "relation": "supports",
+        "relevance": "Fiscal and social-service implementation."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.6",
+        "relation": "supports",
+        "relevance": "COVID-exit and vaccine-policy account."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "6B.10",
+        "relation": "mitigates",
+        "relevance": "Positive medical-insurance coverage outcome."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "6B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "6B.1",
+      "6B.2",
+      "6B.3",
+      "6B.4",
+      "6B.5",
+      "6B.6",
+      "6B.7",
+      "6B.8",
+      "6B.9",
+      "6B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "1432",
+    "ruler_name": "Xi Jinping",
+    "ruler_year_id": 15833,
+    "run_key": "2023-population-top20-gate1-v2",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "0879ac6c1cacfd9eb078a3ed8c46816fc66d540a60171d3e53ff06509d38efb3",
+      "source_mix_note": "Retained official Chinese records, specialist NGOs, public-service and general media, policy commentary, and local structured priors. Source-family overlap, mediated official claims, self-reporting, and institutional-versus-personal attribution limitations are explicitly preserved.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "46a854deff8f51e057bb7cb04c63a898f837765f014d568305169937d3b9a69a",
+    "unresolved_gaps": [
+      "No direct Xi procurement order or personal direction for nuclear modernization was found.",
+      "No specific 2023 nuclear or radiological crisis was found.",
+      "No 2023 lethal Chinese cross-border incident or confirmed Chinese arms transfer to Russia was recovered.",
+      "Direct Xi decisions or orders linking him to specific domestic abuses remain limited.",
+      "Education, housing, water, sanitation, food, and broad service-quality evidence remains incomplete and predominantly official.",
+      "No direct 2023 personal asset, family-benefit, personal-corruption, truthful-disclosure, or broken-promise event was found.",
+      "No precise 2023 election, succession, or term-limit event was recovered.",
+      "COVID mortality and vaccine-policy claims remain disputed and should remain qualified.",
+      "IMF and World Bank snippets, unopened Bloomberg material, post-period Amnesty material, and unsupported historical wealth claims remain context or rejected and are not used as final evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 6B Social Well-Being and Human Development
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `6B`
+- Category: ruler intention and action for social well-being and human development
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_6b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
+
+## Ten Evidence Lenses
+
+1. **6B.1** — Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?
+2. **6B.2** — Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?
+3. **6B.3** — Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?
+4. **6B.4** — Did the ruler fund and manage social services with competent professionals rather than patronage networks?
+5. **6B.5** — Did the ruler use evidence, measurement, and transparent correction to improve service delivery?
+6. **6B.6** — Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?
+7. **6B.7** — Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?
+8. **6B.8** — Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?
+9. **6B.9** — Did the ruler build durable social institutions that would survive beyond their personal rule?
+10. **6B.10** — Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?
+
+## Researcher Evidence Plan
+
+Build a reusable cited dossier; do not assign the chapter score. Follow the local-first researcher guide and source-confidence registry. Start with local UNDP, WHO/WDI, education, poverty/inequality and V-Dem equality priors. Add national statistics and household surveys; WHO, UNICEF/JMP, UNESCO, ILO, FAO/WFP, UN-Habitat, UNHCR, World Bank and regional banks; audits and program evaluations; peer-reviewed histories; and credible civil-society/local reporting. Document definitions and time-series breaks.
+
+Collect evidence on revealed welfare priority; effective access, affordability, quality and uptake across health, education, water, sanitation, housing, food and protection; distribution to vulnerable groups; professional administration; measurement and correction; crisis preparation/response; political conditionality or punishment; dignity and opportunity; institutional durability; and inherited-to-left life chances. Separate promises, budgets, delivery and outcomes. Preserve contrary evidence, subnational variation, donor roles and shocks. Evidence may inform several lenses; no formal label vocabulary or complete mapping table is required.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Assess improvement and avoidable harm from the inherited health, education, income, infrastructure, demographic, geographic, conflict and state-capacity baseline. Separate ruler decisions from demographic trends, predecessor pipelines, donors, local governments, war, disaster and disease novelty. Credit preparation, allocation, implementation and correction proportionately to authority. High absolute welfare inherited by a ruler is not automatically high ruler performance; low absolute levels do not automatically imply failure.
+
+Historical cases may lack comparable surveys or complete domain coverage. Use mortality, schooling, nutrition, budgets, institutional histories and credible contemporary accounts without pretending modern precision. Explicitly mark missing or contested domains. Missing lenses lower confidence only; they never invalidate the dossier, prohibit a chapter score or count as deterioration. Closed-system silence requires caution.
+
+Missing domains do not mechanically invalidate a dossier, but the absence of any
+ruler-attributed discriminating welfare action, implementation, remedy, or outcome
+does prohibit a score. Country baselines and generic priors cannot set the score's
+direction. Scores of 6 or above require independently supported baseline-adjusted
+gains attributable in meaningful part to the ruler; scores of 2–3 require severe,
+avoidable ruler-linked deprivation, exclusion, or destructive mismanagement. A high
+inherited welfare level plus adequate crisis administration may support a moderate
+positive score, but not an 8–9 without broad contribution or consequential protection.
+
+## Chapter Judge and Lens Weighting
+
+One judge applies one meter across all rulers. Weight lenses qualitatively by severity and breadth of suffering or improvement, ruler responsibility, baseline-adjusted magnitude, equity, durability, source strength and period fit. Avoidable famine, mass denial or transformative universal provision can dominate narrower programs. A flagship service cannot stand for the portfolio, but complete evidence across seven services is not required. Professional appointments and measurement matter insofar as they support delivery. `6B.10` synthesizes rather than double-counts.
+
+Question redundancy is a feature: several lenses may corroborate the same welfare orientation and institutional mechanism. State which lenses and service domains are well evidenced, uncertain or unavailable. Judge overall life chances and ruler contribution; do not average lens scores.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Ruler action or knowing, feasible neglect causes catastrophic widespread suffering, systematic exclusion or destruction of basic human-development capacity. |
+| 2–3 | Severe avoidable deprivation, discriminatory denial, politicized provision or repeated destructive mismanagement dominates several important welfare areas. |
+| 4–5 | Some genuine improvement coexists with major gaps, exclusion, patronage, poor quality, crisis failure or weak durability; overall contribution is mixed. |
+| 6–7 | Clear baseline-adjusted gains in ordinary people's welfare and access, with meaningful remaining inequality, quality, coverage or institutional weaknesses. |
+| 8–9 | Large, broad, equitable and durable human-development gains are independently supported, including credible protection of vulnerable groups and crisis resilience. |
+| 10 | Exceptional feasible transformation of life chances and dignity through near-universal effective provision and durable, inclusive institutions beyond personal rule. |
+
+## Common Chapter-Judge Output Envelope
+
+The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
+
+- `chapter_id`: `6B`
+- `rubric_version`: `chapter_6b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extras: `evidenced_service_domains`, `distribution_and_dignity`,
+`crisis_context`, `institutional_durability`, and `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language descriptions are preferred to false enum precision.
+
+## Calibration, Confidence, and Bias Checks
+
+Check national-average versus group/region bias, income and baseline comparability, demographic lag, donor/subnational attribution, conflict/disaster/pandemic context, open-versus-closed data quality, official-statistics manipulation, survivorship, measurement breaks, population scale, present-day-standard/hindsight bias and visibility bias. Compare feasible improvement as well as absolute levels; do not excuse deliberate exclusion because a country is poor.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Park Chung-hee | South Korea | 1961–1979 | rapid gains, low baseline and authoritarian distribution caveats |
+| Lee Kuan Yew | Singapore | 1965–1990 | housing/health/education and durable-state high comparison |
+| Lula da Silva | Brazil | 2003–2010 | social protection, food security and inequality |
+| Ellen Johnson Sirleaf | Liberia | 2006–2018 | post-conflict rebuilding, donor role and Ebola shock |
+| Paul Kagame | Rwanda | 2000–2023 | health gains with data openness and rights/distribution checks |
+| Narendra Modi | India | 2014–2023 | sanitation/protection scale versus quality and uneven access |
+| Hugo Chávez | Venezuela | 1999–2013 | early access gains versus politicization and durability |
+| Nicolae Ceaușescu | Romania | 1981–1989 | austerity-driven deprivation low anchor |
+| Kim Jong Il | North Korea | 1994–2011 | famine, state responsibility and closed-information uncertainty |
+| Jacinda Ardern | New Zealand | 2020–2022 | high baseline, pandemic response and inequality test |
+| Sirimavo Bandaranaike | Sri Lanka | 1960–1965 | less-visible historical, food/education policy and gender comparison |
+
+## Acceptance Checklist
+
+- A numeric score requires a ruler-attributed social-welfare action and some evidence
+  of delivery, implementation, remedy, or attributable outcome. A budget announcement
+  or inherited human-development level alone is insufficient.
+
+- The exact ten lenses remain visible and produce one chapter score only.
+- Evidence is local-first, cited, source-profiled and reusable across real lens relationships.
+- Baseline, shocks, ruler authority, implementation and outcomes are separated.
+- Access, quality, affordability, distribution, dignity and durability are considered without rigid domain gates.
+- Missing lenses/domains reduce confidence and never invalidate or count as failure.
+- One judge calibrates all rulers with the same chapter rubric.
+- Flexible LLM wording and incomplete mappings remain acceptable.
+- Bias checks and adjacent-anchor rejections are case-specific.
+- Smoke cases are judged together before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

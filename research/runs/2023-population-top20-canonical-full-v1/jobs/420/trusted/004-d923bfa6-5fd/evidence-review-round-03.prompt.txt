@@ -1,0 +1,2645 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:COD:16114",
+  "iso3": "COD",
+  "country_name": "Congo, The Democratic Republic of the",
+  "ruler_name": "F\u00e9lix Tshisekedi",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 77,
+  "approximate_source_family_count": 40,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research handoff — Félix Tshisekedi, Democratic Republic of the Congo, 2023
+
+**Job:** `dossier:2023-population-top20-canonical-full-v1:2023:COD:16114`  
+**Target period:** 1 January–31 December 2023  
+**Research date:** 17 July 2026  
+**Ruler:** Félix Tshisekedi  
+**Country:** Democratic Republic of the Congo (`COD`)
+
+## Persistence status
+
+The filesystem was read-only, so I could not write:
+
+- `research-materials.md`
+- `research-ledger-manifest.json`
+
+This response is the authoritative parent-persistence handoff. It includes the retained evidence ledger, chapter mappings, local-data audit, rejected candidates, and research gaps.
+
+## Tool and provenance note
+
+- Broad reconnaissance and chapter discovery used **MiniMax Search** after Brave Search returned quota/rate-limit errors.
+- Promising underlying sources were then opened with **Fetch**.
+- Brave results were not retained as evidence.
+- Reuters pages were discoverable but blocked by `robots.txt`; Reuters snippets remain **discovery-only** and are not counted as defensible evidence.
+- IMF and IFES pages returned HTTP 403; snippets from them were not counted as final evidence.
+- The International Crisis Group page also returned 403 and was not counted.
+- No structured dataset supplied in the local package was re-fetched.
+- No client-matrix material was used.
+
+---
+
+# 1. Reconnaissance summary
+
+The target year combined:
+
+1. A major armed conflict and humanitarian emergency in eastern DRC, especially involving M23, Rwanda, Congolese forces, allied local militias, and regional deployments.
+2. The continuation of a presidentially initiated state of siege in North Kivu and Ituri.
+3. A December general election in which Tshisekedi sought and obtained a second term.
+4. Increased repression of opposition figures, protesters, journalists, and government critics.
+5. Severe security-force abuses, including the August 30 Goma massacre.
+6. Continued high extractive-sector growth alongside high inflation and exceptionally low per-capita income.
+7. Implementation of economic-governance reforms and major education and health initiatives, including continued free primary education, girls’ secondary education investment, and initial free maternity care.
+8. Weak evidence of concrete progress on corruption, impunity, rule of law, and implementation of flagship development programs.
+
+The information environment was relatively open by regional standards but dangerous and uneven. Numerous independent NGOs, election observers, international organizations, and journalists documented conditions; active conflict prevented comprehensive observation in parts of the country. This creates substantial visibility but also serious geographic and attribution gaps.
+
+---
+
+# 2. Global retained evidence ledger
+
+The following entries use stable provisional IDs. Where a page contained materially distinct claims with distinct sections, it was split into source-claim units. Same-URL splits are disclosed later.
+
+## Local structured priors
+
+### LP-001 — Military expenditure level and burden
+
+- **Canonical fact key:** `local-prior:2B.1|LF001-LF004|COD military expenditure 2023`
+- **URL/locator:** `local-prior:2B.1`
+- **Title/publisher/date:** SIPRI military-expenditure observations, local ingestion, 2023
+- **Claim:** In 2023, DRC military expenditure was recorded as 763.04 million constant USD, $7.63 per capita, 1.119% of GDP, and 6.742% of government expenditure.
+- **Exact fields:** LF001–LF004.
+- **Source profile:** structured dataset; **high** confidence for the measured fields; final evidence as country context.
+- **Period fit:** exact target year.
+- **Attribution:** Country-level fiscal posture; does not establish Tshisekedi’s objectives, procurement integrity, operational restraint, or responsibility for specific conduct.
+- **Role:** context.
+- **Mappings:** 2B.3, 2B.8, 2B.10; contextual for 5B.3.
+- **Limitations:** No UCDP conflict row was actually included despite the chapter mapping note.
+
+### LP-002 — Physical integrity and repression baseline
+
+- **Canonical fact key:** `local-prior:3B.1|LF005-LF011|COD repression and physical integrity 2023`
+- **URL/locator:** `local-prior:3B.1`
+- **Title/publisher/date:** V-Dem and Political Terror Scale observations, local ingestion, 2023
+- **Claim:** V-Dem records civil-society repression at `-0.914`, extrajudicial killings at `-0.028`, physical-integrity liberties at `0.449`, and private civil liberties at `0.375`; all three PTS components are `5.0`.
+- **Exact fields:** LF005–LF011.
+- **Source profile:** structured datasets; **high** confidence for direct fields.
+- **Period fit:** exact target year.
+- **Attribution:** Country conditions, not direct proof of an order or personal decision by Tshisekedi.
+- **Role:** final structured baseline/context.
+- **Mappings:** 3B.1–3B.10 generally; 4B.3, 4B.6, 4B.9 context.
+- **Limitations:** Interpretation of scales must be handled by formatter/judge; this worker does not infer severity solely from the numbers.
+
+### LP-003 — Political freedom, constraints, and governance baseline
+
+- **Canonical fact key:** `local-prior:4B.1|LF012-LF029|COD political institutions and freedoms 2023`
+- **URL/locator:** `local-prior:4B.1`
+- **Title/publisher/date:** V-Dem, Freedom House, BTI, and RSF observations, local ingestion, 2023
+- **Claim:** The package records weak accountability (`-0.021`), BTI democracy status (`3.667`), BTI governance (`2.875`), Freedom House civil liberties (`6`) and political rights (`7`), V-Dem electoral democracy (`0.333`), judicial constraints (`0.161`), legislative constraints (`0.208`), liberal democracy (`0.123`), multiparty institutions (`0.065`), rule of law (`0.113`), and RSF rank 124/score 48.55. Universal suffrage is recorded as `1.0`.
+- **Exact fields:** LF012–LF029.
+- **Source profile:** structured datasets; **high** confidence for direct fields.
+- **Period fit:** exact target year.
+- **Attribution:** Mostly country/institutional outcomes. They require ruler-specific narrative evidence before being interpreted as Tshisekedi’s conduct.
+- **Role:** final structured baseline/context.
+- **Mappings:** all 4B lenses; context for 3B.4/3B.8, 7B.6/7B.7/7B.10, and 8B.3/8B.5/8B.9.
+- **Limitations:** The single regime-type number was not interpreted here because coding semantics were not provided inline.
+
+### LP-004 — Economic level and scale
+
+- **Canonical fact key:** `local-prior:5B.1|LF015-LF032|COD GDP population status 2023`
+- **URL/locator:** `local-prior:5B.1`
+- **Title/publisher/date:** World Bank WDI and BTI observations, local ingestion, 2023
+- **Claim:** DRC GDP was approximately $69.84 billion, GDP per capita $660.21, population 105.79 million, and BTI status index 3.369 in 2023.
+- **Exact fields:** LF015, LF030–LF032.
+- **Source profile:** structured datasets; **high** confidence for fields.
+- **Period fit:** exact target year.
+- **Attribution:** Baseline and scale only. Low income does not itself prove ruler failure.
+- **Role:** context.
+- **Mappings:** 5B.1, 5B.3, 5B.8, 5B.9, 5B.10; 6B.2/6B.3/6B.10 context.
+
+### LP-005 — Corruption and rule-of-law baseline
+
+- **Canonical fact key:** `local-prior:7B.1|LF012-LF028-LF033-LF036|COD corruption accountability 2023`
+- **URL/locator:** `local-prior:7B.1`
+- **Title/publisher/date:** V-Dem and Transparency International observations, local ingestion, 2023
+- **Claim:** V-Dem records political corruption `0.933`, executive corruption `0.896`, public-sector corruption `0.875`; CPI score was 20; accountability and rule of law were weak.
+- **Exact fields:** LF012, LF028, LF033–LF036.
+- **Source profile:** structured datasets; **high** confidence for fields.
+- **Period fit:** exact target year.
+- **Attribution:** National institutional context only; not proof of Tshisekedi’s personal dishonesty or enrichment.
+- **Role:** context.
+- **Mappings:** all 7B lenses as baseline only; 5B.5 and 8B.5 context.
+- **Limitations:** Cannot establish a personal-integrity direction without ruler-specific evidence.
+
+---
+
+## Internet evidence
+
+### WEB-001 — Armed conflict, displacement, and failed protection
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/democratic-republic-congo|opening overview|2023 conflict displacement`
+- **Title:** *World Report 2024: Democratic Republic of Congo*
+- **Publisher/date:** Human Rights Watch, 2024, reporting 2023
+- **Claim:** The M23 offensive displaced over half a million people in North Kivu; nearly seven million people were internally displaced countrywide. Martial law failed to curb atrocities, and government forces committed serious abuses.
+- **Locator:** Opening overview, first three paragraphs.
+- **Excerpt:** “Martial law violated rights without curbing widespread violence and atrocities … Government forces were also involved in serious abuses.”
+- **Source profile:** NGO; **medium-high** confidence; final evidence.
+- **Period fit:** direct 2023 evidence, published shortly afterward.
+- **Attribution:** The state of siege was a Tshisekedi-administration policy; individual atrocities require more granular command attribution.
+- **Contrary/mitigating:** M23 and numerous non-state groups—some supported externally—were major perpetrators, limiting sole attribution to Tshisekedi.
+- **Mappings:** 2B.3–2B.5, 2B.10; 3B.1, 3B.2, 3B.6, 3B.7, 3B.10; 8B.7, 8B.9, 8B.10.
+
+### WEB-002 — Civic-space repression and little systemic reform
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/democratic-republic-congo|overview freedoms|2023 repression reform`
+- **Claim:** Authorities repressed journalists, activists, government critics, peaceful protesters, and opposition leaders; HRW found little progress on promised systemic reforms addressing violence, abuse, corruption, and impunity.
+- **Locator:** Opening overview; section “Freedoms of Expression, Media, and Peaceful Assembly.”
+- **Excerpt:** “President Félix Tshisekedi’s administration made little progress on promised systemic reforms…”
+- **Source profile:** NGO; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Expressly attributed to Tshisekedi’s administration, though many incidents were executed by subordinate agencies.
+- **Contrary/mitigating:** Some opposition figures were released without charge; the government initiated inquiries in some cases.
+- **Mappings:** 3B.1, 3B.2, 3B.4, 3B.8; 4B.3–4B.6, 4B.9, 4B.10; 7B.6, 7B.7, 7B.10; 8B.6–8B.8.
+
+### WEB-003 — ICC cooperation and transitional-justice promise
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/democratic-republic-congo|Accountability and Justice|ICC cooperation`
+- **Claim:** In June 2023 the government requested that the ICC investigate violence and abuses in North Kivu and signed a cooperation memorandum, while making little concrete domestic progress on transitional justice.
+- **Locator:** “Accountability and Justice” section.
+- **Source profile:** NGO summarizing official/ICC actions; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Government-level action during Tshisekedi’s presidency; request and agreement are formal acts, but personal authorship is not shown.
+- **Contrary/mitigating:** Positive cooperation sits beside weak domestic implementation and continuing impunity.
+- **Mappings:** 2B.4, 2B.9; 3B.4, 3B.10; 4B.4, 4B.10; 7B.6; 8B.2, 8B.6.
+
+### WEB-004 — Opposition movement restrictions and protest repression
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/08/22/dr-congo-crackdown-opposition-ahead-elections|May 2023 incidents|opposition restrictions`
+- **Title:** *DR Congo: Crackdown on Opposition Ahead of Elections*
+- **Publisher/date:** Human Rights Watch, 22 August 2023
+- **Claim:** Police blocked opposition candidates’ meetings and demonstrations in May, used tear gas and beat demonstrators, and had seriously injured at least 30 people during the May 20 protest.
+- **Locator:** Paragraphs beginning “On May 23,” “On May 25,” and “Human Rights Watch previously documented.”
+- **Source profile:** NGO with incident documentation; **medium-high**; final evidence.
+- **Period fit:** direct target year.
+- **Attribution:** Security forces and provincial officials under the national administration; direct presidential order not established.
+- **Contrary/mitigating:** Some protesters threw rocks; authorities cited security concerns.
+- **Mappings:** 3B.2, 3B.5, 3B.8, 3B.9; 4B.2, 4B.3, 4B.5, 4B.9.
+
+### WEB-005 — Arrests of opposition officials and partisan security agencies
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/08/22/dr-congo-crackdown-opposition-ahead-elections|Kalonda Diongo|arbitrary opposition arrests`
+- **Claim:** Military intelligence detained opposition adviser Salomon Kalonda on treason-related allegations, and the Republican Guard detained presidential candidate Franck Diongo, who was released without charge; HRW reported concern that state security bodies acted in a partisan manner.
+- **Locator:** Sections beginning “On May 30” and “On June 20.”
+- **Source profile:** NGO; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Agencies closely connected to national and presidential security authority; no direct presidential order documented.
+- **Contrary/mitigating:** Government asserted national-security grounds for Kalonda; evidentiary validity remained contested.
+- **Mappings:** 3B.1, 3B.2, 3B.5; 4B.2, 4B.3, 4B.5; 7B.7; 8B.9.
+
+### WEB-006 — Tshisekedi’s June 25 security-rights rhetoric
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/08/22/dr-congo-crackdown-opposition-ahead-elections|June 25 Tshisekedi speech|rights security statement`
+- **Claim:** Tshisekedi said he would target without hesitation anyone endangering national security and would not give up regardless of allegations of human-rights violations or deprivation of freedoms.
+- **Locator:** Penultimate substantive paragraph.
+- **Excerpt:** “No matter what people say: human rights violation, deprivation of freedoms, I will not give up…”
+- **Source profile:** NGO quoting a public speech; **medium-high**; final evidence. Underlying speech is linked.
+- **Period fit:** direct target year.
+- **Attribution:** Direct personal statement.
+- **Contrary/mitigating:** He also described himself as a democrat and framed the statement around security and stability.
+- **Mappings:** 3B.3, 3B.5, 3B.8, 3B.9; 4B.3, 4B.5, 4B.10; 7B.10; 8B.1, 8B.9.
+
+### WEB-007 — Election violence involving ruling and opposition supporters
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/12/16/dr-congo-electoral-violence-threatens-vote|overview and Kasumbalesa|party violence`
+- **Title:** *DR Congo: Electoral Violence Threatens Vote*
+- **Publisher/date:** Human Rights Watch, 16 December 2023
+- **Claim:** HRW documented clashes, assaults, sexual violence, and at least one death involving rival parties; ruling UDPS supporters and opposition supporters were implicated. Authorities were not known to have investigated some serious attacks.
+- **Locator:** Opening paragraphs and November 7 Kasumbalesa incident.
+- **Source profile:** NGO based on 36 interviews; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Party supporters’ conduct is not automatically Tshisekedi’s; state failure to investigate is more relevant, subject to proof of national control.
+- **Contrary/mitigating:** Opposition supporters also committed violence.
+- **Mappings:** 3B.2, 3B.3, 3B.7, 3B.9; 4B.3, 4B.5, 4B.7; 7B.9; 8B.5, 8B.9.
+
+### WEB-008 — Condemnation of attack against opposition convoy
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/12/16/dr-congo-electoral-violence-threatens-vote|Fayulu convoy|presidential condemnation`
+- **Claim:** After apparent UDPS supporters attacked Martin Fayulu’s convoy, Tshisekedi’s spokesperson condemned the “antidemocratic acts” and political intolerance.
+- **Locator:** Paragraph beginning “On November 4.”
+- **Source profile:** NGO reporting an official response; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Directly presented as the president’s condemnation through his spokesperson.
+- **Contrary/mitigating:** No evidence in the cited passage of subsequent enforcement or accountability.
+- **Mappings:** 3B.3, 3B.9; 4B.3, 4B.5; 7B.10.
+
+### WEB-009 — EU observer deployment constrained
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/12/16/dr-congo-electoral-violence-threatens-vote|International Concern|EU observer cancellation`
+- **Claim:** The EU cancelled its countrywide election-observation mission after Congolese authorities did not authorize satellite equipment, leaving an eight-person expert mission in Kinshasa; civil society said this created an impression of a hidden agenda.
+- **Locator:** “International Concern,” final paragraph.
+- **Source profile:** NGO reporting EU action; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Decision attributed to Congolese authorities, but evidence does not prove personal direction by Tshisekedi.
+- **Contrary/mitigating:** AU and SADC observation missions were deployed; the Carter Center also observed under invitation.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.10; 7B.6; 8B.9.
+
+### WEB-010 — Election fell short of key democratic commitments
+
+- **Canonical fact key:** `https://www.cartercenter.org/news/drc-072424/|overall conclusion|2023 election commitments`
+- **Title:** *Carter Center Issues Final Report on 2023 Elections in the Democratic Republic of the Congo*
+- **Publisher/date:** Carter Center, 24 July 2024
+- **Claim:** The process improved in some respects over the previous cycle but fell short of some key international commitments for democratic elections.
+- **Locator:** Opening three paragraphs.
+- **Source profile:** election observer; **high** confidence; final evidence.
+- **Period fit:** retrospective report directly assessing December 2023.
+- **Attribution:** Election-system result under Tshisekedi’s government; personal manipulation is not established merely by the conclusion.
+- **Contrary/mitigating:** Observer explicitly identified improvements over the prior cycle.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.8, 4B.10; 7B.6; 8B.7, 8B.9.
+
+### WEB-011 — Competitive campaign but administrative-resource abuse
+
+- **Canonical fact key:** `https://www.cartercenter.org/news/drc-072424/|campaign|administrative resources and inclusiveness`
+- **Claim:** The campaign was competitive and candidate registration broadly inclusive, but violence and abuse of administrative resources on behalf of ruling-coalition candidates made it less than fully fair; women and other groups were underrepresented.
+- **Locator:** Campaign and positive-aspects paragraphs.
+- **Source profile:** election observer; **high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Administrative-resource abuse benefited the ruling coalition. The summary does not establish which acts Tshisekedi ordered.
+- **Contrary/mitigating:** Broad political choice, municipal-election pilots, out-of-country voting, and extensive citizen observation were positive.
+- **Mappings:** 4B.1–4B.3, 4B.5, 4B.7, 4B.10; 7B.9; 8B.3, 8B.9.
+
+### WEB-012 — Election logistics, tabulation, and transparency failures
+
+- **Canonical fact key:** `https://www.cartercenter.org/news/drc-072424/|election day and tabulation|logistics transparency`
+- **Claim:** Polling materials and openings suffered widespread delays; voting extended over multiple days without adequate transparency; tabulation departed substantially from established procedures; 81 National Assembly candidacies were annulled over fraud allegations.
+- **Locator:** Paragraph beginning “Unfortunately, logistical challenges.”
+- **Source profile:** election observer; **high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Primarily CENI operational conduct. Ruler attribution is indirect unless evidence links appointments, pressure, or interference to Tshisekedi.
+- **Contrary/mitigating:** CENI held elections within constitutional deadlines; courts handled disputes promptly, though grounds were not always clear.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.8, 4B.10; 7B.6; 8B.2, 8B.5–8B.8.
+
+### WEB-013 — Observer mission limitations
+
+- **Canonical fact key:** `https://www.cartercenter.org/news/drc-072424/|Background|mission scope limitation`
+- **Claim:** Carter Center deployed 44 experts and observers, including 24 long-term observers in 12 provinces, but no full short-term delegation; its election-day observations were not necessarily nationally representative.
+- **Locator:** “Background” section.
+- **Source profile:** election observer; **high**; context.
+- **Period fit:** direct mission fact.
+- **Attribution:** Not applicable.
+- **Mappings:** methodological caveat for 4B.
+- **Limitations:** Prevents overgeneralizing observed election-day incidents.
+
+### WEB-014 — State of siege, military approach, and force mobilization
+
+- **Canonical fact key:** `https://www.amnesty.org/en/latest/research/2024/12/drc-operation-keba/|Armed Conflict Foreign Intervention|militarized strategy`
+- **Title:** *Operation “Keba”: Massacre by the Army in the DRC*
+- **Publisher/date:** Amnesty International, 11 December 2024
+- **Claim:** Tshisekedi pledged civilian protection but adopted a principally militarized approach: expanded the army’s role, maintained the state of siege, requested Ugandan, EAC, and SADC intervention, mobilized local armed groups, and used private military companies amid continued insecurity.
+- **Locator:** Section “Armed Conflict, Foreign Intervention and Popular Uprising.”
+- **Source profile:** NGO investigation; **medium-high**; final evidence.
+- **Period fit:** Includes direct 2023 actions plus inherited 2021–22 policy background.
+- **Attribution:** Several strategic choices are directly attributed to Tshisekedi or his administration.
+- **Contrary/mitigating:** DRC faced a serious externally supported M23 threat; regional intervention could reflect legitimate defensive necessity.
+- **Mappings:** 2B.1–2B.5, 2B.7, 2B.10; 3B.2, 3B.5, 3B.6, 3B.10; 8B.1–8B.3, 8B.8–8B.10.
+
+### WEB-015 — Goma massacre and partial prosecutions
+
+- **Canonical fact key:** `https://www.amnesty.org/en/latest/research/2024/12/drc-operation-keba/|Executive summary|30 August 2023 massacre`
+- **Claim:** Congolese soldiers killed at least 56 people, injured over 80, and arbitrarily arrested over 150 during suppression of an August 30 protest. Authorities initially minimized the death toll and blamed victims. Six officers were tried; four, including a commander, were convicted.
+- **Locator:** Executive Summary.
+- **Source profile:** NGO investigation using 70+ interviews, records, imagery, and video verification; **medium-high**; final evidence.
+- **Period fit:** direct target-year event, investigated retrospectively.
+- **Attribution:** Strong security-force nexus and state-of-siege command context; no evidence that Tshisekedi ordered the massacre. Responsibility for maintaining the policy framework is distinguishable from operational command.
+- **Contrary/mitigating:** A police officer was reportedly killed; prosecutions and convictions provide some remedy.
+- **Mappings:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.8–3B.10; 4B.3, 4B.9; 7B.2, 7B.6, 7B.7; 8B.5, 8B.9.
+
+### WEB-016 — 2023 rights, insecurity, and humanitarian conditions
+
+- **Canonical fact key:** `https://www.amnesty.be/infos/rapports-annuels/rapport-annuel-2023/rapport-annuel-2023-afrique/article/republique-democratique-congo-rapport-annuel-2023|summary and context|rights insecurity`
+- **Title:** *République démocratique du Congo — Rapport annuel 2023*
+- **Publisher/date:** Amnesty International Belgium, 24 April 2024
+- **Claim:** Armed groups and Congolese security forces attacked civilians; the army committed extrajudicial executions; nearly seven million people were displaced; dissent repression intensified during the election; much of the population lacked basic social and economic services.
+- **Locator:** Bold opening summary and “Contexte.”
+- **Source profile:** NGO annual report; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Mixed: armed groups, security forces, and national authorities. National deprivation is not automatically attributable to Tshisekedi.
+- **Contrary/mitigating:** External aggression, entrenched conflict, natural disasters, and extremely weak inherited capacity were major constraints.
+- **Mappings:** 2B.4, 2B.5, 2B.10; all 3B lenses generally; 4B.3, 4B.6, 4B.9; 5B.8–5B.10 context; 6B.2, 6B.3, 6B.6, 6B.8, 6B.10; 8B.7, 8B.9, 8B.10.
+
+### WEB-017 — Education implementation failures and conflict disruption
+
+- **Canonical fact key:** `https://www.amnesty.be/infos/rapports-annuels/rapport-annuel-2023/rapport-annuel-2023-afrique/article/republique-democratique-congo-rapport-annuel-2023|Droit à l’éducation|education delivery`
+- **Claim:** Free primary education continued but suffered poor infrastructure, inadequate public funding, teacher-condition disputes, and strikes; conflict disrupted schooling for about 750,000 children in two eastern provinces.
+- **Locator:** “Droit à l’éducation.”
+- **Source profile:** NGO annual report citing UNICEF and labor developments; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Free education is a signature Tshisekedi program; delivery shortcomings are government-relevant but conflict disruption and inherited capacity constrain attribution.
+- **Contrary/mitigating:** The program itself continued and had expanded access.
+- **Mappings:** 5B.6, 5B.8, 5B.9; 6B.2–6B.6, 6B.9, 6B.10; 8B.5–8B.8, 8B.10.
+
+### WEB-018 — Accountability initiatives without implementation
+
+- **Canonical fact key:** `https://www.amnesty.be/infos/rapports-annuels/rapport-annuel-2023/rapport-annuel-2023-afrique/article/republique-democratique-congo-rapport-annuel-2023|justice reparations|policy versus implementation`
+- **Claim:** The government adopted a draft transitional-justice policy and renewed its ICC referral, but made no other meaningful move to ensure accountability or effective remedies.
+- **Locator:** “Droit à la vérité, à la justice et à des réparations.”
+- **Source profile:** NGO annual report; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Government-level initiative and implementation failure under Tshisekedi.
+- **Contrary/mitigating:** ICC cooperation and adoption of a policy framework were concrete, if limited, actions.
+- **Mappings:** 2B.4, 2B.9; 3B.4, 3B.10; 4B.4; 7B.2, 7B.6, 7B.7; 8B.2, 8B.6–8B.8.
+
+### WEB-019 — Nairobi and Luanda diplomacy with weak follow-through
+
+- **Canonical fact key:** `https://www.issafrica.org/iss-today/eastern-drc-peace-processes-miss-the-mark|peace processes|diplomacy and implementation`
+- **Title:** *Eastern DRC Peace Processes Miss the Mark*
+- **Publisher/date:** Institute for Security Studies, 8 February 2023
+- **Claim:** DRC participated in the Nairobi and Luanda processes, which called for ceasefire, withdrawal, disarmament, and normalized relations, but fighting continued and implementation was weak.
+- **Locator:** Opening through discussion of the July/November Luanda process.
+- **Source profile:** policy institute; **medium-high** confidence by analogy; final evidence.
+- **Period fit:** direct early-2023 assessment with 2022 baseline.
+- **Attribution:** Tshisekedi participated in and supported regional diplomacy; the outcome depended on Rwanda, M23, regional organizations, and multiple armed actors.
+- **Contrary/mitigating:** The diplomatic tracks were genuine alternatives to force, even though they did not produce security.
+- **Mappings:** 2B.1, 2B.3, 2B.7, 2B.10; 8B.9, 8B.10.
+
+### WEB-020 — DRC proxy relationships and demand to break with armed groups
+
+- **Canonical fact key:** `https://www.issafrica.org/iss-today/eastern-drc-peace-processes-miss-the-mark|proxy section|DRC armed groups`
+- **Claim:** ISS reported that the DRC government used local and foreign armed groups and argued that it needed to break ranks with armed groups, while Rwanda needed to end support for M23.
+- **Locator:** Final third, paragraphs beginning “Despite the initial Kenyan deployment” and “Most important.”
+- **Source profile:** policy institute; **medium-high** by analogy; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Government-level conduct; direct presidential authorization is not established by this article.
+- **Contrary/mitigating:** Rwanda’s support to M23 and FARDC weakness materially shaped the government’s security choices.
+- **Mappings:** 2B.3–2B.5, 2B.10; 3B.2, 3B.6; 8B.3, 8B.5, 8B.9.
+
+### WEB-021 — Economic-governance reform operation
+
+- **Canonical fact key:** `https://www.worldbank.org/en/news/press-release/2023/03/29/world-bank-approves-900-million-to-support-critical-governance-reforms-and-girls-learning-and-empowerment-in-afe-drc|economic governance operation|implemented reforms`
+- **Title:** *World Bank Approves $900 Million to Support Critical Governance Reforms and Girls’ Learning and Empowerment in DRC*
+- **Publisher/date:** World Bank, 29 March 2023
+- **Claim:** The World Bank approved a $500 million operation supporting the government’s implemented reform program in public finance, procurement, domestic-revenue digitization, telecom liberalization, competitively selected utility/road-fund leadership, mining-fund oversight, state mining-asset transfer procedures, and forest-concession review.
+- **Locator:** Paragraphs describing the Foundational Economic Governance Reform operation.
+- **Source profile:** intergovernmental development institution; **high** for program facts; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Government program under Tshisekedi; World Bank explicitly credited “Congolese authorities,” not necessarily the president personally.
+- **Contrary/mitigating:** Funding approval and formal reform milestones do not establish durable implementation or household outcomes.
+- **Mappings:** 5B.1–5B.7, 5B.10; 6B.4, 6B.5, 6B.9; 7B.3, 7B.5, 7B.6, 7B.9, 7B.10; 8B.1–8B.8, 8B.10.
+
+### WEB-022 — Girls’ education investment
+
+- **Canonical fact key:** `https://www.worldbank.org/en/news/press-release/2023/03/29/world-bank-approves-900-million-to-support-critical-governance-reforms-and-girls-learning-and-empowerment-in-afe-drc|Girls Learning Empowerment|secondary education`
+- **Claim:** A $400 million project was approved to improve secondary-school quality and access, prioritizing adolescent girls and provinces with the lowest female participation, with safe-school and sexual/reproductive-health components.
+- **Locator:** Opening paragraph and Girls’ Learning and Empowerment paragraphs.
+- **Source profile:** intergovernmental; **high** for program design; final evidence.
+- **Period fit:** direct 2023 authorization; outcome realization remained prospective.
+- **Attribution:** Government-aligned project under Tshisekedi, substantially financed and supported by the World Bank.
+- **Contrary/mitigating:** Approval and design do not show delivery or results in 2023.
+- **Mappings:** 5B.6, 5B.8; 6B.2–6B.5, 6B.8, 6B.9; 8B.2, 8B.6.
+
+### WEB-023 — Free primary education expansion
+
+- **Canonical fact key:** `https://www.worldbank.org/en/news/press-release/2023/03/29/world-bank-approves-900-million-to-support-critical-governance-reforms-and-girls-learning-and-empowerment-in-afe-drc|free primary education|3.6 million enrollment`
+- **Claim:** The government’s free primary education policy, adopted and implemented from 2019, was associated with more than 3.6 million additional public-primary-school enrollments in 2021–22 compared with 2017–18.
+- **Locator:** Penultimate substantive paragraph.
+- **Source profile:** intergovernmental; **high** for reported program and enrollment comparison; final evidence.
+- **Period fit:** broader ruler-period outcome, reaffirmed in 2023; not solely a 2023 change.
+- **Attribution:** Strong ruler-program nexus: it was Tshisekedi’s signature early-tenure policy, but donor support and education administration contributed.
+- **Contrary/mitigating:** WEB-017 documents quality, infrastructure, funding, and teacher-condition shortcomings.
+- **Mappings:** 5B.1, 5B.6, 5B.8, 5B.10; 6B.1–6B.5, 6B.8–6B.10; 8B.1, 8B.2, 8B.6, 8B.7, 8B.10.
+
+### WEB-024 — Free maternity program rollout
+
+- **Canonical fact key:** `https://www.theguardian.com/global-development/2023/nov/06/drc-offers-free-maternity-care-to-cut-death-rate-among-mothers-and-babies|program scope|free maternity rollout`
+- **Title:** *DRC Offers Free Maternity Care to Cut Death Rate Among Mothers and Babies*
+- **Publisher/date:** The Guardian, 7 November 2023
+- **Claim:** The government launched free pregnancy, childbirth, one-month postpartum, and neonatal care in 13 of 26 provinces, beginning in Kinshasa, as part of a planned $200 million program.
+- **Locator:** Opening paragraphs and paragraph beginning “The scheme was initially launched.”
+- **Source profile:** reputable international media; **medium-high** by registry analogy; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Government program; health minister identified as implementer. Campaign material identified maternity care as a Tshisekedi achievement, but direct presidential authorship is less precisely sourced.
+- **Contrary/mitigating:** Coverage was partial, with no stated completion timetable.
+- **Mappings:** 5B.6, 5B.8, 5B.9; 6B.1–6B.4, 6B.6, 6B.8–6B.10; 8B.1, 8B.2, 8B.6.
+
+### WEB-025 — Maternity implementation constraints
+
+- **Canonical fact key:** `https://www.theguardian.com/global-development/2023/nov/06/drc-offers-free-maternity-care-to-cut-death-rate-among-mothers-and-babies|implementation constraints|staff equipment strikes`
+- **Claim:** Health workers reported insufficient staff, facilities, equipment, medicine, consultation, and public awareness; strikes were ongoing, some patients still paid, and at least one facility was overwhelmed after demand more than doubled.
+- **Locator:** Paragraphs beginning “However, health workers,” “Dr Simplice Kibatatu,” and “Claudel Diakileke.”
+- **Source profile:** reputable media incorporating interviews; **medium-high**; final evidence.
+- **Period fit:** direct 2023.
+- **Attribution:** Implementation capacity under the government, though inherited health-system weakness is a major constraint.
+- **Contrary/mitigating:** Increased utilization indicates real demand and some practical access expansion.
+- **Mappings:** 5B.6, 5B.7, 5B.9; 6B.2, 6B.4–6B.6, 6B.9, 6B.10; 8B.5–8B.8, 8B.10.
+
+### WEB-026 — Competitive program claims and unresolved outcomes
+
+- **Canonical fact key:** `https://afripoli.org/the-2023-elections-in-the-democratic-republic-of-congo-challenges-and-opportunities|campaign messages|Tshisekedi program`
+- **Title:** *The 2023 Elections in the Democratic Republic of the Congo: Challenges and Opportunities*
+- **Publisher/date:** African Policy Research Institute, December 2023
+- **Claim:** Tshisekedi campaigned on free education and maternity care and promised consolidation and universal health care; opponents emphasized failures on peace, resource governance, corruption, and social development.
+- **Locator:** “Main Contenders, Campaign Messages, and the Projected Winner.”
+- **Source profile:** policy analysis by a named academic; **medium** confidence; final/context evidence.
+- **Period fit:** direct 2023 campaign.
+- **Attribution:** Directly identifies Tshisekedi’s stated program, but not implementation success.
+- **Contrary/mitigating:** Opposition claims are political claims and are not independently established merely by inclusion.
+- **Mappings:** 5B.1, 5B.6, 5B.10; 6B.1, 6B.2, 6B.9; 8B.1, 8B.10.
+
+---
+
+# 3. Chapter-by-chapter research handoff
+
+## Chapter 1B — Nuclear and existential-risk responsibility
+
+### Local baseline
+
+No local structured fact was supplied. All ten 1B methodology IDs were marked `no_evidence_found` because no configured country-year fact matched. This is an **absence of local mapped evidence**, not proof of non-exposure or responsible conduct.
+
+### Candidate-pool searches
+
+- `Félix Tshisekedi DRC 2023 record elections conflict economy health corruption governance`
+- `site:un.org DRC 2023 Tshisekedi M23 ceasefire MONUSCO civilians`
+- Broader searches for dual-use, biological, nuclear, and catastrophic-risk decisions were considered through reconnaissance results.
+
+### Yield
+
+- **Mapped defensible internet units:** 0
+- **Independent source families:** 0
+- **Source types:** 0
+
+### Findings and gaps
+
+No traceable target-period nuclear, command-and-control, arms-control, proliferation, biological, cyber, AI, or other catastrophic-risk decision by Tshisekedi was found. DRC’s conflict and military activity are not automatically existential-risk conduct.
+
+The research did not establish:
+
+- nuclear authority or material capability;
+- a target-period treaty or inspection decision;
+- nuclear rhetoric;
+- catastrophic dual-use governance;
+- a ruler-attributed crisis decision with a plausible global catastrophic pathway.
+
+### Saturation rationale
+
+Reconnaissance across the ruler’s major 2023 security and diplomatic record yielded conventional conflict material but no credible 1B pathway. Further general searching had low expected marginal value without a specific nuclear/dual-use lead.
+
+---
+
+## Chapter 2B — International peace, restraint, and lawful security
+
+### Local baseline
+
+LP-001 provides exact 2023 military-expenditure context but no attribution. It does not establish aggression, restraint, civilian conduct, diplomacy, proxy control, or accountability.
+
+### Candidate-pool searches
+
+- `site:un.org DRC Tshisekedi 2023 M23 ceasefire MONUSCO civilians`
+- `DRC 2023 Tshisekedi Luanda Nairobi process M23 diplomacy ceasefire MONUSCO UN report`
+- `site:amnesty.org Democratic Republic Congo 2023 Goma crackdown Tshisekedi state siege`
+- `RDC 2023 Tshisekedi droits humains opposition élections répression rapport ONU`
+- `Eastern DRC peace processes miss the mark`
+- Adverse theme: government alliance with armed groups and regional military deployments.
+
+### Retained units
+
+LP-001, WEB-001, WEB-003, WEB-014, WEB-016, WEB-018, WEB-019, WEB-020.
+
+- **Mapped source-claim units:** 8
+- **Internet units:** 7
+- **Organizations:** HRW, Amnesty, ISS
+- **Source types:** NGO, policy institute, structured dataset
+
+### Lens coverage
+
+- **2B.1 diplomacy versus force:** WEB-019 shows Luanda/Nairobi participation; WEB-014 shows simultaneous reliance on military and regional force options.
+- **2B.2 initiation/expansion:** No evidence that Tshisekedi initiated an interstate war; evidence instead concerns defensive response to M23/Rwanda and expansion of regional/militia involvement.
+- **2B.3 defensive necessity versus other motives:** Strong defensive-security context; no reliable evidence of manufactured threat. The use of armed groups and war rhetoric complicates the record.
+- **2B.4 civilian protection/law:** WEB-001, WEB-003, WEB-016, WEB-018 document abuse, impunity, and limited ICC cooperation.
+- **2B.5 proxy restraint:** WEB-014 and WEB-020 report state mobilization or collaboration with local armed groups and private military actors.
+- **2B.6 truthful public explanation:** Weak. No robust source set on threat misrepresentation.
+- **2B.7 ceasefires/peace talks:** WEB-019 provides clear participation but weak implementation.
+- **2B.8 military spending:** LP-001 only; procurement, patronage, and operational purpose remain unresearched.
+- **2B.9 accountability:** WEB-003 and WEB-018 show ICC cooperation but weak domestic accountability.
+- **2B.10 end-state:** WEB-001 and WEB-016 document severe continuing conflict and displacement; causation is divided among M23, Rwanda, other groups, Congolese forces, and institutional weakness.
+
+### Strongest contrary/mitigating evidence
+
+- DRC faced an externally supported insurgency and severe cross-border insecurity.
+- Tshisekedi’s government participated in regional diplomatic processes and renewed ICC cooperation.
+- Failure to produce peace cannot be attributed solely to Tshisekedi.
+
+### Unresolved gaps
+
+- Operational orders and rules of engagement.
+- Ruler knowledge of and response to abuses by allied armed groups.
+- Public-security claims and intelligence truthfulness.
+- Procurement and military patronage.
+- Detailed target-period diplomatic chronology from AU/UN primary records.
+
+### Saturation rationale
+
+The core themes—conflict exposure, diplomacy, force reliance, proxies, civilian impact, and accountability—are represented across three independent organizations. Additional searching would still be useful for primary UN/AU records and command attribution, but the central 2023 pattern is established.
+
+---
+
+## Chapter 3B — Domestic safety, restraint, and protection
+
+### Local baseline
+
+LP-002 gives a severe country-year physical-integrity/repression baseline, while LP-003 adds weak rule-of-law and accountability context. These do not individually establish Tshisekedi’s orders or knowledge.
+
+### Candidate-pool searches
+
+- `site:hrw.org DRC Tshisekedi 2023 opposition protests journalists`
+- `site:amnesty.org Democratic Republic Congo 2023 Goma crackdown Tshisekedi state siege`
+- `RDC 2023 Tshisekedi droits humains opposition élections répression rapport ONU`
+- Event searches for May opposition protests and August Goma massacre.
+- Contrary search for prosecutions, investigations, and presidential condemnation.
+
+### Retained units
+
+LP-002, LP-003, WEB-001–WEB-008, WEB-014–WEB-018.
+
+- **Mapped source-claim units:** 16
+- **Internet units:** 14
+- **Organizations:** HRW, Amnesty, Carter Center where election violence overlaps
+- **Source types:** NGO, election observer, structured datasets
+
+### Lens coverage
+
+- **3B.1 state violence/detention:** Strong: Goma killings, arbitrary detention, opposition arrests, PTS/V-Dem baseline.
+- **3B.2 security-force and aligned actors:** Strong: police, intelligence, Republican Guard, military, and allied armed-group evidence.
+- **3B.3 incitement:** Partial: Tshisekedi’s June 25 rhetoric; UDPS violence; direct presidential incitement to violence was not established.
+- **3B.4 oversight/remedy:** Mixed: Goma prosecutions and ICC cooperation, but weak systemic accountability and transitional-justice implementation.
+- **3B.5 emergency powers:** Strong: state of siege extended through 2023 and linked to abuse without restoring security.
+- **3B.6 fear and insecurity:** Strong adverse context from mass displacement and persistent armed violence; causal responsibility is mixed.
+- **3B.7 vulnerable groups:** Strong on displacement, sexual violence, children’s disrupted education, and weak protection; ruler-specific attribution is limited.
+- **3B.8 peaceful protest:** Strong adverse evidence from Kinshasa and Goma.
+- **3B.9 crisis response:** Goma response strongly adverse; condemnation of an attack on Fayulu is mitigating.
+- **3B.10 trajectory:** Conditions remained severe, and promised systemic reform made little progress; inherited conflict and external aggression remain major constraints.
+
+### Strongest contrary/mitigating evidence
+
+- Four officers were convicted after the Goma massacre.
+- Tshisekedi’s spokesperson condemned attacks against an opposition convoy.
+- Government engaged the ICC.
+- Non-state armed groups and external support for M23 caused much of the insecurity.
+
+### Unresolved gaps
+
+- Presidential notification and response after specific security-force incidents.
+- National patterns of torture and prison deaths with exact government-remedy data.
+- Implementation effects of the October easing of the state of siege.
+- More primary UN Joint Human Rights Office incident data.
+
+### Saturation rationale
+
+This was the strongest chapter by source density. Multiple independent reports establish incidents, recurring patterns, state nexus, and partial remedy. Additional material would refine attribution rather than alter the basic evidentiary picture.
+
+---
+
+## Chapter 4B — Political freedom versus authoritarian rule
+
+### Local baseline
+
+LP-003 supplies extensive exact-year structured priors showing weak political rights, civil liberties, accountability, institutional constraints, liberal democracy, rule of law, and press freedom. These establish the country environment, not personal manipulation.
+
+### Candidate-pool searches
+
+- `DRC 2023 election observers Tshisekedi irregularities Carter Center CENCO`
+- `DRC 2023 election Tshisekedi observers irregularities EU Carter Center`
+- `site:hrw.org DRC Tshisekedi 2023 opposition protests journalists`
+- `RDC 2023 Tshisekedi droits humains opposition élections répression rapport ONU`
+- Contrary searches for competitive features, inclusive registration, municipal voting, citizen observers, and investigations.
+
+### Retained units
+
+LP-003, WEB-002, WEB-004–WEB-013, WEB-015, WEB-016, WEB-026.
+
+- **Mapped source-claim units:** 15
+- **Internet units:** 14
+- **Organizations:** Carter Center, HRW, Amnesty, APRI
+- **Source types:** election observer, NGO, academic policy analysis, structured datasets
+
+### Lens coverage
+
+- **4B.1 contestability:** Mixed. A competitive campaign and broad candidate registration existed, but Carter Center found the process fell short of key commitments.
+- **4B.2 manipulation:** Administrative-resource abuse, observer restrictions, and major tabulation transparency failures are documented. Direct presidential instructions remain unproved.
+- **4B.3 opposition/media/protest tolerance:** Strong adverse evidence.
+- **4B.4 independent institutions:** Weak constraints in local priors; election administration and court transparency problems. No strong affirmative judicial-strengthening evidence.
+- **4B.5 party capture/intimidation:** UDPS supporter violence and partisan security-agency conduct documented; direct ruler control varies.
+- **4B.6 media and information:** Journalist arrests and pressure documented; RSF prior corroborates weak press freedom.
+- **4B.7 equality/inclusion:** Broad registration and some innovations were positive; women, displaced persons, people with disabilities, and conflict-affected residents faced underrepresentation or exclusion.
+- **4B.8 transfer/succession:** Election occurred within constitutional deadlines; Tshisekedi sought a constitutionally permitted second term. No 2023 term-limit breach found.
+- **4B.9 digital/administrative harassment:** Arrests for online criticism and administrative obstruction documented; no robust internet-shutdown evidence was retained.
+- **4B.10 trajectory:** Improvements over 2018 and new municipal/out-of-country voting existed, but civic-space narrowing and electoral-process failures weighed strongly in 2023.
+
+### Strongest contrary/mitigating evidence
+
+- Candidate registration was inclusive.
+- Election was held within constitutional deadlines.
+- Thousands of citizen observers participated.
+- Municipal-election pilots and out-of-country voting expanded participation.
+- Carter Center noted improvements compared with the previous electoral cycle.
+
+### Unresolved gaps
+
+- Legal and appointment chain linking Tshisekedi to CENI independence.
+- National media-access data by candidate.
+- Election-result audit and domestic observer conclusions with exact locators.
+- Judicial independence beyond election disputes.
+- Whether EU equipment denial was a technical/security decision or deliberate obstruction.
+
+### Saturation rationale
+
+The chapter meets normal yield and source-diversity goals with a high-quality election-observer source plus two major rights NGOs and local priors. Attribution of election administration to Tshisekedi remains the principal unresolved issue.
+
+---
+
+## Chapter 5B — Economic well-being and prosperity
+
+### Local baseline
+
+LP-004 records a very low 2023 GDP per capita, large population, and weak BTI status. These do not establish ruler intent or competence. Local facts did not provide growth, inflation, poverty, inequality, debt, or employment.
+
+### Candidate-pool searches
+
+- `site:imf.org DRC 2023 Article IV reforms growth inflation Tshisekedi`
+- `Félix Tshisekedi 2023 cabinet appointments economic reform IMF program implementation`
+- `DRC 2023 health education social spending IMF World Bank free maternity Tshisekedi`
+- `DRC 2023 corruption Tshisekedi IGF audit mining contracts anti corruption Reuters`
+- `RDC 2023 Tshisekedi PDL 145 territoires bilan exécution audit`
+- Adverse searches for inflation, weak implementation, capture, and flagship-program delays.
+
+### Retained units
+
+LP-004, LP-005 as corruption context, WEB-017, WEB-021–WEB-026.
+
+- **Mapped source-claim units:** 8
+- **Internet units:** 6
+- **Organizations:** World Bank, Amnesty, Guardian, APRI
+- **Source types:** intergovernmental, NGO, media, policy analysis, structured datasets
+
+### Findings
+
+- The World Bank documented substantial formal economic-governance reforms in public finance, procurement, revenue digitization, utilities, mining oversight, and forestry.
+- Free primary education produced a large enrollment expansion over the ruler period.
+- Girls’ secondary education and free maternity initiatives targeted vulnerable populations.
+- Delivery was constrained by inadequate infrastructure, staffing, equipment, teacher conditions, strikes, conflict, and low state capacity.
+- Local data show exceptionally low income and weak institutional status but cannot determine ruler contribution.
+- Search discovery indicated 8.4% real GDP growth and year-end inflation of 23.8% in 2023 in later IMF reporting, but IMF pages were blocked. These numbers are **not included in the defensible ledger** without an opened underlying page.
+
+### Lens coverage
+
+- **5B.1 broad prosperity intention/action:** Government reform and human-capital programs provide evidence of stated and acted-upon priorities.
+- **5B.2 appointments:** Competitive selection of utility and road-fund leaders is specific positive evidence; broader cabinet competence remains weakly covered.
+- **5B.3 macro stability:** Major gap. Inflation discovery exists but lacks an accepted underlying source in this run.
+- **5B.4 fair market rules:** Procurement, telecom, utilities, and mining-transfer reforms are relevant.
+- **5B.5 capture/corruption:** Country priors are adverse; direct ruler-specific anti-capture implementation remains mixed and under-researched.
+- **5B.6 productivity foundations:** Strong education, health, infrastructure/governance plans.
+- **5B.7 evidence/correction:** Formal reform monitoring exists, but little evidence of correction after implementation failures.
+- **5B.8 distribution:** Girls, poor households, and underserved provinces were targeted; broad distributional outcomes remain unclear.
+- **5B.9 shock management:** Conflict and health-system pressures are documented; macro response remains under-covered.
+- **5B.10 trajectory:** Some institution-building and access expansion; durability and household outcomes are not adequately established.
+
+### Strongest contrary/mitigating evidence
+
+- Formal reforms and project approvals may not equal implementation.
+- Extractive growth may not translate into broad household welfare.
+- Severe inherited poverty, conflict, and weak capacity limited feasible outcomes.
+- Free education and maternity care faced major delivery constraints.
+
+### Unresolved gaps
+
+- Opened IMF primary report for growth, inflation, fiscal balance, debt, and reform performance.
+- Poverty, real wages, employment, inequality, and regional distribution.
+- PDL-145T exact 2023 execution rate from a contemporaneous audit.
+- Ruler role in economic-team appointments.
+- Direct evidence on corruption/favoritism affecting economic policy.
+
+### Saturation rationale
+
+Minimum yield was reached, but this chapter is less saturated than 3B/4B. The IMF access blocker and absence of household/distribution data materially limit the economic handoff.
+
+---
+
+## Chapter 6B — Social well-being and human development
+
+### Local baseline
+
+No local structured welfare fact was supplied. All 6B IDs were marked `no_evidence_found` due to absent mapped fields. This is a local extraction/coverage gap, not proof of no welfare activity.
+
+### Candidate-pool searches
+
+- `DRC Tshisekedi 2023 free primary education health social protection World Bank UNICEF`
+- `DRC 2023 health education social spending IMF World Bank free maternity Tshisekedi`
+- `DRC offers free maternity care 2023`
+- `RDC 2023 Tshisekedi PDL 145 territoires bilan exécution audit`
+- Contrary searches for teacher strikes, health-worker capacity, conflict disruption, and uneven access.
+
+### Retained units
+
+WEB-016, WEB-017, WEB-021–WEB-025.
+
+- **Mapped source-claim units:** 7
+- **Organizations:** World Bank, Amnesty, Guardian
+- **Source types:** intergovernmental, NGO, media
+
+### Lens coverage
+
+- **6B.1 welfare as governing purpose:** Free education, girls’ education, and maternity programs show visible welfare priority.
+- **6B.2 access:** Strong evidence of primary enrollment expansion and maternity-care rollout; secondary education project was prospective.
+- **6B.3 vulnerable groups:** Girls, pregnant women, newborns, poor provinces, and conflict-affected children are specifically covered.
+- **6B.4 professional administration:** Mixed; reforms and project structures existed, but staff shortages, strikes, and poor consultation weakened delivery.
+- **6B.5 evidence/correction:** World Bank-backed monitoring and design are contextual; little direct evidence of Tshisekedi-driven correction.
+- **6B.6 crises:** Conflict severely disrupted education, and health services were under strain. Disaster-response evidence was not developed.
+- **6B.7 politicized welfare:** No usable evidence found.
+- **6B.8 dignity/equality:** Removal of school and maternity fees is relevant; service-quality and access inequity remained significant.
+- **6B.9 durability:** Education and health programs had institutional and donor support, but staffing/funding weaknesses threaten durability.
+- **6B.10 life chances:** Enrollment access improved over the ruler period, while quality, conflict disruption, and incomplete health coverage complicate outcome claims.
+
+### Strongest contrary/mitigating evidence
+
+- More than 3.6 million additional primary students is a consequential access indicator.
+- Implementation shortfalls were substantial and independently documented.
+- Donor financing and technical support materially contributed, limiting sole ruler credit.
+- Conflict and inherited undercapacity explain part, but not all, of delivery weakness.
+
+### Unresolved gaps
+
+- Exact 2023 health, mortality, schooling-completion, learning, water, sanitation, nutrition, and poverty indicators.
+- Independent evaluation of free maternity outcomes.
+- Social-protection cash-transfer delivery.
+- Political conditionality or discriminatory welfare allocation.
+- Program durability beyond donor financing.
+
+### Saturation rationale
+
+Minimum evidence yield and three independent organizations were reached, but service-domain coverage is concentrated in education and maternity care. Water, sanitation, food, housing, social protection, and disability policy remain weak or absent.
+
+---
+
+## Chapter 7B — Personal integrity and honesty
+
+### Local baseline
+
+LP-005 shows exceptionally adverse national corruption and rule-of-law conditions. Under the chapter rules, it is context only and cannot establish Tshisekedi’s personal integrity, deception, enrichment, nepotism, or obstruction.
+
+### Candidate-pool searches
+
+- `Tshisekedi 2023 corruption patronage family Congo investigation Reuters`
+- `DRC 2023 corruption Tshisekedi IGF audit mining contracts anti corruption Reuters`
+- `RDC 2023 Tshisekedi corruption détournement famille enquête rapport`
+- Searches for asset declarations, family benefit, procurement, audit obstruction, and investigations.
+- Contrary search for anti-corruption and transparency reforms.
+
+### Retained units
+
+LP-005, WEB-002, WEB-006, WEB-009, WEB-015, WEB-018, WEB-021.
+
+- **Mapped source-claim units:** 7
+- **Direct ruler-specific integrity units:** only WEB-006 is clearly personal; others concern administration, scrutiny, or institutional context.
+- **Organizations:** HRW, Amnesty, World Bank
+- **Source types:** NGO, intergovernmental, structured datasets
+
+### Findings
+
+- Country corruption indicators are strongly adverse but not personal evidence.
+- World Bank reform material supports transparency, procurement, competitive appointments, and mining oversight at government level.
+- Rights groups found little progress against corruption and impunity.
+- The administration constrained election observation and independent civic/media scrutiny.
+- Tshisekedi’s June security-rights statement is direct rhetoric but is not, by itself, proof of knowing deception or personal enrichment.
+- Searches returned later, 2025 allegations against members of the Tshisekedi family. Those are outside the target period and remained allegations; they were rejected from final evidence.
+
+### Lens coverage
+
+- **7B.1 truthfulness:** Weak; no verified, materially false 2023 statement was retained.
+- **7B.2 correction:** Partial through initial minimization of the Goma death toll and later acknowledgment, but direct presidential involvement is not shown.
+- **7B.3 separation of interests:** Governance reforms relevant; no ruler-specific conflict record established.
+- **7B.4 personal/family profit:** No target-period defensible evidence retained.
+- **7B.5 appointments:** Competitive utility appointments are positive government evidence; broader cronies/family appointments unestablished.
+- **7B.6 independent investigation:** Election observation constraints and weak accountability are relevant; ICC cooperation is mitigating.
+- **7B.7 concealment/obstruction:** Civic/media repression and Goma narrative management are contextual, but a specific personal integrity nexus remains weak.
+- **7B.8 promises/commitments:** Little progress on promised systemic reform is relevant, but failure does not itself prove dishonesty.
+- **7B.9 nepotism/clientelism:** Country context only; no direct ruler-specific retained item.
+- **7B.10 ethical example:** Mixed rhetorical and institutional evidence, insufficiently personal in many areas.
+
+### Strongest contrary/mitigating evidence
+
+- Competitive appointments and governance reforms indicate some anti-capture action.
+- ICC cooperation and Goma prosecutions show partial acceptance of scrutiny/remedy.
+- No verified target-period personal enrichment finding was located.
+
+### Unresolved gaps
+
+- Asset declarations and beneficial ownership.
+- Procurement involving family or close associates.
+- Verified truthfulness/correction episodes.
+- Audit, prosecution, and whistleblower treatment tied personally to Tshisekedi.
+- Appointment network and nepotism evidence.
+- Adverse and exculpatory primary records.
+
+### Saturation rationale
+
+Searches were broad and adverse, but reliable target-period personal-integrity evidence remained sparse. The chapter reached the numeric unit goal only by including institutional context; personal nexus remains the major unresolved weakness.
+
+---
+
+## Chapter 8B — Effectiveness and competence
+
+### Local baseline
+
+LP-003 provides weak accountability, rule-of-law, and BTI governance context. These measure inherited/state capacity and outcomes, not ruler effectiveness. They cannot be used without an identified program and execution evidence.
+
+### Candidate-pool searches
+
+- `Tshisekedi 2023 government programme achievements PDL-145T implementation audit`
+- `RDC 2023 Tshisekedi PDL 145 territoires bilan exécution audit`
+- `Félix Tshisekedi 2023 cabinet appointments economic reform IMF program implementation`
+- `DRC 2023 election observers Tshisekedi irregularities`
+- `DRC 2023 Tshisekedi Luanda Nairobi process M23 diplomacy`
+- Adverse searches for implementation gaps in education, health, security, election administration, and development programs.
+
+### Frozen program portfolio supported by evidence
+
+1. Restore security and state control in eastern DRC.
+2. Continue free primary education and expand human-capital access.
+3. Launch/expand free maternity and health coverage.
+4. Implement economic-governance and transparency reforms.
+5. Organize the 2023 electoral cycle and secure a second constitutional term.
+6. Develop underserved territories and strengthen basic state reach—partially evidenced, but PDL-145T exact 2023 execution remained unresolved.
+
+### Retained units
+
+LP-003, WEB-001–WEB-003, WEB-010–WEB-012, WEB-014, WEB-017–WEB-026.
+
+- **Mapped source-claim units:** 18
+- **Organizations:** Carter Center, HRW, Amnesty, ISS, World Bank, Guardian, APRI
+- **Source types:** election observer, NGO, policy institute, intergovernmental, media, structured datasets
+
+### Lens coverage
+
+- **8B.1 strategic direction:** Clear programs in security, education, health, governance reform, and reelection.
+- **8B.2 operationalization:** State of siege, regional force deployments, World Bank-backed reform milestones, education projects, maternity rollout, and election administration.
+- **8B.3 mobilization:** Strong ability to mobilize military/security and ruling-party networks; governance reform and education delivery show administrative action.
+- **8B.4 personnel:** Competitive appointments in selected utilities/funds; broader personnel quality unresolved.
+- **8B.5 coordination:** Serious failures in election logistics, health staffing, education conditions, proxy relationships, and security-force control.
+- **8B.6 declarations to implementation:** Free education and governance reforms show implementation; transitional justice, security restoration, and some welfare programs showed major gaps.
+- **8B.7 outcomes:** Enrollment expanded, but security deteriorated; election administration fell short; broader economic and welfare outcomes remain incompletely sourced.
+- **8B.8 adaptation:** He shifted among UN, Ugandan, EAC, SADC, state, militia, and private-security approaches, showing tactical change but not clearly effective learning. Health and education correction evidence is weak.
+- **8B.9 crisis/resistance management:** He secured reelection and maintained coalition power, but conflict, civic repression, and disputed electoral administration reveal high costs and incomplete control.
+- **8B.10 progress:** Mixed across the frozen portfolio: political survival and several reforms advanced; security and implementation quality lagged severely.
+
+### Morality separation
+
+Rights abuses, repression, and proxy use are relevant here only insofar as they demonstrate control, coordination, implementation, or failure against the identified program. Their moral wrongness belongs primarily in Chapters 2B–4B and did not determine this research mapping.
+
+### Strongest contrary/mitigating evidence
+
+- Inherited state weakness, enormous geography, conflict, external M23 support, and low income constrained implementation.
+- Some flagship programs generated tangible outputs, especially school enrollment and formal governance reforms.
+- Repeated security-strategy shifts may indicate adaptation, but they also may indicate ineffective substitution without results.
+- Electoral reelection is an achieved power objective, but survival alone cannot establish broad competence.
+
+### Unresolved gaps
+
+- Exact 2023 PDL-145T completion and audit records.
+- Budget execution by major program.
+- Independent outcome data across more than education.
+- Appointment and coordination chains.
+- Evidence that tactical security changes reflected learning rather than reactive substitution.
+- Durability beyond the election year.
+
+### Saturation rationale
+
+The program-to-action chain is well represented across multiple sectors and source types, but independent outcome evidence is uneven. The chapter has substantial breadth; remaining gaps primarily concern causal attribution, durability, and exact execution rates.
+
+---
+
+# 4. Rejected and discovery-only candidates
+
+These should appear in the manifest as rejected or discovery-only, not final evidence.
+
+1. **Reuters — rights record ahead of vote**
+   - URL: `https://www.reuters.com/world/africa/congo-presidencys-rights-record-raises-questions-ahead-vote-2023-10-03/`
+   - Disposition: `discovery_only`
+   - Reason: robots.txt blocked page retrieval; snippet lacked sufficient precise underlying claim extraction.
+
+2. **Reuters — poll fraud accusations**
+   - URL: `https://www.reuters.com/world/africa/congos-tshisekedi-fights-poll-fraud-accusations-with-spirit-openness-2023-12-31/`
+   - Disposition: `discovery_only`
+   - Reason: robots.txt blocked retrieval.
+
+3. **IMF Fourth Review / 2024 Article IV**
+   - URLs on `imf.org` and `elibrary.imf.org`
+   - Disposition: `discovery_only`
+   - Reason: 403 blocked underlying documents. Search snippets suggested 2023 growth and inflation data but were not accepted as evidence.
+
+4. **International Crisis Group election report**
+   - URL: `https://www.crisisgroup.org/rpt/africa/great-lakes/democratic-republic-congo/312-elections-en-rd-congo-limiter-les-risques-de-violence`
+   - Disposition: `rejected`
+   - Reason: 403; no underlying text inspected.
+
+5. **IFES election snapshot**
+   - URL: `https://www.ifes.org/tools-resources/election-snapshots/elections-democratic-republic-congo-2023-general-elections`
+   - Disposition: `rejected`
+   - Reason: 403; discovery snippet only.
+
+6. **BTI 2026 country report**
+   - URL: `https://bti-project.org/en/reports/country-report/COD`
+   - Disposition: `rejected`
+   - Reason: post-period synthesis and structured BTI priors were already supplied locally; not re-fetched. Search snippet suggesting fewer than 10% of PDL-145T initiatives completed by 2023 lacked an opened precise passage.
+
+7. **2025 Belgian complaints against Tshisekedi family**
+   - Multiple DW, Le Soir, Le Monde, and TV5 URLs.
+   - Disposition: `rejected`
+   - Reason: outside target period, allegations rather than adjudicated findings, and insufficient evidence that they directly establish 2023 conduct.
+
+8. **Government PDL-145T pages and 2025–26 UNDP implementation summaries**
+   - Disposition: `rejected/context candidate`
+   - Reason: mostly post-period, official/self-assessing, or unavailable with a precise target-period implementation locator.
+
+9. **Facebook, YouTube, Wikipedia, and low-authority commentary**
+   - Disposition: `rejected`
+   - Reason: weak provenance, discovery-only, duplicative, or no precise reliable underlying source.
+
+---
+
+# 5. Same-URL splits and source concentration
+
+Several long reports supported multiple materially distinct claims:
+
+- **HRW World Report 2024:** WEB-001–WEB-003.
+- **HRW August 22 opposition crackdown:** WEB-004–WEB-006.
+- **HRW December 16 electoral violence:** WEB-007–WEB-009.
+- **Carter Center final report summary:** WEB-010–WEB-013.
+- **Amnesty Operation Keba:** WEB-014–WEB-015.
+- **Amnesty 2023 annual report:** WEB-016–WEB-018.
+- **ISS peace-process analysis:** WEB-019–WEB-020.
+- **World Bank March 2023 release:** WEB-021–WEB-023.
+- **Guardian maternity report:** WEB-024–WEB-025.
+
+These are legitimate splits because each uses a separate section/locator and materially distinct claim. They must not be mistaken for independent source organizations. Chapter-level diversity counts organizations and source types, not raw item count.
+
+---
+
+# 6. Cross-chapter reuse
+
+Key reusable items:
+
+- **WEB-014:** International-security choices, domestic emergency powers, and effectiveness.
+- **WEB-015:** Domestic safety, political protest, integrity/accountability response, and operational control.
+- **WEB-021:** Economic policy, welfare administration, integrity safeguards, and program execution.
+- **WEB-023:** Economic productivity, social well-being, and effectiveness.
+- **WEB-010–WEB-012:** Political freedom and administrative effectiveness.
+- **WEB-019–WEB-020:** International peace and security-policy effectiveness.
+- **WEB-002:** Domestic safety, political freedom, integrity/accountability, and reform implementation.
+
+No duplicate chapter-prefixed copies should be created during formatting.
+
+---
+
+# 7. Local-data audit
+
+## Retained as substantive structured priors
+
+- **LF001–LF004:** retained collectively as LP-001; military-spending context.
+- **LF005–LF011:** retained collectively as LP-002; repression/physical-integrity baseline.
+- **LF012–LF029:** retained collectively as LP-003; political-freedom, accountability, rule-of-law, and governance baseline.
+- **LF015 and LF030–LF032:** retained as LP-004; economic level and scale.
+- **LF012, LF028, LF033–LF036:** retained as LP-005; corruption/accountability context.
+
+## Used only as context, not ruler conduct
+
+Every supplied local fact is country-level or institutional context. None directly proves a Tshisekedi order, motive, personal benefit, personal truthfulness episode, or successful implementation.
+
+## Overlap
+
+- LF012 and LF028 appear in LP-003 and LP-005 because they support distinct contextual uses but should remain single canonical local facts in normalized output.
+- LF015 appears in LP-003/LP-004 context and should not be duplicated.
+
+## Unused or constrained fields
+
+- **LF027 regime type:** retained within LP-003 but not substantively interpreted because coding semantics were not included.
+- **LF029 suffrage:** retained as formal franchise context; it does not show meaningful ability to vote or election quality.
+- No fact was discarded for a warning: all supplied facts had empty warning arrays.
+- No `error_methodology_ids` were supplied, so there is no local extraction-error issue to preserve.
+- Chapter 2B’s mapping note mentioned UCDP, but no UCDP fact appeared in the supplied package; this is a factual package gap, not evidence of no conflict.
+- Chapters 1B and 6B had no local mapped facts. Their `no_evidence_found` state was not retained as evidence.
+
+---
+
+# 8. Self-audit
+
+## Temporal fit
+
+- Most accepted internet items directly concern 2023.
+- Carter Center 2024 and Amnesty Operation Keba 2024 are retrospective but directly investigate 2023 events.
+- WEB-023 spans earlier Tshisekedi years and is labeled broader ruler-period context rather than a uniquely 2023 outcome.
+- Later 2025 allegations and implementation reports were rejected rather than silently brought into the target period.
+
+## Ruler attribution
+
+Strongest direct ruler-attributed evidence:
+
+- Tshisekedi’s June 25 security-rights rhetoric.
+- His administration’s state-of-siege and regional-intervention strategy.
+- His campaign/program emphasis on free education, maternity care, and universal health coverage.
+
+Most security-force incidents, CENI failures, party-supporter violence, and institutional corruption remain administration- or country-level evidence. They should not be converted into personal orders or personal enrichment without additional proof.
+
+## Context-only or weak items
+
+- All local structured priors are context unless directly measuring institutional outcomes.
+- Military spending does not answer aggression or restraint.
+- National corruption does not answer personal integrity.
+- GDP per capita does not answer economic competence.
+- Governance indexes do not answer effectiveness.
+- Formal project approval does not answer implementation success.
+
+## Claims lacking independent corroboration
+
+- Exact macroeconomic growth/inflation claims discovered through IMF snippets were excluded.
+- PDL-145T completion rates were excluded.
+- 2025 family-corruption allegations were excluded.
+- Opposition campaign accusations in WEB-026 are retained only as political context, not established facts.
+- Direct presidential knowledge of specific security-force abuses remains unestablished.
+
+## Strongest contrary evidence preserved
+
+- Competitive and broadly inclusive candidate registration.
+- Election within constitutional deadlines.
+- Citizen observation and municipal/out-of-country voting innovations.
+- ICC cooperation and partial Goma prosecutions.
+- Public condemnation of one opposition-convoy attack.
+- Tangible free-primary-enrollment expansion.
+- Formal public-finance and procurement reforms.
+- Defensive context of Rwanda-supported M23 operations and severe inherited institutional weakness.
+
+---
+
+# 9. Manifest-ready accounting index
+
+The parent can serialize the following dispositions:
+
+- `LP-001` through `LP-005`: `context`
+- `WEB-001` through `WEB-012`: `final_evidence`
+- `WEB-013`: `context`
+- `WEB-014` through `WEB-025`: `final_evidence`
+- `WEB-026`: `context`
+- Reuters blocked pages: `discovery_only`
+- IMF blocked pages: `discovery_only`
+- ICG and IFES blocked pages: `rejected`, reason `underlying_source_unavailable_403`
+- BTI 2026 web result: `rejected`, reason `local_structured_prior_already_supplied_and_target_passage_not_opened`
+- 2025 family allegations: `rejected`, reason `outside_target_period_and_unadjudicated`
+- Social-media/Wikipedia candidates: `rejected`, reason `weak_or_derivative_provenance`
+
+## Overall yield
+
+- **Canonical retained local-prior bundles:** 5
+- **Canonical retained internet source-claim units:** 26
+- **Final-evidence internet units:** 24
+- **Context internet units:** 2
+- **Principal independent organizations:** Human Rights Watch, Amnesty International, Carter Center, Institute for Security Studies, World Bank, The Guardian, African Policy Research Institute
+- **Principal source types:** structured datasets, NGOs, election observer, intergovernmental institution, policy institute, reputable media, academic policy analysis
+
+The strongest evidence coverage is in Chapters **3B, 4B, and 8B**. Chapters **5B and 6B** have meaningful but uneven program and implementation evidence. Chapter **7B** remains weak on personal nexus. Chapter **1B** produced no target-period existential-risk evidence.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "low",
+      "substantive_issues": [],
+      "missing_themes": [
+        "Nuclear authority, material capability, and command-and-control",
+        "Target-period arms-control, inspection, proliferation, biological, cyber, or other catastrophic-risk decisions",
+        "A ruler-attributed decision with a plausible global catastrophic pathway"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Security and proxy evidence is mostly administration-level or analytical; direct presidential direction and control remain unestablished.",
+        "The notebook identifies useful primary UN/AU follow-up research, so the chapter is not saturated."
+      ],
+      "missing_themes": [
+        "Operational orders and rules of engagement",
+        "Tshisekedi’s knowledge of and response to abuses by allied armed groups",
+        "Military procurement, patronage, and spending purpose",
+        "Primary UN/AU diplomatic chronology and ceasefire records",
+        "Public-security claims and intelligence accuracy"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 14,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The evidence establishes serious abuses and partial remedies but rarely establishes Tshisekedi’s personal knowledge, orders, or corrective action.",
+        "Further primary incident-level research could materially improve attribution and remedy assessment."
+      ],
+      "missing_themes": [
+        "Presidential notification and response to specific security-force incidents",
+        "Primary UN human-rights incident data",
+        "National torture and detention conditions",
+        "Effects of the October easing of the state of siege",
+        "Ruler-specific protection of vulnerable groups"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 13,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Election failures and ruling-coalition advantages are documented, but personal presidential direction is not.",
+        "The observer limitations and blocked candidate sources leave recoverable gaps in national representativeness and attribution."
+      ],
+      "missing_themes": [
+        "Legal and appointment chain connecting Tshisekedi to CENI independence",
+        "National media-access and campaign-resource data",
+        "Domestic observer conclusions with precise locators",
+        "Judicial independence beyond election disputes",
+        "Whether observer-equipment restrictions were technical or deliberate obstruction"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The IMF material is snippet-only and correctly excluded, but it is a named recoverable source gap.",
+        "Program approvals and enrollment claims do not establish durable implementation or broad household outcomes.",
+        "Country-level income and corruption indicators cannot be treated as direct evidence of Tshisekedi’s competence or integrity."
+      ],
+      "missing_themes": [
+        "Verified 2023 growth, inflation, fiscal, debt, and reform-performance data",
+        "Poverty, wages, employment, inequality, and regional distribution",
+        "PDL-145T 2023 execution and audit records",
+        "Economic-team appointment and coordination evidence",
+        "Ruler-specific corruption, favoritism, or capture affecting economic policy"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Evidence is concentrated in free education and maternity care, leaving major welfare domains uncovered.",
+        "The local package has no mapped 6B facts, and the retained program evidence often concerns design or access rather than outcomes.",
+        "Attribution is shared among government, donors, inherited capacity constraints, and conflict."
+      ],
+      "missing_themes": [
+        "2023 mortality, schooling completion, learning, water, sanitation, nutrition, and poverty outcomes",
+        "Independent evaluation of free maternity-care results",
+        "Social-protection and cash-transfer delivery",
+        "Disability and housing policy",
+        "Politicized or discriminatory welfare allocation",
+        "Program durability beyond donor financing"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter’s apparent yield is driven substantially by country-level corruption context and institutional evidence, not personal-integrity claim units.",
+        "No verified target-period personal enrichment or knowing deception was retained.",
+        "Broad searches did not resolve the central personal-nexus gap; further targeted research is materially warranted."
+      ],
+      "missing_themes": [
+        "Verified target-period asset declarations and beneficial ownership",
+        "Personal or family enrichment and procurement links",
+        "Specific false statements and documented corrections",
+        "Audit, prosecution, and whistleblower treatment tied to Tshisekedi",
+        "Appointment networks, nepotism, and clientelism",
+        "Adverse and exculpatory primary records on personal integrity"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 16,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The program-to-action chain is substantial, but independent outcome evidence is uneven.",
+        "Election, security, education, health, and governance results are often administration-level; causal credit or blame for Tshisekedi remains incompletely established.",
+        "The chapter needs targeted execution and outcome research rather than more generic achievement claims."
+      ],
+      "missing_themes": [
+        "PDL-145T 2023 completion and audit records",
+        "Budget execution by major program",
+        "Independent cross-sector outcome data",
+        "Appointment and interagency coordination chains",
+        "Evidence distinguishing learning from reactive security-policy substitution",
+        "Durability beyond the election year"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The handoff generally distinguishes country or institutional context from direct ruler conduct and preserves contrary evidence.",
+    "Several chapter counts include contextual priors, same-organization section splits, or bundled institutional claims; they should not be treated as equivalent independent ruler-attributed evidence.",
+    "Blocked IMF, Reuters, IFES, and International Crisis Group materials are recoverable research leads, not evidence currently available for scoring.",
+    "The strongest remaining dossier-wide weakness is attribution: evidence often shows what the administration, security forces, parties, CENI, or country experienced without proving Tshisekedi’s direction, knowledge, benefit, tolerance, correction, or authority-based responsibility.",
+    "Missing evidence is not negative ruler evidence; in particular, the absence of 1B findings is not evidence of safe or unsafe conduct."
+  ],
+  "reviewer_summary": "Continue Chapters 2B through 8B. Chapter 1B has a credible saturation rationale and no identified lead likely to materially improve the dossier. The remaining chapters have material, research-recoverable gaps in attribution, primary-source precision, contrary evidence, event coverage, macroeconomic and welfare outcomes, personal-integrity nexus, or program execution."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+# Review-round 1 continuation handoff
+
+**Ruler:** Félix Tshisekedi  
+**Country/year:** Democratic Republic of the Congo, 2023  
+**Continuation scope:** Chapters 2B–8B only  
+**Research date:** 17 July 2026  
+**Scoring:** None performed
+
+## Persistence status
+
+The filesystem remained unavailable to tool execution. I therefore could not update:
+
+- `research-materials.md`
+- `research-ledger-manifest.json`
+
+The manifest-ready additions, changed dispositions, and rejection records appear below for parent persistence.
+
+## Tool-access and source handling
+
+- MiniMax Search supplied discovery results.
+- Fetch opened underlying HTML pages and some PDFs.
+- Search-result snippets were not treated as evidence.
+- Several PDFs could be downloaded through Fetch but were returned as raw PDF streams rather than readable text. Those documents remain `locator_missing` unless a separate opened HTML summary supplied the claim.
+- Attempts to extract PDFs through local shell tools failed because the execution sandbox could not initialize its loopback network. No local files were inspected.
+- Brave remained quota-limited.
+- IMF HTML pages remained blocked with HTTP 403. The IMF report PDF opened only as raw bytes and therefore remains a gateway/document lead rather than a claim-level item.
+- No supplied structured dataset was re-fetched.
+- Chapter 1B was not reopened, in accordance with the reviewer’s saturation finding.
+
+---
+
+# New accepted evidence ledger entries
+
+The original register ended at `WEB-026`. The following IDs continue that sequence.
+
+## WEB-027 — Direct presidential easing of the state of siege
+
+- **Canonical fact key:** `https://www.radiookapi.net/2023/10/13/actualite/politique/rdc-felix-tshisekedi-decide-dun-allegement-progressif-et-graduel-de|presidential address 12 October|gradual easing`
+- **Title:** *RDC : Félix Tshisekedi décide d’un « allégement progressif et graduel » de l’état de siège*
+- **Publisher/date:** Radio Okapi, 13 October 2023
+- **Factual claim:** In a televised address, Tshisekedi personally announced a gradual easing of the state of siege, restoration of civil authority in secured areas, removal of curfew and association/assembly restrictions, restoration of most civilian-court criminal jurisdiction, and payment of arrears to provincial officials.
+- **Locator:** Opening quotation and sections “L’amélioration de la situation sécuritaire” and “Les salaires des autorités civiles.”
+- **Supporting excerpt:** “J’ai opté, en toute responsabilité, pour la mise en œuvre d’un dispositif transitoire graduel au terme duquel cette situation exceptionnelle devra connaître sa fin.”
+- **Main points:** This is direct ruler-attributed correction/adaptation evidence. The change followed a national roundtable but did not terminate the state of siege or provide a completion calendar.
+- **Source type/confidence:** UN-supported local media; **medium-high**; final evidence for speech and announced measures.
+- **Period fit:** Direct target-period action.
+- **Attribution:** Direct personal declaration and instruction.
+- **Contrary/mitigating:** Tshisekedi claimed security had improved in some areas; continued insecurity and the later analytical assessment in WEB-028 challenge the breadth and novelty of the change.
+- **Mappings:** 2B.3, 2B.7; 3B.4, 3B.5, 3B.8–3B.10; 4B.3, 4B.4, 4B.9, 4B.10; 7B.2, 7B.8; 8B.1, 8B.2, 8B.8–8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-028 — Easing was partial, delayed, and difficult to operationalize
+
+- **Canonical fact key:** `https://www.congoresearchgroup.org/fr/2023/10/20/pourquoi-le-president-felix-tshisekedi-a-t-il-annonce-l-allegement-de-letat-de-siege/|analysis of 12 October measures|limited novelty and no timetable`
+- **Title:** *Pourquoi le Président Félix Tshisekedi a-t-il annoncé l’allègement de l’état de siège ?*
+- **Publisher/date:** Congo Research Group/Ebuteli, 20 October 2023
+- **Factual claim:** The August roundtable recommended ending the state of siege, but Tshisekedi instead chose partial reclassification. The analysis found that curfew relief and partial civilian jurisdiction had already been announced earlier, restoration of civil authority had no timetable, and lifting the protest prohibition was one of few clearly new measures.
+- **Locator:** Paragraphs beginning “Les participants ont recommandé,” “Mais, il est difficile de voir,” and “La seule mesure.”
+- **Main points:** Provides an independent check on Tshisekedi’s claim of adaptation. It identifies political timing two months before the election and the Goma massacre as relevant context without proving electoral motive.
+- **Source type/confidence:** Research institute/academic policy analysis; **medium-high** by analogy; final evidence.
+- **Period fit:** Direct contemporary target-period analysis.
+- **Attribution:** Directly assesses Tshisekedi’s decision.
+- **Contrary/mitigating:** The action did formally restore some liberties and civilian authority and responded to a participatory roundtable.
+- **Mappings:** 3B.4, 3B.5, 3B.8–3B.10; 4B.3, 4B.8–4B.10; 7B.8; 8B.6, 8B.8–8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-029 — Presidential creation and repeated extension of the state of siege
+
+- **Canonical fact key:** `https://www.amnesty.org/fr/latest/news/2023/05/drc-authorities-must-lift-state-of-siege-now/|background and findings|presidential authority and extensions`
+- **Title:** *RDC. Les autorités doivent lever l’« état de siège »*
+- **Publisher/date:** Amnesty International, 6 May 2023
+- **Factual claim:** Tshisekedi personally established the state of siege in May 2021, appointed military and police officials to replace civilian authorities, suspended elected provincial assemblies, and directed military courts to try civilians. By May 2023 the government had extended it over 50 times, while security deteriorated and military appointees used the powers to restrict rights.
+- **Locator:** Opening, paragraphs beginning “Pourtant, le gouvernement,” and “Complément d’information.”
+- **Supporting excerpt:** “Le président Félix Tshisekedi a instauré l’‘état de siège’… Il a nommé des membres de l’armée et de la police pour remplacer l’administration civile.”
+- **Source type/confidence:** NGO; **medium-high**; final evidence.
+- **Period fit:** 2021 inherited policy deliberately retained during 2023; May 2023 continuation is target-period conduct.
+- **Attribution:** Strong, direct authority nexus: creation, appointments, and continued extensions.
+- **Contrary/mitigating:** The declared aim was civilian protection and defeating armed groups amid a real security crisis.
+- **Mappings:** 2B.3; 3B.1, 3B.2, 3B.4–3B.6, 3B.8, 3B.10; 4B.3–4B.5, 4B.9, 4B.10; 7B.5–7B.8; 8B.1–8B.3, 8B.5–8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-030 — Presidential notification and immediate response to Goma massacre
+
+- **Canonical fact key:** `https://www.radiookapi.net/2023/09/02/actualite/securite/tuerie-de-goma-felix-tshisekedi-consterne-exige-la-lumiere-sur-les|1 September cabinet|presidential report and sanctions instruction`
+- **Title:** *Tuerie de Goma : Félix Tshisekedi consterné, exige la lumière*
+- **Publisher/date:** Radio Okapi, 1–2 September 2023
+- **Factual claim:** Two days after the August 30 killings, Tshisekedi stated in cabinet that he was appalled and ordered the interior, defence, and justice ministers to report promptly on the circumstances so severe sanctions could be taken.
+- **Locator:** First four paragraphs.
+- **Supporting excerpt:** He demanded a report “dans un bref délai… pour que des sanctions sévères soient prises contre les responsables.”
+- **Source type/confidence:** UN-supported local media reporting an official cabinet statement; **medium-high** for the official act; final evidence.
+- **Period fit:** Direct target-period response.
+- **Attribution:** Direct personal response after notification.
+- **Contrary/mitigating:** The initial official death toll was incomplete, and later sources found the investigation and command-responsibility inquiry too narrow.
+- **Mappings:** 3B.2, 3B.4, 3B.9, 3B.10; 4B.3; 7B.2, 7B.6, 7B.7, 7B.10; 8B.8, 8B.9.
+- **Disposition:** `final_evidence`
+
+## WEB-031 — Immediate administrative measures after Goma
+
+- **Canonical fact key:** `https://www.radiookapi.net/2023/09/05/actualite/securite/repression-militaire-du-30-aout-le-gouverneur-constant-ndima-rappele|4 September commission measures|recall suspensions and victim support`
+- **Title:** *Répression militaire du 30 août : le gouverneur Constant Ndima rappelé*
+- **Publisher/date:** Radio Okapi, 5 September 2023
+- **Factual claim:** An interministerial commission recalled military governor Constant Ndima, suspended and recalled two senior police officers, committed government support for funerals and medical care, released one civic activist, and invited victim families to submit evidence.
+- **Locator:** Opening and bullet list of measures.
+- **Source type/confidence:** UN-supported local media reporting an official communiqué; **medium-high**; final evidence for formal measures.
+- **Period fit:** Direct 2023.
+- **Attribution:** Administration-level response following Tshisekedi’s explicit instruction in WEB-030; the source does not prove that he individually selected each measure.
+- **Contrary/mitigating:** Closing unregistered churches raises a separate freedom-of-religion concern; later inquiry remained narrow.
+- **Mappings:** 3B.2, 3B.4, 3B.7, 3B.9, 3B.10; 4B.3, 4B.4; 7B.2, 7B.6, 7B.7; 8B.5, 8B.8, 8B.9.
+- **Disposition:** `final_evidence`
+
+## WEB-032 — Command nexus and limits of Goma accountability
+
+- **Canonical fact key:** `https://www.crisisgroup.org/fr/qna/africa/great-lakes/democratic-republic-congo/massacre-goma-clouds-dr-congos-elections-and-un|presidential response and direct-command discussion|Goma`
+- **Title:** *Le massacre de Goma assombrit la perspective des élections en RD Congo et l’avenir de la mission de l’ONU*
+- **Publisher/date:** International Crisis Group, 15 September 2023
+- **Factual claim:** Crisis Group reported that Tshisekedi demanded clarification on September 1, senior officers were arrested, and the military governor was recalled. It emphasized that the Republican Guard was directly under Tshisekedi’s authority and questioned how such a large deployment could occur without superior oversight, while noting the rapid military trial as a positive step.
+- **Locator:** Paragraphs beginning “Kinshasa a pris conscience,” “Les événements du 30 août,” and final recommendations.
+- **Source type/confidence:** Conflict-analysis NGO; **medium-high** by analogy; final evidence.
+- **Period fit:** Direct contemporary 2023 analysis.
+- **Attribution:** Strengthens formal-authority attribution but does **not** establish that Tshisekedi ordered or knew of the operation beforehand.
+- **Contrary/mitigating:** He opposed provincial attempts to justify the killings, demanded investigation, and initiated a fast response; political self-protection is presented as an analytical possibility, not a proven motive.
+- **Mappings:** 3B.1–3B.5, 3B.8–3B.10; 4B.3, 4B.5; 7B.2, 7B.6, 7B.7, 7B.10; 8B.5, 8B.8, 8B.9.
+- **Disposition:** `final_evidence`
+- **Disposition change:** This source was rejected in the initial pass because Fetch returned 403; it opened successfully in round 1 and is now final evidence.
+
+## WEB-033 — Later review found no full command inquiry or victim compensation
+
+- **Canonical fact key:** `https://www.hrw.org/fr/news/2024/08/30/rd-congo-peu-de-justice-pour-les-victimes-du-massacre-de-goma|accountability findings|limited investigation and no compensation`
+- **Title:** *RD Congo : Peu de justice pour les victimes du massacre de Goma*
+- **Publisher/date:** Human Rights Watch, 30 August 2024
+- **Factual claim:** Four soldiers were convicted, including Colonel Mike Mikombe, but investigators did not examine senior command responsibility, allegations of soldiers finishing wounded people, or the burning of the temple; no victim compensation had been paid a year later.
+- **Locator:** Opening, sections describing the trial, and paragraph beginning “Le dossier à charge.”
+- **Source type/confidence:** NGO with video verification and witness interviews; **medium-high**; final evidence.
+- **Period fit:** Retrospective evidence about the 2023 event and remedy.
+- **Attribution:** Establishes remedy limits at government level; it does not prove Tshisekedi personally blocked the broader inquiry.
+- **Contrary/mitigating:** Convictions occurred promptly; death sentences imposed on protest-group defendants were commuted to life imprisonment.
+- **Mappings:** 3B.2, 3B.4, 3B.9, 3B.10; 4B.4; 7B.2, 7B.6, 7B.7; 8B.8.
+- **Disposition:** `final_evidence`
+
+## WEB-034 — Direct presidential role in disputed CENI appointment chain
+
+- **Canonical fact key:** `https://www.voaafrique.com/a/kinshasa-le-pr%C3%A9sident-tshisekedi-confirme-denis-kadima-%C3%A0-la-t%C3%AAte-de-la-commission-%C3%A9lectorale-de-la-rdc-/6282064.html|appointment procedure|Kadima confirmation`
+- **Title:** *Félix Tshisekedi confirme Denis Kadima à la tête de la CENI*
+- **Publisher/date:** VOA Afrique, 22 October 2021
+- **Factual claim:** Tshisekedi signed the decree confirming Denis Kadima as CENI chair after six of eight religious groups proposed him and the National Assembly approved him, despite opposition from the Catholic and main Protestant churches, which alleged pro-Tshisekedi bias.
+- **Locator:** Full article, especially first six paragraphs.
+- **Supporting excerpt:** “J’ai décidé de signer l’ordonnance désignant les membres du nouveau bureau de la Ceni.”
+- **Source type/confidence:** International public-service media; **medium-high**; final evidence.
+- **Period fit:** Pre-period institutional appointment directly shaping the 2023 election; baseline/attribution context rather than target-year action.
+- **Attribution:** Direct formal presidential appointment; the selection chain also involved religious bodies and parliament.
+- **Contrary/mitigating:** Kadima was an experienced election expert, and Tshisekedi publicly instructed CENI to organize free, transparent, timely elections. Allegations of closeness or corruption were disputed concerns, not adjudicated facts.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.10; 7B.5, 7B.6, 7B.9; 8B.2, 8B.4, 8B.9.
+- **Disposition:** `final_evidence`
+
+## WEB-035 — CENI appointment generated an independence and confidence crisis
+
+- **Canonical fact key:** `https://www.dw.com/fr/rdc-c%C3%A9ni-kadima/a-59633340|appointment controversy|CENI independence concern`
+- **Title:** *RDC : les membres de la Céni ont prêté serment*
+- **Publisher/date:** Deutsche Welle, 26 October 2021
+- **Factual claim:** Catholic and Protestant churches disputed Kadima’s independence after Tshisekedi signed the appointment decree; civil-society and analyst interviews warned that the lack of consensus undermined confidence before the 2023 cycle.
+- **Locator:** Opening through “Un processus biaisé.”
+- **Source type/confidence:** International public-service media; **medium-high**; final/context evidence.
+- **Period fit:** Pre-period institutional baseline relevant to the 2023 process.
+- **Attribution:** Confirms direct formal action but not actual manipulation or personal control of CENI.
+- **Contrary/mitigating:** Concerns were predictions and perceptions at appointment time.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.10; 7B.5, 7B.6; 8B.4, 8B.9.
+- **Disposition:** `context`
+
+## WEB-036 — Domestic observers found a clear presidential leader but localized integrity problems
+
+- **Canonical fact key:** `https://www.radiookapi.net/2023/12/28/emissions/dialogue-entre-congolais/elections-2023-la-moe-cenco-ecc-publie-son-rapport|preliminary observation findings|clear leader and irregularities`
+- **Title:** *Élections 2023 : la MOE CENCO-ECC publie son rapport préliminaire*
+- **Publisher/date:** Radio Okapi, 28 December 2023
+- **Factual claim:** The Catholic-Protestant observer mission reported that one presidential candidate clearly led with more than half the votes, while multiple irregularities could compromise integrity in affected places. It urged CENI to base provisional results on complete local compilation-center tabulations under election-law article 71.
+- **Locator:** Opening four paragraphs.
+- **Source type/confidence:** UN-supported local media accurately summarizing a large domestic observer mission; **medium-high**; final evidence.
+- **Period fit:** Direct target-year observation.
+- **Attribution:** Does not identify the leading candidate in the passage and does not attribute irregularities personally to Tshisekedi.
+- **Contrary/mitigating:** The finding of a clear majority leader is significant contrary evidence to claims that irregularities alone necessarily reversed the presidential outcome.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.10; 7B.6; 8B.7, 8B.9.
+- **Disposition:** `final_evidence`
+
+## WEB-037 — Domestic final report identified persistent irregularities and weak enforcement
+
+- **Canonical fact key:** `https://www.vaticannews.va/fr/eglise/news/2024-06/rdc-publication-du-rapport-final-du-cycle-electoral-2019-2023.html|final CENCO-ECC findings|campaign and enforcement`
+- **Title:** *RDC : publication du Rapport Final du cycle électoral 2019-2023*
+- **Publisher/date:** Vatican News summarizing MOE CENCO-ECC, 19 June 2024
+- **Factual claim:** CENCO-ECC found a tense campaign, premature campaigning by some candidates, propaganda left in place after legal deadlines without CSAC sanctions, direct and indirect election irregularities, and no appeal from Constitutional Court election judgments.
+- **Locator:** Sections “Un climat électoral tendu” and “Le plaidoyer.”
+- **Source type/confidence:** Reputable institutional media summarizing a domestic observer report; **medium-high**; final evidence.
+- **Period fit:** Retrospective direct assessment of the 2019–23 cycle.
+- **Attribution:** Institutional and candidate-level, not direct proof of presidential direction.
+- **Contrary/mitigating:** CENI’s vice-president called the report partial/biased and pointed to digital engagement and a transparency center.
+- **Mappings:** 4B.1–4B.4, 4B.6, 4B.8, 4B.10; 7B.6, 7B.8, 7B.9; 8B.5, 8B.7, 8B.9.
+- **Disposition:** `final_evidence`
+
+## WEB-038 — EU observer restriction remained technically ambiguous
+
+- **Canonical fact key:** `https://www.africanews.com/amp/2023/11/29/drc-elections-eu-cancels-election-observation-mission-due-to-technical-issues/|EU statement|technical and security constraints`
+- **Title:** *DRC Elections: EU Cancels Election Observation Mission Due to Technical Issues*
+- **Publisher/date:** Africanews, 29 November 2023
+- **Factual claim:** The EU cancelled its nationwide mission because observers could not deploy for security reasons and essential communications equipment was unavailable due to technical constraints outside EU control; the EU explored maintaining a Kinshasa expert mission.
+- **Locator:** First seven paragraphs.
+- **Source type/confidence:** Reputable regional media quoting the EU diplomatic service; **medium-high**; final evidence.
+- **Period fit:** Direct 2023.
+- **Attribution:** Does not establish that Tshisekedi or his administration deliberately obstructed observers. It narrows the prior claim to a technically ambiguous failure.
+- **Contrary/mitigating:** Security conditions were independently severe; some expert observation remained possible.
+- **Mappings:** 4B.1, 4B.2, 4B.10; 7B.6; 8B.5, 8B.9.
+- **Disposition:** `final_evidence`
+- **Effect on earlier item:** WEB-009 should retain its factual account but explicitly incorporate WEB-038 as contrary evidence against inferring a deliberate “hidden agenda.”
+
+## WEB-039 — PDL-145T execution was 14.5% by August 2023
+
+- **Canonical fact key:** `https://www.mediacongo.net/publireportage-reportage-130927_pdl_145t_crefdl_appelle_l_igf_la_cour_des_compte_et_l_autorite_de_regulation_des_marches_publics_a_auditer_sur_l_utilisation_des_fonds_affectes_rappor.html|CREFDL December report|311 of 2143 infrastructure units`
+- **Title:** *PDL-145T : CREFDL appelle l’IGF, la Cour des comptes et l’ARMP à auditer les fonds*
+- **Publisher/date:** MediaCongo reporting CREFDL, 18 December 2023
+- **Factual claim:** CREFDL’s May–August citizen audit reported 311 of 2,143 planned first-phase infrastructure units delivered by the end of August—a 14.5% execution rate—18 months after government disbursement.
+- **Locator:** Paragraph beginning “sur un total de 2.143 infrastructures.”
+- **Source type/confidence:** Local media reproducing named public-finance civil-society findings; **medium**; final evidence, corroborated by WEB-040.
+- **Period fit:** Direct target-year implementation.
+- **Attribution:** Flagship presidential program executed by UNDP, CFEF, and BCeCo with government financing; low execution is not solely presidential.
+- **Contrary/mitigating:** Agencies projected that 1,523 units could be delivered by April 2024; this was a forecast, not a 2023 result.
+- **Mappings:** 5B.6, 5B.7, 5B.8, 5B.10; 6B.2–6B.5, 6B.9, 6B.10; 8B.2, 8B.5–8B.8, 8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-040 — PDL-145T financial-control and coordination failures
+
+- **Canonical fact key:** `https://www.mediacongo.net/publireportage-reportage-130927_pdl_145t_crefdl_appelle_l_igf_la_cour_des_compte_et_l_autorite_de_regulation_des_marches_publics_a_auditer_sur_l_utilisation_des_fonds_affectes_rappor.html|CREFDL financial findings|exception procedures and untraced funds`
+- **Factual claim:** CREFDL reported exceptional procedures used to disburse $672.4 million, $162 million earmarked for rural electrification not traced with no project executed, agricultural-road works not begun for lack of financing, and nonfunctioning provincial/territorial monitoring committees despite $34.24 million allocated for monitoring.
+- **Locator:** Paragraphs following “Cette attitude du Ministère des Finances” and “Défaut de suivi.”
+- **Source type/confidence:** Local media reproducing named civil-society audit findings; **medium**; final evidence.
+- **Period fit:** Direct 2023.
+- **Attribution:** Government finance and program coordination nexus; does not establish personal diversion or Tshisekedi’s knowledge.
+- **Contrary/mitigating:** CREFDL still described the program as a potentially valuable route to basic services.
+- **Mappings:** 5B.3, 5B.5–5B.7, 5B.9, 5B.10; 6B.4, 6B.5, 6B.9; 7B.5–7B.7, 7B.9; 8B.2, 8B.5–8B.8, 8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-041 — Independent corroboration of PDL-145T delivery count
+
+- **Canonical fact key:** `https://www.congo-press.com/economie/pdl-145t-sur-2-143-infrastructures-attendues-les-agences-dexecution-ont-livre-au-gouvernement-un-total-de-311-soit-un-taux-dexecution-de-145-a-fin-aout-2023-crefdl/|CREFDL findings|execution and exceptional procedures`
+- **Title:** *PDL-145T : 311 infrastructures livrées, soit 14,5%*
+- **Publisher/date:** Congo Press, 19 December 2023
+- **Factual claim:** Separately reported the same CREFDL findings: 311 of 2,143 structures delivered, 14.5% execution, exceptional procedures for $672.4 million, and an untraced $162 million rural-electrification allocation.
+- **Locator:** Full short article.
+- **Source type/confidence:** Local media; **medium-low** as a duplicate report; context/corroboration only.
+- **Period fit:** Direct 2023.
+- **Attribution:** Same limits as WEB-039/040.
+- **Mappings:** 5B.5–5B.7, 5B.10; 6B.2, 6B.9; 7B.6; 8B.5–8B.8.
+- **Disposition:** `context`
+- **Source concentration warning:** This is not an independent underlying audit family; both reports derive from CREFDL.
+
+## WEB-042 — 2023 diversification and jobs constraints
+
+- **Canonical fact key:** `https://openknowledge.worldbank.org/entities/publication/a07ce227-6995-5fbe-af65-0854e71add3b|DRC CEM metadata summary|business environment and diversification`
+- **Title:** *DRC Country Economic Memorandum: Pathways to Economic Diversification and Regional Trade Integration*
+- **Publisher/date:** World Bank, 26 October 2023
+- **Factual claim:** World Bank identified business-regulation, electricity, digital access, finance, taxation, fiscal decentralization, and value-chain constraints as impediments to private-sector growth, SME expansion, diversification, and job creation.
+- **Locator:** Metadata summary for “Democratic Republic of the Congo Country Economic Memorandum.”
+- **Source type/confidence:** Intergovernmental; **high** for assessment; final evidence.
+- **Period fit:** Direct 2023 structural assessment.
+- **Attribution:** Primarily inherited and institutional conditions; the recommended policy agenda overlaps Tshisekedi’s reform program but does not measure his personal contribution.
+- **Contrary/mitigating:** The report also describes substantial mining and agribusiness opportunities.
+- **Mappings:** 5B.1, 5B.4, 5B.6, 5B.8, 5B.10; 8B.1, 8B.7, 8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-043 — Poverty data quality gap and high estimated poverty
+
+- **Canonical fact key:** `https://datacatalogfiles.worldbank.org/ddh-published/0064942/9/DR0092393/Global_POVEQ_COD.PDF|2023 poverty estimate|74.5 percent`
+- **Title:** *Poverty & Equity Brief — Democratic Republic of Congo*
+- **Publisher/date:** World Bank, publication date not recovered
+- **Factual claim:** Search discovery identified a World Bank brief estimating 2023 poverty at 74.5%, down 4.5 percentage points, but the underlying PDF was blocked by robots/401 and no page or table could be inspected.
+- **Locator:** Underlying PDF unavailable.
+- **Source type/confidence:** Intergovernmental gateway; otherwise high if opened.
+- **Period fit:** Purported direct 2023 estimate.
+- **Attribution:** Outcome estimate only.
+- **Mappings:** Potential 5B.8, 5B.10 and 6B.2, 6B.10.
+- **Disposition:** `discovery_only`
+- **Reason:** `underlying_source_missing_precise_page_and_methodology`
+
+## WEB-044 — Social safety-net delivery through end-2022
+
+- **Canonical fact key:** `https://www.worldbank.org/en/results/2023/02/10/providing-safety-nets-for-the-most-vulnerable-in-the-democratic-republic-of-congo-incremental-steps-with-a-large-footpri|Results|STEP delivery through December 2022`
+- **Title:** *Providing Safety Nets for the Most Vulnerable in DRC*
+- **Publisher/date:** World Bank, 10 February 2023
+- **Factual claim:** STEP delivered cash transfers, cash-for-work, and related support to 530,000 beneficiaries through December 2022, disbursing more than $93 million; investments in 1,166 vulnerable communities benefited 5.8 million people. Implementation involved DRC’s Social Fund, Social Affairs Ministry, UN agencies, and donors.
+- **Locator:** “Results,” “Partners,” and “Looking Ahead.”
+- **Source type/confidence:** Intergovernmental; **high** for program outputs; final/context evidence.
+- **Period fit:** Published in 2023 but outputs end in 2022; inherited ruler-period context, not a 2023 outcome.
+- **Attribution:** Shared heavily among government technical agencies, World Bank financing, and international partners. It does not establish Tshisekedi’s personal direction.
+- **Contrary/mitigating:** The system remained donor-funded and was still seeking transition toward a government/multi-donor national safety net.
+- **Mappings:** 5B.6, 5B.8, 5B.10; 6B.2–6B.5, 6B.6, 6B.9, 6B.10; 8B.3, 8B.6, 8B.7, 8B.10.
+- **Disposition:** `context`
+
+## WEB-045 — Direct Tshisekedi launch of maternity coverage
+
+- **Canonical fact key:** `https://www.rfi.fr/fr/afrique/20230906-rdc-les-accouchements-gratuits-avanc%C3%A9e-vers-une-couverture-sant%C3%A9-universelle|6 September launch|presidential maternity program`
+- **Title:** *RDC : les accouchements gratuits, avancée vers une couverture santé universelle*
+- **Publisher/date:** RFI, 6 September 2023
+- **Factual claim:** Tshisekedi personally launched free childbirth and 28-day newborn care, called universal coverage a government priority, credited UN support, and health officials reported $42 million already invested with $200 million planned for 2024.
+- **Locator:** Full short article.
+- **Source type/confidence:** International public-service media; **medium-high**; final evidence.
+- **Period fit:** Direct 2023.
+- **Attribution:** Strong direct ruler-program attribution for launch and stated priority; financing and implementation remained shared.
+- **Contrary/mitigating:** This launch evidence says nothing by itself about uptake, quality, reimbursement, or mortality outcomes.
+- **Mappings:** 5B.1, 5B.6, 5B.8, 5B.9; 6B.1–6B.4, 6B.8–6B.10; 8B.1, 8B.2, 8B.6.
+- **Disposition:** `final_evidence`
+
+## WEB-046 — Early maternity-care beneficiaries and implementation defects
+
+- **Canonical fact key:** `https://www.lemonde.fr/afrique/article/2024/05/20/en-rdc-les-debuts-difficiles-de-la-couverture-sante-universelle_6234450_3212.html|early implementation|beneficiary access reimbursement and correction`
+- **Title:** *En RDC, les débuts difficiles de la couverture santé universelle*
+- **Publisher/date:** Le Monde, 20 May 2024
+- **Factual claim:** Women interviewed at a Kinshasa hospital reported childbirth without payment under the program. However, facilities reported the state paid only one-third to one-half of submitted costs and paid late; unions cited inadequate consultation, budget, and covered services. The presidentially attached UHC council said it conducted a three-month inspection to correct problems.
+- **Locator:** Opening beneficiary account; sections “Tâche immense” and “Fiasco annoncé.”
+- **Source type/confidence:** Major reputable media with on-site reporting; **medium-high**; final evidence.
+- **Period fit:** Early 2024 evidence directly evaluating implementation of a September 2023 program; retrospective/contextual and must not be mistaken for a 2023 outcome.
+- **Attribution:** The UHC council was attached directly to the presidency, strengthening organizational attribution. Operational problems involved the health ministry, solidarity fund, and facilities.
+- **Contrary/mitigating:** Confirms real free-care delivery to some beneficiaries and an inspection/correction response.
+- **Mappings:** 5B.6, 5B.7, 5B.9, 5B.10; 6B.2, 6B.4–6B.6, 6B.8–6B.10; 8B.2, 8B.5–8B.8, 8B.10.
+- **Disposition:** `final_evidence`
+
+## WEB-047 — Direct presidential disability-law implementation call
+
+- **Canonical fact key:** `https://www.radiookapi.net/2023/11/05/actualite/societe/rdc-felix-tshisekedi-appelle-la-mise-en-oeuvre-de-la-loi-portant|4 November|disability law implementation`
+- **Title:** *RDC : Félix Tshisekedi appelle à la mise en œuvre de la loi portant protection des personnes vivant avec handicap*
+- **Publisher/date:** Radio Okapi, 4–5 November 2023
+- **Factual claim:** Tshisekedi launched a campaign publicizing the 2022 disability-rights law and the first Congolese sign-language dictionary, personally called on public and private actors to implement the law, acknowledged sector-governance challenges, and linked the action to national inclusion strategies.
+- **Locator:** Full article.
+- **Source type/confidence:** UN-supported local media; **medium-high**; final evidence for acts and speech.
+- **Period fit:** Direct 2023.
+- **Attribution:** Direct ruler-attributed act.
+- **Contrary/mitigating:** This is implementation advocacy and institutional design, not evidence of improved access, enforcement, or outcomes.
+- **Mappings:** 4B.7; 6B.1, 6B.3–6B.5, 6B.8, 6B.9; 8B.1, 8B.2, 8B.6.
+- **Disposition:** `final_evidence`
+
+## WEB-048 — Disability institutional architecture and UN partnership
+
+- **Canonical fact key:** `https://www.primature.gouv.cd/2023/09/26/promotion-et-protection-des-droits-des-personnes-vivant-avec-handicap-le-premier-ministre-jean-michel-sama-lukonde-lance-le-projet-conjoint-du-partenariat-des-nations-unies/|26 September launch|ministry policy strategy and UNPRPD`
+- **Title:** *Promotion et protection des droits des personnes vivant avec handicap*
+- **Publisher/date:** DRC Prime Minister’s Office, 26 September 2023
+- **Factual claim:** The prime minister, acting in Tshisekedi’s name, launched a UN disability-rights partnership and validated a national policy and empowerment/inclusion strategy. The government attributed creation of a dedicated disability ministry and the inclusion agenda to Tshisekedi.
+- **Locator:** Opening and quoted speech.
+- **Source type/confidence:** Official government source; **medium-high** for formal acts and documents, **medium-low** for self-assessment; context/final evidence for institutional facts.
+- **Period fit:** Direct 2023.
+- **Attribution:** Formal program attribution to Tshisekedi, but the source is self-serving regarding significance and effectiveness.
+- **Contrary/mitigating:** No independent implementation or outcome evidence; program depended on multiple UN agencies.
+- **Mappings:** 4B.7; 6B.3–6B.5, 6B.8, 6B.9; 8B.1–8B.4, 8B.6.
+- **Disposition:** `context`
+
+## WEB-049 — Judicial and procurement environment remained weak
+
+- **Canonical fact key:** `https://www.gov.uk/government/publications/overseas-business-risk-for-drc/overseas-business-risk-for-drc|organized crime and politics sections|judiciary patronage procurement context`
+- **Title:** *Overseas Business Risk for DRC*
+- **Publisher/date:** UK Government, 13 October 2023
+- **Factual claim:** The 2023 assessment described underfinanced and inaccessible courts, poor law enforcement, pervasive patronage networks, weak implementation of anti-corruption frameworks, corruption in public procurement, and electoral-bias concerns.
+- **Locator:** Sections “Politics” and “Organised crime”; corruption subsection was included on the page but partly outside the fetched excerpt.
+- **Source type/confidence:** Foreign-government country assessment; **medium-high** for institutional risk; final/context evidence.
+- **Period fit:** Direct 2023.
+- **Attribution:** Country and administration environment only; not proof of personal misconduct by Tshisekedi.
+- **Contrary/mitigating:** It notes anti-corruption frameworks and tighter extractive-industry regulation, though implementation was weak.
+- **Mappings:** 4B.2, 4B.4, 4B.10; 5B.4, 5B.5; 7B.3, 7B.5–7B.7, 7B.9, 7B.10; 8B.5, 8B.7.
+- **Disposition:** `context`
+
+## WEB-050 — Cabinet reshuffle served electoral coalition and security strategy
+
+- **Canonical fact key:** `https://www.aljazeera.com/news/2023/3/24/congo-president-tshisekedi-brings-in-former-vp-bemba-in-reshuffle-ahead-of-election|24 March reshuffle|Bemba Kamerhe Mbusa appointments`
+- **Title:** *DRC’s President Tshisekedi Reshuffles Cabinet Ahead of Election*
+- **Publisher/date:** Al Jazeera, 24 March 2023
+- **Factual claim:** Search discovery reported that Tshisekedi appointed Jean-Pierre Bemba as defence minister and brought Vital Kamerhe and Antipas Mbusa Nyamwisi into senior roles before the election.
+- **Locator:** Underlying page could not be fetched.
+- **Source type/confidence:** Reputable media if opened; currently gateway-only.
+- **Period fit:** Direct 2023.
+- **Attribution:** Direct appointment authority.
+- **Mappings:** Potential 2B.3, 2B.5; 5B.2; 7B.5, 7B.9; 8B.3–8B.5, 8B.9.
+- **Disposition:** `discovery_only`
+- **Reason:** `underlying_source_unavailable_connection_failure`
+- **Research gap:** A precise opened source is still needed before using the reshuffle as evidence of competence, coalition management, patronage, or security direction.
+
+---
+
+# New rejected or disposition-changed candidates
+
+These entries should be added to the manifest even though they are not retained as evidence.
+
+1. **UN Group of Experts S/2024/432**
+   - URL: `https://digitallibrary.un.org/record/4053693/files/S_2024_432-EN.pdf`
+   - Candidate claim: FARDC soldiers supported Wazalendo in a November 7, 2023 counteroffensive.
+   - **Disposition:** `rejected`
+   - **Reason:** PDF returned only as raw bytes; exact page/paragraph could not be extracted. Search snippet is not a defensible locator.
+   - **Gap impact:** Primary UN confirmation of government-proxy operations remains recoverable but unresolved.
+
+2. **UN Group of Experts N23/364/37**
+   - URL: `https://documents.un.org/doc/undoc/gen/n23/364/37/pdf/n2336437.pdf`
+   - **Disposition:** `rejected`
+   - **Reason:** robots.txt blocked the document. HRW and Crisis Group could cite it, but this worker did not independently inspect it.
+
+3. **CENCO-ECC 116-page final report**
+   - URL: `https://cejprdc.org/wp-content/uploads/2024/06/RAPPORT-FINAL-DOBSERVATION-ELECTORALE-EN-RDC-20192023-1.pdf`
+   - **Disposition:** `discovery_only`
+   - **Reason:** PDF opened only as raw bytes; exact pages were unavailable. Vatican News and Radio Okapi summaries were retained instead.
+
+4. **AU preliminary election statement**
+   - URL: `https://www.peaceau.org/uploads/preliminary-statement-drc-2023-general-election.pdf`
+   - **Disposition:** `rejected`
+   - **Reason:** image-based/raw PDF with no readable text or page-level extraction.
+
+5. **CENCO-ECC preliminary declaration PDF**
+   - URL: `https://cencordc.org/attachments/article/416/VF_D%C3%A9claration_MOE_CENCO-ECC_2023.pdf`
+   - **Disposition:** `rejected`
+   - **Reason:** raw PDF stream; Radio Okapi supplied a usable summary.
+
+6. **US State Department 2023 Human Rights Report**
+   - URL: `https://www.state.gov/wp-content/uploads/2024/02/528267_CONGO-DEM-REP-2023-HUMAN-RIGHTS-REPORT.pdf`
+   - **Disposition:** `discovery_only`
+   - **Reason:** Fetch returned a malformed/image-heavy stream, and local text extraction failed. Search discovery identified relevant judicial-independence language, but no exact page could be verified.
+   - **Gap impact:** National torture, detention, and judicial-independence detail remains under-improved.
+
+7. **IMF Country Report 2024/226 and executive-board release**
+   - URLs:
+     - `https://www.imf.org/-/media/files/publications/cr/2024/english/1codea2024001-print-pdf.pdf`
+     - `https://www.imf.org/en/news/articles/2024/07/03/pr24253-drc-imf-exec-board-concludes-2024-art-iv-consult-completes-6th-rev-ecf-arr`
+   - **Disposition:** `discovery_only`
+   - **Reason:** PDF opened only as raw bytes; HTML returned 403. Search results identify 8.4% growth and 23.8% year-end inflation, but no exact report page/table was extracted.
+   - **Gap impact:** The named IMF macroeconomic gap remains unresolved as defensible ledger evidence.
+
+8. **World Bank poverty brief**
+   - URL: `https://datacatalogfiles.worldbank.org/ddh-published/0064942/9/DR0092393/Global_POVEQ_COD.PDF`
+   - **Disposition:** `discovery_only`
+   - **Reason:** robots/401 blocked the PDF; 74.5% poverty estimate lacks a verified page and methodology.
+
+9. **Tsieleka report on IGF audit launch**
+   - URL: `https://www.tsieleka.com/2023/06/07/rdc-ligf-lance-une-vaste-mission-de-controle-du-pdl-145t/`
+   - **Disposition:** `rejected`
+   - **Reason:** robots retrieval connection failure.
+
+10. **2025 Belgian complaints against Tshisekedi family**
+    - **Disposition remains:** `rejected`
+    - **Reason:** post-period, allegations, and insufficient evidence that they establish 2023 personal conduct.
+
+11. **Personal asset-declaration searches**
+    - **Disposition:** `rejected/no usable candidate`
+    - **Reason:** Searches found 2019 procedural reporting and 2025 minister declarations, but no verifiable public 2023 Tshisekedi asset declaration or beneficial-ownership record.
+    - **Important:** Absence of a located declaration is not evidence of nondisclosure or illicit wealth.
+
+12. **Specific false-statement/correction searches**
+    - **Disposition:** `rejected/no usable candidate`
+    - **Reason:** No target-period, well-documented personal false statement and correction was located. Viral election misinformation concerned CENI and social-media claims rather than a verified Tshisekedi statement.
+
+---
+
+# Chapter continuation results
+
+## 2B — International peace and security
+
+### New yield
+
+Relevant new items: WEB-027, WEB-029, WEB-032, plus unresolved UN lead on FARDC/Wazalendo.
+
+### Improvements
+
+- **Presidential authority:** WEB-029 directly establishes that Tshisekedi created the military-governance system and appointed its authorities. This materially improves the prior administration-only attribution.
+- **Corrective action:** WEB-027 directly establishes his October decision to ease that system.
+- **Contrary evidence:** WEB-032 preserves his rapid response to Goma and the defensive-security context.
+- **Proxy lead:** The UN Group of Experts search lead specifically identifies FARDC support to Wazalendo in November 2023, but the underlying page could not be extracted and therefore remains excluded.
+
+### Gaps not improved sufficiently
+
+- Operational orders and international-humanitarian-law rules of engagement.
+- Evidence that Tshisekedi knew of particular Wazalendo abuses before continuing support.
+- Procurement, military patronage, and purpose of spending.
+- Primary AU/UN ceasefire chronology at document-page precision.
+- Accuracy of his public claims about Rwanda, M23, and internal destabilization.
+
+### Saturation assessment
+
+The attribution picture improved around the state of siege and Goma response, but the proxy-control and international-diplomacy gaps remain open. Additional research would need accessible UN Group of Experts pages, AU communiqués, military directives, or parliamentary procurement records—not more generic conflict reporting.
+
+---
+
+## 3B — Domestic safety
+
+### New yield
+
+WEB-027–WEB-033 add seven source-claim units, including direct presidential acts and a command-authority assessment.
+
+### Improvements
+
+- **Notification:** WEB-030 proves Tshisekedi was informed by September 1 and personally ordered a report and sanctions.
+- **Administrative response:** WEB-031 identifies recalls, suspensions, victim support, and release of an activist.
+- **Command attribution:** WEB-032 establishes that the Republican Guard was formally under his direct authority while carefully withholding any claim that he ordered the killings.
+- **Remedy limits:** WEB-033 shows that the inquiry stopped below senior-command responsibility and compensation did not materialize.
+- **State-of-siege correction:** WEB-027 and WEB-028 provide direct action plus independent evaluation of its limited novelty.
+- **National emergency-power responsibility:** WEB-029 establishes presidential creation, appointments, and continued extensions.
+
+### Contrary evidence
+
+- Tshisekedi rejected early justifications, demanded clarification, and enabled rapid prosecutions.
+- Four soldiers were convicted.
+- Restrictions were partially eased in October.
+- A police officer was killed by protest-group members.
+
+### Remaining gaps
+
+- Accessible primary BCNUDH incident tables.
+- National torture and prison-condition data with exact pages.
+- Whether Tshisekedi followed up after learning that the command investigation was narrow.
+- Independent measurement of real-world effects after October easing.
+- Direct ruler-specific protection of women, children, displaced people, and minorities outside program design.
+
+### Saturation assessment
+
+The reviewer’s most important 3B attribution gap was materially improved. Further work would chiefly refine national prevalence and post-remedy follow-through rather than the Goma/state-of-siege causal chain.
+
+---
+
+## 4B — Political freedom
+
+### New yield
+
+WEB-034–WEB-038 add appointment-chain, domestic-observer, and observer-restriction evidence.
+
+### Improvements
+
+- **CENI chain:** WEB-034 directly proves Tshisekedi signed Kadima’s appointment after the statutory religious/parliamentary chain and despite major church objections.
+- **Attribution limit:** Formal appointment is established; actual control or manipulation remains unproved.
+- **Domestic observers:** WEB-036 and WEB-037 add CENCO-ECC findings, including a clear presidential leader alongside irregularities and enforcement failures.
+- **Observer equipment:** WEB-038 supports technical/security ambiguity and cautions against treating the EU mission failure as proven deliberate obstruction.
+- **Judicial independence:** WEB-037 establishes lack of appeal from Constitutional Court election judgments but does not establish broader judicial independence.
+
+### Contrary evidence
+
+- Domestic observers found one candidate clearly above 50%.
+- CENI pointed to transparency innovations.
+- EU described the mission failure as technical and security-related.
+- Tshisekedi publicly instructed CENI to organize free and transparent elections.
+
+### Remaining gaps
+
+- Exact public/state media airtime by presidential candidate.
+- Opened CENCO-ECC report pages and AU observer pages.
+- Judicial independence beyond electoral litigation.
+- Direct evidence of presidential pressure on CENI after appointment.
+- The technical decision chain for EU communications equipment.
+
+### Saturation assessment
+
+The most important institutional-attribution and domestic-observer gaps were improved. Personal direction of election failures remains unresolved and should not be inferred from formal appointment power alone.
+
+---
+
+## 5B — Economic well-being
+
+### New yield
+
+WEB-039–WEB-043 and WEB-049 add PDL implementation, diversification, and institutional economic context.
+
+### Improvements
+
+- **PDL-145T:** A contemporaneous CREFDL investigation provides an exact 14.5% delivery rate through August 2023 and specific fiscal/control failures.
+- **Coordination:** Monitoring bodies reportedly did not function despite allocated funds.
+- **Distribution/productivity:** PDL infrastructure intended to provide schools, clinics, administration, roads, water, and electricity, but implementation was far behind schedule.
+- **Diversification/jobs:** World Bank 2023 CEM identifies specific barriers to private-sector development and jobs.
+
+### Named macro gap
+
+The IMF lead was pursued repeatedly. Search discovery and official result listings indicate:
+
+- real GDP growth estimated at 8.4% in 2023;
+- inflation peaking at 23.8% at end-2023.
+
+However, the accessible IMF HTML was 403-blocked, and the report PDF could not be converted into readable pages. These values remain **discovery-only**, not defensible evidence in this notebook.
+
+### Poverty and household outcomes
+
+A World Bank search result indicated a 74.5% estimated poverty rate in 2023 and a projected decline, but the underlying brief was blocked. No reliable 2023 wage, employment, inequality, or regional-distribution series was opened.
+
+### Integrity/capture link
+
+CREFDL alleged untraced and exceptionally disbursed program funds, but no source establishes that Tshisekedi personally benefited, directed diversion, or knew of it.
+
+### Remaining gaps
+
+- Page-level IMF macro data and program-performance findings.
+- Household consumption, real wages, jobs, and inequality.
+- Government or IGF response to CREFDL’s findings.
+- Economic-team appointment and authority chain.
+- Direct evidence of favoritism affecting economic choices.
+
+### Saturation assessment
+
+The flagship-execution gap was materially improved. Macro and household-outcome gaps remain blocked by source accessibility and data limitations.
+
+---
+
+## 6B — Social well-being
+
+### New yield
+
+WEB-044–WEB-048 add social protection, direct maternity attribution, early outcomes/defects, and disability policy.
+
+### Improvements
+
+- **Maternity attribution:** WEB-045 directly links Tshisekedi to program launch and priority-setting.
+- **Implementation/outcome:** WEB-046 confirms some beneficiaries actually received free childbirth care and identifies reimbursement, consultation, budget, and service-package defects plus an inspection response.
+- **Social protection:** WEB-044 gives large, independently reported STEP delivery outputs, though they end in 2022 and are heavily donor-attributed.
+- **Disability:** WEB-047 supplies direct target-year action by Tshisekedi; WEB-048 identifies a dedicated ministry, policy, inclusion strategy, and UN partnership.
+- **Durability:** Both STEP and maternity evidence show significant donor dependence and weak domestic financing/administrative capacity.
+
+### Domains not materially improved
+
+- Housing policy.
+- Water and sanitation outcomes.
+- Nutrition outcomes.
+- Target-year mortality change.
+- Learning and school-completion outcomes.
+- Politicized or discriminatory welfare allocation.
+
+The World Bank’s current country page contains education and health outputs, but they extend into 2023–24 and 2026 and do not isolate the immutable target year. They were not added as target-period evidence.
+
+### Saturation assessment
+
+The chapter is no longer confined solely to education and maternity design: it now includes social protection and disability institutions, plus early maternity delivery. Outcome coverage remains sparse outside those areas.
+
+---
+
+## 7B — Personal integrity
+
+### New yield
+
+Potentially relevant additions: WEB-034, WEB-039–WEB-041, WEB-049. All require strict limits.
+
+### Improvements
+
+- **Appointment conduct:** Tshisekedi knowingly confirmed a contested CENI chair despite major church opposition; this proves a personal appointment decision but not dishonesty or corrupt intent.
+- **PDL controls:** CREFDL documented alleged fiscal-control failures and untraced program funds; this establishes a major scrutiny issue at government level but not personal enrichment.
+- **Institutional environment:** UK assessment confirms pervasive patronage and weak enforcement but remains country context.
+- **Exculpatory absence:** No verified 2023 personal enrichment finding, beneficial-ownership record, or adjudicated personal conflict was found.
+- **False statements:** No defensible specific false-statement/correction episode was found.
+
+### Personal-nexus assessment
+
+The central reviewer concern remains. Round 1 did **not** locate evidence sufficient to transform national corruption or program-control failures into personal misconduct by Tshisekedi.
+
+The strongest direct personal acts now are:
+
+1. the contested CENI appointment;
+2. public security-rights rhetoric from the original pass;
+3. prompt Goma investigation instruction;
+4. partial easing of emergency rule;
+5. direct welfare/disability-program launches.
+
+These reveal choices and response patterns but do not establish personal enrichment, knowing deception, or obstruction for personal benefit.
+
+### Remaining gaps
+
+- 2023 public asset declaration and beneficial ownership.
+- Family/procurement links supported by primary records.
+- Verified truthfulness/correction episodes.
+- Response to IGF/CREFDL findings.
+- Nepotism/clientelism with appointment and benefit documentation.
+- Independent exculpatory scrutiny records.
+
+### Saturation assessment
+
+Targeted English and French searches were performed across assets, family procurement, appointments, audits, whistleblowers, and fact-checking. Results were dominated by post-period allegations or country-level corruption. The personal-nexus gap could not responsibly be improved further in this round.
+
+---
+
+## 8B — Effectiveness
+
+### New yield
+
+WEB-027–WEB-032, WEB-034, WEB-036–WEB-042, and WEB-044–WEB-048 materially expand adaptation, coordination, and execution evidence.
+
+### Improvements by program
+
+#### Security
+
+- Tshisekedi owned the state-of-siege design and appointments.
+- He received evidence of catastrophic failure at Goma and ordered investigation and sanctions.
+- He later eased the regime, but independent analysis found the correction partial, delayed, and without a timetable.
+- This distinguishes actual learning/correction from mere policy substitution more clearly than the original dossier.
+
+#### Election administration
+
+- He formally appointed CENI’s contested chair through a mixed religious/parliamentary process.
+- Elections occurred, and domestic observers found a clear majority leader, but institutional enforcement and procedural irregularities persisted.
+- EU observation failure remains technically ambiguous rather than established deliberate obstruction.
+
+#### PDL-145T
+
+- Exact 2023 implementation evidence now shows only 311 of 2,143 expected units delivered by August.
+- Financial and monitoring mechanisms reportedly performed poorly.
+- This is substantial independent evidence against treating formal program architecture as successful execution.
+
+#### Health
+
+- Tshisekedi personally launched free maternity coverage.
+- Some beneficiaries received free care.
+- Reimbursement, consultation, financing, and covered-service weaknesses emerged.
+- The presidentially attached UHC council performed a correction-oriented inspection.
+
+#### Disability inclusion
+
+- Direct personal advocacy and an institutional implementation package were established.
+- No independent outcome evidence was found.
+
+#### Social protection
+
+- STEP provides evidence of large technical delivery but is mostly donor-funded, multi-actor, and pre-2023 in measured outputs.
+
+### Appointment/coordination gap
+
+The March 2023 cabinet reshuffle is a promising direct appointment lead, but the underlying article could not be opened. No claim about personnel competence, patronage, or coalition effectiveness should be based on its snippet.
+
+### Durability
+
+Post-period evidence was used only where it directly evaluated a target-period program:
+
+- Le Monde’s 2024 maternity investigation is retained as retrospective implementation evidence.
+- PDL agency forecasts for 2024 are not treated as realized outcomes.
+- Later family allegations and 2025–26 achievement pages remain excluded.
+
+### Remaining gaps
+
+- Budget execution across the full program portfolio.
+- Opened IMF outcome tables.
+- Exact cabinet/interagency coordination chains.
+- Independent education learning outcomes.
+- Longer-run durability without silently expanding the period.
+- Primary evidence distinguishing presidential management from ministerial and donor initiative.
+
+### Saturation assessment
+
+The reviewer asked for targeted execution and outcome evidence rather than generic achievements. That was materially achieved for the state of siege, Goma response, PDL-145T, maternity care, CENI appointments, and disability policy. Remaining gaps require inaccessible primary documents or post-period outcomes that cannot be imported wholesale into 2023.
+
+---
+
+# Round-1 manifest accounting
+
+## Add as `final_evidence`
+
+`WEB-027`, `WEB-028`, `WEB-029`, `WEB-030`, `WEB-031`, `WEB-032`, `WEB-033`, `WEB-034`, `WEB-036`, `WEB-037`, `WEB-038`, `WEB-039`, `WEB-040`, `WEB-042`, `WEB-045`, `WEB-046`, `WEB-047`
+
+## Add as `context`
+
+`WEB-035`, `WEB-041`, `WEB-044`, `WEB-048`, `WEB-049`
+
+## Add as `discovery_only`
+
+`WEB-043`, `WEB-050`, UN S/2024/432, CENCO-ECC final PDF, State Department 2023 Human Rights PDF, IMF 2024/226 PDF/release, World Bank poverty brief
+
+## Add as `rejected`
+
+UN N23/364/37 blocked PDF, AU observer image PDF, CENCO-ECC preliminary raw PDF, Tsieleka IGF page, later family allegations, unsuccessful 2023 asset-declaration and false-statement candidates
+
+## Changed disposition
+
+- **International Crisis Group Goma Q&A:** initial `rejected` → `final_evidence` as `WEB-032`.
+- **EU observation inference:** WEB-009 remains final evidence for cancellation, but its narrative must be amended with WEB-038 so the equipment issue is not characterized as proven deliberate obstruction.
+
+---
+
+# Round-1 global self-audit
+
+## Attribution improvements
+
+Direct ruler-attributed evidence now exists for:
+
+- creating and continuing the state of siege;
+- appointing military/police authorities under it;
+- ordering investigation and sanctions after Goma;
+- partially easing emergency rule;
+- formally appointing the contested CENI leadership;
+- launching maternity coverage;
+- calling for disability-law implementation.
+
+## Attribution limits preserved
+
+No evidence established that Tshisekedi:
+
+- ordered the Goma massacre;
+- personally directed CENI irregularities;
+- personally diverted PDL funds;
+- personally profited from office in 2023;
+- knowingly made a specific false statement;
+- knew of particular allied-militia atrocities before enabling further support.
+
+## Strongest new contrary evidence
+
+- Tshisekedi acted promptly after notification of Goma.
+- Soldiers were prosecuted and convicted.
+- Emergency restrictions were partly eased.
+- Domestic observers found a clear presidential leader despite irregularities.
+- EU observation failure had plausible technical/security causes.
+- Maternity care reached at least some intended beneficiaries.
+- PDL-145T remained potentially valuable despite severe execution failures.
+- Disability institutions and policy architecture were created, though outcomes were unproved.
+
+## Source concentration
+
+The round added multiple Radio Okapi items, but each concerns a distinct event or official act. They are one organization, not multiple independent source families. The PDL items share the same CREFDL underlying investigation; WEB-041 is only corroborating publication, not a new source family.
+
+## Overall continuation result
+
+Round 1 materially improved Chapters **3B, 4B, 5B, 6B, and 8B**. It modestly improved **2B** through formal security-policy attribution. It did not solve the core personal-nexus problem in **7B**, despite targeted adverse and exculpatory searches. No score, score range, anchor, or ranking recommendation was produced.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/10/13/actualite/politique/rdc-felix-tshisekedi-decide-dun-allegement-progressif-et-graduel-de|presidential address 12 October|gradual easing",
+      "disposition": "context",
+      "provisional_id": "WEB-027"
+    },
+    {
+      "canonical_fact_key": "https://www.congoresearchgroup.org/fr/2023/10/20/pourquoi-le-president-felix-tshisekedi-a-t-il-annonce-l-allegement-de-letat-de-siege/|analysis of 12 October measures|limited novelty and no timetable",
+      "disposition": "context",
+      "provisional_id": "WEB-028"
+    },
+    {
+      "canonical_fact_key": "https://www.amnesty.org/fr/latest/news/2023/05/drc-authorities-must-lift-state-of-siege-now/|background and findings|presidential authority and extensions",
+      "disposition": "context",
+      "provisional_id": "WEB-029"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/09/02/actualite/securite/tuerie-de-goma-felix-tshisekedi-consterne-exige-la-lumiere-sur-les|1 September cabinet|presidential report and sanctions instruction",
+      "disposition": "context",
+      "provisional_id": "WEB-030"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/09/05/actualite/securite/repression-militaire-du-30-aout-le-gouverneur-constant-ndima-rappele|4 September commission measures|recall suspensions and victim support",
+      "disposition": "context",
+      "provisional_id": "WEB-031"
+    },
+    {
+      "canonical_fact_key": "https://www.crisisgroup.org/fr/qna/africa/great-lakes/democratic-republic-congo/massacre-goma-clouds-dr-congos-elections-and-un|presidential response and direct-command discussion|Goma",
+      "disposition": "context",
+      "provisional_id": "WEB-032"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/fr/news/2024/08/30/rd-congo-peu-de-justice-pour-les-victimes-du-massacre-de-goma|accountability findings|limited investigation and no compensation",
+      "disposition": "context",
+      "provisional_id": "WEB-033"
+    },
+    {
+      "canonical_fact_key": "https://www.voaafrique.com/a/kinshasa-le-pr%C3%A9sident-tshisekedi-confirme-denis-kadima-%C3%A0-la-t%C3%AAte-de-la-commission-%C3%A9lectorale-de-la-rdc-/6282064.html|appointment procedure|Kadima confirmation",
+      "disposition": "context",
+      "provisional_id": "WEB-034"
+    },
+    {
+      "canonical_fact_key": "https://www.dw.com/fr/rdc-c%C3%A9ni-kadima/a-59633340|appointment controversy|CENI independence concern",
+      "disposition": "context",
+      "provisional_id": "WEB-035"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/12/28/emissions/dialogue-entre-congolais/elections-2023-la-moe-cenco-ecc-publie-son-rapport|preliminary observation findings|clear leader and irregularities",
+      "disposition": "context",
+      "provisional_id": "WEB-036"
+    },
+    {
+      "canonical_fact_key": "https://www.vaticannews.va/fr/eglise/news/2024-06/rdc-publication-du-rapport-final-du-cycle-electoral-2019-2023.html|final CENCO-ECC findings|campaign and enforcement",
+      "disposition": "context",
+      "provisional_id": "WEB-037"
+    },
+    {
+      "canonical_fact_key": "https://www.africanews.com/amp/2023/11/29/drc-elections-eu-cancels-election-observation-mission-due-to-technical-issues/|EU statement|technical and security constraints",
+      "disposition": "context",
+      "provisional_id": "WEB-038"
+    },
+    {
+      "canonical_fact_key": "https://www.mediacongo.net/publireportage-reportage-130927_pdl_145t_crefdl_appelle_l_igf_la_cour_des_compte_et_l_autorite_de_regulation_des_marches_publics_a_auditer_sur_l_utilisation_des_fonds_affectes_rappor.html|CREFDL December report|311 of 2143 infrastructure units",
+      "disposition": "context",
+      "provisional_id": "WEB-039"
+    },
+    {
+      "canonical_fact_key": "https://www.mediacongo.net/publireportage-reportage-130927_pdl_145t_crefdl_appelle_l_igf_la_cour_des_compte_et_l_autorite_de_regulation_des_marches_publics_a_auditer_sur_l_utilisation_des_fonds_affectes_rappor.html|CREFDL financial findings|exception procedures and untraced funds",
+      "disposition": "context",
+      "provisional_id": "WEB-040"
+    },
+    {
+      "canonical_fact_key": "https://www.congo-press.com/economie/pdl-145t-sur-2-143-infrastructures-attendues-les-agences-dexecution-ont-livre-au-gouvernement-un-total-de-311-soit-un-taux-dexecution-de-145-a-fin-aout-2023-crefdl/|CREFDL findings|execution and exceptional procedures",
+      "disposition": "context",
+      "provisional_id": "WEB-041"
+    },
+    {
+      "canonical_fact_key": "https://openknowledge.worldbank.org/entities/publication/a07ce227-6995-5fbe-af65-0854e71add3b|DRC CEM metadata summary|business environment and diversification",
+      "disposition": "context",
+      "provisional_id": "WEB-042"
+    },
+    {
+      "canonical_fact_key": "https://datacatalogfiles.worldbank.org/ddh-published/0064942/9/DR0092393/Global_POVEQ_COD.PDF|2023 poverty estimate|74.5 percent",
+      "disposition": "context",
+      "provisional_id": "WEB-043"
+    },
+    {
+      "canonical_fact_key": "https://www.worldbank.org/en/results/2023/02/10/providing-safety-nets-for-the-most-vulnerable-in-the-democratic-republic-of-congo-incremental-steps-with-a-large-footpri|Results|STEP delivery through December 2022",
+      "disposition": "context",
+      "provisional_id": "WEB-044"
+    },
+    {
+      "canonical_fact_key": "https://www.rfi.fr/fr/afrique/20230906-rdc-les-accouchements-gratuits-avanc%C3%A9e-vers-une-couverture-sant%C3%A9-universelle|6 September launch|presidential maternity program",
+      "disposition": "context",
+      "provisional_id": "WEB-045"
+    },
+    {
+      "canonical_fact_key": "https://www.lemonde.fr/afrique/article/2024/05/20/en-rdc-les-debuts-difficiles-de-la-couverture-sante-universelle_6234450_3212.html|early implementation|beneficiary access reimbursement and correction",
+      "disposition": "context",
+      "provisional_id": "WEB-046"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/11/05/actualite/societe/rdc-felix-tshisekedi-appelle-la-mise-en-oeuvre-de-la-loi-portant|4 November|disability law implementation",
+      "disposition": "context",
+      "provisional_id": "WEB-047"
+    },
+    {
+      "canonical_fact_key": "https://www.primature.gouv.cd/2023/09/26/promotion-et-protection-des-droits-des-personnes-vivant-avec-handicap-le-premier-ministre-jean-michel-sama-lukonde-lance-le-projet-conjoint-du-partenariat-des-nations-unies/|26 September launch|ministry policy strategy and UNPRPD",
+      "disposition": "context",
+      "provisional_id": "WEB-048"
+    },
+    {
+      "canonical_fact_key": "https://www.gov.uk/government/publications/overseas-business-risk-for-drc/overseas-business-risk-for-drc|organized crime and politics sections|judiciary patronage procurement context",
+      "disposition": "context",
+      "provisional_id": "WEB-049"
+    },
+    {
+      "canonical_fact_key": "https://www.aljazeera.com/news/2023/3/24/congo-president-tshisekedi-brings-in-former-vp-bemba-in-reshuffle-ahead-of-election|24 March reshuffle|Bemba Kamerhe Mbusa appointments",
+      "disposition": "context",
+      "provisional_id": "WEB-050"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "low",
+      "substantive_issues": [],
+      "missing_themes": [
+        "Nuclear authority, material capability, and command-and-control",
+        "Target-period arms-control, inspection, proliferation, biological, cyber, or other catastrophic-risk decisions",
+        "A ruler-attributed decision with a plausible global catastrophic pathway"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The state-of-siege attribution improved, but proxy control, allied-group abuses, and operational responsibility remain unresolved.",
+        "A named UN Group of Experts lead remains unavailable at precise page level and could materially improve attribution."
+      ],
+      "missing_themes": [
+        "Operational orders and rules of engagement",
+        "Tshisekedi’s knowledge of and response to abuses by allied armed groups",
+        "Primary UN/AU diplomatic chronology and ceasefire records",
+        "Military procurement, patronage, and spending purpose",
+        "Accuracy of public security claims and intelligence assessments"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 19,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Direct notification, response, formal authority, and partial remedies are now documented, but broader national prevalence and follow-through remain recoverable gaps.",
+        "The evidence still does not establish that Tshisekedi ordered or knew of the Goma operation beforehand."
+      ],
+      "missing_themes": [
+        "Primary UN human-rights incident data",
+        "National torture, detention, and prison-condition evidence",
+        "Follow-up after the narrow Goma command investigation",
+        "Measured effects of the October easing of the state of siege",
+        "Ruler-specific protection of women, children, displaced people, and minorities"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 17,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The formal CENI appointment chain and domestic observer findings improve attribution, but personal direction of election irregularities remains unestablished.",
+        "The CENCO-ECC and AU primary documents remain recoverable source leads whose exact locators could improve national coverage."
+      ],
+      "missing_themes": [
+        "National media-access and campaign-resource data",
+        "Opened CENCO-ECC and AU observer report pages",
+        "Judicial independence beyond election disputes",
+        "Direct evidence of presidential pressure on CENI after appointment",
+        "Technical decision chain for EU observer communications equipment"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 11,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The PDL-145T execution gap is now materially evidenced, but the IMF and World Bank poverty leads remain blocked or locator-incomplete.",
+        "Program and country outcomes remain insufficient to establish Tshisekedi’s personal economic competence or integrity."
+      ],
+      "missing_themes": [
+        "Verified 2023 growth, inflation, fiscal, debt, and reform-performance data",
+        "Poverty, wages, employment, inequality, and regional distribution",
+        "Government or IGF response to PDL-145T findings",
+        "Economic-team appointment and coordination evidence",
+        "Ruler-specific corruption, favoritism, or capture affecting economic policy"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Coverage now includes social protection and disability institutions, but outcome evidence remains concentrated in maternity access and education enrollment.",
+        "Donor dependence, shared administration, and conflict continue to limit ruler-specific attribution."
+      ],
+      "missing_themes": [
+        "2023 mortality, schooling completion, learning, water, sanitation, nutrition, and poverty outcomes",
+        "Independent evaluation of free maternity-care results",
+        "Social-protection and cash-transfer delivery during 2023",
+        "Disability and housing outcomes",
+        "Politicized or discriminatory welfare allocation",
+        "Program durability beyond donor financing"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Most retained material remains country-level or institutional context rather than personal-integrity evidence.",
+        "The continuation performed targeted searches across the main personal-nexus themes but found no credible unfetched lead likely to materially improve the dossier; absence of findings is not negative evidence."
+      ],
+      "missing_themes": [
+        "Verified target-period asset declarations and beneficial ownership",
+        "Personal or family enrichment and procurement links",
+        "Specific false statements and documented corrections",
+        "Audit, prosecution, and whistleblower treatment tied to Tshisekedi",
+        "Appointment networks, nepotism, and clientelism",
+        "Independent exculpatory records on personal integrity"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 20,
+      "independent_source_family_estimate": 8,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Execution evidence materially improved for the state of siege, PDL-145T, maternity care, and election administration, but cross-sector outcomes and causal attribution remain uneven.",
+        "The March 2023 cabinet-reshuffle source is still unavailable at claim level and should not be used from its discovery snippet."
+      ],
+      "missing_themes": [
+        "Budget execution across the full program portfolio",
+        "Opened IMF outcome tables",
+        "Exact cabinet and interagency coordination chains",
+        "Independent education learning outcomes",
+        "Longer-run durability without expanding the target period",
+        "Evidence distinguishing presidential management from ministerial and donor initiative"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The handoff generally separates country or administration-level conditions from direct ruler conduct and preserves contrary evidence.",
+    "The manifest currently labels several narrative final-evidence entries as context; this reconciliation must be completed before counting, but it is deterministic cleanup rather than a reason to invent or discard facts.",
+    "Gateway-only, snippet-only, blocked, and duplicate CREFDL reports must remain excluded from defensible counts.",
+    "Missing evidence must not be interpreted as negative ruler evidence, especially for Chapters 1B and 7B.",
+    "The remaining researchable weaknesses concern primary-source extraction, proxy and command attribution, national welfare outcomes, macroeconomic data, and program execution."
+  ],
+  "reviewer_summary": "Continue Chapters 2B, 3B, 4B, 5B, 6B, and 8B. Chapter 1B has a credible saturation rationale with no material research lead. Chapter 7B remains personally sparse, but the targeted continuation produced no credible unfetched lead likely to improve the personal-nexus dossier; do not treat that absence as adverse evidence."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+The workspace remained inaccessible: both shell reads and `apply_patch` failed at sandbox initialization (`RTM_NEWADDR`), so `research-ledger-manifest.json` could not be updated. I completed the available continuation research and provide manifest-ready additions below.
+
+New defensible units:
+
+- `WEB-051` — AU, 27 June 2023: Tshisekedi participated in the Luanda quadripartite summit; the communiqué commended his commitment to dialogue and adopted coordinated peace-process timelines. Maps 2B.1/2B.7, 8B.1/8B.9. [AU communiqué](https://www.peaceau.org/en/article/communique-quadripartite-summit-of-the-east-african-community-economic-community-of-central-african-states-international-conference-on-the-great-lakes-region-and-southern-african-development-community-under-the-auspices-of-the-african-union-27-june-2023)
+
+- `WEB-052` — IMF fifth review, 20 December 2023: security and elections drove spending reprioritization; fiscal, depreciation, and inflationary pressures remained high, while authorities committed to reforms, efficiency, governance, and transparency. Maps 5B.3/5B.7/5B.9, 8B.6–8B.8. [IMF report](https://www.imf.org/en/publications/cr/issues/2023/12/19/democratic-republic-of-the-congo-fifth-review-under-the-extended-credit-facility-542654)
+
+- `WEB-053` — U.S. State Department 2023 human-rights report: credible reports covered government killings, torture, life-threatening prison conditions, arbitrary detention, weak judicial independence, corruption, and restrictions under the state of siege. Administration-level evidence only; no personal order inferred. Maps 3B.1/3B.4/3B.5/3B.10, 4B.4, 7B.6/7B.7. [Report mirror](https://www.ecoi.net/en/document/2107668.html)
+
+- `WEB-054` — Actualité.cd, 19 July 2023: the Court of Accounts challenged BCECO’s attempt to avoid IGF control over PDL-145T and emphasized the program’s substantial public expenditure and audit risks. Maps 5B.5–5B.7, 7B.6, 8B.5–8B.8. [Report](https://actualite.cd/index.php/2023/07/19/rdc-la-cour-des-comptes-enjoint-le-bceco-de-retirer-sa-note-dinformation-adressee-aux)
+
+- `WEB-055` — Actualité.cd, 27 August 2023: Tshisekedi responded to IGF findings on state-enterprise mismanagement by directing ministers to improve governance and address auditor inaction. This is a direct corrective instruction, but not evidence of successful enforcement or personal integrity. Maps 5B.5/5B.7, 7B.2/7B.6/7B.8, 8B.6/8B.8. [Report](https://actualite.cd/2023/08/27/gouvernance-des-entreprises-publiques-felix-tshisekedi-sindigne-de-linaction-des)
+
+- `WEB-056` — UNICEF, 4 September 2023: approximately 27 million children were enrolled, nearly 7 million were out of school, and over 800,000 children had been displaced while more than 2,000 eastern schools closed because of insecurity. Maps 3B.7, 6B.2/6B.3/6B.6/6B.10, 8B.7. [UNICEF release](https://www.unicef.org/drcongo/communique-presse/rentree-scolaire-2023-2024)
+
+- `WEB-057` — UNICEF, 13 May 2023: after Kalehe floods killed over 400 people, UNICEF delivered WASH, health, child-protection, and education assistance, while documenting destroyed houses, schools, and health facilities. Maps 6B.6/6B.8/6B.10, 8B.9. Shared humanitarian attribution; not direct presidential conduct. [UNICEF release](https://www.unicef.org/drcongo/en/press-releases/unicef-responds-deadly-floods-kalehe)
+
+- `WEB-058` — Presidency of DRC, 5 September 2023: Tshisekedi personally launched free maternity and newborn care, specified covered services, and set national-expansion objectives. Use as official corroboration of WEB-045, not as an independent source family. Maps 5B.1/5B.6/5B.8, 6B.1–6B.4/6B.8, 8B.1/8B.2. [Presidency release](https://www.presidence.cd/actualite-detail/actualite/le_president_felix_tshisekedi_lance_officiellement_la_gratuite_de_la_maternite_et_la_prise_en_charge_du_nouveau_ne_a_kinshasa)
+
+Manifest dispositions:
+
+- Add `WEB-051`–`WEB-058` as `final_evidence`, except `WEB-058` may be marked `context` if duplicate-source policy prevents a second official maternity unit.
+- Add the previously rejected Republic of Congo World Bank economic update as `rejected`: wrong country, not DRC.
+- Keep IMF numeric snippets and World Bank poverty-PDF snippets as `discovery_only`; the IMF HTML review itself is now usable through `WEB-052`.
+- Keep 2023 asset-declaration and family-enrichment searches as `rejected/no_usable_candidate`; no defensible personal-integrity finding emerged.
+
+Chapter status:
+
+- **2B:** materially improved through AU diplomacy and IMF security/fiscal context; proxy-command evidence remains unresolved.
+- **3B:** materially improved with an accessible national human-rights report; prison and torture evidence remains administration-level.
+- **4B:** no major new attribution breakthrough; CENI and observer limitations remain as previously documented.
+- **5B:** materially improved through IMF findings and an opened PDL-145T audit-resistance report.
+- **6B:** materially improved through UNICEF education, disaster-response, and direct maternity evidence; mortality, learning, sanitation, and durable social-protection outcomes remain sparse.
+- **7B:** no adverse personal-nexus evidence found; `WEB-055` is limited contrary/exculpatory evidence of formal anti-mismanagement response.
+- **8B:** materially improved across diplomacy, macroeconomic management, PDL execution, education disruption, disaster response, and maternity implementation.
+
+No score or ranking judgment was produced.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/10/13/actualite/politique/rdc-felix-tshisekedi-decide-dun-allegement-progressif-et-graduel-de|presidential address 12 October|gradual easing",
+      "disposition": "context",
+      "provisional_id": "WEB-027"
+    },
+    {
+      "canonical_fact_key": "https://www.congoresearchgroup.org/fr/2023/10/20/pourquoi-le-president-felix-tshisekedi-a-t-il-annonce-l-allegement-de-letat-de-siege/|analysis of 12 October measures|limited novelty and no timetable",
+      "disposition": "context",
+      "provisional_id": "WEB-028"
+    },
+    {
+      "canonical_fact_key": "https://www.amnesty.org/fr/latest/news/2023/05/drc-authorities-must-lift-state-of-siege-now/|background and findings|presidential authority and extensions",
+      "disposition": "context",
+      "provisional_id": "WEB-029"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/09/02/actualite/securite/tuerie-de-goma-felix-tshisekedi-consterne-exige-la-lumiere-sur-les|1 September cabinet|presidential report and sanctions instruction",
+      "disposition": "context",
+      "provisional_id": "WEB-030"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/09/05/actualite/securite/repression-militaire-du-30-aout-le-gouverneur-constant-ndima-rappele|4 September commission measures|recall suspensions and victim support",
+      "disposition": "context",
+      "provisional_id": "WEB-031"
+    },
+    {
+      "canonical_fact_key": "https://www.crisisgroup.org/fr/qna/africa/great-lakes/democratic-republic-congo/massacre-goma-clouds-dr-congos-elections-and-un|presidential response and direct-command discussion|Goma",
+      "disposition": "context",
+      "provisional_id": "WEB-032"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/fr/news/2024/08/30/rd-congo-peu-de-justice-pour-les-victimes-du-massacre-de-goma|accountability findings|limited investigation and no compensation",
+      "disposition": "context",
+      "provisional_id": "WEB-033"
+    },
+    {
+      "canonical_fact_key": "https://www.voaafrique.com/a/kinshasa-le-pr%C3%A9sident-tshisekedi-confirme-denis-kadima-%C3%A0-la-t%C3%AAte-de-la-commission-%C3%A9lectorale-de-la-rdc-/6282064.html|appointment procedure|Kadima confirmation",
+      "disposition": "context",
+      "provisional_id": "WEB-034"
+    },
+    {
+      "canonical_fact_key": "https://www.dw.com/fr/rdc-c%C3%A9ni-kadima/a-59633340|appointment controversy|CENI independence concern",
+      "disposition": "context",
+      "provisional_id": "WEB-035"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/12/28/emissions/dialogue-entre-congolais/elections-2023-la-moe-cenco-ecc-publie-son-rapport|preliminary observation findings|clear leader and irregularities",
+      "disposition": "context",
+      "provisional_id": "WEB-036"
+    },
+    {
+      "canonical_fact_key": "https://www.vaticannews.va/fr/eglise/news/2024-06/rdc-publication-du-rapport-final-du-cycle-electoral-2019-2023.html|final CENCO-ECC findings|campaign and enforcement",
+      "disposition": "context",
+      "provisional_id": "WEB-037"
+    },
+    {
+      "canonical_fact_key": "https://www.africanews.com/amp/2023/11/29/drc-elections-eu-cancels-election-observation-mission-due-to-technical-issues/|EU statement|technical and security constraints",
+      "disposition": "context",
+      "provisional_id": "WEB-038"
+    },
+    {
+      "canonical_fact_key": "https://www.mediacongo.net/publireportage-reportage-130927_pdl_145t_crefdl_appelle_l_igf_la_cour_des_compte_et_l_autorite_de_regulation_des_marches_publics_a_auditer_sur_l_utilisation_des_fonds_affectes_rappor.html|CREFDL December report|311 of 2143 infrastructure units",
+      "disposition": "context",
+      "provisional_id": "WEB-039"
+    },
+    {
+      "canonical_fact_key": "https://www.mediacongo.net/publireportage-reportage-130927_pdl_145t_crefdl_appelle_l_igf_la_cour_des_compte_et_l_autorite_de_regulation_des_marches_publics_a_auditer_sur_l_utilisation_des_fonds_affectes_rappor.html|CREFDL financial findings|exception procedures and untraced funds",
+      "disposition": "context",
+      "provisional_id": "WEB-040"
+    },
+    {
+      "canonical_fact_key": "https://www.congo-press.com/economie/pdl-145t-sur-2-143-infrastructures-attendues-les-agences-dexecution-ont-livre-au-gouvernement-un-total-de-311-soit-un-taux-dexecution-de-145-a-fin-aout-2023-crefdl/|CREFDL findings|execution and exceptional procedures",
+      "disposition": "context",
+      "provisional_id": "WEB-041"
+    },
+    {
+      "canonical_fact_key": "https://openknowledge.worldbank.org/entities/publication/a07ce227-6995-5fbe-af65-0854e71add3b|DRC CEM metadata summary|business environment and diversification",
+      "disposition": "context",
+      "provisional_id": "WEB-042"
+    },
+    {
+      "canonical_fact_key": "https://datacatalogfiles.worldbank.org/ddh-published/0064942/9/DR0092393/Global_POVEQ_COD.PDF|2023 poverty estimate|74.5 percent",
+      "disposition": "context",
+      "provisional_id": "WEB-043"
+    },
+    {
+      "canonical_fact_key": "https://www.worldbank.org/en/results/2023/02/10/providing-safety-nets-for-the-most-vulnerable-in-the-democratic-republic-of-congo-incremental-steps-with-a-large-footpri|Results|STEP delivery through December 2022",
+      "disposition": "context",
+      "provisional_id": "WEB-044"
+    },
+    {
+      "canonical_fact_key": "https://www.rfi.fr/fr/afrique/20230906-rdc-les-accouchements-gratuits-avanc%C3%A9e-vers-une-couverture-sant%C3%A9-universelle|6 September launch|presidential maternity program",
+      "disposition": "context",
+      "provisional_id": "WEB-045"
+    },
+    {
+      "canonical_fact_key": "https://www.lemonde.fr/afrique/article/2024/05/20/en-rdc-les-debuts-difficiles-de-la-couverture-sante-universelle_6234450_3212.html|early implementation|beneficiary access reimbursement and correction",
+      "disposition": "context",
+      "provisional_id": "WEB-046"
+    },
+    {
+      "canonical_fact_key": "https://www.radiookapi.net/2023/11/05/actualite/societe/rdc-felix-tshisekedi-appelle-la-mise-en-oeuvre-de-la-loi-portant|4 November|disability law implementation",
+      "disposition": "context",
+      "provisional_id": "WEB-047"
+    },
+    {
+      "canonical_fact_key": "https://www.primature.gouv.cd/2023/09/26/promotion-et-protection-des-droits-des-personnes-vivant-avec-handicap-le-premier-ministre-jean-michel-sama-lukonde-lance-le-projet-conjoint-du-partenariat-des-nations-unies/|26 September launch|ministry policy strategy and UNPRPD",
+      "disposition": "context",
+      "provisional_id": "WEB-048"
+    },
+    {
+      "canonical_fact_key": "https://www.gov.uk/government/publications/overseas-business-risk-for-drc/overseas-business-risk-for-drc|organized crime and politics sections|judiciary patronage procurement context",
+      "disposition": "context",
+      "provisional_id": "WEB-049"
+    },
+    {
+      "canonical_fact_key": "https://www.aljazeera.com/news/2023/3/24/congo-president-tshisekedi-brings-in-former-vp-bemba-in-reshuffle-ahead-of-election|24 March reshuffle|Bemba Kamerhe Mbusa appointments",
+      "disposition": "context",
+      "provisional_id": "WEB-050"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

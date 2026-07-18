@@ -1,0 +1,605 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:NZL:15102",
+  "iso3": "NZL",
+  "country_name": "New Zealand",
+  "ruler_name": "Clark",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 44,
+  "approximate_source_family_count": 25,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+I now have sufficient breadth across all 8 chapters to construct the handoff. Let me deliver the complete dossier.
+
+---
+
+# Research Handoff — Helen Clark / New Zealand / 2000
+
+## Case Identity & Local-Prior Audit
+
+- **Ruler**: Helen Clark (37th PM of New Zealand; in office 10 Dec 1999 – 19 Nov 2008; first woman elected PM of NZ at a general election)
+- **Period**: Calendar year 2000 (first full year of the Fifth Labour Government; coalition with the Alliance; confidence & supply from the Greens)
+- **ISO3**: NZL · **Job key**: `dossier:2000-scale-pilot-5-v1:2000:NZL:15102`
+- **Local-prior package**: 46 unique `LF###` facts covering SIPRI, CIRIGHTS, PTS, V-Dem, WGI, UNDP HDI, Maddison/PWT. **No local facts for Chapter 1B** (nuclear) — package flags `no_evidence_found` for all 10 lenses with reason R001.
+
+## Source-Confidence Posture Applied
+
+Per registry: NZ government / Beehive primary documents rated `medium_high` for formal facts / `medium_low` for self-serving claims. International media (NZ Herald, Guardian) `medium_high`. Wikipedia `medium_high` for orientation. Investigative books (Hager 2002) `medium_high` as research-record but with motivation caveats. Think-tank / Open Government Partnership pages `medium_high` for retrospective institutional claims.
+
+---
+
+## Chapter 1B — Nuclear and Existential-Risk Responsibility (no_evidence_found → internet)
+
+**Local-prior status**: no LF facts. **Internet search log**: 3 queries on NZ NPT 2000 role, anti-nuclear posture, Helen Clark disarmament activity.
+
+### Retained evidence items
+
+- **EV-1B-01 / canonical key**: `nz-pm-2000-npt13steps-newagendacoalition`
+  - **Claim**: Under PM Helen Clark, New Zealand (via the New Agenda Coalition, founded Dublin 1998 with Brazil, Egypt, Ireland, Mexico, NZ, South Africa, Sweden, Slovenia) was instrumental at the NPT 2000 Review Conference in securing consensus adoption of the "13 Practical Steps" for systematic implementation of Article VI, including an "unequivocal undertaking by the nuclear-weapon states to accomplish the total elimination of their nuclear arsenals."
+  - **URL / locator**: <https://en.wikipedia.org/wiki/New_Agenda_Coalition> ("NAC was officially launched in Dublin in June 1998"; NAC is credited with the 13 steps at NPT 2000). Corroborating: <https://en.wikipedia.org/wiki/13_steps> (2000 NPT Final Document paragraph).
+  - **Publisher**: Wikipedia (orientation, `medium_high`); corroborating <https://www.beehive.govt.nz/speech/address-parliamentary-network-nuclear-disarmament-new-agenda-coalition-proposals> ("Clark speech framing the 13 steps as a Clark-era achievement").
+  - **Source type / confidence**: encyclopedia (orientation) + government speech (formal text, `medium_high`). Aggregate `medium_high`.
+  - **Target-year fit**: YES (NPT RevCon 2000 outcome).
+  - **Attribution**: Direct — Clark's personal diplomatic posture and government backing.
+  - **Lenses supported**: 1B.1 (risk reduction), 1B.4 (arms-control support in good faith), 1B.5 (no nuclear shielding of conventional aggression), 1B.7 (risk-reducing expertise, professional diplomacy), 1B.10 (posture safer than inherited).
+  - **Notes**: This is the strongest ruler-attributed Chapter 1B item in the dossier.
+
+- **EV-1B-02 / canonical key**: `nz-pm-2000-stateoftheworld-forum-speech`
+  - **Claim**: PM Helen Clark, addressing the State of the World Forum in New York on 5 September 2000, framed the 13-steps outcome as creating "a new level of demand for action — and action now — by the nuclear-weapons states to disarm" and called for urgent movement by P5.
+  - **URL / locator**: <http://www.acronym.org.uk/old/archive/dd/dd50/50nzpm.htm> (Acronym Institute archive of the speech).
+  - **Publisher**: Acronym Institute (NGO, disarmament documentation; `medium_high`).
+  - **Source type / confidence**: NGO primary speech text (`medium_high`).
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct, ruler statement.
+  - **Lenses supported**: 1B.1, 1B.2 (responsible nuclear rhetoric), 1B.7.
+  - **Notes**: Also referenced at <https://www.disarmsecure.org/peace-resources/new-zealand-historical-peace-dates-a-short-list> ("2000: PM Helen Clark launches the Global Campaign for Peace Education in New York during the time of the UN Millennium Summit").
+
+- **EV-1B-03 / canonical key**: `nz-1987-nuclear-free-zone-act-clark-role`
+  - **Claim**: Clark's earlier role as Chair of the Foreign Affairs and Defence Select Committee and of the Disarmament and Arms Control Select Committee (1984–87) was decisive for the Nuclear Free Zone, Disarmament, and Arms Control Act 1987; in 2000 she retained and "took a nuclear-free policy to the world."
+  - **URL / locator**: <https://www.mfat.govt.nz/en/about-us/mfat75/taking-a-nuclear-free-policy-to-the-world> ("Ms Clark chaired the Select Committee on Disarmament and Arms Control"); <https://g-l-f.org/who-we-are/members/helen-clark/> ("she played a major role in the country's adoption of a nuclear-free stance").
+  - **Publisher**: NZ MFAT (formal record, `medium_high`), Global Leadership Foundation bio (orientation).
+  - **Source type / confidence**: official record + bio.
+  - **Target-year fit**: 1987 baseline; 2000 continuation.
+  - **Attribution**: Established record on inherited posture, with continuing 2000 stewardship.
+  - **Lenses supported**: 1B.4, 1B.7, 1B.10 (inherited baseline + continuity).
+  - **Notes**: 2000-specific decision to maintain NZ Nuclear-Free Zone / NZ ANZUS rift with US is structural context; per registry, official source for self-serving restraint claim needs corroboration. The 2000 NPT-13-steps work (EV-1B-01/02) is the corroborating 2000 fact.
+
+### Gaps and saturation note
+
+- 3 defensible source-claim units from 3 source families (UN/NPT record via Wikipedia + Acronym archive; NZ MFAT; Open Government Partnership biography). Two further candidate URLs (Reuters/Britannica) referenced the post-period US-ship visit reconciliation in 2010/2016, not the 2000 year, so excluded.
+- **No source identified that places NZ at material additional risk in 2000**. No record of NZ enabling proliferation, nuclear rhetoric, or unsafe custody.
+- **Chapter 1B saturation**: thin dossier (3 units) but the case for limited-exposure / no-discriminating-negative-conduct is strong; absence of NZ nuclear capability and clear posture toward risk reduction means the dossier genuinely has limited targets for 2000 ruler-attributed material beyond the NPT 13-steps and disarmament diplomacy.
+
+---
+
+## Chapter 2B — International Peace, Restraint, Lawful Security (evidence_found country-exposure; mixed)
+
+**Local-prior status**: LF001-LF004 (SIPRI) `evidence_found` for all 10 lenses at country-exposure level.
+
+### Reused local priors
+- LF001 military spend constant USD 2,092.05m, LF002 per-capita 223.20 USD, LF003 1.60% of GDP, LF004 4.17% of govt spending — ruler-baseline scale, NZ had no 2000 conflict involvements (zero UCDP events).
+
+### Retained narrative evidence items
+
+- **EV-2B-01 / canonical key**: `nz-2000-interfet-east-timor-deployment-continuation`
+  - **Claim**: NZ was the second-largest contributor to INTERFET from September 1999 and continued its deployment in 2000; from February 2000 INTERFET forces came under UNTAET control. By the end of September 1999 the RNZAF had delivered ~350,000 kg of supplies and 350 personnel; navy frigate HMNZS Te Kaha deployed.
+  - **URL**: <https://nzhistory.govt.nz/first-new-zealand-troops-arrive-east-timor>; <https://www.mch.govt.nz/news/new-zealand-service-timor-leste>.
+  - **Publisher**: NZ Ministry for Culture and Heritage (Manatū Taonga) `medium_high`; NZ History (`medium_high`).
+  - **Source type / confidence**: official historical record (`medium_high`).
+  - **Target-year fit**: transition into 2000 (UNTAET handover Feb 2000); continuation of NZ deployment in 2000.
+  - **Attribution**: Cabinet / PM decision; supportive of UN-mandated mission.
+  - **Lenses supported**: 2B.1 (diplomacy/peacekeeping), 2B.7 (peace talks / multilateral process), 2B.10 (peaceful posture).
+  - **Notes**: One NZ soldier was killed in July 2000 — NZ's first combat fatality since Vietnam (per <https://teara.govt.nz/en/peacekeeping/page-4>).
+
+- **EV-2B-02 / canonical key**: `nz-2000-bougainville-pmg-completion`
+  - **Claim**: NZ-led Truce Monitoring Group on Bougainville deployed Dec 1997 – Apr 1998, then continued under regional arrangements; the broader NZ-led peace monitoring posture contributed to the eventual 2001 Bougainville Peace Agreement.
+  - **URL**: <https://teara.govt.nz/en/peacekeeping/page-4>.
+  - **Publisher**: Te Ara Encyclopedia (Ministry-funded, `medium_high`).
+  - **Source type / confidence**: historical encyclopedia (`medium_high`).
+  - **Target-year fit**: 2000 is the active tail of NZ-led peace engagement on Bougainville; PMG work substantially completed by 2000.
+  - **Attribution**: Direct — NZ (Clark) led or co-led the operation.
+  - **Lenses supported**: 2B.1, 2B.7, 2B.10.
+
+- **EV-2B-03 / canonical key**: `nz-2000-statement-iraq-multilateralism-ruleoflaw`
+  - **Claim**: NZ's foreign-policy posture in 2000 explicitly grounded itself in multilateralism, the UN Security Council, and the rule of law; Clark later (2003) cited this principle as the reason NZ refused to join the Iraq invasion. Beehive/government archive statements on Iraq policy in this period emphasize Security Council primacy.
+  - **URL**: <https://www.nzherald.co.nz/nz/ifull-texti-helen-clarks-statement-to-parliament-on-iraq/LHTS6WR4NKDGRF6PMNU66GNG7U/> ("New Zealand's position on this crisis has at all times been based on its strong support for multilateralism and the rule of law, and for upholding the authority of the Security Council."); <https://g-l-f.org/who-we-are/members/helen-clark/> ("It also prioritised ... independent foreign policy and support for multilateralism").
+  - **Publisher**: NZ Herald (medium_high), Global Leadership Foundation bio.
+  - **Source type / confidence**: news report + retrospective bio (`medium_high`).
+  - **Target-year fit**: 2000 is the formative year for this stance (Iraq WMD inspections underway; NZ contributed 13 personnel to UN weapons inspection team per the Beehive-linked material).
+  - **Attribution**: Direct — PM statement, government policy.
+  - **Lenses supported**: 2B.1, 2B.6 (truthful threat explanations), 2B.7, 2B.10.
+  - **Notes**: This is the ruler's principal 2000 international-conduct item.
+
+- **EV-2B-04 / canonical key**: `nz-2000-defence-policy-doc-defence-beyond-2000`
+  - **Claim**: In June 2000 the government (Mark Burton as Defence Minister, Clark as PM) issued a defence priorities framework ("Defence Beyond 2000") that concentrated resources in "a range of affordable and sustainable military capabilities that meet our requirements, our strategic interests and our obligations." This became the basis for later restructuring and modernization of NZDF.
+  - **URL**: <https://www.beehive.govt.nz/release/decisions-next-step-modernising-defence-forces> ("In June 2000, we set out our priorities for defence and a framework for future decisions about military capabilities, resources and funding"); <https://www.beehive.govt.nz/feature/modern-defence-force-new-zealands-needs>.
+  - **Publisher**: NZ Government Beehive (`medium_high` for formal policy text).
+  - **Source type / confidence**: official statement (`medium_high`).
+  - **Target-year fit**: Direct — June 2000.
+  - **Attribution**: Cabinet / PM.
+  - **Lenses supported**: 2B.8 (military spending to meet real security needs rather than personalist projection), 2B.10.
+  - **Notes**: Stated posture rather than outcome; use as supportive evidence of restraint, not as outcome proof.
+
+### Gaps and saturation note
+
+- 4 retained narrative units, plus 4 reused SIPRI local priors (counted as country-exposure context, not as separate ruler-attributed sources). Independent source families: NZ government primary, NZ History/MCH, Te Ara, NZ Herald, Global Leadership Foundation — ≥3 families, ≥2 types. At the lower end of the 5–20 unit target but appropriate for a country with very limited active belligerent conduct in 2000.
+- **No documented 2000 NZ aggression, proxy war, civilian-harm incident, or failed peace attempt**. Absence is consistent with strong restraint.
+
+---
+
+## Chapter 3B — Domestic Safety, Restraint, Protection (evidence_found country-baseline; limited 2000 incidents)
+
+**Local-prior status**: LF005-LF017 `evidence_found` for all 10 lenses (very low repression baseline).
+
+### Reused local priors
+- LF005-LF011 (CIRIGHTS): civpol 6, disap 2, kill 2, physint 8, polpris 2, repression 17, torture 2.
+- LF012-LF015 (V-Dem): csreprss 2.37, clkill 3.215, clphy 0.986, clpriv 0.944.
+- LF016-LF017 (PTS): Amnesty score 1, State Department score 1 (best possible).
+
+### Retained narrative evidence items
+
+- **EV-3B-01 / canonical key**: `nz-2000-domestic-protest-environment-apec-tail`
+  - **Claim**: In 2000 anti-globalisation, Maori, and Pacific Island protest movements continued against the background of the 1999 APEC protests; protests in 2000 included Maoridom/Treaty actions and limited anti-IMF-style marches. No 2000 incidents involving mass state violence or fatalities.
+  - **URL**: <https://teara.govt.nz/en/parades-and-protest-marches/page-6> ("Anti-globalisation movements organised marches in Auckland to protest against meetings of the Asian Development Bank in 1995 and APEC (Asia–Pacific Economic Co-operation) in 1999. Scuffles with police made headlines." — sets the 1999 baseline; notes 2000s protests continued but on smaller scales).
+  - **Publisher**: Te Ara Encyclopedia (`medium_high`).
+  - **Source type / confidence**: encyclopedia.
+  - **Target-year fit**: contextual for 2000 (1999 peak → 2000 tail).
+  - **Attribution**: Indirect (state's general posture toward protest, not a 2000-specific Clark decision).
+  - **Lenses supported**: 3B.8 (peaceful protest tolerated), 3B.10.
+  - **Notes**: Background only — do not over-claim.
+
+- **EV-3B-02 / canonical key**: `nz-2000-hikoi-marae-incident-clark-onuku`
+  - **Claim**: At Waitangi Day 2000 PM Clark opted to attend a function at Ōnuku marae, Akaroa, rather than the main Waitangi ceremony, where Titewhai Harawira's actions had previously caused confrontation. Public commentary on this choice was mixed; it signalled a managed distancing from the previous year's contested marae protocol without use of force.
+  - **URL**: <https://nzhistory.govt.nz/page/waitangi-day-21st-century>; <https://www.nzcpr.com/never-ending-settlement-predictions-confirmed/> ("Waitangi Day protests continued unabated, with Prime Minister Helen Clark being reduced to tears at Waitangi in 2000").
+  - **Publisher**: NZ History (`medium_high`); NZCPR (advocacy think tank, `medium`).
+  - **Source type / confidence**: government history + advocacy media.
+  - **Target-year fit**: YES — Waitangi Day 6 Feb 2000.
+  - **Attribution**: Direct (PM personal choice).
+  - **Lenses supported**: 3B.2 (security force restraint), 3B.3 (no incitement), 3B.7 (minority/vulnerable group treatment), 3B.8 (peaceful protest tolerated).
+  - **Notes**: Sources contradict slightly — NZ History records she chose Ōnuku, NZCPR references "tears at Waitangi"; the credible reading is she attended an Akaroa function and was not present at the contested Waitangi marae scene.
+
+### Gaps and saturation note
+
+- 2 retained narrative units + 13 reused local priors from CIRIGHTS/V-Dem/PTS. Source families: NZ History (govt), Te Ara (govt-funded encyclopedia), NZCPR (advocacy), CIRIGHTS/V-Dem/PTS (research datasets).
+- **No 2000-specific credible evidence of state violence, repression, torture, incitement, or serious protest-suppression incident** found. This is consistent with the country baseline.
+
+---
+
+## Chapter 4B — Political Freedom vs Authoritarian Rule (evidence_found, very high baseline)
+
+**Local-prior status**: LF018-LF032 `evidence_found` for all 10 lenses (very high liberal-democracy baseline).
+
+### Reused local priors
+- LF018 accountability 1.711; LF019 civlib 0.961; LF020 polyarchy 0.881; LF021 frassoc 0.911; LF022 freexp 0.967; LF023 jucon 0.974; LF024 legcon 0.915; LF025 libdem 0.827; LF026 mpi 0.812; LF027 clpol 0.964; LF028 regime 3; LF029 rule 0.991; LF030 suffr 1.0; LF031 WGI voice 1.68; LF032 WGI rule of law 1.80.
+
+### Retained narrative evidence items
+
+- **EV-4B-01 / canonical key**: `nz-2000-employment-relations-act-passage`
+  - **Claim**: The Employment Relations Act 2000 was passed by the Labour-Alliance coalition under PM Clark, introduced by Labour Minister of Labour Margaret Wilson, and commenced 2 October 2000. It repealed the Employment Contracts Act 1991, restored collective bargaining and good-faith obligations, and was described by LexisNexis NZ as "a high water mark for recognition of the right to strike."
+  - **URL**: <https://en.wikipedia.org/wiki/Employment_Relations_Act_2000>; <https://www.legislation.govt.nz/act/public/2000/0024/latest/DLM58317.html> (primary legal text).
+  - **Publisher**: Wikipedia (orientation, `medium_high`); NZ Parliamentary Counsel Office (formal primary, `high`).
+  - **Source type / confidence**: primary statute + encyclopedia.
+  - **Target-year fit**: YES (passed 2000).
+  - **Attribution**: Cabinet / PM decision.
+  - **Lenses supported**: 4B.2 (electoral-rules and labour-rules reform, not entrenchment), 4B.3 (toleration of organised opposition via union path), 4B.4 (parliamentary action strengthening labour-relations framework).
+
+- **EV-4B-02 / canonical key**: `nz-2000-mmp-coalition-stable`
+  - **Claim**: Clark formed and led the first stable coalition government under New Zealand's MMP system, working with the Alliance (Jim Anderton as Deputy PM) and with Green confidence-and-supply; political scientist Bryce Edwards identified Clark's coalition management as "her most significant achievement." The 1999 election delivered 59 seats for Labour-Alliance.
+  - **URL**: <https://en.wikipedia.org/wiki/Helen_Clark> ("Clark entered office ... under (MMP) voting system, which had produced an unstable National-led government under Bolger and Shipley. Clark negotiated the formation of successive coalition governments. Political scientist Bryce Edwards identified Clark's ability to lead stable governments as her most significant achievement"); <https://en.wikipedia.org/wiki/1999_New_Zealand_general_election>.
+  - **Publisher**: Wikipedia (`medium_high`); academic citation inside Wikipedia.
+  - **Source type / confidence**: encyclopedia + academic attribution.
+  - **Target-year fit**: coalition took office Dec 1999; 2000 first full year.
+  - **Attribution**: Direct PM leadership.
+  - **Lenses supported**: 4B.1 (accepts contestability), 4B.3 (tolerates coalition partners), 4B.4 (institutional restraint through coalition), 4B.8 (respects coalition commitments).
+
+- **EV-4B-03 / canonical key**: `nz-2000-honours-republicanism-knighthoods-abolished`
+  - **Claim**: In April 2000, PM Clark announced the abolition of titular knighthoods and damehoods in the New Zealand honours system, replacing them with a fully NZ Order of Merit; described by the Telegraph as a "republicanism by stealth" critique and by Clark as a modernisation.
+  - **URL**: <https://en.wikipedia.org/wiki/New_Zealand_royal_honours_system>; <https://en.wikipedia.org/wiki/New_Zealand_Order_of_Merit>; <https://www.theguardian.com/world/2000/jun/04/theobserver2> ("The reform is part of a modernisation programme by the Labour government, headed by Prime Minister Helen Clark, who won power six months ago").
+  - **Publisher**: Wikipedia + Guardian (`medium_high`).
+  - **Source type / confidence**: news + encyclopedia.
+  - **Target-year fit**: YES — April/June 2000.
+  - **Attribution**: Direct PM decision.
+  - **Lenses supported**: 4B.5 (no personality cult), 4B.8 (constitutional/procedural reform), 4B.10 (ruler strengthening democratic norms, albeit contested by critics).
+  - **Notes**: Contested — opposition called it "republicanism by stealth." Both supportive and critical evidence retained.
+
+- **EV-4B-04 / canonical key**: `nz-2000-tvnz-charter-local-content`
+  - **Claim**: Clark government reforms of public-broadcasting policy included NZ content quotas, charter requirements for TVNZ promoting NZ culture and diversity, and reduced advertising. The Labour position from 1999–2000 signalled both editorial-independence preservation and a cultural-democracy agenda.
+  - **URL**: <https://www.nzherald.co.nz/nz/television-in-2000-when-newsreaders-were-the-big-news/5YKMEUWDX4J2OLIM4AFTO6OBW4/> ("We would have fewer advertisements, more local content, quotas for television and radio, and a charter requiring TVNZ to broadcast programmes that promoted New Zealand culture, made viewers think and reflected the country's diversity").
+  - **Publisher**: NZ Herald (`medium_high`).
+  - **Source type / confidence**: major media retrospective.
+  - **Target-year fit**: 2000 policy period.
+  - **Attribution**: PM / Cabinet.
+  - **Lenses supported**: 4B.6 (media policy), 4B.7 (cultural inclusion).
+
+### Gaps and saturation note
+
+- 4 narrative units + 15 reused local priors. Source families: Wikipedia, NZ PCO, NZ Herald, Guardian, Beehive. Across the 8 chapters this is the strongest 2000 dossier.
+- **No documented 2000 incidents of press suppression, surveillance-based restriction, electoral manipulation, or authoritarian capture**.
+
+---
+
+## Chapter 5B — Economic Well-Being and Prosperity (evidence_found, country scale)
+
+**Local-prior status**: LF033-LF036 `evidence_found` for all 10 lenses (high income, mid-sized economy).
+
+### Reused local priors
+- LF033 GDP per capita 26,823 USD (Maddison/PWT); LF034 GDP total 104,942m USD; LF035 GNI per capita 31,047 USD (UNDP); LF036 population 3,912 thousand.
+
+### Retained narrative evidence items
+
+- **EV-5B-01 / canonical key**: `nz-2000-budget-15june-cullen-operatingbalance`
+  - **Claim**: Budget 2000 was delivered 15 June 2000 by Finance Minister Michael Cullen under PM Clark. It was described by Cullen as not "doing everything at once" but "clearly signposting the direction" of the Labour-Alliance coalition. The Treasury Economic and Financial Overview 2000 records an operating surplus of $0.4 billion forecast for 1999/2000; this began a run of nine consecutive operating surpluses from 2000 to 2008.
+  - **URL**: <https://www.treasury.govt.nz/publications/budgets/budget-2000>; <https://www.treasury.govt.nz/sites/default/files/2009-07/nzefo-00.pdf>; <https://www.beehive.govt.nz/portfolio/labouralliance-1999-2002/finance?page=11>; <https://newswire.co.nz/2026/05/how-helen-clark-and-michael-cullen-paid-down-new-zealands-debt/>.
+  - **Publisher**: NZ Treasury (`medium_high` for budget/Economic and Financial Overview; primary public documents), Beehive (`medium_high`), News Wire (`medium`).
+  - **Source type / confidence**: primary budget documents (`medium_high`).
+  - **Target-year fit**: YES.
+  - **Attribution**: Cabinet / PM via Finance Minister.
+  - **Lenses supported**: 5B.1 (broad-based prosperity goal), 5B.3 (macroeconomic stability / fiscal responsibility), 5B.6 (productivity foundations), 5B.7 (evidence-based policy), 5B.10 (trajectory).
+  - **Notes**: One of the strongest 2000 ruler-attributed economic items.
+
+- **EV-5B-02 / canonical key**: `nz-2000-top-tax-rate-39-percent`
+  - **Claim**: In 2000 the Labour-Alliance coalition raised the top personal income tax rate from 33% to 39% on income over $60,000 — fulfilling an explicit 1999 election commitment. This was part of the coalition's redistribution agenda tied to Closing the Gaps.
+  - **URL**: <https://medium.com/@iram.ahmed1997/from-fifth-labour-government-to-today-the-day-new-zealand-elected-its-first-woman-prime-minister-7b1e1b275768> (medium_low orientation), <https://en.wikipedia.org/wiki/Fifth_Labour_Government_of_New_Zealand> ("Increased top income tax rate to 39% (2000)").
+  - **Publisher**: Wikipedia (orientation, `medium_high`); secondary Medium post (`low`).
+  - **Source type / confidence**: encyclopedia + secondary summary.
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct coalition/PM action.
+  - **Lenses supported**: 5B.8 (distribution toward lower-/middle-income brackets).
+  - **Notes**: Use only Wikipedia as final-evidence-grade; Medium post is orientation.
+
+- **EV-5B-03 / canonical key**: `nz-2000-pta-reservebank-policytargets-agreement`
+  - **Claim**: The Policy Targets Agreement with the Reserve Bank was renewed with the new Labour-Alliance Coalition Government in December 1999; it specified that monetary policy's price-stability objective was the maximum contribution to sustainable economic growth, employment and development opportunities. The Treasury noted the Reserve Bank raised interest rates in November 1999 and January and March 2000, with gradual tightening expected.
+  - **URL**: <https://www.treasury.govt.nz/sites/default/files/2009-07/nzefo-00.pdf> ("The current Policy Targets Agreement, signed with the new Labour/Alliance Coalition Government in December 1999, also clarifies that the price stability objective of monetary policy is considered to be the way in which monetary policy can make its maximum contribution to sustainable economic growth, employment and development opportunities").
+  - **Publisher**: NZ Treasury (`medium_high`).
+  - **Source type / confidence**: primary public document.
+  - **Target-year fit**: YES (signed Dec 1999; in effect through 2000).
+  - **Attribution**: Direct — coalition government action.
+  - **Lenses supported**: 5B.3 (macroeconomic framework), 5B.7 (evidence-based policy).
+
+- **EV-5B-04 / canonical key**: `nz-2000-employment-relations-act-economic-architecture`
+  - **Claim**: The Employment Relations Act 2000 reversed the deregulatory Employment Contracts Act 1991, restoring collective bargaining and good-faith obligations; described as a structural reform with implications for labour-market participation, wages, and union density. PMC review summarises that "increasing labour market participation was ... the main priority" alongside fiscal restraint.
+  - **URL**: <https://pmc.ncbi.nlm.nih.gov/articles/PMC3886295/> ("The controversial Employment Contracts Act was repealed and replaced by the Employment Relations Act (2000), which re-regulated the labour market after a decade of market liberalization. ... the government was committed to maintaining a tight grip on state spending. Increasing labour market participation was, therefore, the main priority"); <https://en.wikipedia.org/wiki/Employment_Relations_Act_2000>.
+  - **Publisher**: NCBI/PMC academic article (`medium_high`); Wikipedia.
+  - **Source type / confidence**: peer-reviewed academic analysis.
+  - **Target-year fit**: YES.
+  - **Attribution**: Coalition / PM.
+  - **Lenses supported**: 5B.4 (rules for entrepreneurship and labour relations), 5B.6 (institutional foundation).
+
+### Gaps and saturation note
+
+- 4 narrative units + 4 reused local priors. Source families: NZ Treasury (govt), Beehive (govt), Wikipedia, PMC academic, News Wire.
+- **No 2000 distribution/inequality micro-data found beyond the top-tax-rate reform itself**. No Gini/PIP data identified for 2000 specifically; LF035 GNI per capita is the local anchor. This caps 5B's distributional granularity.
+
+---
+
+## Chapter 6B — Social Well-Being and Human Development (evidence_found, high baseline)
+
+**Local-prior status**: LF035, LF037-LF040 `evidence_found` for all 10 lenses (very high HDI baseline).
+
+### Reused local priors
+- LF037 expected years schooling 17.49; LF038 HDI 0.894; LF039 life expectancy 78.68; LF040 mean years schooling 12.80; LF035 GNI per capita 31,047.
+
+### Retained narrative evidence items
+
+- **EV-6B-01 / canonical key**: `nz-2000-budget-closing-the-gaps`
+  - **Claim**: Budget 2000 inaugurated the Closing the Gaps strategy targeting socio-economic gaps between Māori/Pasifika and other New Zealanders. PM Clark described the budget as "vividly reflecting" the government's "determination to close the economic and social gaps." Funding for Māori programmes was to be audited by Te Puni Kōkiri to ensure funds reached priority areas.
+  - **URL**: <https://www.beehive.govt.nz/feature/budegt-2000-closing-gaps>; <https://en.wikipedia.org/wiki/Closing_the_Gaps>.
+  - **Publisher**: NZ Government Beehive (`medium_high` for primary statement); Wikipedia (`medium_high`).
+  - **Source type / confidence**: primary government statement.
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct — Cabinet / PM.
+  - **Lenses supported**: 6B.1 (human welfare as core purpose), 6B.3 (vulnerable groups), 6B.7 (avoiding welfare as political tool — contested by National/ACT critics).
+  - **Notes**: Critics (NZCPR, Colin James) argued Closing the Gaps racialised provision. The health bill associated with the policy was "watered down" in October 2000 to remove preferential-treatment language and emphasise inclusion (per NZ Herald "10 events that defined 2000"). Both supportive primary text and critical media retained.
+
+- **EV-6B-02 / canonical key**: `nz-2000-waitangi-day-pm-clark-akaroa-onuku`
+  - **Claim**: Clark's 2000 Waitangi Day attendance at Ōnuku marae, Akaroa (rather than the contested Waitangi marae) signalled a personal/ruler-level effort to engage Treaty partners without inflaming the prior year's marae-protocol confrontations.
+  - **URL**: <https://nzhistory.govt.nz/page/waitangi-day-21st-century>.
+  - **Publisher**: NZ History (`medium_high`).
+  - **Source type / confidence**: government history.
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct.
+  - **Lenses supported**: 6B.3, 6B.8 (dignity and equal opportunity).
+
+- **EV-6B-03 / canonical key**: `nz-2000-wai262-biodigenousheritage`
+  - **Claim**: The Wai 262 "flora and fauna" claim was before the Waitangi Tribunal through this period; in 2000 the Crown had commissioned research that would become a 2001 tribunal report. Clark-era government engaged with the whole-of-government inquiry into Māori cultural and intellectual property rights relating to indigenous flora/fauna.
+  - **URL**: <https://www.tpk.govt.nz/en/a-matou-whakaarotau/te-ao-maori/wai-262-te-pae-tawhiti> ("It was the Waitangi Tribunal's first 'whole-of-government' inquiry, examining the policy areas of more than 20 government agencies"); <https://forms.justice.govt.nz/search/Documents/WT/wt_DOC_94844728/Crown%20and%20Flora%20and%20Fauna.pdf> ("THE CROWN AND FLORA AND FAUNA: LEGISLATION, POLICIES, AND PRACTICES, 1983–98 ... Waitangi Tribunal Publication 2001").
+  - **Publisher**: Te Puni Kōkiri (govt, `medium_high`); Ministry of Justice / Waitangi Tribunal (formal record).
+  - **Source type / confidence**: primary government record.
+  - **Target-year fit**: 2000 was the active Crown engagement year; report released 2001.
+  - **Attribution**: Indirect (Crown institution responding to claim).
+  - **Lenses supported**: 6B.3 (vulnerable group), 6B.8 (dignity and equal opportunity), 6B.9 (durable institutions).
+
+### Gaps and saturation note
+
+- 3 narrative units + 5 reused local priors. Source families: NZ Beehive, NZ History, Te Puni Kōkiri, Ministry of Justice, Wikipedia.
+- **No 2000-specific health/education access or quality reforms beyond the Closing the Gaps framework and ERA 2000** were identified in targeted searches. Health and education outcomes (LF037-LF040) are inherited baseline + modest improvement, not large 2000-specific movement.
+
+---
+
+## Chapter 7B — Personal Integrity and Honesty (evidence_found country-baseline; one adverse item)
+
+**Local-prior status**: LF018, LF029, LF032, LF041-LF044 `evidence_found` for all 10 lenses (very low corruption baseline).
+
+### Reused local priors
+- LF018 accountability 1.711; LF029 rule of law 0.991; LF032 WGI rule of law 1.795; LF041 WGI control of corruption 2.18; LF042 V-Dem political corruption 0.009; LF043 V-Dem executive corruption 0.017; LF044 V-Dem public corruption 0.006.
+
+### Retained narrative evidence items
+
+- **EV-7B-01 / canonical key**: `nz-2000-ge-corn-seeds-of-distrust-event`
+  - **Claim**: In November 2000, the Clark government learned that a 5.6-tonne consignment of sweet-corn seed imported by Novartis from the US had tested positive for GE material and was planted in three NZ regions. The corn was grown during the Royal Commission on Genetic Modification. Investigative journalist Nicky Hager subsequently alleged in *Seeds of Distrust* (2002) that the government covered up the contamination; Hager alleged that "initially Helen Clark wanted the plants pulled out" but that officials did not act transparently. Initial Goodreads synopsis: Clark wanted plants pulled, but Hager alleged the eventual decision allowed harvest.
+  - **URL**: <https://en.wikipedia.org/wiki/Seeds_of_Distrust>; <https://www.ebsco.com/research-starters/literature-and-writing/journalist-alleges-release-genetically-modified-corn-seeds>; <https://www.goodreads.com/book/show/13102597-seeds-of-distrust>.
+  - **Publisher**: Wikipedia (`medium_high` for orientation); EBSCO Research Starters (`medium`); Goodreads (`low` for synopsis only).
+  - **Source type / confidence**: encyclopedia + investigative book + synopsis.
+  - **Target-year fit**: YES (Nov 2000 incident; subsequent book 2002).
+  - **Attribution**: Mixed — Clark personally wanted action; alleged concealment attributed to officials, with PM implicated by silence.
+  - **Lenses supported**: 7B.1 (truthfulness to public), 7B.2 (admitting errors), 7B.7 (use of state power to conceal).
+  - **Notes**: This is the **strongest contrary evidence** in the dossier. Treat as adverse-but-uncorroborated: Hager's allegation is contested; the Wikipedia summary carefully says "alleged." A Royal Commission into Genetic Modification was active in 2000–2001. The dossier flags this as the dominant 2000-period integrity controversy but does not convert the allegation into a finding.
+
+- **EV-7B-02 / canonical key**: `nz-2000-ombudsman-chastises-officialdom-secrecy`
+  - **Claim**: In October 2000, the NZ Ombudsman publicly chastised officialdom over excessive secrecy under the Official Information Act 1982, indicating that even in the early Clark period, transparency institutions identified official non-compliance. The same year, the Clark government had a public credibility test on OIA performance.
+  - **URL**: <https://canterbury.libguides.com/pols/oia_nz> ("Bingham, E. (2000, October 19). Ombudsman chastises officialdom over secrecy. New Zealand Herald"); <https://canterbury.libguides.com/c.php?g=243241&p=5330505>.
+  - **Publisher**: University of Canterbury library guide citing NZ Herald 2000 (`medium_high`).
+  - **Source type / confidence**: tertiary academic pointer to news report; underlying NZ Herald report not retrieved.
+  - **Target-year fit**: YES.
+  - **Attribution**: Independent institution (Ombudsman), not PM.
+  - **Lenses supported**: 7B.6 (independent oversight tolerated/operational), 7B.7 (mixed — oversight was active but needed to push back).
+  - **Notes**: Use as context, not as a primary citable ledger item. Underlying NZ Herald report was not directly retrieved.
+
+- **EV-7B-03 / canonical key**: `nz-2000-closing-the-gaps-policy-controversy-criticism`
+  - **Claim**: Closing the Gaps was implemented as 2000 Budget policy and was controversial — Māori Party and Labour Māori MPs plus National/ACT publicly criticised the policy (race-based framing, watered down by October 2000 to remove preferential-treatment language). The policy trajectory and its public defence are 2000 facts on the ruler's transparency and willingness to engage dissent.
+  - **URL**: <https://www.nzherald.co.nz/nz/10-events-that-defined-new-zealand-in-2000/F5464CJXI5LEVFHV7PKCCHLVZE/> ("On October 26, Helen Clark said 'Closing the Gaps' was not about gaps between Maori and Pacific peoples and others, but about 'poverty.' The health bill was watered down to say that the treaty would be honoured by including Maori in decision making but no one would receive preferential treatment based on race"); <https://en.wikipedia.org/wiki/Closing_the_Gaps> ("Closing the Gaps ... was a particularly controversial reform among right-wing National and ACT voters").
+  - **Publisher**: NZ Herald (`medium_high`); Wikipedia.
+  - **Source type / confidence**: major media + encyclopedia.
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct PM statement (October 26, 2000).
+  - **Lenses supported**: 7B.1 (truthful re-framing after criticism), 7B.8 (commitment kept with adjustment), 7B.9 (avoiding favouritism).
+
+- **EV-7B-04 / canonical key**: `nz-2000-honours-reform-knighthoods-abolition-mixed`
+  - **Claim**: Abolition of titular knighthoods/damehoods (April 2000) was praised as modernisation by supporters and described by critics including the Telegraph as "republicanism by stealth." Clark publicly defended the policy as a modernisation programme.
+  - **URL**: <https://www.telegraph.co.uk/news/worldnews/australiaandthepacific/newzealand/4957283/New-Zealand-restores-Knights-and-Dames-to-the-top-of-its-honours-system.html> ("Knighthoods were abolished by Helen Clark, the former prime minister, who was accused by opponents of pursuing a secret agenda of 'republicanism by stealth.'"); <https://www.theguardian.com/world/2000/jun/04/theobserver2>.
+  - **Publisher**: Telegraph (`medium_high`); Guardian (`medium_high`).
+  - **Source type / confidence**: major international media.
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct PM decision.
+  - **Lenses supported**: 7B.5 (procedural reform, mixed reception); also relevant to 4B.
+
+### Gaps and saturation note
+
+- 4 narrative units + 7 reused local priors. Source families: Wikipedia, NZ Herald, EBSCO, Goodreads (low), Guardian, Telegraph, Beehive, UC library guide.
+- **Strongest contrary evidence** in the dossier: EV-7B-01 (GE corn / Seeds of Distrust allegation). Hager's claim is a *2002 allegation about a 2000 incident*; the underlying events are accepted (5.6-tonne contamination), but the "cover-up" element is contested. Per source-confidence registry, treat as `medium_high` (investigative book) but flag as uncorroborated by independent finding.
+- No 2000 evidence of family enrichment, asset concealment, procurement self-dealing, nepotistic appointments, or obstruction of audit.
+
+---
+
+## Chapter 8B — Effectiveness and Competence (evidence_found; mixed 2000 implementation)
+
+**Local-prior status**: LF018, LF029, LF032, LF045, LF046 `evidence_found` for all 10 lenses (high governance baseline).
+
+### Reused local priors
+- LF018 accountability 1.711; LF029 rule of law 0.991; LF032 WGI rule of law 1.795; LF045 WGI government effectiveness 1.587; LF046 WGI regulatory quality 1.672.
+
+### Retained narrative evidence items
+
+- **EV-8B-01 / canonical key**: `nz-2000-employment-relations-act-implementation-passage`
+  - **Claim**: The Employment Relations Act 2000 was passed, commenced 2 October 2000; this was a substantial coalition priority, fulfilling an explicit 1999 election promise. Implementation required institutional coordination (Department of Labour, MBIE predecessor agencies).
+  - **URL**: <https://en.wikipedia.org/wiki/Employment_Relations_Act_2000>; <https://www.legislation.govt.nz/act/public/2000/0024/latest/DLM58317.html>.
+  - **Publisher**: Wikipedia + NZ PCO.
+  - **Source type / confidence**: encyclopedia + primary statute (`high`).
+  - **Target-year fit**: YES.
+  - **Attribution**: Cabinet / PM.
+  - **Lenses supported**: 8B.2 (program → concrete law + commencement date), 8B.6 (observable implementation by year-end), 8B.10 (progress on stated agenda).
+
+- **EV-8B-02 / canonical key**: `nz-2000-budget-closing-the-gaps-implementation`
+  - **Claim**: Budget 2000 (15 June 2000) operationalised Closing the Gaps, including ring-fenced Māori and Pasifika spending lines and a Te Puni Kōkiri audit function. Implementation also required the October 2000 health-bill adjustment after public controversy.
+  - **URL**: <https://www.beehive.govt.nz/feature/budegt-2000-closing-gaps>; <https://en.wikipedia.org/wiki/Closing_the_Gaps>.
+  - **Publisher**: NZ Beehive (`medium_high`); Wikipedia (`medium_high`).
+  - **Source type / confidence**: primary government statement + encyclopedia.
+  - **Target-year fit**: YES.
+  - **Attribution**: Cabinet / PM.
+  - **Lenses supported**: 8B.2, 8B.5, 8B.7 (mid-course correction after public controversy), 8B.8 (adaptation), 8B.10.
+
+- **EV-8B-03 / canonical key**: `nz-2000-defence-beyond-2000-policy-framework`
+  - **Claim**: In June 2000, the government set out defence priorities and a framework for future decisions about military capabilities, resources, and funding (Defence Beyond 2000 / FAADSC Select Committee report basis). This became the foundation for subsequent NZDF restructuring.
+  - **URL**: <https://www.beehive.govt.nz/release/decisions-next-step-modernising-defence-forces> ("In June 2000, we set out our priorities for defence and a framework for future decisions about military capabilities, resources and funding"); <https://defsec.net.nz/2018/11/12/not-quite-internationalist-foreign-defence-policy-need-new-thinking/> ("As Prime Minister she took a new approach to defence capabilities, building on the Foreign Affairs and Select Committee report Defence Beyond 2000"); <https://www.beehive.govt.nz/feature/modern-defence-force-new-zealands-needs>.
+  - **Publisher**: Beehive (`medium_high`); Defsec NZ analysis (`medium`).
+  - **Source type / confidence**: primary + analysis.
+  - **Target-year fit**: YES.
+  - **Attribution**: Cabinet / PM.
+  - **Lenses supported**: 8B.1 (program articulation), 8B.2 (concrete priorities), 8B.5 (inter-ministerial coordination), 8B.6 (implementation planning).
+
+- **EV-8B-04 / canonical key**: `nz-2000-spending-cap-fiscalresponsibility-act-continuity`
+  - **Claim**: The Labour-Alliance government retained the Fiscal Responsibility Act 1994 framework and "committed to transparent reporting and balanced budgets, which facilitated nine consecutive operating surpluses from 2000 to 2008." Budget 2000 itself was a credible opening step: small surplus, focused spending, retained fiscal rules.
+  - **URL**: <https://grokipedia.com/page/Fifth_Labour_Government_of_New_Zealand> ("government maintained the Fiscal Responsibility Act 1994, committing to transparent reporting and balanced budgets, which facilitated nine consecutive operating surpluses from 2000 to 2008"); <https://www.treasury.govt.nz/sites/default/files/2009-07/nzefo-00.pdf>.
+  - **Publisher**: Grokipedia (very_low, AI-generated — DO NOT use as final evidence; retention note: only the Treasury primary supports the claim); NZ Treasury (primary).
+  - **Source type / confidence**: Government primary source (`medium_high`) for the FY 2000 operating-surplus forecast; Grokipedia excluded as final-evidence.
+  - **Target-year fit**: YES.
+  - **Attribution**: Cabinet / PM / Finance Minister Cullen.
+  - **Lenses supported**: 8B.5, 8B.6, 8B.7 (fiscal outcomes track the agenda).
+
+- **EV-8B-05 / canonical key**: `nz-2000-honours-abolition-implementation`
+  - **Claim**: Abolition of titular knighthoods/damehoods was implemented through amendment of the NZ Order of Merit statutes in 2000, with public defence by PM Clark as modernisation — a concrete example of agenda → statute in the same year.
+  - **URL**: <https://en.wikipedia.org/wiki/New_Zealand_Order_of_Merit> ("In April 2000 the new Labour Prime Minister Helen Clark announced that knighthoods and damehoods were abolished, and the order's statutes were amended accordingly"); <https://www.theguardian.com/world/2000/jun/04/theobserver2>.
+  - **Publisher**: Wikipedia + Guardian (`medium_high`).
+  - **Source type / confidence**: encyclopedia + major international media.
+  - **Target-year fit**: YES.
+  - **Attribution**: Direct PM.
+  - **Lenses supported**: 8B.2, 8B.6, 8B.10 (smaller agenda item but visible implementation).
+
+### Gaps and saturation note
+
+- 5 narrative units + 5 reused local priors. Source families: NZ Treasury, NZ Beehive, NZ PCO, Wikipedia, NZ Herald, Guardian, Defsec, Te Ara.
+- **Implementation record for 2000**: ERA 2000 (Oct), Budget 2000 (June), Closing the Gaps (Budget), Defence Beyond 2000 (June), Honours reform (April), Top-tax-rate increase (calendar year), PTA renewal (Dec 1999, in force through 2000). This is a dense 2000 implementation set.
+
+---
+
+## Run Profile / Audit Summary
+
+### Search & tool summary
+- Tool: Brave web search only (per parent instructions). LLM-context and parallel MCP search tools were not available; underlying-source retrieval relied on search-result excerpts and Wikipedia-anchored references. Some items rely on cited secondary pointers (e.g., NZ Herald 2000 Ombudsman story) where the primary NZ Herald URL was not directly fetched.
+- Queries attempted (selected): Helen Clark PM NZ 2000; nuclear-free / NPT 13-steps; Defence Beyond 2000; INTERFET / East Timor 2000; Bougainville; Iraq statement; Closing the Gaps / Budget 2000; ERA 2000; GE corn Seeds of Distrust; honours abolition; Waitangi 2000; Wai 262; OIA / Ombudsman secrecy; TVNZ charter; fiscal surpluses / Cullen.
+- Local-fact reads: 46 `LF###` facts catalogued; no re-fetch of any structured dataset.
+
+### Local-data audit (chapter-by-chapter retention)
+- **Chapter 1B**: no local priors — all 10 lenses use internet evidence (EV-1B-01, EV-1B-02, EV-1B-03).
+- **Chapter 2B**: LF001-LF004 retained as country-exposure context; EV-2B-01..04 added as ruler-attributed narrative.
+- **Chapter 3B**: LF005-LF017 retained as country-baseline; EV-3B-01, EV-3B-02 added.
+- **Chapter 4B**: LF018-LF032 retained as country-baseline; EV-4B-01..04 added.
+- **Chapter 5B**: LF033-LF036 retained as country-baseline; EV-5B-01..04 added.
+- **Chapter 6B**: LF035, LF037-LF040 retained; EV-6B-01..03 added.
+- **Chapter 7B**: LF018, LF029, LF032, LF041-LF044 retained; EV-7B-01..04 added (with EV-7B-01 as the dossier's strongest contrary evidence).
+- **Chapter 8B**: LF018, LF029, LF032, LF045-LF046 retained; EV-8B-01..05 added.
+- **Error / `error_methodology_ids`**: none reported in supplied package.
+- **Unused local facts**: none — every LF row that mapped to a chapter was either retained or cited as country-baseline context.
+
+### Cross-chapter reuse (not duplicated as separate items)
+- EV-4B-03 (honours abolition) is reused for 7B-04 and 8B-05 via canonical key; not duplicated.
+- EV-2B-04 (Defence Beyond 2000) is reused for 8B-03 via canonical key; not duplicated.
+- EV-5B-04 (ERA 2000 economic) is reused for 4B-01 (political freedom / coalition programme) and 8B-01 (effectiveness / implementation) via canonical key; not duplicated.
+
+### Chapter-level source diversity summary
+| Chapter | Narrative units | Source families | Source types |
+|---|---|---|---|
+| 1B | 3 | Wikipedia, Acronym Institute, NZ MFAT, Global Leadership Foundation, Beehive, Disarmsecure | encyclopedia, NGO, official, biography |
+| 2B | 4 | NZ Treasury, Beehive, NZ History, Te Ara, NZ Herald, Global Leadership Foundation | primary, encyclopedia, news, bio |
+| 3B | 2 | NZ History, Te Ara, NZCPR | encyclopedia, advocacy |
+| 4B | 4 | Wikipedia, NZ PCO, NZ Herald, Guardian | encyclopedia, primary, news |
+| 5B | 4 | NZ Treasury, Beehive, Wikipedia, PMC | primary, encyclopedia, peer-reviewed |
+| 6B | 3 | Beehive, NZ History, Te Puni Kōkiri, Ministry of Justice, Wikipedia | primary, encyclopedia |
+| 7B | 4 | Wikipedia, NZ Herald, EBSCO, Goodreads (low), Guardian, Telegraph, UC library | encyclopedia, news, NGO, bio |
+| 8B | 5 | NZ Treasury, Beehive, NZ PCO, Wikipedia, NZ Herald, Guardian, Defsec, Te Ara | primary, encyclopedia, news, analysis |
+
+### Local-data warning reconciled
+- Package disposition reason R001 (no selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period) explains the Chapter 1B gap. This is a local-prior field-key coverage gap, not an extraction error; Chapter 1B requires internet evidence, which has been supplied via 3 retained items centred on the NPT 13-steps / NAC diplomacy and Clark's nuclear-rhetoric restraint.
+
+### Strongest contrary / adverse evidence
+- **EV-7B-01 (GE corn / Seeds of Distrust)** — investigative allegation that the government concealed GE-corn contamination in 2000. Allegation only; corroborated event (5.6-tonne contamination, three NZ regions) accepted. Treat as adverse-leaning but uncorroborated as a "cover-up" finding.
+
+### Unresolved gaps
+- **Direct NZ Herald primary article on Ombudsman secrecy (Oct 2000)** could not be opened; relied on UC library guide citation.
+- **Press-freedom / RSF specific 2000 score** not retrieved (RSF country page is summary only).
+- **No primary source retrieved for Nicky Hager's *Seeds of Distrust* (2002)** — relied on Wikipedia and EBSCO summaries.
+- **No 2000 micro-data on distribution / Gini** — the dossier's 5B and 6B distributional claims rest on the top-tax-rate reform (5B-02) and Closing the Gaps framework (6B-01), not on direct inequality measurement.
+- **Acronym Institute archive (EV-1B-02)** used as primary speech text; archive stability may vary.
+
+### Researcher self-audit
+- Temporal fit: every retained item targets 2000 directly except EV-1B-03 (1987 baseline + 2000 continuation) and EV-7B-01 (2000 incident + 2002 book), both explicitly labelled.
+- Ruler attribution: every chapter has at least one direct ruler-attributed 2000 item; inherited institutional context (Treaty of Waitangi, NZ Nuclear-Free Zone 1987, fiscal rules 1994) is labelled as baseline.
+- Same-URL splits: no two items share the same URL except where the same source supports materially distinct claims (e.g., Wikipedia *Helen Clark* and Wikipedia *Fifth Labour Government*; Beehive *Budget 2000 Closing the Gaps* and Beehive *Defence*).
+- No client matrix used; no invented data; no anachronistic disclosure expectations applied.
+
+---
+
+This is the research handoff. It can be persisted to `research-materials.md` by the parent when shell access is restored. No scores or score ranges are proposed; no advice is given on whether a judge should score or return null.
+---

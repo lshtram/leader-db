@@ -1,0 +1,696 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:EGY:6512",
+  "iso3": "EGY",
+  "country_name": "Egypt",
+  "ruler_name": "Mubarak",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 58,
+  "approximate_source_family_count": 42,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+I have sufficient material. Now I'll synthesize the comprehensive handoff document. Let me draft the complete research notebook.
+
+---
+
+# Ruler Evidence Research Notebook — Mubarak / Egypt / 2000
+
+**Job:** `dossier:2000-scale-pilot-5-v1:2000:EGY:6512`
+**Ruler:** Hosni Mubarak (in office Oct 1981 – Feb 2011; year 2000 = year 19 of tenure)
+**Period:** 2000 (single year)
+**ISO3:** EGY
+**Run key:** `2000-scale-pilot-5-v1`
+**Researcher session:** one persistent session, chapters 1B→8B in order
+**Status:** initial pass, dossier ready for evidence review (round 1)
+
+---
+
+## 0. Local-Prior Audit (chapter-by-chapter, before internet)
+
+The supplied local package contains **51 deduplicated country-year facts** from V-Dem, WGI, UCDP, SIPRI, CIRIGHTS, PTS, UNDP HDI, Maddison/PWT — all are **structured country baselines**, not ruler conduct. None are FAS nuclear facts. The 10 `1B.*` lenses therefore start from zero local prior; the other 70 lenses have priors but they are baseline / context only.
+
+**Retained as context only** (country/inherited baseline, NOT ruler attribution):
+- `LF001–LF007` (2B): 2000 UCDP/SIPRI baseline — Egypt had 0 internationalized-conflict events/fatalities, 3 state-based conflict events / 2 fatalities (low single-digit, virtually de minimis), $2.79 bn military expenditure (constant USD), 2.55 % of GDP. Inherited 1981–2000 posture: peace treaty with Israel since 1979, US $1.3 bn/yr military aid per Camp David.
+- `LF008–LF022` (3B): 2000 CIRIGHTS, PTS, V-Dem and UCDP one-sided violence baseline. Notable: V-Dem civil-society repression = -0.627 (very repressive); extrajudicial-killing V-Dem = -0.861; PTS Amnesty/State both 3 (mid-range political terror); CIRIGHTS disappearances = 2 (some); CIRIGHTS repression = 6 (extensive); CIRIGHTS political imprisonment = 0 (rare this specific year); one-sided violence events/fatalities = 0/0; physical-integrity index 0.173 (low).
+- `LF023–LF037` (4B): 2000 V-Dem + WGI baseline. V-Dem electoral democracy 0.217 (very low); liberal democracy 0.154; civil liberties 0.306; rule of law 0.324; suffrage 1.0; multiparty 0.008 (near zero, despite legal fiction); regime_type 1.0 (closed/autocratic); WGI voice & accountability -0.895; WGI rule of law -0.052.
+- `LF038–LF041` (5B): 2000 economic scale. Real GDP per capita ≈ $6,594; GDP ≈ $444 bn; GNI/capita ≈ $7,906; population ≈ 67.4 m. Inherited: post-SAP stabilization era, 5.0 % growth in 1999/2000.
+- `LF042–LF045` (6B): 2000 HDI baseline. HDI = 0.629 (medium); life expectancy 68.0; expected years of schooling 10.78; mean years of schooling 6.37.
+- `LF046–LF049` (7B): 2000 corruption. WGI control-of-corruption -0.493; V-Dem political corruption 0.831 (high corruption — note: higher V-Dem corr = worse); executive corruption 0.766; public-sector corruption 0.891.
+- `LF050–LF051` (8B): 2000 effectiveness. WGI government effectiveness -0.175; regulatory quality -0.302.
+
+**Local-prior bottom line:** all the local facts describe a closed autocracy with mid-range repression, deep corruption, modest development, and structural peace. They establish **what Mubarak inherited and what the country baseline was**, not what he did in 2000. Chapter research must therefore attribute conduct to him directly via internet narrative evidence.
+
+---
+
+## 1B. Ruler responsibility for nuclear / global existential risk
+
+**Local prior:** 0 facts (no FAS/SIPRI YB Ch.7 fact was supplied).
+**Disposition:** research partial; mostly capacity-only context.
+
+### Evidence items
+
+- **1B-E1.** Egypt is a non-nuclear-weapon state party to the NPT; Mubarak since 1990 has publicly proposed a Middle East zone free of all weapons of mass destruction and their delivery means. In 2000 Egypt participated in the NPT Review Conference and actively pushed the Middle East resolution.
+  - locator: <https://nonproliferation.org/egypt-and-the-middle-east-resolution-at-the-npt-2000-review-conference/> (James Martin Center for Nonproliferation Studies)
+  - source_type: think_tank; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: 2000 (NPT RevCon 2000); ruler attribution: direct (Mubarak-led initiative)
+  - supports: 1B.1 (risk-reduction posture), 1B.4 (nonproliferation diplomacy), 1B.10 (inherited-to-end posture unchanged — capability unchanged but diplomatic restraint)
+  - counter/caveat: Egypt refused to sign/ratify the Biological Weapons Convention citing Israel's nuclear opacity (NTI profile); this is also consistent with a non-proliferation posture, not a contrary signal.
+
+- **1B-E2.** Egypt's WMD policy under Mubarak was rhetorically anchored to "region-wide disarmament" rather than unilateral nuclear pursuit; no nuclear-weapons, fissile-material production, or unsafeguarded-program evidence emerges for 2000.
+  - locator: <https://www.nti.org/countries/egypt/> (NTI country profile)
+  - source_type: ngo_think_tank; source_confidence: medium_high; final_evidence_use: context (capability-as-context, not a 2000 specific event)
+  - supports: 1B.1, 1B.6
+  - caveat: NTI is conditional; treated as context.
+
+- **1B-E3.** Mubarak's mediation at the **October 16–17, 2000 Sharm el-Sheikh Middle East Peace Summit** with Clinton, Barak, and Arafat, and establishment of the Mitchell Committee to investigate the causes of the post-Sept 2000 violence, is a 2000 diplomatic action that touches conflict escalation/de-escalation channels, not nuclear posture, but demonstrates the ruler's continued engagement with conventional-conflict risk reduction.
+  - locator: <https://www.un.org/unispal/document/auto-insert-194926/> (UN Yearbook of the United Nations 2000 — Question of Palestine)
+  - source_type: intergovernmental; source_confidence: high; final_evidence_use: final_evidence
+  - target-period fit: Oct 2000; ruler attribution: direct (host, co-convener)
+  - supports: 1B.8 (crisis de-escalation, communications channels) and is also Chapter 2B evidence
+
+### 1B synthesis
+Egypt under Mubarak in 2000 was a **non-nuclear state** with no inherited nuclear arsenal, no known weapons program, and a public posture favoring WMD-free Middle East. Mubarak's NPT-RevCon 2000 work and the Sharm el-Sheikh Summit are the only ruler-attributed 2000 acts of existential/conventional-risk relevance. No nuclear-brinkmanship, no proliferation, no command-and-control failures are documented for this period. The lens-relevant evidence base is thin but consistently positive/neutral. **Coverage:** 1B.1, 1B.4, 1B.6, 1B.8 covered; 1B.2, 1B.3, 1B.5, 1B.7, 1B.9, 1B.10 — context-only, no 2000 ruler-attributed evidence either way.
+
+---
+
+## 2B. Ruler responsibility for international peace vs aggression and war
+
+**Local prior:** 7 facts (LF001–LF007) — UCDP + SIPRI 2000 baseline.
+**Disposition:** evidence found; ~6 defensible internet units added.
+
+### Evidence items
+
+- **2B-E1.** Egypt's exposure to interstate war in 2000 was effectively zero. UCDP records 0 internationalized-conflict events and 0 internationalized-conflict fatalities for EGY 2000; SIPRI milex constant USD 2.79 bn (2.55 % of GDP).
+  - locator: `local-prior:2B.1` (LF001–LF005) and UCDP/SIPRI dataset
+  - source_type: structured_dataset; source_confidence: high (per source-confidence registry); final_evidence_use: context (exposure baseline)
+  - supports: 2B.1, 2B.7, 2B.10
+
+- **2B-E2.** UCDP recorded 3 state-based conflict events and 2 state-based fatalities for EGY in 2000, reflecting the persistent low-level Sinai/security-border pattern inherited from the 1979 peace treaty.
+  - locator: `local-prior:2B.1` (LF006, LF007)
+  - source_type: structured_dataset; source_confidence: high; final_evidence_use: context
+  - supports: 2B.1, 2B.10
+
+- **2B-E3.** Mubarak did not support the 2003 Iraq invasion when it came, and the inherited Egypt-Israel peace treaty (1979) had not been abrogated through 2000 — continuity of restraint.
+  - locator: <https://en.wikipedia.org/wiki/History_of_Egypt_under_Hosni_Mubarak> ("For Mubarak's regime, the abrogation of the peace treaty with Israel has never been an option, even during the worst days of the Intifada") and Stanford SearchWorks catalog of "Egypt and the Second Palestinian Intifada" (Ginat & Noema 2011).
+  - source_type: encyclopedia + academic monograph citation; source_confidence: medium_high; final_evidence_use: final_evidence (for the period 2000)
+  - target-period fit: continuous through 2000; ruler attribution: direct
+  - supports: 2B.3, 2B.10 (restraint, defensive posture preservation)
+
+- **2B-E4.** The **Sharm el-Sheikh Middle East Peace Summit, October 16–17, 2000**, co-convened by Mubarak and President Clinton after the eruption of the Second Intifada (29 Sept 2000), produced ceasefire understandings and the Mitchell Fact-Finding Committee.
+  - locator: <https://www.un.org/unispal/document/auto-insert-194926/> (UN Yearbook 2000 — Question of Palestine)
+  - source_type: intergovernmental (UN); source_confidence: high; final_evidence_use: final_evidence
+  - target-period fit: Oct 2000; ruler attribution: direct (host, co-convener with Clinton)
+  - supports: 2B.1 (chose diplomacy in crisis), 2B.7 (credible ceasefire / peace-talk effort)
+  - caveat: summit did not end the intifada; Mitchell Committee findings later concluded the Israeli response was disproportionate.
+
+- **2B-E5.** Mubarak's **brokering during the July 2000 Camp David Summit** — Clinton cited Mubarak as a conduit to Arafat, noting that Mubarak "said [the Clinton Parameters] were historic and he could encourage Arafat to accept them."
+  - locator: <https://jewishvirtuallibrary.org/president-clinton-reflects-on-2000-camp-david-summit> (President Clinton's own retrospective account)
+  - source_type: memoir/primary source (sitting US President at the time); source_confidence: medium_high (self-referential to Clinton, but contemporaneous speech); final_evidence_use: final_evidence
+  - target-period fit: July 2000; ruler attribution: direct
+  - supports: 2B.1, 2B.7 (diplomatic mediation, not force)
+
+- **2B-E6.** Egypt did not engage in any documented proxy warfare, arms transfer to armed non-state groups, or external aggression in 2000. The Camp David military aid relationship (≈$1.3 bn/yr) was inherited and continued without transparent redefinition.
+  - locator: <https://www.history.com/articles/camp-david-accords> (background on aid terms) + <https://nuke.fas.org/guide/egypt/nuke/index.html> (FAS) — no contrary proxy support documented for 2000.
+  - source_type: encyclopedia + reference; source_confidence: medium_high (for the no-aggression finding); final_evidence_use: final_evidence (negative finding, qualified)
+  - supports: 2B.2, 2B.5
+  - caveat: absence-of-evidence is weaker for proxy support, which is opaque by design.
+
+### 2B synthesis
+The 2000 evidence base for 2B is favorable-to-neutral for Mubarak: zero internationalized conflict, low domestic spillover (2 UCDP fatalities), preservation of the peace treaty, active mediation at Camp David (July) and Sharm el-Sheikh (October), and a diplomatic-de-escalation posture during the Second Intifada onset. No documented aggression, proxy warfare, civilian-harm cover-up, or military-spending abuse for the year. **Coverage:** 2B.1, 2B.2, 2B.3, 2B.7, 2B.10 well covered; 2B.4, 2B.5, 2B.6, 2B.8, 2B.9 — context-only.
+
+---
+
+## 3B. Ruler responsibility for domestic safety vs violence, oppression, and incitement
+
+**Local prior:** 15 facts (LF008–LF022) — CIRIGHTS, PTS, V-Dem, UCDP one-sided baseline.
+**Disposition:** evidence found; 8+ defensible internet units added.
+
+### Evidence items
+
+- **3B-E1.** State of emergency in force continuously since 1967 (with brief 1980 interruption) under Mubarak; in 2000 the Emergency Law remained the legal basis for arbitrary administrative detention, censorship, and special security courts.
+  - locator: <https://ohrh.law.ox.ac.uk/revolution-and-counter-revolution-in-egypts-emergency-state/> (Oxford HRH journal article); corroborated by <https://connectedincairo.com/egypt-rising-up/why-revolution/emergency-law/> and Wikipedia "Emergency law in Egypt".
+  - source_type: academic; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: continuous through 2000; ruler attribution: structural (Mubarak as president renewed it)
+  - supports: 3B.5 (emergency-power misuse as control), 3B.1, 3B.2, 3B.6
+
+- **3B-E2.** The **Al-Kosheh (Al-Kush) massacre, 2 January 2000** — sectarian violence in Upper Egypt that killed 20–21 Coptic Christians and 1 Muslim (counts vary); police stood down and were widely accused of negligence and complicity.
+  - locator: <https://en.wikipedia.org/wiki/Kosheh_massacres> (Wikipedia consolidated account with cited sources); <https://www.theguardian.com/world/2000/jan/17/4> (Guardian contemporaneous); <https://www.govinfo.gov/content/pkg/CRECB-2000-pt9/html/CRECB-2000-pt9-Pg12905-2.htm> (US Congressional Record 2000); <https://www.thenewhumanitarian.org/report/93935/egypt-timeline-sectarian-violence> (IRIN/Thenewhumanitarian).
+  - source_type: multiple — media + government record; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: Jan 2000; ruler attribution: structural (police/security under executive authority)
+  - supports: 3B.2 (failure to prevent), 3B.4 (no independent investigation until later), 3B.7 (vulnerable group — Coptic Christians — not protected)
+  - counter/qualifier: government did allocate £350k in relief; convictions eventually secured in 2003 against 8 Muslims, but police accountability was weak.
+  - cross-chapter reuse: feeds 4B (rule-of-law/independent-investigation weakness) and 7B (accountability/remedy failure).
+
+- **3B-E3.** **Arrest and prosecution of Prof. Saad Eddin Ibrahim, June 2000**, founder of the Ibn Khaldun Center for Development Studies and a US-affiliated civil-society figure. Held without charge ~6 weeks; tried in Supreme State Security Court; eventually convicted May 2001 on charges of "disseminating information abroad that harmed Egypt's national interests" and "accepting funds from a foreign country with the goal of carrying out acts harmful to national interests." Sentenced to 7 years; 27 co-defendants received 1–5 years.
+  - locator: <https://www.hrw.org/report/2002/01/01/state-egypt-vs-free-expression/ibn-khaldun-trial> (Human Rights Watch, Jan 2002); <https://nap.nationalacademies.org/catalog/10148/report-on-the-case-of-dr-saad-eddin-mohamed-ibrahim-imprisoned-sociologist-cairo-egypt> (US National Academies / CHR report); <https://www.freedom-now.org/cases/dr-saad-eddin-ibrahim/> (Freedom Now).
+  - source_type: ngo + intergovernmental quasi-judicial body (CHR); source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: arrest June 2000 (ruler-period anchor); conviction May 2001 (extension)
+  - supports: 3B.8 (peaceful civil-society activism prosecuted), 3B.5 (emergency-court weaponization), 4B.6 (civil society suppression), 7B.7 (use of state power against critics)
+  - attribution: a Supreme State Security Court conviction under the Emergency Law while Mubarak was president — direct ruler-era responsibility.
+
+- **3B-E4.** Egyptian Organization for Human Rights (EOHR) and its lawyer Hafez Abu Sa'eda faced criminal prosecution in 2000 on related charges of "disseminating information abroad that harmed Egypt's national interests" and accepting foreign funds — pattern of harassment of independent human-rights NGOs.
+  - locator: <https://www.refworld.org/reference/annualreport/hrw/1999/en/23052> (HRW World Report 2000 — Egypt); <https://www.jewishvirtuallibrary.org/report-on-human-rights-practices-for-2000-egypt> (US State Dept human-rights report 2000).
+  - source_type: ngo + official foreign-government report; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: 2000; ruler attribution: structural (state-security prosecution of human-rights lawyer)
+  - supports: 3B.8, 4B.6, 7B.6 (intimidation of independent investigators)
+
+- **3B-E5.** In April 2000, more than 1,000 political detainees were released, and further releases were reported in December 2000 — releases under Emergency Law authority were used as controlled-valve concessions, not systematic reform.
+  - locator: <https://www.refworld.org/reference/annualreport/amnesty/2000/en/24350> (Amnesty International Report 2000 — Egypt)
+  - source_type: ngo (Amnesty); source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: 2000; ruler attribution: direct (executive releases)
+  - supports: 3B.1 (partial protection, no system), 3B.6 (managed fear not eliminated)
+  - qualifier: positive signal in a negative pattern; "fewer new cases" ≠ structural reform.
+
+- **3B-E6.** **NGO Law 153/1999** (Associations and Civil Foundations Law) entered force under Mubarak, giving the state broad veto over NGO boards, foreign funding, and external affiliations; widely criticized by HRW and the UN Committee on Economic, Social and Cultural Rights in 2002.
+  - locator: <https://www.hrw.org/news/1999/05/27/president-mubarak-do-not-sign-harsh-new-ngo-law> (HRW pre-signing appeal); <https://www.icnl.org/resources/research/ijnl/egypt-2> (ICNL, citing UN CESCR 2002 criticism).
+  - source_type: ngo + international commentary; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: signed 1999, in force throughout 2000; ruler attribution: direct (Mubarak signed)
+  - supports: 3B.8, 4B.6, 7B.3, 7B.9 (regulatory capture of civic space)
+
+- **3B-E7.** The October–November 2000 **"2000 uprising in Egypt"** — tens of thousands of Egyptian students and citizens demonstrated in solidarity with Palestinians after the start of the Second Intifada; Mubarak's government responded with containment rather than repression, and the protests focused anger against Arab governments (including Mubarak's) for inaction, not pro-regime mobilization.
+  - locator: <https://en.wikipedia.org/wiki/2000_uprising_in_Egypt> (Wikipedia article on the event)
+  - source_type: encyclopedia; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: Oct–Nov 2000; ruler attribution: indirect (regime response to popular protest)
+  - supports: 3B.8 (peaceful protest largely tolerated, partial positive signal), 3B.9 (no catastrophic crisis response, though underlying anger is itself evidence of cumulative failure)
+  - qualifier: this is the rare positive 3B signal in an otherwise repressive year.
+
+- **3B-E8.** Local prior confirms V-Dem physical-integrity index 0.173, civil-society repression -0.627, extrajudicial-killing -0.861 — all indicate persistent systematic repression patterns in 2000.
+  - locator: `local-prior:3B.1` (LF015, LF016, LF019); V-Dem dataset
+  - source_type: structured_dataset (V-Dem); source_confidence: high; final_evidence_use: context (country baseline, not ruler-attributable change in 2000)
+  - supports: 3B.10 (inherited-to-2000 posture unchanged)
+
+### 3B synthesis
+The 2000 picture is dominated by: continuation of Emergency Law and emergency-court trials; the Al-Kosheh massacre and weak police accountability; the Saad Eddin Ibrahim prosecution; harassment of EOHR and human-rights lawyers; restrictive NGO Law 153/1999; balanced partially by 1,000+ political-detainee releases and relative tolerance of the pro-Palestinian 2000 uprising. V-Dem/CIRIGHTS baselines confirm systematic patterns, not single-year regressions. **Coverage:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.7, 3B.8 well evidenced; 3B.3 (incitement) — no specific 2000 episode surfaced; 3B.6, 3B.9, 3B.10 mixed/context.
+
+---
+
+## 4B. Ruler commitment to political freedom vs authoritarian rule
+
+**Local prior:** 15 facts (LF023–LF037) — V-Dem + WGI political-freedom baseline.
+**Disposition:** evidence found; 7+ defensible internet units added.
+
+### Evidence items
+
+- **4B-E1.** **People's Assembly elections, October–November 2000**: NDP took 388 of 454 seats (≈85%); opposition (independent candidates) won 34 seats, including 17 affiliated with the Muslim Brotherhood (the largest opposition bloc). Muslim Brotherhood and Wafd boycotted the second round alleging widespread fraud.
+  - locator: <https://en.wikipedia.org/wiki/History_of_Egypt_under_Hosni_Mubarak> (citing the 2000 People's Assembly outcome); <http://archive.ipu.org/parline-e/reports/arc/2097_00.htm> (Inter-Parliamentary Union archive of 2000 Egypt election results); <https://www.bbc.com/news/world-middle-east-11935368> (BBC on 2000 election, "two main opposition parties…boycotted Sunday's second-round vote, alleging widespread fraud in the first ballot"); <https://www.reuters.com/world/middle-east/egypt-keeps-former-powerhouse-muslim-brotherhood-out-politics-2022-07-29/> (Reuters: "Brotherhood won 17 seats in the 2000 parliamentary election").
+  - source_type: encyclopedia + IPU + media; source_confidence: high (numbers cross-confirmed); final_evidence_use: final_evidence
+  - target-period fit: Oct–Nov 2000; ruler attribution: structural (NDP is Mubarak's party; he appoints cabinet)
+  - supports: 4B.1 (no genuine contestability), 4B.2 (manipulation alleged), 4B.10 (no democratic progress)
+
+- **4B-E2.** **Supreme Constitutional Court ruling, July 2000**, striking down Article 24 of Law 73/1956 and requiring full judicial supervision of People's Assembly elections (judges, not civil servants, must supervise all polling stations). Mubarak issued implementing decrees; ruling took effect for the Oct 2000 election.
+  - locator: <https://cihrs.org/the-supreme-constitutional-court-defending-human-rights-or-the-mubarak-regime/?lang=en> (CIHRS analysis); <https://www.hrw.org/news/2000/10/15/egypt-elections-peoples-assembly-begin> (HRW, "Following the Constitutional Court ruling, two extraordinary sessions of the People's Assembly and the Majlis al-Shura…approved three decrees issued by President Husni Mubarak"); <https://hrlibrary.umn.edu/research/Egypt/independence-of-the-judiciary-in-egypt-en.pdf> (Bora'i, "2000 to amend the ruling of the Law of Participating in Political Rights. This decree by the power of the President, given to him by Article 147 of the Egyptian Constitution, confirmed the complete judicial supervision of election").
+  - source_type: ngo + academic + primary legal source; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: July–Oct 2000; ruler attribution: ambiguous (SCC-driven; Mubarak implemented but later sought to overturn — see 4B-E3)
+  - supports: 4B.4 (independent courts constrained the ruler on this occasion — partial positive), 4B.2 (ruler response afterward)
+  - caveat: net 4B direction is mixed — the SCC imposed a constraint, Mubarak accepted it grudgingly, then undermined it.
+
+- **4B-E3.** **Mubarak's counter-response to the SCC ruling**: per MERIP and the Washington Institute, after the 2000 election Mubarak preempted the SCC's norm of judicial self-selection and "packed the body with pliable judges from outside the court, expanding the number of sitting justices by 50 percent."
+  - locator: <https://www.merip.org/2016/09/dissidence-and-deference-among-egyptian-judges/> (MERIP — referencing Moustafa, The Struggle for Constitutional Power); <https://www.washingtoninstitute.org/policy-analysis/democracy-demotion-egypt-united-states-willing-accomplice>.
+  - source_type: academic + think_tank; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: post-2000 election, late 2000–early 2001; ruler attribution: direct
+  - supports: 4B.4 (court independence eroded), 4B.5 (politicization of neutral institutions)
+
+- **4B-E4.** **Saad Eddin Ibrahim prosecution, June 2000** (reused from 3B-E3). Direct attack on the most prominent independent civil-society researcher; HRW's 2002 report explicitly framed it as "The State of Egypt vs. Free Expression."
+  - locator: <https://www.hrw.org/report/2002/01/01/state-egypt-vs-free-expression/ibn-khaldun-trial>
+  - source_type: ngo; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 4B.6 (civil society and free-expression suppression), 4B.3 (no tolerance for critical voices), 4B.9 (administrative harassment)
+
+- **4B-E5.** **NGO Law 153/1999** (reused from 3B-E6). The law empowered the state to veto NGO boards, control foreign funding, and restrict external affiliations; the ICNL notes penalties of up to 6 months imprisonment or EGP 2,000 fines for non-compliance.
+  - locator: <https://www.hrw.org/news/1999/05/27/president-mubarak-do-not-sign-harsh-new-ngo-law>; <https://www.icnl.org/resources/research/ijnl/egypt-2>.
+  - source_type: ngo; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 4B.6 (associational freedom restricted), 4B.9 (administrative controls)
+
+- **4B-E6.** Press freedom in 2000: at least 11 reporters and editors investigated or tried for libel and other publication offenses under the Press Law; the 1999 Al-Wafd closure attempt and continuing judicial pressure on independent papers (e.g., the case that preceded Ibrahim Eissa's later imprisonment) characterize the year.
+  - locator: <https://cpj.org/2000/03/attacks-on-the-press-1999-egypt/> (CPJ Attacks on the Press 1999 — Egypt); <https://cpj.org/2001/03/title-66/> (CPJ Journalists in Prison list for 2000: "three journalists jailed in 2000 were all released before the end of the year").
+  - source_type: ngo (CPJ); source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: 2000; ruler attribution: structural (prosecutions by state security)
+  - supports: 4B.6 (press not free), 4B.3 (no tolerance for critics)
+
+- **4B-E7.** **Gamal Mubarak** — Mubarak's younger son — was appointed to the NDP's policies secretariat in **February 2000** and began a rapid rise inside the NDP that the Carnegie Endowment and The Washington Institute describe as signaling an "increasingly evident" grooming for succession. This represents personalization and dynastic signaling in the ruling party structure.
+  - locator: <https://www.washingtoninstitute.org/policy-analysis/gamal-mubarak-successor-story-egypt> ("Mubarak began to focus attention on his son Gamal in 2000 by appointing him to the general secretariat of the NDP"); <https://en.wikipedia.org/wiki/Gamal_Mubarak> ("The grooming of Gamal Mubarak to be his father's successor as the next president of Egypt became increasingly evident at around 2000"); <https://en.wikipedia.org/wiki/History_of_Egypt_under_Hosni_Mubarak> ("As Alaa started getting out of the picture by 2000, Mubarak's second son Gamal started rising in the National [Democratic Party]").
+  - source_type: think_tank + encyclopedia; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: Feb 2000 onward; ruler attribution: direct
+  - supports: 4B.5 (personality cult / family / party capture), 4B.8 (no VP appointed, no constitutional transfer path)
+  - cross-chapter reuse: feeds 7B.4 (family / succession) and 8B.5 (party control).
+
+- **4B-E8.** No vice-president appointed, no designated successor, no constitutional-term-limit debate; Mubarak maintained ambiguity over presidential succession throughout his tenure, declining to appoint a vice president despite constitutional provisions allowing it.
+  - locator: <https://grokipedia.com/page/Hosni_Mubarak> (encyclopedic summary — corroborated by Brookings and Carnegie).
+  - source_type: encyclopedia; source_confidence: medium; final_evidence_use: context
+  - supports: 4B.8 (no succession framework)
+
+### 4B synthesis
+The 2000 political-freedom record is **dominated by continuity of authoritarian control**. A managed 388/454 election, a Supreme Constitutional Court ruling that briefly constrained Mubarak before he packed the court, the Saad Eddin Ibrahim prosecution, NGO Law 153/1999, persistent press-law prosecutions, and the start of Gamal Mubarak's dynastic grooming inside the NDP. The one partial bright spot — the SCC ruling requiring judicial election supervision — was followed by Mubarak's court-packing response. **Coverage:** 4B.1–4B.9 all have direct evidence; 4B.10 — net deterioration trajectory. The dossier carries sufficient negative ruler-attributed material to support a Chapter 4B judge assigning a low score.
+
+---
+
+## 5B. Ruler intention and action for economic well-being and prosperity
+
+**Local prior:** 4 facts (LF038–LF041) — GDP/GNI/population 2000 baseline.
+**Disposition:** evidence found; ~6 internet units added.
+
+### Evidence items
+
+- **5B-E1.** Egypt in 2000 was in a post-SAP stabilization phase. GDP growth was approximately 5.0 % in FY1999/2000; inflation around 3.8 %; fiscal deficit around 1.3 % of GDP; the country had completed the IMF/Egyptian stabilization program and was preparing for further liberalization.
+  - locator: <https://1997-2001.state.gov/about_state/business/com_guides/2000/nea/egypt00_02.html> (US State Dept FY2000 Country Commercial Guide — Egypt); corroborated by IMF Article IV / Egypt country reports (e.g., <https://www.imf.org/external/pubs/ft/scr/2005/cr05177.pdf>).
+  - source_type: official_us_government + IMF; source_confidence: medium_high (US gov commercial guide is factual); final_evidence_use: final_evidence (for the macro figures)
+  - target-period fit: 1999/2000 fiscal year; ruler attribution: structural
+  - supports: 5B.3 (macroeconomic stability inherited and maintained)
+
+- **5B-E2.** Privatization under Mubarak was the central economic-reform pillar of the 1990s and continued through 2000 — but critics (Carnegie, World Bank, Middle East Institute) characterize it as executed in a captured manner: military and security-affiliated networks, including those around Mubarak's son Gamal, acquired state-owned enterprises at low prices.
+  - locator: <https://mei.edu/publication/egypts-military-business-need-change/> (Middle East Institute); <https://ijhss.thebrpi.org/journals/Vol_3_No_10_Special_Issue_May_2013/3.pdf> ("The way the SAP was implemented led to corruption"); <https://blogs.worldbank.org/en/arabvoices/privatization-key-solving-egypt-s-economic-woes> (World Bank "harshly criticized, and characterized as corrupt and favoring big corporations").
+  - source_type: academic + think_tank; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: late 1990s through 2000s; ruler attribution: direct (Mubarak personally presided over cabinet economic decisions and NDP platform)
+  - supports: 5B.1 (rent-extraction critique), 5B.2 (loyalist/family appointment critique), 5B.4 (mixed — rules adopted but capture), 5B.5 (corruption in privatization)
+  - caveat: the most acute crony networks crystallized around Gamal's rise (post-2000) — 2000 is the pivot year, not the full effect.
+
+- **5B-E3.** **Gamal Mubarak's appointment to the NDP policies secretariat in February 2000** is widely treated as the institutional start of the "new guard" of pro-privatization business elites aligned with the family.
+  - locator: <https://carnegieendowment.org/sada/2010/09/gamal-mubarak-and-the-discord-in-egypts-ruling-elite?lang=en&center=global> ("a remarkable rise inside the NDP from 2000 onward and has dominated the cabinet since 2004"); <https://en.wikipedia.org/wiki/Gamal_Mubarak>.
+  - source_type: think_tank + encyclopedia; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 5B.2 (loyalist/family elevation into economic-policy machinery)
+
+- **5B-E4.** Egypt signed the UN Convention against Corruption in **2000** and ratified it later, signaling nominal adherence to anti-corruption norms; no comparable follow-through on domestic anti-corruption institutions is documented for 2000.
+  - locator: <https://knowledgehub.transparencycdn.org/kproducts/Egypt-Corruption-and-anti-corruption.pdf> (Transparency International/U4 Helpdesk answer on Egypt corruption).
+  - source_type: NGO research summary; source_confidence: medium_high; final_evidence_use: context
+  - supports: 5B.5 (formal commitment vs. weak practice — context)
+  - qualifier: signing is necessary but not sufficient.
+
+- **5B-E5.** Real GDP per capita (LF038) ≈ $6,594 in 2000 (PWT/Maddison); GNI per capita ≈ $7,906 (UNDP). Population ≈ 67.4 million. Inherited baseline, not a 2000 ruler action.
+  - locator: `local-prior:5B.1` (LF038–LF041); PWT and Maddison dataset.
+  - source_type: structured_dataset; source_confidence: high; final_evidence_use: context (scale only)
+
+- **5B-E6.** World Bank "Poverty and Economic Growth in Egypt 1995–2000" study documents the growth-and-poverty dynamics through the end of the period; while growth was positive, inequality and rural/urban gaps persisted.
+  - locator: <https://openknowledge.worldbank.org/entities/publication/40e3f142-8bea-594a-b434-f02197587633> (World Bank publication record)
+  - source_type: international_org (World Bank); source_confidence: medium_high; final_evidence_use: context
+  - supports: 5B.8 (distribution — context)
+
+### 5B synthesis
+Egypt's 2000 macro stability is favorable; structural reform continued but the privatization process was widely criticized as captured by security/military/family networks, with the February 2000 elevation of Gamal Mubarak as a clear inflection. The dossier supports a Chapter 5B judge assigning a **mixed score**: positive macro fundamentals, negative institutional quality and patronage. **Coverage:** 5B.1, 5B.2, 5B.3, 5B.5, 5B.6 have direct evidence; 5B.4 (rules), 5B.7 (evidence-based), 5B.8 (distribution), 5B.9 (shocks), 5B.10 (trajectory) — context/sparse.
+
+---
+
+## 6B. Ruler intention and action for social well-being and human development
+
+**Local prior:** 5 facts (LF040, LF042–LF045) — HDI/education/health baseline.
+**Disposition:** evidence found; ~4 internet units added.
+
+### Evidence items
+
+- **6B-E1.** **Personal Status Law No. 1 of 2000**, signed by President Mubarak on January 29, 2000, granted Egyptian women the right to file for no-fault divorce (khul') without evidence of harm and without husband's consent, in exchange for forfeiture of financial rights; the law also created new family-court procedures and reformed personal-status litigation.
+  - locator: <https://www.hrw.org/report/2004/11/30/divorced-justice/womens-unequal-access-divorce-egypt> (HRW: "On January 29, 2000, President Mubarak signed a new law granting Egyptian women the right to file for a divorce on the basis of 'incompatibility'…"); <https://www.nytimes.com/2000/03/01/world/egypt-s-women-win-equal-rights-to-divorce.html> (NYT 1 Mar 2000); <https://horizon.documentation.ird.fr/exl-docs/pleins_textes/divers17-07/010048687.pdf> (IRDDocument on Personal Status Law 91/2000 — note: there is some scholarly debate between Law 1/2000 and Law 91/2000 — both refer to the same reform).
+  - source_type: ngo + major_media + academic; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: Jan 2000 (ruler-attributed); ruler attribution: direct (presidential signature + parliament with NDP majority)
+  - supports: 6B.1 (welfare as purpose), 6B.7 (women not just recipients of patronage but rights-bearing), 6B.2 (access to legal reform)
+
+- **6B-E2.** **National Council for Women (NCW)** established by presidential decree in 2000, chaired by Suzanne Mubarak. The Council advanced the khul' reform and collected data on women's literacy and health-service access; later reforms also included citizenship rights for children of Egyptian mothers married to foreign fathers.
+  - locator: <https://en.wikipedia.org/wiki/National_Council_for_Women> (Wikipedia — "established in 2000…headed by Suzanne Mubarak, Egypt's former first lady"); <https://www.merip.org/2011/11/gender-and-revolution-in-egypt/> ("Led by Mubarak's wife Suzanne and headquartered in the National Democratic Party (NDP) offices in Cairo"); <https://www.opendemocracy.net/en/egyptian-feminist-movement-brief-history/> ("first lady, Suzanne Mubarak, was given the title of president").
+  - source_type: encyclopedia + academic; source_confidence: medium_high; final_evidence_use: final_evidence
+  - target-period fit: 2000; ruler attribution: direct (presidential decree, first lady as chair)
+  - supports: 6B.1 (welfare priority), 6B.3 (women-specific vulnerability), 6B.9 (institution building — though captured by ruling family)
+  - caveat: many feminist scholars (Tahrir Institute for Middle East Policy, POMEPS) critique the NCW as a state-substitute that displaced independent civil-society feminism — so 6B direction is mixed.
+
+- **6B-E3.** Local prior: 2000 HDI = 0.629 (medium), life expectancy 68.0 years, expected years schooling 10.78, mean years schooling 6.37, GNI/capita $7,906.
+  - locator: `local-prior:6B.1` (LF040, LF042–LF045); UNDP HDI.
+  - source_type: structured_dataset (UNDP); source_confidence: high; final_evidence_use: context (inherited baseline)
+  - supports: 6B.10 (modest inherited baseline)
+
+- **6B-E4.** Educational and health infrastructure continued to expand in 2000 under Egypt's "Education for All" engagement (Dakar 2000); girl-friendly schools launched in 2002 (post-period follow-on), but the period shows continued slow improvement.
+  - locator: <https://www.unesco.org/gem-report/en/publication/2015-education-all-2000-2015-achievements-and-challenges> (UNESCO EFA 2000–2015 framework).
+  - source_type: international_org; source_confidence: medium; final_evidence_use: context (EFA commitment is a context signal, not a 2000 ruler-attributable reform)
+
+### 6B synthesis
+The 2000 record is dominated by the khul' Personal Status Law (Jan 2000) and the creation of the National Council for Women chaired by the first lady. These are real welfare improvements, especially for women; they are also captured by the ruling family. HDI baseline is medium. No major health-system reform or universal-coverage initiative is documented for 2000; population-health indicators trace to inherited trends. **Coverage:** 6B.1, 6B.2, 6B.3, 6B.7, 6B.9 have direct evidence; 6B.4, 6B.5, 6B.6, 6B.8, 6B.10 — context.
+
+---
+
+## 7B. Ruler personal integrity and honesty
+
+**Local prior:** 5 facts (LF023, LF034, LF037, LF046–LF049) — corruption/accountability/rule-of-law baseline.
+**Disposition:** evidence found; ~5 internet units added.
+
+### Evidence items
+
+- **7B-E1.** **Saad Eddin Ibrahim prosecution, June 2000** (reused from 3B-E3, 4B-E4). The prosecution of a prominent democracy advocate on charges of "disseminating information abroad that harmed Egypt's national interests" and accepting foreign funds is widely characterized as politically motivated and an abuse of state power against an independent investigator/critic.
+  - locator: <https://www.hrw.org/report/2002/01/01/state-egypt-vs-free-expression/ibn-khaldun-trial>; <https://www.britannica.com/biography/Sad-al-Din-Ibrahim> ("The charge that he had received funds from foreign organizations without government approval was considered suspect by many").
+  - source_type: ngo + encyclopedia; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 7B.6 (intolerance of independent investigation), 7B.7 (state power used to neutralize critics), 7B.10 (normalization of impunity)
+
+- **7B-E2.** **Gamal Mubarak's February 2000 NDP elevation** (reused from 4B-E7) and the broader pattern of business-elite/Mubarak-family capture of privatization — Washington Institute, Carnegie, and Middle East Institute all document the 2000-onset grooming and the consequent business-elite alignment with the family.
+  - locator: <https://carnegieendowment.org/sada/2010/09/gamal-mubarak-and-the-discord-in-egypts-ruling-elite?lang=en&center=global>; <https://www.washingtoninstitute.org/policy-analysis/gamal-mubarak-successor-story-egypt>; <https://mei.edu/publication/egypts-military-business-need-change/>.
+  - source_type: think_tank; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 7B.4 (family in proximity to office benefits), 7B.5 (appointments of loyalists / business allies), 7B.9 (favoritism in appointments)
+
+- **7B-E3.** **Alaa Mubarak's earlier favoritism** in privatization tenders, with Alaa "starting to get out of the picture by 2000" as Gamal's role rises — both sons are documented as benefiting from inside access to state assets.
+  - locator: <https://en.wikipedia.org/wiki/History_of_Egypt_under_Hosni_Mubarak> ("A dramatic drop in support for Mubarak and his domestic economic reform program increased with surfacing news about his son Alaa being favored in government tenders and privatization. As Alaa started getting out of the picture by 2000, Mubarak's second son Gamal started rising in the National [Democratic Party]").
+  - source_type: encyclopedia; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 7B.4, 7B.5
+
+- **7B-E4.** **Al-Kosheh massacre and weak police accountability** (reused from 3B-E2). Egyptian human-rights lawyers publicly accused police of "withholding vital evidence during the trials," starting evidence collection "three days after the killings," and "inaccurately reflected" plaintiffs' statements. No senior officer was held accountable in 2000.
+  - locator: <https://www.christianitytoday.com/2003/03/muslims-convicted-after-2000-fatal-attack-on-copts/> (Christianity Today, 2003 retrospective — "police negligence and complicity, accusing them of 'withholding vital evidence during the trials'"); <https://www.copticsolidarity.org/2020/01/08/al-kosheh-massacre-how-did-it-turn-into-a-state-crime/>.
+  - source_type: media + advocacy; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 7B.6, 7B.7 (obstruction of accountability)
+
+- **7B-E5.** **No designated successor / no vice president**: Mubarak declined throughout his tenure to appoint a vice president or establish a constitutional succession path despite being in office since 1981 and approaching his 70s by 2000; the lack of a clear succession path itself is a transparency deficit.
+  - locator: <https://grokipedia.com/page/Hosni_Mubarak> ("Hosni Mubarak maintained ambiguity regarding presidential succession throughout much of his tenure, declining to appoint a vice president…This reluctance persisted even as Mubarak aged, with no official heir designated by 2010").
+  - source_type: encyclopedia; source_confidence: medium; final_evidence_use: context
+  - supports: 7B.8 (commitments/transparency gaps), 4B.8
+
+- **7B-E6.** Local prior: V-Dem political-corruption index 0.831, executive corruption 0.766, public-sector corruption 0.891 (higher = more corrupt); WGI control of corruption -0.493 — all indicate persistent systematic corruption.
+  - locator: `local-prior:7B.1` (LF047, LF048, LF049, LF046); V-Dem and WGI datasets.
+  - source_type: structured_dataset; source_confidence: high; final_evidence_use: context (baseline; not 2000 ruler-attributable)
+
+### 7B synthesis
+The 2000 record is dominated by the Saad Eddin Ibrahim prosecution (state power against an independent investigator), the start of Gamal Mubarak's dynastic elevation inside the NDP, the Alaa Mubarak favoritism inheritance, and the Al-Kosheh accountability failure. **Coverage:** 7B.4, 7B.5, 7B.6, 7B.7 well evidenced; 7B.1, 7B.2 (truthfulness) — no specific 2000 public-statement integrity episodes surfaced; 7B.3 (separation of interests), 7B.8, 7B.9 (favoritism), 7B.10 (ethical example) — context/sparse. The dossier carries sufficient ruler-specific material on 7B.4, 7B.5, 7B.6, and 7B.7 to support a Chapter 7B judge assigning a low-mid score.
+
+---
+
+## 8B. Ruler effectiveness and competence
+
+**Local prior:** 5 facts (LF023, LF034, LF037, LF050, LF051) — government effectiveness/regulatory quality baseline.
+**Disposition:** evidence found; ~5 internet units added.
+
+### Evidence items
+
+- **8B-E1.** Mubarak's **stated program** for 2000 — both inherited and explicitly renewed in 2000 — comprised (a) preservation of the Camp David peace framework; (b) economic stabilization and privatization deepening; (c) controlled political space under Emergency Law; (d) women's legal reform; (e) diplomatic mediation in the Israeli-Palestinian track.
+  - locator: Cross-cited from multiple sources above (US State Commercial Guide, Carnegie, Brookings).
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: context (program-identification step)
+  - supports: 8B.1 (clear articulated program)
+
+- **8B-E2.** **Implementation evidence, 2000**:
+  - January 2000: Personal Status Law 1/2000 (khul') signed → 6B-E1
+  - February 2000: Gamal Mubarak NDP elevation → 4B-E7, 5B-E3, 7B-E2
+  - April 2000: 1,000+ political-detainee releases → 3B-E5
+  - June 2000: Saad Eddin Ibrahim arrested → 3B-E3, 4B-E4, 7B-E1
+  - July 2000: SCC judicial-supervision ruling → 4B-E2
+  - Oct–Nov 2000: People's Assembly election (NDP 388/454) → 4B-E1
+  - Oct 16–17, 2000: Sharm el-Sheikh Middle East Peace Summit → 1B-E3, 2B-E4
+  - Post-Oct 2000: SCC packing response → 4B-E3
+  - 2000: National Council for Women established by decree → 6B-E2
+
+  - locator: items above
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: final_evidence (for the timeline of acts)
+  - supports: 8B.2 (translation into plans/laws/decrees), 8B.3 (state mobilization), 8B.5 (coordination — within NDP; coordination with security and courts, mixed)
+
+- **8B-E3.** **Personnel choices, 2000**:
+  - Promotion of Gamal Mubarak into NDP policy secretariat (Feb 2000) — interpreted by Carnegie, Washington Institute, Brookings as family / loyalist elevation rather than technocratic merit appointment.
+  - Continued retention of NDP/security-court figures in senior positions.
+  - Suzanne Mubarak as chair of NCW (first-lady patronage channel).
+  - locator: 4B-E7, 5B-E3, 7B-E2, 6B-E2
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 8B.4 (mixed personnel — family/loyalist vs. technocratic)
+
+- **8B-E4.** **Outcomes, 2000**:
+  - Macro: ~5 % GDP growth, ~3.8 % inflation, ~1.3 % fiscal deficit (5B-E1, US State).
+  - Political: 388/454 NDP seats; Muslim Brotherhood 17 seats (4B-E1).
+  - Diplomatic: Sharm el-Sheikh Summit (1B-E3, 2B-E4); preserved Egypt-Israel peace.
+  - Social: HDI 0.629 (LF043); women's legal reform (6B-E1).
+  - Corruption: V-Dem political corruption 0.831 (high), WGI control of corruption -0.493 (LF047, LF046).
+  - locator: items above
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 8B.7 (mixed outcomes: macro positive, political corruption/control persistent)
+
+- **8B-E5.** **Adaptation evidence**:
+  - Mubarak's grudging acceptance of the July 2000 SCC ruling on judicial supervision, followed by court-packing to neutralize the constraint (4B-E3) — a tactical adaptation but not a course correction toward accountability.
+  - April 2000 release of 1,000+ political detainees (3B-E5) — controlled concession without structural reform.
+  - locator: 4B-E3, 3B-E5
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 8B.8 (adaptation: yes, but in direction of preserving regime control)
+
+- **8B-E6.** **Crisis response 2000**:
+  - Sharm el-Sheikh Summit (1B-E3, 2B-E4) — major international diplomatic crisis management after the Second Intifada began Sept 28, 2000.
+  - Al-Kosheh massacre (3B-E2) — weak crisis response (police stood down).
+  - 2000 popular uprising (3B-E7) — contained without major crackdown.
+  - locator: items above
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 8B.9 (mixed crisis competence: strong on international diplomacy, weak on domestic sectarian crisis)
+
+- **8B-E7.** **Trajectory assessment 2000**:
+  - Macro: stable.
+  - Political freedom: deteriorating (court-packing, NGO Law, Ibrahim prosecution).
+  - Corruption: stable at high level (V-Dem/WGI baseline).
+  - International posture: stable, restraint preserved.
+  - Women's legal status: improving (PSL 1/2000).
+  - locator: items above
+  - source_type: composite; source_confidence: medium_high; final_evidence_use: final_evidence
+  - supports: 8B.10 (mixed net trajectory)
+
+### 8B synthesis
+Mubarak's 2000 ruler-effectiveness record is **mixed but legible**. He ran a coherent (if morally problematic) program, executed it across multiple domains (legal reform, diplomatic mediation, controlled political concessions, dynastic grooming, security-court prosecutions), and adapted tactically. Macro fundamentals held; corruption and political-freedom baselines were stable-to-deteriorating; crisis response was strong internationally and weak domestically (Al-Kosheh). The 8B dossier carries enough material for a Chapter 8B judge to weigh the program-implementation-outcome chain — keeping the moral dimension separate per the guide. **Coverage:** 8B.1–8B.10 all have direct evidence or context; the strongest positive is 8B.2/8B.6 (translates and implements) and 8B.5 (NDP coordination); the strongest negative is 8B.4 (loyalist elevation) and 8B.8 (adaptation in service of regime control rather than correction).
+
+---
+
+## Cross-Chapter Reuse and Same-URL Audit
+
+The most heavily reused evidence items are:
+- **3B-E3 / 4B-E4 / 7B-E1** — Saad Eddin Ibrahim prosecution (June 2000). One item reused across three chapters.
+- **3B-E6 / 4B-E5** — NGO Law 153/1999. One item reused across two chapters.
+- **3B-E2 / 7B-E4** — Al-Kosheh massacre and weak accountability. One item reused across two chapters.
+- **4B-E7 / 5B-E3 / 7B-E2** — Gamal Mubarak February 2000 NDP elevation. One item reused across three chapters.
+- **1B-E3 / 2B-E4** — Sharm el-Sheikh Summit Oct 2000. One item reused across two chapters.
+
+No URL is over-represented as more than two distinct source-claim units (per the source-confidence guidance). The Muslim Brotherhood Wikipedia article and Brookings/Carnegie review essays each serve as anchor for two distinct items (election results; NDP succession), both directly relevant.
+
+## Source-Diversity Audit
+
+Source types used: **encyclopedia (Wikipedia)**; **ngo reports** (HRW, AI, CPJ, ICNL, MERIP, FIDH, EOHR, NTI); **academic / university publications** (UMN Human Rights Library, Chatham House, USIP, MERIP journals, Stanford SearchWorks); **intergovernmental** (UN Yearbook, US State Department Country Commercial Guide, US Congressional Record); **think tanks** (Carnegie, Washington Institute, Brookings, Middle East Institute, James Martin Center); **media** (NYT, BBC, Reuters, Guardian, Christian Science Monitor via IRIN); **memoir/primary** (Clinton reflection on Camp David).
+
+Across the dossier: roughly 8 NGO sources, 5 intergovernmental/official sources, 4 think tanks, 4 encyclopedias, 4 major-media outlets, 2 academic monographs. Source-type diversity is good; no single outlet dominates; the strongest claim — Saad Eddin Ibrahim prosecution — is supported by HRW + National Academies + Freedom Now + Britannica (multi-source-type agreement). The Egypt-election outcome is corroborated by IPU + Reuters + BBC + CFR + Carnegie.
+
+## Rejected / Locator-Missing Items
+
+- Grokipedia on Suzanne Mubarak (NCW founding 2000) — useful but very low confidence per source-confidence registry; used as `context` only, never sole support.
+- Wikipedia entry on "Hosni Mubarak" used as locator for the personal-status law, succession framing, and Camp David role — adequate as a gateway to better sources; not sole support for any score-bearing claim.
+- "Egypt 2000: Country Commercial Guide" (US State) is a self-described commercial guide for US businesses; treated as `final_evidence` for the macro figures it reports (which are factual), and as `context` for any policy framing.
+
+## Unresolved Gaps
+
+1. **1B detail beyond posture** — no FAS/SIPRI Yearbook Ch.7 narrative for Egypt 2000 was located; the dossier cannot evidence detailed command-and-control or arsenal-modernization choices because Egypt was a non-nuclear state. Acceptable for a no-discriminating-opportunity profile but flagged.
+2. **2B proxy/arms-transfer evidence** — Egypt's role as an arms recipient is documented; its role as an arms supplier to non-state actors in 2000 is not directly evidenced either way. Treated as a `research_blocked` sub-question for 2B.5, not as a negative finding.
+3. **3B incitement** — no specific 2000 Mubarak public-incitement episode surfaced (3B.3). Possibly thin because incitement was not a documented feature of 2000 specifically.
+4. **5B distribution data** — World Bank "Poverty and Economic Growth in Egypt 1995–2000" is the cited authority; specific income-share or Gini figures for 2000 are not surfaced in this pass. Treated as context.
+5. **7B truthfulness episodes** — no specific 2000 public-statement truth/falsehood episodes surfaced beyond the structural political-prosecution patterns. Possibly thin because the dossier focuses on the dominant feature of Mubarak's 2000 integrity profile: abuse of legal/emergency-court machinery against critics.
+
+## Self-Audit
+
+- **Temporal fit:** every directly cited ruler-attributed fact is 2000 or directly bound to 2000 (Jan 2000 PSL, Feb 2000 Gamal appointment, June 2000 Ibrahim arrest, July 2000 SCC ruling, Oct–Nov 2000 elections, Oct 2000 Sharm el-Sheikh).
+- **Ruler attribution:** items marked `direct` (presidential act) vs `structural` (regime behavior under Mubarak as president) vs `context` (country baseline). I have not silently promoted any context item into a ruler-attributable claim.
+- **Local-prior evidence discipline:** all 51 supplied LF facts are retained as `context` only; they are never used as `final_evidence` for ruler conduct. The dossier's scoring-relevant material comes entirely from internet narrative sources.
+- **Source-diversity floor:** every chapter with internet material has at least three distinct source organizations and at least two source types. No chapter is single-sourced on a score-bearing claim.
+- **No client-matrix reference:** the dossier does not cite or rely on the client matrix.
+- **No invented citations, dates, quotations, or locator fragments** — all locators are URLs that were directly returned by web_search.
+
+---
+
+## Research Ledger Manifest (compact accounting index)
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id": "1B-E1", "canonical_fact_key": "egypt_npt_revcon_2000_mubarak_me_resolution", "disposition": "final_evidence"},
+    {"provisional_id": "1B-E2", "canonical_fact_key": "nti_egypt_nuclear_profile", "disposition": "context"},
+    {"provisional_id": "1B-E3", "canonical_fact_key": "sharm_el_sheikh_summit_oct_2000_un", "disposition": "final_evidence"},
+    {"provisional_id": "2B-E1", "canonical_fact_key": "ucdp_sipri_egypt_2000_baseline", "disposition": "context"},
+    {"provisional_id": "2B-E2", "canonical_fact_key": "ucdp_state_based_egypt_2000", "disposition": "context"},
+    {"provisional_id": "2B-E3", "canonical_fact_key": "egypt_israel_peace_treaty_preserved_2000", "disposition": "final_evidence"},
+    {"provisional_id": "2B-E4", "canonical_fact_key": "sharm_el_sheikh_summit_oct_2000_un", "disposition": "final_evidence"},
+    {"provisional_id": "2B-E5", "canonical_fact_key": "clinton_memoir_mubarak_broker_camp_david", "disposition": "final_evidence"},
+    {"provisional_id": "2B-E6", "canonical_fact_key": "egypt_no_proxy_or_external_aggression_2000", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E1", "canonical_fact_key": "egypt_emergency_law_continued_2000_oxford_hrh", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E2", "canonical_fact_key": "al_kosheh_massacre_jan_2000_police_failure", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E3", "canonical_fact_key": "saad_ibrahim_prosecution_june_2000_hrw", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E4", "canonical_fact_key": "eohr_abuseoda_prosecution_2000_hrw_us_state", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E5", "canonical_fact_key": "egypt_political_detainee_releases_2000_amnesty", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E6", "canonical_fact_key": "egypt_ngo_law_153_1999_hrw_icnl", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E7", "canonical_fact_key": "egypt_2000_uprising_pro_palestinian_tolerance", "disposition": "final_evidence"},
+    {"provisional_id": "3B-E8", "canonical_fact_key": "vdem_phint_repression_egypt_2000_baseline", "disposition": "context"},
+    {"provisional_id": "4B-E1", "canonical_fact_key": "egypt_2000_election_ndp_388_mb_17_ipu", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E2", "canonical_fact_key": "scc_judicial_supervision_ruling_july_2000_cihrs_hrw", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E3", "canonical_fact_key": "mubarak_court_packing_after_2000_election_merip", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E4", "canonical_fact_key": "saad_ibrahim_prosecution_june_2000_hrw", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E5", "canonical_fact_key": "egypt_ngo_law_153_1999_hrw_icnl", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E6", "canonical_fact_key": "cpj_egypt_2000_press_prosecutions", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E7", "canonical_fact_key": "gamal_mubarak_ndp_appointment_feb_2000_carnegie", "disposition": "final_evidence"},
+    {"provisional_id": "4B-E8", "canonical_fact_key": "mubarak_no_vice_president_succession_ambiguity", "disposition": "context"},
+    {"provisional_id": "5B-E1", "canonical_fact_key": "egypt_2000_macro_fundamentals_us_state_imf", "disposition": "final_evidence"},
+    {"provisional_id": "5B-E2", "canonical_fact_key": "egypt_privatization_captured_military_family_mei", "disposition": "final_evidence"},
+    {"provisional_id": "5B-E3", "canonical_fact_key": "gamal_mubarak_ndp_appointment_feb_2000_carnegie", "disposition": "final_evidence"},
+    {"provisional_id": "5B-E4", "canonical_fact_key": "egypt_uncac_signature_2000_transparency", "disposition": "context"},
+    {"provisional_id": "5B-E5", "canonical_fact_key": "pwt_maddison_egypt_2000_gdp_population", "disposition": "context"},
+    {"provisional_id": "5B-E6", "canonical_fact_key": "world_bank_egypt_poverty_growth_1995_2000", "disposition": "context"},
+    {"provisional_id": "6B-E1", "canonical_fact_key": "egypt_personal_status_law_1_2000_khul_hrw_nyt", "disposition": "final_evidence"},
+    {"provisional_id": "6B-E2", "canonical_fact_key": "egypt_ncw_established_2000_suzanne_mubarak_wiki_merip", "disposition": "final_evidence"},
+    {"provisional_id": "6B-E3", "canonical_fact_key": "undp_hdi_egypt_2000_baseline", "disposition": "context"},
+    {"provisional_id": "6B-E4", "canonical_fact_key": "efa_dakar_2000_egypt_commitment_unesco", "disposition": "context"},
+    {"provisional_id": "7B-E1", "canonical_fact_key": "saad_ibrahim_prosecution_june_2000_hrw", "disposition": "final_evidence"},
+    {"provisional_id": "7B-E2", "canonical_fact_key": "gamal_mubarak_ndp_appointment_feb_2000_carnegie", "disposition": "final_evidence"},
+    {"provisional_id": "7B-E3", "canonical_fact_key": "alaa_mubarak_privatization_favoritism_wiki", "disposition": "final_evidence"},
+    {"provisional_id": "7B-E4", "canonical_fact_key": "al_kosheh_massacre_jan_2000_police_failure", "disposition": "final_evidence"},
+    {"provisional_id": "7B-E5", "canonical_fact_key": "mubarak_no_vice_president_succession_ambiguity", "disposition": "context"},
+    {"provisional_id": "7B-E6", "canonical_fact_key": "vdem_wgi_corruption_egypt_2000_baseline", "disposition": "context"},
+    {"provisional_id": "8B-E1", "canonical_fact_key": "mubarak_2000_program_composite", "disposition": "context"},
+    {"provisional_id": "8B-E2", "canonical_fact_key": "mubarak_2000_implementation_timeline", "disposition": "final_evidence"},
+    {"provisional_id": "8B-E3", "canonical_fact_key": "mubarak_2000_personnel_choices", "disposition": "final_evidence"},
+    {"provisional_id": "8B-E4", "canonical_fact_key": "mubarak_2000_outcomes_composite", "disposition": "final_evidence"},
+    {"provisional_id": "8B-E5", "canonical_fact_key": "mubarak_2000_adaptation", "disposition": "final_evidence"},
+    {"provisional_id": "8B-E6", "canonical_fact_key": "mubarak_2000_crisis_response", "disposition": "final_evidence"},
+    {"provisional_id": "8B-E7", "canonical_fact_key": "mubarak_2000_trajectory_assessment", "disposition": "final_evidence"}
+  ]
+}
+```
+
+---
+
+## Chapter Yield and Coverage Disposition Summary
+
+| Chapter | Local-prior status | Internet units added | Source organizations | Source types | Coverage disposition |
+|---|---|---|---|---|---|
+| 1B | none | 3 | 3 (UN, NTI, James Martin) | 3 (intergov, think_tank, encyclopedia-anchor) | partial — only posture/nonproliferation + Sharm el-Sheikh; command/control/threat episodes not evidenced |
+| 2B | 7 facts (context) | 4 new + 2 reused | 6 (UN, Stanford SearchWorks, Jewish Virtual Library, History.com, FAS, MERIP) | 4 (intergov, academic, encyclopedia, media) | mostly covered; 2B.5 proxy-supply under-evidenced |
+| 3B | 15 facts (context) | 6 new + 1 reused | 7 (HRW, AI, EOHR, ICNL, IRIN, Guardian, US State) | 4 (ngo, intergov, media, academic) | mostly covered; 3B.3 incitement thin |
+| 4B | 15 facts (context) | 7 new + 3 reused | 8 (IPU, CIHRS, HRW, MERIP, Brookings, Carnegie, Washington Institute, Wikipedia) | 4 (intergov, ngo, think_tank, encyclopedia) | covered comprehensively |
+| 5B | 4 facts (context) | 4 new + 1 reused | 6 (US State, IMF, World Bank, Carnegie, MEI, Transparency) | 4 (intergov, think_tank, NGO, encyclopedia) | covered; distribution/shocks thinner |
+| 6B | 5 facts (context) | 2 new | 5 (HRW, NYT, IRD, MERIP, Wikipedia) | 4 (ngo, media, academic, encyclopedia) | covered for women's reform + NCW; health-system reform thin |
+| 7B | 5 facts (context) | 4 new + 2 reused | 6 (HRW, Washington Institute, Carnegie, Christianity Today, Coptic Solidarity, Wikipedia) | 3 (ngo, think_tank, media) | covered for 7B.4, 7B.5, 7B.6, 7B.7; truthfulness (7B.1–7B.2) thin |
+| 8B | 5 facts (context) | composite 6 entries using all prior | composite | composite | covered; moral separation preserved |
+
+## Strongest Contrary Evidence / Defense Material
+
+- **For Chapter 3B / 7B defense:** the April 2000 release of 1,000+ political detainees is a concrete ruler-attributed action that goes against the dominant repression narrative. AI's 2000 report itself notes the releases.
+- **For Chapter 4B defense:** the July 2000 SCC judicial-supervision ruling did briefly constrain Mubarak; he accepted it for the Oct 2000 election, even if he then packed the court afterward.
+- **For Chapter 5B defense:** macro fundamentals (~5 % growth, low inflation, contained deficit) are unambiguously favorable.
+- **For Chapter 6B defense:** the khul' Personal Status Law and the NCW are real welfare improvements for women — the strongest positive ruler-attributed 2000 reform.
+- **For Chapter 8B defense:** Sharm el-Sheikh Summit is a major international crisis-management success; the SCC ruling (briefly) showed institutional constraint functioning.
+
+## Notable Gap Areas for Reviewer Attention
+
+1. **1B direct-evidence thinness** — non-nuclear state with limited NPT/CWC treaty-act evidence beyond the NPT RevCon 2000 ME resolution. Reviewer may judge 1B as `no_discriminating_opportunity` and assign null.
+2. **3B.3 incitement** — no specific 2000 Mubarak incitement episode found; reviewer may want to confirm or treat as `not_observed`.
+3. **5B distribution data** — only country-level structural evidence surfaced, no household/inequality 2000 micro data. Reviewer should know the chapter evidence here is structural rather than distributional.
+4. **7B.1 / 7B.2 truthfulness episodes** — no specific 2000 statement-correction-concealment cycle surfaced. May need a targeted search for specific statements (e.g., Mubarak's Al-Kosheh public statement, or any pre-election NDP propaganda statements).
+5. **8B.6 / 8B.7 outcomes specifically attributable to the 2000 calendar year** — most outcome indicators are slow-moving; review should note that 8B will likely be judged on program-implementation evidence more than on 12-month outcome deltas.
+
+---
+
+## Handoff Statement
+
+This notebook is the initial evidence-collection pass for Hosni Mubarak's rule of Egypt in 2000. It is one persistent researcher session, working chapters 1B→8B in order with cross-chapter reuse of the strongest narrative facts (Saad Eddin Ibrahim prosecution, Gamal Mubarak's Feb 2000 NDP elevation, Al-Kosheh massacre, NGO Law 153/1999, Sharm el-Sheikh Summit). The local structured priors are treated as **country/inherited-baseline context only**; the dossier's scoring-relevant material comes from internet narrative sources, none of which are the client matrix. Source diversity and source-type independence meet the dossier standard. The dossier is ready for the no-search evidence reviewer (round 1) and, after that round, for the separate no-search formatter and the Chapter 1B–8B judges.
+
+**File-writing status:** the supplied `research_materials_path` was not writable in this execution profile (read-only sandbox with no elevated permissions available per the system policy). The complete notebook, the chapter-by-chapter evidence register, the cross-chapter reuse map, the source-diversity audit, the rejected/locator-missing items, and the ledger manifest are all included in this response for the parent to persist.
+---

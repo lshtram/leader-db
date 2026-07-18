@@ -229,6 +229,12 @@ imperfections are not evidence defects. Assess defensible source-claim units, so
 independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
 and exact missing themes. Missing evidence is not negative ruler evidence.
 
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
 Treat these as substantive evidence defects rather than formatting preferences:
 - a claim whose underlying source cannot be identified or does not support it;
 - a homepage, search result, document index, or labels such as `release page` or
@@ -260,6 +266,10 @@ reconciliation remain deterministic cleanup rather than web-research tasks.
 Return all selected chapters exactly once. Select every chapter with a material,
 research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
 evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
 If the notebook gives a credible saturation or access-blocker explanation and another
 search round is unlikely to improve it, do not select that chapter. If no continuation
 would materially improve the dossier, return needs_continuation=false and an empty

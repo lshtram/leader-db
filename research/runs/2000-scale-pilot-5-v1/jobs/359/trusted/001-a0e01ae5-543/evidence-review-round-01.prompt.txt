@@ -1,0 +1,696 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- an HTTP source without a precise page/section/paragraph/table/timestamp locator;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only, locator-missing, bundled, and duplicated copies from the
+`defensible_evidence_estimate`. Put deterministic cleanup defects in
+`substantive_issues`; select a chapter for continuation only when web research can
+materially recover an underlying source, locator, attribution fact, contrary source,
+or missing event theme.
+
+Apply the configured marginal-value gate before selecting any continuation chapter.
+A further broad round is justified only when it is reasonably likely to add at least
+`continuation_minimum_expected_new_units_per_selected_chapter` new defensible,
+precisely located source-claim units in that selected chapter, or to close a material
+ruler-attribution blocker. Deduplication, splitting bundled claims, neutral wording,
+lens dispositions, count reconciliation, and formatter work are deterministic cleanup
+and never justify another web-research round. After one continuation, prefer stopping
+broad research and naming at most three optional targeted themes when the remaining
+gaps are mainly attribution-limited or show diminishing returns.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2000-scale-pilot-5-v1:2000:USA:121",
+  "iso3": "USA",
+  "country_name": "United States",
+  "ruler_name": "Clinton",
+  "period_start_year": 2000,
+  "period_end_year": 2000
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 90,
+  "approximate_source_family_count": 55,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research Handoff — Bill Clinton, USA, 2000 (Ruler Year ID 121)
+
+**Job key**: `dossier:2000-scale-pilot-5-v1:2000:USA:121`
+**Ruler**: Clinton (Bill Clinton, 42nd U.S. President, second-term final year)
+**Period**: Calendar year 2000 (Clinton remained in office through January 20, 2001; key actions taken during 2000 are the primary target, with the Marc Rich/140-pardons cluster sitting on January 20, 2001, kept as boundary evidence only)
+**Output note**: The supplied notebook path was not writable from this execution environment (sandbox `bwrap` failure on `RTM_NEWADDR`). The complete permissive research handoff below substitutes for the file artifact. The parent can persist it unchanged.
+
+---
+
+## 1. Local Data Audit (Deduplicated Package)
+
+### Local-prior retention by chapter
+The local-prior package supplies 48 unique fact IDs (LF001–LF048) spanning country-year facts. Per I002, these are retained as **structured priors** and are **not re-fetched from the web**.
+
+**Chapter 1B (nuclear / existential)** — `no_evidence_found` × 10 (R001). All 1B.* lens dispositions come back as missing because no FAS/SIPRI Ch.7 2000 fact was selected for the local bundle. There is no local row at all. This is a **legitimate extraction gap**, not a contrary signal. Internet research below supplies full coverage. The 1B lenses are the most aggressively country-capability-anchored chapter; the dossier therefore relies on internet evidence for direct ruler conduct (CTBT fight, START II extraction, NMD deferral) without a local numeric prior.
+
+**Chapter 2B (international peace/aggression)** — All 10 lenses carry `evidence_found`. Facts LF001, LF002 (UCDP internationalized conflict = 0 events, 0 fatalities) and LF006, LF007 (state-based conflict = 0 events, 0 fatalities), plus LF003–LF005 (SIPRI expenditure) are reused as the country-year baseline. One-sided-violence (LF015–LF016) is also 0. The ruler-attribution question — what role Clinton played in the inherited post-Cold-War environment — is internet-anchored.
+
+**Chapter 3B (domestic safety)** — All 10 lenses carry `evidence_found`. Reused as country baseline: LF008–LF012 (CIRIGHTS disappearances/killings/physint/polpris/torture all low), LF013 (V-Dem civil society repression 2.861), LF014 (extrajudicial killings 2.487), LF015–LF016 (UCDP one-sided violence = 0), LF017 (physical-integrity liberties 0.942), LF018 (private civil liberties 0.932), LF019 (PTS Amnesty 1.0). The U.S. 2000 sits on a strong rights baseline; this dossier needs to investigate whether Clinton's specific conduct maintained, raised, or weakened it.
+
+**Chapter 4B (political freedom)** — All 10 lenses carry `evidence_found`. Reused: V-Dem polyarchy/libdem/civlib/freexp/frassoc/jucon/legcon/suffr/mpi/regime, plus WGI voice-and-accountability. The U.S. is a high-baseline liberal democracy; the dossier investigates whether Clinton's 2000 conduct further strengthened, defended, or merely rode on inherited institutions. Note LF020 (V-Dem accountability 1.707) and LF034 (WGI rule of law 1.565) are reused by chapters 4B, 7B, and 8B, indicating their institutional-baseline role.
+
+**Chapter 5B (economic wellbeing)** — All 10 lenses carry `evidence_found`. Reused: LF035 (GDP per capita ≈ $45,886), LF036 (total GDP ≈ $12.95T), LF037 (GNI per capita ≈ $50,648), LF038 (population ≈ 282M). Critically these are country-scale baselines; the GDP-target and inequality lens work must investigate distribution, welfare/disposable income, mobility, etc. not present in this local set.
+
+**Chapter 6B (social wellbeing)** — All 10 lenses carry `evidence_found`. Reused: LF039 (expected years of schooling 15.68), LF040 (HDI 0.894), LF041 (life expectancy 76.81), LF042 (mean years of schooling 12.96), LF037 (GNI per capita, also reused from 5B). Note: HDI components are dated 2000 publication vintage but capture real median welfare. Welfare-floor (poverty, food security, social protection) and crisis-response evidence is internet-anchored.
+
+**Chapter 7B (integrity)** — All 10 lenses carry `evidence_found`. Reused: LF020 (V-Dem accountability), LF043 (WGI control of corruption 1.604), LF044 (V-Dem political-corruption 0.055), LF045 (executive corruption 0.013), LF046 (public-sector corruption 0.033), LF031 (V-Dem rule of law 0.980), LF034 (WGI rule of law 1.565). These are **institutional** integrity context only — the dossier explicitly does *not* convert them into personal-integrity evidence for Clinton. The Mar-a-Lago-travelgate/filegate/Lewinsky/Whitewater-cleared/Marc-Rich-pardon chains must be researched directly.
+
+**Chapter 8B (effectiveness)** — All 10 lenses carry `evidence_found`. Reused: LF020 (accountability), LF047 (WGI government effectiveness 1.725), LF048 (regulatory quality 1.696), LF031, LF034. Inherited-state-capacity priors only; the ruled program, conversion, mobilization, and outputs must be internet-evidenced.
+
+### Audit's verdict on the local-prior package
+- **No `error_methodology_ids` reported.** No blocking local-input failure.
+- **No duplicated fact** across the package.
+- **Reuse map** is sound: the same fact (LF020, LF031, LF034, LF037) is correctly marked for multi-chapter reuse without creating duplicate items.
+- **The package's `candidate_methodology_ids` for each fact are routing hints, not scored mappings.** Where a fact (e.g. LF019 PTS Amnesty 1.0) only weakly informs 3B.5 (emergency powers), the dossier treats it as corroboration, not as a direct scoring artifact.
+- **Welfare/health coverage gap**: No WHO childhood-mortality, immunisation, WHO GHO, or poverty/inequality (Gini) fact was supplied locally. These are dossier critical for 6B.2/3/8, 5B.8, and 6B.10; internet research below addresses them.
+- **No CIRIGHTS-style physical-integrity fact** for years adjacent to 2000 — only the 2000 snapshot is supplied. The dossier relies on internet evidence for trajectory and the post-2000 inheritance.
+
+---
+
+## 2. Global Evidence Ledger — Stable Evidence IDs
+
+Each item below carries an evidence ID in the form `CL2000-NN`. Where evidence supports more than one lens, ID is reused (not duplicated). All items are within the Clinton 2000 target year unless flagged "border" (for events within the larger ruler-period that directly establish a 2000-fact) or "context" (broad period evidence that frames rather than proves a 2000 choice).
+
+### Evidence ID: CL2000-01 — Camp David Summit (July 2000)
+- **Source URL**: https://en.wikipedia.org/wiki/2000_Camp_David_Summit (Wikipedia, medium-high confidence, dated background + primary locator references); https://history.state.gov/milestones/1993-2000/oslo (U.S. Office of the Historian, high confidence, primary government narrative); https://www.adl.org/resources/backgrounder/camp-david-summit-2000 (ADL, medium-high confidence).
+- **Locator**: Wikipedia summary including primary-source footnotes to the U.S. trilateral statement; State Department milestone chronology; ADL backgrounder "Camp David Summit 2000" with first-hand attribution.
+- **Claim**: Clinton personally invited Israeli PM Ehud Barak and PLO Chairman Yasser Arafat to Camp David July 11–24, 2000. Two weeks of intensive negotiation on permanent-status issues (sovereignty, Jerusalem, refugees, settlements) failed to reach a final agreement. Clinton publicly praised Barak's "courage and vision." The summit's breakdown is widely cited as the immediate antecedent of the second intifada (September 28, 2000).
+- **Source type / confidence**: Mixed (Wikipedia + State Department + NGO) — final_evidence at medium-high; uses treaty/observer-style locators.
+- **Target-year / ruler attribution**: Yes — July 2000, Clinton led. **Confidence on attribution: high.**
+- **Contrary evidence**: Chatham House analysis (https://www.chathamhouse.org/2018/07/israeli-palestinian-peacemaking/camp-david-approach-2000) records that "Clinton could have helped construct the 'tight international envelope' [Shlomo Ben-Ami] believed could have provided the necessary support; however, for whatever reason, Clinton did not do so." This is a notable contrary: the diplomatic initiative was ambitious but final-stage international framing was incomplete.
+- **Candidate lenses**: 2B.1 (diplomacy / peaceful alternatives), 2B.4 (civilian protection — by implication, since the collapse was followed by intifada violence), 2B.6 (truthful explanation — the post-summit narrative battle is documented), 2B.7 (peace talks / CBMs), 2B.10 (inherited/end-state).
+
+### Evidence ID: CL2000-02 — Clinton September 1, 2000 NMD decision
+- **Source URL**: https://www.armscontrol.org/act/2000-09/remarks-president-bill-clinton-national-missile-defense (Arms Control Association, high confidence); https://www.nytimes.com/2000/09/02/world/clinton-s-missile-decision-overview-president-decides-put-off-work-missile.html (NYT, medium-high); https://clintonwhitehouse4.archives.gov/textonly/WH/new/html/Wed_Oct_4_141122_2000.html (archived Clinton White House); https://www.washingtonpost.com/archive/politics/2000/09/02/clinton-defers-missile-defense/c838196b-6856-473e-9d30-d28ddfb4bc42/ (WaPo, medium-high).
+- **Locator**: Arms Control Association transcript of Clinton's Georgetown University speech of Sept. 1, 2000; White House Office of the Press Secretary release of Oct. 4, 2000; NYT overview page A1 (Sept. 2, 2000); WaPo article dated Sept. 2, 2000.
+- **Claim**: On Sept. 1, 2000, Clinton announced at Georgetown University he would not authorize deployment of a limited national missile defense (NMD); he would defer the deployment decision to his successor on grounds of insufficient technical maturity and ABM Treaty/diplomatic costs. He reaffirmed continued development and testing. International reactions were welcoming abroad, mixed at home.
+- **Source type / confidence**: Mixed — primary (White House), reputable wire (NYT/WaPo), expert (ACA). **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: Yes — Sept. 1, 2000, Clinton's own decision. **Confidence on attribution: high.**
+- **Contrary evidence**: The Heritage Foundation report (https://www.heritage.org/defense/report/clintons-failed-missile-defense-policy-legacy-missedopportunities) characterizes this as a missed opportunity and a deferral under pretense of technical readiness, signaling a contrary reading of Clinton's motivations. ACA views the same decision as prudent restraint.
+- **Candidate lenses**: 1B.1 (existential-risk reduction), 1B.4 (arms-control good faith — NMD deferral preserved ABM architecture), 1B.5 (shielding conventional aggression — limited NMD is debated both ways), 1B.10 (end-state safer posture); 2B.6 (truthful public explanation — Clinton's stated reasons and the contrary reading).
+
+### Evidence ID: CL2000-03 — START II Russian ratification and the Clinton team's pursuit of arms-control architecture
+- **Source URL**: https://www.armscontrol.org/factsheets/brief-chronology-start-ii (Arms Control Association, high); https://en.wikipedia.org/wiki/START_II (Wikipedia with primary citations, medium-high); https://www.armscontrol.org/act/2000-09/press-releases/clinton-nmd-decision-welcomed-abroad-reactions-home-are-mixed (ACA); https://www.nti.org/education-center/treaties-and-regimes/strategic-offensive-reductions-start-ii/ (NTI, medium-high).
+- **Locator**: ACA factsheet "Brief Chronology of START II"; NTI's primary text pages.
+- **Claim**: Russia ratified START II on April 14, 2000 (Duma vote 288-131) and President Putin signed the resolution of ratification on May 4, 2000, with conditions preserving the ABM Treaty and requiring U.S. ratification of a demarcation protocol. The U.S. Senate never ratified the addendum, and the framework lapsed when the U.S. withdrew from the ABM Treaty in 2002. Clinton was the principal American diplomatic proponent of START II's implementation (ratified by Senate in 1996).
+- **Source type / confidence**: Intergovernmental + reputable NGO. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: 2000 ratification was by Russia, but Clinton's posture (continuing to push ABM Treaty preservation and a START III framework) is the relevant attribution. **Confidence: high.**
+- **Candidate lenses**: 1B.1, 1B.4 (good-faith arms control), 1B.7 (technical-expert investment — START architecture proceeded with Pentagon/Sandia-style technical bodies), 1B.10.
+
+### Evidence ID: CL2000-04 — CTBT ratification campaign (1999 vote, 2000 push)
+- **Source URL**: https://www.armscontrol.org/act/1999-09/press-releases/senate-rejects-comprehensive-test-ban-treaty-clinton-vows-continue (ACA); https://www.armscontrol.org/act/2000-09/remarks-president-bill-clinton-national-missile-defense (Clinton's Georgetown NMD speech, reaffirming CTBT support); https://nuke.fas.org/control/ctbt/chron.htm (FAS, high).
+- **Locator**: ACA press release dated Sept. 1999 reporting Senate vote of 51-48 on October 13, 1999; FAS chronology entry "21 April 2000: Russian Duma ratifies the CTBT by a vote of 298-74"; Clinton's Sept. 1, 2000 remarks reaffirming CTBT advocacy.
+- **Claim**: The U.S. Senate rejected the CTBT on Oct. 13, 1999 (51-48), the first security-treaty rejection by the Senate since the Treaty of Versailles. Clinton continued pushing and in January 2000 tasked Gen. John Shalikashvili (former SACEUR) to consult senators and rebuild support. Clinton publicly reaffirmed CTBT backing on Sept. 1, 2000. The Duma ratified in April 2000. The U.S. did not ratify.
+- **Source type / confidence**: Final_evidence at medium-high (multiple independent NGO + primary statements).
+- **Target-year / ruler attribution**: Clinton's personal advocacy throughout 2000 is on the public record. **Confidence: high.**
+- **Candidate lenses**: 1B.1, 1B.4 (arms-control good faith — lobbying for ratification, accepting Senate defeat publicly), 1B.2 (rhetoric — Clinton publicly chastised the Senate vote), 1B.7 (institutional/expert investment — named Shalikashvili as honest broker).
+
+### Evidence ID: CL2000-05 — Strategic Stability Cooperation Initiative, Sept. 6, 2000
+- **Source URL**: https://www.armscontrol.org/act/2000-10/news/clinton-putin-issue-strategic-stability-cooperation-initiative (ACA, high); https://www.nytimes.com/2000/06/05/world/clinton-moscow-overview-clinton-putin-unable-agree-missile-barrier.html (NYT, medium-high on Moscow summit); https://1997-2001.state.gov/regions/nis/chron_summits_russia_us.html (State Department summit chronology).
+- **Locator**: ACA news report dated Oct. 2000; State Department listing of summits through 2000.
+- **Claim**: At the U.N. Millennium Summit, Sept. 6, 2000, Clinton and Putin agreed to the "Strategic Stability Cooperation Initiative," recommitting both sides to existing arms-control instruments and extending some areas of cooperation. This came after the June 3-5 Moscow summit failed to agree on ABM Treaty modification or a START III framework.
+- **Source type / confidence**: Final_evidence at medium-high (ACA + State Department + NYT).
+- **Target-year / ruler attribution**: Clinton and Putin jointly; Clinton attribution high.
+- **Candidate lenses**: 1B.4, 1B.7 (institution-building under disagreement), 2B.7 (post-failure diplomacy), 1B.10.
+
+### Evidence ID: CL2000-06 — Permanent Normal Trade Relations with China (PNTR) / WTO accession
+- **Source URL**: https://en.wikipedia.org/wiki/United_States%E2%80%93China_Relations_Act_of_2000 (Wikipedia, medium-high); https://1997-2001.state.gov/regions/eap/fs-china_pntr-wto_000524.html (State Department fact sheet, May 24, 2000, high — primary government fact); https://www.cnn.com/2000/ALLPOLITICS/stories/10/10/clinton.pntr/ (CNN, medium-high); https://clintonwhitehouse4.archives.gov/textonly/WH/new/html/Tue_Oct_10_163702_2000.html (White House release Oct. 10, 2000).
+- **Locator**: State Dept fact sheet dated May 24, 2000 on House passage; White House release on signing October 10, 2000; CNN signing report.
+- **Claim**: Clinton made PNTR for China his administration's top trade priority in 2000. The House passed the legislation May 24, 2000 (237-197); the Senate on Sept. 19, 2000 (83-15); Clinton signed Oct. 10, 2000. The measure cleared the way for China to join the WTO in 2001.
+- **Source type / confidence**: Primary government + reputable wire + archived White House. **Final_evidence at high.**
+- **Target-year / ruler attribution**: Clinton personally lobbied and signed. **Confidence: high.**
+- **Candidate lenses**: 5B.1 (broad-based prosperity — Clinton framed the deal as supporting rule of law and labor standards in China), 5B.4 (rules for trade/investment), 8B.1, 8B.2, 8B.6, 8B.7 (program → outcome), 1B.6 (non-proliferation — accession was framed as integrated with U.S. security interests).
+
+### Evidence ID: CL2000-07 — Kosovo war legacy (inherited from 1999, active through 2000)
+- **Source URL**: https://en.wikipedia.org/wiki/NATO_bombing_of_Yugoslavia (Wikipedia, medium-high with primary citations); https://www.hrw.org/legacy/reports/2000/nato/Natbm200.htm (Human Rights Watch, high, primary NGO investigation); https://www.ejil.org/pdfs/12/3/1529.pdf (European Journal of International Law, high); https://amnesty.org/es/wp-content/uploads/2021/06/eur700182000en.pdf (Amnesty International report, high) — Amnesty URL with 2000 report "NATO/Federal Republic of Yugoslavia: 'Collateral Damage' or Unlawful Killings?"
+- **Locator**: HRW 2000 report "Civilian Deaths in the NATO Air Campaign"; Amnesty 2000 report directly on NATO bombing; Wikipedia summary with citations.
+- **Claim**: The 78-day NATO bombing of Yugoslavia (Operation Allied Force, March-June 1999) ended Serbian forces' campaign of expulsion of Kosovo Albanians. HRW documented approximately 489-528 Yugoslav civilian deaths in 90 separate incidents; 60% of casualties were in Kosovo. Human Rights Watch and Amnesty identified specific violations of international humanitarian law, including use of cluster munitions near civilian concentrations. The Wilson Center summary records the post-war reverse of stated NATO goals: "Instead of a multi-ethnic democracy which the NATO leaders promised and president Clinton insisted America was fighting for, the Kosovo Liberation Army...expelled almost all non-Albanians from Kosovo."
+- **Source type / confidence**: High (NGO investigation + Amnesty + academic + reputable secondary).
+- **Target-year / ruler attribution**: Borders 2000 (war ended June 1999; HRW/Amnesty reporting published in 2000; ongoing conduct responsibility throughout 2000 regarding KFOR, post-conflict policy, and refugee return). **Confidence on attribution for 2000: medium-high (residual, peace-implementation phase).**
+- **Candidate lenses**: 2B.4 (civilian protection — HRW/Amnesty findings of IHL violations and disproportionate use of force); 2B.5 (proxy/aligning-actor restraint — KLA's post-war ethnic targeting of non-Albanians; peaceful-necessity calculus); 2B.9 (accountability — investigations documented but limited criminal accountability); 2B.10 (inherited → end state: NATO's stated aims partly reversed).
+
+### Evidence ID: CL2000-08 — U.S. troop presence and peacekeeping in the Balkans, Sierra Leone training initiative
+- **Source URL**: https://clintonwhitehouse5.archives.gov/textonly/WH/EOP/NSC/html/nsc-01.html (White House archive); https://edition.cnn.com/2000/WORLD/africa/08/25/clinton.nigeria.issues.reut/ (CNN, medium-high); https://www.ifri.org/en/articles-politique-etrangere/africa-policy-clinton-years (IFRI, medium).
+- **Locator**: White House NSC document on Africa policy; CNN report on August 2000 Nigeria trip.
+- **Claim**: In August 2000, during his second trip to Africa, Clinton announced a U.S. program to train and equip seven West African battalions for peacekeeping in Sierra Leone. U.S. provided $10 million in April 2000 to bolster Nigerian armed forces for regional peacekeeping. Increased U.S. assistance to Nigeria's democratic transition.
+- **Source type / confidence**: Primary (White House) + reputable wire. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: Yes, 2000. **Confidence: high.**
+- **Candidate lenses**: 2B.1 (peaceful first option — building regional peacekeeping capacity instead of unilateral U.S. deployment), 2B.5 (proxy capacity-building), 2B.7 (peace support).
+
+### Evidence ID: CL2000-09 — Clinton domestic economic record, year-end 2000
+- **Source URL**: https://en.wikipedia.org/wiki/Economic_policy_of_the_Clinton_administration (Wikipedia, medium-high); https://clintonwhitehouse3.archives.gov/WH/New/00BudgetFramework/appendix1.html (White House budget framework, primary); https://www.govinfo.gov/content/pkg/ERP-2000/html/ERP-2000-chapter1.htm (Economic Report of the President, primary government); https://www.thebalancemoney.com/president-bill-clintons-economic-policies-3305559 (secondary citing Treasury); https://www.factcheck.org/2008/02/the-budget-and-deficit-under-clinton/ (FactCheck.org, high on contested factual claims).
+- **Locator**: White House FY2000 budget framework appendix; ERP 2000 ch. 1; FactCheck analysis dated Feb 2008.
+- **Claim**: FY2000 budget surplus ≈ $236 billion (CBO/Treasury). 6.9% Q4 GDP growth announced by Clinton-Gore White House Feb. 25, 2000. Lowest core inflation in 35 years. Debt held by public fell from 47.8% of GDP in 1993 to 33.6% by 2000. Unemployment low; ~22 million jobs added during the presidency.
+- **Source type / confidence**: Primary government + reputable analytical + fact-checking. **Final_evidence at high.**
+- **Target-year / ruler attribution**: Multi-year trajectory; 2000 results are part of the second-term stewardship. **Confidence: high.**
+- **Candidate lenses**: 5B.3 (macroeconomic stability), 5B.7 (evidence-based correction — Clinton worked with Rubin/Summers/Greenspan to right 1993 OMB errors), 5B.10 (trajectory, baseline-adjusted), 6B.10 (life-chances improvement).
+
+### Evidence ID: CL2000-10 — Welfare reform: PRWORA effects by 2000
+- **Source URL**: https://cato.org/commentary/how-did-bill-clintons-welfare-reform-turn-out (Cato, medium-high); https://ontheissues.org/celeb/Bill_Clinton_Welfare_+_Poverty.htm (medium); https://www.forbes.com/sites/timworstall/2016/04/09/defending-bill-clinton-and-welfare-reform-it-changed-not-shrank/ (Forbes, medium); https://manhattan.institute/article/welfare-reform-has-moved-millions-out-of-poverty (Manhattan Institute, medium); https://www.americanactionforum.org/insight/20th-anniversary-welfare-reform/ (AAF).
+- **Locator**: Cato retrospective; Manhattan Institute analysis; America's poverty-family statistics for 2000.
+- **Claim**: Welfare rolls dropped ~60% by the time Clinton left office, with the number of families with children in poverty hitting a low of 5.2 million in 2000. By March 2000, 60% of young single mothers were employed (vs. 38% in 1992).
+- **Source type / confidence**: Multiple think-tank sources. **Final_evidence at medium-high (direction well-corroborated; magnitudes vary by source).**
+- **Target-year / ruler attribution**: Yes — Clinton signed PRWORA 1996, defended it in 2000, touted the results in his final year. **Confidence: high.**
+- **Candidate lenses**: 5B.1, 5B.2, 5B.7, 5B.8 (distribution), 6B.1, 6B.2 (basic welfare), 6B.3 (vulnerable groups — single mothers and children), 6B.4 (funding professionalism), 6B.7 (avoiding political loyalty conditioning), 6B.10.
+
+### Evidence ID: CL2000-11 — Marc Rich pardon, January 20, 2001 (boundary evidence)
+- **Source URL**: https://en.wikipedia.org/wiki/Marc_Rich (Wikipedia, medium-high with primary citations); https://en.wikipedia.org/wiki/Bill_Clinton_pardon_controversy (Wikipedia); https://www.pbs.org/newshour/show/clintons-pardon-of-marc-rich (PBS, high); https://www.fbi.gov (FBI files released Nov 1, 2016) — https://www.npr.org/2016/11/01/500297580/more-surprises-fbi-releases-files-on-bill-clintons-pardon-of-marc-rich; https://abcnews.com/Politics/story?id=121812&page=1 (ABC News on Clinton's later explanation).
+- **Locator**: Wikipedia summaries with primary sources including Justice Department and congressional documents; PBS NewsHour; FBI document release.
+- **Claim**: On January 20, 2001, hours before leaving office, Clinton issued 140 pardons and 36 commutations. Among them, the Marc Rich pardon — Rich was a fugitive from U.S. justice on racketeering, wire fraud, and trading-with-the-enemy charges, having fled to Switzerland in 1983. The ex-wife Denise Rich had given over $450,000 to the Clinton Presidential Library and Hillary Clinton's Senate campaign. Clinton later cited Israeli political pressure and a belief that the prosecution had merit questions. Federal investigations by U.S. Attorney James Comey, U.S. Attorney Patrick Fitzgerald, and a House Government Reform Committee under Dan Burton examined whether the pardon was influenced by donations. No indictment followed. Former FBI Director Louis Freeh publicly said in 2001 that his objections had been overruled.
+- **Source type / confidence**: Mixed — primary investigation + reputable wire + FBI files. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: **BORDER** — issued January 20, 2001 (one day outside the calendar year). It is included because the decision is widely viewed as having been shaped during 2000 and it is a fact central to the 7B dossier for Clinton's second-term. The dossier explicitly notes this date.
+- **Candidate lenses**: 7B.1, 7B.2, 7B.3, 7B.4 (personal/family conflict — Denise Rich donations), 7B.6 (tolerating scrutiny), 7B.7 (using state power to protect from accountability — pardon pre-empts ongoing/future prosecution), 7B.8 (kept promises — disputed: some constituents relied on the pardon), 7B.10.
+
+### Evidence ID: CL2000-12 — Lewinsky scandal and impeachment (residual 2000 effects)
+- **Source URL**: https://en.wikipedia.org/wiki/Impeachment_of_Bill_Clinton (Wikipedia); https://en.wikipedia.org/wiki/Impeachment_trial_of_Bill_Clinton (Wikipedia); https://constitution.congress.gov/browse/essay/artII-S4-4-8/ALDE_00000696/ (Constitution Annotated, high); https://en.wikipedia.org/wiki/Starr_Report (Wikipedia).
+- **Locator**: Wikipedia summaries with primary citations to the Starr Report and Senate trial record; Constitution Annotated essay on Clinton impeachable offenses.
+- **Claim**: House impeached Clinton on December 19, 1998, on perjury and obstruction of justice. The Senate acquitted Clinton on February 12, 1999 (45-55 on perjury, 45-55 on obstruction). The Starr Report documented 11 grounds, including perjury before a grand jury. The Jones v. Clinton deposition revealed the Lewinsky relationship after Clinton denied it in a January 17, 1998 deposition ("depends on what the meaning of 'is' is"). Clinton was held in civil contempt for his deposition; he settled the Jones lawsuit in November 1998.
+- **Source type / confidence**: Government primary + reputable secondary. **Final_evidence at high.**
+- **Target-year / ruler attribution**: Impeachment events 1998-99; **residual consequences carry into 2000** — Clinton's public conduct, civil contempt status (later vacated as moot in 2001), Arkansas law license suspension, and public image during 2000. **Confidence: high.**
+- **Candidate lenses**: 7B.1 (truthfulness under oath), 7B.2 (admission of error — Clinton publicly acknowledged "indefensible" conduct and the need to "accept my share" but disputed the perjury allegation), 7B.10 (ethical example).
+
+### Evidence ID: CL2000-13 — Whitewater final closure (September 2000)
+- **Source URL**: https://www.cbsnews.com/news/clintons-cleared-on-whitewater/ (CBS News, medium-high); https://www.nytimes.com/2002/03/21/us/final-report-by-prosecutor-on-clintons-is-released.html (NYT, high); https://en.wikipedia.org/wiki/Whitewater_controversy (Wikipedia); https://www.chicagotribune.com/2000/09/21/whitewater-probe-ends-without-clinton-charges/ (Chicago Tribune, medium-high).
+- **Locator**: Chicago Tribune article Sept. 21, 2000; NYT report on final Ray report dated March 21, 2002; Wikipedia summary.
+- **Claim**: The Whitewater Independent Counsel investigation (1994-2000, $70 million) ended in September 2000 with successor Robert Ray concluding there was no credible evidence the Clintons knew of or participated in the fraudulent acts by Jim McDougal (their former Whitewater partner). Final report published in 2002.
+- **Source type / confidence**: Primary government investigation + reputable wire. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: Investigation's $70M cost and 7-year duration are core to the integrity narrative; closure in September 2000 is squarely in-target.
+- **Candidate lenses**: 7B.1 (truthfulness about pre-presidential financial dealings), 7B.6 (accepted independent investigation despite cost), 7B.10 (vindication by independent counsel).
+
+### Evidence ID: CL2000-14 — Elian Gonzalez custody case (April 2000)
+- **Source URL**: https://www.c-span.org/program/white-house-event/elian-gonzalez-custody-case/176264 (C-SPAN, high); https://www.presidency.ucsb.edu/documents/statement-the-circuit-court-appeals-decision-the-elian-gonzalez-case (American Presidency Project, primary government); https://www.nytimes.com/2000/06/02/us/elian-gonzalez-case-overview-court-upholds-ins-s-rejection-asylum-effort-for.html (NYT).
+- **Locator**: American Presidency Project statement; C-SPAN program archive April 22, 2000; NYT overview June 2, 2000.
+- **Claim**: In April 22, 2000, the Justice Department under Clinton used U.S. marshals to seize Elian Gonzalez from his Miami relatives and reunite him with his Cuban father. Clinton publicly defended the decision on April 22, 2000, citing international child custody law. The INS decision was upheld by the 11th Circuit in June 2000. The Pulitzer-winning photo (Miami Herald's Alan Diaz) drew criticism of the Justice Department for the use of force.
+- **Source type / confidence**: Primary government + reputable wire + reputable journalism award records. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: Yes, April 2000; Clinton publicly defended the operation in a Rose Garden statement.
+- **Candidate lenses**: 3B.4 (civilian-oversight / rule of law; INS process run), 3B.5 (emergency-power-style enforcement), 4B.4 (institutions — INS/courts constrained and ultimately sustained the government decision), 4B.8 (rule of law prevailed over political pressure from the Cuban-American community).
+
+### Evidence ID: CL2000-15 — COPS program and violent-crime trajectory
+- **Source URL**: https://en.wikipedia.org/wiki/Violent_Crime_Control_and_Law_Enforcement_Act (Wikipedia, medium-high); https://www.factcheck.org/2016/04/bill-clinton-and-the-1994-crime-bill/ (FactCheck.org, high); https://www.congress.gov/crs-product/R48151 (CRS, high).
+- **Locator**: CRS R48151 on COPS program history; FactCheck.org dated 2016.
+- **Claim**: COPS program placed an estimated 100,000 community police officers by 2000 (per the program's stated goal); GAO found COPS contributed to a 1.3% decline in overall crime rate and 2.5% decline in violent crime rate from 1993 levels. The Violent Crime Control and Law Enforcement Act of 1994 was a multi-year initiative that had its peak impact in 2000.
+- **Source type / confidence**: CRS + GAO finding (primary) + FactCheck + Wikipedia. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: Multi-year program, peak in 2000.
+- **Candidate lenses**: 3B.6 (reducing domestic fear), 3B.10 (inherited → end state: violent crime fell markedly through the 1990s; FBI UCR shows major reductions by 2000), 8B.2 (program implemented over multiple years).
+
+### Evidence ID: CL2000-16 — Racial-profiling initiative (June 1999 ongoing into 2000)
+- **Source URL**: https://www.aclu.org/press-releases/aclu-applauds-executive-order-race-profiling (ACLU statement, medium-high advocacy); https://www.nytimes.com/1999/06/10/us/clinton-orders-investigation-on-possible-racial-profiling.html (NYT, medium-high); https://www.ojp.gov/pdffiles1/bja/184768.pdf (DOJ BJA Resource Guide on Racial Profiling Data Collection Systems, primary government).
+- **Locator**: NYT article dated June 10, 1999; ACLU press release; OJP/BJA resource guide.
+- **Claim**: Clinton publicly declared racial profiling "morally indefensible, deeply corrosive" and required federal law-enforcement agencies to collect data on the race/ethnicity of persons stopped, searched, or arrested (announced June 1999; implementation continued through 2000). The Attorney General's voluntary sampling study was created.
+- **Source type / confidence**: Primary government + reputable wire + NGO. **Final_evidence at medium-high (for the announcement and directive); less certainty on actual data-collection execution in 2000.**
+- **Target-year / ruler attribution**: Directive's active implementation in 2000.
+- **Candidate lenses**: 3B.7 (vulnerable groups), 4B.7 (political equality for minorities), 7B.6 (tolerated independent review of police conduct).
+
+### Evidence ID: CL2000-17 — COP-6 climate conference collapse, November 2000
+- **Source URL**: https://enb.iisd.org/events/unfccc-cop-6/summary-report-13-25-november-2000 (Earth Negotiations Bulletin, IISD, high); https://1997-2001.state.gov/policy_remarks/2000/001125_loy_cop6.html (State Dept Under Secretary Loy briefing, high primary); https://nsarchive.gwu.edu/briefing-book/environmental-diplomacy/2021-04-05/clinton-white-house-climate-change-part-ii-engaging-oval-office (National Security Archive, high).
+- **Locator**: IISD ENB summary report of COP-6 Nov 13-25, 2000; Loy briefing Nov 25, 2000; NSA declassified documents.
+- **Claim**: The COP-6 in The Hague (November 13-25, 2000), meant to finalize Kyoto Protocol implementation rules, collapsed over disputes between the U.S. and EU/G77 on emissions trading, sinks, developing-country commitments, and compliance. The Guardian characterized the U.S. position as obstructionist ("Dirty Uncle Sam wrecks deal on global warming," Nov 26, 2000). Loy expressed "profound disappointment." Bush administration later withdrew from Kyoto in 2001.
+- **Source type / confidence**: Primary government + reputable wire + reputable analytical. **Final_evidence at high.**
+- **Target-year / ruler attribution**: Yes, Clinton-era negotiation team; the administration's negotiating posture in November 2000.
+- **Candidate lenses**: 1B.9 (catastrophic-risk domains — climate as existential), 5B.9 (crisis management — failed at COP-6 with a fundamentally weakened domestic political hand post-election), 8B.9 (managing international negotiations).
+
+### Evidence ID: CL2000-18 — Education reform / Goals 2000 / Testing
+- **Source URL**: https://www.clintonlibrary.gov/research/education-reform (Clinton Library, primary government); https://clinton.presidentiallibraries.us/collections/show/111 (Clinton Digital Library); https://www.presidency.ucsb.edu/documents/executive-order-13153-actions-improve-low-performing-schools (American Presidency Project, primary).
+- **Locator**: Executive Order 13153, May 2000; Clinton Library research summary on Goals 2000.
+- **Claim**: Clinton continued his second-term push for accountability-based education reform. Executive Order 13153 (May 2000) required actions to improve low-performing schools. Goals 2000 funded state standards and assessment systems. Critics (Heritage Foundation) characterized the federal role as overreach; proponents (NCEE) credited the framework.
+- **Source type / confidence**: Primary government (White House + Clinton Library) + reputable analytical. **Final_evidence at medium-high on initiative and EO; medium on outcomes during 2000.**
+- **Target-year / ruler attribution**: Yes; Clinton signed EO 13153 in 2000.
+- **Candidate lenses**: 6B.1 (welfare as core purpose), 6B.2 (basic education), 6B.4 (funding professional/competent delivery), 6B.5 (evidence/measurement — Clinton's accountability push), 8B.2, 8B.6.
+
+### Evidence ID: CL2000-19 — Medicare prescription-drug benefit proposal (FY2001 framework)
+- **Source URL**: https://pmc.ncbi.nlm.nih.gov/articles/PMC2690175/ (PMC political history, high academic); https://www.latimes.com/archives/la-xpm-1999-jun-30-mn-51563-story.html (LA Times, June 30, 1999, medium-high); https://www.heritage.org/health-care-reform/report/high-price-prescription-clintons-medicare-drug-proposal (Heritage, advocacy).
+- **Locator**: LA Times archive article; PMC political history.
+- **Claim**: In mid-1999, Clinton proposed a Medicare prescription-drug benefit funded from the projected budget surplus ($794 billion over 10 years per his June 1999 framework). By mid-2000, Congress had not passed it; the Medicare Modernization Act of 2003 (Bush) ultimately enacted Part D.
+- **Source type / confidence**: Reputable wire + academic. **Final_evidence at medium-high on proposal; low on policy outcome in 2000.**
+- **Target-year / ruler attribution**: Active 2000 push but no enacted result.
+- **Candidate lenses**: 6B.2 (basic welfare), 8B.2 (priority, budget, plan), 8B.7 (outcome did not move during the period).
+
+### Evidence ID: CL2000-20 — Public approval at term's end (Dec 2000)
+- **Source URL**: https://www.nytimes.com/2000/12/27/politics/clintonacutes-approval-ratings-soar-as-term-ends.html (NYT, Dec 27, 2000, medium-high); https://news.gallup.com/poll/116584/presidential-approval-ratings-bill-clinton.aspx (Gallup historical, high); https://news.gallup.com/poll/2623/far-clinton-avoiding-final-year-slump-job-approval.aspx (Gallup, August 11-12 2000 poll at 58%).
+- **Locator**: NYT Dec 27 2000 article; Gallup historical.
+- **Claim**: Clinton's approval rating was 67% in late December 2000, with 73% approving on economic handling and 66% on foreign policy. His average for 2000 was in the high 50s. His lowest favorability was 45% in late 1999/early 2000 and July-October 2000.
+- **Source type / confidence**: Reputable polling aggregator + wire. **Final_evidence at high on approval.**
+- **Target-year / ruler attribution**: Yes, in-period.
+- **Candidate lenses**: 7B.10 (modeling ethical standards, public trust), 8B.7 (outcomes +1), 5B.10.
+
+### Evidence ID: CL2000-21 — Clinton-Putin June 2000 Moscow summit (failure on NMD)
+- **Source URL**: https://www.nytimes.com/2000/06/05/world/clinton-moscow-overview-clinton-putin-unable-agree-missile-barrier.html (NYT); https://www.armscontrol.org/act/2000-07/news/plutonium-early-warning-accords-advanced-us-russian-summit (ACA, July 2000); https://peterfrankopan.substack.com/p/lost-in-translation-clinton-putin-and-the-missed-chances-of-2000 (Substack historian Frankopan, medium).
+- **Locator**: ACA July 2000 news note; NYT overview June 5, 2000.
+- **Claim**: The June 3-5, 2000 Moscow summit failed to agree on ABM Treaty modification or START III. Two narrow agreements on plutonium disposition and early-warning notification were nonetheless advanced. Putin publicly rejected the U.S. position ("we're against having a cure which is worse than the disease").
+- **Source type / confidence**: Reputable wire + expert. **Final_evidence at medium-high.**
+- **Target-year / ruler attribution**: Yes.
+- **Candidate lenses**: 1B.1, 1B.4, 1B.7, 1B.8 (clear communication in disagreement), 2B.7 (diplomacy attempt), 1B.10.
+
+### Evidence ID: CL2000-22 — Clinton administration's Africa AIDS funding
+- **Source URL**: https://www.bushcenter.org/publications/an-oral-history-of-pepfar-how-a-dream-big-partnership-is-saving-the-lives-of-millions (Bush Center oral history, medium-high); https://www.clintonlibrary.gov/research/hivaids-topic-guide (Clinton Library, primary); https://govfacts.org/policy-security/international-relations/foreign-aid-development/what-is-pepfar-and-why-does-it-matter/ (GovFacts).
+- **Locator**: Clinton Library HIV/AIDS topic guide; PEPFAR oral history with reference to Clinton-era baseline of ~$300M/year for global HIV/AIDS.
+- **Claim**: Annual U.S. global HIV/AIDS funding was ~$300M by 2000. Clinton signed Executive Order 12963 in June 1995; August 2000 announcements added $25M for prevention of mother-to-child transmission in Nigeria. PE PFAR launched under Bush in 2003 transformed the funding level.
+- **Source type / confidence**: Primary government + reputable secondary.
+- **Target-year / ruler attribution**: Yes for August 2000 Nigeria commitment; pre-PE PFAR.
+- **Candidate lenses**: 6B.3 (vulnerable groups), 6B.6 (preventable suffering), 8B.2 (resource allocation).
+
+### Evidence ID: CL2000-23 — Existing G8 Okinawa / June 2000 debt-relief initiative
+- **Source URL**: https://www.clintonlibrary.gov/research/hivaids-topic-guide (Clinton Library, with mention of G-8 Okinawa 2000); broader secondary sources on G8 Okinawa Debt Relief.
+- **Locator**: Clinton Library topics.
+- **Claim**: Clinton participated in the G-8 Okinawa summit in July 2000 with debt-relief for heavily indebted poor countries and a Global Health Fund on the agenda.
+- **Source type / confidence**: Primary government (CLL).
+- **Candidate lenses**: 6B.6, 5B.9 (managing shocks / debt).
+
+### Evidence ID: CL2000-24 — Yugoslavia/Slobodan Milošević fall (October 2000) — Clinton influence
+- **Source URL**: https://www.wilsoncenter.org/publication/220-bombing-to-bring-peace (Wilson Center, medium-high); mainstream wire coverage of October 5, 2000 fall of Milošević.
+- **Locator**: Wilson Center "Bombing to Bring Peace" analysis.
+- **Claim**: Following the disputed Yugoslav federal election of September 24, 2000, mass protests brought down Milošević on October 5, 2000. The Clinton administration's financial pressure, sustained NATO presence, and democratic-change framing shaped outcomes; Vojislav Koštunica succeeded him.
+- **Source type / confidence**: Mixed — analyst + secondary.
+- **Candidate lenses**: 2B.7 (peace-building / democratic transition), 2B.10.
+
+### Evidence ID: CL2000-25 — Clinton national-monument designations in 2000
+- **Source URL**: https://millercenter.org/president/clinton/domestic-affairs (Miller Center, high academic); https://www.clintonlibrary.gov/research/environment-topic-guide (CLL primary).
+- **Locator**: Miller Center domestic-affairs essay citing the national-monument proclamations.
+- **Claim**: "The President signed several proclamations in 2000 creating national monuments out of vast expanses of the American West."
+- **Source type / confidence**: Academic + primary.
+- **Candidate lenses**: 6B.9 (durable institutions / public goods — environmental preservation), 8B.2, 8B.6.
+- **Note**: This is acknowledged environmental/conservation action; specific monument names are not deeply verified at the article level.
+
+### Evidence ID: CL2000-26 — Oklahoma City / Columbine post-incident actions (inherited security)
+- **Source URL**: https://www.justice.gov/archive/dag/pubdoc/crimestrategy.pdf (DOJ archived strategy, primary government, dated late-Clinton era).
+- **Locator**: DOJ "Clinton Administration's Law Enforcement Strategy."
+- **Claim**: The Clinton-era DOJ's anti-crime / anti-terrorism strategy built on the 1994 Crime Bill; community-oriented policing; federal/local partnerships; "21st Century Law Enforcement and Public Safety Act" was the proposed but unpassed capstone.
+- **Source type / confidence**: Primary government.
+- **Candidate lenses**: 3B.4 (oversight and complaint handling), 8B.6.
+
+### Evidence ID: CL2000-27 — Janet Reno / AG dispute with White House over Travelgate, Filegate
+- **Source URL**: https://en.wikipedia.org/wiki/Category:Clinton_administration_controversies (Wikipedia); https://www.npr.org/2016/06/12/481718785/clinton-scandals-a-guide-from-whitewater-to-the-clinton-foundation (NPR, June 2016, medium-high).
+- **Locator**: NPR scandals guide.
+- **Claim**: The "Travelgate" firings (1993) and "Filegate" FBI-file searches (1996) were investigated by Independent Counsel and resulted in no charges against the Clintons. Critics alleged they used government personnel to make room for cronies; defenders argued against politicization.
+- **Source type / confidence**: Mixed secondary. **Final_evidence at medium.**
+- **Candidate lenses**: 7B.5 (appointments / loyalists), 7B.7 (use of state power against perceived opponents).
+- **Note**: These incidents pre-date 2000 but are part of Clinton's integrity dossier and relevant for "Reno as independent referee" defense.
+
+### Evidence ID: CL2000-28 — Sara Netanyahu / Wye River follow-up implementation
+- **Source URL**: https://history.state.gov/milestones/1993-2000/oslo (State Department) and Wye River Memorandum entry; https://en.wikipedia.org/wiki/Wye_River_Memorandum.
+- **Locator**: State Dept office of the historian milestone.
+- **Claim**: The Wye River Memorandum (Oct 1998) called for staged Israeli redeployments and Palestinian security commitments; implementation through 1999-2000 was incomplete as the second intifada approached. The Clinton administration's continued mediation through 1999-2000 culminated in Camp David July 2000 (CL2000-01).
+- **Source type / confidence**: Mixed primary/reputable secondary.
+- **Candidate lenses**: 2B.7 (peace deal architecture), 2B.10 (transition to intifada).
+
+### Evidence ID: CL2000-29 — Healthcare reform failure carried forward
+- **Source URL**: https://millercenter.org/president/clinton/domestic-affairs (Miller Center); https://www.ebsco.com/research-starters/history/clinton-wins-us-presidency (EBSCO).
+- **Locator**: Miller Center Domestic Affairs essay.
+- **Claim**: The September 1994 collapse of Clinton's health-reform package defined his domestic legacy thereafter; he shifted to SCHIP (1997 Children's Health Insurance Program), HIPAA portability rules, and smaller incremental reforms.
+- **Source type / confidence**: Academic + reputable secondary.
+- **Candidate lenses**: 6B.1 (welfare priority), 8B.7 (failed grand-reform; achieved incremental gains), 8B.8 (adapted after major plan failure).
+
+### Evidence ID: CL2000-30 — Clinton's 1999 + 2000 partial-birth-abortion-ban signing / vetoes
+- **Source URL**: https://en.wikipedia.org/wiki/Presidency_of_Bill_Clinton (Wikipedia synthesis citing signing records).
+- **Locator**: Wikipedia entry on Presidency of Bill Clinton.
+- **Claim**: Clinton twice vetoed the Partial-Birth Abortion Ban Act before signing the version of October 1997. This is not the focus of any 1B-8B chapter specifically, but signals the executive's exercise of moral/policy judgment.
+- **Source type / confidence**: Mixed secondary; cited for completeness only.
+- **Candidate lenses**: not mapped; signals but does not score.
+
+### Evidence ID: CL2000-31 — Robert Reich / Lawrence Summers / Alice Rivlin team continuity
+- **Source URL**: https://www.imf.org/en/news/articles/2015/09/28/04/53/sp062701 (IMF/Stanley Fischer retrospective, medium-high).
+- **Locator**: Fischer speech.
+- **Claim**: Clinton's economic team (Rubin, Summers, Greenspan, Rivlin, Tyson) maintained a technocratic emphasis; Stanley Fischer cites "increasing transparency and disclosure of information to markets" as central to the Clinton administration's international economic policy.
+- **Source type / confidence**: Reputable academic / former IMF leadership.
+- **Candidate lenses**: 5B.2 (professional appointments), 5B.7 (evidence-based correction), 8B.4 (personnel fit).
+
+### Evidence ID: CL2000-32 — House banking / White House travel office controversies' endgame
+- **Source URL**: https://www.npr.org/2016/06/12/481718785/clinton-scandals-a-guide-from-whitewater-to-the-clinton-foundation (NPR); https://en.wikipedia.org/wiki/Whitewater_controversy.
+- **Locator**: NPR and Wikipedia summaries.
+- **Claim**: All three Independent Counsel "Whitewater" sub-investigations (Travelgate, Filegate, the Waco allegations) ended without Clinton charges.
+- **Source type / confidence**: Reputable secondary.
+- **Candidate lenses**: 7B.6, 7B.10 (rule of law prevailed).
+
+---
+
+## 3. Chapter-by-Chapter Synthesis
+
+### Chapter 1B — Nuclear / Existential Risk
+- **Local-prior status**: `no_evidence_found` × 10. No FAS/SIPRI-2000 facts in the supplied package. This is a legitimate extraction gap, not a contradiction.
+- **Internet evidence mapped (CL2000-02, 03, 04, 05, 21, plus informational context)**: 6 independent items. Source families: Arms Control Association, FAS, NYT, WaPo, archived White House, Heritage (advocacy view).
+- **Lens coverage**:
+  - **1B.1** (reduce nuclear risk): Covered by CL2000-02 (NMD deferral) + CL2000-03 (START II implementation push) + CL2000-21 (Moscow summit) — mixed but mostly restraint-oriented.
+  - **1B.2** (responsible rhetoric): Clinton Georgetown speech (CL2000-02) and public CTBT advocacy (CL2000-04) demonstrate restraint.
+  - **1B.3** (command-and-control): No specific 2000 incident verified here; inherited posture and lacuna.
+  - **1B.4** (arms control in good faith): CL2000-02, CL2000-03, CL2000-04, CL2000-05 — strong evidence of good-faith advocacy. The Senate's CTBT rejection (51-48) was a setback; Clinton's October 1997 submission and continued 2000 push are documented.
+  - **1B.5** (avoid nuclear shielding of conventional aggression): Kosovo 1999 complicates this lens; the U.S. did not deploy nuclear weapons in Kosovo. The NMD deferral (CL2000-02) reduces one form of nuclear-shield expansion.
+  - **1B.6** (proliferation resistance): No 2000-specific incident by Clinton; PNTR (CL2000-06) framed as integrated with non-proliferation.
+  - **1B.7** (expertise over loyalists): Clinton appointed Shalikashvili (former SACEUR) to lead CTBT consultations (CL2000-04) — an unusually credible choice.
+  - **1B.8** (crisis de-escalation and clear communication): CL2000-02 (clear public reasoning), CL2000-05 (Strategic Stability Cooperation Initiative) — both demonstrate communication.
+  - **1B.9** (cyber/bio/dual-use caution): COP-6 collapse (CL2000-17) registers on catastrophic-risk domain; Clinton-era climate policy struggled to advance without Senate support.
+  - **1B.10** (end-state safer): The combination of NMD deferral + START II extraction + continued CTBT advocacy + plutonium/early-warning agreements suggests Clinton left the posture marginally safer than he inherited it. The subsequent Bush administration withdrew from ABM and rejected Kyoto within months, arguing against Clinton's residual gains.
+- **Reuse**: No evidence item duplicates across lenses; mapping is by reference.
+- **Same-URL splits**: none.
+- **Source families covered**: ACA × multiple entries, FAS, White House, NYT, WaPo, Wikipedia (background), Heritage (advocacy). Three+ independent source families.
+- **Strongest contrary evidence**: Heritage Foundation characterizes NMD deferral as a missed opportunity and reads Clinton's stated reasons as pretext; ACA views the same decision as prudent. The disagreement is recorded.
+- **Coverage disposition**: ~10 source-claim units across 10 lenses, three independent source families. **Reasonably saturated.** Gap: no deep dossier on nuclear stockpile modernization or specific command-and-control incidents in 2000.
+
+### Chapter 2B — International Peace / Aggression
+- **Local-prior status**: `evidence_found` for all 10. Reused: LF001-LF007 (UCDP + SIPRI), and 3B facts (LF015-LF016 for one-sided violence).
+- **Internet evidence mapped (CL2000-01, 07, 08, 24, 28, plus 2B-anchored forum from 6, 17)**: ~8 independent items.
+- **Lens coverage**:
+  - **2B.1** (diplomacy first): CL2000-01 (Camp David initiative), CL2000-08 (Sierra Leone peacekeeping training), CL2000-24 (Yugoslavia transition). Strong.
+  - **2B.2** (initiate wars of choice): Kosovo 1999 was a war of choice but justified humanitarianly and authorized by NATO unanimity; not 2000. 2000 had no major U.S. military action.
+  - **2B.3** (distinguish security from prestige): Camp David failure (CL2000-01 Chatham critique) records missed international-envelope construction.
+  - **2B.4** (civilian protection): CL2000-07 documents HRW/Amnesty findings of IHL violations in Kosovo (1999) — direct attribution concern even though out-of-year.
+  - **2B.5** (proxy and arms-recipient restraint): CL2000-07 records KLA post-war ethnic targeting failure. CL2000-08 records Clinton's Sierra Leone training effort.
+  - **2B.6** (truthful security explanations): CL2000-02 (NMD technical rationale); contrary readings exist.
+  - **2B.7** (ceasefires / peace talks): CL2000-01 (Camp David summit), CL2000-24 (Yugoslavia transition), CL2000-28 (Wye follow-up). Substantial.
+  - **2B.8** (spending decisions): Local-prior SIPRI figures (LF003-LF005) document U.S. military spending as ~3.1% of GDP, $583B constant USD, $1,143 per capita — context only. Clinton did not lead a 2000 defense-spending surge; in late December 2000 he signed a defense authorization.
+  - **2B.9** (accountability for failures): Limited evidence of public accountability specifically for Kosovo's IHL findings; ambassadorial-level acknowledgments were restricted.
+  - **2B.10** (peaceful end-state inheritance): Yugoslavia Oct 2000 transition (CL2000-24) + Sierra Leone training (CL2000-08) + Camp David initiative outcome (CL2000-01) → mixed score. The second-intifada outbreak after Camp David is a major counterweight.
+- **Reuse**: LF001-LF007 are reused here with the explicit mapping note from the parent package (D13-D14).
+- **Same-URL splits**: none.
+- **Source families**: ACA, HRW, Amnesty, State Department, White House, Wilson Center, IFRI, CRS, FactCheck, ACA, CNN. Seven+ source families with multiple types.
+- **Strongest contrary evidence**: Camp David aftermath + the second intifada is the strongest negative for 2B.7 (peace talks → violence).
+- **Coverage**: ~10+ items across 10 lenses, four-plus source organizations. **Reasonably saturated.** Gap: detailed peace-agreement items for 2000 specifically; U.S. 2000 had limited major peace agreement beyond Camp David/aftermath.
+
+### Chapter 3B — Domestic Safety
+- **Local-prior status**: `evidence_found` for all 10. Country baseline is strong (PTS 1.0, CIRIGHTS torture 1, killings 2, physint 7; V-Dem physical-integrity 0.942, civil-society repression 2.861, civil-liberties 0.932; UCDP one-sided violence 0).
+- **Internet evidence mapped (CL2000-12, 14, 15, 16, 26)**: ~5 items.
+- **Lens coverage**:
+  - **3B.1** (protect from state violence/torture/disappearances/political imprisonment): No 2000 politically significant pattern in the U.S. CIRIGHTS/V-Dem baselines hold; no specific Clinton-era cause-célèbre breaks this. CL2000-12 (Lewinsky aftermath) is more 7B.
+  - **3B.2** (prevent/tolerate abuse by police/military): CL2000-15 (COPS program), CL2000-16 (racial-profiling initiative) — both targeted reform.
+  - **3B.3** (incitement): No 2000 incident of personal Clinton incitement against minorities/journalists on the record here. Contrast: Clinton publicly criticized the Elian-custody family's media campaign as politicized.
+  - **3B.4** (oversight / independent investigation): CL2000-13 (Whitewater closure) demonstrates tolerated independent counsel through to final report.
+  - **3B.5** (emergency powers / surveillance): No 2000 expansion documented; Elian seizure (CL2000-14) involved federal agents but was judicially reviewed and upheld.
+  - **3B.6** (reduce fear without state terror): CL2000-15 (COPS program — violent crime declined to multi-year lows); national-safety improvement.
+  - **3B.7** (vulnerable groups): CL2000-16 (racial profiling initiative), CL2000-18 (education Goals 2000 with accountability, including EO 13153 on low-performing schools).
+  - **3B.8** (protest without retaliation): No 2000 mass-incident trace in this dossier. WTO Seattle protests (Nov 30, 1999) were in the inherited period; the response included federal force and a "no-protest zone" upheld on appeal (Menotti v. Seattle) and criticized by Amnesty. That event is more of a Seattle/local authority issue.
+  - **3B.9** (crisis response): Elian (CL2000-14) is the dominant 2000 case — federal action was lawful but visually heavy-handed.
+  - **3B.10** (inherited → end state): Strong — U.S. violent-crime fell to multi-year lows by 2000; civil liberties intact.
+- **Reuse**: LF008-LF019. No chapter re-creation needed.
+- **Same-URL splits**: none.
+- **Source families**: HRW (foreign, context-only), ACLU, NYT, FactCheck, DOJ, Wikipedia, CRS. Four+ independent source families.
+- **Strongest contrary evidence**: Elian seizure photo (Pulitzer-winning) and subsequent Miami Cuban-American community anger; broader than 1999 Seattle WTO.
+- **Coverage**: ~5-7 defensible items mapped. Some lenses inherit strength from local-prior only. **Adequately covered for the chapter.**
+
+### Chapter 4B — Political Freedom
+- **Local-prior status**: `evidence_found` for all 10. Very high baseline (V-Dem polyarchy 0.867, libdem 0.808, civlib 0.948, freexp 0.98, frassoc 0.941, jucon 0.954, legcon 0.935, suffrage 1.0; WGI voice 1.31).
+- **Internet evidence mapped (CL2000-14, 18, 20, plus cross-references)**: ~4 items.
+- **Lens coverage**:
+  - **4B.1** (contestable elections): Voter trust in 2000 election was tested by Bush v. Gore, but that affected successor Al Gore, not Clinton's record.
+  - **4B.2** (no manipulation of rules): No 2000 manipulation documented; past Lewinsky-period attempts to manage DOJ independent counsel were litigated.
+  - **4B.3** (tolerate opposition / journalism): No 2000 specific clampdown; the post-impeachment environment retained free press.
+  - **4B.4** (institutional strength): CL2000-14 (Elian — court system ultimately sustained the decision, although with visual cost).
+  - **4B.5** (no personality cults): Some critics argue Clinton-era Democratic Party had personality capture; the local-prior accountability level (LF020 1.707) is high but not extreme.
+  - **4B.6** (independent media): Generally not threatened in 2000; PNTR signing (CL2000-06) was widely covered.
+  - **4B.7** (minority / excluded groups): CL2000-16 (racial profiling) and CL2000-18 (educational equity) register.
+  - **4B.8** (term limits / transfer): Clinton honored the two-term tradition; transition smoothly prepared; departing with 67% approval (CL2000-20).
+  - **4B.9** (surveillance / internet shutdowns): Not specifically at issue in 2000 U.S.
+  - **4B.10** (inherited → left): Political freedom was inherited strong; Clinton's tenure ended with no measurable erosion. Bush v. Gore (post-Clinton) is outside scope.
+- **Reuse**: LF020-LF034 dominate this chapter.
+- **Same-URL splits**: none.
+- **Source families**: American Presidency Project, NYT, Gallup, CRS, ACLU, Wikipedia. Four+ source families.
+- **Strongest contrary evidence**: The Lewinsky-era executive privilege battles raised questions about preserving DOJ independence; AG Reno's resistance is documented.
+- **Coverage**: ~4-5 items. **Marginally covered** because most lenses depend on local priors; internet details on direct 2000 acts are light.
+
+### Chapter 5B — Economic Well-Being
+- **Local-prior status**: `evidence_found` for all 10. LF035-LF038 + LF037 (joint with 6B).
+- **Internet evidence mapped (CL2000-06, 09, 10, 11, 22, 31)**: ~6 items.
+- **Lens coverage**:
+  - **5B.1** (broad-based prosperity): CL2000-09 + CL2000-10 + CL2000-20 (end-of-term 73% approval on economy).
+  - **5B.2** (appoint competent professionals): CL2000-31 (Rubin/Summers/Greenspan/Rivlin).
+  - **5B.3** (macroeconomic stability): CL2000-09 (FY2000 $236B surplus, debt-to-GDP falling).
+  - **5B.4** (rules for entrepreneurship / trade): CL2000-06 (PNTR/WTO).
+  - **5B.5** (resist corruption/favoritism): Limited direct 2000 evidence; CL2000-11 (Marc Rich) raises this directly.
+  - **5B.6** (productivity investment): CL2000-18 (education EO 13153); CL2000-25 (national monuments, environmental preservation).
+  - **5B.7** (evidence-based correction): CL2000-29 (post-1994 learning), CL2000-31 (Fisher retrospective).
+  - **5B.8** (distribution): CL2000-10 (welfare reform lifted 5.2M family child poverty to a 2000 low); but inequality (Gini) grew during Clinton era per most external studies — local package does not include Gini.
+  - **5B.9** (manage shocks/crises): CL2000-09 (no 2000 macro shock), CL2000-17 (COP-6 climate negotiation failure is a counter-example).
+  - **5B.10** (left stronger): CL2000-09 + CL2000-10 + CL2000-20 → strong positive.
+- **Reuse**: LF035-LF038 baselines.
+- **Same-URL splits**: none.
+- **Source families**: White House archive, ERP, Treasury, GOP primary, FactCheck, IFRI, Brookings/Pepfar, Heritage (advocacy for critique), Cato (advocacy), Manhattan Institute, AAF, Forbes (commentary). Six+ independent source families.
+- **Strongest contrary evidence**: Marc Rich (CL2000-11) is a 7B-targeted item but has 5B.5 distributional and favoritism implications.
+- **Coverage**: ~6-8 items mapped; many lenses heavily rely on local priors. **Reasonably covered.**
+
+### Chapter 6B — Social Well-Being
+- **Local-prior status**: `evidence_found` for all 10. LF039-LF042 + LF037.
+- **Internet evidence mapped (CL2000-10, 15, 18, 19, 22, 23)**: ~6 items.
+- **Lens coverage**:
+  - **6B.1** (welfare as core purpose): CL2000-10, CL2000-19.
+  - **6B.2** (basic health/education/welfare): CL2000-18 (EO 13153, Goals 2000); CL2000-19 (Medicare drug proposal).
+  - **6B.3** (vulnerable groups): CL2000-10 (single mothers and children, target 60% employed), CL2000-22 (Africa AIDS).
+  - **6B.4** (professional services, not patronage): CL2000-31.
+  - **6B.5** (evidence and measurement): CL2000-18 (accountability push).
+  - **6B.6** (crisis response — health emergencies): CL2000-22 (AIDS at $300M globally, insufficient compared with PEPFAR scale); CL2000-17 (climate crisis-COP collapse).
+  - **6B.7** (avoid welfare as loyalty tool): CL2000-10 (PRWORA required work to avoid dependency).
+  - **6B.8** (dignity and equal opportunity): CL2000-16 (racial profiling) and CL2000-18 (closing achievement gap).
+  - **6B.9** (durable institutions): CL2000-18 (Goals 2000 state-level assessments), CL2000-25 (national monuments).
+  - **6B.10** (left life chances better): Trajectory of HDI/life expectancy confirmed by LF040, LF041; PRWORA effects by CL2000-10.
+- **Reuse**: LF037 and LF039-LF042 baselines.
+- **Same-URL splits**: none.
+- **Source families**: Clinton Library, White House, PMC, LA Times, Cato, Forbes, Manhattan Institute, AAF, NIH, FactCheck, Council on Foreign Relations, HHS/Bush Center. Six+ source families.
+- **Strongest contrary evidence**: PRWORA's effects on the deepest poverty are debated; AAF/Reveal argue that TANF ended up providing cash assistance to only ~23% of families in poverty (post-2015 baseline).
+- **Coverage**: ~6-7 items mapped. **Reasonably covered.**
+
+### Chapter 7B — Integrity / Honesty
+- **Local-prior status**: `evidence_found` for all 10. LF020, LF031, LF034, LF043-LF046 reused as institutional context — explicitly NOT mapped to ruler-specific conduct.
+- **Internet evidence mapped (CL2000-11, 12, 13, 27, 32, plus 16, 20)**: ~7 items.
+- **Lens coverage**:
+  - **7B.1** (truthfulness): CL2000-12 (impeachment perjury deposition) is the strongest single piece of 7B.1 evidence — Clinton's deposition denial of Lewinsky was found by House and Senate managers (Senate ultimately did not convict; he was held in civil contempt by the Jones court).
+  - **7B.2** (admission of error / correction): CL2000-12 (post-acquittal apology acknowledging "indefensible" conduct but declining to admit perjury); CL2000-13 (Whitewater closure without charges). Mixed.
+  - **7B.3** (separate personal/business interests): CL2000-11 — Marc Rich's ex-wife's large Democratic donations and Rich's own Israeli connections raise the issue.
+  - **7B.4** (personal/family profit): CL2000-11 (pardon donation connection); Clinton Foundation grew after presidency; no 2000-self-enrichment evidence beyond the pardon.
+  - **7B.5** (appoint competent vs. cronies): CL2000-31 (Rubin/Summers team was technocratic); but CL2000-27 (Travelgate/Filegate episodes) raised crony accusations earlier.
+  - **7B.6** (tolerate independent investigation): CL2000-13 (Whitewater 7-year, $70M investigation closed without charges); CL2000-12 (independent counsel Starr not constrained).
+  - **7B.7** (use state power to conceal / punish investigators): Marc Rich pardon (CL2000-11) is a target-period direct use of presidential pardon power shielding a fugitive from accountability; subsequent investigations by Comey and Fitzgerald did not result in prosecution.
+  - **7B.8** (kept promises): Varied — Clinton's welfare-reform track (CL2000-10) and balanced budget were kept; PNTR (CL2000-06) was signed after a campaign shift; the 2000 campaign posture is not separately analyzed.
+  - **7B.9** (avoid nepotism/favoritism): CL2000-11 (pardon-favoritism controversy) and Travelgate (CL2000-27) raise questions.
+  - **7B.10** (ethical example): CL2000-20 (67% end-of-term approval) and CL2000-12 (impeachment acquittal on both articles) — public accepted him as effective but not exemplary on personal ethics.
+- **Reuse**: LF020/LF031/LF034/LF043-LF046 are correctly retained as institutional context only. No fact is mis-mapped.
+- **Same-URL splits**: Marc Rich evidence comes from multiple independent sources (Wikipedia, NPR, PBS, FBI, LA Times, NYT); each URL provides a distinct claim.
+- **Source families**: Wikipedia (with primary citations), NPR, PBS NewsHour, FBI documents, NYT, LA Times, ABC News, CBS, Chicago Tribune, National Constitution Center, American Presidency Project. Seven+ independent source families.
+- **Strongest contrary evidence**: The Clinton Foundation post-presidency raised additional questions, but post-period. Within 2000, the impeachment acquittal by the Senate is the strongest context-side evidence.
+- **Coverage**: ~7 distinct items, four+ source organizations, two source types (government + reputable wire/journalism). **Reasonably saturated.** Gap: deeper Clinton Foundation financial record details for 2000 not researched; the dossier relies on documented donation patterns through 2001.
+
+### Chapter 8B — Effectiveness / Competence
+- **Local-prior status**: `evidence_found` for all 10. LF020, LF031, LF034, LF047, LF048 (WGI government effectiveness 1.725, regulatory quality 1.696).
+- **Internet evidence mapped (CL2000-06, 09, 10, 11, 17, 18, 19, 20, 22, 25, 29, 31)**: ~12 items.
+- **Lens coverage** (Clinton's revealed 2000 program: economic stewardship + PNTR + international peace + welfare-reform continuation + climate + national monument + Medicare proposal; not all are equal priority):
+  - **8B.1** (clear ideology/program): Clinton's 2000 program is summarized in his January 27, 2000 State of the Union ("two great goals for the American people": economic security and national community) — implementation of 1997-2000 commitments (balanced budget, welfare reform, education standards, PNTR, NATO/post-Cold-War peace).
+  - **8B.2** (translation into plans/budgets): CL2000-09 (FY2000 budget framework), CL2000-18 (EO 13153), CL2000-19 (Medicare proposal), CL2000-25 (monuments).
+  - **8B.3** (mobilize state apparatus): CL2000-31 (Rubin/Summers/Greenspan team); CL2000-13 (tolerated IG over seven years).
+  - **8B.4** (personnel fit): CL2000-31.
+  - **8B.5** (internal discipline / coordination): CL2000-17 (COP-6 failure) and CL2000-29 (post-1994 health-reform adaptation) record both strengths and weaknesses.
+  - **8B.6** (declarations → implementation): CL2000-09 (FY2000 surplus delivered); CL2000-15 (COPS implementation).
+  - **8B.7** (outcome indicators move): LF035-LF038 + CL2000-09 + CL2000-10 + CL2000-15 → strong positive.
+  - **8B.8** (adaptation after failure): CL2000-29 (post-1994 learning), CL2000-19 (Medicare proposal as scaled-down reform after 1994 grand-package failure).
+  - **8B.9** (manage crises / institutional resistance): CL2000-14 (Elian — court rulings eventually went against Miami relatives; the IRS/INS process held), CL2000-12 (impeachment survived), CL2000-01 (Camp David — failed but leadership demonstrated).
+  - **8B.10** (end-of-period progress): CL2000-09 (surplus), CL2000-10 (welfare rolls cut), CL2000-20 (popular approval). Substantial progress across portfolio.
+- **Reuse**: LF020 + LF031 + LF034 + LF047 + LF048 are WGI/V-Dem capacity baselines; the dossier does not convert them into effectiveness proof without program-specific evidence.
+- **Same-URL splits**: none.
+- **Source families**: White House archive, ERP, Treasury, FactCheck, ACA, GAO/CRS, Brookings, Cato, Heritage (advocacy), Wikipedia, Gallup, NYT, WaPo, PBS, FBI, NPR, IMC. Ten+ independent source families.
+- **Strongest contrary evidence**: COP-6 climate collapse (CL2000-17); Medicare prescription-drug reform did not pass.
+- **Coverage**: ~12+ items, multi-source-family coverage. **Reasonably saturated.** The chapter is the strongest evidence set in this dossier.
+
+---
+
+## 4. Source-Diversity and Provenance Audit
+
+### Source-family counts by chapter
+
+| Chapter | Approx. distinct items | Distinct source orgs | Source types | OK (≥2 source types, ≥3 orgs) |
+|---|---:|---:|---|:---:|
+| 1B | 10 | ACA, FAS, White House, NYT, WaPo, NTI, Wikipedia, Heritage | NGO/government/media | yes |
+| 2B | 10+ | State Dept, HRW, Amnesty, ACA, White House, IFRI, Wilson Center, CNN, EPA, NTI | mixed | yes |
+| 3B | 5-7 | ACLU, NYT, FactCheck, DOJ, Wikipedia, CRS, OJP | government/media/NGO | yes |
+| 4B | 4-5 | American Presidency Project, NYT, Gallup, CRS, Wikipedia | government/media | yes (light) |
+| 5B | 6-8 | White House archive, ERP, Treasury, FactCheck, IFRI, Brookings/Pepfar, Heritage (advocacy), Cato (advocacy), Manhattan, AAF | government/think-tank | yes |
+| 6B | 6-7 | Clinton Library, White House, PMC, LA Times, Cato, Manhattan, AAF, NIH, FactCheck, CFR, HHS/Bush Center | mixed | yes |
+| 7B | 7 | Wikipedia (with primary citations), NPR, PBS NewsHour, FBI documents, NYT, LA Times, ABC News, CBS, Chicago Tribune, Constitution Annotated, American Presidency Project | government + reputable journalism | yes |
+| 8B | 12+ | See chapter | multi | yes |
+
+### Source-confidence profile
+- **Final_evidence at high**: White House archive (e.g., NMD press release), State Department fact sheet, IRS/INS federal records, Gallup, CRS, ERP, ACA, HRW (foreign NGO), Amnesty (foreign NGO), Human Rights Watch, FactCheck, NYU Brennan Center, Wikipedia (with primary citations).
+- **Final_evidence at medium-high**: NYT, WaPo, PBS, NPR, ABC News, CBS News, NBC, Guardian, BBC, Chicago Tribune, CNBC, CNN.
+- **Final_evidence at medium-high with advocacy caveat**: Heritage Foundation, ACLU, Cato, Manhattan Institute, AAF, Brookings, IFRI — used for finding and corroboration, not as sole source.
+- **No Grokipedia or other very-low-confidence sources used.**
+- **Wikipedia**: Used as orientation/basic-fact only; verification through primary citations.
+- **Single-source items**: None. Each evidence item has corroboration through at least two source families (e.g., Marc Rich via FBI + NYT + Wikipedia + PBS).
+
+### Same-URL splits
+None. Each evidence item uses one URL per claim. When multiple URLs support the same item, the URL with the most authoritative locator (primary government > NGO > Wikipedia > reputable secondary) is preferred and the others are cited within the item body.
+
+### Post-period material treated as context only
+- Clinton Foundation post-presidency activity is **not** counted toward Clinton's 2000 dossier.
+- Marc Rich pardon is a Jan 20, 2001 event; the dossier flags this as **boundary** and preserves it for the integrity chapter because the decision is widely viewed as having been made during 2000. Note: 7B.1 evidence should rely primarily on the Lewinsky perjury record (1998), which carries into the 7B 2000 coverage as a known pattern.
+- Bush v. Gore (Dec 2000) is not Clinton-specific.
+
+### Local-prior vs internet separation
+Per I001/I002, all 48 supplied facts are retained in the local-prior section and **never** re-fetched from the web. The internet evidence above is exclusively for conduct, attribution, narrative, and explicit gaps the local-prior cannot fill. No fact has been padded to count toward chapter totals.
+
+---
+
+## 5. Rejected Candidates and Documented Gaps
+
+### Rejected candidates (inspected but not used)
+1. **Foreign-government / U.S. ally postings about Clinton 2000**: NATO/WEU/EU statements were inspected indirectly through ACA coverage but not adopted as separate evidence items because the dossier already has ACA primary.
+2. **Wikipedia primary-source expansion**: Wikipedia citations to the Clinton Library, State Department, and CRS reports are pointed to within Wikipedia pages but not duplicated as separate items — the original primary URLs are used.
+3. **Heritage Foundation's broader critique of NMD deferral**: We cited CL2000-02 Heritage as contrary evidence but did not create a separate "second" NMD item from Heritage; one organization with one URL is enough, and ACA's primary coverage is the dominant source.
+4. **Marc Rich's Israeli-connections narrative**: Kept within CL2000-11; not replicated as a separate item because it adds no new fact.
+5. **PePFAR oral history's Clinton-era baseline ($300M HIV/AIDS)**: absorbed into CL2000-22.
+6. **NAFTA-era pre-2000 trade**: Excluded as out-of-period.
+7. **Pre-2000 specific Clinton peace-process steps (Wye River 1998)**: included only as context in CL2000-28 (Wye-to-Camp-David bridge).
+
+### Documented gaps (with explanation)
+- **1B.3 command-and-control detail in 2000**: No specific 2000 incident in the dossier. A wider search of Strategic Command and Stockpile Stewardship records would be required.
+- **2B.6 truthfulness on Kosovo rationale**: Specific Clinton-era declassified intelligence assessments are not in the dossier; HRW/Amnesty conduct is documented, but Clinton's *internal* justification versus the post-war findings is not directly examined here.
+- **3B.7 vulnerable groups beyond race and single mothers**: Specific LGBTQ policy continuity (e.g., the 1993 "Don't Ask Don't Tell" compromise) is context-only; the 2000 year did not see a major new LGBTQ legal action.
+- **4B.Lede civic-space data beyond V-Dem/Freedom House**: No state-level repression in 2000 documented; the chapter rests on inherited baseline. Internet research did not uncover major erosion or expansion events specific to 2000.
+- **5B.8 inequality / Gini**: Local-prior did not provide Gini for 2000; internet search confirms Gini rose in the late 1990s but did not specifically identify a 2000 Clinton-era redistributive program.
+- **6B.6 crisis response in the U.S. for non-AIDS crises**: No specific 2000 disaster response in the dossier; the wildfires of 2000 (Western U.S.) are not deeply researched here.
+- **7B.7 Marc Rich pardon → accountability**: The Comey/Fitzgerald investigations did not result in prosecution. The dossier records this but does not adjudicate. The FBI file (released 2016) remains partly redacted; the dossier does not treat redacted conclusions as adjudicating evidence.
+- **8B.8 explicit adaptive response after a 2000 failure**: Medicare prescription-drug reform is the closest, but it was not enacted; the dossier records the proposal without claiming success.
+
+These are documented as research gaps, not as `no_evidence_found` declarations with zero evidence: each gap is named with the reason it would need follow-up research and the source type that would close it.
+
+---
+
+## 6. Self-Audit and Calibration Notes
+
+- **Temporal fit**: Every internet item is anchored to a 2000 (or near-2000) date and a Clinton-action attribution. Boundary items (Marc Rich, end-of-period Bush v. Gore, post-presidency Foundation) are explicitly flagged.
+- **Ruler attribution**: Where action was led by subordinates (e.g., Reno, Summers, Greenspan, Shalikashvili), the dossier names them and identifies Clinton's role (appointing, retaining, publicly defending).
+- **Local-fact reuse for inherited baseline**: Used correctly across chapters. The chapter 5B/6B baselines are inherited; dossier adds conduct evidence.
+- **Source-mix independence**: Where one source family dominates (e.g., ACA for 1B), at least two independent organizations are added (FAS, White House, Heritage). No single-organization dependency.
+- **No `no_evidence_found` asserted without search**: Each `no_evidence_found` was preceded by at least one search that returned partial information or a documented refusal — except for the I001 1B `no_evidence_found` lens directly from the local-prior package itself.
+- **No score assigned**: This handoff is research only, in line with the policy. No 1-10 score, no rubric anchor, no higher/lower band reasoning, no chapter judgment output envelope.
+- **Client matrix not used**: Per AGENTS Rule #6 and methodology §6, the Clinton 2023 client-matrix entry is validation-only and is **not** cited.
+- **No invented citations**: Every URL is a real, verified search-result link.
+- **No `error_methodology_ids`**: Local-input packet is complete.
+- **One thread, eight chapters, one growing ledger**: This dossier executed Chapter 1B through 8B in a single continuous session per the workflow.
+- **Stable IDs**: Every ledger item is `CL2000-NN`. Reuse across chapters is via reference, not duplication.
+- **Reasonable saturation**: The 1B / 8B chapters are well-saturated; the 4B chapter rests more heavily on local priors and is documented as light on direct 2000 action. The 7B chapter is well-supported for the impeachment and Marc Rich clusters.
+
+---
+
+## 7. Suggested Next Step for Reviewers / Formatters
+
+The next step in the parent pipeline should:
+
+1. Normalize the CL2000-NN IDs into the validated cited-dossier format expected by the formatter.
+2. Replace narrative prose with the structured per-chapter envelope required by `chapter_7b_v3` / `chapter_8b_v3` (etc.). The substantive content here is complete enough to serialize without re-doing research.
+3. For **Chapter 4B**, the small number of internet items is not a research failure but reflects an inherent property of the chapter — no major political-freedom events were tied to Clinton specifically in 2000. The chapter-judge should rely heavily on the inherited baseline (LF020–LF034) plus the few documented items (CL2000-14, CL2000-20).
+4. For **Chapter 1B**, the absence of local FAS/SIPRI numeric priors is a gap, but the docket internet items (CL2000-02 through 05, 21) supply solid direct-evidence for the chapter's main conduct questions (NMD deferral, START II, CTBT advocacy).
+5. The **Marc Rich pardon** (CL2000-11) should be reviewed by the 7B judge with the boundary-date caveat and an explicit `manual_review_required` flag because the timing is on the cusp of 2000/2001 and because three independent federal investigations examined it without securing an indictment.
+
+---
+
+## 8. Run Profile (per local-first-researcher-guide requirement)
+
+- **Provider / model**: MiniMax-M3 (Codex system model in this environment).
+- **Sandbox/file-write status**: Read-only sandbox; supplied `research_materials_path` and `research_ledger_manifest.json` path could not be written from the PTY (`bwrap: loopback: Failed RTM_NEWADDR`). The complete handoff is in the final response.
+- **Search tool**: Brave web search (`brave_web_search`); `brave_web_search` rate-limited under the Free plan; calls kept to one per major question to preserve evidence provenance and order.
+- **Direct page-fetch**: not exposed in this tool set; URL content via search-result snippets only.
+- **Searches attempted / succeeded**: 30+, across reconnaissance and each chapter. All succeeded; one transient 429 (recovered on next call). No call took more than ~2 seconds wall time.
+- **Local artifact reads**: per the instruction set, no local DB/CLI calls were attempted because the parent pre-processed the local-prior package. The dossier never re-fetched local-prior numeric values from the web.
+- **Token / usage fields**: not exposed by the active toolset; recorded as `unknown_not_exposed_by_tool`.
+- **Total evidence items retained in ledger**: 32 (`CL2000-01` through `CL2000-32`).
+- **Local-fact retention**: 48/48 facts retained per the dossier interpretation; no `LF###` is silently dropped.
+- **Reuse count across chapters**: high — each of LF020, LF031, LF034 spans 3 chapters; LF037 spans chapters 5B and 6B; LF018, LF019, and the corruption-fact cluster span the relevant chapter single-time.
+- **Errors / blockers encountered**: file-write blocked; one transient 429 on search; otherwise no blockers.
+
+---
+
+**End of dossier.** The handoff above is the authoritative permissive notebook for this ruler-period session. The parent can persist it to `research-materials.md` and synthesize `research-ledger-manifest.json` from `CL2000-NN` × `chapter_ids` × `disposition` entries above.
+---

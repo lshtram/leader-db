@@ -119,6 +119,12 @@ genuinely inapplicable lens.
 
 Before lens work, perform one broad ruler-period reconnaissance to understand the
 ruler, period, major events, and likely source families across all eight chapters.
+During reconnaissance, establish one cited authority baseline covering the ruler's
+formal office, responsibility for national policy and appointments, command or party
+authority where relevant, and material legal or coalition constraints. Reuse this
+baseline across chapters. For Chapters 1B-6B and 8B, formal responsibility can support
+attribution without proof of a personal order; Chapter 7B still requires a personal
+integrity nexus.
 Then work through chapters 1B to 8B, and the ten lenses inside each chapter, in order.
 This is one continuing ruler research session and one growing evidence library, not
 80 independent research tasks. Before every lens,
@@ -146,7 +152,8 @@ item, but every accepted item must use the same fields and one stable provisiona
 When file writing is available, also maintain `research-ledger-manifest.json` at the
 supplied path as a small accounting index with this shape:
 `{{"schema_version":"ruler_research_ledger_manifest_v1","entries":[...]}}`.
-Each entry must contain `provisional_id`, `canonical_fact_key`, and `disposition`, where
+Each entry must contain `provisional_id`, `canonical_fact_key`, `chapter_ids`, and
+`disposition`, where `chapter_ids` lists every relevant chapter and
 disposition is `final_evidence`, `context`, `discovery_only`, or `rejected`. A rejected
 entry must also contain a specific `reason`. Update the manifest whenever the ledger
 changes. This is not a second evidence format: it is only the complete key/disposition
@@ -195,6 +202,10 @@ using a per-URL cap. Reuse one stable item across chapters instead of duplicatin
 This is a goal, not a hard gate: never pad, invent, or lower source standards to meet
 a count. If a chapter remains below five, inspect every supplied candidate, record
 candidate-level rejection reasons, and name the exact missing themes and source types.
+Do not declare a chapter ready merely because it reached a count. It is ready when the
+concrete record is sufficient to present relevant governing conduct, contrary material,
+and attribution fairly; otherwise continue the exact missing themes or document a
+credible blocker.
 
 For each chapter, record discovery queries, candidate outcomes, and suggested lens
 links for accepted evidence. Do not spend research time producing 80 final coverage

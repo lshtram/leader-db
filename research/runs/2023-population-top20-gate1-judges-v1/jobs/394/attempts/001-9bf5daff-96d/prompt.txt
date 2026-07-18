@@ -1,0 +1,613 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate1-judges-v1:2023:8B",
+  "run_key": "2023-population-top20-gate1-judges-v1",
+  "chapter_id": "8B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate1-judges-v1:2023:8B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate1-v1:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "8B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "China",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E020",
+          "E026"
+        ],
+        "methodology_id": "8B.1",
+        "reason": "Program agenda, implementation, outcomes, and constraints retained; competence and causal attribution remain incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.2",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.3",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.4",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.5",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.6",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.7",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.8",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.9",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "8B.10",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      }
+    ],
+    "estimated_input_tokens": 4122,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html#introduction|2023 Xi agenda",
+        "claim": "The 2023 leadership agenda emphasized Chinese-style modernization, ideological unity, patriotic education, economic recovery, technological self-reliance, cadre training, institutional reform, and political rectification; the article also reports increased senior-level CCDI investigations and senior-official removals.",
+        "contrary_evidence": [
+          "The article notes discrepancies between Chinese and non-Chinese economic sources and a flawed recovery.",
+          "Removals may reflect control or rivalry as well as accountability."
+        ],
+        "evidence_id": "E020",
+        "excerpt": "Introduction and opening Party-and-Politics sections.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Directly focused on China in 2023.",
+        "publication_date": "2024",
+        "publisher": "Asia Maior",
+        "ruler_attribution": "Strong attribution to Xi and CCP leadership; implementation and outcome claims are partly inferential.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Academic area-studies analysis with direct 2023 focus.",
+        "source_locator": "\u201cIntroduction\u201d and opening \u201cParty and Politics\u201d sections.",
+        "source_type": "academic/area-studies analysis",
+        "title": "China in 2023: Stimulating Economic Recovery along with Patriotic Education",
+        "url": "https://www.asiamaior.org/the-journal/18-asia-maior-vol-xxxiv-2023/china-in-2023-stimulating-economic-recovery-along-with-patriotic-education.html"
+      },
+      {
+        "canonical_fact_key": "local-prior:8B.1|2023 China governance capacity context",
+        "claim": "Supplied local facts report accountability, BTI governance, and rule-of-law indicators as institutional governance-capacity context.",
+        "contrary_evidence": [
+          "These do not prove Xi selected goals, implemented them effectively, or achieved them causally."
+        ],
+        "evidence_id": "E026",
+        "excerpt": "LF012, LF014, and LF028.",
+        "final_evidence_use": "context",
+        "period_fit": "Exact 2023 local-prior artifact.",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "V-Dem and BTI local artifacts",
+        "ruler_attribution": "No direct ruler attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured priors; capacity is not personalized.",
+        "source_locator": "local-prior:8B.1",
+        "source_type": "local structured datasets",
+        "title": "Supplied Effectiveness-Context Local Priors",
+        "url": "local-prior:8B.1"
+      }
+    ],
+    "iso3": "CHN",
+    "job_key": "dossier:2023-population-top20-gate1-v1:2023:CHN:15833",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v1/jobs/386/trusted/001-8a10ab0c-c1f/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "8B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E020",
+        "methodology_id": "8B.1",
+        "relation": "supports",
+        "relevance": "Xi-linked program agenda."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Local governance-capacity context."
+      }
+    ],
+    "methodology_ids": [
+      "8B.1",
+      "8B.2",
+      "8B.3",
+      "8B.4",
+      "8B.5",
+      "8B.6",
+      "8B.7",
+      "8B.8",
+      "8B.9",
+      "8B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "1432",
+    "ruler_name": "Xi Jinping",
+    "ruler_year_id": 15833,
+    "run_key": "2023-population-top20-gate1-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "5feaad5d177530f17e8952a4dfb544939325e1e2f90840b7250094fa0e6294b7",
+      "source_mix_note": "Final evidence spans official Chinese sources, NGO and academic analysis, CSIS, CFR, AP, UNICEF, World Bank, and supplied local structured priors as context. Discovery-only Reuters, DoD, USCC, and UNDP candidates were excluded. Source diversity remains uneven; several claims retain attribution and temporal limitations.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "46aac6c0c055663b9f33bfa2c97073071efd9cceac04a6e56b3b19653aab8076",
+    "unresolved_gaps": [
+      "1B: direct operational nuclear decisions, command-and-control safety, proliferation, arms control, non-nuclear existential-risk governance, and crisis de-escalation remain unresolved.",
+      "2B: Xi-directed coercion, defensive necessity, peaceful alternatives, civilian/proxy conduct, negotiation, accountability, and end-state change remain under-evidenced.",
+      "3B: ordinary public safety, non-state violence, prevalence, remedies, trajectory, and direct Xi knowledge or correction remain under-evidenced.",
+      "4B: electoral contestability, institutional independence, minority political equality, 2023 succession conduct, trajectory, and independent election corroboration remain under-evidenced.",
+      "5B: distribution, household welfare, competition, favoritism, implementation quality, independent statistics, counterfactual attribution, and policy correction remain unresolved.",
+      "6B: broad health, education, water/sanitation, housing, social protection, vulnerable-group distribution, dignity, correction, and durable institutions remain under-evidenced.",
+      "7B: no direct evidence of Xi\u2019s assets, family/business interests, nepotism, conflicts, concealment, personal benefit, or independent scrutiny of his conduct.",
+      "8B: personnel competence, coordination, adaptation, independent verification, counterfactual attribution, durability, portfolio breadth, and correction remain unresolved.",
+      "Empty local-prior states for 1B and 6B remain explicit gaps, not substantive evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 8B. Ruler Effectiveness and Competence
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- Chapter: `8B`
+- Category: `ruler_effectiveness_and_competence`
+- Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
+- Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
+- Rubric version: `chapter_8b_v3`
+
+## Chapter Purpose
+
+Assess how effectively the ruler defines a governing program, converts it into
+state or ruling-network action, coordinates implementation, adapts, and advances
+their own stated or reliably revealed objectives. The ten questions are evidence
+lenses feeding one final 1-10 chapter score, not equal sub-scores.
+
+This chapter is ideology-neutral. Moral worth and execution competence are
+separate. A ruler may execute a cruel, aggressive, corrupt, or authoritarian
+program competently and score highly in 8B while scoring very poorly in other
+chapters. Never smuggle moral approval or condemnation into the competence score.
+
+## Ten Evidence Lenses
+
+The question text below is authoritative and must not be paraphrased in the
+research manifest.
+
+| ID | Evidence lens |
+|---|---|
+| **8B.1** | Does the ruler articulate a clear governing ideology, strategic direction, or program, including explicit or revealed goals for power, policy, or regime control, that can be evaluated against later action? |
+| **8B.2** | Does the ruler translate that program into concrete priorities, plans, budgets, appointments, timelines, institutions, and enforcement mechanisms? |
+| **8B.3** | Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program and the ruler's own goals? |
+| **8B.4** | Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, security officials, or coercive administrators? |
+| **8B.5** | Does the ruler maintain internal discipline, coordination, control, and follow-through across ministries, regions, territory, institutions, security forces, party structures, and implementing agencies? |
+| **8B.6** | Does the ruler convert declarations into observable implementation and state reach rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only? |
+| **8B.7** | Do outcome indicators move in the direction the ruler claimed or revealed they sought, after allowing for realistic lags, inherited conditions, and external constraints? |
+| **8B.8** | When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program and maintaining effective control? |
+| **8B.9** | Does the ruler manage crises, opposition, international relationships, and institutional resistance in a way that preserves or advances the regime's chosen objectives, durability, and influence, regardless of whether those objectives are morally good? |
+| **8B.10** | By the end of the relevant period, is the ruler closer to achieving the stated or revealed ideological, policy, power-consolidation, or international-influence program than at the start, accounting for short-term wins, long-term durability, inherited conditions, and external shocks? |
+
+## Scope and Non-Goals
+
+- Establish an explicit or reliably revealed program before judging execution.
+  Repeated discriminating choices may reveal goals; hindsight speculation may not.
+- Evaluate strategic clarity, operationalization, mobilization, personnel fit,
+  coordination, implementation, outcomes, adaptation, crisis management, and
+  durable progress as mutually informing evidence.
+- Do not judge whether goals are democratic, peaceful, lawful, prosperous, humane,
+  or personally honest. Those judgments belong in 1B-7B.
+- Do not reward repression, propaganda, longevity, survival, economic growth,
+  administrative size, or institutional quality by itself. Ask whether it
+  effectively served the ruler's identified program.
+- Do not assume failure from an outcome the ruler did not seek, except where
+  maintaining basic government function was necessarily part of governing.
+- Do not use the client matrix as evidence.
+
+Before reading outcomes or assigning a score, freeze a portfolio of the ruler's major
+stated or reliably revealed programs plus necessary core-government functions. Apply
+the same breadth rule across regime types. Do not cherry-pick the easiest achieved
+goal, reduce a democratic government to its broadest welfare promises, or reduce an
+authoritarian government to survival, weapons, or power consolidation. Survival and
+consolidation may be one material program component, never the entire portfolio by
+default.
+
+## Researcher Workflow and Evidence Themes
+
+Follow the local-first researcher guide and source-confidence registry. Query the
+exact case locally. WGI, V-Dem, BTI, budgets, and outcome indicators are useful
+context or corroboration, but generic state capacity is not ruler effectiveness.
+
+Research chronologically across themes rather than issuing one search per lens:
+
+1. Identify stated programs from platforms, manifestos, coalition agreements,
+   speeches, strategies, directives, budgets, and plans. Identify revealed goals
+   only from repeated choices that distinguish them from rhetoric or speculation.
+2. Trace conversion into priorities, resources, laws, institutions, appointments,
+   timelines, enforcement, and measurable milestones.
+3. Examine whether the state, party, military, coalition, bureaucracy, territorial
+   network, or informal machinery actually mobilized, coordinated, and followed
+   through; include bottlenecks and implementation gaps.
+4. Assess whether personnel were capable for the assigned program. Ideological or
+   coercive operators may be effective implementers in this narrow chapter even
+   when their conduct is reprehensible elsewhere.
+5. Compare promised/revealed objectives with implementation and outcomes after
+   realistic lags, inherited trends, peer conditions, shocks, and resources.
+6. Trace learning, replacement, reallocation, crisis response, resistance
+   management, short-term gains, reversals, durability, and end-of-period position.
+
+Prefer primary program and budget documents, legislation, administrative and
+audit records, implementation data, credible outcome series, contemporaneous
+records, serious academic histories, independent evaluations, and reputable
+reporting. Official sources establish declared goals and formal actions but not
+successful execution by themselves. Preserve failures, contradictions, abandoned
+priorities, propaganda-only claims, alternative causal explanations, and adverse
+side effects; record the latter for cross-chapter use without morally deducting
+them in 8B.
+
+Reuse each stable evidence item across relevant lenses. Natural-language coverage
+and gaps are acceptable; publication must not depend on exact status terms,
+sequential IDs, or exhaustive mapping syntax.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual
+claim; source URL, title, publisher, and publication/access date where available;
+source type and confidence with a short reason; a quotation or precise locator
+when available; target-year/ruler-period fit; ruler attribution and
+inherited-baseline relevance; its positive, negative, mixed, contextual, or
+contrary role; and the supported lens IDs. Fields may be normalized later and
+natural-language equivalents are acceptable. The substantive minimum is a
+traceable source, intelligible claim, temporal fit, attribution, and evidence
+role. One item may support multiple lenses without duplication.
+
+## Attribution, Sparse Evidence, and Historical Cases
+
+Separate ruler capability from inherited state capacity, predecessor programs,
+subordinate initiative, favorable trends, external patrons, and luck. Assess
+formal/informal control, tenure, coalition and institutional constraints,
+resources, shocks, lag, ownership of appointments and priorities, response to
+implementation information, and plausible counterfactual trajectory.
+
+For obscure or historical rulers, later scholarship, archives, diplomatic
+records, budgets, institutional histories, and observable implementation may be
+more informative than missing modern indicators. Oral or informal programs can
+be evidenced by repeated choices. Sparse evidence should reduce confidence and
+widen the defensible range, not force a neutral score or invalidate the case.
+Short tenure may permit judgment of direction and mobilization while leaving
+outcomes unresolved. Closed systems may document plans abundantly while hiding
+failures; official volume is not proof of execution.
+
+## Holistic 1-10 Chapter Rubric
+
+Synthesize the causal chain from program through action to durable progress.
+Lenses are redundant and qualitatively weighted: clear plans with no execution
+cannot score highly; favorable outcomes without ruler-attributable direction or
+action warrant limited credit; a major strategic collapse can outweigh several
+administrative successes. Never calculate a simple mean or score by citation
+count.
+
+Strategic clarity, centralized control, personnel discipline, and planning without
+independently evidenced implementation and goal progress cannot exceed 5. Scores above
+5 require attributable implementation plus progress across material parts of the
+frozen portfolio. Scores above 7 additionally require independent evidence of outcomes,
+durability, and adaptation rather than official architecture, coercion, longevity, or
+survival alone. Harmful programs remain morally neutral here, but they must still show
+actual advancement rather than mere capacity to command.
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | No coherent program or effective governing control, or catastrophic inability to mobilize and execute: recurring chaos, paralysis, collapse, or decisive movement away from the ruler's own objectives. |
+| 2-3 | Weak or unstable direction and serious operational failure; plans remain largely symbolic, coordination repeatedly breaks down, adaptation is poor, and major objectives substantially recede. |
+| 4-5 | Mixed competence: some clear priorities and real delivery coexist with major implementation gaps, inconsistent control, failed initiatives, weak adaptation, or fragile/temporary results. |
+| 6-7 | Generally effective direction and execution across important priorities, with meaningful mobilization and progress but notable delays, failures, constraints, reversals, or durability concerns. |
+| 8-9 | Strong strategic-operational alignment, capable personnel and coordination, adaptive implementation, and substantial durable advancement of the ruler's program across major priorities. |
+| 10 | Exceptional, sustained mastery of direction, mobilization, execution, adaptation, crisis/resistance management, and durable goal realization under demanding conditions. |
+
+These anchors apply equally to benevolent and harmful programs. The rationale
+must separately name the program and state that moral effects are evaluated in
+other chapters.
+
+## Confidence
+
+Report confidence separately on a 0-100 scale. Consider program identification,
+ruler attribution, causal trace from inputs to implementation/outcomes, source
+independence, time fit and lag, external-shock controls, source/theme diversity,
+closed-system opacity, and contrary explanations. Missing lenses lower confidence
+rather than automatically lowering the chapter score. Give a defensible score
+range where evidence or attribution is materially uncertain.
+
+## One-Judge Comparative Workflow
+
+One judge owns 8B across all eligible rulers for the target year/period:
+
+1. Read every 8B dossier, identify each ruler's explicit or reliably revealed
+   program, and quarantine identity failures—not sparse evidence.
+2. Separate moral evaluation from execution before scoring. Record cross-chapter
+   harms without deducting them here.
+3. Establish batch anchors spanning democratic and authoritarian, beneficial and
+   harmful, modern and historical, high- and low-capacity contexts.
+4. Assign tentative holistic scores along the program-to-results chain, then
+   compare neighbors for consistent treatment of inherited capacity, resources,
+   shocks, tenure, lag, luck, resistance, and durability.
+5. Revisit cases dominated by generic governance indicators, official claims,
+   survival/tenure, favorable outcomes without attribution, or moral halo/horns.
+6. Emit one chapter score, confidence/range, identified program, rationale,
+   strongest execution and failure evidence, unresolved causal alternatives,
+   missing themes, and review flag.
+
+## Common Chapter-Judge Output Envelope
+
+The judge returns one object per ruler using these exact semantic field names so
+all eight chapter outputs can be normalized by the same inexpensive formatter:
+
+- `chapter_id`: `8B`
+- `rubric_version`: `chapter_8b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing
+  stable evidence IDs
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Harmless serialization differences can be repaired after judgment, but the
+semantic envelope must be complete. A null score is reserved for evidence too
+thin or untraceable to support any responsible range, unresolved identity, or
+attribution too uncertain to judge—not merely missing lenses or flexible coverage
+wording. The rationale must identify the program and state explicitly that its
+moral worth did not affect the execution score.
+
+## Chapter-Specific Calibration
+
+Use common calibration and bias checks where meaningful, plus:
+
+- `rubric_version`: `chapter_8b_v3`
+- `program_basis`: `explicit`, `mostly_explicit`, `mixed`, `mostly_revealed`,
+  `speculative`, or `unclear`
+- `program_type`: list from `policy`, `state_building`, `regime_control`,
+  `power_consolidation`, `international_influence`, `survival`, or `other`
+- `strategic_clarity`: `none`, `weak`, `partial`, `clear`, `exceptional`, or `unclear`
+- `operationalization`: `absent`, `weak`, `mixed`, `strong`, `exceptional`, or `unclear`
+- `mobilization_and_coordination`: `failed`, `weak`, `mixed`, `strong`,
+  `exceptional`, or `unclear`
+- `adaptation`: `counterproductive`, `rigid`, `mixed`, `effective`,
+  `exceptional`, `not_observed`, or `unclear`
+- `goal_progress`: `major_reversal`, `net_regression`, `mixed`, `substantial`,
+  `exceptional`, or `too_early_or_unclear`
+- `durability`: `collapsed`, `fragile`, `mixed`, `durable`, `highly_durable`,
+  `too_early`, or `unclear`
+- `ruler_attribution`: concise assessment of ownership, authority, inherited
+  capacity, subordinate action, shocks, luck, and alternative causes
+- `morality_separation_check`: explicit statement that approval/disapproval of
+  objectives did not alter the score
+- `lens_strengths`, `lens_gaps`, and `defensible_score_range`
+
+Explicitly check state-capacity inheritance, survivor bias, outcome/luck bias,
+propaganda and closed-system opacity, documentation advantages, hindsight-defined
+goals, short-tenure/lag bias, moral halo/horns, and whether coercion was mistaken
+for competence without evidence of goal advancement.
+
+## Smoke-Test Set
+
+These are calibration roles, not predetermined scores.
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---|---|
+| Lee Kuan Yew | Singapore | 1965-1990 | long-horizon direction, state capacity, durability |
+| Deng Xiaoping | China | 1978-1992 | revealed/pragmatic program and adaptation |
+| Adolf Hitler | Germany | 1933-1945 | harmful program, early execution, strategic catastrophe |
+| Joseph Stalin | Soviet Union | 1928-1953 | coercive implementation and moral-separation stress test |
+| Margaret Thatcher | United Kingdom | 1979-1990 | explicit democratic program, resistance, and durable change |
+| Mikhail Gorbachev | Soviet Union | 1985-1991 | adaptation, partial achievement, loss of control, disputed goals |
+| Boris Yeltsin | Russia | 1991-1999 | crisis, weak coordination, inherited collapse, mixed reforms |
+| Paul Kagame | Rwanda | 2000-2020 | development and regime-control goals with attribution concerns |
+| Volodymyr Zelenskyy | Ukraine | 2019-2023 | program transformed by extreme external shock |
+| Liz Truss | United Kingdom | 2022 | short tenure, explicit program, rapid implementation failure |
+| Franklin D. Roosevelt | United States | 1933-1945 | institutional mobilization across depression and war |
+| Mobutu Sese Seko | Zaire | 1965-1997 | survival/personal-rule effectiveness versus state deterioration |
+| Ellen Johnson Sirleaf | Liberia | 2006-2018 | post-conflict rebuilding, donor attribution, and woman ruler |
+| Sirimavo Bandaranaike | Sri Lanka | 1960-1965 | historical woman ruler, coalition/state capacity, and non-Western evidence |
+| Sylvanus Olympio | Togo | 1960-1963 | short, lower-visibility postcolonial program and sparse archives |
+
+## Acceptance Checklist
+
+- Missing implementation evidence never establishes ineffectiveness; it produces a
+  null when no ruler-attributed execution fact remains. Scores above `5` require
+  observable implementation or coordination, and scores above `7` additionally
+  require independent evidence of attributable outcomes, adaptation, or durable
+  progress across more than one material program component.
+
+- All ten authoritative lenses are present verbatim and serve one holistic score.
+- Ideology-neutrality is explicit and moral worth is separated from execution in
+  research, scoring, calibration, and rationale.
+- An explicit or reliably revealed program is established before execution is
+  judged; hindsight speculation is labeled and constrained.
+- Local-first order, citations, source profiling, and run profile are retained.
+- Evidence items satisfy the common traceability, temporal-fit, attribution,
+  evidence-role, and lens-link semantics.
+- Ruler action is separated from inherited capacity, subordinates, luck, trends,
+  shocks, tenure, and realistic outcome lags.
+- Missing lenses reduce confidence rather than invalidate or mechanically depress
+  the score.
+- One judge compares all rulers using one meter; lenses are neither equally
+  weighted nor mechanically averaged.
+- Final output uses the common chapter-judge envelope, including adjacent-anchor
+  comparisons and an explicit manual-review flag.
+- Smoke testing and revision occur before production activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

@@ -1,0 +1,1238 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:DEU:16985",
+  "iso3": "DEU",
+  "country_name": "Germany",
+  "ruler_name": "Olaf Scholz",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 83,
+  "approximate_source_family_count": 12,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 12 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Research handoff — Olaf Scholz, Germany, 2023
+
+**Job:** `dossier:2023-population-top20-canonical-full-v1:2023:DEU:16985`  
+**Ruler-period:** Olaf Scholz, Germany, 2023  
+**Access date for web materials:** 2026-07-17  
+**Research role:** evidence collection only; no scores, score ranges, anchors, or ranking recommendations.
+
+## Persistence status
+
+The environment was read-only, so I could not write:
+
+- `research-materials.md`
+- `research-ledger-manifest.json`
+
+The complete permissive handoff and ledger accounting therefore follow here for parent persistence.
+
+## Executive reconnaissance
+
+Olaf Scholz governed in 2023 as chancellor of a three-party SPD–Green–FDP coalition, elected after Germany’s free and fair 2021 election. The year’s defining governing pressures were:
+
+- Russia’s war against Ukraine and Germany’s implementation of the **Zeitenwende** security-policy shift;
+- adoption of Germany’s first National Security Strategy;
+- military, financial, and diplomatic support for Ukraine;
+- the energy-price shock and structural loss of cheap Russian gas;
+- recession or contraction and persistent inflation;
+- implementation of Bürgergeld and other social-support measures;
+- climate and industrial-transformation policy;
+- severe coalition coordination disputes;
+- the Federal Constitutional Court’s November invalidation of a €60 billion budget transfer;
+- political-freedom controversies around bans and policing of pro-Palestinian protests;
+- persistent hate crimes and violence against minorities;
+- continuing scrutiny of Scholz’s earlier contacts with M.M. Warburg in the Cum-Ex affair.
+
+The local package is strong for Germany’s institutional, rights, corruption, military-spending, and economic baseline, but it usually measures **country conditions**, not Scholz’s conduct. Internet research was therefore concentrated on ruler attribution, policy implementation, contrary evidence, and the two locally empty chapters, 1B and 6B.
+
+---
+
+# Global evidence ledger
+
+## Local structured-prior items
+
+These retain the supplied exact local locators and do not count as independent internet sources.
+
+### LP-001 — Germany military-expenditure package
+
+- **Canonical fact key:** `local-prior:2B.1|LF001-LF004|Germany-2023-military-expenditure`
+- **URL/locator:** `local-prior:2B.1`
+- **Title/publisher/date:** SIPRI military-expenditure observations; 2023
+- **Claim:** Germany’s 2023 military expenditure was supplied as:
+  - LF001: `70204.60523140711` constant-USD units;
+  - LF002: `812.6083273626206` per capita;
+  - LF003: `0.015033264680717936` share of GDP;
+  - LF004: `0.031224265826143415` share of government spending.
+- **Precise locator:** Supplied fields and source-observation IDs:
+  - `sipri_milex:Germany:2023:sipri_milex_constant_usd`
+  - `sipri_milex:Germany:2023:sipri_milex_per_capita`
+  - `sipri_milex:Germany:2023:sipri_milex_share_of_gdp`
+  - `sipri_milex:Germany:2023:sipri_milex_share_of_govt_spending`
+- **Main points:** Establishes Germany’s military-resource commitment during the Zeitenwende, not whether Scholz used force lawfully or pursued peace.
+- **Source profile:** Structured dataset; **high** confidence for measured fields; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Country expenditure under Scholz, but cannot by itself establish his motives, personal direction, or peace/aggression conduct.
+- **Limitations:** Currency/unit presentation should be checked by formatter; supplied value labels are retained verbatim.
+- **Mappings:** 2B.8 directly; context for 2B.1–2B.3 and 8B.2–8B.3.
+
+### LP-002 — Germany physical-integrity and repression baseline
+
+- **Canonical fact key:** `local-prior:3B.1|LF005-LF011|Germany-2023-physical-integrity`
+- **URL/locator:** `local-prior:3B.1`
+- **Title/publisher/date:** V-Dem and Political Terror Scale; 2023
+- **Claim:** The package reports:
+  - LF005 civil-society repression `3.106`;
+  - LF006 extrajudicial killings `3.283`;
+  - LF007 physical-integrity liberties `0.974`;
+  - LF008 private civil liberties `0.95`;
+  - LF009–LF011 PTS Amnesty, HRW, and State Department scores each `1.0`.
+- **Precise locator:** Supplied source-observation IDs for `v2csreprss`, `v2clkill`, `v2x_clphy`, `v2x_clpriv`, and three PTS fields.
+- **Main points:** Strong country-year indication of low political-terror exposure and high physical-integrity protection.
+- **Source profile:** Structured datasets; **high** for direct fields; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Primarily institutional/country conditions; not direct proof of Scholz-directed protection.
+- **Contrary/mitigating evidence:** Web evidence documents protest restrictions, police concerns, racial discrimination, hate violence, and protection gaps.
+- **Mappings:** 3B.1–3B.2, 3B.4–3B.6, 3B.8–3B.10; context for 4B.
+
+### LP-003 — Germany democracy, liberty, and rule-of-law baseline
+
+- **Canonical fact key:** `local-prior:4B.1|LF012-LF026|Germany-2023-democracy-liberty`
+- **URL/locator:** `local-prior:4B.1`
+- **Title/publisher/date:** V-Dem, Freedom House, RSF; 2023
+- **Claim:** The supplied package records strong accountability, election, association, expression, judicial/legislative constraint, liberal democracy, political rights, press freedom, rule of law, and suffrage indicators. Particularly:
+  - LF014 electoral democracy `0.855`;
+  - LF015 association `0.864`;
+  - LF016 expression `0.953`;
+  - LF017 judicial constraints `0.947`;
+  - LF018 legislative constraints `0.981`;
+  - LF019 liberal democracy `0.812`;
+  - LF022 RSF rank `21`;
+  - LF023 RSF score `81.91`;
+  - LF025 rule of law `0.992`;
+  - LF026 suffrage `1.0`.
+- **Precise locator:** Supplied field-specific V-Dem, Freedom House, and RSF observation IDs.
+- **Main points:** Strong inherited democratic and legal baseline during Scholz’s tenure.
+- **Source profile:** Structured datasets; **high** for measured fields; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Mostly inherited and systemic; cannot alone support personal credit to Scholz.
+- **Contrary evidence:** 2023 restrictions on pro-Palestinian assembly; declining RSF rank; journalist attacks and information-access concerns.
+- **Mappings:** All 4B lenses; contextual use in 3B, 7B, and 8B.
+
+### LP-004 — Germany economic scale baseline
+
+- **Canonical fact key:** `local-prior:5B.1|LF027-LF029|Germany-2023-economic-baseline`
+- **URL/locator:** `local-prior:5B.1`
+- **Title/publisher/date:** World Bank WDI; 2023
+- **Claim:** Supplied values:
+  - LF027 real GDP per capita `54776.7668235491`;
+  - LF028 total GDP `4562207532490.28`;
+  - LF029 population `83287273`.
+- **Precise locator:** Supplied WDI observation IDs.
+- **Main points:** Germany was a high-income, very large economy; these are baseline/scale facts rather than evidence of Scholz’s stewardship.
+- **Source profile:** Structured dataset; **high** for direct fields; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** None without policy and causal evidence.
+- **Mappings:** Context for 5B.1–5B.10 and 6B.10.
+
+### LP-005 — Germany corruption and accountability context
+
+- **Canonical fact key:** `local-prior:7B.1|LF030-LF033|Germany-2023-corruption-context`
+- **URL/locator:** `local-prior:7B.1`
+- **Title/publisher/date:** V-Dem and Transparency International CPI; 2023
+- **Claim:** Supplied values:
+  - LF030 political corruption `0.015`;
+  - LF031 CPI `78`;
+  - LF032 executive corruption `0.02`;
+  - LF033 public-sector corruption `0.013`.
+- **Precise locator:** Supplied V-Dem and CPI observation IDs.
+- **Main points:** Germany had comparatively low measured corruption, but this cannot establish Scholz’s truthfulness or personal integrity.
+- **Source profile:** Structured datasets; **high** for measured fields; final evidence as country context.
+- **Period fit:** Exact 2023.
+- **Attribution:** Not personal.
+- **Contrary evidence:** Cum-Ex scrutiny directly concerns Scholz but remained disputed and without a prosecutor’s initial suspicion as reported in 2023.
+- **Mappings:** Context for all 7B lenses; LF012/LF025 additionally contextual for 8B.
+
+---
+
+## Internet evidence items
+
+### WEB-001 — Scholz called for nuclear disarmament talks including China
+
+- **Canonical fact key:** `https://www.reuters.com/world/germanys-scholz-fresh-nuclear-disarmament-talks-should-include-china-2023-09-12/|article-summary|Scholz-called-for-China-inclusive-nuclear-disarmament-talks`
+- **URL:** https://www.reuters.com/world/germanys-scholz-fresh-nuclear-disarmament-talks-should-include-china-2023-09-12/
+- **Title/publisher/date:** “Germany’s Scholz: Fresh nuclear disarmament talks should include China”; Reuters; 2023-09-12
+- **Claim:** Reuters reported that Scholz said nuclear weapons posed an existential threat and that new nuclear-disarmament talks should include China.
+- **Locator/excerpt:** Search-retrieved article title and dated snippet: Scholz described nuclear weapons as an “existential threat to humanity” and an “immediate obligation” to act.
+- **Disposition caveat:** `gateway_only`; Reuters blocked direct autonomous fetch, so this is not included in the strict defensible-evidence count pending an accessible copy or transcript.
+- **Source profile:** Major wire; **medium-high** if underlying article is retrieved; discovery/context only here.
+- **Period fit:** Exact 2023.
+- **Attribution:** Direct statement by Scholz.
+- **Limitations:** Rhetoric does not establish implementation or consequential risk reduction.
+- **Mappings:** 1B.1, 1B.2, 1B.4.
+
+### WEB-002 — Germany’s 2023 UN First Committee arms-control position
+
+- **Canonical fact key:** `https://docs-library.unoda.org/General_Assembly_First_Committee_-Seventy-Eighth_session_(2023)/Germany.pdf|2023-general-debate-statement|Germany-arms-control-disarmament-position`
+- **URL:** https://docs-library.unoda.org/General_Assembly_First_Committee_-Seventy-Eighth_session_(2023)/Germany.pdf
+- **Title/publisher/date:** Germany, UNGA First Committee General Debate Statement; German government/UNODA repository; 2023-10-05
+- **Claim:** Germany’s statement said sustainable long-term peace and security require arms control and disarmament.
+- **Locator/excerpt:** Search-discovery snippet; PDF fetch blocked by repository.
+- **Disposition caveat:** `gateway_only`; underlying PDF was not retrievable in this run.
+- **Source profile:** Official primary statement; **medium-high** for formal position, but context without independent evidence of execution.
+- **Period fit:** Exact 2023.
+- **Attribution:** German government position; not necessarily personally authored or directed by Scholz.
+- **Mappings:** 1B.1, 1B.4, 1B.10.
+
+### WEB-003 — Scholz’s UN speech on Ukraine, diplomacy, and lawful peace
+
+- **Canonical fact key:** `https://new-york-un.diplo.de/un-en/2618620-2618620|paragraphs-beginning-some-argue-and-peace-means|Scholz-Ukraine-diplomacy-lawful-peace`
+- **URL:** https://new-york-un.diplo.de/un-en/2618620-2618620
+- **Title/publisher/date:** Speech by Chancellor Olaf Scholz to the UN General Assembly; German Federal Foreign Office mission site; September 2023
+- **Claim:** Scholz argued that France and Germany had held hundreds of meetings with Moscow and Kyiv since 2014 to find a diplomatic solution consistent with international law; he rejected a ceasefire that would create “peace in name only” and advocated peace respecting Ukraine’s territorial integrity and the UN Charter.
+- **Precise locator/excerpt:** Paragraphs beginning “Some argue that this war could have been prevented…” through “Peace means respecting the territorial integrity…” Supporting excerpts:
+  - “Our aim was to find a diplomatic solution that is in line with international law.”
+  - “Peace without freedom is oppression. Peace without justice is a diktat.”
+- **Main points:** Direct evidence of Scholz’s stated diplomatic framework and justification for continued support to Ukraine.
+- **Source profile:** Official transcript; **medium-high** for what Scholz said; final evidence for formal position, but official/self-serving for the effectiveness or completeness of diplomacy.
+- **Period fit:** Exact 2023.
+- **Attribution:** Direct.
+- **Contrary/mitigating points:** The speech asserts prior diplomatic effort but does not independently establish all alternatives or validate policy outcomes.
+- **Mappings:** 2B.1, 2B.3, 2B.6, 2B.7, 2B.10; 8B.1 and 8B.9.
+
+### WEB-004 — Implementation of the Zeitenwende and first National Security Strategy
+
+- **Canonical fact key:** `https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|section-Germany-security-defence-policy-shift|2023-Zeitenwende-implementation`
+- **URL:** https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart
+- **Title/publisher/date:** “Germany’s New Strategic Policy: Expertise in Building Resilience and Technological Edge at Heart”; NATO Parliamentary Assembly; 2023-09-28
+- **Claim:** Germany continued implementing the Zeitenwende announced by Scholz, adopted its first National Security Strategy in June 2023, and committed a €100 billion special fund to military modernization.
+- **Precise locator:** Section “Germany’s security and defence policy shift in the wake of Russia’s invasion of Ukraine,” paragraphs 1–3.
+- **Main points:** Identifies Scholz’s strategic program and some operational architecture.
+- **Source profile:** Interparliamentary institution drawing on official and independent-expert briefings; **medium-high**; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Scholz directly announced the overarching shift; implementation involved coalition, parliament, and ministries.
+- **Contrary/mitigating points:** Experts cautioned that sustainable implementation required long-term investment and that the fund was only a first step.
+- **Mappings:** 1B.7/1B.9 context; 2B.3, 2B.8, 2B.10; 8B.1–8B.3, 8B.6, 8B.10.
+
+### WEB-005 — German support for Ukraine and reduced Russian-energy dependence
+
+- **Canonical fact key:** `https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|paragraphs-Germany-largest-EU-donor-and-reduced-dependency|Ukraine-support-energy-response`
+- **URL:** Same as WEB-004
+- **Title/publisher/date:** NATO PA report; 2023-09-28
+- **Claim:** Germany was described as the largest EU donor of military equipment to Ukraine; it had established a credit scheme for Ukraine to acquire German-produced weapons, reduced dependence on Russian oil and gas, and supported EU sanctions.
+- **Precise locator:** Paragraphs beginning “Experts at the IfW…” and “At the IfW, Hendrik Mahlkow…”
+- **Source profile:** NATO PA report relaying Kiel Institute analysis and briefings; **medium-high**, with some source concentration; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Government-wide policy under Scholz; direct personal ownership of each operational decision is not shown.
+- **Contrary/mitigating points:** Military support is compatible with defensive assistance but does not itself prove proportionality, recipient control, or peace improvement.
+- **Mappings:** 2B.2–2B.3, 2B.5, 2B.7–2B.8, 2B.10; 5B.9; 8B.2–8B.3, 8B.6–8B.7, 8B.9.
+
+### WEB-006 — Accountability and international-law initiatives regarding Ukraine
+
+- **Canonical fact key:** `https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|paragraph-Russia-unprovoked-war-international-law|Germany-ICC-accountability`
+- **URL:** Same as WEB-004
+- **Claim:** A German minister told the NATO PA delegation that Germany pursued efforts to bring Russia to trial for aggression, supported strengthening the ICC, and was its second-largest donor.
+- **Precise locator:** Paragraph beginning “Russia’s unprovoked war against Ukraine has emphasised…”
+- **Source profile:** Interparliamentary report of an official briefing; **medium-high** for institutional acts; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** German government under Scholz, but the cited official was Katja Keul rather than Scholz.
+- **Mappings:** 2B.4, 2B.7, 2B.9–2B.10; 8B.6.
+
+### WEB-007 — Freedom House’s 2023 democratic baseline and Scholz’s accession
+
+- **Canonical fact key:** `https://www.ecoi.net/en/document/2108041.html|overview-and-A1-A3|Germany-democracy-2023`
+- **URL:** https://www.ecoi.net/en/document/2108041.html
+- **Title/publisher/date:** “Freedom in the World 2024 — Germany” (covering 2023); Freedom House, mirrored by ecoi.net; 2024
+- **Claim:** Germany remained a representative democracy with largely assured rights and civil liberties; Scholz had been elected by the Bundestag following the free and fair 2021 election; the electoral framework was assessed as fair and impartial.
+- **Precise locator:** “Overview”; “Political Rights,” A1–A3.
+- **Source profile:** Democracy-monitoring NGO; **medium-high** for narrative assessment; final evidence, while avoiding duplicate use of its already-supplied structured scores.
+- **Period fit:** Exact retrospective assessment of 2023.
+- **Attribution:** Establishes institutional baseline and lawful accession, not affirmative Scholz self-binding.
+- **Mappings:** 4B.1–4B.2, 4B.4, 4B.8, 4B.10; 7B.6 context.
+
+### WEB-008 — Arbitrary bans and policing of pro-Palestinian protests
+
+- **Canonical fact key:** `https://www.ecoi.net/en/document/2108041.html|Key-Developments-2023-and-E1|pro-Palestinian-protest-restrictions`
+- **URL:** Same as WEB-007
+- **Claim:** Authorities preemptively banned multiple pro-Palestinian protests on nonspecific grounds; some largely peaceful protests were forcibly dispersed and hundreds detained, prompting Freedom House to lower Germany’s assembly score.
+- **Precise locator:** “Key Developments in 2023”; section E1, including the “Score Change” paragraph.
+- **Supporting excerpt:** “Authorities across Germany issued arbitrary bans and other restrictions… dispersing, arresting, and fining hundreds of demonstrators.”
+- **Source profile:** NGO country report; **medium-high**; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Actions were by federal/state/local authorities. Direct Scholz order or intervention is not shown; federal-system attribution must remain limited.
+- **Contrary/mitigating points:** Most demonstrations were permitted; authorities cited violence and antisemitism risks, and some violence occurred.
+- **Mappings:** 3B.2, 3B.5, 3B.8–3B.9; 4B.3, 4B.6–4B.7, 4B.9–4B.10.
+
+### WEB-009 — Judicial independence, due process, and data-retention remedy
+
+- **Canonical fact key:** `https://www.ecoi.net/en/document/2108041.html|F1-F2-and-data-retention-paragraph|judicial-independence-data-retention`
+- **URL:** Same as WEB-007
+- **Claim:** Freedom House assessed Germany’s judiciary as independent and due process as generally prevailing; following ECJ and German Federal Administrative Court judgments, the government pledged to abolish the existing data-retention law.
+- **Precise locator:** Sections F1–F2; paragraph immediately preceding E1 concerning data retention.
+- **Source profile:** NGO country report summarizing legal developments; **medium-high**; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Institutional baseline; the pledge is government-attributable, but direct Scholz action is not shown.
+- **Mappings:** 3B.4–3B.5; 4B.4, 4B.9–4B.10; 7B.6–7B.7 context.
+
+### WEB-010 — Far-right threats, hate crimes, and attacks on refugees
+
+- **Canonical fact key:** `https://www.ecoi.net/en/document/2108041.html|F3|political-violence-refugee-attacks`
+- **URL:** Same as WEB-007
+- **Claim:** Freedom House reported increased politically motivated violence, 1,515 attacks on refugees/asylum seekers/refugee housing in the first nine months of 2023, and continued raids targeting the Reichsbürger movement.
+- **Precise locator:** Section F3.
+- **Source profile:** NGO report using official figures; **medium-high**; final evidence.
+- **Period fit:** Exact or near-period 2023.
+- **Attribution:** These are domestic conditions and security-service actions, not automatically Scholz’s conduct.
+- **Contrary/mitigating points:** Authorities actively investigated and raided violent far-right networks.
+- **Mappings:** 3B.6–3B.7, 3B.9–3B.10; 4B.7, 4B.10.
+
+### WEB-011 — HRW on discrimination and incomplete anti-discrimination reform
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/germany|Discrimination-and-Intolerance|anti-discrimination-gaps`
+- **URL:** https://www.hrw.org/world-report/2024/country-chapters/germany
+- **Title/publisher/date:** “World Report 2024: Germany”; Human Rights Watch; 2024, covering 2023
+- **Claim:** Germany saw increased attacks and discrimination affecting migrants, Jews, Muslims, Sinti and Roma, and LGBT people; the coalition’s promised expansion of anti-discrimination law had not been enacted by the report’s cutoff.
+- **Precise locator:** “Discrimination and Intolerance,” especially paragraphs on the Anti-Discrimination Agency and the coalition promise.
+- **Source profile:** NGO; **medium-high**; final evidence.
+- **Period fit:** Direct retrospective coverage of 2023.
+- **Attribution:** The unimplemented coalition commitment is government-level; Scholz personally headed the coalition but direct obstruction is not shown.
+- **Contrary/mitigating points:** The federal integration commissioner called for protections; state ministers committed to prevention; federal police-law changes added stop receipts.
+- **Mappings:** 3B.3, 3B.4, 3B.7, 3B.10; 4B.3–4B.4, 4B.7, 4B.10; 6B.3 and 6B.8.
+
+### WEB-012 — Police-law reform introduced receipts for stops
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/germany|Discrimination-and-Intolerance-final-paragraph|police-stop-receipts`
+- **URL:** Same as WEB-011
+- **Claim:** HRW reported that in December 2023 the government amended national police law to introduce mandatory receipts for police stops, intended to address racial profiling.
+- **Precise locator:** Final paragraph of “Discrimination and Intolerance.”
+- **Source profile:** NGO report linked to an official primary source; **medium-high**; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Federal government action; direct Scholz authorship is not established.
+- **Limitations:** Enactment does not prove implementation or effectiveness.
+- **Mappings:** 3B.2, 3B.4, 3B.7; 4B.7, 4B.10; 6B.3 and 6B.8.
+
+### WEB-013 — Press-freedom deterioration and protest restrictions
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/germany|press-freedom-and-protest-paragraphs|press-protest-deterioration`
+- **URL:** Same as WEB-011
+- **Claim:** HRW reported that Germany fell to 21st in RSF’s 2023 ranking because of violence and verbal attacks on journalists, declining pluralism, fragmented information access, and proposed protections concerns; HRW separately criticized blanket bans on pro-Palestinian protests.
+- **Precise locator:** Paragraph beginning “Germany dropped to rank 21…” and the following October/May protest paragraphs.
+- **Source profile:** NGO narrative relying partly on RSF; **medium-high**, but avoid double-counting the supplied RSF values; final evidence for narrative detail.
+- **Period fit:** Exact 2023.
+- **Attribution:** Mixed federal/subnational/institutional responsibility; no direct Scholz order shown.
+- **Mappings:** 4B.3, 4B.6, 4B.9–4B.10; 3B.8–3B.9.
+
+### WEB-014 — Supply Chain Act implementation
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/germany|Business-and-Human-Rights|Supply-Chain-Act-2023`
+- **URL:** Same as WEB-011
+- **Claim:** Germany’s Supply Chain Act entered into force in January 2023, requiring covered companies to identify, prevent, address, and report supply-chain human-rights risks, but HRW noted limited enforcement triggers and no civil-liability provisions.
+- **Precise locator:** “Business and Human Rights.”
+- **Source profile:** NGO assessment linked to official legislation; **medium-high**; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Coalition legislation implemented under Scholz; shared institutional attribution.
+- **Mappings:** 5B.4–5B.5, 5B.7; 6B.1 and 6B.8; 8B.2 and 8B.6.
+
+### WEB-015 — Domestic violence and women’s protection gaps
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/germany|Womens-and-Girls-Rights|domestic-violence-2022-published-2023`
+- **URL:** Same as WEB-011
+- **Claim:** Official figures published in 2023 recorded 240,547 domestic-violence cases in 2022, up 8.5%; women were over 70% of victims, and shelter advocates reported a need for 14,000 additional places.
+- **Precise locator:** “Women’s and Girls’ Rights,” first two paragraphs.
+- **Source profile:** NGO report drawing on official data and service-provider evidence; **medium-high**; final evidence.
+- **Period fit:** Statistics concern 2022 but were published and policy-relevant in 2023; near-period context.
+- **Attribution:** Does not prove Scholz caused the incidence; government protection capacity and response are relevant.
+- **Mappings:** 3B.7, 3B.10; 6B.2–6B.4, 6B.8, 6B.10.
+
+### WEB-016 — Bürgergeld entered into force
+
+- **Canonical fact key:** `https://www.deutschland.de/en/topic/life/child-benefits-and-citizens-income-social-reforms-in-germany|citizens-income-and-training-sections|Buergergeld-implementation-2023`
+- **URL:** https://www.deutschland.de/en/topic/life/child-benefits-and-citizens-income-social-reforms-in-germany
+- **Title/publisher/date:** “Child benefits and citizen’s income: social reforms in Germany”; deutschland.de/German government information platform; 2023-01-02
+- **Claim:** Bürgergeld replaced Hartz IV in January 2023, increased payments by more than €50 monthly, increased children’s rates, indexed future need proactively to inflation, emphasized qualifications and permanent work, and expanded training support from July.
+- **Precise locator:** Sections “The citizen’s income…” and “Training and retraining.”
+- **Source profile:** Official government information; **medium-high** for the formal program and dates, but context for effectiveness; final evidence for enacted design.
+- **Period fit:** Exact 2023.
+- **Attribution:** Major coalition reform under Scholz, passed by Bundestag and Bundesrat; shared attribution.
+- **Contrary/mitigating points:** The official source does not independently establish take-up, adequacy, poverty reduction, or employment outcomes.
+- **Mappings:** 5B.1, 5B.6, 5B.8–5B.9; 6B.1–6B.5, 6B.7–6B.10; 8B.1–8B.2, 8B.6.
+
+### WEB-017 — HRW characterization of Bürgergeld as only marginally higher support
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/germany|Poverty-and-Inequality-opening|Buergergeld-marginal-increase`
+- **URL:** https://www.hrw.org/world-report/2024/country-chapters/germany
+- **Claim:** HRW described Bürgergeld as replacing the previous system with “marginally higher allowances.”
+- **Precise locator:** “Poverty and Inequality,” opening paragraph.
+- **Source profile:** NGO; **medium-high**; final evidence as a contrary assessment.
+- **Period fit:** Exact 2023.
+- **Attribution:** Coalition reform under Scholz.
+- **Limitations:** Fetch truncation prevented retrieval of the remainder of HRW’s poverty section; do not infer additional conclusions.
+- **Mappings:** 5B.8–5B.9; 6B.2–6B.3, 6B.8, 6B.10.
+
+### WEB-018 — Constitutional Court invalidated €60 billion budget transfer
+
+- **Canonical fact key:** `https://www.cnbc.com/2023/11/15/german-court-rules-budget-maneuver-unconstitutional.html|paragraphs-court-ruling-three-grounds|budget-transfer-unconstitutional`
+- **URL:** https://www.cnbc.com/2023/11/15/german-court-rules-budget-maneuver-unconstitutional.html
+- **Title/publisher/date:** “German court deals blow to Scholz government with budget ruling”; CNBC; 2023-11-15
+- **Claim:** Germany’s Constitutional Court held that reallocating €60 billion of unused pandemic borrowing authority to a climate fund violated the Basic Law and was void.
+- **Precise locator:** Opening seven paragraphs and the three paragraphs beginning “Firstly,” “Secondly,” and “Thirdly.”
+- **Source profile:** Reputable financial media summarizing a court judgment; **medium-high**; final evidence. The judgment itself would be preferable for exact legal findings.
+- **Period fit:** Exact 2023.
+- **Attribution:** The maneuver was agreed by the coalition and enacted through the 2021 supplementary budget. Scholz headed the coalition and had earlier served as finance minister; responsibility is shared, not exclusively personal.
+- **Contrary/mitigating points:** The maneuver attempted to finance climate transition under genuine pandemic/energy pressures.
+- **Mappings:** 4B.4 as evidence that constraints operated; 5B.3, 5B.6–5B.7, 5B.9; 8B.2, 8B.5–8B.8, 8B.10.
+
+### WEB-019 — Detailed fiscal-planning failures identified in the budget ruling
+
+- **Canonical fact key:** `https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy|section-1-paragraph-3|court-found-planning-defects`
+- **URL:** https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy
+- **Title/publisher/date:** “Q&A: What German top court’s ‘debt brake’ ruling means for climate policy”; Clean Energy Wire; 2024-01-11, describing November 2023
+- **Claim:** The court found the government failed to demonstrate a sufficient link between pandemic emergency borrowing and climate measures, mixed long-term goals with short-term crisis management, and improperly shifted prior-year funds to later expenditures.
+- **Precise locator:** Section 1, third paragraph beginning “The judges argued…”
+- **Source profile:** Specialist nonprofit journalism summarizing the judgment; **medium-high**; final evidence.
+- **Period fit:** Post-period publication directly documenting a 2023 ruling.
+- **Attribution:** Coalition-level planning failure; direct personal Scholz responsibility requires caution.
+- **Mappings:** 5B.3, 5B.7, 5B.9; 8B.2, 8B.5, 8B.7–8B.8.
+
+### WEB-020 — Court ruling forced climate-program cuts and implementation disruption
+
+- **Canonical fact key:** `https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy|funding-cuts-list|climate-program-cuts`
+- **URL:** Same as WEB-019
+- **Claim:** The ruling led to projected consolidation of about €30 billion, suspension or cuts to energy-efficiency, construction, electric-vehicle, climate-protection, agricultural innovation, and related programs; energy price brakes were not extended after 2023.
+- **Precise locator:** Paragraph beginning “However, about 30 billion euros are projected…” and the subsequent bullet list.
+- **Source profile:** Specialist nonprofit journalism; **medium-high**; final evidence.
+- **Period fit:** Consequences were decided at the end of 2023, with some effects in 2024; mixed target-period/post-period fit.
+- **Attribution:** Coalition response to a legal constraint; not solely Scholz.
+- **Mappings:** 5B.6–5B.7, 5B.9–5B.10; 6B.2 and 6B.6; 8B.5–8B.8, 8B.10.
+
+### WEB-021 — Economic shock, recession, and incomplete budget response
+
+- **Canonical fact key:** `https://www.pbs.org/newshour/economy/germanys-economic-challenges-complicate-budget-crisis-resolution-despite-chancellors-reassurance|paragraphs-opening-through-IMF-projection|budget-crisis-economic-response`
+- **URL:** https://www.pbs.org/newshour/economy/germanys-economic-challenges-complicate-budget-crisis-resolution-despite-chancellors-reassurance
+- **Title/publisher/date:** “Germany’s economic challenges complicate budget crisis resolution despite chancellor’s reassurance”; Associated Press via PBS; 2023-11-28
+- **Claim:** Scholz promised a rapid solution while protecting modernization and social spending, but gave few details; Germany faced lost cheap Russian gas, high household energy costs, weak industry, and an IMF-projected 0.5% contraction.
+- **Precise locator:** Opening through paragraph beginning “The fallout has left Germany projected…”
+- **Supporting excerpt:** Scholz said it would be “an unforgivable mistake” to neglect modernization.
+- **Source profile:** AP/public-service republication; **medium-high**; final evidence.
+- **Period fit:** Exact 2023.
+- **Attribution:** Direct statement plus external economic context; recession is not solely attributable to Scholz.
+- **Contrary/mitigating points:** Severe external energy shock; Germany had relatively low G7 debt, while inherited underinvestment constrained options.
+- **Mappings:** 5B.1, 5B.3, 5B.6–5B.7, 5B.9–5B.10; 6B.6; 8B.1–8B.2, 8B.7–8B.10.
+
+### WEB-022 — Scholz coalition implementation and coordination failures
+
+- **Canonical fact key:** `https://www.politico.eu/article/why-germany-lifeless-coalition-wont-die/|implementation-and-budget-sections|coalition-implementation-failure`
+- **URL:** https://www.politico.eu/article/why-germany-lifeless-coalition-wont-die/
+- **Title/publisher/date:** “Why Germany’s lifeless coalition won’t die”; Politico Europe; 2023-12-28
+- **Claim:** Politico described implementation as the coalition’s weak point, reported repeated internal conflict, and stated that the court’s ruling left the legislative agenda in disarray. It attributed the creative-accounting approach to Scholz and said there was no fallback plan.
+- **Precise locator:** Sections “Deliverance,” “Fiscal warrior,” and “Running on empty.”
+- **Source profile:** Reputable political media/analysis; **medium-high** for chronology, **medium** for evaluative framing; final evidence with attribution caveat.
+- **Period fit:** Exact end-of-2023 assessment.
+- **Attribution:** Stronger personal attribution than most sources, but some assertions are journalistic analysis and should be corroborated with records where consequential.
+- **Contrary/mitigating points:** The same article credits the coalition with fossil-fuel legislation and initial praise for the Zeitenwende; coalition ideological divisions and constitutional constraints mattered.
+- **Mappings:** 5B.3, 5B.6–5B.7, 5B.9–5B.10; 8B.1–8B.10, especially 8B.5, 8B.7–8B.8.
+
+### WEB-023 — Cum-Ex inquiry and disputed memory account
+
+- **Canonical fact key:** `https://www.politico.eu/article/germany-chancellor-olaf-scholz-parliament-investigation-tax-fraud-scandal-hamburg-cum-ex/|paragraphs-Warburg-meetings-through-prosecutor|Scholz-CumEx-2023-scrutiny`
+- **URL:** https://www.politico.eu/article/germany-chancellor-olaf-scholz-parliament-investigation-tax-fraud-scandal-hamburg-cum-ex/
+- **Title/publisher/date:** “Olaf Scholz faces new probe over German tax fraud scandal”; Politico Europe; 2023-04-04
+- **Claim:** Scholz had privately met an M.M. Warburg owner while Hamburg mayor; critics questioned whether he intervened in a €47 million tax-recovery matter and challenged his later claims not to remember meeting content. Scholz denied intervention; allies said prior inquiries found no wrongdoing; Hamburg prosecutors reported no initial suspicion against him.
+- **Precise locator:** Paragraphs beginning “Scholz has come under scrutiny…” through “The Hamburg Public Prosecutor’s Office said…”
+- **Source profile:** Reputable media; **medium-high** for chronology and attributed positions; final evidence as mixed/contested, not proof of wrongdoing.
+- **Period fit:** Inquiry development in 2023 about pre-chancellorship conduct.
+- **Attribution:** Directly concerns Scholz’s meetings, statements, and responses.
+- **Contrary/mitigating points:** No initial prosecutorial suspicion; bank ultimately repaid after court order; allegations remained politically contested.
+- **Mappings:** 7B.1–7B.4, 7B.6–7B.8, 7B.10; 4B.4 as evidence of scrutiny.
+
+---
+
+# Chapter-by-chapter handoff
+
+## 1B — Nuclear and existential-risk responsibility
+
+### Local baseline
+
+No local facts were available. The supplied disposition for all 1B lenses was `no_evidence_found` under R001. This means no configured local structured prior matched; it does **not** mean Germany had no exposure or that Scholz acted responsibly.
+
+Germany was a non-nuclear-weapon state but had material NATO nuclear-sharing, alliance, Ukraine-crisis, arms-control, cyber, AI, and biological-risk exposure. The internet record found formal arms-control advocacy and security-policy planning, but not detailed evidence on command-and-control, custody, crisis channels, expert appointments specific to nuclear safety, or measurable end-posture change.
+
+### Retained evidence and mappings
+
+- WEB-001: direct Scholz call for China-inclusive nuclear disarmament talks, but gateway-only.
+- WEB-002: formal German arms-control/disarmament position, gateway-only.
+- WEB-004: security-strategy institutions and Zeitenwende implementation.
+- WEB-003: direct crisis/diplomacy rhetoric concerning Russia and Ukraine.
+
+### Candidate/search outcomes
+
+Queries covered:
+
+- “Olaf Scholz 2023 nuclear arms control disarmament NPT AI safety Germany”
+- source-specific UNODA First Committee material;
+- Reuters disarmament report;
+- broader searches for Germany’s security strategy.
+
+Rejected or downgraded:
+
+- Bulletin of the Atomic Scientists result dated 2022: useful inherited-period context but outside 2023 and not opened.
+- Academic “European Nuclear Deterrent” article published 2024: post-period analytic context, not retrieved.
+- Social-media and YouTube results: rejected as discovery-only.
+- National Security Strategy PDF: canonical document found, but text extraction failed; not retained as a defensible claim unit beyond NATO PA’s independently accessible description.
+
+### Yield and saturation
+
+- **Defensible web claim units:** 2 (WEB-003, WEB-004) with only partial 1B relevance.
+- **Gateway-only candidates:** 2.
+- **Independent organizations:** German Foreign Office mission, NATO PA; Reuters and UNODA as unresolved gateways.
+- **Source types:** official transcript, interparliamentary report.
+
+### Unresolved gaps
+
+- Germany’s NATO nuclear-sharing decisions and Scholz’s actual authority;
+- 2023 nuclear doctrine or procurement decisions;
+- nuclear command/safety safeguards;
+- crisis communication with Russia;
+- nonproliferation enforcement and alliance proliferation issues;
+- concrete AI, biological, cyber, or other catastrophic-risk measures tied to Scholz;
+- measurable inherited versus end-of-year risk posture.
+
+This chapter remains below the target evidence count because precise, accessible, ruler-attributed target-year records were sparse in the available retrieval environment.
+
+---
+
+## 2B — International peace, restraint, and lawful security
+
+### Local baseline
+
+LP-001 establishes large and rising military expenditure but cannot determine whether spending was defensive, escalatory, wasteful, or peace-promoting.
+
+### Retained evidence and mappings
+
+- WEB-003: Scholz’s direct UN defense of sustained diplomacy and a UN-Charter-compliant peace.
+- WEB-004: Zeitenwende and National Security Strategy implementation.
+- WEB-005: military support for Ukraine, sanctions, and reduced Russian-energy dependence.
+- WEB-006: support for ICC/accountability.
+- LP-001: military expenditure and burden context.
+
+### Evidence interpretation
+
+The evidence supports a coherent defensive-security narrative: Germany aided Ukraine after Russian aggression, pursued sanctions, modernized defense, and advocated a settlement consistent with sovereignty. Scholz’s UN speech is direct evidence of his stated goals, while NATO PA provides institutional implementation detail.
+
+Important constraints:
+
+- Scholz’s official speech is self-serving for whether all peaceful alternatives were exhausted.
+- Military transfers require further evidence about end-use controls, civilian-protection diligence, and arms-recipient monitoring.
+- No evidence retrieved showed Germany initiating cross-border aggression.
+- Lack of evidence of aggression is not itself a positive source-claim unit.
+- 2023 policy regarding Israel/Gaza and German arms exports was not adequately researched in the retrieved target-period sources.
+
+### Yield and diversity
+
+- **Mapped claim units:** 5 including LP-001.
+- **Independent web organizations:** German Foreign Office, NATO PA.
+- **Source types:** official transcript, interparliamentary/institutional report, structured dataset.
+- **Concentration:** WEB-004–WEB-006 are distinct claims from one NATO PA page; source concentration is material.
+
+### Unresolved gaps
+
+- Scholz’s direct role in individual weapons decisions and escalation restraints;
+- Taurus and other long-range-system deliberations in 2023;
+- civilian-harm and international-humanitarian-law controls for arms recipients;
+- Israel/Gaza policy after October 2023;
+- proxy/ally restraint mechanisms;
+- admissions or remedies concerning military-policy failures;
+- independent evaluation of whether diplomacy was timely and credible.
+
+---
+
+## 3B — Domestic safety, restraint, and protection
+
+### Local baseline
+
+LP-002 supplies strong physical-integrity and low-political-terror priors. These indicate a broadly safe/open baseline but cannot prove Scholz’s personal contribution.
+
+### Retained evidence and mappings
+
+- WEB-008: arbitrary protest bans, dispersals, arrests, and proportionality concerns.
+- WEB-009: independent judiciary, due process, and data-retention remedy.
+- WEB-010: politically motivated violence, refugee attacks, and state action against Reichsbürger.
+- WEB-011: increased identity-based violence and incomplete anti-discrimination reform.
+- WEB-012: police-stop receipts intended to address racial profiling.
+- WEB-015: domestic-violence burden and shelter-capacity gap.
+- LP-002: strong physical-integrity baseline.
+
+### Evidence interpretation
+
+The record is mixed at a lower-severity level than the chapter’s extreme abuse anchors:
+
+- Strong rule-of-law and physical-integrity institutions;
+- active investigation of violent far-right networks;
+- a federal procedural reform addressing racial profiling;
+- but substantial hate violence, minority-protection gaps, domestic violence, protest restrictions, and police concerns.
+
+Attribution remains a major caution. Police and assembly decisions often belonged to Länder and municipalities, particularly Berlin. Scholz headed the federal government but should not be personally assigned all subnational conduct without direction, adoption, tolerance after notice, or failed corrective authority.
+
+### Yield and diversity
+
+- **Mapped claim units:** 7.
+- **Organizations:** Freedom House, HRW, local structured datasets.
+- **Source types:** NGO country reports, structured datasets, underlying official statistics/legal developments.
+- **Concentration:** Much narrative evidence comes from two NGO reports.
+
+### Strong contrary evidence
+
+- Freedom House says most demonstrations proceeded without undue interference.
+- Authorities cited antisemitism and violence risks.
+- Government and security agencies acted against far-right threats.
+- Judicial institutions remained independent and sometimes required corrective changes.
+
+### Unresolved gaps
+
+- Direct Scholz statements or decisions on protest policing and police oversight;
+- federal response to documented police discrimination;
+- detention/prison conditions and complaint effectiveness;
+- exact 2023 domestic-violence policy implementation and shelter funding;
+- measurable change from inherited safety conditions;
+- direct evidence concerning personal incitement or protection rhetoric by Scholz.
+
+---
+
+## 4B — Political freedom versus authoritarian rule
+
+### Local baseline
+
+LP-003 provides a robust democratic prior: competitive elections, strong expression and association, judicial and legislative constraints, full suffrage, high rule of law, and a generally favorable press environment. These are largely inherited institutional facts.
+
+### Retained evidence and mappings
+
+- WEB-007: free and fair elections, impartial electoral framework, lawful Scholz accession.
+- WEB-008: protest bans and assembly-score decline.
+- WEB-009: independent judiciary and government response to data-retention judgments.
+- WEB-011: failure by the report cutoff to enact promised anti-discrimination reform.
+- WEB-012: police-stop procedural reform.
+- WEB-013: press-freedom concerns and protest restrictions.
+- WEB-018: Constitutional Court successfully constrained the government.
+- WEB-023: continuing parliamentary scrutiny of Scholz.
+- LP-003: structured democratic baseline.
+
+### Evidence interpretation
+
+The evidence shows that strong pluralist and constraint institutions continued to function against the government, including court invalidation of a central budget device and parliamentary scrutiny of Scholz. No evidence found electoral manipulation, refusal of transfer, media capture, party bans benefiting Scholz, or personal entrenchment.
+
+The principal contrary evidence concerns restrictions on Palestinian expression and assembly and deterioration in press conditions. Attribution is divided across federal and subnational bodies. High inherited institutional quality should not be converted into personal Scholz credit without evidence that he accepted costly constraints or remedied infringements.
+
+### Yield and diversity
+
+- **Mapped units:** 9 including local baseline.
+- **Organizations:** Freedom House, HRW, CNBC/court reporting, Politico, local V-Dem/FH/RSF.
+- **Source types:** structured data, NGO assessments, legal-event reporting, political media.
+- **Cross-chapter reuse:** WEB-008/009/011/012/013 also inform 3B; WEB-023 informs 7B.
+
+### Unresolved gaps
+
+- Scholz’s own response to the Constitutional Court ruling as a democratic constraint;
+- federal action or inaction regarding protest bans;
+- government treatment of satire and investigative journalism;
+- appointment politicization;
+- surveillance-policy decisions directly attributable to Scholz;
+- coalition commitments and succession behavior specific to 2023.
+
+---
+
+## 5B — Economic well-being and prosperity
+
+### Local baseline
+
+LP-004 establishes Germany’s high-income, large-economy baseline. It says nothing about 2023 trajectory, distribution, or Scholz’s causal contribution.
+
+### Retained evidence and mappings
+
+- WEB-016: Bürgergeld’s design and implementation.
+- WEB-017: HRW’s contrary characterization of the allowance increase as marginal.
+- WEB-018 and WEB-019: unconstitutional €60 billion financing mechanism and identified planning defects.
+- WEB-020: resulting climate/industrial-program disruption and cuts.
+- WEB-021: external energy shock, recession, weak industrial position, and Scholz’s response.
+- WEB-022: coalition implementation and coordination weaknesses.
+- WEB-005: successful reduction of Russian oil/gas dependence and sanctions implementation.
+- LP-004: high-income baseline.
+
+### Evidence interpretation
+
+The government implemented meaningful reforms and crisis responses:
+
+- Bürgergeld raised support and emphasized training;
+- energy-price and industrial-modernization measures attempted to cushion the Russian-gas shock;
+- Germany sharply reduced Russian-energy dependence;
+- climate, semiconductor, hydrogen, and infrastructure programs were operationalized.
+
+Contrary evidence is substantial:
+
+- the economy contracted amid severe external and structural pressures;
+- the financing architecture for a major transformation program was unconstitutional;
+- the court and subsequent funding gap disrupted implementation;
+- coalition conflict hindered coordination;
+- Scholz’s immediate post-ruling response lacked concrete detail.
+
+The recession cannot be assigned to Scholz without controlling for the Russian energy shock, ECB conditions, Chinese competition, inherited infrastructure/digitalization gaps, and coalition/fiscal constraints.
+
+### Yield and diversity
+
+- **Mapped units:** 9 including local baseline.
+- **Organizations:** World Bank local prior, German government platform, HRW, CNBC, Clean Energy Wire, AP/PBS, Politico, NATO PA/Kiel Institute.
+- **Source types:** structured dataset, official program description, NGO, financial media, specialist journalism, wire reporting, institutional report.
+- **Same-URL splits:** WEB-019 and WEB-020 are distinct court-finding versus implementation-consequence claims from separate sections of one Clean Energy Wire page.
+
+### Unresolved gaps
+
+- Independent program evaluations of Bürgergeld’s 2023 delivery and household effects;
+- inflation, real-wage, employment, poverty, and distribution outcomes;
+- tax and competition reforms;
+- professional economic appointments and delegated authority;
+- business investment and permitting outcomes;
+- direct evidence of adaptation after the court ruling before year-end;
+- causal comparison against feasible alternatives.
+
+---
+
+## 6B — Social well-being and human development
+
+### Local baseline
+
+All 6B dispositions were `no_evidence_found` under R001. This is an explicit local gap, not proof of absent welfare action. No UNDP, health, education, or service-delivery facts were supplied.
+
+### Retained evidence and mappings
+
+- WEB-016: Bürgergeld payment, child-rate, inflation-indexing, and training reforms.
+- WEB-017: allowances characterized by HRW as only marginally higher.
+- WEB-011: discrimination and unimplemented legal reform.
+- WEB-012: procedural anti-profiling reform.
+- WEB-015: domestic violence and shelter-capacity shortfall.
+- WEB-020: funding cuts affecting household energy support and climate-related programs.
+- WEB-021: energy shock and stated protection of social spending.
+- WEB-014: supply-chain human-rights safeguards.
+
+### Evidence interpretation
+
+Bürgergeld provides the clearest target-year ruler-government action. It directly concerns social protection, child benefits, inflation adjustment, training, and employment support. The available evidence establishes enactment and program design but not actual 2023 delivery quality, poverty reduction, or durable life-chance effects.
+
+Other evidence documents important distribution/protection gaps:
+
+- identity-based discrimination;
+- domestic violence and shelter shortages;
+- uneven police treatment;
+- pressures caused by inflation and energy prices.
+
+### Yield and diversity
+
+- **Mapped units:** 8.
+- **Organizations:** German government information platform, HRW, Clean Energy Wire, AP/PBS.
+- **Source types:** official program description, NGO assessment, specialist journalism, wire reporting.
+- **Source concentration:** HRW carries several distinct welfare/protection claims.
+
+### Unresolved gaps
+
+- Health, education, housing, water/sanitation, food security, and disability-service outcomes;
+- national poverty and child-poverty change in 2023;
+- Bürgergeld uptake and administrative performance;
+- migrant/refugee social access;
+- program evaluation and regional distribution;
+- professional social-service administration;
+- durable institution-building beyond formal enactment;
+- direct Scholz attribution distinct from coalition and Länder responsibilities.
+
+---
+
+## 7B — Personal integrity and honesty
+
+### Local baseline
+
+LP-005 indicates low national-level corruption and strong rule-of-law/accountability institutions. It is context only and cannot establish Scholz’s personal integrity.
+
+### Retained evidence and mappings
+
+- WEB-023 is the primary ruler-specific integrity item.
+- WEB-007, WEB-009, and WEB-018 establish independent institutions and scrutiny context.
+- LP-005 supplies national corruption context.
+
+### Evidence interpretation
+
+Cum-Ex is material because it directly concerns:
+
+- Scholz’s private meetings with a bank owner;
+- whether he intervened in tax administration;
+- his inability or refusal to recall meeting content;
+- competing accounts of his earlier memory;
+- parliamentary scrutiny;
+- prosecutor and court context.
+
+It must remain explicitly contested. The evidence does **not** establish personal intervention or financial benefit. Politico reported that Hamburg prosecutors saw no initial suspicion against Scholz and that allies cited prior inquiries finding no wrongdoing. The item is therefore mixed evidence concerning candor, transparency, conflict handling, and acceptance of scrutiny—not a proven corruption finding.
+
+### Yield and diversity
+
+- **Defensible ruler-specific claim units:** 1 substantive mixed item.
+- **Contextual units:** LP-005 plus institutional scrutiny evidence.
+- **Organizations:** Politico, Freedom House, structured V-Dem/CPI.
+- **Source types:** media, NGO institutional assessment, structured datasets.
+
+### Candidate/search outcomes
+
+Queries included:
+
+- “Olaf Scholz 2023 integrity Cum-Ex inquiry Wirecard parliament”
+- Reuters background on the 2022 inquiry;
+- Politico’s 2023 inquiry update;
+- secondary institutional commentary.
+
+Rejected/downgraded:
+
+- Reuters 2022 article: outside target year and inaccessible during this run.
+- American-German Institute 2022 article: useful background but outside target year and not fetched.
+- Facebook reposts and partisan pages: rejected.
+- Wirecard results that did not provide a distinct 2023, ruler-specific finding: rejected.
+
+### Unresolved gaps
+
+- Primary Hamburg or Bundestag inquiry records from 2023;
+- exact judicial/prosecutorial documents;
+- asset declarations, gifts, family/business conflicts, procurement, and appointments;
+- examples of costly candor, corrections, or whistleblower treatment;
+- promise-keeping record;
+- independent corroboration of disputed memory accounts.
+
+This chapter is below five defensible source-claim units because one scandal dominated discovery and no additional strong target-year personal-integrity records were retrieved.
+
+---
+
+## 8B — Effectiveness and competence
+
+### Program portfolio identifiable from the evidence
+
+The evidence supports a broad, non-cherry-picked 2023 portfolio:
+
+1. Implement the Zeitenwende and strengthen German/NATO security.
+2. Support Ukraine while pursuing a lawful diplomatic end state.
+3. Reduce Russian-energy dependence and manage the energy shock.
+4. Modernize and decarbonize the German economy.
+5. Implement social reforms, especially Bürgergeld.
+6. Maintain a workable three-party coalition and lawful fiscal program.
+
+### Retained evidence and mappings
+
+- WEB-003: foreign-policy goals.
+- WEB-004–WEB-006: strategy, operationalization, Ukraine support, sanctions, security institutions.
+- WEB-016: Bürgergeld implementation.
+- WEB-018–WEB-020: budget mechanism failure and program disruption.
+- WEB-021: crisis context and weakly specified post-ruling response.
+- WEB-022: coordination and implementation problems.
+- LP-003/LP-005: inherited institutional and state-capacity context only.
+
+### Evidence interpretation
+
+Positive execution evidence:
+
+- first National Security Strategy;
+- €100 billion defense fund;
+- large material support to Ukraine;
+- substantial reduction in Russian-energy dependence;
+- enacted social-protection reform;
+- climate and industrial programs with concrete funding plans.
+
+Negative or contrary execution evidence:
+
+- unconstitutional fiscal architecture for a central transformation program;
+- lack of a fallback plan;
+- coalition conflict and weak coordination;
+- funding cuts and disrupted implementation;
+- economic contraction and unresolved structural weaknesses;
+- an end-of-year response that supplied limited detail.
+
+These facts should be judged against major external shocks and coalition/constitutional constraints. Germany’s inherited administrative capacity and institutional quality must not be mistaken for Scholz’s competence. Conversely, the successful energy-diversification and Ukraine-support operations should not be dismissed merely because they relied on capable ministries and European partners.
+
+### Yield and diversity
+
+- **Mapped claim units:** 10 including context.
+- **Organizations:** German Foreign Office, NATO PA/Kiel Institute, German government platform, CNBC, Clean Energy Wire, AP/PBS, Politico, local V-Dem.
+- **Source types:** official transcript, institutional report, official program publication, media, specialist journalism, structured context.
+- **Same-URL splits:** NATO PA claims were split between strategy adoption, Ukraine support, and ICC accountability because each has a distinct locator and factual proposition. Clean Energy Wire claims were split between legal-planning defects and concrete program cuts.
+
+### Unresolved gaps
+
+- A contemporaneous independent midterm audit of coalition commitments;
+- exact implementation rates across the frozen program portfolio;
+- personnel selection and replacement decisions;
+- direct evidence of adaptation after failed tactics;
+- ministry-level delivery metrics;
+- outcomes with realistic lags;
+- durability beyond 2023, which should remain post-period context rather than silently expanding the window.
+
+---
+
+# Local-data audit
+
+## Retained as direct structured context
+
+- **LF001–LF004:** retained as LP-001; direct military-spending context, especially 2B.8.
+- **LF005–LF011:** retained as LP-002; physical-integrity and political-terror baseline.
+- **LF012–LF026:** retained as LP-003; democracy, constraints, rights, press, and rule-of-law baseline.
+- **LF027–LF029:** retained as LP-004; economic scale/income/population baseline.
+- **LF030–LF033:** retained as LP-005; national corruption context.
+
+## Used only as context, not ruler-conduct proof
+
+All supplied facts fall into this category to some degree. Specifically:
+
+- LF012 accountability and LF025 rule of law cannot prove Scholz’s personal integrity or competence.
+- LF027–LF029 cannot prove economic stewardship.
+- LF030–LF033 cannot prove Scholz’s honesty or absence of conflicts.
+- LF001–LF004 cannot prove aggression, restraint, or military effectiveness.
+- LF013–LF026 cannot alone support personal credit for inherited democratic institutions.
+- LF005–LF011 cannot alone establish direct Scholz protection or remedy.
+
+## Unused or weakly used details
+
+No supplied fact was discarded as invalid, but several individual fields were not separately invoked because they were redundant within their chapter package:
+
+- LF008 private civil liberties added little beyond LF007 and LP-003 for the narrative gaps researched.
+- LF012’s exact accountability scale and LF024’s regime-type coding require dataset-codebook interpretation; retained verbatim but not semantically overinterpreted.
+- LF028 total GDP and LF029 population were background scale facts and did not answer policy lenses.
+- LF030, LF032, and LF033 remained national-context indicators and were not personalized.
+
+## Data-quality issues
+
+- `error_methodology_ids` was empty; no extraction errors were reported.
+- Chapter 1B and 6B empty priors were treated as explicit gaps, not evidence.
+- No local fact contained warnings.
+- Some values’ units/scales—especially SIPRI constant USD and V-Dem standardized measures—should be interpreted through their source metadata rather than inferred from raw numbers.
+
+---
+
+# Rejected and discovery-only candidate summary
+
+1. **Reuters nuclear-disarmament article:** retained as gateway-only because robots blocked fetch.
+2. **UNODA Germany First Committee PDF:** gateway-only because repository access failed.
+3. **National Security Strategy PDF:** canonical primary document located, but text extraction returned raw PDF bytes; substantive claims relied on the accessible NATO PA account instead.
+4. **Amnesty protest PDF:** canonical PDF located, but fetch returned unusable raw PDF data; not counted.
+5. **Amnesty Germany country page:** fetched page had rolled forward to 2025; rejected for the 2023 dossier.
+6. **IMF 2023 Article IV:** search found the report, but direct fetch returned 403; not counted. AP/PBS retained its explicit IMF 2023 contraction figure.
+7. **Social media, Facebook, YouTube, AI/encyclopedia pages:** rejected or discovery-only.
+8. **2024–2026 retrospective coalition-collapse pieces:** generally excluded except where a post-period source directly documented a 2023 act or ruling.
+9. **Wikipedia cabinet page:** discovery-only and unnecessary.
+10. **Partisan or advocacy commentary without primary or independent support:** rejected.
+
+---
+
+# Ledger manifest accounting
+
+Parent can persist this as `research-ledger-manifest.json` after adding valid JSON quoting:
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id":"LP-001","canonical_fact_key":"local-prior:2B.1|LF001-LF004|Germany-2023-military-expenditure","disposition":"final_evidence"},
+    {"provisional_id":"LP-002","canonical_fact_key":"local-prior:3B.1|LF005-LF011|Germany-2023-physical-integrity","disposition":"final_evidence"},
+    {"provisional_id":"LP-003","canonical_fact_key":"local-prior:4B.1|LF012-LF026|Germany-2023-democracy-liberty","disposition":"final_evidence"},
+    {"provisional_id":"LP-004","canonical_fact_key":"local-prior:5B.1|LF027-LF029|Germany-2023-economic-baseline","disposition":"context"},
+    {"provisional_id":"LP-005","canonical_fact_key":"local-prior:7B.1|LF030-LF033|Germany-2023-corruption-context","disposition":"context"},
+    {"provisional_id":"WEB-001","canonical_fact_key":"https://www.reuters.com/world/germanys-scholz-fresh-nuclear-disarmament-talks-should-include-china-2023-09-12/|article-summary|Scholz-called-for-China-inclusive-nuclear-disarmament-talks","disposition":"discovery_only"},
+    {"provisional_id":"WEB-002","canonical_fact_key":"https://docs-library.unoda.org/General_Assembly_First_Committee_-Seventy-Eighth_session_(2023)/Germany.pdf|2023-general-debate-statement|Germany-arms-control-disarmament-position","disposition":"discovery_only"},
+    {"provisional_id":"WEB-003","canonical_fact_key":"https://new-york-un.diplo.de/un-en/2618620-2618620|paragraphs-beginning-some-argue-and-peace-means|Scholz-Ukraine-diplomacy-lawful-peace","disposition":"final_evidence"},
+    {"provisional_id":"WEB-004","canonical_fact_key":"https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|section-Germany-security-defence-policy-shift|2023-Zeitenwende-implementation","disposition":"final_evidence"},
+    {"provisional_id":"WEB-005","canonical_fact_key":"https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|paragraphs-Germany-largest-EU-donor-and-reduced-dependency|Ukraine-support-energy-response","disposition":"final_evidence"},
+    {"provisional_id":"WEB-006","canonical_fact_key":"https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|paragraph-Russia-unprovoked-war-international-law|Germany-ICC-accountability","disposition":"final_evidence"},
+    {"provisional_id":"WEB-007","canonical_fact_key":"https://www.ecoi.net/en/document/2108041.html|overview-and-A1-A3|Germany-democracy-2023","disposition":"final_evidence"},
+    {"provisional_id":"WEB-008","canonical_fact_key":"https://www.ecoi.net/en/document/2108041.html|Key-Developments-2023-and-E1|pro-Palestinian-protest-restrictions","disposition":"final_evidence"},
+    {"provisional_id":"WEB-009","canonical_fact_key":"https://www.ecoi.net/en/document/2108041.html|F1-F2-and-data-retention-paragraph|judicial-independence-data-retention","disposition":"final_evidence"},
+    {"provisional_id":"WEB-010","canonical_fact_key":"https://www.ecoi.net/en/document/2108041.html|F3|political-violence-refugee-attacks","disposition":"final_evidence"},
+    {"provisional_id":"WEB-011","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/germany|Discrimination-and-Intolerance|anti-discrimination-gaps","disposition":"final_evidence"},
+    {"provisional_id":"WEB-012","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/germany|Discrimination-and-Intolerance-final-paragraph|police-stop-receipts","disposition":"final_evidence"},
+    {"provisional_id":"WEB-013","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/germany|press-freedom-and-protest-paragraphs|press-protest-deterioration","disposition":"final_evidence"},
+    {"provisional_id":"WEB-014","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/germany|Business-and-Human-Rights|Supply-Chain-Act-2023","disposition":"final_evidence"},
+    {"provisional_id":"WEB-015","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/germany|Womens-and-Girls-Rights|domestic-violence-2022-published-2023","disposition":"context"},
+    {"provisional_id":"WEB-016","canonical_fact_key":"https://www.deutschland.de/en/topic/life/child-benefits-and-citizens-income-social-reforms-in-germany|citizens-income-and-training-sections|Buergergeld-implementation-2023","disposition":"final_evidence"},
+    {"provisional_id":"WEB-017","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/germany|Poverty-and-Inequality-opening|Buergergeld-marginal-increase","disposition":"final_evidence"},
+    {"provisional_id":"WEB-018","canonical_fact_key":"https://www.cnbc.com/2023/11/15/german-court-rules-budget-maneuver-unconstitutional.html|paragraphs-court-ruling-three-grounds|budget-transfer-unconstitutional","disposition":"final_evidence"},
+    {"provisional_id":"WEB-019","canonical_fact_key":"https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy|section-1-paragraph-3|court-found-planning-defects","disposition":"final_evidence"},
+    {"provisional_id":"WEB-020","canonical_fact_key":"https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy|funding-cuts-list|climate-program-cuts","disposition":"final_evidence"},
+    {"provisional_id":"WEB-021","canonical_fact_key":"https://www.pbs.org/newshour/economy/germanys-economic-challenges-complicate-budget-crisis-resolution-despite-chancellors-reassurance|paragraphs-opening-through-IMF-projection|budget-crisis-economic-response","disposition":"final_evidence"},
+    {"provisional_id":"WEB-022","canonical_fact_key":"https://www.politico.eu/article/why-germany-lifeless-coalition-wont-die/|implementation-and-budget-sections|coalition-implementation-failure","disposition":"final_evidence"},
+    {"provisional_id":"WEB-023","canonical_fact_key":"https://www.politico.eu/article/germany-chancellor-olaf-scholz-parliament-investigation-tax-fraud-scandal-hamburg-cum-ex/|paragraphs-Warburg-meetings-through-prosecutor|Scholz-CumEx-2023-scrutiny","disposition":"final_evidence"}
+  ]
+}
+```
+
+# Final self-audit
+
+- **Temporal fit:** Most retained web evidence directly covers 2023. WEB-015 uses 2022 incidence figures published in 2023 and is explicitly contextual. WEB-019/020 are 2024 publications documenting November–December 2023 events. No later event was used to expand the target period silently.
+- **Ruler attribution:** Direct Scholz evidence is strongest in WEB-003 and WEB-023. Most domestic-policy, rights, and economic items are coalition, ministry, parliamentary, judicial, Länder, or country-level evidence and are labeled accordingly.
+- **Weak/context-only items:** LP-004 and LP-005 are context. WEB-001/002 are gateways only. WEB-015 is near-period context. Official claims are not treated as independent proof of success.
+- **Independent corroboration gaps:** Nuclear policy, arms-recipient controls, social-service outcomes, personal integrity beyond Cum-Ex, and post-failure adaptation remain under-corroborated.
+- **Source concentration:** NATO PA carries three separate international/security facts; Freedom House and HRW carry much of the rights record; Clean Energy Wire carries two budget-consequence facts. Those are same-URL splits with distinct locators and claims, not duplicate evidence.
+- **Cross-chapter reuse:** Protest evidence links 3B/4B; Bürgergeld links 5B/6B/8B; the budget judgment links 4B/5B/8B; Ukraine strategy links 1B/2B/8B; Cum-Ex scrutiny links 4B/7B.
+- **Client matrix:** Not used.
+- **Scores/ranking:** None assigned.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:2B.1|LF001-LF004|Germany-2023-military-expenditure",
+      "disposition": "final_evidence",
+      "provisional_id": "LP-001"
+    },
+    {
+      "canonical_fact_key": "local-prior:3B.1|LF005-LF011|Germany-2023-physical-integrity",
+      "disposition": "final_evidence",
+      "provisional_id": "LP-002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1|LF012-LF026|Germany-2023-democracy-liberty",
+      "disposition": "final_evidence",
+      "provisional_id": "LP-003"
+    },
+    {
+      "canonical_fact_key": "local-prior:5B.1|LF027-LF029|Germany-2023-economic-baseline",
+      "disposition": "context",
+      "provisional_id": "LP-004"
+    },
+    {
+      "canonical_fact_key": "local-prior:7B.1|LF030-LF033|Germany-2023-corruption-context",
+      "disposition": "context",
+      "provisional_id": "LP-005"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/germanys-scholz-fresh-nuclear-disarmament-talks-should-include-china-2023-09-12/|article-summary|Scholz-called-for-China-inclusive-nuclear-disarmament-talks",
+      "disposition": "discovery_only",
+      "provisional_id": "WEB-001"
+    },
+    {
+      "canonical_fact_key": "https://docs-library.unoda.org/General_Assembly_First_Committee_-Seventy-Eighth_session_(2023)/Germany.pdf|2023-general-debate-statement|Germany-arms-control-disarmament-position",
+      "disposition": "discovery_only",
+      "provisional_id": "WEB-002"
+    },
+    {
+      "canonical_fact_key": "https://new-york-un.diplo.de/un-en/2618620-2618620|paragraphs-beginning-some-argue-and-peace-means|Scholz-Ukraine-diplomacy-lawful-peace",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-003"
+    },
+    {
+      "canonical_fact_key": "https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|section-Germany-security-defence-policy-shift|2023-Zeitenwende-implementation",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-004"
+    },
+    {
+      "canonical_fact_key": "https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|paragraphs-Germany-largest-EU-donor-and-reduced-dependency|Ukraine-support-energy-response",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-005"
+    },
+    {
+      "canonical_fact_key": "https://www.nato-pa.int/news/germanys-new-strategic-policy-expertise-building-resilience-and-technological-edge-heart|paragraph-Russia-unprovoked-war-international-law|Germany-ICC-accountability",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-006"
+    },
+    {
+      "canonical_fact_key": "https://www.ecoi.net/en/document/2108041.html|overview-and-A1-A3|Germany-democracy-2023",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-007"
+    },
+    {
+      "canonical_fact_key": "https://www.ecoi.net/en/document/2108041.html|Key-Developments-2023-and-E1|pro-Palestinian-protest-restrictions",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-008"
+    },
+    {
+      "canonical_fact_key": "https://www.ecoi.net/en/document/2108041.html|F1-F2-and-data-retention-paragraph|judicial-independence-data-retention",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-009"
+    },
+    {
+      "canonical_fact_key": "https://www.ecoi.net/en/document/2108041.html|F3|political-violence-refugee-attacks",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-010"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/germany|Discrimination-and-Intolerance|anti-discrimination-gaps",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-011"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/germany|Discrimination-and-Intolerance-final-paragraph|police-stop-receipts",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-012"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/germany|press-freedom-and-protest-paragraphs|press-protest-deterioration",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-013"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/germany|Business-and-Human-Rights|Supply-Chain-Act-2023",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-014"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/germany|Womens-and-Girls-Rights|domestic-violence-2022-published-2023",
+      "disposition": "context",
+      "provisional_id": "WEB-015"
+    },
+    {
+      "canonical_fact_key": "https://www.deutschland.de/en/topic/life/child-benefits-and-citizens-income-social-reforms-in-germany|citizens-income-and-training-sections|Buergergeld-implementation-2023",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-016"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/germany|Poverty-and-Inequality-opening|Buergergeld-marginal-increase",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-017"
+    },
+    {
+      "canonical_fact_key": "https://www.cnbc.com/2023/11/15/german-court-rules-budget-maneuver-unconstitutional.html|paragraphs-court-ruling-three-grounds|budget-transfer-unconstitutional",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-018"
+    },
+    {
+      "canonical_fact_key": "https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy|section-1-paragraph-3|court-found-planning-defects",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-019"
+    },
+    {
+      "canonical_fact_key": "https://www.cleanenergywire.org/factsheets/qa-what-german-top-courts-debt-brake-ruling-means-climate-policy|funding-cuts-list|climate-program-cuts",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-020"
+    },
+    {
+      "canonical_fact_key": "https://www.pbs.org/newshour/economy/germanys-economic-challenges-complicate-budget-crisis-resolution-despite-chancellors-reassurance|paragraphs-opening-through-IMF-projection|budget-crisis-economic-response",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-021"
+    },
+    {
+      "canonical_fact_key": "https://www.politico.eu/article/why-germany-lifeless-coalition-wont-die/|implementation-and-budget-sections|coalition-implementation-failure",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-022"
+    },
+    {
+      "canonical_fact_key": "https://www.politico.eu/article/germany-chancellor-olaf-scholz-parliament-investigation-tax-fraud-scandal-hamburg-cum-ex/|paragraphs-Warburg-meetings-through-prosecutor|Scholz-CumEx-2023-scrutiny",
+      "disposition": "final_evidence",
+      "provisional_id": "WEB-023"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

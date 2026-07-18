@@ -1,0 +1,2279 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate5-judges-v1:2023:4B",
+  "run_key": "2023-population-top20-gate5-judges-v1",
+  "chapter_id": "4B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate5-judges-v1:2023:4B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+    "iso3": "IDN",
+    "ruler_id": "2636",
+    "ruler_year_id": 16200,
+    "ruler_name": "Joko Widodo",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:NGA:15772",
+    "iso3": "NGA",
+    "ruler_id": "2774",
+    "ruler_year_id": 15772,
+    "ruler_name": "Bola Ahmed Tinubu",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate5-v1:2023:BRA:16162",
+    "iso3": "BRA",
+    "ruler_id": "2841",
+    "ruler_year_id": 16162,
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E003",
+          "E004",
+          "E005",
+          "E024",
+          "E025",
+          "E026",
+          "E028"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Democratic baseline, election-threat enforcement, and information-sharing correction are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E028"
+        ],
+        "methodology_id": "4B.2",
+        "reason": "Institutional constraints and ordinary legal processes are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E024",
+          "E025",
+          "E026",
+          "E028"
+        ],
+        "methodology_id": "4B.3",
+        "reason": "Press access, media treatment, and social-media controversy evidence are available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E004",
+          "E024",
+          "E025",
+          "E026",
+          "E044"
+        ],
+        "methodology_id": "4B.4",
+        "reason": "Judicial, legislative, and surveillance constraints are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "4B.5",
+        "reason": "Press-relations and access evidence is available, with temporal caveats.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E027"
+        ],
+        "methodology_id": "4B.6",
+        "reason": "Expression, press, surveillance, and access evidence is available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026"
+        ],
+        "methodology_id": "4B.7",
+        "reason": "Election protection and reproductive-rights litigation are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E026",
+          "E045"
+        ],
+        "methodology_id": "4B.8",
+        "reason": "Formal judicial and institutional constraints are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "4B.9",
+        "reason": "Press rules and social-media litigation provide relevant evidence.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E025",
+          "E026",
+          "E028"
+        ],
+        "methodology_id": "4B.10",
+        "reason": "Strong country baseline plus mixed ruler-specific evidence is available.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 8678,
+    "evidence": [
+      {
+        "canonical_fact_key": "local-prior:4B.1|democratic-contestability-and-liberties",
+        "claim": "Freedom House and V-Dem observations show strong but imperfect 2023 democratic contestability, civil liberties, expression, association, suffrage, and liberal-democracy conditions.",
+        "contrary_evidence": [
+          "Strong country institutions are inherited context and do not prove Biden's affirmative restraint or strengthening."
+        ],
+        "evidence_id": "E003",
+        "excerpt": "LF012-LF015, LF018-LF020, LF023, LF025.",
+        "final_evidence_use": "context",
+        "period_fit": "Exact 2023 country-year baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Freedom House and V-Dem",
+        "ruler_attribution": "Limited personal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured local-prior facts.",
+        "source_locator": "local-prior:4B.1",
+        "source_type": "structured_dataset",
+        "title": "Democratic contestability and civil-liberties baseline",
+        "url": "local-prior:4B.1"
+      },
+      {
+        "canonical_fact_key": "local-prior:4B.1|constraints-accountability-rule-of-law",
+        "claim": "V-Dem reports 2023 accountability, judicial constraints, legislative constraints, and rule-of-law indicators for the United States.",
+        "contrary_evidence": [
+          "These measure institutional conditions, not Biden's personal integrity or effectiveness."
+        ],
+        "evidence_id": "E004",
+        "excerpt": "LF011, LF016, LF017, LF024.",
+        "final_evidence_use": "context",
+        "period_fit": "Exact 2023 institutional context.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "V-Dem",
+        "ruler_attribution": "Inherited/state-capacity context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured local-prior facts.",
+        "source_locator": "local-prior:4B.1",
+        "source_type": "structured_dataset",
+        "title": "Institutional constraints, accountability, and rule of law",
+        "url": "local-prior:4B.1"
+      },
+      {
+        "canonical_fact_key": "local-prior:4B.1|press-freedom",
+        "claim": "RSF reports a 2023 US press-freedom rank of 45 and score of 71.22.",
+        "contrary_evidence": [
+          "The observation does not specify federal executive conduct or individual incidents."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "LF021-LF022.",
+        "final_evidence_use": "context",
+        "period_fit": "Exact 2023 country baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Reporters Without Borders",
+        "ruler_attribution": "None established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured local-prior fact.",
+        "source_locator": "local-prior:4B.1",
+        "source_type": "structured_dataset",
+        "title": "Press-freedom baseline",
+        "url": "local-prior:4B.1"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|DOJ-election-threat-task-force|election-worker-protection",
+        "claim": "HRW reported that the DOJ election-threat task force had initiated 14 investigations since 2020 and obtained nine findings of wrongdoing by the reporting cutoff, while threats and intimidation continued.",
+        "contrary_evidence": [
+          "Ongoing intimidation indicates incomplete protection; some cases predate 2023."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "Political Rights section reports task-force investigations and continuing threats.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Activity continued through 2023.",
+        "publication_date": "2024",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Administration-level DOJ attribution; not necessarily personal direction by Biden.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "NGO report citing DOJ and AP-linked material.",
+        "source_locator": "Political Rights section, paragraph beginning \u201cFor the first time in US history.\u201d",
+        "source_type": "human_rights_ngo",
+        "title": "Federal response to threats against election workers",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/united-states"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|environmental-justice-order|2023-federal-environmental-justice-policy",
+        "claim": "Biden issued an executive order directing federal agencies to incorporate environmental justice into their missions and created a coordinating policy committee.",
+        "contrary_evidence": [
+          "The same report noted projected US oil-and-gas expansion, raising policy-coherence and implementation concerns."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "The Biden administration issued an executive order and created a coordinating committee.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 executive action.",
+        "publication_date": "2024",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Direct Biden action, corroborated by official act.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "NGO report summarizing a formal executive action.",
+        "source_locator": "Climate Change Policy and Impacts, paragraph beginning \u201cThe Biden administration issued an executive order.\u201d",
+        "source_type": "human_rights_ngo",
+        "title": "Federal environmental-justice direction",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/united-states"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|mifepristone-appeal|DOJ-medication-abortion-defense",
+        "claim": "After a federal appeals court sought to limit mifepristone access, DOJ and the manufacturer appealed; state restrictions affected approximately 22 million people of reproductive age.",
+        "contrary_evidence": [
+          "Executive authority was constrained by courts, Congress, and states; the source does not establish a final 2023 remedy."
+        ],
+        "evidence_id": "E026",
+        "excerpt": "Women\u2019s and Girls\u2019 Rights section describes DOJ defense of access and state restrictions.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact 2023 legal and policy developments.",
+        "publication_date": "2024",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "DOJ action attributable to Biden administration; state restrictions not so attributable.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "NGO summary of legal proceedings.",
+        "source_locator": "Women\u2019s and Girls\u2019 Rights paragraphs on state restrictions and August 2023 appeals ruling.",
+        "source_type": "human_rights_ngo",
+        "title": "Federal response to abortion-access restrictions",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/united-states"
+      },
+      {
+        "canonical_fact_key": "https://www.intelligence.gov/ic-on-the-record-database/declassified/release-of-documents-related-to-the-2023-fisa-section-702-certifications|paragraphs-31-38|2023-FISA-safeguards",
+        "claim": "The 2023 FISA Section 702 certification process was approved by the FISC and assessed FBI compliance and remedial querying procedures, including safeguards for US-person information.",
+        "contrary_evidence": [
+          "The record confirms ongoing surveillance authority and compliance concerns rather than eliminating them."
+        ],
+        "evidence_id": "E027",
+        "excerpt": "Released opinion paragraphs address certification, compliance, and remedial procedures.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 implementation.",
+        "publication_date": "2023",
+        "publisher": "ODNI and DOJ",
+        "ruler_attribution": "Administration-level intelligence policy with judicial oversight.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official declassified certification record.",
+        "source_locator": "Paragraphs 31\u201338.",
+        "source_type": "official_judicial_record",
+        "title": "Release of Documents Related to the 2023 FISA Section 702 Certifications",
+        "url": "https://www.intelligence.gov/ic-on-the-record-database/declassified/release-of-documents-related-to-the-2023-fisa-section-702-certifications"
+      },
+      {
+        "canonical_fact_key": "https://www.washingtonpost.com/media/2023/05/09/white-house-press-rules-simon-ateba//|2023-press-access-rules|White-House-press-rules",
+        "claim": "2023 White House press rules created standards governing access and possible loss of hard passes for disruptive conduct, presenting both administrative order and press-freedom risk.",
+        "contrary_evidence": [
+          "The rules may normalize access management while creating discretion that could affect critical coverage."
+        ],
+        "evidence_id": "E028",
+        "excerpt": "Reporting describes new standards for White House press access and hard-pass consequences.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 press-access evidence.",
+        "publication_date": "2023-05-09",
+        "publisher": "The Washington Post",
+        "ruler_attribution": "White House administration-level attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporary reporting on target-year rules; competing access implications retained.",
+        "source_locator": "Report sections describing the 2023 press rules, hard-pass standards, and Simon Ateba dispute.",
+        "source_type": "journalism",
+        "title": "White House press rules and access dispute",
+        "url": "https://www.washingtonpost.com/media/2023/05/09/white-house-press-rules-simon-ateba//"
+      },
+      {
+        "canonical_fact_key": "https://www.intelligence.gov/ic-on-the-record-database/declassified/release-of-documents-related-to-the-2023-fisa-section-702-certifications|paragraphs-31-38|FISC-compliance-oversight",
+        "claim": "The 2023 FISC certification record shows submission and review of targeting, minimization, and querying procedures, with FBI compliance and remedial measures subject to judicial oversight.",
+        "contrary_evidence": [
+          "Continued warrantless foreign-intelligence collection and remedial measures indicate ongoing authority and compliance risks."
+        ],
+        "evidence_id": "E044",
+        "excerpt": "FISC review of certification procedures, FBI compliance, and remedies.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 oversight.",
+        "publication_date": "2023",
+        "publisher": "ODNI and DOJ",
+        "ruler_attribution": "Shared executive and judicial responsibility.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official declassified judicial-oversight record.",
+        "source_locator": "Paragraphs 31\u201338.",
+        "source_type": "official_judicial_record",
+        "title": "2023 federal surveillance oversight",
+        "url": "https://www.intelligence.gov/ic-on-the-record-database/declassified/release-of-documents-related-to-the-2023-fisa-section-702-certifications"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-23-106625|July-2023-revision|FBI-information-sharing-correction",
+        "claim": "GAO reported that after January 6 failures, the FBI reevaluated threat-information handling in July 2023 and marked the relevant recommendation implemented.",
+        "contrary_evidence": [
+          "The report documents that threats had not previously been fully processed or shared; the underlying failure predates 2023."
+        ],
+        "evidence_id": "E045",
+        "excerpt": "GAO describes the July 2023 revision and recommendation status.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Corrective action in 2023; underlying failure pre-period.",
+        "publication_date": "2023",
+        "publisher": "US Government Accountability Office",
+        "ruler_attribution": "FBI and federal-agency accountability; not necessarily personal presidential direction.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official GAO oversight report.",
+        "source_locator": "July 2023 revision and recommendation status, lines 297\u2013310.",
+        "source_type": "government_audit",
+        "title": "Federal information-sharing correction",
+        "url": "https://www.gao.gov/products/gao-23-106625"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=14; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/404/trusted/001-80247fc3-fea/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=15; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E003",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Democratic contestability and liberties baseline."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the exact local-prior lens locator."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the exact local-prior lens locator."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.1",
+        "relation": "supports",
+        "relevance": "Election-threat task-force response."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Press-freedom baseline."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "4B.3",
+        "relation": "supports",
+        "relevance": "Target-year press-access rules."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Institutional constraints and rule of law."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "4B.4",
+        "relation": "supports",
+        "relevance": "FISC compliance oversight."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "4B.6",
+        "relation": "supports",
+        "relevance": "Judicial surveillance oversight."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.7",
+        "relation": "supports",
+        "relevance": "Ordinary legal challenge to abortion restrictions."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "4B.8",
+        "relation": "supports",
+        "relevance": "Federal information-sharing correction."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ff3350678016784d82ba204f7c4a6fb286419aaf5cee6e8c5fbc6a8606b6d44e",
+      "source_mix_note": "Evidence mixes structured local priors, official government and intergovernmental records, congressional research, independent statistical and audit reports, research institutes, journalism, and human-rights or civil-liberties NGOs. Source concentration remains material in HRW, KFF, Brookings, CMS, and Arms Control Association/White House splits; local priors remain contextual. Locator-incomplete and discovery-only candidates were excluded from final evidence.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "219e9d3f8804b737e07600c66af5ace94399dbec32ba314209a9341e1d011ec6",
+    "unresolved_gaps": [
+      "1B: no complete end-2023 independent nuclear-risk, command-and-control, or safeguard-implementation assessment.",
+      "2B: no complete evidence of downstream cluster-munition civilian consequences, Ukraine escalation restraint, Gaza arms-transfer monitoring, or recipient accountability.",
+      "3B: federal oversight is documented, but durable remedies, protest treatment, federal prison and Guantanamo conditions, surveillance, and hate-crime outcomes remain incomplete.",
+      "4B: 2023-specific press-access and criticism-treatment evidence is limited; social-media litigation remains locator-incomplete and preliminary.",
+      "5B: completed CHIPS, IRA, and IIJA outputs, realized wages and employment attribution, inflation causation, labor, antitrust, and distributional outcomes remain incomplete.",
+      "6B: independent service-quality, prescription-drug outcomes, SNAP, housing outcomes, disability, veteran, disaster, and education-recovery evaluations remain incomplete.",
+      "7B: no adjudicated personal-benefit, quid-pro-quo, obstruction, ethics, gifts, nepotism, or independent clearing finding was established.",
+      "8B: no completed cross-portfolio outcome evaluation; macroeconomic and crisis outcomes remain materially confounded.",
+      "Researcher could not persist research-materials.md or research-ledger-manifest.json because the supplied environment was read-only; all substantive handoff material was supplied inline."
+    ]
+  },
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Indonesia",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E014",
+          "E019",
+          "E022"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Court decision and dynasty-building evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E020"
+        ],
+        "methodology_id": "4B.2",
+        "reason": "Age-limit ruling and political-rule evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E017"
+        ],
+        "methodology_id": "4B.3",
+        "reason": "Rempang and ministerial-prosecution context.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "methodology_id": "4B.4",
+        "reason": "Constitutional Court ethics findings and remedy.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.5",
+        "reason": "Dynasty and succession evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020"
+        ],
+        "methodology_id": "4B.6",
+        "reason": "UU ITE, media, and journalist-security evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E021"
+        ],
+        "methodology_id": "4B.7",
+        "reason": "Political contestability and PDI-P counter-context.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E015",
+          "E022"
+        ],
+        "methodology_id": "4B.8",
+        "reason": "Term-limit and succession evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021"
+        ],
+        "methodology_id": "4B.9",
+        "reason": "Digital-expression regulation evidence.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E015"
+        ],
+        "methodology_id": "4B.10",
+        "reason": "Institutional trajectory and 2023 political developments.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 6963,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://apnews.com/article/indonesia-constitutional-court-minimum-age-presidential-candidate-6a610ea14a4c6f4070c0bf68078f5a72#ruling",
+        "claim": "On 16 October 2023 Indonesia's Constitutional Court retained the age requirement but created an exception for candidates with elected regional-leader experience.",
+        "contrary_evidence": [
+          "The ruling was a court decision, not evidence of Jokowi's direct instruction.",
+          "An ethics process later found serious violations in the handling of the case."
+        ],
+        "evidence_id": "E014",
+        "excerpt": "The court rejected lowering the age requirement but allowed an exception for elected regional leaders.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-10-16",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Court-institutional fact; no direct presidential direction established.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Major international wire report of the decision.",
+        "source_locator": "HTML paragraphs on the 16 October ruling",
+        "source_type": "international media",
+        "title": "Indonesia Constitutional Court Minimum-Age Ruling",
+        "url": "https://apnews.com/article/indonesia-constitutional-court-minimum-age-presidential-candidate-6a610ea14a4c6f4070c0bf68078f5a72"
+      },
+      {
+        "canonical_fact_key": "https://apnews.com/article/indonesia-constitutional-court-minimum-age-presidential-candidate-6a610ea14a4c6f4070c0bf68078f5a72#usman-recusal",
+        "claim": "Chief Justice Anwar Usman did not recuse despite being Jokowi's brother-in-law and Gibran's uncle; the decision enabled Gibran's candidacy.",
+        "contrary_evidence": [
+          "The family relationship and non-recusal establish conflict concerns but not presidential direction.",
+          "The court's ethics council later imposed institutional sanctions."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "Usman did not recuse despite the family relationship; the ruling could pave the way for Gibran to run.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-10-16",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Indirect court-conflict evidence; no direct presidential instruction recovered.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Specific wire reporting of the relationship and procedural issue.",
+        "source_locator": "HTML paragraphs on Usman's relationship and recusal",
+        "source_type": "international media",
+        "title": "Constitutional Court Conflict and Gibran Eligibility",
+        "url": "https://apnews.com/article/indonesia-constitutional-court-minimum-age-presidential-candidate-6a610ea14a4c6f4070c0bf68078f5a72"
+      },
+      {
+        "canonical_fact_key": "https://en.mkri.id/news/details/2023-11-07/Ethics_Council_Removes_Anwar_Usman_from_Chief_Justice_Position#sanction",
+        "claim": "The Constitutional Court ethics council found Anwar Usman violated impartiality, integrity, competence, independence, and propriety, removed him as chief justice, and barred him from election-dispute cases.",
+        "contrary_evidence": [
+          "The sanction did not reverse Decision 90/PUU-XXI/2023.",
+          "The institutional remedy is not presidential correction."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "The ethics council removed Usman and barred him from election-dispute cases.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-11-07",
+        "publisher": "Constitutional Court of Indonesia",
+        "ruler_attribution": "Institutional-check evidence; not proof Jokowi directed the Court.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary court record of the ethics sanction.",
+        "source_locator": "HTML article, ethics findings and sanctions paragraphs",
+        "source_type": "primary judicial record",
+        "title": "Ethics Council Removes Anwar Usman from Chief Justice Position",
+        "url": "https://en.mkri.id/news/details/2023-11-07/Ethics_Council_Removes_Anwar_Usman_from_Chief_Justice_Position"
+      },
+      {
+        "canonical_fact_key": "https://www.mkri.id/berita/-19751#complaints",
+        "claim": "The Indonesian court record states that 21 complaints concerned Decision 90/PUU-XXI/2023 and that collective conflict-of-interest and leaked-deliberation failures were found.",
+        "contrary_evidence": [
+          "This record concerns institutional ethics, not direct presidential direction."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "Twenty-one complaints concerned the decision and collective ethical failures were identified.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-11-01",
+        "publisher": "Constitutional Court of Indonesia",
+        "ruler_attribution": "Institutional accountability evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary court record.",
+        "source_locator": "HTML record, complaints and collective-failure findings",
+        "source_type": "primary judicial record",
+        "title": "Court Record on Decision 90 Complaints",
+        "url": "https://www.mkri.id/berita/-19751"
+      },
+      {
+        "canonical_fact_key": "https://www.eastasiaforum.org/2023/10/22/jokowis-dynasty-building-risks-tensions-with-his-pdi-p-party-base#dynasty",
+        "claim": "East Asia Forum reported that Kaesang became PSI chairman in September 2023 and that the Constitutional Court decision later that month helped create the appearance of an emerging Jokowi dynasty.",
+        "contrary_evidence": [
+          "The same source noted Indonesian dynasties remained vulnerable to defeat by non-dynastic rivals.",
+          "PDI-P retained leverage over the government."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "These twin events mark the emergence of a Jokowi dynasty.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-10-22",
+        "publisher": "East Asia Forum / ISEAS",
+        "ruler_attribution": "Direct political interpretation of Jokowi's 2023 succession posture.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Academic-affiliated regional analysis with dated events.",
+        "source_locator": "HTML paragraphs on Kaesang, the court decision, and dynasty-building",
+        "source_type": "academic-affiliated media",
+        "title": "Jokowi's Dynasty-Building Risks Tensions with His PDI-P Party Base",
+        "url": "https://www.eastasiaforum.org/2023/10/22/jokowis-dynasty-building-risks-tensions-with-his-pdi-p-party-base/"
+      },
+      {
+        "canonical_fact_key": "https://www.eastasiaforum.org/2023/10/23/jokowi-takes-a-huge-chance-with-sons-political-elevation#embrace",
+        "claim": "East Asia Forum reported that Jokowi came to embrace Gibran's political elevation despite earlier concern about accusations of nepotism.",
+        "contrary_evidence": [
+          "The source also described dynasticism as emerging from a relatively low base and noted continuing contestability."
+        ],
+        "evidence_id": "E019",
+        "excerpt": "Jokowi came to embrace the idea with the zeal of the convert.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-10-23",
+        "publisher": "East Asia Forum Editorial Board",
+        "ruler_attribution": "Direct political interpretation of Jokowi's 2023 conduct.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Dated academic-affiliated editorial analysis.",
+        "source_locator": "HTML paragraphs on Gibran's political elevation",
+        "source_type": "academic-affiliated media",
+        "title": "Jokowi Takes a Huge Chance with Son's Political Elevation",
+        "url": "https://www.eastasiaforum.org/2023/10/23/jokowi-takes-a-huge-chance-with-sons-political-elevation/"
+      },
+      {
+        "canonical_fact_key": "https://www.eastasiaforum.org/2023/10/23/jokowi-takes-a-huge-chance-with-sons-political-elevation#polls",
+        "claim": "The East Asia Forum account reported that Jokowi and the Prabowo campaign commissioned opinion polls to gauge backlash after Gibran's selection as running mate.",
+        "contrary_evidence": [
+          "The polling account does not prove direction of the Constitutional Court ruling."
+        ],
+        "evidence_id": "E020",
+        "excerpt": "Snap opinion polls were commissioned by Jokowi and the Prabowo campaign to gauge backlash.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-10-23",
+        "publisher": "East Asia Forum Editorial Board",
+        "ruler_attribution": "Directly reported political action.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Dated report of election-period political activity.",
+        "source_locator": "HTML paragraphs on the post-announcement polling",
+        "source_type": "academic-affiliated media",
+        "title": "Gibran Political Elevation and Backlash Polling",
+        "url": "https://www.eastasiaforum.org/2023/10/23/jokowi-takes-a-huge-chance-with-sons-political-elevation/"
+      },
+      {
+        "canonical_fact_key": "https://freedomhouse.org/country/indonesia/freedom-world/2024#uu-ite",
+        "claim": "The DPR passed amended UU ITE provisions in 2023, but Jokowi had not signed the amendments by year's end.",
+        "contrary_evidence": [
+          "The amended provisions raised expression concerns.",
+          "Non-signature is official action but not proof of broader media freedom."
+        ],
+        "evidence_id": "E021",
+        "excerpt": "The amended law was not signed by the president by year's end.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target_year_2023",
+        "publication_date": "2024-01-11",
+        "publisher": "Freedom House",
+        "ruler_attribution": "Directly documented presidential non-signature.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Independent democracy-monitor reporting of legislative status.",
+        "source_locator": "HTML section D4, UU ITE amendment paragraph",
+        "source_type": "democracy-monitor NGO",
+        "title": "Freedom in the World 2024: Indonesia UU ITE",
+        "url": "https://freedomhouse.org/country/indonesia/freedom-world/2024"
+      },
+      {
+        "canonical_fact_key": "https://www.eastasiaforum.org/2023/10/23/jokowi-takes-a-huge-chance-with-sons-political-elevation#contestability",
+        "claim": "East Asia Forum noted that Indonesian political dynasties remained relatively localized and vulnerable to defeat by non-dynastic rivals.",
+        "contrary_evidence": [
+          "The same article described Jokowi's family political elevation and accusations of nepotism."
+        ],
+        "evidence_id": "E022",
+        "excerpt": "Indonesian political dynasties have mostly remained localized and highly vulnerable to defeat by non-dynastic rivals.",
+        "final_evidence_use": "context",
+        "period_fit": "target_year_2023",
+        "publication_date": "2023-10-23",
+        "publisher": "East Asia Forum Editorial Board",
+        "ruler_attribution": "Indirect counter-context concerning political contestability.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Academic-affiliated analysis; comparative interpretation.",
+        "source_locator": "HTML paragraph on regional dynasticism",
+        "source_type": "academic-affiliated media",
+        "title": "Political Contestability Counter-Context",
+        "url": "https://www.eastasiaforum.org/2023/10/23/jokowi-takes-a-huge-chance-with-sons-political-elevation/"
+      }
+    ],
+    "iso3": "IDN",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:IDN:16200",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=17; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/405/trusted/001-996d9301-343/local-priors.json",
+        "artifact_sha256": "69b97e006f74060ed611a8f99e4aa4e0a4b3aabd485ac63619d7b62ea306febe",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E014",
+        "methodology_id": "4B.1",
+        "relation": "supports",
+        "relevance": "Court ruling."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.1",
+        "relation": "supports",
+        "relevance": "Political elevation."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "4B.1",
+        "relation": "contradicts",
+        "relevance": "Contestability counter-context."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "4B.2",
+        "relation": "supports",
+        "relevance": "Election-period political action."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.4",
+        "relation": "supports",
+        "relevance": "Court ethics remedy."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.4",
+        "relation": "supports",
+        "relevance": "Institutional complaints."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.5",
+        "relation": "supports",
+        "relevance": "Dynasty evidence."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "4B.8",
+        "relation": "supports",
+        "relevance": "Succession conflict."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "4B.9",
+        "relation": "supports",
+        "relevance": "UU ITE status."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2636",
+    "ruler_name": "Joko Widodo",
+    "ruler_year_id": 16200,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "49418b81f84d0fcc7031f5ab67236723dcf0440ea3bd2ae6b994899398c2b6d2",
+      "source_mix_note": "Researcher supplied NGO, academic-index, peer-reviewed journal, official government, intergovernmental, international-financial-institution, national-statistics, national-media, and international-media sources. Official and self-assessment sources are retained with stated limitations; same-event corroborations were not treated as independent distinct claims.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "165fb47b1a38b970c191ec028e866165bd0bfe37ca539e8ce9aa6f91ec4287a3",
+    "unresolved_gaps": [
+      "No direct evidence that Jokowi personally directed Constitutional Court Decision 90/PUU-XXI/2023.",
+      "No defensible 2023 personal asset-enrichment or personal-disclosure misconduct event was recovered.",
+      "Papua accountability remains substantially institutional and subordinate rather than personally presidential.",
+      "No documented 2023 corrective action after a flagship implementation failure was recovered.",
+      "BRIN performance evidence is conflicting and must remain split between retrospective criticism and the 2023 indicators publication.",
+      "Precise claim-level locators for some retrospective EAF and Asia Maior material remain section-level rather than page-level."
+    ]
+  },
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Nigeria",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E010",
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015",
+          "E027"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Target-year political-freedom context and election-connectivity evidence are present.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.2",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.3",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E012",
+          "E013",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "methodology_id": "4B.4",
+        "reason": "Court, oversight, and EFCC material is present but executive influence remains unresolved.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.5",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E012"
+        ],
+        "methodology_id": "4B.6",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.7",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.8",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E011"
+        ],
+        "methodology_id": "4B.9",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E010"
+        ],
+        "methodology_id": "4B.10",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 7464,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://freedomhouse.org/country/nigeria/freedom-world/2024|2023-assessment|political-civil-liberties",
+        "claim": "Freedom House's 2024 Nigeria report records calendar-year 2023 political and civil-liberty conditions, including constitutional guarantees alongside restrictions and institutional weaknesses.",
+        "contrary_evidence": [
+          "This is country-level context, not direct evidence of Tinubu conduct."
+        ],
+        "evidence_id": "E010",
+        "excerpt": "Freedom House's 2024 report covers Nigeria during calendar year 2023.",
+        "final_evidence_use": "context",
+        "period_fit": "Calendar year 2023.",
+        "publication_date": "2024",
+        "publisher": "Freedom House",
+        "ruler_attribution": "Country-level context only.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Established comparative democracy assessment.",
+        "source_locator": "Nigeria country report, 2023 assessment sections",
+        "source_type": "comparative country assessment",
+        "title": "Freedom in the World 2024: Nigeria",
+        "url": "https://freedomhouse.org/country/nigeria/freedom-world/2024"
+      },
+      {
+        "canonical_fact_key": "https://www.accessnow.org/campaign/2023-elections-and-internet-shutdowns-watch/|2023|nigeria-election-connectivity",
+        "claim": "Nigeria publicly committed to keeping internet access available during and after the 2023 elections, and Access Now reported no election-related shutdown.",
+        "contrary_evidence": [
+          "This does not address later digital restrictions or surveillance.",
+          "Personal direction by Tinubu is not established."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "Access Now's election monitoring recorded Nigeria's no-shutdown commitment and outcome.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 elections.",
+        "publication_date": "2023",
+        "publisher": "Access Now",
+        "ruler_attribution": "Government commitment and observed outcome; limited personal attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Specialist internet-freedom monitoring.",
+        "source_locator": "Nigeria entry in 2023 election monitoring page",
+        "source_type": "digital-rights monitoring",
+        "title": "2023 Elections and Internet Shutdowns Watch",
+        "url": "https://www.accessnow.org/campaign/2023-elections-and-internet-shutdowns-watch/"
+      },
+      {
+        "canonical_fact_key": "https://www.amnesty.org/en/latest/press-release/2023/11/after-six-months-in-office-nigerian-president-tinubu-has-failed-to-uphold-human-rights/|29nov2023|journalists-election",
+        "claim": "Amnesty reported that at least 42 journalists were attacked, harassed, beaten, or denied access during the 2023 elections.",
+        "contrary_evidence": [
+          "Responsible-agent chain is mixed and does not establish a direct presidential order."
+        ],
+        "evidence_id": "E012",
+        "excerpt": "Amnesty documented attacks and restrictions affecting journalists during the 2023 elections.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 elections and first six months of presidency.",
+        "publication_date": "2023-11-29",
+        "publisher": "Amnesty International",
+        "ruler_attribution": "Mixed state and non-state attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporaneous rights assessment.",
+        "source_locator": "HTML press-release body, media-freedom section",
+        "source_type": "human-rights assessment",
+        "title": "Nigeria Media-Freedom Findings",
+        "url": "https://www.amnesty.org/en/latest/press-release/2023/11/after-six-months-in-office-nigerian-president-tinubu-has-failed-to-uphold-human-rights/"
+      },
+      {
+        "canonical_fact_key": "https://www.nigerianstat.gov.ng/elibrary/read/1241439|dec2023|headline-inflation-28.92",
+        "claim": "Nigeria's headline inflation reached 28.92% in December 2023, up from 21.34% in December 2022; month-on-month inflation was 2.29%.",
+        "contrary_evidence": [
+          "The data do not isolate subsidy removal or FX reform as the sole cause.",
+          "Inherited conditions and policy choices both matter."
+        ],
+        "evidence_id": "E013",
+        "excerpt": "NBS December 2023 CPI report records 28.92% headline inflation and 2.29% month-on-month inflation.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "December 2023.",
+        "publication_date": "2024-01",
+        "publisher": "National Bureau of Statistics Nigeria",
+        "ruler_attribution": "Outcome during Tinubu's period with shared causal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official national statistics.",
+        "source_locator": "CPI report, lines 45-55",
+        "source_type": "official statistics",
+        "title": "Nigeria Consumer Price Index, December 2023",
+        "url": "https://www.nigerianstat.gov.ng/elibrary/read/1241439"
+      },
+      {
+        "canonical_fact_key": "https://www.worldbank.org/en/news/press-release/2023/06/27/nigeria-can-seize-the-opportunity-to-realize-its-growth-potential|27jun2023|savings-mitigation",
+        "claim": "The World Bank projected approximately \u20a62 trillion in 2023 fiscal savings from subsidy removal, warned that compensating transfers were essential, and urged a large-scale cash-transfer program.",
+        "contrary_evidence": [
+          "The World Bank also characterized subsidy and FX reforms as potentially growth-enhancing.",
+          "This is a projection and recommendation, not realized savings or completed transfers."
+        ],
+        "evidence_id": "E014",
+        "excerpt": "World Bank projected fiscal savings and emphasized compensating transfers to protect poor households.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "27 June 2023.",
+        "publication_date": "2023-06-27",
+        "publisher": "World Bank",
+        "ruler_attribution": "Directly relevant to Tinubu's reforms and available alternatives.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary World Bank development update.",
+        "source_locator": "HTML paragraphs 150-161",
+        "source_type": "international development institution",
+        "title": "Nigeria Can Seize the Opportunity to Realize Its Growth Potential",
+        "url": "https://www.worldbank.org/en/news/press-release/2023/06/27/nigeria-can-seize-the-opportunity-to-realize-its-growth-potential"
+      },
+      {
+        "canonical_fact_key": "https://www.worldbank.org/en/news/press-release/2023/12/13/turning-the-corner-time-to-move-from-reforms-to-results|13dec2023|reform-results-cash-transfer",
+        "claim": "By December 2023, petrol prices had risen approximately 163%, the naira had depreciated about 41% officially, and a cash-transfer intervention was expected to cover five million households by year-end.",
+        "contrary_evidence": [
+          "The FX market remained volatile and reforms were painful and incomplete.",
+          "Expected coverage is not verified full delivery."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "World Bank reported price increases, currency depreciation, and a newly launched cash-transfer intervention.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "13 December 2023.",
+        "publication_date": "2023-12-13",
+        "publisher": "World Bank",
+        "ruler_attribution": "Reform implementation and mitigation under Tinubu's administration.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary World Bank Nigeria Development Update.",
+        "source_locator": "HTML press-release body",
+        "source_type": "international development institution",
+        "title": "Turning the Corner: Time to Move from Reforms to Results",
+        "url": "https://www.worldbank.org/en/news/press-release/2023/12/13/turning-the-corner-time-to-move-from-reforms-to-results"
+      },
+      {
+        "canonical_fact_key": "https://thedocs.worldbank.org/en/doc/88d5ed4248d7063eced528070a83173e-0360012023/original/NDU-december-2023-presentation.pdf|17oct2023|cash-transfer-1.5m-households",
+        "claim": "A World Bank presentation records a \u20a625,000 monthly transfer for three months launched 17 October 2023, with 1.5 million households reportedly receiving funds and five million expected by year-end.",
+        "contrary_evidence": [
+          "This establishes partial reported delivery, not full reach or effectiveness."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "World Bank presentation reports the transfer amount, launch date, and reported household coverage.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "17 October\u2013December 2023.",
+        "publication_date": "2023-12",
+        "publisher": "World Bank",
+        "ruler_attribution": "Program implemented during Tinubu's administration; delivery attribution is shared.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary World Bank presentation.",
+        "source_locator": "PDF, exact page not recorded; cash-transfer section",
+        "source_type": "international development institution",
+        "title": "Nigeria Development Update: December 2023 Presentation",
+        "url": "https://thedocs.worldbank.org/en/doc/88d5ed4248d7063eced528070a83173e-0360012023/original/NDU-december-2023-presentation.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.who.int/about/accountability/results/who-results-report-2022-2023/country-profile/2023/nigeria|2022-2023|health-outcomes",
+        "claim": "WHO reports 2022\u20132023 Nigeria health outcomes including expanded HIV treatment, measles and yellow-fever vaccination, malaria-prevention reach, and improved TB notification and treatment coverage.",
+        "contrary_evidence": [
+          "Much of the period and delivery infrastructure predates Tinubu's inauguration.",
+          "Major disease burdens and health-system needs continued."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "WHO country profile reports HIV, vaccination, malaria, and TB program outcomes.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022\u20132023, partly pre-inauguration.",
+        "publication_date": "2023",
+        "publisher": "World Health Organization",
+        "ruler_attribution": "Shared public-health delivery evidence, not solely Tinubu-attributable.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official WHO country profile.",
+        "source_locator": "Nigeria country profile, 2022-2023 results sections",
+        "source_type": "international health institution",
+        "title": "WHO Nigeria Country Profile",
+        "url": "https://www.who.int/about/accountability/results/who-results-report-2022-2023/country-profile/2023/nigeria"
+      },
+      {
+        "canonical_fact_key": "https://www.afro.who.int/countries/nigeria/news/nigeria-stakeholders-are-charting-sustainable-pathway-achieving-universal-health-coverage-all|16dec2023|uhc-meeting",
+        "claim": "WHO and Nigerian stakeholders met in December 2023 to pursue evidence-based and sustainable solutions for universal health coverage and reduced financial hardship.",
+        "contrary_evidence": [
+          "The meeting documents process, not measurable delivery or year-end improvement attributable to Tinubu."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "WHO Africa reported a December 2023 stakeholder meeting on sustainable universal health coverage.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "16 December 2023.",
+        "publication_date": "2023-12-16",
+        "publisher": "WHO Africa",
+        "ruler_attribution": "Target-period policy coordination; not delivery outcome.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official WHO regional report.",
+        "source_locator": "HTML article body",
+        "source_type": "international health institution",
+        "title": "Nigeria Stakeholders Chart Sustainable Pathway to Universal Health Coverage",
+        "url": "https://www.afro.who.int/countries/nigeria/news/nigeria-stakeholders-are-charting-sustainable-pathway-achieving-universal-health-coverage-all"
+      },
+      {
+        "canonical_fact_key": "local-prior:4B.1|political-freedom-baselines|2023",
+        "claim": "Supplied V-Dem, BTI, Freedom House, and RSF facts provide 2023 Nigeria political-freedom, accountability, civil-liberty, press-freedom, and rule-of-law baselines.",
+        "contrary_evidence": [
+          "Country-level context does not establish Tinubu-attributable conduct."
+        ],
+        "evidence_id": "E027",
+        "excerpt": "Supplied local structured priors LF012-LF029.",
+        "final_evidence_use": "context",
+        "period_fit": "2023.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Local structured evidence package",
+        "ruler_attribution": "Country-year baseline only.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied hashed local-prior artifact.",
+        "source_locator": "local-prior:4B.1",
+        "source_type": "local structured prior",
+        "title": "Nigeria Political-Freedom Priors",
+        "url": "local-prior:4B.1"
+      }
+    ],
+    "iso3": "NGA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:NGA:15772",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=17; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/406/trusted/001-f4870c41-a6b/local-priors.json",
+        "artifact_sha256": "294e4df378f73e3082d41af6c8502be898874493b0b782bd7958c280a999d32f",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E010",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Target-year country assessment"
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Political-freedom baseline"
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "4B.6",
+        "relation": "contradicts",
+        "relevance": "Journalist attacks and restrictions"
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.9",
+        "relation": "supports",
+        "relevance": "No election-related shutdown and connectivity commitment"
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Political-freedom trajectory context"
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2774",
+    "ruler_name": "Bola Ahmed Tinubu",
+    "ruler_year_id": 15772,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "cc1eece5d4acfe3fb5a2f5a5ac2599975a00886b3f240fb499bc7465e14b99a1",
+      "source_mix_note": "Final evidence mixes IAEA, ECOWAS, Nigerian State House, Amnesty, HRW, AP, Access Now, NBS, World Bank, WHO, National Assembly, Channels Television, and Al Jazeera. Wikipedia and current/retrospective portal material were bounded to context or discovery where appropriate. Country indicators remain context unless explicitly identified as local structured baselines.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "36205f1324c6e81c77d16fd8bf27acc72eba7d8501014592a88482bcd1794444",
+    "unresolved_gaps": [
+      "Complete authoritative nuclear/non-possession and broader catastrophic-risk exposure audit.",
+      "Foreign-policy audit beyond the Niger crisis, including arms transfers, proxies, cross-border operations, and international-law compliance.",
+      "Target-period emergency powers, surveillance, security-force accountability, and full protest-treatment audit.",
+      "Direct presidential nexus for press incidents, opposition treatment outside litigation, and executive influence over courts.",
+      "Verified fiscal savings, reinvestment, full cost-of-living trajectory, and correction after adverse effects.",
+      "Education delivery, full-year poverty and household-income measures, and verified welfare-transfer reach.",
+      "Tinubu asset declaration, personal financial interests, conflicts, and direct records concerning any investigation involving Tinubu.",
+      "Extracted 2023 budget execution reports, delivery milestones, personnel competence, coordination, and year-end security outcomes."
+    ]
+  },
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Brazil",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E011",
+          "E021"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Protected civic freedoms and democratic constraints documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011"
+        ],
+        "methodology_id": "4B.2",
+        "reason": "Expression and media conditions documented with restrictions caveat.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E025"
+        ],
+        "methodology_id": "4B.3",
+        "reason": "Civic-space restoration and freedom conditions documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E009"
+        ],
+        "methodology_id": "4B.4",
+        "reason": "Institutional defense after January 8 documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.5",
+        "reason": "Assembly and association conditions documented.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E019",
+          "E025"
+        ],
+        "methodology_id": "4B.6",
+        "reason": "Transparency and civic-space restoration documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E025"
+        ],
+        "methodology_id": "4B.7",
+        "reason": "Rights institutions and equality measures documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "4B.8",
+        "reason": "Internet and expression conditions documented, with restrictions caveat.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E009"
+        ],
+        "methodology_id": "4B.9",
+        "reason": "Institutional resilience and lawful response documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E025"
+        ],
+        "methodology_id": "4B.10",
+        "reason": "Broad democratic evidence retained; opposition and self-binding gaps remain.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 5355,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.gov.br/pf/pt-br/assuntos/noticias/2023/03/pf-deflagra-8a-fase-da-operacao-lesa-patria-para-identificar-participantes-dos-ataques-do-dia-8-1/|paras.222-246|Operation Lesa Patria",
+        "claim": "In March 2023, Brazil\u2019s Federal Police executed searches and preventive arrests targeting participants, financiers, omissions, and inciters connected to the 8 January attack.",
+        "contrary_evidence": [],
+        "evidence_id": "E009",
+        "excerpt": "Federal Police notice, paras. 222\u2013246.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Exact March 2023 operation.",
+        "publication_date": "2023-03-14",
+        "publisher": "Brazilian Federal Police",
+        "ruler_attribution": "Institutional enforcement under Lula\u2019s administration; not a personal act alone.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary official law-enforcement record.",
+        "source_locator": "HTML paras. 222\u2013246",
+        "source_type": "official_law_enforcement",
+        "title": "PF launches eighth phase of Operation Lesa P\u00e1tria",
+        "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2023/03/pf-deflagra-8a-fase-da-operacao-lesa-patria-para-identificar-participantes-dos-ataques-do-dia-8-1/"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/en/document/2107626.html|paras.121-135|Civil liberties and restrictions",
+        "claim": "Expression, media, assembly, association, and internet access were generally protected in 2023, while the report also noted censorship allegations, online threats, criminal-defamation rules, and election-related content restrictions.",
+        "contrary_evidence": [
+          "Reported censorship and election-related restrictions qualify the generally protected-freedoms finding."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "Brazil 2023 report, Freedom of Expression section, paras. 121\u2013135.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 country report.",
+        "publication_date": "2024-04-22",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Country-level conditions; only partly attributable to the administration.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Government human-rights report with paragraph locator.",
+        "source_locator": "HTML paras. 121\u2013135",
+        "source_type": "government_human_rights_report",
+        "title": "2023 Country Reports on Human Rights Practices: Brazil",
+        "url": "https://www.ecoi.net/en/document/2107626.html"
+      },
+      {
+        "canonical_fact_key": "https://repositorio.cgu.gov.br/bitstream/1/78263/1/Relatorio_de_Gest%C3%A3o_2023.pdf|pp.70-72|secrecy reversals and appeals",
+        "claim": "CGU reviewed 252 secrecy cases, modified 178 prior decisions, and decided 2,067 access-to-information appeals, with 57% favoring or partially favoring requesters.",
+        "contrary_evidence": [],
+        "evidence_id": "E019",
+        "excerpt": "CGU management report, pp. 70\u201372.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 transparency administration report.",
+        "publication_date": "2024-01-01",
+        "publisher": "Controladoria-Geral da Uni\u00e3o",
+        "ruler_attribution": "Administration-level transparency mechanism; not personal honesty proof.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary official report with page locator.",
+        "source_locator": "PDF pp. 70\u201372",
+        "source_type": "official_audit_report",
+        "title": "CGU Relat\u00f3rio de Gest\u00e3o 2023",
+        "url": "https://repositorio.cgu.gov.br/bitstream/1/78263/1/Relatorio_de_Gest%C3%A3o_2023.pdf"
+      },
+      {
+        "canonical_fact_key": "local-prior:4B.1|supplied-democracy-governance-fields|Brazil 2023",
+        "claim": "Supplied 2023 local structured priors report Brazil\u2019s electoral democracy, civic freedoms, judicial and legislative constraints, liberal democracy, accountability, rule of law, Freedom House, RSF, and BTI governance fields.",
+        "contrary_evidence": [],
+        "evidence_id": "E021",
+        "excerpt": "Supplied local structured-prior package, locator local-prior:4B.1.",
+        "final_evidence_use": "context",
+        "period_fit": "Exact 2023 local country-year prior.",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Supplied local structured-prior artifact",
+        "ruler_attribution": "Country-year context only; no personal attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Supplied structured artifact with explicit field provenance.",
+        "source_locator": "local-prior:4B.1",
+        "source_type": "local_structured_prior",
+        "title": "Local political-freedom and governance prior",
+        "url": "local-prior:4B.1"
+      },
+      {
+        "canonical_fact_key": "https://www.eeas.europa.eu/delegations/brazil/2023-annual-report-human-rights-and-democracy-world-country-updates-brazil_und_en|overview|rights institutions and programs",
+        "claim": "The EEAS reported that Lula\u2019s return represented a positive development for human rights and democracy, including creation of Indigenous Peoples, Women, and Racial Equality ministries, restoration of rights programs, reopening of civil-society space, and a more respectful official attitude toward rights activists.",
+        "contrary_evidence": [
+          "The same report documented police killings, prison overcrowding, discrimination, gender violence, threats to defenders, and environmental crimes."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "EEAS annual report, HTML section \u201c1. Overview of the human rights and democracy situation.\u201d",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 first-year assessment published in 2024.",
+        "publication_date": "2024-05-30",
+        "publisher": "European External Action Service",
+        "ruler_attribution": "Formal administration actions attributable to Lula\u2019s government; implementation shared with institutions.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Intergovernmental annual human-rights report.",
+        "source_locator": "HTML section \u201c1. Overview of the human rights and democracy situation\u201d",
+        "source_type": "intergovernmental_report",
+        "title": "2023 Annual Report on Human Rights and Democracy \u2014 Brazil",
+        "url": "https://www.eeas.europa.eu/delegations/brazil/2023-annual-report-human-rights-and-democracy-world-country-updates-brazil_und_en"
+      }
+    ],
+    "iso3": "BRA",
+    "job_key": "dossier:2023-population-top20-gate5-v1:2023:BRA:16162",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=17; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate5-v1/jobs/407/trusted/001-b84e6dbf-1ba/local-priors.json",
+        "artifact_sha256": "4dcb17113372d5997f164ca6769b3add048a2a1c1621819a7127d32ec9b1229f",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Local democracy and governance prior."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.3",
+        "relation": "supports",
+        "relevance": "Generally protected civic freedoms with restrictions caveat."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.3",
+        "relation": "supports",
+        "relevance": "Restoration of civic and rights institutions."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2841",
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "ruler_year_id": 16162,
+    "run_key": "2023-population-top20-gate5-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "a86d527dbfd7ad6a86ef6f8b1c90dd152b4b1758bf0f1938ef1601200b9eef10",
+      "source_mix_note": "No new research performed. Retained supplied evidence from intergovernmental, official government, official statistics, NGO, policy-analysis, legal-analysis, specialist civil-society, and local structured-prior sources. Country-level and inherited evidence remains attribution-limited.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "436988b02f4cc6537bc5f7116789a4f954fe86443f5287ba1defd319c14f60e2",
+    "unresolved_gaps": [
+      "Chapter 1B: biological-risk governance, command-and-control audits, and catastrophic-risk crisis decisions.",
+      "Chapter 2B: Brazilian foreign military conduct, arms/proxy responsibility, civilian protection, and military accountability.",
+      "Chapter 3B: federal police-reform orders, nationwide remedies, subnational attribution, and surveillance/emergency-power evidence.",
+      "Chapter 4B: opposition treatment, protest restrictions, media-owner pressure, executive-judiciary relations, and self-binding commitments.",
+      "Chapter 5B: tax-distributional effects, appointments, investment/productivity, regional economic effects, and independent fiscal implementation.",
+      "Chapter 6B: education, sanitation, housing quality, disability, and durable nationwide service outcomes.",
+      "Chapter 7B: personal assets, conflicts, family/business benefits, procurement, disclosures, corrections, and obstruction.",
+      "Chapter 8B: durable portfolio outcomes, primary implementation records, coordination, adaptation, and state-capacity measurement.",
+      "The supplied local prior contains explicit no-evidence states for all 1B and 6B methodology IDs; these are gaps, not negative evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 4B Political Freedom vs Authoritarian Rule
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `4B`
+- Category: political freedom vs authoritarian rule
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_4b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The ten questions below are complementary evidence lenses. They direct collection and expose different mechanisms; they are not independent gates or equally weighted sub-scores.
+
+## Ten Evidence Lenses
+
+1. **4B.1** — Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?
+2. **4B.2** — Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?
+3. **4B.3** — Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?
+4. **4B.4** — Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?
+5. **4B.5** — Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?
+6. **4B.6** — Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?
+7. **4B.7** — Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
+8. **4B.8** — Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?
+9. **4B.9** — Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?
+10. **4B.10** — Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?
+
+## Researcher Evidence Plan
+
+Collect a reusable, cited ruler-period dossier; do not score the chapter. Follow the local-first researcher guide and source-confidence registry. Start with local V-Dem, BTI, RSF, Freedom House/Polity when available, election and constitutional records, then search only unresolved gaps. Prefer election observers, courts, legislatures, audit/election bodies, UN or regional institutions, rights and press-freedom organizations, academic histories, and reputable local/international reporting. Official claims are useful for acts and stated intent but require independent checks for effects.
+
+Seek evidence on election quality and alternation; institutional capture or restraint; treatment of opposition, protest, journalists, NGOs and satire; court and legislative independence; appointments and politicization; censorship, propaganda and digital controls; political inclusion; term limits and succession; and inherited-to-left trajectory. Preserve favorable, adverse and contrary evidence. One item may support several lenses when the relationship is real; do not duplicate the source merely to fill every lens. Flexible prose and coverage labels are acceptable if citations and meaning remain recoverable.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Separate inherited regime conditions from the ruler's choices. Credit opening, restraint, remedies and durable institution-building; debit capture, repression, erosion and knowing failure to prevent abuses within the ruler's authority. Record formal versus de facto authority, coalition constraints, subnational responsibility, conflict/emergency context and timing. Do not award a ruler an inherited democracy automatically or blame a new ruler for every inherited restriction.
+
+Historical and obscure cases will have uneven records. Use contemporary archives, constitutional histories and reputable scholarship; note temporal distance and disagreement. Missing lenses lower confidence and may alter qualitative weight, but never invalidate a dossier or mechanically force a neutral/low score. Silence is especially weak evidence in closed systems.
+
+An inherited democracy establishes context, not ruler merit. Scores of 8 or above
+require direct target-period evidence that the ruler respected or strengthened
+contestability, transfer rules, civic/media space, or independent constraints when
+those constraints had practical force. A 9 normally requires meaningful pressure or
+consequential strengthening. If a projection claims coverage but contains no cited
+chapter evidence, return null and flag `projection_integrity`; do not infer a score
+from the country baseline. Post-window events may be used only as retrospective
+evidence about a target-period act, must be labeled, and may not silently expand the
+period under judgment.
+
+## Chapter Judge and Lens Weighting
+
+One judge scores the complete ruler batch with a common meter. Judge the overall freedom people could exercise and the ruler's contribution to it. Weight lenses qualitatively by consequence, ruler responsibility, duration, breadth, source strength and period fit. Electoral contestability, coercive closure, institutional constraints, civic/media space and transfer rules will often be decisive; minor administrative incidents should not outweigh systematic capture. `4B.10` synthesizes trajectory and must not double-count every underlying event. Redundancy is intentional: corroborating lenses increase confidence, not arithmetic weight.
+
+The judge may score with only part of the lens set when the available evidence establishes the regime and ruler pattern. State which lenses are strong, weak or unavailable and why. Never manufacture a per-lens score or average.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler systematically eliminates meaningful political choice and independent constraint through repression, captured institutions, censorship, entrenchment and/or refusal of lawful transfer. |
+| 2–3 | Severe authoritarian rule dominates across several consequential mechanisms; opposition and oversight exist only narrowly or at substantial risk. |
+| 4–5 | Material competition or civic space coexists with recurring manipulation, capture, exclusion or intimidation; the ruler's contribution is mixed or erosive. |
+| 6–7 | Meaningful political freedom and constraints operate, but important ruler-attributable flaws, unequal access, pressure or institutional weaknesses remain. |
+| 8–9 | The ruler consistently respects broad contestability, rights, independent institutions and transfer rules, with isolated or credibly remedied shortcomings. |
+| 10 | Exceptional, durable protection and strengthening of pluralism and neutral constraints, including when those constraints threaten the ruler's own power. |
+
+## Common Chapter-Judge Output Envelope
+
+The chapter result should use the shared semantic envelope below. Exact field spelling can be normalized cheaply after LLM handoff; no useful judgment should be rejected only for synonymous wording.
+
+- `chapter_id`: `4B`
+- `rubric_version`: `chapter_4b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extra: `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language values are acceptable; preserve meaning rather than enforcing brittle enums.
+
+## Calibration, Confidence, and Bias Checks
+
+Check visibility and silence-under-repression bias, population and incident-volume bias, regime-type comparability, election-cycle timing, wartime/emergency claims, formal-versus-de-facto authority, English-language/search-access bias, and recency. Compare rulers with similar inherited systems as well as the full batch. High reporting volume in open societies is not itself worse performance.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Kim Jong Un | North Korea | 2012–2023 | closed personalist low anchor and silence bias |
+| Alexander Lukashenka | Belarus | 2020 | manipulated election and coercive entrenchment |
+| Vladimir Putin | Russia | 2012–2023 | long-run institutional erosion and transfer avoidance |
+| Narendra Modi | India | 2014–2023 | competitive elections with contested civic/institutional record |
+| Donald Trump | United States | 2020–2021 | transfer stress test within resilient institutions |
+| Nelson Mandela | South Africa | 1994–1999 | democratic transition, inclusion and voluntary departure |
+| Angela Merkel | Germany | 2005–2021 | high institutional-restraint comparison |
+| Jacinda Ardern | New Zealand | 2017–2023 | high freedom with crisis/emergency scrutiny |
+| Lee Kuan Yew | Singapore | 1965–1990 | prosperity-versus-contestability edge case |
+| Violeta Chamorro | Nicaragua | 1990–1997 | less-visible historical transition, institutional constraint and gender comparison |
+
+## Acceptance Checklist
+
+- Scores above `7` require affirmative ruler-attributed self-binding, protection, or
+  expansion of freedom; inherited democratic institutions alone cannot establish a
+  high anchor.
+
+- All ten exact lenses remain visible, but only one chapter score is produced.
+- Research is local-first, cited, source-profiled, period-fit and preserves contrary evidence.
+- The judge scores the full batch with one rubric and records adjacent comparisons.
+- Baseline, de facto authority, ruler attribution and trajectory are explicit.
+- Missing lenses reduce confidence and never invalidate the dossier.
+- Flexible LLM wording/statuses are accepted when evidence and uncertainty are recoverable.
+- Systematic mechanisms outweigh article count and isolated events.
+- Bias checks and anchor rejections are substantive.
+- Smoke cases are reviewed together before this draft is activated.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

@@ -1,0 +1,859 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact; inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:4B",
+  "run_key": "2023-population-top20-gate1-judges-v2",
+  "chapter_id": "4B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-population-top20-gate1-judges-v2:2023:4B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "4B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "China",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015"
+        ],
+        "methodology_id": "4B.1",
+        "reason": "Political-freedom priors and centralized-authority evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.2",
+        "reason": "Counter-Espionage Law and institutional-control evidence retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.3",
+        "reason": "Censorship, detention, and mourning evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.4",
+        "reason": "Party-state reorganization and named political cases retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.5",
+        "reason": "Xi-centered authority and party control evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.6",
+        "reason": "Press-freedom and censorship evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.7",
+        "reason": "Minority, party-control, and institutional evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.8",
+        "reason": "Centralized authority and limited public tolerance evidence retained; succession evidence absent.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.9",
+        "reason": "Censorship, counter-espionage, and surveillance-related evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "4B.10",
+        "reason": "Institutional-control and political-freedom evidence retained.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 8312,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Attacks-on-Human-Rights-Defenders|Xu-Ding-Yu-Lu-Rahile-Hong-Kong-2023",
+        "claim": "HRW documented multiple 2023 disappearances, detentions, long prison sentences, Rahile Dawut's life sentence, and Hong Kong National Security Law arrests and bounty warrants.",
+        "contrary_evidence": [
+          "These events establish state or institutional conduct more securely than Xi-specific direction, knowledge, or correction responsibility."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "The report lists named lawyers, activists, journalists, Rahile Dawut, and Hong Kong targets with dates and sentences.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period events reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional/party-state attribution; no direct Xi order located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named individuals, dates, and legal outcomes are specified.",
+        "source_locator": "Attacks on Human Rights Defenders, Xinjiang, and Hong Kong sections.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Xinjiang|Xi-August-2023-success",
+        "claim": "Xi visited Xinjiang in August 2023 and described his Xinjiang policies as a success despite the UN-documented abuse record.",
+        "contrary_evidence": [
+          "The claim is direct for Xi's visit and statement but not proof that he personally ordered every regional abuse."
+        ],
+        "evidence_id": "E012",
+        "excerpt": "Xi visited Xinjiang and pronounced that his policies in Xinjiang were a success.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct August 2023 visit reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Direct Xi attribution for visit and statement; systemic attribution for underlying policies.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named ruler, month, and quoted characterization.",
+        "source_locator": "Xinjiang section, Xi visit paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Freedom-of-Expression|Caixin-Southern-Weekly-June-2023",
+        "claim": "Caixin and Southern Weekly investigative reports on an alleged death in police custody were deleted in June 2023.",
+        "contrary_evidence": [
+          "The notebook also records a limited episode of public mourning and online criticism around Li Keqiang."
+        ],
+        "evidence_id": "E013",
+        "excerpt": "Both reports were swiftly deleted from official websites and social-media platforms.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct June 2023 censorship events reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional censorship attribution; no direct Xi order located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Specific outlets, month, and action identified.",
+        "source_locator": "Freedom of Expression section, censorship paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Tibet|Geshe-Phende-Gyaltsen-January-2023",
+        "claim": "A Tibetan monk, Geshe Phende Gyaltsen, died in police custody in January 2023 after arrest in 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E014",
+        "excerpt": "The monk died in police custody in January 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct January 2023 outcome reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional security attribution; no direct Xi order located.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named individual and date supplied.",
+        "source_locator": "Tibet section, Geshe Phende Gyaltsen paragraph.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://www.stats.gov.cn/sj/zxfb/202501/t20250124_1958440.html|2023-child-development|mortality-education-access",
+        "claim": "Official 2023 child-development data report lower infant and under-five mortality, improved compulsory-education retention, and expanded child-health access, providing positive contrary evidence.",
+        "contrary_evidence": [
+          "The report is official and does not by itself establish equitable realized access or Xi-specific responsibility."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "The report records improved child-health, education-retention, and access indicators for 2023.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 outcomes reported in a later official statistical release.",
+        "publication_date": "2025-01-24",
+        "publisher": "National Bureau of Statistics of China",
+        "ruler_attribution": "Indirect state-program attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official statistical report with specified 2023 outcomes.",
+        "source_locator": "2023 child-development monitoring report, health and education outcome tables.",
+        "source_type": "official statistics",
+        "title": "2023 child-development monitoring report",
+        "url": "https://www.stats.gov.cn/sj/zxfb/202501/t20250124_1958440.html"
+      },
+      {
+        "canonical_fact_key": "https://www.prcleader.org/post/xi-jinping-s-new-economic-team-and-government-re-organization|opening-block|economic-team-reorganization",
+        "claim": "The 2023 economic team consisted of close Xi supporters, and government reorganization transferred important portfolios toward party organs.",
+        "contrary_evidence": [
+          "The source is specialist analysis and its interpretation of competence versus loyalty remains analytical."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "The new economic team members are close supporters of Xi Jinping; the article describes the government reorganization.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "June 2023 analysis of March 2023 appointments and reorganization.",
+        "publication_date": "2023-06-06",
+        "publisher": "PRC Leader / Minxin Pei",
+        "ruler_attribution": "Direct political appointment attribution, with institutional mediation.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Named personnel and organizational changes are specified; interpretive claims are qualified.",
+        "source_locator": "Opening block, personnel and reorganization paragraphs.",
+        "source_type": "specialized political commentary",
+        "title": "Xi Jinping's New Economic Team and Government Re-organization",
+        "url": "https://www.prcleader.org/post/xi-jinping-s-new-economic-team-and-government-re-organization"
+      },
+      {
+        "canonical_fact_key": "http://wb.beijing.gov.cn/en/center_for_international_exchanges/headlines/202301/t20230128_2907664.html|Review-of-Work|Xi-core-authority",
+        "claim": "Beijing's January 2023 government report described the city as operating under the strong leadership of the CPC Central Committee with Xi at its core and cited repeated Xi inspections and instructions.",
+        "contrary_evidence": [],
+        "evidence_id": "E017",
+        "excerpt": "The report says Beijing worked under the strong leadership of the CPC Central Committee with Comrade Xi Jinping at its core.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct January 2023 official report.",
+        "publication_date": "2023-01-15",
+        "publisher": "Beijing Municipal Government",
+        "ruler_attribution": "Direct formal-authority attribution; not proof of every local outcome.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official local government work report.",
+        "source_locator": "Review of Work in the Past Five Years, second paragraph.",
+        "source_type": "official government",
+        "title": "Report on the Work of the Government",
+        "url": "http://wb.beijing.gov.cn/en/center_for_international_exchanges/headlines/202301/t20230128_2907664.html"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/china|Freedom-of-Expression|Counter-Espionage-Law-2023",
+        "claim": "China amended its Counter-Espionage Law in 2023, leaving foreign firms uncertain whether previously acceptable practices were criminal, while raids affected Mintz and Bain.",
+        "contrary_evidence": [
+          "The law can also be presented by Chinese authorities as a national-security measure; the notebook retains this as a caveat."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "The government made vague amendments to the Counter-Espionage Law; authorities raided Mintz and Bain offices.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 legal amendment and raids reported in 2024.",
+        "publication_date": "2024-01",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Institutional attribution; Xi-level authority is indirect.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Specific law and firm-level events identified.",
+        "source_locator": "Freedom of Expression and Key International Actors sections.",
+        "source_type": "human-rights NGO",
+        "title": "World Report 2024: China",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/china"
+      },
+      {
+        "canonical_fact_key": "https://rsf.org/en/china-rsf-calls-release-journalist-kidnapped-laos-and-charged-subversion-state-power|para:RSF-rank-2023|press-freedom-rank",
+        "claim": "China ranked 179th of 180 in the 2023 RSF World Press Freedom Index and was described as the world's largest captor of journalists and press-freedom defenders.",
+        "contrary_evidence": [],
+        "evidence_id": "E019",
+        "excerpt": "China ranks 179th out of 180 in the 2023 World Press Freedom Index.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct 2023 index result.",
+        "publication_date": "2023",
+        "publisher": "Reporters Without Borders",
+        "ruler_attribution": "Country-level institutional context, not personal attribution alone.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Specialized press-freedom index and named ranking.",
+        "source_locator": "Final paragraph, 2023 index ranking.",
+        "source_type": "press-freedom NGO",
+        "title": "China RSF press-freedom release",
+        "url": "https://rsf.org/en/china-rsf-calls-release-journalist-kidnapped-laos-and-charged-subversion-state-power"
+      }
+    ],
+    "iso3": "CHN",
+    "job_key": "dossier:2023-population-top20-gate1-v2:2023:CHN:15833",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=17; mapping_note=D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-population-top20-gate1-v2/jobs/395/trusted/003-e39d8d5f-b32/local-priors.json",
+        "artifact_sha256": "52d143829d76141ad61204b6bbe8239b079210887fc050fd80e10baf6c465e32",
+        "methodology_id": "4B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=18; mapping_note=Political-freedom D11 country-year facts usable as structured priors.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E011",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "4B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.5",
+        "relation": "supports",
+        "relevance": "Loyalist appointments and reorganization."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.6",
+        "relation": "supports",
+        "relevance": "Press-freedom ranking."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.8",
+        "relation": "supports",
+        "relevance": "Xi-centered formal authority."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.9",
+        "relation": "supports",
+        "relevance": "Counter-espionage and firm-pressure evidence."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "4B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "4B.1",
+      "4B.2",
+      "4B.3",
+      "4B.4",
+      "4B.5",
+      "4B.6",
+      "4B.7",
+      "4B.8",
+      "4B.9",
+      "4B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "1432",
+    "ruler_name": "Xi Jinping",
+    "ruler_year_id": 15833,
+    "run_key": "2023-population-top20-gate1-v2",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "0879ac6c1cacfd9eb078a3ed8c46816fc66d540a60171d3e53ff06509d38efb3",
+      "source_mix_note": "Retained official Chinese records, specialist NGOs, public-service and general media, policy commentary, and local structured priors. Source-family overlap, mediated official claims, self-reporting, and institutional-versus-personal attribution limitations are explicitly preserved.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "46a854deff8f51e057bb7cb04c63a898f837765f014d568305169937d3b9a69a",
+    "unresolved_gaps": [
+      "No direct Xi procurement order or personal direction for nuclear modernization was found.",
+      "No specific 2023 nuclear or radiological crisis was found.",
+      "No 2023 lethal Chinese cross-border incident or confirmed Chinese arms transfer to Russia was recovered.",
+      "Direct Xi decisions or orders linking him to specific domestic abuses remain limited.",
+      "Education, housing, water, sanitation, food, and broad service-quality evidence remains incomplete and predominantly official.",
+      "No direct 2023 personal asset, family-benefit, personal-corruption, truthful-disclosure, or broken-promise event was found.",
+      "No precise 2023 election, succession, or term-limit event was recovered.",
+      "COVID mortality and vaccine-policy claims remain disputed and should remain qualified.",
+      "IMF and World Bank snippets, unopened Bloomberg material, post-period Amnesty material, and unsupported historical wealth claims remain context or rejected and are not used as final evidence."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 4B Political Freedom vs Authoritarian Rule
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `4B`
+- Category: political freedom vs authoritarian rule
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_4b_v3`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The ten questions below are complementary evidence lenses. They direct collection and expose different mechanisms; they are not independent gates or equally weighted sub-scores.
+
+## Ten Evidence Lenses
+
+1. **4B.1** — Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?
+2. **4B.2** — Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?
+3. **4B.3** — Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?
+4. **4B.4** — Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?
+5. **4B.5** — Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?
+6. **4B.6** — Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?
+7. **4B.7** — Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
+8. **4B.8** — Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?
+9. **4B.9** — Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?
+10. **4B.10** — Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?
+
+## Researcher Evidence Plan
+
+Collect a reusable, cited ruler-period dossier; do not score the chapter. Follow the local-first researcher guide and source-confidence registry. Start with local V-Dem, BTI, RSF, Freedom House/Polity when available, election and constitutional records, then search only unresolved gaps. Prefer election observers, courts, legislatures, audit/election bodies, UN or regional institutions, rights and press-freedom organizations, academic histories, and reputable local/international reporting. Official claims are useful for acts and stated intent but require independent checks for effects.
+
+Seek evidence on election quality and alternation; institutional capture or restraint; treatment of opposition, protest, journalists, NGOs and satire; court and legislative independence; appointments and politicization; censorship, propaganda and digital controls; political inclusion; term limits and succession; and inherited-to-left trajectory. Preserve favorable, adverse and contrary evidence. One item may support several lenses when the relationship is real; do not duplicate the source merely to fill every lens. Flexible prose and coverage labels are acceptable if citations and meaning remain recoverable.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Separate inherited regime conditions from the ruler's choices. Credit opening, restraint, remedies and durable institution-building; debit capture, repression, erosion and knowing failure to prevent abuses within the ruler's authority. Record formal versus de facto authority, coalition constraints, subnational responsibility, conflict/emergency context and timing. Do not award a ruler an inherited democracy automatically or blame a new ruler for every inherited restriction.
+
+Historical and obscure cases will have uneven records. Use contemporary archives, constitutional histories and reputable scholarship; note temporal distance and disagreement. Missing lenses lower confidence and may alter qualitative weight, but never invalidate a dossier or mechanically force a neutral/low score. Silence is especially weak evidence in closed systems.
+
+An inherited democracy establishes context, not ruler merit. Scores of 8 or above
+require direct target-period evidence that the ruler respected or strengthened
+contestability, transfer rules, civic/media space, or independent constraints when
+those constraints had practical force. A 9 normally requires meaningful pressure or
+consequential strengthening. If a projection claims coverage but contains no cited
+chapter evidence, return null and flag `projection_integrity`; do not infer a score
+from the country baseline. Post-window events may be used only as retrospective
+evidence about a target-period act, must be labeled, and may not silently expand the
+period under judgment.
+
+## Chapter Judge and Lens Weighting
+
+One judge scores the complete ruler batch with a common meter. Judge the overall freedom people could exercise and the ruler's contribution to it. Weight lenses qualitatively by consequence, ruler responsibility, duration, breadth, source strength and period fit. Electoral contestability, coercive closure, institutional constraints, civic/media space and transfer rules will often be decisive; minor administrative incidents should not outweigh systematic capture. `4B.10` synthesizes trajectory and must not double-count every underlying event. Redundancy is intentional: corroborating lenses increase confidence, not arithmetic weight.
+
+The judge may score with only part of the lens set when the available evidence establishes the regime and ruler pattern. State which lenses are strong, weak or unavailable and why. Never manufacture a per-lens score or average.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler systematically eliminates meaningful political choice and independent constraint through repression, captured institutions, censorship, entrenchment and/or refusal of lawful transfer. |
+| 2–3 | Severe authoritarian rule dominates across several consequential mechanisms; opposition and oversight exist only narrowly or at substantial risk. |
+| 4–5 | Material competition or civic space coexists with recurring manipulation, capture, exclusion or intimidation; the ruler's contribution is mixed or erosive. |
+| 6–7 | Meaningful political freedom and constraints operate, but important ruler-attributable flaws, unequal access, pressure or institutional weaknesses remain. |
+| 8–9 | The ruler consistently respects broad contestability, rights, independent institutions and transfer rules, with isolated or credibly remedied shortcomings. |
+| 10 | Exceptional, durable protection and strengthening of pluralism and neutral constraints, including when those constraints threaten the ruler's own power. |
+
+## Common Chapter-Judge Output Envelope
+
+The chapter result should use the shared semantic envelope below. Exact field spelling can be normalized cheaply after LLM handoff; no useful judgment should be rejected only for synonymous wording.
+
+- `chapter_id`: `4B`
+- `rubric_version`: `chapter_4b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extra: `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Natural-language values are acceptable; preserve meaning rather than enforcing brittle enums.
+
+## Calibration, Confidence, and Bias Checks
+
+Check visibility and silence-under-repression bias, population and incident-volume bias, regime-type comparability, election-cycle timing, wartime/emergency claims, formal-versus-de-facto authority, English-language/search-access bias, and recency. Compare rulers with similar inherited systems as well as the full batch. High reporting volume in open societies is not itself worse performance.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Kim Jong Un | North Korea | 2012–2023 | closed personalist low anchor and silence bias |
+| Alexander Lukashenka | Belarus | 2020 | manipulated election and coercive entrenchment |
+| Vladimir Putin | Russia | 2012–2023 | long-run institutional erosion and transfer avoidance |
+| Narendra Modi | India | 2014–2023 | competitive elections with contested civic/institutional record |
+| Donald Trump | United States | 2020–2021 | transfer stress test within resilient institutions |
+| Nelson Mandela | South Africa | 1994–1999 | democratic transition, inclusion and voluntary departure |
+| Angela Merkel | Germany | 2005–2021 | high institutional-restraint comparison |
+| Jacinda Ardern | New Zealand | 2017–2023 | high freedom with crisis/emergency scrutiny |
+| Lee Kuan Yew | Singapore | 1965–1990 | prosperity-versus-contestability edge case |
+| Violeta Chamorro | Nicaragua | 1990–1997 | less-visible historical transition, institutional constraint and gender comparison |
+
+## Acceptance Checklist
+
+- Scores above `7` require affirmative ruler-attributed self-binding, protection, or
+  expansion of freedom; inherited democratic institutions alone cannot establish a
+  high anchor.
+
+- All ten exact lenses remain visible, but only one chapter score is produced.
+- Research is local-first, cited, source-profiled, period-fit and preserves contrary evidence.
+- The judge scores the full batch with one rubric and records adjacent comparisons.
+- Baseline, de facto authority, ruler attribution and trajectory are explicit.
+- Missing lenses reduce confidence and never invalidate the dossier.
+- Flexible LLM wording/statuses are accepted when evidence and uncertainty are recoverable.
+- Systematic mechanisms outweigh article count and isolated events.
+- Bias checks and anchor rejections are substantive.
+- Smoke cases are reviewed together before this draft is activated.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

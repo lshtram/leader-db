@@ -1,0 +1,1648 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. In particular, `research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact. Documented formal authority for a
+national policy, program, appointment, or state action can satisfy ruler attribution
+when the evidence and guide support authority-based responsibility; a personal order
+is not required in every case. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:7B",
+  "run_key": "2023-top20-usa-tha-repair-judges-v1",
+  "chapter_id": "7B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:7B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "7B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E005",
+          "E046",
+          "E047",
+          "E048",
+          "E049",
+          "E050",
+          "E051",
+          "E058"
+        ],
+        "methodology_id": "7B.1",
+        "reason": "Truthfulness, disclosures, family-business claims, and classified-document statements are represented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E046",
+          "E047",
+          "E048",
+          "E049",
+          "E052"
+        ],
+        "methodology_id": "7B.2",
+        "reason": "Adverse and mitigating integrity evidence is available.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E046",
+          "E047",
+          "E048",
+          "E050",
+          "E051"
+        ],
+        "methodology_id": "7B.3",
+        "reason": "Financial and family-business evidence is available, with unresolved attribution boundaries.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E046",
+          "E047",
+          "E050",
+          "E051"
+        ],
+        "methodology_id": "7B.4",
+        "reason": "Disclosure and alleged family-benefit evidence is represented with competing interpretations.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E051",
+          "E052"
+        ],
+        "methodology_id": "7B.5",
+        "reason": "Ethics compliance and inspector-general/personnel concerns are documented; broader appointment evidence remains limited.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E046",
+          "E047",
+          "E048",
+          "E049",
+          "E050",
+          "E051",
+          "E052"
+        ],
+        "methodology_id": "7B.6",
+        "reason": "Candor, scrutiny, disclosures, and institutional oversight evidence is substantial.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E047",
+          "E048",
+          "E049",
+          "E050",
+          "E058"
+        ],
+        "methodology_id": "7B.7",
+        "reason": "Public claims and family-business allegations are covered, but no complete correction sample exists.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E017",
+          "E018",
+          "E052"
+        ],
+        "methodology_id": "7B.8",
+        "reason": "Accountability and institutional-response evidence exists, with some gateway/context limitations.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E051",
+          "E052"
+        ],
+        "methodology_id": "7B.9",
+        "reason": "Ethics and influence concerns are represented, but appointment and procurement evidence remains sparse.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E046",
+          "E047",
+          "E048",
+          "E049",
+          "E050",
+          "E051",
+          "E052",
+          "E058"
+        ],
+        "methodology_id": "7B.10",
+        "reason": "Integrity evidence is diversified but concentrated in limited episodes.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 10213,
+    "evidence": [
+      {
+        "canonical_fact_key": "local-prior:7B.1|LF029-LF032|USA-2023-corruption-context",
+        "claim": "Supplied V-Dem and Transparency International fields report political, executive, and public-sector corruption measures and CPI score.",
+        "contrary_evidence": [],
+        "evidence_id": "E005",
+        "excerpt": "LF029-LF032; exact values retained in supplied local prior.",
+        "final_evidence_use": "context",
+        "period_fit": "exact 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "V-Dem and Transparency International local structured priors",
+        "ruler_attribution": "National institutional context only; not personal integrity evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct supplied structured fields.",
+        "source_locator": "local-prior:7B.1",
+        "source_type": "structured local prior",
+        "title": "U.S. corruption and rule-of-law context",
+        "url": "local-prior:7B.1"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-foreign-policy|military-assistance-human-rights-abusing-states",
+        "claim": "HRW found U.S. support for sanctions and international justice mechanisms but said military assistance to abusive states undermined the administration's human-rights commitment.",
+        "contrary_evidence": [
+          "The assessment is an NGO synthesis and does not itemize every arms decision."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "The report describes both targeted sanctions and military assistance to abusive states.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "retrospective assessment of 2023",
+        "publication_date": "2024",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Biden-administration foreign policy; item-level attribution varies.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Rights NGO country report.",
+        "source_locator": "Opening summary, second paragraph",
+        "source_type": "rights NGO report",
+        "title": "World Report 2024: United States",
+        "url": "https://www.hrw.org/world-report/2024/country-chapters/united-states"
+      },
+      {
+        "canonical_fact_key": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions",
+        "claim": "Brookings characterized Biden as calm and de-escalatory toward major powers and credited historic Ukraine assistance while criticizing repeated hesitation over weapons transfers.",
+        "contrary_evidence": [
+          "The article notes Congress's material role and cautions against assigning the entire record to Biden."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "The assessment combines de-escalatory conduct, Ukraine support, and hesitation over major transfers.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "retrospective assessment immediately after 2023",
+        "publication_date": "2024-01-30",
+        "publisher": "Brookings Institution",
+        "ruler_attribution": "Direct presidential foreign-policy assessment, interpretive rather than adjudicative.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Named policy commentary.",
+        "source_locator": "Opening assessment and Ukraine section",
+        "source_type": "policy commentary",
+        "title": "Biden\u2019s unspectacular but solid national security record",
+        "url": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/"
+      },
+      {
+        "canonical_fact_key": "https://www.oge.gov|pages-1-10|Biden-OGE-278e",
+        "claim": "Biden's 2023 OGE Form 278e identifies assets, royalties, benefits, accounts, liabilities, and certification dated 15 May 2023.",
+        "contrary_evidence": [
+          "A filing and certification do not independently prove accuracy or absence of conflicts."
+        ],
+        "evidence_id": "E046",
+        "excerpt": "Primary disclosure record lists financial interests and certification.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 15 May 2023 filing",
+        "publication_date": "2023-05-15",
+        "publisher": "U.S. Office of Government Ethics",
+        "ruler_attribution": "Direct personal disclosure.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary official disclosure.",
+        "source_locator": "Pages 1-10",
+        "source_type": "official financial disclosure",
+        "title": "Biden 2023 Annual 278",
+        "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS%2BIndex/E0E994CFA156D7CF852589B000789259/%24FILE/Biden%2C%20Joseph%20R.%202023%20Annual%20278.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.politifact.com/factchecks/2023/sep/18/kevin-mccarthy/largest-share-of-foreign-payments-went-to-biden-as/|lines-150-164|family-business-no-official-action",
+        "claim": "PolitiFact found most foreign payments went to Biden associates and that reviewed records did not show official action by Joe Biden caused by family dealings.",
+        "contrary_evidence": [
+          "The source does not prove no undiscovered misconduct occurred."
+        ],
+        "evidence_id": "E047",
+        "excerpt": "Fact-check records competing allegations and absence of established official action.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact September 2023 reporting",
+        "publication_date": "2023-09-18",
+        "publisher": "PolitiFact",
+        "ruler_attribution": "Directly concerns family-business allegations against Biden.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Professional fact-check based on financial records.",
+        "source_locator": "Lines 150-164",
+        "source_type": "fact-checking analysis",
+        "title": "Largest share of foreign payments went to Biden associates",
+        "url": "https://www.politifact.com/factchecks/2023/sep/18/kevin-mccarthy/largest-share-of-foreign-payments-went-to-biden-as/"
+      },
+      {
+        "canonical_fact_key": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge",
+        "claim": "Special Counsel Hur found evidence Biden willfully retained and disclosed classified information but concluded charges were not warranted; Biden cooperated and the report distinguished the case from obstruction allegations against Trump.",
+        "contrary_evidence": [
+          "No criminal charge was brought.",
+          "The report involved post-period publication and retrospective evidence."
+        ],
+        "evidence_id": "E048",
+        "excerpt": "AP summarizes the findings, prosecutorial decision, cooperation, and case distinctions.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Retrospective evidence concerning conduct and investigation active during 2023",
+        "publication_date": "2024-02-08",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Direct personal conduct.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Reputable media summary of official report.",
+        "source_locator": "Opening paragraphs and sections on prosecutorial decision and case distinctions",
+        "source_type": "reputable media report",
+        "title": "Biden pushes back at special counsel claims that questioned his memory",
+        "url": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec"
+      },
+      {
+        "canonical_fact_key": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings",
+        "claim": "FactCheck.org found Biden falsely or misleadingly described several Hur findings, including willful retention, highly classified records, ghostwriter discussions, and storage conditions.",
+        "contrary_evidence": [
+          "Biden correctly emphasized that charges were not warranted and that cooperation distinguished his case."
+        ],
+        "evidence_id": "E049",
+        "excerpt": "FactCheck lists the disputed public claims and compares them with the report.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Post-period February 2024 statement about target-period conduct",
+        "publication_date": "2024-02-09",
+        "publisher": "FactCheck.org",
+        "ruler_attribution": "Direct personal public statements.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Professional fact-check grounded in official report.",
+        "source_locator": "Opening bullet list and sections on willful retention, highly classified documents, ghostwriter discussions, and storage",
+        "source_type": "fact-checking analysis",
+        "title": "Biden\u2019s Claims About Special Counsel Report on Classified Documents Investigation",
+        "url": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/"
+      },
+      {
+        "canonical_fact_key": "https://www.nbcnews.com/politics/congress/house-republicans-hold-first-hearing-biden-impeachment-inquiry-rcna117657|opening-through-witness-evidence|impeachment-hearing-no-president-crime-evidence",
+        "claim": "At a September 2023 impeachment-inquiry hearing, selected witnesses said the existing record did not establish a crime by Joe Biden, while acknowledging that further inquiry was sought.",
+        "contrary_evidence": [
+          "The hearing was politically contested and absence of evidence at that point is not proof of no misconduct."
+        ],
+        "evidence_id": "E050",
+        "excerpt": "NBC reports witness testimony and competing committee interpretations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact September 2023",
+        "publication_date": "2023-09-28",
+        "publisher": "NBC News",
+        "ruler_attribution": "Directly concerns allegations against Biden.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Reputable media reporting congressional hearing.",
+        "source_locator": "Opening 15 paragraphs and witness-evidence discussion",
+        "source_type": "reputable media report",
+        "title": "House GOP\u2019s impeachment witnesses say no evidence of crime by President Biden",
+        "url": "https://www.nbcnews.com/politics/congress/house-republicans-hold-first-hearing-biden-impeachment-inquiry-rcna117657"
+      },
+      {
+        "canonical_fact_key": "https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/|opening-and-divestiture-section|cabinet-ethics-compliance",
+        "claim": "CREW found a strong pattern of senior Biden officials complying with divestiture obligations, while recommending stronger restrictions on individual stocks and family-business interests.",
+        "contrary_evidence": [
+          "The review concerns officials and filings, not Biden's own personal finances.",
+          "CREW still identified policy weaknesses."
+        ],
+        "evidence_id": "E051",
+        "excerpt": "CREW reports cabinet divestiture compliance and remaining ethics recommendations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 review of administration filings",
+        "publication_date": "2023-04-17",
+        "publisher": "Citizens for Responsibility and Ethics in Washington",
+        "ruler_attribution": "Administration ethics framework; not proof of every appointment's competence.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Nonpartisan ethics NGO analysis of OGE filings.",
+        "source_locator": "Opening and cabinet divestiture sections",
+        "source_type": "ethics NGO analysis",
+        "title": "Biden administration financial disclosures show strong pattern of compliance",
+        "url": "https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/"
+      },
+      {
+        "canonical_fact_key": "https://www.pogo.org/policy-letters/president-biden-remove-inspectors-general-cuffari-and-ennis-immediately|opening-conclusion-and-mission-failures|Biden-IG-inaction",
+        "claim": "POGO urged Biden to act against DHS and SSA inspectors general over alleged suppression, deleted texts, whistleblower retaliation, weak death reviews, and dysfunction, attributing ongoing harm partly to inaction.",
+        "contrary_evidence": [
+          "This is an advocacy demand, not an adjudicated finding against Biden.",
+          "Inspector-general independence and due process complicate attribution."
+        ],
+        "evidence_id": "E052",
+        "excerpt": "POGO's letter describes documented concerns and calls for presidential action.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact September 2023",
+        "publication_date": "2023-09-21",
+        "publisher": "Project On Government Oversight",
+        "ruler_attribution": "Biden had relevant appointment/removal authority; direct wrongdoing not established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Watchdog NGO citing investigative records, but advocacy framing.",
+        "source_locator": "Opening, mission-failures sections, and conclusion",
+        "source_type": "watchdog policy letter",
+        "title": "President Biden: Remove Inspectors General Cuffari and Ennis Immediately",
+        "url": "https://www.pogo.org/policy-letters/president-biden-remove-inspectors-general-cuffari-and-ennis-immediately"
+      },
+      {
+        "canonical_fact_key": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed",
+        "claim": "PolitiFact found a factual core in Biden's job-creation claims but said he overstated historical comparability and made insufficiently supported or conflated infrastructure, wildfire, and noncompete claims.",
+        "contrary_evidence": [
+          "Several claims were substantially accurate or had a factual core."
+        ],
+        "evidence_id": "E058",
+        "excerpt": "Fact-check sections address jobs, noncompetes, infrastructure, and wildfire claims.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact February 2023 statements",
+        "publication_date": "2023-02-08",
+        "publisher": "PolitiFact",
+        "ruler_attribution": "Direct personal public statements.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Professional fact-checking organization.",
+        "source_locator": "Sections on 12 million jobs, noncompetes, infrastructure, and wildfire claims",
+        "source_type": "fact-checking analysis",
+        "title": "Fact-checking Joe Biden\u2019s 2023 State of the Union address",
+        "url": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "7B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E005",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Local corruption context."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "7B.1",
+        "relation": "contradicts",
+        "relevance": "Misleading response claims."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "7B.3",
+        "relation": "supports",
+        "relevance": "Primary financial disclosure."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.4",
+        "relation": "mitigates",
+        "relevance": "No established official action in reviewed records."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.5",
+        "relation": "supports",
+        "relevance": "Cabinet divestiture compliance."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "7B.6",
+        "relation": "contradicts",
+        "relevance": "Classified-document conduct."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "7B.6",
+        "relation": "contradicts",
+        "relevance": "Inspector-general inaction concern."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E046",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E047",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "7B.1",
+      "7B.2",
+      "7B.3",
+      "7B.4",
+      "7B.5",
+      "7B.6",
+      "7B.7",
+      "7B.8",
+      "7B.9",
+      "7B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "150115894e7c460cf01192d2e2e20c82f0f47c5ce332baa3a590ac23dbf880bb",
+      "source_mix_note": "Evidence mix includes official government and intergovernmental records, inspector-general and GAO audits, official statistics, specialist NGOs, reputable media, policy institutes, fact-checkers, and local structured priors. Local priors are context only. Some source families remain concentrated in nuclear arms-control and selected integrity episodes; several official primary documents were inaccessible in the research run.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "eef0457b8e2faf43682bf5ccc38b83a4e982e7b9808a572bd30f3cd3f1d837ba",
+    "unresolved_gaps": [
+      "Detailed classified nuclear command-and-control safeguards, completed fail-safe review findings, and independent start/end 2023 posture measurement.",
+      "Iran, North Korea, Saudi, and allied proliferation-restraint evidence beyond the South Korean record.",
+      "Primary 2023 Israel arms-transfer records, incident-level civilian-harm accountability, and causal evidence linking Biden diplomacy to the November Gaza pause.",
+      "Complete ATACMS, F-16, targeting, prisoner-treatment, and accountability records for Ukraine.",
+      "Direct DHS/DOJ inspector-general records and complete federal protest-surveillance evidence.",
+      "Independent IRA, infrastructure, climate, CHIPS, and portfolio-wide implementation audits; competition policy and procurement evidence.",
+      "Maternal, rural-health, reproductive-care, childcare, school-recovery, and longer-term welfare delivery evidence.",
+      "Underlying disclosure review, campaign-finance patterns, donor/appointment influence, and broader factual-correction sample.",
+      "No local structured priors were supplied for 1B or 6B; this is a documented local-field gap, not evidence of no activity."
+    ]
+  },
+  {
+    "chapter_id": "7B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Thailand",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.1",
+        "reason": "Integrity evidence is mainly institutional and contextual; no direct personal finding was recovered.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.2",
+        "reason": "No direct target-period personal integrity event was recovered.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.3",
+        "reason": "No direct target-period personal integrity event was recovered.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.4",
+        "reason": "NACC accountability requirements and corruption context retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E025",
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.5",
+        "reason": "Asset-submission requirement and reshuffle context retained.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.6",
+        "reason": "No direct target-period personal obstruction finding was recovered.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.7",
+        "reason": "Institutional integrity evidence retained but not converted into personal misconduct.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.8",
+        "reason": "No direct target-period personal integrity event was recovered.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.9",
+        "reason": "Pre-period material is retained only as context in the notebook, not final evidence.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028"
+        ],
+        "methodology_id": "7B.10",
+        "reason": "Accountability infrastructure and country-pattern evidence retained.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 6295,
+    "evidence": [
+      {
+        "canonical_fact_key": "nacc:2023-09-prayut-cabinet-asset-submission",
+        "claim": "NACC stated that Prayut and his ministers were required to submit asset-and-liability accounts after leaving office, with submissions due between 6 September and 4 November 2023.",
+        "contrary_evidence": [
+          "No admissible Prayut-specific compliance finding or violation was recovered."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "NACC records the post-office asset-submission requirement and deadline.",
+        "final_evidence_use": "context",
+        "period_fit": "Post-handover accountability-system context",
+        "publication_date": "2023-09-22",
+        "publisher": "National Anti-Corruption Commission of Thailand",
+        "ruler_attribution": "Accountability requirement, not evidence of personal compliance or misconduct.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official NACC notice.",
+        "source_locator": "Notice body describing former PM and cabinet submission deadlines.",
+        "source_type": "official government notice",
+        "title": "Asset-and-liability submission requirement after leaving office",
+        "url": "https://www.nacc.go.th/categorydetail/2019122712514151207005112EK12853/20230922184733"
+      },
+      {
+        "canonical_fact_key": "bangkokpost:2639189:reshuffle-countersigned-prayut",
+        "claim": "The 2023 annual military reshuffle was countersigned by caretaker Prime Minister Prayut Chan-o-cha and took effect on 1 October 2023.",
+        "contrary_evidence": [
+          "The notebook does not establish that the signature evidences improper motive, personal benefit, or effectiveness."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "Bangkok Post reports the Royal Gazette personnel command and Prayut's countersignature.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Directly 2023; signature in late August and implementation in October",
+        "publication_date": "2023-08-31",
+        "publisher": "Bangkok Post",
+        "ruler_attribution": "Direct executive signature by Prayut.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Named-reporting direct article citing Royal Gazette action.",
+        "source_locator": "Article body paragraph stating the command was countersigned by Prayut.",
+        "source_type": "news report",
+        "title": "Royal command appoints 762 military officers",
+        "url": "https://www.bangkokpost.com/thailand/general/2639189/royal-command-appoints-762-military-officers"
+      },
+      {
+        "canonical_fact_key": "tat:2023-01:visit-thailand-year-campaign",
+        "claim": "Thailand's Tourism Authority launched the Visit Thailand Year 2023 campaign in January, targeting restored tourist confidence and sustainable tourism.",
+        "contrary_evidence": [],
+        "evidence_id": "E026",
+        "excerpt": "TAT describes the campaign objectives and launch.",
+        "final_evidence_use": "context",
+        "period_fit": "January 2023",
+        "publication_date": "2023-01-01",
+        "publisher": "Tourism Authority of Thailand",
+        "ruler_attribution": "Government-agency delivery; personal Prayut ownership not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official tourism-agency release.",
+        "source_locator": "Release body describing campaign launch and objectives.",
+        "source_type": "official government release",
+        "title": "TAT strengthens Visit Thailand Year 2023",
+        "url": "https://www.tatnews.org/2023/01/tat-strengthens-visit-thailand-year-2023-towards-a-meaningful-travel-direction/"
+      },
+      {
+        "canonical_fact_key": "thailand-go:2023-05-tourism-arrivals-revenue",
+        "claim": "By 15 May 2023, Thailand reported 9.47 million foreign arrivals and THB 391.78 billion in tourism revenue.",
+        "contrary_evidence": [],
+        "evidence_id": "E027",
+        "excerpt": "Thai government reports tourism arrivals and revenue through 15 May.",
+        "final_evidence_use": "context",
+        "period_fit": "January\u2013May 2023",
+        "publication_date": "2023-05-15",
+        "publisher": "Thai Government",
+        "ruler_attribution": "Country outcome with indirect government attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official government event report.",
+        "source_locator": "Report body stating arrivals and revenue totals.",
+        "source_type": "official government release",
+        "title": "Thailand tourism recovery 2023",
+        "url": "https://thailand.go.th/public/event-detail/001_02_398"
+      },
+      {
+        "canonical_fact_key": "nacc:2023-04:procurement-conflict-interest-guidance",
+        "claim": "NACC issued April 2023 guidance on anti-corruption and conflict-of-interest prevention in government procurement.",
+        "contrary_evidence": [],
+        "evidence_id": "E028",
+        "excerpt": "NACC guidance describes institutional procurement-integrity measures.",
+        "final_evidence_use": "context",
+        "period_fit": "April 2023",
+        "publication_date": "2023-04-12",
+        "publisher": "National Anti-Corruption Commission of Thailand",
+        "ruler_attribution": "Institutional integrity infrastructure; no personal Prayut finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official NACC guidance.",
+        "source_locator": "Guidance notice body.",
+        "source_type": "official government notice",
+        "title": "Procurement conflict-of-interest prevention guidance",
+        "url": "https://www.nacc.go.th/categorydetail/2019122712514151207005112EK12853/20230412103850"
+      }
+    ],
+    "iso3": "THA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "7B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=6; mapping_note=D15 corruption, accountability, and rule-of-law facts provide institutional context and must not be converted into personal-integrity claims without evidence.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Post-office accountability requirement."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "7B.5",
+        "relation": "supports",
+        "relevance": "Direct Prayut countersignature of military reshuffle."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "7B.10",
+        "relation": "context",
+        "relevance": "Procurement-integrity infrastructure."
+      }
+    ],
+    "methodology_ids": [
+      "7B.1",
+      "7B.2",
+      "7B.3",
+      "7B.4",
+      "7B.5",
+      "7B.6",
+      "7B.7",
+      "7B.8",
+      "7B.9",
+      "7B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "3006",
+    "ruler_name": "Prayut Chanocha",
+    "ruler_year_id": 17130,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ad79783e02523b8129c973b314f3f1f3f9b66c95030a3da2ea667799b0b31ce1",
+      "source_mix_note": "Evidence mixes official Thai and U.S. government releases, multilateral reports, UN materials, international and domestic NGOs, major news reporting, and supplied structured local priors. Country-level and institutional sources are explicitly limited where personal ruler attribution is not documented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "4b2af7075640b13af352d4f19ffdb61e4cebcbf916ba72960e479585fe831b07",
+    "unresolved_gaps": [
+      "No direct 2023 personal-integrity finding involving Prayut was recovered.",
+      "No clearly Prayut-authored 2023 economic or social-policy decision was recovered.",
+      "No evidence establishes that Prayut personally directed the Senate, Election Commission, or Constitutional Court actions involving Pita.",
+      "Cumulative protest statistics require strict temporal separation of the post-22-August period.",
+      "Direct source locators for some legacy Wikipedia-routed claims remain incomplete; those claims are not emitted as final evidence.",
+      "The notebook identifies further possible research themes, but this formatter performed no new research.",
+      "Local-prior placeholder provenance must be replaced by the parent with complete hashed artifact provenance before validation."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 7B. Ruler Personal Integrity and Honesty
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment; v1 invalid
+
+## Chapter Identity
+
+- Chapter: `7B`
+- Category: `ruler_personal_integrity_and_honesty`
+- Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
+- Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
+- Rubric version: `chapter_7b_v3`
+
+## Chapter Purpose
+
+Assess whether the ruler uses public office honestly and for public rather than
+personal, family, business, factional, or patronage advantage. The chapter joins
+truthfulness, correction, conflicts of interest, self-enrichment, appointments,
+independent scrutiny, concealment, commitments, favoritism, and ethical example
+into one final 1-10 integrity score.
+
+The ten questions are evidence lenses, not ten equally weighted sub-scores.
+Evidence may illuminate several lenses, and missing evidence for one lens lowers
+confidence rather than invalidating the dossier or preventing a chapter score.
+
+## Ten Evidence Lenses
+
+The question text below is authoritative and must not be paraphrased in the
+research manifest.
+
+| ID | Evidence lens |
+|---|---|
+| **7B.1** | Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners, especially on matters where deception would protect power or reputation? |
+| **7B.2** | Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they knowingly mislead, double down, blame others, and punish truth-tellers? |
+| **7B.3** | Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, law enforcement, and foreign policy? |
+| **7B.4** | Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, opaque foundations, or hidden conflicts of interest? |
+| **7B.5** | Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men to protect personal power or self-dealing? |
+| **7B.6** | Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, associates, and concealed official decisions? |
+| **7B.7** | Does the ruler use state power to conceal illegal, destructive, or self-serving activity, protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, media, and whistleblowers? |
+| **7B.8** | Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions, manipulate public information, and conceal tradeoffs for personal advantage? |
+| **7B.9** | Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, enforcement, and access to public information? |
+| **7B.10** | Does the ruler model ethical standards that improve public trust, or normalize deliberate lying, impunity, self-dealing, conflicts of interest, and cynicism? |
+
+## Scope and Non-Goals
+
+- Judge conduct attributable to the ruler, including conduct knowingly directed,
+  enabled, protected, or tolerated by the ruler's close governing network.
+- Do not infer personal dishonesty from a country's inherited corruption level.
+- Do not equate policy disagreement, honest error, changed policy after new
+  evidence, rhetoric, secrecy justified by genuine security/privacy/diplomatic
+  needs, or an unproved allegation with deception or corruption.
+- Do not reward polished communications, formal ethics rules, prosecutions of
+  rivals, or selective transparency without evidence of genuine practice.
+- Do not score general competence, prosperity, freedom, or popularity except
+  where the facts directly demonstrate integrity or abuse of office.
+- Never use the client matrix as evidence.
+
+Country corruption indicators, authoritarian institutions, censorship, detention,
+human-rights abuse, and political-freedom conditions are context only unless the
+evidence establishes a direct nexus to ruler-specific deception, personal or network
+benefit, favoritism, concealment, obstruction of scrutiny, retaliation against an
+integrity investigation, or deliberate abuse of office. Lenses 7B.7 and 7B.10 do not
+convert every repressive act into personal dishonesty. Score those acts primarily in
+3B/4B unless that integrity nexus is evidenced.
+
+## Researcher Workflow and Evidence Themes
+
+Follow the local-first researcher guide and source-confidence registry. Query the
+exact ruler/country/year or bounded period locally before web discovery. Treat
+WGI, V-Dem, and CPI as country-level context and triangulation, not proof of the
+ruler's personal conduct.
+
+Research by themes that cut across lenses, not by ten isolated searches:
+
+1. Material public statements, corrections, sworn evidence, and documented
+   concealment, including examples of costly candor and adverse findings.
+2. Assets, beneficial ownership, gifts, business/family interests, procurement,
+   licensing, regulation, pardons, campaign finance, and foreign-policy benefits.
+3. Appointments and access patterns: competence, kinship, donor/client ties,
+   loyalty demands, and whether appointees facilitate self-dealing or impunity.
+4. Courts, prosecutors, auditors, legislatures, ethics bodies, inquiries,
+   journalists, and whistleblowers: independence, obstruction, retaliation,
+   remedies, and ruler response.
+5. Promise and commitment records, ethical rules, institutional reforms, and
+   whether practice strengthened or normalized trust and accountability.
+
+Prefer primary legal and financial records, judgments, audit/inquiry findings,
+legislative records, asset declarations, procurement records, official
+transcripts, sanctions findings with stated evidence, reputable investigative
+reporting, and serious academic histories. Official sources are strong for the
+fact that a statement, appointment, filing, or rule exists, but conditional for
+self-serving claims of honesty. Allegations must remain allegations; seek an
+independent finding, underlying record, response, and contrary evidence.
+
+Each accepted item should retain its citation, date, claim, period fit, source
+type/confidence, ruler-attribution assessment, and uncertainty. Reuse a stable
+evidence item across every relevant lens. Coverage descriptions may use natural
+language; no exact status vocabulary is required.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual
+claim; source URL, title, publisher, and publication/access date where available;
+source type and confidence with a short reason; a quotation or precise locator
+when available; target-year/ruler-period fit; ruler attribution and
+inherited-baseline relevance; its positive, negative, mixed, contextual, or
+contrary role; and the supported lens IDs. Fields may be normalized later and
+natural-language equivalents are acceptable. The substantive minimum is a
+traceable source, intelligible claim, temporal fit, attribution, and evidence
+role. One item may support multiple lenses without duplication.
+
+## Attribution, Sparse Evidence, and Historical Cases
+
+Separate personal direction or tolerance from inherited institutions and acts of
+family, ministers, parties, businesses, or security services. Consider formal and
+informal authority, time in office, credible knowledge, ability to intervene,
+action after notice, coalition constraints, and whether the ruler benefited.
+Close-associate misconduct is not automatically the ruler's, but repeated benefit,
+protection, appointment, obstruction, or failure to act after credible notice can
+support attribution.
+
+For older, obscure, closed, short-tenure, or poorly archived cases, use the best
+available contemporary records and reputable later scholarship. Do not interpret
+silence as integrity where reporting and accountability were suppressed. A dossier
+with only a few strong themes can still be judged; narrow coverage, one-sided
+archives, weak attribution, or missing adverse-case searches should reduce
+confidence and may widen the defensible score range. Do not manufacture lens
+coverage or impose a modern disclosure regime anachronistically.
+
+Silence, favorable institutions, or the absence of reported allegations cannot prove
+integrity. Scores above 5 require affirmative ruler-specific evidence of candor,
+separation of interests, correction, professional appointments, or acceptance of
+genuine scrutiny. Scores below 4 require ruler-specific recurring deception,
+self-dealing, favoritism, patronage, concealment, or obstruction. If neither side is
+supported by traceable ruler-specific conduct, return null rather than rewarding or
+punishing the information environment.
+
+## Holistic 1-10 Chapter Rubric
+
+Synthesize the ruler's pattern, materiality, intent, personal benefit, use of state
+power, duration, corrective behavior, and institutional effect. Severe direct
+self-dealing or obstruction may properly dominate several weaker positive lenses;
+conversely, an isolated error should not outweigh a broad record of candor and
+accountability. Do not average lens labels or count citations.
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Deliberate deception, personal or family extraction, cronyism, and state-backed concealment/impunity are central instruments of rule and materially corrupt public office. |
+| 2-3 | Severe or recurring dishonesty, conflicts, self-dealing, favoritism, or obstruction span important domains; independent accountability is attacked or largely ineffective. |
+| 4-5 | A material mixed record: meaningful integrity safeguards or honest conduct coexist with recurring deception, patronage, conflicts, broken commitments, or weak accountability. |
+| 6-7 | Generally honest and public-serving conduct with real scrutiny and correction, but notable lapses, opacity, favoritism, conflicts, or accountability weaknesses remain. |
+| 8-9 | Strong, sustained truthfulness, separation of interests, professional public service, openness to scrutiny, correction, and ethical example; credible lapses are rare and remedied. |
+| 10 | Exceptional and durable integrity under adverse incentives: costly candor, exemplary separation of interests, robust independent accountability, and institutions strengthened against self-dealing and impunity. |
+
+## Confidence
+
+Report confidence separately on a 0-100 scale. Base it on source authority and
+independence, ruler attribution, temporal fit, information environment, diversity
+of themes and source types, contrary-evidence search, and agreement. Evidence
+volume alone is not confidence. Missing lenses normally lower confidence; they do
+not mechanically lower the chapter score. State the most plausible score range
+when uncertainty is material.
+
+## One-Judge Comparative Workflow
+
+One judge owns 7B for the target year/period across all eligible rulers:
+
+1. Read every dossier's 7B evidence and explicit gaps without demanding uniform
+   coverage terminology or perfect mapping tables.
+2. Separate identity-quarantined cases; retain sparse cases with reduced
+   confidence rather than discarding them.
+3. Establish provisional low, middle, and high batch anchors using diverse
+   regimes, periods, visibility levels, and evidence environments.
+4. Make tentative holistic scores, then compare neighboring cases for consistent
+   thresholds of intent, materiality, personal benefit, obstruction, correction,
+   and attribution.
+5. Revisit outliers and cases whose score rests mainly on country indicators,
+   official self-report, accusation volume, or media visibility.
+6. Emit one final chapter score, confidence/range, rationale, strongest positive
+   and negative evidence, missing themes, contrary evidence, and review flag.
+
+## Common Chapter-Judge Output Envelope
+
+The judge returns one object per ruler using these exact semantic field names so
+all eight chapter outputs can be normalized by the same inexpensive formatter:
+
+- `chapter_id`: `7B`
+- `rubric_version`: `chapter_7b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing
+  stable evidence IDs
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Harmless serialization differences can be repaired after judgment, but the
+semantic envelope must be complete. A null score is reserved for evidence too
+thin or untraceable to support any responsible range, unresolved identity, or
+attribution too uncertain to judge—not merely missing lenses or flexible coverage
+wording.
+
+## Chapter-Specific Calibration
+
+Use the common bias checks in `cited-evaluation-calibration.md`, interpreted at
+chapter level, plus:
+
+- `rubric_version`: `chapter_7b_v3`
+- `integrity_pattern`: `systemic_abuse`, `recurring_serious_abuse`, `mixed`,
+  `generally_high_integrity`, `exceptional_integrity`, or `unclear`
+- `deception_pattern`: `strategic_systematic`, `recurring_material`, `mixed`,
+  `limited`, `not_shown`, or `unclear`
+- `personal_benefit_evidence`: `direct`, `strong_inference`, `limited`,
+  `not_shown`, or `unclear`
+- `accountability_response`: `obstructed_or_retalitated`, `impunity`, `partial`,
+  `accepted_and_corrected`, `strengthened`, or `unclear`
+- `conflict_and_patronage_pattern`: `systemic`, `recurring`, `mixed`, `limited`,
+  `not_shown`, or `unclear`
+- `ruler_attribution`: concise assessment of direction, knowledge, benefit,
+  protection/tolerance, authority, and action after notice
+- `lens_strengths` and `lens_gaps`: concise ID lists with natural-language notes
+- `defensible_score_range`: lower and upper score under current evidence
+
+Explicitly check visibility/fact-checking bias, silence under repression,
+allegation-versus-finding, family/associate attribution, repetition of one scandal,
+anachronistic disclosure expectations, and whether national corruption conditions
+were wrongly personalized.
+
+## Smoke-Test Set
+
+These are calibration roles, not predetermined scores.
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---|---|
+| Richard Nixon | United States | 1972-1974 | documented deception, concealment, institutions, and remedy |
+| Donald Trump | United States | 2017-2020 | high visibility, business conflicts, appointments, and fact-check volume |
+| Nelson Mandela | South Africa | 1994-1999 | high-integrity candidate requiring genuine adverse search |
+| Lee Kuan Yew | Singapore | 1965-1990 | low-corruption governance with constrained scrutiny |
+| Ferdinand Marcos | Philippines | 1972-1986 | family enrichment, patronage, authoritarian archive |
+| Angela Merkel | Germany | 2005-2021 | long-tenure, high-anchor candidate and policy-change boundary |
+| Vladimir Putin | Russia | 2000-2022 | closed environment, associates, concealment, and attribution |
+| José Mujica | Uruguay | 2010-2015 | modest-lifestyle reputation versus institutional evidence |
+| Mobutu Sese Seko | Zaire | 1965-1997 | personal rule and extraction in a sparse historical record |
+| Jacinda Ardern | New Zealand | 2020-2022 | crisis candor, correction, and high-visibility scrutiny |
+| Ellen Johnson Sirleaf | Liberia | 2006-2018 | post-conflict institutions, family allegations, and lower-visibility evidence |
+| Indira Gandhi | India | 1966-1977 | historical woman ruler, emergency accountability, and non-Western archives |
+| Maria Liberia-Peters | Netherlands Antilles | 1984-1986 | lower-visibility woman ruler and sparse-evidence confidence discipline |
+
+## Acceptance Checklist
+
+- Every numeric score requires direct ruler-specific integrity evidence: a personal
+  act, disclosure, conflict response, truthfulness episode, accountability choice, or
+  comparably attributable pattern. Generic repression, institutional strength, and
+  absence of reported scandal are context only. Without the personal nexus, return
+  null rather than `5`; evidence explicitly described as absent cannot support above
+  `5`.
+
+- All ten authoritative lenses are present verbatim and treated as overlapping,
+  non-equal evidence lenses.
+- Local-first order, source-confidence fields, citations, and run profile are
+  retained.
+- Evidence items satisfy the common traceability, temporal-fit, attribution,
+  evidence-role, and lens-link semantics.
+- Ruler conduct is separated from inherited national corruption and associate
+  conduct is attributed explicitly.
+- Allegations, findings, honest error, secrecy, deception, correction, benefit,
+  and obstruction are distinguished.
+- Missing lenses reduce confidence rather than invalidate or mechanically depress
+  the score.
+- One judge compares all rulers with one holistic rubric and records adjacent-case
+  calibration.
+- Final output uses the common chapter-judge envelope, including adjacent-anchor
+  comparisons and an explicit manual-review flag.
+- Smoke testing and revision occur before production activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

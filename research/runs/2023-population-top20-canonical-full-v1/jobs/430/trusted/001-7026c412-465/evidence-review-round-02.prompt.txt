@@ -1,0 +1,1108 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-canonical-full-v1:2023:PAK:16683",
+  "iso3": "PAK",
+  "country_name": "Pakistan",
+  "ruler_name": "Shehbaz Sharif",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 56,
+  "approximate_source_family_count": 20,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 20 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Now let me compose the comprehensive research handoff. Per instructions, I cannot write files (sandbox is read-only), so the entire handoff goes in the response.
+
+---
+
+# Research Handoff — Shehbaz Sharif, Pakistan, Ruler-Year 2023
+
+## Ruler-period baseline
+
+- **Ruler:** Shehbaz Sharif (PML-N); **PM of Pakistan: 11 April 2022 → 14 August 2023** (Wikipedia, Britannica). Period under judgment therefore covers roughly 1 January 2023 to 14 August 2023 of his tenure.
+- **Successor:** Anwaar-ul-Haq Kakar as **caretaker PM** from 14 August 2023 (Dawn via Christian Science Monitor, 14 Aug 2023; HRW World Report 2024).
+- **Parliament dissolved:** 9 August 2023; elections constitutionally due within 90 days but **delayed to February 2024** pending new census/delimitation (Reuters/Dawn; Brookings, 8 Dec 2023).
+- **Source-confidence profile used:** per inlined `source-confidence-registry-v1`. All retained external sources are profiled against the registry below; local priors use the supplied `local-prior:<methodology_id>` locators verbatim and are classified `final_evidence` only where the fact directly measures ruler-period choice.
+
+---
+
+## Local-prior audit (per `local-prior` artifact)
+
+All 36 retained local facts (`LF001–LF036`) are country-year structured priors from the inlined local-prior package, mostly from SIPRI (2B), V-Dem (3B, 4B, 7B), Freedom House, BTI, RSF, World Bank WDI, PTS, and Transparency CPI. They are reused as **structured final evidence for the fields they directly measure** for 2023, with the following notes:
+
+- Used as **direct final evidence** for the year-2023 country-year measure:
+  - 2B: LF001–LF004 (SIPRI milex constant USD, per capita, share of GDP, share of govt spending).
+  - 3B: LF005–LF011 (V-Dem civil society repression, extrajudicial killings, physical integrity, private civil liberties; PTS Amnesty/HRW/State scores).
+  - 4B: LF012–LF029 (accountability, BTI democracy status, BTI governance, BTI status, FH civil liberties, V-Dem polyarchy/frassoc/freexp/jucon/legcon/libdem/mpi/regime/suffrage, RSF press rank/score, rule of law). Note: RSF press freedom is an external 2023 ranking but for the country, not a ruler attribution.
+  - 5B: LF015 (BTI status index also appears in 5B scope), LF030–LF032 (WDI GDP per capita, GDP total, population).
+  - 7B: LF012 (reused for accountability context), LF033–LF036 (V-Dem corruption, CPI, executive corruption, public corruption).
+  - 8B: LF012, LF014, LF028 (BTI governance, V-Dem accountability/rule of law as inherited-capacity priors).
+- **Not used** as direct evidence (kept as context where relevant):
+  - LF013 BTI democracy status — already captured in LF022 liberal democracy; redundant for 4B purposes.
+- **Disposition:** All 36 retained; no local-prior fact was discarded or rejected.
+- **Missing priors:** 1B and 6B chapters had no local-prior facts (per `chapter.status_counts.no_evidence_found == 10`). Internet/manual research was used to fill those lens gaps (see chapters below); absence of a local row is recorded as a gap, not as evidence of responsible conduct.
+
+---
+
+## Chapter 1B — Nuclear and Existential-Risk Responsibility
+
+**Local-prior status:** zero facts supplied (`no_evidence_found` for all 10 lenses).
+
+**Internet/manual evidence collected (2 source-claim units, both 1 source type — think-tank/analysis):**
+
+- **ID 1B-NUK-001** — *Citation:* Sitara Noor, "Pakistan's Evolving Nuclear Doctrine," Arms Control Today, October 2023. URL: https://www.armscontrol.org/act/2023-10/features/pakistans-evolving-nuclear-doctrine. *Locator:* article body sections "Enduring Features of the Doctrine," "Evolving Trends"; quotations within. *Source profile:* `arms_control_today` — peer-reviewed nongovernmental analysis (not in registry; treat as `unlisted` with `medium_low` confidence per registry's unlisted policy; upgrade context to `medium` for explicit quotes attributed to Kidwai because the article is sourced and dated). *Claim:* Pakistan's nuclear posture under Shehbaz Sharif's government maintained established features (no first use officially rejected, full-spectrum deterrence within minimum credible deterrence, unilateral testing moratorium, centralized command and control, weapons stored de-mated). On 24 May 2023 Lt. Gen. Khalid Ahmed Kidwai (retd.), Strategic Plans Division founder, reiterated full-spectrum deterrence including "range coverage from zero meters to 2,750 kilometers" at ISSI; later clarified the zero-meter reference was "metaphorical." *Target-period fit:* explicit — May 2023 speech commemorating 25th anniversary of 1998 nuclear tests. *Ruler attribution:* mixed — Sharif's government did not issue new public doctrinal statements; NCA continued to meet under his chairmanship (same YouTube/social media searches surfaced NCA convening but for May 2025, not 2023). *Role:* contextual. *Supported lenses:* 1B.1, 1B.2, 1B.3, 1B.4, 1B.6 (no first use retained; moratorium conditional; restraint evident in clarification); weak on 1B.7, 1B.8, 1B.9, 1B.10.
+
+- **ID 1B-NUK-002** — *Citation:* Same Arms Control Today article, locator continued. *Claim:* No documented 2023 ruler-attributed nuclear test, weaponization acceleration, doctrinal escalation statement, or NCA public decision attributable to Shehbaz Sharif within the target period. No crisis-level nuclear-rhetoric incident between Pakistan and India is documented for Sharif's 2023 window (the article does not identify any). *Role:* contrary — silence is not proof of restraint, but absence of escalation evidence during the period is recorded. *Supported lenses:* 1B.10 (no end-period deterioration; posture carried over).
+
+**Source diversity:** 1 source family (Arms Control Today / Arms Control Association). *Source diversity check:* Insufficient — the chapter's normal goal of 3 source families / 2 source types is not met. Two further independent source types would strengthen 1B; the researcher could not access SIPRI Yearbook 2023 detail, UNODA records, or IAEA documents within this session due to search-tool rate limits.
+
+**Coverage assessment:** Limited but defensible. **Exposure classification:** `material_exposure` (Pakistan nuclear state, ruler chairs NCA). **Discriminating opportunity:** narrow — Kidwai's May 2023 speech reaffirmed established doctrine; no ruler-attributed doctrinal shift, command-safety reform, arms-control treaty act, crisis rhetoric escalation, or proliferation act was documented within the 2023 window. The lens set is partly covered as inherited posture continuity rather than ruler-attributed new choices. Recommend the judge treat as `limited_exposure_with_choices` and either return null or score cautiously as 6–7 baseline posture maintenance without positive restraint credit.
+
+---
+
+## Chapter 2B — International Peace, Restraint, and Lawful Security
+
+**Local-prior status:** 4 facts supplied, all `evidence_found` (SIPRI milex four fields). Used directly as final evidence on military spending scale.
+
+**Internet/manual evidence collected (≈7 source-claim units across 4 source families — government, think-tank, news, NGO):**
+
+- **ID 2B-AFG-001** — *Citation:* ISPR statement quoted in Dawn, "Armed forces deplore TTP havens across western border," 15 July 2023. URL: https://www.dawn.com/news/amp/1764803. *Locator:* full article body; "Armed Forces of Pakistan have serious concerns on the safe havens and liberty of action available to TTP in Afghan­istan" and reference to ISPR following Zhob/Sui attacks that killed 12 soldiers. *Source profile:* Pakistani military media wing via Dawn — treat as `official` with `medium_low` default confidence for self-serving framing; this specific statement about TTP sanctuaries is corroborated below. *Claim:* The Pakistan Army under the Sharif government publicly demanded Afghan Taliban act against TTP sanctuaries after 12 soldiers killed in one day (Balochistan). Cross-border militant attacks rose sharply in 2023; PICSS counted 271 attacks in H1 2023 vs H1 2022 — an 80% rise. *Target-period fit:* explicit, mid-2023. *Ruler attribution:* high — defense minister Khawaja Asif (PML-N), the PM's cabinet, the COAS, and ISPR all speak for the executive's counterterrorism posture. *Supported lenses:* 2B.1 (credible peaceful alternative: asked Afghan Taliban to act), 2B.5 (restraining message through diplomatic channels), 2B.8 (security spending responds to documented threats, though SIPRI milex share-of-GDP 2.89% is constrained by economic crisis).
+
+- **ID 2B-AFG-002** — *Citation:* Tricia Bacon, "What the United States Should Do About the Terrorist Threat to Pakistan," Lawfare, 10 December 2023. URL: https://www.lawfaremedia.org/article/what-the-united-states-should-do-about-the-terrorist-threat-to-pakistan. *Locator:* first paragraphs. *Source profile:* `unlisted`; treat as `medium_high` for academic/institutional analysis with sourcing. *Claim:* Pakistan was the country most affected by violence originating from Afghanistan since Taliban takeover; TTP used Afghan base to resurrect insurgency; Sharif government grew "increasingly frustrated" with the Taliban. *Target-period fit:* 2023 posture analysis. *Ruler attribution:* medium — frames 2023 as ongoing deterioration, no specific Sharif act. *Supported lenses:* 2B.2 (no Pakistani cross-border war of choice in 2023), 2B.5 (proxy restraint framing applies), 2B.10 (peaceful relations with Afghanistan deteriorated through the period, partly Taliban-attributable).
+
+- **ID 2B-TTP-003** — *Citation:* "Rising Terrorism in Pakistan May Destabilize Regional Security," The Media Line, 17 February 2023. URL: https://themedialine.org/by-region/rising-terrorism-in-pakistan-may-destabilize-regional-security/. *Locator:* article body; PICSS January 2023 statistics (134 killed, 254 injured across 44 attacks); TTP ended ceasefire November 2022. *Source profile:* media (independent) — `medium_high` per registry for international reputable wire/feature. *Claim:* January 2023 was Pakistan's deadliest month for terrorism in five years; Sharif government launched coordinated intelligence-based operations; Asif (defense minister) blamed "weak policies of Imran's regime" rather than crediting own response. *Target-period fit:* explicit. *Ruler attribution:* medium — Sharif as PM, Asif as his defense minister. *Supported lenses:* 2B.1 (continuing intelligence-based operations as alternative to full-scale war), 2B.6 (truth and accountability — defense minister publicly attributed rise to predecessor rather than own responsibility, a mixed signal), 2B.10 (peace/security trajectory worsened).
+
+- **ID 2B-IMF-INT-004** — *Citation:* IMF Press Release 23/261, "IMF Executive Board Approves a US$3 Billion Stand-By Arrangement for Pakistan," 12 July 2023; covered in Dawn, "IMF approves $3bn programme," 13 July 2023. URL: https://www.dawn.com/news/1764298. *Locator:* Dawn article body quoting PM Shehbaz Sharif statement ("major step forward", "achieved against the heaviest of odds"); IMF program aims (FY24 budget adjustment, market-determined exchange rate, tight monetary policy, energy/SOE/climate reforms). *Source profile:* official + reputable national press — `medium_high` for IMF fact, `medium_high` for Sharif quote. *Claim:* Sharif government secured a 9-month $3bn SBA, including $1.2bn immediate disbursement, conditional on fiscal adjustment (subsidy removal), market-determined FX, tight monetary policy, structural reform. This is international financial integration and acceptance of conditionality. *Target-period fit:* explicit July 2023. *Ruler attribution:* high — Sharif personally met Georgieva and is quoted welcoming the deal. *Supported lenses:* 2B.8 (military/economic spending governed by externally-conditional stabilization — discipline imposed by lender conditionality rather than ruler initiative); relevant as international conduct through crisis management.
+
+- **ID 2B-SAUDI-005** — *Citation:* Dawn, "Pakistan gets $2bn in financial support from Saudi Arabia," 29 June 2023, and same article 13 July 2023. *Locator:* Dawn article body; Saudi $2bn and UAE $1bn deposits at State Bank immediately preceding IMF approval. *Source profile:* national press — `medium_high`. *Claim:* Saudi and UAE bilateral deposits supported foreign-exchange reserves ahead of IMF board approval; Sharif government relied on Gulf patronage. *Target-period fit:* explicit. *Ruler attribution:* high — Sharif personally credited Saudi/UAE support. *Supported lenses:* 2B.8 (financial/mobilization sourced from external patronage, not internal extraction); 2B.9 (transparency about IMF conditionality partly met by external communication).
+
+- **ID 2B-CSEC-006** — *Citation:* Christian Science Monitor, "Why a free election 'seems almost impossible' in Pakistan," 14 August 2023. URL: https://www.csmonitor.com/layout/set/amphtml/World/Asia-South-Central/2023/0814/Why-a-free-election-seems-almost-impossible-in-Pakistan. *Locator:* full article body. *Source profile:* major reputable international wire/public-service media — `medium_high`. *Claim:* In the National Assembly's final month under Sharif, parliament passed >100 bills without debate including amendments empowering the military and ISI to "crush dissent and persecute civilians." Sharif and coalition function as "an accessory to the military." *Target-period fit:* explicit (the cited legislation is the Pakistan Army (Amendment) Act 2023 and the amended Official Secrets Act — confirmed in HRCP press release below and Brookings article). *Ruler attribution:* high — Sharif's coalition passed the laws. *Supported lenses:* 2B.4 (civilian-protection concerns as parliament enabled military expansion of authority with weak civilian constraint), 2B.9 (accountability for legislation passed at the close of term without debate).
+
+- **ID 2B-HRCP-007** — *Citation:* Human Rights Commission of Pakistan, "Government must cease attempts to control civil liberties," Lahore, 2 August 2023. URL: https://hrcp-web.org/hrcpweb/government-must-cease-attempts-to-control-civil-liberties/. *Locator:* full press release. *Source profile:* Pakistani independent human-rights NGO — `medium_high`. *Claim:* HRCP condemned the "slew of hastily passed legislation" — amended Official Secrets Act, Pakistan Army (Amendment) Act 2023, Contempt of Majlis-e-Shoora Bill 2023, Personal Data Protection / E-Safety Bills — as "draconian in scope," without "critical deliberation even at the parliamentary level, much less public debate." *Target-period fit:* explicit; signed by Chairperson Hina Jilani 2 August 2023. *Ruler attribution:* high — bills passed under Sharif's coalition. *Supported lenses:* 2B.4 (domestic conduct that overlaps with civil-military restraint); used in 2B as it shaped the international rule-of-law profile.
+
+**Source diversity:** 4+ families (Pakistan military/ISPR via Dawn, US think-tank Lawfare, Pakistani independent NGO HRCP, Dawn national press, IMF official). 2 source types (official + media + NGO). **Meets the minimum of 3 independent source families.**
+
+**Coverage assessment:** Strong for 2B.1, 2B.2, 2B.5, 2B.8, 2B.10; partial for 2B.4, 2B.9; weak for 2B.3, 2B.6, 2B.7. Key gap: Pakistan-India relations in 2023 (no war, no major crisis, ceasefire holding along LoC; no documented negotiation breakthrough). Reuse: 1B-NUK-001/002 also inform 2B by establishing no nuclear escalation rhetoric in 2023. Inheritance: Sharif inherited cross-border TTP threat, Afghan Taliban takeover aftermath, 2022 floods economic shock; inherited IMF program suspended since 2019.
+
+---
+
+## Chapter 3B — Domestic Safety, Restraint, and Protection
+
+**Local-prior status:** 7 facts supplied, all `evidence_found`. Reused as country-year priors for V-Dem civil-society repression, extrajudicial killings, physical integrity, private civil liberties, PTS scores. **Caution:** these measure inherited country conditions, not ruler attribution. They are reused as **structured context** rather than as evidence of ruler conduct; ruler-attributed evidence comes from the internet/manual work below.
+
+**Internet/manual evidence collected (≈9 source-claim units across 5 source families):**
+
+- **ID 3B-MAY9-001** — *Citation:* Wikipedia, "May 9 riots," with extensive sourcing to Dawn, BBC, Al Jazeera. URL: https://en.wikipedia.org/wiki/May_9_riots. *Locator:* "Casualties and losses" infobox; "Arrests and proceedings" section; "Crackdown against the PTI" section. *Source profile:* encyclopedia — `medium_high` per registry; primary citations embedded. *Claim:* Following Imran Khan's arrest on 9 May 2023 by NAB at Islamabad High Court, PTI supporters attacked military installations (Lahore Corps Commander House "Jinnah House," GHQ Rawalpindi, ISI office Faisalabad, Frontier Corps fort Chakdara, Mianwali Air Base, Radio Pakistan Peshawar). 8–14 killed; 232 policemen injured; 3,200+ arrested in Punjab; 53 JITs established; 1,300+ arrested across the country. Total damage to government/military facilities ~Rs 2.5 billion (US$8.9 million). *Target-period fit:* explicit. *Ruler attribution:* high — Shehbaz Sharif listed among government-side lead figures, alongside Interior Minister Rana Sanaullah, Mohsin Naqvi; Punjab Home Department established 53 JITs under his coalition government. *Role:* adverse / context. *Supported lenses:* 3B.1, 3B.2, 3B.5, 3B.9, 3B.10 — protest handling included militarized response, internet/mobile shutdown, anti-terror law deployment, military trials of civilians (later partially overturned by Supreme Court).
+
+- **ID 3B-MAY9-002** — *Citation:* BBC News, "Pakistan's Supreme Court rules Imran Khan's arrest was illegal," 11 May 2023. URL: https://www.bbc.com/news/world-asia-65561807. *Locator:* article body; "At least 10 people have been killed and 2,000 arrested." *Source profile:* major international public-service media — `medium_high`. *Claim:* BBC corroborates 10+ killed, 2,000 arrested; Supreme Court declared Khan's arrest illegal; release ordered. *Target-period fit:* explicit. *Ruler attribution:* high — federal government under Sharif authorized/conducted operation; the SC ruling is a partial institutional check on the executive. *Role:* adverse + mixed (showing institutional remedy operated). *Supported lenses:* 3B.1, 3B.4 (courts intervened to declare arrest illegal), 3B.9.
+
+- **ID 3B-IRK-003** — *Citation:* Dawn, "Anchorperson Imran Riaz Khan 'safe at home' after 4 months," 26 September 2023 (URL: https://www.dawn.com/news/1777723) and CPJ, "Journalists arrested and attacked; media offices set ablaze amid Pakistan protests," 12 May 2023 (URL: https://cpj.org/2023/05/journalists-arrested-and-attacked-media-offices-set-ablaze-amid-pakistan-protests/). *Locator:* full articles. *Source profile:* national press (Dawn) + international press-freedom NGO (CPJ) — both `medium_high`. *Claim:* Anchor Imran Riaz Khan (BOL News) was arrested 11 May 2023 at Sialkot Airport while trying to travel to Oman; detained 30 days under "provocative speech" detention order; subsequently went missing for >4 months until Punjab IG Dr Usman Anwar confirmed him safe 26 September 2023; LHC Chief Justice Muhammad Ameer Bhatti threatened contempt against police over the disappearance. LHC ordered "all the agencies" to recover him after IG revealed no trace in any police department. *Target-period fit:* explicit. *Ruler attribution:* high — federal/Punjab apparatus under Sharif's coalition responsible. *Role:* adverse — direct enforced-disappearance allegation involving a journalist critical of government during protests. *Supported lenses:* 3B.1 (state disappearance of a journalist), 3B.7 (targeting of a specific professional group — pro-PTI media), 3B.10 (deterioration in journalist safety from pre-period baseline).
+
+- **ID 3B-MAY9-PR-004** — *Citation:* Dawn, "Gen Munir says nation will neither forgive nor forget May 9 culprits," 25 May 2023. URL: https://www.dawn.com/news/1755697. *Locator:* article body; PM Shehbaz Sharif Twitter statement that May 9 events were "tragic and heart-rending," "a wake-up call," and that "the designs of those who planned them were actually very sinister" and "By targeting, desecrating and destroying the monuments of shuhada… the miscreants attacked the idea and identity of Pakistan." *Source profile:* national press — `medium_high`. *Claim:* Sharif publicly framed May 9 as existential attack on state identity; COAS Munir said nation will "neither forgive nor forget"; Youm-i-Takreem-Shuhada established as memorial day. *Target-period fit:* explicit. *Ruler attribution:* high — Sharif's own statements. *Role:* adverse / context — official position that escalated rhetoric around protest, justified crackdown; simultaneously positioned Sharif as defender of state and martyrs. *Supported lenses:* 3B.3 (incitement rhetoric by PM against "miscreants" who destroyed monuments), 3B.5 (emergency-mode governance framing), 3B.9 (crisis response with strong in-group/out-group framing).
+
+- **ID 3B-LAWS-005** — *Citation:* HRCP press release, "Government must cease attempts to control civil liberties," 2 August 2023 (already cited 2B-HRCP-007). *Claim:* Amended Official Secrets Act gives intelligence agencies warrantless search powers, "violates people's right to privacy under Article 14"; Pakistan Army (Amendment) Act 2023 criminalizes defamation of armed forces including online; Contempt of Majlis-e-Shoora Bill 2023 criminalizes criticism of Parliament; Personal Data Protection Bill and E-Safety Bill curtailed digital rights. All passed under Sharif's coalition. *Target-period fit:* explicit. *Ruler attribution:* high. *Supported lenses:* 3B.4 (no due-process/oversight systems added), 3B.5 (emergency/security laws broadened), 3B.6 (climate of fear replacing civic space).
+
+- **ID 3B-MILTRIAL-006** — *Citation:* VOA News, "Pakistan military court jails 25 over 2023 attacks," 21 December 2024 (URL: https://www.voanews.com/a/7909459.html) and ICTJ, "Pakistan Military Court Sentences 60 More Civilians Over Pro-Khan Protests," December 2024. *Locator:* articles bodies. *Source profile:* major international wire (VOA) and international justice NGO (ICTJ) — `medium_high`. *Claim:* Civilians arrested during May 9 protests were tried before military courts; 25 (then 60 more) sentenced; trials later challenged in Supreme Court. *Target-period fit:* retrospective (sentencing Dec 2024) but trials and detentions fall in 2023. *Ruler attribution:* high — Sharif government. *Role:* adverse. *Supported lenses:* 3B.1 (civilian detention without civilian trial), 3B.2 (security force / military detention), 3B.5 (anti-terror framework used for protest participants).
+
+- **ID 3B-AHMADI-007** — *Citation:* HRW World Report 2024 — Pakistan chapter. URL: https://www.hrw.org/world-report/2024/country-chapters/pakistan. *Locator:* "Freedom of Religion and Belief" section. *Source profile:* international human-rights NGO — `medium_high`. *Claim:* On 25 July 2023 a mob vandalized an Ahmadiyya place of worship in Karachi (Drigh Road). On 18 August 2023 a mob attacked an Ahmadi-owned factory in Badami Bagh, Lahore; instead of prosecuting attackers, police charged **eight Ahmadi community members** with blasphemy. On 16 August 2023 a mob attacked a Christian settlement in Faisalabad, vandalizing churches, houses, and a cemetery after blasphemy allegations; police arrested 130 attackers but residents reported being warned hours before and told police could do nothing. *Target-period fit:* explicit. *Ruler attribution:* high — Punjab Police under PML-N provincial government; Punjab CM at this time was Pervez Elahi (PML-Q, post-April 2022 Punjab coalition) but Mohsin Naqvi became caretaker CM 14 January 2023; LAP/IGP Dr Usman Anwar named in articles. *Role:* adverse. *Supported lenses:* 3B.7 (vulnerable-group protection failures), 3B.8 (selective enforcement: Ahmadis prosecuted, attackers not).
+
+- **ID 3B-HRCP-008** — *Citation:* HRCP press release (already cited). *Locator:* full press release. *Claim:* HRCP, the most established Pakistani independent human-rights body, directly condemned the "draconian" legislation passed under Sharif. *Role:* negative-context attestation from a credible domestic source. *Supported lenses:* 3B.4, 3B.5.
+
+- **ID 3B-FZ-009** — *Citation:* CPJ, "Pakistani journalist Fayaz Zafar arrested…," 8 September 2023. URL: https://cpj.org/2023/09/pakistani-journalist-fayaz-zafar-arrested-and-alleges-police-abuse-amjad-ali-sahaab-under-investigation/. *Locator:* full article. *Source profile:* CPJ — `medium_high`. *Claim:* Fayaz Zafar (VOA Deewa) held in preventive detention 30 days by magistrate Irfan Ullah Khan 30 August 2023 under 1960 West Pakistan Maintenance of Public Order Ordinance, accused of "fake, offensive and hatred contents" against government and police. Alleged he was taken to Swat police chief Shafiullah Gandapur's home and beaten for 15 minutes with guns and fists despite telling officers of a heart condition; police broke his car's doors and hood with rifle butts. Zafar was released 31 August 2023 after District Bar Association and tribal assembly requests and Interim Information Minister Murtaza Solangi intervention. *Target-period fit:* explicit (August 2023 under Sharif's caretaker period). *Ruler attribution:* medium-high — Khyber Pakhtunkhwa is a PTI-ruled province but federal information minister intervened; Swat police chief is provincial. *Role:* adverse. *Supported lenses:* 3B.2 (police abuse with alleged political motive), 3B.7 (targeted journalist).
+
+**Source diversity:** 5+ families (BBC, Dawn, CPJ, HRW, HRCP, VOA). 3+ source types (international media, national press, NGO, government). **Meets minimum 3 source families.**
+
+**Coverage assessment:** Strong for 3B.1, 3B.2, 3B.5, 3B.6, 3B.7, 3B.8, 3B.9; partial for 3B.3 (PM's May 9 rhetoric); partial for 3B.4 (no due-process additions, only retrenchments); partial for 3B.10 (overall trajectory worsened). Reuse of 3B-MAY9-001/002/003 across lenses avoids duplication. Note: the 2023 caretaker transition overlaps with the end of Sharif's elected tenure; some adverse events are federal/caretaker carry-over.
+
+---
+
+## Chapter 4B — Political Freedom vs Authoritarian Rule
+
+**Local-prior status:** 18 facts supplied, all `evidence_found`. Used as country-year baselines. Same caveat: these are country-level V-Dem/FH/RSF/BTI measures, not direct ruler-attribution. The internet/manual work below establishes the ruler-attributable actions.
+
+**Internet/manual evidence collected (≈8 source-claim units across 5 source families):**
+
+- **ID 4B-MAY9-001** (reuse 3B-MAY9-001) — May 9 protests and crackdown context. *Supported lenses:* 4B.1 (ruler did not accept meaningful contestability when protest turned violent), 4B.3 (intolerance of opposition protest when it directly targeted military symbols), 4B.5 (loyalty framing), 4B.8 (term ended on Sharif's advice 9 August 2023 with no electoral contest in his tenure).
+
+- **ID 4B-IRK-002** (reuse 3B-IRK-003) — journalist Imran Riaz Khan's enforced disappearance. *Supported lenses:* 4B.6 (intimidation of independent media), 4B.9 (administrative harassment to limit political freedom of expression).
+
+- **ID 4B-LAWS-003** (reuse 3B-LAWS-005 = 2B-HRCP-007) — Pakistan Army (Amendment) Act 2023, Official Secrets Act amendment, Contempt of Parliament Bill. *Supported lenses:* 4B.2 (manipulation of legal architecture to consolidate executive/military power), 4B.4 (legislative weakening of civilian constraint), 4B.5 (politicization of state institutions via expanded military role), 4B.9 (administrative harassment codified into law).
+
+- **ID 4B-PTI-004** — *Citation:* Brookings, "Ahead of elections, Pakistan's democracy stands badly damaged," 8 December 2023. URL: https://www.brookings.edu/articles/ahead-of-elections-pakistans-democracy-stands-badly-damaged/. *Locator:* article body. *Source profile:* major US think-tank — `medium_high`. *Claim:* "The coalition that took over after Khan's ouster in April 2022… ironically (given its name) presided over a stunning backsliding of the country's democracy and an expansion of the military's powers over its 16-month tenure. Its prime minister, Shehbaz Sharif (Nawaz's brother), was someone who has long been deemed pliant by the establishment." Army chief made member of the newly created Special Investment Facilitation Council. *Target-period fit:* explicit. *Ruler attribution:* high — direct assessment of Sharif's tenure. *Role:* adverse / mixed. *Supported lenses:* 4B.1 (failure to defend contestability), 4B.2 (legal architecture changes), 4B.4 (legislative capture), 4B.5 (military empowerment at the close of term), 4B.10 (weaker trajectory).
+
+- **ID 4B-CSM-005** — *Citation:* Christian Science Monitor, "Why a free election 'seems almost impossible' in Pakistan," 14 August 2023 (already cited 2B-CSEC-006). *Locator:* full article. *Claim:* National Assembly's final month under Sharif passed >100 bills without debate; army/ISI empowered to "crush dissent and persecute civilians"; journalist Taha Siddiqui: Pakistani democracy "exists on paper but not in practice." Former minister Ahsan Iqbal (Sharif's own coalition) defended May 9 prosecutions. *Supported lenses:* 4B.1, 4B.2, 4B.3, 4B.10.
+
+- **ID 4B-FH-006** — *Citation:* Freedom House, "Pakistan: Freedom in the World 2023." URL: https://freedomhouse.org/country/pakistan/freedom-world/2023. *Locator:* full article body; aggregate scores. *Source profile:* `medium_high` (international NGO assessors). *Claim:* Pakistan rated "Partly Free" with low scores on electoral process (A1/A2/A3 scoring 1, 2, 2 of 4), political pluralism, association, and assembly; military exerts enormous influence over government formation and policies; Imran Khan banned from holding office for 5 years by ECP October 2022; by-elections October 2022 PTI won 6/8 contested seats; ECP unable to counteract "judicial and military actors' efforts to manipulate the electoral environment." *Target-period fit:* coverage period encompasses early 2023. *Ruler attribution:* contextual — Sharif's coalition inherited and operated within this architecture. *Supported lenses:* 4B.1, 4B.2, 4B.4, 4B.10.
+
+- **ID 4B-HRW-007** — *Citation:* HRW World Report 2024 (already cited). *Locator:* "Freedom of Expression and Attacks on Civil Society Groups" section. *Claim:* "Following a similar playbook as its predecessors, the government of Prime Minister Shehbaz Sharif clamped down on the media, nongovernmental organizations (NGOs), and political opposition. The authorities used draconian counterterrorism and sedition laws to intimidate peaceful critics." Journalist Imran Riaz Khan arrested 11 May 2023, missing until 25 September. Sedition law prosecutions continued despite March 2023 Lahore High Court ruling the law unconstitutional; government appealed to Supreme Court. *Target-period fit:* explicit. *Ruler attribution:* high. *Supported lenses:* 4B.6 (media pressure; sedition prosecutions), 4B.7 (selective enforcement), 4B.9 (administrative harassment via PECA, sedition).
+
+- **ID 4B-ATL-008** — *Citation:* Atlantic Council, "Experts react: A new leader emerges from Pakistan's political turmoil," April 2022 (Farieha Aziz contribution). URL: https://www.atlanticcouncil.org/blogs/new-atlanticist/experts-react-a-new-leader-emerges-from-pakistans-political-turmoil-now-what/. *Locator:* Farieha Aziz section. *Source profile:* major US think-tank — `medium_high`. *Claim:* Farieha Aziz (non-resident senior fellow) noted Sharif's coalition "bulldozed through parliament" the 2016 PECA law that was used against journalists and political opponents, and called for civil society expectation that the new government "withdraw all politically motivated cases under PECA and other laws." As of the dossier cutoff, PECA usage continued under Sharif. *Target-period fit:* partial — sets expectation baseline; events fall in 2022–2023. *Supported lenses:* 4B.6, 4B.9.
+
+**Source diversity:** 5+ families (Dawn, Brookings, CSMonitor, FH, HRW, Atlantic Council, CPJ, HRCP). 3+ source types. **Meets minimum.**
+
+**Coverage assessment:** Strong for 4B.1, 4B.2, 4B.4, 4B.5, 4B.6, 4B.8, 4B.9, 4B.10; partial for 4B.3 (pro-PTI protest vs government); partial for 4B.7 (selective enforcement visible in media cases). Reuse across chapters: 3B items, 2B-HRCP-007, and HRW/CPJ pieces are reused here to avoid duplication. Key gap: term-limit / succession rule — Sharif advised dissolution 9 August 2023; subsequent caretaker government under Kakar delayed elections.
+
+---
+
+## Chapter 5B — Economic Well-Being and Prosperity
+
+**Local-prior status:** 4 facts supplied (LF015 reused, LF030 GDP per capita, LF031 GDP total, LF032 population). Reused as country-year structural priors.
+
+**Internet/manual evidence collected (≈6 source-claim units across 4 source families):**
+
+- **ID 5B-IMF-001** — *Citation:* Dawn, "IMF approves $3bn programme," 13 July 2023 (already cited 2B-IMF-INT-004). *Locator:* full article. *Source profile:* major national press + IMF official — `medium_high`. *Claim:* Sharif government secured a 9-month $3bn Stand-By Arrangement with $1.2bn immediate disbursement; conditional on FY24 budget adjustment, market-determined exchange rate, tight monetary policy, energy/SOE/climate reforms. *Target-period fit:* explicit. *Ruler attribution:* high — Sharif's stated priority ("major step forward"); finance minister Dar's negotiating team. *Role:* mixed positive — external anchor secured. *Supported lenses:* 5B.3 (macroeconomic stabilization through external discipline), 5B.9 (crisis management: foreign-exchange reserves rebuilt from $3bn to $14–15bn target by July, according to Dar), 5B.10 (intermediate stabilization, not yet recovery).
+
+- **ID 5B-VOA-002** — *Citation:* VOA News, "Pakistan's Economic Turmoil Worsens Amid IMF Bailout Delay," 2 March 2023. URL: https://www.voanews.com/amp/pakistan-economic-turmoil-worsens-amid-imf-bailout-delay/6986680.html. *Locator:* full article. *Source profile:* major US public broadcaster — `medium_high`. *Claim:* Pakistani rupee fell 7% against USD; reserves at $3bn (~3 weeks of imports); inflation 31.5% (Feb 2023 official); WFP warned crisis "progressively deteriorating," flood-affected people "resorting to negative coping strategies that include the sale of income-producing assets, taking on additional debt, withdrawing children from school, and skipping meals." Sharif government "has already taken most other actions to keep the talks with the IMF on track" including fuel/energy tariff hikes, withdrawal of subsidies. *Target-period fit:* explicit. *Ruler attribution:* high. *Role:* adverse + mixed (stability actions at high welfare cost). *Supported lenses:* 5B.3 (austerity adopted; conditionality-driven), 5B.7 (evidence-based response vs politically painful measures), 5B.8 (distribution — subsidies removed without adequate compensatory measures; HRW confirms this), 5B.9 (crisis response under foreign-exchange and inflation pressure).
+
+- **ID 5B-HRW-003** — *Citation:* HRW World Report 2024 (already cited). *Locator:* economic section. *Claim:* "With poverty, inflation, and unemployment soaring, Pakistan faced one of the worst economic crises in its history, jeopardizing millions of people's rights to health, food, and an adequate standard of living. The insistence of the International Monetary Fund (IMF) on austerity and the removal of subsidies without adequate compensatory measures resulted in additional hardship for low-income groups." *Supported lenses:* 5B.3, 5B.8, 5B.9, 5B.10.
+
+- **ID 5B-WB-004** — *Citation:* World Bank Pakistan Overview. URL: https://www.worldbank.org/en/country/pakistan/overview. *Locator:* macro description. *Source profile:* `medium_high` (multilateral). *Claim:* Pakistan's economy "continues to stabilize with easing inflation, improving financial conditions, and current account and primary fiscal surpluses." Around 22% of population live below the national poverty line (FY25 baseline). HCI 0.41; 40% of children under 5 stunted; over 20 million children out of school pre-pandemic/floods. *Target-period fit:* retrospective on 2023 — cumulative baseline. *Ruler attribution:* contextual (structural). *Role:* context. *Supported lenses:* 5B.6 (productivity foundations — weak), 5B.8 (household/median conditions), 5B.10 (long-run trajectory). 
+
+- **ID 5B-LA-005** — *Citation:* Los Angeles Times, "IMF approves $3-billion bailout for Pakistan, saving it from default," 13 July 2023. URL: https://www.latimes.com/world-nation/story/2023-07-13/imf-approves-bailout-pakistan-avoiding-default. *Locator:* full article. *Source profile:* major US press — `medium_high`. *Claim:* Pakistan needs ~$20bn in next 2 years to repay foreign loans with interest; Saudi Arabia deposited $2bn and UAE $1bn at State Bank; Sharif credited Saudi, UAE, China, and IMF. *Supported lenses:* 5B.9 (multilateral crisis management), 5B.3 (external dependence), 5B.4 (external constraints).
+
+- **ID 5B-RFE-006** — *Citation:* RFE/RL, "IMF Approves Much-Awaited $3 Billion Bailout For Pakistan," 12 July 2023. URL: https://www.rferl.org/a/pakistan-imf-bailout-approved/32500952.html. *Locator:* full article. *Claim:* Sharif personally met Georgieva in Paris at Summit for a New Global Financing Pact before the deal; IMF statement noted "policy missteps have led to large fiscal and external deficits." *Supported lenses:* 5B.3, 5B.9.
+
+**Source diversity:** 4 families (IMF/Dawn, VOA, World Bank, HRW, LA Times, RFE/RL). 3 source types (official, media, NGO). **Meets minimum.**
+
+**Coverage assessment:** Strong for 5B.3, 5B.7, 5B.9, 5B.10; partial for 5B.1 (ruler's intent framed as crisis stabilization rather than prosperity agenda); partial for 5B.2 (finance team — Dar — competent but politically motivated; power-security nexus dominates appointments); partial for 5B.4, 5B.5, 5B.6 (structural data only); partial for 5B.8 (clear distributional harm from subsidy removal; HRW notes inadequate compensatory measures). Key gap: no specific ruler-attributed structural reform within the period beyond IMF-conditional measures; appointment of Dar and Ishaq as finance minister (April 2022) carries the political character of the Sharif-Nawaz network.
+
+---
+
+## Chapter 6B — Social Well-Being and Human Development
+
+**Local-prior status:** zero facts supplied (`no_evidence_found` for all 10 lenses). No country-year structured prior for HDI, health, education, water, etc.
+
+**Internet/manual evidence collected (≈4 source-claim units across 4 source families):**
+
+- **ID 6B-WB-001** — *Citation:* World Bank Pakistan Overview (already cited). *Locator:* macro / human capital description. *Claim:* HCI 0.41; 40% children under 5 stunted; 20+ million children out of school pre-pandemic and pre-floods; 22% below national poverty line. Pakistan ranked in top 10 countries most affected by extreme weather events. *Target-period fit:* cumulative / FY24/25 baselines reflect 2023 conditions. *Ruler attribution:* contextual/structural. *Role:* context. *Supported lenses:* 6B.1 (welfare as core vs propaganda — no specific 2023 reform visible), 6B.2 (access gaps), 6B.6 (climate exposure — extreme weather events), 6B.10 (baseline life chances).
+
+- **ID 6B-HRW-002** — *Citation:* HRW World Report 2024 (already cited). *Locator:* "Sindh government attempted to rehabilitate" passage; women-and-girls section. *Claim:* "In a positive development, the Sindh government attempted to rehabilitate those who suffered catastrophic losses in the 2022 floods by providing land titles and funds to construct houses for people who were previously landless. As of early August [2023], there were 2.1 million eligible beneficiaries of this program." HRW also documents continued violence against women: 1,000 honor killings/year; 18.9 million girls married before 18; 4.6 million before 15. *Target-period fit:* explicit. *Ruler attribution:* partial — Sindh is PPP-ruled; Sharif's federal role is not the direct attribution but federal climate-and-reconstruction stance is part of context. *Role:* mixed positive (federal-coordination level). *Supported lenses:* 6B.2, 6B.3, 6B.6, 6B.7 (federal climate emergency declared in 2022 carried over into 2023 reconstruction framing).
+
+- **ID 6B-FLOODS-003** — *Citation:* Wikipedia, "2022 Pakistan floods" (for baseline) plus The News coverage of Sindh reconstruction. URL: https://www.thenews.com.pk/print/1097619-2-1-million-houses-to-be-built-in-flood-ravaged-areas-of-sindh. *Locator:* News article describing Sindh Peoples Housing for Flood Affectees (SPHF) program; PPP Chairman Bilawal Bhutto Zardari distributed ownership certificates to 5,000 homeless flood victims in Larkana during first phase. 2.1 million total beneficiaries planned across Sindh districts. *Target-period fit:* explicit. *Ruler attribution:* partial — Sindh provincial government under PPP; federal role not direct attribution. *Role:* context. *Supported lenses:* 6B.2, 6B.3 (women ownership rights, addressing vulnerable groups), 6B.9 (durable institution beyond personal rule — co-mapped ownership), 6B.6 (crisis recovery).
+
+- **ID 6B-CYCLONE-004** — *Citation:* Dawn, "Cyclone Biparjoy: DHA says only voluntary evacuations underway," 13 June 2023. URL: https://www.dawn.com/news/1759709. *Locator:* full article. *Source profile:* national press — `medium_high`. *Claim:* Sindh government evacuated 60,000+ people from Keti Bundar, Thatta, Badin, Sujawal, Karachi ahead of Cyclone Biparjoy landfall 15 June 2023; DHA organized relief camps; Sindh Information Minister Sharjeel Inam Memon coordinated. *Target-period fit:* explicit. *Ruler attribution:* provincial (Sindh-PPP). *Role:* positive context. *Supported lenses:* 6B.6 (crisis preparation/response), 6B.7 (non-political conditionality — generic evacuation).
+
+**Source diversity:** 4 families (World Bank, HRW, Dawn, The News). 3 source types. **Meets minimum.**
+
+**Coverage assessment:** Sparse but defensible. Strong for 6B.6 (crisis response — Cyclone Biparjoy 2023 evacuation as positive example), partial for 6B.2, 6B.3, 6B.9; weak for 6B.1, 6B.4, 6B.5, 6B.7, 6B.8, 6B.10. Key gap: no ruler-attributed federal social-policy decision documented for Sharif's 2023 tenure (BISP/Ehsaas continued, but not expanded in documented ways; no major new social program launched under Sharif in this period). Reuse of HRCP / HRW material applies to civil-liberties framing rather than social welfare directly. Note that much of the social delivery was Sindh (PPP) rather than federal (PML-N), and Khyber Pakhtunkhwa (PTI); the federal PM's direct social-policy attribution is thin.
+
+---
+
+## Chapter 7B — Ruler Personal Integrity and Honesty
+
+**Local-prior status:** 6 facts supplied (LF012, LF033–LF036, LF028). Country-level corruption indicators used as context only — they are country measures, not ruler-attribution. The Sharif family's pre-period corruption history is well-documented in independent journalism and was the subject of legal proceedings (see ID 7B-FAM-001 below).
+
+**Internet/manual evidence collected (≈5 source-claim units across 4 source families):**
+
+- **ID 7B-FAM-001** — *Citation:* Wikipedia, "Hamza Shahbaz" (sourced to Dawn 21 June 2018, thenews.com.pk 14 July 2014). URL: https://en.wikipedia.org/wiki/Hamza_Shahbaz. *Locator:* "Personal details" and "Career" sections. *Source profile:* `medium_high` encyclopedia with primary citations. *Claim:* Hamza's declared assets rose from Rs 583,191 in 2008 to Rs 411 million by 2018 — 700x growth during father's CM Punjab tenure; National Accountability Bureau arrested Hamza 11 June 2019 over alleged money laundering and assets beyond income; FIA disclosed 28 anonymous accounts allegedly used to launder Rs 16.3 billion implicating Sharif Group low-wage employees; 25 billion sugar-scam alleged via Ramzan/AI-Arabia Sugar Mills employees. **Crucial 2023 update:** On **12 May 2022** (immediately after Shehbaz became PM), NAB declined to prosecute Shehbaz and Hamza; on **12 October 2022** Special Central Court Lahore dismissed charges; on **20 July 2023** another judge of the same court ruled in their favor (acquittal). *Target-period fit:* the 20 July 2023 acquittal is in the target window. *Ruler attribution:* high — Shehbaz personally benefited from dismissal of money-laundering charges against his son. *Role:* adverse / mixed. *Supported lenses:* 7B.3 (separation of personal/family interests from state — case dismissed while son is in politics, brothers hold senior positions, family controls PML-N presidency rotation), 7B.4 (family asset and business nexus — though formal conviction is now absent, the procedural context — NAB dropped prosecution immediately after PM took office — is documented), 7B.9 (nepotism/patronage), 7B.10 (ethical example).
+
+- **ID 7B-HRCP-002** (reuse 2B-HRCP-007 / 3B-LAWS-005) — *Citation:* HRCP press release on Official Secrets Act and Pakistan Army (Amendment) Act 2023. *Locator:* full text. *Claim:* "Criminalization of defamation of the armed forces, including online" passed by parliament "at breakneck speed"; army sanctioned to engage in "national development and advancement of national or strategic interest." *Role:* adverse context — executive tolerated and enabled legislation that shields institutions from scrutiny. *Supported lenses:* 7B.6 (intolerance of independent investigation of state/military conduct), 7B.7 (state power used to expand secrecy and immunize military from scrutiny).
+
+- **ID 7B-MAY9-003** (reuse 3B-MAY9-001) — May 9 crackdown. Sharif publicly framed it as "designs very sinister" / "the miscreants attacked the idea and identity of Pakistan." *Role:* adverse — narrative framing hardened before independent investigations concluded. *Supported lenses:* 7B.1 (public truthfulness toward opposition protesters), 7B.2 (admission of errors / correction — Sharif did not concede overreach in legislation or judicial pushback).
+
+- **ID 7B-NA-004** — *Citation:* Corruption in Pakistan (Wikipedia overview) and Dawn reporting. URL: https://en.wikipedia.org/wiki/Corruption_in_Pakistan. *Locator:* "Unprecedented political corruption: 2008-2013" and "Anti-corruption efforts" sections. *Claim:* The Sharif family's pre-existing pattern of corruption allegations is documented in multiple sources (Panama Papers for Nawaz; Ramzan Sugar Mills / Al-Qadir Trust for Hamza and Shehbaz); the 2023 acquittal must be read against that background. The Sharif family's Raiwind Palace and Sharif Group / Ittefaq Group conglomerate are family-controlled. *Target-period fit:* contextual. *Ruler attribution:* medium — historical pattern; 2023 acquittal context. *Supported lenses:* 7B.3, 7B.4, 7B.9 (background context).
+
+- **ID 7B-IRK-005** (reuse 3B-IRK-003) — journalist Imran Riaz Khan enforced disappearance. *Role:* adverse — Sharif's coalition government could not produce the journalist; LHC Chief Justice threatened contempt. *Supported lenses:* 7B.6 (intolerance of independent investigation), 7B.7 (state power used to conceal activity / neutralize investigators/media).
+
+**Source diversity:** 5 families (Wikipedia/Dawn, HRCP, BBC, Dawn, CPJ). **Meets minimum.**
+
+**Coverage assessment:** Strong for 7B.3, 7B.4, 7B.6, 7B.7, 7B.9; partial for 7B.1, 7B.2, 7B.5, 7B.8, 7B.10. Key finding: **ruler-specific integrity conduct in 2023 is dominated by family-asset context, secrecy legislation, and inability/willingness to produce a journalist held in custody.** No affirmative examples of personal candor, independent scrutiny acceptance, separation of interests, or correction of false claims emerged within the research window. This satisfies the chapter's gate for a numeric score below 4 (recurring self-dealing/patronage/favoritism) or null (if judge finds evidence too thin to support any score).
+
+---
+
+## Chapter 8B — Ruler Effectiveness and Competence
+
+**Local-prior status:** 3 facts supplied (LF012 V-Dem accountability, LF014 BTI governance, LF028 V-Dem rule of law). All inherited-capacity / state-capacity priors — used as baseline rather than ruler attribution.
+
+**Internet/manual evidence collected (≈7 source-claim units across 5 source families):**
+
+- **ID 8B-PROG-001** — *Citation:* Atlantic Council (cited above, 2022) + Dawn / government statements for 2023. *Claim:* Sharif's program on taking office was explicit — IMF program revival, fiscal stabilization, energy subsidy reform, election timing. *Role:* baseline program identification. *Supported lenses:* 8B.1 (clear program articulated), 8B.2 (operationalized through IMF conditionality, FY24 budget).
+
+- **ID 8B-EXEC-002** — *Citation:* IMF Press Release / Dawn coverage of $3bn SBA, July 2023. *Claim:* Sharif personally met Georgieva; secured agreement in <2 weeks; $1.2bn immediate disbursement followed; conditionalities accepted (FY24 fiscal adjustment, market-determined FX, monetary tightening, SOE reform). Foreign-exchange reserves moved from $3bn (~3 weeks of imports) toward Dar's stated $14–15bn target by end of July 2023. *Target-period fit:* explicit. *Ruler attribution:* high. *Role:* positive execution. *Supported lenses:* 8B.2, 8B.3, 8B.7 (outcomes: stabilization), 8B.9 (crisis management).
+
+- **ID 8B-BILLS-003** (reuse 2B-CSEC-006 / 4B-LAWS-003 / 3B-LAWS-005) — final-month legislation. *Claim:* >100 bills passed without debate in National Assembly's final month including the Pakistan Army (Amendment) Act 2023, Official Secrets Act amendment, Contempt of Parliament Bill. President Arif Alvi stated he did not sign the bills; they were passed under Sharif's coalition. *Target-period fit:* explicit (July-August 2023). *Ruler attribution:* high. *Role:* mixed — operationally effective in mobilizing parliamentary majority, but for purposes widely criticized as entrenching military power. *Supported lenses:* 8B.2 (mobilization), 8B.3 (state apparatus mobilized behind legislation), 8B.5 (discipline/coercion through legislation), 8B.8 (adaptation — but adaptation toward entrenchment rather than accountability reform).
+
+- **ID 8B-MAY9-004** (reuse 3B-MAY9-001) — May 9 crisis response. *Claim:* Government responded with internet shutdown, mobile broadband suspension affecting ~125 million people; 53 JITs; 3,200+ arrests in Punjab; over 1,300+ national; military trials (later partially blocked by Supreme Court). *Target-period fit:* explicit. *Ruler attribution:* high. *Role:* operationally decisive but constitutionally contested. *Supported lenses:* 8B.3 (mobilization), 8B.5 (control of state apparatus), 8B.6 (concrete implementation), 8B.8 (no adaptation toward reconciliation visible in 2023), 8B.9 (crisis management favoring suppression over dialogue).
+
+- **ID 8B-CORR-005** (reuse 7B-FAM-001) — Sharif and Hamza acquitted in money-laundering case 20 July 2023. *Claim:* Legal outcome of an ongoing case; not a strategic program outcome but a personal/ruling-network governance signal. *Supported lenses:* 8B.5 (coordination with judicial outcomes that benefit the ruling family), 8B.9 (crisis management of family legal exposure).
+
+- **ID 8B-NCA-006** — *Citation:* Arms Control Today (1B-NUK-001); absence of new 2023 doctrinal statements by NCA attributable to Sharif. *Claim:* Nuclear policy continuity — no documented 2023 ruler-attributed doctrinal change, escalation, or safeguard reform. *Role:* maintained inherited posture. *Supported lenses:* 8B.5 (inherited coordination maintained), 8B.7 (no directional movement of nuclear posture in 2023).
+
+- **ID 8B-CARETAKER-007** — *Citation:* Christian Science Monitor 14 August 2023 (cited); HRW 2024; Brookings December 2023 (cited). *Claim:* Sharif advised dissolution 9 August 2023; Anwaar-ul-Haq Kakar became caretaker PM 14 August 2023; elections constitutionally due within 90 days but delayed pending census; Sharif personally ends his term without delivering the constitutional electoral calendar. *Target-period fit:* explicit. *Ruler attribution:* high. *Role:* mixed — orderly transition to caretaker, but elections delayed. *Supported lenses:* 8B.9 (managed succession but not electoral calendar); 8B.10 (end-state: constitutional procedure followed at end but underlying democratic trajectory weakened).
+
+**Source diversity:** 5+ families (IMF/Dawn, Atlantic Council, Brookings, CSMonitor, Arms Control Today, HRW, Wikipedia). **Meets minimum.**
+
+**Coverage assessment:** Strong for 8B.1, 8B.2, 8B.3, 8B.5, 8B.6, 8B.7, 8B.8, 8B.9, 8B.10. Key insight: program identification is clear (IMF-driven stabilization, security consolidation, electoral management); operationalization and mobilization were effective in narrow terms (IMF deal passed, security laws passed, May 9 suppressed). Outcomes: macroeconomic stabilization (mixed), security deterioration continued, democratic weakening, family legal exposure resolved favorably. This chapter is **morality-neutral as required** — execution competence is documented regardless of the moral character of the goals.
+
+---
+
+## Cross-chapter reuse summary
+
+The following ledger items appear in multiple chapters (mapped to avoid duplication):
+
+- **3B-MAY9-001 / 4B-MAY9-001 / 8B-MAY9-004** — May 9 events.
+- **3B-IRK-003 / 4B-IRK-002 / 7B-IRK-005** — Imran Riaz Khan enforced disappearance.
+- **2B-HRCP-007 / 3B-LAWS-005 / 4B-LAWS-003 / 8B-BILLS-003** — final-month legislation (Pakistan Army Amendment Act 2023, Official Secrets Act amendment, Contempt of Parliament Bill).
+- **2B-CSEC-006 / 4B-CSM-005** — CSMonitor end-of-term reporting.
+- **7B-FAM-001 / 8B-CORR-005** — Sharif-Hamza money laundering case / 20 July 2023 acquittal.
+- **2B-IMF-INT-004 / 5B-IMF-001 / 5B-LA-005 / 5B-RFE-006 / 8B-EXEC-002** — IMF $3bn SBA / Sharif personal role.
+- **6B-WB-001 / 6B-HRW-002** — human capital baseline / Sindh flood reconstruction.
+- **1B-NUK-001 / 8B-NCA-006** — nuclear posture continuity.
+
+These mappings are tracked once in the master ledger and reused by chapter reference.
+
+---
+
+## Search and discovery notes (per chapter search logs)
+
+- **Tool reliability:** Brave Web Search exhausted quota (429); MiniMax `web_search` stuck on rate-limit; `brave_llm_context` also exhausted. The worker relied primarily on **fetch** to known authoritative URLs and on initial `web_search` discovery for orientation.
+- **No recency filter applied** (per instructions for historical ruler-periods).
+- **Search discipline:** broad orienting queries first, then targeted fetches to known authoritative sources (BBC, Dawn, CPJ, HRW, HRCP, Freedom House, Atlantic Council, Brookings, CSMonitor, Arms Control Today, The News, Pakistan media, World Bank).
+
+---
+
+## Strongest contrary / mitigating evidence summary
+
+- **Mitigating for 3B/4B/7B:** Supreme Court of Pakistan declared Imran Khan's 9 May arrest illegal and ordered release (BBC, 11 May 2023); Punjab IG Dr Usman Anwar eventually recovered journalist Imran Riaz Khan (Dawn, 26 September 2023); HRW notes Sindh rehabilitation program; Interim Information Minister Murtaza Solangi intervened on Fayaz Zafar's behalf (CPJ, 8 September 2023); IMF program approval (12 July 2023) reflects external validation of stabilization program.
+- **Contrary for 3B/4B/7B:** thousands arrested in PTI crackdown; military trials of civilians (later struck down); enforced disappearance of a journalist for 4+ months; final-month legislation "draconian in scope" per HRCP; Ahmadis and Christians attacked with selective enforcement; Sharif family legal exposure favorably resolved within his tenure.
+- **Mixed for 8B:** execution competence delivered stabilization outputs but did so through legislation widely seen as entrenching military power and undermining civilian constraints.
+
+---
+
+## Rejected candidates
+
+- *vox/dawn speculative articles claiming Pakistan-Saudi defense pact 2023* — none retrieved in this session; if such claims emerge, they would need authoritative sourcing before being treated as final evidence.
+- *Pakistan-India ceasefire Line of Control 2023 incidents* — no specific 2023 incident surfaced in the search/fetch window; LoC held through Sharif's term without documented ceasefire violations; this is absence-of-evidence not absence-of-events.
+- *Sharif personal corruption verdict 20 July 2023* — retrieved via Wikipedia summary citing court filings; the underlying court order is the verifiable primary source. Treat as `final_evidence` (court record) but with the rider that the same court had earlier dropped the prosecution immediately after Sharif became PM, which creates a circumstantial concern about prosecutorial independence.
+- *Grokipedia, blog aggregator URLs* — would be `very_low`/`discovery_only` per registry; none used.
+- *State Department Country Reports on Terrorism 2023 Pakistan* — `state.gov` URL was fetched but the content contained only base64 image data; **not retained as evidence** because no precise textual claim or locator was extractable. Recommend the judge obtain the PDF directly if 2B/3B/8B weighting depends on this source.
+
+---
+
+## Unresolved gaps and confidence impact
+
+1. **Chapter 1B** — only 1 source family; recommend supplementing with SIPRI Yearbook 2023, UNODA records, and Pakistan NCA official 2023 communiqués if available.
+2. **Chapter 6B** — sparse ruler-attributed material; most social-delivery evidence sits at provincial level (Sindh-PPP flood reconstruction, KP-PTI) rather than federal (PML-N under Sharif). Recommend acknowledging this is a thin chapter for judge confidence.
+3. **Sharif personal corruption acquittal 20 July 2023** — depends on Wikipedia summary citing court ruling; underlying court order is the primary source for verification if needed.
+4. **Pakistan-India / Kashmir 2023 relations** — no crisis documented within Sharif's 2023 window; absence of escalation is noted but not a positive restraint claim.
+5. **Whether Sharif had effective authority over the May 9 military-court decisions** — military decisions remained largely opaque; the civilian coalition "functioned as an accessory" (Brookings) rather than directing military conduct.
+6. **Efficacy of fiscal adjustment on poor populations** — HRW reports inadequate compensatory measures; no independent household-survey data retrieved within this session for 2023 specifically.
+
+---
+
+## Global ledger (evidence register, all accepted items)
+
+| Provisional ID | Canonical fact key | Locator | Type | Confidence | Chapters/Lenses |
+|---|---|---|---|---|---|
+| 1B-NUK-001 | act-2023-10-evolving-nuclear-doctrine | https://www.armscontrol.org/act/2023-10/features/pakistans-evolving-nuclear-doctrine | ngo/think-tank | medium (context); medium_low (registry default for unlisted); upgrade medium for sourced Kidwai quotes | 1B.1, 1B.2, 1B.3, 1B.4, 1B.6 |
+| 1B-NUK-002 | act-2023-10-no-2023-doctrinal-escalation-attribution | same as above | ngo/think-tank | medium_low (absence-of-event, weaker) | 1B.10 |
+| 2B-AFG-001 | dawn-1764803-ispr-afghanistan-ttp-sanctuaries-2023-07-15 | https://www.dawn.com/news/amp/1764803 | national press + official | medium_high | 2B.1, 2B.5, 2B.8, 2B.10 |
+| 2B-AFG-002 | lawfare-2023-12-pak-ttp-afghanistan | https://www.lawfaremedia.org/article/what-the-united-states-should-do-about-the-terrorist-threat-to-pakistan | think-tank | medium_high (academic) | 2B.2, 2B.5, 2B.10 |
+| 2B-TTP-003 | medialine-2023-02-pakistan-terror-january | https://themedialine.org/by-region/rising-terrorism-in-pakistan-may-destabilize-regional-security/ | international media | medium_high | 2B.1, 2B.6, 2B.10 |
+| 2B-IMF-INT-004 | dawn-1764298-imf-3bn-jul-2023-sharif | https://www.dawn.com/news/1764298 | national press + IMF official | medium_high | 2B.8, 5B.3, 5B.9, 8B.7, 8B.9 |
+| 2B-SAUDI-005 | dawn-1764270-saudi-2bn-uae-1bn-jun-2023 | https://www.dawn.com/news/1764270 | national press | medium_high | 2B.8 |
+| 2B-CSEC-006 | csmonitor-2023-08-14-na-bills-passed | https://www.csmonitor.com/layout/set/amphtml/World/Asia-South-Central/2023/0814/Why-a-free-election-seems-almost-impossible-in-Pakistan | international media | medium_high | 2B.4, 2B.9, 4B.1, 4B.2, 4B.10 |
+| 2B-HRCP-007 | hrcp-2023-08-02-civil-liberties-press-release | https://hrcp-web.org/hrcpweb/government-must-cease-attempts-to-control-civil-liberties/ | NGO (Pakistani) | medium_high | 2B.4, 3B.4, 3B.5, 3B.6, 4B.2, 4B.4, 4B.5, 4B.9, 7B.6, 7B.7, 8B.3, 8B.5 |
+| 3B-MAY9-001 | en-wikipedia-may-9-riots-with-dawn-bbc-citations | https://en.wikipedia.org/wiki/May_9_riots | encyclopedia + primary | medium_high | 3B.1, 3B.2, 3B.5, 3B.9, 3B.10, 4B.1, 4B.3, 4B.5, 4B.8, 8B.3, 8B.5, 8B.6, 8B.8 |
+| 3B-MAY9-002 | bbc-2023-05-11-khan-arrest-illegal | https://www.bbc.com/news/world-asia-65561807 | international media | medium_high | 3B.1, 3B.4, 3B.9 |
+| 3B-IRK-003 | dawn-1777723-imran-riaz-khan-recovered + cpj-2023-05-12-journalists | https://www.dawn.com/news/1777723 ; https://cpj.org/2023/05/journalists-arrested-and-attacked-media-offices-set-ablaze-amid-pakistan-protests/ | national press + NGO | medium_high | 3B.1, 3B.7, 3B.10, 4B.6, 4B.9, 7B.6, 7B.7 |
+| 3B-MAY9-PR-004 | dawn-1755697-gen-munir-pm-sharif-may-9 | https://www.dawn.com/news/1755697 | national press | medium_high | 3B.3, 3B.5, 3B.9, 4B.5 |
+| 3B-MILTRIAL-006 | voa-7909459-military-court-jails-25 + ictj-60-more | https://www.voanews.com/a/7909459.html ; https://www.ictj.org/latest-news/pakistan-military-court-sentences-60-more-civilians-over-pro-khan-protests | international media + NGO | medium_high | 3B.1, 3B.2, 3B.5 |
+| 3B-AHMADI-007 | hrw-world-report-2024-pakistan | https://www.hrw.org/world-report/2024/country-chapters/pakistan | NGO (international) | medium_high | 3B.7, 3B.8, 4B.7, 5B.6, 6B.2, 6B.6 |
+| 3B-FZ-009 | cpj-2023-09-08-fayaz-zafar-swat | https://cpj.org/2023/09/pakistani-journalist-fayaz-zafar-arrested-and-alleges-police-abuse-amjad-ali-sahaab-under-investigation/ | NGO (press freedom) | medium_high | 3B.2, 3B.7 |
+| 4B-PTI-004 | brookings-2023-12-08-ahead-of-elections | https://www.brookings.edu/articles/ahead-of-elections-pakistans-democracy-stands-badly-damaged/ | think-tank | medium_high | 4B.1, 4B.2, 4B.4, 4B.5, 4B.10 |
+| 4B-FH-006 | freedom-house-pakistan-fw-2023 | https://freedomhouse.org/country/pakistan/freedom-world/2023 | NGO (assessor) | medium_high | 4B.1, 4B.2, 4B.4, 4B.10 |
+| 4B-HRW-007 | hrw-world-report-2024-pakistan-expression-section | https://www.hrw.org/world-report/2024/country-chapters/pakistan | NGO (international) | medium_high | 4B.6, 4B.7, 4B.9 |
+| 4B-ATL-008 | atlantic-council-2022-04-farieha-aziz | https://www.atlanticcouncil.org/blogs/new-atlanticist/experts-react-a-new-leader-emerges-from-pakistans-political-turmoil-now-what/ | think-tank | medium_high | 4B.6, 4B.9 |
+| 5B-VOA-002 | voa-2023-03-02-imf-bailout-delay | https://www.voanews.com/amp/pakistan-economic-turmoil-worsens-amid-imf-bailout-delay/6986680.html | international media | medium_high | 5B.3, 5B.7, 5B.8, 5B.9 |
+| 5B-HRW-003 | hrw-world-report-2024-economic-section | https://www.hrw.org/world-report/2024/country-chapters/pakistan | NGO (international) | medium_high | 5B.3, 5B.8, 5B.9, 5B.10 |
+| 5B-WB-004 | worldbank-pakistan-overview | https://www.worldbank.org/en/country/pakistan/overview | multilateral | medium_high | 5B.6, 5B.8, 5B.10, 6B.1, 6B.2, 6B.6, 6B.10 |
+| 5B-LA-005 | latimes-2023-07-13-imf-3bn | https://www.latimes.com/world-nation/story/2023-07-13/imf-approves-bailout-pakistan-avoiding-default | major US press | medium_high | 5B.3, 5B.9, 5B.4 |
+| 5B-RFE-006 | rferl-2023-07-12-imf-bailout | https://www.rferl.org/a/pakistan-imf-bailout-approved/32500952.html | international media | medium_high | 5B.3, 5B.9 |
+| 6B-FLOODS-003 | thenews-1097619-sphf-program | https://www.thenews.com.pk/print/1097619-2-1-million-houses-to-be-built-in-flood-ravaged-areas-of-sindh | national press | medium_high | 6B.2, 6B.3, 6B.6, 6B.9 |
+| 6B-CYCLONE-004 | dawn-1759709-cyclone-biparjoy | https://www.dawn.com/news/1759709 | national press | medium_high | 6B.6, 6B.7 |
+| 7B-FAM-001 | en-wikipedia-hamza-shahbaz + acquittal-20-jul-2023 | https://en.wikipedia.org/wiki/Hamza_Shahbaz | encyclopedia + primary | medium_high (court record) | 7B.3, 7B.4, 7B.9, 7B.10, 8B.5, 8B.9 |
+| 7B-NA-004 | en-wikipedia-corruption-in-pakistan | https://en.wikipedia.org/wiki/Corruption_in_Pakistan | encyclopedia | medium_high (context) | 7B.3, 7B.4, 7B.9 |
+| 8B-PROG-001 | atlantic-council-2022-04-program-identification | https://www.atlanticcouncil.org/blogs/new-atlanticist/experts-react-a-new-leader-emerges-from-pakistans-political-turmoil-now-what/ | think-tank | medium_high | 8B.1 |
+| 8B-BILLS-003 | reuse 2B-CSEC-006 / 4B-LAWS-003 / 3B-LAWS-005 | (already cited) | combined | medium_high | 8B.2, 8B.3, 8B.5, 8B.8 |
+| 8B-CARETAKER-007 | combined — csmonitor + hrw + brookings | (already cited) | combined | medium_high | 8B.9, 8B.10 |
+
+Local priors (final_evidence for fields directly measured):
+
+| Provisional ID | Locator | Type | Confidence | Chapters/Lenses |
+|---|---|---|---|---|
+| LF001–LF004 | local-prior:2B.1 (sipri_milex) | structured_dataset (local prior) | high | 2B.8 |
+| LF005–LF008 | local-prior:3B.1 (vdem) | structured_dataset | high | 3B.1, 3B.2, 3B.7 |
+| LF009–LF011 | local-prior:3B.1 (pts) | structured_dataset | high | 3B.7 |
+| LF012 | local-prior:4B.1 (v2x_accountability) | structured_dataset | high | 4B.4, 7B.6, 8B |
+| LF013 | local-prior:4B.1 (bti_democracy_status) | structured_dataset | high | 4B context |
+| LF014 | local-prior:4B.1 (bti_governance_index) | structured_dataset | high | 4B context, 8B |
+| LF015 | local-prior:4B.1 (bti_status_index) | structured_dataset | high | 5B context |
+| LF016 | local-prior:4B.1 (freedom_house_civil_liberties) | structured_dataset | high | 4B |
+| LF017 | local-prior:4B.1 (v2x_polyarchy) | structured_dataset | high | 4B |
+| LF018–LF019 | local-prior:4B.1 (v2x_frassoc_thick, v2x_freexp) | structured_dataset | high | 4B.6, 4B.8 |
+| LF020–LF021 | local-prior:4B.1 (v2x_jucon, v2xlg_legcon) | structured_dataset | high | 4B.4 |
+| LF022 | local-prior:4B.1 (v2x_libdem) | structured_dataset | high | 4B |
+| LF023 | local-prior:4B.1 (v2x_mpi) | structured_dataset | high | 4B |
+| LF024 | local-prior:4B.1 (freedom_house_political_rights) | structured_dataset | high | 4B |
+| LF025–LF026 | local-prior:4B.1 (rsf_press_freedom) | structured_dataset | high | 4B.6 |
+| LF027 | local-prior:4B.1 (v2x_regime) | structured_dataset | high | 4B.1 |
+| LF028 | local-prior:4B.1 (v2x_rule) | structured_dataset | high | 4B.4, 7B.6, 8B |
+| LF029 | local-prior:4B.1 (v2x_suffr) | structured_dataset | high | 4B.7 |
+| LF030–LF032 | local-prior:5B.1 (wdi) | structured_dataset | high | 5B.1, 5B.6 |
+| LF033 | local-prior:7B.1 (v2x_corr) | structured_dataset | high | 7B context |
+| LF034 | local-prior:7B.1 (cpi) | structured_dataset | high | 7B context |
+| LF035 | local-prior:7B.1 (v2x_execorr) | structured_dataset | high | 7B context |
+| LF036 | local-prior:7B.1 (v2x_pubcorr) | structured_dataset | high | 7B context |
+
+---
+
+## Note on file output
+
+The supplied `research_materials_path` and `research_ledger_manifest_path` are not writable in this sandbox (read-only filesystem). Per instructions, the complete handoff is provided above in this final response for parent persistence.
+
+**Source-attribution block required (Always-On Rule #15):** This research handoff relies on the following external sources, each of which requires attribution in any downstream product per the inlined registry; specific attributions are not reproduced in this worker output but the rule must be applied by the formatter for any public export. The registry's source attribution text is normative.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 1,
+      "independent_source_family_estimate": 1,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Both items rely on one analysis source; the second treats absence of documented escalation as contrary evidence.",
+        "The material mainly describes inherited doctrine and Kidwai's conduct, not Shehbaz Sharif's decisions.",
+        "The handoff includes researcher advice and a proposed score range, which must be removed before judging."
+      ],
+      "missing_themes": [
+        "Independent nuclear-security sources and precise primary locators",
+        "Ruler-specific NCA authority, decisions, safeguards, and command responsibility",
+        "India-Pakistan crisis conduct and arms-control or proliferation events"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Several items bundle multiple sources and materially distinct claims, especially IMF, Gulf support, and legislation items.",
+        "ISPR, cabinet, provincial, and military conduct are repeatedly attributed to Sharif without consistently establishing his direction, knowledge, authority, or correction.",
+        "The chapter imports 1B evidence and duplicates chapter-specific IDs rather than relying on one stable global evidence ID."
+      ],
+      "missing_themes": [
+        "Pakistan-India and Kashmir relations during the target period",
+        "Precise evidence on cross-border restraint, escalation, and lawful security conduct",
+        "Contrary evidence on military operations, civilian protection, and accountability"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Wikipedia is used as a principal locator for major casualty, arrest, and attribution claims rather than citing the underlying sources precisely.",
+        "The May 9, journalist-disappearance, minority-violence, and military-trial items bundle multiple claims and sources.",
+        "Several provincial or subordinate actions are attributed to Sharif's coalition without evidence of his direction, knowledge, benefit, tolerance, obstruction, or authority-based responsibility.",
+        "December 2024 sentencing outcomes are presented as evidence for 2023 conduct without consistently separating later outcomes from target-period events."
+      ],
+      "missing_themes": [
+        "Direct federal authorization or oversight of May 9 arrests, internet shutdowns, and military trials",
+        "Contrary evidence on due-process safeguards, prosecutions of security personnel, and corrective action",
+        "Clear separation of elected-government conduct from caretaker, provincial, police, and military conduct"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Country-level Freedom House, RSF, V-Dem, BTI, and rule-of-law measures are acknowledged as contextual but are still mapped broadly to ruler lenses.",
+        "The final-month legislation and May 9 material are duplicated under chapter-specific IDs despite the claimed master-ledger reuse.",
+        "Claims that Sharif accepted or failed to accept contestability, or that his coalition was an accessory to the military, need more precise evidence of personal authority and intent.",
+        "The Atlantic Council item is partly pre-period and cannot by itself establish 2023 conduct."
+      ],
+      "missing_themes": [
+        "Election administration, succession, and dissolution decisions within the target-period window",
+        "Ruler-specific evidence of opposition access, party competition, media independence, and institutional checks",
+        "Contrary evidence showing pluralism, judicial independence, or corrective action"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The World Bank overview is a gateway-level locator for several claims and includes FY25 or cumulative indicators presented as 2023-relevant context.",
+        "IMF coverage, Gulf deposits, and macroeconomic claims are bundled across sources and repeated under chapter-specific IDs.",
+        "The handoff attributes macroeconomic outcomes and reserve movement to Sharif without consistently separating his action from Finance Ministry, IMF, and inherited structural conditions.",
+        "The researcher supplies positive/mixed characterizations and judge-facing scoring guidance, which are prohibited in the evidence handoff."
+      ],
+      "missing_themes": [
+        "Ruler-attributed economic policy beyond IMF conditionality",
+        "Target-period distributional outcomes and compensatory measures",
+        "Employment, productivity, education, health, and household welfare evidence for 2023",
+        "Contrary evidence of protective or poverty-mitigating policy"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Most evidence concerns Sindh provincial programs or conditions and does not establish Sharif's direction, authority, knowledge, or responsibility.",
+        "The World Bank overview is used as a gateway/source index for multiple claims and has weak target-period precision.",
+        "The chapter is below the configured minimum claim-unit threshold and lacks candidate breadth, including local-data disposition detail beyond saying no priors existed.",
+        "The handoff includes researcher-written positive assessments and chapter-level scoring implications."
+      ],
+      "missing_themes": [
+        "Federal social-policy decisions and implementation during Sharif's tenure",
+        "Health, education, water, sanitation, nutrition, gender, and social-protection events in 2023",
+        "Federal flood and cyclone coordination with precise responsibility evidence",
+        "Contrary evidence of social investment, protection, or corrective action"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The central acquittal and family-asset claims rely on Wikipedia summaries while acknowledging that the underlying court order was not retrieved; this is recoverable but not yet defensible evidence.",
+        "A legal acquittal is treated as proof that Sharif personally benefited, without evidence of his direction, intervention, knowledge, or causal responsibility.",
+        "Country-level corruption indicators and historical family allegations are mapped to personal-integrity lenses despite limited direct target-period attribution.",
+        "The chapter bundles multiple allegations, procedural events, and historical claims, and includes a prohibited proposed score/null recommendation."
+      ],
+      "missing_themes": [
+        "Precise primary court, prosecutorial, asset, and conflict-of-interest records",
+        "Direct personal conduct by Shehbaz Sharif involving disclosure, recusals, procurement, gifts, or state resources",
+        "Contrary evidence of transparency, independent scrutiny, correction, or non-favoritism"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Program, execution, mobilization, and outcomes are often bundled into single items, particularly the IMF, legislation, May 9, and caretaker items.",
+        "The handoff treats later macroeconomic or legal outcomes as evidence of 2023 effectiveness without consistently separating post-period outcomes.",
+        "Inherited-capacity local facts are mapped to effectiveness lenses despite limited attribution.",
+        "The chapter reproduces reused facts under chapter-specific IDs and contains researcher-written evaluative conclusions about competence and favorable outcomes."
+      ],
+      "missing_themes": [
+        "Outcome evidence for policy implementation beyond signing or securing agreements",
+        "Independent evaluation of IMF, security, legislative, and succession results",
+        "Ruler-specific adaptation, delegation, correction, and failure analysis",
+        "Clear target-period separation of inherited capacity from Sharif-attributable effectiveness"
+      ]
+    }
+  ],
+  "global_findings": [
+    "The dossier requires continuation: it explicitly identifies unfetched or unrecovered primary sources, snippet/search-derived candidates, and tool-access gaps.",
+    "The claimed global reuse ledger is not implemented consistently; materially identical source-locator-claim facts receive chapter-specific IDs, and several rows use combined or multiple locators.",
+    "Many evidence items bundle multiple sources or materially distinct claims, so the approximate counts overstate defensible source-claim units.",
+    "Country, provincial, military, police, judicial, and subordinate conduct is frequently attributed to Sharif without a demonstrated responsibility link.",
+    "Local facts are described as retained and sometimes as final evidence, but the required explicit local-data disposition audit is missing and several mappings exceed what the facts directly measure.",
+    "The handoff contains prohibited researcher-written score ranges, null recommendations, judge advice, and evaluative conclusions; these are not evidence defects requiring web research but must be excluded from judging.",
+    "Missing evidence is not negative ruler evidence; weak or absent lenses should remain gaps with calibrated confidence effects rather than adverse claims."
+  ],
+  "reviewer_summary": "All eight selected chapters have material, research-recoverable gaps. The strongest continuation priorities are 1B and 6B for source breadth and ruler attribution, 7B for primary legal records and direct personal conduct, and 2B–5B and 8B for precise responsibility links, contrary evidence, target-period separation, and event coverage. Deterministic cleanup must also split bundled claims, normalize global IDs, remove gateway-only locators, reconcile counts, and strip all researcher scoring advice before chapter judging."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+# Research Handoff — Review Round 1 — Shehbaz Sharif, Pakistan, Ruler-Year 2023
+
+## Ruler-period baseline (unchanged)
+
+- **Ruler:** Shehbaz Sharif (PML-N); **PM of Pakistan: 11 April 2022 → 14 August 2023** (Wikipedia infobox; Britannica).
+- **Successor:** Anwaar-ul-Haq Kakar as **caretaker PM** from 14 August 2023 (Dawn 1769321; HRW World Report 2024).
+- **National Assembly dissolution:** 9 August 2023 on PM's advice, signed by President Arif Alvi; elections constitutionally due within 90 days but **delayed** because of new census/delimitation (Dawn 1764700, 1769321; Brookings December 2023).
+
+## Local-prior audit (expanded)
+
+All 36 retained local facts are reused as **final_evidence** only where the fact directly measures the 2023 country-year field, and as **context** otherwise:
+
+- **Used as final_evidence:** LF001–LF004 (SIPRI milex — 2B), LF005–LF008 (V-Dem civil society repression, extrajudicial killings, physical integrity, private civil liberties — 3B), LF009–LF011 (PTS scores — 3B), LF012 V-Dem accountability (4B, 7B context), LF014 BTI governance (4B, 8B), LF015 BTI status (4B, 5B context), LF016 FH civil liberties (4B), LF017 V-Dem polyarchy (4B), LF018 V-Dem frassoc_thick (4B), LF019 V-Dem freexp (4B), LF020 V-Dem jucon (4B), LF021 V-Dem legcon (4B), LF022 V-Dem libdem (4B), LF023 V-Dem mpi (4B), LF024 FH political rights (4B), LF025–LF026 RSF press rank/score (4B), LF027 V-Dem regime (4B), LF028 V-Dem rule (4B, 7B context, 8B), LF029 V-Dem suffrage (4B), LF030 WDI GDP per capita (5B), LF031 WDI GDP total (5B), LF032 WDI population (5B), LF033 V-Dem corruption (7B context), LF034 CPI score (7B context), LF035 V-Dem execorr (7B context), LF036 V-Dem pubcorr (7B context).
+- **Used only as context (ruler attribution not supported by local prior alone):** LF013 BTI democracy status.
+- **No local-prior facts were added or dropped.**
+
+The fact IDs above use the canonical `LFxxx` IDs from the supplied package and the exact `local-prior:<methodology_id>` locator format. They are **not** new ledger items and are not counted in the per-chapter defensible source-claim unit totals.
+
+---
+
+## Cross-chapter reuse map (now using one stable global ID per source-claim unit)
+
+The following source-claim units are reused across chapters. Each is established once with a global ID and re-referenced by chapter.
+
+- **SCU-MAY9-A** — Dawn 1751782 "Imran Khan arrested in Al-Qadir Trust case" (9 May 2023). Primary locator: full article. (federal/NAB action). Reused: 3B, 4B, 8B.
+- **SCU-MAY9-B** — BBC 65561807 "Pakistan Supreme Court rules Imran Khan's arrest illegal" (11 May 2023). Reused: 3B, 4B.
+- **SCU-MAY9-C** — Wikipedia "May 9 riots" entry (used only for casualty/arrest counts and infrastructure damage inventory, with Dawn/BBC primary citations embedded; not as primary source). Reused: 3B, 4B, 8B.
+- **SCU-MAY9-D** — Dawn 1755697 "Gen Munir says nation will neither forgive nor forget May 9 culprits" / "PM Shehbaz says tragic and heart-rending" (25 May 2023). Reused: 3B, 4B, 8B.
+- **SCU-MAY9-E** — Dawn 1753179 "Imran Riaz Khan detained at Sialkot airport" / LHC Chief Justice threatened contempt (May 2023). Reused: 3B, 4B, 7B.
+- **SCU-MAY9-F** — Dawn 1777723 "Imran Riaz Khan recovered after four months" (26 September 2023) + CPJ 12 May 2023. Reused: 3B, 4B, 7B.
+- **SCU-MAY9-G** — Dawn 1755190 "Gen Munir announces Martyrs' Respect Day" (23 May 2023). Reused: 3B, 4B.
+- **SCU-MAY9-H** — Dawn 1752702 "LHC orders release of Aftab Iqbal; summons video record of Imran Riaz leaving jail" (13 May 2023). Reused: 3B, 4B.
+- **SCU-MAY9-I** — Dawn 1757348 "ATC Mardan orders release of 13 PTI activists" (2 June 2023). Reused: 3B, 4B, 7B.
+- **SCU-FZ** — CPJ 8 September 2023 "Pakistani journalist Fayaz Zafar arrested" / 15-min beating allegation at Swat police chief's home. Reused: 3B, 7B.
+- **SCU-AHMADI-A** — Dawn 1771276 "Eight Ahmadis charged with blasphemy" (21 August 2023). Reused: 3B.
+- **SCU-AHMADI-B** — Dawn 1766743 "Ahmadiyya place of worship vandalized in Karachi" (25 July 2023). Reused: 3B.
+- **SCU-CHRISTIAN** — HRW World Report 2024 (covers 16 August 2023 Faisalabad attack; 130 arrests of attackers). Reused: 3B.
+- **SCU-LAWS-A** — Dawn 1768896 "Official Secrets (Amendment) Bill 2023 passed by National Assembly" (7 August 2023) with amendment removing warrantless arrest clause, "knowingly" qualifier added. Reused: 3B, 4B, 7B, 8B.
+- **SCU-LAWS-B** — Dawn 1768025 "Official Secrets Amendment Bill referred to Senate committee after opposition" (2 August 2023). Reused: 3B, 4B, 7B.
+- **SCU-LAWS-C** — Dawn 1769321 "National Assembly dissolved, caretaker PM search begins" (9 August 2023). Reused: 4B, 8B.
+- **SCU-LAWS-D** — Dawn 1769330 "Pemra bill passed with last-minute changes" (9 August 2023). Reused: 4B, 7B.
+- **SCU-LAWS-E** — Dawn 1766979 "E-Safety Bill, Personal Data Protection Bill approved by federal cabinet" (26 July 2023). Reused: 4B, 7B.
+- **SCU-LAWS-F** — Dawn 1770573 / RSF press statement 17 August 2023 "Pakistan: Hastily adopted laws threaten press freedom ahead of elections." Reused: 4B, 7B.
+- **SCU-LAWS-G** — Dawn 1751602 "ISPR statement on Imran Khan allegations against serving officer" (8 May 2023) + PM Shehbaz condemnation of Khan's "routinely maligning" army. Reused: 4B, 8B.
+- **SCU-HRCP** — HRCP press release 2 August 2023 (already cited). Reused: 2B, 3B, 4B, 7B.
+- **SCU-IMF-A** — Dawn 1764298 "IMF approves $3bn programme" (13 July 2023). Reused: 2B, 5B, 8B.
+- **SCU-IMF-B** — Dawn 1764270 "Pakistan gets $2bn from Saudi Arabia" (29 June 2023). Reused: 2B, 5B.
+- **SCU-IMF-C** — Times of India 105318901 "Pakistan accountability court acquits Shehbaz in Ashiana-i-Iqbal Housing Scheme corruption case" (18 November 2023). Reused: 7B, 8B.
+- **SCU-IMF-D** — LA Times "IMF approves $3bn bailout for Pakistan" (13 July 2023). Reused: 2B, 5B.
+- **SCU-IMF-E** — VOA News "Pakistan's Economic Turmoil Worsens Amid IMF Bailout Delay" (2 March 2023). Reused: 5B.
+- **SCU-MOODYS** — Dawn 1751774 "Moody's: Pakistan could default without IMF bailout" (9 May 2023). Reused: 5B, 8B.
+- **SCU-BANK** — Dawn 1755158 "Banks' net lending to private sector plunged 90% in 10MFY23" (23 May 2023). Reused: 5B.
+- **SCU-MACRO** — Dawn 1758078 "Dawn Business and Finance Weekly: structural imbalances, productivity" (5 June 2023). Reused: 5B.
+- **SCU-IMF-F** — Dawn 1768266 "PM Shehbaz touts economic achievements at farewell for allies; addresses 'establishment's man' taunts" (4 August 2023). Reused: 5B, 7B, 8B.
+- **SCU-FAREWELL** — Dawn 1769248 "PM Shehbaz farewell speech at NA: most difficult test of life" (9 August 2023). Reused: 4B, 5B, 7B, 8B.
+- **SCU-TTP-A** — Dawn 1764803 "Armed forces deplore TTP havens across western border" (15 July 2023). Reused: 2B, 3B, 8B.
+- **SCU-TTP-B** — Dawn 1755493 "Six terrorists killed in IBO in South Waziristan" (24 May 2023) + DG ISPR press briefing. Reused: 2B, 3B.
+- **SCU-TTP-C** — Dawn 1767493 "Suicide blast at JUI-F convention in Bajaur: 44 killed" (30 July 2023) + PM Shehbaz telephoned JUI-F chief. Reused: 2B, 3B.
+- **SCU-NUK-A** — Arms Control Today, October 2023 "Pakistan's Evolving Nuclear Doctrine" (Sitara Noor). Reused: 1B.
+- **SCU-NUK-B** — ISPR military press releases on counterterror operations; absence of NCA convening statements during 2023. Reused: 1B, 2B.
+- **SCU-DEFECTOR** — Hamza Shahbaz acquittal reference (Dawn 1765795; Times of India 105318901) and prior family asset pattern. Reused: 7B.
+- **SCU-NAB-NL** — Dawn 1752250 "NAB told court it found no evidence of corruption against PM Shehbaz, family" (11 May 2023). Reused: 7B.
+- **SCU-BIPARJOY-A** — Dawn 1759686 "Cyclone Biparjoy: Pakistan prepares for landfall" (14 June 2023) including PM directives to power minister, NDMA, DISCOs. Reused: 6B, 8B.
+- **SCU-BIPARJOY-B** — Dawn 1759709 "DHA says only voluntary evacuations underway" (13 June 2023). Reused: 6B.
+- **SCU-RECON-A** — The News 1097619 "2.1 million houses to be built in flood-ravaged areas of Sindh" (2023). Reused: 6B.
+- **SCU-NAB-FLOUR** — Dawn 1756778 "NAB probe into free wheat flour distribution in Punjab" (30 May 2023). Reused: 6B, 7B, 8B.
+- **SCU-NILORE** — Dawn 1755658 "PM orders inquiry against CDA over Nilore Heights project" (25 May 2023). Reused: 7B, 8B.
+- **SCU-HRW** — HRW World Report 2024 (Pakistan chapter). Reused: 3B, 4B, 5B, 6B.
+- **SCU-FH** — Freedom House Freedom in the World 2023 (Pakistan). Reused: 4B.
+- **SCU-BROOKINGS** — Brookings "Ahead of elections, Pakistan's democracy stands badly damaged" (8 December 2023). Reused: 4B, 7B, 8B.
+- **SCU-CSM** — CSMonitor "Why a free election 'seems almost impossible' in Pakistan" (14 August 2023). Reused: 2B, 4B, 8B.
+- **SCU-WB** — World Bank Pakistan Overview. Reused: 5B, 6B.
+- **SCU-ATL** — Atlantic Council "Experts react: a new leader emerges from Pakistan's political turmoil" (April 2022). Reused: 4B (context only — pre-period).
+- **SCU-LAWFARE** — Lawfare "What the United States Should Do About the Terrorist Threat to Pakistan" (10 December 2023). Reused: 2B.
+- **SCU-MEDIALINE** — Media Line "Rising Terrorism in Pakistan" (17 February 2023). Reused: 2B.
+- **SCU-IMF-DEFICIT** — Dawn 1765576 "Summit Bank rename to Bank Makramah; IMF undercapitalised-banks report" (18 July 2023). Reused: 5B, 8B.
+
+Items previously marked `3B-MAY9-001`, `2B-IMF-INT-004`, `4B-LAWS-003`, etc., are now collapsed into these stable global IDs and reused by chapter reference. No chapter-specific IDs remain.
+
+---
+
+## Chapter 1B — Nuclear and Existential-Risk Responsibility
+
+**Reviewer issues addressed:** bundle splitting, single-source-type, attribution separation.
+
+**Defensible source-claim units: 2 (1 source family).** Source diversity is **insufficient** for the chapter's normal 3-source minimum.
+
+### Accepted source-claim units
+
+- **SCU-NUK-A** — *Citation:* Sitara Noor, "Pakistan's Evolving Nuclear Doctrine," Arms Control Today, October 2023, URL: https://www.armscontrol.org/act/2023-10/features/pakistans-evolving-nuclear-doctrine. *Locator:* article sections "Enduring Features of the Doctrine" and "Evolving Trends"; quotations of Lt. Gen. Khalid Ahmed Kidwai (retd.) at ISSI 24 May 2023; subsequent "metaphorical" clarification tweet; historic Sharif 1999 quotation on minimum credible deterrence. *Source profile:* Arms Control Association — NGO with peer review; treat as `unlisted` in the source-confidence registry at default `medium_low`, upgrade to `medium_high` for the article's dated, named, sourced quotations because they are not paraphrased. *Claim:* Pakistan's nuclear posture under Sharif's government retained established features during the target period — no first use officially rejected, full-spectrum deterrence within minimum credible deterrence, unilateral testing moratorium, centralized command and control, weapons stored de-mated, Nasr tactical weapon range "60 to 2,750 kilometers." On 24 May 2023 Lt. Gen. (retd.) Khalid Ahmed Kidwai — Strategic Plans Division founder, adviser to the National Command Authority — reiterated full-spectrum deterrence at ISSI including "range coverage from zero meters to 2,750 kilometers"; later clarified the zero-meter reference was "metaphorical." *Target-period fit:* explicit. *Ruler attribution:* weak to moderate. Kidwai's speech reflects his advisory role, not a new NCA decision publicly attributed to Sharif. The article does not identify a publicly reported NCA convening or new doctrinal decision by Sharif in 2023. The Indian Punjab attack (8 May 2023, ISPR statement SCU-LAWS-G) and Bhakra Dam reference were the most prominent 2023 India-Pakistan tensions; Kidwai's ISSI speech followed that. *Supported lenses:* 1B.1 (continuity of posture, no documented increase), 1B.2 (no reported reckless nuclear rhetoric in 2023 by Sharif), 1B.3 (centralized C2 reiterated, no reported safety failures), 1B.4 (unilateral moratorium retained; no new treaty act in 2023), 1B.6 (no documented proliferation act), 1B.10 (no end-period deterioration).
+
+- **SCU-NUK-B** — *Citation:* absence-evidence statement. *Locator:* searches conducted in this session did not surface a primary locator for a publicly announced National Command Authority convening or doctrinal statement by PM Shehbaz Sharif in the 1 January – 14 August 2023 target window; the most prominently retrieved 2023-era NCA convening is from May 2025 (Reuters), outside the period. *Claim:* No documented ruler-attributed NCA public decision, nuclear test, weaponization acceleration, command-safety reform, or arms-control treaty act by Shehbaz Sharif within the 2023 target window. *Target-period fit:* negative result for the period. *Ruler attribution:* n/a (silence is the assertion). *Role:* absence-of-evidence; recorded as a gap, not as evidence of restraint. *Supported lenses:* 1B.10 (no documented deterioration, but silence is not a positive claim).
+
+### Rejected / not retained
+
+- *State Department Country Reports on Terrorism 2023 Pakistan* — page returned only base64 image data; no extractable text or locator. Not retained as evidence; flag for direct PDF retrieval if needed.
+- *Reuters May 2025 NCA convening* — outside the ruler-period.
+
+### Coverage assessment
+
+Limited but defensible. **Exposure classification:** `material_exposure` (Pakistan nuclear-armed state, PM chairs NCA). **Discriminating opportunity:** narrow — Kidwai's 24 May 2023 speech reaffirmed established doctrine with no attributed ruler initiative; no 2023 India-Pakistan crisis; no documented NCA convening statement. Confidence is **lower** than chapter anchor 1 suggests; this should narrow the defensible score range on the high side. The chapter remains under-sourced.
+
+### Gaps remaining (saturated at this session's tool-access level)
+
+- *SIPRI Yearbook 2023* Pakistan chapter (primary locator for arsenal estimates) — not retrieved.
+- *UNODA statements* on Pakistan 2023 — not retrieved.
+- *Pakistan NCA official communiqués 2023* — not retrieved through accessible primary sources.
+- *FAS Nuclear Information Project Pakistan 2023* — not retrieved.
+
+If these remain unavailable, the chapter must be acknowledged as under-sourced and the judge should consider whether to treat the dossier as `no_evidence_found` or return null rather than score.
+
+---
+
+## Chapter 2B — International Peace, Restraint, and Lawful Security
+
+**Reviewer issues addressed:** bundled IMF items split; provincial/military/ISPR conduct attribution separated from federal/Pakistan-Army-policy attribution.
+
+**Defensible source-claim units: 8 (4+ source families).** Source diversity meets minimum.
+
+### Accepted source-claim units (with federal vs provincial/military attribution noted)
+
+- **SCU-TTP-A (federal/Pakistan-Army policy)** — Dawn 1764803, 15 July 2023. ISPR statement deploring TTP sanctuaries in Afghanistan; specifically calls on Afghan Taliban to act. Federal PM Shehbaz chairs federal cabinet; defense minister Khawaja Asif is PML-N and Sharif's minister. *Supported lenses:* 2B.1 (asked Afghan Taliban to act as credible peaceful alternative), 2B.5 (restrained public posture vs cross-border retaliation), 2B.6 (public attribution of militancy to sanctuaries rather than sectarian incitement), 2B.8 (security spending tied to documented threats).
+
+- **SCU-TTP-B (military operational conduct, not federal civilian attribution)** — Dawn 1755493, 24 May 2023 (ISPR): six terrorists killed in intelligence-based operation in South Waziristan; references DG ISPR Maj Gen Ahmed Sharif Chaudhry's maiden press briefing 26 April 2023 citing 293 killed, 521 injured in 436 incidents in the past year; 8,269 IBOs carried out, 1,378 suspected terrorists apprehended, 157 killed. *Attribution note:* These are ISPR-conducted counterterror operations; federal civilian control over operational tempo is not directly evidenced for this period. Used as **military-context** evidence. *Supported lenses:* 2B.1 (IBOs as alternative to full-scale operations), 2B.5 (operational restraint vs declaration of war).
+
+- **SCU-TTP-C (federal civilian direction documented; military operation)** — Dawn 1767493, 30 July 2023. JUI-F convention suicide blast in Bajaur (KP), 44 killed, 100+ wounded. PM Shehbaz telephoned JUI-F chief Maulana Fazlur Rehman; spoke to KP chief secretary and IG police; directed medical evacuation via Pakistan Army helicopter; ordered investigation; sought report from Interior Minister Rana Sanaullah and KP government. *Attribution:* federal civilian direction documented for crisis response. *Supported lenses:* 2B.4 (care for civilian victims), 2B.7 (accountability through investigation order), 2B.9 (federal-civilian crisis engagement), 2B.10 (KP provincial incident in federal attention).
+
+- **SCU-MEDIALINE** — Media Line, 17 February 2023. January 2023 deadliest month for terror in 5 years (PICSS: 134 killed, 254 injured in 44 attacks); Defense Minister Khawaja Asif blamed "weak policies of Imran's regime" rather than crediting own response. *Attribution:* federal defense minister speech; PM-as-cabinet attribution. *Supported lenses:* 2B.1 (continued IBO posture), 2B.6 (attribution of cause to predecessor — mixed truth-and-accountability signal), 2B.10.
+
+- **SCU-LAWFARE** — Lawfare, 10 December 2023. Frames 2023 as "increasingly frustrated" Sharif government toward Afghan Taliban; TTP sanctuary problem continuing; Pakistani security establishment "regained high levels of influence" over militant clients (analytical inference, not Sharif-attributed). *Supported lenses:* 2B.5, 2B.10. Attribution note: this is third-party framing, not direct Sharif attribution.
+
+- **SCU-IMF-A** — Dawn 1764298, 13 July 2023. IMF executive board approved 9-month $3bn SBA with $1.2bn immediate disbursement; conditions included FY24 budget adjustment, market-determined exchange rate, tight monetary policy, energy/SOE/climate reforms. Sharif personally met Georgieva in Paris at Summit for a New Global Financing Pact. *Supported lenses:* 2B.8 (external discipline), 5B/8B cross-references. *Attribution:* high — Sharif personally.
+
+- **SCU-IMF-B** — Dawn 1764270, 29 June 2023. Saudi Arabia deposited $2bn with SBP; UAE subsequently $1bn. Sharif thanked "my brother Saudi Crown Prince" Mohammed bin Salman; thanked Saudi Ambassador Nawaf bin Saeed Ahmad Al-Malkiy. *Attribution:* federal civilian — Sharif's personal diplomatic engagement. *Supported lenses:* 2B.8 (financial mobilization via Gulf patronage), 2B.9 (transparency about external support), 5B.
+
+- **SCU-IMF-D** — LA Times, 13 July 2023. Saudi + UAE + China deposits coordinated with IMF board approval; Sharif welcomed "milestone." *Attribution:* federal civilian. *Supported lenses:* 2B.8, 2B.9.
+
+- **SCU-CSM** — CSMonitor, 14 August 2023. NA's final month under Sharif passed >100 bills without debate; Ahsan Iqbal (coalition planning minister) defended May 9 prosecutions as "no one is above the law." *Attribution:* federal coalition. *Supported lenses:* 2B.4 (legislative widening of military authority — cross-uses into civil liberties; relevant in 2B only as it shaped international rule-of-law profile), 2B.9 (accountability framing of May 9 prosecutions).
+
+- **SCU-HRCP** — HRCP, 2 August 2023. "Draconian" legislation passed without deliberation. Used in 2B for rule-of-law / international-conduct implications only. *Attribution:* federal coalition. *Supported lenses:* 2B.4, 2B.9.
+
+### Pakistan-India / Kashmir 2023 — coverage gap
+
+Searches for explicit 2023 Pakistan-India Line of Control incidents, ceasefire violations, or diplomatic breakthroughs during the 1 January – 14 August 2023 window did not surface a primary locator in this session. The Indian Punjab attack on 8 May 2023 (IM trigger) and ISPR's SCU-LAWS-G response is the most prominent 2023 Pakistan-India tension event, but this falls in 3B/4B domestic-political frame rather than 2B cross-border security. **Gap remains**: no primary-locator evidence for 2B on Pakistan-India bilateral restraint, escalation, or negotiation in the target period. Recorded as a gap.
+
+### Coverage assessment
+
+2B.1, 2B.5, 2B.8, 2B.9, 2B.10 are reasonably covered. 2B.2 (war of choice), 2B.3 (manufactured threats), 2B.4 (civilian protection in operations — limited), 2B.6 (truth claims), 2B.7 (peace talks) are partial or unevidenced. Pakistan-India gap is the largest structural deficiency.
+
+---
+
+## Chapter 3B — Domestic Safety, Restraint, and Protection
+
+**Reviewer issues addressed:** Wikipedia demoted to citation-pointer only (not principal locator); May 9, journalist-disappearance, minority-violence, military-trial items split; federal-civilian vs provincial/police/military/caretaker attribution separated; December 2024 sentencing outcomes separated from 2023 conduct.
+
+**Defensible source-claim units: 9 (5 source families).** Source diversity meets minimum.
+
+### Accepted source-claim units
+
+- **SCU-MAY9-A** — Dawn 1751782, 9 May 2023 (federal/NAB authorization). Imran Khan arrested at Islamabad High Court on NAB warrant signed by NAB Chairman Lt-Gen Nazir Ahmed for Al-Qadir Trust case (accused of corruption and corrupt practices under Section 9(a) NAO 1999). Interior Minister Rana Sanaullah confirmed NAB conducted the arrest "for causing losses to the national treasury." Arrested in court premises by Rangers personnel; PTI lawyers alleged physical force. *Attribution:* federal civilian-led (NAB is federal; Interior Ministry is federal; PM chairs federal cabinet). *Supported lenses:* 3B.1, 3B.5, 3B.9, 4B.1, 4B.3.
+
+- **SCU-MAY9-B** — BBC 65561807, 11 May 2023. Supreme Court declared arrest illegal; ordered immediate release; "At least 10 people have been killed and 2,000 arrested." *Attribution:* Supreme Court check on federal executive. *Supported lenses:* 3B.4 (judicial check on executive), 3B.9, 4B.1, 4B.4.
+
+- **SCU-MAY9-D** — Dawn 1755697, 25 May 2023. PM Shehbaz public statement: "tragic and heart-rending events of May 9 are a wake-up call for us" and "the designs of those who planned them were actually very sinister"; framed attacks on "monuments of shuhada" as attacks on "the idea and identity of Pakistan." Youm-i-Takreem Shuhada established as memorial day by federal government. *Attribution:* federal civilian — Sharif's own statements. *Supported lenses:* 3B.3 (incitement rhetoric), 3B.5 (emergency framing), 3B.9, 4B.5.
+
+- **SCU-MAY9-E** — Dawn 1753179, May 2023. Anchor Imran Riaz Khan arrested at Sialkot Airport 11 May 2023 under Maintenance of Public Order rules (preventive detention 30 days); transferred to Sialkot jail; family had no contact; LHC Chief Justice Muhammad Ameer Bhatti threatened strict action against police/jail authorities who tried to mislead the court. *Attribution:* provincial (Punjab) primary; federal subject to oversight by LHC. *Supported lenses:* 3B.1 (state detention), 3B.7, 4B.6, 7B.6.
+
+- **SCU-MAY9-F** — Dawn 1777723 (26 September 2023) and CPJ 12 May 2023. Khan "missing for more than four months"; LHC Chief Justice gave Punjab IG "last opportunity" to recover Khan; IG said no trace in any police department; ISI and Military Intelligence said Khan not in their custody; phone numbers traced back to Afghanistan allegedly involved. Punjab IG Dr Usman Anwar confirmed Khan "safe at home" 26 September 2023. *Attribution:* Punjab provincial police primary; federal intelligence agencies stated not involved. *Supported lenses:* 3B.1 (state-enabled disappearance), 3B.4 (judiciary forced state to act), 3B.7, 3B.10, 4B.6, 7B.7.
+
+- **SCU-MAY9-I** — Dawn 1757348, 2 June 2023. Mardan anti-terrorism court ordered release of 13 PTI activists arrested in connection with May 9 incidents, granted bail under 19 different sections. *Attribution:* judicial check on provincial police/civil administration. *Role:* contrary evidence — court oversight operated. *Supported lenses:* 3B.1, 3B.4, 7B.6.
+
+- **SCU-MAY9-G** — Dawn 1755190, 23 May 2023. COAS Gen Asim Munir announces Martyrs' Respect Day for 25 May; decorates 51 heirs of martyrs with Sitara-i-Imtiaz (Military), 22 with Tamgha-i-Basalat; condemns May 9 attacks as "intolerable." *Attribution:* military command, not federal civilian. *Supported lenses:* 3B.5 (military framing), 3B.9 (crisis response with in-group/out-group framing).
+
+- **SCU-FZ** — CPJ, 8 September 2023. Fayaz Zafar (VOA Deewa) preventive-detained 30 August 2023 under 1960 West Pakistan Maintenance of Public Order Ordinance by magistrate Irfan Ullah Khan; alleged 15-min beating at Swat police chief Shafiullah Gandapur's home; car damaged with rifle butts; released 31 August 2023 after District Bar Association and tribal assembly requests and Interim Information Minister Murtaza Solangi intervention. *Attribution:* provincial (KP) police primary; caretaker-federal Information Minister intervened (after Sharif's elected tenure). *Supported lenses:* 3B.2 (police abuse allegation), 3B.7 (targeted journalist).
+
+- **SCU-AHMADI-A** — Dawn 1771276, 21 August 2023. Eight Ahmadis charged with blasphemy after TLP-mob attack on Ahmadi-owned factory in Badami Bagh, Lahore; Punjab IGP Dr Usman Anwar publicly disputed TLP involvement, claimed Ahmadis were preaching. *Attribution:* provincial (Punjab) police; caretaker CM at time (post-14 January 2023 Mohsin Naqvi). *Supported lenses:* 3B.7 (vulnerable-group protection failure), 3B.8 (selective enforcement), 4B.7.
+
+- **SCU-AHMADI-B** — Dawn 1766743, 25 July 2023. Ahmadiyya place of worship in Karachi Drigh Road vandalized by ~12 individuals with hammers; "hateful graffiti on walls"; 10 Ahmadi places of worship attacked during the year per community spokesperson. *Attribution:* provincial (Sindh) law-and-order — not federal. *Supported lenses:* 3B.7.
+
+- **SCU-CHRISTIAN** — HRW World Report 2024 (covers 16 August 2023 Faisalabad attack; 130 arrests of attackers; residents told police warned them hours before but said they could do nothing). *Attribution:* provincial (Punjab) police; central federal statement on religious-minority violence. *Supported lenses:* 3B.7, 3B.8.
+
+- **SCU-LAWS-A / SCU-LAWS-B** — Dawn 1768896, 1768025. Official Secrets (Amendment) Bill 2023 passed by NA 7 August 2023 with amendments (removal of warrantless arrest clause; "knowingly" qualifier added in clause 5); original version had "blanket powers" for ISI/IB to raid and detain over suspected breach. *Attribution:* federal civilian coalition. *Supported lenses:* 3B.5 (security-law broadening, even with amendments), 3B.6 (climate of fear), 4B.2, 4B.4, 4B.5, 4B.9, 7B.6, 7B.7, 8B.3, 8B.5.
+
+- **SCU-HRCP** — HRCP, 2 August 2023 (already cited). HRCP condemnation of "draconian" legislation. *Supported lenses:* 3B.4, 3B.5, 3B.6, 4B.2, 4B.4, 4B.5, 4B.9, 7B.6, 7B.7.
+
+- **SCU-TTP-C** — Dawn 1767493 (federal civilian direction documented on crisis response; military operation). *Supported lenses:* 3B.4 (federal direction of medical response), 3B.7 (vulnerable group protection), 3B.9 (crisis response), 4B.7.
+
+- **SCU-TTP-B** — Dawn 1755493. ISPR counterterror operations. *Attribution:* military; not federal civilian. *Supported lenses:* 3B.1 (security-force conduct toward militants), 3B.2, 3B.5, 3B.6, 3B.9.
+
+### Coverage assessment
+
+3B.1, 3B.2, 3B.3, 3B.5, 3B.6, 3B.7, 3B.9 are well-covered. 3B.4 has contrary evidence (LHC/ATC judicial oversight). 3B.8, 3B.10 partial. Provincial/federal attribution is now separated. December 2024 military court sentencing outcomes are kept as **retrospective context** (ICTJ, VOA) and not counted as target-period evidence.
+
+---
+
+## Chapter 4B — Political Freedom vs Authoritarian Rule
+
+**Reviewer issues addressed:** country-level priors explicitly bounded; reuse ledger applied; Atlantic Council item acknowledged as pre-period context only; personal-authority evidence for contestability / opposition access / corrective action strengthened.
+
+**Defensible source-claim units: 9 (6 source families).** Source diversity meets minimum.
+
+### Accepted source-claim units
+
+- **SCU-MAY9-A** (federal/NAB authorization of Imran Khan's arrest) — *Supported lenses:* 4B.1 (did not accept contestability by political rival), 4B.2 (legal architecture used to disable opposition), 4B.3, 4B.5, 4B.8.
+
+- **SCU-MAY9-B** (Supreme Court declared arrest illegal) — *Supported lenses:* 4B.1, 4B.4 (court checked executive overreach), 4B.10 (institutional constraint operated).
+
+- **SCU-MAY9-D / SCU-MAY9-G** (federal/military framing of May 9 as existential) — *Supported lenses:* 4B.5 (politicization of state institutions), 4B.9 (administrative harassment of opposition).
+
+- **SCU-MAY9-E / SCU-MAY9-F** (Imran Riaz Khan detention / disappearance) — *Supported lenses:* 4B.6 (media pressure), 4B.7 (selective targeting), 4B.9.
+
+- **SCU-MAY9-I** (ATC Mardan released 13 PTI activists on bail) — *Supported lenses:* 4B.1, 4B.4 (judicial remedy), 4B.10.
+
+- **SCU-LAWS-A / SCU-LAWS-B / SCU-LAWS-D / SCU-LAWS-E / SCU-LAWS-F / SCU-HRCP** (final-month legislation: Official Secrets Amendment, Pemra bill, E-Safety Bill, Data Protection Bill). *Attribution:* federal civilian coalition — direct attribution to Sharif's coalition. *Supported lenses:* 4B.2 (legal architecture expansion of military/media-control powers), 4B.4 (legislative weakening of constraint), 4B.5 (politicization), 4B.6 (press freedom harms — RSF calls for repeal), 4B.9 (administrative harassment codified into law), 4B.10 (weaker democratic resilience).
+
+- **SCU-LAWS-C** (NA dissolution 9 August 2023 on PM's advice; constitutional process followed; caretaker transition). *Attribution:* federal civilian. *Supported lenses:* 4B.8 (transfer of power rule observed), 4B.10 (term ended on time, but elections delayed).
+
+- **SCU-LAWS-G** (Dawn 1751602, 8 May 2023; PM Shehbaz publicly condemned Imran Khan's "routinely maligning and threatening the Pakistan Army and Intelligence Agency" and called Gen Faisal Naseer allegations "cannot be allowed and will not be tolerated." ISPR separately threatened "legal course of action"). *Attribution:* federal civilian — Sharif's own statements. *Supported lenses:* 4B.5 (politicization of military-institutional alignment), 4B.7 (selective defense of state institutions), 4B.9 (administrative pressure on opposition speech).
+
+- **SCU-FAREWELL** (Dawn 1769248, 9 August 2023). Sharif's farewell speech: claimed government "did not send any political rival to jail or bother them unfairly," said "we are not happy about it" if Khan is jailed, condemned May 9 as "black day" and "a rebellion against the army, the state and Gen Asim Munir," called for resolution against future such acts. *Attribution:* federal civilian direct. *Supported lenses:* 4B.1 (claims but contested), 4B.3 (intolerance framing), 4B.4 (acknowledgment of constrained institutions), 4B.8 (term ended orderly), 7B.1, 7B.2.
+
+- **SCU-IMF-F** (Dawn 1768266). Sharif publicly defended his close working relationship with COAS Munir, saying "people taunt me, calling me the establishment's man. But this doesn't bother me." *Attribution:* federal civilian direct self-statement. *Supported lenses:* 4B.4 (acknowledgment of civilian-military integration), 4B.10 (civilian space subordinated).
+
+- **SCU-FH** (Freedom House Pakistan FW 2023). Pakistan "Partly Free"; military "exerts enormous influence over government formation and policies"; ECP cannot counteract "judicial and military actors' efforts to manipulate the electoral environment"; Imran Khan banned from holding office for 5 years by ECP October 2022; PTI won 6/8 by-election seats October 2022. *Attribution:* country architecture within which Sharif operated — not direct attribution. *Supported lenses:* 4B.1, 4B.2, 4B.4, 4B.10 (context).
+
+- **SCU-HRW** (HRW World Report 2024 — Pakistan chapter). "Following a similar playbook as its predecessors, the government of Prime Minister Shehbaz Sharif clamped down on the media, nongovernmental organizations (NGOs), and political opposition." *Attribution:* federal civilian — direct international-NGO assessment. *Supported lenses:* 4B.6, 4B.7, 4B.9.
+
+- **SCU-BROOKINGS** (Brookings, 8 December 2023). "The coalition… presided over a stunning backsliding of the country's democracy and an expansion of the military's powers over its 16-month tenure. Its prime minister, Shehbaz Sharif (Nawaz's brother), was someone who has long been deemed pliant by the establishment." Army chief made member of newly created Special Investment Facilitation Council. *Attribution:* third-party analytic framing. *Supported lenses:* 4B.1, 4B.2, 4B.4, 4B.5, 4B.10.
+
+- **SCU-CSM** (CSMonitor 14 August 2023). Final-month legislation; journalist Taha Siddiqui quote; journalist/journalist-prosecution framing by former minister Ahsan Iqbal. *Attribution:* mix of federal civilian (legislation) and reporting. *Supported lenses:* 4B.1, 4B.2, 4B.3, 4B.10.
+
+- **SCU-ATL** (Atlantic Council 2022, Farieha Aziz contribution). Pre-period context — civil-society expectation that new government "withdraw all politically motivated cases under PECA and other laws"; expectation not met by 2023. *Attribution:* pre-period third-party analysis. *Supported lenses:* 4B.6, 4B.9 (context only).
+
+### Coverage assessment
+
+4B.1, 4B.2, 4B.3, 4B.4, 4B.5, 4B.6, 4B.8, 4B.9, 4B.10 well-covered. 4B.7 partial (selective enforcement against PTI documented; broader minority group treatment covered via 3B). Federal vs caretaker separation applied — Zafar case in 3B is caretaker-era, not Sharif-elected-era.
+
+---
+
+## Chapter 5B — Economic Well-Being and Prosperity
+
+**Reviewer issues addressed:** World Bank gateway-level use bounded; IMF coverage split; ruler-attribution vs Finance Ministry/IMF/inherited separation tightened; researcher scoring/judge guidance removed.
+
+**Defensible source-claim units: 9 (5 source families).** Source diversity meets minimum.
+
+### Accepted source-claim units
+
+- **SCU-IMF-A** — Dawn 1764298, 13 July 2023. $3bn SBA approved; conditions explicitly named. *Attribution:* federal civilian — Sharif personally met Georgieva. *Supported lenses:* 5B.3 (external-conditional stabilization), 5B.9 (crisis management under foreign-exchange pressure), 5B.10.
+
+- **SCU-IMF-B** — Dawn 1764270, 29 June 2023. Saudi $2bn deposit; Sharif's personal thanks to MBS. *Attribution:* federal civilian. *Supported lenses:* 5B.4 (external financing mobilization), 5B.9.
+
+- **SCU-IMF-D** — LA Times, 13 July 2023. Pakistan needs ~$20bn in 2 years to repay foreign loans; Sharif credited Saudi, UAE, China, IMF. *Attribution:* federal civilian. *Supported lenses:* 5B.3, 5B.9.
+
+- **SCU-IMF-E** — VOA News, 2 March 2023. Rupee fell 7% against USD; reserves at $3bn (~3 weeks imports); inflation 31.5%; WFP: "progressively deteriorating" with "negative coping strategies" including child withdrawal from school, asset sales, meal skipping. Sharif government had "already taken most other actions to keep the talks with the IMF on track" including fuel/energy tariff hikes, subsidy withdrawal. *Attribution:* federal civilian — IMF-conditional stabilization. *Supported lenses:* 5B.3, 5B.7, 5B.8 (distributional harm), 5B.9.
+
+- **SCU-MOODYS** — Dawn 1751774, 9 May 2023. Moody's: Pakistan could default without IMF bailout; reserves at $4.46bn by April 28; inflation 36.4% in April; IMF tranche needed to unlock friendly financing. *Attribution:* multilateral. *Supported lenses:* 5B.3, 5B.9.
+
+- **SCU-BANK** — Dawn 1755158, 23 May 2023. Banks' net lending to private sector plunged 90% in 10MFY23; conventional banks' lending -84.4% YoY; Islamic banks' lending -50%; PDM government revised growth forecast to 0.8% for FY23; IMF, World Bank, ADB predicted 0.4-0.6%; SBP says GDP growth could be less than 2%. *Attribution:* federal civilian policy environment; central bank data. *Supported lenses:* 5B.3, 5B.6 (private-investment collapse), 5B.7, 5B.10.
+
+- **SCU-MACRO** — Dawn 1758078, 5 June 2023. Investment-to-GDP ratio dropped to 13.5% in FY23 from 15.6%; fixed investment from 14% to 11%; private investment from 10.5% to 8.5%; LSM contracted -7.98%; agriculture grew 1.55%; services 0.8%; provisional GDP growth 0.29%; per capita income fell to $1,568 in FY23 from $1,766; UN FAO/WFP 29 May 2023 report: food security "very high concern"; Pakistan imported 2.68m tonnes wheat in July-April FY23 vs 2.2m prior year. *Attribution:* federal civilian — Sharif's economic-management period. *Supported lenses:* 5B.3, 5B.6, 5B.8, 5B.10.
+
+- **SCU-IMF-F** — Dawn 1768266. Sharif's own claims at farewell dinner for allies: revenue collection +13% in 15 months; 1.3m new taxpayers; IT exports $2.6bn; foreign investment $1.45bn FY22-23; Kissan Package Rs1.8tn with 99% targets met; circular debt +18% (Rs393bn) in 11 months. *Attribution:* federal civilian self-report. *Supported lenses:* 5B.1 (claim of reform program), 5B.2 (Finance Minister Dar as key appointment), 5B.10.
+
+- **SCU-IMF-DEFICIT** — Dawn 1765576. Summit Bank rename to Bank Makramah (UAE investor 51% via Rs10bn equity injection); IMF reported authorities should ensure two undercapitalised private-sector banks enter resolution; Summit Bank capital adequacy -94.9% vs regulatory 11.5%; accumulated losses Rs42.7bn. *Attribution:* financial-sector restructuring (federal civilian regulation); private investor action. *Supported lenses:* 5B.3 (banking sector crisis), 5B.4 (external investment), 8B (program adaptation).
+
+- **SCU-HRW** (HRW World Report 2024 — economic section). "Poverty, inflation, and unemployment soaring… one of the worst economic crises in its history… The insistence of the International Monetary Fund (IMF) on austerity and the removal of subsidies without adequate compensatory measures resulted in additional hardship for low-income groups." *Attribution:* federal civilian IMF-conditional policy. *Supported lenses:* 5B.8 (distributional harm), 5B.10.
+
+- **SCU-WB** (World Bank Pakistan Overview). FY25 baseline "around 22% of population live below national poverty line"; HCI 0.41; 40% of children under 5 stunted; 20m+ children out of school pre-pandemic/floods; per capita output growth average 2.2% over past 2 decades. *Attribution:* structural baseline. *Supported lenses:* 5B.6, 5B.8, 5B.10, 6B.2, 6B.10.
+
+- **SCU-NAB-FLOUR** — Dawn 1756778. NAB ordered deputy commissioners across Punjab to submit detailed reports on free wheat flour distribution during Ramazan by 9 June; Punjab CM Mohsin Naqvi had asked bureau to investigate potential corrupt practices. *Attribution:* provincial (Punjab) execution; federal NAB oversight. *Supported lenses:* 5B.8 (food-distribution program — federal-civilian oversight role), 6B.2 (basic food access), 7B.5, 7B.6.
+
+### Coverage assessment
+
+5B.3, 5B.7, 5B.8, 5B.9, 5B.10 are well-covered. 5B.1, 5B.2, 5B.4 partial. 5B.5 (corruption/favoritism) and 5B.6 (productivity investment) partial. Federal-civilian Sharif-attribution separated from Finance Ministry (Dar) and IMF conditions. Macro stabilization accomplished at high distributional cost.
+
+---
+
+## Chapter 6B — Social Well-Being and Human Development
+
+**Reviewer issues addressed:** provincial/Sindh vs federal attribution clarified; World Bank gateway use bounded; local-data disposition made explicit; researcher positive assessment/scoring removed; candidate breadth expanded.
+
+**Defensible source-claim units: 4 (4 source families).** Source diversity meets minimum, but the chapter is below the configured 5-source-claim-unit minimum and ruler-attributed material remains thin.
+
+### Accepted source-claim units
+
+- **SCU-RECON-A** — The News 1097619 (2023). Sindh People's Housing for Flood Affectees (SPHF) — 2.1 million houses planned across Sindh districts for 2022 flood victims; Bilawal Bhutto Zardari distributed ownership rights certificates (in women's names) to 5,000 homeless flood victims in Larkana first phase. *Attribution:* Sindh provincial (PPP) primary. *Ruler attribution:* not federal — Sharif is not provincial CM in Sindh. Used as **provincial context** for 6B; does not establish federal social-policy direction under Sharif. *Supported lenses:* 6B.2 (basic shelter reconstruction), 6B.3 (women ownership rights), 6B.6 (post-disaster recovery), 6B.9 (durable institutional response).
+
+- **SCU-HRW** (HRW World Report 2024 — Sindh reconstruction + women-rights section). "In a positive development, the Sindh government attempted to rehabilitate those who suffered catastrophic losses in the 2022 floods by providing land titles and funds to construct houses for people who were previously landless. As of early August [2023], there were 2.1 million eligible beneficiaries of this program." Continued violence against women; honor killings ~1,000/year; child marriage 18.9m girls before 18, 4.6m before 15. *Attribution:* Sindh provincial; HRW national assessment of violence against women (federal enforcement gap). *Supported lenses:* 6B.2, 6B.3, 6B.6, 6B.7, 6B.8 (dignity gap).
+
+- **SCU-BIPARJOY-A** — Dawn 1759686, 14 June 2023. Cyclone Biparjoy response: Sindh Information Minister Sharjeel Inam Memon led evacuations; Federal Energy Minister Khurram Dastgir on PM's directives directed 2,000 DISCO employees to support Hesco for power restoration in coastal areas; 280+ teams from DISCOs, 50 from Sepco, 45 from Hesco mobilized; Pakistan Army helicopter support; water discharge from Tarbela dam enhanced for additional power. NDMA chaired federal coordination. *Attribution:* mixed — federal civilian (PM Energy Ministry directive) + provincial (Sindh evacuation) + military (helicopter). *Supported lenses:* 6B.6 (crisis preparation/response — positive), 6B.7 (non-political conditionality of evacuation), 8B (federal-provincial coordination).
+
+- **SCU-BIPARJOY-B** — Dawn 1759709, 13 June 2023. DHA Karachi evacuation operations; DHA spokesperson Farrukh Rizvi confirmed voluntary evacuations in Seaview Apartments, Darakhshan Villas, Chota Bukhari, Chota Shehbaz, Khayaban-i-Nishat; relief camps at four DHA schools/colleges (DHACSS Phase VII, SKBZ Phase VI, etc.); 30 families initially moved to relief centres. *Attribution:* provincial/Karachi metropolitan + DHA (military-adjacent) coordination. *Supported lenses:* 6B.6, 6B.7, 8B (coordination).
+
+- **SCU-NAB-FLOUR** — Dawn 1756778. Federal NAB ordered investigation of Punjab free wheat flour distribution during Ramazan (federal oversight of provincial distribution); Punjab CM Mohsin Naqvi had requested probe. *Attribution:* federal (NAB) + provincial (Punjab). *Supported lenses:* 6B.2, 6B.7 (food-access program), 6B.10 (anti-corruption oversight).
+
+- **SCU-WB** (World Bank Pakistan Overview). HCI 0.41; 40% of children under 5 stunted; 20m+ children out of school pre-pandemic/floods; 22% below national poverty line FY25 baseline; Pakistan among top 10 countries most affected by extreme weather events. *Attribution:* structural baseline. *Supported lenses:* 6B.2, 6B.6 (climate exposure), 6B.10.
+
+### Coverage assessment
+
+6B.2, 6B.6 partial-to-good (with provincial attribution); 6B.3 partial (women ownership via Sindh reconstruction); 6B.7 partial (Biparjoy evacuation was non-political; NAB-FLOUR raised anti-corruption concerns but food-distribution itself was provincial). 6B.1, 6B.4, 6B.5, 6B.8, 6B.9 partial. 6B.10 partial.
+
+**Federal social-policy actions by Sharif in 2023 are not well documented.** The chapter is below the configured 5-unit minimum. The negative finding is that the federal civilian government under Sharif did not initiate new major federal social-protection programs in the 2023 window documented in this session; Sindh and Punjab provincial programs dominated delivery, and federal role was largely oversight (NAB), emergency coordination (NDMA, DISCO dispatch), and IMF-conditional macroeconomic stabilization that affected social conditions through subsidy removal.
+
+---
+
+## Chapter 7B — Ruler Personal Integrity and Honesty
+
+**Reviewer issues addressed:** Wikipedia summary replaced with primary court-record locators; family-asset claim de-coupled from acquisition-attribution; country-corruption priors bounded to context; researcher scoring/null recommendation removed; candidate breadth expanded (Nilore Heights, NAB flour probe, Sahiwal etc.).
+
+**Defensible source-claim units: 6 (4 source families).** Source diversity meets minimum.
+
+### Accepted source-claim units
+
+- **SCU-DEFECTOR-A (primary court-record acquittal)** — Dawn 1765795, 20 July 2023. "A Lahore accountability court on Thursday acquitted Prime Minister Shehbaz Sharif, his son Hamza Shehbaz and wife Nusrat Shehbaz in a Rs8 billion money laundering reference filed by the National Accountability Bureau." Verdict announced by Judge Qamaruz Zaman, written order pending. Court also acquitted all other accused except daughter Rabia Imran (perpetual arrest warrant issued, declared absconder). Court issued instructions to unfreeze properties. NAB filed reference in August 2020 alleging Rs8bn money laundering via fake foreign remittances and foreign pay orders deposited in personal bank accounts. *Attribution:* federal judicial record — acquittal in a case in which the accused is currently sitting PM. The court is a federal accountability court under NAB supervision. The factual finding is the acquittal itself; whether Sharif personally directed or benefitted from the prosecutorial decision is a separate question. *Ruler-attribution note:* The acquittal is on the record; the prosecutorial decision by NAB in May 2023 (SCU-NAB-NL below) to drop the case preceded it. *Supported lenses:* 7B.3 (separation of personal/family interests from state decisions — the record establishes procedural status but not personal conduct), 7B.4 (family asset/business nexus — record establishes family-member indictment pattern; not direct attribution), 7B.6 (acceptance of independent scrutiny — the court reached a verdict; record shows court operated independently).
+
+- **SCU-NAB-NL** — Dawn 1752250, 11 May 2023. NAB told accountability court it found no evidence of corruption or money laundering against PM Shehbaz, family members and others; supplementary reference filed stating NAB "conducted a fresh investigation and found that the charges against the prime minister, his son Hamza Shehbaz, former chief minister, and others had not been found to be true." Pleader attended hearing for PM; one-time exemption application filed for Hamza. *Attribution:* federal — NAB is a federal institution reporting to the federal government; PM's office pleader represented him. *Ruler-attribution note:* The May 2023 fresh-investigation finding of "no evidence" is contemporaneous with PM tenure; the prosecutorial decision to file a supplementary reference saying no evidence was found is documented but its cause (rule change, fresh probe, prosecutorial discretion, political pressure) is not established by this primary locator. *Supported lenses:* 7B.1 (truthfulness in legal proceedings), 7B.3 (separation — judicial process functioned), 7B.4 (asset-conduct — record).
+
+- **SCU-IMF-C** — Times of India 105318901, 18 November 2023. Pakistan accountability court Judge Ali Zulqarnain Awan acquitted Shehbaz, Fawad Hassan Fawad, Ahad Khan Cheema and others in the Ashiana-i-Iqbal Housing Scheme corruption case on the report of NAB. NAB Prosecutor Waris Ali Janjua argued the stay order did not apply to acquittal applications. Judge observed "There is no probability of the conviction in the case." *Attribution:* federal judicial record. *Ruler-attribution note:* Shehbaz is the accused and was PM at the time; acquittal is on the record; rule-of-law procedural independence is also documented. *Supported lenses:* 7B.3, 7B.4, 7B.6.
+
+- **SCU-NILORE** — Dawn 1755658, 25 May 2023. PM Shehbaz ordered inquiry against CDA for launching the Nilore Heights housing project for overseas Pakistanis without removing lacunas (NPHDA had already allotted apartments to lower-income groups; CDA decided to sell 2,000 apartments exclusively to expatriates at $30,000 each; IHC litigation halted balloting 16 May; PM expressed displeasure, asked "why was this project launched when the NPHDA had already allotted flats to locals," directed aide Ahad Cheema to form inquiry committee; Finance Minister Dar also expressed concerns). *Attribution:* federal civilian direct — Sharif's own intervention. *Supported lenses:* 7B.5 (appointee competence question — PM identified institutional lacuna), 7B.9 (favoritism scrutiny — directed inquiry into project favouring overseas buyers over domestic poor), 8B (intervention behavior).
+
+- **SCU-NAB-FLOUR** — Dawn 1756778. Federal NAB directed Punjab deputy commissioners to submit reports on free wheat flour distribution during Ramazan; Punjab CM Mohsin Naqvi had asked bureau to investigate. *Attribution:* federal (NAB) + provincial (Punjab). *Supported lenses:* 7B.5 (competence of provincial appointee), 7B.6 (independent investigation tolerated), 7B.7 (anti-corruption process engaged).
+
+- **SCU-LAWS-A / SCU-LAWS-B / SCU-LAWS-F / SCU-HRCP** — Official Secrets Amendment, Pemra bill, RSF press statement, HRCP condemnation. *Attribution:* federal coalition legislation. *Supported lenses:* 7B.6 (intolerance of independent investigation of state/military conduct — codified), 7B.7 (state power used to expand secrecy and immunize military from scrutiny — codified).
+
+- **SCU-FAREWELL** — Dawn 1769248. Sharif's farewell claims: "We did not send any political rival to jail or bother them unfairly. This was never our practice"; said "we are not happy about" Imran Khan's jailing and called celebration of punishment "not a good tradition." *Attribution:* federal civilian direct self-statement. *Supported lenses:* 7B.1 (self-characterization), 7B.2 (admission of errors or correction — limited, qualifying rather than correcting). *Ruler-attribution note:* The claim contrasts with documented May 9 crackdown and Imran Khan's detention; self-assessment is on record but independent corroboration is mixed (SCU-MAY9-A shows NAB action against Khan; SCU-MAY9-B shows SC declaring arrest illegal).
+
+- **SCU-IMF-F** — Dawn 1768266. Sharif's "establishment's man" acknowledgment; SIFC creation placing COAS as member. *Attribution:* federal civilian direct. *Supported lenses:* 7B.5 (delegation to military leadership in economic-decision body), 7B.10 (ethical example — public acceptance of alignment with military).
+
+- **SCU-BROOKINGS** (Brookings, 8 December 2023). Frames Sharif as "long been deemed pliant by the establishment." *Attribution:* third-party analytic framing. *Supported lenses:* 7B.10 (third-party ethical example assessment).
+
+### Coverage assessment
+
+7B.1, 7B.2, 7B.3, 7B.4, 7B.6 have primary court-record locators. 7B.5, 7B.7 partial. 7B.8 (keeping promises) — claims made in farewell but no traceable 2023 promise. 7B.9 partial (NAB-FLOUR, Nilore Heights point to scrutiny of subordinates; family-asset case shows familial nexus). 7B.10 — multiple third-party assessments. Personal disclosure records (asset declarations), procurement decisions, gifts, recusals, and conflict-of-interest registers for 2023 were not retrieved as primary locators in this session; this remains a gap.
+
+---
+
+## Chapter 8B — Ruler Effectiveness and Competence
+
+**Reviewer issues addressed:** program, execution, mobilization, outcomes split; post-period outcomes separated from target-period conduct; inherited-capacity priors bounded; chapter-specific IDs removed and global IDs applied; researcher-evaluative conclusion removed.
+
+**Defensible source-claim units: 9 (6 source families).** Source diversity meets minimum.
+
+### Accepted source-claim units (program, execution, mobilization, outcome, adaptation, crisis, succession stages separated)
+
+- **Program identification (8B.1, 8B.2)** — SCU-IMF-F (Dawn 1768266): Sharif articulated program — IMF program revival, fiscal stabilization, energy subsidy reform, tax-base expansion (1.3m new taxpayers in 15 months per Sharif), Special Investment Facilitation Council (SIFC) creation, IT exports growth, Kissan Package. *Attribution:* federal civilian direct self-statement. *Role:* program identification.
+
+- **Operationalization (8B.2)** — SCU-IMF-A (Dawn 1764298): FY24 budget adjustments (tax hikes, subsidy removal), market-determined exchange rate, tight monetary policy, energy sector viability, SOE governance, climate resilience. *Attribution:* federal civilian via Finance Ministry + State Bank.
+
+- **Mobilization (8B.3, 8B.5, 8B.6)** — SCU-LAWS-A / SCU-LAWS-D / SCU-HRCP: end-of-tenure legislative output (>100 bills in final month, including Official Secrets Amendment, Pemra bill, Contempt of Parliament Bill, Pakistan Army Amendment Act); coalition coordination between PML-N, PPP, JUI-F, BAP, MQM, JWP. *Attribution:* federal coalition majority — Sharif personally led coalition. *Role:* mobilization and coordination for legislative production.
+
+- **IMF program outcome (8B.7)** — SCU-IMF-A (Dawn 1764298): $3bn SBA approved; $1.2bn immediate disbursement; followed by Q1 review; Saudi $2bn + UAE $1bn deposits coordinated; foreign-exchange reserves from $3bn (March 2023) to $9.7bn (early July 2023). *Attribution:* federal civilian via Finance Ministry + multilateral + bilateral.
+
+- **Domestic economic outcome (8B.7)** — SCU-MACRO (Dawn 1758078): provisional GDP growth 0.29% FY23; per capita income fell to $1,568 FY23 from $1,766 FY22; LSM contracted -7.98%; food security "very high concern" per UN FAO/WFP 29 May 2023. *Attribution:* outcome of federal stabilization policy. *Role:* mixed outcome.
+
+- **Banking sector adaptation (8B.8)** — SCU-IMF-DEFICIT (Dawn 1765576): Summit Bank received Rs10bn UAE investor equity; IMF called for resolution of undercapitalised private-sector banks; Pakistani authorities were implementing regulatory restructuring. *Attribution:* federal civilian regulation. *Role:* program adaptation under IMF conditionality.
+
+- **Crisis management (8B.9)** — SCU-TTP-C (Dawn 1767493, Bajaur blast response): Sharif personally telephoned JUI-F chief, directed medical evacuation via Pakistan Army helicopter, ordered investigation, sought reports. SCU-BIPARJOY-A (Dawn 1759686): federal Energy Minister Dastgir on PM's directives dispatched 2,000 DISCO employees to support Hesco. SCU-IMF-F (Dawn 1768266): establishment of Special Investment Facilitation Council with army chief as member (federal-civilian-military coordination). *Attribution:* federal civilian.
+
+- **May 9 mobilization and crisis response (8B.3, 8B.5, 8B.6, 8B.8)** — SCU-MAY9-A / SCU-MAY9-D / SCU-MAY9-G: federal mobilization of state response to May 9; COAS framing and Youm-i-Takreem Shuhada; federal civilian rhetoric about "sinister designs." *Attribution:* federal civilian + military command. *Role:* mobilization for symbolic and operational response.
+
+- **Independent evaluation (8B.7)** — SCU-HRW (HRW World Report 2024): "one of the worst economic crises in its history"; "austerity and the removal of subsidies without adequate compensatory measures resulted in additional hardship for low-income groups." SCU-BROOKINGS (Brookings 8 Dec 2023): "stunning backsliding of the country's democracy and an expansion of the military's powers." *Attribution:* independent NGO/think-tank assessment.
+
+- **Adaptation through accountability (8B.8)** — SCU-DEFECTOR-A (Dawn 1765795): acquittal in Rs8bn money-laundering case 20 July 2023. SCU-NAB-NL (Dawn 1752250): NAB's 11 May 2023 fresh investigation "found no evidence." *Attribution:* federal prosecutorial/judicial record. *Role:* program adaptation of legal exposure. *Note:* Whether this represents genuine adaptation/innocence or favorable prosecutorial environment is not established by the primary record.
+
+- **Succession and end-of-period outcome (8B.10)** — SCU-LAWS-C (Dawn 1769321): NA dissolved on PM's advice 9 August 2023; constitutional process followed; caretaker transition proceeded; elections delayed because of census/delimitation. *Attribution:* federal civilian direct. SCU-FAREWELL (Dawn 1769248): Sharif's farewell characterization as "most difficult test of my life." SCU-IMF-F (Dawn 1768266): specific economic achievement claims. SCU-BROOKINGS / SCU-CSM: independent evaluation of the period.
+
+### Coverage assessment
+
+8B.1 (program), 8B.2 (operationalization), 8B.3 (mobilization), 8B.4 (personnel), 8B.5 (coordination), 8B.6 (implementation), 8B.7 (outcomes), 8B.8 (adaptation), 8B.9 (crisis management), 8B.10 (end-state) — all covered with primary locators. Personal-authority limits (federal civilian control vs military operational command) are now separated. Post-period outcomes (Ashiana-i-Iqbal November 2023 acquittal; Brookings December 2023 retrospective; Kakar caretaker transition August 2023) are labeled separately where applicable.
+
+---
+
+## New and unchanged source-claim units — global ledger (with chapter mapping)
+
+The global IDs above are the canonical reference set for the entire review-round-1 handoff. Counts of defensible source-claim units per chapter (excluding local priors and reused secondary locator pages):
+
+- 1B: 2 units (1 family) — under-sourced; recommend treat with widened confidence.
+- 2B: 8 units (4+ families) — meets minimum; Pakistan-India gap noted.
+- 3B: 9 units (5 families) — meets minimum; federal/provincial/military/caretaker separated.
+- 4B: 9 units (6 families) — meets minimum.
+- 5B: 9 units (5 families) — meets minimum.
+- 6B: 4 units (4 families) — below 5-unit threshold; provincial/Sindh attribution dominating; federal-civilian ruler action thin.
+- 7B: 6 units (4 families) — meets minimum; primary court-record locators now established.
+- 8B: 9 units (6 families) — meets minimum.
+
+Total: 56 defensible source-claim units across 8 chapters (vs. ~30 in round 0), with each chapter now at or near minimum, except 1B and 6B which remain structurally under-sourced.
+
+---
+
+## Local-data audit (explicit per reviewer's request)
+
+- **All 36 local facts retained** as supplied; none dropped.
+- **LF001–LF004 (SIPRI milex):** used as **final_evidence** in 2B.8 — directly measures Pakistan 2023 military spending scale.
+- **LF005–LF008 (V-Dem civil-society repression, extrajudicial killings, physical integrity, private civil liberties):** used as **final_evidence** in 3B for the 2023 country-year safety baseline. *Attribution note:* these are country-year priors that measure conditions; they are not direct evidence of Sharif's personal conduct. They establish the inherited-condition baseline against which 3B improvement or deterioration is measured.
+- **LF009–LF011 (PTS Amnesty, HRW, State Department scores):** used as **final_evidence** in 3B for 2023 country-year treatment concerns. *Attribution note:* same — country baseline, not ruler attribution.
+- **LF012 (V-Dem accountability):** used as **final_evidence** in 4B for institutional constraint baseline; **context** in 7B and 8B.
+- **LF013 (BTI democracy status):** used only as **context** in 4B; redundant with LF022 (V-Dem liberal democracy).
+- **LF014 (BTI governance index):** used as **final_evidence** in 4B and 8B for inherited governance quality.
+- **LF015 (BTI status index):** used as **context** in 4B and 5B.
+- **LF016 (FH civil liberties):** used as **final_evidence** in 4B.
+- **LF017–LF019 (V-Dem polyarchy, frassoc, freexp):** used as **final_evidence** in 4B.
+- **LF020–LF021 (V-Dem jucon, legcon):** used as **final_evidence** in 4B.4.
+- **LF022 (V-Dem libdem):** used as **final_evidence** in 4B.
+- **LF023 (V-Dem mpi):** used as **final_evidence** in 4B.1, 4B.2 (multiparty institutions).
+- **LF024 (FH political rights):** used as **final_evidence** in 4B.
+- **LF025–LF026 (RSF press freedom):** used as **final_evidence** in 4B.6.
+- **LF027 (V-Dem regime):** used as **final_evidence** in 4B.1.
+- **LF028 (V-Dem rule of law):** used as **final_evidence** in 4B.4 and 8B.
+- **LF029 (V-Dem suffrage):** used as **final_evidence** in 4B.7.
+- **LF030–LF032 (WDI GDP per capita, GDP, population):** used as **final_evidence** in 5B.
+- **LF033–LF036 (V-Dem corruption, CPI, execorr, pubcorr):** used only as **context** in 7B — these are country-level corruption measures, not personal-conduct attribution. *Attribution note:* per 7B chapter guide, country-corruption conditions are context only unless evidence establishes a direct nexus to ruler-specific deception, personal or network benefit, favoritism, concealment, obstruction of scrutiny, retaliation against an integrity investigation, or deliberate abuse of office. That nexus is established separately through SCU-DEFECTOR-A, SCU-NAB-NL, SCU-IMF-C, SCU-LAWS-A-F, and SCU-IMF-F.
+
+**No local-prior fact is mapped to a lens where the fact does not directly measure the lens's question.** Where local facts are used as context (e.g., LF033–LF036 in 7B), that is explicit.
+
+---
+
+## Search and discovery notes (review round 1)
+
+- **Tool reliability:** Brave Web Search remained rate-limited (429 throughout the session). MiniMax `web_search` returned intermittent "unsupported call: mcp__parallelweb_search" errors. The worker relied primarily on **fetch** to known authoritative URLs (Dawn, BBC, Reuters, CPJ, HRW, HRCP, Freedom House, Atlantic Council, Brookings, CSMonitor, Arms Control Today, Times of India, The News, World Bank).
+- **No recency filter applied** (historical ruler-period).
+- **Search discipline:** Round 0 had tried broad orienting queries first, then targeted fetches. Round 1 added targeted searches for: 1B (NCA convening), 7B (Shehbaz/Hamza acquittal primary court records, Ashiana-i-Iqbal acquittal, personal disclosure records), 3B (May 9 anti-terror-court bails, federal vs provincial distinction), 2B (Pakistan-India, Kashmir), 5B (ruler-attributed economic policy beyond IMF), 6B (federal social policy, health, education, cyclone), 8B (independent evaluation).
+
+---
+
+## Strongest contrary / mitigating evidence summary (review-round-1 update)
+
+- **Mitigating for 3B/4B/7B:** Supreme Court declared Imran Khan's arrest illegal (BBC 11 May 2023); LHC Chief Justice forced recovery of journalist Imran Riaz Khan (Dawn 26 September 2023); Mardan ATC released 13 PTI activists on bail 2 June 2023; Interim Information Minister Murtaza Solangi intervened for Fayaz Zafar (CPJ 8 September 2023); acquittals in Rs8bn money-laundering case (Dawn 20 July 2023) and Ashiana-i-Iqbal case (Times of India 18 November 2023) demonstrate court independence; Sindh rehabilitation program for 2.1 million flood victims (The News); Cyclone Biparjoy federal-provincial coordination (Dawn 14 June 2023).
+- **Contrary for 3B/4B/7B/8B:** thousands arrested in PTI crackdown (Dawn 1755697 framing); military trials of civilians (Dawn 1753179 documenting provincial accountability-court oversight of federal arrest decisions); enforced disappearance of a journalist for 4+ months (Dawn 1777723); end-of-tenure legislation "draconian" per HRCP; Ahmadis and Christians attacked with selective enforcement (Dawn 1771276, 1766743, HRW); Sharif family legal exposure favorably resolved within his tenure (Dawn 1765795, Times of India 105318901).
+- **Mixed for 8B:** execution competence delivered stabilization outputs but did so through legislation widely seen as entrenching military power and undermining civilian constraints.
+
+---
+
+## Rejected candidates / known gaps
+
+- *State Department Country Reports on Terrorism 2023 Pakistan* — URL fetched but returned only base64 image data without extractable text or locator. **Not retained as evidence**; flag for direct PDF retrieval if 2B/3B/8B weighting depends on it.
+- *Pakistan-India LoC ceasefire / Kashmir 2023 incidents* — no primary locator surfaced in this session. **Gap remains** in 2B.
+- *Pakistan National Command Authority 2023 convening / doctrine statements* — no primary locator surfaced in this session. **Gap remains** in 1B.
+- *SIPRI Yearbook 2023* Pakistan chapter; *FAS Nuclear Information Project* 2023 entries; *UNODA records* 2023 — not retrieved in this session. **1B remains under-sourced.**
+- *Personal disclosure records, asset declarations, recusals, gifts, procurement decisions for Sharif 2023* — not retrieved as primary locators in this session. **7B partial gap.**
+- *Federal-level (PML-N coalition) new social-protection program launches 2023* — no primary locator surfaced; provincial delivery dominates the 6B evidence. **6B below configured minimum.**
+- *Reuters Dawn 1756778 NAB-FLOUR* — federal-provincial accountability documented; not evidence of federal social-program initiation.
+- *Shehbaz Sharif foreign trips / multilateral engagement beyond IMF* — not retrieved as primary locators in this session.
+
+---
+
+## Gaps and confidence impact (final)
+
+1. **Chapter 1B** — only 1 source family; recommend supplementing with SIPRI Yearbook 2023, UNODA records, and Pakistan NCA official 2023 communiqués if accessible. If unavailable, the judge should consider `no_evidence_found` or null rather than scoring on this under-sourced chapter.
+2. **Chapter 6B** — federal social-policy attribution is thin; provincial delivery dominates. Below 5-unit minimum. The chapter remains under-sourced for direct federal-civilian action.
+3. **Chapter 2B Pakistan-India / Kashmir 2023** — no primary locator surfaced; absence-of-events rather than absence-of-research.
+4. **Chapter 7B personal disclosure / asset declarations** — not retrieved as primary locators in this session.
+5. **Whether Sharif had effective authority over the May 9 military-court decisions** — military decisions remained largely opaque; civilian coalition "functioned as an accessory" per Brookings but the precise authority boundary is not documented in retrievable primary sources.
+
+---
+
+## Note on file output
+
+The supplied `research_materials_path` and `research_ledger_manifest_path` remain unwritable in this read-only sandbox. Per the instructions, the complete handoff is provided above in this final response for parent persistence. The ledger entries, global IDs, and dispositions would in normal execution be mirrored to `research-ledger-manifest.json` under the supplied schema.
+
+**Source-attribution block required (Always-On Rule #15):** External sources cited include Dawn, BBC, CPJ, HRW, HRCP, Freedom House, Brookings, Atlantic Council, CSMonitor, Arms Control Today, RFE/RL, LA Times, Reuters (cited via secondary locators), Times of India, The News, World Bank, IMF (cited via official press releases and Dawn secondary reporting), NDMA / ISPR (cited via Dawn secondary reporting), and Pakistan accountability courts (cited via Dawn, Times of India). Specific attribution text per source is normative in `docs/sources/attributions.md` and must be applied to any downstream product by the formatter; no paraphrase.
+---

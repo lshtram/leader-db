@@ -1,0 +1,2243 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. In particular, `research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on at least one direct,
+ruler-attributed, chapter-discriminating fact. Documented formal authority for a
+national policy, program, appointment, or state action can satisfy ruler attribution
+when the evidence and guide support authority-based responsibility; a personal order
+is not required in every case. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If that floor is not met, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Preserve inherited conditions, ruler authority, contrary evidence, source bias,
+and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Retry context: There is no prior candidate for this attempt.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:8B",
+  "run_key": "2023-top20-usa-tha-repair-judges-v1",
+  "chapter_id": "8B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-top20-usa-tha-repair-judges-v1:2023:8B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "8B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E018",
+          "E030",
+          "E045",
+          "E053",
+          "E055"
+        ],
+        "methodology_id": "8B.1",
+        "reason": "Portfolio goals and program operationalization are documented, but no complete portfolio scorecard exists.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E006",
+          "E011",
+          "E030",
+          "E031",
+          "E045",
+          "E053"
+        ],
+        "methodology_id": "8B.2",
+        "reason": "Program design and administrative implementation are well documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E015",
+          "E023",
+          "E056"
+        ],
+        "methodology_id": "8B.3",
+        "reason": "Interagency coordination, adaptation, and crisis response are represented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E030",
+          "E042",
+          "E051",
+          "E052",
+          "E054"
+        ],
+        "methodology_id": "8B.4",
+        "reason": "Personnel, oversight, scheduling, and management risks are documented; portfolio-wide personnel evidence remains incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E011",
+          "E033",
+          "E039",
+          "E042",
+          "E054",
+          "E055"
+        ],
+        "methodology_id": "8B.5",
+        "reason": "Implementation progress and failures are documented, with incomplete independent portfolio verification.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E030",
+          "E031",
+          "E045",
+          "E053",
+          "E055"
+        ],
+        "methodology_id": "8B.6",
+        "reason": "Multiple programs show concrete execution and adaptation evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E018",
+          "E035",
+          "E043",
+          "E053",
+          "E055",
+          "E058"
+        ],
+        "methodology_id": "8B.7",
+        "reason": "Outcomes and milestones are represented, but many are projected or incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E018",
+          "E039",
+          "E042",
+          "E048",
+          "E049",
+          "E054"
+        ],
+        "methodology_id": "8B.8",
+        "reason": "Correction, oversight, and implementation failures are documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E018",
+          "E022",
+          "E023",
+          "E056",
+          "E057"
+        ],
+        "methodology_id": "8B.9",
+        "reason": "Adaptation and crisis-management evidence is available, with independent adequacy gaps.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E011",
+          "E018",
+          "E030",
+          "E042",
+          "E053",
+          "E054",
+          "E055"
+        ],
+        "methodology_id": "8B.10",
+        "reason": "Effectiveness evidence is strong for selected initiatives but incomplete for the full portfolio.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 16573,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|sections-US-ready-engage-Russia-China-P5|human-control-and-transparency|administration-arms-control-program",
+        "claim": "The Biden administration offered reciprocal New START limits, post-2026 Russia talks, China engagement, P5 launch notification and crisis channels, human-in-the-loop safeguards, and transparency measures.",
+        "contrary_evidence": [
+          "E002 documents a delay in producing a formal written proposal.",
+          "E025 and E068 document reduced U.S. nuclear-stockpile transparency."
+        ],
+        "evidence_id": "E006",
+        "excerpt": "Sullivan presented the administration as ready to engage Russia and China and listed launch notification, crisis communications, human control, and transparency.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2 June 2023",
+        "publication_date": "2023-06-02",
+        "publisher": "Arms Control Association reproducing White House remarks",
+        "ruler_attribution": "Administration policy under the President's leadership; direct personal attribution moderate.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Primary official speech reproduced by specialist source.",
+        "source_locator": "HTML sections on engagement with Russia/China and P5 risk reduction",
+        "source_type": "official speech reproduced by specialist NGO",
+        "title": "Remarks by National Security Advisor Jake Sullivan for the ACA Annual Forum",
+        "url": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual"
+      },
+      {
+        "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|opening-paragraphs-US-proposal|no-formal-written-proposal-three-months",
+        "claim": "Three months after the arms-control speech, no formal written U.S. proposal to Russia had been sent, although the NSC said the proposal was privately conveyed and Russia appeared unwilling to engage.",
+        "contrary_evidence": [
+          "E001 records the declared policy program.",
+          "The NSC claimed private communication occurred."
+        ],
+        "evidence_id": "E007",
+        "excerpt": "The report states that three months later the United States had not sent Russia a formal written proposal.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023",
+        "publication_date": "2023-09-12",
+        "publisher": "Arms Control Association Nuclear Disarmament Monitor",
+        "ruler_attribution": "Administration implementation gap; Biden's personal role not established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Specialist analysis with named former-official assessment.",
+        "source_locator": "Opening paragraphs and paragraph quoting Thomas Countryman",
+        "source_type": "specialist NGO analysis",
+        "title": "Three Months Later, Still No U.S. Arms Control Proposal to Russia",
+        "url": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor"
+      },
+      {
+        "canonical_fact_key": "https://www.atlanticcouncil.org/blogs/new-atlanticist/experts-react/experts-react-are-the-us-and-south-korea-following-through-on-the-washington-declaration/|section-operationalize-institutionalize|tabletop-and-joint-execution",
+        "claim": "By November 2023, U.S.\u2013South Korean implementation included a nuclear-use-focused tabletop exercise, planning for possible future exercises, and joint planning for South Korean conventional support to U.S. nuclear operations.",
+        "contrary_evidence": [
+          "The same source says operational distinctions remained unclear."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "The work had begun to operationalize and institutionalize the declaration through exercises and joint planning.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact November 2023",
+        "publication_date": "2023-11-15",
+        "publisher": "Atlantic Council",
+        "ruler_attribution": "Administration and alliance implementation; Biden-level ownership derives from the declaration.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Expert analysis citing official defense readouts.",
+        "source_locator": "Section \u201cThe work has begun to operationalize and institutionalize progress,\u201d second paragraph",
+        "source_type": "expert policy analysis",
+        "title": "Experts react: Are the US and South Korea following through on the Washington Declaration?",
+        "url": "https://www.atlanticcouncil.org/blogs/new-atlanticist/experts-react/experts-react-are-the-us-and-south-korea-following-through-on-the-washington-declaration/"
+      },
+      {
+        "canonical_fact_key": "https://www.nist.gov/news-events/news/2023/06/national-artificial-intelligence-advisory-committee-releases-first-report|lines-154-175|NAIAC-safety-governance",
+        "claim": "The 2023 National Artificial Intelligence Advisory Committee delivered its first report, created a law-enforcement subcommittee, and planned work on trustworthy AI, safety assurance, rights, procurement, and international cooperation.",
+        "contrary_evidence": [
+          "Institutional planning is not proof of completed safeguards."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "The committee established workstreams covering AI safety, rights, procurement, and cooperation.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact June 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "National Institute of Standards and Technology",
+        "ruler_attribution": "Administration institutional governance; personal attribution indirect.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official primary report.",
+        "source_locator": "Lines 154-175",
+        "source_type": "official government release",
+        "title": "NAIAC releases first report",
+        "url": "https://www.nist.gov/news-events/news/2023/06/national-artificial-intelligence-advisory-committee-releases-first-report"
+      },
+      {
+        "canonical_fact_key": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions",
+        "claim": "Brookings characterized Biden as calm and de-escalatory toward major powers and credited historic Ukraine assistance while criticizing repeated hesitation over weapons transfers.",
+        "contrary_evidence": [
+          "The article notes Congress's material role and cautions against assigning the entire record to Biden."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "The assessment combines de-escalatory conduct, Ukraine support, and hesitation over major transfers.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "retrospective assessment immediately after 2023",
+        "publication_date": "2024-01-30",
+        "publisher": "Brookings Institution",
+        "ruler_attribution": "Direct presidential foreign-policy assessment, interpretive rather than adjudicative.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Named policy commentary.",
+        "source_locator": "Opening assessment and Ukraine section",
+        "source_type": "policy commentary",
+        "title": "Biden\u2019s unspectacular but solid national security record",
+        "url": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/"
+      },
+      {
+        "canonical_fact_key": "https://www.presidency.ucsb.edu/documents/readout-president-joe-bidens-meeting-with-president-xi-jinping-the-peoples-republic-0|meeting-readout|communications-arms-control-AI",
+        "claim": "The Biden-Xi meeting restored military-to-military communications, theater-commander calls, arms-control discussions, and AI-safety talks.",
+        "contrary_evidence": [
+          "The readout does not establish durable implementation beyond the meeting."
+        ],
+        "evidence_id": "E022",
+        "excerpt": "Presidential readout lists resumed communications and cooperation channels.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact November 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "American Presidency Project reproducing presidential readout",
+        "ruler_attribution": "Direct presidential diplomacy.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary presidential readout reproduction.",
+        "source_locator": "Meeting readout sections on military communication, arms control, and AI",
+        "source_type": "official readout",
+        "title": "Readout of President Biden\u2019s meeting with President Xi",
+        "url": "https://www.presidency.ucsb.edu/documents/readout-president-joe-bidens-meeting-with-president-xi-jinping-the-peoples-republic-0"
+      },
+      {
+        "canonical_fact_key": "https://www.axios.com/2023/11/07/biden-netanayhu-gaza-hamas-ceasefire-pause-hostages|opening-through-behind-scenes|Biden-three-day-pause-proposal",
+        "claim": "Biden personally urged Netanyahu to accept a three-day pause under a U.S.\u2013Israel\u2013Qatar proposal intended to release an initial group of hostages.",
+        "contrary_evidence": [
+          "Netanyahu initially resisted.",
+          "The article does not prove Biden caused the eventual November pause."
+        ],
+        "evidence_id": "E023",
+        "excerpt": "The article reports Biden's proposal and the behind-the-scenes diplomacy.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact November 2023",
+        "publication_date": "2023-11-07",
+        "publisher": "Axios",
+        "ruler_attribution": "Direct presidential diplomacy.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Reputable outlet citing named officials.",
+        "source_locator": "Opening, \u201cThe big picture,\u201d and \u201cBehind the scenes\u201d",
+        "source_type": "political media",
+        "title": "Scoop: Biden tells Bibi 3-day fighting pause could help secure release of hostages",
+        "url": "https://www.axios.com/2023/11/07/biden-netanayhu-gaza-hamas-ceasefire-pause-hostages"
+      },
+      {
+        "canonical_fact_key": "https://www.nist.gov/news-events/news/2023/02/biden-harris-administration-launches-first-chips-america-funding|opening-and-program-priorities|first-CHIPS-funding-opportunity",
+        "claim": "Commerce launched the first CHIPS manufacturing-incentive opportunity with milestone-linked disbursement, due diligence, private co-investment, workforce, childcare, and inclusive-growth criteria.",
+        "contrary_evidence": [
+          "Launch and design do not establish completed production or economic effects.",
+          "E080 identifies planning and coordination weaknesses."
+        ],
+        "evidence_id": "E030",
+        "excerpt": "NIST describes the funding opportunity and taxpayer/workforce safeguards.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact February 2023",
+        "publication_date": "2023-02-28",
+        "publisher": "National Institute of Standards and Technology",
+        "ruler_attribution": "Administration execution of bipartisan legislation.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record.",
+        "source_locator": "Opening five paragraphs and program-priority bullets",
+        "source_type": "official government release",
+        "title": "Biden-Harris Administration Launches First CHIPS for America Funding Opportunity",
+        "url": "https://www.nist.gov/news-events/news/2023/02/biden-harris-administration-launches-first-chips-america-funding"
+      },
+      {
+        "canonical_fact_key": "https://www.bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|specific-SAVE-plan-rules|SAVE-operational-design",
+        "claim": "The SAVE plan raised protected income, prevented unpaid monthly interest from increasing balances, and established earlier forgiveness for some low-balance borrowers.",
+        "contrary_evidence": [
+          "Administration savings and beneficiary estimates are self-reported.",
+          "Later litigation is outside the target period."
+        ],
+        "evidence_id": "E031",
+        "excerpt": "Fact-sheet bullets describe payment, interest, and forgiveness rules.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact August 2023",
+        "publication_date": "2023-08-22",
+        "publisher": "Archived White House",
+        "ruler_attribution": "Direct Biden administration program.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record.",
+        "source_locator": "SAVE-plan rule bullets",
+        "source_type": "official fact sheet",
+        "title": "Fact Sheet: The Biden-Harris Administration Launches the SAVE Plan",
+        "url": "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/"
+      },
+      {
+        "canonical_fact_key": "https://www.kff.org/medicaid/10-things-to-know-about-the-unwinding-of-the-medicaid-continuous-enrollment-provision/|intro-and-sections-1-3|Medicaid-unwinding-risk",
+        "claim": "The March 2023 end of continuous Medicaid enrollment created projected disenrollment risk of 7.8\u201324.4 million people, including many potentially still eligible.",
+        "contrary_evidence": [
+          "Congress set the end date; states administered renewals.",
+          "Some people could move to Marketplace or employer coverage."
+        ],
+        "evidence_id": "E033",
+        "excerpt": "KFF reports federal and state projections and the shared administrative structure.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 transition",
+        "publication_date": "2023-06-09",
+        "publisher": "KFF",
+        "ruler_attribution": "Shared congressional, federal, and state attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Health-policy research synthesis.",
+        "source_locator": "Introduction and sections 1-3",
+        "source_type": "health-policy analysis",
+        "title": "10 Things to Know About the Unwinding of the Medicaid Continuous Enrollment Provision",
+        "url": "https://www.kff.org/medicaid/10-things-to-know-about-the-unwinding-of-the-medicaid-continuous-enrollment-provision/"
+      },
+      {
+        "canonical_fact_key": "https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates",
+        "claim": "In 2023 the official poverty rate fell to 11.1%, while the Supplemental Poverty Measure rose to 12.9% and SPM child poverty rose to 13.7%.",
+        "contrary_evidence": [
+          "Official and supplemental measures moved in opposite directions.",
+          "Congress, inflation, expired pandemic supports, and states complicate attribution."
+        ],
+        "evidence_id": "E035",
+        "excerpt": "Census summary bullets report the official, SPM, and child-poverty changes.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact 2023 outcome",
+        "publication_date": "2024-09-10",
+        "publisher": "U.S. Census Bureau",
+        "ruler_attribution": "Outcome only; presidential contribution not isolated.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official statistics.",
+        "source_locator": "Summary bullets under Official Poverty Measure and Supplemental Poverty Measure",
+        "source_type": "official statistics",
+        "title": "Poverty in the United States: 2023",
+        "url": "https://www.census.gov/library/publications/2024/demo/p60-283.html"
+      },
+      {
+        "canonical_fact_key": "https://www.prisonlegalnews.org/news/2024/aug/15/bop-holding-12000-prisoners-solitary-confinement/|paragraphs-GAO-findings-executive-order|BOP-October-2023-restrictive-housing",
+        "claim": "About 12,000 federal prisoners, roughly 8%, were in restrictive housing in October 2023; implementation of prior reform recommendations remained incomplete despite Biden's directive.",
+        "contrary_evidence": [
+          "BOP closed its most restrictive Special Management Unit in 2023.",
+          "The source is secondary reporting of GAO material."
+        ],
+        "evidence_id": "E039",
+        "excerpt": "The report gives the October 2023 restrictive-housing estimate and recommendation status.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact October 2023 condition",
+        "publication_date": "2024-08-15",
+        "publisher": "Prison Legal News summarizing GAO",
+        "ruler_attribution": "Biden issued strategic direction; DOJ/BOP implementation responsibility predominates.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Specialist publication reporting official audit.",
+        "source_locator": "First three paragraphs",
+        "source_type": "secondary audit report",
+        "title": "BOP is Holding 12,000 Prisoners in Solitary Confinement",
+        "url": "https://www.prisonlegalnews.org/news/2024/aug/15/bop-holding-12000-prisoners-solitary-confinement/"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-23-106726|lines-266-295|agency-spending-management-risks",
+        "claim": "GAO identified fraud-risk, cost-control, grants-management, and expertise challenges across agencies implementing infrastructure, IRA, and CHIPS programs.",
+        "contrary_evidence": [
+          "The findings identify risks and recommendations, not portfolio-wide failure."
+        ],
+        "evidence_id": "E042",
+        "excerpt": "GAO describes cross-agency management risks and recommendation status.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 oversight",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Shared agency and administration management responsibility.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official oversight testimony/report.",
+        "source_locator": "Lines 266-295",
+        "source_type": "official audit/testimony",
+        "title": "Agency spending-management risks",
+        "url": "https://www.gao.gov/products/gao-23-106726"
+      },
+      {
+        "canonical_fact_key": "https://www.cbo.gov/publication/59640|lines-33-45|FY2023-deficit-debt",
+        "claim": "CBO reported a nearly $1.7 trillion FY2023 deficit, equal to 6.3% of GDP, with public debt reaching 97.3% of GDP.",
+        "contrary_evidence": [
+          "Fiscal outcomes reflect Congress, prior policy, economic conditions, and monetary policy as well as executive action."
+        ],
+        "evidence_id": "E043",
+        "excerpt": "CBO reports the FY2023 deficit and debt ratios.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "FY2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Congressional Budget Office",
+        "ruler_attribution": "Macro/fiscal outcome; presidential attribution shared.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent official budget analysis.",
+        "source_locator": "Lines 33-45",
+        "source_type": "official budget analysis",
+        "title": "FY2023 deficit and debt",
+        "url": "https://www.cbo.gov/publication/59640"
+      },
+      {
+        "canonical_fact_key": "https://home.treasury.gov/news/press-releases/jy1533|lines-605-619|IRA-delivery-and-fraud-controls",
+        "claim": "Treasury and IRS established direct pay, credit transferability, pre-filing registration, eligibility rules, and anti-fraud controls for IRA clean-energy credits.",
+        "contrary_evidence": [
+          "Mechanisms and guidance do not establish completed economic outcomes."
+        ],
+        "evidence_id": "E045",
+        "excerpt": "Treasury describes delivery mechanisms and controls.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 implementation",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Department of the Treasury",
+        "ruler_attribution": "Administration implementation of enacted legislation.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official Treasury release.",
+        "source_locator": "Lines 605-619",
+        "source_type": "official government release",
+        "title": "IRA delivery and fraud controls",
+        "url": "https://home.treasury.gov/news/press-releases/jy1533"
+      },
+      {
+        "canonical_fact_key": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge",
+        "claim": "Special Counsel Hur found evidence Biden willfully retained and disclosed classified information but concluded charges were not warranted; Biden cooperated and the report distinguished the case from obstruction allegations against Trump.",
+        "contrary_evidence": [
+          "No criminal charge was brought.",
+          "The report involved post-period publication and retrospective evidence."
+        ],
+        "evidence_id": "E048",
+        "excerpt": "AP summarizes the findings, prosecutorial decision, cooperation, and case distinctions.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Retrospective evidence concerning conduct and investigation active during 2023",
+        "publication_date": "2024-02-08",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Direct personal conduct.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Reputable media summary of official report.",
+        "source_locator": "Opening paragraphs and sections on prosecutorial decision and case distinctions",
+        "source_type": "reputable media report",
+        "title": "Biden pushes back at special counsel claims that questioned his memory",
+        "url": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec"
+      },
+      {
+        "canonical_fact_key": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings",
+        "claim": "FactCheck.org found Biden falsely or misleadingly described several Hur findings, including willful retention, highly classified records, ghostwriter discussions, and storage conditions.",
+        "contrary_evidence": [
+          "Biden correctly emphasized that charges were not warranted and that cooperation distinguished his case."
+        ],
+        "evidence_id": "E049",
+        "excerpt": "FactCheck lists the disputed public claims and compares them with the report.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Post-period February 2024 statement about target-period conduct",
+        "publication_date": "2024-02-09",
+        "publisher": "FactCheck.org",
+        "ruler_attribution": "Direct personal public statements.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Professional fact-check grounded in official report.",
+        "source_locator": "Opening bullet list and sections on willful retention, highly classified documents, ghostwriter discussions, and storage",
+        "source_type": "fact-checking analysis",
+        "title": "Biden\u2019s Claims About Special Counsel Report on Classified Documents Investigation",
+        "url": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/"
+      },
+      {
+        "canonical_fact_key": "https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/|opening-and-divestiture-section|cabinet-ethics-compliance",
+        "claim": "CREW found a strong pattern of senior Biden officials complying with divestiture obligations, while recommending stronger restrictions on individual stocks and family-business interests.",
+        "contrary_evidence": [
+          "The review concerns officials and filings, not Biden's own personal finances.",
+          "CREW still identified policy weaknesses."
+        ],
+        "evidence_id": "E051",
+        "excerpt": "CREW reports cabinet divestiture compliance and remaining ethics recommendations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 review of administration filings",
+        "publication_date": "2023-04-17",
+        "publisher": "Citizens for Responsibility and Ethics in Washington",
+        "ruler_attribution": "Administration ethics framework; not proof of every appointment's competence.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Nonpartisan ethics NGO analysis of OGE filings.",
+        "source_locator": "Opening and cabinet divestiture sections",
+        "source_type": "ethics NGO analysis",
+        "title": "Biden administration financial disclosures show strong pattern of compliance",
+        "url": "https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/"
+      },
+      {
+        "canonical_fact_key": "https://www.pogo.org/policy-letters/president-biden-remove-inspectors-general-cuffari-and-ennis-immediately|opening-conclusion-and-mission-failures|Biden-IG-inaction",
+        "claim": "POGO urged Biden to act against DHS and SSA inspectors general over alleged suppression, deleted texts, whistleblower retaliation, weak death reviews, and dysfunction, attributing ongoing harm partly to inaction.",
+        "contrary_evidence": [
+          "This is an advocacy demand, not an adjudicated finding against Biden.",
+          "Inspector-general independence and due process complicate attribution."
+        ],
+        "evidence_id": "E052",
+        "excerpt": "POGO's letter describes documented concerns and calls for presidential action.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact September 2023",
+        "publication_date": "2023-09-21",
+        "publisher": "Project On Government Oversight",
+        "ruler_attribution": "Biden had relevant appointment/removal authority; direct wrongdoing not established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Watchdog NGO citing investigative records, but advocacy framing.",
+        "source_locator": "Opening, mission-failures sections, and conclusion",
+        "source_type": "watchdog policy letter",
+        "title": "President Biden: Remove Inspectors General Cuffari and Ennis Immediately",
+        "url": "https://www.pogo.org/policy-letters/president-biden-remove-inspectors-general-cuffari-and-ennis-immediately"
+      },
+      {
+        "canonical_fact_key": "https://www.commerce.gov/news/press-releases/2023/12/secretary-commerce-gina-raimondo-highlights-key-2023-department|lines-316-332|Commerce-2023-implementation",
+        "claim": "Commerce reported 2023 CHIPS, broadband, Tech Hubs, climate-resilience, minority-business, and AI-risk-management milestones.",
+        "contrary_evidence": [
+          "The release is official self-reporting and does not establish portfolio-wide completed outcomes."
+        ],
+        "evidence_id": "E053",
+        "excerpt": "Commerce enumerates 2023 program milestones and awards.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023 retrospective",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Department of Commerce",
+        "ruler_attribution": "Administration implementation with congressional and agency dependencies.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official program report.",
+        "source_locator": "Lines 316-332",
+        "source_type": "official government release",
+        "title": "Secretary of Commerce highlights key 2023 department work",
+        "url": "https://www.commerce.gov/news/press-releases/2023/12/secretary-commerce-gina-raimondo-highlights-key-2023-department"
+      },
+      {
+        "canonical_fact_key": "https://www.gao.gov/products/gao-23-106354|lines-266-296|OMB-management-goal-gaps",
+        "claim": "GAO found OMB had not set or consistently reported required management goals for federal IT and real-property programs as of March 2023.",
+        "contrary_evidence": [
+          "The finding concerns management systems and does not alone establish failure across Biden's full portfolio."
+        ],
+        "evidence_id": "E054",
+        "excerpt": "GAO identifies late, incomplete, and inconsistently reported management goals.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "March 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "U.S. Government Accountability Office",
+        "ruler_attribution": "Cross-agency management weakness; presidential attribution indirect.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official oversight report.",
+        "source_locator": "Lines 266-296",
+        "source_type": "official audit",
+        "title": "OMB management-goal gaps",
+        "url": "https://www.gao.gov/products/gao-23-106354"
+      },
+      {
+        "canonical_fact_key": "https://www.commerce.gov/sites/default/files/2023-06/Upcoming-Announcements-6232023.pdf|pages-1-3|implementation-timeline",
+        "claim": "Commerce's June 2023 implementation timeline listed funding opportunities, application windows, expected awards, and amounts for CHIPS, broadband, and climate programs.",
+        "contrary_evidence": [
+          "Scheduled milestones are not completed outcomes.",
+          "Many awards were still rolling out late in 2023 or later."
+        ],
+        "evidence_id": "E055",
+        "excerpt": "Timeline records staged program rollout and expected award dates.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "June 2023 planning",
+        "publication_date": "2023-06",
+        "publisher": "U.S. Department of Commerce",
+        "ruler_attribution": "Administration program management under enacted legislation.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official implementation document.",
+        "source_locator": "Pages 1-3",
+        "source_type": "official program timeline",
+        "title": "Upcoming program announcements and implementation timeline",
+        "url": "https://www.commerce.gov/sites/default/files/2023-06/Upcoming-Announcements-6232023.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.presidency.ucsb.edu/documents/fact-sheet-biden-harris-administrations-response-the-maui-wildfires|opening-through-response-bullets|Maui-federal-mobilization",
+        "claim": "Biden signed a major-disaster declaration within hours of the Maui fires and federal agencies deployed personnel, search-and-rescue resources, supplies, and assistance.",
+        "contrary_evidence": [
+          "Official self-report establishes mobilization, not adequacy or long-term recovery.",
+          "E084 identifies a FirstNet service failure during the response."
+        ],
+        "evidence_id": "E056",
+        "excerpt": "Fact sheet lists declaration, personnel, supplies, and assistance.",
+        "final_evidence_use": "context",
+        "period_fit": "exact August 2023",
+        "publication_date": "2023-08-15",
+        "publisher": "American Presidency Project reproducing White House fact sheet",
+        "ruler_attribution": "Direct disaster declaration and federal mobilization; adequacy not established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official primary record reproduction.",
+        "source_locator": "Opening three paragraphs and response bullet list",
+        "source_type": "official fact sheet",
+        "title": "Biden-Harris Administration\u2019s Response to the Maui Wildfires",
+        "url": "https://www.presidency.ucsb.edu/documents/fact-sheet-biden-harris-administrations-response-the-maui-wildfires"
+      },
+      {
+        "canonical_fact_key": "https://www.oversight.gov/reports/audit/nationwide-public-safety-broadband-network-was-not-always-available-first-responders|audit-findings|Maui-FirstNet-service-failure",
+        "claim": "Commerce OIG later found FirstNet services were not always effective during the 2023 Maui response because of inadequate service, continuity planning, and reporting.",
+        "contrary_evidence": [
+          "The finding concerns one service component and does not establish overall response failure or presidential responsibility."
+        ],
+        "evidence_id": "E057",
+        "excerpt": "Oversight audit identifies FirstNet availability and planning deficiencies.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "retrospective evidence about August 2023",
+        "publication_date": "unknown_not_exposed_by_tool",
+        "publisher": "Commerce Office of Inspector General",
+        "ruler_attribution": "Agency implementation failure; presidential responsibility indirect.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official oversight audit.",
+        "source_locator": "Audit findings section",
+        "source_type": "official audit",
+        "title": "Nationwide Public Safety Broadband Network was not always available to first responders",
+        "url": "https://www.oversight.gov/reports/audit/nationwide-public-safety-broadband-network-was-not-always-available-first-responders"
+      },
+      {
+        "canonical_fact_key": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed",
+        "claim": "PolitiFact found a factual core in Biden's job-creation claims but said he overstated historical comparability and made insufficiently supported or conflated infrastructure, wildfire, and noncompete claims.",
+        "contrary_evidence": [
+          "Several claims were substantially accurate or had a factual core."
+        ],
+        "evidence_id": "E058",
+        "excerpt": "Fact-check sections address jobs, noncompetes, infrastructure, and wildfire claims.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "exact February 2023 statements",
+        "publication_date": "2023-02-08",
+        "publisher": "PolitiFact",
+        "ruler_attribution": "Direct personal public statements.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Professional fact-checking organization.",
+        "source_locator": "Sections on 12 million jobs, noncompetes, infrastructure, and wildfire claims",
+        "source_type": "fact-checking analysis",
+        "title": "Fact-checking Joe Biden\u2019s 2023 State of the Union address",
+        "url": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/"
+      }
+    ],
+    "iso3": "USA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/445/trusted/002-fd95c870-17f/local-priors.json",
+        "artifact_sha256": "4ae1bb4d92b672dae7f8dce97eedd927abe242c484e2615a2e60b50c964e657a",
+        "methodology_id": "8B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=2; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E018",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Portfolio-level effectiveness interpretation."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E053",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E053",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "8B.4",
+        "relation": "contradicts",
+        "relevance": "Independent oversight risks."
+      },
+      {
+        "evidence_id": "E051",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E052",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "8B.4",
+        "relation": "contradicts",
+        "relevance": "Cross-agency management gaps."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "8B.5",
+        "relation": "supports",
+        "relevance": "Scheduled implementation pipeline."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E045",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E053",
+        "methodology_id": "8B.6",
+        "relation": "supports",
+        "relevance": "Commerce implementation milestones."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E035",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E053",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E058",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E039",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E048",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E049",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E056",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E057",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E042",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E053",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E054",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E055",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "8B.1",
+      "8B.2",
+      "8B.3",
+      "8B.4",
+      "8B.5",
+      "8B.6",
+      "8B.7",
+      "8B.8",
+      "8B.9",
+      "8B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15811,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "150115894e7c460cf01192d2e2e20c82f0f47c5ce332baa3a590ac23dbf880bb",
+      "source_mix_note": "Evidence mix includes official government and intergovernmental records, inspector-general and GAO audits, official statistics, specialist NGOs, reputable media, policy institutes, fact-checkers, and local structured priors. Local priors are context only. Some source families remain concentrated in nuclear arms-control and selected integrity episodes; several official primary documents were inaccessible in the research run.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "eef0457b8e2faf43682bf5ccc38b83a4e982e7b9808a572bd30f3cd3f1d837ba",
+    "unresolved_gaps": [
+      "Detailed classified nuclear command-and-control safeguards, completed fail-safe review findings, and independent start/end 2023 posture measurement.",
+      "Iran, North Korea, Saudi, and allied proliferation-restraint evidence beyond the South Korean record.",
+      "Primary 2023 Israel arms-transfer records, incident-level civilian-harm accountability, and causal evidence linking Biden diplomacy to the November Gaza pause.",
+      "Complete ATACMS, F-16, targeting, prisoner-treatment, and accountability records for Ukraine.",
+      "Direct DHS/DOJ inspector-general records and complete federal protest-surveillance evidence.",
+      "Independent IRA, infrastructure, climate, CHIPS, and portfolio-wide implementation audits; competition policy and procurement evidence.",
+      "Maternal, rural-health, reproductive-care, childcare, school-recovery, and longer-term welfare delivery evidence.",
+      "Underlying disclosure review, campaign-finance patterns, donor/appointment influence, and broader factual-correction sample.",
+      "No local structured priors were supplied for 1B or 6B; this is a documented local-field gap, not evidence of no activity."
+    ]
+  },
+  {
+    "chapter_id": "8B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Thailand",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E014",
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.1",
+        "reason": "Election administration and institutional implementation evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.2",
+        "reason": "BOI, tourism, election, and military-appointment implementation evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.3",
+        "reason": "Investment, tourism, and macroeconomic outputs retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.4",
+        "reason": "Reshuffle and implementation evidence retained with limited effectiveness attribution.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.5",
+        "reason": "Election certification and tourism-agency delivery evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.6",
+        "reason": "Investment, tourism, and election outputs retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E019",
+          "E027",
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.7",
+        "reason": "Growth, investment, tourism, and service outputs retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.8",
+        "reason": "Election and transition milestones retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.9",
+        "reason": "Election administration and transition evidence retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "methodology_id": "8B.10",
+        "reason": "Transition, investment, and macroeconomic evidence retained with attribution caveats.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 8433,
+    "evidence": [
+      {
+        "canonical_fact_key": "prd:2023-election-certification:orderly-administration",
+        "claim": "The 14 May election was held on schedule and administrative certification followed in June 2023.",
+        "contrary_evidence": [
+          "The institutional framework allowed later parliamentary blockage of the winning party's prime-ministerial bid."
+        ],
+        "evidence_id": "E014",
+        "excerpt": "Official election milestones document scheduled voting and certification.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2023",
+        "publication_date": "2023-06-19",
+        "publisher": "Thai Government Public Relations Department",
+        "ruler_attribution": "Caretaker-government period administration; personal Prayut operational role not fully documented.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official election-administration record.",
+        "source_locator": "Certification report body.",
+        "source_type": "official government report",
+        "title": "2023 election administration milestone",
+        "url": "https://thailand.prd.go.th/en/content/category/detail/id/48/iid/190994"
+      },
+      {
+        "canonical_fact_key": "imf:24-35:2023-inflation-fiscal-discipline",
+        "claim": "The IMF reported fiscal-discipline commitments, gradual monetary normalization, and average inflation of 1.3% in 2023.",
+        "contrary_evidence": [],
+        "evidence_id": "E019",
+        "excerpt": "IMF country report summarizes fiscal and inflation conditions.",
+        "final_evidence_use": "context",
+        "period_fit": "2023",
+        "publication_date": "2024-02-01",
+        "publisher": "IMF",
+        "ruler_attribution": "Macroeconomic context involving autonomous institutions and post-handover decisions.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official IMF country report.",
+        "source_locator": "Thailand Country Report 24/35, macroeconomic discussion.",
+        "source_type": "multilateral report",
+        "title": "Thailand: 2024 Article IV / Country Report 24/35",
+        "url": "https://www.imf.org/-/media/files/publications/cr/2024/english/1thaea2024001.pdf"
+      },
+      {
+        "canonical_fact_key": "tat:2023-01:visit-thailand-year-campaign",
+        "claim": "Thailand's Tourism Authority launched the Visit Thailand Year 2023 campaign in January, targeting restored tourist confidence and sustainable tourism.",
+        "contrary_evidence": [],
+        "evidence_id": "E026",
+        "excerpt": "TAT describes the campaign objectives and launch.",
+        "final_evidence_use": "context",
+        "period_fit": "January 2023",
+        "publication_date": "2023-01-01",
+        "publisher": "Tourism Authority of Thailand",
+        "ruler_attribution": "Government-agency delivery; personal Prayut ownership not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official tourism-agency release.",
+        "source_locator": "Release body describing campaign launch and objectives.",
+        "source_type": "official government release",
+        "title": "TAT strengthens Visit Thailand Year 2023",
+        "url": "https://www.tatnews.org/2023/01/tat-strengthens-visit-thailand-year-2023-towards-a-meaningful-travel-direction/"
+      },
+      {
+        "canonical_fact_key": "thailand-go:2023-05-tourism-arrivals-revenue",
+        "claim": "By 15 May 2023, Thailand reported 9.47 million foreign arrivals and THB 391.78 billion in tourism revenue.",
+        "contrary_evidence": [],
+        "evidence_id": "E027",
+        "excerpt": "Thai government reports tourism arrivals and revenue through 15 May.",
+        "final_evidence_use": "context",
+        "period_fit": "January\u2013May 2023",
+        "publication_date": "2023-05-15",
+        "publisher": "Thai Government",
+        "ruler_attribution": "Country outcome with indirect government attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official government event report.",
+        "source_locator": "Report body stating arrivals and revenue totals.",
+        "source_type": "official government release",
+        "title": "Thailand tourism recovery 2023",
+        "url": "https://thailand.go.th/public/event-detail/001_02_398"
+      },
+      {
+        "canonical_fact_key": "boi:nation-40029226:implementation-output",
+        "claim": "BOI recorded 891 investment-promotion applications worth THB 364.42 billion in the first half of 2023, including 14 approved BEV projects worth THB 33.97 billion.",
+        "contrary_evidence": [],
+        "evidence_id": "E029",
+        "excerpt": "Nation Thailand reports BOI application and BEV-project figures.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "January\u2013June 2023",
+        "publication_date": "2023-07-01",
+        "publisher": "Nation Thailand",
+        "ruler_attribution": "Government implementation output; personal Prayut ownership not established.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Contemporaneous report of official BOI data.",
+        "source_locator": "Article body reporting total applications and BEV projects.",
+        "source_type": "news report",
+        "title": "Thailand investment applications in first half of 2023",
+        "url": "https://www.nationthailand.com/thailand/economy/40029226"
+      },
+      {
+        "canonical_fact_key": "bot:2023-07-31:public-spending-and-labor-outcomes",
+        "claim": "The Bank of Thailand reported that central-government current spending, state-enterprise investment, and public spending contracted, while tourism, private consumption, and the labor market improved.",
+        "contrary_evidence": [],
+        "evidence_id": "E030",
+        "excerpt": "BOT summarizes contemporaneous economic execution outcomes.",
+        "final_evidence_use": "context",
+        "period_fit": "July 2023",
+        "publication_date": "2023-07-31",
+        "publisher": "Bank of Thailand",
+        "ruler_attribution": "Macroeconomic and autonomous-institution context; direct Prayut attribution not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official central-bank report.",
+        "source_locator": "News release lines 323\u2013331.",
+        "source_type": "official central-bank release",
+        "title": "Thai economic conditions July 2023",
+        "url": "https://www.bot.or.th/en/news-and-media/news/news-20230731.html"
+      },
+      {
+        "canonical_fact_key": "prd:190994:election-administration-milestone",
+        "claim": "The Election Commission's 19 June certification of all 500 MPs provides a precise administrative milestone before the August transfer of government.",
+        "contrary_evidence": [],
+        "evidence_id": "E031",
+        "excerpt": "PRD reports the certification milestone.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "19 June 2023",
+        "publication_date": "2023-06-19",
+        "publisher": "Thai Government Public Relations Department",
+        "ruler_attribution": "Caretaker-period administrative outcome; personal Prayut operational role not fully documented.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official election-administration report.",
+        "source_locator": "Report body on certification of all 500 MPs.",
+        "source_type": "official government report",
+        "title": "Election certification administrative milestone",
+        "url": "https://thailand.prd.go.th/en/content/category/detail/id/48/iid/190994"
+      },
+      {
+        "canonical_fact_key": "southpeace:70308:technical-working-group",
+        "claim": "Technical working groups were tasked to draft the southern peace plan during March\u2013May 2023 for consideration at the June dialogue.",
+        "contrary_evidence": [],
+        "evidence_id": "E032",
+        "excerpt": "The official peace-process account records the implementation timeline for the Joint Comprehensive Plan.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "March\u2013June 2023",
+        "publication_date": "2023-02-22",
+        "publisher": "Thai Internal Security Operations Command",
+        "ruler_attribution": "Peace-process apparatus; personal Prayut authorship not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official account of an implementation step.",
+        "source_locator": "Article body paragraphs describing technical working groups and timeline.",
+        "source_type": "official government release",
+        "title": "Joint Comprehensive Plan technical working groups",
+        "url": "https://www.southpeace.go.th/?p=70308"
+      },
+      {
+        "canonical_fact_key": "ap:e88e05d546ca3d66018e53601dc4c94c:cobra-gold-participants",
+        "claim": "AP reported that Cobra Gold 2023 involved approximately 7,394 participants and humanitarian, disaster-relief, command-post, and field-training components.",
+        "contrary_evidence": [],
+        "evidence_id": "E033",
+        "excerpt": "AP reports exercise participation and components.",
+        "final_evidence_use": "context",
+        "period_fit": "February\u2013March 2023",
+        "publication_date": "2023-02-28",
+        "publisher": "Associated Press",
+        "ruler_attribution": "Institutional security cooperation; no personal Prayut decision established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent corroborating report.",
+        "source_locator": "Article body describing participants and exercise components.",
+        "source_type": "news report",
+        "title": "Cobra Gold 2023 exercise",
+        "url": "https://apnews.com/article/e88e05d546ca3d66018e53601dc4c94c"
+      }
+    ],
+    "iso3": "THA",
+    "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:THA:17130",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.3",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.7",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/runs/2023-top20-usa-tha-repair-v1/jobs/446/trusted/003-f0351d03-931/local-priors.json",
+        "artifact_sha256": "0d44025b71fc213a0914433ab40ea9b0b8918c5b82a905215a88563bec3584b2",
+        "methodology_id": "8B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=3; mapping_note=D16 governance-capacity facts provide inherited/state-capacity context, not proof that the ruler selected goals or implemented them effectively.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E014",
+        "methodology_id": "8B.1",
+        "relation": "supports",
+        "relevance": "Administrative election execution."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Tourism-agency delivery initiative."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.6",
+        "relation": "supports",
+        "relevance": "Investment implementation output."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Macro-execution context."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Tourism recovery output."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Public-spending and labor outcomes."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.8",
+        "relation": "supports",
+        "relevance": "Election certification milestone."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E032",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E033",
+        "methodology_id": "8B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "8B.1",
+      "8B.2",
+      "8B.3",
+      "8B.4",
+      "8B.5",
+      "8B.6",
+      "8B.7",
+      "8B.8",
+      "8B.9",
+      "8B.10"
+    ],
+    "period_end_year": 2023,
+    "period_start_year": 2023,
+    "ruler_id": "3006",
+    "ruler_name": "Prayut Chanocha",
+    "ruler_year_id": 17130,
+    "run_key": "2023-top20-usa-tha-repair-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "MiniMax-M3",
+      "provider": "minimax",
+      "provider_profile": "minimax-m3-long-context",
+      "research_notebook_sha256": "ad79783e02523b8129c973b314f3f1f3f9b66c95030a3da2ea667799b0b31ce1",
+      "source_mix_note": "Evidence mixes official Thai and U.S. government releases, multilateral reports, UN materials, international and domestic NGOs, major news reporting, and supplied structured local priors. Country-level and institutional sources are explicitly limited where personal ruler attribution is not documented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "4b2af7075640b13af352d4f19ffdb61e4cebcbf916ba72960e479585fe831b07",
+    "unresolved_gaps": [
+      "No direct 2023 personal-integrity finding involving Prayut was recovered.",
+      "No clearly Prayut-authored 2023 economic or social-policy decision was recovered.",
+      "No evidence establishes that Prayut personally directed the Senate, Election Commission, or Constitutional Court actions involving Pita.",
+      "Cumulative protest statistics require strict temporal separation of the post-22-August period.",
+      "Direct source locators for some legacy Wikipedia-routed claims remain incomplete; those claims are not emitted as final evidence.",
+      "The notebook identifies further possible research themes, but this formatter performed no new research.",
+      "Local-prior placeholder provenance must be replaced by the parent with complete hashed artifact provenance before validation."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# 8B. Ruler Effectiveness and Competence
+
+Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+
+## Chapter Identity
+
+- Chapter: `8B`
+- Category: `ruler_effectiveness_and_competence`
+- Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
+- Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
+- Rubric version: `chapter_8b_v3`
+
+## Chapter Purpose
+
+Assess how effectively the ruler defines a governing program, converts it into
+state or ruling-network action, coordinates implementation, adapts, and advances
+their own stated or reliably revealed objectives. The ten questions are evidence
+lenses feeding one final 1-10 chapter score, not equal sub-scores.
+
+This chapter is ideology-neutral. Moral worth and execution competence are
+separate. A ruler may execute a cruel, aggressive, corrupt, or authoritarian
+program competently and score highly in 8B while scoring very poorly in other
+chapters. Never smuggle moral approval or condemnation into the competence score.
+
+## Ten Evidence Lenses
+
+The question text below is authoritative and must not be paraphrased in the
+research manifest.
+
+| ID | Evidence lens |
+|---|---|
+| **8B.1** | Does the ruler articulate a clear governing ideology, strategic direction, or program, including explicit or revealed goals for power, policy, or regime control, that can be evaluated against later action? |
+| **8B.2** | Does the ruler translate that program into concrete priorities, plans, budgets, appointments, timelines, institutions, and enforcement mechanisms? |
+| **8B.3** | Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program and the ruler's own goals? |
+| **8B.4** | Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, security officials, or coercive administrators? |
+| **8B.5** | Does the ruler maintain internal discipline, coordination, control, and follow-through across ministries, regions, territory, institutions, security forces, party structures, and implementing agencies? |
+| **8B.6** | Does the ruler convert declarations into observable implementation and state reach rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only? |
+| **8B.7** | Do outcome indicators move in the direction the ruler claimed or revealed they sought, after allowing for realistic lags, inherited conditions, and external constraints? |
+| **8B.8** | When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program and maintaining effective control? |
+| **8B.9** | Does the ruler manage crises, opposition, international relationships, and institutional resistance in a way that preserves or advances the regime's chosen objectives, durability, and influence, regardless of whether those objectives are morally good? |
+| **8B.10** | By the end of the relevant period, is the ruler closer to achieving the stated or revealed ideological, policy, power-consolidation, or international-influence program than at the start, accounting for short-term wins, long-term durability, inherited conditions, and external shocks? |
+
+## Scope and Non-Goals
+
+- Establish an explicit or reliably revealed program before judging execution.
+  Repeated discriminating choices may reveal goals; hindsight speculation may not.
+- Evaluate strategic clarity, operationalization, mobilization, personnel fit,
+  coordination, implementation, outcomes, adaptation, crisis management, and
+  durable progress as mutually informing evidence.
+- Do not judge whether goals are democratic, peaceful, lawful, prosperous, humane,
+  or personally honest. Those judgments belong in 1B-7B.
+- Do not reward repression, propaganda, longevity, survival, economic growth,
+  administrative size, or institutional quality by itself. Ask whether it
+  effectively served the ruler's identified program.
+- Do not assume failure from an outcome the ruler did not seek, except where
+  maintaining basic government function was necessarily part of governing.
+- Do not use the client matrix as evidence.
+
+Before reading outcomes or assigning a score, freeze a portfolio of the ruler's major
+stated or reliably revealed programs plus necessary core-government functions. Apply
+the same breadth rule across regime types. Do not cherry-pick the easiest achieved
+goal, reduce a democratic government to its broadest welfare promises, or reduce an
+authoritarian government to survival, weapons, or power consolidation. Survival and
+consolidation may be one material program component, never the entire portfolio by
+default.
+
+## Researcher Workflow and Evidence Themes
+
+Follow the local-first researcher guide and source-confidence registry. Query the
+exact case locally. WGI, V-Dem, BTI, budgets, and outcome indicators are useful
+context or corroboration, but generic state capacity is not ruler effectiveness.
+
+Research chronologically across themes rather than issuing one search per lens:
+
+1. Identify stated programs from platforms, manifestos, coalition agreements,
+   speeches, strategies, directives, budgets, and plans. Identify revealed goals
+   only from repeated choices that distinguish them from rhetoric or speculation.
+2. Trace conversion into priorities, resources, laws, institutions, appointments,
+   timelines, enforcement, and measurable milestones.
+3. Examine whether the state, party, military, coalition, bureaucracy, territorial
+   network, or informal machinery actually mobilized, coordinated, and followed
+   through; include bottlenecks and implementation gaps.
+4. Assess whether personnel were capable for the assigned program. Ideological or
+   coercive operators may be effective implementers in this narrow chapter even
+   when their conduct is reprehensible elsewhere.
+5. Compare promised/revealed objectives with implementation and outcomes after
+   realistic lags, inherited trends, peer conditions, shocks, and resources.
+6. Trace learning, replacement, reallocation, crisis response, resistance
+   management, short-term gains, reversals, durability, and end-of-period position.
+
+Prefer primary program and budget documents, legislation, administrative and
+audit records, implementation data, credible outcome series, contemporaneous
+records, serious academic histories, independent evaluations, and reputable
+reporting. Official sources establish declared goals and formal actions but not
+successful execution by themselves. Preserve failures, contradictions, abandoned
+priorities, propaganda-only claims, alternative causal explanations, and adverse
+side effects; record the latter for cross-chapter use without morally deducting
+them in 8B.
+
+Reuse each stable evidence item across relevant lenses. Natural-language coverage
+and gaps are acceptable; publication must not depend on exact status terms,
+sequential IDs, or exhaustive mapping syntax.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual
+claim; source URL, title, publisher, and publication/access date where available;
+source type and confidence with a short reason; a quotation or precise locator
+when available; target-year/ruler-period fit; ruler attribution and
+inherited-baseline relevance; its positive, negative, mixed, contextual, or
+contrary role; and the supported lens IDs. Fields may be normalized later and
+natural-language equivalents are acceptable. The substantive minimum is a
+traceable source, intelligible claim, temporal fit, attribution, and evidence
+role. One item may support multiple lenses without duplication.
+
+## Attribution, Sparse Evidence, and Historical Cases
+
+Separate ruler capability from inherited state capacity, predecessor programs,
+subordinate initiative, favorable trends, external patrons, and luck. Assess
+formal/informal control, tenure, coalition and institutional constraints,
+resources, shocks, lag, ownership of appointments and priorities, response to
+implementation information, and plausible counterfactual trajectory.
+
+For obscure or historical rulers, later scholarship, archives, diplomatic
+records, budgets, institutional histories, and observable implementation may be
+more informative than missing modern indicators. Oral or informal programs can
+be evidenced by repeated choices. Sparse evidence should reduce confidence and
+widen the defensible range, not force a neutral score or invalidate the case.
+Short tenure may permit judgment of direction and mobilization while leaving
+outcomes unresolved. Closed systems may document plans abundantly while hiding
+failures; official volume is not proof of execution.
+
+## Holistic 1-10 Chapter Rubric
+
+Synthesize the causal chain from program through action to durable progress.
+Lenses are redundant and qualitatively weighted: clear plans with no execution
+cannot score highly; favorable outcomes without ruler-attributable direction or
+action warrant limited credit; a major strategic collapse can outweigh several
+administrative successes. Never calculate a simple mean or score by citation
+count.
+
+Strategic clarity, centralized control, personnel discipline, and planning without
+independently evidenced implementation and goal progress cannot exceed 5. Scores above
+5 require attributable implementation plus progress across material parts of the
+frozen portfolio. Scores above 7 additionally require independent evidence of outcomes,
+durability, and adaptation rather than official architecture, coercion, longevity, or
+survival alone. Harmful programs remain morally neutral here, but they must still show
+actual advancement rather than mere capacity to command.
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | No coherent program or effective governing control, or catastrophic inability to mobilize and execute: recurring chaos, paralysis, collapse, or decisive movement away from the ruler's own objectives. |
+| 2-3 | Weak or unstable direction and serious operational failure; plans remain largely symbolic, coordination repeatedly breaks down, adaptation is poor, and major objectives substantially recede. |
+| 4-5 | Mixed competence: some clear priorities and real delivery coexist with major implementation gaps, inconsistent control, failed initiatives, weak adaptation, or fragile/temporary results. |
+| 6-7 | Generally effective direction and execution across important priorities, with meaningful mobilization and progress but notable delays, failures, constraints, reversals, or durability concerns. |
+| 8-9 | Strong strategic-operational alignment, capable personnel and coordination, adaptive implementation, and substantial durable advancement of the ruler's program across major priorities. |
+| 10 | Exceptional, sustained mastery of direction, mobilization, execution, adaptation, crisis/resistance management, and durable goal realization under demanding conditions. |
+
+These anchors apply equally to benevolent and harmful programs. The rationale
+must separately name the program and state that moral effects are evaluated in
+other chapters.
+
+## Confidence
+
+Report confidence separately on a 0-100 scale. Consider program identification,
+ruler attribution, causal trace from inputs to implementation/outcomes, source
+independence, time fit and lag, external-shock controls, source/theme diversity,
+closed-system opacity, and contrary explanations. Missing lenses lower confidence
+rather than automatically lowering the chapter score. Give a defensible score
+range where evidence or attribution is materially uncertain.
+
+## One-Judge Comparative Workflow
+
+One judge owns 8B across all eligible rulers for the target year/period:
+
+1. Read every 8B dossier, identify each ruler's explicit or reliably revealed
+   program, and quarantine identity failures—not sparse evidence.
+2. Separate moral evaluation from execution before scoring. Record cross-chapter
+   harms without deducting them here.
+3. Establish batch anchors spanning democratic and authoritarian, beneficial and
+   harmful, modern and historical, high- and low-capacity contexts.
+4. Assign tentative holistic scores along the program-to-results chain, then
+   compare neighbors for consistent treatment of inherited capacity, resources,
+   shocks, tenure, lag, luck, resistance, and durability.
+5. Revisit cases dominated by generic governance indicators, official claims,
+   survival/tenure, favorable outcomes without attribution, or moral halo/horns.
+6. Emit one chapter score, confidence/range, identified program, rationale,
+   strongest execution and failure evidence, unresolved causal alternatives,
+   missing themes, and review flag.
+
+## Common Chapter-Judge Output Envelope
+
+The judge returns one object per ruler using these exact semantic field names so
+all eight chapter outputs can be normalized by the same inexpensive formatter:
+
+- `chapter_id`: `8B`
+- `rubric_version`: `chapter_8b_v3`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing
+  stable evidence IDs
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Harmless serialization differences can be repaired after judgment, but the
+semantic envelope must be complete. A null score is reserved for evidence too
+thin or untraceable to support any responsible range, unresolved identity, or
+attribution too uncertain to judge—not merely missing lenses or flexible coverage
+wording. The rationale must identify the program and state explicitly that its
+moral worth did not affect the execution score.
+
+## Chapter-Specific Calibration
+
+Use common calibration and bias checks where meaningful, plus:
+
+- `rubric_version`: `chapter_8b_v3`
+- `program_basis`: `explicit`, `mostly_explicit`, `mixed`, `mostly_revealed`,
+  `speculative`, or `unclear`
+- `program_type`: list from `policy`, `state_building`, `regime_control`,
+  `power_consolidation`, `international_influence`, `survival`, or `other`
+- `strategic_clarity`: `none`, `weak`, `partial`, `clear`, `exceptional`, or `unclear`
+- `operationalization`: `absent`, `weak`, `mixed`, `strong`, `exceptional`, or `unclear`
+- `mobilization_and_coordination`: `failed`, `weak`, `mixed`, `strong`,
+  `exceptional`, or `unclear`
+- `adaptation`: `counterproductive`, `rigid`, `mixed`, `effective`,
+  `exceptional`, `not_observed`, or `unclear`
+- `goal_progress`: `major_reversal`, `net_regression`, `mixed`, `substantial`,
+  `exceptional`, or `too_early_or_unclear`
+- `durability`: `collapsed`, `fragile`, `mixed`, `durable`, `highly_durable`,
+  `too_early`, or `unclear`
+- `ruler_attribution`: concise assessment of ownership, authority, inherited
+  capacity, subordinate action, shocks, luck, and alternative causes
+- `morality_separation_check`: explicit statement that approval/disapproval of
+  objectives did not alter the score
+- `lens_strengths`, `lens_gaps`, and `defensible_score_range`
+
+Explicitly check state-capacity inheritance, survivor bias, outcome/luck bias,
+propaganda and closed-system opacity, documentation advantages, hindsight-defined
+goals, short-tenure/lag bias, moral halo/horns, and whether coercion was mistaken
+for competence without evidence of goal advancement.
+
+## Smoke-Test Set
+
+These are calibration roles, not predetermined scores.
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---|---|
+| Lee Kuan Yew | Singapore | 1965-1990 | long-horizon direction, state capacity, durability |
+| Deng Xiaoping | China | 1978-1992 | revealed/pragmatic program and adaptation |
+| Adolf Hitler | Germany | 1933-1945 | harmful program, early execution, strategic catastrophe |
+| Joseph Stalin | Soviet Union | 1928-1953 | coercive implementation and moral-separation stress test |
+| Margaret Thatcher | United Kingdom | 1979-1990 | explicit democratic program, resistance, and durable change |
+| Mikhail Gorbachev | Soviet Union | 1985-1991 | adaptation, partial achievement, loss of control, disputed goals |
+| Boris Yeltsin | Russia | 1991-1999 | crisis, weak coordination, inherited collapse, mixed reforms |
+| Paul Kagame | Rwanda | 2000-2020 | development and regime-control goals with attribution concerns |
+| Volodymyr Zelenskyy | Ukraine | 2019-2023 | program transformed by extreme external shock |
+| Liz Truss | United Kingdom | 2022 | short tenure, explicit program, rapid implementation failure |
+| Franklin D. Roosevelt | United States | 1933-1945 | institutional mobilization across depression and war |
+| Mobutu Sese Seko | Zaire | 1965-1997 | survival/personal-rule effectiveness versus state deterioration |
+| Ellen Johnson Sirleaf | Liberia | 2006-2018 | post-conflict rebuilding, donor attribution, and woman ruler |
+| Sirimavo Bandaranaike | Sri Lanka | 1960-1965 | historical woman ruler, coalition/state capacity, and non-Western evidence |
+| Sylvanus Olympio | Togo | 1960-1963 | short, lower-visibility postcolonial program and sparse archives |
+
+## Acceptance Checklist
+
+- Missing implementation evidence never establishes ineffectiveness; it produces a
+  null when no ruler-attributed execution fact remains. Scores above `5` require
+  observable implementation or coordination, and scores above `7` additionally
+  require independent evidence of attributable outcomes, adaptation, or durable
+  progress across more than one material program component.
+
+- All ten authoritative lenses are present verbatim and serve one holistic score.
+- Ideology-neutrality is explicit and moral worth is separated from execution in
+  research, scoring, calibration, and rationale.
+- An explicit or reliably revealed program is established before execution is
+  judged; hindsight speculation is labeled and constrained.
+- Local-first order, citations, source profiling, and run profile are retained.
+- Evidence items satisfy the common traceability, temporal-fit, attribution,
+  evidence-role, and lens-link semantics.
+- Ruler action is separated from inherited capacity, subordinates, luck, trends,
+  shocks, tenure, and realistic outcome lags.
+- Missing lenses reduce confidence rather than invalidate or mechanically depress
+  the score.
+- One judge compares all rulers using one meter; lenses are neither equally
+  weighted nor mechanically averaged.
+- Final output uses the common chapter-judge envelope, including adjacent-anchor
+  comparisons and an explicit manual-review flag.
+- Smoke testing and revision occur before production activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.

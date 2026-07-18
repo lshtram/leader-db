@@ -250,6 +250,9 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "build a lightweight\ncandidate pool" in prompt
     assert "not a search-results ceiling" in prompt
     assert "Never request a recency or recent-news filter" in prompt
+    assert "establish one cited authority baseline" in prompt
+    assert "Chapter 7B still requires a personal" in prompt
+    assert "Do not declare a chapter ready merely because it reached a count" in prompt
 
     formatter_prompt = build_dossier_prompt(
         job,
@@ -275,6 +278,8 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "Mapping is many-to-many" in formatter_prompt
     assert "never manufacture" in formatter_prompt
     assert "use `research_blocked`" in formatter_prompt
+    assert "same canonical fact key" in formatter_prompt
+    assert "every recorded `chapter_ids` chapter" in formatter_prompt
 
 
 def _insert_scope(engine: object) -> None:

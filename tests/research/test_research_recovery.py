@@ -15,6 +15,7 @@ from leaders_db.research.codex_worker import (
     _load_or_recover_research_ledger_manifest,
     _load_research_ledger_manifest,
     _recover_completed_initial_research,
+    _recover_markdown_ledger_entries,
     _validate_formatter_ledger_accounting,
     _validate_recovered_candidate_references,
 )
@@ -463,15 +464,15 @@ def test_recovered_candidate_rejects_unmapped_evidence() -> None:
         _validate_recovered_candidate_references(dossier)
 
 
-def test_formatter_may_rewrite_and_consolidate_ledger_items() -> None:
+def test_formatter_must_preserve_final_ledger_keys_and_chapter_routing() -> None:
     notebook = """Research notebook.
 
 --- RESEARCH LEDGER MANIFEST ---
 
 {"schema_version":"ruler_research_ledger_manifest_v1","entries":[
-  {"provisional_id":"I-1","canonical_fact_key":"fact-1","disposition":"final_evidence"},
+  {"provisional_id":"I-1","canonical_fact_key":"fact-1","chapter_ids":["2B"],"disposition":"final_evidence"},
   {"provisional_id":"I-2","canonical_fact_key":"fact-2","disposition":"context"},
-  {"provisional_id":"I-3","canonical_fact_key":"fact-3","disposition":"final_evidence"},
+  {"provisional_id":"I-3","canonical_fact_key":"fact-3","chapter_ids":["2B"],"disposition":"final_evidence"},
   {"provisional_id":"R-1","canonical_fact_key":"rejected-1","disposition":"rejected","reason":"Duplicate."}
 ]}
 """
@@ -488,26 +489,72 @@ def test_formatter_may_rewrite_and_consolidate_ledger_items() -> None:
         )
     )
 
-    with pytest.raises(WorkerOutputError, match=r"collapsed.*0 final.*1 final"):
+    collapsed.mappings = ()
+    with pytest.raises(WorkerOutputError, match="omitted accepted final evidence"):
         _validate_formatter_ledger_accounting(collapsed, notebook=notebook)
 
-    consolidated = SimpleNamespace(
+    rewritten = SimpleNamespace(
         evidence=(
             SimpleNamespace(
                 canonical_fact_key="rewritten-fact-1",
                 final_evidence_use="final_evidence",
             ),
-            SimpleNamespace(
-                canonical_fact_key="upgraded-source-for-fact-3",
-                final_evidence_use="final_evidence",
-            ),
+            SimpleNamespace(canonical_fact_key="fact-3", final_evidence_use="final_evidence"),
         )
     )
-    _validate_formatter_ledger_accounting(consolidated, notebook=notebook)
+    rewritten.mappings = ()
+    with pytest.raises(WorkerOutputError, match="fact-1"):
+        _validate_formatter_ledger_accounting(rewritten, notebook=notebook)
 
-    _validate_formatter_ledger_accounting(
-        consolidated, notebook=notebook + "\nLater reviewer and continuation prose.\n"
+    preserved = SimpleNamespace(
+        evidence=(
+            SimpleNamespace(
+                evidence_id="E001",
+                canonical_fact_key="fact-1",
+                final_evidence_use="final_evidence",
+            ),
+            SimpleNamespace(
+                evidence_id="E002",
+                canonical_fact_key="fact-3",
+                final_evidence_use="final_evidence",
+            ),
+        ),
+        mappings=(
+            SimpleNamespace(evidence_id="E001", methodology_id="2B.1"),
+            SimpleNamespace(evidence_id="E002", methodology_id="2B.2"),
+        ),
     )
+    _validate_formatter_ledger_accounting(
+        preserved, notebook=notebook + "\nLater reviewer and continuation prose.\n"
+    )
+
+
+def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
+    handoff = """## Chapter 2B
+
+- **ID 2B-AFG-001** — *Citation:* Example, 2023. URL: https://example.org/a.
+  *Claim:* A concrete diplomatic action. *Supported lenses:* 2B.1, 2B.7.
+
+- **ID 2B-AFG-002** — *Citation:* Example, 2023. URL: https://example.org/b.
+  *Claim:* A second action. *Role:* context. *Supported lenses:* 2B.5.
+"""
+
+    entries = _recover_markdown_ledger_entries(handoff)
+
+    assert entries == [
+        {
+            "provisional_id": "2B-AFG-001",
+            "canonical_fact_key": "recovered:https://example.org/a|2B-AFG-001",
+            "disposition": "final_evidence",
+            "chapter_ids": ["2B"],
+        },
+        {
+            "provisional_id": "2B-AFG-002",
+            "canonical_fact_key": "recovered:https://example.org/b|2B-AFG-002",
+            "disposition": "context",
+            "chapter_ids": ["2B"],
+        },
+    ]
 
 
 def test_research_ledger_manifest_requires_rejection_reason(tmp_path: Path) -> None:
@@ -588,13 +635,15 @@ def test_markdown_research_ledger_is_recovered(tmp_path: Path) -> None:
     assert recovered["entries"] == [
         {
             "provisional_id": "E001",
-            "canonical_fact_key": "https://example.test/a|p2|claim a",
-            "disposition": "context",
+                "canonical_fact_key": "https://example.test/a|p2|claim a",
+                "chapter_ids": [],
+                "disposition": "context",
         },
         {
             "provisional_id": "E002",
-            "canonical_fact_key": "https://example.test/b|s1|claim b",
-            "disposition": "final_evidence",
+                "canonical_fact_key": "https://example.test/b|s1|claim b",
+                "chapter_ids": [],
+                "disposition": "final_evidence",
         },
     ]
 

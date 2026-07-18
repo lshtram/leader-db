@@ -1,0 +1,38 @@
+schema_version: leaders_db_client_viewer_config_v1
+release_id: 2023-top20-v1
+target_year: 2023
+batch_manifest: configs/research-batches/2023-population-top20-canonical.yaml
+original_dossier_root: research/runs/2023-population-top20-canonical-full-v1
+original_judge_root: research/runs/2023-population-top20-canonical-full-judges-v1
+repair_dossier_root: research/runs/2023-top20-usa-tha-repair-v1
+repair_judge_root: research/runs/2023-top20-usa-tha-repair-judges-v1
+client_workbook: data/raw/client_existing/LATEST BARR'S POLITICAL MATRIX 041725 (1).xlsx
+client_sheet: Main
+client_country_column: 4
+client_score_columns: {1B: 30, 2B: 19, 3B: 20, 4B: 21, 5B: 22, 6B: 23, 7B: 24, 8B: 26}
+client_country_names:
+  BGD: Bangladesh
+  BRA: Brazil
+  CHN: China
+  COD: Congo -DRC
+  DEU: Germany
+  EGY: Egypt
+  ETH: Ethiopia
+  IDN: Indonesia
+  IND: India
+  IRN: Iran
+  JPN: Japan
+  MEX: Mexico
+  NGA: Nigeria
+  PAK: Pakistan
+  PHL: Philippines
+  RUS: Russia
+  THA: Thailand
+  TUR: Turkey
+  USA: United States
+  VNM: Vietnam
+replacement_iso3: [USA, THA]
+corrected_judgments:
+  - data/outputs/client/2023-top20-v1/corrected-methodology-judgments.json
+  - data/outputs/client/2023-top20-v1/corrected-methodology-remaining-judgments.json
+output_json: docs/client-results/2023-top20/data.json

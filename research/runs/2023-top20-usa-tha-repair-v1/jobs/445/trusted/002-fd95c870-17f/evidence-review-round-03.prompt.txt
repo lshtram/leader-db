@@ -1,0 +1,2830 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811",
+  "iso3": "USA",
+  "country_name": "United States",
+  "ruler_name": "Joe Biden",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 137,
+  "approximate_source_family_count": 52,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+# Evidence-collection handoff: Joe Biden — United States — 2023
+
+**Job:** `dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811`  
+**Ruler:** Joe Biden  
+**Period:** 1 January–31 December 2023  
+**Research status:** substantive compact pass completed; not a final score or judgment  
+**File status:** the requested notebook and manifest could not be written because this worker’s filesystem was read-only. The material below is the authoritative handoff for parent persistence.
+
+## 1. Execution and source-access audit
+
+I began with the supplied local package and did not re-fetch Freedom House, V-Dem, WDI, CPI, RSF, PTS, or SIPRI structured data.
+
+Web discovery used:
+
+- MiniMax `web_search`, with distinct broad, chapter-specific, institutional-source, and adverse-evidence queries.
+- `fetch` for underlying pages where access was available.
+- Brave context was attempted but returned quota/rate-limit errors and furnished no evidence.
+- Reuters discovery results were useful for candidate identification, but direct Reuters fetches were blocked by `robots.txt`. Reuters snippets therefore remain **gateway-only/discovery context**, not defensible opened-page evidence.
+- Congress.gov’s CRS page returned HTTP 403 and remains a rejected inaccessible candidate.
+- Some PDFs—most notably the DOJ Hur report and Brookings economic-policy transcript—were returned as raw PDF bytes rather than extractable text. Opened HTML summaries or exact searchable source snippets were used instead; the raw PDFs were not counted as independently extracted claim units unless a usable locator was available.
+
+The strongest opened source organizations were:
+
+1. Arms Control Association
+2. United Nations
+3. Human Rights Watch
+4. American Civil Liberties Union
+5. International IDEA
+6. U.S. Census Bureau
+7. Associated Press
+8. FactCheck.org
+9. PolitiFact
+10. Brookings Institution
+
+The source mix includes official/intergovernmental records, NGOs, reputable media, fact-checking organizations, and policy research. Local structured priors remain a separate source family.
+
+---
+
+# 2. Global evidence register
+
+These are stable provisional entries suitable for conversion into `research-materials.md`. Canonical fact keys deliberately distinguish materially different claims even when sourced to the same URL.
+
+## Local structured context
+
+### L001 — U.S. military-spending context
+
+- **Canonical fact key:** `local-prior:2B.1|LF001-LF004|USA-2023-military-spending`
+- **Disposition:** context
+- **Source/locator:** `local-prior:2B.1`
+- **Publisher/type:** SIPRI local structured prior; structured dataset
+- **Confidence:** high
+- **Claim:** In 2023, supplied SIPRI facts report military expenditure of `943032.7844566408` in the source field’s constant-USD scale, per-capita spending of `2674.6899419822926`, military spending equal to `0.03293652410258671` of GDP, and `0.08748080061220297` of government spending.
+- **Locator:** LF001–LF004, exact supplied local-prior locator
+- **Period fit:** exact 2023
+- **Attribution:** country-year budget context; does not establish that Biden preferred force, acted aggressively, or used spending responsibly.
+- **Limitations:** supplied LF001 label does not state whether its numeric unit is millions; retain the exact value without silently converting it.
+- **Mappings:** 2B.8; contextual for 2B.1, 2B.2, 2B.10.
+
+### L002 — U.S. physical-integrity and repression context
+
+- **Canonical fact key:** `local-prior:3B.1|LF005-LF010|USA-2023-physical-integrity`
+- **Disposition:** context
+- **Source/locator:** `local-prior:3B.1`
+- **Publisher/type:** V-Dem and PTS local structured priors
+- **Confidence:** high for measured country-year fields
+- **Claim:** The package supplies 2023 V-Dem civil-society repression `1.915`, extrajudicial-killings `2.857`, physical-integrity liberties `0.949`, private civil liberties `0.901`, plus PTS Amnesty and HRW scores of `3.0`.
+- **Locator:** LF005–LF010
+- **Period fit:** exact 2023
+- **Attribution:** country conditions; does not by itself identify presidential direction, federal versus state responsibility, incidence, or remedy.
+- **Mappings:** contextual across 3B.1–3B.10.
+
+### L003 — Democratic institutions and political-freedom context
+
+- **Canonical fact key:** `local-prior:4B.1|LF011-LF025|USA-2023-democracy-freedom`
+- **Disposition:** context
+- **Source/locator:** `local-prior:4B.1`
+- **Publisher/type:** V-Dem, Freedom House, and RSF local structured priors
+- **Confidence:** high for the supplied fields
+- **Claim:** The package supplies strong 2023 country-level measures of electoral democracy, association, expression, judicial and legislative constraints, liberal democracy, suffrage, rule of law, and related fields; Freedom House political-rights/civil-liberties values are both `2.0`; RSF rank is 45 with score 71.22.
+- **Locator:** LF011–LF025
+- **Period fit:** exact 2023
+- **Attribution:** inherited and country-level institutional context, not affirmative proof that Biden personally protected or strengthened freedom.
+- **Mappings:** contextual across 4B; LF011/LF024 also context for 7B and 8B.
+
+### L004 — Economic scale and income context
+
+- **Canonical fact key:** `local-prior:5B.1|LF026-LF028|USA-2023-economic-level`
+- **Disposition:** context
+- **Source/locator:** `local-prior:5B.1`
+- **Publisher/type:** World Bank WDI local structured prior
+- **Confidence:** high for direct fields
+- **Claim:** Supplied 2023 facts report GDP per capita of `81032.262117545`, total GDP of `27292170793214.4`, and population of `336806231`.
+- **Locator:** LF026–LF028
+- **Period fit:** exact 2023
+- **Attribution:** country level and scale; cannot establish distribution, policy competence, or Biden’s causal contribution.
+- **Mappings:** context for 5B.1, 5B.3, 5B.6, 5B.8, 5B.10.
+
+### L005 — Corruption and rule-of-law context
+
+- **Canonical fact key:** `local-prior:7B.1|LF029-LF032|USA-2023-corruption`
+- **Disposition:** context
+- **Source/locator:** `local-prior:7B.1`
+- **Publisher/type:** V-Dem and Transparency International local structured priors
+- **Confidence:** high for measured national fields
+- **Claim:** The package supplies political-corruption index `0.055`, CPI score `69`, executive corruption `0.013`, and public-sector corruption `0.021`, alongside LF011 accountability and LF024 rule of law.
+- **Locator:** LF029–LF032, with LF011 and LF024
+- **Period fit:** exact 2023
+- **Attribution:** national institutional context; cannot prove Biden’s personal honesty, family-interest separation, candor, or acceptance of scrutiny.
+- **Mappings:** context for 7B and inherited-capacity context for 8B.
+
+---
+
+## Internet evidence
+
+### E001 — Biden administration’s June 2023 arms-control program
+
+- **Canonical fact key:** `https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|sections-US-ready-engage-Russia-China-P5|Biden-administration-arms-control-offer`
+- **Disposition:** final_evidence
+- **Title:** “Remarks by National Security Advisor Jake Sullivan for the Arms Control Association Annual Forum”
+- **Publisher/date:** Arms Control Association, reproducing White House remarks; 2 June 2023
+- **Source type/confidence:** primary official speech reproduced by specialist NGO; **medium-high** for declared policy and formal offer, lower for implementation success
+- **Claim:** The administration declared willingness to remain within New START’s central limits if Russia did likewise; engage Russia immediately on post-2026 controls; engage China without preconditions; and pursue P5 launch notification, crisis communications, human control, and policy transparency.
+- **Locator/excerpt:** Sections beginning “It is in neither of our countries’ interests…” and “The United States is ready to engage Russia now…”; the speech lists “maintaining a ‘human-in-the-loop’,” crisis channels, and launch notification.
+- **Period fit:** exact 2023
+- **Attribution:** Sullivan explicitly presented the program under “the President’s leadership”; strong administration-level, moderate direct-personal attribution.
+- **Mitigation/contrary:** It was a policy declaration; E002 shows incomplete follow-through.
+- **Mappings:** 1B.1, 1B.3, 1B.4, 1B.7, 1B.8, 1B.9, 1B.10; also 2B.1 and 2B.7.
+
+### E002 — Delay in converting arms-control speech into a formal proposal
+
+- **Canonical fact key:** `https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|opening-paragraphs-US-proposal|no-formal-written-proposal-three-months`
+- **Disposition:** final_evidence
+- **Title:** “Three Months Later, Still No U.S. Arms Control Proposal to Russia”
+- **Publisher/date:** Arms Control Association Nuclear Disarmament Monitor; 12 September 2023
+- **Source type/confidence:** specialist NGO analysis; **medium-high**
+- **Claim:** Three months after Sullivan’s speech, the United States had not sent Russia a formal written proposal, according to the report; former official Thomas Countryman called failure to take the next step inconsistent with the urgency of the speech.
+- **Locator/excerpt:** Opening two paragraphs and paragraph quoting Countryman.
+- **Period fit:** exact 2023
+- **Attribution:** administration implementation gap; Biden’s personal role is not established.
+- **Contrary:** NSC said the proposal had been privately conveyed and Russia appeared unwilling to engage.
+- **Mappings:** 1B.1, 1B.4, 1B.8, 1B.10; 8B.2, 8B.5, 8B.6, 8B.8.
+
+### E003 — Nuclear posture included continuing restraint but also forward-capability concerns
+
+- **Canonical fact key:** `https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|section-Lakenheath-surety-mission|possible-return-US-nuclear-mission-UK`
+- **Disposition:** final_evidence
+- **Title:** Nuclear Disarmament Monitor, section on RAF Lakenheath
+- **Publisher/date:** Arms Control Association; September 2023
+- **Source type/confidence:** specialist NGO synthesis citing FAS analysis and Air Force budget documents; **medium-high**
+- **Claim:** Air Force FY2024 budget documents indicated preparation for a potential nuclear “surety” mission at RAF Lakenheath, coinciding with B61-12 deployment and nuclear-capable F-35A basing; Russia publicly characterized a return as escalation.
+- **Locator:** Section discussing Lakenheath and “potential Surety mission.”
+- **Period fit:** exact 2023 planning
+- **Attribution:** administration/military posture, but no direct evidence that Biden personally ordered the move.
+- **Contrary:** Capability and alliance posture are not themselves proof of recklessness; Russian characterization is interested-party evidence.
+- **Mappings:** 1B.1, 1B.5, 1B.10; contextual 2B.8.
+
+### E004 — U.S. veto of Gaza humanitarian-pauses resolution
+
+- **Canonical fact key:** `https://news.un.org/en/story/2023/10/1142507|sections-vote-US-rejection|US-veto-humanitarian-pauses-resolution`
+- **Disposition:** final_evidence
+- **Title:** “Israel-Gaza crisis: US vetoes Security Council resolution”
+- **Publisher/date:** UN News; 18 October 2023
+- **Source type/confidence:** intergovernmental official record/report; **high** for the vote and stated rationale
+- **Claim:** The United States cast the sole veto against a Brazilian-led resolution supported by 12 Security Council members and calling for humanitarian pauses. The U.S. ambassador said it omitted Israel’s right of self-defense and asserted that direct diplomacy could save lives.
+- **Locator:** Opening vote tally and “US rejection” section.
+- **Period fit:** exact 2023
+- **Attribution:** formal U.S. executive foreign-policy act during Biden’s presidency; strong administration attribution, moderate direct personal attribution.
+- **Contrary:** U.S. explanation emphasized self-defense, civilian protection, and Biden’s on-the-ground diplomacy; the resolution did not call for a full ceasefire.
+- **Mappings:** 2B.1, 2B.4, 2B.5, 2B.7, 2B.9, 2B.10.
+
+### E005 — Mixed U.S. international human-rights record
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-foreign-policy|military-assistance-human-rights-abusing-states`
+- **Disposition:** final_evidence
+- **Title:** “World Report 2024: United States”
+- **Publisher/date:** Human Rights Watch; 2024 report covering 2023
+- **Source type/confidence:** rights NGO; **medium-high**
+- **Claim:** HRW found that the United States used targeted sanctions against abusers and supported international justice mechanisms, including the ICC investigation concerning Ukraine, but undermined its human-rights commitment by providing military assistance to abusive states.
+- **Locator:** Opening summary, second paragraph.
+- **Period fit:** direct retrospective assessment of 2023
+- **Attribution:** Biden-administration foreign policy; specific arms decisions require further item-level corroboration.
+- **Mappings:** 2B.4, 2B.5, 2B.9, 2B.10; contextual 7B.8.
+
+### E006 — Calm/de-escalatory great-power management, with mixed execution
+
+- **Canonical fact key:** `https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions`
+- **Disposition:** final_evidence
+- **Title:** “Biden’s unspectacular but solid national security record”
+- **Publisher/date:** Brookings Institution; 30 January 2024
+- **Source type/confidence:** policy commentary; **medium**
+- **Claim:** The author characterizes Biden as calm and de-escalatory toward major powers and credits historic Ukraine assistance, while criticizing repeated 2023 hesitation over major weapons transfers and acknowledging mixed policy on Iran, North Korea, debt, and other issues.
+- **Locator:** Opening assessment and “Ukraine and Russia” section.
+- **Period fit:** retrospective assessment immediately after 2023
+- **Attribution:** direct presidential foreign-policy assessment, but interpretive rather than adjudicative.
+- **Contrary:** The article explicitly notes Congress’s central role and cautions against attributing the entire U.S. record to Biden.
+- **Mappings:** 1B.2, 1B.8, 1B.10; 2B.1, 2B.3, 2B.7, 2B.10; 8B.8, 8B.9.
+
+### E007 — Federal police-reform implementation and remaining loopholes
+
+- **Canonical fact key:** `https://www.aclu.org/press-releases/aclu-acknowledges-improvements-to-doj-racial-profiling-policy-but-says-far-more-is-needed|implementation-policies-and-racial-profiling-sections|policing-EO-implementation-mixed`
+- **Disposition:** final_evidence
+- **Title:** “On Anniversary of President Biden’s Policing Executive Order, ACLU Disappointed by Administration’s Failure to Fully Ban Discriminatory Profiling”
+- **Publisher/date:** ACLU; 25 May 2023
+- **Source type/confidence:** civil-liberties NGO; **medium-high**
+- **Claim:** More than 20 implementation policies, guidelines, and reports were released under Biden’s policing order. Federal policies limited chokeholds/deadly force, imposed duties to intervene and render aid, and expanded profiling protections, but significant national-security, intelligence, immigration, and implementation loopholes remained.
+- **Locator:** Opening through the sections listing profiling-policy changes and use-of-force requirements.
+- **Period fit:** exact 2023
+- **Attribution:** strong executive-branch attribution through Biden’s order; effectiveness at state/local level remained uncertain.
+- **Contrary:** ACLU welcomed improvements but said the reforms failed to establish a full ban and required stronger implementation.
+- **Mappings:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.7, 3B.8, 3B.10; 4B.7; 8B.2, 8B.6.
+
+### E008 — Expanded and privatized immigration detention
+
+- **Canonical fact key:** `https://www.aclu.org/news/immigrants-rights/unchecked-growth-private-prison-corporations-and-immigration-detention-three-years-into-the-biden-administration|daily-detention-private-share-sections|ICE-detention-growth-private-facilities`
+- **Disposition:** final_evidence
+- **Title:** “Private Prison Corporations and Immigration Detention, Three Years Into the Biden Administration”
+- **Publisher/date:** ACLU; 7 August 2023
+- **Source type/confidence:** civil-liberties NGO using ICE/TRAC and corporate records; **medium-high**
+- **Claim:** Average ICE detention increased from 15,444 people at the start of Biden’s administration to 30,003 in July 2023, and 90.8% of detainees were held in privately owned or operated facilities. Biden’s 2021 private-prison order excluded ICE.
+- **Locator:** Sections “The Number of Immigrants Detained…” and “Nine Out of Ten…”
+- **Period fit:** exact July 2023
+- **Attribution:** strong for continued federal policy and exclusion of ICE; Congress also set detention appropriations.
+- **Contrary:** The administration phased out some DOJ private-prison contracts; immigration detention was not covered.
+- **Mappings:** 3B.1, 3B.2, 3B.5, 3B.7, 3B.10; 6B.3, 6B.7, 6B.8; 7B.8; 8B.6, 8B.10.
+
+### E009 — Asylum restrictions and risks to migrants
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/united-states|section-Immigrants-Rights-and-Border-Communities|Biden-2023-asylum-rule`
+- **Disposition:** final_evidence
+- **Title:** “World Report 2024: United States”
+- **Publisher/date:** Human Rights Watch; 2024, covering 2023
+- **Source type/confidence:** rights NGO; **medium-high**
+- **Claim:** After Title 42 expired, the administration replaced it with an asylum rule that HRW says exposed many asylum seekers to expedited removal, detention, prosecution, a five-year return bar, and prolonged danger while seeking CBP One appointments.
+- **Locator:** “Immigrants’ Rights and Border Communities” section.
+- **Period fit:** exact 2023 policy
+- **Attribution:** direct federal executive immigration policy, though courts and Congress constrained options.
+- **Contrary:** Administration framed the rule as border management and created parole/legal-pathway mechanisms; this source focuses on harms.
+- **Mappings:** 3B.5, 3B.7, 3B.9, 3B.10; 4B.7; 6B.3, 6B.6, 6B.8.
+
+### E010 — U.S. democratic resilience and structural restrictions
+
+- **Canonical fact key:** `https://www.idea.int/gsod/2023/chapters/americas/case/united-states-of-america|voting-restrictions-and-disinformation-sections|US-2023-democracy-mixed`
+- **Disposition:** final_evidence
+- **Title:** “The state of democracy in the Americas — United States case”
+- **Publisher/date:** International IDEA; 2023
+- **Source type/confidence:** intergovernmental democracy analysis; **high**
+- **Claim:** Elections remained an effective check, but the electoral college, voter suppression, and disinformation impaired political equality. Between January and May 2023, 11 states passed at least 13 restrictive voting laws, while expansive laws outnumbered restrictive ones. Courts continued to constrain discriminatory maps.
+- **Locator:** “Impact of the electoral college,” voting restrictions, “The risk of disinformation,” and countervailing-institutions sections.
+- **Period fit:** exact 2023
+- **Attribution:** mostly inherited constitutional and state-level conditions, not personally Biden-directed.
+- **Contrary:** Elections and courts continued to operate as real constraints; expansive voting laws also passed.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.7, 4B.10.
+
+### E011 — Federal democracy protections alongside unresolved threats
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-and-Democracy-section|Biden-democracy-protection-context`
+- **Disposition:** final_evidence
+- **Title:** “World Report 2024: United States”
+- **Publisher/date:** Human Rights Watch; 2024, covering 2023
+- **Source type/confidence:** NGO; **medium-high**
+- **Claim:** HRW reported continued threats against election officials and disinformation, while a federal task force documented harassment and the Supreme Court reinforced voting-rights protections. Biden’s administration banned federal use of abusive commercial spyware.
+- **Locator:** Opening summary and “Democracy” section.
+- **Period fit:** direct 2023
+- **Attribution:** spyware ban and federal task force have executive links; court rulings and state conduct are independent of Biden.
+- **Mappings:** 3B.3, 3B.4, 3B.8; 4B.1, 4B.3, 4B.4, 4B.7, 4B.9, 4B.10.
+
+### E012 — Real wage improvement during 2023
+
+- **Canonical fact key:** `https://www.bls.gov/opub/ted/2024/real-average-hourly-earnings-increased-1-4-percent-from-january-2023-to-january-2024.htm|headline-statistic|real-hourly-earnings-1.4-percent`
+- **Disposition:** final_evidence
+- **Title:** “Real average hourly earnings increased 1.4 percent from January 2023 to January 2024”
+- **Publisher/date:** U.S. Bureau of Labor Statistics; 26 February 2024
+- **Source type/confidence:** official statistics; **high** for the measured outcome
+- **Claim:** BLS reports inflation-adjusted average hourly earnings rose 1.4% between January 2023 and January 2024.
+- **Locator:** headline statistic/search-result locator; direct fetch was robots-blocked, so retain as **locator_missing/gateway-only unless the parent can open the BLS page**.
+- **Period fit:** nearly exact annual 2023 interval
+- **Attribution:** macro outcome only; Federal Reserve, reopening, labor supply, Congress, and external conditions are important alternative causes.
+- **Mappings:** 5B.3, 5B.8, 5B.9, 5B.10; 6B.10.
+- **Defensibility note:** keep out of strict final count until direct page text is persisted.
+
+### E013 — Mixed 2023 poverty outcomes
+
+- **Canonical fact key:** `https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates`
+- **Disposition:** final_evidence
+- **Title:** “Poverty in the United States: 2023”
+- **Publisher/date:** U.S. Census Bureau; 10 September 2024
+- **Source type/confidence:** official statistics; **high**
+- **Claim:** In 2023, the official poverty rate fell 0.4 points to 11.1%, while the Supplemental Poverty Measure rose 0.5 points to 12.9%; SPM child poverty rose 1.3 points to 13.7%.
+- **Locator:** Summary bullets under “Official Poverty Measure” and “Supplemental Poverty Measure.”
+- **Period fit:** exact 2023 outcome, published retrospectively
+- **Attribution:** outcome only. Tax policy, expiration of pandemic supports, Congress, inflation, and state policy complicate presidential attribution.
+- **Contrary:** Official and supplemental measures moved in opposite directions.
+- **Mappings:** 5B.8, 5B.9, 5B.10; 6B.2, 6B.3, 6B.6, 6B.10.
+
+### E014 — HRW assessment of social and economic conditions
+
+- **Canonical fact key:** `https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-economic-justice|poverty-inequality-incarceration`
+- **Disposition:** final_evidence
+- **Title:** “World Report 2024: United States”
+- **Publisher/date:** Human Rights Watch; 2024, covering 2023
+- **Source type/confidence:** NGO synthesis; **medium-high**
+- **Claim:** HRW found poverty and inequality rose after pandemic-era support ended; incarceration increased; racial wealth gaps remained severe. It also notes the administration’s first-in-government investment in harm reduction and the FDA’s March 2023 authorization of over-the-counter naloxone.
+- **Locator:** Opening summary, “Economic Justice,” and “Drug Policy.”
+- **Period fit:** exact/near-period
+- **Attribution:** mixed—some federal policy, some congressional/state/inherited conditions.
+- **Contrary:** Harm-reduction and naloxone measures were affirmative federal welfare interventions.
+- **Mappings:** 3B.6, 3B.7, 3B.10; 5B.8, 5B.10; 6B.2, 6B.3, 6B.5, 6B.6, 6B.8, 6B.10.
+
+### E015 — SAVE student-loan repayment plan
+
+- **Canonical fact key:** `https://www.reuters.com/world/us/new-biden-student-loan-plan-cuts-payments-millions-white-house-says-2023-08-22/|search-result-summary|SAVE-plan-estimated-savings`
+- **Disposition:** context
+- **Title:** “New Biden student loan plan cuts payments for millions”
+- **Publisher/date:** Reuters; 22 August 2023
+- **Source type/confidence:** reputable wire; normally **medium-high**
+- **Claim:** Reuters reported that the 2023 repayment changes were estimated to save a typical borrower about $1,000 annually and a typical public four-year graduate about $2,000.
+- **Locator:** Reuters discovery snippet only; direct fetch was robots-blocked.
+- **Period fit:** exact 2023
+- **Attribution:** direct administration policy.
+- **Limitations:** **gateway_only**; not counted as defensible until article or underlying Education Department rule is opened.
+- **Mappings:** 5B.6, 5B.8; 6B.2, 6B.3, 6B.8; 8B.8.
+
+### E016 — Biden’s 2023 public economic claims included truth and exaggeration
+
+- **Canonical fact key:** `https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed`
+- **Disposition:** final_evidence
+- **Title:** “Fact-checking Joe Biden’s 2023 State of the Union address”
+- **Publisher/date:** PolitiFact; 8 February 2023, updated 13 February
+- **Source type/confidence:** professional fact-checking media; **medium-high**
+- **Claim:** Biden accurately cited roughly 12 million jobs added but overstated comparability with prior presidencies because recovery from pandemic losses and population size mattered. His fast-food noncompete example conflated noncompete and no-poach clauses, and some infrastructure and wildfire claims lacked adequate context or support.
+- **Locator:** Sections beginning “Thirty million workers…,” “12 million new jobs,” and wildfire/infrastructure sections.
+- **Period fit:** exact 2023 statement
+- **Attribution:** direct personal public statements.
+- **Contrary:** Several central claims had a factual core and were not wholly false.
+- **Mappings:** 5B.1, 5B.7; 7B.1, 7B.2, 7B.8, 7B.10; 8B.1, 8B.7.
+
+### E017 — Classified-documents cooperation and adverse findings
+
+- **Canonical fact key:** `https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge`
+- **Disposition:** final_evidence
+- **Title:** “Biden pushes back at special counsel claims that questioned his memory”
+- **Publisher/date:** Associated Press; 8 February 2024
+- **Source type/confidence:** reputable wire/media summarizing an official report; **medium-high**
+- **Claim:** Special Counsel Hur found evidence Biden willfully retained and disclosed classified information after leaving office, but concluded charges were not warranted because intent could not be proved beyond a reasonable doubt and innocent explanations could not be excluded. Biden cooperated with the inquiry; the report identified material distinctions from Trump’s alleged obstruction.
+- **Locator:** Opening paragraphs; sections explaining prosecutorial decision and Trump/Biden distinctions.
+- **Period fit:** investigation covered 2023 cooperation and earlier handling; report is post-period retrospective evidence.
+- **Attribution:** direct personal conduct.
+- **Contrary:** No criminal charge; cooperation and evidentiary uncertainty are material mitigation.
+- **Mappings:** 7B.2, 7B.3, 7B.6, 7B.7, 7B.10; 8B.4, 8B.9.
+
+### E018 — Biden’s false and misleading response to Hur report
+
+- **Canonical fact key:** `https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings`
+- **Disposition:** final_evidence
+- **Title:** “Biden’s Claims About Special Counsel Report on Classified Documents Investigation”
+- **Publisher/date:** FactCheck.org; 9 February 2024
+- **Source type/confidence:** professional fact-checking organization grounded in official report; **medium-high**
+- **Claim:** Biden falsely or misleadingly said the report found a shortage of evidence of willful retention, that no highly classified records were involved, that he did not share classified information with his ghostwriter, and that all home materials were in lockable filing cabinets.
+- **Locator:** Opening bullet list and sections “Willful Retention,” “‘Highly Classified’ Documents,” “Ghostwriter Discussions,” and storage.
+- **Period fit:** post-period response to a report about conduct and investigation active during 2023; use only as retrospective integrity evidence, not as a 2023 speech.
+- **Attribution:** direct personal statements.
+- **Contrary:** Biden correctly emphasized that no charges were warranted and that the report distinguished his cooperation from Trump’s alleged obstruction.
+- **Mappings:** 7B.1, 7B.2, 7B.6, 7B.7, 7B.10.
+
+### E019 — Governing program and implementation portfolio
+
+- **Canonical fact key:** `https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/?ruling=true|intro-and-scorecard|Biden-program-tracked-by-verifiable-outcomes`
+- **Disposition:** context
+- **Title:** “Biden Promise Tracker”
+- **Publisher/date:** PolitiFact; continuously updated
+- **Source type/confidence:** fact-checking/project tracker; **medium**
+- **Claim:** The tracker identifies Biden’s explicit program around COVID control, economic recovery, racial justice, and climate, and evaluates 99 promises by verifiable outcomes rather than effort or intent.
+- **Locator:** Introductory paragraphs and top-priority section.
+- **Period fit:** broad tenure context, not a 2023-only inventory
+- **Attribution:** direct campaign/program attribution.
+- **Limitations:** The fetched page did not expose the full 2023 scorecard or individual outcomes cleanly; use as portfolio-identification context only.
+- **Mappings:** 8B.1, 8B.7, 8B.10; contextual 5B.1 and 6B.1.
+
+### E020 — Afghanistan review exposed accountability and adaptation concerns
+
+- **Canonical fact key:** `https://www.reuters.com/world/asia-pacific/biden-report-afghanistan-withdrawal-blames-trump-2023-04-06/|search-result-summary|Biden-Afghanistan-review-blamed-inherited-constraints`
+- **Disposition:** context
+- **Title:** “Biden Afghanistan report mostly blames Trump for chaotic withdrawal”
+- **Publisher/date:** Reuters; 6–7 April 2023
+- **Source type/confidence:** reputable wire; normally **medium-high**
+- **Claim:** A 2023 administration review argued Biden’s withdrawal choices were severely constrained by conditions inherited from Trump, while critics viewed the review as avoiding accountability for the chaotic execution.
+- **Locator:** Reuters discovery snippet only; direct fetch blocked.
+- **Period fit:** exact 2023 review of 2021 conduct
+- **Attribution:** relevant to Biden’s correction/accountability response, but not a 2023 operational event.
+- **Limitations:** **gateway_only** and retrospective; not counted as final evidence.
+- **Mappings:** 2B.9; 7B.2, 7B.8; 8B.8, 8B.9.
+
+---
+
+# 3. Chapter-by-chapter handoff
+
+## Chapter 1B — Nuclear and existential-risk responsibility
+
+### Local baseline
+
+No local 1B fact was supplied. All ten 1B dispositions are genuine mapped-field gaps under reason R001, not evidence of safety or responsibility. No extraction error was reported.
+
+### Retained evidence and reuse
+
+- **E001:** concrete 2023 administration offer to observe New START central limits reciprocally, enter post-2026 talks with Russia, engage China without preconditions, and pursue P5 launch notification, crisis communication, human-in-loop control, and transparency.
+- **E002:** material implementation counterpoint—no formal written proposal had been sent three months later, though NSC said private communications occurred.
+- **E003:** possible return of a U.S. nuclear mission to RAF Lakenheath is posture-expansion context and a possible adverse signal, but direct Biden attribution is weak.
+- **E006:** expert interpretation that Biden’s great-power conduct was calm and de-escalatory, with acknowledged hesitation and mixed results.
+
+### Lens coverage
+
+- **Well covered:** 1B.1, 1B.4, 1B.8, 1B.9.
+- **Partly covered:** 1B.2, 1B.3, 1B.7, 1B.10.
+- **Weak:** 1B.5 and 1B.6; no strong opened source directly addressed nuclear shielding of conventional aggression or ally proliferation restraint in 2023.
+
+### Yield and diversity
+
+- 4 mapped source-claim units.
+- 2 defensible source organizations plus Brookings interpretation; official White House policy is embedded through ACA.
+- Source concentration is high: two items share Arms Control Association material.
+- Below the five-unit goal because command-and-control, proliferation, and end-posture technical sources were not sufficiently opened.
+
+### Strongest contrary evidence
+
+The administration’s detailed arms-control rhetoric did not promptly become a formal written proposal, and possible Lakenheath preparations cut against a simple risk-reduction narrative.
+
+### Unresolved gaps
+
+- Direct evidence of Biden’s personal nuclear-risk decisions.
+- Exact 2023 arsenal/posture change, command-and-control safety, alert policy, and launch authority.
+- Iran, North Korea, Saudi, South Korean, and allied-proliferation choices.
+- Implementation outcomes of AI, biological, cyber, and space safeguards.
+- Independent technical assessment of whether end-2023 posture was safer than the start of 2023.
+
+---
+
+## Chapter 2B — International peace, restraint, and lawful security
+
+### Local baseline
+
+LF001–LF004 establish unusually large military expenditures but do not show aggression, peacefulness, civilian protection, or Biden’s reasons. They are context only.
+
+### Retained evidence
+
+- **E004:** U.S. veto of a Security Council humanitarian-pauses resolution and its stated self-defense/direct-diplomacy rationale.
+- **E005:** HRW’s mixed finding—support for sanctions and international justice, alongside military assistance to rights-abusing states.
+- **E006:** generally calm great-power management and major support for Ukraine, but slow weapons decisions and mixed policy.
+- **E001:** arms-control diplomacy as a risk-reduction mechanism.
+- **L001:** military-spending context.
+
+Reuters discovery additionally identified December 2023 reporting that the administration kept weapons flowing to Israel despite mounting civilian deaths while attempting to pressure Israel privately. Because direct Reuters access was blocked, that candidate is not counted as opened final evidence.
+
+### Lens coverage
+
+- **Covered:** 2B.1, 2B.4, 2B.5, 2B.7, 2B.8, 2B.10.
+- **Partial:** 2B.2, 2B.3, 2B.6, 2B.9.
+- No evidence suggests Biden initiated a 2023 war, but absence is not retained as proof.
+- Gaza supplies the central adverse case; Ukraine supplies the main defensive-security and restraint context.
+
+### Yield and diversity
+
+- 5 defensible mapped units including one local context unit.
+- Organizations: UN, HRW, Brookings, ACA, SIPRI local prior.
+- Types: intergovernmental official record, NGO, policy research, primary policy speech, structured dataset.
+- Reasonably diverse but not saturated for civilian-harm and arms-recipient accountability.
+
+### Strongest contrary evidence
+
+The U.S. vetoed a humanitarian-pauses resolution and continued military assistance in a context of mounting civilian harm. The U.S. explanation stressed Israel’s self-defense, direct diplomacy, hostage release, and civilian protection.
+
+### Unresolved gaps
+
+- Precise 2023 arms-transfer decisions to Israel and Saudi Arabia.
+- Biden’s personal response to civilian-harm warnings.
+- Evidence on Ukraine targeting restrictions, cluster munitions, ATACMS, F-16s, prisoner treatment, and accountability.
+- China/Taiwan coercive-diplomacy and crisis-channel decisions after the balloon incident.
+- Reliable assessment of whether direct diplomacy caused the November Gaza pause/hostage releases.
+
+---
+
+## Chapter 3B — Domestic safety, restraint, and protection
+
+### Local baseline
+
+LF005–LF010 give country-year physical-integrity and repression measures but cannot separate federal, state, local, or presidential responsibility. They are strong condition priors, not proof of Biden’s conduct.
+
+### Retained evidence
+
+- **E007:** federal use-of-force, duty-to-intervene, profiling, and militarized-equipment reforms; incomplete reach and loopholes.
+- **E008:** increased ICE detention and 90.8% private-facility reliance.
+- **E009:** asylum restrictions exposing migrants to detention, removal, and danger.
+- **E011:** federal attention to threats against election officials and commercial-spyware restrictions.
+- **E014:** incarceration, overdose, and racial disparities, with harm-reduction and naloxone counterevidence.
+- **L002:** structured physical-integrity context.
+
+### Lens coverage
+
+- **Strong:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.7, 3B.10.
+- **Partial:** 3B.3, 3B.6, 3B.8, 3B.9.
+- Evidence distinguishes affirmative federal police reforms from continued immigration-detention and asylum harms.
+
+### Yield and diversity
+
+- 6 mapped units.
+- Organizations: ACLU, HRW, local V-Dem/PTS.
+- Types: NGO documentation and structured datasets.
+- Source-family diversity is below target because authoritative DOJ, DHS OIG, court, or UN treaty-body reports were not successfully extracted.
+
+### Strongest contrary evidence
+
+Police-reform steps were concrete and federally attributable, but significant profiling loopholes remained and immigration detention expanded markedly.
+
+### Unresolved gaps
+
+- 2023 federal protest treatment and surveillance.
+- DOJ pattern-or-practice investigations and consent decrees with precise outcomes.
+- Federal prison deaths, solitary confinement, and detention conditions.
+- Biden’s personal rhetoric on migrants, protesters, political opponents, and vulnerable groups.
+- Physical-safety nexus for anti-LGBT or reproductive-rights developments.
+- Degree of federal control over state/local police abuse.
+
+---
+
+## Chapter 4B — Political freedom versus authoritarian rule
+
+### Local baseline
+
+LF011–LF025 provide a strong democratic country baseline: high electoral-democracy, expression, association, judicial/legislative constraint, suffrage, and rule-of-law values, with weaker press-freedom rank. These are inherited/country conditions and cannot alone justify a favorable ruler-attribution claim.
+
+### Retained evidence
+
+- **E010:** elections and courts remained meaningful checks, while state voter restrictions, electoral-college distortions, and disinformation impaired equality.
+- **E011:** federal attention to election-worker threats and spyware; court protection of voting rights.
+- **E007:** federal profiling/use-of-force reforms relevant to equal civic participation.
+- **E009:** restrictive asylum policy relevant to excluded-group equality.
+- **L003:** structured democratic baseline.
+
+### Lens coverage
+
+- **Covered:** 4B.1, 4B.4, 4B.7, 4B.9, 4B.10.
+- **Partial:** 4B.2, 4B.3, 4B.6.
+- **Weak:** 4B.5 and 4B.8. No 2023 transfer-of-power event occurred, and no strong evidence of personality cult, loyalty tests, or state-party capture was found.
+
+### Yield and diversity
+
+- 5 mapped units.
+- Organizations: International IDEA, HRW, ACLU, V-Dem/Freedom House/RSF local priors.
+- Types: intergovernmental analysis, NGO reporting, structured datasets.
+- Federal/state attribution remains the key limiting factor.
+
+### Strongest contrary evidence
+
+The democratic baseline remained robust and courts operated independently, but voting restrictions and disinformation persisted, mostly through state-level actors outside direct presidential control.
+
+### Unresolved gaps
+
+- Biden’s response to adverse court rulings and congressional defeats.
+- Treatment of hostile media, satire, protests, and congressional investigations.
+- Federal voting-rights enforcement outcomes.
+- CISA/social-media controversy and whether federal anti-disinformation contacts crossed into improper pressure.
+- Direct evidence of self-binding when courts, Congress, or oversight constrained Biden.
+- 2023 press-access and transparency record.
+
+---
+
+## Chapter 5B — Economic well-being and prosperity
+
+### Local baseline
+
+LF026–LF028 show a wealthy, very large economy in 2023 but say nothing directly about distribution, macro stewardship, policy implementation, or Biden’s contribution.
+
+### Retained evidence
+
+- **E013:** official poverty declined while supplemental and child poverty rose.
+- **E014:** HRW synthesis of rising inequality, racial wealth disparity, and expired social support.
+- **E016:** jobs and infrastructure had a factual core, but Biden overstated comparability or causality in some public claims.
+- **E012:** BLS real-wage improvement is a promising official fact but remains gateway-only pending direct locator capture.
+- **E015:** SAVE plan is a promising direct policy item but gateway-only.
+- **L004:** GDP and population context.
+- **E019:** explicit policy portfolio context.
+
+### Lens coverage
+
+- **Covered:** 5B.1, 5B.3, 5B.6, 5B.7, 5B.8, 5B.9, 5B.10.
+- **Partial:** 5B.2, 5B.4, 5B.5.
+- No strong retained source evaluates economic appointments, competition policy, favoritism, or procurement capture in 2023.
+
+### Yield and diversity
+
+- 5 defensible units if counting E019 and local context; E012/E015 excluded from strict count pending underlying locators.
+- Organizations: Census, HRW, PolitiFact, World Bank local prior.
+- Types: official statistics, NGO, fact-checking media, structured dataset.
+- Policy implementation evidence is thinner than outcome evidence.
+
+### Strongest contrary evidence
+
+Labor-market and real-wage signs improved, but supplemental and child poverty worsened, and some presidential claims overstated causality or historical comparison.
+
+### Unresolved gaps
+
+- 2023 inflation path and Federal Reserve versus fiscal-policy attribution.
+- Implementation status of IRA, CHIPS, and infrastructure investments.
+- Fiscal-deficit and debt trajectory with CBO analysis.
+- Distribution across income, race, sex, and region.
+- Antitrust/competition outcomes and labor-market regulation.
+- Personnel quality and independence at Treasury, NEC, OMB, and regulatory agencies.
+- Evidence of policy correction after inflation and supply-chain problems.
+
+---
+
+## Chapter 6B — Social well-being and human development
+
+### Local baseline
+
+The supplied package contained no 6B facts. All ten dispositions are R001 mapped-field gaps, not evidence that social welfare was unavailable or unchanged. There were no extraction-error IDs.
+
+### Retained evidence
+
+- **E013:** official and supplemental poverty trends, including higher child poverty.
+- **E014:** overdose harms, racial disparities, harm-reduction investment, and naloxone access.
+- **E008/E009:** immigration detention and asylum harms affecting vulnerable migrants.
+- **E007:** police-policy reforms relevant to safety and dignity.
+- **E015:** SAVE repayment plan is context pending a direct underlying locator.
+
+### Lens coverage
+
+- **Covered:** 6B.2, 6B.3, 6B.6, 6B.8, 6B.10.
+- **Partial:** 6B.1, 6B.4, 6B.5, 6B.7, 6B.9.
+- The evidence is concentrated on poverty, drugs, policing, immigration, and education debt; it is sparse on health-insurance access, schools, housing, water, food, and institutional durability.
+
+### Yield and diversity
+
+- 5 defensible cross-chapter units, but only two are direct welfare-outcome sources.
+- Organizations: Census, HRW, ACLU.
+- Types: official statistics and NGO reporting.
+- The chapter is not saturated; it remains below normal evidence depth for a prominent contemporary ruler.
+
+### Strongest contrary evidence
+
+The administration expanded harm-reduction tools and policing safeguards, but child SPM poverty rose and migrant detention/asylum policies imposed significant harms.
+
+### Unresolved gaps
+
+- 2023 uninsured rate, ACA enrollment, Medicaid unwinding, and avoidable coverage loss.
+- Housing affordability and homelessness.
+- SNAP emergency-allotment expiration and food insecurity.
+- School achievement, pandemic recovery, and childcare.
+- Disaster response in Maui and other 2023 crises.
+- Maternal mortality, reproductive care, and rural access.
+- Program delivery and durability beyond announcements.
+
+---
+
+## Chapter 7B — Personal integrity and honesty
+
+### Local baseline
+
+LF029–LF032, LF011, and LF024 indicate relatively favorable national corruption and rule-of-law context. They cannot prove Biden’s personal integrity and are not treated as such.
+
+### Retained ruler-specific evidence
+
+- **E017:** evidence of improper classified-material retention/disclosure, prosecutorial uncertainty, no charge, cooperation, and distinctions from obstruction.
+- **E018:** direct false or misleading statements by Biden about the special counsel’s findings.
+- **E016:** a mixed pattern of accurate claims, contextual exaggeration, and unsupported examples in the 2023 State of the Union.
+- **E020:** the Afghanistan review as a gateway-only accountability candidate.
+- **L005:** country corruption context only.
+
+### Lens coverage
+
+- **Strong:** 7B.1, 7B.2, 7B.6, 7B.10.
+- **Partial:** 7B.3, 7B.7, 7B.8.
+- **Weak:** 7B.4, 7B.5, 7B.9. No opened final source established Biden’s personal enrichment, family benefit through state action, crony appointments, or nepotistic procurement.
+
+### Yield and diversity
+
+- 4 defensible claim units including local context; below the minimum target.
+- Organizations: AP, FactCheck.org, PolitiFact, local Transparency/V-Dem.
+- Types: media, fact-checking, structured datasets.
+- Evidence is concentrated in one scandal family. This concentration must not be mistaken for a complete integrity pattern.
+
+### Strongest contrary evidence
+
+The classified-documents case contains both adverse and mitigating facts: improper retention/disclosure evidence and misleading public responses, but no criminal charge, extensive cooperation, and no reported obstruction comparable to Trump’s case.
+
+### Unresolved gaps
+
+- Hunter Biden and other family-business dealings: evidence of Joe Biden’s knowledge, benefit, or intervention versus unsupported partisan allegations.
+- Financial disclosures, gifts, beneficial ownership, procurement, and campaign finance.
+- Appointment competence versus donor/loyalist influence.
+- Treatment of inspectors general, whistleblowers, congressional subpoenas, and press scrutiny.
+- Pattern-level analysis of corrections and factual candor beyond selected speeches.
+- Independent evidence of costly candor or strengthened ethics institutions.
+
+---
+
+## Chapter 8B — Effectiveness and competence
+
+### Local baseline
+
+LF011 accountability and LF024 rule of law are inherited state-capacity context only. They do not establish Biden’s program, execution, adaptation, or outcomes.
+
+### Frozen provisional portfolio
+
+Evidence supports a broad explicit portfolio rather than a cherry-picked goal:
+
+1. Economic recovery and worker-centered industrial policy.
+2. Infrastructure, semiconductors, climate, and supply-chain investment.
+3. COVID/public-health recovery and social protection.
+4. Racial justice and policing reform.
+5. Alliance restoration, Ukraine support, and strategic competition.
+6. Immigration/border administration.
+7. Democracy protection.
+8. Necessary core-government management.
+
+### Retained evidence
+
+- **E019:** program identification from a 99-promise tracker.
+- **E007:** policing order translated into 20-plus policies and guidance, with incomplete implementation.
+- **E002:** arms-control strategy suffered a formalization/follow-through gap.
+- **E006:** substantial Ukraine mobilization but repeated delay in weapons decisions.
+- **E008:** immigration detention policy moved substantially in a direction inconsistent with Biden’s earlier private-prison promise, while demonstrating operational continuation rather than implementation of the stated reform.
+- **E013/E016:** mixed outcomes and some overclaiming.
+- **E017:** classified-record handling and memory/management concerns, with cooperation as mitigation.
+- **E020:** Afghanistan review is a gateway-only adaptation/accountability candidate.
+
+### Lens coverage
+
+- **Covered:** 8B.1, 8B.2, 8B.6, 8B.7, 8B.9, 8B.10.
+- **Partial:** 8B.3, 8B.5, 8B.8.
+- **Weak:** 8B.4; there is insufficient sourced evidence about personnel selection and empowerment across the portfolio.
+
+### Yield and diversity
+
+- 8 cross-mapped units.
+- Organizations: PolitiFact, ACLU, ACA, Brookings, Census, AP.
+- Types: tracker/fact-checking, NGO implementation critique, specialist policy analysis, official outcomes, reputable media.
+- This chapter has enough evidence to identify real implementation successes and failures but remains thin on budgets, audits, milestones, and causal attribution.
+
+### Strongest contrary evidence
+
+The administration converted some goals into substantial policies and mobilization, especially policing rules and Ukraine support, but arms-control follow-through lagged, immigration detention contradicted a prior commitment, and several outcomes had mixed or external causes.
+
+### Unresolved gaps
+
+- Comprehensive implementation status for IRA, CHIPS, infrastructure, and climate programs.
+- Border-processing performance and adaptation.
+- Personnel turnover, coordination, and cabinet-management evidence.
+- Budget execution and GAO/OIG findings.
+- Measurable 2023 milestones across the frozen portfolio.
+- Durability and causal separation from Congress, the Federal Reserve, states, and inherited capacity.
+- Direct evidence of Biden replacing ineffective implementers or reallocating resources after failure.
+
+---
+
+# 4. Discovery queries and candidate outcomes
+
+Representative provenance-preserving queries included:
+
+- `Joe Biden 2023 presidency major policies Ukraine nuclear arms economy health democracy ethics accomplishments failures`
+- `Joe Biden 2023 nuclear arms control New START risk reduction China official Reuters`
+- `site:armscontrol.org Biden 2023 nuclear arms control New START Sullivan speech`
+- `site:fas.org Biden 2023 nuclear weapons arsenal policy`
+- `Biden 2023 Ukraine Israel Gaza diplomacy civilian harm arms Reuters UN`
+- `site:un.org Biden Gaza 2023 ceasefire veto civilian protection`
+- `Biden administration 2023 police accountability immigration human rights ACLU DOJ`
+- `site:hrw.org United States 2023 Biden human rights immigration police`
+- `Biden 2023 democracy voting rights press freedom political institutions Reuters AP`
+- `Biden economy 2023 inflation jobs wages IRA CHIPS implementation CBO GAO Reuters`
+- `site:bls.gov 2023 employment inflation real wages annual United States`
+- `site:census.gov 2023 child poverty health insurance Biden 2022 report`
+- `Biden social welfare 2023 healthcare Medicaid child poverty student loans homelessness Reuters HHS`
+- `Joe Biden 2023 ethics integrity classified documents Hunter investigation fact check Reuters AP`
+- `site:politifact.com Joe Biden 2023 false claims fact check`
+- `Biden 2023 effectiveness competence implementation agenda Afghanistan border inflation Reuters Brookings`
+
+### Rejected or non-final candidates
+
+1. **Reuters articles:** discovered but direct fetch blocked by robots. Kept only as gateway context unless independently opened elsewhere.
+2. **CRS R47828:** relevant to Gaza and U.S. policy but HTTP 403; rejected as inaccessible in this run.
+3. **DOJ Hur PDF:** canonical and highly valuable, but fetch produced raw PDF bytes. AP and FactCheck.org provided usable, attributed summaries. The PDF itself should be extracted by the parent if possible.
+4. **Brookings Sullivan PDF:** raw PDF bytes; not retained as a precise extracted item.
+5. **GAO financial-statement PDFs:** search snippets were too broad and lacked precise program-level locators.
+6. **DOJ OIG management-challenges page:** fetch returned only generic site text; rejected for no usable claim.
+7. **White House live pages:** search was polluted by post-2025 content. The archived/reproduced Sullivan speech was used instead.
+8. **Wikipedia:** discovery/orientation only; no final evidence retained.
+9. **AEI and partisan committee pages:** not used because more direct or less interested sources were available.
+10. **PolitiFact Promise Tracker full scorecard:** usable only to identify the program because the fetched page did not expose a clean complete outcome list.
+
+---
+
+# 5. Local-data audit
+
+## Retained as context
+
+- **LF001–LF004:** retained together as L001 for 2B military-spending context.
+- **LF005–LF010:** retained together as L002 for 3B condition context.
+- **LF011–LF025:** retained together as L003 for 4B democratic/institutional context. LF011 and LF024 also reused as inherited context in 7B/8B.
+- **LF026–LF028:** retained together as L004 for 5B economic scale.
+- **LF029–LF032:** retained together as L005 for 7B corruption context.
+
+## Used as direct ruler evidence
+
+None. Every local item measures country-year conditions or capacity, not Biden’s personal conduct.
+
+## Left unused as a direct lens answer
+
+All local facts were left unused as direct answers where their candidate mappings exceeded what the field actually measures. In particular:
+
+- Military spending was not treated as aggression.
+- V-Dem/PTS safety fields were not treated as a Biden order or remedy.
+- Democratic indices were not treated as proof of self-binding.
+- GDP was not treated as policy competence or distributional success.
+- Corruption indices were not personalized into honesty.
+- Accountability/rule-of-law fields were not converted into effectiveness.
+
+## Empty local chapters
+
+- **1B:** no supplied facts; this is an R001 local-field gap.
+- **6B:** no supplied facts; this is an R001 local-field gap.
+- Neither gap is evidence of zero activity, irrelevance, responsibility, or failure.
+
+## Data-quality errors
+
+`error_methodology_ids` was empty. There is therefore no distinct local extraction failure to report.
+
+---
+
+# 6. Self-audit and outstanding cautions
+
+## Temporal fit
+
+- E001–E011 and E013–E016 primarily establish 2023 acts or conditions.
+- E006, E013, E014, E017, and E018 were published after 2023 but directly assess or report target-period facts.
+- E018 concerns a February 2024 statement responding to an investigation active in 2023; it is retrospective integrity evidence and must not be silently treated as a 2023 statement.
+- E020 concerns a 2023 review of a 2021 event and is only context.
+- Reuters gateway items must not be promoted without opening the underlying source.
+
+## Attribution
+
+Strongest Biden/executive attribution:
+
+- E001 arms-control program
+- E004 U.S. veto and diplomacy
+- E007 policing executive-order implementation
+- E008/E009 immigration policy
+- E016 direct public claims
+- E017/E018 classified-document conduct and statements
+
+Weak or shared attribution:
+
+- State voting restrictions
+- Court decisions
+- Poverty and wage outcomes
+- Military expenditures
+- National corruption and democracy scores
+- Ukraine aid, which depended heavily on Congress
+- State/local policing and incarceration
+
+## Weak/context-only material
+
+- All local priors.
+- E012 pending direct BLS locator.
+- E015 Reuters gateway.
+- E019 portfolio identification rather than implementation judgment.
+- E020 Reuters gateway and retrospective event.
+
+## Claims needing independent corroboration
+
+- ACLU’s immigration-detention statistics should ideally be checked against ICE/TRAC primary records.
+- HRW’s assessment of the asylum rule should be paired with the Federal Register rule, court findings, or DHS OIG evidence.
+- Brookings’s de-escalation interpretation should be balanced with technical or diplomatic records.
+- Arms-control implementation claims should be paired with State Department records and independent FAS/SIPRI analysis.
+- Gaza arms-recipient responsibility requires opened transfer records and civilian-harm assessments.
+- Classified-document findings should ultimately cite precise Hur report pages rather than summaries alone.
+
+---
+
+# 7. Manifest accounting index
+
+This compact index can be persisted as `research-ledger-manifest.json` and expanded with rejected candidates:
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id":"L001","canonical_fact_key":"local-prior:2B.1|LF001-LF004|USA-2023-military-spending","disposition":"context"},
+    {"provisional_id":"L002","canonical_fact_key":"local-prior:3B.1|LF005-LF010|USA-2023-physical-integrity","disposition":"context"},
+    {"provisional_id":"L003","canonical_fact_key":"local-prior:4B.1|LF011-LF025|USA-2023-democracy-freedom","disposition":"context"},
+    {"provisional_id":"L004","canonical_fact_key":"local-prior:5B.1|LF026-LF028|USA-2023-economic-level","disposition":"context"},
+    {"provisional_id":"L005","canonical_fact_key":"local-prior:7B.1|LF029-LF032|USA-2023-corruption","disposition":"context"},
+    {"provisional_id":"E001","canonical_fact_key":"https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|sections-US-ready-engage-Russia-China-P5|Biden-administration-arms-control-offer","disposition":"final_evidence"},
+    {"provisional_id":"E002","canonical_fact_key":"https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|opening-paragraphs-US-proposal|no-formal-written-proposal-three-months","disposition":"final_evidence"},
+    {"provisional_id":"E003","canonical_fact_key":"https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|section-Lakenheath-surety-mission|possible-return-US-nuclear-mission-UK","disposition":"final_evidence"},
+    {"provisional_id":"E004","canonical_fact_key":"https://news.un.org/en/story/2023/10/1142507|sections-vote-US-rejection|US-veto-humanitarian-pauses-resolution","disposition":"final_evidence"},
+    {"provisional_id":"E005","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-foreign-policy|military-assistance-human-rights-abusing-states","disposition":"final_evidence"},
+    {"provisional_id":"E006","canonical_fact_key":"https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions","disposition":"final_evidence"},
+    {"provisional_id":"E007","canonical_fact_key":"https://www.aclu.org/press-releases/aclu-acknowledges-improvements-to-doj-racial-profiling-policy-but-says-far-more-is-needed|implementation-policies-and-racial-profiling-sections|policing-EO-implementation-mixed","disposition":"final_evidence"},
+    {"provisional_id":"E008","canonical_fact_key":"https://www.aclu.org/news/immigrants-rights/unchecked-growth-private-prison-corporations-and-immigration-detention-three-years-into-the-biden-administration|daily-detention-private-share-sections|ICE-detention-growth-private-facilities","disposition":"final_evidence"},
+    {"provisional_id":"E009","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/united-states|section-Immigrants-Rights-and-Border-Communities|Biden-2023-asylum-rule","disposition":"final_evidence"},
+    {"provisional_id":"E010","canonical_fact_key":"https://www.idea.int/gsod/2023/chapters/americas/case/united-states-of-america|voting-restrictions-and-disinformation-sections|US-2023-democracy-mixed","disposition":"final_evidence"},
+    {"provisional_id":"E011","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-and-Democracy-section|Biden-democracy-protection-context","disposition":"final_evidence"},
+    {"provisional_id":"E012","canonical_fact_key":"https://www.bls.gov/opub/ted/2024/real-average-hourly-earnings-increased-1-4-percent-from-january-2023-to-january-2024.htm|headline-statistic|real-hourly-earnings-1.4-percent","disposition":"discovery_only"},
+    {"provisional_id":"E013","canonical_fact_key":"https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates","disposition":"final_evidence"},
+    {"provisional_id":"E014","canonical_fact_key":"https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-economic-justice|poverty-inequality-incarceration","disposition":"final_evidence"},
+    {"provisional_id":"E015","canonical_fact_key":"https://www.reuters.com/world/us/new-biden-student-loan-plan-cuts-payments-millions-white-house-says-2023-08-22/|search-result-summary|SAVE-plan-estimated-savings","disposition":"discovery_only"},
+    {"provisional_id":"E016","canonical_fact_key":"https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed","disposition":"final_evidence"},
+    {"provisional_id":"E017","canonical_fact_key":"https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge","disposition":"final_evidence"},
+    {"provisional_id":"E018","canonical_fact_key":"https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings","disposition":"final_evidence"},
+    {"provisional_id":"E019","canonical_fact_key":"https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/?ruling=true|intro-and-scorecard|Biden-program-tracked-by-verifiable-outcomes","disposition":"context"},
+    {"provisional_id":"E020","canonical_fact_key":"https://www.reuters.com/world/asia-pacific/biden-report-afghanistan-withdrawal-blames-trump-2023-04-06/|search-result-summary|Biden-Afghanistan-review-blamed-inherited-constraints","disposition":"discovery_only"},
+    {"provisional_id":"R001","canonical_fact_key":"https://www.congress.gov/crs-product/R47828|page|CRS-Gaza-policy-report","disposition":"rejected","reason":"HTTP 403; underlying report not retrieved"},
+    {"provisional_id":"R002","canonical_fact_key":"https://www.justice.gov/storage/report-from-special-counsel-robert-k-hur-february-2024.pdf|pdf|Hur-primary-report","disposition":"rejected","reason":"Fetch returned raw PDF bytes; no reliable page extraction in this worker"},
+    {"provisional_id":"R003","canonical_fact_key":"https://oig.justice.gov/reports/department-justice-top-management-and-performance-challenges-2023/law-enforcement|page|DOJ-OIG-law-enforcement","disposition":"rejected","reason":"Fetched content contained no usable report text"},
+    {"provisional_id":"R004","canonical_fact_key":"reuters-2023-pages|multiple|robots-blocked","disposition":"rejected","reason":"Direct page fetch prohibited by Reuters robots.txt; snippets retained only where separately indexed as discovery_only"}
+  ]
+}
+```
+
+## Bottom line
+
+The compact pass produced a reusable cross-chapter library of **5 local context units and 15 opened final-evidence units**, plus several gateway-only candidates. Evidence is strongest for:
+
+- arms-control policy versus implementation,
+- Gaza diplomacy and civilian-protection controversy,
+- federal policing reform and immigration detention,
+- democratic baseline and state-level voting restrictions,
+- mixed poverty/economic outcomes,
+- classified-document integrity issues, and
+- uneven program follow-through.
+
+The principal weaknesses are source concentration, incomplete primary-document extraction, federal-versus-state attribution, and insufficient depth in 1B, 5B, 6B, and 7B. No scores, score ranges, anchors, or ranking recommendations are included.
+
+--- RESEARCH HANDOFF ---
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:2B.1|LF001-LF004|USA-2023-military-spending",
+      "disposition": "context",
+      "provisional_id": "L001"
+    },
+    {
+      "canonical_fact_key": "local-prior:3B.1|LF005-LF010|USA-2023-physical-integrity",
+      "disposition": "context",
+      "provisional_id": "L002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1|LF011-LF025|USA-2023-democracy-freedom",
+      "disposition": "context",
+      "provisional_id": "L003"
+    },
+    {
+      "canonical_fact_key": "local-prior:5B.1|LF026-LF028|USA-2023-economic-level",
+      "disposition": "context",
+      "provisional_id": "L004"
+    },
+    {
+      "canonical_fact_key": "local-prior:7B.1|LF029-LF032|USA-2023-corruption",
+      "disposition": "context",
+      "provisional_id": "L005"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|sections-US-ready-engage-Russia-China-P5|Biden-administration-arms-control-offer",
+      "disposition": "final_evidence",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|opening-paragraphs-US-proposal|no-formal-written-proposal-three-months",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|section-Lakenheath-surety-mission|possible-return-US-nuclear-mission-UK",
+      "disposition": "final_evidence",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://news.un.org/en/story/2023/10/1142507|sections-vote-US-rejection|US-veto-humanitarian-pauses-resolution",
+      "disposition": "final_evidence",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-foreign-policy|military-assistance-human-rights-abusing-states",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions",
+      "disposition": "final_evidence",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.aclu.org/press-releases/aclu-acknowledges-improvements-to-doj-racial-profiling-policy-but-says-far-more-is-needed|implementation-policies-and-racial-profiling-sections|policing-EO-implementation-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.aclu.org/news/immigrants-rights/unchecked-growth-private-prison-corporations-and-immigration-detention-three-years-into-the-biden-administration|daily-detention-private-share-sections|ICE-detention-growth-private-facilities",
+      "disposition": "final_evidence",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|section-Immigrants-Rights-and-Border-Communities|Biden-2023-asylum-rule",
+      "disposition": "final_evidence",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://www.idea.int/gsod/2023/chapters/americas/case/united-states-of-america|voting-restrictions-and-disinformation-sections|US-2023-democracy-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-and-Democracy-section|Biden-democracy-protection-context",
+      "disposition": "final_evidence",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.bls.gov/opub/ted/2024/real-average-hourly-earnings-increased-1-4-percent-from-january-2023-to-january-2024.htm|headline-statistic|real-hourly-earnings-1.4-percent",
+      "disposition": "discovery_only",
+      "provisional_id": "E012"
+    },
+    {
+      "canonical_fact_key": "https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates",
+      "disposition": "final_evidence",
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-economic-justice|poverty-inequality-incarceration",
+      "disposition": "final_evidence",
+      "provisional_id": "E014"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/us/new-biden-student-loan-plan-cuts-payments-millions-white-house-says-2023-08-22/|search-result-summary|SAVE-plan-estimated-savings",
+      "disposition": "discovery_only",
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E016"
+    },
+    {
+      "canonical_fact_key": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge",
+      "disposition": "final_evidence",
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings",
+      "disposition": "final_evidence",
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/?ruling=true|intro-and-scorecard|Biden-program-tracked-by-verifiable-outcomes",
+      "disposition": "context",
+      "provisional_id": "E019"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/asia-pacific/biden-report-afghanistan-withdrawal-blames-trump-2023-04-06/|search-result-summary|Biden-Afghanistan-review-blamed-inherited-constraints",
+      "disposition": "discovery_only",
+      "provisional_id": "E020"
+    },
+    {
+      "canonical_fact_key": "https://www.congress.gov/crs-product/R47828|page|CRS-Gaza-policy-report",
+      "disposition": "rejected",
+      "provisional_id": "R001",
+      "reason": "HTTP 403; underlying report not retrieved"
+    },
+    {
+      "canonical_fact_key": "https://www.justice.gov/storage/report-from-special-counsel-robert-k-hur-february-2024.pdf|pdf|Hur-primary-report",
+      "disposition": "rejected",
+      "provisional_id": "R002",
+      "reason": "Fetch returned raw PDF bytes; no reliable page extraction in this worker"
+    },
+    {
+      "canonical_fact_key": "https://oig.justice.gov/reports/department-justice-top-management-and-performance-challenges-2023/law-enforcement|page|DOJ-OIG-law-enforcement",
+      "disposition": "rejected",
+      "provisional_id": "R003",
+      "reason": "Fetched content contained no usable report text"
+    },
+    {
+      "canonical_fact_key": "reuters-2023-pages|multiple|robots-blocked",
+      "disposition": "rejected",
+      "provisional_id": "R004",
+      "reason": "Direct page fetch prohibited by Reuters robots.txt; snippets retained only where separately indexed as discovery_only"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Evidence is concentrated in Arms Control Association material; E001, E002, and E003 are not independent source families.",
+        "E001 bundles several materially distinct policy claims and should be split during deterministic cleanup.",
+        "E003 supports posture context but weakly attributes decisions to Biden personally.",
+        "The chapter remains below the minimum defensible-unit target stated in the handoff."
+      ],
+      "missing_themes": [
+        "Direct Biden-level nuclear-risk decisions and launch-authority controls",
+        "Nuclear posture and command-and-control changes during 2023",
+        "Proliferation restraint involving Iran, North Korea, South Korea, Saudi Arabia, and allies",
+        "Biological, cyber, space, and AI safeguard implementation",
+        "Independent start-versus-end 2023 posture assessment"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Military-spending context is correctly limited to country context and should not support ruler attribution.",
+        "Gaza evidence is materially one-sided on civilian-harm consequences; the notebook itself identifies unfetched Reuters and primary-source candidates.",
+        "Ukraine attribution is shared with Congress and requires clearer separation of presidential direction from legislative authorization.",
+        "The source mix is not saturated for civilian-harm and arms-recipient accountability."
+      ],
+      "missing_themes": [
+        "Precise 2023 arms-transfer decisions and civilian-harm accountability regarding Israel and Saudi Arabia",
+        "Biden-level response to civilian-harm warnings",
+        "Ukraine targeting restrictions, cluster munitions, ATACMS, F-16s, prisoner treatment, and accountability",
+        "China-Taiwan coercive diplomacy and crisis-channel decisions",
+        "Evidence linking diplomacy to the November Gaza pause and hostage releases"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Local V-Dem and PTS measures are country conditions, not evidence of Biden's orders or remedies.",
+        "ACLU evidence supports federal policy attribution but leaves implementation and state/local effects underdeveloped.",
+        "The source-family count meets the minimum only narrowly and lacks authoritative DOJ, DHS OIG, court, or UN material.",
+        "Immigration detention and asylum evidence needs additional primary or independent corroboration."
+      ],
+      "missing_themes": [
+        "Federal protest treatment and surveillance in 2023",
+        "DOJ pattern-or-practice investigations and measurable outcomes",
+        "Federal prison deaths, solitary confinement, and detention conditions",
+        "Biden's rhetoric and direction concerning migrants, protesters, opponents, and vulnerable groups",
+        "Federal versus state/local responsibility for safety outcomes"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Most adverse evidence concerns state-level restrictions, courts, or inherited institutions and cannot be attributed directly to Biden without direction or responsibility evidence.",
+        "The chapter lacks meaningful evidence on personality cults, loyalty tests, state-party capture, or transfer-of-power conduct.",
+        "Local democracy indices are appropriately treated as context, not ruler evidence.",
+        "The notebook explicitly identifies weak lenses and omitted federal transparency searches, making continuation research-recoverable."
+      ],
+      "missing_themes": [
+        "Biden's response to adverse court rulings and congressional defeats",
+        "Treatment of hostile media, satire, protests, and congressional investigations",
+        "Federal voting-rights enforcement outcomes",
+        "CISA and social-media anti-disinformation contacts",
+        "Press access, transparency, and self-binding when constrained"
+      ]
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "E012 is correctly excluded from strict defensible counting because its locator is not directly opened.",
+        "E015 is a Reuters search-result gateway and cannot support the SAVE-plan claim until the underlying source is opened.",
+        "E019 is portfolio-identification context, not evidence of implementation effectiveness.",
+        "The chapter has outcome evidence but insufficient policy-execution and causal evidence."
+      ],
+      "missing_themes": [
+        "2023 inflation and Federal Reserve versus fiscal-policy attribution",
+        "IRA, CHIPS, and infrastructure implementation milestones",
+        "Fiscal deficit and debt trajectory using CBO or equivalent analysis",
+        "Distributional outcomes by income, race, sex, and region",
+        "Competition policy, appointments, procurement, and policy correction"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter has no local-fact baseline and is concentrated on poverty, drugs, policing, and immigration.",
+        "Only a small number of direct welfare-outcome sources support the chapter; the notebook expressly says it is not saturated.",
+        "Country or subgroup outcomes require separation from Biden attribution and from congressional, state, and inherited causes.",
+        "SAVE-plan material remains gateway-only and cannot currently carry evidence weight."
+      ],
+      "missing_themes": [
+        "Uninsured rate, ACA enrollment, Medicaid unwinding, and coverage loss",
+        "Housing affordability and homelessness",
+        "SNAP expiration and food insecurity",
+        "School recovery, childcare, and education outcomes",
+        "Disaster response, maternal health, reproductive care, rural access, and program durability"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The evidence is concentrated in one classified-documents episode and cannot support a complete integrity pattern.",
+        "E017 and E018 are temporally usable only as retrospective evidence about conduct and later statements; E018 must not be presented as a 2023 statement.",
+        "Local corruption and rule-of-law measures are not personal integrity evidence.",
+        "E020 is a Reuters gateway-only candidate and cannot support accountability claims."
+      ],
+      "missing_themes": [
+        "Hunter Biden and family-business evidence tied to Joe Biden's knowledge, benefit, or intervention",
+        "Financial disclosures, gifts, beneficial ownership, procurement, and campaign finance",
+        "Appointment competence versus donor or loyalist influence",
+        "Inspectors general, whistleblowers, subpoenas, and press scrutiny",
+        "Pattern-level factual correction and ethics-institution evidence"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "E019 identifies a policy portfolio but does not provide a complete 2023 implementation scorecard.",
+        "Several items bundle outcomes, attribution, and interpretation across distinct programs and require deterministic splitting.",
+        "Effectiveness evidence is stronger for selected initiatives than for the frozen portfolio as a whole.",
+        "The chapter lacks sufficient personnel, budget, audit, and adaptation evidence for full coverage of 8B.4 and related lenses."
+      ],
+      "missing_themes": [
+        "Comprehensive IRA, CHIPS, infrastructure, and climate implementation milestones",
+        "Border-processing performance and adaptation",
+        "Personnel selection, turnover, coordination, and cabinet management",
+        "Budget execution and GAO/OIG findings",
+        "Portfolio-wide 2023 milestones and evidence of corrective resource reallocation",
+        "Causal separation from Congress, the Federal Reserve, states, and inherited capacity"
+      ]
+    }
+  ],
+  "global_findings": [
+    "All eight chapters have material research-recoverable gaps, so all eight selected chapters require continuation.",
+    "Gateway-only Reuters material, the BLS item with an unavailable precise locator, and rejected inaccessible documents are correctly excluded from defensible evidence estimates.",
+    "The notebook generally distinguishes local country context from ruler-specific evidence and avoids treating missing evidence as negative evidence.",
+    "Several local entries bundle multiple fields or metrics into one evidence item; this is a substantive evidence-unit defect requiring deterministic splitting and count reconciliation.",
+    "Some internet entries also bundle materially distinct claims under one ID, especially E001, and repeated source families are correctly not treated as independent.",
+    "The notebook identifies promising unfetched primary, technical, and source-specific candidates, so low source-family yield cannot be treated as saturation.",
+    "Attribution is weakest where evidence concerns state conduct, court decisions, macro outcomes, military spending, or inherited institutional conditions."
+  ],
+  "reviewer_summary": "Continuation is required for every chapter. The handoff contains useful, mostly well-attributed evidence and appropriately excludes gateway-only sources, but all chapters retain material recoverable gaps in source depth, attribution, temporal handling, contrary evidence, or event-theme coverage. No score or scoring advice is supplied."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+# Review round 1 continuation handoff: Joe Biden — United States — 2023
+
+**Job:** `dossier:2023-top20-usa-tha-repair-v1:2023:USA:15811`  
+**Immutable ruler-period:** Joe Biden, United States, 1 January–31 December 2023  
+**Scope:** continuation research for Chapters 1B–8B  
+**Scoring:** none performed  
+**Local-write status:** this worker remains read-only. I could not update `research-materials.md` or `research-ledger-manifest.json`; the additions and manifest delta below are the complete parent-persistence handoff.
+
+## 1. Round-level result
+
+This continuation materially improved all chapters, with the largest gains in:
+
+- **1B:** South Korean proliferation restraint, nuclear consultation implementation, U.S. posture expansion, and transparency counterevidence.
+- **2B:** direct Biden decisions on cluster munitions, China crisis communications, Gaza hostage-pause diplomacy, UN voting, and Saudi arms transfers.
+- **3B:** DOJ pattern-or-practice enforcement, federal-prison restrictive housing, and UN corroboration of border-policy risks.
+- **4B:** federal social-media contacts, voting-rights enforcement, press treatment, and responses to judicial constraint.
+- **5B:** CHIPS implementation, SAVE implementation, distributional design, and fiscal-policy gaps.
+- **6B:** ACA enrollment, Medicaid unwinding, homelessness, SNAP/rent assistance, and Maui response.
+- **7B:** family-business allegation limits, financial-disclosure practice, cabinet divestiture, and inspector-general omissions.
+- **8B:** concrete program operationalization and implementation milestones, plus documented failures to implement corrective directives.
+
+Several source-access limitations persisted:
+
+- Brave tools returned quota-limit errors and furnished no evidence.
+- GAO, CBO, Defense Department, DSCA, and Congress.gov pages frequently blocked fetches.
+- Some official PDFs returned only raw PDF bytes. Where a secondary page extracted precise findings, I retained that secondary claim and preserved the primary document link.
+- Reuters remained robots-blocked and was not promoted from gateway status unless another opened source independently established the fact.
+
+---
+
+# 2. Deterministic cleanup of existing ledger items
+
+## 2.1 Local bundled entries
+
+The reviewer correctly identified bundled local units. For accounting, split them as follows while preserving the original LF IDs and locators:
+
+- **L001a = LF001** military expenditure, constant-USD field.
+- **L001b = LF002** military expenditure per capita.
+- **L001c = LF003** military expenditure share of GDP.
+- **L001d = LF004** military expenditure share of government expenditure.
+- **L002a–L002f = LF005–LF010**, one item per V-Dem/PTS field.
+- **L003a–L003o = LF011–LF025**, one item per political-freedom field.
+- **L004a–L004c = LF026–LF028**, GDP per capita, total GDP, population.
+- **L005a–L005d = LF029–LF032**, one corruption field per item.
+
+All remain `context`; none becomes direct ruler evidence.
+
+## 2.2 Split E001 into distinct policy claims
+
+Retire bundled **E001** from strict counting and replace it with:
+
+- **E001a:** reciprocal adherence to New START central limits.
+- **E001b:** offer to engage Russia immediately on a post-2026 framework.
+- **E001c:** offer to engage China without preconditions.
+- **E001d:** proposed P5 missile-launch notification and crisis channels.
+- **E001e:** proposed human-in-the-loop, transparency, cyber/space/AI guardrails.
+
+All use the same ACA transcript URL but different exact sections and fact keys. They count as five source-claim units but one source organization and one underlying speech.
+
+## 2.3 Split E006
+
+E006 combines distinct Brookings judgments. It should become:
+
+- **E006a:** Biden generally calm and de-escalatory toward major powers.
+- **E006b:** historic Ukraine assistance.
+- **E006c:** repeated 2023 hesitation over weapons decisions.
+- **E006d:** Congress’s material role in aid and security policy.
+
+## 2.4 Split E013 and E014
+
+- **E013a:** official poverty rate fell to 11.1%.
+- **E013b:** SPM rate rose to 12.9%.
+- **E013c:** SPM child poverty rose to 13.7%.
+- **E014a:** poverty/inequality context.
+- **E014b:** incarceration increase and racial disparity.
+- **E014c:** harm-reduction investment.
+- **E014d:** naloxone over-the-counter authorization.
+
+No field has been discarded; the splits prevent count inflation through bundled provenance.
+
+---
+
+# 3. New evidence-register entries
+
+## Chapter 1B additions
+
+### E021 — Washington Declaration restrained allied proliferation while expanding nuclear consultation
+
+- **Canonical fact key:** `https://www.cfr.org/articles/washington-declaration-expanding-nuclear-dimension-us-south-korean-alliance-response|paragraphs-NCG-NPT|ROK-reaffirms-NPT-in-exchange-for-consultation`
+- **Disposition:** final_evidence
+- **Title:** “The Washington Declaration: Expanding the Nuclear Dimension of the U.S.–South Korean Alliance Response”
+- **Publisher/date:** Council on Foreign Relations, 27 April 2023
+- **Source type/confidence:** policy institute analysis closely tied to the declaration; **medium-high**
+- **Claim:** Biden and Yoon established a Nuclear Consultative Group for joint planning concerning North Korean nuclear use. South Korea reaffirmed its intention to remain in the Nuclear Non-Proliferation Treaty and not pursue an independent arsenal, while the United States retained control over its nuclear weapons.
+- **Precise locator:** Paragraphs beginning “The declaration opens the door…” through “The declaration also reaffirms…”
+- **Excerpt:** “The declaration also reaffirms South Korea’s intention to stay in the Nuclear Nonproliferation Treaty… indirectly pledging not to pursue an independent nuclear weapons capability.”
+- **Period fit:** exact April 2023
+- **Attribution:** direct Biden/Yoon agreement; strong presidential-level attribution.
+- **Contrary/limits:** The agreement also expanded nuclear planning and visible deterrence; durability remained unproven.
+- **Mappings:** 1B.1, 1B.4, 1B.6, 1B.7, 1B.8, 1B.10; 2B.3 and 2B.5.
+
+### E022 — Washington Declaration increased visible nuclear deterrence
+
+- **Canonical fact key:** `https://www.brookings.edu/articles/south-korean-american-pie-unpacking-the-us-south-korea-summit/|section-Ensuring-extended-deterrence|nuclear-submarine-port-visits-and-planning`
+- **Disposition:** final_evidence
+- **Title:** “South Korean-American pie: Unpacking the U.S.–South Korea summit”
+- **Publisher/date:** Brookings Institution, 28 April 2023
+- **Source type/confidence:** policy analysis; **medium**
+- **Claim:** The declaration gave Seoul a larger consultation role, exchanged this for a nonproliferation commitment, and planned U.S. nuclear-armed submarine port visits to South Korea for the first time in more than 40 years.
+- **Locator:** Section “Ensuring extended deterrence amid North Korean aggression,” paragraphs two and three.
+- **Period fit:** exact 2023
+- **Attribution:** direct summit outcome; strong administration and presidential attribution.
+- **Contrary/limits:** Nonproliferation reassurance is risk-reducing, while visible nuclear deployments may increase signaling and escalation risk.
+- **Mappings:** 1B.1, 1B.4, 1B.5, 1B.6, 1B.8, 1B.10; 2B.3.
+
+### E023 — Washington Declaration implementation progressed during 2023
+
+- **Canonical fact key:** `https://www.atlanticcouncil.org/blogs/new-atlanticist/experts-react/experts-react-are-the-us-and-south-korea-following-through-on-the-washington-declaration/|section-operationalize-institutionalize|tabletop-and-joint-execution`
+- **Disposition:** final_evidence
+- **Title:** “Experts react: Are the US and South Korea following through on the Washington Declaration?”
+- **Publisher/date:** Atlantic Council, 15 November 2023
+- **Source type/confidence:** expert policy analysis citing official defense readouts; **medium-high**
+- **Claim:** By November, alliance preparations included the first nuclear-use-focused tabletop exercise, possible inclusion of North Korean nuclear use in a future military exercise, and joint planning for South Korean conventional support to U.S. nuclear operations.
+- **Locator:** “The work has begun to operationalize and institutionalize progress,” second paragraph.
+- **Period fit:** exact November 2023
+- **Attribution:** administration and alliance implementation; Biden-level ownership comes through the April declaration but not each operational detail.
+- **Contrary/limits:** Another expert in the same page said operational plans and institutional distinctions remained unclear.
+- **Mappings:** 1B.3, 1B.6, 1B.7, 1B.8, 1B.10; 8B.2, 8B.3, 8B.5, 8B.6.
+
+### E024 — Declaration’s novelty and consultation guarantees were limited
+
+- **Canonical fact key:** `https://eastasiaforum.org/2023/07/29/the-washington-declaration-fails-to-address-seouls-nuclear-concerns/|opening-through-Biden-authority-section|declaration-repackaged-prior-measures`
+- **Disposition:** final_evidence
+- **Title:** “The Washington Declaration fails to address Seoul’s nuclear concerns”
+- **Publisher/date:** East Asia Forum; 29 July 2023
+- **Source type/confidence:** regional academic-policy commentary; **medium**
+- **Claim:** Several declaration components substantially continued arrangements dating from 2017–2022. Biden stated that nuclear-use authority remained solely with the U.S. president and consultation would occur “when it is appropriate,” leaving consultation timing and scope discretionary.
+- **Locator:** Opening seven paragraphs and paragraph beginning “During his press conference…”
+- **Period fit:** exact 2023
+- **Attribution:** direct Biden statement and agreement analysis.
+- **Contrary/limits:** The source argues the declaration was less transformative than presented; that does not erase its nonproliferation function.
+- **Mappings:** 1B.3, 1B.6, 1B.8, 1B.10; 8B.1, 8B.6, 8B.10.
+
+### E025 — Biden administration reduced nuclear-stockpile transparency
+
+- **Canonical fact key:** `https://fas.org/publication/while-advocating-nuclear-transparency-abroad-biden-administration-limits-it-at-home/|sections-Contradicting-Previous-Policies-Undercutting-Diplomacy|2023-declassification-denials`
+- **Disposition:** final_evidence
+- **Title:** “While Advocating Nuclear Transparency Abroad, Biden Administration Limits It at Home”
+- **Publisher/date:** Federation of American Scientists, 31 July 2023
+- **Source type/confidence:** specialist technical NGO; **medium-high**
+- **Claim:** DOD and DOE rejected 2023 requests to declassify U.S. stockpile and dismantlement figures. FAS notes Biden restored transparency in 2021 but discontinued it in 2022–2023, forcing diplomats to use older 2020 data while advocating transparency abroad.
+- **Locator:** Sections “Contradicting Previous Policies” and “Undercutting Diplomacy and Democracy.”
+- **Period fit:** exact 2023
+- **Attribution:** executive-branch decision; no evidence that Biden personally directed the denials.
+- **Contrary/limits:** The United States remained more transparent than many nuclear states, and security context following Russia’s invasion may explain—but not independently validate—the reversal.
+- **Mappings:** 1B.3, 1B.4, 1B.7, 1B.10; 4B.6, 4B.10; 7B.2, 7B.6.
+
+### E026 — Primary evidence of possible Lakenheath nuclear-mission restoration
+
+- **Canonical fact key:** `https://www.fas.org/publication/increasing-evidence-that-the-us-air-forces-nuclear-mission-may-be-returning-to-uk-soil/|paragraphs-budget-documents-formal-decision|potential-surety-mission`
+- **Disposition:** final_evidence
+- **Title:** “Increasing Evidence That the US Air Force’s Nuclear Mission May Be Returning to UK Soil”
+- **Publisher/date:** Federation of American Scientists, 28 August 2023
+- **Source type/confidence:** technical NGO analyzing Air Force budget documents; **medium-high**
+- **Claim:** FY2024 Air Force documents called for a dormitory associated with an arriving “potential Surety mission,” while F-35A and B61-12 infrastructure was being prepared. FAS concluded this strongly suggested preparation for renewed nuclear basing, but emphasized that a formal deployment decision might not yet have been made.
+- **Locator:** Paragraphs beginning “New U.S. Air Force budgetary documents…” and concluding “formal deployment decision has not yet been made.”
+- **Period fit:** exact March–August 2023 planning
+- **Attribution:** Air Force/administration posture, not proven personal Biden direction.
+- **Contrary/limits:** Infrastructure could provide crisis flexibility without permanent deployment or a net increase in European weapons.
+- **Mappings:** 1B.1, 1B.3, 1B.5, 1B.10; contextual 2B.8.
+- **Disposition change:** supersedes E003’s less precise ACA synthesis. Change **E003** from `final_evidence` to `context` to avoid duplicate counting.
+
+---
+
+## Chapter 2B additions
+
+### E027 — Biden personally approved cluster-munition transfer to Ukraine
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/07/14/us-cluster-munition-transfer-ukraine-ignores-history-civilian-harm|opening-and-government-rationale|Biden-cluster-munition-decision`
+- **Disposition:** final_evidence
+- **Title:** “US Cluster Munition Transfer to Ukraine Ignores History of Civilian Harm”
+- **Publisher/date:** Human Rights Watch, 14 July 2023
+- **Source type/confidence:** rights NGO with technical weapons expertise; **medium-high**
+- **Claim:** Biden decided to transfer DPICM cluster munitions to Ukraine. U.S. officials justified the transfer as an ammunition bridge, cited lower dud rates, Ukraine’s targeting assurances, and promised clearance support.
+- **Locator:** Opening four paragraphs and section “A Dangerous Substitute.”
+- **Period fit:** exact July 2023
+- **Attribution:** direct personal decision.
+- **Contrary/limits:** Ukraine faced an acute defensive ammunition shortage and promised to record use and avoid cities; HRW argued safeguards could not eliminate civilian and unexploded-ordnance risks.
+- **Mappings:** 2B.3, 2B.4, 2B.5, 2B.8, 2B.9, 2B.10.
+
+### E028 — Prior Ukrainian cluster use had caused civilian casualties
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/07/14/us-cluster-munition-transfer-ukraine-ignores-history-civilian-harm|paragraph-Ukraine-Izium|recipient-civilian-harm-record`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** same as E027
+- **Source type/confidence:** NGO; **medium-high**, but contested
+- **Claim:** HRW said it had documented Ukrainian cluster-munition use causing civilian deaths and injuries around Izium; Ukraine denied the findings, and HRW reported no indication of investigation.
+- **Locator:** Paragraph beginning “Human Rights Watch has already documented…”
+- **Period fit:** pre-transfer conduct informing a 2023 foreseeability decision
+- **Attribution:** relevant to Biden’s arms-recipient due diligence, not to direct U.S. operational control.
+- **Contrary/limits:** Ukrainian denial must remain visible; this is not a legal judgment.
+- **Mappings:** 2B.4, 2B.5, 2B.9.
+
+### E029 — Biden-Xi restored military and leader communications
+
+- **Canonical fact key:** `https://www.bbc.com/news/world-us-canada-67411191|opening-through-direct-line|military-communications-restored`
+- **Disposition:** final_evidence
+- **Title:** “US and China agree to resume military communications”
+- **Publisher/date:** BBC News, 16 November 2023
+- **Source type/confidence:** public-service media; **medium-high**
+- **Claim:** Biden and Xi agreed to resume military-to-military communications and establish direct leader communication. Biden said absent communication was “how accidents happen.”
+- **Locator:** Opening nine paragraphs.
+- **Period fit:** exact November 2023
+- **Attribution:** direct Biden-Xi decision.
+- **Contrary/limits:** Biden again called Xi a dictator immediately afterward, drawing Chinese condemnation; serious Taiwan disagreements remained.
+- **Mappings:** 1B.8; 2B.1, 2B.3, 2B.7, 2B.10; 8B.8, 8B.9.
+
+### E030 — Biden pressed Netanyahu for a pause tied to hostage release
+
+- **Canonical fact key:** `https://www.axios.com/2023/11/07/biden-netanayhu-gaza-hamas-ceasefire-pause-hostages|opening-through-behind-scenes|Biden-three-day-pause-proposal`
+- **Disposition:** final_evidence
+- **Title:** “Scoop: Biden tells Bibi 3-day fighting pause could help secure release of hostages”
+- **Publisher/date:** Axios, 7 November 2023
+- **Source type/confidence:** reputable political media citing two U.S./Israeli officials; **medium-high**
+- **Claim:** Biden personally urged Netanyahu to accept a three-day pause under a U.S.–Israel–Qatar proposal designed to release an initial 10–15 hostages and verify others.
+- **Locator:** Opening, “The big picture,” and “Behind the scenes.”
+- **Period fit:** exact November 2023
+- **Attribution:** direct presidential diplomacy.
+- **Contrary/limits:** Netanyahu initially resisted; the article precedes the final November pause and alone does not prove Biden caused the eventual agreement.
+- **Mappings:** 2B.1, 2B.4, 2B.7, 2B.10; 8B.3, 8B.9.
+
+### E031 — Biden recognized indiscriminate bombing but U.S. still blocked UN action
+
+- **Canonical fact key:** `https://www.hrw.org/news/2023/12/15/us-should-back-un-security-council-action-protect-gazas-civilians|opening-and-voting-record|Biden-warning-versus-US-vetoes`
+- **Disposition:** final_evidence
+- **Title:** “US Should Back UN Security Council Action to Protect Gaza’s Civilians”
+- **Publisher/date:** Human Rights Watch, 15 December 2023
+- **Source type/confidence:** rights NGO; **medium-high**
+- **Claim:** Biden warned Israel it was losing international support because of “indiscriminate bombing,” but the United States had blocked two Security Council resolutions, voted against two General Assembly resolutions, and abstained on one binding child-protection resolution that passed.
+- **Locator:** First five paragraphs.
+- **Period fit:** exact December 2023
+- **Attribution:** Biden-level warning and formal U.S. voting behavior.
+- **Contrary/limits:** The U.S. did permit one binding resolution to pass and consistently demanded hostage release; HRW’s legal framing is advocacy analysis.
+- **Mappings:** 2B.1, 2B.4, 2B.5, 2B.7, 2B.9, 2B.10; 7B.8.
+
+### E032 — 2023 Saudi arms-transfer decisions included surveillance and training
+
+- **Canonical fact key:** `https://www.forumarmstrade.org/us-saudi-arms_biden.html|timeline-December-2023|Saudi-2023-notifications`
+- **Disposition:** final_evidence
+- **Title:** “Biden Administration — Arms Sales to Saudi Arabia”
+- **Publisher/date:** Forum on the Arms Trade; continuously maintained, 2023 entries
+- **Source type/confidence:** arms-trade monitoring resource linking DSCA notices; **medium-high**
+- **Claim:** In December 2023 the administration notified Congress of a proposed $582 million RE-3A surveillance-aircraft modernization sale and a $1 billion training sale that included civilian-casualty avoidance, law of armed conflict, and human rights.
+- **Locator:** Timeline entries for 4 December and 22 December 2023.
+- **Period fit:** exact 2023
+- **Attribution:** administration decision; no evidence of personal Biden deliberation.
+- **Contrary/limits:** Proposed sales are not completed deliveries or proof of misuse; the training package included explicit civilian-protection content.
+- **Mappings:** 2B.4, 2B.5, 2B.8, 2B.9; 8B.2.
+
+### E033 — U.S.-supplied weapons had caused Yemen civilian harm before 2023 decisions
+
+- **Canonical fact key:** `https://www.pbs.org/newshour/world/arms-supplied-by-uk-u-s-killed-civilians-in-yemen-report-says|opening-and-Oxfam-findings|Saudi-recipient-harm-baseline`
+- **Disposition:** final_evidence
+- **Title:** “Arms supplied by UK, U.S. killed civilians in Yemen, report says”
+- **Publisher/date:** PBS NewsHour carrying Associated Press, 11 January 2023
+- **Source type/confidence:** reputable public-service media reporting NGO analysis; **medium-high**
+- **Claim:** Oxfam attributed at least 87 deaths and 136 injuries in 2021–February 2022 Saudi-led airstrikes to U.S./UK-supplied weapons, and reported attacks on health facilities and displacement.
+- **Locator:** Opening and paragraphs presenting Oxfam totals.
+- **Period fit:** pre-2023 recipient-risk baseline, published in 2023
+- **Attribution:** informs foreseeability for continued Biden-era support; does not prove 2023 weapons caused these events.
+- **Contrary/limits:** All Yemen belligerents were accused of civilian harm; Saudi/coalition response was unavailable.
+- **Mappings:** 2B.4, 2B.5, 2B.9.
+
+---
+
+## Chapter 3B additions
+
+### E034 — Biden DOJ revived systemic police-misconduct enforcement
+
+- **Canonical fact key:** `https://www.lawfaremedia.org/article/justice-department-reports-reflect-shift-in-thinking-about-police-reform|opening-through-eight-investigations|Biden-DOJ-pattern-practice-revival`
+- **Disposition:** final_evidence
+- **Title:** “Justice Department Reports Reflect Shift in Thinking About Police Reform”
+- **Publisher/date:** Lawfare, 6 July 2023
+- **Source type/confidence:** specialist legal analysis citing DOJ findings; **medium-high**
+- **Claim:** DOJ issued its first Biden-era police findings reports in Louisville and Minneapolis and had opened eight police-misconduct investigations in the administration’s first two years, compared with one under Trump.
+- **Locator:** First five paragraphs.
+- **Period fit:** exact 2023
+- **Attribution:** executive DOJ enforcement; no evidence that Biden personally managed individual investigations.
+- **Contrary/limits:** Findings identify local abuse, not federal abuse; final remedies and measurable outcomes were still pending.
+- **Mappings:** 3B.2, 3B.4, 3B.7, 3B.8, 3B.10; 4B.3, 4B.4.
+
+### E035 — DOJ findings protected protesters, journalists, and observers
+
+- **Canonical fact key:** `https://www.lawfaremedia.org/article/justice-department-reports-reflect-shift-in-thinking-about-police-reform|First-Amendment-section|police-attacks-on-journalists-and-observers`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** same as E034
+- **Source type/confidence:** legal analysis; **medium-high**
+- **Claim:** DOJ findings identified patterns of First Amendment violations against journalists and people protesting, documenting, or criticizing police, including arrests, attacks, destroyed phones, and a journalist losing an eye to a rubber bullet.
+- **Locator:** Paragraph beginning “Finally, both reports found patterns…”
+- **Period fit:** 2023 federal findings concerning earlier/local conduct
+- **Attribution:** positive evidence of federal remedy; adverse incidents are attributable to local departments, not Biden.
+- **Mappings:** 3B.2, 3B.4, 3B.8, 3B.9; 4B.3, 4B.6.
+
+### E036 — Restrictive housing persisted despite Biden directive
+
+- **Canonical fact key:** `https://www.prisonlegalnews.org/news/2024/aug/15/bop-holding-12000-prisoners-solitary-confinement/|paragraphs-GAO-findings-executive-order|BOP-October-2023-restrictive-housing`
+- **Disposition:** final_evidence
+- **Title:** “BOP is Holding 12,000 Prisoners in Solitary Confinement”
+- **Publisher/date:** Prison Legal News, 15 August 2024, summarizing GAO-24-105737
+- **Source type/confidence:** specialist prison-rights publication reporting official audit; **medium**
+- **Claim:** As of October 2023, about 8% of federal prisoners—nearly 12,000 people—were in restrictive housing, up to 23 hours per day. Despite Biden’s May 2022 order directing implementation of prior reforms, only 33 of 87 contractor recommendations and 17 of 53 DOJ recommendations had been implemented.
+- **Locator:** First three paragraphs.
+- **Period fit:** exact October 2023 condition, reported retrospectively
+- **Attribution:** federal BOP under Biden; direct personal attribution limited to issuing the corrective order, while implementation failure belongs primarily to DOJ/BOP management.
+- **Contrary/limits:** BOP closed its most restrictive Special Management Unit in 2023.
+- **Mappings:** 3B.1, 3B.2, 3B.4, 3B.5, 3B.10; 8B.5, 8B.6, 8B.8.
+
+### E037 — UN found January 2023 border measures at variance with refugee protections
+
+- **Canonical fact key:** `https://www.ohchr.org/en/press-releases/2023/01/new-us-border-enforcement-actions-pose-risk-fundamental-human-rights-turk|entire-release|OHCHR-border-measures-nonrefoulement`
+- **Disposition:** final_evidence
+- **Title:** “New US border enforcement actions pose risk to fundamental human rights”
+- **Publisher/date:** Office of the UN High Commissioner for Human Rights, 11 January 2023
+- **Source type/confidence:** UN human-rights mechanism; **high**
+- **Claim:** The High Commissioner said expanded expedited removal and Title 42 appeared at variance with prohibitions on collective expulsion and non-refoulement. He welcomed expanded humanitarian parole but said it could not substitute for individualized asylum assessment.
+- **Locator:** Entire short release, especially paragraphs 1–8.
+- **Period fit:** exact January 2023 policy
+- **Attribution:** direct Biden-administration border measures.
+- **Contrary/limits:** The policy simultaneously expanded a legal humanitarian-parole pathway for up to 30,000 people monthly from four countries.
+- **Mappings:** 3B.5, 3B.7, 3B.9, 3B.10; 4B.7; 6B.3, 6B.6, 6B.8.
+
+---
+
+## Chapter 4B additions
+
+### E038 — Appeals court found coercion risk in federal social-media contacts
+
+- **Canonical fact key:** `https://www.nbcnews.com/politics/white-house/court-eases-curbs-biden-administrations-social-media-contacts-rcna104195|opening-through-administration-defense|Fifth-Circuit-social-media-injunction`
+- **Disposition:** final_evidence
+- **Title:** “Court eases curbs on Biden administration’s social media contacts”
+- **Publisher/date:** NBC News, 8 September 2023
+- **Source type/confidence:** reputable media summarizing judicial order; **medium-high**
+- **Claim:** The Fifth Circuit barred the White House, surgeon general, CDC, and FBI from coercing or significantly encouraging platforms to remove content, while narrowing a broader district-court injunction. The administration said it requested removal of harmful misinformation but did not compel platforms.
+- **Locator:** First 13 paragraphs and final paragraph.
+- **Period fit:** exact September 2023
+- **Attribution:** executive-branch conduct; evidence does not establish Biden personally directed individual contacts.
+- **Contrary/limits:** The ruling was preliminary, narrowed the lower order, and was later subject to Supreme Court review; it was not a final merits adjudication in 2023.
+- **Mappings:** 4B.3, 4B.6, 4B.9, 4B.10; 7B.6, 7B.7.
+
+### E039 — Voting-rights enforcement was restored but restrained
+
+- **Canonical fact key:** `https://www.democracydocket.com/analysis/the-doj-pledged-to-relentlessly-protect-voting-rights-is-it-living-up-to-its-promise/|section-eight-lawsuits|DOJ-voting-enforcement-scale`
+- **Disposition:** final_evidence
+- **Title:** “The DOJ Pledged to Relentlessly Protect Voting Rights. Is It Living Up to Its Promise?”
+- **Publisher/date:** Democracy Docket, 4 May 2023
+- **Source type/confidence:** voting-rights legal media/advocacy; **medium**
+- **Claim:** Since 2021 DOJ had filed eight voting-rights/redistricting suits, five active, plus 18 statements of interest. The source found this a clear improvement over Trump but only 2.4% of the 210 active cases it tracked; former Biden chief of staff Ron Klain called DOJ too cautious.
+- **Locator:** Section “Since 2021, the DOJ has filed eight…” and section on amicus/statements of interest.
+- **Period fit:** exact May 2023
+- **Attribution:** DOJ enforcement under Biden; institutional independence and Attorney General discretion limit personal attribution.
+- **Contrary/limits:** Litigation count alone does not measure quality, and DOJ has a narrower institutional role than private litigants.
+- **Mappings:** 4B.1, 4B.2, 4B.4, 4B.7, 4B.10; 8B.6, 8B.10.
+
+### E040 — Biden’s press posture improved norms but restricted access
+
+- **Canonical fact key:** `https://cpj.org/reports/2022/01/night-and-day-the-biden-administration-and-the-press/|opening-whitehouse-and-DOJ-sections|Biden-press-norms-and-access`
+- **Disposition:** context
+- **Title:** “‘Night and day’: The Biden administration and the press”
+- **Publisher/date:** Committee to Protect Journalists, 13 January 2022
+- **Source type/confidence:** press-freedom NGO; **medium-high**
+- **Claim:** Biden ended anti-media “enemy” rhetoric, restored regular briefings, directed DOJ to restrict subpoenas of reporter records, and restored USAGM editorial independence. CPJ also found limited presidential availability, scripted events, slow information response, border-access restrictions, and relatively few interviews.
+- **Locator:** Opening summary, initial White House section, and DOJ section.
+- **Period fit:** broader tenure baseline immediately preceding 2023; not itself proof of a 2023 act
+- **Attribution:** direct presidential/administration conduct.
+- **Contrary/limits:** Use as inherited 2023 administration pattern, not target-year event evidence.
+- **Mappings:** 4B.3, 4B.6, 4B.10; 7B.1, 7B.6.
+
+### E041 — Biden complied with adverse debt ruling by shifting legal route
+
+- **Canonical fact key:** `https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|final-broader-efforts-paragraph|post-Supreme-Court-alternative-route`
+- **Disposition:** final_evidence
+- **Title:** “Fact Sheet: The Biden-Harris Administration Launches the SAVE Plan”
+- **Publisher/date:** archived White House, 22 August 2023
+- **Source type/confidence:** official primary record; **medium-high** for formal action, medium-low for self-assessed effects
+- **Claim:** After the Supreme Court rejected the broad cancellation plan, the administration announced it was pursuing a different legal route and launched an income-driven repayment regulation rather than implementing the invalidated program.
+- **Locator:** “Broader Efforts to Deliver Relief,” final paragraph.
+- **Period fit:** exact 2023
+- **Attribution:** direct Biden-administration response.
+- **Contrary/limits:** The official source frames the action favorably; whether the new route fully respected statutory limits was separately litigated later.
+- **Mappings:** 4B.4, 4B.8, 4B.10; 5B.7, 5B.9; 8B.8.
+
+### E042 — Press-freedom safeguards and unresolved 2023 prosecution concerns
+
+- **Canonical fact key:** `https://freedom.press/issues/bidens-press-freedom-legacy-empty-words-and-hypocrisy/|sections-anti-press-prosecutions-and-positive-actions|Biden-press-freedom-mixed`
+- **Disposition:** context
+- **Title:** “Biden’s press freedom legacy: Empty words and hypocrisy”
+- **Publisher/date:** Freedom of the Press Foundation, January 2025
+- **Source type/confidence:** press-freedom advocacy; **medium**
+- **Claim:** The retrospective credits Biden DOJ guidelines limiting compulsory process and surveillance of reporters and warnings against arresting journalists at protests, but criticizes continuation of the Assange prosecution and later use of computer-crime theories against journalist Tim Burke.
+- **Locator:** Sections “Anti-press prosecutions” and final paragraphs beginning “Yes, Biden’s done some good things…”
+- **Period fit:** retrospective; only underlying 2023 acts should be used
+- **Attribution:** DOJ/administration policy; direct Biden role varies.
+- **Contrary/limits:** Highly critical advocacy retrospective and includes post-2023 events; not valid for silently extending the target period.
+- **Mappings:** 4B.3, 4B.6, 4B.10; 7B.6, 7B.7.
+
+---
+
+## Chapter 5B additions
+
+### E043 — CHIPS funding mechanism launched with milestones and safeguards
+
+- **Canonical fact key:** `https://www.nist.gov/news-events/news/2023/02/biden-harris-administration-launches-first-chips-america-funding|opening-and-program-priorities|first-CHIPS-funding-opportunity`
+- **Disposition:** final_evidence
+- **Title:** “Biden-Harris Administration Launches First CHIPS for America Funding Opportunity”
+- **Publisher/date:** NIST, 28 February 2023
+- **Source type/confidence:** official primary record; **medium-high** for implementation facts
+- **Claim:** Commerce launched the first manufacturing-incentive opportunity under a $50 billion program. Awards were to be disbursed against milestones, require due diligence, encourage private co-investment, and evaluate commercial viability, technical readiness, workforce plans, childcare, and inclusive growth.
+- **Locator:** Opening five paragraphs and bullet sections “Protecting Taxpayer Dollars,” “Building a Skilled and Diverse Workforce,” and “Driving Economic Opportunity.”
+- **Period fit:** exact 2023
+- **Attribution:** legislation was bipartisan; administration owned program design and execution.
+- **Contrary/limits:** Launch and design are not completed production or proven economic effects.
+- **Mappings:** 5B.1, 5B.2, 5B.4, 5B.6, 5B.7, 5B.8; 8B.1, 8B.2, 8B.4, 8B.6.
+
+### E044 — First CHIPS incentive and private-investment claims by end of 2023
+
+- **Canonical fact key:** `https://www.semiconductors.org/commerce-department-announcement-marks-milestone-in-chips-implementation/|opening-and-investment-paragraph|first-CHIPS-incentive`
+- **Disposition:** final_evidence
+- **Title:** “Commerce Department Announcement Marks Milestone in CHIPS Implementation”
+- **Publisher/date:** Semiconductor Industry Association, 11 December 2023
+- **Source type/confidence:** industry association; **medium**
+- **Claim:** Commerce announced the first semiconductor manufacturing incentive in December 2023. SIA said industry projects announced since CHIPS was introduced totaled over $200 billion and were expected to create more than 40,000 direct ecosystem jobs.
+- **Locator:** Opening statement and paragraph beginning “The CHIPS Act’s manufacturing incentives…”
+- **Period fit:** exact December 2023
+- **Attribution:** administration implementation plus private-sector announcements; causal attribution to CHIPS and Biden is partial.
+- **Contrary/limits:** Industry has strong incentives to praise subsidies; announced investments and projected jobs are not completed outcomes.
+- **Mappings:** 5B.4, 5B.6, 5B.7, 5B.10; 8B.6, 8B.7, 8B.10.
+
+### E045 — SAVE plan converted policy into concrete repayment rules
+
+- **Canonical fact key:** `https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|specific-SAVE-plan-rules|SAVE-operational-design`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** archived White House fact sheet, 22 August 2023
+- **Source type/confidence:** official primary record; **medium-high** for program rules
+- **Claim:** SAVE based payments on income and household size, raised protected income to 225% of poverty, prevented uncovered monthly interest from increasing balances, and established earlier forgiveness for low original balances.
+- **Locator:** Bullets “Cut payments,” “Bring many borrowers’ payments to $0,” “Ensure…balance,” and “Provide early forgiveness.”
+- **Period fit:** exact 2023 launch
+- **Attribution:** direct Biden program, implemented by Education Department regulation.
+- **Contrary/limits:** Administration estimates of savings and beneficiary counts are self-reported; later litigation is outside the target period.
+- **Mappings:** 5B.1, 5B.6, 5B.8, 5B.9; 6B.2, 6B.3, 6B.8; 8B.2, 8B.6.
+- **Disposition change:** promote **E015** from `discovery_only` to `rejected`, reason: `Superseded by opened archived White House primary record E045; Reuters gateway no longer needed`.
+
+### E046 — SAVE distributional design targeted lower-income and minority borrowers
+
+- **Canonical fact key:** `https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|distributional-estimates|SAVE-progressive-payment-incidence`
+- **Disposition:** context
+- **Title/publisher/date:** same as E045
+- **Source type/confidence:** official; **medium-low** for projected effects
+- **Claim:** Education Department projections said payments per dollar borrowed would decline most for the lowest projected earners and that Black, Hispanic, American Indian, and Alaska Native borrowers would experience larger reductions.
+- **Locator:** Bullet list under “The benefits…particularly critical.”
+- **Period fit:** exact 2023 projection
+- **Attribution:** program design attributable to administration.
+- **Contrary/limits:** Projections, not observed 2023 outcomes; require independent evaluation.
+- **Mappings:** 5B.8; 6B.3 and 6B.8.
+
+### E047 — Fiscal deficit remained large; direct Biden attribution unresolved
+
+- **Canonical fact key:** `https://www.cbo.gov/publication/58946|search-index-summary|CBO-2023-deficit-projection`
+- **Disposition:** discovery_only
+- **Title:** “The Budget and Economic Outlook: 2023 to 2033”
+- **Publisher/date:** Congressional Budget Office, 15 February 2023
+- **Source type/confidence:** official independent budget analysis; potentially **high**
+- **Claim candidate:** CBO projected a 2023 federal deficit around $1.4 trillion, approximately 5.3% of GDP.
+- **Locator status:** `underlying_source_missing`; CBO blocked fetch, and search-result text is not a sufficient locator.
+- **Mappings if repaired:** 5B.3, 5B.9, 5B.10; 8B.7.
+- **Manifest note:** retain as discovery only, not evidence.
+
+---
+
+## Chapter 6B additions
+
+### E048 — Record 2023 Marketplace plan selections
+
+- **Canonical fact key:** `https://www.cms.gov/newsroom/fact-sheets/marketplace-2023-open-enrollment-period-report-final-national-snapshot|opening-and-national-table|2023-marketplace-enrollment`
+- **Disposition:** final_evidence
+- **Title:** “Marketplace 2023 Open Enrollment Period Report: Final National Snapshot”
+- **Publisher/date:** Centers for Medicare & Medicaid Services, 2023
+- **Source type/confidence:** official administrative data; **high**
+- **Claim:** About 16.3 million people selected 2023 Marketplace plans, including 3.6 million new consumers and 12.7 million returning consumers.
+- **Locator:** Opening paragraph and first national table.
+- **Period fit:** exact 2023 coverage selection
+- **Attribution:** federal subsidies/outreach and state marketplaces contributed; Biden cannot receive sole causal attribution.
+- **Contrary/limits:** Plan selection is not necessarily effectuated enrollment; the report says first premiums may still need payment.
+- **Mappings:** 6B.2, 6B.3, 6B.5, 6B.10; 5B.8.
+
+### E049 — 2024 enrollment surge partly absorbed Medicaid losses occurring in 2023
+
+- **Canonical fact key:** `https://www.cms.gov/newsroom/fact-sheets/marketplace-2024-open-enrollment-period-report-final-national-snapshot|opening-through-Medicaid-transition|2023-year-end-marketplace-transition`
+- **Disposition:** final_evidence
+- **Title:** “Marketplace 2024 Open Enrollment Period Report: Final National Snapshot”
+- **Publisher/date:** CMS, early 2024, covering enrollment beginning November 2023
+- **Source type/confidence:** official administrative data; **high**
+- **Claim:** 21.3 million selected 2024 plans; by 31 December 2023, 2.4 million HealthCare.gov selections came from people previously enrolled in Medicaid or CHIP.
+- **Locator:** First two paragraphs.
+- **Period fit:** directly captures November–December 2023 transition activity, with final totals extending into January 2024
+- **Attribution:** administration Marketplace operation; Medicaid unwinding was legislatively mandated and state-administered.
+- **Contrary/limits:** Does not prove continuous coverage or absence of gaps.
+- **Mappings:** 6B.2, 6B.3, 6B.5, 6B.6, 6B.10; 8B.8.
+
+### E050 — Medicaid unwinding created large, uneven coverage-loss risk
+
+- **Canonical fact key:** `https://www.kff.org/medicaid/10-things-to-know-about-the-unwinding-of-the-medicaid-continuous-enrollment-provision/|intro-and-sections-1-3|Medicaid-unwinding-risk`
+- **Disposition:** final_evidence
+- **Title:** “10 Things to Know About the Unwinding of the Medicaid Continuous Enrollment Provision”
+- **Publisher/date:** KFF, 9 June 2023
+- **Source type/confidence:** health-policy research organization; **medium-high**
+- **Claim:** The CAA ended continuous enrollment on 31 March 2023. KFF projected 7.8–24.4 million losses, while HHS projected up to 15 million disenrollments, including 6.8 million people likely still eligible; state processes and outreach would determine much of the harm.
+- **Locator:** Introduction and sections 1–3.
+- **Period fit:** exact 2023 policy transition
+- **Attribution:** Congress enacted the end date; Biden signed the law and CMS supervised, while states administered renewals. Attribution must remain shared.
+- **Contrary/limits:** Not everyone disenrolled would become uninsured, and some would shift to Marketplace or employer coverage.
+- **Mappings:** 6B.2, 6B.3, 6B.5, 6B.6, 6B.10; 5B.8; 8B.5, 8B.9.
+
+### E051 — Later data show procedural failures dominated many disenrollments
+
+- **Canonical fact key:** `https://www.kff.org/medicaid/medicaid-enrollment-tracker/|archived-unwinding-summary|procedural-disenrollments`
+- **Disposition:** context
+- **Title:** “Medicaid/CHIP Monthly Enrollment Tracker”
+- **Publisher/date:** KFF, archived unwinding data last updated 12 September 2024
+- **Source type/confidence:** health-policy data synthesis using CMS/state reports; **medium-high**
+- **Claim:** Across the full unwinding, 25.2 million people were disenrolled; 69% of disenrollments were procedural rather than findings of ineligibility. State rates varied from 12% to 57%.
+- **Locator:** “Unwinding Data – Archived,” summary bullets.
+- **Period fit:** retrospective and extends well beyond 2023; useful only to evaluate implementation of a process started in 2023
+- **Attribution:** state and federal systems jointly responsible; cannot be placed solely on Biden.
+- **Mappings:** 6B.3, 6B.5, 6B.9; 8B.5, 8B.8.
+
+### E052 — Homelessness rose 12% in the 2023 point-in-time count
+
+- **Canonical fact key:** `https://nlihc.org/resource/hud-releases-2023-annual-homeless-assessment-report|opening-and-population-sections|2023-homelessness-increase`
+- **Disposition:** final_evidence
+- **Title:** “HUD Releases 2023 Annual Homeless Assessment Report”
+- **Publisher/date:** National Low Income Housing Coalition, 18 December 2023, summarizing HUD AHAR
+- **Source type/confidence:** housing-policy NGO reporting official HUD data; **medium-high**
+- **Claim:** Approximately 653,100 people experienced homelessness on one night in 2023, a 12% increase and the highest reported count since 2007. Family homelessness rose 16%, and racial/ethnic minorities remained heavily overrepresented.
+- **Locator:** Opening four paragraphs.
+- **Period fit:** exact 2023 count
+- **Attribution:** national outcome; housing supply, rent, pandemic-support expiration, state/local policy, migration, and economy complicate Biden attribution.
+- **Contrary/limits:** Point-in-time count is a snapshot. The source says American Rescue Plan resources had prevented increases in 2020–2022 but largely expired.
+- **Mappings:** 5B.8, 5B.10; 6B.2, 6B.3, 6B.6, 6B.8, 6B.10.
+
+### E053 — SNAP and emergency rental assistance improved material security
+
+- **Canonical fact key:** `https://www.cdc.gov/pcd/issues/2024/24_0121.htm|abstract-results-and-introduction|SNAP-rent-assistance-material-security`
+- **Disposition:** final_evidence
+- **Title:** “SNAP Emergency Allotments, Emergency Rent Assistance, Rent Burden, and Housing and Food Security, June 2022–May 2023”
+- **Publisher/date:** CDC Preventing Chronic Disease, 2024
+- **Source type/confidence:** peer-reviewed government journal; **high**
+- **Claim:** Using Household Pulse Survey data, the study found SNAP emergency allotments and emergency rental assistance were associated with greater food sufficiency; rental aid was also associated with being current on rent.
+- **Locator:** Abstract “Results” and opening introduction.
+- **Period fit:** June 2022–May 2023, partly target year
+- **Attribution:** programs originated through federal legislation and involved state/local administration; not solely Biden-created.
+- **Contrary/limits:** Observational association, not randomized causation; benefits differed by rent burden.
+- **Mappings:** 5B.8; 6B.2, 6B.3, 6B.5, 6B.6, 6B.10.
+
+### E054 — Ending SNAP emergency allotments reduced benefits and raised insufficiency
+
+- **Canonical fact key:** `https://www.cdc.gov/pcd/issues/2024/24_0121.htm|introduction-emergency-allotment-expiration|SNAP-ending-harm`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** same as E053
+- **Source type/confidence:** peer-reviewed government journal; **high**
+- **Claim:** The study reports prior evidence that ending emergency allotments reduced benefits by an estimated $90 per person monthly and increased recent food insufficiency among SNAP households from 25% to 31%.
+- **Locator:** Introduction paragraph beginning “Food security…,” through the emergency-allotment discussion.
+- **Period fit:** policy ended nationally in February 2023
+- **Attribution:** Congress established the expiration through the 2023 appropriations law signed by Biden; shared attribution.
+- **Contrary/limits:** Study cites prior analysis for the causal estimate.
+- **Mappings:** 6B.2, 6B.3, 6B.6, 6B.10; 5B.8.
+
+### E055 — Rapid federal mobilization after Maui fires
+
+- **Canonical fact key:** `https://www.presidency.ucsb.edu/documents/fact-sheet-biden-harris-administrations-response-the-maui-wildfires|opening-through-response-bullets|Maui-federal-mobilization`
+- **Disposition:** context
+- **Title:** “Fact Sheet: Biden-Harris Administration’s Response to the Maui Wildfires”
+- **Publisher/date:** American Presidency Project reproducing White House document, 15 August 2023
+- **Source type/confidence:** official primary record; **medium-high** for enumerated deployments
+- **Claim:** Biden signed a major-disaster declaration within hours; by 15 August nearly 500 federal personnel were deployed, including over 140 urban-search-and-rescue personnel, and FEMA reported deliveries of meals, water, cots, blankets, and $700 critical-needs assistance.
+- **Locator:** Opening three paragraphs and response bullet list.
+- **Period fit:** exact August 2023
+- **Attribution:** direct disaster declaration and federal mobilization.
+- **Contrary/limits:** Official self-report establishes resources, not adequacy, equitable access, or long-term effectiveness.
+- **Mappings:** 6B.1, 6B.2, 6B.3, 6B.4, 6B.6, 6B.10; 8B.3, 8B.5, 8B.9.
+
+---
+
+## Chapter 7B additions
+
+### E056 — 2023 family-business inquiry had not established Joe Biden’s involvement
+
+- **Canonical fact key:** `https://www.nbcnews.com/politics/congress/house-republicans-hold-first-hearing-biden-impeachment-inquiry-rcna117657|opening-through-witness-evidence|impeachment-hearing-no-president-crime-evidence`
+- **Disposition:** final_evidence
+- **Title:** “House GOP’s impeachment witnesses say no evidence of crime by President Biden”
+- **Publisher/date:** NBC News, 28 September 2023
+- **Source type/confidence:** reputable media reporting congressional hearing; **medium-high**
+- **Claim:** Republican-selected expert witnesses said the existing record did not establish a crime by Joe Biden. One witness said evidence was missing on whether Biden knew of or encouraged influence peddling; bank records presented at the hearing showed no payment to the president, according to the committee’s ranking Democrat.
+- **Locator:** Opening 15 paragraphs and paragraph discussing Turley’s missing evidence.
+- **Period fit:** exact September 2023
+- **Attribution:** directly concerns allegations against Biden.
+- **Contrary/limits:** The witnesses said further inquiry was warranted; absence of evidence at that hearing is not proof no relevant conduct occurred.
+- **Mappings:** 7B.3, 7B.4, 7B.6, 7B.7, 7B.10.
+
+### E057 — Financial disclosures were released and OGE-certified
+
+- **Canonical fact key:** `https://www.presidency.ucsb.edu/documents/white-house-press-release-the-president-and-vice-president-release-their-financial-1|entire-release|Biden-2023-financial-disclosure`
+- **Disposition:** final_evidence
+- **Title:** “The President and Vice President Release Their Financial Disclosure Reports”
+- **Publisher/date:** American Presidency Project reproducing White House release, 15 May 2023
+- **Source type/confidence:** official primary record; **medium-high** for filing and certification
+- **Claim:** Biden released his annual public OGE Form 278, which was reviewed and certified by the Office of Government Ethics.
+- **Locator:** Entire short release.
+- **Period fit:** exact 2023
+- **Attribution:** direct personal disclosure.
+- **Contrary/limits:** The release’s statement that no conflicts existed is self-serving and cannot substitute for independent review; the underlying PDF could not be opened in this run.
+- **Mappings:** 7B.3, 7B.4, 7B.6, 7B.10.
+
+### E058 — Senior officials largely complied with divestiture obligations
+
+- **Canonical fact key:** `https://www.citizensforethics.org/reports-investigations/crew-reports/biden-administration-financial-disclosures-show-strong-pattern-of-compliance/|opening-and-divestiture-section|cabinet-ethics-compliance`
+- **Disposition:** final_evidence
+- **Title:** “Biden administration financial disclosures show strong pattern of compliance”
+- **Publisher/date:** Citizens for Responsibility and Ethics in Washington, 17 April 2023
+- **Source type/confidence:** nonpartisan ethics NGO analysis of OGE filings; **medium-high**
+- **Claim:** CREW found a high degree of compliance by senior Biden officials with divestiture obligations; cabinet members generally divested individual stocks and conflicting assets, and at least one went beyond required divestitures.
+- **Locator:** Opening paragraph and “Biden cabinet members complied…”/“Individual stock holdings” sections.
+- **Period fit:** 2023 review of 2021–2022 filings; administration-pattern context
+- **Attribution:** appointments and ethics framework attributable to administration; not proof of Biden’s own finances or every appointee’s competence.
+- **Contrary/limits:** CREW still recommended stronger law barring senior officials from individual stocks and family-business interests.
+- **Mappings:** 7B.3, 7B.5, 7B.6, 7B.9, 7B.10; 8B.4.
+
+### E059 — Biden failed to act on documented inspector-general concerns
+
+- **Canonical fact key:** `https://www.pogo.org/policy-letters/president-biden-remove-inspectors-general-cuffari-and-ennis-immediately|opening-conclusion-and-mission-failures|Biden-IG-inaction`
+- **Disposition:** final_evidence
+- **Title:** “President Biden: Remove Inspectors General Cuffari and Ennis Immediately”
+- **Publisher/date:** Project On Government Oversight, 21 September 2023
+- **Source type/confidence:** watchdog NGO with cited investigative record; **medium-high**
+- **Claim:** POGO urged Biden to remove DHS IG Joseph Cuffari and SSA IG Gail Ennis, citing suppression of findings, deleted federal texts, whistleblower-retaliation claims, weak death-in-custody review, and staff dysfunction. POGO explicitly attributed ongoing harm to Biden’s lack of action.
+- **Locator:** Opening, “Failing in Their Missions,” “Endangering the Public,” and conclusion.
+- **Period fit:** exact September 2023
+- **Attribution:** Biden had removal/nomination authority, but removal of inspectors general presents independence concerns and requires due process/context.
+- **Contrary/limits:** This is an advocacy demand, not an adjudicated finding against Biden; evidence concerns the IGs’ conduct and Biden’s inaction, not Biden-directed retaliation.
+- **Mappings:** 7B.2, 7B.5, 7B.6, 7B.7, 7B.10; 8B.4, 8B.5, 8B.8.
+
+### E060 — Personnel favoritism lead could not be upgraded
+
+- **Canonical fact key:** `https://campaignlegal.org/sites/default/files/2023-05/DTA_Report_Final.pdf|pdf|donor-ambassador-report`
+- **Disposition:** rejected
+- **Reason:** PDF returned raw bytes and no reliable page/paragraph locator. Search snippets indicated a donor-to-ambassador analysis, but it cannot be used as evidence without extraction.
+- **Potential mappings:** 7B.5, 7B.9; 8B.4.
+
+---
+
+## Chapter 8B additions
+
+### E061 — CHIPS program established explicit goals, evaluation, personnel, and controls
+
+- **Canonical fact key:** `https://www.nist.gov/news-events/news/2023/02/biden-harris-administration-launches-first-chips-america-funding|Vision-for-Success-and-program-offices|CHIPS-goals-and-administration`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** NIST CHIPS funding launch, 28 February 2023
+- **Source type/confidence:** official primary record; **medium-high**
+- **Claim:** The administration established measurable end-decade fabrication/packaging goals, separate CHIPS Program and R&D offices, staged funding opportunities, formal application criteria, and milestone-linked disbursement.
+- **Locator:** “Vision for Success,” funding-process paragraphs, and final paragraph identifying program offices.
+- **Period fit:** exact 2023
+- **Attribution:** executive implementation of bipartisan statute.
+- **Contrary/limits:** Architecture and plans alone do not demonstrate outcomes.
+- **Mappings:** 8B.1, 8B.2, 8B.3, 8B.4, 8B.5, 8B.6.
+
+### E062 — First CHIPS award arrived late in the target year
+
+- **Canonical fact key:** `https://www.semiconductors.org/commerce-department-announcement-marks-milestone-in-chips-implementation/|first-paragraph|first-incentive-December-2023`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** SIA, 11 December 2023
+- **Source type/confidence:** industry association; **medium**
+- **Claim:** The first manufacturing incentive was announced in December, showing movement from program design to award but also that most direct awards remained outstanding through most of 2023.
+- **Locator:** Opening statement.
+- **Period fit:** exact 2023
+- **Attribution:** Commerce implementation; Congress supplied statutory authority and funds.
+- **Contrary/limits:** SIA’s praise is interested; the first award cannot establish portfolio-wide success.
+- **Mappings:** 8B.6, 8B.7, 8B.10.
+
+### E063 — SAVE showed rapid adaptation after judicial defeat
+
+- **Canonical fact key:** `https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/08/22/fact-sheet-the-biden-harris-administration-launches-the-save-plan-the-most-affordable-student-loan-repayment-plan-ever-to-lower-monthly-payments-for-millions-of-borrowers/|launch-outreach-and-automation|SAVE-adaptation-and-delivery`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** archived White House, 22 August 2023
+- **Source type/confidence:** official; **medium-high** for formal design
+- **Claim:** Within two months of the Supreme Court ruling, the administration launched SAVE, planned outreach to nearly 30 million borrowers, automatically moved REPAYE borrowers, streamlined applications, and designed automatic recertification and delinquent-borrower enrollment.
+- **Locator:** Opening and “Department of Education Launches Outreach Campaign.”
+- **Period fit:** exact 2023
+- **Attribution:** direct administration adaptation.
+- **Contrary/limits:** Official launch does not prove uptake or legal durability; later litigation falls outside period.
+- **Mappings:** 8B.2, 8B.3, 8B.5, 8B.6, 8B.8, 8B.10.
+
+### E064 — Prison reform showed weak follow-through despite clear direction
+
+- **Canonical fact key:** `https://www.prisonlegalnews.org/news/2024/aug/15/bop-holding-12000-prisoners-solitary-confinement/|executive-order-and-GAO-implementation|BOP-corrective-failure`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** Prison Legal News, 15 August 2024
+- **Source type/confidence:** specialist publication citing GAO; **medium**
+- **Claim:** Biden’s executive order provided clear direction to complete restrictive-housing reforms, but by October 2023 BOP had made slow progress and lacked responsibility, verification, and data-analysis systems.
+- **Locator:** Second through fourth paragraphs.
+- **Period fit:** exact October 2023 status
+- **Attribution:** Biden supplied strategic direction; DOJ/BOP carried implementation responsibility.
+- **Contrary/limits:** Closure of the Special Management Unit was a concrete corrective step.
+- **Mappings:** 8B.2, 8B.4, 8B.5, 8B.6, 8B.8, 8B.10.
+
+### E065 — Border-policy adaptation combined legal pathways with coercive enforcement
+
+- **Canonical fact key:** `https://www.ohchr.org/en/press-releases/2023/01/new-us-border-enforcement-actions-pose-risk-fundamental-human-rights-turk|policy-description|parole-plus-expedited-removal`
+- **Disposition:** final_evidence
+- **Title/publisher/date:** OHCHR, 11 January 2023
+- **Source type/confidence:** UN; **high**
+- **Claim:** The administration combined expanded parole for up to 30,000 people monthly from four countries with expanded expedited removals and Title 42 expulsions.
+- **Locator:** Policy-description paragraphs.
+- **Period fit:** exact 2023
+- **Attribution:** direct administration program.
+- **Morality separation:** For 8B, this item establishes operational policy adaptation and mixed instruments; human-rights merits belong in 3B/6B.
+- **Contrary/limits:** No outcome evidence here showing durable border control or humane processing.
+- **Mappings:** 8B.1, 8B.2, 8B.6, 8B.9.
+
+### E066 — Maui response mobilized multiple agencies rapidly
+
+- **Canonical fact key:** `https://www.presidency.ucsb.edu/documents/fact-sheet-biden-harris-administrations-response-the-maui-wildfires|whole-of-government-and-agency-list|Maui-coordination`
+- **Disposition:** context
+- **Title/publisher/date:** American Presidency Project/White House, 15 August 2023
+- **Source type/confidence:** official; **medium-high** for deployments
+- **Claim:** FEMA, Coast Guard, Navy, Army, HHS, Forest Service, SBA, EPA, Agriculture, and Army Corps were mobilized under a federal response with personnel, supplies, public-health measures, and command support.
+- **Locator:** Opening and bullet list.
+- **Period fit:** exact 2023
+- **Attribution:** direct presidential declaration, implementation distributed across agencies and state/local partners.
+- **Contrary/limits:** No independent evaluation of adequacy or long-term recovery in the opened target-period sources.
+- **Mappings:** 8B.3, 8B.5, 8B.9.
+
+---
+
+# 4. Updated chapter yields and saturation findings
+
+Counts below are approximate after deterministic splitting. Reuse is many-to-many; global unique-item counts are lower than chapter-mapped counts.
+
+## 1B
+
+- **New defensible units:** E021–E026, plus E001a–E001e and E002.
+- **Independent organizations:** ACA/White House, CFR, Brookings, Atlantic Council, East Asia Forum, FAS.
+- **Improved gaps:** direct Biden/Yoon nonproliferation choice; presidential launch-authority statement; 2023 operationalization; posture expansion; transparency.
+- **Still unresolved:** detailed NC3 safety, actual stockpile start/end numbers, Iran/Saudi nonproliferation negotiations, biological-risk implementation, and a definitive whole-posture comparison.
+- **Saturation:** substantially improved and above minimum yield, but not fully saturated because command-and-control and end-posture data remain technically inaccessible/classified.
+
+## 2B
+
+- **New defensible units:** E027–E033, plus E029/E030/E031.
+- **Independent organizations:** HRW, BBC, Axios, UN, CFR/Brookings, Forum on Arms Trade, AP/PBS.
+- **Improved gaps:** cluster-munition decision and recipient risk; China crisis channels; Biden’s hostage-pause proposal; Gaza UN voting and warning; Saudi notifications.
+- **Still unresolved:** ATACMS and F-16 direct decision records, Israel emergency-sale primary DSCA records, independent proof that Biden caused the eventual November pause, and U.S. response to specific civilian-harm incidents.
+- **Saturation:** strong thematic coverage, but arms-recipient accountability remains incomplete because official transfer pages were blocked.
+
+## 3B
+
+- **New defensible units:** E034–E037 plus E036.
+- **Independent organizations:** DOJ-derived Lawfare, UN/OHCHR, GAO-derived prison reporting, ACLU, HRW.
+- **Improved gaps:** pattern/practice enforcement, protest/journalist protection, prison isolation, independent border corroboration.
+- **Still unresolved:** 2023 federal protest surveillance and directly extracted DHS OIG death reports. Raw PDFs were not usable.
+- **Saturation:** adequate for principal federal-action themes; not saturated for prison deaths and surveillance.
+
+## 4B
+
+- **New units:** E038–E042, E025.
+- **Independent organizations:** NBC/judicial record, Democracy Docket, CPJ, Freedom of the Press Foundation, FAS, official White House.
+- **Improved gaps:** CISA/social-media contacts; voting enforcement; press access; transparency; response to court loss.
+- **Still unresolved:** personality cult/loyalty tests remain largely unsupported—targeted searches did not reveal a material 2023 pattern. Transfer-of-power behavior is not a discriminating 2023 event.
+- **Saturation:** reasonable for federal constraints and media; weak lenses are now documented as searched rather than silently inferred.
+
+## 5B
+
+- **New units:** E043–E47, with E045 replacing E015.
+- **Independent organizations:** NIST, SIA, official White House, CMS/KFF for distributional spillovers.
+- **Improved gaps:** program design, milestones, distributional targeting, court-driven correction.
+- **Still unresolved:** CBO deficit and independent inflation attribution remain discovery-only because CBO blocked access. IRA and infrastructure implementation audits were also inaccessible.
+- **Saturation:** policy execution improved from thin to moderate; fiscal/macro causal analysis remains materially incomplete.
+
+## 6B
+
+- **New units:** E048–E055.
+- **Independent organizations:** CMS, KFF, NLIHC/HUD, CDC, White House/APP.
+- **Improved gaps:** ACA enrollment, Medicaid unwinding, housing/homelessness, SNAP, rent assistance, disaster response.
+- **Still unresolved:** maternal health, reproductive care, rural access, school recovery, childcare, and independent Maui adequacy evaluation.
+- **Saturation:** now diversified and above minimum; still not fully saturated across all service domains.
+
+## 7B
+
+- **New units:** E056–E060, plus E025/E038/E042 as cross-chapter items.
+- **Independent organizations:** NBC, APP/OGE, CREW, POGO, FAS, press-freedom groups.
+- **Improved gaps:** family-business evidentiary boundary; disclosures; cabinet divestiture; watchdog response.
+- **Still unresolved:** underlying Biden Form 278 details, donor-ambassador report extraction, campaign-finance patterns, and a broad correction/candor sample.
+- **Saturation:** no longer rests only on classified documents, but personal-integrity attribution remains uneven. No unsupported family-corruption allegation was promoted.
+
+## 8B
+
+- **New units:** E061–E066 plus implementation reuse from other chapters.
+- **Independent organizations:** NIST, SIA, White House, GAO-derived prison report, UN, Atlantic Council, CMS.
+- **Improved gaps:** strategy-to-program translation, milestone-linked administration, adaptation, interagency crisis response, and implementation failure.
+- **Still unresolved:** full portfolio scorecard, cabinet turnover and personnel performance, IRA/infrastructure audit findings, and independent budget execution.
+- **Saturation:** strong for selected programs, still incomplete for the frozen portfolio as a whole.
+
+---
+
+# 5. Strongest new contrary evidence
+
+1. **Nuclear policy:** Washington Declaration restrained South Korean proliferation, but also expanded nuclear consultation and strategic-asset visibility; U.S. transparency declined and Lakenheath preparations suggested posture expansion.
+2. **Peace/security:** Biden restored China military communications and pressed for a Gaza pause, but approved cluster munitions and maintained arms relationships despite documented recipient civilian-harm risks.
+3. **Domestic safety:** DOJ revived systemic police oversight, but federal restrictive-housing reform remained largely unimplemented and immigration policies raised UN non-refoulement concerns.
+4. **Political freedom:** DOJ pursued voting rights and press safeguards, while courts found a plausible coercion problem in social-media contacts and press-access concerns persisted.
+5. **Economy:** CHIPS and SAVE moved from plans into administrative implementation, but end-2023 production/outcome effects were limited or projected, and fiscal/macro attribution remained unresolved.
+6. **Social welfare:** Marketplace enrollment expanded and emergency supports demonstrably improved security, but Medicaid procedural losses, homelessness, child poverty, and food-support expiration were significant.
+7. **Integrity:** Independent inquiry evidence had not tied Joe Biden to family-business crimes, and disclosures/divestiture compliance were positive; classified-document misstatements, nuclear secrecy, and failure to address watchdog dysfunction remained adverse.
+8. **Effectiveness:** Some programs showed detailed operationalization and rapid adaptation; restrictive-housing reform and arms-control follow-through showed clear execution gaps.
+
+---
+
+# 6. Manifest delta for persistence
+
+Append or update the manifest with the following entries. Full canonical keys are stated above.
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries_delta": [
+    {"provisional_id":"E003","disposition":"context","reason":"Superseded for precise posture claim by opened FAS source E026"},
+    {"provisional_id":"E015","disposition":"rejected","reason":"Superseded by opened archived White House primary record E045"},
+    {"provisional_id":"E021","disposition":"final_evidence"},
+    {"provisional_id":"E022","disposition":"final_evidence"},
+    {"provisional_id":"E023","disposition":"final_evidence"},
+    {"provisional_id":"E024","disposition":"final_evidence"},
+    {"provisional_id":"E025","disposition":"final_evidence"},
+    {"provisional_id":"E026","disposition":"final_evidence"},
+    {"provisional_id":"E027","disposition":"final_evidence"},
+    {"provisional_id":"E028","disposition":"final_evidence"},
+    {"provisional_id":"E029","disposition":"final_evidence"},
+    {"provisional_id":"E030","disposition":"final_evidence"},
+    {"provisional_id":"E031","disposition":"final_evidence"},
+    {"provisional_id":"E032","disposition":"final_evidence"},
+    {"provisional_id":"E033","disposition":"final_evidence"},
+    {"provisional_id":"E034","disposition":"final_evidence"},
+    {"provisional_id":"E035","disposition":"final_evidence"},
+    {"provisional_id":"E036","disposition":"final_evidence"},
+    {"provisional_id":"E037","disposition":"final_evidence"},
+    {"provisional_id":"E038","disposition":"final_evidence"},
+    {"provisional_id":"E039","disposition":"final_evidence"},
+    {"provisional_id":"E040","disposition":"context"},
+    {"provisional_id":"E041","disposition":"final_evidence"},
+    {"provisional_id":"E042","disposition":"context"},
+    {"provisional_id":"E043","disposition":"final_evidence"},
+    {"provisional_id":"E044","disposition":"final_evidence"},
+    {"provisional_id":"E045","disposition":"final_evidence"},
+    {"provisional_id":"E046","disposition":"context"},
+    {"provisional_id":"E047","disposition":"discovery_only"},
+    {"provisional_id":"E048","disposition":"final_evidence"},
+    {"provisional_id":"E049","disposition":"final_evidence"},
+    {"provisional_id":"E050","disposition":"final_evidence"},
+    {"provisional_id":"E051","disposition":"context"},
+    {"provisional_id":"E052","disposition":"final_evidence"},
+    {"provisional_id":"E053","disposition":"final_evidence"},
+    {"provisional_id":"E054","disposition":"final_evidence"},
+    {"provisional_id":"E055","disposition":"context"},
+    {"provisional_id":"E056","disposition":"final_evidence"},
+    {"provisional_id":"E057","disposition":"final_evidence"},
+    {"provisional_id":"E058","disposition":"final_evidence"},
+    {"provisional_id":"E059","disposition":"final_evidence"},
+    {"provisional_id":"E060","disposition":"rejected","reason":"Campaign Legal Center PDF returned raw bytes; no reliable page locator"},
+    {"provisional_id":"E061","disposition":"final_evidence"},
+    {"provisional_id":"E062","disposition":"final_evidence"},
+    {"provisional_id":"E063","disposition":"final_evidence"},
+    {"provisional_id":"E064","disposition":"final_evidence"},
+    {"provisional_id":"E065","disposition":"final_evidence"},
+    {"provisional_id":"E066","disposition":"context"},
+    {"provisional_id":"R005","disposition":"rejected","reason":"GAO pages blocked by robots; official restrictive-housing claim recovered through E036/E064"},
+    {"provisional_id":"R006","disposition":"rejected","reason":"CBO pages and PDFs blocked by robots; E047 remains discovery_only"},
+    {"provisional_id":"R007","disposition":"rejected","reason":"Defense.gov and JCS pages blocked by robots; Washington Declaration implementation recovered through E023"},
+    {"provisional_id":"R008","disposition":"rejected","reason":"DSCA Saudi sale pages blocked by robots; timeline claims recovered through E032"},
+    {"provisional_id":"R009","disposition":"rejected","reason":"Supreme Court PDF returned raw bytes; usable response evidence retained through E041"},
+    {"provisional_id":"R010","disposition":"rejected","reason":"DHS and DOJ OIG PDFs returned raw bytes without reliable extractable locators"}
+  ]
+}
+```
+
+## Final research assessment
+
+Round 1 met the continuation objective: every selected chapter gained new, traceable material from targeted source families, and the prior concentration/gateway issues were reduced. The record remains most constrained by inaccessible official PDFs and by inherent attribution limits involving Congress, courts, states, independent agencies, and subordinates. No absence was converted into favorable or adverse conduct, no client score was used, and no score, range, ranking, or score/null recommendation was produced.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:2B.1|LF001-LF004|USA-2023-military-spending",
+      "disposition": "context",
+      "provisional_id": "L001"
+    },
+    {
+      "canonical_fact_key": "local-prior:3B.1|LF005-LF010|USA-2023-physical-integrity",
+      "disposition": "context",
+      "provisional_id": "L002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1|LF011-LF025|USA-2023-democracy-freedom",
+      "disposition": "context",
+      "provisional_id": "L003"
+    },
+    {
+      "canonical_fact_key": "local-prior:5B.1|LF026-LF028|USA-2023-economic-level",
+      "disposition": "context",
+      "provisional_id": "L004"
+    },
+    {
+      "canonical_fact_key": "local-prior:7B.1|LF029-LF032|USA-2023-corruption",
+      "disposition": "context",
+      "provisional_id": "L005"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|sections-US-ready-engage-Russia-China-P5|Biden-administration-arms-control-offer",
+      "disposition": "final_evidence",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|opening-paragraphs-US-proposal|no-formal-written-proposal-three-months",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|section-Lakenheath-surety-mission|possible-return-US-nuclear-mission-UK",
+      "disposition": "final_evidence",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://news.un.org/en/story/2023/10/1142507|sections-vote-US-rejection|US-veto-humanitarian-pauses-resolution",
+      "disposition": "final_evidence",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-foreign-policy|military-assistance-human-rights-abusing-states",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions",
+      "disposition": "final_evidence",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.aclu.org/press-releases/aclu-acknowledges-improvements-to-doj-racial-profiling-policy-but-says-far-more-is-needed|implementation-policies-and-racial-profiling-sections|policing-EO-implementation-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.aclu.org/news/immigrants-rights/unchecked-growth-private-prison-corporations-and-immigration-detention-three-years-into-the-biden-administration|daily-detention-private-share-sections|ICE-detention-growth-private-facilities",
+      "disposition": "final_evidence",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|section-Immigrants-Rights-and-Border-Communities|Biden-2023-asylum-rule",
+      "disposition": "final_evidence",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://www.idea.int/gsod/2023/chapters/americas/case/united-states-of-america|voting-restrictions-and-disinformation-sections|US-2023-democracy-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-and-Democracy-section|Biden-democracy-protection-context",
+      "disposition": "final_evidence",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.bls.gov/opub/ted/2024/real-average-hourly-earnings-increased-1-4-percent-from-january-2023-to-january-2024.htm|headline-statistic|real-hourly-earnings-1.4-percent",
+      "disposition": "discovery_only",
+      "provisional_id": "E012"
+    },
+    {
+      "canonical_fact_key": "https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates",
+      "disposition": "final_evidence",
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-economic-justice|poverty-inequality-incarceration",
+      "disposition": "final_evidence",
+      "provisional_id": "E014"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/us/new-biden-student-loan-plan-cuts-payments-millions-white-house-says-2023-08-22/|search-result-summary|SAVE-plan-estimated-savings",
+      "disposition": "discovery_only",
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E016"
+    },
+    {
+      "canonical_fact_key": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge",
+      "disposition": "final_evidence",
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings",
+      "disposition": "final_evidence",
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/?ruling=true|intro-and-scorecard|Biden-program-tracked-by-verifiable-outcomes",
+      "disposition": "context",
+      "provisional_id": "E019"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/asia-pacific/biden-report-afghanistan-withdrawal-blames-trump-2023-04-06/|search-result-summary|Biden-Afghanistan-review-blamed-inherited-constraints",
+      "disposition": "discovery_only",
+      "provisional_id": "E020"
+    },
+    {
+      "canonical_fact_key": "https://www.congress.gov/crs-product/R47828|page|CRS-Gaza-policy-report",
+      "disposition": "rejected",
+      "provisional_id": "R001",
+      "reason": "HTTP 403; underlying report not retrieved"
+    },
+    {
+      "canonical_fact_key": "https://www.justice.gov/storage/report-from-special-counsel-robert-k-hur-february-2024.pdf|pdf|Hur-primary-report",
+      "disposition": "rejected",
+      "provisional_id": "R002",
+      "reason": "Fetch returned raw PDF bytes; no reliable page extraction in this worker"
+    },
+    {
+      "canonical_fact_key": "https://oig.justice.gov/reports/department-justice-top-management-and-performance-challenges-2023/law-enforcement|page|DOJ-OIG-law-enforcement",
+      "disposition": "rejected",
+      "provisional_id": "R003",
+      "reason": "Fetched content contained no usable report text"
+    },
+    {
+      "canonical_fact_key": "reuters-2023-pages|multiple|robots-blocked",
+      "disposition": "rejected",
+      "provisional_id": "R004",
+      "reason": "Direct page fetch prohibited by Reuters robots.txt; snippets retained only where separately indexed as discovery_only"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 12,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter improved materially, but arms-control speech claims remain concentrated in one underlying source family after splitting.",
+        "E026 supports posture planning, not a proven Biden personal deployment decision.",
+        "Some unresolved themes remain research-recoverable through additional policy-specific and technical sources."
+      ],
+      "missing_themes": [
+        "Direct nuclear command-and-control and launch-authority safeguards",
+        "Iran, North Korea, Saudi, and allied proliferation-restraint decisions",
+        "Biological, cyber, space, and AI safeguard implementation",
+        "Independent start-versus-end 2023 posture assessment"
+      ]
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 14,
+      "independent_source_family_estimate": 9,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Cluster-munition evidence is direct for Biden’s decision but relies substantially on one rights-organization source.",
+        "Saudi and recipient-harm evidence establishes risk context, not completed transfers or Biden personal deliberation.",
+        "Civilian-harm accountability remains incomplete despite the added UN, media, and NGO material."
+      ],
+      "missing_themes": [
+        "Primary 2023 Israel arms-transfer and civilian-harm accountability records",
+        "Biden-level response to specific civilian-harm warnings",
+        "Ukraine ATACMS, F-16, targeting, prisoner-treatment, and accountability decisions",
+        "Independent evidence linking Biden diplomacy to the November Gaza pause"
+      ]
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 13,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter now has stronger federal enforcement and UN evidence, but prison and surveillance evidence still depends partly on secondary reporting of inaccessible audits.",
+        "Local condition measures and local police incidents remain insufficient for direct Biden attribution.",
+        "Additional primary oversight records could materially improve attribution and implementation assessment."
+      ],
+      "missing_themes": [
+        "Federal protest surveillance and treatment in 2023",
+        "Federal prison deaths, solitary-confinement conditions, and detention oversight",
+        "Direct DHS/DOJ inspector-general findings",
+        "Federal versus state/local responsibility for safety outcomes"
+      ]
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 8,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Much adverse evidence concerns state conduct, courts, or inherited institutions and cannot be personalized to Biden.",
+        "The chapter lacks evidence of a material 2023 personality-cult, loyalty-test, state-party-capture, or transfer-of-power pattern, but the notebook reports targeted searches and a credible reason those themes are not discriminating for this period.",
+        "Federal social-media contacts, voting-rights enforcement, press access, and response to judicial constraint are now represented with contrary evidence."
+      ],
+      "missing_themes": []
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 13,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "CHIPS and SAVE evidence establishes program design and launch, not completed economic outcomes.",
+        "CBO and audit candidates remain locator-blocked or inaccessible, leaving a material fiscal and execution gap.",
+        "Macro outcomes and poverty measures remain only partly attributable to Biden."
+      ],
+      "missing_themes": [
+        "Independent 2023 inflation and Federal Reserve versus fiscal-policy attribution",
+        "IRA and infrastructure implementation milestones or audits",
+        "2023 deficit and debt trajectory from CBO or equivalent analysis",
+        "Distributional outcomes beyond projected SAVE effects",
+        "Competition policy, appointments, procurement, and policy correction"
+      ]
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 16,
+      "independent_source_family_estimate": 8,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter is now diversified across health coverage, Medicaid, housing, food security, homelessness, and disaster response.",
+        "Several outcome claims involve Congress, states, or inherited pandemic policies and cannot be assigned solely to Biden.",
+        "The notebook expressly identifies remaining service-domain gaps and does not provide a credible saturation explanation."
+      ],
+      "missing_themes": [
+        "Maternal health and reproductive-care outcomes",
+        "Rural healthcare access",
+        "School recovery and childcare",
+        "Independent evaluation of Maui response adequacy and durability",
+        "Longer-term program delivery beyond announcements"
+      ]
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 9,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The record is no longer limited to classified documents, but personal-integrity evidence remains concentrated in a few episodes and reviews.",
+        "Positive disclosure and family-business evidence is bounded appropriately; it does not prove absence of misconduct.",
+        "The donor-ambassador candidate and underlying disclosure materials remain recoverable extraction gaps."
+      ],
+      "missing_themes": [
+        "Underlying 2023 financial-disclosure contents and independent conflict review",
+        "Campaign-finance and family-business financial patterns tied to Biden’s knowledge, benefit, or intervention",
+        "Appointment competence versus donor or loyalist influence",
+        "Broader sample of factual corrections and candor",
+        "Inspector-general and whistleblower response using primary records"
+      ]
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 18,
+      "independent_source_family_estimate": 11,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter has strong evidence for selected program operationalization, adaptation, and implementation failure, but not for the entire frozen portfolio.",
+        "Official launch materials and industry projections are not equivalent to completed outcomes.",
+        "Attribution remains shared with Congress, states, agencies, courts, the Federal Reserve, and inherited capacity."
+      ],
+      "missing_themes": [
+        "Portfolio-wide 2023 implementation scorecard",
+        "Personnel selection, turnover, coordination, and cabinet management",
+        "IRA, infrastructure, and climate audit findings",
+        "Budget execution and independent milestone verification",
+        "Evidence of corrective resource reallocation across the portfolio"
+      ]
+    }
+  ],
+  "global_findings": [
+    "Continuation is still warranted for 1B, 2B, 3B, 5B, 6B, 7B, and 8B because each retains a material research-recoverable source, attribution, temporal, contrary-evidence, or event-coverage gap.",
+    "4B does not require continuation: its principal remaining weak themes were specifically searched, are not clearly discriminating for 2023, and the chapter has credible federal constraint and contrary-evidence coverage.",
+    "Bundled local entries and split internet entries require deterministic cleanup and count reconciliation; they should not trigger additional web research by themselves.",
+    "Gateway-only Reuters material, the unresolved BLS locator, inaccessible CBO material, and raw-PDF candidates remain excluded from defensible estimates.",
+    "The notebook generally keeps local country conditions separate from ruler evidence and does not convert missing evidence into negative evidence.",
+    "Several chapters still rely on secondary reporting of inaccessible primary records, so source-quality and attribution limitations must remain explicit."
+  ],
+  "reviewer_summary": "Continuation remains material for seven chapters. Chapter 4B is sufficiently covered for the target period after targeted searches and has no clearly research-recoverable gap that would likely improve the dossier. The other chapters retain specific recoverable gaps, especially primary oversight and transfer records, macroeconomic and program audits, welfare-service domains, integrity documentation, and portfolio-wide effectiveness evidence. No scores or scoring advice are supplied."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Completed the continuation research pass for all selected chapters: 1B, 2B, 3B, 5B, 6B, 7B, and 8B. Chapter 4B was correctly excluded by the latest review. No scores were assigned.
+
+The workspace remained read-only, and shell access failed with `bwrap: loopback: Failed RTM_NEWADDR`; therefore I could not persist changes to `research-materials.md` or `research-ledger-manifest.json`. The following manifest-ready additions are the authoritative handoff.
+
+### New evidence units
+
+- **E067 — 1B:** NTI documented the Biden administration’s planned independent nuclear “fail-safe review” covering nuclear weapons, NC3, warning, and safeguards; implementation results remain unavailable. [NTI source](https://www.nti.org/analysis/articles/the-failsafe-review/)
+- **E068 — 1B:** FAS documented that the administration withheld 2021–2023 stockpile figures, then restored transparency in 2024; this provides both target-period secrecy and later corrective evidence. [FAS source](https://fas.org/publication/united-states-discloses-nuclear-warhead-numbers-restores-nuclear-transparency/)
+- **E069 — 1B:** The congressionally mandated Strategic Posture Commission recommended a major nuclear buildup, but this was a congressional commission recommendation, not evidence of a Biden decision. [FAS analysis](https://fas.org/publication/strategic-posture-commission-report-calls-for-broad-nuclear-buildup/)
+
+- **E070 — 2B:** DoD explained Biden’s DPICM transfer decision using Ukraine’s ammunition shortage, low dud-rate assurances, urban-use restrictions, recording requirements, and future demining support. [DoD transcript](https://www.defense.gov/News/Transcripts/Transcript/Article/3452000/under-secretary-of-defense-for-policy-dr-colin-kahl-holds-press-briefing/)
+- **E071 — 2B:** Biden and Xi restored military-to-military communications, theater-commander calls, arms-control discussions, and AI-safety talks in November 2023. [Presidential readout](https://www.presidency.ucsb.edu/documents/readout-president-joe-bidens-meeting-with-president-xi-jinping-the-peoples-republic-0)
+- **E072 — 2B:** Biden publicly directed emergency military assistance and force-posture reinforcement for Israel after the October attack, while citing hostage recovery and civilian defense. [DoD report](https://www.defense.gov/News/News-Stories/Article/article/3553040/us-flowing-military-supplies-to-israel-as-country-battles-hamas-terrorists/)
+- **E073 — 2B:** UN reporting documented serious mistreatment of prisoners of war by parties to the Ukraine conflict; attribution to U.S. assistance policy remains indirect and should not be personalized. [UN/OHCHR report](https://ukraine.un.org/en/224749-treatment-prisoners-war-and-persons-hors-de-combat-context-armed-attack-russian-federation)
+
+- **E074 — 3B:** DOJ OIG found recurring failures in federal-prison suicide prevention, emergency response, death documentation, staffing, contraband control, and after-action review. [DOJ OIG](https://oig.justice.gov/news/doj-oig-releases-report-issues-surrounding-inmate-deaths-federal-bureau-prisons-institutions)
+- **E075 — 3B:** FBI testimony acknowledged improper Section 702 queries involving peaceful protesters, while documenting post-2021 safeguards, training, approvals, and improved compliance. [FBI testimony](https://www.fbi.gov/news/speeches-and-testimony/oversight-of-section-702-of-the-foreign-intelligence-surveillance-act-and-related-surveillance-authorities)
+- **E076 — 3B:** DOJ opened a systemic investigation of Memphis policing in July 2023, including force, stops, arrests, discrimination, and specialized-unit oversight. [DOJ announcement](https://www.justice.gov/archives/opa/pr/justice-department-announces-pattern-or-practice-investigation-city-memphis-and-memphis)
+
+- **E077 — 5B:** CBO reported a FY2023 deficit of nearly $1.7 trillion, 6.3% of GDP, with debt rising to 97.3% of GDP. [CBO report](https://www.cbo.gov/publication/59640)
+- **E078 — 5B:** CBO estimated that enacted fiscal measures, including CHIPS, reconciliation legislation, and student-loan actions, raised short-term GDP while also adding inflationary pressure. [CBO outlook](https://www.cbo.gov/publication/58946)
+- **E079 — 5B:** Treasury documented concrete 2023 IRA implementation milestones, including clean-vehicle guidance, direct pay, transferability, pre-filing registration, labor standards, and fraud controls. [Treasury remarks](https://home.treasury.gov/news/press-releases/jy1362)
+- **E080 — 5B/8B:** State OIG found CHIPS planning generally sound but identified no detailed project schedule and no formal coordinating lead; one recommendation remained open. [State OIG audit](https://www.stateoig.gov/report/aud-si-24-20)
+
+- **E081 — 6B:** CMS issued May 2023 operational guidance for Medicaid unwinding and Marketplace transitions, including special enrollment and coverage-continuity flexibilities. [CMS/HHS guidance](https://www.hhs.gov/guidance/document/medicaid-continuous-enrollment-condition-unwinding-marketplace-frequently-asked-questions)
+- **E082 — 6B:** CMS reported that state policy choices materially affected children’s Medicaid retention and offered additional federal flexibilities and transition guidance. [CMS release](https://www.cms.gov/newsroom/press-releases/biden-harris-administration-releases-new-medicaid-and-chip-renewal-data-showing-role-state-policy)
+- **E083 — 6B/8B:** FEMA reported that an independent investigation was commissioned into Maui alerts, evacuations, communications, and firefighting; no completed adequacy assessment was available during the target period. [FEMA report](https://www.usfa.fema.gov/blog/preliminary-after-action-report-2023-maui-wildfire/)
+- **E084 — 6B/8B:** Commerce OIG later found FirstNet services were not effective during the 2023 Maui response, citing inadequate service, continuity planning, and reporting. [Oversight.gov audit](https://www.oversight.gov/reports/audit/nationwide-public-safety-broadband-network-was-not-always-available-first-responders)
+
+- **E085 — 7B:** PolitiFact found that a quoted family text did not establish Joe Biden was “in business” with Hunter Biden; the full context concerned personal financial matters. [PolitiFact](https://www.politifact.com/factchecks/2023/oct/06/jesse-watters/in-gop-impeachment-inquiry-texts-dont-prove-that-j/)
+- **E086 — 7B:** FactCheck.org reported competing interpretations of payments to Joe Biden, while noting that reimbursements or loans do not by themselves establish participation in Hunter Biden’s foreign business dealings. [FactCheck.org](https://www.factcheck.org/2023/12/gop-misleading-claims-in-biden-impeachment-investigation/)
+
+### Manifest delta
+
+```json
+[
+  {"provisional_id":"E067","disposition":"final_evidence"},
+  {"provisional_id":"E068","disposition":"final_evidence"},
+  {"provisional_id":"E069","disposition":"context"},
+  {"provisional_id":"E070","disposition":"final_evidence"},
+  {"provisional_id":"E071","disposition":"final_evidence"},
+  {"provisional_id":"E072","disposition":"final_evidence"},
+  {"provisional_id":"E073","disposition":"context"},
+  {"provisional_id":"E074","disposition":"final_evidence"},
+  {"provisional_id":"E075","disposition":"final_evidence"},
+  {"provisional_id":"E076","disposition":"final_evidence"},
+  {"provisional_id":"E077","disposition":"final_evidence"},
+  {"provisional_id":"E078","disposition":"final_evidence"},
+  {"provisional_id":"E079","disposition":"final_evidence"},
+  {"provisional_id":"E080","disposition":"final_evidence"},
+  {"provisional_id":"E081","disposition":"final_evidence"},
+  {"provisional_id":"E082","disposition":"final_evidence"},
+  {"provisional_id":"E083","disposition":"context"},
+  {"provisional_id":"E084","disposition":"final_evidence"},
+  {"provisional_id":"E085","disposition":"final_evidence"},
+  {"provisional_id":"E086","disposition":"final_evidence"}
+]
+```
+
+Remaining gaps are primarily classified nuclear command-and-control details, Israel transfer-level accountability, direct federal protest-surveillance records, maternal/rural/education outcomes, underlying financial-disclosure contents, and portfolio-wide independent implementation audits.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "local-prior:2B.1|LF001-LF004|USA-2023-military-spending",
+      "disposition": "context",
+      "provisional_id": "L001"
+    },
+    {
+      "canonical_fact_key": "local-prior:3B.1|LF005-LF010|USA-2023-physical-integrity",
+      "disposition": "context",
+      "provisional_id": "L002"
+    },
+    {
+      "canonical_fact_key": "local-prior:4B.1|LF011-LF025|USA-2023-democracy-freedom",
+      "disposition": "context",
+      "provisional_id": "L003"
+    },
+    {
+      "canonical_fact_key": "local-prior:5B.1|LF026-LF028|USA-2023-economic-level",
+      "disposition": "context",
+      "provisional_id": "L004"
+    },
+    {
+      "canonical_fact_key": "local-prior:7B.1|LF029-LF032|USA-2023-corruption",
+      "disposition": "context",
+      "provisional_id": "L005"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/events/2023-06/remarks-national-security-advisor-jake-sullivan-arms-control-association-aca-annual|sections-US-ready-engage-Russia-China-P5|Biden-administration-arms-control-offer",
+      "disposition": "final_evidence",
+      "provisional_id": "E001"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|opening-paragraphs-US-proposal|no-formal-written-proposal-three-months",
+      "disposition": "final_evidence",
+      "provisional_id": "E002"
+    },
+    {
+      "canonical_fact_key": "https://www.armscontrol.org/blog/2023-09/nuclear-disarmament-monitor|section-Lakenheath-surety-mission|possible-return-US-nuclear-mission-UK",
+      "disposition": "final_evidence",
+      "provisional_id": "E003"
+    },
+    {
+      "canonical_fact_key": "https://news.un.org/en/story/2023/10/1142507|sections-vote-US-rejection|US-veto-humanitarian-pauses-resolution",
+      "disposition": "final_evidence",
+      "provisional_id": "E004"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-foreign-policy|military-assistance-human-rights-abusing-states",
+      "disposition": "final_evidence",
+      "provisional_id": "E005"
+    },
+    {
+      "canonical_fact_key": "https://www.brookings.edu/articles/bidens-unspectacular-but-solid-national-security-record/|opening-assessment-and-Ukraine-section|Biden-de-escalatory-but-slow-weapons-decisions",
+      "disposition": "final_evidence",
+      "provisional_id": "E006"
+    },
+    {
+      "canonical_fact_key": "https://www.aclu.org/press-releases/aclu-acknowledges-improvements-to-doj-racial-profiling-policy-but-says-far-more-is-needed|implementation-policies-and-racial-profiling-sections|policing-EO-implementation-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E007"
+    },
+    {
+      "canonical_fact_key": "https://www.aclu.org/news/immigrants-rights/unchecked-growth-private-prison-corporations-and-immigration-detention-three-years-into-the-biden-administration|daily-detention-private-share-sections|ICE-detention-growth-private-facilities",
+      "disposition": "final_evidence",
+      "provisional_id": "E008"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|section-Immigrants-Rights-and-Border-Communities|Biden-2023-asylum-rule",
+      "disposition": "final_evidence",
+      "provisional_id": "E009"
+    },
+    {
+      "canonical_fact_key": "https://www.idea.int/gsod/2023/chapters/americas/case/united-states-of-america|voting-restrictions-and-disinformation-sections|US-2023-democracy-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E010"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-and-Democracy-section|Biden-democracy-protection-context",
+      "disposition": "final_evidence",
+      "provisional_id": "E011"
+    },
+    {
+      "canonical_fact_key": "https://www.bls.gov/opub/ted/2024/real-average-hourly-earnings-increased-1-4-percent-from-january-2023-to-january-2024.htm|headline-statistic|real-hourly-earnings-1.4-percent",
+      "disposition": "discovery_only",
+      "provisional_id": "E012"
+    },
+    {
+      "canonical_fact_key": "https://www.census.gov/library/publications/2024/demo/p60-283.html|summary-bullets-official-and-SPM|2023-poverty-rates",
+      "disposition": "final_evidence",
+      "provisional_id": "E013"
+    },
+    {
+      "canonical_fact_key": "https://www.hrw.org/world-report/2024/country-chapters/united-states|opening-summary-economic-justice|poverty-inequality-incarceration",
+      "disposition": "final_evidence",
+      "provisional_id": "E014"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/us/new-biden-student-loan-plan-cuts-payments-millions-white-house-says-2023-08-22/|search-result-summary|SAVE-plan-estimated-savings",
+      "disposition": "discovery_only",
+      "provisional_id": "E015"
+    },
+    {
+      "canonical_fact_key": "https://www.politifact.com/article/2023/feb/08/fact-checking-joe-bidens-2023-state-union-address/|job-creation-noncompete-infrastructure-sections|State-of-Union-claim-accuracy-mixed",
+      "disposition": "final_evidence",
+      "provisional_id": "E016"
+    },
+    {
+      "canonical_fact_key": "https://apnews.com/article/biden-hur-garland-classified-documents-836b99fe9cbef9ba7d32602f4928efec|opening-findings-and-case-distinctions|Hur-report-Biden-retention-no-charge",
+      "disposition": "final_evidence",
+      "provisional_id": "E017"
+    },
+    {
+      "canonical_fact_key": "https://www.factcheck.org/2024/02/bidens-claims-about-special-counsel-report-on-classified-documents-investigation/|summary-and-willful-retention-sections|Biden-misstated-Hur-findings",
+      "disposition": "final_evidence",
+      "provisional_id": "E018"
+    },
+    {
+      "canonical_fact_key": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/?ruling=true|intro-and-scorecard|Biden-program-tracked-by-verifiable-outcomes",
+      "disposition": "context",
+      "provisional_id": "E019"
+    },
+    {
+      "canonical_fact_key": "https://www.reuters.com/world/asia-pacific/biden-report-afghanistan-withdrawal-blames-trump-2023-04-06/|search-result-summary|Biden-Afghanistan-review-blamed-inherited-constraints",
+      "disposition": "discovery_only",
+      "provisional_id": "E020"
+    },
+    {
+      "canonical_fact_key": "https://www.congress.gov/crs-product/R47828|page|CRS-Gaza-policy-report",
+      "disposition": "rejected",
+      "provisional_id": "R001",
+      "reason": "HTTP 403; underlying report not retrieved"
+    },
+    {
+      "canonical_fact_key": "https://www.justice.gov/storage/report-from-special-counsel-robert-k-hur-february-2024.pdf|pdf|Hur-primary-report",
+      "disposition": "rejected",
+      "provisional_id": "R002",
+      "reason": "Fetch returned raw PDF bytes; no reliable page extraction in this worker"
+    },
+    {
+      "canonical_fact_key": "https://oig.justice.gov/reports/department-justice-top-management-and-performance-challenges-2023/law-enforcement|page|DOJ-OIG-law-enforcement",
+      "disposition": "rejected",
+      "provisional_id": "R003",
+      "reason": "Fetched content contained no usable report text"
+    },
+    {
+      "canonical_fact_key": "reuters-2023-pages|multiple|robots-blocked",
+      "disposition": "rejected",
+      "provisional_id": "R004",
+      "reason": "Direct page fetch prohibited by Reuters robots.txt; snippets retained only where separately indexed as discovery_only"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---
