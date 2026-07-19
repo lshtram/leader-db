@@ -70,6 +70,10 @@ def test_superset_compose_routes_through_nginx_proxy() -> None:
     assert proxy["ports"] == ["127.0.0.1:8088:8088"]
     assert "./nginx-conf:/etc/nginx/conf.d:ro" in proxy["volumes"]
     assert "./reports:/usr/share/nginx/html/reports:ro" in proxy["volumes"]
+    assert (
+        "../../docs/client-results:/usr/share/nginx/html/leaders-releases:ro"
+        in proxy["volumes"]
+    )
     assert any(
         "/reports/briefs/html:/usr/share/nginx/html/briefs:ro" in v for v in proxy["volumes"]
     )
@@ -83,10 +87,14 @@ def test_nginx_proxy_serves_reports_briefs_and_visualizations() -> None:
     nginx_conf = (SUPERSET_DIR / "nginx-conf" / "default.conf").read_text(encoding="utf-8")
 
     assert "listen 8088" in nginx_conf
+    assert "absolute_redirect off" in nginx_conf
     assert "location /reports/" in nginx_conf
     assert "location /reports/briefs/" in nginx_conf
     assert "location /visualizations/" in nginx_conf
     assert "location /reports/visualizations/" in nginx_conf
+    assert 'location ~ "^/reports/leaders/([0-9]{4})/(.*)$"' in nginx_conf
+    assert "/usr/share/nginx/html/leaders-releases/$1-top20/$2" in nginx_conf
+    assert "return 301 /reports/leaders/2023/" in nginx_conf
     assert "proxy_pass http://superset-app:8088" in nginx_conf
     assert "Cache-Control \"no-store, must-revalidate\"" in nginx_conf
 
@@ -95,6 +103,27 @@ def test_reports_index_links_customer_pages() -> None:
     index = (SUPERSET_DIR / "reports" / "index.html").read_text(encoding="utf-8")
 
     assert 'href="/superset/welcome/"' in index
+    assert 'href="leaders/"' in index
     assert "country-metrics-dashboard.html" in index
     assert "briefs/us-equity-ownership.html" in index
     assert "briefs/us-market-size-baseline.html" in index
+
+
+def test_leaders_year_registry_routes_both_releases() -> None:
+    registry = yaml.safe_load(
+        (SUPERSET_DIR / "reports" / "leaders" / "years.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert registry["years"] == [
+        {"year": 2024, "label": "2024", "path": "/reports/leaders/2024/"},
+        {"year": 2023, "label": "2023", "path": "/reports/leaders/2023/"},
+    ]
+    for year in (2023, 2024):
+        release = PROJECT_ROOT / "docs" / "client-results" / f"{year}-top20"
+        assert (release / "index.html").is_file()
+        assert (release / "data.json").is_file()
+        index = (release / "index.html").read_text(encoding="utf-8")
+        assert f'data-leaders-year="{year}"' in index
+        assert 'src="/reports/leaders/year-selector.js"' in index

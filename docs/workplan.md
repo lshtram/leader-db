@@ -1,5 +1,15 @@
 # Workplan
 
+## 2026-07-19 — Multi-year Leaders Database portal
+
+- Replaced the single hard-coded 2023 visualization mount with one read-only mount of
+  `docs/client-results/` and canonical `/reports/leaders/<year>/` release routing.
+- Added a stable `/reports/leaders/` year registry and shared selector used by the 2023
+  and 2024 viewers. The original `/reports/leaders-2023/` address remains a permanent
+  redirect, and future years require only a release folder plus one registry entry.
+- Expanded local portal health checks and deployment documentation to cover the year
+  registry, both published releases, their JSON payloads, and attribution records.
+
 ## 2026-07-19 — Chapters 1B and 7B v4 recalibration complete
 
 - Revised 1B to reserve score 1 for realized nuclear use or equivalent catastrophe,

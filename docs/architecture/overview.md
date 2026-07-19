@@ -22,6 +22,10 @@ separate read-only reporting surface. A deterministic build script joins frozen
 dossiers and chapter judgments to the client workbook, writes a repository-local
 JSON payload, and presents ruler-by-chapter score pairs, null-aware MSE, evidence
 lenses, citations, and judge rationale. Client values remain comparison data only.
+The Cloudflare-protected portal publishes these immutable releases through a stable
+`/reports/leaders/` year registry. Canonical year routes resolve
+`/reports/leaders/<year>/` to `docs/client-results/<year>-top20/`; the registry and
+shared selector are the only navigation files updated when another year is released.
 
 The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,

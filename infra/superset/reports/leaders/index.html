@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leaders Database · select year</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; color: #17243b; background: #f4f0e8; }
+    main { width: min(620px, calc(100vw - 40px)); padding: 36px; background: #fffdf8; border: 1px solid #d9d4ca; box-shadow: 0 18px 50px rgba(44, 48, 61, .09); }
+    p { color: #657087; line-height: 1.6; }
+    label { display: block; margin-top: 28px; color: #657087; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    select { display: block; width: 100%; margin-top: 8px; padding: 13px; color: #17243b; background: white; border: 1px solid #9e9a92; font: 700 1rem inherit; }
+    a { color: #126a72; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Leaders Database</h1>
+    <p>Select an evaluation year. Each release contains the complete ruler matrix, chapter judgments, evidence lenses, and cited source record available for that year.</p>
+    <label>Evaluation year <select data-leaders-year="0" aria-label="Evaluation year"><option>Loading years…</option></select></label>
+    <p><a href="/reports/">Back to all CHOPS Workshop reports</a></p>
+  </main>
+  <script src="year-selector.js" defer></script>
+</body>
+</html>
