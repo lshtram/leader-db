@@ -1,13 +1,13 @@
 # Chapter 1B — Nuclear And Existential-Risk Responsibility
 
-Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `1B`
 - Rating: nuclear and global existential-risk responsibility
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_1b_v3`
+- Rubric version: `chapter_1b_v4`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -100,8 +100,9 @@ credit even when the remaining stockpile is large.
 
 | Score | Chapter anchor |
 |---:|---|
-| 1 | The ruler deliberately or recklessly created extreme catastrophic danger through escalation, proliferation, unsafe control, coercive nuclear use/shielding, or crisis conduct, with no credible restraint. |
-| 2–3 | Severe risk-increasing conduct across important domains; safeguards or restraint were weak, instrumental, repeatedly violated, or overwhelmed by dangerous choices. |
+| 1 | The ruler authorized or caused an actual nuclear detonation against people or a military target, or deliberately caused an equivalent realized nuclear catastrophe. Actual use establishes eligibility for the floor; context, target, scale, alternatives, and restraint still determine whether 1 is warranted. |
+| 2 | The ruler moved credibly toward nuclear use or created an acute near-use danger through operational preparation, direct brinkmanship, extremely unsafe command, or sustained nuclear coercion during war, without a realized nuclear detonation. |
+| 3 | Severe nuclear risk increase through doctrine expansion, deployment, proliferation, repeated threats, safeguard abandonment, or destabilizing exercises, but without demonstrated near-use. |
 | 4–5 | Mixed or weak responsibility: meaningful restraint in some areas but consequential escalation, obstruction, unsafe governance, or deterioration in others. |
 | 6–7 | Generally responsible risk management and some tangible risk reduction, with notable omissions, ambiguity, inherited constraints, or inconsistent conduct. |
 | 8–9 | Strong, sustained, and consequential restraint, safeguards, diplomacy, expert governance, and crisis prudence that materially improved the posture. |
@@ -123,9 +124,26 @@ Scores of 6 or above require a direct ruler-attributed risk-bearing choice. Scor
 multiple independent source types. Country posture or silence alone cannot support a
 score.
 
+### Absolute-scale guardrails
+
+The annual cohort does not define the endpoints. The worst ruler in a current batch
+must not receive 1 unless the realized-use floor is met. Nuclear threats, coercive
+shielding of conventional war, doctrine hardening, exercises, deployments, or arsenal
+growth can be profoundly irresponsible while remaining in bands 2 or 3. Classify each
+record before scoring as `realized_use_or_catastrophe`,
+`credible_near_use_or_operational_preparation`,
+`severe_escalation_without_near_use`, `mixed_risk_management`,
+`generally_responsible_management`, `strong_consequential_risk_reduction`, or
+`exceptional_durable_risk_reduction`.
+
+A rationale may not describe threats, exercises, deployments, or doctrine change as
+"maximally dangerous" merely because no worse case appears in the annual cohort. Since
+no nuclear weapon has been detonated in war after 1945, a modern annual batch can
+properly contain no score of 1.
+
 ## Judge Workflow Across Rulers
 
-### V3 direct-evidence gate
+### V4 direct-evidence and absolute-floor gate
 
 A numeric score requires a target-period choice, action, restraint, remedy, or
 outcome within the ruler's actual nuclear or existential-risk authority. Generic
@@ -197,7 +215,7 @@ never sought or controlled.
 
 Alongside common calibration metadata, record:
 
-- `chapter_rubric_version`: `chapter_1b_v3`
+- `chapter_rubric_version`: `chapter_1b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `exposure_profile`: nuclear authority, latent/dual-use exposure, crisis exposure
 - `inherited_risk_posture` and `end_posture`

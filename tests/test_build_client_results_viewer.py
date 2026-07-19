@@ -30,6 +30,28 @@ def test_mse_excludes_missing_scores() -> None:
     assert module._mse(automated, client) == (4.0, 1)
 
 
+def test_reader_abstract_does_not_duplicate_anchor_reasoning() -> None:
+    module = _module()
+    judgment = {
+        "ruler_name": "Example Ruler",
+        "period_start_year": 2024,
+        "period_end_year": 2024,
+        "score_1_to_10": 6.0,
+        "higher_anchor_rejected": "I did not go higher because serious failures remain.",
+        "lower_anchor_rejected": "Real protections remained in place.",
+    }
+
+    abstract = module._reader_abstract(
+        judgment,
+        chapter_title="Domestic safety",
+        evidence_by_id={},
+    )
+
+    assert "because I did not" not in abstract
+    assert "I did not go higher because serious failures remain." in abstract
+    assert "I did not go lower because real protections remained in place." in abstract
+
+
 def test_2023_payload_joins_scores_dossiers_and_all_lenses() -> None:
     module = _module()
     payload = module.build_payload(module.load_config(CONFIG))

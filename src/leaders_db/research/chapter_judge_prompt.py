@@ -16,6 +16,7 @@ def build_chapter_judge_prompt(
     guide_text: str,
     projections: tuple[tuple[Path, RulerChapterProjection], ...],
     previous_candidate_path: Path | None = None,
+    supplemental_instructions: str = "",
 ) -> str:
     """Build a no-discovery prompt for one chapter-wide comparative judgment."""
 
@@ -61,7 +62,11 @@ and widen the plausible range; they do not mechanically lower the score. Use a
 null score only when the chapter as a whole is genuinely not defensibly judgeable.
 Treat projection coverage statuses and evidence-to-lens mappings as advisory
 bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
-item to the ten lenses yourself. In particular, `research_blocked` means that the
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
 formatter did not record a complete lens disposition; it does not erase relevant
 chapter evidence or require a null score.
 Use half-point score increments. A numeric score must rest on a concrete record of
@@ -98,6 +103,10 @@ acronym, or compressed phrase such as "the X scrutiny." The abstract must answer
 chapter question for a reader who has not read the dossier.
 
 Retry context: {repair_note}
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+{supplemental_instructions or "None."}
 
 Immutable batch identity:
 {json.dumps({

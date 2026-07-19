@@ -38,8 +38,9 @@ research.
    and material legal or coalition constraints. Cite it once and reuse it across
    chapters; do not demand proof of a personal order for ordinary authority-based
    responsibility. Personal-integrity claims still require a personal nexus.
-3. Work through chapters `1B` to `8B`, and their lenses, in order in the same
-   researcher session. Begin each chapter with broad discovery before judging source
+3. Work through the chapters and lenses selected by the job, in guide order, in the
+   same researcher session. A full-ruler job selects `1B` to `8B`; a bounded pilot does
+   not expand beyond its selected lenses. Begin each chapter with broad discovery before judging source
    admissibility: use varied event, institution, archive, source-family, and local-
    language queries to build a candidate URL pool. Search results are candidates, not
    evidence. Never use a recent-news filter for a historical period. Then open the

@@ -786,6 +786,7 @@ def _load_research_ledger_manifest(path: Path) -> dict[str, Any]:
         provisional_id = str(entry.get("provisional_id", "")).strip()
         disposition = str(entry.get("disposition", ""))
         chapter_ids = entry.get("chapter_ids", [])
+        methodology_ids = entry.get("methodology_ids", [])
         if not key or not provisional_id or disposition not in allowed or key in seen:
             raise WorkerOutputError("researcher ledger manifest entry is invalid")
         if not isinstance(chapter_ids, list) or any(
@@ -793,6 +794,13 @@ def _load_research_ledger_manifest(path: Path) -> dict[str, Any]:
             for chapter_id in chapter_ids
         ):
             raise WorkerOutputError("researcher ledger manifest chapter_ids are invalid")
+        if not isinstance(methodology_ids, list) or any(
+            not re.fullmatch(r"[1-8]B\.(?:10|[1-9])", str(methodology_id))
+            for methodology_id in methodology_ids
+        ):
+            raise WorkerOutputError(
+                "researcher ledger manifest methodology_ids are invalid"
+            )
         if disposition == "rejected" and not str(entry.get("reason", "")).strip():
             raise WorkerOutputError("rejected ledger entry requires a reason")
         seen.add(key)
@@ -892,6 +900,13 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
             disposition = "context"
         else:
             disposition = "final_evidence"
+        methodology_ids = sorted(
+            set(
+                re.findall(
+                    r"\b([1-8]B\.(?:10|[1-9]))\b", heading.group(0) + section
+                )
+            )
+        )
         entry = {
             "provisional_id": heading.group(1),
             "canonical_fact_key": key,
@@ -900,6 +915,8 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
                 set(re.findall(r"\b([1-8]B)(?:\.\d+)?\b", heading.group(0) + section))
             ),
         }
+        if methodology_ids:
+            entry["methodology_ids"] = methodology_ids
         if disposition == "rejected":
             entry["reason"] = use_match.group(1).strip() if use_match else "rejected"
         entries.append(entry)
@@ -957,6 +974,26 @@ def _validate_formatter_ledger_accounting(
             for key, chapters in list(routing_failures.items())[:5]
         )
         raise WorkerOutputError("formatter dropped accepted chapter routing: " + summary)
+    mapped_methodologies: dict[str, set[str]] = {}
+    for mapping in dossier.mappings:
+        key = evidence_key_by_id.get(mapping.evidence_id)
+        if key:
+            mapped_methodologies.setdefault(key, set()).add(mapping.methodology_id)
+    lens_routing_failures = {
+        key: sorted(
+            set(entry.get("methodology_ids", []))
+            - mapped_methodologies.get(key, set())
+        )
+        for key, entry in expected.items()
+        if set(entry.get("methodology_ids", []))
+        - mapped_methodologies.get(key, set())
+    }
+    if lens_routing_failures:
+        summary = ", ".join(
+            f"{key}=>{'/'.join(methodology_ids)}"
+            for key, methodology_ids in list(lens_routing_failures.items())[:5]
+        )
+        raise WorkerOutputError("formatter dropped accepted lens routing: " + summary)
 
 
 def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:

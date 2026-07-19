@@ -69,7 +69,8 @@ Requirements:
 - The supplied notebook includes a `ruler_research_ledger_manifest_v1` accounting
   index. Use it to prevent evidence collapse. Every manifest entry marked
   `final_evidence` must appear in the dossier with the same canonical fact key and must
-  remain mapped to at least one lens in every recorded `chapter_ids` chapter. Do not
+  remain mapped to every exact lens in `methodology_ids` and to at least one lens in
+  every recorded `chapter_ids` chapter. Do not
   rewrite its key, merge it away, or substitute another source during formatting.
   Source upgrades and disposition changes belong in research before formatting.
   Manifest entries marked `rejected` must not be emitted as evidence.
@@ -119,11 +120,12 @@ Requirements:
   judges can see it. Every mapping and coverage `evidence_id` must exactly equal one
   declared evidence ID; never concatenate, abbreviate, or combine evidence IDs.
   Reuse evidence across every genuinely relevant lens rather than leaving it invisible.
-  Complete chapter routing before detailed lens bookkeeping: every selected chapter must
+  Complete exact lens routing before coverage bookkeeping: every selected chapter must
   receive all evidence objects that the notebook explicitly links to that chapter. It is
-  acceptable to use one representative lens mapping per relevant chapter when the exact
-  lens fit is uncertain; the chapter judge will apply all ten lenses. Do not emit only one
-  mapping per evidence object when the notebook links it to several chapters.
+  acceptable to use one representative lens mapping only when the notebook records a
+  chapter but no exact lens. Never replace or omit an exact researcher-recorded lens
+  mapping. Do not emit only one mapping per evidence object when the notebook links it
+  to several chapters or lenses.
 - Use `no_evidence_found` only when the researcher explicitly records searches for
   that lens and gives a specific reason no usable evidence was found. If the notebook
   lacks an explicit disposition, use `research_blocked`; never manufacture

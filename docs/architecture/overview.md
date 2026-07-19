@@ -522,13 +522,18 @@ Historical searches do not use recent-news filters. Candidate discovery precedes
 source admissibility: promising underlying pages and documents are opened, claims and
 locators are extracted, and only then are accepted items added to the growing ledger.
 It writes a schema-light
-notebook/handoff plus a minimal stable-key/disposition/chapter accounting manifest, aiming
+notebook/handoff plus a minimal stable-key/disposition/chapter/exact-lens accounting manifest, aiming
 for 5–20 defensible
 source-claim units per chapter (normally about 10), while reporting mapped units
 separately from independent locator/source families and accepting documented sparse-case
 shortfalls. A separate configured formatter converts the handoff into the strict
 dossier without new research. Every accepted final-evidence key must survive unchanged
-and remain routed to every chapter in the manifest; otherwise formatting fails.
+and remain routed to every chapter and exact lens in the manifest; otherwise formatting
+fails. Before an individual lens can remain empty, the researcher performs and records a
+plain-language source-landscape pass across the mechanisms named by that lens; chapter
+abundance or a structured country baseline cannot substitute for that check.
+Research and review preserve the job's exact selected-lens scope: full-ruler jobs cover
+all selected lenses, while bounded diagnostic pilots do not expand to sibling lenses.
 Mapping-backed coverage is
 authoritative; absent or unexplained formatting output remains `research_blocked`
 rather than becoming `no_evidence_found`. Retry recovery considers only structurally
@@ -751,6 +756,53 @@ Years before 1900 are out of scope for the first prototype.
 ---
 
 ## Acceptance Criteria
+
+### Isolated conversational evidence collector
+
+`src/leaders_db/conversational_evidence/` is an experimental swappable evidence-only
+module and does not import the canonical dossier worker, reviewer, formatter, or job
+ledger. Its data-owned question catalog, prompts, and researcher configurations drive
+provider/model-selectable persistent research conversations. Each researcher Markdown
+turn is preserved before a stateless Luna call
+transcribes it without search or new summaries. A small deterministic store validates
+URLs and question IDs, deduplicates claim-level evidence, and writes separate evidence
+and evidence-to-lens mapping files with an atomic resume checkpoint. Context exhaustion
+starts a new researcher thread from the accumulated evidence index, and per-turn plus
+aggregate profiles preserve runtime, usage, tool, failure, coverage, and cost data.
+The optional batch supervisor runs a data-defined ruler roster with bounded staged
+concurrency. It stores an immutable manifest snapshot, per-job status and retry counts,
+append-only process logs, and periodic aggregate profiles. Re-running the same command
+resumes each dossier from its atomic session checkpoint; `--retry-failed` explicitly
+reopens only terminal jobs after a generic repair. Resource profiles include both the
+worker-process CPU/RSS footprint and whole-machine CPU/memory so provider latency can be
+distinguished from local saturation.
+A deterministic conversion gate bridges this experimental format to the canonical
+`ruler_evidence_dossier_v2` and `ruler_chapter_projection_v1` contracts. It requires an
+exact catalog ruler-year identity, validates all 80 mappings, preserves uncaptured
+source metadata as explicit missingness, and writes one cohort manifest per chapter.
+Partial projections remain recoverable, but a cohort with an identity blocker is marked
+non-runnable. Each cohort also records the same conservative three-bytes-per-token input
+estimate used by the judge worker so context overflow is discovered before any LLM call.
+The conversational judging seam adds a reversible compact projection: it selects the
+latest domain-diverse evidence per lens, preserves every omitted evidence ID and source
+projection in an omission ledger, enforces both token and Codex character limits, and
+never mutates the full dossier. Saved judge candidates can be deterministically repaired
+for harmless lens-list overlap, batch-wide confidence scaling, and unknown reference
+removal; material projection-reference cases remain flagged until a separate no-search
+review clears or returns them for rejudgment.
+Chapter subsets can be rerun under distinct run keys without replacing the original
+eight-chapter batch. A release-owned judgment-selection manifest chooses explicit
+chapter artifacts for the viewer. Run-scoped audit instructions may exclude identified
+out-of-scope evidence but may not prescribe scores; the judge still applies the complete
+guide and common cohort meter. Chapter 3B additionally distinguishes systematic
+repression from the historical mass-terror floor and gives decentralized conduct weight
+only where national-ruler command, encouragement, tolerance, obstruction, or feasible
+failure to remedy is evidenced.
+When an auditor identifies concrete inadmissible IDs, the conversational scope-filter
+layer removes those evidence records, mappings, and coverage references before a fresh
+judge call. It writes a complete per-ruler removal and requested-but-absent ledger and
+never mutates the compact source projections. This is stronger than asking the model to
+ignore known contamination in prose and keeps every rejected attempt recoverable.
 
 The first prototype is successful when, per §16 and the expanded architecture:
 

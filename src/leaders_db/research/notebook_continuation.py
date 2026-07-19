@@ -618,7 +618,9 @@ Preserve usable evidence from the accumulated notebook. Do not score the ruler. 
 permissive research handoff, not strict JSON. Do not merely describe what should be
 researched: perform it.
 Update `research-ledger-manifest.json` whenever you add, reject, or change the
-disposition of a ledger item.
+disposition of a ledger item. Preserve every exact lens mapping in its
+`methodology_ids`; use a new globally unique provisional ID for every new fact and
+never restart numbering in a continuation.
 
 Immutable ruler-period:
 {json.dumps(identity, indent=2)}
@@ -993,7 +995,9 @@ units and summaries to the existing evidence register, preserve contrary evidenc
 attribution limits, and explain when a gap cannot be improved or the chapter is
 saturated. Work only on the immutable ruler-period and do not score.
 Update `research-ledger-manifest.json` whenever you add, reject, or change the
-disposition of a ledger item.
+disposition of a ledger item. Preserve every exact lens mapping in its
+`methodology_ids`; use a new globally unique provisional ID for every new fact and
+never restart numbering in a continuation.
 
 Reviewer brief:
 {report.model_dump_json(indent=2)}

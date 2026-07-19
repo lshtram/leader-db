@@ -253,6 +253,10 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "establish one cited authority baseline" in prompt
     assert "Chapter 7B still requires a personal" in prompt
     assert "Do not declare a chapter ready merely because it reached a count" in prompt
+    assert "work through only the selected chapters and methodology IDs" in prompt
+    assert "must not silently expand to its other nine chapter" in prompt
+    assert "substantive\nselected-scope handoff" in prompt
+    assert "a rejected or malformed Parallel call is\n  a tool failure" in prompt
 
     formatter_prompt = build_dossier_prompt(
         job,

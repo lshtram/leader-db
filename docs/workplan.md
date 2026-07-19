@@ -1,5 +1,127 @@
 # Workplan
 
+## 2026-07-19 — Chapters 1B and 7B v4 recalibration complete
+
+- Revised 1B to reserve score 1 for realized nuclear use or equivalent catastrophe,
+  separate credible near-use from severe escalation, and require a genuine nuclear or
+  existential-risk pathway. Putin moved from 1.0 to 2.0; no modern ruler receives 1.
+- Revised 7B with an item-level personal-integrity nexus, fixed historical anchors, and
+  open-versus-closed visibility normalization. Generic repression, country corruption,
+  and allegation volume no longer qualify merely through lens mapping.
+- Added a deterministic audited scope filter with a complete removal/absent-ID ledger.
+  It removed 66 inadmissible compact claims across 1B and 7B before final judging.
+- The accepted batches contain 38 numeric scores and two explicit 1B nulls for DRC and
+  Ethiopia, where only inherited safeguards background remained. Targeted no-search
+  review cleared those as nonrecoverable no-opportunity nulls and cleared six mechanical
+  reference flags; both release batches now have zero manual-review flags.
+
+## 2026-07-19 — Chapter 3B absolute-scale correction and seven-chapter audit
+
+- Corrected public abstract composition so saved anchor explanations are not wrapped in
+  duplicate "because" clauses; rebuilt output contains no such construction.
+- Revised Chapter 3B to v4 with fixed historical endpoints, severity classes, strict
+  chapter-relevance gates, and proportional attribution for decentralized enforcement.
+- Preserved two non-release attempts that continued to weight out-of-scope USA evidence.
+  The accepted audit-corrected attempt names those exclusions explicitly, validates all
+  20 records, and cleared its sole projection-reference flag through targeted no-search
+  review. Biden moved from 5.5 to 6.5; Xi and Putin moved from 1.0 to 2.0.
+- Audited the other seven chapters without changing their scores. Chapters 1B, 2B, 5B,
+  and 6B passed provisionally; 4B and 8B received cautions; 7B has a material personal-
+  nexus/open-reporting-bias concern and is the highest-priority future rejudgment.
+
+## 2026-07-19 — 2024 top-20 judgments and evidence viewer complete
+
+- Canonically locked the 20 majority-year/formal rulers for 2024, creating the three
+  missing ruler-year rows for Narendra Modi, Ali Khamenei, and Nguyễn Phú Trọng. The
+  deterministic conversion now validates all 20 dossiers and 160 chapter projections.
+- Added auditable domain-diverse compaction with an omission ledger. Two retained claims
+  per lens keep all eight comparative prompts below Codex's 1,048,576-character limit
+  while exposing every omitted ID for recovery.
+- Eight GPT-5.4 mini chapter judges produced 160 numeric scores and complete reader-facing
+  rationales. Judge usage was 1.747M input and 279.9K output tokens, estimated at $2.42.
+  Deterministic normalization repaired lens-list overlap and 0–1 confidence serialization
+  without repeating model calls.
+- The score/order audit initially blocked release on confidence scale and nine projection
+  reference flags. Confidence was normalized to 0–100; a targeted no-search review cleared
+  all nine scores unchanged; the post-fix auditor approved release with no blockers.
+- Built `docs/client-results/2024-top20/`: 20 rulers, 160 score cells, eight detailed
+  chapters per ruler, ten lenses per chapter, cited compact evidence, confidence, ranges,
+  attribution analysis, anchor logic, and complete judge write-ups.
+
+## 2026-07-19 — Deterministic 2024 conversational-to-judge conversion gate
+
+- Added a no-LLM converter that validates conversational identity, completion, evidence
+  IDs, URLs/mappings, and exact local ruler-year resolution before producing canonical
+  dossier and chapter-projection inputs. Missing source classification, polarity,
+  locators, local priors, and attribution remain explicit placeholders rather than
+  inferred metadata.
+- The first 2024 conversion produced 17 validated dossiers and exposed three missing
+  canonical identities. After explicit canonical locks, the final conversion produced
+  all 20 validated dossiers and all 160 projections.
+- Conservative full-20 input estimates range from 1.04M to 1.44M tokens per chapter.
+  This exceeded the available judge surfaces and led to the audited compact projection
+  layer recorded above.
+
+## 2026-07-19 — 2024 top-20 GPT-5.4 mini evidence batch complete
+
+- Completed all 20 formal/majority-ruler dossiers for the 2023 population cohort in
+  2024 with the isolated conversational collector. The run produced 14,820 compact
+  evidence records, 2,917 distinct dossier-local source URLs, and populated all 1,600
+  ruler-question mappings without dangling evidence IDs.
+- The resumable supervisor was validated at 3, 5, then 10 concurrent workers. Over
+  5h56m wall time, 10-worker operation used about 1.4 GiB median RSS and 25.5% mean
+  whole-machine CPU, indicating that remote model/search latency—not local compute—was
+  the practical throughput limit.
+- GPT-5.4 mini research used 249.88M input, 169.98M cached-input, and 7.07M output
+  tokens; published-price estimated research cost was $104.48. Luna transcription used
+  28.47M input and 2.16M output tokens and is reported separately because its configured
+  price is unknown.
+- Generic recovery now handles context exhaustion, failed remote compaction, empty
+  responses, process retries, and incomplete lens notes without losing saved turns.
+  Durable batch state, append-only logs, raw notes, per-call profiles, and 20-second
+  resource history support restart and audit after interruption.
+
+## 2026-07-18 — Isolated conversational evidence collector experiment
+
+- Added a swappable `conversational_evidence` package that takes ruler, country,
+  year, and output directory and walks the complete 80-question catalog from JSON.
+- A researcher selected from `data/researchers.json` owns reconnaissance, web research,
+  source selection, compact summaries, and suggested lens links in persistent
+  conversations. Raw Markdown is checkpointed before any downstream work.
+- A stateless, no-search Luna pass only transcribes each saved M3 note into the small
+  evidence schema. Python validates, deduplicates, maps, and atomically writes
+  `evidence.json` and `mappings.json`; formatter failure never repeats M3 research.
+- Focused tests cover all 80 lenses for Biden, Putin, and Xi fixtures, interrupted
+  collection, formatter-only recovery, invalid mappings, and legacy output rejection.
+  Real Luna transcription passed. A complete Putin/Russia/2023 GPT-5.4 mini run covered
+  all 80 lenses with 637 claim records, 120 URLs, and no empty mappings. It also exposed
+  and fixed automatic context rollover and failed-turn artifact preservation. The run
+  records researcher and formatter timing, usage, tool calls, failures, source coverage,
+  and published-price researcher cost in `profile.json`.
+
+## 2026-07-18 — Biden 4B.2 collection failure audit and preservation fix
+
+- A direct source-landscape comparison found abundant 2023 Biden material for 4B.2,
+  while the full-ruler M3 process devoted only a small set of broad democracy queries
+  to the lens and missed Executive Order 14019, Hatch Act enforcement, primary-calendar
+  changes, and other named entrenchment mechanisms.
+- The USA repair notebook did collect and explicitly map social-media and voting-rights
+  evidence to 4B.2, but the final dossier published the lens empty. Continuation evidence
+  IDs collided with earlier IDs and the accounting contract protected chapter routing
+  only, allowing exact lens mappings to disappear during formatting.
+- Research prompts now require a plain-language, mechanism-aware source-landscape pass
+  before any lens is reported empty. Ledger recovery preserves exact methodology IDs,
+  continuation prompts prohibit ID-number restarts, and formatter validation rejects
+  loss of any accepted exact-lens mapping. A Biden-shaped regression test covers the
+  4B.2 preservation failure.
+- A bounded live M3 4B.2 diagnostic exposed three further operational defects: readiness
+  did not detect the stopped local provider proxy; M3 repeatedly emitted rejected
+  Parallel tool calls and substituted a Wikipedia-heavy known-URL pass; and evidence
+  review expanded the one-lens pilot to all ten 4B lenses. MiniMax research now prefers
+  its working native/Brave discovery tools, rejected search calls cannot count as
+  completed discovery, and researcher/reviewer prompts preserve exact selected-lens
+  scope.
+
 ## 2026-07-18 — Evidence preservation and null-recovery simplification
 
 - Consolidated attribution in the common calibration contract: formal responsibility

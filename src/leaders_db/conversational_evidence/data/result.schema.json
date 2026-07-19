@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence", "search_note"],
+  "properties": {
+    "search_note": {"type": "string"},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "publisher", "date", "url", "summary", "question_ids"],
+        "properties": {
+          "title": {"type": "string"},
+          "publisher": {"type": "string"},
+          "date": {"type": "string"},
+          "url": {"type": "string"},
+          "summary": {"type": "string"},
+          "question_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

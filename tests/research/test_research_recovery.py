@@ -547,12 +547,14 @@ def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
             "canonical_fact_key": "recovered:https://example.org/a|2B-AFG-001",
             "disposition": "final_evidence",
             "chapter_ids": ["2B"],
+            "methodology_ids": ["2B.1", "2B.7"],
         },
         {
             "provisional_id": "2B-AFG-002",
             "canonical_fact_key": "recovered:https://example.org/b|2B-AFG-002",
             "disposition": "context",
             "chapter_ids": ["2B"],
+            "methodology_ids": ["2B.5"],
         },
     ]
 
@@ -577,6 +579,45 @@ def test_research_ledger_manifest_requires_rejection_reason(tmp_path: Path) -> N
 
     with pytest.raises(WorkerOutputError, match="requires a reason"):
         _load_research_ledger_manifest(path)
+
+
+def test_markdown_manifest_recovers_exact_lens_mappings() -> None:
+    handoff = """### E038 — Appeals court found coercion risk
+- **Canonical fact key:** `https://example.test/ruling|p1|coercion`
+- **Disposition:** final_evidence
+- **Mappings:** 4B.2, 4B.6, 4B.9.
+"""
+
+    entries = _recover_markdown_ledger_entries(handoff)
+
+    assert entries[0]["chapter_ids"] == ["4B"]
+    assert entries[0]["methodology_ids"] == ["4B.2", "4B.6", "4B.9"]
+
+
+def test_formatter_accounting_rejects_dropped_exact_lens_mapping() -> None:
+    notebook = """Notebook.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"E038","canonical_fact_key":"fact-38",
+   "chapter_ids":["4B"],"methodology_ids":["4B.2","4B.6"],
+   "disposition":"final_evidence"}
+]}
+"""
+    dossier = SimpleNamespace(
+        evidence=(
+            SimpleNamespace(
+                evidence_id="E038",
+                canonical_fact_key="fact-38",
+                final_evidence_use="final_evidence",
+            ),
+        ),
+        mappings=(
+            SimpleNamespace(evidence_id="E038", methodology_id="4B.6"),
+        ),
+    )
+
+    with pytest.raises(WorkerOutputError, match="dropped accepted lens routing"):
+        _validate_formatter_ledger_accounting(dossier, notebook=notebook)
 
 
 def test_embedded_research_ledger_manifest_is_recovered(tmp_path: Path) -> None:

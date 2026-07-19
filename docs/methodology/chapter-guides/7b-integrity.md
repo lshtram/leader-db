@@ -1,6 +1,6 @@
 # 7B. Ruler Personal Integrity and Honesty
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment; v1 invalid
+Status: draft; revised after the 2024 personal-nexus audit; requires v4 rejudgment; v1 invalid
 
 ## Chapter Identity
 
@@ -8,7 +8,7 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment; v
 - Category: `ruler_personal_integrity_and_honesty`
 - Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
 - Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
-- Rubric version: `chapter_7b_v3`
+- Rubric version: `chapter_7b_v4`
 
 ## Chapter Purpose
 
@@ -61,6 +61,14 @@ benefit, favoritism, concealment, obstruction of scrutiny, retaliation against a
 integrity investigation, or deliberate abuse of office. Lenses 7B.7 and 7B.10 do not
 convert every repressive act into personal dishonesty. Score those acts primarily in
 3B/4B unless that integrity nexus is evidenced.
+
+Apply this as an item-level admissibility gate, not merely a caveat after scoring. For
+each potentially decisive item, identify the ruler's personal statement, interest,
+benefit, appointment, protected network, response to scrutiny, concealment, correction,
+obstruction, or knowing tolerance after notice. If none is shown, the item receives zero
+scoring weight even when it proves authoritarianism, repression, country corruption, or
+weak institutions. Do not cite a zero-weight item as decisive or use it to reject an
+adjacent anchor.
 
 ## Researcher Workflow and Evidence Themes
 
@@ -134,6 +142,36 @@ self-dealing, favoritism, patronage, concealment, or obstruction. If neither sid
 supported by traceable ruler-specific conduct, return null rather than rewarding or
 punishing the information environment.
 
+### Absolute-scale and visibility guardrails
+
+The annual cohort does not define the endpoints. Use fixed cross-period reference
+patterns rather than assigning the most opaque current ruler to the floor:
+
+- **1:** Personal or family extraction, deliberate deception, cronyism, and
+  state-backed concealment or impunity are central instruments of rule, supported by
+  direct findings or strong convergent ruler-specific evidence. Mobutu-era kleptocracy
+  or Marcos-family extraction are reference patterns; generic authoritarian control is
+  insufficient.
+- **2–3:** Severe or recurring ruler-specific deception, conflicts, favoritism,
+  self-dealing, or obstruction spans important domains, without reaching that floor.
+- **4–5:** Genuinely mixed personal conduct: attributable safeguards or honest conduct
+  coexist with material lapses, patronage, conflicts, broken commitments, or weak
+  accountability.
+- **6–7:** Generally honest public service with real scrutiny and correction, but
+  notable attributable lapses or opacity remain.
+- **8–9:** Sustained candor, separation of interests, professional appointments, and
+  acceptance of independent scrutiny, including evidence under adverse incentives.
+- **10:** Exceptional costly candor and durable strengthening against self-dealing and
+  impunity under strong contrary incentives.
+
+Normalize visibility before scoring. Numerous fact checks, press controversies, or
+allegations in an open system do not establish a worse pattern than silence in a closed
+system. Conversely, closed-system silence does not establish integrity or personal
+corruption. Compare materiality, repetition, findings, personal benefit, response, and
+remedy—not article counts. When admissible personal-nexus evidence is thin on both
+sides, return null rather than converting repression into a low score or silence into a
+midpoint.
+
 ## Holistic 1-10 Chapter Rubric
 
 Synthesize the ruler's pattern, materiality, intent, personal benefit, use of state
@@ -184,7 +222,7 @@ The judge returns one object per ruler using these exact semantic field names so
 all eight chapter outputs can be normalized by the same inexpensive formatter:
 
 - `chapter_id`: `7B`
-- `rubric_version`: `chapter_7b_v3`
+- `rubric_version`: `chapter_7b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`
@@ -208,7 +246,7 @@ wording.
 Use the common bias checks in `cited-evaluation-calibration.md`, interpreted at
 chapter level, plus:
 
-- `rubric_version`: `chapter_7b_v3`
+- `rubric_version`: `chapter_7b_v4`
 - `integrity_pattern`: `systemic_abuse`, `recurring_serious_abuse`, `mixed`,
   `generally_high_integrity`, `exceptional_integrity`, or `unclear`
 - `deception_pattern`: `strategic_systematic`, `recurring_material`, `mixed`,

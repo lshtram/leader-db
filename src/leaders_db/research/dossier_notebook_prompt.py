@@ -69,10 +69,11 @@ local facts, source registry, and chapter research lenses inlined below. Do not 
 additional local files during this worker run.
 
 Tool discipline:
-- Use the configured reliable search and source-retrieval tools. Prefer Parallel
-  `web_search`/`web_fetch` when available; use the credential-free Fetch MCP for known
-  source URLs; and fall back to MiniMax Search or Brave context for discovery when
-  Parallel is unavailable or rate-limited. Do not use Playwright for ordinary text
+- Use the configured reliable search and source-retrieval tools. On MiniMax profiles,
+  prefer the provider-native MiniMax Search or Brave search for discovery and use the
+  credential-free Fetch MCP for known source URLs. Use Parallel only after a call has
+  succeeded in the active execution profile; a rejected or malformed Parallel call is
+  a tool failure, not a completed search. Do not use Playwright for ordinary text
   research. Independent discovery calls may run concurrently within provider limits;
   preserve tool and query provenance.
 - Do not call image or image-inspection tools for text files, test tool access with
@@ -125,7 +126,10 @@ authority where relevant, and material legal or coalition constraints. Reuse thi
 baseline across chapters. For Chapters 1B-6B and 8B, formal responsibility can support
 attribution without proof of a personal order; Chapter 7B still requires a personal
 integrity nexus.
-Then work through chapters 1B to 8B, and the ten lenses inside each chapter, in order.
+Then work through only the selected chapters and methodology IDs in the job, in guide
+order. A full-ruler job selects chapters 1B to 8B and all ten lenses inside each; a
+bounded pilot selecting one lens must not silently expand to its other nine chapter
+lenses.
 This is one continuing ruler research session and one growing evidence library, not
 80 independent research tasks. Before every lens,
 inspect the accumulated ledger and map any already relevant evidence. Search again
@@ -152,8 +156,9 @@ item, but every accepted item must use the same fields and one stable provisiona
 When file writing is available, also maintain `research-ledger-manifest.json` at the
 supplied path as a small accounting index with this shape:
 `{{"schema_version":"ruler_research_ledger_manifest_v1","entries":[...]}}`.
-Each entry must contain `provisional_id`, `canonical_fact_key`, `chapter_ids`, and
-`disposition`, where `chapter_ids` lists every relevant chapter and
+Each entry must contain `provisional_id`, `canonical_fact_key`, `chapter_ids`,
+`methodology_ids`, and `disposition`, where `chapter_ids` lists every relevant chapter,
+`methodology_ids` lists every exact lens explicitly mapped by the researcher, and
 disposition is `final_evidence`, `context`, `discovery_only`, or `rejected`. A rejected
 entry must also contain a specific `reason`. Update the manifest whenever the ledger
 changes. This is not a second evidence format: it is only the complete key/disposition
@@ -210,8 +215,17 @@ credible blocker.
 For each chapter, record discovery queries, candidate outcomes, and suggested lens
 links for accepted evidence. Do not spend research time producing 80 final coverage
 rows; the formatter derives exact coverage from explicit mappings. If a theme remains
-empty, record the targeted searches and reason. Report both mapped source-claim units
-and independent locator/source families. Seek at least three source organizations and
+empty, first run a lens-specific source-landscape pass phrased in the plain language of
+the lens. Search the ruler, period, conduct, and institutions named by the lens; include
+primary/legal records, independent monitors or scholarship, reputable reporting, and
+adverse or contrary interpretations. For a compound lens, vary searches across its
+named mechanisms instead of treating one mechanism as the whole question. Record the
+queries, promising candidates, opened sources, and rejection reasons. A lens may be
+reported empty only after this pass finds no usable source-claim unit or a specific
+access blocker is documented. Chapter-level source abundance and structured country
+baselines do not substitute for this lens-level discovery check. Report both mapped
+source-claim units and independent locator/source families. Seek at least three source
+organizations and
 two source types when the
 available evidence permits, but do not manufacture diversity. Treat post-period material
 as context unless it directly establishes a target-period fact. Empty or
@@ -231,7 +245,7 @@ Execution requirement for tool-using models: do not finish on a planning stateme
 an internal-thinking marker, or immediately after a search/page-inspection call. Begin
 the research calls promptly; after every tool result either continue the chapter work
 or synthesize the retained evidence. The final response must contain the substantive
-eight-chapter handoff itself, even when the notebook file was written successfully.
+selected-scope handoff itself, even when the notebook file was written successfully.
 """
 
 

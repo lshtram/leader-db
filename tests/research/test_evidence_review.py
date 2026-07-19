@@ -260,6 +260,23 @@ def test_terminal_reviewer_records_residual_gaps_without_more_continuation() -> 
     assert "not a claim that the dossier is complete" in prompt
 
 
+def test_reviewer_preserves_bounded_exact_lens_scope() -> None:
+    qa = assess_research_notebook(
+        "## 4B\n4B.2 evidence. Contrary evidence. Gap audit. Local-data audit.",
+        methodology_ids=("4B.2",),
+    )
+
+    prompt = build_evidence_review_prompt(
+        job={"job_key": "dossier:test", "input": {"question_ids": ["4B.2"]}},
+        notebook="## 4B\n4B.2 evidence.",
+        qa=qa,
+    )
+
+    assert '"4B.2"' in prompt
+    assert "Do not require, research, or list unselected sibling" in prompt
+    assert "bounded one-lens pilot does not" in prompt
+
+
 def _profile() -> ResearchModelProfile:
     return ResearchModelProfile(
         provider="openai",

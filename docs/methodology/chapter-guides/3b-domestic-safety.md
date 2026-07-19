@@ -1,13 +1,13 @@
 # Chapter 3B — Domestic Safety, Restraint, And Protection
 
-Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `3B`
 - Rating: domestic safety versus violence, oppression, and incitement
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_3b_v3`
+- Rubric version: `chapter_3b_v4`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -61,6 +61,18 @@ arbitrary detention, torture, killing, or preventable severe insecurity within t
 chapter. Classify adverse evidence by severity, scale, recurrence, state nexus,
 ruler attribution, and remedy before selecting an anchor.
 
+Apply a strict chapter-relevance gate before weighing evidence. Exclude foreign
+battlefield and overseas civilian-harm conduct from 3B unless the evidence establishes
+a direct domestic physical-safety consequence; Chapter 2B owns international conduct.
+Exclude inflation, growth, employment, and other macroeconomic conditions unless a
+specific causal chain establishes severe domestic physical insecurity; Chapters 5B
+and 6B own ordinary economic and social outcomes. Do not attribute municipal, state,
+provincial, campus, or otherwise decentralized policing to the national ruler merely
+because it occurred during the ruler's term. Such conduct may describe the national
+environment, but it affects the ruler score only in proportion to documented command,
+policy, funding conditions, encouragement, tolerance after notice, obstruction of
+remedy, or feasible failure to act.
+
 ## Sparse, Historical, And Closed-Regime Evidence
 
 Use archives, truth commissions, court files, contemporaneous diplomatic/human-rights
@@ -101,6 +113,43 @@ reported abuse alone is insufficient. A 9 normally requires meaningful pressure 
 consequential improvement. When evidence establishes conditions but not ruler
 contribution, cap the attribution claim and widen the range rather than over-crediting
 the inherited baseline.
+
+### Absolute-scale guardrails
+
+The annual cohort does not define the endpoints. Do not stretch the worst current ruler
+to 1 or compress the best current ruler toward the midpoint merely to distribute scores.
+Use the following fixed cross-period anchors while applying the evidence actually
+embedded for the target year:
+
+- **1:** an historical floor such as Nazi extermination rule, Khmer Rouge mass killing,
+  Stalin's mass-terror periods, or Assad-era systematic killing, torture, disappearance,
+  and terror at national scale. A score of 1 requires target-period evidence of mass
+  political/identity violence or systematic state terror—not censorship, authoritarian
+  control, political imprisonment, or even systematic repression standing alone.
+- **2–3:** severe authoritarian coercion with recurring torture, disappearance,
+  political imprisonment, collective punishment, identity persecution, or broad
+  impunity, but without evidence meeting the mass-terror floor for 1 in the target
+  period. A centralized closed regime can fit here even when ordinary crime is low.
+- **4–5:** selective or materially recurring coercion and weak remedies coexist with
+  meaningful areas of ordinary protection; abuse is serious but neither a mass-terror
+  system nor merely rare misconduct.
+- **6–7:** a broadly protective constitutional or institutional environment without
+  systematic terror, alongside serious recurring or insufficiently remedied police,
+  detention, protest, minority-protection, or crisis-response failures. Open reporting
+  of local incidents must not by itself pull such a system toward the authoritarian
+  bands, especially where national-ruler attribution is weak.
+- **8–9:** strong national restraint and protection, rare serious abuse, independent
+  investigation and meaningful remedy, including evidence that institutions worked
+  under pressure. A high inherited baseline is insufficient without ruler-period
+  contribution or maintained restraint under a real test.
+- **10:** exceptional protection and accountability under severe pressure, with durable
+  improvement or costly restraint beyond an ordinary high-performing baseline.
+
+Before finalizing each score, state the severity class—isolated, recurring, widespread,
+systematic repression, systematic terror, or mass violence—and verify that the selected
+numeric band matches it. `Systematic repression` is not a synonym for `systematic state
+terror`. Also identify every potentially material item rejected by the chapter-relevance
+or ruler-attribution gates in the rationale or chapter-specific fields.
 
 The ten lenses are qualitatively unequal and need no arithmetic aggregation. Systematic
 killing or torture can dominate many institutional positives; robust accountability can
@@ -178,7 +227,7 @@ oversight bodies as effective without evidence of independence and remedy.
 
 ## Chapter-Specific Calibration Fields
 
-- `chapter_rubric_version`: `chapter_3b_v3`
+- `chapter_rubric_version`: `chapter_3b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `severity_band`: none/isolated/recurring/widespread/systematic/mass
 - `state_responsibility`: direct/state-aligned/tolerated/failed-to-prevent/non-state/unclear

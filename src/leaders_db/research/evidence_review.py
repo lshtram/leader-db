@@ -209,6 +209,7 @@ def build_evidence_review_prompt(
             "period_end_year",
         )
     }
+    selected_methodology_ids = tuple(job.get("input", {}).get("question_ids", ()))
     terminal_instruction = (
         """
 This is the terminal review after all permitted research rounds. Do not request
@@ -228,6 +229,15 @@ open URLs, add facts from memory, rewrite the notebook, or assign scores. Format
 imperfections are not evidence defects. Assess defensible source-claim units, source
 independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
 and exact missing themes. Missing evidence is not negative ruler evidence.
+
+The immutable selected lens scope is:
+{json.dumps(selected_methodology_ids, indent=2)}
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
 
 Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
 for national policy, appointments, command, implementation, tolerance, or remedy can be

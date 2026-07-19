@@ -1,0 +1,5 @@
+"""Isolated conversational evidence collector."""
+
+from .collector import collect
+
+__all__ = ["collect"]

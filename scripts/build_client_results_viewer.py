@@ -185,7 +185,20 @@ def _lower_sentence_opening(value: str) -> str:
     for opening in ("The ", "No ", "A ", "An "):
         if value.startswith(opening):
             return value[0].lower() + value[1:]
+    if len(value) > 1 and value[0].isupper() and value[1].islower():
+        return value[0].lower() + value[1:]
     return value
+
+
+def _anchor_sentence(value: str, *, direction: str) -> str:
+    """Render a judge's anchor explanation without duplicating its causal prefix."""
+
+    text = value.strip().rstrip(".")
+    if not text:
+        return ""
+    if text.lower().startswith("i did not "):
+        return text[0].upper() + text[1:] + "."
+    return f"I did not go {direction} because {_lower_sentence_opening(text)}."
 
 
 def _reader_abstract(
@@ -241,16 +254,13 @@ def _reader_abstract(
     lower = str(judgment.get("lower_anchor_rejected") or "").rstrip(".")
     if higher and lower:
         paragraphs.append(
-            "Taken together, a higher score was not warranted because "
-            f"{_lower_sentence_opening(higher)}. A lower score was rejected because "
-            f"{_lower_sentence_opening(lower)}."
+            f"Taken together, {_anchor_sentence(higher, direction='higher')} "
+            f"{_anchor_sentence(lower, direction='lower')}"
         )
     elif higher or lower:
         reason = higher or lower
-        paragraphs.append(
-            "Taken together, the evidence supports the stated score because "
-            f"{_lower_sentence_opening(reason)}."
-        )
+        direction = "higher" if higher else "lower"
+        paragraphs.append(f"Taken together, {_anchor_sentence(reason, direction=direction)}")
     return "\n\n".join(paragraphs)
 
 
