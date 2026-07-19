@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leaders Database · 2024 scores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Leaders Database · provisional research release</p>
+      <h1>2024 ruler scores</h1>
+      <p class="dek">Eight comparative chapter judgments for twenty rulers, with every score connected to its rationale and cited evidence.</p>
+    </div>
+    <div class="release-mark"><span>Release</span><strong>Top 20 · v1</strong></div>
+  </header>
+
+  <main>
+    <section class="summary" aria-label="Release summary">
+      <div><span>Rulers</span><strong id="ruler-count">—</strong></div>
+      <div><span>Scored cells</span><strong id="cell-count">—</strong></div>
+      <div><span>Cohort average</span><strong id="overall-average">—</strong></div>
+      <p id="method-note">Loading comparison data…</p>
+    </section>
+
+    <aside class="methodology-update" aria-labelledby="methodology-update-title">
+      <p class="eyebrow">Methodology update</p>
+      <h2 id="methodology-update-title">Comparative evidence-based judgments</h2>
+      <p id="methodology-update">Loading methodology status…</p>
+    </aside>
+
+    <section class="matrix-section" aria-labelledby="matrix-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Comparison matrix</p><h2 id="matrix-title">Rulers × chapters</h2></div>
+        <div class="legend" aria-label="Score legend"><span class="key key-auto">2024 score</span><span class="key key-null">No score</span></div>
+      </div>
+      <div class="controls">
+        <label>Find ruler or country <input id="filter" type="search" placeholder="e.g. Xi, Brazil, USA"></label>
+        <button id="sort-average" type="button">Sort by average</button>
+      </div>
+      <div class="table-wrap">
+        <table id="score-table">
+          <thead><tr id="table-head"></tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <p class="table-note">Select any score to inspect its ten evidence lenses, sources, confidence, plausible range, attribution analysis, and comparative rationale.</p>
+    </section>
+
+    <section id="record" class="record empty" aria-live="polite">
+      <div class="empty-state"><p class="eyebrow">Evidence record</p><h2>Select any score cell</h2><p>The ruler’s eight chapters, ten evidence lenses per chapter, citations, and judge rationale will appear here.</p></div>
+    </section>
+  </main>
+
+  <footer><p>Scores are provisional research judgments, not client values. Full attribution and licensing details are preserved in <a href="attributions.md">the source-attribution record</a>.</p></footer>
+  <script src="viewer.js" defer></script>
+</body>
+</html>
