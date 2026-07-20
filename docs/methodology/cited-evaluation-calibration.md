@@ -119,6 +119,13 @@ not identify finer distinctions reliably. A numeric judgment may never use
 `recoverable_null`; that reason type is reserved for a null whose targeted research
 could plausibly recover a score.
 
+Score `1` is an exceptional absolute floor, not the lowest relative position in the
+current annual cohort. It is reserved for conduct at the chapter's historically
+extreme worst anchor (for example, Nazi-regime-level conduct where that comparison is
+substantively relevant). Severe contemporary misconduct does not by itself justify a
+`1`; the active chapter guide's floor conditions must be met. A cohort may correctly
+contain no score of `1`.
+
 Chapter guides may add domain-specific fields but may not remove this common
 semantic envelope.
 

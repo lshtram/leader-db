@@ -85,10 +85,15 @@ def test_full_and_pilot_manifests_are_valid_and_locked() -> None:
     pilot = BatchManifest.model_validate_json(
         (data / "2022-pilot-3-reviewed.json").read_text(encoding="utf-8")
     )
+    addendum = BatchManifest.model_validate_json(
+        (data / "2022-pilot-addendum-2-reviewed.json").read_text(encoding="utf-8")
+    )
 
     assert len(full.cases) == 20
     assert len(pilot.cases) == 3
     assert {item.iso3 for item in pilot.cases} == {"BRA", "IND", "RUS"}
+    assert {item.iso3 for item in addendum.cases} == {"CHN", "DEU"}
+    assert addendum.per_ruler_cost_ceiling_usd == 5.0
     assert all(item.identity_status == "reviewed_locked" for item in full.cases)
 
 

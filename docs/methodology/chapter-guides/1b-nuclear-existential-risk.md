@@ -141,6 +141,11 @@ A rationale may not describe threats, exercises, deployments, or doctrine change
 no nuclear weapon has been detonated in war after 1945, a modern annual batch can
 properly contain no score of 1.
 
+The general historical-extreme analogy (including references to Nazi-regime-level
+conduct) does not replace this chapter-specific test. Regime cruelty, repression, or
+aggression alone cannot establish the 1B floor: the ruler must meet the realized nuclear
+use or equivalent realized-catastrophe condition above.
+
 ## Judge Workflow Across Rulers
 
 ### V4 direct-evidence and absolute-floor gate
