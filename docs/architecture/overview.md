@@ -773,6 +773,14 @@ URLs and question IDs, deduplicates claim-level evidence, and writes separate ev
 and evidence-to-lens mapping files with an atomic resume checkpoint. Context exhaustion
 starts a new researcher thread from the accumulated evidence index, and per-turn plus
 aggregate profiles preserve runtime, usage, tool, failure, coverage, and cost data.
+
+The additive `hybrid_experiment/` runner is a controlled alternative, not a replacement
+for that collector. It builds a client-excluding local-prior package, keeps one persistent
+research thread for reconnaissance plus eight chapter-wide turns, assigns stable IDs to
+canonical URLs, reports mechanical quality warnings, permits one reviewer-directed grouped
+follow-up, and uses separate no-search review and formatting turns. It fingerprints the
+production collector before each run and stores all state beneath a separate experiment
+run key, so accepting or removing the experiment does not alter historical results.
 The optional batch supervisor runs a data-defined ruler roster with bounded staged
 concurrency. It stores an immutable manifest snapshot, per-job status and retry counts,
 append-only process logs, and periodic aggregate profiles. Re-running the same command
