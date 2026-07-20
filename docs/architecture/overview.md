@@ -791,6 +791,12 @@ so formatting cannot add evidence or silently infer mappings. A sibling batch su
 requires hash-locked, reviewed identities and successful 80-lens local-prior preflight,
 then reserves both per-ruler and batch-wide cost ceilings before launching resumable,
 staged-concurrency jobs.
+The parser tolerates only conventional Markdown list and inline-code wrappers around an
+otherwise strict record. Valid sibling records are retained when one line is malformed;
+the rejected line's number, validation reason, and SHA-256 are persisted outside the
+ledger. Resume can promote a completed, valid model turn left unfiled by an earlier
+validator failure. Retry limits count consecutive no-progress failures, while any new
+durable stage artifact resets the counter.
 The optional batch supervisor runs a data-defined ruler roster with bounded staged
 concurrency. It stores an immutable manifest snapshot, per-job status and retry counts,
 append-only process logs, and periodic aggregate profiles. Re-running the same command

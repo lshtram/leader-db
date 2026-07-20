@@ -3546,8 +3546,15 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
   performs all 80 local-prior checks per ruler, reserves per-ruler and aggregate cost
   ceilings, checkpoints every case, and scales concurrency only after completed gates.
   Real-data preflight found 1,600/1,600 local-prior dispositions ready with no extraction
-  errors. The next action is the three-ruler paid pilot; the remaining 17 cases must not
-  start before its cost and quality review.
+  errors. The three-ruler Putin/Modi/Bolsonaro pilot then completed for $6.58 total:
+  318 accepted claim units, 276 distinct URLs, and 262 claims retained after final
+  reviewer dispositions. Mean cost was $2.19 and mean model time 74.8 minutes per
+  ruler. The pilot exposed and fixed recoverable Markdown-wrapper parsing, unfiled-turn
+  recovery, progress-aware retry accounting, reviewer-schema clarity, and partial-line
+  rejection with an auditable SHA-256 log. The 20-ruler projection is about $43.88,
+  but post-review yield ranged from 64% to 94%; run two more contrasting rulers as a
+  five-ruler gate before releasing the remaining 15. Full findings are preserved in
+  `research/conversational-evidence/hybrid-experiment/2022-pilot-3-v2/comparison-and-readiness.md`.
 
 ## Phase C approach (data acquisition)
 
