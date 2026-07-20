@@ -289,6 +289,7 @@ def _recoverable_gaps(review: dict[str, Any]) -> list[dict[str, Any]]:
     return [
         {"chapter_id": chapter.get("chapter_id"), **gap}
         for chapter in review.get("chapters", [])
+        if chapter.get("decision") == "targeted_follow_up"
         for gap in chapter.get("material_gaps", [])
     ]
 

@@ -6,6 +6,9 @@ from leaders_db.conversational_evidence.hybrid_experiment.artifacts import (
     normalize_url,
     quality_summary,
 )
+from leaders_db.conversational_evidence.hybrid_experiment.runner import (
+    _recoverable_gaps,
+)
 
 
 def test_evidence_index_deduplicates_and_reuses_urls() -> None:
@@ -43,3 +46,25 @@ def test_baseline_manifest_hashes_production_files() -> None:
     assert value["git_head"]
     assert len(value["production_files"]) == 6
     assert normalize_url("https://EXAMPLE.com/a/?utm_campaign=x") == "https://example.com/a"
+
+
+def test_follow_up_uses_only_gaps_from_targeted_chapters() -> None:
+    review = {
+        "overall_decision": "targeted_follow_up",
+        "chapters": [
+            {
+                "chapter_id": "1B",
+                "decision": "pass",
+                "material_gaps": [{"gap": "credible but nonrecoverable"}],
+            },
+            {
+                "chapter_id": "5B",
+                "decision": "targeted_follow_up",
+                "material_gaps": [{"gap": "recoverable"}],
+            },
+        ],
+    }
+
+    assert _recoverable_gaps(review) == [
+        {"chapter_id": "5B", "gap": "recoverable"}
+    ]
