@@ -1,0 +1,172 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "Inherited NATO custody/control baseline; structural context, not Erdoğan's 2022 conduct."
+        },
+        {
+          "evidence_id": "E0002",
+          "reason": "Treaty baseline and historical ratification, not a target-year action."
+        },
+        {
+          "evidence_id": "E0003",
+          "reason": "Ratification is background, not direct 2022 conduct."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Safeguards framework is institutional context, not direct ruler action."
+        },
+        {
+          "evidence_id": "E0005",
+          "reason": "Civil-nuclear status is inherited exposure, not a direct nuclear-risk choice."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Incirlik risk is structural and inherited, not Erdoğan-directed conduct."
+        },
+        {
+          "evidence_id": "E0012",
+          "reason": "Alliance-tech setback is indirect context for nuclear-sharing, not direct command-and-control evidence."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct 2022 Turkish nuclear command-and-control or custody evidence is absent; the dossier mostly shows inherited treaty/NATO/IAEA posture plus civil-nuclear and mediation choices.",
+          "lenses": ["1B.3", "1B.5", "1B.7"],
+          "best_source_or_query_direction": "Official NATO custody language, IAEA safeguards records, and Turkish regulatory or parliamentary documents on civil nuclear governance",
+          "why_it_matters": "Without direct authority evidence, the chapter can only judge indirect civil-nuclear and crisis-mediation choices."
+        }
+      ],
+      "reason": "Fair. The dossier keeps inherited NATO/IAEA/CTBTO context separate from Erdoğan's 2022 civil-nuclear and mediation choices, and it preserves contrary evidence about Russian leverage and limited Turkish custody. The main limitation is exposure: no independent Turkish nuclear command authority exists, so the chapter can only judge indirect risk choices."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0021",
+          "reason": "Official self-defense framing, not independent evidence that the 2022 operation was necessary or proportionate."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. It balances restraint in NATO diplomacy and the grain corridor against Syria/Iraq coercion, proxy harm, and official self-defense claims, without collapsing multilateral bargaining into unilateral peacemaking."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0033",
+          "reason": "Narrow favorable minority-protection point; do not use as broad evidence of domestic safety or restraint."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. It shows recurring repression, protest/media pressure, stigmatizing rhetoric, and one narrow protective exception, while keeping remedy and attribution caveats visible."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0046",
+          "reason": "Specific Uyghur protection exception; not evidence of general political freedom or contestability."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. It presents electoral-law manipulation, judicial and media capture, protest and press pressure, and a limited favorable counterexample without confusing legal form with real contestability."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0058",
+          "reason": "Central-bank governance structure is background institutional context, not direct 2022 economic performance."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. It shows the low-rate macro regime, inflation, some household support, and positive growth, while keeping external drivers and partial relief distinct from ruler performance."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0065",
+          "reason": "Core health-insurance design predates Erdoğan; use only as inherited baseline."
+        },
+        {
+          "evidence_id": "E0067",
+          "reason": "UNICEF and EU co-delivery means attribution is shared, not purely domestic."
+        },
+        {
+          "evidence_id": "E0068",
+          "reason": "Shared attribution and donor dependence; count as delivery context, not Erdoğan-only welfare proof."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. It separates inherited service baselines and donor/shared refugee programs from Erdoğan-era mitigation, and it records both real welfare supports and the purchasing-power damage from macro policy."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0071",
+          "reason": "Retrospective newsroom-control anecdote about a 2020 episode; use as background to 2022 media capture, not stand-alone 2022 proof."
+        },
+        {
+          "evidence_id": "E0076",
+          "reason": "Allegation-based family-access story; useful only as a tentative network signal because kickbacks were not proven."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct forensic or documentary proof of Erdoğan's own assets, beneficial ownership, or personal enrichment in 2022 is still missing.",
+          "lenses": ["7B.3", "7B.4"],
+          "best_source_or_query_direction": "Asset declarations, beneficial-ownership records, procurement files, and independent audit or inquiry records",
+          "why_it_matters": "Without direct financial evidence, the chapter risks leaning too heavily on inference from network or regime-level corruption."
+        },
+        {
+          "gap": "Independent corroboration beyond Reuters-style reporting is still thin for the media-control and family-access claims.",
+          "lenses": ["7B.6", "7B.7", "7B.9"],
+          "best_source_or_query_direction": "Court records, advertising-allocation files, official disciplinary records, and non-Reuters investigative reporting",
+          "why_it_matters": "Stronger corroboration could move the integrity assessment by more than a point."
+        }
+      ],
+      "reason": "Manual review. The dossier has direct ruler statements and network/media evidence, but the personal-nexus proof for dishonesty, concealment, or self-enrichment remains thin and partly allegation-based; the package is honest about that limitation, but the chapter still needs a stronger personal link to be fully settled."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0077",
+          "reason": "Self-described program goals, not execution proof."
+        },
+        {
+          "evidence_id": "E0080",
+          "reason": "State retrospective completion counts are useful but self-reported, so they need audit-grade corroboration."
+        },
+        {
+          "evidence_id": "E0095",
+          "reason": "Same self-reported completion caveat; counts support direction but not quality or on-time delivery."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Audit-grade verification of project delivery and personnel effects is still thin; the package leans heavily on official program documents and self-reported completion counts.",
+          "lenses": ["8B.6", "8B.7", "8B.10"],
+          "best_source_or_query_direction": "Sayıştay audit reports, ministry performance audits, and project closeout reports",
+          "why_it_matters": "These would distinguish real implementation quality from administrative completion claims."
+        }
+      ],
+      "reason": "Fair. The follow-up closes the main implementation gap with budget, program, and outcome evidence, and the remaining dependence on official self-report is acknowledged rather than hidden."
+    }
+  ]
+}

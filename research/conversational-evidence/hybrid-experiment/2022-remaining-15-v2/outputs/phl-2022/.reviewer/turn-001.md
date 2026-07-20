@@ -1,0 +1,243 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0009",
+          "reason": "Inherited civilian-nuclear policy from February 2022, not Marcos conduct."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Energy remarks describe problem framing, not a concrete existential-risk decision."
+        },
+        {
+          "evidence_id": "E0014",
+          "reason": "PNRI commentary on future negotiations is indirect administrative context, not a Marcos-directed act."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No clean Marcos-attributable risk-bearing choice or implementation record on existential-risk policy in 2022.",
+          "lenses": ["1B.1", "1B.3", "1B.7", "1B.9"],
+          "best_source_or_query_direction": "Presidential appointments, cabinet minutes, and nuclear-safety or security-policy records from official Philippine releases and Reuters contemporaneous reporting.",
+          "why_it_matters": "Without a direct choice or authority exercise, the chapter remains mostly baseline and rhetoric."
+        },
+        {
+          "gap": "No independent evidence of strengthened command, safety, or expert governance on nuclear or catastrophic-risk issues.",
+          "lenses": ["1B.3", "1B.7"],
+          "best_source_or_query_direction": "IAEA/PNRI administrative records, defense or executive orders, and credible reporting on any expert bench or safety review changes.",
+          "why_it_matters": "The packet cannot yet show risk-reducing governance beyond broad legal constraints."
+        }
+      ],
+      "reason": "Usable but too much of the packet is inherited nuclear-law baseline and policy framing; the chapter lacks a clean Marcos-attributable risk-bearing choice or implementation record."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "No evidence that Marcos initiated, prolonged, or escalated interstate war or proxy conflict in 2022.",
+          "lenses": ["2B.2", "2B.5", "2B.9"],
+          "best_source_or_query_direction": "UCDP/SIPRI plus Reuters and official foreign-policy records on South China Sea incidents, defense moves, and any proxy or arms-transfer choices.",
+          "why_it_matters": "The chapter is fair only if the limited-exposure baseline is preserved and not confused with aggression."
+        },
+        {
+          "gap": "De-escalatory diplomacy is visible, but concrete peace outcomes are thin.",
+          "lenses": ["2B.1", "2B.7", "2B.10"],
+          "best_source_or_query_direction": "Treaty, ASEAN, DFA, and Reuters/UN archives on follow-through after summit statements and note verbales.",
+          "why_it_matters": "Rhetoric alone should not be mistaken for durable peace-building."
+        }
+      ],
+      "reason": "Direct diplomatic conduct and contrary evidence are present; the chapter is exposure-limited and fairly presented."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0029",
+          "reason": "Pre-inauguration protest incident is transition context, not Marcos-period domestic-safety conduct."
+        },
+        {
+          "evidence_id": "E0032",
+          "reason": "UN committee questioning is scrutiny context, not a factual finding of Marcos-era violence."
+        },
+        {
+          "evidence_id": "E0034",
+          "reason": "Mixes inherited Duterte-era killings with Marcos-era continuation; attribution must be separated."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence of Marcos personally ordering police, prison, or intelligence reform and its effects is still thin.",
+          "lenses": ["3B.1", "3B.2", "3B.4"],
+          "best_source_or_query_direction": "CHR findings, internal security directives, court records, and investigative reporting on arrest, detention, and accountability under Marcos in 2022.",
+          "why_it_matters": "The current packet relies heavily on promises, staffing, and institutional reactions."
+        },
+        {
+          "gap": "Red-tagging and protest-policing outcomes are visible, but the record does not show sustained improvement by year-end.",
+          "lenses": ["3B.3", "3B.8", "3B.10"],
+          "best_source_or_query_direction": "CHR, NUJP, HRW, and local reporting on protest policing and red-tagging after the transition.",
+          "why_it_matters": "Without follow-through evidence, the favorable items remain fragile."
+        }
+      ],
+      "reason": "Strong adverse and favorable evidence exist, but the packet still separates inherited Duterte violence from Marcos-era continuation only imperfectly."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0037",
+          "reason": "Official election calm claim is a body self-assessment, not Marcos conduct."
+        },
+        {
+          "evidence_id": "E0038",
+          "reason": "Observer mission is useful but measures the election environment, not a direct Marcos order."
+        },
+        {
+          "evidence_id": "E0040",
+          "reason": "DDoS and hostile information environment are context; not all of it is directly attributable to Marcos."
+        },
+        {
+          "evidence_id": "E0045",
+          "reason": "Journalist threats and the Lapid killing are important, but they are partly inherited and not proof of a Marcos-ordered press campaign."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Little direct evidence of post-inauguration strengthening of courts, legislatures, audit bodies, or local oversight.",
+          "lenses": ["4B.4", "4B.7"],
+          "best_source_or_query_direction": "Official appointment records, legislative actions, audit body outputs, and V-Dem/Freedom House corroboration for 2022 institutional changes.",
+          "why_it_matters": "The current packet is campaign-heavy and thinner on governance changes after taking office."
+        },
+        {
+          "gap": "No concrete Marcos-ordered surveillance or shutdown policy is shown.",
+          "lenses": ["4B.6", "4B.9"],
+          "best_source_or_query_direction": "Telecom, cyber, executive-order, and press-freedom records for 2022.",
+          "why_it_matters": "Without a direct policy link, the chapter risks overstating campaign-era hostility as state control."
+        }
+      ],
+      "reason": "The packet is fair, but it is campaign-heavy and overrelies on hostile-media context rather than post-inauguration institutional conduct."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0058",
+          "reason": "Structural World Bank inequality context predates Marcos and should not be read as his performance."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Household-level and distributional effects are still thin relative to the macro data.",
+          "lenses": ["5B.8", "5B.10"],
+          "best_source_or_query_direction": "PSA household surveys, poverty tables, regional labor data, and distributional analysis from the World Bank or IMF.",
+          "why_it_matters": "Macro growth can hide weak or uneven gains."
+        },
+        {
+          "gap": "Independent implementation evidence for customs, tax, and budget modernization remains limited.",
+          "lenses": ["5B.4", "5B.5", "5B.6"],
+          "best_source_or_query_direction": "COA audits, BIR/BOC execution records, and legislative follow-through on the SONA agenda.",
+          "why_it_matters": "The chapter should not rely only on announced reform intent."
+        }
+      ],
+      "reason": "Fairly presented with mixed attribution and contrary macro evidence; the main caveat is baseline and shock contamination, not missing structure."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0064",
+          "reason": "Long-run poverty history is inherited baseline, not Marcos-specific performance."
+        },
+        {
+          "evidence_id": "E0075",
+          "reason": "FY2022 budget predates Marcos and belongs in inherited context only."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent evidence of realized welfare gains in health, education, and social protection is still limited.",
+          "lenses": ["6B.2", "6B.10"],
+          "best_source_or_query_direction": "PSA, WHO, UNICEF, DepEd, DOH, and COA or program-evaluation evidence on 2022 outcomes.",
+          "why_it_matters": "The packet currently shows intent and rollout more than attributable results."
+        },
+        {
+          "gap": "Subnational and household-level distribution, dignity, and durability evidence remains thin.",
+          "lenses": ["6B.3", "6B.8", "6B.9"],
+          "best_source_or_query_direction": "Household surveys, regional service-delivery data, and independent evaluations of learning recovery and health access.",
+          "why_it_matters": "These lenses determine whether the welfare record was broad or mostly rhetorical."
+        }
+      ],
+      "reason": "The packet captures intent and some rollout, but remains too reliant on government self-reporting to fully establish realized welfare effects."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0041",
+          "reason": "Selective campaign media access shows narrative control, but not direct proof of dishonesty or self-dealing."
+        },
+        {
+          "evidence_id": "E0042",
+          "reason": "Inaugural silence on press freedom is a campaign and messaging omission, not direct integrity misconduct."
+        },
+        {
+          "evidence_id": "E0046",
+          "reason": "Disinformation ecosystem evidence is relevant context, but it does not prove Marcos personally authored every misleading tactic."
+        },
+        {
+          "evidence_id": "E0079",
+          "reason": "Retrospective disinformation summary is ecosystem-level context, not a personal finding."
+        },
+        {
+          "evidence_id": "E0080",
+          "reason": "AFP fact-check addresses propaganda patterns around the family brand, not a direct personal finding of corruption or lying."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct 2022 evidence on assets, campaign finance, procurement, and concealed personal benefit is still weak.",
+          "lenses": ["7B.3", "7B.4"],
+          "best_source_or_query_direction": "SALN records, campaign finance filings, procurement/audit findings, and investigative legal reporting on Marcos and close associates.",
+          "why_it_matters": "Without financial or legal nexus, the chapter risks over-reading ecosystem hostility as personal corruption."
+        },
+        {
+          "gap": "Court findings or audit findings on deceit, obstruction, or misuse of office are missing.",
+          "lenses": ["7B.6", "7B.7"],
+          "best_source_or_query_direction": "Court records, audit reports, and official investigative findings tied to Marcos or his close governing network.",
+          "why_it_matters": "The strongest evidence here is still indirect."
+        }
+      ],
+      "reason": "The dossier fairly captures a mixed honesty and patronage picture, but the strongest items are still ecosystem-level or family-linked rather than direct personal findings."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Independent evidence of implementation quality and durable outcomes is still thinner than the program-setting record.",
+          "lenses": ["8B.6", "8B.7", "8B.10"],
+          "best_source_or_query_direction": "COA audits, agency performance reports, and follow-through on the 8-point socioeconomic agenda through late 2022 and 2023.",
+          "why_it_matters": "Program articulation is strong, but execution remains partly inferred."
+        },
+        {
+          "gap": "The packet does not fully separate Marcos-era competence from inherited rebound and external shocks.",
+          "lenses": ["8B.7", "8B.9", "8B.10"],
+          "best_source_or_query_direction": "IMF/PSA decomposition, sector-specific delivery data, and independent analysis of policy contribution versus reopening effects.",
+          "why_it_matters": "Competence needs attributable progress, not just favorable macro movement."
+        }
+      ],
+      "reason": "Clear governing program, staffing, and early macro evidence exist, with the main caveat being incomplete implementation and durable-attribution proof."
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0007",
+          "reason": "Conventional-war de-escalation and emergency-law context, not a direct nuclear or other existential-risk choice."
+        },
+        {
+          "evidence_id": "E0008",
+          "reason": "Humanitarian-truce evidence for the Tigray conflict; useful context, but not direct 1B conduct."
+        },
+        {
+          "evidence_id": "E0009",
+          "reason": "Peace-talk and cessation-of-hostilities evidence; relevant to conflict posture, not a nuclear-risk decision."
+        },
+        {
+          "evidence_id": "E0010",
+          "reason": "End-of-year peace-deal implementation context, not direct existential-risk responsibility."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Country-wide humanitarian baseline only; not Abiy-specific 1B evidence."
+        },
+        {
+          "evidence_id": "E0012",
+          "reason": "Adverse conventional-war atrocity evidence; important for 2B/3B, but not 1B-specific nuclear or existential-risk conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 nuclear, CBRN, cyber, AI, or equivalent catastrophic-risk decision by Abiy Ahmed.",
+          "lenses": [
+            "1B.1",
+            "1B.3",
+            "1B.7",
+            "1B.9"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current package.",
+          "why_it_matters": "Without a target-period existential-risk act, the chapter cannot distinguish responsible restraint from mere non-exposure."
+        },
+        {
+          "gap": "No ruler-level command-and-control, safety, or custody evidence tied to a real nuclear posture.",
+          "lenses": [
+            "1B.3",
+            "1B.4",
+            "1B.10"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current package.",
+          "why_it_matters": "These lenses require an actual risk-bearing apparatus, not only office or treaty baseline context."
+        }
+      ],
+      "reason": "The package is coherent about Abiy Ahmed's 2022 crisis-management and peace-track posture, but it does not contain direct 2022 nuclear or other existential-risk choices within his authority; most of the chapter's positive material is conventional-conflict de-escalation context, so the file supports only a cautious gap assessment."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package balances peace-process advances, ceasefire implementation, and humanitarian-access improvements against serious adverse war conduct and UN/NGO atrocity allegations, with attribution caveats clearly preserved; that is enough for a fair 2022 chapter presentation."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The file presents a strong adverse domestic-safety record together with real restraint signals and explicit caveats about regional, federal, and allied-actor attribution; the 2022 record is presented in a balanced way."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0096",
+          "reason": "Internal party-assembly irregularity is only a proxy for national contestability and succession, not a substitute for a national election or transfer event."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No national election or transfer event occurred in 2022, so the core contestability and succession test is underdetermined.",
+          "lenses": [
+            "4B.1",
+            "4B.8"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current 2022 package.",
+          "why_it_matters": "Without a transfer test, the chapter can show restriction but not fully test willingness to accept contestable power."
+        },
+        {
+          "gap": "No public 2022 command-chain document for shutdowns, accreditation revocations, or similar restrictions.",
+          "lenses": [
+            "4B.6",
+            "4B.9"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current package.",
+          "why_it_matters": "Attribution is clear at the state level, but not fully pinned to the ruler's personal directive chain."
+        }
+      ],
+      "reason": "The file clearly shows civic-space restriction, internet control, and party-process manipulation, but it lacks a national-election or transfer event in 2022, so the central contestability and succession test remains underdetermined and the Prosperity Party proxy does not cleanly substitute."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The economic file is mixed but coherent: it preserves reform intent, budget priorities, staffing, and some implementation evidence while also keeping inflation, debt stress, and conflict drag in view; attribution is cautious rather than inflated."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The welfare file distinguishes donor-supported delivery from ruler attribution, and it preserves both the real service gains and the severe conflict and drought baseline; that is a fair presentation of 2022 human-development conditions."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0069",
+          "reason": "Cabinet roster only; it does not show merit, nepotism, conflicts of interest, or personal integrity."
+        },
+        {
+          "evidence_id": "E0071",
+          "reason": "Country-level opacity and press conditions; not direct proof of Abiy's personal honesty or self-enrichment."
+        },
+        {
+          "evidence_id": "E0072",
+          "reason": "Broad repression and media-pressure context; useful for 3B/4B, but not a personal-integrity nexus by itself."
+        },
+        {
+          "evidence_id": "E0073",
+          "reason": "State coercion against officials, but no personal benefit, concealment, or direct honesty nexus is shown."
+        },
+        {
+          "evidence_id": "E0074",
+          "reason": "Journalist arrests show repression, not Abiy's own deception or financial self-dealing."
+        },
+        {
+          "evidence_id": "E0075",
+          "reason": "Detention of journalists is state-pressure evidence, not direct personal-integrity proof."
+        },
+        {
+          "evidence_id": "E0076",
+          "reason": "Re-arrest of a journalist is relevant to repression, but it does not establish personal dishonesty or conflicts of interest."
+        },
+        {
+          "evidence_id": "E0077",
+          "reason": "Civil-society press blockage is a civic-space abuse, not a direct personal-integrity finding."
+        },
+        {
+          "evidence_id": "E0078",
+          "reason": "Internet shutdown is a state-control fact, but it does not prove Abiy's personal deception, enrichment, or benefit."
+        },
+        {
+          "evidence_id": "E0079",
+          "reason": "National-dialogue exclusion concerns political manipulation, but not direct personal financial or truthfulness evidence."
+        },
+        {
+          "evidence_id": "E0080",
+          "reason": "Partnership agreement is a formal institutional step, not evidence of integrity or lack thereof."
+        },
+        {
+          "evidence_id": "E0081",
+          "reason": "Asset-disclosure law is a legal baseline only; it does not show Abiy's compliance or noncompliance."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No traceable 2022 evidence of Abiy's own self-enrichment, hidden assets, or close-family benefit.",
+          "lenses": [
+            "7B.3",
+            "7B.4"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current package.",
+          "why_it_matters": "Without direct personal-nexus evidence, the chapter cannot score honesty by proxy from country-level repression."
+        },
+        {
+          "gap": "No public 2022 compliance trail for asset disclosure, conflicts of interest, or procurement/audit findings tied to Abiy.",
+          "lenses": [
+            "7B.3",
+            "7B.6",
+            "7B.7",
+            "7B.9"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current package.",
+          "why_it_matters": "These lenses need ruler-specific records, not only general anti-corruption rhetoric or state repression."
+        },
+        {
+          "gap": "No direct evidence tying the media crackdown or shutdowns to Abiy's personal benefit or concealment rather than state security policy.",
+          "lenses": [
+            "7B.2",
+            "7B.7",
+            "7B.10"
+          ],
+          "best_source_or_query_direction": "Not recoverable from the current package.",
+          "why_it_matters": "The package overuses state repression as a proxy for personal integrity, which the rubric does not permit."
+        }
+      ],
+      "reason": "The dossier is strong on broad repression and anti-corruption rhetoric, but weak on the chapter's required personal nexus: it does not trace Abiy's own deception, self-enrichment, hidden conflicts, or benefit with enough specificity, and it repeatedly uses state repression and media control as proxies for personal integrity."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The effectiveness file has the right structure: program, implementation, adaptation, and end-state evidence are all present, with clear caveats that delivery is partial, shared, or self-reported; nothing here forces a rewrite."
+    }
+  ]
+}

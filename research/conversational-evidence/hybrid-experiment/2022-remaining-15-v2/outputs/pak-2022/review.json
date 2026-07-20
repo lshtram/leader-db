@@ -1,0 +1,586 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "State-level formal structure, not evidence of Sharif's own 2022 conduct."
+        },
+        {
+          "evidence_id": "E0002",
+          "reason": "Standing treaty posture and moratorium are inherited state policy."
+        },
+        {
+          "evidence_id": "E0003",
+          "reason": "Secondary structural analysis; formal authority only, not a 2022 decision."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Arsenal estimate is country baseline, not ruler conduct."
+        },
+        {
+          "evidence_id": "E0005",
+          "reason": "Treaty-status context, not Sharif-specific conduct."
+        },
+        {
+          "evidence_id": "E0006",
+          "reason": "Standing negative treaty posture predates and is not a 2022 action."
+        },
+        {
+          "evidence_id": "E0007",
+          "reason": "General political-transition context; not nuclear conduct."
+        },
+        {
+          "evidence_id": "E0008",
+          "reason": "Attribution limits are structural and pre-accession."
+        },
+        {
+          "evidence_id": "E0010",
+          "reason": "External accident is inherited crisis context, not Sharif conduct."
+        },
+        {
+          "evidence_id": "E0012",
+          "reason": "Self-description of stewardship; needs independent corroboration."
+        },
+        {
+          "evidence_id": "E0013",
+          "reason": "Official restraint language is useful context, but not proof of operational restraint."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No contemporaneous Sharif-chaired NCA or cabinet record shows a nuclear doctrine, custody, or safety change in 2022.",
+          "lenses": [
+            "1B.3",
+            "1B.7",
+            "1B.8",
+            "1B.10"
+          ],
+          "best_source_or_query_direction": "Declassified NCA records, cabinet minutes, defense-inquiry material, CTBTO or IAEA-linked official statements.",
+          "why_it_matters": "Without a ruler-attributed action, the chapter mostly shows inherited posture and public signaling."
+        },
+        {
+          "gap": "No independent corroboration that command-and-control or safeguard practice improved under Sharif in 2022.",
+          "lenses": [
+            "1B.3",
+            "1B.10"
+          ],
+          "best_source_or_query_direction": "SIPRI/FAS/NTI technical assessments, parliament or audit records, declassified defense reviews.",
+          "why_it_matters": "This is the difference between formal authority and demonstrated risk reduction."
+        },
+        {
+          "gap": "Weak evidence on dual-use and proliferation restraint beyond general rhetoric.",
+          "lenses": [
+            "1B.6",
+            "1B.9"
+          ],
+          "best_source_or_query_direction": "Export-control records, security-policy directives, cabinet or NSC decisions, investigative reporting.",
+          "why_it_matters": "The chapter needs ruler-linked choices, not just a cautious public line."
+        }
+      ],
+      "reason": "Usable as a cautious inherited-posture and restraint-signaling file, but it lacks independent 2022 evidence of Sharif-attributed nuclear-risk reduction beyond official self-description and diplomacy."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0007",
+          "reason": "Transition background, not direct external conduct."
+        },
+        {
+          "evidence_id": "E0008",
+          "reason": "Structural attribution limits, not a ruler action."
+        },
+        {
+          "evidence_id": "E0010",
+          "reason": "Inherited crisis context, not Sharif conduct."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Official restraint language is state diplomacy, not an operational settlement."
+        },
+        {
+          "evidence_id": "E0013",
+          "reason": "Self-serving crisis statement; useful context but not independent proof of conduct."
+        },
+        {
+          "evidence_id": "E0022",
+          "reason": "Contested allegation with denied attribution; cannot stand as settled conduct."
+        },
+        {
+          "evidence_id": "E0023",
+          "reason": "Complaint about incoming attacks, not proof of Pakistani aggression."
+        },
+        {
+          "evidence_id": "E0024",
+          "reason": "State policy line on Afghanistan, not a concrete conflict-resolution outcome."
+        },
+        {
+          "evidence_id": "E0025",
+          "reason": "Praise for a diplomatic breakthrough, not proof Sharif mediated it."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No decisive operational peace settlement or ceasefire output with India or Afghanistan.",
+          "lenses": [
+            "2B.1",
+            "2B.7",
+            "2B.10"
+          ],
+          "best_source_or_query_direction": "Diplomatic archives, joint communiques, border-commission records, and treaty or ceasefire documentation.",
+          "why_it_matters": "It separates rhetoric from concrete peace gains."
+        },
+        {
+          "gap": "The April 2022 Afghanistan strike allegation remains contested without an independent finding.",
+          "lenses": [
+            "2B.2",
+            "2B.4",
+            "2B.10"
+          ],
+          "best_source_or_query_direction": "Independent investigation, court record, UN-style inquiry, or additional Reuters-level corroboration.",
+          "why_it_matters": "Attribution is weak if the underlying incident is not adjudicated."
+        },
+        {
+          "gap": "Proxy-control and military foreign-policy authority remain opaque.",
+          "lenses": [
+            "2B.5",
+            "2B.10"
+          ],
+          "best_source_or_query_direction": "Cabinet or defense records, parliamentary oversight material, credible scholarship on civil-military command.",
+          "why_it_matters": "The chapter needs to distinguish Sharif's line from the security establishment's conduct."
+        }
+      ],
+      "reason": "The package fairly shows peace-oriented conduct, crisis restraint, and contrary allegations, but the strongest negatives are contested and most positives are rhetorical or multilateral rather than operational."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0026",
+          "reason": "Broad country rights summary; useful baseline but not Sharif-specific conduct."
+        },
+        {
+          "evidence_id": "E0027",
+          "reason": "Court notice and committee response show institutional failure, not personal order."
+        },
+        {
+          "evidence_id": "E0029",
+          "reason": "Allegations of custodial abuse are not adjudicated findings."
+        },
+        {
+          "evidence_id": "E0030",
+          "reason": "Advocacy account of arrests; direct Sharif order not shown."
+        },
+        {
+          "evidence_id": "E0031",
+          "reason": "Protest abuse is real, but federal attribution is indirect."
+        },
+        {
+          "evidence_id": "E0032",
+          "reason": "Crowd-control episode is documented, but command responsibility is not shown."
+        },
+        {
+          "evidence_id": "E0034",
+          "reason": "Retrospective synthesis is broad authorities context, not PM-level proof."
+        },
+        {
+          "evidence_id": "E0035",
+          "reason": "Vulnerable-group harms are mostly inherited social conditions."
+        },
+        {
+          "evidence_id": "E0036",
+          "reason": "Flood-response context and partner coordination, not direct domestic-safety governance."
+        },
+        {
+          "evidence_id": "E0037",
+          "reason": "Humanitarian need snapshot; not a ruler performance finding."
+        },
+        {
+          "evidence_id": "E0038",
+          "reason": "End-state disaster assessment, not a discrete Sharif decision."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct personal attribution for police, FIA, and intelligence abuses is still weak.",
+          "lenses": [
+            "3B.1",
+            "3B.2",
+            "3B.4",
+            "3B.5",
+            "3B.8"
+          ],
+          "best_source_or_query_direction": "Inquiry reports, ministerial directives, court findings, NCHR or parliamentary oversight records.",
+          "why_it_matters": "The package shows a bad domestic-safety environment, but not enough direct Sharif-level ordering evidence."
+        },
+        {
+          "gap": "The disappearance and custodial-abuse claims need cleaner adjudication of decision-makers.",
+          "lenses": [
+            "3B.1",
+            "3B.4",
+            "3B.5"
+          ],
+          "best_source_or_query_direction": "Independent commissions, court orders, official inquiries, or stronger local-language reporting.",
+          "why_it_matters": "This is where the chapter can over-credit the federal ruler if the chain of responsibility stays vague."
+        },
+        {
+          "gap": "More local and provincial evidence is needed on minorities, journalists, and protest protection outside the headline cases.",
+          "lenses": [
+            "3B.7",
+            "3B.10"
+          ],
+          "best_source_or_query_direction": "Urdu/local reporting, provincial records, and rights monitors with district-level detail.",
+          "why_it_matters": "The national picture may be distorted by a few high-visibility incidents."
+        }
+      ],
+      "reason": "The package fairly shows a serious domestic-safety problem plus some remedial steps, but attribution to Sharif remains too indirect on several of the most important abuses."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0039",
+          "reason": "Caretaker-selection procedure is transfer context, not Sharif reform."
+        },
+        {
+          "evidence_id": "E0040",
+          "reason": "Inherited constitutional baseline and Khan-era ruling, not Sharif conduct."
+        },
+        {
+          "evidence_id": "E0041",
+          "reason": "Mostly inherited internet-freedom baseline with only partial overlap."
+        },
+        {
+          "evidence_id": "E0045",
+          "reason": "Broad protest/disappearance climate; not a single Sharif action."
+        },
+        {
+          "evidence_id": "E0047",
+          "reason": "Military-centric attribution weakens direct civilian-PM culpability."
+        },
+        {
+          "evidence_id": "E0048",
+          "reason": "Shared civilian-military attribution, not a clean Sharif-specific act."
+        },
+        {
+          "evidence_id": "E0049",
+          "reason": "Retrospective country synthesis, useful but not granular proof of Sharif commands."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence that Sharif ordered, authorized, or corrected censorship and protest repression remains thin.",
+          "lenses": [
+            "4B.2",
+            "4B.6",
+            "4B.9"
+          ],
+          "best_source_or_query_direction": "PEMRA/FIA/internal orders, cabinet notes, court findings, or official chain-of-command documents.",
+          "why_it_matters": "It separates ruler responsibility from agency-level enforcement."
+        },
+        {
+          "gap": "Election-rule manipulation and personality-cult lenses are comparatively weak.",
+          "lenses": [
+            "4B.1",
+            "4B.2",
+            "4B.5",
+            "4B.8"
+          ],
+          "best_source_or_query_direction": "Electoral records, constitutional/legal materials, and evidence on appointments or state-institution capture.",
+          "why_it_matters": "The package is stronger on media/protest pressure than on regime entrenchment."
+        },
+        {
+          "gap": "Cleaner separation of military-backed pressure from civilian PM responsibility is still needed.",
+          "lenses": [
+            "4B.3",
+            "4B.6",
+            "4B.10"
+          ],
+          "best_source_or_query_direction": "Parliamentary inquiries, official chain-of-command records, and stronger local-language reporting.",
+          "why_it_matters": "Otherwise the chapter may over-attribute behind-the-scenes pressure to Sharif."
+        }
+      ],
+      "reason": "The chapter is balanced and adequately attributed overall; it distinguishes transfer turmoil from Sharif-era media and protest pressure while preserving a few restraint gestures."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0051",
+          "reason": "IMF pressure context, not a Sharif-only policy choice."
+        },
+        {
+          "evidence_id": "E0058",
+          "reason": "Strong review, but still IMF-driven and partly contextual."
+        },
+        {
+          "evidence_id": "E0062",
+          "reason": "Macro-crisis snapshot, not direct competence evidence."
+        },
+        {
+          "evidence_id": "E0064",
+          "reason": "Outcome and shock context, not direct Sharif action."
+        },
+        {
+          "evidence_id": "E0065",
+          "reason": "Disaster-loss context, not a ruler performance finding."
+        },
+        {
+          "evidence_id": "E0066",
+          "reason": "Flood-shock baseline, not economic execution evidence."
+        },
+        {
+          "evidence_id": "E0067",
+          "reason": "Late-year inflation outcome, not a clean competence proof."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No independent audit yet shows the distributional effects of 2022 fiscal tightening and subsidy changes.",
+          "lenses": [
+            "5B.3",
+            "5B.8",
+            "5B.10"
+          ],
+          "best_source_or_query_direction": "Budget execution reports, household surveys, price series, and independent fiscal analysis.",
+          "why_it_matters": "The chapter needs household impact, not just macro targets."
+        },
+        {
+          "gap": "Appointment quality is documented, but competence effects from the Miftah-to-Dar turnover remain unclear.",
+          "lenses": [
+            "5B.2",
+            "5B.7",
+            "5B.9"
+          ],
+          "best_source_or_query_direction": "Later macro/outcome series, cabinet records, and independent assessments of policy coherence.",
+          "why_it_matters": "Personnel changes only matter if they changed execution."
+        },
+        {
+          "gap": "Flood relief and IMF measures need stronger attribution at the household level.",
+          "lenses": [
+            "5B.8",
+            "5B.9"
+          ],
+          "best_source_or_query_direction": "Transfer-delivery data, poverty estimates, and district-level economic reporting.",
+          "why_it_matters": "This distinguishes policy intent from actual welfare gains."
+        }
+      ],
+      "reason": "Strong package: direct fiscal decisions, appointments, IMF negotiations, and end-year macro outcomes are all present, with external shocks clearly separated."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0036",
+          "reason": "Flood-response context and partner coordination, not ordinary welfare governance."
+        },
+        {
+          "evidence_id": "E0037",
+          "reason": "Humanitarian-need snapshot, not a ruler performance finding."
+        },
+        {
+          "evidence_id": "E0038",
+          "reason": "End-state disaster assessment, not a direct ruler choice."
+        },
+        {
+          "evidence_id": "E0077",
+          "reason": "Crisis-context and partner output, not a PM-specific action."
+        },
+        {
+          "evidence_id": "E0078",
+          "reason": "Continuing deprivation snapshot, not a ruler intervention record."
+        },
+        {
+          "evidence_id": "E0079",
+          "reason": "Health-disruption context, not a direct PM policy act."
+        },
+        {
+          "evidence_id": "E0080",
+          "reason": "Crisis burden context rather than ruler conduct."
+        },
+        {
+          "evidence_id": "E0081",
+          "reason": "Shock-dominated end-state assessment, not execution proof."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent delivery and outcome evidence is thinner than the announcement record.",
+          "lenses": [
+            "6B.2",
+            "6B.4",
+            "6B.9",
+            "6B.10"
+          ],
+          "best_source_or_query_direction": "Household surveys, program evaluations, and provincial administrative data.",
+          "why_it_matters": "The chapter needs evidence of effective uptake, not just plans and launches."
+        },
+        {
+          "gap": "Routine non-crisis welfare improvements are under-evidenced relative to flood response.",
+          "lenses": [
+            "6B.1",
+            "6B.2",
+            "6B.9"
+          ],
+          "best_source_or_query_direction": "Health, education, nutrition, and poverty outcome series for 2022 beyond flood relief.",
+          "why_it_matters": "The package can overstate general welfare leadership if flood relief dominates."
+        },
+        {
+          "gap": "Attribution between federal direction, provinces, and donors remains unresolved.",
+          "lenses": [
+            "6B.4",
+            "6B.5",
+            "6B.10"
+          ],
+          "best_source_or_query_direction": "Implementation reviews, provincial budgets, and donor project documentation.",
+          "why_it_matters": "This is essential for assigning ruler credit fairly."
+        }
+      ],
+      "reason": "Strong package: welfare intent, flood relief, health and nutrition initiatives, and negative disaster context are all present, though much of the story is crisis response rather than routine reform."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0050",
+          "reason": "Appointment signal is competence-oriented, not direct integrity proof."
+        },
+        {
+          "evidence_id": "E0060",
+          "reason": "Appointment quality does not establish honesty."
+        },
+        {
+          "evidence_id": "E0083",
+          "reason": "Tentative bail-stage order, not a merits finding."
+        },
+        {
+          "evidence_id": "E0084",
+          "reason": "Self-serving testimony is not independent corroboration."
+        },
+        {
+          "evidence_id": "E0085",
+          "reason": "Controversial appointment is mixed, not proof of self-dealing."
+        },
+        {
+          "evidence_id": "E0087",
+          "reason": "Family misconduct is not direct proof against Sharif."
+        },
+        {
+          "evidence_id": "E0088",
+          "reason": "Allegations remain contested; procedural exemption is not guilt."
+        },
+        {
+          "evidence_id": "E0089",
+          "reason": "Acquittal resolves one case, not the broader integrity pattern."
+        },
+        {
+          "evidence_id": "E0090",
+          "reason": "Case-specific verdict is not a full audit of personal honesty."
+        },
+        {
+          "evidence_id": "E0091",
+          "reason": "Apology weakens a historical allegation, but it is not conduct evidence."
+        },
+        {
+          "evidence_id": "E0092",
+          "reason": "Asset disclosure helps transparency, but it does not prove absence of hidden conflicts."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No strong 2022 evidence of direct personal enrichment or concealment tied to Sharif himself.",
+          "lenses": [
+            "7B.3",
+            "7B.4",
+            "7B.7"
+          ],
+          "best_source_or_query_direction": "Asset tracing, procurement records, audit findings, and court or tax records tied to Sharif personally.",
+          "why_it_matters": "The chapter needs a personal nexus, not just a corrupt environment."
+        },
+        {
+          "gap": "Several items are allegations or case outcomes, not affirmative findings of dishonesty.",
+          "lenses": [
+            "7B.2",
+            "7B.6",
+            "7B.7"
+          ],
+          "best_source_or_query_direction": "Final judgments, investigative reporting, official filings, and correction records.",
+          "why_it_matters": "Legal proceedings alone do not equal a demonstrated integrity pattern."
+        },
+        {
+          "gap": "Associate and family conduct are not fully separated from Sharif's own conduct.",
+          "lenses": [
+            "7B.4",
+            "7B.9"
+          ],
+          "best_source_or_query_direction": "Beneficial-ownership, contract, and appointment records tied to family and close associates.",
+          "why_it_matters": "The chapter can over- or under-attribute if the network is not disentangled."
+        }
+      ],
+      "reason": "Mixed and usable, but the personal-nexus standard is thin: many items are allegations, acquittals, or family and associate facts that do not cleanly establish Sharif's own dishonesty or self-dealing."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0097",
+          "reason": "Macroeconomic outlook is context, not a Sharif action."
+        },
+        {
+          "evidence_id": "E0098",
+          "reason": "Post-disaster assessment is end-state context more than execution proof."
+        },
+        {
+          "evidence_id": "E0099",
+          "reason": "Late-year inflation snapshot is outcome context, not direct competence evidence."
+        },
+        {
+          "evidence_id": "E0061",
+          "reason": "Party and cabinet turnover is relevant but not itself execution performance."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "End-of-year outcome attribution remains partly obscured by inherited macro and flood shocks.",
+          "lenses": [
+            "8B.7",
+            "8B.10"
+          ],
+          "best_source_or_query_direction": "Execution data, reserves and deficit series, and independent performance reviews.",
+          "why_it_matters": "The chapter should distinguish program execution from bad starting conditions."
+        },
+        {
+          "gap": "Implementation evidence inside ministries and provinces is thinner than the program-announcement record.",
+          "lenses": [
+            "8B.2",
+            "8B.5",
+            "8B.6"
+          ],
+          "best_source_or_query_direction": "Cabinet notes, audit material, budget execution reports, and implementation dashboards.",
+          "why_it_matters": "Program design is not the same as executed control."
+        },
+        {
+          "gap": "The package needs stronger validation that relief and fiscal measures advanced Sharif's actual objectives rather than only IMF constraints.",
+          "lenses": [
+            "8B.3",
+            "8B.9"
+          ],
+          "best_source_or_query_direction": "Performance reviews, internal program documents, and later policy assessments.",
+          "why_it_matters": "This is the difference between compliance and effective execution."
+        }
+      ],
+      "reason": "Strong program-to-implementation chain, with enough evidence to present strategy, action, and year-end strain, provided IMF and flood shocks stay in context."
+    }
+  ]
+}

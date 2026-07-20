@@ -1,0 +1,173 @@
+{
+  "overall_decision": "pass",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0007",
+          "reason": "Treat as inherited treaty baseline only; it constrains exposure but does not show AMLO's 2022 conduct."
+        },
+        {
+          "evidence_id": "E0008",
+          "reason": "Treat as historical baseline only; it is context for Mexico's non-nuclear status, not ruler-level action in 2022."
+        },
+        {
+          "evidence_id": "E0009",
+          "reason": "Treat as legal framework context only; it defines Mexico's obligations but does not evidence AMLO's conduct."
+        },
+        {
+          "evidence_id": "E0010",
+          "reason": "Treat as standing regional baseline only; it is institutional context, not a 2022 AMLO decision."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Treat as institutional safeguard context only; it does not show personal presidential control over nuclear safety."
+        },
+        {
+          "evidence_id": "E0012",
+          "reason": "Treat as country-level civilian nuclear context only; it is not direct ruler conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct 2022 evidence on AMLO's personal control over civilian-nuclear safety appointments, regulatory discipline, or command-side decisions is thin.",
+          "lenses": ["1B.3", "1B.7", "1B.10"],
+          "best_source_or_query_direction": "CNSNS, SENER, and presidential/cabinet appointment or oversight records for Laguna Verde and nuclear safety in 2022.",
+          "why_it_matters": "It would separate baseline non-nuclear diplomacy from actual ruler-level risk management."
+        }
+      ],
+      "reason": "Pass. The package cleanly distinguishes Mexico's non-nuclear baseline and diplomatic disarmament posture from AMLO's direct conduct, and it preserves contrary evidence and limited-exposure uncertainty instead of overstating command authority."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "There is no Mexico-originating war, proxy conflict, or coercive peace leverage in 2022, so the dossier is mostly diplomatic posture rather than operational conflict conduct.",
+          "lenses": ["2B.2", "2B.5", "2B.9"],
+          "best_source_or_query_direction": "UN, SRE, and cabinet records showing any Mexico-backed mediation or crisis management beyond public statements.",
+          "why_it_matters": "It would clarify whether the record is merely symbolic diplomacy or actual ruler-attributed peace action."
+        }
+      ],
+      "reason": "Pass. It fairly captures Mexico's non-belligerent 2022 posture on Ukraine, with peace advocacy, humanitarian response, and legal positioning balanced against the absence of direct operational leverage."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0032",
+          "reason": "Treat as prevention-and-standards context only; ratification does not itself show ruler-level domestic safety performance."
+        },
+        {
+          "evidence_id": "E0033",
+          "reason": "Treat as inherited baseline context only; it frames the preexisting disappearance crisis rather than AMLO-specific conduct."
+        },
+        {
+          "evidence_id": "E0035",
+          "reason": "Treat as judicial constraint/remedy context only; it is not evidence of AMLO's direct domestic safety conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Specific chain-of-command evidence for some police, military, and intelligence abuses remains incomplete, especially for local versus federal responsibility.",
+          "lenses": ["3B.1", "3B.2", "3B.9"],
+          "best_source_or_query_direction": "Official investigations, military/prosecutorial records, and state-level accountability files tied to specific abuse episodes.",
+          "why_it_matters": "It would sharpen attribution without changing the underlying pattern of abuse and weak remedy."
+        }
+      ],
+      "reason": "Pass. The package presents a severe adverse pattern with some corrective steps, and it explicitly distinguishes state-level abuse, local responsibility, and inherited violence rather than collapsing them into a single unsupported claim."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0040",
+          "reason": "Treat as electoral-context evidence only; subnational opposition wins do not directly show AMLO's personal conduct."
+        },
+        {
+          "evidence_id": "E0045",
+          "reason": "Treat as court-check context only; it shows institutional constraint, not AMLO's own conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Some of the evidence about electoral reform and media pressure is rhetorical or journalistic rather than a direct legal finding of intent to entrench power.",
+          "lenses": ["4B.2", "4B.4", "4B.8"],
+          "best_source_or_query_direction": "Legislative text, constitutional challenge records, and INE/SCJN decisions on the 2022 reform package.",
+          "why_it_matters": "It would separate hostile rhetoric and contested reform from proven institutional capture."
+        }
+      ],
+      "reason": "Pass. The package shows both contestability and institutional conflict, including reform attempts, electoral resistance, media pressure, and surveillance concerns, while preserving the counterevidence that institutions still constrained the executive."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "The causal split between AMLO policy, inherited weakness, and global shocks is still only partially recoverable for 2022 poverty, inflation, and investment outcomes.",
+          "lenses": ["5B.8", "5B.9", "5B.10"],
+          "best_source_or_query_direction": "CONEVAL microdata, investment diagnostics, and policy-evaluation studies that isolate 2022 effects.",
+          "why_it_matters": "It would improve attribution of observed gains and losses without changing the broad mixed record."
+        }
+      ],
+      "reason": "Pass. The chapter triangulates official budgets, IMF/OECD/World Bank surveillance, market reporting, and distributional outcomes, so the mixture of competence, uncertainty, and external shocks is fairly represented."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0060",
+          "reason": "Treat as later institutional-history context only; it is not a clean 2022 external evaluation of delivery."
+        },
+        {
+          "evidence_id": "E0070",
+          "reason": "Treat as baseline country-data context only; it does not show ruler-specific 2022 action."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent post-launch quality and outcome audits for IMSS-Bienestar, education recovery, and related welfare programs are thinner than the rollout record.",
+          "lenses": ["6B.2", "6B.5", "6B.10"],
+          "best_source_or_query_direction": "CONEVAL, sector audits, and peer-reviewed evaluations of IMSS-Bienestar and SEP recovery programs.",
+          "why_it_matters": "It would separate program design and beneficiary counts from durable welfare improvements."
+        }
+      ],
+      "reason": "Pass. It pairs extensive official rollout evidence with some independent outcome checks and baseline data, and it does not collapse implementation claims into outcomes."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct documentary evidence of personal enrichment, hidden financial benefit, or knowing approval of surveillance remains limited.",
+          "lenses": ["7B.3", "7B.4", "7B.7"],
+          "best_source_or_query_direction": "Asset declarations, procurement records, tax or campaign-finance findings, and formal investigative determinations.",
+          "why_it_matters": "It would strengthen or weaken the personal-integrity assessment beyond rhetoric and media-hostility evidence."
+        }
+      ],
+      "reason": "Pass. The package has enough ruler-specific material to show a contested integrity pattern, but the strongest allegations remain partially indirect, so the dossier appropriately keeps exoneration and attribution limits visible."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Durability and post-launch independent audits for AIFA, Dos Bocas, IMSS-Bienestar, and the education programs are thinner than the implementation record.",
+          "lenses": ["8B.7", "8B.10"],
+          "best_source_or_query_direction": "Independent audits, traffic/production series, and multi-year program evaluations.",
+          "why_it_matters": "It would test whether 2022 delivery translated into sustained goal progress rather than only early implementation."
+        }
+      ],
+      "reason": "Pass. The evidence is comprehensive on program, implementation, counterevidence, and external constraints, and the main residual uncertainty is durability rather than basic documentary coverage."
+    }
+  ]
+}
