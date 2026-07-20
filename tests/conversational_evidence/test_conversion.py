@@ -61,6 +61,37 @@ def test_conversion_writes_valid_partial_projections_and_blocks_missing_identity
     assert all(item["estimated_input_characters"] > 0 for item in compact["chapters"])
 
 
+def test_conversion_preserves_hybrid_metadata_and_applies_chapter_review(
+    tmp_path: Path,
+) -> None:
+    manifest = tmp_path / "manifest.json"
+    batch = tmp_path / "batch"
+    catalog = tmp_path / "catalog.sqlite"
+    output = tmp_path / "converted"
+    _write(
+        manifest,
+        {
+            "batch_id": "hybrid-test",
+            "year": 2022,
+            "researcher": "gpt-5.4-mini",
+            "cases": [{"iso3": "AAA", "country": "Alpha", "ruler": "Ready Ruler"}],
+        },
+    )
+    _catalog(catalog)
+    _hybrid_source(batch / "outputs" / "aaa-2022")
+
+    report = convert_batch(manifest, batch, catalog, output)
+
+    assert report["ready_for_judging"] is True
+    dossier = json.loads(next((output / "dossiers").glob("*.json")).read_text())
+    assert dossier["evidence"][0]["source_locator"] == "paragraph 4"
+    assert dossier["evidence"][0]["canonical_fact_key"] == "fact-key"
+    assert not [item for item in dossier["mappings"] if item["methodology_id"] == "1B.1"]
+    coverage = {item["methodology_id"]: item for item in dossier["coverage"]}
+    assert coverage["1B.1"]["status"] == "no_evidence_found"
+    assert coverage["2B.1"]["status"] == "covered"
+
+
 def _source(path: Path, country: str, ruler: str) -> None:
     path.mkdir(parents=True)
     question_ids = [f"{chapter}B.{lens}" for chapter in range(1, 9) for lens in range(1, 11)]
@@ -123,6 +154,61 @@ def _source(path: Path, country: str, ruler: str) -> None:
     )
 
 
+def _hybrid_source(path: Path) -> None:
+    path.mkdir(parents=True)
+    lenses = [f"{chapter}B.{lens}" for chapter in range(1, 9) for lens in range(1, 11)]
+    _write(
+        path / "dossier.json",
+        {
+            "identity": {"ruler": "Ready Ruler", "country": "Alpha", "year": 2022},
+            "evidence": [
+                {
+                    "evidence_id": "E0001",
+                    "claim": "A precise reviewed claim.",
+                    "url": "https://example.test/item",
+                    "title": "Title",
+                    "publisher": "Publisher",
+                    "publication_date": "2022-06-01",
+                    "locator": "paragraph 4",
+                    "canonical_fact_key": "fact-key",
+                    "source_type": "official",
+                    "source_confidence": "high",
+                    "source_confidence_reason": "Direct record.",
+                    "final_evidence_use": "final_evidence",
+                    "period_fit": "Within 2022.",
+                    "ruler_attribution": "Direct ruler action.",
+                }
+            ],
+            "mappings": [{"evidence_id": "E0001", "lenses": lenses}],
+            "review": {
+                "chapters": [
+                    {
+                        "chapter_id": f"{chapter}B",
+                        "remove_or_contextualize": (
+                            [{"evidence_id": "E0001", "reason": "Context only."}]
+                            if chapter == 1
+                            else []
+                        ),
+                        "material_gaps": [],
+                    }
+                    for chapter in range(1, 9)
+                ]
+            },
+        },
+    )
+    _write(path / "session.json", {"ruler": "Ready Ruler", "country": "Alpha", "year": 2022})
+    _write(
+        path / "profile.json",
+        {
+            "usage": {
+                "input_tokens": 10,
+                "cached_input_tokens": 2,
+                "output_tokens": 3,
+                "reasoning_output_tokens": 1,
+            },
+            "estimated_cost_usd": 0.1,
+        },
+    )
 def _catalog(path: Path) -> None:
     connection = sqlite3.connect(path)
     connection.executescript("""
