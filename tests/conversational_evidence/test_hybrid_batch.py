@@ -88,13 +88,22 @@ def test_full_and_pilot_manifests_are_valid_and_locked() -> None:
     addendum = BatchManifest.model_validate_json(
         (data / "2022-pilot-addendum-2-reviewed.json").read_text(encoding="utf-8")
     )
+    remaining = BatchManifest.model_validate_json(
+        (data / "2022-remaining-15-reviewed.json").read_text(encoding="utf-8")
+    )
 
     assert len(full.cases) == 20
     assert len(pilot.cases) == 3
     assert {item.iso3 for item in pilot.cases} == {"BRA", "IND", "RUS"}
     assert {item.iso3 for item in addendum.cases} == {"CHN", "DEU"}
     assert addendum.per_ruler_cost_ceiling_usd == 5.0
+    assert len(remaining.cases) == 15
+    assert {item.iso3 for item in remaining.cases}.isdisjoint(
+        {item.iso3 for item in pilot.cases} | {item.iso3 for item in addendum.cases}
+    )
+    assert remaining.per_ruler_cost_ceiling_usd == 5.0
     assert all(item.identity_status == "reviewed_locked" for item in full.cases)
+    assert all(item.identity_status == "reviewed_locked" for item in remaining.cases)
 
 
 def test_failed_job_is_requeued_when_artifact_progressed(tmp_path: Path) -> None:
