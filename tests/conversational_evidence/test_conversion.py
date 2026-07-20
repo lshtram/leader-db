@@ -19,7 +19,7 @@ def test_conversion_writes_valid_partial_projections_and_blocks_missing_identity
         manifest,
         {
             "batch_id": "test-batch",
-            "year": 2024,
+            "year": 2022,
             "researcher": "gpt-5.4-mini",
             "cases": [
                 {"iso3": "AAA", "country": "Alpha", "ruler": "Ready Ruler"},
@@ -29,7 +29,7 @@ def test_conversion_writes_valid_partial_projections_and_blocks_missing_identity
     )
     _catalog(catalog)
     for iso3, country, ruler in (("AAA", "Alpha", "Ready Ruler"), ("BBB", "Beta", "Missing Ruler")):
-        _source(batch / "outputs" / f"{iso3.lower()}-2024", country, ruler)
+        _source(batch / "outputs" / f"{iso3.lower()}-2022", country, ruler)
 
     report = convert_batch(manifest, batch, catalog, output)
 
@@ -50,11 +50,12 @@ def test_conversion_writes_valid_partial_projections_and_blocks_missing_identity
 
     connection = sqlite3.connect(catalog)
     connection.execute("INSERT INTO leaders VALUES (8, 'Missing Ruler')")
-    connection.execute("INSERT INTO ruler_years VALUES (12, 8, 2, 2024)")
+    connection.execute("INSERT INTO ruler_years VALUES (12, 8, 2, 2022)")
     connection.commit()
     connection.close()
     convert_batch(manifest, batch, catalog, output)
     compact = prepare_compact_inputs(output, tmp_path / "compact", evidence_per_lens=1)
+    assert compact["target_year"] == 2022
     assert len(compact["chapters"]) == 8
     assert all(item["evidence_per_lens"] == 1 for item in compact["chapters"])
     assert all(item["estimated_input_characters"] > 0 for item in compact["chapters"])
@@ -68,13 +69,13 @@ def _source(path: Path, country: str, ruler: str) -> None:
         {
             "ruler": ruler,
             "country": country,
-            "year": 2024,
+            "year": 2022,
             "evidence": [
                 {
                     "id": "E0001",
                     "title": "Title",
                     "publisher": "Publisher",
-                    "date": "2024",
+                    "date": "2022",
                     "url": "https://example.test/item",
                     "summary": "Compact cited claim.",
                 }
@@ -86,7 +87,7 @@ def _source(path: Path, country: str, ruler: str) -> None:
         {
             "ruler": ruler,
             "country": country,
-            "year": 2024,
+            "year": 2022,
             "questions": {
                 item: {
                     "evidence_ids": ["E0001"],
@@ -101,7 +102,7 @@ def _source(path: Path, country: str, ruler: str) -> None:
         {
             "ruler": ruler,
             "country": country,
-            "year": 2024,
+            "year": 2022,
             "completed": ["study", *question_ids],
             "pending": None,
         },
@@ -135,7 +136,7 @@ def _catalog(path: Path) -> None:
         );
         INSERT INTO countries VALUES (1, 'AAA'), (2, 'BBB');
         INSERT INTO leaders VALUES (7, 'Ready Ruler');
-        INSERT INTO ruler_years VALUES (11, 7, 1, 2024);
+        INSERT INTO ruler_years VALUES (11, 7, 1, 2022);
     """)
     connection.commit()
     connection.close()

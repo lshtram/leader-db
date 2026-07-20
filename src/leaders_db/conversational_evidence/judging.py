@@ -36,6 +36,7 @@ def prepare_compact_inputs(
     conversion = _object(conversion_dir / "conversion-report.json")
     if not conversion["ready_for_judging"]:
         raise ValueError("conversion report is not ready for judging")
+    target_year = int(conversion["year"])
     chapters = []
     for chapter_id in CHAPTERS:
         source_paths = sorted((conversion_dir / "projections" / chapter_id).glob("*.json"))
@@ -62,6 +63,7 @@ def prepare_compact_inputs(
         manifest = {
             "schema_version": "conversational_compact_chapter_v1",
             "chapter_id": chapter_id,
+            "target_year": target_year,
             "rubric_version": rubric,
             "projection_paths": written,
             "evidence_per_lens": evidence_per_lens,
@@ -81,6 +83,7 @@ def prepare_compact_inputs(
     report = {
         "schema_version": "conversational_compaction_report_v1",
         "source_conversion": str(conversion_dir / "conversion-report.json"),
+        "target_year": target_year,
         "evidence_per_lens": evidence_per_lens,
         "chapters": chapters,
     }
@@ -96,7 +99,7 @@ def run_judges(
     workers: int = 3,
     timeout_seconds: int = 1800,
     chapter_ids: tuple[str, ...] = CHAPTERS,
-    run_key: str = "2024-top20-gpt54mini-judges-v1",
+    run_key: str | None = None,
     instruction_path: Path | None = None,
 ) -> dict[str, Any]:
     """Run incomplete chapter jobs concurrently and preserve every artifact."""
@@ -109,6 +112,9 @@ def run_judges(
     supplemental_instructions = (
         instruction_path.read_text(encoding="utf-8") if instruction_path else ""
     )
+    compaction = _object(compact_dir / "compaction-report.json")
+    target_year = int(compaction["target_year"])
+    effective_run_key = run_key or f"{target_year}-gpt54mini-judges-v1"
     pending = [
         chapter
         for chapter in chapter_ids
@@ -124,7 +130,8 @@ def run_judges(
                 chapter,
                 model,
                 timeout_seconds,
-                run_key,
+                effective_run_key,
+                target_year,
                 supplemental_instructions,
             ): chapter
             for chapter in pending
@@ -166,7 +173,12 @@ def repair_saved_judgments(compact_dir: Path, output_dir: Path) -> dict[str, Any
             _object(work / "judgment.pending.json"), chapter_id, projections
         )
         batch = ChapterJudgmentBatch.model_validate(candidate)
-        _validate_batch(batch, chapter_id=chapter_id, projections=projections)
+        _validate_batch(
+            batch,
+            chapter_id=chapter_id,
+            target_year=int(manifest["target_year"]),
+            projections=projections,
+        )
         _write_json(work / "judgment.json", batch.model_dump(mode="json"))
         repaired.append(chapter_id)
     return {"repaired_chapters": repaired, "llm_calls": 0}
@@ -252,6 +264,7 @@ def _run_chapter(
     model: str,
     timeout_seconds: int,
     run_key: str,
+    target_year: int,
     supplemental_instructions: str,
 ) -> dict[str, Any]:
     work = output_dir / chapter_id
@@ -268,14 +281,19 @@ def _run_chapter(
         if profile.get("return_code") == 0:
             candidate = _normalize_candidate(_object(pending_path), chapter_id, projections)
             batch = ChapterJudgmentBatch.model_validate(candidate)
-            _validate_batch(batch, chapter_id=chapter_id, projections=projections)
+            _validate_batch(
+                batch,
+                chapter_id=chapter_id,
+                target_year=target_year,
+                projections=projections,
+            )
             _write_json(work / "judgment.json", batch.model_dump(mode="json"))
             return {"chapter_id": chapter_id, "status": "completed", **profile}
     guide, rubric = load_chapter_guide(chapter_id)
     job = {
-        "job_key": f"chapter-judge:{run_key}:2024:{chapter_id}",
+        "job_key": f"chapter-judge:{run_key}:{target_year}:{chapter_id}",
         "run_key": run_key,
-        "target_year": 2024,
+        "target_year": target_year,
         "input": {
             "chapter_id": chapter_id,
             "rubric_version": rubric,
@@ -347,7 +365,12 @@ def _run_chapter(
         raise RuntimeError(result.stderr.strip() or f"judge exited {result.returncode}")
     candidate = _normalize_candidate(_object(pending_path), chapter_id, projections)
     batch = ChapterJudgmentBatch.model_validate(candidate)
-    _validate_batch(batch, chapter_id=chapter_id, projections=projections)
+    _validate_batch(
+        batch,
+        chapter_id=chapter_id,
+        target_year=target_year,
+        projections=projections,
+    )
     _write_json(work / "judgment.json", batch.model_dump(mode="json"))
     return {"chapter_id": chapter_id, "status": "completed", **profile}
 
@@ -433,9 +456,10 @@ def _validate_batch(
     batch: ChapterJudgmentBatch,
     *,
     chapter_id: str,
+    target_year: int,
     projections: tuple[tuple[Path, RulerChapterProjection], ...],
 ) -> None:
-    if batch.chapter_id != chapter_id or batch.target_year != 2024:
+    if batch.chapter_id != chapter_id or batch.target_year != target_year:
         raise ValueError("judge returned the wrong chapter or year")
     by_key = {item.job_key: item for _, item in projections}
     evaluations = {item.dossier_job_key: item for item in batch.evaluations}
@@ -555,7 +579,7 @@ def main() -> None:
     run.add_argument("--workers", type=int, default=3)
     run.add_argument("--timeout", type=int, default=1800)
     run.add_argument("--chapters", nargs="+", choices=CHAPTERS, default=list(CHAPTERS))
-    run.add_argument("--run-key", default="2024-top20-gpt54mini-judges-v1")
+    run.add_argument("--run-key")
     run.add_argument("--instructions", type=Path)
     repair = subparsers.add_parser("repair")
     repair.add_argument("compact_dir", type=Path)
