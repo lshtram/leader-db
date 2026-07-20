@@ -1,0 +1,331 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "subject": "Repeated Reuters/Investing coverage of the same nuclear-warning, drill, and doctrine events",
+          "action": "Collapse into single event families",
+          "why": "Several URLs republish the same Reuters claims; keeping them separate would inflate apparent evidentiary breadth."
+        },
+        {
+          "subject": "constitution.ru and en.kremlin.ru office pages",
+          "action": "Contextualize as formal authority baseline only",
+          "why": "They establish Putin's office and powers, but not prudent or reckless conduct."
+        },
+        {
+          "subject": "Belarus tactical-warhead deployment claims",
+          "action": "Treat as unverified claimed deployment, not confirmed fact",
+          "why": "The package itself notes that open-source confirmation is incomplete."
+        },
+        {
+          "subject": "2025 SIPRI and FAS retrospectives",
+          "action": "Contextualize as retrospective summaries of 2024 posture",
+          "why": "They are valid for end-of-period posture, but not direct target-period acts."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Internal command-and-control discipline, custody, and accident-prevention safeguards remain largely opaque.",
+          "lenses": ["1B.3", "1B.7", "1B.8"],
+          "best_source_or_query_direction": "Technical assessments or declassified records on Russian nuclear command-and-control and safety procedures during 2024",
+          "why_it_matters": "This affects whether the record can distinguish rhetoric and doctrine from actual safety practice."
+        },
+        {
+          "gap": "Belarus deployment of Russian tactical nuclear weapons is not independently verified in open sources.",
+          "lenses": ["1B.5", "1B.6", "1B.10"],
+          "best_source_or_query_direction": "Independent technical or satellite-based corroboration of deployment/storage conditions",
+          "why_it_matters": "Without verification, the evidence can support coercive posture, but not a fully confirmed transfer outcome."
+        }
+      ],
+      "reason": "The package fairly presents both adverse and restraint evidence for nuclear/existential-risk responsibility, with clear attribution to Putin's direct statements, drills, doctrine changes, and war-related nuclear-safety choices. The main weakness is not fairness but incomplete verification of internal safeguards and the Belarus deployment claim."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "subject": "Reuters/Investing duplicates on ceasefire terms, nuclear warnings, battlefield updates, and civilian-harm stories",
+          "action": "Collapse into claim families",
+          "why": "They repeat the same events and should not be counted as separate support."
+        },
+        {
+          "subject": "ICC Ukraine page",
+          "action": "Contextualize as allegations/warrants, not convictions",
+          "why": "Useful for accountability and command responsibility, but not a final legal finding."
+        },
+        {
+          "subject": "Russian state media ceasefire statements",
+          "action": "Contextualize as self-serving stated positions",
+          "why": "They are relevant to Putin's public terms, but not independent proof of peace intent."
+        },
+        {
+          "subject": "UN civilian-casualty and OHCHR summaries",
+          "action": "Contextualize as war-conduct evidence, not proof of each strike order",
+          "why": "They support the campaign pattern while leaving tactical attribution partly open."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Private decision-making on escalation, ceasefire, and target selection remains opaque.",
+          "lenses": ["2B.1", "2B.7", "2B.9"],
+          "best_source_or_query_direction": "Contemporaneous diplomatic archives, leak-based reconstructions, or later serious histories of Kremlin war decision-making",
+          "why_it_matters": "The chapter can show public posture and campaign effects, but not the full internal choice structure."
+        },
+        {
+          "gap": "Open-source confirmation of DPRK-related weapons transfer or other proliferation mechanics is incomplete.",
+          "lenses": ["2B.5", "2B.8", "2B.10"],
+          "best_source_or_query_direction": "Arms-transfer reporting, sanctions records, or independent security assessments of Russia-DPRK military cooperation",
+          "why_it_matters": "This affects how strongly the package can distinguish diplomatic alignment from concrete proliferation."
+        }
+      ],
+      "reason": "The package is fair overall: it includes direct Putin statements, major war-conduct evidence, civilian-harm reporting, and some contrary ceasefire rhetoric. It still leaves open the deepest attribution question, but not enough to block a chapter judgment."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "subject": "Crocus City Hall aftermath and migrant-flight coverage",
+          "action": "Contextualize as domestic-safety aftermath, not direct ruler conduct",
+          "why": "These items describe the climate and response, but not a personal order from Putin."
+        },
+        {
+          "subject": "OVD-Info, HRW, Amnesty, and AP repression coverage",
+          "action": "Collapse into a single repression/source-family cluster",
+          "why": "They corroborate the same repression environment; separate counting would overstate breadth."
+        },
+        {
+          "subject": "Navalny death coverage",
+          "action": "Contextualize as strongly relevant but causally disputed",
+          "why": "The package itself notes the cause remained unresolved in open reporting."
+        },
+        {
+          "subject": "Nadezhdin exclusion and related electoral repression",
+          "action": "Contextualize as institutional entrenchment evidence rather than a proven personal order",
+          "why": "It matters to ruler attribution, but the direct chain is indirect."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct command-chain evidence for specific beatings, torture, or prison deaths is thin.",
+          "lenses": ["3B.1", "3B.2", "3B.4"],
+          "best_source_or_query_direction": "Case-level legal findings, prison records, or investigative reporting tying incidents to named authorities and notice",
+          "why_it_matters": "The chapter can show systemic responsibility, but stronger personal attribution would improve confidence."
+        },
+        {
+          "gap": "The personal-incitement lens is underdeveloped relative to the repression and detention lenses.",
+          "lenses": ["3B.3", "3B.9"],
+          "best_source_or_query_direction": "Contemporaneous speeches, rallies, and statements tied to hate or retaliation against named groups",
+          "why_it_matters": "This distinguishes state repression from ruler-incited domestic violence."
+        }
+      ],
+      "reason": "The package fairly presents severe domestic repression, tolerated coercion, and some mitigation/partial-release evidence. It also preserves the disputed Navalny-death issue and does not overstate direct personal responsibility where the source chain is mostly systemic."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "subject": "OSCE/ODIHR, Freedom House, RSF, CPJ, HRW, OVD-Info, and Amnesty overlap",
+          "action": "Treat as corroborating source families, not independent separate incidents",
+          "why": "They largely describe the same 2024 closure of political and media space."
+        },
+        {
+          "subject": "Meduza's fraud analysis",
+          "action": "Contextualize as counteranalysis, not a clean independent audit",
+          "why": "It is useful contrary evidence, but it should not be treated as final proof by itself."
+        },
+        {
+          "subject": "CEC and Kremlin pages",
+          "action": "Contextualize as official-baseline sources, not evidence of genuine contestability",
+          "why": "They establish the formal result and office structure, but not democratic openness."
+        },
+        {
+          "subject": "Navalny death and protest repression sources",
+          "action": "Contextualize as political-closure evidence, not standalone proof of election quality",
+          "why": "They support the broader regime picture but should not substitute for election-process evidence."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "The fine-grained mechanics of turnout inflation, voter pressure, and administrative coercion are only partly visible.",
+          "lenses": ["4B.1", "4B.2", "4B.8", "4B.9"],
+          "best_source_or_query_direction": "Election-observer reports, local-field reporting, or later investigative reconstructions of ballot administration",
+          "why_it_matters": "This would sharpen the line between formal result and actual political contestability."
+        },
+        {
+          "gap": "Internal elite constraint on Putin in 2024 is underdocumented.",
+          "lenses": ["4B.4", "4B.8", "4B.10"],
+          "best_source_or_query_direction": "Elite-decision histories, cabinet/party archival material, or strong secondary scholarship on Kremlin bargaining",
+          "why_it_matters": "The chapter needs to distinguish personal power from institutional process."
+        }
+      ],
+      "reason": "The package fairly shows a closed political system, blocked competition, censorship, and weak transfer rules, while also preserving the official result and the best available contrary analysis. The evidence is strong enough to present the chapter cleanly."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "subject": "Reuters stories on GDP, wages, labor shortages, inflation, budgets, and military spending",
+          "action": "Collapse into a single macroeconomic trajectory family",
+          "why": "Several stories repackage the same war-economy picture and should not be treated as separate economic successes or failures."
+        },
+        {
+          "subject": "Rosstat, CBR, IMF, and World Bank macro data",
+          "action": "Contextualize as outcome and environment evidence, not direct proof of ruler competence",
+          "why": "They are important, but much of the movement is driven by war spending, labor shortages, and external constraints."
+        },
+        {
+          "subject": "Military-spending-driven growth narratives",
+          "action": "Contextualize as mixed welfare signals, not broad prosperity",
+          "why": "Headline growth can coexist with inflation, secrecy, and weak household-quality gains."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence on household welfare, private investment quality, and small-business conditions is still thin.",
+          "lenses": ["5B.2", "5B.4", "5B.6", "5B.8", "5B.10"],
+          "best_source_or_query_direction": "Household surveys, SME lending/closure data, investment climate reporting, and regional business surveys",
+          "why_it_matters": "This is needed to separate war-economy output from broad prosperity."
+        },
+        {
+          "gap": "Regional and distributional effects are underdeveloped relative to national aggregates.",
+          "lenses": ["5B.8", "5B.9", "5B.10"],
+          "best_source_or_query_direction": "Subnational income, poverty, and price data plus regional labor-market evidence",
+          "why_it_matters": "National GDP/income gains can hide localized weakness or inequity."
+        },
+        {
+          "gap": "Causal attribution between policy choices and outcomes remains too dependent on macro inference.",
+          "lenses": ["5B.3", "5B.7", "5B.9"],
+          "best_source_or_query_direction": "Budget execution, tax policy, industrial policy, and independent evaluation of 2024 economic measures",
+          "why_it_matters": "The package can show outcomes, but the ruler-specific causal chain is not yet tight enough."
+        }
+      ],
+      "reason": "The package is usable, but not yet fully fair or complete for an economic chapter because it leans heavily on macro aggregates and official statistics that are only partially attributable to Putin's choices. A focused follow-up on household, regional, and investment evidence would materially improve it."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "subject": "Government.ru and ministry annual reports",
+          "action": "Contextualize as policy intent and self-assessed implementation, not independent outcome proof",
+          "why": "They are valuable for what the state says it did, but they are not neutral audits."
+        },
+        {
+          "subject": "Rosstat, UNICEF, World Bank, IMF, and CBR data",
+          "action": "Contextualize as outcome and macro context, not direct ruler attribution",
+          "why": "Much of the movement reflects baseline trends, war economy effects, inflation, and broader administration."
+        },
+        {
+          "subject": "2025/2026 retrospective statistics on 2024",
+          "action": "Keep only as retrospective 2024 reports, not as target-period acts",
+          "why": "They are valid for reviewing 2024, but they are not contemporaneous policy evidence."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent measures of service quality, not just coverage, spending, or self-reported delivery, are thin.",
+          "lenses": ["6B.2", "6B.4", "6B.5", "6B.9"],
+          "best_source_or_query_direction": "Independent audits, survey-based service-quality work, or academic/public-health and education evaluations",
+          "why_it_matters": "Coverage gains can coexist with poor quality, regional disparity, or politicized delivery."
+        },
+        {
+          "gap": "Regional and vulnerable-group disaggregation is incomplete.",
+          "lenses": ["6B.3", "6B.8", "6B.10"],
+          "best_source_or_query_direction": "Subnational health, education, disability, and child-welfare indicators",
+          "why_it_matters": "The chapter asks about equitable life chances, not just national averages."
+        },
+        {
+          "gap": "Attribution between Putin-era social policy and war-economy wage pressure is not fully resolved.",
+          "lenses": ["6B.6", "6B.10"],
+          "best_source_or_query_direction": "Program-specific evaluations versus macro labor-market effects",
+          "why_it_matters": "The package needs to distinguish deliberate welfare improvement from incidental income effects."
+        }
+      ],
+      "reason": "The package does present a fair mix of policy actions, outcomes, and contrary macro pressure, but it remains too dependent on official self-report and aggregate indicators to fully settle ruler-attributed social-welfare performance. A focused follow-up on independent service-quality and distribution evidence would be useful."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "subject": "HRW, OVD-Info, Amnesty, and other repression reports",
+          "action": "Contextualize as regime-environment evidence, not direct integrity evidence unless a personal nexus is shown",
+          "why": "The chapter requires ruler-specific honesty, conflict, concealment, or benefit, not just authoritarianism."
+        },
+        {
+          "subject": "Yle's hidden-assets and relatives-benefit reporting",
+          "action": "Treat as allegation-based investigative evidence, not independently audited ownership proof",
+          "why": "Useful, but the personal-benefit chain is still partly inferential."
+        },
+        {
+          "subject": "Official disclosure and prosecutor texts",
+          "action": "Contextualize as formal legal acts, not proof of candor or honesty",
+          "why": "Compliance or rule-making does not itself establish integrity."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct independent proof of beneficial ownership or a fully traced asset chain remains weak.",
+          "lenses": ["7B.3", "7B.4"],
+          "best_source_or_query_direction": "Corporate registries, asset-declaration analysis, leaks, or independent investigative work with documentary tracing",
+          "why_it_matters": "The strongest honesty judgments require a personal-benefit nexus, not just proxy or family proximity."
+        },
+        {
+          "gap": "Affirmative evidence of correction, candor, or acceptance of scrutiny is thin.",
+          "lenses": ["7B.1", "7B.2", "7B.6", "7B.8"],
+          "best_source_or_query_direction": "Direct transcripts, corrections of false claims, court filings, or instances of successful independent scrutiny",
+          "why_it_matters": "Without countervailing positive evidence, the package can show secrecy and patronage but not the full integrity balance."
+        },
+        {
+          "gap": "Several adverse claims remain based on inference from relatives and loyalists rather than direct personal enrichment proof.",
+          "lenses": ["7B.3", "7B.4", "7B.5", "7B.9"],
+          "best_source_or_query_direction": "Evidence linking specific assets, contracts, or posts to Putin's own benefit or direction",
+          "why_it_matters": "This is the difference between authoritarian state control and personal dishonesty."
+        }
+      ],
+      "reason": "The package clearly supports a negative integrity picture, but it still leans on some allegation-based or indirect evidence for personal benefit. That is enough for a cautious narrative, not enough for fully settled personal-integrity adjudication without a bit more documentary chain."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "subject": "Reuters stories on war progress, defense reshuffles, and budget shifts",
+          "action": "Collapse into a few program-and-execution families",
+          "why": "They are useful, but they repeat the same underlying 2024 execution chain."
+        },
+        {
+          "subject": "Official Kremlin, government, and ministry reports",
+          "action": "Contextualize as self-reported implementation claims",
+          "why": "They show intent and claimed execution, but not independent verification."
+        },
+        {
+          "subject": "Battlefield gains and military spending figures",
+          "action": "Contextualize as competence indicators, not moral approval",
+          "why": "The chapter is ideology-neutral and should not import approval or condemnation."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent verification of some social and health outcomes is weaker than official reporting.",
+          "lenses": ["8B.7", "8B.10"],
+          "best_source_or_query_direction": "Independent audits or external evaluations of 2024 health and family-project outputs",
+          "why_it_matters": "It would better separate self-reported success from confirmed execution."
+        },
+        {
+          "gap": "Causal attribution of economic and military outcomes to Putin's own competence is still partly confounded by war economy, force size, and inherited capacity.",
+          "lenses": ["8B.3", "8B.7", "8B.8", "8B.9", "8B.10"],
+          "best_source_or_query_direction": "Defense-industrial audits, procurement performance reviews, and high-quality historical synthesis",
+          "why_it_matters": "The package shows advancement of the program, but the exact share due to Putin's competence versus structural inputs is not fully pinned down."
+        }
+      ],
+      "reason": "The package fairly presents the 2024 program, the major personnel and budget moves, and visible wartime and macro execution outcomes. It separates moral judgment from competence and preserves the limits of attribution, so it is usable as-is."
+    }
+  ]
+}
