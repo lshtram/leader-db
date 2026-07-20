@@ -781,6 +781,15 @@ canonical URLs, reports mechanical quality warnings, permits one reviewer-direct
 follow-up, and uses separate no-search review and formatting turns. It fingerprints the
 production collector before each run and stores all state beneath a separate experiment
 run key, so accepting or removing the experiment does not alter historical results.
+Its v2 ledger contract accepts only machine-parseable source-claim units carrying the
+direct URL, precise claim and locator, source confidence, period fit, ruler attribution,
+contrary evidence, and exact lens mappings. Stable evidence IDs are derived in guide
+order; exact reuse is explicit; canonical URLs and claim keys are deduplicated in parent
+code. Final dossier serialization is deterministic and preserves reviewer dispositions,
+so formatting cannot add evidence or silently infer mappings. A sibling batch supervisor
+requires hash-locked, reviewed identities and successful 80-lens local-prior preflight,
+then reserves both per-ruler and batch-wide cost ceilings before launching resumable,
+staged-concurrency jobs.
 The optional batch supervisor runs a data-defined ruler roster with bounded staged
 concurrency. It stores an immutable manifest snapshot, per-job status and retry counts,
 append-only process logs, and periodic aggregate profiles. Re-running the same command

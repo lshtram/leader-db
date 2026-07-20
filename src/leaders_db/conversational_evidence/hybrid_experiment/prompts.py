@@ -31,6 +31,24 @@ def chapter(
     priors: object,
     existing_index: str,
 ) -> str:
+    claim_example = json.dumps(
+        {
+            "title": "...",
+            "publisher": "...",
+            "publication_date": "YYYY-MM-DD or best available",
+            "url": "https://direct-source.example/...",
+            "claim": "one precise material claim",
+            "locator": "page, section, paragraph, table, or quoted phrase",
+            "source_type": "primary/legal/IGO/NGO/scholarship/media/official/other",
+            "source_confidence": "very_low|low|medium_low|medium|medium_high|high",
+            "source_confidence_reason": "...",
+            "period_fit": "...",
+            "ruler_attribution": "...",
+            "contrary_evidence": ["..."],
+            "lenses": [f"{chapter_id}.1"],
+        },
+        separators=(",", ":"),
+    )
     return f"""Now research Chapter {chapter_id} for {ruler} during {year}. Continue in
 the same thread and do not score.
 
@@ -57,7 +75,20 @@ type and credibility, temporal fit, ruler attribution and limits, contrary point
 exact {chapter_id} lenses); Search and rejection summary (documents considered and
 duplicate/irrelevant/weak/blocked/out-of-period removals); Remaining gaps (specific,
 material, and whether more search would help). Do not repeat reused evidence in full.
-Do not score."""
+Do not score.
+
+Use these exact machine-readable lines in the relevant prose sections. Put each JSON
+object on one physical line without a code fence.
+
+For each reused item:
+REUSE_JSON: {{"evidence_ids":["E0001"],"lenses":["{chapter_id}.1"]}}
+
+For every newly accepted source-claim unit:
+SOURCE_CLAIM_JSON: {claim_example}
+
+One unit is one source plus one materially distinct claim and locator. Do not create
+multiple units merely by paraphrasing the same passage. Every accepted new item must
+have exactly one SOURCE_CLAIM_JSON line; narrative without that line is not accepted."""
 
 
 def review(
@@ -111,7 +142,11 @@ REVIEWER GAPS
 For each gap say resolved, partly resolved, or not recoverable. For every new retained
 source give title, publisher, date, direct URL, precise claim and locator, temporal fit,
 attribution and limits, contrary points, and exact chapter lenses. Briefly record failed
-directions or blockers. Store one source once and keep the answer concise."""
+directions or blockers. Store one source once and keep the answer concise.
+
+Every newly accepted unit must also appear on one physical line, without a code fence,
+using the exact SOURCE_CLAIM_JSON object required in the chapter prompts. Use exact
+1B-8B lens IDs. Narrative without a valid SOURCE_CLAIM_JSON line is not accepted."""
 
 
 def formatter(ruler: str, year: int, package: object) -> str:

@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import sys
 from pathlib import Path
 
 from .runner import run_experiment
@@ -31,7 +33,7 @@ def main() -> None:
         researcher_name=args.researcher,
         cost_ceiling_usd=args.cost_ceiling_usd,
     )
-    print(result)
+    sys.stdout.write(json.dumps(result, ensure_ascii=False) + "\n")
 
 
 if __name__ == "__main__":

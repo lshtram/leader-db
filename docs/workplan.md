@@ -3537,6 +3537,18 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
   Focused tests cover stable deduplication, warning calculation, and baseline hashing.
   The first controlled full-ruler trial is Vladimir Putin / Russia / 2024.
 
+- **2022 twenty-ruler hybrid batch preparation (2026-07-20).** The v2 experiment now
+  parses strict accepted source-claim records instead of treating every note URL as
+  evidence, derives exact claim/lens mappings and stable IDs, validates all eight
+  no-search chapter reviews, and deterministically serializes reviewer-aware dossiers.
+  Reviewed and rationale-bearing manifests define both the 20-ruler 2022 cohort and a
+  three-ruler Putin/Modi/Bolsonaro gate. The batch supervisor hash-locks the manifest,
+  performs all 80 local-prior checks per ruler, reserves per-ruler and aggregate cost
+  ceilings, checkpoints every case, and scales concurrency only after completed gates.
+  Real-data preflight found 1,600/1,600 local-prior dispositions ready with no extraction
+  errors. The next action is the three-ruler paid pilot; the remaining 17 cases must not
+  start before its cost and quality review.
+
 ## Phase C approach (data acquisition)
 
 Phase C builds one Stage 2 ingest adapter per ✅ vetted_ok source. The pattern is set by V-Dem (the first and biggest) and reused by all the others. **One source lands → self-reviewed → tested → user sign-off → next source.** This avoids stacking unreviewed code (Rule #14) and lets the user steer the indicator catalog before we get too far.

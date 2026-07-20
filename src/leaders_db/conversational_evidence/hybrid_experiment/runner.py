@@ -20,11 +20,17 @@ from . import prompts
 from .artifacts import (
     CHAPTERS,
     baseline_manifest,
-    compact_index,
-    evidence_index,
-    quality_summary,
     write_json,
 )
+from .claims import (
+    LedgerClaim,
+    build_ledger,
+    dossier,
+    ledger_quality,
+    parse_chapter_note,
+    parse_follow_up,
+)
+from .review_models import validate_review
 
 
 def run_experiment(
@@ -42,7 +48,7 @@ def run_experiment(
     """Run or resume reconnaissance, eight chapters, review, follow-up, and format."""
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    _prepare_inputs(
+    prepare_inputs(
         project_root, output_dir, ruler, country, iso3, year, ruler_id
     )
     prior_package = _read_json(output_dir / "inputs" / "local-prior-package.json")
@@ -66,26 +72,29 @@ def run_experiment(
         raw_priors=raw_priors,
         cost_ceiling_usd=cost_ceiling_usd,
     )
-    notes = _existing_notes(output_dir)
-
-    records = evidence_index(notes)
-    warnings = quality_summary(records)
-    write_json(output_dir / "evidence-index.json", records)
+    records = build_ledger(output_dir)
+    warnings = ledger_quality(records)
+    write_json(
+        output_dir / "evidence-ledger.json",
+        [item.model_dump(mode="json") for item in records],
+    )
     write_json(output_dir / "quality-summary.json", warnings)
     package = _package(output_dir, records)
     review_path = output_dir / "review.json"
     if not review_path.exists():
-        review_value = _no_search_turn(
-            project_root,
-            output_dir / ".reviewer",
-            researcher_name,
-            prompts.review(
-                ruler,
-                year,
-                "\n\n".join(guides.values()),
-                warnings,
-                package,
-            ),
+        review_value = validate_review(
+            _no_search_turn(
+                project_root,
+                output_dir / ".reviewer",
+                researcher_name,
+                prompts.review(
+                    ruler,
+                    year,
+                    "\n\n".join(guides.values()),
+                    warnings,
+                    package,
+                ),
+            )
         )
         write_json(review_path, review_value)
 
@@ -95,44 +104,50 @@ def run_experiment(
     if gaps and not follow_path.exists():
         _check_budget(output_dir, researcher_name, cost_ceiling_usd)
         note = researcher.ask(
-            prompts.follow_up(ruler, year, compact_index(records), gaps)
+            prompts.follow_up(ruler, year, _compact_claim_index(records), gaps)
         )
+        parse_follow_up(note)
         follow_path.write_text(note + "\n", encoding="utf-8")
         _write_state(output_dir, researcher.thread_id, "follow-up")
-        notes = _existing_notes(output_dir)
-        records = evidence_index(notes)
-        warnings = quality_summary(records)
-        write_json(output_dir / "evidence-index.json", records)
+        records = build_ledger(output_dir)
+        warnings = ledger_quality(records)
+        write_json(
+            output_dir / "evidence-ledger.json",
+            [item.model_dump(mode="json") for item in records],
+        )
         write_json(output_dir / "quality-summary.json", warnings)
         package = _package(output_dir, records)
-        final_review = _no_search_turn(
-            project_root,
-            output_dir / ".reviewer-final",
-            researcher_name,
-            prompts.review(
-                ruler,
-                year,
-                "\n\n".join(guides.values()),
-                warnings,
-                package,
-                final=True,
+        final_review = validate_review(
+            _no_search_turn(
+                project_root,
+                output_dir / ".reviewer-final",
+                researcher_name,
+                prompts.review(
+                    ruler,
+                    year,
+                    "\n\n".join(guides.values()),
+                    warnings,
+                    package,
+                    final=True,
+                ),
             ),
+            final=True,
         )
         write_json(output_dir / "review-final.json", final_review)
         review_value = final_review
 
     dossier_path = output_dir / "dossier.json"
     if not dossier_path.exists():
-        package = {**_package(output_dir, records), "review": review_value}
-        dossier = _no_search_turn(
-            project_root,
-            output_dir / ".formatter",
-            researcher_name,
-            prompts.formatter(ruler, year, package),
+        formatted = dossier(
+            ruler=ruler,
+            country=country,
+            iso3=iso3.upper(),
+            year=year,
+            records=records,
+            review=review_value,
+            notes={key: note for key, note in _existing_notes(output_dir)},
         )
-        if dossier.get("schema_version") != "hybrid_experiment_dossier_v1":
-            raise ValueError("formatter returned the wrong schema version")
-        write_json(dossier_path, dossier)
+        write_json(dossier_path, formatted)
 
     profile = _profile(output_dir, researcher_name, records, warnings)
     write_json(output_dir / "profile.json", profile)
@@ -168,7 +183,7 @@ def _run_research(
         if chapter_path.exists():
             continue
         _check_budget(output, researcher_name, cost_ceiling_usd)
-        records = evidence_index(_existing_notes(output))
+        records = build_ledger(output)
         chapter_priors = [
             item
             for item in raw_priors
@@ -181,16 +196,17 @@ def _run_research(
                 chapter_id,
                 guide,
                 chapter_priors,
-                compact_index(records),
+                _compact_claim_index(records),
             )
         )
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
+        parse_chapter_note(note, chapter_id)
         chapter_path.write_text(note + "\n", encoding="utf-8")
         _write_state(output, researcher.thread_id, chapter_id)
     return guides
 
 
-def _prepare_inputs(
+def prepare_inputs(
     root: Path,
     output: Path,
     ruler: str,
@@ -205,6 +221,9 @@ def _prepare_inputs(
         write_json(baseline, baseline_manifest(root))
     raw_path = inputs / "local-priors.json"
     if raw_path.exists():
+        expected = {"ruler": ruler, "country": country, "iso3": iso3.upper(), "year": year}
+        if _read_json(inputs / "identity.json") != expected:
+            raise ValueError("saved experiment identity does not match requested identity")
         return
     engine = build_engine(f"sqlite:///{root / 'data/catalog/leaders_db.sqlite'}")
     job = {
@@ -255,9 +274,9 @@ def _existing_notes(output: Path) -> list[tuple[str, str]]:
     return notes
 
 
-def _package(output: Path, records: list[dict[str, object]]) -> dict[str, object]:
+def _package(output: Path, records: tuple[LedgerClaim, ...]) -> dict[str, object]:
     return {
-        "evidence_index": records,
+        "evidence_ledger": [item.model_dump(mode="json") for item in records],
         "notes": {key: note for key, note in _existing_notes(output)},
     }
 
@@ -297,7 +316,7 @@ def _recoverable_gaps(review: dict[str, Any]) -> list[dict[str, Any]]:
 def _profile(
     output: Path,
     researcher: str,
-    records: list[dict[str, object]],
+    records: tuple[LedgerClaim, ...],
     warnings: dict[str, object],
 ) -> dict[str, object]:
     work_dirs = [
@@ -323,10 +342,7 @@ def _profile(
         "tool_calls": sum(sum(item.get("tool_calls", {}).values()) for item in profiles),
         "usage": usage,
         "estimated_cost_usd": _estimated_cost(usage, pricing),
-        "evidence": {
-            "distinct_urls": len(records),
-            "distinct_domains": len({str(item["domain"]) for item in records}),
-        },
+        "evidence": warnings,
         "quality_summary": warnings,
     }
 
@@ -355,4 +371,15 @@ def _read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-__all__ = ["run_experiment"]
+def _compact_claim_index(records: tuple[LedgerClaim, ...], limit: int = 180) -> str:
+    rows = []
+    for item in records[-limit:]:
+        value = item.model_dump(mode="json")
+        rows.append(
+            f"{value['evidence_id']} | {value['publisher']} | {value['canonical_url']} | "
+            f"{','.join(value['lenses'])} | {value['claim'][:180]}"
+        )
+    return "\n".join(rows) or "No accepted web evidence yet."
+
+
+__all__ = ["prepare_inputs", "run_experiment"]
