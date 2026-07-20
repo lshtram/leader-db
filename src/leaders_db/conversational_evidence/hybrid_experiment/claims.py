@@ -255,15 +255,24 @@ def _line_json(line: str, prefix: str) -> object:
 
 
 def _record_line(line: str) -> str:
-    """Remove conventional list and inline-code wrappers from a record line."""
+    """Extract a record after optional prose, list, and inline-code wrappers."""
 
     stripped = line.lstrip()
     for prefix in _MARKDOWN_LIST_PREFIXES:
         if stripped.startswith(prefix):
             stripped = stripped.removeprefix(prefix)
             break
+    record_offsets = [
+        offset
+        for marker in (_CLAIM_PREFIX, _REUSE_PREFIX)
+        if (offset := stripped.find(marker)) >= 0
+    ]
+    if record_offsets:
+        stripped = stripped[min(record_offsets) :]
     if stripped.startswith("`") and stripped.endswith("`"):
         return stripped[1:-1]
+    if stripped.endswith("`"):
+        return stripped[:-1]
     return stripped
 
 

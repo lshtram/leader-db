@@ -63,6 +63,16 @@ def test_parse_chapter_note_accepts_inline_code_wrapper() -> None:
     assert len(records) == 1
 
 
+def test_parse_chapter_note_accepts_claim_after_introductory_prose() -> None:
+    note = "A concise finding. " + _claim(
+        url="https://example.org/a", claim="A material act.", lenses=["6B.1"]
+    )
+
+    records = parse_chapter_note(note, "6B")
+
+    assert len(records) == 1
+
+
 def test_parse_chapter_note_rejects_only_malformed_record() -> None:
     valid = _claim(
         url="https://example.org/a", claim="A material act.", lenses=["2B.1"]
@@ -95,6 +105,29 @@ def test_recover_completed_chapter_turn(tmp_path: Path) -> None:
 
     assert recovered is True
     assert chapter_path.read_text(encoding="utf-8") == note + "\n"
+
+
+def test_recover_completed_chapter_turn_after_prior_retry(tmp_path: Path) -> None:
+    work = tmp_path / ".researcher"
+    work.mkdir()
+    invalid = "The prior attempt did not emit a structured record."
+    work.joinpath("turn-006.md").write_text(invalid, encoding="utf-8")
+    work.joinpath("turn-006.profile.json").write_text(
+        json.dumps({"return_code": 0}), encoding="utf-8"
+    )
+    valid = "Finding. " + _claim(
+        url="https://example.org/a", claim="A material act.", lenses=["5B.1"]
+    )
+    work.joinpath("turn-007.md").write_text(valid, encoding="utf-8")
+    work.joinpath("turn-007.profile.json").write_text(
+        json.dumps({"return_code": 0}), encoding="utf-8"
+    )
+    chapter_path = tmp_path / "chapters" / "5B.md"
+
+    recovered = _recover_completed_chapter_turn(tmp_path, chapter_path, "5B", 6)
+
+    assert recovered is True
+    assert chapter_path.read_text(encoding="utf-8") == valid + "\n"
 
 
 def test_build_ledger_preserves_distinct_claims_and_reuse(tmp_path: Path) -> None:

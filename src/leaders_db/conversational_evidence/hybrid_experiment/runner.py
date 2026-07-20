@@ -219,22 +219,29 @@ def _recover_completed_chapter_turn(
     """Promote a valid completed turn left unfiled by a prior validator failure."""
 
     work = output / ".researcher"
-    note_path = work / f"turn-{turn_number:03d}.md"
-    profile_path = work / f"turn-{turn_number:03d}.profile.json"
-    if not note_path.exists() or not profile_path.exists():
-        return False
-    profile = _read_json(profile_path)
-    if profile.get("return_code") != 0:
-        return False
-    note = note_path.read_text(encoding="utf-8")
-    try:
-        parse_chapter_note(note, chapter_id)
-    except ValueError:
-        return False
-    _record_parse_rejections(output, chapter_id, note)
-    chapter_path.parent.mkdir(parents=True, exist_ok=True)
-    chapter_path.write_text(note + "\n", encoding="utf-8")
-    return True
+    for note_path in sorted(work.glob("turn-*.md")):
+        try:
+            candidate_number = int(note_path.stem.removeprefix("turn-"))
+        except ValueError:
+            continue
+        if candidate_number < turn_number:
+            continue
+        profile_path = note_path.with_suffix(".profile.json")
+        if not profile_path.exists():
+            continue
+        profile = _read_json(profile_path)
+        if profile.get("return_code") != 0:
+            continue
+        note = note_path.read_text(encoding="utf-8")
+        try:
+            parse_chapter_note(note, chapter_id)
+        except ValueError:
+            continue
+        _record_parse_rejections(output, chapter_id, note)
+        chapter_path.parent.mkdir(parents=True, exist_ok=True)
+        chapter_path.write_text(note + "\n", encoding="utf-8")
+        return True
+    return False
 
 
 def _record_parse_rejections(output: Path, chapter_id: str, note: str) -> None:
