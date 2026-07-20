@@ -178,9 +178,14 @@ def _run_research(
         chapter_id: load_chapter_guide(chapter_id, project_root=project_root)[0]
         for chapter_id in CHAPTERS
     }
-    for chapter_id, guide in guides.items():
+    for chapter_index, (chapter_id, guide) in enumerate(guides.items(), start=2):
         chapter_path = output / "chapters" / f"{chapter_id}.md"
         if chapter_path.exists():
+            continue
+        if _recover_completed_chapter_turn(
+            output, chapter_path, chapter_id, chapter_index
+        ):
+            _write_state(output, researcher.thread_id, chapter_id)
             continue
         _check_budget(output, researcher_name, cost_ceiling_usd)
         records = build_ledger(output)
@@ -204,6 +209,29 @@ def _run_research(
         chapter_path.write_text(note + "\n", encoding="utf-8")
         _write_state(output, researcher.thread_id, chapter_id)
     return guides
+
+
+def _recover_completed_chapter_turn(
+    output: Path, chapter_path: Path, chapter_id: str, turn_number: int
+) -> bool:
+    """Promote a valid completed turn left unfiled by a prior validator failure."""
+
+    work = output / ".researcher"
+    note_path = work / f"turn-{turn_number:03d}.md"
+    profile_path = work / f"turn-{turn_number:03d}.profile.json"
+    if not note_path.exists() or not profile_path.exists():
+        return False
+    profile = _read_json(profile_path)
+    if profile.get("return_code") != 0:
+        return False
+    note = note_path.read_text(encoding="utf-8")
+    try:
+        parse_chapter_note(note, chapter_id)
+    except ValueError:
+        return False
+    chapter_path.parent.mkdir(parents=True, exist_ok=True)
+    chapter_path.write_text(note + "\n", encoding="utf-8")
+    return True
 
 
 def prepare_inputs(

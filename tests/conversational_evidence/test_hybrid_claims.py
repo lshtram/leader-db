@@ -9,6 +9,9 @@ from leaders_db.conversational_evidence.hybrid_experiment.claims import (
     ledger_quality,
     parse_chapter_note,
 )
+from leaders_db.conversational_evidence.hybrid_experiment.runner import (
+    _recover_completed_chapter_turn,
+)
 
 
 def _claim(*, url: str, claim: str, lenses: list[str]) -> str:
@@ -36,6 +39,35 @@ def test_parse_chapter_note_requires_exact_chapter_lenses() -> None:
 
     with pytest.raises(ValueError, match="cross-chapter"):
         parse_chapter_note(note, "1B")
+
+
+def test_parse_chapter_note_accepts_markdown_list_marker() -> None:
+    note = "- " + _claim(
+        url="https://example.org/a", claim="A material act.", lenses=["1B.1"]
+    )
+
+    records = parse_chapter_note(note, "1B")
+
+    assert len(records) == 1
+    assert str(records[0].url) == "https://example.org/a"
+
+
+def test_recover_completed_chapter_turn(tmp_path: Path) -> None:
+    work = tmp_path / ".researcher"
+    work.mkdir()
+    note = "- " + _claim(
+        url="https://example.org/a", claim="A material act.", lenses=["5B.1"]
+    )
+    work.joinpath("turn-006.md").write_text(note, encoding="utf-8")
+    work.joinpath("turn-006.profile.json").write_text(
+        json.dumps({"return_code": 0}), encoding="utf-8"
+    )
+    chapter_path = tmp_path / "chapters" / "5B.md"
+
+    recovered = _recover_completed_chapter_turn(tmp_path, chapter_path, "5B", 6)
+
+    assert recovered is True
+    assert chapter_path.read_text(encoding="utf-8") == note + "\n"
 
 
 def test_build_ledger_preserves_distinct_claims_and_reuse(tmp_path: Path) -> None:

@@ -14,6 +14,7 @@ from leaders_db.conversational_evidence.deep_artifacts import canonical_url
 
 _CLAIM_PREFIX = "SOURCE_CLAIM_JSON:"
 _REUSE_PREFIX = "REUSE_JSON:"
+_MARKDOWN_LIST_PREFIXES = ("- ", "* ", "+ ")
 
 
 class AcceptedClaim(BaseModel):
@@ -68,9 +69,9 @@ def parse_chapter_note(note: str, chapter_id: str) -> tuple[AcceptedClaim, ...]:
     """Parse and validate every accepted source-claim JSON line."""
 
     claims = tuple(
-        AcceptedClaim.model_validate(_line_json(line, _CLAIM_PREFIX))
+        AcceptedClaim.model_validate(_line_json(_record_line(line), _CLAIM_PREFIX))
         for line in note.splitlines()
-        if line.startswith(_CLAIM_PREFIX)
+        if _record_line(line).startswith(_CLAIM_PREFIX)
     )
     if not claims:
         raise ValueError(f"{chapter_id} note contains no {_CLAIM_PREFIX} records")
@@ -84,9 +85,9 @@ def parse_reuse(note: str, chapter_id: str) -> tuple[ReusedClaim, ...]:
     """Parse explicit existing-evidence mappings from one chapter note."""
 
     records = tuple(
-        ReusedClaim.model_validate(_line_json(line, _REUSE_PREFIX))
+        ReusedClaim.model_validate(_line_json(_record_line(line), _REUSE_PREFIX))
         for line in note.splitlines()
-        if line.startswith(_REUSE_PREFIX)
+        if _record_line(line).startswith(_REUSE_PREFIX)
     )
     for record in records:
         if any(not lens.startswith(f"{chapter_id}.") for lens in record.lenses):
@@ -250,11 +251,21 @@ def _line_json(line: str, prefix: str) -> object:
         raise ValueError(f"invalid {prefix} JSON: {exc}") from exc
 
 
+def _record_line(line: str) -> str:
+    """Remove one conventional Markdown list marker from a record line."""
+
+    stripped = line.lstrip()
+    for prefix in _MARKDOWN_LIST_PREFIXES:
+        if stripped.startswith(prefix):
+            return stripped.removeprefix(prefix)
+    return stripped
+
+
 def _parse_claim_lines(note: str) -> tuple[AcceptedClaim, ...]:
     return tuple(
-        AcceptedClaim.model_validate(_line_json(line, _CLAIM_PREFIX))
+        AcceptedClaim.model_validate(_line_json(_record_line(line), _CLAIM_PREFIX))
         for line in note.splitlines()
-        if line.startswith(_CLAIM_PREFIX)
+        if _record_line(line).startswith(_CLAIM_PREFIX)
     )
 
 
