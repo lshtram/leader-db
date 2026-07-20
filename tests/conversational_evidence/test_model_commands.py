@@ -54,6 +54,12 @@ def test_failed_turn_number_is_not_reused(tmp_path: Path) -> None:
     assert _next_turn(tmp_path) == 5
 
 
+def test_gpt54mini_allows_long_tail_research_turns(tmp_path: Path) -> None:
+    researcher = CodexResearcher(tmp_path, tmp_path / "research", "gpt-5.4-mini")
+
+    assert researcher.timeout_seconds == 1800
+
+
 def test_failed_remote_compaction_requires_fresh_thread() -> None:
     assert _requires_fresh_thread("Error running remote compact task: max_output_tokens")
     assert _requires_fresh_thread("", "Failed to run pre-sampling compact")
