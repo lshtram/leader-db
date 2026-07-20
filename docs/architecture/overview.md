@@ -780,6 +780,15 @@ resumes each dossier from its atomic session checkpoint; `--retry-failed` explic
 reopens only terminal jobs after a generic repair. Resource profiles include both the
 worker-process CPU/RSS footprint and whole-machine CPU/memory so provider latency can be
 distinguished from local saturation.
+A candidate-heavy mode adds a stricter, resumable research topology without replacing
+the canonical collector. One persistent researcher performs ruler reconnaissance and
+then processes chapters in order. Parent code counts canonical URLs, continues discovery
+until the configured target or round ceiling, partitions candidate IDs into bounded
+inspection waves, and rejects a final ledger unless its parsed source rows satisfy the
+configured count and unique-URL constraints. If a model returns an oversized ledger,
+that raw artifact remains intact and a separately named selection artifact becomes
+authoritative only after deterministic validation. Scientific controls live in
+`data/deep-workflow.json`; prompt text remains in `data/deep-prompts.json`.
 A deterministic conversion gate bridges this experimental format to the canonical
 `ruler_evidence_dossier_v2` and `ruler_chapter_projection_v1` contracts. It requires an
 exact catalog ruler-year identity, validates all 80 mappings, preserves uncaptured

@@ -1,0 +1,88 @@
+**New Accepted Records**
+- `S036` (`C086`): [China’s Position on the Political Settlement of the Ukraine Crisis](https://www.fmprc.gov.cn/web/wjb_673085/zzjg_673183/dozys_673577/xwlb_673579/202302/t20230224_11030707.shtml) | Ministry of Foreign Affairs of the PRC | 2023-02-24 | source type: official foreign-ministry policy paper | language: Chinese | confidence: high, because it is an official PRC statement with explicit peace terms | locator: `turn6view0` L96-L116 | supported claims: sovereignty/territorial integrity, ceasefire, direct talks, humanitarian corridors, POW exchanges, nuclear safety, grain exports, sanctions relief, reconstruction | final evidence use: favorable/mitigating and contrary diplomatic baseline, plus mediation framing | temporal fit: direct 2023 | Putin attribution: indirect, as a non-Russian mediation/settlement record reacting to Russia’s war | limitations: state position paper, not independent finding | contrary considerations: explicitly calls for negotiations, restraint, and legal settlement | 2B lenses: `L1`, `L2`, `L4`, `L5`, `L6`, `L7`, `L10`
+- `S037` (`C087`): [NOTE TO CORRESPONDENTS: UN Secretary-General visits Ukraine](https://ukraine.un.org/en/222054-note-correspondents-un-secretary-general-visits-ukraine) | United Nations in Ukraine | 2023-03-07 | source type: UN press note | language: English | confidence: high | locator: `turn26view0` L61-L69 | supported claims: Guterres was traveling to Kyiv to discuss continuation of the Black Sea Grain Initiative and related issues; third visit in under a year | final evidence use: diplomacy/ceasefire context and mediation access | temporal fit: direct 2023 | Putin attribution: indirect through the Russia-Ukraine negotiation context | limitations: procedural note, not a negotiated text | contrary considerations: frames active UN mediation rather than unilateral escalation | 2B lenses: `L1`, `L7`, `L10`
+- `S038` (`C088`): [Note to Correspondents: Update on the Black Sea Grain Initiative](https://ukraine.un.org/en/215728-note-correspondents-update-black-sea-grain-initiative) | United Nations in Ukraine | 2023-01-19 | source type: UN press note | language: English | confidence: high | locator: `turn22view0` L61-L68 | supported claims: 17.8 million tonnes exported by 19 Jan 2023; China was the primary recipient; UN urged parties to remove obstacles and expand ammonia/fertilizer facilitation | final evidence use: diplomacy, food-security mitigation, and civilian-impact relief | temporal fit: direct 2023 | Putin attribution: indirect via Russia’s role in the Black Sea framework | limitations: operational note, not a legal finding | contrary considerations: emphasizes continued multilateral cooperation and benefits | 2B lenses: `L1`, `L4`, `L7`, `L10`
+- `S039` (`C089`): [Note to Correspondents - on the extension of the Black Sea Grain Initiative](https://ukraine.un.org/en/223807-note-correspondents-extension-black-sea-grain-initiative) | United Nations in Ukraine | 2023-03-18 | source type: UN press note | language: English | confidence: high | locator: `turn24view0` L61-L69 | supported claims: the initiative was extended; 25 million metric tonnes had moved to 45 countries; Türkiye provided diplomatic and operational support; the UN urged full implementation | final evidence use: diplomacy and mitigation evidence | temporal fit: direct 2023 | Putin attribution: indirect via Russia’s participation in the framework | limitations: institutional diplomacy note | contrary considerations: directly credits multilateral continuation rather than rupture | 2B lenses: `L1`, `L4`, `L7`, `L10`
+- `S040` (`C090`): [Note to Correspondents on the Black Sea Grain Initiative](https://ukraine.un.org/en/227225-note-correspondents-black-sea-grain-initiative) | United Nations in Ukraine | 2023-04-11 | source type: UN press note | language: English | confidence: high | locator: `turn24view1` L61-L71 | supported claims: inspections paused and resumed after JCC talks; UN and Türkiye were involved; 27.5 million metric tonnes had moved; global food-price relief and humanitarian supply were being sustained | final evidence use: diplomacy, humanitarian mitigation, and operational restraint | temporal fit: direct 2023 | Putin attribution: indirect via Russian participation in the JCC system | limitations: operational update, not a negotiation transcript | contrary considerations: stresses shared responsibilities and continued coordination | 2B lenses: `L1`, `L4`, `L7`, `L10`
+- `S041` (`C091`): [UN Secretary-General's remarks at press encounter on the Black Sea Initiative](https://ukraine.un.org/en/232006-un-secretary-generals-remarks-press-encounter-black-sea-initiative) | United Nations in Ukraine | 2023-05-17 | source type: UN press remarks | language: English | confidence: high | locator: `turn6view4` L67-L90 | supported claims: Russia confirmed another 60 days of participation; Russia, Ukraine, Türkiye, and UN kept discussing issues; the deal mattered for food security and global price stability | final evidence use: diplomacy, de-escalation, and humanitarian relief | temporal fit: direct 2023 | Putin attribution: indirect through Russian decision on participation | limitations: UN framing, not Russian position | contrary considerations: highlights continuing negotiation and constructive engagement | 2B lenses: `L1`, `L4`, `L7`, `L10`
+- `S042` (`C092`): [HUMANITARIANS REACHED 7.3 MILLION PEOPLE IN UKRAINE WITH VITAL AID IN THE FIRST SIX MONTHS OF 2023](https://ukraine.un.org/en/240070-humanitarians-reached-73-million-people-ukraine-vital-aid-first-six-months-2023) | United Nations in Ukraine / OCHA | 2023-07-22 | source type: humanitarian situation note | language: English | confidence: high | locator: `turn25view4` L65-L74 | supported claims: Russia’s termination of the Black Sea Initiative and attacks on Odesa coincided with a worsening humanitarian situation; 7.3 million people received aid in H1 2023; access in Russian-controlled areas remained heavily impeded | final evidence use: civilian harm, humanitarian access, accountability, and net-war-impact evidence | temporal fit: direct 2023 | Putin attribution: indirect through Russian military/state actions and access constraints | limitations: humanitarian actor perspective; not a legal judgment | contrary considerations: includes aid delivery and operational relief, not only harm | 2B lenses: `L2`, `L4`, `L5`, `L9`, `L10`
+- `S043` (`C093`): [Implementation of Ukrainian Peace Formula to make it possible to proceed to diplomatic fixation of end of war – President](https://www.president.gov.ua/en/news/vikonannya-ukrayinskoyi-formuli-miru-dast-zmogu-perejti-do-d-81245) | President of Ukraine | 2023-02-24 | source type: presidential statement | language: English | confidence: high | locator: `turn17view0` L197-L214 | supported claims: Ukraine framed peace as requiring implementation of the Peace Formula, international law, security guarantees, and broad participation including China and India | final evidence use: favorable/mitigating diplomacy record and lawful settlement pathway | temporal fit: direct 2023 | Putin attribution: indirect, as the counterparty to the proposed settlement | limitations: Ukrainian government advocacy document | contrary considerations: explicitly rejects negotiated peace without territorial restoration and security guarantees | 2B lenses: `L1`, `L7`, `L10`
+- `S044` (`C094`): [The most important outcome of the meeting in Jeddah is that we are one step closer to the implementation of the Peace Formula - Andriy Yermak](https://www.president.gov.ua/en/news/najvazhlivishij-pidsumok-zustrichi-v-dzhiddi-mi-stali-she-na-84777) | President of Ukraine | 2023-08-08 | source type: presidential-office statement | language: English | confidence: high | locator: `turn18view2` L203-L215 | supported claims: broad support for the Peace Formula grew; participants emphasized no freezing of the war; China continued in the format; consultations expanded | final evidence use: diplomacy, mediation-party record, contrary evidence to Russian claims of settlement openness | temporal fit: direct 2023 | Putin attribution: indirect, because it addresses the war’s diplomatic end-state | limitations: Ukrainian diplomatic advocacy | contrary considerations: rejects frozen-conflict outcomes and frames Russian withdrawal as necessary | 2B lenses: `L1`, `L7`, `L10`
+- `S045` (`C095`): [Our Peace Formula gradually, step by step, is becoming global – address by the President of Ukraine](https://www.president.gov.ua/en/news/nasha-formula-miru-postupovo-krok-za-krokom-staye-globalnoyu-86669) | President of Ukraine | 2023-10-28 | source type: presidential address | language: English | confidence: high | locator: `turn18view4` L205-L214 | supported claims: 66 countries were represented; work was underway on five of ten formula points; the framework was presented as a global peace architecture against aggression | final evidence use: diplomacy, lawful settlement, and international coordination evidence | temporal fit: direct 2023 | Putin attribution: indirect as the conflict party the formula seeks to constrain | limitations: Ukrainian leadership advocacy | contrary considerations: explicitly frames Russia as aggressor and peace as contingent on territorial restoration | 2B lenses: `L1`, `L7`, `L10`
+- `S046` (`C096`): [Putin says Russia's economy can cope with higher defence spending on war](https://uk.investing.com/news/economic-indicators/putin-says-russias-economy-can-cope-with-higher-defence-spending-on-war-3191542) | Reuters via Investing.com mirror | 2023-10-05 | source type: wire-service mirror | language: English | confidence: high, because Reuters reporting captured direct Putin remarks and budget figures | locator: `turn12view0` L419-L430 / `turn12view1` L419-L433 | supported claims: Putin said the economy can absorb higher military spending to fund the war in Ukraine; Reuters reported defense spending would be nearly one-third of 2024 expenditure | final evidence use: military spending, war-sustainment motive, and regime-resilience framing | temporal fit: direct 2023 | Putin attribution: direct | limitations: mirror URL rather than Reuters original | contrary considerations: Putin framed this as economic strength under sanctions | 2B lenses: `L2`, `L3`, `L5`, `L8`, `L10`
+- `S047` (`C097`): [Putin approves big military spending hikes for Russia's budget](https://uk.investing.com/news/economy/putin-approves-big-military-spending-hikes-for-russias-budget-3250589) | Reuters via Investing.com mirror | 2023-11-27 | source type: wire-service mirror | language: English | confidence: high | locator: `turn12view2` L429-L436 / `turn12view3` L429-L432 | supported claims: Putin approved a budget with about 30% of fiscal expenditure for the armed forces in 2024; defense/security combined approached 40%; defense spending was set to rise almost 70% from 2023 | final evidence use: military-resource commitment and war-prolongation evidence | temporal fit: direct 2023 | Putin attribution: direct approval/signature | limitations: mirror URL; Reuters summary of budget documents rather than the text itself | contrary considerations: budget also reflected broader state priorities and tax/revenue assumptions | 2B lenses: `L2`, `L3`, `L5`, `L8`, `L10`
+- `S048` (`C098`): [Putin says Russian-held regions in Ukraine endorse their choice to join Moscow](https://www.investing.com/news/world-news/putin-says-russianheld-regions-in-ukraine-endorse-their-choice-to-join-moscow-3186878) | Reuters via Investing.com mirror | 2023-09-29 | source type: wire-service mirror | language: English | confidence: high | locator: `turn13view2` L423-L430 | supported claims: Putin said the Russian-held regions’ elections confirmed their choice to join Russia; Reuters also notes Western governments called the annexation illegal and underpinned by coercion | final evidence use: annexation, coercion, public justification, and legality evidence | temporal fit: direct 2023 | Putin attribution: direct | limitations: mirror URL; Reuters summary rather than primary Kremlin text | contrary considerations: article explicitly notes international rejection as illegal annexation | 2B lenses: `L2`, `L3`, `L6`, `L10`
+
+**C081–C115 Dispositions**
+| C-ID | Disposition | Reason |
+|---|---|---|
+| C081 | access_blocked | Direct Kremlin 2023 transcript timed out before open |
+| C082 | access_blocked | Direct Kremlin 2023 transcript timed out before open |
+| C083 | access_blocked | Direct Kremlin 2023 transcript timed out before open |
+| C084 | access_blocked | Direct Kremlin 2023 transcript timed out before open |
+| C085 | access_blocked | Direct Kremlin 2023 law/budget page timed out before open |
+| C086 | opened_accepted | China position paper, opened and read |
+| C087 | opened_accepted | UN Secretary-General visit note, opened and read |
+| C088 | opened_accepted | UN Black Sea Grain Initiative update, opened and read |
+| C089 | opened_accepted | UN Black Sea Grain Initiative extension note, opened and read |
+| C090 | opened_accepted | UN Black Sea Grain Initiative operational note, opened and read |
+| C091 | opened_accepted | UN SG Black Sea Initiative remarks, opened and read |
+| C092 | opened_accepted | UN humanitarian situation note, opened and read |
+| C093 | opened_accepted | Ukraine Peace Formula statement, opened and read |
+| C094 | opened_accepted | Jeddah Peace Formula follow-up, opened and read |
+| C095 | opened_accepted | Malta Peace Formula meeting, opened and read |
+| C096 | opened_accepted | Reuters mirror on Putin and higher military spending, opened and read |
+| C097 | opened_accepted | Reuters mirror on 2024 budget hikes, opened and read |
+| C098 | opened_accepted | Reuters mirror on occupied-region integration/annexation, opened and read |
+| C099 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C100 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C101 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C102 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C103 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C104 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C105 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C106 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C107 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C108 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C109 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C110 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C111 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C112 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C113 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C114 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+| C115 | deferred_lower_priority | Lower-value continuation item not needed after stronger sources |
+
+**Cumulative Counts**
+- Candidate IDs reviewed: `115`
+- Parent-side verified unique canonical URLs across `C001–C115`: `109`
+- Parent-side discrepancy preserved: earlier model reporting overcounted by `5`
+- Documents successfully opened this turn: `13`
+- Documents successfully opened across all waves: `31`
+- Accepted source records added this turn: `13`
+- Accepted source records total: `48`
+- `opened_accepted`: `31`
+- `opened_context`: `17`
+- Access blocked: `12`
+- Rejected duplicate: `2`
+- Rejected irrelevant: `0`
+- Deferred lower priority: `53`
+
+**Per-Lens Accepted-Source Counts**
+- `L1` diplomacy/de-escalation: `20`
+- `L2` initiation/escalation/annexation/coercion/proxy conflict: `27`
+- `L3` defensive necessity vs prestige/nationalism/diversion/regime survival: `6`
+- `L4` civilian protection and humanitarian law: `36`
+- `L5` restraint and responsibility for forces/proxies/allies/arms recipients: `36`
+- `L6` truthful vs manipulative public justification: `9`
+- `L7` ceasefires/negotiations/lawful settlements/reconciliation: `19`
+- `L8` military spending and mobilization motives: `3`
+- `L9` accountability for failures/civilian harm/illegal conduct: `34`
+- `L10` net change in regional/international peace, stability, legality: `48`
+
+**Remaining Gaps**
+- Direct 2023 Kremlin transcript coverage is still weak because several primary Kremlin pages timed out.
+- Direct Russian budget/legal text remains under-opened, so `L8` improved but is still thinner than the humanitarian and diplomacy lenses.
+- Russian internal accountability/correction evidence is still sparse.
+- Proxy-command and arms-recipient responsibility still needs more primary material beyond general war-harm reporting.
+- Mediation-party coverage is better now, but Turkish/African direct records are still thinner than UN, Chinese, and Ukrainian diplomacy records.
+- The verified canonical-URL discrepancy remains as noted: `109` unique URLs, not the earlier model-reported `114`.

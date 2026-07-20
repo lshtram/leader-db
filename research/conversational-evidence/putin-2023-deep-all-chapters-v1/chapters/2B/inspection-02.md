@@ -1,0 +1,69 @@
+**New Accepted Records**
+
+| 2B-S ID | Candidate | Title | Publisher | Date | Canonical URL | Source type | Lang | Source confidence and reason | Final evidence use | Precise locator / short excerpt | Factual claims | Temporal fit | Ruler attribution | Inherited / context limits | Contrary considerations | Exact lens IDs | Duplicate-family note |
+|---|---|---|---|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `2B-S003` | `2B-C021` | Report on the human rights situation in Ukraine, 1 August to 30 November 2023 | OHCHR / HRMMU | 2023-12-12 | https://ukraine.ohchr.org/en/37-periodic-report-EN | monitoring report | EN | High. Contemporaneous OHCHR periodic report with quantified civilian-harm and occupation findings. | Accepted as late-2023 conduct evidence on strikes, occupation governance, and civilian harm. | `turn6view0 L97-L129, L140-L143, L176-L186` | Russian forces caused civilian casualties, struck grain-related facilities, imposed Russian systems in occupied territory, and used forced conscription and detention practices. | Direct 2023 reporting window. | Strong, with explicit reference to the Russian Federation and Russian armed forces. | OHCHR is monitoring and legal framing, not command-order proof. | It describes patterns and verified findings, not individual intent for every incident. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct periodic report, not a mirror. |
+| `2B-S004` | `2B-C022` | Human rights situation during the Russian occupation of territory of Ukraine and its aftermath, 24 February 2022 to 31 December 2023 | OHCHR / HRMMU | 2024-03-20 | https://ukraine.ohchr.org/en/human-rights-situation-during-russian-occupation-territory-ukraine-and-its-aftermath-EN | monitoring report | EN | High. Detailed OHCHR occupation report with “reasonable grounds to believe” standard and direct occupation findings. | Accepted as core occupation-rule evidence on coercive control, detention, and imposed Russian systems. | `turn7view0 L81-L83`, `turn2view0 L93-L93`, `turn2view1 L83-L102` | Russian occupation involved systematic dismantling of rights, imposition of Russian legal/administrative systems, passport pressure, arbitrary detention, torture, and forced movement. | Directly covers 2022-2023 and concludes after the target year. | Strong, with explicit Russian Federation attribution. | Later synthesis, but based on 2022-2023 monitoring and a direct occupation frame. | It is a rights-monitoring report; it does not by itself prove every action was personally ordered by Putin. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct occupation report family. |
+| `2B-S005` | `2B-C024` | Treatment of prisoners of war and persons hors de combat in the context of the armed attack by the Russian Federation against Ukraine, 24 February 2022 – 23 February 2023 | OHCHR / HRMMU | 2023-03-24 | https://ukraine.ohchr.org/en/reports/detention | monitoring report | EN | High. OHCHR thematic report on POW treatment, directly tied to the Russian attack context. | Accepted as IHL / detention baseline for Russian conduct in the war. | `turn7view8 L75-L81`, `turn1view4 L105-L106` | The report focuses on POW treatment by parties to the conflict since Russia’s large-scale attack and covers 24 Feb 2022 to 23 Feb 2023. | Slightly before and into 2023, but directly relevant baseline context. | Strong, as the report names the Russian Federation attack context. | Mostly a baseline/earlier-war source rather than a 2023-only event. | It is not a Putin speech or order, but it is relevant conduct evidence. | `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct detention / POW family. |
+| `2B-S006` | `2B-C025` | Secretary-General annual report on children and armed conflict | UN / HRMMU | 2024-06-03 | https://ukraine.ohchr.org/en/Secretary-General-annual-report-on-children-and-armed-conflict-2024 | monitoring report | EN | High. UN children-and-conflict report with explicit Russia-linked findings and 2023 coverage. | Accepted as child-violations evidence, including abduction and transfer of Ukrainian children. | `turn8view3 L1906-L1913`, `turn8view0 L1938-L1971` | Verified transfer/deportation of children to Russia or occupied territory, denial of humanitarian access, simplified Russian citizenship procedures, and continued concerns about abduction and detention of children. | Covers calendar year 2023, published in 2024. | Strong, with repeated references to the Russian Federation and Russian authorities. | Global report, but the Ukraine/Russia passages are specific and attributable. | It is an annual UN report, not an investigative court finding. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct children-and-armed-conflict family. |
+| `2B-S007` | `2B-C028` | Moscow Mechanism: “Report on Violations and Abuses of International Humanitarian and Human Rights Law, War Crimes and Crimes Against Humanity, related to the Forcible Transfer and/or Deportation of Ukrainian Children to the Russian Federation” | OSCE ODIHR | 2023-05-04 | https://odihr.osce.org/odihr/542751 | monitoring report | EN | High. OSCE expert report, contemporaneous and directly about deportation/transfer of children. | Accepted as core evidence on child deportation and possible war crimes. | `turn7view7 L61-L69`, `turn2view6 L241-L249` | OSCE experts reported on forcible transfer and/or deportation of Ukrainian children to the Russian Federation and linked the matter to accountability mechanisms. | Direct 2023 event and report. | Strong, though it is expert monitoring rather than a judicial ruling. | It is a mission report, not a court judgment, but the evidentiary standard is still substantial. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct OSCE expert-report family. |
+| `2B-S008` | `2B-C029` | OSCE human rights office monitoring finds evidence of torture and sexual violence in Ukraine as violations continue | OSCE ODIHR | 2023-07-17 | https://odihr.osce.org/odihr/548662 | monitoring report | EN | High. OSCE monitoring with direct field testimony and specific abuse findings. | Accepted as evidence of torture, detention abuse, and civilian treatment under occupation. | `turn5view7 L78-L78` | ODIHR received reports of summary executions, torture, poor detention conditions, and sexual violence carried out by Russian armed forces. | Direct 2023 monitoring. | Strong, with direct reference to Russian armed forces. | Monitoring based on testimony; not a court finding. | The report is evidentiary, but some findings rest on witness accounts rather than complete forensic proof. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct torture / sexual violence family. |
+| `2B-S009` | `2B-C034` | Deportations and forcible transfers of Ukrainian children and other civilians to Russian Federation or to Ukrainian territories temporarily occupied... | PACE | 2023-04-25 | https://assembly.coe.int/nw/xml/XRef/Xref-XML2HTML-en.asp?fileid=31727&lang=en | parliamentary report | EN | High. Strong PACE report on systematic deportations, with direct claims about numbers and policy. | Accepted as a major deportation-accountability source. | `turn3view0 L51-L51`, `turn3view1 L117-L125`, `turn3view1 L154-L154`, `turn3view1 L212-L212` | Evidence points to a systematic Russian policy of deportation/transfer; the report discusses thousands of civilians, including children, and stresses accountability. | Direct 2023 parliamentary report. | Strong, though it is an Assembly report rather than a judicial record. | The report aggregates witness and documentary evidence; it is not itself a criminal adjudication. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct PACE children/deportation family. |
+| `2B-S010` | `2B-C035` | Political consequences of the Russian Federation's war of aggression against Ukraine | PACE | 2023-06-20 | https://assembly.coe.int/nw/xml/XRef/Xref-XML2HTML-en.asp?fileid=32879&lang=en | parliamentary report | EN | High. PACE report directly labels the war aggression, cites Kakhovka, and calls for accountability. | Accepted as broader aggression and accountability evidence with a civilian-harm link. | `turn5view13 L39-L42`, `turn3view3 L40-L40`, `turn3view3 L179-L182` | The report says Putin’s regime persists in a brutal war of aggression; it characterizes the Kakhovka dam destruction as war crime/ecocide and calls for accountability. | Direct 2023 report. | Strong, though it is a parliamentary synthesis. | The report is highly interpretive and normatively framed. | `2B.2`, `2B.7`, `2B.9`, `2B.10` | Distinct PACE aggression / consequences family. |
+| `2B-S011` | `2B-C036` | Questions juridiques et violations des droits de l'homme liées à l’agression de la Fédération de Russie contre l’Ukraine | PACE | 2024 | https://assembly.coe.int/nw/xml/XRef/Xref-XML2HTML-fr.asp?fileid=33575&lang=fr | parliamentary report | FR | High. Later legal/human-rights report with direct references to occupation, aggression, genocide-risk, and accountability. | Accepted as later legal synthesis on unlawful aggression and occupation governance. | `turn3view5 L324-L341`, `turn3view4 L153-L155`, `turn3view4 L189-L195`, `turn3view4 L419-L419` | Russian authorities imposed Russian systems in occupied territories in violation of IHL; the report connects aggression to accountability and discusses serious legal consequences. | Later retrospective, but directly about the 2022-2024 war context. | Strong, with explicit reference to the Russian Federation’s aggression. | Later synthesis, not a primary 2023 event document. | It is a legal-policy report, not a factual investigation with the same granularity as OHCHR. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct PACE legal/human-rights family. |
+| `2B-S012` | `2B-C037` | Situation of the children of Ukraine | PACE | 2024 | https://assembly.coe.int/nw/xml/XRef/Xref-XML2HTML-en.asp?fileid=33322 | parliamentary recommendation | EN | High. PACE recommendation that directly tracks deported children, return, and accountability. | Accepted as follow-on evidence on child deportation, return, and state responsibility. | `turn1view13 L111-L120`, `turn3view6 L114-L117` | The Assembly calls for return of children forcibly transferred or deported by Russian forces and highlights the Russian Federation’s systematic policy. | Later than the target year, but directly about 2023 consequences and remedies. | Strong, with direct reference to the Russian Federation. | Recommendation rather than a finding; still useful for accountability framing. | It is not a primary event record and is more remedial than evidentiary. | `2B.2`, `2B.4`, `2B.5`, `2B.9`, `2B.10` | Distinct PACE children-of-Ukraine family. |
+
+**Requested-ID Disposition Ledger**
+
+| Candidate ID | Disposition | Reason |
+|---|---|---|
+| `2B-C021` | `opened_accepted` | Strong OHCHR periodic report with late-2023 conduct evidence. |
+| `2B-C022` | `opened_accepted` | Strong OHCHR occupation report with systematic rights-suppression findings. |
+| `2B-C023` | `rejected_duplicate` | News summary of the same OHCHR occupation report family. |
+| `2B-C024` | `opened_accepted` | OHCHR POW-treatment report is distinct and directly relevant. |
+| `2B-C025` | `opened_accepted` | UN children-and-armed-conflict report contains Russia-linked 2023 violations. |
+| `2B-C026` | `opened_context` | Early-war 2022 baseline, useful but outside the 2023 core. |
+| `2B-C027` | `opened_context` | OSCE presentation of the child-deportation report, largely duplicative. |
+| `2B-C028` | `opened_accepted` | OSCE Moscow Mechanism report is a strong distinct children-deportation source. |
+| `2B-C029` | `opened_accepted` | OSCE monitoring on torture and sexual violence adds distinct abuse evidence. |
+| `2B-C030` | `opened_context` | Procedural setup for the OSCE inquiry, not a substantive findings document. |
+| `2B-C031` | `opened_context` | Ukrainian delegation statement is useful diplomatic framing but secondary. |
+| `2B-C032` | `opened_context` | Register-of-Damage mechanism is accountability context, not conduct evidence. |
+| `2B-C033` | `opened_context` | CoE Ukraine-response portal is broad institutional context. |
+| `2B-C034` | `opened_accepted` | PACE deportation report is a strong distinct accountability source. |
+| `2B-C035` | `opened_accepted` | PACE aggression consequences report adds Kakhovka and accountability detail. |
+| `2B-C036` | `opened_accepted` | PACE 2024 legal/human-rights report is a distinct later synthesis. |
+| `2B-C037` | `opened_accepted` | PACE children-of-Ukraine recommendation is useful remedial/accountability evidence. |
+| `2B-C038` | `access_blocked` | Kremlin anniversary speech timed out on fetch. |
+| `2B-C039` | `access_blocked` | Kremlin foreign-policy concept timed out on fetch. |
+| `2B-C040` | `access_blocked` | Kremlin nationalities-council transcript timed out on fetch. |
+
+**Current-Wave Counts**
+- `opened_accepted`: `10`
+- `opened_context`: `6`
+- `opened_rejected`: `0`
+- `access_blocked`: `3`
+- `rejected_duplicate`: `1`
+- `rejected_irrelevant`: `0`
+- `rejected_weak`: `0`
+- `rejected_temporal`: `0`
+- `deferred_lower_priority`: `0`
+
+**Per-Lens Counts**
+- `2B.1`: `0`
+- `2B.2`: `9`
+- `2B.3`: `0`
+- `2B.4`: `9`
+- `2B.5`: `9`
+- `2B.6`: `0`
+- `2B.7`: `1`
+- `2B.8`: `0`
+- `2B.9`: `9`
+- `2B.10`: `10`
+
+**Remaining Gaps**
+- Direct Putin-authored or Putin-delivered 2023 peace-track text is still thin in this wave.
+- The Kremlin pages for war-justification and doctrine remain blocked, so the strongest ruler-authored framing is still missing from the accepted set here.
+- Proxy-control evidence outside occupied territory and Belarus remains weak.
+- The record is now much stronger on civilian harm, occupation coercion, and child deportation than on any credible de-escalatory practice.
+- If you want, I can continue with the next wave and push the ledger toward more primary Kremlin attribution and remaining 2B.1 / 2B.7 gaps.

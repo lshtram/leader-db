@@ -1,5 +1,22 @@
 # Workplan
 
+## 2026-07-19 — Candidate-heavy chapter research experiment
+
+- Added a tentative, resumable GPT-5.4 mini workflow for one complete ruler-year. It
+  separates broad reconnaissance, parent-counted discovery, 20-candidate inspection
+  waves, and final evidence selection across chapters 1B–8B.
+- The versioned test configuration targets 100 unique candidate documents and enforces
+  a final ledger of 20–30 unique-URL sources per chapter. Raw oversized model output is
+  retained, while a corrective selection turn is required when the ledger violates the
+  numeric or URL-deduplication contract.
+- Added atomic phase/session checkpoints, exact persistent-thread reuse, per-turn raw
+  events, cumulative usage/cost profiling, and focused fake-researcher tests.
+- Completed the Putin 2023 all-chapter trial in 7h36m wall time. It recorded 992 web
+  searches, at least $10.22 in model cost, 741 chapter-level candidate URL instances,
+  and 208 accepted URL instances. Five chapters reached 100 candidates; 3B/4B/5B ended
+  at 99/74/57. The quality review rejects count alone as a readiness signal, especially
+  because 8B remained thematically contaminated and several ledgers were concentrated.
+
 ## 2026-07-19 — Multi-year Leaders Database portal
 
 - Replaced the single hard-coded 2023 visualization mount with one read-only mount of
