@@ -52,6 +52,16 @@ def test_parse_chapter_note_accepts_markdown_list_marker() -> None:
     assert str(records[0].url) == "https://example.org/a"
 
 
+def test_parse_chapter_note_accepts_inline_code_wrapper() -> None:
+    note = "- `" + _claim(
+        url="https://example.org/a", claim="A material act.", lenses=["6B.1"]
+    ) + "`"
+
+    records = parse_chapter_note(note, "6B")
+
+    assert len(records) == 1
+
+
 def test_recover_completed_chapter_turn(tmp_path: Path) -> None:
     work = tmp_path / ".researcher"
     work.mkdir()

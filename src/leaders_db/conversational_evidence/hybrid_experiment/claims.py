@@ -252,12 +252,15 @@ def _line_json(line: str, prefix: str) -> object:
 
 
 def _record_line(line: str) -> str:
-    """Remove one conventional Markdown list marker from a record line."""
+    """Remove conventional list and inline-code wrappers from a record line."""
 
     stripped = line.lstrip()
     for prefix in _MARKDOWN_LIST_PREFIXES:
         if stripped.startswith(prefix):
-            return stripped.removeprefix(prefix)
+            stripped = stripped.removeprefix(prefix)
+            break
+    if stripped.startswith("`") and stripped.endswith("`"):
+        return stripped[1:-1]
     return stripped
 
 
