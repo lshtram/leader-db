@@ -25,6 +25,7 @@ from .artifacts import (
 from .claims import (
     LedgerClaim,
     build_ledger,
+    chapter_parse_errors,
     dossier,
     ledger_quality,
     parse_chapter_note,
@@ -206,6 +207,7 @@ def _run_research(
         )
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
         parse_chapter_note(note, chapter_id)
+        _record_parse_rejections(output, chapter_id, note)
         chapter_path.write_text(note + "\n", encoding="utf-8")
         _write_state(output, researcher.thread_id, chapter_id)
     return guides
@@ -229,9 +231,24 @@ def _recover_completed_chapter_turn(
         parse_chapter_note(note, chapter_id)
     except ValueError:
         return False
+    _record_parse_rejections(output, chapter_id, note)
     chapter_path.parent.mkdir(parents=True, exist_ok=True)
     chapter_path.write_text(note + "\n", encoding="utf-8")
     return True
+
+
+def _record_parse_rejections(output: Path, chapter_id: str, note: str) -> None:
+    """Persist malformed claim records that were deliberately excluded."""
+
+    path = output / "parse-rejections.json"
+    value = _read_json(path) if path.exists() else {}
+    errors = chapter_parse_errors(note)
+    if errors:
+        value[chapter_id] = list(errors)
+    else:
+        value.pop(chapter_id, None)
+    if value:
+        write_json(path, value)
 
 
 def prepare_inputs(

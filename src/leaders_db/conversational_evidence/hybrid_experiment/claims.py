@@ -68,17 +68,20 @@ class LedgerClaim(AcceptedClaim):
 def parse_chapter_note(note: str, chapter_id: str) -> tuple[AcceptedClaim, ...]:
     """Parse and validate every accepted source-claim JSON line."""
 
-    claims = tuple(
-        AcceptedClaim.model_validate(_line_json(_record_line(line), _CLAIM_PREFIX))
-        for line in note.splitlines()
-        if _record_line(line).startswith(_CLAIM_PREFIX)
-    )
+    claims, _ = _chapter_claim_records(note)
     if not claims:
         raise ValueError(f"{chapter_id} note contains no {_CLAIM_PREFIX} records")
     for claim in claims:
         if any(not lens.startswith(f"{chapter_id}.") for lens in claim.lenses):
             raise ValueError(f"{chapter_id} claim contains a cross-chapter lens")
     return claims
+
+
+def chapter_parse_errors(note: str) -> tuple[dict[str, object], ...]:
+    """Describe malformed claim lines that were excluded from the ledger."""
+
+    _, errors = _chapter_claim_records(note)
+    return errors
 
 
 def parse_reuse(note: str, chapter_id: str) -> tuple[ReusedClaim, ...]:
@@ -270,6 +273,32 @@ def _parse_claim_lines(note: str) -> tuple[AcceptedClaim, ...]:
         for line in note.splitlines()
         if _record_line(line).startswith(_CLAIM_PREFIX)
     )
+
+
+def _chapter_claim_records(
+    note: str,
+) -> tuple[tuple[AcceptedClaim, ...], tuple[dict[str, object], ...]]:
+    claims = []
+    errors = []
+    for line_number, raw_line in enumerate(note.splitlines(), start=1):
+        line = _record_line(raw_line)
+        if not line.startswith(_CLAIM_PREFIX):
+            continue
+        try:
+            claims.append(
+                AcceptedClaim.model_validate(_line_json(line, _CLAIM_PREFIX))
+            )
+        except (ValueError, TypeError) as exc:
+            errors.append(
+                {
+                    "line_number": line_number,
+                    "reason": str(exc),
+                    "record_sha256": hashlib.sha256(
+                        raw_line.encode("utf-8")
+                    ).hexdigest(),
+                }
+            )
+    return tuple(claims), tuple(errors)
 
 
 def _claim_key(claim: AcceptedClaim) -> str:

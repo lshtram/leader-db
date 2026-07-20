@@ -5,6 +5,7 @@ import pytest
 
 from leaders_db.conversational_evidence.hybrid_experiment.claims import (
     build_ledger,
+    chapter_parse_errors,
     dossier,
     ledger_quality,
     parse_chapter_note,
@@ -60,6 +61,22 @@ def test_parse_chapter_note_accepts_inline_code_wrapper() -> None:
     records = parse_chapter_note(note, "6B")
 
     assert len(records) == 1
+
+
+def test_parse_chapter_note_rejects_only_malformed_record() -> None:
+    valid = _claim(
+        url="https://example.org/a", claim="A material act.", lenses=["2B.1"]
+    )
+    malformed = 'SOURCE_CLAIM_JSON: {"title":"missing fields"}'
+    note = valid + "\n" + malformed
+
+    records = parse_chapter_note(note, "2B")
+    errors = chapter_parse_errors(note)
+
+    assert len(records) == 1
+    assert len(errors) == 1
+    assert errors[0]["line_number"] == 2
+    assert len(str(errors[0]["record_sha256"])) == 64
 
 
 def test_recover_completed_chapter_turn(tmp_path: Path) -> None:
