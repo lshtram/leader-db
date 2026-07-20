@@ -78,20 +78,17 @@ def parse_chapter_note(note: str, chapter_id: str) -> tuple[AcceptedClaim, ...]:
 
 
 def chapter_parse_errors(note: str) -> tuple[dict[str, object], ...]:
-    """Describe malformed claim lines that were excluded from the ledger."""
+    """Describe malformed claim and reuse lines excluded from the ledger."""
 
-    _, errors = _chapter_claim_records(note)
-    return errors
+    _, claim_errors = _chapter_claim_records(note)
+    _, reuse_errors = _reuse_records(note)
+    return claim_errors + reuse_errors
 
 
 def parse_reuse(note: str, chapter_id: str) -> tuple[ReusedClaim, ...]:
     """Parse explicit existing-evidence mappings from one chapter note."""
 
-    records = tuple(
-        ReusedClaim.model_validate(_line_json(_record_line(line), _REUSE_PREFIX))
-        for line in note.splitlines()
-        if _record_line(line).startswith(_REUSE_PREFIX)
-    )
+    records, _ = _reuse_records(note)
     for record in records:
         if any(not lens.startswith(f"{chapter_id}.") for lens in record.lenses):
             raise ValueError(f"{chapter_id} reuse contains a cross-chapter lens")
@@ -308,6 +305,32 @@ def _chapter_claim_records(
                 }
             )
     return tuple(claims), tuple(errors)
+
+
+def _reuse_records(
+    note: str,
+) -> tuple[tuple[ReusedClaim, ...], tuple[dict[str, object], ...]]:
+    records = []
+    errors = []
+    for line_number, raw_line in enumerate(note.splitlines(), start=1):
+        line = _record_line(raw_line)
+        if not line.startswith(_REUSE_PREFIX):
+            continue
+        try:
+            records.append(
+                ReusedClaim.model_validate(_line_json(line, _REUSE_PREFIX))
+            )
+        except (ValueError, TypeError) as exc:
+            errors.append(
+                {
+                    "line_number": line_number,
+                    "reason": str(exc),
+                    "record_sha256": hashlib.sha256(
+                        raw_line.encode("utf-8")
+                    ).hexdigest(),
+                }
+            )
+    return tuple(records), tuple(errors)
 
 
 def _claim_key(claim: AcceptedClaim) -> str:

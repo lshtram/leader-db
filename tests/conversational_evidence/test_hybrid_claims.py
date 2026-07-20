@@ -9,6 +9,7 @@ from leaders_db.conversational_evidence.hybrid_experiment.claims import (
     dossier,
     ledger_quality,
     parse_chapter_note,
+    parse_reuse,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.runner import (
     _recover_completed_chapter_turn,
@@ -87,6 +88,23 @@ def test_parse_chapter_note_rejects_only_malformed_record() -> None:
     assert len(errors) == 1
     assert errors[0]["line_number"] == 2
     assert len(str(errors[0]["record_sha256"])) == 64
+
+
+def test_parse_reuse_rejects_only_malformed_record() -> None:
+    note = "\n".join(
+        (
+            'REUSE_JSON: {"evidence_ids":["E0001"],"lenses":["2B.1"]}',
+            "REUSE_JSON: n/a",
+        )
+    )
+
+    records = parse_reuse(note, "2B")
+    errors = chapter_parse_errors(note)
+
+    assert len(records) == 1
+    assert records[0].evidence_ids == ("E0001",)
+    assert len(errors) == 1
+    assert errors[0]["line_number"] == 2
 
 
 def test_recover_completed_chapter_turn(tmp_path: Path) -> None:
