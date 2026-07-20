@@ -90,3 +90,35 @@ def test_full_and_pilot_manifests_are_valid_and_locked() -> None:
     assert len(pilot.cases) == 3
     assert {item.iso3 for item in pilot.cases} == {"BRA", "IND", "RUS"}
     assert all(item.identity_status == "reviewed_locked" for item in full.cases)
+
+
+def test_failed_job_is_requeued_when_artifact_progressed(tmp_path: Path) -> None:
+    value = _manifest(cases=1)
+    value["batch_cost_ceiling_usd"] = 3.0
+    manifest = BatchManifest.model_validate(value)
+    state_path = tmp_path / "batch-state.json"
+    output = tmp_path / "outputs" / "aaa-2022"
+    output.mkdir(parents=True)
+    state_path.write_text(
+        json.dumps(
+            {
+                "jobs": {
+                    "AAA": {
+                        "iso3": "AAA",
+                        "slug": "aaa-2022",
+                        "status": "failed",
+                        "failures": 2,
+                        "pid": None,
+                        "launch_progress": [],
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    output.joinpath("reconnaissance.md").write_text("saved", encoding="utf-8")
+
+    state = batch._state(manifest, state_path, tmp_path)
+
+    assert state["jobs"]["AAA"]["status"] == "queued"
+    assert state["jobs"]["AAA"]["failures"] == 0

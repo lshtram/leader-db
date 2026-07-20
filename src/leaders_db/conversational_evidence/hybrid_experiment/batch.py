@@ -72,7 +72,7 @@ def run(manifest_path: Path, batch_dir: Path, project_root: Path, interval: int 
     if preflight_report.get("manifest_sha256") != _sha256(manifest_path):
         raise ValueError("manifest changed after preflight")
     state_path = batch_dir / "batch-state.json"
-    state = _state(manifest, state_path)
+    state = _state(manifest, state_path, batch_dir)
     logs = batch_dir / "logs"
     logs.mkdir(exist_ok=True)
     processes: dict[str, tuple[subprocess.Popen[str], Any]] = {}
@@ -99,6 +99,7 @@ def run(manifest_path: Path, batch_dir: Path, project_root: Path, interval: int 
                 status="running",
                 pid=process.pid,
                 launches=int(job["launches"]) + 1,
+                launch_progress=_progress_marker(batch_dir / "outputs" / job["slug"]),
                 started_at=datetime.now(UTC).isoformat(),
             )
             running += 1
@@ -166,6 +167,8 @@ def _reconcile(
         session = _read_optional(output / "session.json")
         if session.get("last_completed") == "complete" and (output / "dossier.json").is_file():
             job.update(status="completed", pid=None, finished_at=_now(), return_code=return_code)
+        elif _progress_marker(output) != tuple(job.get("launch_progress") or ()):
+            job.update(status="queued", pid=None, failures=0, return_code=return_code)
         elif int(job["failures"]) < manifest.maximum_failures_per_case:
             job.update(
                 status="queued",
@@ -177,12 +180,20 @@ def _reconcile(
             job.update(status="failed", pid=None, finished_at=_now(), return_code=return_code)
 
 
-def _state(manifest: BatchManifest, path: Path) -> dict[str, Any]:
+def _state(
+    manifest: BatchManifest, path: Path, batch_dir: Path
+) -> dict[str, Any]:
     if path.exists():
         value = _read(path)
         for job in value["jobs"].values():
             if job["status"] == "running" and not _alive(job.get("pid")):
                 job["status"] = "queued"
+            if (
+                job["status"] == "failed"
+                and _progress_marker(batch_dir / "outputs" / job["slug"])
+                != tuple(job.get("launch_progress") or ())
+            ):
+                job.update(status="queued", failures=0, pid=None)
         return value
     return {
         "schema_version": "hybrid_experiment_batch_state_v1",
@@ -200,6 +211,20 @@ def _state(manifest: BatchManifest, path: Path) -> dict[str, Any]:
             for case in manifest.cases
         },
     }
+
+
+def _progress_marker(output: Path) -> tuple[str, ...]:
+    """Return durable stage artifacts used to detect progress across retries."""
+
+    candidates = [
+        output / "reconnaissance.md",
+        *(output / "chapters" / f"{number}B.md" for number in range(1, 9)),
+        output / "review.json",
+        output / "follow-up.md",
+        output / "review-final.json",
+        output / "dossier.json",
+    ]
+    return tuple(path.name for path in candidates if path.is_file())
 
 
 def _save_state(

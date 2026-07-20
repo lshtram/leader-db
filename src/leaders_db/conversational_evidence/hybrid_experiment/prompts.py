@@ -106,8 +106,24 @@ def review(
         if final
         else ""
     )
+    schema = """{
+  "overall_decision":"pass|targeted_follow_up|manual_review",
+  "chapters":[{
+    "chapter_id":"1B",
+    "decision":"pass|targeted_follow_up|credible_gap|manual_review",
+    "remove_or_contextualize":[{"evidence_id":"E0001","reason":"..."}],
+    "material_gaps":[{"gap":"...","lenses":["1B.1"],
+      "best_source_or_query_direction":"...","why_it_matters":"..."}],
+    "reason":"..."
+  }]
+}"""
     return f"""{prefix}Review the complete evidence package for {ruler}, {year}.
 Do not browse, add evidence, rewrite claims, or score.
+
+Return JSON only, using this exact shape and object types. Include Chapters 1B-8B in
+order. `remove_or_contextualize` must contain objects with one exact evidence_id and
+one reason; never put prose strings in that array. Use [] when there are none.
+{schema}
 
 For every chapter decide whether the package can fairly present conduct, outcomes,
 contrary evidence, attribution, favorable and adverse interpretations, and uncertainty.
@@ -124,10 +140,8 @@ PARENT QUALITY SUMMARY
 EVIDENCE PACKAGE
 {json.dumps(package, ensure_ascii=False)}
 
-Return JSON only with overall_decision (pass, targeted_follow_up, or manual_review) and
-eight chapters. Each chapter needs chapter_id, decision, remove_or_contextualize,
-material_gaps, and reason. A material gap needs gap, lenses, best_source_or_query_direction,
-and why_it_matters. Request follow-up only when one focused turn is likely to help."""
+Request follow-up only when one focused turn is likely to help. Return only the JSON
+object in the exact shape above."""
 
 
 def follow_up(ruler: str, year: int, index: str, gaps: object) -> str:
