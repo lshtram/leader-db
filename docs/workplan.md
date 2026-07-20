@@ -1,5 +1,22 @@
 # Workplan
 
+## 2026-07-20 — 2022 top-20 hybrid evidence and judgment run complete
+
+- Completed reviewed evidence dossiers for all 20 rulers with a $2.08 mean research
+  cost, 103.1 mean claims, 84.3 mean distinct URLs, 34.6 mean domains, and 78.0%
+  reviewer retention. No ruler job failed terminally.
+- Added deterministic conversion of the rich hybrid dossier contract into canonical
+  dossiers and chapter projections, preserving source locators, canonical fact keys,
+  source confidence, attribution, reviewer exclusions, and explicit missing lenses.
+- Ran eight GPT-5.4 mini comparative chapter judges. The judges cost $1.86 total and
+  produced 155 numeric scores plus five defensible nulls. The context-exhausted 8B
+  attempt was retried with three diverse records per lens and a complete omission ledger.
+- Chapter 1B assigned no score of 1; Putin received 2.0. Four genuinely sparse 1B cases
+  remained null. Targeted no-search review cleared all projection-reference flags and
+  accepted Buhari's 2B null as nonrecoverable without changing any score.
+- The run profile and readiness report are stored under
+  `research/conversational-evidence/hybrid-experiment/2022-top20-v2/`.
+
 ## 2026-07-19 — Candidate-heavy chapter research experiment
 
 - Added a tentative, resumable GPT-5.4 mini workflow for one complete ruler-year. It

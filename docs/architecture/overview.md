@@ -817,6 +817,12 @@ A deterministic conversion gate bridges this experimental format to the canonica
 `ruler_evidence_dossier_v2` and `ruler_chapter_projection_v1` contracts. It requires an
 exact catalog ruler-year identity, validates all 80 mappings, preserves uncaptured
 source metadata as explicit missingness, and writes one cohort manifest per chapter.
+For hybrid-v2 dossiers, the same gate preserves precise locators, canonical fact keys,
+source confidence, period fit, ruler attribution, contrary evidence, and rich usage
+telemetry. Chapter-specific reviewer exclusions are removed from judge mappings while
+uncovered lenses become explicit `no_evidence_found` coverage rather than fabricated
+midpoints. The target year is carried through compaction, judge keys, prompts, and output
+validation; it is never hard-coded to the year of an earlier experiment.
 Partial projections remain recoverable, but a cohort with an identity blocker is marked
 non-runnable. Each cohort also records the same conservative three-bytes-per-token input
 estimate used by the judge worker so context overflow is discovered before any LLM call.
