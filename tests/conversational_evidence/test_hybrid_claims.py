@@ -22,6 +22,7 @@ def _claim(*, url: str, claim: str, lenses: list[str]) -> str:
         "source_type": "primary/legal",
         "source_confidence": "high",
         "source_confidence_reason": "Direct institutional record.",
+        "final_evidence_use": "final_evidence",
         "period_fit": "Directly records a 2022 action.",
         "ruler_attribution": "The ruler signed the measure.",
         "contrary_evidence": ["The institution described a security rationale."],

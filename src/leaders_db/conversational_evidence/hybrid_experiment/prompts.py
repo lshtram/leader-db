@@ -42,6 +42,7 @@ def chapter(
             "source_type": "primary/legal/IGO/NGO/scholarship/media/official/other",
             "source_confidence": "very_low|low|medium_low|medium|medium_high|high",
             "source_confidence_reason": "...",
+            "final_evidence_use": "final_evidence|context|discovery_only",
             "period_fit": "...",
             "ruler_attribution": "...",
             "contrary_evidence": ["..."],

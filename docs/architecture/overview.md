@@ -783,7 +783,8 @@ production collector before each run and stores all state beneath a separate exp
 run key, so accepting or removing the experiment does not alter historical results.
 Its v2 ledger contract accepts only machine-parseable source-claim units carrying the
 direct URL, precise claim and locator, source confidence, period fit, ruler attribution,
-contrary evidence, and exact lens mappings. Stable evidence IDs are derived in guide
+final-evidence use, contrary evidence, and exact lens mappings. Stable evidence IDs are
+derived in guide
 order; exact reuse is explicit; canonical URLs and claim keys are deduplicated in parent
 code. Final dossier serialization is deterministic and preserves reviewer dispositions,
 so formatting cannot add evidence or silently infer mappings. A sibling batch supervisor

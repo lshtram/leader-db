@@ -32,6 +32,7 @@ class AcceptedClaim(BaseModel):
         "very_low", "low", "medium_low", "medium", "medium_high", "high"
     ]
     source_confidence_reason: str = Field(min_length=1)
+    final_evidence_use: Literal["final_evidence", "context", "discovery_only"]
     period_fit: str = Field(min_length=1)
     ruler_attribution: str = Field(min_length=1)
     contrary_evidence: tuple[str, ...]
@@ -166,7 +167,11 @@ def ledger_quality(records: tuple[LedgerClaim, ...]) -> dict[str, object]:
     chapters: dict[str, object] = {}
     for chapter_number in range(1, 9):
         chapter_id = f"{chapter_number}B"
-        selected = [item for item in records if chapter_id in item.chapters]
+        selected = [
+            item
+            for item in records
+            if chapter_id in item.chapters and item.final_evidence_use != "discovery_only"
+        ]
         urls = {item.canonical_url for item in selected}
         domains = Counter(_domain(item.canonical_url) for item in selected)
         lenses = sorted(
@@ -189,10 +194,12 @@ def ledger_quality(records: tuple[LedgerClaim, ...]) -> dict[str, object]:
             "top_domains": domains.most_common(5),
             "warnings": warnings,
         }
+    accepted = [item for item in records if item.final_evidence_use != "discovery_only"]
     return {
-        "accepted_claims": len(records),
-        "distinct_urls": len({item.canonical_url for item in records}),
-        "distinct_domains": len({_domain(item.canonical_url) for item in records}),
+        "accepted_claims": len(accepted),
+        "discovery_only_claims": len(records) - len(accepted),
+        "distinct_urls": len({item.canonical_url for item in accepted}),
+        "distinct_domains": len({_domain(item.canonical_url) for item in accepted}),
         "chapters": chapters,
     }
 
