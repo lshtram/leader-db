@@ -6,6 +6,9 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from leaders_db.conversational_evidence.deep_artifacts import _estimated_cost
+from leaders_db.conversational_evidence.researcher import CodexResearcher
+
 from .artifacts import CHAPTERS, write_json
 from .curation import curate_saturation_run
 from .runner import _read_json
@@ -60,7 +63,49 @@ def curate_full_run(
     write_json(output_dir / "dossier-curated.json", curated)
     write_json(active_path, curated)
     write_json(output_dir / "curation-summary.json", report)
+    write_json(
+        output_dir / "execution-profile.json",
+        build_execution_profile(output_dir, researcher_name),
+    )
     return report
+
+
+def build_execution_profile(output_dir: Path, researcher_name: str) -> dict[str, object]:
+    """Combine research/review and every executed curation call without overlap."""
+
+    research = _read_json(output_dir / "profile.json")
+    curator_profiles = [
+        _read_json(path)
+        for path in sorted((output_dir / "chapter-curation").glob("**/turn-*.profile.json"))
+    ]
+    curation_usage: dict[str, int] = {}
+    for profile in curator_profiles:
+        for key, value in profile.get("usage", {}).items():
+            if isinstance(value, int):
+                curation_usage[key] = curation_usage.get(key, 0) + value
+    pricing = CodexResearcher(output_dir.parent, output_dir, researcher_name).config[
+        "pricing_per_million"
+    ]
+    curation_cost = _estimated_cost(curation_usage, pricing) or 0.0
+    research_cost = float(research.get("estimated_cost_usd") or 0.0)
+    return {
+        "schema_version": "hybrid-experiment-execution-profile-v1",
+        "research_review": research,
+        "curation": {
+            "calls": len(curator_profiles),
+            "duration_seconds": round(
+                sum(float(item.get("duration_seconds", 0)) for item in curator_profiles), 3
+            ),
+            "usage": curation_usage,
+            "estimated_cost_usd": round(curation_cost, 6),
+        },
+        "total_duration_seconds": round(
+            float(research.get("duration_seconds", 0))
+            + sum(float(item.get("duration_seconds", 0)) for item in curator_profiles),
+            3,
+        ),
+        "total_estimated_cost_usd": round(research_cost + curation_cost, 6),
+    }
 
 
 def apply_chapter_curations(
@@ -153,4 +198,4 @@ def _domain(url: str) -> str:
     return url.partition("//")[2].partition("/")[0].lower().removeprefix("www.")
 
 
-__all__ = ["apply_chapter_curations", "curate_full_run"]
+__all__ = ["apply_chapter_curations", "build_execution_profile", "curate_full_run"]

@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -18,6 +19,7 @@ from leaders_db.conversational_evidence.hybrid_experiment.depth_models import (
 )
 from leaders_db.conversational_evidence.hybrid_experiment.full_curation import (
     apply_chapter_curations,
+    build_execution_profile,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.prompts import (
     saturation_chapter,
@@ -264,3 +266,40 @@ def test_top_up_selection_uses_curated_quality_not_raw_counts() -> None:
     }
 
     assert chapters_needing_top_up(summary) == ("1B", "2B", "3B")
+
+
+def test_execution_profile_adds_curation_without_double_counting(tmp_path: Path) -> None:
+    output = tmp_path / "rus-2022"
+    output.mkdir()
+    (output / "profile.json").write_text(
+        json.dumps(
+            {
+                "duration_seconds": 100.0,
+                "estimated_cost_usd": 1.25,
+                "usage": {"input_tokens": 100},
+            }
+        ),
+        encoding="utf-8",
+    )
+    curator = output / "chapter-curation" / "1B" / ".curator" / "turn-001.profile.json"
+    curator.parent.mkdir(parents=True)
+    curator.write_text(
+        json.dumps(
+            {
+                "duration_seconds": 20.0,
+                "usage": {
+                    "input_tokens": 1_000,
+                    "cached_input_tokens": 500,
+                    "output_tokens": 200,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    profile = build_execution_profile(output, "gpt-5.4-mini")
+
+    assert profile["curation"]["calls"] == 1
+    assert profile["curation"]["usage"]["input_tokens"] == 1_000
+    assert profile["total_duration_seconds"] == 120.0
+    assert profile["total_estimated_cost_usd"] > 1.25
