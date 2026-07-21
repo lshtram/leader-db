@@ -178,4 +178,137 @@ PACKAGE
 {json.dumps(package, ensure_ascii=False)}"""
 
 
-__all__ = ["chapter", "follow_up", "formatter", "reconnaissance", "review"]
+def saturation_chapter(
+    ruler: str,
+    country: str,
+    year: int,
+    chapter_id: str,
+    guide: str,
+    priors: object,
+    existing_index: str,
+    *,
+    wave: int,
+    candidate_target: int,
+    opened_target: int,
+    accepted_min: int,
+    accepted_max: int,
+    domain_min: int,
+) -> str:
+    """Build one generic, measurable discovery wave for a chapter pilot."""
+
+    claim_example = json.dumps(
+        {
+            "title": "...",
+            "publisher": "...",
+            "publication_date": "YYYY-MM-DD or best available",
+            "url": "https://direct-source.example/...",
+            "claim": "one precise material claim",
+            "locator": "page, section, paragraph, table, or quoted phrase",
+            "source_type": "primary/legal/IGO/NGO/scholarship/media/official/other",
+            "source_confidence": "very_low|low|medium_low|medium|medium_high|high",
+            "source_confidence_reason": "...",
+            "final_evidence_use": "final_evidence|context|discovery_only",
+            "period_fit": "...",
+            "ruler_attribution": "...",
+            "contrary_evidence": ["..."],
+            "lenses": [f"{chapter_id}.1"],
+        },
+        separators=(",", ":"),
+    )
+    return f"""Research Chapter {chapter_id} for {ruler}, ruler of {country}, in
+{year}. This is discovery wave {wave}. Do not score.
+
+CHAPTER GUIDE
+{guide}
+
+LOCAL FACTS
+{json.dumps(priors, ensure_ascii=False)}
+
+ALREADY ACCEPTED EVIDENCE
+{existing_index}
+
+Search the chapter as a whole. In this wave, discover about {candidate_target}
+plausible documents and open at least {opened_target} promising documents when they
+are accessible. The overall chapter target is {accepted_min}-{accepted_max} genuinely
+useful distinct URLs from at least {domain_min} domains. These are discovery targets,
+not quotas: never retain weak, irrelevant, duplicate, or inaccessible material merely
+to reach a number.
+
+At least one third of the useful chapter evidence should come from independent sources
+rather than the ruler's government or its agencies, when credible independent evidence
+exists. Do not let many government implementation pages substitute for independent
+outcome, criticism, distribution, or attribution evidence.
+
+Use several query families: the ruler and major {year} events; each institution or
+policy in the guide; primary/legal records; independent monitors and data; scholarship;
+reputable reporting; archives; and useful local-language terms. Search favorable,
+adverse, and contrary interpretations. Follow citations from strong documents. Open
+the source itself before accepting it; search-result snippets are not evidence.
+
+Remove duplicates before reporting. Treat syndicated copies, mirrors, press rewrites,
+and several stories repeating the same event as one evidence family. Prefer the most
+authoritative and information-rich member. Separate ruler conduct from inherited
+conditions and general country context. Map only claims that the source actually
+supports.
+
+Return: (1) accepted new evidence; (2) a search ledger with counts for candidates
+found, documents opened, duplicates, irrelevant/out-of-period items, inaccessible
+items, and accepted distinct URLs; (3) material gaps and the next best query/source
+directions. Do not repeat already accepted evidence and do not score.
+
+For every accepted source-claim unit, emit this exact prefix and one JSON object on one
+physical line, without a code fence:
+SOURCE_CLAIM_JSON: {claim_example}
+
+One unit is one source plus one materially distinct claim and locator. Multiple claims
+may share a URL only when they rely on different passages and add distinct evidence.
+Narrative without a valid SOURCE_CLAIM_JSON line is not accepted."""
+
+
+def saturation_curation(
+    ruler: str,
+    year: int,
+    chapter_id: str,
+    evidence: object,
+) -> str:
+    return f"""Curate the collected Chapter {chapter_id} evidence for {ruler}, {year}.
+Do not browse, add facts, rewrite claims, or score.
+
+Return JSON only:
+{{"chapter_id":"{chapter_id}","records":[{{"evidence_id":"E0001",
+"disposition":"retain|context|drop","source_family":"concise institutional or wire
+family","duplicate_of":null,"reason":"..."}}],"summary":{{"retained":0,
+"context":0,"dropped":0,"remaining_concerns":["..."]}}}}
+
+Include every supplied evidence ID exactly once. Retain the strongest, most direct,
+information-rich evidence. Use context only for a genuinely useful limitation,
+interpretation, or secondary corroboration. Drop:
+- mirrors, syndications, or rewrites of the same underlying wire story;
+- several reports repeating the same event or mechanism without a material new fact;
+- incident subdivisions when a strong synthesis already establishes the pattern;
+- weak, indirect, out-of-period, or poorly attributed claims;
+- official self-description when it merely repeats another official source.
+
+Prefer synthesis plus at most two illustrative incidents per mechanism. Treat a wire
+service and all republishers as one source family. Treat agencies of one government as
+distinct publishers but one institutional family for independence analysis. Preserve
+meaningful favorable, adverse, and contrary evidence. A normal high-quality result is
+about 20-35 retained or contextual URLs across at least 10 useful source families, but
+quality overrides the count. No source family should exceed 25 percent of the retained
+or contextual records when credible alternatives or a synthesis exist. Set duplicate_of
+to the retained evidence ID for direct duplicates, otherwise null. Make the numeric
+summary match the records.
+
+EVIDENCE
+{json.dumps(evidence, ensure_ascii=False)}"""
+
+
+__all__ = [
+    "chapter",
+    "follow_up",
+    "formatter",
+    "reconnaissance",
+    "review",
+    "saturation_chapter",
+    "saturation_curation",
+]

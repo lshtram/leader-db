@@ -1,0 +1,119 @@
+{
+  "client_matrix_policy": "excluded_as_evidence",
+  "method_version": "local_evidence_v1",
+  "methodology_id": "5B.10",
+  "period": {
+    "end_year": null,
+    "start_year": null,
+    "year": 2022
+  },
+  "record_count": 1,
+  "records": [
+    {
+      "category": "economic_wellbeing",
+      "client_matrix_policy": "excluded_as_evidence",
+      "country": {
+        "iso3": "USA",
+        "name": "United States"
+      },
+      "leader": {
+        "leader_id": null,
+        "name": null,
+        "period_label": null
+      },
+      "local_facts": [
+        {
+          "confidence": 80,
+          "field_key": "gdp_per_capita",
+          "label": "Real GDP per capita",
+          "source_observation_ids": [
+            "world_bank_wdi:USA:2022:wdi_gdp_per_capita",
+            "world_bank_wdi:USA:2022:wdi_gdp_per_capita_ppp_constant_2017",
+            "maddison_project:USA:2022:gdppc"
+          ],
+          "source_slugs": [
+            "world_bank_wdi",
+            "maddison_project"
+          ],
+          "value": 76657.2488844403,
+          "value_type": "number",
+          "warnings": [],
+          "year": 2022
+        },
+        {
+          "confidence": 80,
+          "field_key": "gdp_total",
+          "label": "Country GDP (total)",
+          "source_observation_ids": [
+            "world_bank_wdi:USA:2022:wdi_gdp_current_usd",
+            "world_bank_wdi:USA:2022:wdi_gdp_constant_2015_usd",
+            "maddison_project:USA:2022:__derived_gdp_total__"
+          ],
+          "source_slugs": [
+            "world_bank_wdi",
+            "maddison_project"
+          ],
+          "value": 25604848907611.0,
+          "value_type": "number",
+          "warnings": [],
+          "year": 2022
+        },
+        {
+          "confidence": 80,
+          "field_key": "gni_per_capita",
+          "label": "GNI per capita",
+          "source_observation_ids": [
+            "undp_hdi:USA:2022:undp_hdi_gni_per_capita"
+          ],
+          "source_slugs": [
+            "undp_hdi"
+          ],
+          "value": 65564.93798,
+          "value_type": "number",
+          "warnings": [],
+          "year": 2022
+        },
+        {
+          "confidence": 80,
+          "field_key": "population",
+          "label": "Country population",
+          "source_observation_ids": [
+            "world_bank_wdi:USA:2022:wdi_population",
+            "maddison_project:USA:2022:pop"
+          ],
+          "source_slugs": [
+            "world_bank_wdi",
+            "maddison_project"
+          ],
+          "value": 334017321.0,
+          "value_type": "number",
+          "warnings": [],
+          "year": 2022
+        }
+      ],
+      "mapping_note": "D5 economic level/scale and BTI status facts provide country-year context; they do not by themselves establish distribution, causation, or ruler credit.",
+      "method_version": "local_structured_prior_v2",
+      "methodology_id": "5B.10",
+      "missing_or_empty_reason": null,
+      "period": {
+        "end_year": null,
+        "start_year": null,
+        "year": 2022
+      },
+      "question_text": "Did the ruler leave the economy on a stronger trajectory than they inherited, accounting for external constraints?",
+      "recommended_research_instructions": [
+        "Use this local structured prior before starting internet/manual research.",
+        "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+        "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+        "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+      ],
+      "status": "evidence_found"
+    }
+  ],
+  "requested_iso3": [
+    "USA"
+  ],
+  "status_counts": {
+    "evidence_found": 1
+  }
+}

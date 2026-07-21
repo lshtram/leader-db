@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-21 — Automated 2022 chapter-saturation pilot
+
+- Added an isolated, resumable GPT-5.4-mini chapter pilot with persisted breadth
+  controls, client-excluding local priors, canonical source-claim deduplication,
+  composition-triggered search waves, and strict no-search source-family curation. The
+  production collector and completed 2022 release remain unchanged.
+- Re-ran the three manual saturation cases without case-specific prompts. Final curated
+  evidence increased from the original 16/12/13 URLs to 34/30/26 for Putin 2B, Biden
+  5B, and Tshisekedi 4B, across 14/18/13 source families.
+- The process automatically corrected a 75% official-source Biden packet and an
+  incident-heavy CPJ concentration in the DRC packet. Total measured cost was $2.15;
+  per-chapter elapsed time was 18.9–33.9 minutes.
+- Findings and preserved artifacts are under
+  `research/conversational-evidence/saturation-tests/2022-automated-v2/`. A full-ruler
+  or stratified five-ruler gate is still required before changing the main flow.
+
 ## 2026-07-21 — 2022 top-20 review portal published
 
 - Built the 2022 static review release from the completed hybrid evidence run: 20

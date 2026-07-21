@@ -1,13 +1,27 @@
 from pathlib import Path
 
+import pytest
+
 from leaders_db.conversational_evidence.hybrid_experiment.artifacts import (
     baseline_manifest,
     evidence_index,
     normalize_url,
     quality_summary,
 )
+from leaders_db.conversational_evidence.hybrid_experiment.curation import (
+    ChapterCuration,
+    _curation_warnings,
+    _normalize_summary,
+)
+from leaders_db.conversational_evidence.hybrid_experiment.prompts import (
+    saturation_chapter,
+)
 from leaders_db.conversational_evidence.hybrid_experiment.runner import (
     _recoverable_gaps,
+)
+from leaders_db.conversational_evidence.hybrid_experiment.saturation import (
+    SaturationPolicy,
+    _records,
 )
 
 
@@ -68,3 +82,111 @@ def test_follow_up_uses_only_gaps_from_targeted_chapters() -> None:
     assert _recoverable_gaps(review) == [
         {"chapter_id": "5B", "gap": "recoverable"}
     ]
+
+
+def test_saturation_prompt_uses_breadth_targets_as_quality_controls() -> None:
+    policy = SaturationPolicy()
+
+    prompt = saturation_chapter(
+        "Example Ruler",
+        "Example Country",
+        2022,
+        "2B",
+        "2B.1 example lens",
+        [],
+        "No accepted web evidence yet.",
+        wave=1,
+        candidate_target=policy.candidate_target_per_wave,
+        opened_target=policy.opened_target_per_wave,
+        accepted_min=policy.accepted_url_min,
+        accepted_max=policy.accepted_url_max,
+        domain_min=policy.domain_min,
+    )
+
+    assert "discover about 35" in prompt
+    assert "open at least 20" in prompt
+    assert "20-35" in prompt
+    assert "not quotas" in prompt
+    assert "local-language" in prompt
+    assert "search-result snippets are not evidence" in prompt
+    assert "Remove duplicates before reporting" in prompt
+
+
+def test_saturation_policy_rejects_incoherent_targets() -> None:
+    with pytest.raises(ValueError, match="may not exceed"):
+        SaturationPolicy(accepted_url_min=36, accepted_url_max=35)
+
+
+def test_empty_saturation_run_has_no_ledger_records(tmp_path: Path) -> None:
+    assert _records(tmp_path, "2B") == ()
+    assert not (tmp_path / "chapters" / "2B.md").exists()
+
+
+def test_curation_contract_reconciles_disposition_counts() -> None:
+    value = ChapterCuration.model_validate(
+        {
+            "chapter_id": "2B",
+            "records": [
+                {
+                    "evidence_id": "E0001",
+                    "disposition": "retain",
+                    "source_family": "UN",
+                    "duplicate_of": None,
+                    "reason": "direct synthesis",
+                },
+                {
+                    "evidence_id": "E0002",
+                    "disposition": "drop",
+                    "source_family": "Reuters",
+                    "duplicate_of": "E0001",
+                    "reason": "duplicate",
+                },
+            ],
+            "summary": {
+                "retained": 1,
+                "context": 0,
+                "dropped": 1,
+                "remaining_concerns": [],
+            },
+        }
+    )
+
+    assert value.summary.dropped == 1
+
+
+def test_curation_summary_counts_are_derived_from_records() -> None:
+    value = {
+        "records": [{"disposition": "retain"}, {"disposition": "drop"}],
+        "summary": {"retained": 0, "context": 9, "dropped": 0},
+    }
+
+    _normalize_summary(value)
+
+    assert value["summary"] == {"retained": 1, "context": 0, "dropped": 1}
+
+
+def test_curation_warns_when_one_family_exceeds_quarter() -> None:
+    records = [
+        {
+            "evidence_id": f"E{index:04d}",
+            "disposition": "retain",
+            "source_family": "one family" if index < 4 else f"family {index}",
+            "duplicate_of": None,
+            "reason": "useful",
+        }
+        for index in range(1, 11)
+    ]
+    value = ChapterCuration.model_validate(
+        {
+            "chapter_id": "4B",
+            "records": records,
+            "summary": {
+                "retained": 10,
+                "context": 0,
+                "dropped": 0,
+                "remaining_concerns": [],
+            },
+        }
+    )
+
+    assert "above the 25% family ceiling" in _curation_warnings(value)[0]
