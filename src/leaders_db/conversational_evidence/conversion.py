@@ -163,6 +163,15 @@ def _convert_case(
     profile = _object(source_dir / "profile.json")
     if hybrid:
         source_dossier = _object(source_dir / "dossier.json")
+        hybrid_prior_path = source_dir / "inputs" / "local-prior-package.json"
+        if hybrid_prior_path.is_file():
+            case_prior_path = hybrid_prior_path
+            case_prior_hash = _file_hash(hybrid_prior_path)
+            local_priors = _hybrid_local_priors(hybrid_prior_path)
+        else:
+            case_prior_path = prior_path
+            case_prior_hash = prior_hash
+            local_priors = None
         missing_titles = 0
         missing_dates = 0
         dossier = _build_hybrid_dossier(
@@ -176,8 +185,9 @@ def _convert_case(
             identity=identity,
             source=source_dossier,
             profile=profile,
-            prior_path=prior_path,
-            prior_hash=prior_hash,
+            prior_path=case_prior_path,
+            prior_hash=case_prior_hash,
+            local_priors=local_priors,
         )
     else:
         evidence_payload = _object(source_dir / "evidence.json")
@@ -231,7 +241,11 @@ def _convert_case(
                 "attribution were not captured; deterministic placeholders preserve "
                 "that missingness."
             ]),
-            "Structured local priors were not collected and are explicitly unavailable.",
+            *(
+                []
+                if hybrid and local_priors is not None
+                else ["Structured local priors were not collected and are explicitly unavailable."]
+            ),
             f"{missing_titles} evidence records use title_not_recorded.",
             f"{missing_dates} evidence records use date_not_recorded.",
         ],
@@ -481,6 +495,7 @@ def _build_hybrid_dossier(
     profile: dict[str, Any],
     prior_path: Path,
     prior_hash: str,
+    local_priors: list[dict[str, str]] | None,
 ) -> RulerEvidenceDossier:
     methodology_ids = tuple(item["id"] for item in questions())
     excluded = {
@@ -569,7 +584,7 @@ def _build_hybrid_dossier(
             "unresolved_gaps": list(dict.fromkeys(gaps)),
             "completed_queries": [],
             "normalization_warnings": [],
-            "local_priors": [
+            "local_priors": local_priors or [
                 {
                     "methodology_id": methodology_id,
                     "status": "not_available",
@@ -602,6 +617,46 @@ def _build_hybrid_dossier(
             },
         }
     )
+
+
+def _hybrid_local_priors(path: Path) -> list[dict[str, str]]:
+    """Project the saved compact local-prior package into judge provenance."""
+
+    package = _object(path)
+    statuses = package.get("methodology_statuses")
+    facts = package.get("facts")
+    if not isinstance(statuses, dict) or not isinstance(facts, list):
+        raise ValueError(f"{path} has an invalid local-prior package shape")
+    artifact_hash = _file_hash(path)
+    result = []
+    for methodology_id in (item["id"] for item in questions()):
+        relevant = [
+            fact
+            for fact in facts
+            if isinstance(fact, dict)
+            and methodology_id in fact.get("candidate_methodology_ids", [])
+        ]
+        summaries = [
+            f"{fact.get('label', fact.get('field_key', 'fact'))}: {fact.get('value')} "
+            f"({', '.join(str(item) for item in fact.get('source_slugs', []))})"
+            for fact in relevant
+        ]
+        status = str(statuses.get(methodology_id, "not_available"))
+        summary = (
+            "; ".join(summaries)
+            if summaries
+            else "The local structured data package found no applicable evidence."
+        )
+        result.append(
+            {
+                "methodology_id": methodology_id,
+                "status": status,
+                "summary": summary,
+                "artifact_path": str(path),
+                "artifact_sha256": artifact_hash,
+            }
+        )
+    return result
 
 
 def _object(path: Path) -> dict[str, Any]:

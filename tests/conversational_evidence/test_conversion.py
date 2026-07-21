@@ -79,6 +79,7 @@ def test_conversion_preserves_hybrid_metadata_and_applies_chapter_review(
     )
     _catalog(catalog)
     _hybrid_source(batch / "outputs" / "aaa-2022")
+    _local_prior_package(batch / "outputs" / "aaa-2022" / "inputs" / "local-prior-package.json")
 
     report = convert_batch(manifest, batch, catalog, output)
 
@@ -90,6 +91,13 @@ def test_conversion_preserves_hybrid_metadata_and_applies_chapter_review(
     coverage = {item["methodology_id"]: item for item in dossier["coverage"]}
     assert coverage["1B.1"]["status"] == "no_evidence_found"
     assert coverage["2B.1"]["status"] == "covered"
+    priors = {item["methodology_id"]: item for item in dossier["local_priors"]}
+    assert priors["2B.1"]["status"] == "evidence_found"
+    assert "Conflict events: 27.0 (ucdp)" in priors["2B.1"]["summary"]
+    assert not any(
+        "Structured local priors were not collected" in item
+        for item in report["rulers"][0]["warnings"]
+    )
 
 
 def _source(path: Path, country: str, ruler: str) -> None:
@@ -209,6 +217,31 @@ def _hybrid_source(path: Path) -> None:
             "estimated_cost_usd": 0.1,
         },
     )
+
+
+def _local_prior_package(path: Path) -> None:
+    statuses = {
+        f"{chapter}B.{lens}": "no_evidence_found"
+        for chapter in range(1, 9)
+        for lens in range(1, 11)
+    }
+    statuses["2B.1"] = "evidence_found"
+    _write(
+        path,
+        {
+            "methodology_statuses": statuses,
+            "facts": [
+                {
+                    "label": "Conflict events",
+                    "value": 27.0,
+                    "source_slugs": ["ucdp"],
+                    "candidate_methodology_ids": ["2B.1"],
+                }
+            ],
+        },
+    )
+
+
 def _catalog(path: Path) -> None:
     connection = sqlite3.connect(path)
     connection.executescript("""
