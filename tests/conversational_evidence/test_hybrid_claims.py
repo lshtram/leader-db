@@ -183,6 +183,43 @@ def test_build_ledger_preserves_distinct_claims_and_reuse(tmp_path: Path) -> Non
     assert records[1].evidence_id == "E0002"
 
 
+def test_build_ledger_does_not_renumber_existing_claims_when_follow_up_is_prepended(
+    tmp_path: Path,
+) -> None:
+    chapters = tmp_path / "chapters"
+    chapters.mkdir()
+    chapters.joinpath("1B.md").write_text(
+        _claim(url="https://example.org/base", claim="Base claim.", lenses=["1B.1"]),
+        encoding="utf-8",
+    )
+    old_follow_up = _claim(
+        url="https://example.org/old-follow-up",
+        claim="Existing follow-up.",
+        lenses=["1B.2"],
+    )
+    (tmp_path / "follow-up.md").write_text(old_follow_up, encoding="utf-8")
+    original = build_ledger(tmp_path)
+    (tmp_path / "evidence-ledger.json").write_text(
+        json.dumps([item.model_dump(mode="json") for item in original]),
+        encoding="utf-8",
+    )
+    new_follow_up = _claim(
+        url="https://example.org/new-follow-up",
+        claim="New follow-up.",
+        lenses=["1B.3"],
+    )
+    (tmp_path / "follow-up.md").write_text(
+        f"{new_follow_up}\n{old_follow_up}", encoding="utf-8"
+    )
+
+    updated = build_ledger(tmp_path)
+    by_url = {str(item.url): item.evidence_id for item in updated}
+
+    assert by_url["https://example.org/base"] == "E0001"
+    assert by_url["https://example.org/old-follow-up"] == "E0002"
+    assert by_url["https://example.org/new-follow-up"] == "E0003"
+
+
 def test_quality_and_dossier_are_derived_without_generation(tmp_path: Path) -> None:
     chapters = tmp_path / "chapters"
     chapters.mkdir()

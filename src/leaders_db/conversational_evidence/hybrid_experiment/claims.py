@@ -111,6 +111,17 @@ def build_ledger(output_dir: Path) -> tuple[LedgerClaim, ...]:
 
     records: dict[str, dict[str, object]] = {}
     id_index: dict[str, str] = {}
+    preferred_ids, next_id = _existing_ids(output_dir / "evidence-ledger.json")
+
+    def allocate(key: str) -> str:
+        nonlocal next_id
+        existing = preferred_ids.get(key)
+        if existing is not None:
+            return existing
+        evidence_id = f"E{next_id:04d}"
+        next_id += 1
+        return evidence_id
+
     for chapter_number in range(1, 9):
         chapter_id = f"{chapter_number}B"
         path = output_dir / "chapters" / f"{chapter_id}.md"
@@ -121,7 +132,7 @@ def build_ledger(output_dir: Path) -> tuple[LedgerClaim, ...]:
             key = _claim_key(claim)
             row = records.get(key)
             if row is None:
-                evidence_id = f"E{len(records) + 1:04d}"
+                evidence_id = allocate(key)
                 row = {
                     **claim.model_dump(mode="json"),
                     "evidence_id": evidence_id,
@@ -147,7 +158,7 @@ def build_ledger(output_dir: Path) -> tuple[LedgerClaim, ...]:
             key = _claim_key(claim)
             row = records.get(key)
             if row is None:
-                evidence_id = f"E{len(records) + 1:04d}"
+                evidence_id = allocate(key)
                 row = {
                     **claim.model_dump(mode="json"),
                     "evidence_id": evidence_id,
@@ -160,6 +171,23 @@ def build_ledger(output_dir: Path) -> tuple[LedgerClaim, ...]:
                 lenses = tuple(lens for lens in claim.lenses if lens.startswith(chapter_id))
                 _merge(row, chapter_id, lenses)
     return tuple(LedgerClaim.model_validate(item) for item in records.values())
+
+
+def _existing_ids(path: Path) -> tuple[dict[str, str], int]:
+    """Load prior canonical-key assignments so appended follow-ups cannot renumber evidence."""
+
+    if not path.exists():
+        return {}, 1
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise ValueError(f"{path} must contain a JSON list")
+    assignments = {
+        str(item["canonical_fact_key"]): str(item["evidence_id"])
+        for item in payload
+        if isinstance(item, dict)
+    }
+    numbers = [int(value.removeprefix("E")) for value in assignments.values()]
+    return assignments, max(numbers, default=0) + 1
 
 
 def ledger_quality(records: tuple[LedgerClaim, ...]) -> dict[str, object]:
