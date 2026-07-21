@@ -12,6 +12,7 @@ from leaders_db.conversational_evidence.hybrid_experiment.artifacts import (
 from leaders_db.conversational_evidence.hybrid_experiment.curation import (
     ChapterCuration,
     _curation_warnings,
+    _matching_curation,
     _normalize_summary,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.depth_models import (
@@ -307,3 +308,39 @@ def test_execution_profile_adds_curation_without_double_counting(tmp_path: Path)
     assert profile["curation"]["usage"]["input_tokens"] == 1_000
     assert profile["total_duration_seconds"] == 120.0
     assert profile["total_estimated_cost_usd"] > 1.25
+
+
+def test_matching_curation_requires_exact_current_evidence_ids(tmp_path: Path) -> None:
+    def save(name: str, evidence_ids: list[str]) -> Path:
+        path = tmp_path / name
+        path.write_text(
+            json.dumps(
+                {
+                    "chapter_id": "1B",
+                    "records": [
+                        {
+                            "evidence_id": evidence_id,
+                            "disposition": "retain",
+                            "source_family": "family",
+                            "duplicate_of": None,
+                            "reason": "Relevant independent record.",
+                        }
+                        for evidence_id in evidence_ids
+                    ],
+                    "summary": {
+                        "retained": len(evidence_ids),
+                        "context": 0,
+                        "dropped": 0,
+                        "remaining_concerns": [],
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        return path
+
+    save("curation.json", ["E0001"])
+    current = save("curation-v01.json", ["E0001", "E0002"])
+
+    assert _matching_curation(tmp_path, {"E0001", "E0002"}) == current
+    assert _matching_curation(tmp_path, {"E0001", "E0002", "E0003"}) is None

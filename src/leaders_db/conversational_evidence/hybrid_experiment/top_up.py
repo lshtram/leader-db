@@ -122,13 +122,14 @@ def _compile_follow_ups(output: Path) -> None:
 
 
 def _active_curation_path(chapter_dir: Path) -> Path:
-    candidates = (
-        chapter_dir / "curation-updated-final.json",
-        chapter_dir / "curation-updated.json",
-        chapter_dir / "curation-final.json",
-        chapter_dir / "curation.json",
+    candidates = sorted(
+        chapter_dir.glob("curation*.json"),
+        key=lambda path: (path.stat().st_mtime_ns, path.name),
+        reverse=True,
     )
-    return next(path for path in candidates if path.exists())
+    if not candidates:
+        raise FileNotFoundError(f"no curation exists in {chapter_dir}")
+    return candidates[0]
 
 
 def _rebuild_raw_dossier(output: Path, records: Any) -> None:

@@ -62,18 +62,17 @@ def curate_saturation_run(
 
     evidence = _read_json(output_dir / "evidence-ledger.json")
     evidence_ids = {str(record["evidence_id"]) for record in evidence}
-    original_path = output_dir / "curation.json"
-    path = original_path
-    work = output_dir / ".curator"
-    if original_path.exists():
-        original = ChapterCuration.model_validate(_read_json(original_path))
-        curated_ids = {record.evidence_id for record in original.records}
-        if evidence_ids != curated_ids:
-            path = output_dir / "curation-updated.json"
-            work = output_dir / ".curator-updated"
-    if path.exists():
-        normalized = _read_json(path)
+    matching = _matching_curation(output_dir, evidence_ids)
+    if matching is not None:
+        normalized = _read_json(matching)
     else:
+        version = len(list(output_dir.glob("curation-v*.json"))) + 1
+        path = (
+            output_dir / "curation.json"
+            if not (output_dir / "curation.json").exists()
+            else output_dir / f"curation-v{version:02d}.json"
+        )
+        work = output_dir / f".{path.stem}"
         normalized = _curate(
             project_root=project_root,
             work=work,
@@ -82,16 +81,18 @@ def curate_saturation_run(
             evidence=evidence,
         )
         write_json(path, normalized)
+        matching = path
     value = ChapterCuration.model_validate(normalized)
     warnings = _curation_warnings(value, evidence)
-    if not warnings:
+    if not warnings or (matching is not None and matching.stem.endswith("-final")):
         return value.model_dump(mode="json")
-    revision_path = path.with_name(f"{path.stem}-final.json")
+    assert matching is not None
+    revision_path = matching.with_name(f"{matching.stem}-final.json")
     if revision_path.exists():
         return _read_json(revision_path)
     revised = _curate(
         project_root=project_root,
-        work=output_dir / f".{path.stem}-revision",
+        work=output_dir / f".{matching.stem}-revision",
         researcher_name=researcher_name,
         prompt=saturation_curation(ruler, year, chapter_id, evidence)
         + "\n\nREQUIRED REVISION\n"
@@ -100,6 +101,21 @@ def curate_saturation_run(
     )
     write_json(revision_path, revised)
     return revised
+
+
+def _matching_curation(output_dir: Path, evidence_ids: set[str]) -> Path | None:
+    """Return the newest saved curation that exactly matches the active ledger."""
+
+    candidates = sorted(
+        output_dir.glob("curation*.json"),
+        key=lambda path: (path.stat().st_mtime_ns, path.name),
+        reverse=True,
+    )
+    for path in candidates:
+        value = ChapterCuration.model_validate(_read_json(path))
+        if {record.evidence_id for record in value.records} == evidence_ids:
+            return path
+    return None
 
 
 def _curate(
