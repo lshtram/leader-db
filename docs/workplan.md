@@ -1,5 +1,16 @@
 # Workplan
 
+## 2026-07-21 — 2022 top-20 review portal published
+
+- Built the 2022 static review release from the completed hybrid evidence run: 20
+  rulers, 155 numeric chapter scores, five explicit evidence-insufficient nulls, full
+  chapter rationales, cited evidence lenses, and the normative attribution record.
+- Added 2022 to the shared year registry so reviewers can move among the 2022, 2023,
+  and 2024 releases with the same selector. Extended the local and public health checks
+  to cover the new page, payload, and attribution route.
+- Removed the annual viewer builder's hard-coded 2024 release metadata so future annual
+  releases inherit their year and release ID from the validated conversion report.
+
 ## 2026-07-20 — 2022 top-20 hybrid evidence and judgment run complete
 
 - Completed reviewed evidence dossiers for all 20 rulers with a $2.08 mean research

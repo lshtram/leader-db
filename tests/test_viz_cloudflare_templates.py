@@ -109,7 +109,7 @@ def test_reports_index_links_customer_pages() -> None:
     assert "briefs/us-market-size-baseline.html" in index
 
 
-def test_leaders_year_registry_routes_both_releases() -> None:
+def test_leaders_year_registry_routes_all_releases() -> None:
     registry = yaml.safe_load(
         (SUPERSET_DIR / "reports" / "leaders" / "years.json").read_text(
             encoding="utf-8"
@@ -119,8 +119,9 @@ def test_leaders_year_registry_routes_both_releases() -> None:
     assert registry["years"] == [
         {"year": 2024, "label": "2024", "path": "/reports/leaders/2024/"},
         {"year": 2023, "label": "2023", "path": "/reports/leaders/2023/"},
+        {"year": 2022, "label": "2022", "path": "/reports/leaders/2022/"},
     ]
-    for year in (2023, 2024):
+    for year in (2022, 2023, 2024):
         release = PROJECT_ROOT / "docs" / "client-results" / f"{year}-top20"
         assert (release / "index.html").is_file()
         assert (release / "data.json").is_file()
