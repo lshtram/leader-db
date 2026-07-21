@@ -37,6 +37,7 @@ class BatchManifest(BaseModel):
     batch_id: str = Field(min_length=1)
     year: int = Field(ge=1800, le=2100)
     researcher: str = Field(min_length=1)
+    research_mode: Literal["v2", "saturation_v3"] = "v2"
     per_ruler_cost_ceiling_usd: float = Field(gt=0)
     batch_cost_ceiling_usd: float = Field(gt=0)
     maximum_failures_per_case: int = Field(ge=0, le=3)

@@ -7,6 +7,7 @@ import json
 import sys
 from pathlib import Path
 
+from .depth_models import SaturationPolicy
 from .runner import run_experiment
 
 
@@ -20,6 +21,7 @@ def main() -> None:
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--researcher", default="gpt-5.4-mini")
     parser.add_argument("--cost-ceiling-usd", default=7.0, type=float)
+    parser.add_argument("--saturation-v3", action="store_true")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[4]
     result = run_experiment(
@@ -32,6 +34,14 @@ def main() -> None:
         ruler_id=args.ruler_id,
         researcher_name=args.researcher,
         cost_ceiling_usd=args.cost_ceiling_usd,
+        saturation_policy=(
+            SaturationPolicy(
+                candidate_target_per_wave=50,
+                opened_target_per_wave=30,
+            )
+            if args.saturation_v3
+            else None
+        ),
     )
     sys.stdout.write(json.dumps(result, ensure_ascii=False) + "\n")
 

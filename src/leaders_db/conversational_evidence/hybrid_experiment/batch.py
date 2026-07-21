@@ -135,6 +135,8 @@ def _launch(
         "--cost-ceiling-usd",
         str(manifest.per_ruler_cost_ceiling_usd),
     ]
+    if manifest.research_mode == "saturation_v3":
+        command.append("--saturation-v3")
     process = subprocess.Popen(
         command,
         cwd=project_root,

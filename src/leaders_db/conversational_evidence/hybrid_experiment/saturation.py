@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from leaders_db.conversational_evidence.researcher import CodexResearcher
@@ -10,28 +9,9 @@ from leaders_db.research.chapter_guides import load_chapter_guide
 
 from .artifacts import write_json
 from .claims import LedgerClaim, build_ledger, ledger_quality, parse_chapter_note
+from .depth_models import SaturationPolicy
 from .prompts import saturation_chapter
 from .runner import _check_budget, _compact_claim_index, _read_json, prepare_inputs
-
-
-@dataclass(frozen=True)
-class SaturationPolicy:
-    """Model-independent breadth targets and stopping controls."""
-
-    candidate_target_per_wave: int = 35
-    opened_target_per_wave: int = 20
-    accepted_url_min: int = 20
-    accepted_url_max: int = 35
-    domain_min: int = 10
-    marginal_url_stop: int = 2
-    max_waves: int = 4
-
-    def __post_init__(self) -> None:
-        values = asdict(self)
-        if any(value <= 0 for value in values.values()):
-            raise ValueError("saturation policy values must all be positive")
-        if self.accepted_url_min > self.accepted_url_max:
-            raise ValueError("accepted_url_min may not exceed accepted_url_max")
 
 
 def run_chapter_saturation(
@@ -127,7 +107,7 @@ def run_chapter_saturation(
             "schema_version": "chapter-saturation-state-v1",
             "research_thread_id": researcher.thread_id,
             "chapter_id": chapter_id,
-            "policy": asdict(policy),
+            "policy": policy.model_dump(mode="json"),
             "history": history,
             "status": "running",
         }

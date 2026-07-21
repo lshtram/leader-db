@@ -13,6 +13,12 @@ from leaders_db.conversational_evidence.hybrid_experiment.curation import (
     _curation_warnings,
     _normalize_summary,
 )
+from leaders_db.conversational_evidence.hybrid_experiment.depth_models import (
+    SaturationPolicy,
+)
+from leaders_db.conversational_evidence.hybrid_experiment.full_curation import (
+    apply_chapter_curations,
+)
 from leaders_db.conversational_evidence.hybrid_experiment.prompts import (
     saturation_chapter,
 )
@@ -20,7 +26,6 @@ from leaders_db.conversational_evidence.hybrid_experiment.runner import (
     _recoverable_gaps,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.saturation import (
-    SaturationPolicy,
     _records,
 )
 
@@ -190,3 +195,50 @@ def test_curation_warns_when_one_family_exceeds_quarter() -> None:
     )
 
     assert "above the 25% family ceiling" in _curation_warnings(value)[0]
+
+
+def test_full_curation_drops_only_rejected_chapter_mapping() -> None:
+    source = {
+        "schema_version": "hybrid_experiment_dossier_v2",
+        "evidence": [
+            {
+                "evidence_id": "E0001",
+                "canonical_url": "https://example.com/a",
+                "lenses": ["2B.1", "3B.1"],
+                "chapters": ["2B", "3B"],
+            }
+        ],
+        "mappings": [
+            {"evidence_id": "E0001", "lenses": ["2B.1", "3B.1"]}
+        ],
+    }
+    curations = {
+        chapter: {
+            "records": (
+                [
+                    {
+                        "evidence_id": "E0001",
+                        "disposition": "drop" if chapter == "2B" else "retain",
+                        "source_family": "Example",
+                    }
+                ]
+                if chapter in {"2B", "3B"}
+                else []
+            ),
+            "summary": {
+                "retained": int(chapter == "3B"),
+                "context": 0,
+                "dropped": int(chapter == "2B"),
+                "remaining_concerns": [],
+            },
+        }
+        for chapter in (f"{number}B" for number in range(1, 9))
+    }
+
+    curated, report = apply_chapter_curations(source, curations)
+
+    assert curated["mappings"] == [
+        {"evidence_id": "E0001", "lenses": ["3B.1"]}
+    ]
+    assert curated["evidence"][0]["chapters"] == ["3B"]
+    assert report["chapters"]["2B"]["distinct_urls"] == 0

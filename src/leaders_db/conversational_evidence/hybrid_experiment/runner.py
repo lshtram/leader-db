@@ -31,6 +31,7 @@ from .claims import (
     parse_chapter_note,
     parse_follow_up,
 )
+from .depth_models import SaturationPolicy
 from .review_models import validate_review
 
 
@@ -45,6 +46,7 @@ def run_experiment(
     ruler_id: str = "",
     researcher_name: str = "gpt-5.4-mini",
     cost_ceiling_usd: float = 7.0,
+    saturation_policy: SaturationPolicy | None = None,
 ) -> dict[str, object]:
     """Run or resume reconnaissance, eight chapters, review, follow-up, and format."""
 
@@ -72,6 +74,7 @@ def run_experiment(
         prior_package=prior_package,
         raw_priors=raw_priors,
         cost_ceiling_usd=cost_ceiling_usd,
+        saturation_policy=saturation_policy,
     )
     records = build_ledger(output_dir)
     warnings = ledger_quality(records)
@@ -168,6 +171,7 @@ def _run_research(
     prior_package: object,
     raw_priors: list[dict[str, Any]],
     cost_ceiling_usd: float,
+    saturation_policy: SaturationPolicy | None,
 ) -> dict[str, str]:
     recon_path = output / "reconnaissance.md"
     if not recon_path.exists():
@@ -195,8 +199,24 @@ def _run_research(
             for item in raw_priors
             if str(item.get("methodology_id", "")).startswith(chapter_id)
         ]
-        note = researcher.ask(
-            prompts.chapter(
+        prompt = (
+            prompts.saturation_chapter(
+                ruler,
+                country,
+                year,
+                chapter_id,
+                guide,
+                chapter_priors,
+                _compact_claim_index(records),
+                wave=1,
+                candidate_target=saturation_policy.candidate_target_per_wave,
+                opened_target=saturation_policy.opened_target_per_wave,
+                accepted_min=saturation_policy.accepted_url_min,
+                accepted_max=saturation_policy.accepted_url_max,
+                domain_min=saturation_policy.domain_min,
+            )
+            if saturation_policy
+            else prompts.chapter(
                 ruler,
                 year,
                 chapter_id,
@@ -205,6 +225,7 @@ def _run_research(
                 _compact_claim_index(records),
             )
         )
+        note = researcher.ask(prompt)
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
         parse_chapter_note(note, chapter_id)
         _record_parse_rejections(output, chapter_id, note)

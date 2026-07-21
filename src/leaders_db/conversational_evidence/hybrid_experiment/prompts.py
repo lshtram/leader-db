@@ -256,6 +256,10 @@ found, documents opened, duplicates, irrelevant/out-of-period items, inaccessibl
 items, and accepted distinct URLs; (3) material gaps and the next best query/source
 directions. Do not repeat already accepted evidence and do not score.
 
+When already accepted evidence genuinely supports this chapter, map it without
+repeating the source. Emit one physical line with this exact shape:
+REUSE_JSON: {{"evidence_ids":["E0001"],"lenses":["{chapter_id}.1"]}}
+
 For every accepted source-claim unit, emit this exact prefix and one JSON object on one
 physical line, without a code fence:
 SOURCE_CLAIM_JSON: {claim_example}
