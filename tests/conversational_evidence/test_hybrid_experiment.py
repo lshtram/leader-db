@@ -265,6 +265,10 @@ def test_top_up_selection_uses_curated_quality_not_raw_counts() -> None:
         }
     }
 
+    assert chapters_needing_top_up(summary) == ("3B",)
+
+    summary["chapters"]["1B"]["distinct_urls"] = 14
+    summary["chapters"]["2B"]["source_families"] = 7
     assert chapters_needing_top_up(summary) == ("1B", "2B", "3B")
 
 

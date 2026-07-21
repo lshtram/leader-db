@@ -95,14 +95,14 @@ def run_top_ups(
 
 
 def chapters_needing_top_up(summary: dict[str, Any]) -> tuple[str, ...]:
-    """Select chapters failing breadth, family diversity, or explicit lens coverage."""
+    """Select material failures, treating 20 URLs/10 families as soft targets."""
 
     selected = []
     for chapter_id in CHAPTERS:
         chapter = summary["chapters"][chapter_id]
         if (
-            int(chapter["distinct_urls"]) < 20
-            or int(chapter["source_families"]) < 10
+            int(chapter["distinct_urls"]) < 15
+            or int(chapter["source_families"]) < 8
             or len(chapter["mapped_lenses"]) < 10
         ):
             selected.append(chapter_id)
