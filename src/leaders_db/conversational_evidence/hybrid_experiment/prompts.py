@@ -307,6 +307,66 @@ EVIDENCE
 {json.dumps(evidence, ensure_ascii=False)}"""
 
 
+def saturation_top_up(
+    ruler: str,
+    year: int,
+    chapter_id: str,
+    guide: str,
+    index: str,
+    curation: object,
+    *,
+    wave: int,
+) -> str:
+    claim_example = json.dumps(
+        {
+            "title": "...",
+            "publisher": "...",
+            "publication_date": "YYYY-MM-DD or best available",
+            "url": "https://direct-source.example/...",
+            "claim": "one precise material claim",
+            "locator": "page, section, paragraph, table, or quoted phrase",
+            "source_type": "primary/legal/IGO/NGO/scholarship/media/official/other",
+            "source_confidence": "very_low|low|medium_low|medium|medium_high|high",
+            "source_confidence_reason": "...",
+            "final_evidence_use": "final_evidence|context|discovery_only",
+            "period_fit": "...",
+            "ruler_attribution": "...",
+            "contrary_evidence": ["..."],
+            "lenses": [f"{chapter_id}.1"],
+        },
+        separators=(",", ":"),
+    )
+    return f"""Run targeted saturation wave {wave} for Chapter {chapter_id} on
+{ruler}, {year}, in the same ruler research thread. Do not score.
+
+CHAPTER GUIDE
+{guide}
+
+CURRENT GLOBAL EVIDENCE INDEX
+{index}
+
+CURATION RESULTS AND REMAINING CONCERNS
+{json.dumps(curation, ensure_ascii=False)}
+
+The prior pass was curated below the required breadth, independence, or coverage. Find
+materially new evidence; do not replace dropped duplicates with more versions of the
+same story. Search specifically for missing mechanisms, lenses, contrary findings,
+direct ruler attribution, primary or legal records, synthesis sources, scholarship,
+and independent or local-language families absent from the retained set.
+
+Discover roughly 30-45 new candidates and open at least 15-20 promising documents.
+Normally retain only 6-12 genuinely additive source-claim units. Prefer a new mechanism
+or source family over another incident proving an established pattern. Open the source
+itself; snippets are not evidence. Record candidate, opened, duplicate, irrelevant,
+inaccessible, and accepted counts. Explain any credible scarcity or access blocker.
+
+For every accepted unit emit exactly one physical line, without a code fence:
+SOURCE_CLAIM_JSON: {claim_example}
+
+Map only exact {chapter_id} lenses. Narrative without a valid SOURCE_CLAIM_JSON line
+is not accepted."""
+
+
 __all__ = [
     "chapter",
     "follow_up",
@@ -315,4 +375,5 @@ __all__ = [
     "review",
     "saturation_chapter",
     "saturation_curation",
+    "saturation_top_up",
 ]

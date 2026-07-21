@@ -28,6 +28,9 @@ from leaders_db.conversational_evidence.hybrid_experiment.runner import (
 from leaders_db.conversational_evidence.hybrid_experiment.saturation import (
     _records,
 )
+from leaders_db.conversational_evidence.hybrid_experiment.top_up import (
+    chapters_needing_top_up,
+)
 
 
 def test_evidence_index_deduplicates_and_reuses_urls() -> None:
@@ -242,3 +245,22 @@ def test_full_curation_drops_only_rejected_chapter_mapping() -> None:
     ]
     assert curated["evidence"][0]["chapters"] == ["3B"]
     assert report["chapters"]["2B"]["distinct_urls"] == 0
+
+
+def test_top_up_selection_uses_curated_quality_not_raw_counts() -> None:
+    summary = {
+        "chapters": {
+            chapter: {
+                "distinct_urls": 19 if chapter == "1B" else 20,
+                "source_families": 9 if chapter == "2B" else 10,
+                "mapped_lenses": (
+                    [f"{chapter}.{lens}" for lens in range(1, 10)]
+                    if chapter == "3B"
+                    else [f"{chapter}.{lens}" for lens in range(1, 11)]
+                ),
+            }
+            for chapter in (f"{number}B" for number in range(1, 9))
+        }
+    }
+
+    assert chapters_needing_top_up(summary) == ("1B", "2B", "3B")
