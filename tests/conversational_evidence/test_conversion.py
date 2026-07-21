@@ -87,9 +87,13 @@ def test_conversion_preserves_hybrid_metadata_and_applies_chapter_review(
     dossier = json.loads(next((output / "dossiers").glob("*.json")).read_text())
     assert dossier["evidence"][0]["source_locator"] == "paragraph 4"
     assert dossier["evidence"][0]["canonical_fact_key"] == "fact-key"
-    assert not [item for item in dossier["mappings"] if item["methodology_id"] == "1B.1"]
+    assert not [
+        item
+        for item in dossier["mappings"]
+        if item["methodology_id"] == "1B.1" and item["evidence_id"] == "E0001"
+    ]
     coverage = {item["methodology_id"]: item for item in dossier["coverage"]}
-    assert coverage["1B.1"]["status"] == "no_evidence_found"
+    assert coverage["1B.1"]["status"] == "covered"
     assert coverage["2B.1"]["status"] == "covered"
     priors = {item["methodology_id"]: item for item in dossier["local_priors"]}
     assert priors["2B.1"]["status"] == "evidence_found"
@@ -98,6 +102,8 @@ def test_conversion_preserves_hybrid_metadata_and_applies_chapter_review(
         "Structured local priors were not collected" in item
         for item in report["rulers"][0]["warnings"]
     )
+    compact = prepare_compact_inputs(output, tmp_path / "compact", evidence_per_lens=1)
+    assert compact["chapters"][1]["omission_ledger"][0]["retained_evidence"] == 1
 
 
 def _source(path: Path, country: str, ruler: str) -> None:
@@ -185,9 +191,31 @@ def _hybrid_source(path: Path) -> None:
                     "final_evidence_use": "final_evidence",
                     "period_fit": "Within 2022.",
                     "ruler_attribution": "Direct ruler action.",
-                }
+                },
+                *[
+                    {
+                        "evidence_id": f"E000{number}",
+                        "claim": f"Discovery context {number}.",
+                        "url": f"https://example.test/context-{number}",
+                        "title": f"Context {number}",
+                        "publisher": "Publisher",
+                        "publication_date": "2022-06-01",
+                        "locator": f"paragraph {number}",
+                        "canonical_fact_key": f"context-key-{number}",
+                        "source_type": "secondary",
+                        "source_confidence": "low",
+                        "source_confidence_reason": "Discovery context only.",
+                        "final_evidence_use": "discovery_only",
+                        "period_fit": "Within 2022.",
+                        "ruler_attribution": "Indirect context.",
+                    }
+                    for number in (2, 3)
+                ],
             ],
-            "mappings": [{"evidence_id": "E0001", "lenses": lenses}],
+            "mappings": [
+                {"evidence_id": evidence_id, "lenses": lenses}
+                for evidence_id in ("E0001", "E0002", "E0003")
+            ],
             "review": {
                 "chapters": [
                     {

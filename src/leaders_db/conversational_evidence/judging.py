@@ -247,6 +247,9 @@ def _compact_projection(
     payload = source.model_dump(mode="json")
     payload["evidence"] = [item for item in payload["evidence"] if item["evidence_id"] in keep]
     payload["mappings"] = [item for item in payload["mappings"] if item["evidence_id"] in keep]
+    payload["contextual_discovery_only_evidence_ids"] = [
+        value for value in payload["contextual_discovery_only_evidence_ids"] if value in keep
+    ]
     for item in payload["coverage"]:
         item["evidence_ids"] = [value for value in item["evidence_ids"] if value in keep]
     payload["estimated_input_tokens"] = _tokens(
