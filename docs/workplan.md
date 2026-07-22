@@ -1,5 +1,17 @@
 # Workplan
 
+## 2026-07-22 — Tolerant recovery for formatter-omitted evidence routing
+
+- The live Putin 2022 Chapter 4B smoke test produced a usable 55-item formatter
+  candidate but exposed eight context records without exact lens mappings. Recovery
+  rejected the whole dossier despite complete cited research.
+- Consumer normalization now retains such evidence as advisory context at each selected
+  chapter boundary. It does not invent lens relevance; chapter judges still apply the
+  guide's scope gates themselves. Exact local-prior and coverage-derived mappings keep
+  precedence over this fallback.
+- Focused normalization, recovery, and projection tests pass. The paid research and
+  review artifacts remain checkpointed for formatter-only recovery without new search.
+
 ## 2026-07-22 — Strict-producer, tolerant-consumer integration gate
 
 - Added the project-wide development rule that producers pursue complete current

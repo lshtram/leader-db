@@ -287,7 +287,47 @@ def test_missing_environment_is_retained_as_explicit_uncertainty() -> None:
     assert dossier.evidence_environment.languages_and_archives_searched == (
         "not_recorded_by_producer",
     )
-    assert "explicitly unassessed" in dossier.normalization_warnings[-1]
+    assert any(
+        "explicitly unassessed" in item for item in dossier.normalization_warnings
+    )
+
+
+def test_unmapped_evidence_is_retained_at_each_selected_chapter_boundary() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    payload["methodology_ids"] = ["1B.1", "2B.1"]
+    payload["mappings"] = []
+    payload["coverage"] = [
+        {
+            "methodology_id": methodology_id,
+            "status": "partially_covered",
+            "evidence_ids": [],
+            "reason": "Formatter omitted exact routing.",
+        }
+        for methodology_id in payload["methodology_ids"]
+    ]
+    payload["local_priors"] = [
+        payload["local_priors"][0],
+        payload["local_priors"][0]
+        | {"methodology_id": "2B.1", "artifact_sha256": "b" * 64},
+    ]
+
+    normalized = normalize_dossier_candidate(
+        payload, methodology_ids=("1B.1", "2B.1")
+    )
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert {
+        (item.evidence_id, item.methodology_id, item.relation)
+        for item in dossier.mappings
+    } == {("E001", "1B.1", "context"), ("E001", "2B.1", "context")}
+    assert any(
+        "retained as advisory chapter context" in item
+        for item in dossier.normalization_warnings
+    )
 
 
 @pytest.mark.parametrize(

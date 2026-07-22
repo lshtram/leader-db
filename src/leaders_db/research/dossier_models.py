@@ -389,6 +389,7 @@ def normalize_dossier_candidate(
     coverage = _normalize_coverage(
         normalized.get("coverage"), methodology_ids, id_map, mappings, warnings
     )
+    _retain_unmapped_evidence_as_chapter_context(evidence, mappings, selected, warnings)
     _normalize_environment_references(normalized.get("evidence_environment"), id_map)
     normalized["mappings"] = mappings
     normalized["coverage"] = coverage
@@ -573,6 +574,47 @@ def _infer_local_prior_mappings(
         warnings.append(
             f"{methodology_id} mapping for {evidence_id} was inferred from its "
             "local-prior locator"
+        )
+
+
+def _retain_unmapped_evidence_as_chapter_context(
+    evidence: list[object],
+    mappings: list[dict[str, Any]],
+    selected: set[str],
+    warnings: list[str],
+) -> None:
+    """Keep usable formatter output visible without inventing lens relevance."""
+
+    mapped_ids = {str(item["evidence_id"]) for item in mappings}
+    chapter_entry_lenses = tuple(
+        sorted(
+            (item for item in selected if item.endswith(".1")),
+            key=lambda item: int(item.split("B", maxsplit=1)[0]),
+        )
+    )
+    if not chapter_entry_lenses:
+        return
+    for item in evidence:
+        if not isinstance(item, dict):
+            continue
+        evidence_id = str(item.get("evidence_id", ""))
+        if not evidence_id or evidence_id in mapped_ids:
+            continue
+        for methodology_id in chapter_entry_lenses:
+            mappings.append(
+                {
+                    "evidence_id": evidence_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": (
+                        "Formatter omitted exact lens routing; retained at the chapter "
+                        "boundary for judge-side relevance review."
+                    ),
+                }
+            )
+        mapped_ids.add(evidence_id)
+        warnings.append(
+            f"unmapped evidence {evidence_id} retained as advisory chapter context"
         )
 
 

@@ -518,6 +518,11 @@ keeps usable incomplete or legacy artifacts judgeable by marking omitted assessm
 unresolved, capping confidence, and widening ranges; cross-dossier references and
 genuinely unusable inputs remain validation errors.
 
+If a formatter retains valid evidence but omits exact lens routing, normalization first
+recovers explicit local-prior and coverage mappings, then exposes any remaining item as
+advisory context at each selected chapter boundary. This preserves the source record
+without claiming lens relevance; the chapter judge applies the guide's scope gates.
+
 Dossier research uses the versioned controls in `configs/research-workflow.yaml`.
 Before research, parent-side `local_structured_prior_v2` extraction covers every
 selected lens across all eight chapters and persists the complete hashed artifact.
