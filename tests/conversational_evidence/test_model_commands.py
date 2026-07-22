@@ -110,6 +110,46 @@ def test_judge_normalization_recovers_lens_id_from_descriptive_gap() -> None:
     assert normalized["evaluations"][0]["missing_or_weak_lenses"] == ["4B.8"]
 
 
+def test_judge_normalization_restores_trusted_identity_and_scored_review_type() -> None:
+    projection = SimpleNamespace(
+        job_key="dossier:test:COD",
+        evidence=(),
+        iso3="COD",
+        ruler_id="2830",
+        ruler_year_id=16113,
+        ruler_name="Félix Tshisekedi",
+        period_start_year=2022,
+        period_end_year=2022,
+        chapter_id="5B",
+    )
+    candidate = {
+        "batch_notes": [],
+        "evaluations": [
+            {
+                "dossier_job_key": projection.job_key,
+                "iso3": "COD",
+                "ruler_id": "2830",
+                "ruler_year_id": 2830,
+                "ruler_name": "Félix Tshisekedi",
+                "period_start_year": 2022,
+                "period_end_year": 2022,
+                "chapter_id": "5B",
+                "score_1_to_10": 4.5,
+                "manual_review_reason_type": "recoverable_null",
+                "supported_lenses": [],
+                "missing_or_weak_lenses": [],
+            }
+        ],
+    }
+
+    normalized = _normalize_candidate(candidate, "5B", ((Path("fixture"), projection),))
+
+    evaluation = normalized["evaluations"][0]
+    assert evaluation["ruler_year_id"] == 16113
+    assert evaluation["manual_review_reason_type"] == "projection_integrity"
+    assert "dossier:test:COD" in normalized["batch_notes"][-1]
+
+
 def test_repair_saved_judgments_accepts_partial_chapter_run(
     tmp_path: Path, monkeypatch: object
 ) -> None:

@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — Comparative judge output recovery
+
+- The full eight-chapter comparative run produced valid substantive judgments but two
+  harmless contract inconsistencies: 5B copied the ruler ID into Tshisekedi's immutable
+  ruler-year field, and scored Putin 8B used the null-only `recoverable_null` review
+  label while still requesting review.
+- When an exact trusted dossier key resolves, normalization now restores immutable
+  identity fields from that projection and records the recovery in batch notes. A
+  numeric score's incompatible null-only label becomes `projection_integrity` without
+  clearing the model's review request or changing its score, evidence, or rationale.
+- All eight paid candidates revalidated without model reruns. Focused tests and Ruff
+  pass. The promotion gate remains closed pending score/order audit because four Putin
+  chapter changes exceed one point.
+
 ## 2026-07-22 — Legacy empty-projection evidence environment
 
 - The full comparative-input build found one preserved China 7B projection with zero

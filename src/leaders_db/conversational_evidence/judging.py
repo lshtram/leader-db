@@ -401,6 +401,8 @@ def _normalize_candidate(
         projection.job_key: {item.evidence_id for item in projection.evidence}
         for _, projection in projections
     }
+    projection_by_key = {projection.job_key: projection for _, projection in projections}
+    normalized_identity_keys: list[str] = []
     confidence_values = [
         float(item["confidence_score"])
         for item in evaluations
@@ -416,6 +418,10 @@ def _normalize_candidate(
             continue
         if normalize_confidence:
             evaluation["confidence_score"] = round(float(evaluation["confidence_score"]) * 100, 6)
+        projection = projection_by_key.get(str(evaluation.get("dossier_job_key")))
+        if projection is not None and _restore_trusted_identity(evaluation, projection):
+            normalized_identity_keys.append(projection.job_key)
+        _normalize_scored_review_reason(evaluation)
         supported = _normalize_lens_values(evaluation.get("supported_lenses"), valid)
         missing = [
             value
@@ -454,7 +460,52 @@ def _normalize_candidate(
             evaluation["manual_review_required"] = True
             evaluation["manual_review_reason_type"] = "projection_integrity"
             evaluation["manual_review_reason"] = f"{existing} {note}".strip()
+    _append_identity_normalization_note(candidate, normalized_identity_keys)
     return candidate
+
+
+def _restore_trusted_identity(
+    evaluation: dict[str, Any], projection: RulerChapterProjection
+) -> bool:
+    """Restore immutable identity fields when the exact dossier key is already trusted."""
+
+    immutable = {
+        "iso3": projection.iso3,
+        "ruler_id": projection.ruler_id,
+        "ruler_year_id": projection.ruler_year_id,
+        "ruler_name": projection.ruler_name,
+        "period_start_year": projection.period_start_year,
+        "period_end_year": projection.period_end_year,
+        "chapter_id": projection.chapter_id,
+    }
+    changed = any(evaluation.get(field) != value for field, value in immutable.items())
+    evaluation.update(immutable)
+    return changed
+
+
+def _normalize_scored_review_reason(evaluation: dict[str, Any]) -> None:
+    """Replace a null-only review label without dropping the requested review."""
+
+    if (
+        evaluation.get("score_1_to_10") is not None
+        and evaluation.get("manual_review_reason_type") == "recoverable_null"
+    ):
+        evaluation["manual_review_reason_type"] = "projection_integrity"
+
+
+def _append_identity_normalization_note(
+    candidate: dict[str, Any], normalized_identity_keys: list[str]
+) -> None:
+    """Expose deterministic identity recovery in the persisted batch notes."""
+
+    if not normalized_identity_keys:
+        return
+    notes = candidate.setdefault("batch_notes", [])
+    if isinstance(notes, list):
+        notes.append(
+            "Deterministically restored immutable identity fields from trusted "
+            "projections for: " + ", ".join(dict.fromkeys(normalized_identity_keys))
+        )
 
 
 def _normalize_lens_values(values: object, valid: set[str]) -> list[str]:
