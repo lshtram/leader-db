@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — Lens-specific 5B/6B local-evidence routing
+
+- Replaced identical all-lens routing for economic and social chapters with explicit
+  mappings grounded in the ten chapter-guide questions. Productivity facts now reach
+  5B.6, distribution facts reach 5B.8, access/coverage facts reach 6B.2, and the full
+  longitudinal bundle is reserved for the 5B.10/6B.10 trajectory syntheses.
+- Lenses that cannot be answered by country outcomes (economic appointments and
+  evidence-based policy; welfare politicization) intentionally receive no structured
+  facts. They return a non-fatal explanation requesting ruler-specific narrative
+  evidence, not a validation error or adverse inference.
+- Live Putin 2022 counts demonstrate the distinction: 5B.1 has 154 facts, 5B.6 has
+  109, 5B.8 has 35, and 5B.10 has 426; 6B.1 has 161, 6B.2 has 101, and 6B.10 has
+  166. 5B.2 and 6B.7 remain valid explicit narrative gaps with zero local facts.
+
 ## 2026-07-22 — WDI distribution and education routing
 
 - Added source-native concepts for WDI Gini inequality, adult literacy, and gross

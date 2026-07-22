@@ -177,6 +177,69 @@ EFFECTIVENESS_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 
+def _local_fields(*field_keys: str) -> tuple[str, ...]:
+    """Declare an ordered, lens-specific local evidence selection."""
+    return field_keys
+
+
+ECONOMIC_LEVEL_FIELDS = _local_fields(
+    "gdp_per_capita",
+    "gdp_per_capita_nominal_current_usd",
+    "gdp_per_capita_ppp_constant_2017_intl",
+    "gdp_per_capita_ppp_constant_2011_intl",
+    "gdp_per_capita_ppp_constant_2017_usd",
+    "gni_per_capita",
+    "pwt_real_consumption",
+    "pwt_employment",
+    "wdi_gini_index",
+)
+ECONOMIC_STABILITY_FIELDS = _local_fields(
+    "gdp_total_real_constant_2015_usd",
+    "gdp_total_ppp_constant_2011_intl",
+    "gdp_total_ppp_expenditure_constant_2017_usd",
+    "gdp_total_ppp_output_constant_2017_usd",
+    "pwt_tfp_at_constant_national_prices",
+)
+ECONOMIC_PRODUCTIVITY_FIELDS = _local_fields(
+    "pwt_human_capital_index",
+    "pwt_capital_stock_index",
+    "pwt_tfp_at_constant_national_prices",
+    "pwt_average_annual_hours_worked",
+)
+ECONOMIC_DISTRIBUTION_FIELDS = _local_fields(
+    "gdp_per_capita_nominal_current_usd",
+    "gdp_per_capita_ppp_constant_2017_intl",
+    "gni_per_capita",
+    "wdi_gini_index",
+)
+
+SOCIAL_OUTCOME_FIELDS = _local_fields(
+    "hdi",
+    "life_expectancy",
+    "under5_mortality",
+    "expected_years_schooling",
+    "mean_years_schooling",
+    "gni_per_capita",
+)
+SOCIAL_ACCESS_FIELDS = _local_fields(
+    "life_expectancy",
+    "under5_mortality",
+    "bcg_immunization",
+    "dtp3_immunization",
+    "hepb3_immunization",
+    "expected_years_schooling",
+    "mean_years_schooling",
+    "wdi_literacy_rate_adult",
+    "wdi_secondary_school_enrollment",
+)
+SOCIAL_DISTRIBUTION_FIELDS = _local_fields(
+    "wdi_gini_index",
+    "gni_per_capita",
+    "wdi_literacy_rate_adult",
+    "wdi_secondary_school_enrollment",
+)
+
+
 @dataclass(frozen=True)
 class LocalPriorMapping:
     """Config-like mapping from a manual methodology question to local fact keys."""
@@ -226,19 +289,139 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("5B"),
-        field_keys=ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS,
+        methodology_ids=("5B.1",),
+        field_keys=ECONOMIC_LEVEL_FIELDS,
         mapping_note=(
-            "D5 economic level/scale and BTI status facts provide country-year context; "
-            "they do not by themselves establish distribution, causation, or ruler credit."
+            "Broad prosperity outcomes are context; intent and ruler action need "
+            "narrative evidence."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("6B"),
+        methodology_ids=("5B.2",),
+        field_keys=(),
+        mapping_note=(
+            "No structured country outcome establishes the competence or independence "
+            "of appointees."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.3", "5B.9"),
+        field_keys=ECONOMIC_STABILITY_FIELDS,
+        mapping_note=(
+            "Real-output and productivity trajectories contextualize stability or "
+            "shocks but do not prove policy competence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.4",),
+        field_keys=("pwt_employment", "pwt_real_domestic_absorption"),
+        mapping_note=(
+            "Employment count and absorption are outcome context, not direct evidence "
+            "of fair market rules."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.5",),
+        field_keys=("wdi_gini_index",),
+        mapping_note=(
+            "National inequality is context only and cannot establish corruption, "
+            "capture, or personal nexus."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.6",),
+        field_keys=ECONOMIC_PRODUCTIVITY_FIELDS,
+        mapping_note=(
+            "Human-capital, capital-stock, hours, and TFP trends contextualize "
+            "productivity foundations."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.7",),
+        field_keys=(),
+        mapping_note=(
+            "Country outcomes cannot establish evidence-based decision-making or "
+            "correction of mistakes."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.8",),
+        field_keys=ECONOMIC_DISTRIBUTION_FIELDS,
+        mapping_note=(
+            "Average income and Gini provide distribution context but do not identify "
+            "favored groups or ruler intent."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.10",),
+        field_keys=ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "Full longitudinal context supports inherited-versus-left trajectory "
+            "analysis without automatic ruler credit."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.1",),
+        field_keys=SOCIAL_OUTCOME_FIELDS,
+        mapping_note=(
+            "Aggregate welfare outcomes contextualize priority but cannot establish "
+            "purpose or propaganda intent."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.2",),
+        field_keys=SOCIAL_ACCESS_FIELDS,
+        mapping_note=(
+            "Health and education coverage/outcomes inform access; they do not alone "
+            "establish affordability or quality."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.3", "6B.8"),
+        field_keys=SOCIAL_DISTRIBUTION_FIELDS,
+        mapping_note=(
+            "National distribution and participation measures require group and "
+            "regional evidence for equity claims."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.4", "6B.5"),
+        field_keys=SOCIAL_ACCESS_FIELDS,
+        mapping_note=(
+            "Service outcomes are implementation context; professional management "
+            "and correction require narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.6",),
+        field_keys=("life_expectancy", "under5_mortality", "hdi"),
+        mapping_note=(
+            "Outcome changes contextualize crises but require shock-specific timing "
+            "and ruler-attributed response evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.7",),
+        field_keys=(),
+        mapping_note=(
+            "Aggregate service data cannot establish political conditionality, "
+            "loyalty rewards, or punishment."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.9",),
+        field_keys=SOCIAL_ACCESS_FIELDS,
+        mapping_note=(
+            "Sustained service series contextualize durability but do not establish "
+            "institutional survival beyond the ruler."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.10",),
         field_keys=SOCIAL_WELLBEING_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D6 HDI, health, education, and income facts provide welfare baselines; "
-            "publication/source-year warnings and ruler attribution still apply."
+            "Full longitudinal welfare context supports inherited-versus-left "
+            "life-chance analysis without automatic attribution."
         ),
     ),
     LocalPriorMapping(

@@ -290,6 +290,12 @@ Each rating category has an expected source set. The scorer can run with partial
 coverage, but missing expected sources must be represented in the evidence
 bundle and penalize confidence.
 
+Local-prior routing is lens-specific for chapters 5B and 6B. Structured national
+outcomes are supplied only where they can inform the question's baseline, outcome,
+distribution, access, productivity, crisis, or trajectory context. Lenses requiring
+appointments, decision process, or political conditionality may intentionally have
+no local fields; that is an actionable narrative-research gap, not pipeline failure.
+
 | Category | Primary structured sources | Current implementation state | Notes |
 |---|---|---|---|
 | `nuclear` | SIPRI Yearbook Ch.7, FAS | Both adapters implemented (Phase C.6, Phase C.10); deterministic scorer implemented (Phase D.9) | Per-source plan at `src/leaders_db/score/category_plans/nuclear.py`; deterministic scorer at `src/leaders_db/score/nuclear.py` (facade) + private `_nuclear_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 2-group weighted average (FAS nuclear forces 0.60, SIPRI Yearbook Ch.7 nuclear forces 0.40); `minimum_viable_sources=1` with `SparseDataPolicy.PROVISIONAL_SCORE` — but per requirement §6 "most countries are non-nuclear" the scorer treats every below-threshold bundle as `is_insufficient_data=True` regardless of the plan's `sparse_data_policy` so a non-nuclear state never receives an invented numeric score. The rationale explicitly says "non-nuclear state or no FAS / SIPRI Yearbook Ch.7 row" on the insufficient-data path. The :attr:`ReviewFlag.NUCLEAR_CASE` population-split flag fires on the **scored** path iff the bundle carries any usable FAS / SIPRI Yearbook Ch.7 observation (the §14 manual-review-queue hook per REQ-REV-002); the flag is deliberately not added on the insufficient-data path. Same client-source boundary-exclusion and usable-observation gate as the 7 prior scorers. |

@@ -112,6 +112,21 @@ def _build_local_structured_prior_for_spec(
             mapping_note=mapping.mapping_note,
         )
 
+    if not mapping.field_keys:
+        return _artifact(
+            request=request,
+            question_text=spec.text,
+            category=spec.category,
+            country_name=country_name,
+            status="no_evidence_found",
+            facts=(),
+            missing_or_empty_reason=(
+                "No structured country-year field is semantically sufficient for this "
+                "lens; collect ruler-specific narrative evidence."
+            ),
+            mapping_note=mapping.mapping_note,
+        )
+
     facts = load_local_prior_facts(
         bind,
         request=request,

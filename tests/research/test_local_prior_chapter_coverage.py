@@ -169,6 +169,42 @@ def test_every_chapter_mapping_contains_its_anchor_fact() -> None:
         assert field_key in mapping.field_keys
 
 
+def test_economic_and_social_lenses_use_question_specific_fields() -> None:
+    economic_appointments = mapping_for_methodology_id("5B.2")
+    economic_productivity = mapping_for_methodology_id("5B.6")
+    social_access = mapping_for_methodology_id("6B.2")
+    social_politicization = mapping_for_methodology_id("6B.7")
+
+    assert economic_appointments is not None
+    assert economic_productivity is not None
+    assert social_access is not None
+    assert social_politicization is not None
+    assert economic_appointments.field_keys == ()
+    assert "pwt_human_capital_index" in economic_productivity.field_keys
+    assert "under5_mortality" in social_access.field_keys
+    assert social_politicization.field_keys == ()
+
+
+def test_empty_lens_mapping_requests_narrative_evidence(database_url: str) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_scope(engine)
+
+    artifact = build_local_structured_prior(
+        engine,
+        LocalStructuredPriorRequest(
+            methodology_id="5B.2",
+            iso3="NZL",
+            period=LocalPriorPeriod(year=2020),
+        ),
+    )
+
+    assert artifact.status == "no_evidence_found"
+    assert artifact.local_facts == []
+    assert "semantically sufficient" in (artifact.missing_or_empty_reason or "")
+    assert "ruler-specific narrative evidence" in (artifact.missing_or_empty_reason or "")
+
+
 def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)

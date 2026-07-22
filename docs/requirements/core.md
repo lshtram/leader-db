@@ -58,6 +58,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-SRC-007G**: Local-prior CLI requests carrying a leader ID shall resolve and expose that leader's accession year when ruler-spell data are available. Pre-accession observations must be labelled as baseline context rather than tenure; inability to resolve accession shall remain non-fatal and explicit.
 - **REQ-SRC-007H**: World Bank WDI Gini observations shall retain the source-native 0-100 index-point scale. They must not be labelled as 0-1 values unless an explicit, traceable normalization transformation has been applied.
 - **REQ-SRC-007I**: WDI inequality, literacy, and gross-enrollment facts shall remain distinct concepts. Gross enrollment may exceed 100 and does not establish education quality; an absent survey observation is missing evidence, not a zero; and national inequality is contextual rather than personal ruler conduct.
+- **REQ-SRC-007J**: Local structured evidence shall be routed by chapter lens, not merely by chapter. A lens with no semantically sufficient structured field shall return a non-fatal, explicit narrative-research gap; receivers must continue with other dossier evidence rather than treating that gap as ruler failure or invalid input.
 - **REQ-SRC-008**: Nuclear / global responsibility sources shall include FAS nuclear forces, SIPRI nuclear forces / military expenditure, NTI country profiles.
 
 ### Database schema (§7)
