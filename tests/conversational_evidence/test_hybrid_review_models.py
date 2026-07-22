@@ -31,7 +31,7 @@ def test_review_requires_all_chapters_in_order() -> None:
 
 def test_final_review_cannot_request_more_research() -> None:
     value = _review()
-    value["overall_decision"] = "targeted_follow_up"
+    value["chapters"][0]["decision"] = "targeted_follow_up"
 
     with pytest.raises(ValueError, match="final review"):
         validate_review(value, final=True)
@@ -42,3 +42,21 @@ def test_review_normalizes_valid_contract() -> None:
 
     assert value["overall_decision"] == "pass"
     assert len(value["chapters"]) == 8
+
+
+def test_review_derives_overall_decision_from_chapters() -> None:
+    value = _review()
+    value["overall_decision"] = "manual_review"
+    value["chapters"][0]["decision"] = "targeted_follow_up"
+    value["chapters"][0]["material_gaps"] = [
+        {
+            "gap": "Missing direct evidence",
+            "lenses": ["1B.1"],
+            "best_source_or_query_direction": "Official archive",
+            "why_it_matters": "It could change confidence",
+        }
+    ]
+
+    normalized = validate_review(value)
+
+    assert normalized["overall_decision"] == "targeted_follow_up"

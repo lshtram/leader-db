@@ -102,7 +102,8 @@ def run_experiment(
         )
         write_json(review_path, review_value)
 
-    review_value = _read_json(review_path)
+    review_value = validate_review(_read_json(review_path))
+    write_json(review_path, review_value)
     gaps = _recoverable_gaps(review_value)
     follow_path = output_dir / "follow-up.md"
     if gaps and not follow_path.exists():

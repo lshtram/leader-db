@@ -60,8 +60,15 @@ def validate_review(value: object, *, final: bool = False) -> dict[str, object]:
     """Validate and normalize one initial or final no-search review."""
 
     review = EvidenceReview.model_validate(value)
-    if final and review.overall_decision == "targeted_follow_up":
+    chapter_decisions = {chapter.decision for chapter in review.chapters}
+    if final and "targeted_follow_up" in chapter_decisions:
         raise ValueError("final review may not request another follow-up")
+    if "targeted_follow_up" in chapter_decisions:
+        review.overall_decision = "targeted_follow_up"
+    elif chapter_decisions & {"credible_gap", "manual_review"}:
+        review.overall_decision = "manual_review"
+    else:
+        review.overall_decision = "pass"
     return review.model_dump(mode="json")
 
 
