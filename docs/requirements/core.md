@@ -59,7 +59,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 
 ### Pipeline stages (§8)
 
-- **REQ-STAGE-001**: Stage 0 shall probe each priority dataset for download availability and emit `outputs/source_availability_report.{csv,md}`.
+- **REQ-STAGE-001**: Stage 0 shall audit every clean-registry source and every locally staged raw source through the ordered states `identified → vetted → raw available → adapter works → normalized → persisted → country matched → concept mapped → researcher routed → validated`, emitting JSON plus `outputs/source_availability_report.{csv,md}`. Observation counts, country/year coverage, indicators, local files, and the first blocking issue shall come from local manifests, normalized assets, and the read-only catalog. A source is “available” only when it is validated and routed to the researcher; file presence or adapter registration alone is insufficient. The audit is offline and shall not mutate raw source data.
 - **REQ-STAGE-002**: Stage 1 shall load the client's existing 2023 matrix as a validation/reference artifact and emit `processed/client_2023_matrix_normalized.csv`; Stage 1 output shall not populate `source_observations` as an independent evidence source.
 - **REQ-STAGE-003**: Stage 2 shall provide one ingestion script per source, normalizing country names, ISO codes, and year fields, writing to `source_observations`, and logging missing or unmatched countries.
 - **REQ-STAGE-004**: Stage 3 shall use ISO3 as primary key, maintain a country alias table, handle historical country names and name changes, and never silently merge ambiguous countries.

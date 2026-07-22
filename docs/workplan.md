@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — Authoritative source-readiness audit implemented
+
+- Replaced the Stage 0 stub with an offline audit of all clean-registry sources, every
+  staged raw folder, and every source persisted in the normalized-observation catalog.
+  The report follows the complete ordered readiness chain and includes actual local
+  files, observation counts, country/year coverage, indicators, researcher routing, and
+  the first concrete blocker. JSON, CSV, and Markdown views share one row model.
+- The live 2023 audit finds 35 identified sources, 21 with normalized observations, 16
+  with concept mappings, but only three currently routed end to end to the ruler local
+  evidence summary: Maddison, PWT, and WDI. This intentionally contradicts broad claims
+  that every implemented or processed source is researcher-available.
+- Corrected stale UCDP metadata: GED 23.1 is locally staged and persisted with 25,296
+  observations; the additional 26.1 yearly and one-sided archives are staged but await
+  separate normalization. Focused and CLI tests pass; the live command writes the three
+  reports under `data/outputs/` without network access.
+
 ## 2026-07-22 — Putin v2 promotion gate passed
 
 - Rejudged all eight chapters with the relation-aware compact cohort. All judgments now

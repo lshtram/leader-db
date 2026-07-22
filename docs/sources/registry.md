@@ -113,7 +113,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 
 | Source key | Verdict | Description | Notes |
 |---|---|---|---|
-| `ucdp` | ✅ | Uppsala Conflict Data Program | Free 25.4MB zip; 1989-2022 data confirmed (the 23.1 release year is 2023; the data ends at 2022). Stage 2 adapter aggregates event-level data to country-year. **Primary international-conflict source** (replaces COW MID, which is blocked). |
+| `ucdp` | ✅ | Uppsala Conflict Data Program | GED 23.1 (1989–2022) is staged, normalized, and persisted (25,296 observations). Organized Violence 26.1 and One-sided Violence 26.1 archives are also staged but are not yet normalized by the GED adapter. Stage 2 aggregates GED event data to country-year. The source is concept-mapped but is not yet researcher-routed by the current local evidence package. **Primary international-conflict source** (replaces COW MID, which is blocked). |
 | `cow_mid` | ❌ | Correlates of War Militarized Interstate Disputes | SSL cert issue in this environment + data ends 2014. `blocked`. |
 | `sipri_milex` | ✅ | Stockholm International Peace Research Institute (milex) | Direct xlsx download; 1949–2025. |
 | `sipri_yearbook_ch7` | ✅ | SIPRI Yearbook Chapter 7: World Nuclear Forces (PDF) | 717KB; cross-checks FAS for nuclear arsenal facts. |

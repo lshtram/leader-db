@@ -21,7 +21,8 @@ from pathlib import Path
 import typer
 
 from ..config import default_config_path
-from ..paths import PRIORITY_SOURCES, data_dir
+from ..ingest.source_availability import check_all_sources, write_source_readiness_report
+from ..paths import data_dir
 from ._app import app
 from ._helpers import _not_implemented_yet, _safe_load_config
 
@@ -36,15 +37,17 @@ def check_source_availability(
     Writes ``source_availability_report.csv`` and ``.md`` under ``output_dir``.
     """
     cfg = _safe_load_config(config)
+    rows = check_all_sources(cfg.project.target_year)
+    paths = write_source_readiness_report(
+        rows, output_dir, target_year=cfg.project.target_year
+    )
+    available = sum(row.available for row in rows)
     typer.echo(
-        f"[Stage 0] source availability probe for {len(PRIORITY_SOURCES)} sources "
-        f"(target year {cfg.project.target_year})"
+        f"[Stage 0] audited {len(rows)} sources for target year "
+        f"{cfg.project.target_year}; {available} are researcher-available"
     )
-    output_dir.mkdir(parents=True, exist_ok=True)
-    _not_implemented_yet(
-        "ingest/source_availability.py",
-        "Phase B (source vetting) precedes this — see docs/workplan.md.",
-    )
+    for path in paths:
+        typer.echo(str(path))
 
 
 @app.command("ingest-client-matrix")
