@@ -23,10 +23,12 @@ from leaders_db.conversational_evidence.hybrid_experiment.full_curation import (
     build_execution_profile,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.prompts import (
+    repair_chapter_contract,
     saturation_chapter,
     saturation_curation,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.runner import (
+    _latest_invalid_chapter_turn,
     _recoverable_gaps,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.saturation import (
@@ -178,6 +180,21 @@ def test_saturation_curation_names_exact_ids_and_validation_checks() -> None:
     assert '["E0001", "E0002"]' in prompt
     assert "no omission or duplicate" in prompt
     assert "summary counts equal the dispositions" in prompt
+
+
+def test_invalid_completed_chapter_turn_gets_bounded_repair(tmp_path: Path) -> None:
+    work = tmp_path / ".researcher"
+    work.mkdir()
+    (work / "turn-002.md").write_text("Narrative only.\n", encoding="utf-8")
+    (work / "turn-002.profile.json").write_text(
+        json.dumps({"return_code": 0}), encoding="utf-8"
+    )
+
+    error = _latest_invalid_chapter_turn(tmp_path, "1B", 2)
+    assert error == "1B note contains no SOURCE_CLAIM_JSON: or REUSE_JSON: records"
+    prompt = repair_chapter_contract("Example Ruler", 2022, "1B", error)
+    assert "Do not browse, search, or add facts" in prompt
+    assert error in prompt
 
 
 def test_curation_summary_counts_are_derived_from_records() -> None:

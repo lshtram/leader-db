@@ -378,11 +378,25 @@ Map only exact {chapter_id} lenses. Narrative without a valid SOURCE_CLAIM_JSON 
 is not accepted."""
 
 
+def repair_chapter_contract(ruler: str, year: int, chapter_id: str, error: str) -> str:
+    """Request a bounded serialization repair in the persistent research thread."""
+
+    return f"""Repair your immediately preceding Chapter {chapter_id} answer for
+{ruler}, {year}. Do not browse, search, or add facts. The parent rejected it with:
+{error}
+
+Use only sources and claims you already opened in that answer. Return a short corrected
+answer containing the required `SOURCE_CLAIM_JSON:` and/or `REUSE_JSON:` physical
+lines with exact {chapter_id} lens IDs. Include every genuinely accepted source-claim
+unit once, but omit the long narrative and search diary. Do not score."""
+
+
 __all__ = [
     "chapter",
     "follow_up",
     "formatter",
     "reconnaissance",
+    "repair_chapter_contract",
     "review",
     "saturation_chapter",
     "saturation_curation",

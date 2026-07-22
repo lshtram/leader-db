@@ -225,6 +225,13 @@ def _run_research(
                 _compact_claim_index(records),
             )
         )
+        validation_error = _latest_invalid_chapter_turn(
+            output, chapter_id, chapter_index
+        )
+        if validation_error is not None:
+            prompt = prompts.repair_chapter_contract(
+                ruler, year, chapter_id, validation_error
+            )
         note = researcher.ask(prompt)
         chapter_path.parent.mkdir(parents=True, exist_ok=True)
         parse_chapter_note(note, chapter_id)
@@ -263,6 +270,30 @@ def _recover_completed_chapter_turn(
         chapter_path.write_text(note + "\n", encoding="utf-8")
         return True
     return False
+
+
+def _latest_invalid_chapter_turn(
+    output: Path, chapter_id: str, minimum_turn: int
+) -> str | None:
+    """Return the newest completed parse failure for a bounded repair turn."""
+
+    work = output / ".researcher"
+    for note_path in sorted(work.glob("turn-*.md"), reverse=True):
+        try:
+            turn_number = int(note_path.stem.removeprefix("turn-"))
+        except ValueError:
+            continue
+        if turn_number < minimum_turn:
+            continue
+        profile_path = note_path.with_suffix(".profile.json")
+        if not profile_path.exists() or _read_json(profile_path).get("return_code") != 0:
+            continue
+        try:
+            parse_chapter_note(note_path.read_text(encoding="utf-8"), chapter_id)
+        except ValueError as exc:
+            return str(exc)
+        return None
+    return None
 
 
 def _record_parse_rejections(output: Path, chapter_id: str, note: str) -> None:
