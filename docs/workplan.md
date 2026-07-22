@@ -1,5 +1,18 @@
 # Workplan
 
+## 2026-07-23 — Source-readiness audit follows the real researcher handoff
+
+- Corrected Stage 0's false-negative country-matching rule. It previously inspected only
+  `normalized_observations.country_code`, so sources resolved from source-native names or
+  codes into published facts were incorrectly called unavailable even when ruler packages
+  received them.
+- The audit now reads published fact provenance and intersects its field keys with the
+  executable local-prior mappings. A fixture proves that a normalized row with no canonical
+  code becomes country-matched and researcher-routed only after its fact is published.
+- The live 2023 audit now reports 20 of 35 sources researcher-available rather than three.
+  It correctly recognizes UCDP (196 matched countries), V-Dem (202), EIU (164), WDI (217),
+  WGI (214), and UNSD SNAAMA (187), while still exposing concrete blockers for the other 15.
+
 ## 2026-07-23 — UNSD SNAAMA concepts and 5B routing increment
 
 - Ingested the complete 1970–2024 local archive (66,632 validated observations) and

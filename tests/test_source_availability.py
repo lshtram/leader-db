@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sqlite3
 from pathlib import Path
 
 import pyarrow as pa
@@ -77,6 +78,49 @@ def test_audit_exposes_first_real_blocker_instead_of_claiming_available(
     assert bti.adapter_works is False
     assert bti.available is False
     assert bti.blocking_issue == "no successful processed manifest with observations"
+
+
+def test_audit_recognizes_country_matching_at_published_fact_boundary(
+    tmp_path: Path,
+) -> None:
+    raw, processed = _stage_wdi(tmp_path)
+    catalog = tmp_path / "catalog.sqlite"
+    connection = sqlite3.connect(catalog)
+    connection.executescript(
+        """
+        CREATE TABLE normalized_observations (
+            source_slug TEXT, country_code TEXT, year INTEGER,
+            observation_family TEXT, indicator_code TEXT
+        );
+        CREATE TABLE country_year_facts (
+            country_id INTEGER, field_key TEXT, source_slugs_json TEXT
+        );
+        INSERT INTO normalized_observations VALUES
+            ('un_snaama', NULL, 2022, 'economic_country_year',
+             'un_snaama_household_consumption_current_usd');
+        INSERT INTO country_year_facts VALUES
+            (1, 'household_consumption_current_usd', '["un_snaama"]');
+        """
+    )
+    connection.commit()
+    connection.close()
+    source_raw = raw / "un_snaama"
+    source_raw.mkdir()
+    (source_raw / "metadata.json").write_text('{"source_name": "UNSD"}\n')
+    (source_raw / "export.zip").write_bytes(b"fixture")
+
+    row = next(
+        item
+        for item in check_all_sources(
+            2022, raw_root=raw, processed_root=processed, catalog_path=catalog
+        )
+        if item.source_slug == "un_snaama"
+    )
+
+    assert row.country_matched is True
+    assert row.concept_mapped is True
+    assert row.researcher_routed is True
+    assert row.country_count == 1
 
 
 def test_audit_includes_unregistered_local_source_and_writes_consistent_views(
