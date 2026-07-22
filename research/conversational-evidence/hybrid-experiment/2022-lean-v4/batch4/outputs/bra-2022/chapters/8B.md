@@ -1,0 +1,39 @@
+**Reused evidence**
+REUSE_JSON: {"evidence_ids":["E0001"],"lenses":["8B.1","8B.2","8B.3","8B.4","8B.5","8B.6"]}
+REUSE_JSON: {"evidence_ids":["E0041"],"lenses":["8B.1","8B.9","8B.10"]}
+REUSE_JSON: {"evidence_ids":["E0045"],"lenses":["8B.2","8B.3","8B.6"]}
+REUSE_JSON: {"evidence_ids":["E0046"],"lenses":["8B.2","8B.5","8B.6"]}
+REUSE_JSON: {"evidence_ids":["E0049"],"lenses":["8B.8","8B.9","8B.10"]}
+REUSE_JSON: {"evidence_ids":["E0059"],"lenses":["8B.4","8B.8"]}
+REUSE_JSON: {"evidence_ids":["E0062"],"lenses":["8B.2","8B.7","8B.8"]}
+REUSE_JSON: {"evidence_ids":["E0080"],"lenses":["8B.1","8B.2","8B.6","8B.10"]}
+REUSE_JSON: {"evidence_ids":["E0081"],"lenses":["8B.1","8B.2","8B.6","8B.10"]}
+REUSE_JSON: {"evidence_ids":["E0082"],"lenses":["8B.1","8B.2","8B.6","8B.10"]}
+REUSE_JSON: {"evidence_ids":["E0083"],"lenses":["8B.6","8B.7","8B.8"]}
+REUSE_JSON: {"evidence_ids":["E0084"],"lenses":["8B.6","8B.7"]}
+REUSE_JSON: {"evidence_ids":["E0085"],"lenses":["8B.3","8B.4","8B.8","8B.9"]}
+REUSE_JSON: {"evidence_ids":["E0086"],"lenses":["8B.3","8B.5","8B.8","8B.9"]}
+REUSE_JSON: {"evidence_ids":["E0087"],"lenses":["8B.3","8B.4","8B.5","8B.8","8B.9"]}
+REUSE_JSON: {"evidence_ids":["E0088"],"lenses":["8B.2","8B.7","8B.9"]}
+
+**New evidence**
+No additional source-claim units were added beyond the reusable evidence already listed. The dossier rests on the reusable source set above, which is enough to trace Bolsonaro’s 2022 program, his use of appointments and state companies, campaign-state boundary issues, budget tradeoffs, and post-election crisis management.
+
+**Assessment summary**
+Bolsonaro’s 2022 revealed program is mostly explicit/revealed rather than fully formalized: re-election, maintaining coalition control, pressuring state institutions and state-linked firms, and managing the budget/election environment to preserve political advantage. The evidence is strongest on campaign mobilization and conflict management, weaker on durable policy execution.
+
+What the evidence shows:
+- He had a clear political program around re-election and power retention.
+- He translated that into concrete actions: campaign messaging, legal challenges, pressure around Petrobras, appointment choices at IPEA, and budget decisions that protected election-year priorities.
+- He could mobilize state and coalition machinery for those aims, at least tactically.
+- The record is mixed on follow-through: there were visible short-term actions, but the core power objective was not achieved because he lost the 2022 election.
+
+**Search and rejection summary**
+I considered a broad set of 2022 Brazil documents already captured in the evidence base: official Planalto and TSE records, Reuters/UOL reporting, Freedom House, Aos Fatos, and campaign/administrative releases tied to budget, Petrobras, IPEA, and election-period conduct. I rejected or deprioritized generic governance indicators, broad country-level corruption metrics, and purely contextual material that did not show Bolsonaro-specific program definition or execution. I also avoided over-weighting repeated syndications of the same Petrobras, election, or budget stories when they did not add a materially new claim.
+
+**Remaining gaps**
+The main gap is program specificity beyond re-election and tactical power maintenance. The evidence is thinner on whether Bolsonaro had a coherent broader governing program in 2022 and how systematically he coordinated ministries toward it. More search would help on:
+1. Official campaign platform and coalition commitments for 2022.
+2. Cabinet and ministry-level implementation records for priority policies.
+3. Additional evidence on whether personnel changes were designed to improve execution or mainly to secure loyalty.
+4. Clearer outcome evidence for non-electoral objectives, if any, beyond short-term political control.
