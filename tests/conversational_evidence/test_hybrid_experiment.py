@@ -29,6 +29,7 @@ from leaders_db.conversational_evidence.hybrid_experiment.prompts import (
 )
 from leaders_db.conversational_evidence.hybrid_experiment.runner import (
     _latest_invalid_chapter_turn,
+    _needs_final_review,
     _recoverable_gaps,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.saturation import (
@@ -96,6 +97,25 @@ def test_follow_up_uses_only_gaps_from_targeted_chapters() -> None:
     assert _recoverable_gaps(review) == [
         {"chapter_id": "5B", "gap": "recoverable"}
     ]
+
+
+def test_existing_follow_up_still_requires_final_review(tmp_path: Path) -> None:
+    review = {
+        "overall_decision": "targeted_follow_up",
+        "chapters": [
+            {
+                "chapter_id": "5B",
+                "decision": "targeted_follow_up",
+                "material_gaps": [{"gap": "recoverable"}],
+            }
+        ],
+    }
+    (tmp_path / "follow-up.md").write_text("saved follow-up", encoding="utf-8")
+
+    assert _needs_final_review(review, tmp_path)
+
+    (tmp_path / "review-final.json").write_text("{}", encoding="utf-8")
+    assert not _needs_final_review(review, tmp_path)
 
 
 def test_saturation_prompt_uses_breadth_targets_as_quality_controls() -> None:

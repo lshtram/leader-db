@@ -106,14 +106,15 @@ def run_experiment(
     write_json(review_path, review_value)
     gaps = _recoverable_gaps(review_value)
     follow_path = output_dir / "follow-up.md"
-    if gaps and not follow_path.exists():
-        _check_budget(output_dir, researcher_name, cost_ceiling_usd)
-        note = researcher.ask(
-            prompts.follow_up(ruler, year, _compact_claim_index(records), gaps)
-        )
-        parse_follow_up(note)
-        follow_path.write_text(note + "\n", encoding="utf-8")
-        _write_state(output_dir, researcher.thread_id, "follow-up")
+    if gaps:
+        if not follow_path.exists():
+            _check_budget(output_dir, researcher_name, cost_ceiling_usd)
+            note = researcher.ask(
+                prompts.follow_up(ruler, year, _compact_claim_index(records), gaps)
+            )
+            parse_follow_up(note)
+            follow_path.write_text(note + "\n", encoding="utf-8")
+            _write_state(output_dir, researcher.thread_id, "follow-up")
         records = build_ledger(output_dir)
         warnings = ledger_quality(records)
         write_json(
@@ -122,24 +123,26 @@ def run_experiment(
         )
         write_json(output_dir / "quality-summary.json", warnings)
         package = _package(output_dir, records)
-        final_review = validate_review(
-            _no_search_turn(
-                project_root,
-                output_dir / ".reviewer-final",
-                researcher_name,
-                prompts.review(
-                    ruler,
-                    year,
-                    "\n\n".join(guides.values()),
-                    warnings,
-                    package,
-                    final=True,
+        final_review_path = output_dir / "review-final.json"
+        if _needs_final_review(review_value, output_dir):
+            final_review = validate_review(
+                _no_search_turn(
+                    project_root,
+                    output_dir / ".reviewer-final",
+                    researcher_name,
+                    prompts.review(
+                        ruler,
+                        year,
+                        "\n\n".join(guides.values()),
+                        warnings,
+                        package,
+                        final=True,
+                    ),
                 ),
-            ),
-            final=True,
-        )
-        write_json(output_dir / "review-final.json", final_review)
-        review_value = final_review
+                final=True,
+            )
+            write_json(final_review_path, final_review)
+        review_value = validate_review(_read_json(final_review_path), final=True)
 
     dossier_path = output_dir / "dossier.json"
     if not dossier_path.exists():
@@ -416,6 +419,12 @@ def _recoverable_gaps(review: dict[str, Any]) -> list[dict[str, Any]]:
         if chapter.get("decision") == "targeted_follow_up"
         for gap in chapter.get("material_gaps", [])
     ]
+
+
+def _needs_final_review(review: dict[str, Any], output: Path) -> bool:
+    """Return whether a followed-up review still needs its terminal review."""
+
+    return bool(_recoverable_gaps(review)) and not (output / "review-final.json").exists()
 
 
 def _profile(
