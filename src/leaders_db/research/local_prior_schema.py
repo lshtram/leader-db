@@ -320,6 +320,9 @@ class LocalPriorFact(BaseModel):
     confidence: int | None = None
     warnings: list[str] = Field(default_factory=list)
     period_role: Literal["pre_accession", "tenure", "target"] = "target"
+    unit: str | None = None
+    scale: str | None = None
+    uncertainty: dict[str, Any] | None = None
 
 
 class LocalStructuredPriorArtifact(BaseModel):

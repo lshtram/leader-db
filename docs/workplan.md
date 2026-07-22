@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — Audited longitudinal signals implemented
+
+- Local Evidence Package v3 now derives target level; exact 1/3/5/10-year changes;
+  pre-accession, tenure, and recent three-year OLS trends; tenure-minus-inherited trend;
+  acceleration; tenure average; volatility; coverage; and cumulative values only for
+  meaningful annual flow/count fields.
+- Every signal retains its input observation IDs, observed years, unit/scale, available
+  source uncertainty, exact formula, transform version, expected-lag guidance, causal
+  distance warning, and ruler-attribution limitation. Missing exact comparison years
+  remain null; no interpolation occurs; signals never alter scores automatically.
+- A live Putin 2022 Chapter 2B package produces eight signals over 241 raw yearly facts.
+  The target year is 2022 for every signal, and all source lineage remains recoverable.
+  Focused longitudinal, package, prompt, and local-prior tests pass.
+
 ## 2026-07-22 — Local Evidence Package v3 longitudinal window implemented
 
 - Upgraded local structured priors to v3 with explicit `pre_accession`, `tenure`, and

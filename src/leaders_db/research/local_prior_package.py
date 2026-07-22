@@ -8,6 +8,9 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict
 
+from .local_longitudinal import LocalLongitudinalSignal, derive_longitudinal_signals
+from .local_prior_schema import LocalPriorFact
+
 
 class CompactLocalFact(BaseModel):
     """One unique local fact with all applicable methodology links."""
@@ -26,6 +29,9 @@ class CompactLocalFact(BaseModel):
     confidence: int | None
     warnings: tuple[str, ...]
     period_role: Literal["pre_accession", "tenure", "target"] = "target"
+    unit: str | None = None
+    scale: str | None = None
+    uncertainty: dict[str, Any] | None = None
     candidate_methodology_ids: tuple[str, ...]
     chapter_ids: tuple[str, ...]
 
@@ -71,6 +77,7 @@ class CompactLocalPriorPackage(BaseModel):
     not_applicable_methodology_ids: tuple[str, ...]
     error_methodology_ids: tuple[str, ...]
     facts: tuple[CompactLocalFact, ...]
+    longitudinal_signals: tuple[LocalLongitudinalSignal, ...]
     chapters: tuple[CompactChapterPrior, ...]
 
 
@@ -145,6 +152,10 @@ def compact_local_priors(
         for chapter_id, methodology_ids in chapter_methods.items()
     )
     facts = tuple(CompactLocalFact.model_validate(row) for row in fact_rows)
+    signal_inputs = [
+        {key: value for key, value in row.items() if key in LocalPriorFact.model_fields}
+        for row in fact_rows
+    ]
     return CompactLocalPriorPackage(
         source_prior_count=len(local_priors),
         unique_fact_count=len(facts),
@@ -164,6 +175,7 @@ def compact_local_priors(
         ),
         error_methodology_ids=_methodology_ids_with_status(local_priors, "error"),
         facts=facts,
+        longitudinal_signals=derive_longitudinal_signals(signal_inputs),
         chapters=chapters,
     )
 

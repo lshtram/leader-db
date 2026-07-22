@@ -84,6 +84,7 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
     assert package.schema_version == "ruler_local_evidence_package_v3"
     assert package.source_prior_count == 20
     assert package.unique_fact_count == 1
+    assert len(package.longitudinal_signals) == 1
     assert package.facts[0].fact_id == "LF001"
     assert package.facts[0].locator == "local-prior:5B.1"
     assert len(package.facts[0].candidate_methodology_ids) == 20
@@ -231,7 +232,8 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         ),
     )
 
-    assert prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
+    # Once in the raw fact register and once in its audited derived-signal lineage.
+    assert prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 2
     assert '"unique_fact_count": 1' in prompt
     assert '"candidate_methodology_ids"' in prompt
     assert "local-prior:5B.1" in prompt
@@ -266,7 +268,7 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         local_priors=priors,
         research_notebook="Research handoff.",
     )
-    assert formatter_prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
+    assert formatter_prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 2
     assert '"methodology_statuses"' in formatter_prompt
     assert "Every retained evidence item must appear in at least one `mappings` row" in (
         formatter_prompt

@@ -141,6 +141,7 @@ def load_local_prior_facts(
         source_slugs = _loads_list(row["source_slugs_json"])
         if any(slug in CLIENT_MATRIX_SOURCE_SLUGS for slug in source_slugs):
             continue
+        selected_metadata = _selected_metadata(row["selected_value_json"])
         facts.append(
             LocalPriorFact(
                 year=int(row["year"]),
@@ -157,6 +158,9 @@ def load_local_prior_facts(
                     target_year=max(request.period.years()),
                     accession_year=request.leader.accession_year,
                 ),
+                unit=_optional_text(selected_metadata.get("unit")),
+                scale=_optional_text(selected_metadata.get("scale")),
+                uncertainty=_uncertainty(selected_metadata),
             )
         )
     return facts
@@ -201,6 +205,25 @@ def _selected_value(row: Any) -> Any:
     if row["selected_value_json"] is not None:
         return json.loads(row["selected_value_json"])
     return None
+
+
+def _selected_metadata(value: Any) -> dict[str, Any]:
+    if value is None:
+        return {}
+    parsed = json.loads(value)
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def _optional_text(value: Any) -> str | None:
+    return str(value) if value is not None else None
+
+
+def _uncertainty(selected_metadata: dict[str, Any]) -> dict[str, Any] | None:
+    extension = selected_metadata.get("extension")
+    if not isinstance(extension, dict):
+        return None
+    uncertainty = extension.get("uncertainty")
+    return uncertainty if isinstance(uncertainty, dict) else None
 
 
 __all__ = [
