@@ -130,6 +130,13 @@ ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "gdp_total_ppp_output_constant_2017_usd",
     "gni_per_capita",
     "population",
+    "pwt_employment",
+    "pwt_average_annual_hours_worked",
+    "pwt_human_capital_index",
+    "pwt_real_consumption",
+    "pwt_real_domestic_absorption",
+    "pwt_capital_stock_index",
+    "pwt_tfp_at_constant_national_prices",
     "bti_status_index",
 )
 

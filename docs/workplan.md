@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — PWT longitudinal economic-context routing
+
+- Added seven direct, source-native PWT concepts for persons engaged, annual hours,
+  human capital, aggregate real consumption, real domestic absorption, capital-stock
+  index, and constant-national-price TFP. Mappings prohibit treating employment count
+  as unemployment or aggregate consumption as household income/distribution.
+- Published 52,206 country-year facts across the seven fields, covering available
+  source years through 2019. They are routed only to chapter 5B local evidence and do
+  not mechanically alter a score.
+- Fixed the standalone local-prior CLI to resolve accession from a supplied leader ID,
+  matching the production worker path. A live Putin 2022 package now resolves accession
+  to 2000 and carries 196 PWT facts: 56 pre-accession baselines and 140 tenure facts.
+  The latest 2019 rows retain their stale-distance naturally; no 2022 proxy is created.
+
 ## 2026-07-22 — PWT unit and variable-semantics repair
 
 - Corrected the clean PWT adapter's units: GDP, consumption, and domestic absorption

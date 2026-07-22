@@ -114,6 +114,13 @@ CONCEPT_EIU_FUNCTIONING_GOVERNMENT: str = "eiu_functioning_government"
 CONCEPT_EIU_POLITICAL_PARTICIPATION: str = "eiu_political_participation"
 CONCEPT_EIU_POLITICAL_CULTURE: str = "eiu_political_culture"
 CONCEPT_EIU_CIVIL_LIBERTIES: str = "eiu_civil_liberties"
+CONCEPT_PWT_EMPLOYMENT: str = "pwt_employment"
+CONCEPT_PWT_AVERAGE_ANNUAL_HOURS: str = "pwt_average_annual_hours_worked"
+CONCEPT_PWT_HUMAN_CAPITAL: str = "pwt_human_capital_index"
+CONCEPT_PWT_REAL_CONSUMPTION: str = "pwt_real_consumption"
+CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION: str = "pwt_real_domestic_absorption"
+CONCEPT_PWT_CAPITAL_STOCK_INDEX: str = "pwt_capital_stock_index"
+CONCEPT_PWT_TFP_CONSTANT_PRICES: str = "pwt_tfp_at_constant_national_prices"
 
 # Canonical ordered list of stable concept keys. The order is the
 # canonical iteration order for ``list_concepts()``; downstream code
@@ -133,6 +140,13 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_EIU_POLITICAL_PARTICIPATION,
     CONCEPT_EIU_POLITICAL_CULTURE,
     CONCEPT_EIU_CIVIL_LIBERTIES,
+    CONCEPT_PWT_EMPLOYMENT,
+    CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+    CONCEPT_PWT_HUMAN_CAPITAL,
+    CONCEPT_PWT_REAL_CONSUMPTION,
+    CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+    CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+    CONCEPT_PWT_TFP_CONSTANT_PRICES,
     CONCEPT_HDI,
     CONCEPT_LIFE_EXPECTANCY,
     CONCEPT_GNI_PER_CAPITA,
@@ -263,6 +277,13 @@ EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE: str = "eiu_democracy_index_functionin
 EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE: str = "eiu_democracy_index_political_participation"
 EIU_POLITICAL_CULTURE_INDICATOR_CODE: str = "eiu_democracy_index_political_culture"
 EIU_CIVIL_LIBERTIES_INDICATOR_CODE: str = "eiu_democracy_index_civil_liberties"
+PWT_EMPLOYMENT_INDICATOR_CODE: str = "pwt_employment"
+PWT_AVERAGE_ANNUAL_HOURS_INDICATOR_CODE: str = "pwt_average_annual_hours_worked"
+PWT_HUMAN_CAPITAL_INDICATOR_CODE: str = "pwt_human_capital_index"
+PWT_REAL_CONSUMPTION_INDICATOR_CODE: str = "pwt_real_consumption"
+PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE: str = "pwt_real_domestic_absorption"
+PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE: str = "pwt_capital_stock_index"
+PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE: str = "pwt_tfp_at_constant_national_prices"
 
 # Derived-recipe key (stable string) for the PWT
 # ``gdp_per_capita = real_gdp_output_side / population`` recipe.
@@ -502,6 +523,47 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_EIU_CIVIL_LIBERTIES,
             display_name="EIU civil liberties",
             description="EIU report-year civil-liberties component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_EMPLOYMENT,
+            display_name="PWT persons engaged",
+            description="Persons engaged, in millions; not an unemployment rate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+            display_name="PWT average annual hours worked",
+            description="Annual hours per person engaged; not hours for the whole population.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_HUMAN_CAPITAL,
+            display_name="PWT human capital index",
+            description="Schooling-and-returns human-capital index; not bounded to 0-1 or 0-10.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_REAL_CONSUMPTION,
+            display_name="PWT real aggregate consumption",
+            description=(
+                "Aggregate household, government, and nonprofit consumption at "
+                "chained PPPs; not household income or distribution."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+            display_name="PWT real domestic absorption",
+            description="Aggregate domestic absorption at chained PPPs; not capital depreciation.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+            display_name="PWT capital-stock index",
+            description=(
+                "Capital stock at constant national prices, indexed to 2017=1; "
+                "not a USD level."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_TFP_CONSTANT_PRICES,
+            display_name="PWT total factor productivity index",
+            description="TFP at constant national prices, indexed to 2017=1.",
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_HDI,
@@ -940,6 +1002,53 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
             mapping_type="direct",
             indicator_codes=(EIU_CIVIL_LIBERTIES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_EMPLOYMENT,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_EMPLOYMENT_INDICATOR_CODE,),
+            notes="Count of persons engaged; prohibited as an unemployment-rate proxy.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_AVERAGE_ANNUAL_HOURS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_HUMAN_CAPITAL,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_HUMAN_CAPITAL_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_REAL_CONSUMPTION,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_REAL_CONSUMPTION_INDICATOR_CODE,),
+            notes=(
+                "Aggregate demand context; prohibited as distributional or "
+                "household-income evidence."
+            ),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_TFP_CONSTANT_PRICES,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE,),
         ),
         ConceptMapping(
             concept_key=CONCEPT_POPULATION,
@@ -1506,6 +1615,13 @@ __all__ = [
     "CONCEPT_POPULATION",
     "CONCEPT_PRESS_FREEDOM_RANK",
     "CONCEPT_PRESS_FREEDOM_SCORE",
+    "CONCEPT_PWT_AVERAGE_ANNUAL_HOURS",
+    "CONCEPT_PWT_CAPITAL_STOCK_INDEX",
+    "CONCEPT_PWT_EMPLOYMENT",
+    "CONCEPT_PWT_HUMAN_CAPITAL",
+    "CONCEPT_PWT_REAL_CONSUMPTION",
+    "CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION",
+    "CONCEPT_PWT_TFP_CONSTANT_PRICES",
     "CONCEPT_RULE_OF_LAW",
     "CONCEPT_STATE_BASED_CONFLICT_EVENTS",
     "CONCEPT_STATE_BASED_CONFLICT_FATALITIES",
@@ -1541,11 +1657,18 @@ __all__ = [
     "POLITY_V_POLITY2_INDICATOR_CODE",
     "POLITY_V_REGIME_DURABILITY_INDICATOR_CODE",
     "POLITY_V_SOURCE_KEY",
+    "PWT_AVERAGE_ANNUAL_HOURS_INDICATOR_CODE",
+    "PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE",
+    "PWT_EMPLOYMENT_INDICATOR_CODE",
     "PWT_GDP_PER_CAPITA_RECIPE_KEY",
+    "PWT_HUMAN_CAPITAL_INDICATOR_CODE",
     "PWT_POPULATION_INDICATOR_CODE",
+    "PWT_REAL_CONSUMPTION_INDICATOR_CODE",
+    "PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE",
     "PWT_REAL_GDP_EXPENDITURE_SIDE_INDICATOR_CODE",
     "PWT_REAL_GDP_OUTPUT_SIDE_INDICATOR_CODE",
     "PWT_SOURCE_KEY",
+    "PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_RANK_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_SOURCE_KEY",

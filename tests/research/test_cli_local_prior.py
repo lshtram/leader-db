@@ -41,6 +41,55 @@ def test_build_local_prior_cli_outputs_json_and_writes_artifact(
     assert stdout_payload["local_facts"][0]["source_slugs"] == ["freedom_house"]
 
 
+def test_build_local_prior_cli_resolves_accession_for_period_roles(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_country_year(engine, country_id=1, iso3="USA", name="United States", year=2015)
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                "INSERT INTO country_years "
+                "(id, country_id, year, included_in_project) VALUES (2, 1, 2020, 1)"
+            )
+        )
+    _insert_fact(engine, country_id=1, country_year_id=1, year=2015)
+    _insert_fact(engine, country_id=1, country_year_id=2, year=2020)
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                "INSERT INTO leaders (id, full_name, normalized_name) "
+                "VALUES (7, 'Example Leader', 'example leader')"
+            )
+        )
+        conn.execute(
+            text(
+                "INSERT INTO ruler_spells "
+                "(id, leader_id, country_id, start_date, source_dataset) "
+                "VALUES (7, 7, 1, '2017-01-20', 'fixture')"
+            )
+        )
+
+    result = runner.invoke(
+        app,
+        [
+            "research", "build-local-prior", "--methodology-id", "4B.2",
+            "--start-year", "2015", "--end-year", "2020", "--iso3", "USA",
+            "--leader", "Example Leader", "--leader-id", "7",
+            "--db-url", database_url, "--json",
+        ],
+    )
+
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["leader"]["accession_year"] == 2017
+    assert [fact["period_role"] for fact in payload["local_facts"]] == [
+        "pre_accession",
+        "target",
+    ]
+
+
 def test_build_local_prior_cli_exits_one_for_builder_error_artifact(
     database_url: str,
 ) -> None:

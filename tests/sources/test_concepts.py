@@ -288,6 +288,13 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
         CONCEPT_PTS_STATE_DEPT_SCORE,
         CONCEPT_PUBLIC_CORRUPTION,
+        CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+        CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+        CONCEPT_PWT_EMPLOYMENT,
+        CONCEPT_PWT_HUMAN_CAPITAL,
+        CONCEPT_PWT_REAL_CONSUMPTION,
+        CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+        CONCEPT_PWT_TFP_CONSTANT_PRICES,
         CONCEPT_REGIME_TYPE,
         CONCEPT_REGULATORY_QUALITY,
         CONCEPT_RULE_OF_LAW,
@@ -318,6 +325,13 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_EIU_POLITICAL_PARTICIPATION,
         CONCEPT_EIU_POLITICAL_CULTURE,
         CONCEPT_EIU_CIVIL_LIBERTIES,
+        CONCEPT_PWT_EMPLOYMENT,
+        CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+        CONCEPT_PWT_HUMAN_CAPITAL,
+        CONCEPT_PWT_REAL_CONSUMPTION,
+        CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+        CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+        CONCEPT_PWT_TFP_CONSTANT_PRICES,
         CONCEPT_HDI,
         CONCEPT_LIFE_EXPECTANCY,
         CONCEPT_GNI_PER_CAPITA,
@@ -478,6 +492,29 @@ def test_eiu_component_is_a_direct_source_native_concept() -> None:
     assert rows[0].mapping_type == "direct"
     assert rows[0].source_indicator_codes == (EIU_CIVIL_LIBERTIES_INDICATOR_CODE,)
     assert rows[0].value == 2.35
+
+
+def test_pwt_employment_keeps_count_semantics() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_PWT_EMPLOYMENT,
+        PWT_EMPLOYMENT_INDICATOR_CODE,
+        extract_concept,
+        resolve_concept,
+    )
+
+    source = _make_observation(
+        source_slug="pwt",
+        indicator_code=PWT_EMPLOYMENT_INDICATOR_CODE,
+        value=71.67,
+        year=2019,
+        country_code="RUS",
+        unit="million_persons_engaged",
+    )
+    rows = extract_concept((source,), CONCEPT_PWT_EMPLOYMENT)
+
+    assert len(rows) == 1
+    assert rows[0].unit == "million_persons_engaged"
+    assert "unemployment-rate proxy" in (resolve_concept(CONCEPT_PWT_EMPLOYMENT)[0].notes or "")
 
 
 def _purge_source_boundary_modules(modules: dict[str, object]) -> None:
