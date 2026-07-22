@@ -295,6 +295,9 @@ outcomes are supplied only where they can inform the question's baseline, outcom
 distribution, access, productivity, crisis, or trajectory context. Lenses requiring
 appointments, decision process, or political conditionality may intentionally have
 no local fields; that is an actionable narrative-research gap, not pipeline failure.
+The same boundary applies to 7B/8B: country corruption and capacity indicators are
+available only as institutional/scrutiny/implementation context and never substitute
+for personal nexus, program identification, ruler ownership, or causal execution.
 
 | Category | Primary structured sources | Current implementation state | Notes |
 |---|---|---|---|

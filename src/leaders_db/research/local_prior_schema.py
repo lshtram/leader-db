@@ -425,19 +425,35 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("7B"),
-        field_keys=INTEGRITY_PRIOR_FIELD_KEYS,
+        methodology_ids=("7B.1", "7B.2", "7B.3", "7B.4", "7B.5", "7B.8", "7B.9"),
+        field_keys=(),
         mapping_note=(
-            "D15 corruption, accountability, and rule-of-law facts provide institutional "
-            "context and must not be converted into personal-integrity claims without evidence."
+            "National corruption or governance indicators cannot establish ruler-specific "
+            "truthfulness, interests, benefit, appointments, promises, or favoritism."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("8B"),
+        methodology_ids=("7B.6", "7B.7", "7B.10"),
+        field_keys=INTEGRITY_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "Institutional corruption, accountability, and rule-of-law facts are context "
+            "for scrutiny or concealment only; scoring requires a direct personal nexus."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("8B.1", "8B.8"),
+        field_keys=(),
+        mapping_note=(
+            "Generic capacity indicators cannot identify the ruler's program or establish "
+            "adaptation and correction."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("8B.2", "8B.3", "8B.4", "8B.5", "8B.6", "8B.7", "8B.9", "8B.10"),
         field_keys=EFFECTIVENESS_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D16 governance-capacity facts provide inherited/state-capacity context, not "
-            "proof that the ruler selected goals or implemented them effectively."
+            "Governance-capacity facts provide inherited implementation context only; "
+            "program ownership, action, goal fit, and ruler attribution remain required."
         ),
     ),
 )

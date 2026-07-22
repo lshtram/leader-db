@@ -27,8 +27,8 @@ CHAPTER_FACTS = (
     ("4B.1", "electoral_democracy", "vdem"),
     ("5B.1", "gdp_per_capita", "maddison_project"),
     ("6B.1", "hdi", "undp_hdi"),
-    ("7B.1", "control_of_corruption", "world_bank_wgi"),
-    ("8B.1", "government_effectiveness", "world_bank_wgi"),
+    ("7B.6", "control_of_corruption", "world_bank_wgi"),
+    ("8B.2", "government_effectiveness", "world_bank_wgi"),
 )
 
 
@@ -205,6 +205,20 @@ def test_empty_lens_mapping_requests_narrative_evidence(database_url: str) -> No
     assert "ruler-specific narrative evidence" in (artifact.missing_or_empty_reason or "")
 
 
+def test_integrity_and_effectiveness_preserve_personal_attribution_boundaries() -> None:
+    personal_integrity = mapping_for_methodology_id("7B.3")
+    scrutiny_context = mapping_for_methodology_id("7B.6")
+    program_identity = mapping_for_methodology_id("8B.1")
+    implementation_context = mapping_for_methodology_id("8B.6")
+
+    assert personal_integrity is not None and personal_integrity.field_keys == ()
+    assert scrutiny_context is not None
+    assert "control_of_corruption" in scrutiny_context.field_keys
+    assert program_identity is not None and program_identity.field_keys == ()
+    assert implementation_context is not None
+    assert "government_effectiveness" in implementation_context.field_keys
+
+
 def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)
@@ -279,8 +293,7 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "put the complete handoff in the final response" in prompt
     assert "Required methodology (fully inlined" in prompt
     assert (
-        "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md"
-        not in prompt
+        "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md" not in prompt
     )
     assert "## Required methodology: docs/methodology/local-first-researcher-guide.md" not in prompt
     assert "## Required methodology: docs/methodology/ranking-evaluation-criteria.md" not in prompt

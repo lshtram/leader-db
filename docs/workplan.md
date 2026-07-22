@@ -1,5 +1,18 @@
 # Workplan
 
+## 2026-07-22 — Personal-nexus and effectiveness lens routing
+
+- Restricted chapter 7B national corruption/governance facts to scrutiny,
+  concealment, and ethical-environment lenses (7B.6/7B.7/7B.10), with an explicit
+  zero-scoring-weight personal-nexus boundary. Truthfulness, private benefit,
+  appointments, promises, and favoritism lenses now request ruler-specific evidence.
+- Restricted generic capacity facts in 8B to implementation/outcome context. Program
+  identification (8B.1) and adaptation (8B.8) receive no structured shortcut because
+  those facts cannot identify goals or correction.
+- Live Putin 2022 packages demonstrate the boundary: 7B.3 and 8B.1 are valid narrative
+  gaps with zero local facts; 7B.6 carries 208 institutional-context facts and 8B.6
+  carries 146 capacity-context facts, each with a warning that attribution is required.
+
 ## 2026-07-22 — Lens-specific 5B/6B local-evidence routing
 
 - Replaced identical all-lens routing for economic and social chapters with explicit
