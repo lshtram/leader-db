@@ -473,6 +473,18 @@ def test_wgi_runner_produces_normalized_observations(
         "IND": 12,
         "NGA": 12,
     }
+    usa_voice_2022 = next(
+        observation
+        for observation in result.observations
+        if observation.country_code == "USA"
+        and observation.year == 2022
+        and observation.indicator_code == "wgi_voice_and_accountability"
+    )
+    assert usa_voice_2022.extension["uncertainty"] == {
+        "standard_error": pytest.approx(0.1),
+        "percentile_rank_lower_bound": pytest.approx(45.0),
+        "percentile_rank_upper_bound": pytest.approx(55.0),
+    }
 
 
 # ---------------------------------------------------------------------------

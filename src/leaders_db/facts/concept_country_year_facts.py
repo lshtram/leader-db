@@ -465,6 +465,7 @@ def _candidate_payload(
         "quality_flags": list(row.quality_flags),
         "warnings": [_warning_payload(warning) for warning in row.warnings],
         "selection_role": selection_role,
+        "extension": dict(row.extension),
     }
 
 

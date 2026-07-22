@@ -560,6 +560,47 @@ def test_vdem_year_filter_is_applied(tmp_path: Path) -> None:
     assert {obs.year for obs in result.observations} == {2023}
 
 
+def test_vdem_uncertainty_bounds_survive_normalization(tmp_path: Path) -> None:
+    import pandas as pd
+
+    from leaders_db.sources import (
+        InMemorySourceRegistry,
+        SourceId,
+        SourceIngestRequest,
+        SourceIngestRunner,
+    )
+    from leaders_db.sources.adapters.vdem import create_vdem_adapter
+
+    raw_root = tmp_path / "raw"
+    bundle_dir = _stage_vdem_bundle(raw_root)
+    csv_path = bundle_dir / VDEM_TEST_FIXTURE_CSV
+    frame = pd.read_csv(csv_path)
+    frame["v2x_polyarchy_codelow"] = frame["v2x_polyarchy"] - 0.05
+    frame["v2x_polyarchy_codehigh"] = frame["v2x_polyarchy"] + 0.05
+    frame["v2x_polyarchy_sd"] = 0.025
+    frame.to_csv(csv_path, index=False)
+
+    registry = InMemorySourceRegistry()
+    registry.register(create_vdem_adapter())
+    result = SourceIngestRunner(registry=registry).run(
+        SourceIngestRequest(
+            source_id=SourceId(slug="vdem"),
+            raw_root=raw_root,
+            years=(2022,),
+            countries=("MEX",),
+        )
+    )
+
+    observation = next(
+        item for item in result.observations if item.indicator_code == "vdem_v2x_polyarchy"
+    )
+    assert observation.extension["uncertainty"] == {
+        "lower_bound": pytest.approx(0.534),
+        "upper_bound": pytest.approx(0.634),
+        "standard_deviation": pytest.approx(0.025),
+    }
+
+
 def test_vdem_country_filter_is_applied(tmp_path: Path) -> None:
     """``SourceIngestRequest.countries=('USA',)`` filters to USA rows only.
 

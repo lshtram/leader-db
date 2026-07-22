@@ -1,5 +1,17 @@
 # Workplan
 
+## 2026-07-22 — V-Dem and WGI uncertainty preserved end to end
+
+- V-Dem ingestion now discovers each selected indicator's available `codelow`,
+  `codehigh`, and standard-deviation columns and carries them as a typed uncertainty
+  extension on normalized observations.
+- WGI ingestion now retains estimate standard errors and labels its published lower
+  and upper values accurately as percentile-rank bounds rather than estimate bounds.
+- Concept country-year fact candidates and selected provenance retain source extensions,
+  so these uncertainty measures remain available to local evidence consumers.
+- Adapter, legacy-ingestion, and fact-publication regression suites pass (140 tests),
+  and Ruff passes. The next development stage is the v3 longitudinal evidence package.
+
 ## 2026-07-22 — Country-year fact semantics and confidence corrected
 
 - Split nominal, real constant-price, and PPP GDP observations into explicit

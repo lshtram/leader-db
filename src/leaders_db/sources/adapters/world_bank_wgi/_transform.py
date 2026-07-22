@@ -223,6 +223,7 @@ def emit_world_bank_wgi_observations(
     source_version = _canonical_version()
 
     observations: list[NormalizedObservation] = []
+    uncertainty_by_key = _uncertainty_lookup(wide_df)
     for _, wide_row in wide_df.iterrows():
         iso3 = str(wide_row["iso3"])
         year = int(wide_row["year"])
@@ -259,6 +260,9 @@ def emit_world_bank_wgi_observations(
                 "attribution": WORLD_BANK_WGI_ATTRIBUTION_TEXT,
                 "source_row_reference": source_row_reference,
             }
+            uncertainty = uncertainty_by_key.get((iso3, year, column_name))
+            if uncertainty:
+                extension["uncertainty"] = uncertainty
             if sheet_name is not None:
                 extension["wgi_sheet_name"] = sheet_name
             if indicator_category is not None:
@@ -310,6 +314,26 @@ def emit_world_bank_wgi_observations(
                 ),
             )
     return iter(observations)
+
+
+def _uncertainty_lookup(wide_df: Any) -> dict[tuple[str, int, str], dict[str, float]]:
+    long_frame = getattr(wide_df, "attrs", {}).get("_wgi_raw_long")
+    if long_frame is None:
+        return {}
+    lookup: dict[tuple[str, int, str], dict[str, float]] = {}
+    for row in long_frame.itertuples(index=False):
+        payload: dict[str, float] = {}
+        for column_name, output_key in (
+            ("standard_error", "standard_error"),
+            ("percentile_rank_lower_bound", "percentile_rank_lower_bound"),
+            ("percentile_rank_upper_bound", "percentile_rank_upper_bound"),
+        ):
+            value = getattr(row, column_name, None)
+            if _is_real_number(value):
+                payload[output_key] = float(value)
+        if payload:
+            lookup[(str(row.iso3), int(row.year), str(row.variable_name))] = payload
+    return lookup
 
 
 __all__ = [

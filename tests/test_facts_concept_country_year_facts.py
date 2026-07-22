@@ -971,6 +971,13 @@ def test_publish_concept_country_year_facts_publishes_wgi_government_effectivene
                 year=2022,
                 country_code="USA",
                 country_name=None,
+                extension={
+                    "uncertainty": {
+                        "standard_error": 0.12,
+                        "percentile_rank_lower_bound": 70.0,
+                        "percentile_rank_upper_bound": 82.0,
+                    }
+                },
             ),
         ),
     )
@@ -993,6 +1000,8 @@ def test_publish_concept_country_year_facts_publishes_wgi_government_effectivene
         assert fact.field_label == "Government effectiveness"
         assert fact.selected_value_number == 1.31
         assert fact.source_slugs_json == '["world_bank_wgi"]'
+        selected = json.loads(fact.selected_value_json or "{}")
+        assert selected["extension"]["uncertainty"]["standard_error"] == 0.12
 
 
 def test_publish_concept_country_year_facts_resolves_wgi_source_code(
@@ -1408,6 +1417,7 @@ def _observation(
     year: int = 2020,
     country_code: str | None = "USA",
     country_name: str = "United States",
+    extension: dict[str, Any] | None = None,
 ) -> NormalizedObservation:
     return NormalizedObservation(
         source_id=SourceId(slug=source_slug),
@@ -1426,4 +1436,5 @@ def _observation(
         source_version="fixture",
         raw_locator=RawLocator(asset_id=f"{source_slug}-fixture", json_pointer="/0"),
         transform_locator=TransformLocator(transform_name="fixture_transform"),
+        extension=extension or {},
     )

@@ -122,6 +122,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-CONF-005**: Missing expected indicators shall affect confidence and review status according to the category source plan; missingness shall not be hidden by normalizing only the available indicators.
 - **REQ-CONF-006**: The client/customer matrix shall never improve source agreement, source authority, evidence specificity, or temporal-fit confidence components.
 - **REQ-CONF-007**: Country-year facts shall calculate and persist every fixed confidence component. Repeated observations from one source family and dimensionally incompatible observations shall not count as independent source agreement.
+- **REQ-CONF-008**: When a structured source publishes uncertainty, normalized observations and downstream fact provenance shall retain it with source-accurate semantics, including V-Dem coding bounds/standard deviations and WGI estimate standard errors/percentile-rank bounds.
 
 ### Comparison against client 2023 matrix (§12)
 
