@@ -1,0 +1,321 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "Standing constitutional authority and constraints; office context only, not a 2022 nuclear-risk choice by Jokowi."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Broad food-and-energy crisis management; relevant to general risk posture, but not a nuclear/existential-risk decision."
+        },
+        {
+          "evidence_id": "E0006",
+          "reason": "Treaty explainer; international nonproliferation context, not ruler-attributed 2022 conduct."
+        },
+        {
+          "evidence_id": "E0008",
+          "reason": "CTBT ratification predates 2022; baseline posture only, not target-year action."
+        },
+        {
+          "evidence_id": "E0009",
+          "reason": "Regional treaty ratification predates 2022; context, not Jokowi-era decision-making."
+        },
+        {
+          "evidence_id": "E0010",
+          "reason": "Civil nuclear-safety regulation is useful context, but it is not a weapons or existential-risk choice by Jokowi."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Journalistic synthesis of civilian nuclear-mineral regulation; indirect and not a direct existential-risk decision."
+        },
+        {
+          "evidence_id": "E0013",
+          "reason": "Foreign-ministry disarmament rhetoric; state position, not Jokowi personally."
+        },
+        {
+          "evidence_id": "E0014",
+          "reason": "UN mission statement; multilateral posture, not direct president-level conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 ruler-attributed choice in a nuclear or other catastrophic-risk domain, and no explicit null exposure statement for a non-nuclear ruler.",
+          "lenses": [
+            "1B.2",
+            "1B.3",
+            "1B.7",
+            "1B.9",
+            "1B.10"
+          ],
+          "best_source_or_query_direction": "2022 presidential, defense, BAPETEN, Kominfo, BNPT, IAEA, UNODA, FAS, and SIPRI records for any Jokowi-directed dual-use, nuclear-security, cyber, or biosecurity decisions; if none exist, a formal no-discriminating-opportunity note.",
+          "why_it_matters": "Without a target-period choice, the chapter stays context-only and cannot distinguish Jokowi from any low-exposure non-nuclear ruler."
+        }
+      ],
+      "reason": "The package is strong on limited exposure and nonproliferation context, but weak on direct ruler-attributed existential-risk choices; most items show baseline posture rather than discriminating 2022 conduct."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0022",
+          "reason": "Summit-opening ceremony is diplomatic context only; it is not a peace or restraint act by itself."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Third-party evidence on the effect size of Jokowi's Ukraine mediation and whether it materially changed Russian or Ukrainian behavior.",
+          "lenses": [
+            "2B.7",
+            "2B.10"
+          ],
+          "best_source_or_query_direction": "Reuters, archival official readouts, and serious diplomatic analysis of the 2022 Kyiv/Moscow/G20 mediation sequence and any follow-up contacts.",
+          "why_it_matters": "It distinguishes symbolic mediation from consequential conflict de-escalation."
+        }
+      ],
+      "reason": "Direct ruler statements, Kyiv/Moscow diplomacy, and G20 outcome evidence are enough to fairly present restraint, contrary views, and uncertainty, even though measurable effect remains limited."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0032",
+          "reason": "Year-end NGO synthesis; useful baseline context, but not an incident-level record or direct Jokowi order."
+        },
+        {
+          "evidence_id": "E0035",
+          "reason": "Country-democracy baseline; mostly inherited/system-level context rather than direct 2022 ruler conduct."
+        },
+        {
+          "evidence_id": "E0037",
+          "reason": "Media-environment overview; structural context, not a specific domestic-safety incident."
+        },
+        {
+          "evidence_id": "E0039",
+          "reason": "Retrospective rights report summarizing 2022 conditions; should be treated as context unless tied to a specific presidential action."
+        },
+        {
+          "evidence_id": "E0041",
+          "reason": "Legal summary of the new criminal code; important, but the item itself does not show Jokowi personally drove the text or enforcement."
+        },
+        {
+          "evidence_id": "E0042",
+          "reason": "Regional RSF analysis; informative but indirect, and its Jokowi criticism is not a finding of direct personal order."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Stronger command-chain evidence tying specific security-force abuses, especially Papua, Wadas, and Kanjuruhan, to presidential authority and showing whether sanctions and reforms stuck after the headline incidents.",
+          "lenses": [
+            "3B.2",
+            "3B.4",
+            "3B.9",
+            "3B.10"
+          ],
+          "best_source_or_query_direction": "Komnas HAM final reports, police and military disciplinary files, court outcomes, presidential instructions, and ministry implementation follow-up.",
+          "why_it_matters": "It distinguishes recurring abuse with partial remedy from a deeper accountability failure."
+        }
+      ],
+      "reason": "The package fairly shows recurring serious abuse plus partial response; attribution above the security-force level is thinner than the incident evidence itself, but still usable."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0035",
+          "reason": "Baseline democracy report; mostly inherited/system-level context and not direct 2022 Jokowi conduct."
+        },
+        {
+          "evidence_id": "E0037",
+          "reason": "Media-environment overview; useful context, but not itself a ruler act."
+        },
+        {
+          "evidence_id": "E0039",
+          "reason": "Retrospective rights report on 2022 conditions; keep as context unless tied to a specific presidential decision."
+        },
+        {
+          "evidence_id": "E0041",
+          "reason": "Legal summary of enacted code; important institutional context, but not direct Jokowi authorship."
+        },
+        {
+          "evidence_id": "E0042",
+          "reason": "Regional RSF analysis; informative but indirect and partly interpretive."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "More direct evidence on the chain from Jokowi to the 2022 digital restrictions and criminal-code package, including cabinet, parliamentary, and enforcement roles.",
+          "lenses": [
+            "4B.2",
+            "4B.6",
+            "4B.8",
+            "4B.9"
+          ],
+          "best_source_or_query_direction": "Drafting records, ministry instructions, parliamentary proceedings, election-commission documents, police/enforcement records, and court filings on internet shutdowns and speech restrictions.",
+          "why_it_matters": "It separates inherited institutional limits from ruler-attributed manipulation or restraint."
+        }
+      ],
+      "reason": "The package can fairly show a mixed 2022 freedom record, but several items are baseline reports rather than direct presidential conduct, so attribution needs to stay cautious."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0052",
+          "reason": "Analytical World Bank outlook and policy prescription; useful background, but not direct proof of Jokowi-era implementation."
+        },
+        {
+          "evidence_id": "E0054",
+          "reason": "CPI is a perception index; context for corruption climate, not case-level evidence of Jokowi's personal conduct."
+        },
+        {
+          "evidence_id": "E0057",
+          "reason": "Cabinet reshuffle commentary is interpretive and should be treated as analyst context, not stand-alone proof of patronage."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent implementation and household-level distribution evidence for the fuel-subsidy transfer, investment and labor-rule changes, and tax-revenue gains.",
+          "lenses": [
+            "5B.4",
+            "5B.8",
+            "5B.9",
+            "5B.10"
+          ],
+          "best_source_or_query_direction": "APBN execution reports, household survey microdata, labor-force microdata, the full IMF Article IV, and audit or follow-up implementation reviews from the World Bank or ADB.",
+          "why_it_matters": "It separates policy intent and macro rebound from ruler-attributed competence and distributional effects."
+        }
+      ],
+      "reason": "Strong output and policy evidence is present, but some macro and corruption items remain only partially attributable, so the chapter is usable with caution."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0060",
+          "reason": "Diagnostic household survey requested by the finance ministry; valuable context, but not a direct presidential action or causal evaluation."
+        },
+        {
+          "evidence_id": "E0065",
+          "reason": "World Bank blog summary; useful, but analytic and retrospective rather than a delivery audit."
+        },
+        {
+          "evidence_id": "E0066",
+          "reason": "Inherited-learning-loss brief; baseline context, not evidence of Jokowi-period delivery."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Province- and beneficiary-level outcomes for health, education, stunting, and social protection to test whether rollout translated into durable gains, especially outside Java.",
+          "lenses": [
+            "6B.2",
+            "6B.3",
+            "6B.5",
+            "6B.6",
+            "6B.9",
+            "6B.10"
+          ],
+          "best_source_or_query_direction": "BPS microdata, ministry dashboards, district health and education records, and independent program evaluations.",
+          "why_it_matters": "It distinguishes broad rollout claims from actual improvements in life chances and equity."
+        }
+      ],
+      "reason": "The package shows credible rollout and some positive outcomes, but beneficiary impact remains less certain than administrative execution."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "Office-structure context; not evidence of Jokowi's personal honesty or conflict behavior."
+        },
+        {
+          "evidence_id": "E0067",
+          "reason": "Public asset disclosure is self-reported compliance, not independent verification of legitimacy or hidden conflicts."
+        },
+        {
+          "evidence_id": "E0068",
+          "reason": "Jokowi's own justification for appointments is self-serving and should not be treated as independent proof of merit-based selection."
+        },
+        {
+          "evidence_id": "E0069",
+          "reason": "Analyst interpretation of coalition management is suggestive, but it is not direct evidence of self-dealing or personal dishonesty."
+        },
+        {
+          "evidence_id": "E0070",
+          "reason": "Similar analyst commentary on deputy ministers; useful context, but inferential rather than direct personal-nexus evidence."
+        },
+        {
+          "evidence_id": "E0072",
+          "reason": "Presidential instruction to find truth in a police case shows oversight response, not Jokowi's own truthfulness or integrity in office."
+        },
+        {
+          "evidence_id": "E0073",
+          "reason": "Same issue as E0072; accountability posture after Kanjuruhan, not direct evidence of personal honesty or corruption."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent, 2022-specific evidence on conflicts of interest, family or business benefit, procurement favoritism, or deliberate falsehood/correction beyond self-reporting and commentary.",
+          "lenses": [
+            "7B.1",
+            "7B.3",
+            "7B.4",
+            "7B.6",
+            "7B.8",
+            "7B.9"
+          ],
+          "best_source_or_query_direction": "KPK and LHKPN records, procurement audits, court filings, credible investigative reporting on family or associate benefit, and fact-check archives of specific Jokowi claims.",
+          "why_it_matters": "Without personal-nexus evidence, the chapter risks measuring regime quality rather than Jokowi's own integrity."
+        }
+      ],
+      "reason": "The package is honest about uncertainty, but the personal-nexus evidence is still thin and leans heavily on self-report and interpretation, so this chapter needs a narrower integrity pass."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0074",
+          "reason": "Pre-period budget speech; useful for program identification, but not 2022 execution by itself."
+        },
+        {
+          "evidence_id": "E0077",
+          "reason": "Analyst interpretation of deputy-minister patronage; treat as interpretive context, not a stand-alone execution finding."
+        },
+        {
+          "evidence_id": "E0082",
+          "reason": "Retrospective IMF macro summary; good outcome context, but not direct proof of Jokowi's operational control."
+        },
+        {
+          "evidence_id": "E0083",
+          "reason": "Central-bank inflation note; outcome context with mixed attribution, not a direct ruler action."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent implementation audit linking Jokowi's 2022 instructions to ministry-level delivery, especially for IKN, downstreaming, and investment or labor-rule execution.",
+          "lenses": [
+            "8B.2",
+            "8B.5",
+            "8B.6",
+            "8B.8",
+            "8B.10"
+          ],
+          "best_source_or_query_direction": "APBN execution data, Bappenas progress reports, project audits, ministry dashboards, and follow-up reporting from the IMF, World Bank, or ADB.",
+          "why_it_matters": "It separates agenda-setting and macro tailwinds from actual operational effectiveness."
+        }
+      ],
+      "reason": "The package is strong on stated program and observable activity, but weaker on independent confirmation that the program translated into durable execution."
+    }
+  ]
+}

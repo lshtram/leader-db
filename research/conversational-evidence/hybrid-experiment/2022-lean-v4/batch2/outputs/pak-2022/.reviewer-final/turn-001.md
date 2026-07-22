@@ -1,0 +1,125 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0003",
+          "reason": "Inherited nuclear-posture context only; it does not show a Sharif-period choice."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Treaty-status background only; not evidence of a 2022 ruler action."
+        },
+        {
+          "evidence_id": "E0005",
+          "reason": "Self-reported official posture; should be framed as Pakistan's standing line, not proof of Sharif's implementation."
+        },
+        {
+          "evidence_id": "E0006",
+          "reason": "Public rhetoric about deterrence, not a concrete risk-reducing policy change."
+        },
+        {
+          "evidence_id": "E0009",
+          "reason": "Institutional briefing and messaging, not a target-period decision by Sharif personally."
+        },
+        {
+          "evidence_id": "E0011",
+          "reason": "Secondary inherited-posture estimate; use only as background context, not Sharif-attributed conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 record of Sharif personally making or reversing a nuclear, command-and-control, treaty, or doctrine decision.",
+          "lenses": ["1B.3", "1B.4", "1B.7", "1B.8", "1B.10"],
+          "best_source_or_query_direction": "PMO, NSC, NCA, cabinet, or defence-ministry records from 2022; declassified minutes; official command or treaty notices",
+          "why_it_matters": "Without a target-period ruler choice, the chapter mostly shows inherited posture and rhetoric rather than Sharif's conduct."
+        }
+      ],
+      "reason": "The package fairly captures inherited posture, formal authority, and mixed crisis context, but it does not establish a concrete Sharif-specific 2022 nuclear-risk decision or change in posture."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The file presents direct peace outreach, border-security context, disputed incident attribution, and contrary evidence in a balanced way, with enough separation between government posture, external crisis, and Sharif's own statements."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly combines recurring repression, weak protection, protest and media pressure, and flood-response actions without collapsing inherited coercive context into Sharif-only conduct."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The evidence set preserves both the Sharif-led transfer into office and the coercive media, protest, and internet restrictions that continued under his government, while keeping structural and inherited constraints visible."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package adequately separates inherited macro crisis, austerity and stabilization choices, IMF conditionality, and flood-driven deterioration from claims of durable economic success."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The file fairly presents a heavy flood-response record with some affirmative social-protection and health actions, while preserving the limits of implementation and the fact that much of the evidence is emergency mitigation rather than routine welfare improvement."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0070",
+          "reason": "Self-serving court denial; it should not be treated as independent proof of honesty or innocence."
+        },
+        {
+          "evidence_id": "E0071",
+          "reason": "Self-reported asset disclosure; use as disclosure context, not as full proof of integrity."
+        },
+        {
+          "evidence_id": "E0074",
+          "reason": "Acquittal resolves the cited charges but does not establish positive integrity across the whole period."
+        },
+        {
+          "evidence_id": "E0075",
+          "reason": "Retrospective apology and retraction; relevant as contrary evidence, but not affirmative 2022 conduct."
+        },
+        {
+          "evidence_id": "E0086",
+          "reason": "Pre-2022 property-dealing allegation and explanation; background context only, not a 2022 office-abuse finding."
+        },
+        {
+          "evidence_id": "E0087",
+          "reason": "Media reproduction of asset figures; treat as disclosure context, not a complete integrity record."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Primary integrity records are still missing from the package, especially the underlying ECP filing and the full NCA/court bundle that would better test personal benefit and concealment.",
+          "lenses": ["7B.3", "7B.4", "7B.6", "7B.7"],
+          "best_source_or_query_direction": "Primary asset filings, court exhibits, full judgment text, and authenticated transcripts of any corrected or withdrawn Sharif statements",
+          "why_it_matters": "The current record is materially mediated by press reporting, self-reporting, acquittals, and retrospective vindication, so the personal-nexus question remains only partly settled."
+        }
+      ],
+      "reason": "The package is balanced, but the strongest favorable items are self-reporting, acquittals, or retrospective vindication, while the strongest adverse items are mediated allegations; that leaves the personal-nexus question unresolved enough for manual review."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package cleanly separates declared program, fiscal and administrative implementation, crisis-driven adjustment, inherited constraints, and the difference between intended and realized results."
+    }
+  ]
+}
