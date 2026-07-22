@@ -17,7 +17,10 @@ from leaders_db.research.chapter_projection import (
     build_ruler_chapter_projection,
     estimate_chapter_projection_batch_context,
 )
-from leaders_db.research.dossier_models import RulerEvidenceDossier
+from leaders_db.research.dossier_models import (
+    RulerEvidenceDossier,
+    normalize_dossier_candidate,
+)
 
 from .data import load, questions
 
@@ -420,8 +423,7 @@ def _build_dossier(
     formatter_usage = profile["formatter"]["usage"]
     total_input = int(research_usage["input_tokens"]) + int(formatter_usage["input_tokens"])
     total_output = int(research_usage["output_tokens"]) + int(formatter_usage["output_tokens"])
-    return RulerEvidenceDossier.model_validate(
-        {
+    candidate = {
             "schema_version": "ruler_evidence_dossier_v2",
             "job_key": f"dossier:{batch_id}:{year}:{iso3}:{identity['ruler_year_id']}",
             "run_key": batch_id,
@@ -478,6 +480,8 @@ def _build_dossier(
                 },
             },
         }
+    return RulerEvidenceDossier.model_validate(
+        normalize_dossier_candidate(candidate, methodology_ids=methodology_ids)
     )
 
 
@@ -565,8 +569,7 @@ def _build_hybrid_dossier(
         for chapter in source["review"]["chapters"]
         for gap in chapter.get("material_gaps", [])
     ]
-    return RulerEvidenceDossier.model_validate(
-        {
+    candidate = {
             "schema_version": "ruler_evidence_dossier_v2",
             "job_key": f"dossier:{batch_id}:{year}:{iso3}:{identity['ruler_year_id']}",
             "run_key": batch_id,
@@ -616,6 +619,8 @@ def _build_hybrid_dossier(
                 },
             },
         }
+    return RulerEvidenceDossier.model_validate(
+        normalize_dossier_candidate(candidate, methodology_ids=methodology_ids)
     )
 
 

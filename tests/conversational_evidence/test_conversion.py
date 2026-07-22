@@ -78,13 +78,20 @@ def test_conversion_preserves_hybrid_metadata_and_applies_chapter_review(
         },
     )
     _catalog(catalog)
-    _hybrid_source(batch / "outputs" / "aaa-2022")
-    _local_prior_package(batch / "outputs" / "aaa-2022" / "inputs" / "local-prior-package.json")
+    source = batch / "outputs" / "aaa-2022"
+    _hybrid_source(source)
+    payload = json.loads((source / "dossier.json").read_text())
+    duplicate = {**payload["evidence"][0], "evidence_id": "E0004"}
+    payload["evidence"].append(duplicate)
+    _write(source / "dossier.json", payload)
+    _local_prior_package(source / "inputs" / "local-prior-package.json")
 
     report = convert_batch(manifest, batch, catalog, output)
 
     assert report["ready_for_judging"] is True
     dossier = json.loads(next((output / "dossiers").glob("*.json")).read_text())
+    assert len(dossier["evidence"]) == 3
+    assert any("duplicate canonical fact" in item for item in dossier["normalization_warnings"])
     assert dossier["evidence"][0]["source_locator"] == "paragraph 4"
     assert dossier["evidence"][0]["canonical_fact_key"] == "fact-key"
     assert not [
