@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — Polity/PTS runtime readiness repair and Polity ingestion
+
+- Reconstructed runtime-local Polity V metadata from the staged `p5v2018.sav`,
+  canonical adapter contract, official source URL, and verified SHA-256. Added the
+  missing `local_files` entry to staged PTS metadata. Both sources now pass their clean
+  readiness gates; raw data bytes were not modified.
+- Ran the Polity V clean adapter with persistence and overwrite protection: 193,028
+  observations across 11 indicators validated and persisted, covering 1800–2018. A
+  2022 readiness request remains valid but emits `year_absent`; no stale proxy is made.
+- PTS was already persisted with 16,353 observations, so it was not redundantly
+  reingested. CTBTO, IAEA, SIPRI arms transfers, and PIP remain blocked locally because
+  their required raw/cache files are absent; they were not relabelled available.
+- Next integration need: concept-map and researcher-route selected Polity indicators as
+  historical context without conflating the composite executive-constraints variable
+  with judicial or legislative constraints.
+
 ## 2026-07-22 — Live semantic GDP migration
 
 - Concept publication now removes obsolete v1 `gdp_per_capita` and `gdp_total`
