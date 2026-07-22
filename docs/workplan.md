@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — Putin v2 promotion gate passed
+
+- Rejudged all eight chapters with the relation-aware compact cohort. All judgments now
+  validate and all local evidence/bias references resolve. Scores versus lean-v4 are
+  unchanged in five chapters, move -0.5 in 3B and 6B, and move -1.5 in 8B.
+- A full no-search score/order audit accepted seven chapters and found 8B=4.5 more
+  rubric-faithful than the old 6.0 but requested a focused review. The focused 8B review
+  explicitly returned `APPROVE_4_5` after inspecting cohort order, full dossier, compact
+  evidence, and omitted favorable official records. The one-ruler promotion gate passes.
+- Comparative judging cost $2.498662 for 1.53M input and 355k output tokens; chapters
+  took about 9.9–16.6 minutes. Preserve an explicit cost/runtime gate in the next
+  three-ruler contrast pilot before scaling further. Full results are in
+  `research/conversational-evidence/bias-smoke/2022-putin-full-v1/pilot-report-v2.md`.
+
 ## 2026-07-22 — Relation-aware compaction repair validated
 
 - The eight-chapter rerun exposed a tolerant-consumer defect in 3B, 4B, and 7B: the
