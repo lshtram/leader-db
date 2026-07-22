@@ -1,0 +1,125 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly presents Xi's 2022 nuclear posture as mixed: formal no-first-use and restraint statements, dual-use control architecture, and diplomatic de-escalation are balanced against open-source estimates of buildup, crisis communication cuts around Taiwan, and the limits of system-level attribution. It distinguishes direct 2022 conduct from inherited doctrine and retrospective estimates well enough for review use."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package preserves both favorable and adverse interpretations of Xi's 2022 external conduct: official peace language and de-escalation claims are set against coercive Taiwan drills, South China Sea incidents, Russia alignment, and reduced crisis communication channels. Attribution caveats are explicit, and the chapter does not collapse domestic or nuclear evidence into international-war judgment."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package is strong on contrary evidence and severity: OHCHR, Amnesty, HRW, Reuters, and official rollback texts together show widespread and in places systematic repression, while preserving the government's denials and late-2022 policy easing. It fairly separates structural Xi-era responsibility from direct personal order evidence."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly shows centralization, succession hardening, censorship, protest repression, Hong Kong constraint, and limited late-year policy retreat. It includes both official self-description and independent reporting, and it keeps the attribution line clear between the Xi-led party-state and discrete local actions."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package cleanly separates announced economic intent from implementation and outcomes. It includes official policy actions, independent IMF/World Bank context, and year-end NBS results, so it can fairly present both mobilization and weakness without turning country outcomes into automatic ruler credit or blame."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly balances social-provision coverage, education and insurance improvements, and durable-institution claims against the severe welfare harms of zero-COVID enforcement and late correction. It includes both official statistics and independent human-rights reporting, so the favorable and adverse readings are both visible."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0075",
+          "reason": "This mainly shows loyalty-based elite consolidation, which is relevant context but not direct evidence of Xi's personal truthfulness, self-dealing, or correction in 2022."
+        },
+        {
+          "evidence_id": "E0076",
+          "reason": "This is a leadership-composition story about loyalists, not a direct 2022 personal-integrity finding."
+        },
+        {
+          "evidence_id": "E0077",
+          "reason": "This shows anti-corruption apparatus use, but it does not itself establish Xi's own honesty or personal separation from interests."
+        },
+        {
+          "evidence_id": "E0078",
+          "reason": "This is system-level anti-fraud enforcement, which is context for integrity but not direct evidence of Xi's own candor."
+        },
+        {
+          "evidence_id": "E0079",
+          "reason": "This is enforcement against subordinates' falsification, not direct evidence of Xi's personal truthfulness or disclosure behavior."
+        },
+        {
+          "evidence_id": "E0080",
+          "reason": "This is a preventive rule on relatives' business activity, not a finding that Xi personally had or lacked conflicts of interest in 2022."
+        },
+        {
+          "evidence_id": "E0081",
+          "reason": "This gives broader anti-nepotism context, but it does not directly prove or disprove Xi's own personal benefit from office."
+        },
+        {
+          "evidence_id": "E0082",
+          "reason": "This is loyalty-screening and personnel control, which is not the same as direct evidence of personal honesty or self-dealing."
+        },
+        {
+          "evidence_id": "E0083",
+          "reason": "This is intra-elite vetting and secrecy, not an independent check on Xi's own integrity."
+        },
+        {
+          "evidence_id": "E0084",
+          "reason": "This is factional restructuring around Xi's ambitions, but it does not directly show personal enrichment or deception."
+        },
+        {
+          "evidence_id": "E0085",
+          "reason": "This is historical family-wealth context, not contemporaneous 2022 evidence of Xi's own personal conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 evidence of Xi's own assets, liabilities, outside interests, or a personal public correction/admission.",
+          "lenses": ["7B.1", "7B.2", "7B.3", "7B.4"],
+          "best_source_or_query_direction": "Primary asset declarations, audit or inquiry records, and independent investigations focused on Xi's immediate household and controlled holdings in 2022.",
+          "why_it_matters": "Personal integrity cannot be resolved fairly from regime-level discipline or loyalty evidence alone."
+        },
+        {
+          "gap": "Most of the anti-corruption and data-fraud material is system-level enforcement, not proof of Xi's own candor or self-dealing.",
+          "lenses": ["7B.6", "7B.7", "7B.9", "7B.10"],
+          "best_source_or_query_direction": "Direct findings, documentary records, or investigative reporting that names Xi-specific concealment, benefit, or response to scrutiny.",
+          "why_it_matters": "The chapter requires ruler-nexus evidence, not general authoritarian-control evidence."
+        },
+        {
+          "gap": "The strongest family-wealth context is pre-2022 and indirect, so its period fit for the target year is weak.",
+          "lenses": ["7B.3", "7B.4", "7B.7"],
+          "best_source_or_query_direction": "Contemporaneous 2022 reporting or official records on Xi's immediate family and close associates.",
+          "why_it_matters": "Without period-fit and direct connection, the package cannot fairly settle the personal-benefit question."
+        }
+      ],
+      "reason": "This is the only chapter where the package is under-discriminated. It contains strong context on loyalist consolidation and anti-corruption control, but it does not supply direct 2022 ruler-specific evidence of Xi's own truthfulness, self-dealing, or correction. That is a credible gap, not a complete failure, so the dossier is usable only with follow-up."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package is well structured for competence review: it freezes a program, shows implementation mechanisms, includes adaptation and corrective actions, and then checks year-end outcomes. It also keeps moral criticism separate from execution competence, which is the right frame for this chapter."
+    }
+  ]
+}
