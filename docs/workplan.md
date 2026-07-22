@@ -1,5 +1,27 @@
 # Workplan
 
+## 2026-07-23 — Biden 2022 all-chapter judge acceptance gate completed
+
+- Ran one full no-search judge for each chapter against the validated Biden dossier.
+  All eight jobs completed and persisted validated results. Chapters 1B–6B and 8B
+  produced scores with explicit plausible ranges; 7B returned an intentional null,
+  24 confidence, the full 1–10 range, and recoverable manual review because institutional
+  disclosure records could not establish Biden's personal integrity.
+- Every judgment includes a supported bias assessment, confirms that report volume was
+  not used as severity, confirms that no blanket regime correction was used, and carries
+  the actual structured-prior summary. Chapters 5B and 6B accepted six weak lenses each
+  while still making cautious 5.5 judgments; sparse evidence changed confidence and
+  ranges rather than mechanically lowering or invalidating the score.
+- The gate exposed two tolerant-receiver defects. A singleton judge's unambiguous
+  `no_other_available_dossier` sentinel is now normalized to an empty peer list, while
+  multi-ruler batches still reject unknown or self-only calibration references. Descriptive
+  lens strings such as `2B.4 civilian protection...` now retain the machine-readable
+  `2B.4` ID and preserve their explanation as a review note.
+- This is an end-to-end contract and judgeability test, not final comparative calibration:
+  a one-ruler batch cannot establish score ordering. The full suite excluding the already
+  isolated Wikidata fixture defect passes; the next contrast gate requires a safely
+  resolved sparse/complex-authority ruler before comparative promotion.
+
 ## 2026-07-23 — Biden 2022 open-system full-evidence gate completed
 
 - Ran the complete reusable-dossier workflow for Joe Biden / United States / 2022 after
