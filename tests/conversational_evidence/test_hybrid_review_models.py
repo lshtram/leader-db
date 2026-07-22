@@ -29,12 +29,14 @@ def test_review_requires_all_chapters_in_order() -> None:
         validate_review(value)
 
 
-def test_final_review_cannot_request_more_research() -> None:
+def test_final_review_converts_unresolved_follow_up_to_credible_gap() -> None:
     value = _review()
     value["chapters"][0]["decision"] = "targeted_follow_up"
 
-    with pytest.raises(ValueError, match="final review"):
-        validate_review(value, final=True)
+    normalized = validate_review(value, final=True)
+
+    assert normalized["overall_decision"] == "manual_review"
+    assert normalized["chapters"][0]["decision"] == "credible_gap"
 
 
 def test_review_normalizes_valid_contract() -> None:

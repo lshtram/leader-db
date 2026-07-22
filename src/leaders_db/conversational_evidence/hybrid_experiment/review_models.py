@@ -62,7 +62,10 @@ def validate_review(value: object, *, final: bool = False) -> dict[str, object]:
     review = EvidenceReview.model_validate(value)
     chapter_decisions = {chapter.decision for chapter in review.chapters}
     if final and "targeted_follow_up" in chapter_decisions:
-        raise ValueError("final review may not request another follow-up")
+        for chapter in review.chapters:
+            if chapter.decision == "targeted_follow_up":
+                chapter.decision = "credible_gap"
+        chapter_decisions = {chapter.decision for chapter in review.chapters}
     if "targeted_follow_up" in chapter_decisions:
         review.overall_decision = "targeted_follow_up"
     elif chapter_decisions & {"credible_gap", "manual_review"}:
