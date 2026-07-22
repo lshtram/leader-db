@@ -130,6 +130,7 @@ ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "gdp_total_ppp_output_constant_2017_usd",
     "gni_per_capita",
     "population",
+    "wdi_gini_index",
     "pwt_employment",
     "pwt_average_annual_hours_worked",
     "pwt_human_capital_index",
@@ -150,6 +151,9 @@ SOCIAL_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "expected_years_schooling",
     "mean_years_schooling",
     "gni_per_capita",
+    "wdi_gini_index",
+    "wdi_literacy_rate_adult",
+    "wdi_secondary_school_enrollment",
 )
 
 INTEGRITY_PRIOR_FIELD_KEYS: tuple[str, ...] = (

@@ -303,6 +303,9 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_SUFFRAGE,
         CONCEPT_UNDER5_MORTALITY,
         CONCEPT_VOICE_AND_ACCOUNTABILITY,
+        CONCEPT_WDI_ADULT_LITERACY,
+        CONCEPT_WDI_GINI_INDEX,
+        CONCEPT_WDI_SECONDARY_ENROLLMENT,
         CONCEPT_WGI_RULE_OF_LAW,
         KNOWN_CONCEPT_KEYS,
         list_concepts,
@@ -332,6 +335,9 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
         CONCEPT_PWT_CAPITAL_STOCK_INDEX,
         CONCEPT_PWT_TFP_CONSTANT_PRICES,
+        CONCEPT_WDI_GINI_INDEX,
+        CONCEPT_WDI_ADULT_LITERACY,
+        CONCEPT_WDI_SECONDARY_ENROLLMENT,
         CONCEPT_HDI,
         CONCEPT_LIFE_EXPECTANCY,
         CONCEPT_GNI_PER_CAPITA,
@@ -515,6 +521,28 @@ def test_pwt_employment_keeps_count_semantics() -> None:
     assert len(rows) == 1
     assert rows[0].unit == "million_persons_engaged"
     assert "unemployment-rate proxy" in (resolve_concept(CONCEPT_PWT_EMPLOYMENT)[0].notes or "")
+
+
+def test_wdi_gini_concept_keeps_source_native_scale() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_WDI_GINI_INDEX,
+        WDI_GINI_INDEX_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    source = _make_observation(
+        source_slug="world_bank_wdi",
+        indicator_code=WDI_GINI_INDEX_INDICATOR_CODE,
+        value=33.9,
+        year=2022,
+        country_code="RUS",
+        unit="index points (0-100)",
+    )
+    rows = extract_concept((source,), CONCEPT_WDI_GINI_INDEX)
+
+    assert len(rows) == 1
+    assert rows[0].value == 33.9
+    assert rows[0].unit == "index points (0-100)"
 
 
 def _purge_source_boundary_modules(modules: dict[str, object]) -> None:

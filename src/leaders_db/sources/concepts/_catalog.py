@@ -121,6 +121,9 @@ CONCEPT_PWT_REAL_CONSUMPTION: str = "pwt_real_consumption"
 CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION: str = "pwt_real_domestic_absorption"
 CONCEPT_PWT_CAPITAL_STOCK_INDEX: str = "pwt_capital_stock_index"
 CONCEPT_PWT_TFP_CONSTANT_PRICES: str = "pwt_tfp_at_constant_national_prices"
+CONCEPT_WDI_GINI_INDEX: str = "wdi_gini_index"
+CONCEPT_WDI_ADULT_LITERACY: str = "wdi_literacy_rate_adult"
+CONCEPT_WDI_SECONDARY_ENROLLMENT: str = "wdi_secondary_school_enrollment"
 
 # Canonical ordered list of stable concept keys. The order is the
 # canonical iteration order for ``list_concepts()``; downstream code
@@ -147,6 +150,9 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
     CONCEPT_PWT_CAPITAL_STOCK_INDEX,
     CONCEPT_PWT_TFP_CONSTANT_PRICES,
+    CONCEPT_WDI_GINI_INDEX,
+    CONCEPT_WDI_ADULT_LITERACY,
+    CONCEPT_WDI_SECONDARY_ENROLLMENT,
     CONCEPT_HDI,
     CONCEPT_LIFE_EXPECTANCY,
     CONCEPT_GNI_PER_CAPITA,
@@ -284,6 +290,9 @@ PWT_REAL_CONSUMPTION_INDICATOR_CODE: str = "pwt_real_consumption"
 PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE: str = "pwt_real_domestic_absorption"
 PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE: str = "pwt_capital_stock_index"
 PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE: str = "pwt_tfp_at_constant_national_prices"
+WDI_GINI_INDEX_INDICATOR_CODE: str = "wdi_gini_index"
+WDI_ADULT_LITERACY_INDICATOR_CODE: str = "wdi_literacy_rate_adult"
+WDI_SECONDARY_ENROLLMENT_INDICATOR_CODE: str = "wdi_secondary_school_enrollment"
 
 # Derived-recipe key (stable string) for the PWT
 # ``gdp_per_capita = real_gdp_output_side / population`` recipe.
@@ -556,14 +565,36 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_PWT_CAPITAL_STOCK_INDEX,
             display_name="PWT capital-stock index",
             description=(
-                "Capital stock at constant national prices, indexed to 2017=1; "
-                "not a USD level."
+                "Capital stock at constant national prices, indexed to 2017=1; not a USD level."
             ),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_PWT_TFP_CONSTANT_PRICES,
             display_name="PWT total factor productivity index",
             description="TFP at constant national prices, indexed to 2017=1.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WDI_GINI_INDEX,
+            display_name="WDI Gini inequality index",
+            description=(
+                "Income-inequality index points on the source-native 0-100 scale; "
+                "lower indicates less inequality."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WDI_ADULT_LITERACY,
+            display_name="WDI adult literacy rate",
+            description=(
+                "Percentage of people age 15 and older; missing survey years are not zero literacy."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WDI_SECONDARY_ENROLLMENT,
+            display_name="WDI gross secondary enrollment",
+            description=(
+                "Gross enrollment percentage; may exceed 100 and does not directly "
+                "establish education quality."
+            ),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_HDI,
@@ -1049,6 +1080,24 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             source_id=SourceId(slug=PWT_SOURCE_KEY),
             mapping_type="direct",
             indicator_codes=(PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WDI_GINI_INDEX,
+            source_id=SourceId(slug=WDI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WDI_GINI_INDEX_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WDI_ADULT_LITERACY,
+            source_id=SourceId(slug=WDI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WDI_ADULT_LITERACY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WDI_SECONDARY_ENROLLMENT,
+            source_id=SourceId(slug=WDI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WDI_SECONDARY_ENROLLMENT_INDICATOR_CODE,),
         ),
         ConceptMapping(
             concept_key=CONCEPT_POPULATION,
@@ -1635,6 +1684,9 @@ __all__ = [
     "CONCEPT_WARNING_NON_NUMERIC_NUMERATOR",
     "CONCEPT_WARNING_PAIR_YEAR_MISMATCH",
     "CONCEPT_WARNING_ZERO_DENOMINATOR",
+    "CONCEPT_WDI_ADULT_LITERACY",
+    "CONCEPT_WDI_GINI_INDEX",
+    "CONCEPT_WDI_SECONDARY_ENROLLMENT",
     "DERIVED_CONCEPT_QUALITY_FLAG",
     "EIU_CIVIL_LIBERTIES_INDICATOR_CODE",
     "EIU_DEMOCRACY_INDEX_SOURCE_KEY",
@@ -1695,11 +1747,14 @@ __all__ = [
     "VDEM_RULE_OF_LAW_INDICATOR_CODE",
     "VDEM_SOURCE_KEY",
     "VDEM_SUFFRAGE_INDICATOR_CODE",
+    "WDI_ADULT_LITERACY_INDICATOR_CODE",
     "WDI_GDP_CONSTANT_2015_USD_INDICATOR_CODE",
     "WDI_GDP_CURRENT_USD_INDICATOR_CODE",
     "WDI_GDP_PER_CAPITA_INDICATOR_CODE",
     "WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE",
+    "WDI_GINI_INDEX_INDICATOR_CODE",
     "WDI_POPULATION_INDICATOR_CODE",
+    "WDI_SECONDARY_ENROLLMENT_INDICATOR_CODE",
     "WDI_SOURCE_KEY",
     "WHO_GHO_API_SOURCE_KEY",
     "WHO_GHO_BCG_IMMUNIZATION_INDICATOR_CODE",

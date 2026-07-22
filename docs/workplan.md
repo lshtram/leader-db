@@ -1,5 +1,16 @@
 # Workplan
 
+## 2026-07-22 — WDI distribution and education routing
+
+- Added source-native concepts for WDI Gini inequality, adult literacy, and gross
+  secondary enrollment. Gini reaches chapters 5B and 6B as distributional context;
+  literacy and enrollment reach 6B. The descriptions preserve that gross enrollment
+  may exceed 100, is not education quality, and missing survey rows are not zeros.
+- Published 480 facts: 130 Gini, 78 adult-literacy, and 272 secondary-enrollment
+  country-years. A live Putin 2022 package carries Gini `33.9 index points (0-100)`
+  in 5B/6B and secondary enrollment `92.772944... % gross` in 6B. Russia has no
+  staged 2022 adult-literacy observation, so the package correctly omits it.
+
 ## 2026-07-22 — WDI Gini scale repair
 
 - Corrected the WDI catalog and clean-adapter fallback from a false `0-1` Gini unit
