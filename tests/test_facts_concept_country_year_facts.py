@@ -22,6 +22,7 @@ from leaders_db.sources.concepts import (
     CONCEPT_MILITARY_SPEND_CONSTANT_USD,
     CONCEPT_MILITARY_SPEND_SHARE_GDP,
     CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+    CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
     CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
     CONCEPT_POLITICAL_LIBERTIES,
     CONCEPT_POPULATION,
@@ -35,6 +36,7 @@ from leaders_db.sources.concepts import (
     SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
     TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
     UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE,
+    UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,
     UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE,
@@ -836,6 +838,46 @@ def test_publish_concept_country_year_facts_resolves_ucdp_country_id(
         assert fact.source_slugs_json == '["ucdp"]'
         assert {item["code"] for item in json.loads(fact.warnings_json)} == {
             "ucdp_location_not_responsibility"
+        }
+
+
+def test_publish_ucdp_government_actor_fact_preserves_attribution_boundary(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="RUS", country_name="Russia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="ucdp",
+                indicator_code=UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,
+                observation_id="ucdp:onesided:2022:actor:57",
+                value=1132,
+                unit="deaths",
+                year=2022,
+                country_code="365",
+                country_name="Russia (Soviet Union)",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.field_counts == {CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.selected_value_number == 1132
+        assert {item["code"] for item in json.loads(fact.warnings_json)} == {
+            "ucdp_government_actor_not_personal_direction"
         }
 
 

@@ -59,6 +59,7 @@ from leaders_db.sources.contracts import (
 
 from ._actor_aware import emit_actor_aware_observations
 from ._catalog import DEFAULT_CATALOG_PATH, load_indicator_catalog
+from ._one_sided_actor import emit_one_sided_actor_observations
 from ._raw_read import _zip_path
 from ._transform import emit_ucdp_observations
 
@@ -197,7 +198,14 @@ def transform_ucdp_observations(
             raw.payload.get("actor_aware_path"),
         )
     )
-    return iter((*legacy, *current))
+    one_sided = tuple(
+        emit_one_sided_actor_observations(
+            raw.payload.get("one_sided_actor_df"),
+            request,
+            raw.payload.get("one_sided_actor_path"),
+        )
+    )
+    return iter((*legacy, *current, *one_sided))
 
 
 __all__ = ["transform_ucdp_observations"]

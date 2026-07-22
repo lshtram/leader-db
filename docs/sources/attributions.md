@@ -72,12 +72,13 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `ucdp` — Uppsala Conflict Data Program, 1989–2022 (GED 23.1)
 
-- **What we extract:** country-year aggregates of organized violence. The UCDP GED 23.1 dataset is event-level (~316,818 events in v23.1); the Stage 2 adapter aggregates events to country-year using `type_of_violence` and `gwnob`. When the staged Organized Violence 26.1 country-year archive is present, the clean adapter additionally emits separate intrastate, interstate, non-state-conflict, host-government, any-government, non-state-group, and event-location fatality facts with low/high bounds and dyad names. Location and actor-role facts remain separate and neither establishes ruler initiation or responsibility by itself.
+- **What we extract:** country-year aggregates of organized violence. The UCDP GED 23.1 dataset is event-level (~316,818 events in v23.1); the Stage 2 adapter aggregates events to country-year using `type_of_violence` and `gwnob`. When the staged Organized Violence 26.1 country-year archive is present, the clean adapter additionally emits separate intrastate, interstate, non-state-conflict, host-government, any-government, non-state-group, and event-location fatality facts with low/high bounds and dyad names. The staged One-sided Violence 26.1 actor-year archive adds named government-actor, non-state-perpetrator-at-location, and all-actor location totals with actor/conflict/dyad IDs and uncertainty bounds. Location does not establish responsibility; government-actor identification does not by itself establish personal ruler direction or initiation.
 - **License:** free academic; cite UCDP per <https://ucdp.uu.se/terms-of-use/>.
 - **Citation (verbatim, byte-identical to `UCDP_ATTRIBUTION` in code):**
   > Davies, Shawn, Garounis, Nicholas, Sollenberg, Ralph, and Allansson, Marie (2023). UCDP Georeferenced Event Dataset (GED) 23.1. Uppsala Conflict Data Program. https://ucdp.uu.se/downloads/
 - **Attribution text in reports:** "UCDP GED 23.1 (Davies et al. 2023)."
 - **Supplementary 26.1 attribution text in reports:** "UCDP Organized Violence 26.1 (UCDP 2026)."
+- **One-sided 26.1 attribution text in reports:** "UCDP One-sided Violence 26.1 (UCDP 2026)."
 
 ### `transparency_cpi` — Transparency International CPI, 1995–2023
 

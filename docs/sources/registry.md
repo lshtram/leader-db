@@ -113,7 +113,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 
 | Source key | Verdict | Description | Notes |
 |---|---|---|---|
-| `ucdp` | ✅ | Uppsala Conflict Data Program | GED 23.1 (1989–2022) is staged, normalized, persisted (25,296 legacy observations), concept-mapped, and researcher-routed. The clean adapter also reads the staged Organized Violence 26.1 country-year archive and emits actor-aware intrastate, interstate, non-state, government-involvement, non-state-perpetrator, and location facts with dyads and uncertainty bounds. Location does not establish ruler responsibility. The staged detailed One-sided Violence 26.1 archive is not yet separately normalized. **Primary international-conflict source** (replaces COW MID, which is blocked). |
+| `ucdp` | ✅ | Uppsala Conflict Data Program | GED 23.1 (1989–2022) is staged, normalized, persisted (25,296 legacy observations), concept-mapped, and researcher-routed. The clean adapter also reads the staged Organized Violence 26.1 country-year archive and the detailed One-sided Violence 26.1 actor-year archive. It emits distinct intrastate, interstate, non-state, government-involvement, named government-actor, non-state-perpetrator, and location facts with dyads, actor IDs/names, and uncertainty bounds. Location does not establish ruler responsibility, and government-actor identification does not establish personal ruler direction. **Primary international-conflict source** (replaces COW MID, which is blocked). |
 | `cow_mid` | ❌ | Correlates of War Militarized Interstate Disputes | SSL cert issue in this environment + data ends 2014. `blocked`. |
 | `sipri_milex` | ✅ | Stockholm International Peace Research Institute (milex) | Direct xlsx download; 1949–2025. |
 | `sipri_yearbook_ch7` | ✅ | SIPRI Yearbook Chapter 7: World Nuclear Forces (PDF) | Official 2024 717KB chapter live-validated: 9 states × total/deployed/retired; snapshot year is enforced and post-target use is prohibited. |
@@ -130,7 +130,7 @@ Intent: **Using now** / **Need / future** / **Blocked / user-managed**.
 |---|---|---|---|
 | `political_terror_scale` | ✅ | Political Terror Scale | Direct file at `/Data/Files/PTS-2025.xlsx`; 1976–2025 coverage. |
 | `cirights` | ⚠️ | CIRIGHTS Physical Integrity Rights | User-managed. v3.12.10.24 (Dec 2024) placed manually because `cirights.org` is DNS-unreachable from this environment. 207 countries × 1981–2022. **1-year gap to 2023** (use 2022 as proxy). See `data/raw/cirights/metadata.json`. |
-| `acled_ucdp_osv` | ✅ | UCDP one-sided violence (subset of `ucdp`) | Same download as `ucdp`. |
+| `acled_ucdp_osv` | ✅ | UCDP One-sided Violence 26.1 (subset of `ucdp`) | Detailed actor-year archive staged and normalized through `ucdp`; government actor, non-state perpetrator, and event location remain separate facts. |
 | `icc_cases` | ⚠️ | International Criminal Court public cases and defendants | **New candidate staged 2026-06-29** at `data/raw/icc_cases/`: official ICC HTML snapshots for 75 defendants and 34 cases. Useful for severe legal-accountability/manual-review flags, not broad human-rights scoring. Narrow scope: only situations/persons reaching ICC proceedings, and downstream use must distinguish warrants/summons/charges/convictions/acquittals/dismissals/fugitives/custody/appeals. |
 
 ### Nuclear / global responsibility sources

@@ -516,13 +516,30 @@ def _semantic_warning_payloads(
             )
         )
     if selected.source_id.slug == "ucdp":
-        warnings.append(
-            _interpretation_warning(
-                "ucdp_location_not_responsibility",
-                "Country-year event exposure does not by itself identify the "
-                "perpetrator, conflict side, initiator, or ruler responsibility.",
+        if concept_key == "one_sided_government_actor_killings":
+            warnings.append(
+                _interpretation_warning(
+                    "ucdp_government_actor_not_personal_direction",
+                    "UCDP identifies a government actor as perpetrator, but this does "
+                    "not by itself establish personal ruler direction or initiation.",
+                )
             )
-        )
+        elif concept_key == "one_sided_nonstate_actor_killings":
+            warnings.append(
+                _interpretation_warning(
+                    "ucdp_nonstate_not_host_responsibility",
+                    "UCDP identifies non-state perpetration at this location; do not "
+                    "relabel it as host-government or ruler conduct.",
+                )
+            )
+        else:
+            warnings.append(
+                _interpretation_warning(
+                    "ucdp_location_not_responsibility",
+                    "Country-year event exposure does not by itself identify the "
+                    "perpetrator, conflict side, initiator, or ruler responsibility.",
+                )
+            )
     if selected.source_id.slug == "cirights":
         warnings.append(
             _interpretation_warning(

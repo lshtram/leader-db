@@ -179,6 +179,24 @@
   observations. This closes the live-data migration gap left after the earlier code-only
   semantic repair.
 
+## 2026-07-23 — UCDP one-sided actor-responsibility increment
+
+- The clean UCDP adapter now reads the staged detailed One-sided Violence 26.1
+  actor-year archive and emits three deliberately non-interchangeable facts: named
+  government-actor killings, non-state-actor killings at a location, and all-actor
+  location exposure. Actor, conflict, and dyad IDs/names plus low/high estimates remain
+  attached to the original observation.
+- Source-native GWNO codes are carried into normalization so lifecycle-aware country
+  resolution does not discard historical labels. A live 2022 ingest emitted 2,180 UCDP
+  observations; publication produced 17 government-actor, 10 non-state, and 19 location
+  facts. Russia's 1,132 government-actor deaths now reach Putin's `3B.1` local prior,
+  while Ukraine's separate 1,132 location deaths do not become Ukrainian-ruler conduct.
+- A three-row fixture proves the semantic boundary end to end: 10 government-actor plus
+  20 non-state deaths produce 30 location deaths, without any fact replacing another.
+  Chapter 3 routes government-actor facts to physical-integrity lenses and non-state /
+  location facts to fear and exposure lenses. None automatically changes a score, and
+  government-actor identification still does not prove personal ruler direction.
+
 ## 2026-07-22 — UCDP actor-aware current country-year increment
 
 - The clean UCDP adapter now optionally reads the locally staged Organized Violence

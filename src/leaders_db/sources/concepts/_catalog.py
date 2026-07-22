@@ -75,6 +75,9 @@ CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS: str = "internationalized_conflict_eve
 CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES: str = "internationalized_conflict_fatalities"
 CONCEPT_ONE_SIDED_VIOLENCE_EVENTS: str = "one_sided_violence_events"
 CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES: str = "one_sided_violence_fatalities"
+CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS: str = "one_sided_government_actor_killings"
+CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS: str = "one_sided_nonstate_actor_killings"
+CONCEPT_ONE_SIDED_LOCATION_KILLINGS: str = "one_sided_location_killings"
 CONCEPT_CORRUPTION_INDEX: str = "corruption_index"
 CONCEPT_CPI_SCORE: str = "cpi_score"
 CONCEPT_CONTROL_OF_CORRUPTION: str = "control_of_corruption"
@@ -192,6 +195,9 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
     CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
     CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+    CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+    CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+    CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
     CONCEPT_CORRUPTION_INDEX,
     CONCEPT_CPI_SCORE,
     CONCEPT_CONTROL_OF_CORRUPTION,
@@ -370,6 +376,13 @@ UCDP_INTL_EVENTS_INDICATOR_CODE: str = "ucdp_intl_events"
 UCDP_INTL_FATALITIES_INDICATOR_CODE: str = "ucdp_intl_fatalities"
 UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE: str = "ucdp_onesided_events"
 UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE: str = "ucdp_onesided_fatalities"
+UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE: str = (
+    "ucdp_onesided_government_actor_killings_best"
+)
+UCDP_ONE_SIDED_NONSTATE_ACTOR_KILLINGS_INDICATOR_CODE: str = (
+    "ucdp_onesided_nonstate_actor_killings_best"
+)
+UCDP_ONE_SIDED_LOCATION_KILLINGS_INDICATOR_CODE: str = "ucdp_onesided_location_killings_best"
 
 # RSF press freedom indicators.
 RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE: str = "rsf_press_freedom_score"
@@ -794,6 +807,30 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
             display_name="One-sided violence fatalities",
             description="UCDP country-year one-sided violence fatality count.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+            display_name="One-sided killings by a government actor",
+            description=(
+                "UCDP actor-year killings attributed to a named government actor; "
+                "personal ruler direction is not implied."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+            display_name="One-sided killings by non-state actors",
+            description=(
+                "UCDP non-state-actor killings aggregated at event location; host "
+                "government responsibility is not implied."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
+            display_name="One-sided killings at event location",
+            description=(
+                "UCDP location total across government and non-state perpetrators; "
+                "location does not establish responsibility."
+            ),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_CORRUPTION_INDEX,
@@ -1445,6 +1482,27 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             source_id=SourceId(slug=UCDP_SOURCE_KEY),
             mapping_type="direct",
             indicator_codes=(UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,),
+            notes="Government actor is identified; personal ruler direction is not implied.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_ONE_SIDED_NONSTATE_ACTOR_KILLINGS_INDICATOR_CODE,),
+            notes="Non-state perpetration must not be relabelled as host-state conduct.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_ONE_SIDED_LOCATION_KILLINGS_INDICATOR_CODE,),
+            notes="Event location is exposure, not perpetrator or ruler responsibility.",
         ),
         # --- V-Dem corruption / integrity mappings --------------------
         ConceptMapping(

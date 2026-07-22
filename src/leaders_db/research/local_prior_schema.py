@@ -53,6 +53,9 @@ DOMESTIC_SAFETY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "pts_state_dept_score",
     "one_sided_violence_events",
     "one_sided_violence_fatalities",
+    "one_sided_government_actor_killings",
+    "one_sided_nonstate_actor_killings",
+    "one_sided_location_killings",
     "physical_integrity",
     "private_civil_liberties",
     "extrajudicial_killings",
@@ -307,6 +310,7 @@ PHYSICAL_INTEGRITY_FIELDS = _local_fields(
     "pts_state_dept_score",
     "physical_integrity",
     "extrajudicial_killings",
+    "one_sided_government_actor_killings",
 )
 DOMESTIC_FEAR_FIELDS = _local_fields(
     "cirights_civil_political_rights",
@@ -316,6 +320,8 @@ DOMESTIC_FEAR_FIELDS = _local_fields(
     "pts_state_dept_score",
     "one_sided_violence_events",
     "one_sided_violence_fatalities",
+    "one_sided_nonstate_actor_killings",
+    "one_sided_location_killings",
     "private_civil_liberties",
     "civil_society_repression",
 )
