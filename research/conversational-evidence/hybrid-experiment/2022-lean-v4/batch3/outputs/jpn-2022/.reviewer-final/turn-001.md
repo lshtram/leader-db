@@ -1,0 +1,140 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct cabinet-level records on Kishida's private command-and-control choices around safeguards, emergency procedures, and technical nuclear governance are thin.",
+          "lenses": ["1B.3", "1B.8", "1B.9"],
+          "best_source_or_query_direction": "Cabinet minutes, Diet committee transcripts, or technical oversight records on the 2022 nuclear restart and ALPS-water decisions.",
+          "why_it_matters": "These lenses test whether the package shows ruler-level safety management rather than only public diplomacy and alliance signaling."
+        }
+      ],
+      "reason": "The package fairly balances disarmament rhetoric, institutional initiatives, and contrary evidence on deterrence and nuclear-energy hardening. Attribution and target-period fit are mostly clear, and the remaining weakness is depth on internal safety-management choices rather than a misleading record."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence of behind-the-scenes mediation, ceasefire brokerage, or proxy-control choices is thin.",
+          "lenses": ["2B.5", "2B.7"],
+          "best_source_or_query_direction": "Diet committee records, cabinet materials, or contemporaneous diplomatic reporting on any private Ukraine or regional de-escalation efforts beyond the public statements already captured.",
+          "why_it_matters": "The chapter is strongest on public diplomacy, sanctions, and security posture; the private peace-making side is the main missing discriminant."
+        }
+      ],
+      "reason": "The package captures both de-escalatory diplomacy and the year-end security hardening, with clear contrary evidence on militarization. It is fair overall, though the private mediation and proxy-control side is thin."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0038",
+          "reason": "Country-level baseline report; it describes Japan's general human-rights environment, not Kishida-specific conduct."
+        },
+        {
+          "evidence_id": "E0039",
+          "reason": "Country-level baseline report; it is context on civic freedoms, not direct ruler action."
+        },
+        {
+          "evidence_id": "E0040",
+          "reason": "Country-level baseline report; it is residual harm context, not a Kishida-directed safety failure."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "The dossier remains thin on a ruler-specific pre-July 2022 domestic protection record, so most of the strong evidence is reactive to the Abe assassination and the Unification Church fallout.",
+          "lenses": ["3B.1", "3B.4", "3B.10"],
+          "best_source_or_query_direction": "Pre-July 2022 NPA, Diet oversight, or cabinet security materials that show proactive protection or prior warning signs under Kishida's authority.",
+          "why_it_matters": "Without a proactive baseline, the package can show remediation after a shock but only weakly shows routine domestic safety management."
+        }
+      ],
+      "reason": "The package is strong on the Abe assassination shock, response, and remedial action, but it remains thin on a ruler-specific pre-July domestic protection record. Because the score-relevant story is mostly reactive rather than proactive, this still needs human adjudication."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0043",
+          "reason": "Kishida's statement that he personally had no Unification Church links is self-report, so it should be treated as context rather than independent proof of clean political conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence of court, media, or election-administration capture attempts by Kishida is thin; most negative evidence is baseline openness plus remedial scandal cleanup.",
+          "lenses": ["4B.2", "4B.4", "4B.6", "4B.9"],
+          "best_source_or_query_direction": "Election-administration records, media-policy reporting, or court/legislative materials that show direct ruler-attributed pressure or restraint.",
+          "why_it_matters": "This chapter needs ruler-specific manipulation or restraint evidence, not just a generally open system and post-scandal cleanup."
+        }
+      ],
+      "reason": "The package fairly distinguishes Japan's generally open electoral baseline from the Unification Church and funeral controversies, and it does not overstate self-reporting as proof. The remaining gap is that direct capture evidence is thin, but the record still presents the year coherently."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct anti-capture, procurement, or favoritism evidence is thin relative to the amount of policy and macroeconomic material.",
+          "lenses": ["5B.5", "5B.7"],
+          "best_source_or_query_direction": "Board of Audit material, procurement records, competition-policy cases, or investigative reporting on 2022 economic favoritism or capture.",
+          "why_it_matters": "The chapter can show mixed stewardship without this, but it cannot tightly discriminate competence from broad policy rhetoric alone."
+        }
+      ],
+      "reason": "The package shows a plausible policy agenda, real fiscal response, and mixed household outcomes under inflation pressure. It is fair as a mixed record, but direct anti-capture and procurement evidence is still limited."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Subgroup-specific uptake and outcome evidence for poverty, disability, migrants, and regional disparities remains thin.",
+          "lenses": ["6B.3", "6B.8", "6B.10"],
+          "best_source_or_query_direction": "Household microdata, prefectural uptake data, and subgroup-focused MHLW or OECD/UNICEF analysis tied to 2022 policy changes.",
+          "why_it_matters": "The package shows rule changes and headline household effects, but subgroup distribution is the remaining discriminant for whether gains were broad and equitable."
+        }
+      ],
+      "reason": "The package separates agenda, rule changes, and 2022 household outcomes reasonably well, and it keeps inherited baseline distinct from Kishida-era action. The remaining weakness is subgroup-specific uptake and outcome evidence, not basic fairness."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0076",
+          "reason": "Kishida's claim that he personally had no Unification Church links is self-report and cannot be treated as independent proof of honesty or conflict-free conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "The dossier lacks direct 2022 evidence on Kishida's own assets, gifts, campaign finance, hidden conflicts, or family enrichment.",
+          "lenses": ["7B.3", "7B.4", "7B.7"],
+          "best_source_or_query_direction": "Asset disclosures, political finance filings, audit findings, and investigative reporting on Kishida personally and his close family or business network.",
+          "why_it_matters": "The strongest negatives are vetting and oversight failures inside his network; without direct personal-nexus evidence, the chapter cannot be cleanly resolved."
+        }
+      ],
+      "reason": "The dossier fairly presents mixed network-level integrity evidence, but it does not have direct 2022 proof of Kishida's own assets, gifts, campaign finance, or hidden conflicts. Because the negative evidence is mostly indirect vetting failure rather than personal self-dealing, the chapter still needs manual review."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Independent evaluation of New Capitalism implementation and the causal contribution of Kishida's team remains limited; several follow-up items are government self-assessments or macro context.",
+          "lenses": ["8B.7", "8B.9", "8B.10"],
+          "best_source_or_query_direction": "Independent labor-market studies, implementation audits, and non-government evaluations of the 2022 policy package and follow-up reforms.",
+          "why_it_matters": "The package shows real machinery and some follow-through, but a stronger external audit is needed to separate execution from self-reported progress and macro recovery."
+        }
+      ],
+      "reason": "The package does a good job separating program, implementation, and outcome, and it includes both official action and lagged indicators. The main limitation is that some follow-up evidence is self-assessed or macro-level rather than independently audited."
+    }
+  ]
+}
