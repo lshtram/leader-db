@@ -271,6 +271,55 @@ POLITICAL_MEDIA_FIELDS = _local_fields(
     "voice_and_accountability",
 )
 
+NUCLEAR_INVENTORY_FIELDS = _local_fields(
+    "nuclear_total_inventory",
+    "nuclear_military_stockpile",
+    "nuclear_deployed_warheads",
+    "nuclear_retired_warheads",
+)
+NUCLEAR_OPERATIONAL_FIELDS = _local_fields(
+    "nuclear_military_stockpile",
+    "nuclear_operational_strategic",
+    "nuclear_operational_nonstrategic",
+    "nuclear_reserve_nondeployed",
+    "nuclear_deployed_warheads",
+)
+CONFLICT_EXPOSURE_FIELDS = _local_fields(
+    "state_based_conflict_events",
+    "state_based_conflict_fatalities",
+    "internationalized_conflict_events",
+    "internationalized_conflict_fatalities",
+)
+MILITARY_BURDEN_FIELDS = _local_fields(
+    "military_spend_constant_usd",
+    "military_spend_per_capita",
+    "military_spend_share_gdp",
+    "military_spend_share_govt",
+)
+PHYSICAL_INTEGRITY_FIELDS = _local_fields(
+    "cirights_disappearances",
+    "cirights_killings",
+    "cirights_physical_integrity",
+    "cirights_political_imprisonment",
+    "cirights_torture",
+    "pts_amnesty_score",
+    "pts_human_rights_watch_score",
+    "pts_state_dept_score",
+    "physical_integrity",
+    "extrajudicial_killings",
+)
+DOMESTIC_FEAR_FIELDS = _local_fields(
+    "cirights_civil_political_rights",
+    "cirights_repression",
+    "pts_amnesty_score",
+    "pts_human_rights_watch_score",
+    "pts_state_dept_score",
+    "one_sided_violence_events",
+    "one_sided_violence_fatalities",
+    "private_civil_liberties",
+    "civil_society_repression",
+)
+
 
 @dataclass(frozen=True)
 class LocalPriorMapping:
@@ -283,27 +332,121 @@ class LocalPriorMapping:
 
 LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("1B"),
+        methodology_ids=("1B.1", "1B.2", "1B.4", "1B.5", "1B.6"),
+        field_keys=NUCLEAR_INVENTORY_FIELDS,
+        mapping_note=(
+            "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, "
+            "restraint, agreements, aggression shielding, and proliferation require "
+            "ruler-specific evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("1B.3", "1B.7", "1B.8"),
+        field_keys=NUCLEAR_OPERATIONAL_FIELDS,
+        mapping_note=(
+            "Operational/deployed capability provides command-and-crisis exposure; it "
+            "does not establish safeguards, expertise, discipline, or de-escalation."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("1B.9",),
+        field_keys=(),
+        mapping_note=(
+            "Nuclear inventory facts do not answer cyber, biological, AI, or other "
+            "non-nuclear catastrophic-risk governance."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("1B.10",),
         field_keys=NUCLEAR_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D17 FAS nuclear-force country-year facts provide capability context; "
-            "absence of a row is not evidence of responsible ruler conduct."
+            "The full arsenal series supports inherited-versus-left posture context; "
+            "safer or more dangerous conduct still requires ruler attribution."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("2B"),
+        methodology_ids=("2B.1", "2B.2", "2B.5", "2B.6", "2B.7"),
+        field_keys=CONFLICT_EXPOSURE_FIELDS,
+        mapping_note=(
+            "Conflict events and fatalities establish country exposure/location, not "
+            "initiation, perpetration, proxy support, truthfulness, or peace effort."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("2B.3",),
         field_keys=INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D13-D14 UCDP conflict and SIPRI military-expenditure facts provide "
-            "country-year exposure/context, not automatic ruler attribution."
+            "Conflict exposure and military burden contextualize claimed security needs; "
+            "they cannot distinguish defense from prestige or manufactured threats."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("3B"),
+        methodology_ids=("2B.4", "2B.9"),
+        field_keys=("state_based_conflict_fatalities", "internationalized_conflict_fatalities"),
+        mapping_note=(
+            "Fatalities establish harm/exposure only; civilian protection, legality, "
+            "proportionality, responsibility, and accountability require actor evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("2B.8",),
+        field_keys=MILITARY_BURDEN_FIELDS,
+        mapping_note=(
+            "Military expenditure establishes level and burden, not aggression, defensive "
+            "necessity, enrichment, intimidation, or ruler motive."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("2B.10",),
+        field_keys=INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "Full conflict and military-burden series supports inherited-versus-left "
+            "trajectory context without assigning ruler responsibility."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.1", "3B.2", "3B.5"),
+        field_keys=PHYSICAL_INTEGRITY_FIELDS,
+        mapping_note=(
+            "Physical-integrity and terror measures contextualize abuse; ruler direction, "
+            "tolerance, protected actors, and legal misuse require narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.3", "3B.7"),
+        field_keys=(),
+        mapping_note=(
+            "National repression aggregates cannot establish ruler incitement or violence "
+            "against a specific vulnerable group."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.4", "3B.8"),
+        field_keys=(
+            "cirights_civil_political_rights",
+            "cirights_repression",
+            "private_civil_liberties",
+            "civil_society_repression",
+        ),
+        mapping_note=(
+            "Rights and civil-society measures contextualize oversight/protest conditions; "
+            "specific complaint, investigation, surveillance, or retaliation needs evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.6", "3B.9"),
+        field_keys=DOMESTIC_FEAR_FIELDS,
+        mapping_note=(
+            "Terror, one-sided violence, liberty, and repression trends contextualize fear "
+            "or crises without proving ruler protection, restraint, or incitement."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.10",),
         field_keys=DOMESTIC_SAFETY_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide "
-            "country-year baselines requiring narrative ruler attribution."
+            "Full domestic-safety series supports inherited-versus-left trajectory context; "
+            "attribution and non-state/public-safety gaps remain explicit."
         ),
     ),
     LocalPriorMapping(

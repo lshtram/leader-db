@@ -22,7 +22,7 @@ from leaders_db.research.research_workflow import ResearchWorkflow
 
 CHAPTER_FACTS = (
     ("1B.1", "nuclear_total_inventory", "fas"),
-    ("2B.1", "military_spend_share_gdp", "sipri_milex"),
+    ("2B.1", "state_based_conflict_events", "ucdp"),
     ("3B.1", "pts_state_dept_score", "pts"),
     ("4B.1", "electoral_democracy", "vdem"),
     ("5B.1", "gdp_per_capita", "maddison_project"),
@@ -230,6 +230,27 @@ def test_political_freedom_lenses_do_not_receive_identical_bundles() -> None:
     assert media is not None and "press_freedom_score" in media.field_keys
     assert trajectory is not None
     assert len(trajectory.field_keys) > len(elections.field_keys)
+
+
+def test_nuclear_peace_and_safety_lenses_use_semantic_subsets() -> None:
+    nuclear_crisis = mapping_for_methodology_id("1B.8")
+    nonnuclear_risk = mapping_for_methodology_id("1B.9")
+    conflict_choice = mapping_for_methodology_id("2B.2")
+    military_burden = mapping_for_methodology_id("2B.8")
+    incitement = mapping_for_methodology_id("3B.3")
+    physical_abuse = mapping_for_methodology_id("3B.1")
+
+    assert nuclear_crisis is not None
+    assert "nuclear_operational_strategic" in nuclear_crisis.field_keys
+    assert nonnuclear_risk is not None and nonnuclear_risk.field_keys == ()
+    assert conflict_choice is not None
+    assert "state_based_conflict_events" in conflict_choice.field_keys
+    assert "military_spend_share_gdp" not in conflict_choice.field_keys
+    assert military_burden is not None
+    assert "military_spend_share_gdp" in military_burden.field_keys
+    assert incitement is not None and incitement.field_keys == ()
+    assert physical_abuse is not None
+    assert "cirights_torture" in physical_abuse.field_keys
 
 
 def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) -> None:

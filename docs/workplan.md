@@ -1,5 +1,23 @@
 # Workplan
 
+## 2026-07-23 — Nuclear, peace, and domestic-safety lens routing
+
+- Completed lens-specific local-evidence routing across all eight chapters. Chapter 1B
+  now separates inventory from operational/deployed exposure and leaves the non-nuclear
+  catastrophic-risk lens as an explicit narrative gap. Chapter 2B separates conflict
+  location/exposure, fatalities, military burden, and full trajectory context. Chapter
+  3B separates physical-integrity abuse, oversight/protest context, domestic fear/crisis
+  context, and full trajectory evidence.
+- Every mapping note prohibits the principal shortcut failure: arsenal possession is not
+  responsible or reckless conduct; conflict location is not initiation/perpetration;
+  military expenditure is not aggression; national repression is not ruler incitement or
+  proof of group-targeted violence.
+- Live Putin 2022 checks show differentiated packages: 1B ranges from 2 inventory facts
+  to 5 trajectory facts while 1B.9 is a valid narrative gap; 2B ranges from 62 fatality
+  facts and 117 military-burden facts to 241 trajectory facts; 3B ranges from 122
+  oversight/protest facts and 289 physical-abuse facts to 473 trajectory facts, while
+  incitement remains a valid zero-local-fact narrative task.
+
 ## 2026-07-22 — Political-freedom lens routing
 
 - Split 4B structured priors by question: election/regime facts for contestability,

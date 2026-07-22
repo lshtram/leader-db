@@ -301,6 +301,9 @@ for personal nexus, program identification, ruler ownership, or causal execution
 Chapter 4B similarly separates election, opposition, constraint, media, equality,
 succession, and trajectory fields so each lens receives only semantically relevant
 country context; specific ruler conduct remains a narrative attribution question.
+Chapters 1B-3B separate inventory/operational exposure, conflict/fatality/military
+burden, and physical-integrity/oversight/fear contexts. Intentionally unmapped lenses
+produce a valid narrative-research gap instead of inheriting a misleading aggregate.
 
 | Category | Primary structured sources | Current implementation state | Notes |
 |---|---|---|---|

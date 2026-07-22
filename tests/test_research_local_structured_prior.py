@@ -47,7 +47,7 @@ def test_v3_local_prior_includes_baseline_tenure_and_target_without_future_data(
     artifact = build_local_structured_prior(
         engine,
         LocalStructuredPriorRequest(
-            methodology_id="2B.1",
+            methodology_id="2B.8",
             iso3="RUS",
             period=LocalPriorPeriod(year=2022),
             leader=LeaderPriorMetadata(name="Vladimir Putin", accession_year=2000),
