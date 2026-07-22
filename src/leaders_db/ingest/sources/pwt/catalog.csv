@@ -29,14 +29,14 @@
 # selects the 11 numeric indicators the prototype uses for the
 # economic_wellbeing / international_peace scoring categories.
 variable_name,raw_column,rating_category,raw_scale,normalized_scale_target,higher_is_better,unit,description
-pwt_real_gdp_expenditure_side,rgdpe,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Real GDP at chained PPPs (expenditure side). National accounts benchmark."
-pwt_real_gdp_output_side,rgdpo,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Real GDP at chained PPPs (output side). Cross-check of rgdpe."
-pwt_population,pop,economic_wellbeing,thousands_persons,0-1,1,thousands_persons,"Population (in thousands). Denominator for per-capita derivations."
-pwt_employment,emp,economic_wellbeing,thousands_persons,0-1,1,thousands_persons,"Number of persons engaged (in thousands). Labor input."
-pwt_average_annual_hours_worked,avh,economic_wellbeing,annual_hours_per_worker,0-1,1,annual_hours_per_worker,"Average annual hours worked by persons engaged. Total labor input = emp * avh."
-pwt_human_capital_index,hc,economic_wellbeing,index_0_to_10,0-1,1,index_0_to_10,"Human capital index based on years of schooling and returns to education. PWT 10.01 (Feenstra et al. 2015) quality dimension."
-pwt_real_consumption,ccon,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Real consumption of households + government + non-profits. Demand-side GDP cross-check."
-pwt_capital_depreciation,cda,economic_wellbeing,2017_USD_millions,0-1,0,million_2017_USD,"Capital depreciation (in 2017 USD). Subset of gross capital formation."
+pwt_real_gdp_expenditure_side,rgdpe,economic_wellbeing,million_2017_usd_at_chained_ppps,0-1,1,million_2017_usd_at_chained_ppps,"Real GDP at chained PPPs (expenditure side). National accounts benchmark."
+pwt_real_gdp_output_side,rgdpo,economic_wellbeing,million_2017_usd_at_chained_ppps,0-1,1,million_2017_usd_at_chained_ppps,"Real GDP at chained PPPs (output side). Cross-check of rgdpe."
+pwt_population,pop,economic_wellbeing,million_persons,0-1,1,million_persons,"Population (in millions). Denominator for per-capita derivations."
+pwt_employment,emp,economic_wellbeing,million_persons_engaged,0-1,1,million_persons_engaged,"Number of persons engaged (in millions). Labor input; not an unemployment rate."
+pwt_average_annual_hours_worked,avh,economic_wellbeing,annual_hours_per_person_engaged,0-1,1,annual_hours_per_person_engaged,"Average annual hours worked by persons engaged. Total labor input = emp * avh."
+pwt_human_capital_index,hc,economic_wellbeing,human_capital_index,0-1,1,human_capital_index,"Human capital index based on years of schooling and returns to education. It is not bounded to 0-1 or 0-10."
+pwt_real_consumption,ccon,economic_wellbeing,million_2017_usd_at_chained_ppps,0-1,1,million_2017_usd_at_chained_ppps,"Real consumption of households + government + non-profits. Demand-side GDP cross-check."
+pwt_real_domestic_absorption,cda,economic_wellbeing,million_2017_usd_at_chained_ppps,0-1,1,million_2017_usd_at_chained_ppps,"Real domestic absorption at chained PPPs; not capital depreciation."
 pwt_tfp_ctfp,ctfp,economic_wellbeing,index_2017=1,0-1,1,index_2017=1,"Total factor productivity (TFP) level at current PPPs. PWT 10.01 productivity measure."
-pwt_capital_stock,rkna,economic_wellbeing,2017_USD_millions,0-1,1,million_2017_USD,"Capital stock (in 2017 USD). Net capital at chained PPPs."
+pwt_capital_stock_index,rkna,economic_wellbeing,index_2017=1,0-1,1,index_2017=1,"Capital stock at constant 2017 national prices, indexed to 2017=1; not a USD level."
 pwt_tfp_at_constant_national_prices,rtfpna,economic_wellbeing,index_2017=1,0-1,1,index_2017=1,"TFP at constant national prices (TFP level). Direct TFP measure without PPP conversion."

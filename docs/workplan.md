@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — PWT unit and variable-semantics repair
+
+- Corrected the clean PWT adapter's units: GDP, consumption, and domestic absorption
+  are millions of 2017 USD at chained PPPs; population and employment are millions
+  (not raw persons or thousands); human capital retains its source-native unbounded
+  index label; and `rkna` is a 2017=1 index rather than a USD capital-stock level.
+- Corrected two catalog semantic errors: `cda` is real domestic absorption, not
+  capital depreciation, and `rkna` is a capital-stock index. Employment is explicitly
+  documented as persons engaged and cannot stand in for an unemployment rate.
+- Reingested the full local PWT bundle. Live Russia 2019 observations now report
+  population `145.872256 million_persons`, employment `71.670639 million_persons_engaged`,
+  domestic absorption `3847660.75 million_2017_usd_at_chained_ppps`, and capital-stock
+  index `1.0219125747680664 index_2017_equals_1`, all with stable raw-row IDs.
+
 ## 2026-07-22 — EIU political-freedom evidence routing
 
 - Added six source-native EIU Democracy Index concepts: overall score, electoral
