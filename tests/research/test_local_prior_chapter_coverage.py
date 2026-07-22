@@ -95,6 +95,15 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
     ]
 
 
+def test_compact_local_prior_accepts_missing_optional_confidence() -> None:
+    fact = _fact_payload("electoral_democracy", "vdem")
+    fact.pop("confidence")
+
+    package = compact_local_priors((_prior_payload("4B.1", fact),))
+
+    assert package.facts[0].confidence is None
+
+
 def test_compact_local_priors_preserves_explicit_empty_and_error_states() -> None:
     priors = (
         _prior_payload(

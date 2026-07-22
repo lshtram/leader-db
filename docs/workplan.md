@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-23 — Contrast-pilot preflight fixed optional-confidence rejection
+
+- The first Biden 2022 full-dossier attempt stopped before model execution because a
+  valid local fact with unknown confidence was serialized without the optional field,
+  while the compact receiver treated nullable confidence as required.
+- The compact receiver now defaults omitted confidence to `null`, preserving the fact and
+  its provenance for research. A focused regression uses the exact missing-field shape;
+  local-prior and recovery tests pass. Producers remain responsible for calculating
+  confidence whenever its inputs exist.
+- The Biden job is safely retryable with no model cost spent. Tshisekedi planning remains
+  identity-quarantined because the live resolver selects the DRC prime minister while
+  preserving Tshisekedi as a competing formal-president candidate; that gate was not
+  bypassed.
+
 ## 2026-07-23 — Source-readiness audit follows the real researcher handoff
 
 - Corrected Stage 0's false-negative country-matching rule. It previously inspected only

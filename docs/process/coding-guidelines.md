@@ -26,6 +26,9 @@ These apply to the Python package under `src/leaders_db/`. The goal is a reprodu
   end-to-end or preserved-artifact smoke test whenever a stricter producer contract could
   make an existing downstream flow impractical. Do not defer all integration testing to
   the final cohort run.
+- Unknown confidence is valid uncertainty, not malformed evidence. Compact receivers
+  must accept an omitted optional confidence value and preserve it as unknown; producers
+  should still emit a calculated value whenever the required components exist.
 
 ## Configuration-Driven Runs
 

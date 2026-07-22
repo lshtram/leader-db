@@ -26,7 +26,7 @@ class CompactLocalFact(BaseModel):
     value_type: str
     source_slugs: tuple[str, ...]
     source_observation_ids: tuple[str, ...]
-    confidence: int | None
+    confidence: int | None = None
     warnings: tuple[str, ...]
     period_role: Literal["pre_accession", "tenure", "target"] = "target"
     unit: str | None = None
@@ -63,9 +63,7 @@ class CompactLocalPriorPackage(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["ruler_local_evidence_package_v3"] = (
-        "ruler_local_evidence_package_v3"
-    )
+    schema_version: Literal["ruler_local_evidence_package_v3"] = "ruler_local_evidence_package_v3"
     source_prior_count: int
     unique_fact_count: int
     status_counts: dict[str, int]
@@ -167,12 +165,8 @@ def compact_local_priors(
         methodology_dispositions=methodology_dispositions,
         disposition_reasons=disposition_reasons,
         disposition_instruction_sets=instruction_sets,
-        no_evidence_methodology_ids=_methodology_ids_with_status(
-            local_priors, "no_evidence_found"
-        ),
-        not_applicable_methodology_ids=_methodology_ids_with_status(
-            local_priors, "not_applicable"
-        ),
+        no_evidence_methodology_ids=_methodology_ids_with_status(local_priors, "no_evidence_found"),
+        not_applicable_methodology_ids=_methodology_ids_with_status(local_priors, "not_applicable"),
         error_methodology_ids=_methodology_ids_with_status(local_priors, "error"),
         facts=facts,
         longitudinal_signals=derive_longitudinal_signals(signal_inputs),
@@ -234,9 +228,7 @@ def _methodology_ids_with_status(
     local_priors: tuple[dict[str, Any], ...], status: str
 ) -> tuple[str, ...]:
     return tuple(
-        str(item.get("methodology_id"))
-        for item in local_priors
-        if item.get("status") == status
+        str(item.get("methodology_id")) for item in local_priors if item.get("status") == status
     )
 
 
