@@ -1,5 +1,24 @@
 # Workplan
 
+## 2026-07-22 — Live Putin 2022 Chapter 4B bias-contract gate
+
+- Completed a real local-first research, iterative no-search review, formatter, chapter
+  projection, and 20-ruler comparative-judge run for Putin 2022 Chapter 4B. The new
+  dossier has 55 evidence records, all ten lens coverage records, and a fully cited
+  twelve-part evidence-environment assessment.
+- The new judgment includes cited material-bias findings and both mandatory safeguards.
+  Putin remained at 1.0 with a 1.0-1.5 range; confidence moved only 95 -> 94, so the
+  preserved-score stability gate passed. Research and review exposed genuine 4B.8
+  non-applicability instead of converting missing event evidence into conduct.
+- The live run found and fixed two tolerant-consumer defects: descriptive lens IDs were
+  silently discarded, and saved-output repair assumed an eight-chapter run. Focused
+  regressions and Ruff pass. Full artifacts and a defect demonstration are preserved in
+  `research/conversational-evidence/bias-smoke/2022-putin-4b-v1/`.
+- Next increment: make the no-search reviewer explicitly audit balanced search,
+  reporting opportunity, duplication, allegations/findings, official claims,
+  denominators, attribution conditions, and missing source types before scaling Putin
+  to all eight chapters.
+
 ## 2026-07-22 — Tolerant recovery for formatter-omitted evidence routing
 
 - The live Putin 2022 Chapter 4B smoke test produced a usable 55-item formatter

@@ -1,7 +1,13 @@
 from pathlib import Path
+from types import SimpleNamespace
 
 from leaders_db.conversational_evidence import judging
-from leaders_db.conversational_evidence.judging import _write_summary, run_judges
+from leaders_db.conversational_evidence.judging import (
+    _normalize_candidate,
+    _write_summary,
+    repair_saved_judgments,
+    run_judges,
+)
 from leaders_db.conversational_evidence.luna import LunaFormatter
 from leaders_db.conversational_evidence.m3 import M3Conversation
 from leaders_db.conversational_evidence.researcher import (
@@ -86,6 +92,47 @@ def test_judge_summary_counts_only_selected_chapters(tmp_path: Path) -> None:
 
     assert summary["total"] == 1
     assert [item["chapter_id"] for item in summary["chapters"]] == ["3B"]
+
+
+def test_judge_normalization_recovers_lens_id_from_descriptive_gap() -> None:
+    candidate = {
+        "evaluations": [
+            {
+                "supported_lenses": ["4B.1 elections"],
+                "missing_or_weak_lenses": ["4B.8 direct transfer event", "unknown"],
+            }
+        ]
+    }
+
+    normalized = _normalize_candidate(candidate, "4B", ())
+
+    assert normalized["evaluations"][0]["supported_lenses"] == ["4B.1"]
+    assert normalized["evaluations"][0]["missing_or_weak_lenses"] == ["4B.8"]
+
+
+def test_repair_saved_judgments_accepts_partial_chapter_run(
+    tmp_path: Path, monkeypatch: object
+) -> None:
+    compact = tmp_path / "compact"
+    output = tmp_path / "output"
+    (compact / "chapters").mkdir(parents=True)
+    (output / "4B").mkdir(parents=True)
+    (compact / "chapters/4B.json").write_text(
+        '{"projection_paths":[],"target_year":2022}', encoding="utf-8"
+    )
+    (output / "4B/judgment.pending.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(judging, "_normalize_candidate", lambda *args: {})
+    monkeypatch.setattr(
+        judging.ChapterJudgmentBatch,
+        "model_validate",
+        lambda value: SimpleNamespace(model_dump=lambda **kwargs: value),
+    )
+    monkeypatch.setattr(judging, "_validate_batch", lambda *args, **kwargs: None)
+    monkeypatch.setattr(judging, "_write_json", lambda *args, **kwargs: None)
+
+    result = repair_saved_judgments(compact, output)
+
+    assert result == {"repaired_chapters": ["4B"], "llm_calls": 0}
 
 
 def test_projection_review_can_clear_nonrecoverable_null(

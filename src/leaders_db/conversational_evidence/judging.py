@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -162,8 +163,15 @@ def repair_saved_judgments(compact_dir: Path, output_dir: Path) -> dict[str, Any
     """Revalidate saved successful candidates after deterministic normalizations."""
 
     repaired = []
+    manifests = {
+        path.stem: path for path in (compact_dir / "chapters").glob("*.json")
+    }
     for chapter_id in CHAPTERS:
-        manifest = _object(compact_dir / "chapters" / f"{chapter_id}.json")
+        manifest_path = manifests.get(chapter_id)
+        pending_path = output_dir / chapter_id / "judgment.pending.json"
+        if manifest_path is None or not pending_path.is_file():
+            continue
+        manifest = _object(manifest_path)
         projections = tuple(
             (Path(path), RulerChapterProjection.model_validate(_object(Path(path))))
             for path in manifest["projection_paths"]
@@ -408,20 +416,14 @@ def _normalize_candidate(
             continue
         if normalize_confidence:
             evaluation["confidence_score"] = round(float(evaluation["confidence_score"]) * 100, 6)
-        supported = list(
-            dict.fromkeys(
-                str(value)
-                for value in evaluation.get("supported_lenses", [])
-                if str(value) in valid
+        supported = _normalize_lens_values(evaluation.get("supported_lenses"), valid)
+        missing = [
+            value
+            for value in _normalize_lens_values(
+                evaluation.get("missing_or_weak_lenses"), valid
             )
-        )
-        missing = list(
-            dict.fromkeys(
-                str(value)
-                for value in evaluation.get("missing_or_weak_lenses", [])
-                if str(value) in valid and str(value) not in supported
-            )
-        )
+            if value not in supported
+        ]
         evaluation["supported_lenses"] = supported
         evaluation["missing_or_weak_lenses"] = missing
         known = known_by_key.get(str(evaluation.get("dossier_job_key")), set())
@@ -453,6 +455,21 @@ def _normalize_candidate(
             evaluation["manual_review_reason_type"] = "projection_integrity"
             evaluation["manual_review_reason"] = f"{existing} {note}".strip()
     return candidate
+
+
+def _normalize_lens_values(values: object, valid: set[str]) -> list[str]:
+    """Recover a leading methodology ID from otherwise useful free-form lens text."""
+
+    if not isinstance(values, list):
+        return []
+    normalized: list[str] = []
+    for value in values:
+        text = str(value).strip()
+        match = re.match(r"^(\d+B\.\d{1,2})(?:\b|\s|[:\-—])", text, re.IGNORECASE)
+        candidate = match.group(1).upper() if match else text.upper()
+        if candidate in valid and candidate not in normalized:
+            normalized.append(candidate)
+    return normalized
 
 
 def _validate_batch(
