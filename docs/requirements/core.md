@@ -50,6 +50,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-SRC-006**: Conflict / international aggression sources shall include UCDP, COW/MID, SIPRI military expenditure / arms transfer data.
 - **REQ-SRC-007**: Domestic repression / violence sources shall include Political Terror Scale, CIRIGHTS, ACLED or UCDP one-sided violence where available.
 - **REQ-SRC-007A**: UCDP facts shall preserve event location, conflict type, dyad, government involvement, host-government responsibility, and non-state responsibility as distinct semantics. Location-only aggregates must not establish ruler responsibility; uncertainty bounds must be retained when supplied.
+- **REQ-SRC-007B**: Republishing a concept after a semantic-key migration shall remove obsolete rows written by the same producer within the requested scope, while preserving other producers and frozen release artifacts. Incompatible GDP units, price bases, and PPP/nominal semantics must never coexist under one fact key.
 - **REQ-SRC-008**: Nuclear / global responsibility sources shall include FAS nuclear forces, SIPRI nuclear forces / military expenditure, NTI country profiles.
 
 ### Database schema (§7)

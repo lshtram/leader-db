@@ -8,7 +8,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
@@ -167,6 +167,13 @@ def publish_concept_country_year_facts(
         rows_updated = 0
         skipped_without_country_year = 0
 
+        _delete_obsolete_gdp_fact_keys(
+            session,
+            concept_keys=concept_keys,
+            start_year=start_year,
+            end_year=end_year,
+        )
+
         for key, rows in sorted(grouped_rows.items()):
             country_code, year, concept_key = key
             country_year = country_years.get((country_code, year))
@@ -203,6 +210,32 @@ def publish_concept_country_year_facts(
         field_counts=counts["field_counts"],
         warnings=tuple(warnings),
     )
+
+
+def _delete_obsolete_gdp_fact_keys(
+    session: Session,
+    *,
+    concept_keys: Sequence[str],
+    start_year: int | None,
+    end_year: int | None,
+) -> None:
+    """Remove v1 GDP rows whose mixed units were split in v2.
+
+    The cleanup is restricted to this producer and the requested year scope;
+    preserved releases and facts written by another producer are untouched.
+    """
+    obsolete = tuple(key for key in ("gdp_per_capita", "gdp_total") if key in concept_keys)
+    if not obsolete:
+        return
+    statement = delete(CountryYearFact).where(
+        CountryYearFact.producer == CONCEPT_FACT_PRODUCER,
+        CountryYearFact.field_key.in_(obsolete),
+    )
+    if start_year is not None:
+        statement = statement.where(CountryYearFact.year >= start_year)
+    if end_year is not None:
+        statement = statement.where(CountryYearFact.year <= end_year)
+    session.execute(statement)
 
 
 def _group_concept_rows(
@@ -400,9 +433,7 @@ def _fact_payload(
         "value_type": "number" if selected.value_type == "numeric" else "missing",
         "selected_value_text": selected_value_text,
         "selected_value_number": selected.value if selected.value_type == "numeric" else None,
-        "selected_value_json": _dumps(
-            _candidate_payload(selected, selection_role="selected")
-        ),
+        "selected_value_json": _dumps(_candidate_payload(selected, selection_role="selected")),
         "selected_entity_table": None,
         "selected_entity_id": None,
         "candidate_values_json": _dumps(candidate_payloads),
@@ -411,15 +442,9 @@ def _fact_payload(
         "confidence_score": (
             None if confidence_inputs is None else compute_confidence(confidence_inputs)
         ),
-        "agreement_score": (
-            None if confidence_inputs is None else confidence_inputs.agreement
-        ),
-        "authority_score": (
-            None if confidence_inputs is None else confidence_inputs.authority
-        ),
-        "specificity_score": (
-            None if confidence_inputs is None else confidence_inputs.specificity
-        ),
+        "agreement_score": (None if confidence_inputs is None else confidence_inputs.agreement),
+        "authority_score": (None if confidence_inputs is None else confidence_inputs.authority),
+        "specificity_score": (None if confidence_inputs is None else confidence_inputs.specificity),
         "temporal_fit_score": (
             None if confidence_inputs is None else confidence_inputs.temporal_fit
         ),

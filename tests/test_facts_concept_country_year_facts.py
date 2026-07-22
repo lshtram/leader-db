@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import Session
 
 from leaders_db.db.engine import init_database
@@ -195,12 +195,61 @@ def test_gdp_nominal_and_ppp_observations_publish_as_distinct_facts(
         "gdp_per_capita_nominal_current_usd",
         "gdp_per_capita_ppp_constant_2017_intl",
     }
-    assert json.loads(
-        by_key["gdp_per_capita_nominal_current_usd"].candidate_values_json
-    )[0]["input_observation_ids"] == ["wdi-usa-2020-gdppc-nominal"]
-    assert json.loads(
-        by_key["gdp_per_capita_ppp_constant_2017_intl"].candidate_values_json
-    )[0]["input_observation_ids"] == ["wdi-usa-2020-gdppc-ppp"]
+    assert json.loads(by_key["gdp_per_capita_nominal_current_usd"].candidate_values_json)[0][
+        "input_observation_ids"
+    ] == ["wdi-usa-2020-gdppc-nominal"]
+    assert json.loads(by_key["gdp_per_capita_ppp_constant_2017_intl"].candidate_values_json)[0][
+        "input_observation_ids"
+    ] == ["wdi-usa-2020-gdppc-ppp"]
+
+
+def test_gdp_republish_removes_obsolete_mixed_unit_fact(database_url: str) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                """INSERT INTO country_year_facts (
+                country_year_id, country_id, year, field_key, field_label,
+                value_type, selected_value_number, candidate_values_json,
+                selection_rule, adjudication_status, confidence_score,
+                agreement_score, authority_score, specificity_score,
+                temporal_fit_score, quality_signals_json, warnings_json,
+                rationale, recommended_next_action,
+                source_slugs_json, source_observation_ids_json, producer,
+                method_version, created_at, updated_at
+                ) VALUES (
+                1, 1, 2020, 'gdp_per_capita', 'obsolete mixed GDP', 'number',
+                65000, '[]', 'legacy', 'selected', 80, 80, 80, 80, 80,
+                '[]', '[]', 'legacy mixed-unit row', 'replace', '[]', '[]',
+                'concept_country_year_facts',
+                'concept-country-year-facts-v1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+                )"""
+            )
+        )
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_GDP_PER_CAPITA_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-gdppc-current",
+                value=65_000.0,
+                unit="current_usd_per_person",
+            ),
+        ),
+    )
+
+    publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_GDP_PER_CAPITA,),
+    )
+
+    with Session(engine) as session:
+        keys = session.scalars(select(CountryYearFact.field_key)).all()
+    assert keys == ["gdp_per_capita_nominal_current_usd"]
 
 
 def test_duplicate_observations_from_one_source_do_not_increase_agreement(
@@ -570,9 +619,7 @@ def test_publish_concept_country_year_facts_resolves_lifecycle_source_name(
         assert fact.field_key == CONCEPT_MILITARY_SPEND_CONSTANT_USD
         assert fact.selected_value_number == 250_000.0
         assert fact.source_slugs_json == '["sipri_milex"]'
-        assert json.loads(fact.selected_value_json or "{}")["unit"] == (
-            "usd_millions_2024"
-        )
+        assert json.loads(fact.selected_value_json or "{}")["unit"] == ("usd_millions_2024")
         warning_codes = {item["code"] for item in json.loads(fact.warnings_json)}
         assert warning_codes == {
             "military_spending_not_aggression",
@@ -598,8 +645,7 @@ def test_publish_concept_country_year_facts_resolves_sipri_east_germany(
                 source_slug="sipri_milex",
                 indicator_code=SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,
                 observation_id=(
-                    "sipri_milex:German Democratic Republic:1989:"
-                    "sipri_milex_constant_usd"
+                    "sipri_milex:German Democratic Republic:1989:sipri_milex_constant_usd"
                 ),
                 value=12_345.0,
                 unit="usd_millions",
@@ -681,8 +727,7 @@ def test_publish_concept_country_year_facts_publishes_freedom_house(
                 source_slug="freedom_house",
                 indicator_code=FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
                 observation_id=(
-                    "freedom_house:country:United States:2023:"
-                    "freedom_house_political_rights"
+                    "freedom_house:country:United States:2023:freedom_house_political_rights"
                 ),
                 value=1,
                 unit="rating",

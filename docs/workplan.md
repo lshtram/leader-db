@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — Live semantic GDP migration
+
+- Concept publication now removes obsolete v1 `gdp_per_capita` and `gdp_total`
+  rows when those concepts are republished. Cleanup is limited to the concept-fact
+  producer and requested year scope; facts from other producers and preserved release
+  artifacts are not touched.
+- The production catalog was republished through the v2 semantic split: 54,420 facts
+  now use nine explicit nominal, real, PPP, base-year, and output/expenditure-side keys;
+  26,785 obsolete mixed-unit rows were removed and none remain.
+- A Putin/Russia 2022 5B local-prior smoke now carries eight compatible facts. For
+  example, nominal GDP per capita (15,619.61 current USD), constant-2017 PPP GDP per
+  capita (38,214.50 international dollars), and Maddison constant-2011 PPP GDP per
+  capita (25,437.11 international dollars) remain separate facts with separate source
+  observations. This closes the live-data migration gap left after the earlier code-only
+  semantic repair.
+
 ## 2026-07-22 — UCDP actor-aware current country-year increment
 
 - The clean UCDP adapter now optionally reads the locally staged Organized Violence
