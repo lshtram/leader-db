@@ -1,5 +1,28 @@
 # Workplan
 
+## 2026-07-23 — Tshisekedi 2022 sparse/conflict evidence gate completed
+
+- Completed the full 80-lens DRC dossier from the preserved research notebook after the
+  first formatter attempt exposed a real output-limit failure. The validated dossier has
+  55 evidence records, 346 mappings, all 80 coverage rows (55 covered, 25 partially
+  covered), 80 restored local-prior records, nine explicit gaps, and a cited evidence
+  environment whose 20 support IDs all resolve.
+- Review yield increased materially rather than cycling. Round 1 found only 2 defensible
+  1B units; targeted continuation raised that to 8. Supervisor recovery then increased
+  2B–8B evidence and independent source families. The terminal fourth review requested
+  no more research and preserved remaining limits instead of treating them as misconduct.
+- The first no-search formatter received a 992 KB prompt and emitted a 591 KB truncated
+  response before hitting its output-token ceiling. The complete local time series is now
+  used by research but is not redundantly repeated to formatting: the formatter receives
+  statuses, dispositions, chapter counts, mapping notes, and the accepted notebook, while
+  the parent restores the complete hashed local provenance deterministically. This reduced
+  the same prompt to 50 KB (95%) and the retry produced a valid 131 KB candidate without
+  repeating web research.
+- Deterministic tolerant normalization restored all coverage and mapping relationships,
+  recording each repair explicitly. The next gate is two-ruler comparative judging with
+  Biden and Tshisekedi; it must interpret different evidence visibility primarily through
+  confidence and ranges, not as an automatic substantive advantage or penalty.
+
 ## 2026-07-23 — Tshisekedi 2022 identity quarantine resolved canonically
 
 - The DRC contrast case was correctly blocked because the generic Wikidata role fallback
