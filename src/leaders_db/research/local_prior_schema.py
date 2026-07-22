@@ -103,8 +103,18 @@ OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    # Legacy aliases remain readable so preserved releases degrade gracefully.
     "gdp_per_capita",
     "gdp_total",
+    "gdp_per_capita_nominal_current_usd",
+    "gdp_per_capita_ppp_constant_2017_intl",
+    "gdp_per_capita_ppp_constant_2011_intl",
+    "gdp_per_capita_ppp_constant_2017_usd",
+    "gdp_total_nominal_current_usd",
+    "gdp_total_real_constant_2015_usd",
+    "gdp_total_ppp_constant_2011_intl",
+    "gdp_total_ppp_expenditure_constant_2017_usd",
+    "gdp_total_ppp_output_constant_2017_usd",
     "gni_per_capita",
     "population",
     "bti_status_index",

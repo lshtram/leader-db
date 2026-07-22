@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — Country-year fact semantics and confidence corrected
+
+- Split nominal, real constant-price, and PPP GDP observations into explicit
+  unit/base-year fact keys before grouping or source selection. Incompatible GDP
+  series therefore cannot replace or corroborate one another.
+- Fact payloads now distinguish the selected observation from alternatives, preserve
+  unit and scale, and compute all four confidence components with the fixed formula.
+  Duplicate observations from one source and observations with incompatible units do
+  not create independent agreement.
+- Added machine-readable interpretation warnings: SIPRI constant expenditure is
+  millions of constant 2024 USD and is not mechanically aggression; UCDP country-year
+  events do not establish perpetrator, initiator, side, or ruler responsibility; and a
+  favorable CIRIGHTS code may mean either no reported abuse or no abuse.
+- Focused publication tests and Ruff pass. V-Dem bounds and WGI standard errors remain
+  the next adapter-level semantic increment and will be validated separately.
+
 ## 2026-07-22 — Authoritative source-readiness audit implemented
 
 - Replaced the Stage 0 stub with an offline audit of all clean-registry sources, every

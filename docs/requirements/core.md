@@ -121,6 +121,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-CONF-004**: Confidence components shall be derived from evidence bundles: source agreement from normalized indicator consistency, authority from available independent source quality, specificity from country/year/ruler/category fit, and temporal fit from direct-year/proxy/stale status.
 - **REQ-CONF-005**: Missing expected indicators shall affect confidence and review status according to the category source plan; missingness shall not be hidden by normalizing only the available indicators.
 - **REQ-CONF-006**: The client/customer matrix shall never improve source agreement, source authority, evidence specificity, or temporal-fit confidence components.
+- **REQ-CONF-007**: Country-year facts shall calculate and persist every fixed confidence component. Repeated observations from one source family and dimensionally incompatible observations shall not count as independent source agreement.
 
 ### Comparison against client 2023 matrix (§12)
 
