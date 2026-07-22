@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — Relation-aware compaction repair validated
+
+- Replaced recency-only per-lens selection with deterministic semantic selection:
+  supporting or contradicting final evidence outranks mitigating and contextual records,
+  with confidence and source-domain diversity used inside each semantic tier.
+- Equal broadly mapped records are distributed across lenses instead of repeatedly
+  selecting one record. After lens selection, the compact package retains up to one
+  distinct final-evidence record per chapter lens so imperfect chapter-boundary routing
+  cannot erase the substantive chapter record; discovery-only material never pads this
+  quota. Every omitted ID remains in the existing omission ledger.
+- Focused tests cover decisive-over-context selection, cross-lens diversity, and final
+  chapter context without discovery padding. A preserved-artifact Putin run now retains
+  10 of 18–30 source records in each chapter, versus 4–14 under the failed compaction,
+  while every 20-ruler prompt remains below the Codex character ceiling. Comparative
+  rejudgment and independent score/order re-audit are the next promotion gate.
+
 ## 2026-07-22 — Full Putin bias-aware pilot completed; promotion blocked
 
 - Completed all 80 evidence lenses, three bounded research continuations, terminal

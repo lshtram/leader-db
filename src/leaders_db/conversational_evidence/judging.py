@@ -232,26 +232,7 @@ def _compact_projection(
     source: RulerChapterProjection, limit: int
 ) -> tuple[RulerChapterProjection, list[str]]:
     evidence = {item.evidence_id: item for item in source.evidence}
-    keep: set[str] = set()
-    for methodology_id in source.methodology_ids:
-        ids = [
-            item.evidence_id for item in source.mappings if item.methodology_id == methodology_id
-        ]
-        selected: list[str] = []
-        domains: set[str] = set()
-        for evidence_id in reversed(ids):
-            domain = urlparse(evidence[evidence_id].url).netloc.lower().removeprefix("www.")
-            if domain and domain not in domains:
-                selected.append(evidence_id)
-                domains.add(domain)
-            if len(selected) == limit:
-                break
-        for evidence_id in reversed(ids):
-            if len(selected) == limit:
-                break
-            if evidence_id not in selected:
-                selected.append(evidence_id)
-        keep.update(selected)
+    keep = _select_compact_evidence_ids(source, limit)
     payload = source.model_dump(mode="json")
     payload["evidence"] = [item for item in payload["evidence"] if item["evidence_id"] in keep]
     payload["mappings"] = [item for item in payload["mappings"] if item["evidence_id"] in keep]
@@ -266,6 +247,99 @@ def _compact_projection(
     compact = RulerChapterProjection.model_validate(payload)
     removed = sorted(set(evidence) - keep)
     return compact, removed
+
+
+def _select_compact_evidence_ids(
+    source: RulerChapterProjection, limit: int
+) -> set[str]:
+    """Prefer substantive evidence and add distinct records across broad lens mappings."""
+
+    evidence = {item.evidence_id: item for item in source.evidence}
+    mappings = {(item.methodology_id, item.evidence_id): item for item in source.mappings}
+    keep: set[str] = set()
+    for methodology_id in source.methodology_ids:
+        candidates = [
+            item.evidence_id for item in source.mappings if item.methodology_id == methodology_id
+        ]
+        selected: list[str] = []
+        domains: set[str] = set()
+        while len(selected) < limit and candidates:
+            semantic_best = max(
+                _semantic_evidence_rank(
+                    mappings[(methodology_id, evidence_id)].relation,
+                    evidence[evidence_id].final_evidence_use,
+                )
+                for evidence_id in candidates
+            )
+            tier = [
+                evidence_id
+                for evidence_id in candidates
+                if _semantic_evidence_rank(
+                    mappings[(methodology_id, evidence_id)].relation,
+                    evidence[evidence_id].final_evidence_use,
+                )
+                == semantic_best
+            ]
+            unused = [evidence_id for evidence_id in tier if evidence_id not in keep]
+            pool = unused or tier
+            evidence_id = max(
+                pool,
+                key=lambda value: _quality_evidence_rank(evidence[value], domains),
+            )
+            selected.append(evidence_id)
+            candidates.remove(evidence_id)
+            domain = _source_domain(evidence[evidence_id].url)
+            if domain:
+                domains.add(domain)
+        keep.update(selected)
+    target = min(
+        len(source.methodology_ids),
+        sum(item.final_evidence_use == "final_evidence" for item in source.evidence),
+    )
+    chapter_domains = {_source_domain(evidence[evidence_id].url) for evidence_id in keep}
+    candidates = [
+        item.evidence_id
+        for item in source.evidence
+        if item.final_evidence_use == "final_evidence" and item.evidence_id not in keep
+    ]
+    while len(keep) < target and candidates:
+        evidence_id = max(
+            candidates,
+            key=lambda value: _quality_evidence_rank(evidence[value], chapter_domains),
+        )
+        keep.add(evidence_id)
+        candidates.remove(evidence_id)
+        domain = _source_domain(evidence[evidence_id].url)
+        if domain:
+            chapter_domains.add(domain)
+    return keep
+
+
+def _semantic_evidence_rank(relation: str, final_use: str) -> tuple[int, int]:
+    relation_rank = {"supports": 3, "contradicts": 3, "mitigates": 2, "context": 1}
+    use_rank = {"final_evidence": 3, "context": 2, "discovery_only": 1}
+    return relation_rank.get(relation, 0), use_rank.get(final_use, 0)
+
+
+def _quality_evidence_rank(evidence: Any, used_domains: set[str]) -> tuple[int, int, str]:
+    confidence_rank = {
+        "high": 5,
+        "medium_high": 4,
+        "medium": 3,
+        "medium_low": 2,
+        "low": 1,
+        "not_assessed": 0,
+    }
+    domain = _source_domain(evidence.url)
+    return (
+        int(bool(domain and domain not in used_domains)),
+        confidence_rank.get(evidence.source_confidence, 0),
+        evidence.evidence_id,
+    )
+
+
+def _source_domain(url: str) -> str:
+    return urlparse(url).netloc.lower().removeprefix("www.")
 
 
 def _run_chapter(

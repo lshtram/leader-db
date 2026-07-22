@@ -846,10 +846,14 @@ validation; it is never hard-coded to the year of an earlier experiment.
 Partial projections remain recoverable, but a cohort with an identity blocker is marked
 non-runnable. Each cohort also records the same conservative three-bytes-per-token input
 estimate used by the judge worker so context overflow is discovered before any LLM call.
-The conversational judging seam adds a reversible compact projection: it selects the
-latest domain-diverse evidence per lens, preserves every omitted evidence ID and source
-projection in an omission ledger, enforces both token and Codex character limits, and
-never mutates the full dossier. Saved judge candidates can be deterministically repaired
+The conversational judging seam adds a reversible compact projection. Within each lens,
+it selects by evidence relation and final-use status before confidence and source-domain
+diversity, and prefers an unused equal-quality record across broadly mapped lenses. It
+then retains up to one distinct final-evidence record per chapter lens as a bounded
+chapter-context fallback for usable evidence whose producer supplied only chapter-level
+routing; discovery-only records cannot fill that fallback. It preserves every omitted
+evidence ID and source projection in an omission ledger, enforces both token and Codex
+character limits, and never mutates the full dossier. Saved judge candidates can be deterministically repaired
 for harmless lens-list overlap, batch-wide confidence scaling, and unknown reference
 removal; material projection-reference cases remain flagged until a separate no-search
 review clears or returns them for rejudgment.

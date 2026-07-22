@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from leaders_db.conversational_evidence import judging
 from leaders_db.conversational_evidence.judging import (
     _normalize_candidate,
+    _select_compact_evidence_ids,
     _write_summary,
     repair_saved_judgments,
     run_judges,
@@ -148,6 +149,104 @@ def test_judge_normalization_restores_trusted_identity_and_scored_review_type() 
     assert evaluation["ruler_year_id"] == 16113
     assert evaluation["manual_review_reason_type"] == "projection_integrity"
     assert "dossier:test:COD" in normalized["batch_notes"][-1]
+
+
+def test_compaction_prefers_decisive_records_over_broad_context() -> None:
+    evidence = (
+        SimpleNamespace(
+            evidence_id="E001",
+            url="https://context.example/report",
+            source_confidence="high",
+            final_evidence_use="final_evidence",
+        ),
+        SimpleNamespace(
+            evidence_id="E002",
+            url="https://primary.example/action",
+            source_confidence="medium",
+            final_evidence_use="final_evidence",
+        ),
+    )
+    mappings = tuple(
+        [
+            SimpleNamespace(
+                methodology_id=f"1B.{lens}", evidence_id="E001", relation="context"
+            )
+            for lens in range(1, 4)
+        ]
+        + [SimpleNamespace(methodology_id="1B.2", evidence_id="E002", relation="supports")]
+    )
+    source = SimpleNamespace(
+        evidence=evidence,
+        mappings=mappings,
+        methodology_ids=("1B.1", "1B.2", "1B.3"),
+    )
+
+    selected = _select_compact_evidence_ids(source, 1)
+
+    assert selected == {"E001", "E002"}
+
+
+def test_compaction_seeks_distinct_records_across_broad_equal_mappings() -> None:
+    evidence = tuple(
+        SimpleNamespace(
+            evidence_id=f"E00{index}",
+            url=f"https://source{index}.example/report",
+            source_confidence="high",
+            final_evidence_use="final_evidence",
+        )
+        for index in range(1, 4)
+    )
+    mappings = tuple(
+        SimpleNamespace(
+            methodology_id=f"1B.{lens}",
+            evidence_id=evidence_id,
+            relation="context",
+        )
+        for lens, evidence_id in ((1, "E001"), (1, "E002"), (2, "E001"), (2, "E003"), (3, "E001"))
+    )
+    source = SimpleNamespace(
+        evidence=evidence,
+        mappings=mappings,
+        methodology_ids=("1B.1", "1B.2", "1B.3"),
+    )
+
+    selected = _select_compact_evidence_ids(source, 1)
+
+    assert selected == {"E001", "E002", "E003"}
+
+
+def test_compaction_adds_final_chapter_context_but_not_discovery_padding() -> None:
+    evidence = (
+        SimpleNamespace(
+            evidence_id="E001",
+            url="https://mapped.example/report",
+            source_confidence="high",
+            final_evidence_use="final_evidence",
+        ),
+        SimpleNamespace(
+            evidence_id="E002",
+            url="https://context.example/report",
+            source_confidence="medium",
+            final_evidence_use="final_evidence",
+        ),
+        SimpleNamespace(
+            evidence_id="E003",
+            url="https://discovery.example/report",
+            source_confidence="high",
+            final_evidence_use="discovery_only",
+        ),
+    )
+    source = SimpleNamespace(
+        evidence=evidence,
+        mappings=(
+            SimpleNamespace(methodology_id="1B.1", evidence_id="E001", relation="supports"),
+        ),
+        methodology_ids=("1B.1", "1B.2"),
+    )
+
+    selected = _select_compact_evidence_ids(source, 1)
+
+    assert selected == {"E001", "E002"}
 
 
 def test_repair_saved_judgments_accepts_partial_chapter_run(
