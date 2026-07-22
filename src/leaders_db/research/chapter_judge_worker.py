@@ -383,7 +383,7 @@ def _read_candidate(path: Path) -> dict[str, Any]:
     return candidate
 
 
-def _prepare_batch(  # noqa: PLR0912
+def _prepare_batch(  # noqa: PLR0912, PLR0915
     candidate: dict[str, Any],
     *,
     job: dict[str, Any],
@@ -444,6 +444,9 @@ def _prepare_batch(  # noqa: PLR0912
             valid_evidence_ids={
                 item.evidence_id for item in projection_by_key[dossier_key].evidence
             },
+        )
+        _normalize_calibration_references(
+            evaluation, available_dossier_keys=set(dossier_by_key)
         )
         _normalize_judgment_envelope(evaluation)
         evaluation.update({
@@ -519,6 +522,27 @@ def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
         reason = "The judge returned no defensible score; see the chapter rationale."
     evaluation["insufficient_evidence_reason"] = reason
     evaluation["plausible_score_range"] = {"lower": 1, "upper": 10}
+
+
+def _normalize_calibration_references(
+    evaluation: dict[str, Any], *, available_dossier_keys: set[str]
+) -> None:
+    """Accept a singleton judge's prose sentinel without inventing a peer.
+
+    Comparative batches retain unknown references so the strict validator rejects
+    them. A one-dossier end-to-end smoke has no external ruler available, however,
+    and an explanatory string such as ``no_other_available_dossier`` carries the
+    same unambiguous meaning as an empty list.
+    """
+
+    if len(available_dossier_keys) != 1:
+        return
+    values = evaluation.get("calibrated_against")
+    if not isinstance(values, list):
+        return
+    evaluation["calibrated_against"] = list(
+        dict.fromkeys(str(value) for value in values if str(value) in available_dossier_keys)
+    )
 
 
 def _ensure_bias_assessment(

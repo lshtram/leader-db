@@ -596,6 +596,44 @@ def test_prepare_batch_rejects_self_only_calibration_and_discovery_only_evidence
         )
 
 
+def test_prepare_batch_accepts_singleton_no_peer_calibration_sentinel(
+    tmp_path: Path,
+) -> None:
+    methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
+    dossier_job = _fixture_dossier_job(
+        index=1, iso3="AAA", methodology_ids=methodology_ids
+    )
+    dossier = RulerEvidenceDossier.model_validate(
+        _dossier_payload(dossier_job, methodology_ids=methodology_ids)
+    )
+    candidate = {
+        "evaluations": [
+            _evaluation(job_key=str(dossier_job["job_key"]), iso3="AAA", score=5)
+        ],
+        "batch_notes": [],
+        "run_profile": {"usage": _unknown_usage()},
+    }
+    candidate["evaluations"][0]["calibrated_against"] = [
+        "no_other_available_dossier_in_manifest"
+    ]
+
+    batch = _prepare_batch(
+        candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(dossier_job["job_key"])],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=((tmp_path / "singleton.json", dossier),),
+        projections=_projections(
+            ((tmp_path / "singleton.json", dossier),), chapter_id="4B"
+        ),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert batch.evaluations[0].calibrated_against == ()
+
+
 def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) -> None:
     methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
     dossier_jobs = [
