@@ -23,6 +23,7 @@ from .evidence_review import (
     assess_research_notebook,
     build_evidence_review_prompt,
     evidence_review_json_schema,
+    normalize_review_evidence_references,
     validate_review_scope,
 )
 from .job_ledger import checkpoint_job
@@ -110,6 +111,7 @@ def review_and_resume_notebook_if_needed(
             timeout_seconds=timeout_seconds,
         )
         reviewed = True
+        report = normalize_review_evidence_references(report, notebook=current[1])
         try:
             validate_review_scope(
                 report,
@@ -135,6 +137,7 @@ def review_and_resume_notebook_if_needed(
                 heartbeat_seconds=heartbeat_seconds,
                 timeout_seconds=timeout_seconds,
             )
+            report = normalize_review_evidence_references(report, notebook=current[1])
             validate_review_scope(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
@@ -205,6 +208,9 @@ def review_and_resume_notebook_if_needed(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
+        final_report = normalize_review_evidence_references(
+            final_report, notebook=current[1]
+        )
         try:
             validate_review_scope(
                 final_report,
@@ -229,6 +235,9 @@ def review_and_resume_notebook_if_needed(
                 lease_seconds=lease_seconds,
                 heartbeat_seconds=heartbeat_seconds,
                 timeout_seconds=timeout_seconds,
+            )
+            final_report = normalize_review_evidence_references(
+                final_report, notebook=current[1]
             )
             validate_review_scope(
                 final_report,
@@ -940,15 +949,20 @@ def _load_evidence_review(path: Path) -> EvidenceReviewReport:
             if not isinstance(value, str):
                 normalized.append(value)
                 continue
-            match = re.fullmatch(
-                r"([1-8]B)(?:[.:].+|-(?![1-8]B(?:$|[.:-])).+)?", value
-            )
-            if match is None or match.group(1) not in reviewed_chapters:
+            parts = re.split(r"(?:\\n|[\r\n])+", value)
+            recovered = False
+            for part in parts:
+                match = re.fullmatch(
+                    r"([1-8]B)(?:[.:].+|-(?![1-8]B(?:$|[.:-])).+)?", part.strip()
+                )
+                if match is None or match.group(1) not in reviewed_chapters:
+                    continue
+                recovered = True
+                chapter_id = match.group(1)
+                if chapter_id not in normalized:
+                    normalized.append(chapter_id)
+            if not recovered:
                 normalized.append(value)
-                continue
-            chapter_id = match.group(1)
-            if chapter_id not in normalized:
-                normalized.append(chapter_id)
         payload["selected_theme_ids"] = normalized
     return EvidenceReviewReport.model_validate(payload)
 

@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — Full-review tolerant recovery
+
+- The first all-eight-chapter Putin review produced eight substantive bias assessments
+  but serialized its continuation chapters as lens IDs plus one newline-joined blob; the
+  consumer rejected the complete paid review. Review loading now recovers chapter IDs
+  from newline-joined lens output while retaining genuinely ambiguous single values as
+  invalid.
+- The same review expanded the notebook's composite `ENV-01/02` label into an unsupported
+  `ENV-02` citation. Current producers still must cite exact notebook IDs. Consumer
+  normalization now removes only the unverifiable reference and appends an explicit
+  unresolved-risk warning, preserving the rest of the assessment.
+- Sixty-seven focused review/recovery tests and Ruff pass. The rejected real artifact now
+  validates as eight selected chapters with 43 retained notebook citations and one
+  normalized citation-risk warning. The isolated full Putin job is resuming its paid
+  research checkpoint rather than repeating collection.
+
 ## 2026-07-22 — Bias-aware no-search evidence review
 
 - Every current chapter review now reports eight explicit bias checks covering search

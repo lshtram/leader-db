@@ -307,6 +307,40 @@ def test_load_evidence_review_normalizes_descriptive_theme_suffix(
     assert report.selected_theme_ids == ("1B",)
 
 
+def test_load_evidence_review_recovers_newline_joined_question_ids(tmp_path: Path) -> None:
+    path = tmp_path / "review.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_evidence_review_v1",
+                "needs_continuation": True,
+                "selected_theme_ids": [
+                    "1B.1",
+                    "1B.72026-07-22 1B.8\\n2B.1\\n3B.4",
+                ],
+                "chapter_reviews": [
+                    {
+                        "chapter_id": chapter,
+                        "defensible_evidence_estimate": 5,
+                        "independent_source_family_estimate": 3,
+                        "attribution_risk": "medium",
+                        "substantive_issues": [],
+                        "missing_themes": [],
+                    }
+                    for chapter in ("1B", "2B", "3B")
+                ],
+                "global_findings": [],
+                "reviewer_summary": "Continue.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    report = _load_evidence_review(path)
+
+    assert report.selected_theme_ids == ("1B", "2B", "3B")
+
+
 @pytest.mark.parametrize("theme_id", ["1B-2B", "2B-primary-records"])
 def test_load_evidence_review_rejects_ambiguous_or_unreviewed_theme_prefix(
     tmp_path: Path, theme_id: str

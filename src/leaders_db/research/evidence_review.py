@@ -216,18 +216,53 @@ def validate_review_scope(
         raise ValueError("evidence review differs from the selected chapter scope")
     if notebook is None:
         return
-    notebook_ids = set(re.findall(r"(?<![A-Z0-9])E\d{3,}(?![A-Z0-9])", notebook))
     referenced_ids = {
         evidence_id
         for review in report.chapter_reviews
         for evidence_id in review.bias_review.supporting_evidence_ids
     }
-    unknown_ids = sorted(referenced_ids - notebook_ids)
+    unknown_ids = sorted(
+        evidence_id
+        for evidence_id in referenced_ids
+        if re.search(
+            rf"(?<![A-Z0-9-]){re.escape(evidence_id)}(?![A-Z0-9-])", notebook
+        )
+        is None
+    )
     if unknown_ids:
         raise ValueError(
             "evidence review cites unknown notebook evidence IDs: "
             + ", ".join(unknown_ids)
         )
+
+
+def normalize_review_evidence_references(
+    report: EvidenceReviewReport, *, notebook: str
+) -> EvidenceReviewReport:
+    """Drop invented reviewer citations while retaining their uncertainty as text."""
+
+    payload = report.model_dump(mode="json")
+    changed = False
+    for review in payload["chapter_reviews"]:
+        bias = review["bias_review"]
+        retained: list[str] = []
+        dropped: list[str] = []
+        for evidence_id in bias["supporting_evidence_ids"]:
+            if re.search(
+                rf"(?<![A-Z0-9-]){re.escape(evidence_id)}(?![A-Z0-9-])", notebook
+            ):
+                retained.append(evidence_id)
+            else:
+                dropped.append(evidence_id)
+        if not dropped:
+            continue
+        changed = True
+        bias["supporting_evidence_ids"] = retained
+        bias["unresolved_risks"].append(
+            "Reviewer references absent from the notebook were removed: "
+            + ", ".join(dropped)
+        )
+    return EvidenceReviewReport.model_validate(payload) if changed else report
 
 
 def build_evidence_review_prompt(
@@ -398,5 +433,6 @@ __all__ = [
     "assess_research_notebook",
     "build_evidence_review_prompt",
     "evidence_review_json_schema",
+    "normalize_review_evidence_references",
     "validate_review_scope",
 ]

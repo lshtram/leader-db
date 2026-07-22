@@ -14,6 +14,7 @@ from leaders_db.research.evidence_review import (
     assess_research_notebook,
     build_evidence_review_prompt,
     evidence_review_json_schema,
+    normalize_review_evidence_references,
     validate_review_scope,
 )
 from leaders_db.research.model_profiles import ResearchModelProfile
@@ -210,6 +211,90 @@ def test_review_rejects_bias_reference_absent_from_notebook() -> None:
             selected_chapter_ids=("4B",),
             notebook="E001 supports the review.",
         )
+
+
+def test_review_accepts_named_notebook_context_id() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "4B",
+                    "defensible_evidence_estimate": 1,
+                    "independent_source_family_estimate": 1,
+                    "attribution_risk": "medium",
+                    "substantive_issues": [],
+                    "missing_themes": [],
+                    "bias_review": {
+                        "favorable_and_adverse_search": "Reviewed.",
+                        "closed_system_silence": "Reviewed.",
+                        "open_system_complaint_volume": "Reviewed.",
+                        "duplicate_reporting": "Reviewed.",
+                        "allegations_vs_findings": "Reviewed.",
+                        "official_claim_independence": "Reviewed.",
+                        "population_exposure_authority_baseline_shocks": "Reviewed.",
+                        "missing_source_type": "Reviewed.",
+                        "supporting_evidence_ids": ["AUTH-01"],
+                        "unresolved_risks": [],
+                    },
+                }
+            ],
+            "global_findings": [],
+            "reviewer_summary": "Review complete.",
+        }
+    )
+
+    validate_review_scope(
+        report,
+        selected_chapter_ids=("4B",),
+        notebook="Authority baseline AUTH-01 supports attribution.",
+    )
+
+
+def test_review_normalization_drops_unknown_id_and_preserves_risk() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "4B",
+                    "defensible_evidence_estimate": 1,
+                    "independent_source_family_estimate": 1,
+                    "attribution_risk": "medium",
+                    "substantive_issues": [],
+                    "missing_themes": [],
+                    "bias_review": {
+                        "favorable_and_adverse_search": "Reviewed.",
+                        "closed_system_silence": "Reviewed.",
+                        "open_system_complaint_volume": "Reviewed.",
+                        "duplicate_reporting": "Reviewed.",
+                        "allegations_vs_findings": "Reviewed.",
+                        "official_claim_independence": "Reviewed.",
+                        "population_exposure_authority_baseline_shocks": "Reviewed.",
+                        "missing_source_type": "Reviewed.",
+                        "supporting_evidence_ids": ["E001", "ENV-02"],
+                        "unresolved_risks": [],
+                    },
+                }
+            ],
+            "global_findings": [],
+            "reviewer_summary": "Review complete.",
+        }
+    )
+
+    normalized = normalize_review_evidence_references(
+        report, notebook="E001 and composite ENV-01/02 are present."
+    )
+
+    bias = normalized.chapter_reviews[0].bias_review
+    assert bias.supporting_evidence_ids == ("E001",)
+    assert bias.unresolved_risks == (
+        "Reviewer references absent from the notebook were removed: ENV-02",
+    )
 
 
 def test_evidence_review_scope_accepts_global_stop_without_chapter_rows() -> None:
