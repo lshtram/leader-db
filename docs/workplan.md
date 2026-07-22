@@ -2,6 +2,13 @@
 
 ## 2026-07-22 — Relation-aware compaction repair validated
 
+- The eight-chapter rerun exposed a tolerant-consumer defect in 3B, 4B, and 7B: the
+  judge copied Putin's stale baseline dossier key while returning the exact ruler-period
+  identity and valid new-projection evidence IDs. Normalization now rebinds a stale key
+  only when exactly one trusted projection matches every immutable identity field, then
+  filters citations against that projection. Conflicting or ambiguous identities remain
+  unrecoverable. Focused regression coverage passes; saved paid candidates can be
+  revalidated without another model call.
 - Replaced recency-only per-lens selection with deterministic semantic selection:
   supporting or contradicting final evidence outranks mitigating and contextual records,
   with confidence and source-domain diversity used inside each semantic tier.

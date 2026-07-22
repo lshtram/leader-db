@@ -855,7 +855,9 @@ routing; discovery-only records cannot fill that fallback. It preserves every om
 evidence ID and source projection in an omission ledger, enforces both token and Codex
 character limits, and never mutates the full dossier. Saved judge candidates can be deterministically repaired
 for harmless lens-list overlap, batch-wide confidence scaling, and unknown reference
-removal; material projection-reference cases remain flagged until a separate no-search
+removal. A stale dossier key may be rebound before citation filtering only when exactly
+one trusted cohort projection matches all immutable ruler-period identity fields;
+ambiguous or conflicting identities remain blocked. Material projection-reference cases remain flagged until a separate no-search
 review clears or returns them for rejudgment.
 Chapter subsets can be rerun under distinct run keys without replacing the original
 eight-chapter batch. A release-owned judgment-selection manifest chooses explicit

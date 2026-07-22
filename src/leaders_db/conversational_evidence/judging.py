@@ -492,7 +492,7 @@ def _normalize_candidate(
             continue
         if normalize_confidence:
             evaluation["confidence_score"] = round(float(evaluation["confidence_score"]) * 100, 6)
-        projection = projection_by_key.get(str(evaluation.get("dossier_job_key")))
+        projection = _resolve_trusted_projection(evaluation, projection_by_key)
         if projection is not None and _restore_trusted_identity(evaluation, projection):
             normalized_identity_keys.append(projection.job_key)
         _normalize_scored_review_reason(evaluation)
@@ -544,6 +544,7 @@ def _restore_trusted_identity(
     """Restore immutable identity fields when the exact dossier key is already trusted."""
 
     immutable = {
+        "dossier_job_key": projection.job_key,
         "iso3": projection.iso3,
         "ruler_id": projection.ruler_id,
         "ruler_year_id": projection.ruler_year_id,
@@ -555,6 +556,32 @@ def _restore_trusted_identity(
     changed = any(evaluation.get(field) != value for field, value in immutable.items())
     evaluation.update(immutable)
     return changed
+
+
+def _resolve_trusted_projection(
+    evaluation: dict[str, Any],
+    projection_by_key: dict[str, RulerChapterProjection],
+) -> RulerChapterProjection | None:
+    """Resolve stale keys only through one exact immutable ruler-period identity."""
+
+    keyed = projection_by_key.get(str(evaluation.get("dossier_job_key")))
+    if keyed is not None:
+        return keyed
+    identity_fields = (
+        "iso3",
+        "ruler_id",
+        "ruler_year_id",
+        "ruler_name",
+        "period_start_year",
+        "period_end_year",
+        "chapter_id",
+    )
+    matches = [
+        projection
+        for projection in projection_by_key.values()
+        if all(evaluation.get(field) == getattr(projection, field) for field in identity_fields)
+    ]
+    return matches[0] if len(matches) == 1 else None
 
 
 def _normalize_scored_review_reason(evaluation: dict[str, Any]) -> None:

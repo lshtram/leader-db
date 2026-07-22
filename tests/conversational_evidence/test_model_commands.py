@@ -151,6 +151,47 @@ def test_judge_normalization_restores_trusted_identity_and_scored_review_type() 
     assert "dossier:test:COD" in normalized["batch_notes"][-1]
 
 
+def test_judge_normalization_rebinds_unique_stale_key_before_citation_filtering() -> None:
+    projection = SimpleNamespace(
+        job_key="dossier:new:RUS",
+        evidence=(SimpleNamespace(evidence_id="E001"),),
+        iso3="RUS",
+        ruler_id="2759",
+        ruler_year_id=15706,
+        ruler_name="Vladimir Putin",
+        period_start_year=2022,
+        period_end_year=2022,
+        chapter_id="3B",
+    )
+    candidate = {
+        "batch_notes": [],
+        "evaluations": [
+            {
+                "dossier_job_key": "dossier:stale:RUS",
+                "iso3": "RUS",
+                "ruler_id": "2759",
+                "ruler_year_id": 15706,
+                "ruler_name": "Vladimir Putin",
+                "period_start_year": 2022,
+                "period_end_year": 2022,
+                "chapter_id": "3B",
+                "supported_lenses": [],
+                "missing_or_weak_lenses": [],
+                "decisive_negative_evidence": [
+                    {"evidence_id": "E001", "explanation": "Direct adverse conduct."}
+                ],
+            }
+        ],
+    }
+
+    normalized = _normalize_candidate(candidate, "3B", ((Path("fixture"), projection),))
+
+    evaluation = normalized["evaluations"][0]
+    assert evaluation["dossier_job_key"] == "dossier:new:RUS"
+    assert evaluation["decisive_negative_evidence"][0]["evidence_id"] == "E001"
+    assert "dossier:new:RUS" in normalized["batch_notes"][-1]
+
+
 def test_compaction_prefers_decisive_records_over_broad_context() -> None:
     evidence = (
         SimpleNamespace(
