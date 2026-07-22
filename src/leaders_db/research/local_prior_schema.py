@@ -25,6 +25,8 @@ NUCLEAR_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "nuclear_operational_strategic",
     "nuclear_operational_nonstrategic",
     "nuclear_reserve_nondeployed",
+    "nuclear_deployed_warheads",
+    "nuclear_retired_warheads",
 )
 
 INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS: tuple[str, ...] = (

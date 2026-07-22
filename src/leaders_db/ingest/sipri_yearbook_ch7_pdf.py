@@ -327,6 +327,11 @@ def read_table_7_1(pdf_path: Path) -> list[dict[str, object]]:
 
             for page_idx in range(scan_pages):
                 page = pdf.pages[page_idx]
+                layout_text = page.extract_text(layout=True) or ""
+                if "Table 7.1." in layout_text:
+                    layout_rows = _parse_layout_table_7_1(layout_text)
+                    if layout_rows:
+                        return layout_rows
                 # ``lines`` strategy first (most robust for Adobe
                 # InDesign-rendered tables); fall back to ``text``
                 # if ``lines`` returns 0 tables.
@@ -387,3 +392,54 @@ def read_table_7_1(pdf_path: Path) -> list[dict[str, object]]:
         raise ValueError(
             f"Failed to read Table 7.1 from {pdf_path}: {exc}"
         ) from exc
+
+
+_LAYOUT_COUNTRIES = (
+    "United States",
+    "United Kingdom",
+    "North Korea",
+    "Pakistan",
+    "Russia",
+    "France",
+    "China",
+    "India",
+    "Israel",
+    "Total",
+)
+_LAYOUT_CELL_RE = re.compile(
+    r"(?:\d{4}|\d{1,3}(?:\s\d{3})*|–|\.\s*\.)\s*[a-z]?"
+)
+
+
+def _parse_layout_table_7_1(text: str) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        country = next(
+            (name for name in _LAYOUT_COUNTRIES if stripped.startswith(f"{name} ")),
+            None,
+        )
+        if country is None:
+            continue
+        cells = [item.strip().replace(". .", "..") for item in _LAYOUT_CELL_RE.findall(
+            stripped[len(country) :]
+        )]
+        expected = 5 if country == "Total" else 6
+        if len(cells) != expected:
+            plain_tokens = stripped[len(country) :].split()
+            if len(plain_tokens) == expected:
+                cells = plain_tokens
+        if len(cells) != expected:
+            continue
+        year_cell = None if country == "Total" else cells.pop(0)
+        row: dict[str, object] = {"country": country}
+        if year_cell is not None:
+            row["year_first_test"] = (
+                int(year_cell) if year_cell.isdigit() else year_cell
+            )
+        for key, cell in zip(_NUMERIC_COL_KEYS, cells, strict=True):
+            value, raw_value = _coerce_cell_to_int(cell)
+            row[key] = value
+            row[f"raw_value_{key}"] = raw_value
+        rows.append(row)
+    return rows

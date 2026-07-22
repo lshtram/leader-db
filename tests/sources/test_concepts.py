@@ -128,6 +128,8 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "nuclear_operational_strategic",
     "nuclear_operational_nonstrategic",
     "nuclear_reserve_nondeployed",
+    "nuclear_deployed_warheads",
+    "nuclear_retired_warheads",
     "military_spend_constant_usd",
     "military_spend_per_capita",
     "military_spend_share_gdp",
@@ -255,11 +257,13 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_MILITARY_SPEND_PER_CAPITA,
         CONCEPT_MILITARY_SPEND_SHARE_GDP,
         CONCEPT_MILITARY_SPEND_SHARE_GOVT,
-        CONCEPT_MULTIPARTY_INSTITUTIONS,
+            CONCEPT_MULTIPARTY_INSTITUTIONS,
+            CONCEPT_NUCLEAR_DEPLOYED,
         CONCEPT_NUCLEAR_MILITARY_STOCKPILE,
         CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
         CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
-        CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+            CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+            CONCEPT_NUCLEAR_RETIRED,
         CONCEPT_NUCLEAR_TOTAL_INVENTORY,
         CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
         CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
@@ -352,7 +356,9 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_NUCLEAR_MILITARY_STOCKPILE,
         CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
         CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
-        CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+            CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+            CONCEPT_NUCLEAR_DEPLOYED,
+            CONCEPT_NUCLEAR_RETIRED,
         CONCEPT_MILITARY_SPEND_CONSTANT_USD,
         CONCEPT_MILITARY_SPEND_PER_CAPITA,
         CONCEPT_MILITARY_SPEND_SHARE_GDP,
@@ -1153,6 +1159,40 @@ def test_extract_concept_nuclear_risk_direct_mappings() -> None:
     assert rows[0].country_name == "United States"
     assert rows[0].source_indicator_codes == (FAS_TOTAL_INVENTORY_INDICATOR_CODE,)
     assert rows[0].value == 5244
+
+
+def test_extract_concept_sipri_yearbook_nuclear_mappings() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_NUCLEAR_DEPLOYED,
+        CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+        SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE,
+        SIPRI_YEARBOOK_CH7_SOURCE_KEY,
+        SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY,
+            indicator_code=indicator,
+            value=value,
+            year=2024,
+            country_code=None,
+            country_name="Russia",
+        )
+        for indicator, value in (
+            (SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE, 5580),
+            (SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE, 1710),
+        )
+    ]
+
+    total = extract_concept(observations, CONCEPT_NUCLEAR_TOTAL_INVENTORY)
+    deployed = extract_concept(observations, CONCEPT_NUCLEAR_DEPLOYED)
+
+    assert [(row.value, row.source_id.slug) for row in total] == [
+        (5580, SIPRI_YEARBOOK_CH7_SOURCE_KEY)
+    ]
+    assert [row.value for row in deployed] == [1710]
 
 
 def test_extract_concept_maddison_direct_gdp_per_capita_preserves_indicator() -> None:

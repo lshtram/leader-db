@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — SIPRI Yearbook nuclear facts ingested and routed
+
+- Repaired the clean Yearbook adapter against the staged official 97-page 2024 chapter.
+  The prior parser only inspected the first extracted table row and failed on the real
+  InDesign page; it now locates Table 7.1 in layout text and correctly parses spaced
+  thousands, footnotes, compound country names, sentinels, and the aggregate row.
+- Live ingestion validates and persists 27 observations for nine nuclear-armed states.
+  Added concepts for total inventory, deployed warheads, and retired warheads; live
+  publication creates 27 country-year facts (22 numeric, 5 explicit missing reviews).
+- Chapter 1B local mappings now include deployed and retired estimates. Post-target
+  snapshots remain excluded: the 2024 facts do not enter a 2022 dossier. FAS 2014 facts
+  remain available with their temporal-fit limitation; official 2022 Yearbook/treaty
+  history and IAEA/CTBTO/UNODA raw acquisition remain outstanding.
+- The complete SIPRI legacy/clean/concept/fact test slice passes, including a regression
+  for the live layout. No non-exposure fact is converted into favorable conduct or score.
+
 ## 2026-07-22 — Controlled peer-comparison engine implemented; routing pending
 
 - Added an explicit five-kind peer contract (geographic region, income group, regime

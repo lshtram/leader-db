@@ -97,6 +97,8 @@ CONCEPT_NUCLEAR_MILITARY_STOCKPILE: str = "nuclear_military_stockpile"
 CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC: str = "nuclear_operational_strategic"
 CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC: str = "nuclear_operational_nonstrategic"
 CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED: str = "nuclear_reserve_nondeployed"
+CONCEPT_NUCLEAR_DEPLOYED: str = "nuclear_deployed_warheads"
+CONCEPT_NUCLEAR_RETIRED: str = "nuclear_retired_warheads"
 CONCEPT_MILITARY_SPEND_CONSTANT_USD: str = "military_spend_constant_usd"
 CONCEPT_MILITARY_SPEND_PER_CAPITA: str = "military_spend_per_capita"
 CONCEPT_MILITARY_SPEND_SHARE_GDP: str = "military_spend_share_gdp"
@@ -170,6 +172,8 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
     CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
     CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+    CONCEPT_NUCLEAR_DEPLOYED,
+    CONCEPT_NUCLEAR_RETIRED,
     CONCEPT_MILITARY_SPEND_CONSTANT_USD,
     CONCEPT_MILITARY_SPEND_PER_CAPITA,
     CONCEPT_MILITARY_SPEND_SHARE_GDP,
@@ -191,6 +195,7 @@ RSF_PRESS_FREEDOM_SOURCE_KEY: str = "rsf_press_freedom"
 FREEDOM_HOUSE_SOURCE_KEY: str = "freedom_house"
 UCDP_SOURCE_KEY: str = "ucdp"
 FAS_SOURCE_KEY: str = "fas"
+SIPRI_YEARBOOK_CH7_SOURCE_KEY: str = "sipri_yearbook_ch7"
 WGI_SOURCE_KEY: str = "world_bank_wgi"
 TRANSPARENCY_CPI_SOURCE_KEY: str = "transparency_cpi"
 BTI_SOURCE_KEY: str = "bti"
@@ -319,6 +324,15 @@ FAS_MILITARY_STOCKPILE_INDICATOR_CODE: str = "fas_military_stockpile"
 FAS_OPERATIONAL_STRATEGIC_INDICATOR_CODE: str = "fas_operational_strategic"
 FAS_OPERATIONAL_NONSTRATEGIC_INDICATOR_CODE: str = "fas_operational_nonstrategic"
 FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE: str = "fas_reserve_nondeployed"
+SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE: str = (
+    "sipri_yearbook_ch7_nuclear_warheads_total_inventory"
+)
+SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE: str = (
+    "sipri_yearbook_ch7_nuclear_warheads_deployed"
+)
+SIPRI_YEARBOOK_CH7_RETIRED_INDICATOR_CODE: str = (
+    "sipri_yearbook_ch7_nuclear_warheads_retired"
+)
 
 # SIPRI Military Expenditure Database indicators.
 SIPRI_MILEX_SOURCE_KEY: str = "sipri_milex"
@@ -714,6 +728,16 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
             display_name="Reserve/nondeployed nuclear warheads",
             description="FAS country-year reserve or nondeployed nuclear warhead estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_NUCLEAR_DEPLOYED,
+            display_name="Deployed nuclear warheads",
+            description="SIPRI country-year deployed nuclear warhead estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_NUCLEAR_RETIRED,
+            display_name="Retired nuclear warheads",
+            description="SIPRI country-year retired nuclear warhead estimate.",
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_MILITARY_SPEND_CONSTANT_USD,
@@ -1247,6 +1271,24 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             source_id=SourceId(slug=FAS_SOURCE_KEY),
             mapping_type="direct",
             indicator_codes=(FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+            source_id=SourceId(slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_NUCLEAR_DEPLOYED,
+            source_id=SourceId(slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_NUCLEAR_RETIRED,
+            source_id=SourceId(slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_YEARBOOK_CH7_RETIRED_INDICATOR_CODE,),
         ),
         # --- SIPRI military expenditure mappings -----------------------
         ConceptMapping(
