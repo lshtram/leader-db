@@ -56,6 +56,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-SRC-007E**: EIU Democracy Index overall and component measures shall preserve their source-native semantics and report year. The composite and components are one correlated source family, not independent corroborating sources. Rank, rank change, and categorical regime labels shall not be coerced into numeric score concepts without an explicit semantic contract.
 - **REQ-SRC-007F**: PWT observations shall preserve source scale and variable semantics: GDP, consumption, and domestic absorption are millions of 2017 USD at chained PPPs; population and employment are millions of persons; `rkna` is a 2017=1 capital-stock index; and `cda` is real domestic absorption, not capital depreciation. Employment counts must not be interpreted as unemployment rates.
 - **REQ-SRC-007G**: Local-prior CLI requests carrying a leader ID shall resolve and expose that leader's accession year when ruler-spell data are available. Pre-accession observations must be labelled as baseline context rather than tenure; inability to resolve accession shall remain non-fatal and explicit.
+- **REQ-SRC-007H**: World Bank WDI Gini observations shall retain the source-native 0-100 index-point scale. They must not be labelled as 0-1 values unless an explicit, traceable normalization transformation has been applied.
 - **REQ-SRC-008**: Nuclear / global responsibility sources shall include FAS nuclear forces, SIPRI nuclear forces / military expenditure, NTI country profiles.
 
 ### Database schema (§7)

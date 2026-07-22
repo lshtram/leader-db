@@ -1,5 +1,14 @@
 # Workplan
 
+## 2026-07-22 — WDI Gini scale repair
+
+- Corrected the WDI catalog and clean-adapter fallback from a false `0-1` Gini unit
+  to the World Bank's source-native `index points (0-100)` scale. The raw value is
+  unchanged; any later 0-1 normalization must remain a separate audited transform.
+- Reingested the staged WDI bundle. Russia 2022 now persists as `33.9 index points
+  (0-100)` under the same stable observation ID, rather than the misleading
+  `33.9 0-1` combination. Adapter and legacy-ingest regression suites pass.
+
 ## 2026-07-22 — PWT longitudinal economic-context routing
 
 - Added seven direct, source-native PWT concepts for persons engaged, annual hours,

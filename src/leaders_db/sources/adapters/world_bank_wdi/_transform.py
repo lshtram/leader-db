@@ -133,7 +133,7 @@ _DEFAULT_INDICATOR_UNITS: dict[str, str] = {
     "wdi_literacy_rate_adult": "% of people 15+",
     "wdi_secondary_school_enrollment": "% gross",
     "wdi_under5_mortality_per_1000": "per 1k live births",
-    "wdi_gini_index": "0-1",
+    "wdi_gini_index": "index points (0-100)",
 }
 
 

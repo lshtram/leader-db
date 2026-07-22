@@ -75,6 +75,14 @@ from typing import TYPE_CHECKING, Any
 
 import pytest
 
+
+def test_wdi_gini_uses_source_native_0_to_100_scale() -> None:
+    from leaders_db.sources.adapters.world_bank_wdi._transform import (
+        _DEFAULT_INDICATOR_UNITS,
+    )
+
+    assert _DEFAULT_INDICATOR_UNITS["wdi_gini_index"] == "index points (0-100)"
+
 if TYPE_CHECKING:
     # Imported under TYPE_CHECKING so the annotations resolve
     # without binding module-level class references; tests that
