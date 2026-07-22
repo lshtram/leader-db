@@ -68,18 +68,20 @@ def derive_longitudinal_signals(
         grouped[fact.field_key].append(fact)
 
     signals: list[LocalLongitudinalSignal] = []
-    for index, (field_key, rows) in enumerate(sorted(grouped.items()), start=1):
+    for field_key, rows in sorted(grouped.items()):
         rows.sort(key=lambda item: item.year)
-        target_year = max(item.year for item in rows if item.period_role == "target")
+        target_rows = [item for item in rows if item.period_role == "target"]
+        if not target_rows:
+            continue
+        index = len(signals) + 1
+        target_year = max(item.year for item in target_rows)
         values_by_year = {item.year: float(item.value) for item in rows}
         target_value = values_by_year.get(target_year)
         pre_rows = [item for item in rows if item.period_role == "pre_accession"]
         tenure_rows = [item for item in rows if item.period_role in {"tenure", "target"}]
         pre_trend = _slope(pre_rows)
         tenure_trend = _slope(tenure_rows)
-        recent_trend = _slope(
-            [item for item in tenure_rows if item.year >= target_year - 3]
-        )
+        recent_trend = _slope([item for item in tenure_rows if item.year >= target_year - 3])
         signals.append(
             LocalLongitudinalSignal(
                 signal_id=f"LS{index:03d}",
@@ -95,9 +97,7 @@ def derive_longitudinal_signals(
                 pre_accession_trend_per_year=pre_trend,
                 tenure_trend_per_year=tenure_trend,
                 tenure_minus_inherited_trend=(
-                    None
-                    if pre_trend is None or tenure_trend is None
-                    else tenure_trend - pre_trend
+                    None if pre_trend is None or tenure_trend is None else tenure_trend - pre_trend
                 ),
                 recent_three_year_trend_per_year=recent_trend,
                 acceleration_vs_tenure_trend=(
@@ -157,16 +157,18 @@ def _slope(rows: Sequence[LocalPriorFact]) -> float | None:
     denominator = sum((year - mean_year) ** 2 for year in years)
     if denominator == 0:
         return None
-    return sum(
-        (year - mean_year) * (value - mean_value)
-        for year, value in zip(years, values, strict=True)
-    ) / denominator
+    return (
+        sum(
+            (year - mean_year) * (value - mean_value)
+            for year, value in zip(years, values, strict=True)
+        )
+        / denominator
+    )
 
 
 def _cumulative_value(field_key: str, rows: Sequence[LocalPriorFact]) -> float | None:
     if not (
-        field_key.endswith(("_events", "_fatalities"))
-        or field_key == "military_spend_constant_usd"
+        field_key.endswith(("_events", "_fatalities")) or field_key == "military_spend_constant_usd"
     ):
         return None
     return sum(float(item.value) for item in rows)

@@ -65,3 +65,11 @@ def test_longitudinal_signal_leaves_missing_exact_change_null() -> None:
         "5_year": None,
         "10_year": None,
     }
+
+
+def test_longitudinal_signal_skips_series_without_target_observation() -> None:
+    signals = derive_longitudinal_signals(
+        (_fact(2017, 10.0, "tenure"), _fact(2018, 12.0, "tenure"))
+    )
+
+    assert signals == ()

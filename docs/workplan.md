@@ -1,5 +1,17 @@
 # Workplan
 
+## 2026-07-23 — Longitudinal derivation tolerates honest target-year gaps
+
+- Biden's second contrast preflight exposed a series with valid historical observations
+  but no exact 2022 target row. The derivation called `max()` on an empty target set and
+  stopped the entire dossier before model execution.
+- Longitudinal summaries now skip only that derived series when no exact target exists;
+  the underlying historical facts remain in the package with their real years. The code
+  does not relabel the latest old value as the target year or invent a proxy.
+- Regression coverage proves an all-tenure series produces no derived signal while normal
+  exact-target series remain reconstructable. The failed Biden job can be retried without
+  repeating any paid research.
+
 ## 2026-07-23 — Contrast-pilot preflight fixed optional-confidence rejection
 
 - The first Biden 2022 full-dossier attempt stopped before model execution because a
