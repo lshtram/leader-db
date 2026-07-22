@@ -298,6 +298,9 @@ no local fields; that is an actionable narrative-research gap, not pipeline fail
 The same boundary applies to 7B/8B: country corruption and capacity indicators are
 available only as institutional/scrutiny/implementation context and never substitute
 for personal nexus, program identification, ruler ownership, or causal execution.
+Chapter 4B similarly separates election, opposition, constraint, media, equality,
+succession, and trajectory fields so each lens receives only semantically relevant
+country context; specific ruler conduct remains a narrative attribution question.
 
 | Category | Primary structured sources | Current implementation state | Notes |
 |---|---|---|---|

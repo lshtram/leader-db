@@ -239,6 +239,38 @@ SOCIAL_DISTRIBUTION_FIELDS = _local_fields(
     "wdi_secondary_school_enrollment",
 )
 
+POLITICAL_ELECTION_FIELDS = _local_fields(
+    "eiu_democracy_overall_score",
+    "eiu_electoral_process_pluralism",
+    "polity_composite_score",
+    "polity_democracy_score",
+    "polity_autocracy_score",
+    "political_liberties",
+    "civil_liberties",
+    "electoral_democracy",
+    "suffrage",
+    "multiparty_institutions",
+    "regime_type",
+    "bti_democracy_status",
+)
+POLITICAL_CONSTRAINT_FIELDS = _local_fields(
+    "eiu_functioning_government",
+    "polity_executive_constraints",
+    "rule_of_law",
+    "wgi_rule_of_law",
+    "accountability",
+    "judicial_constraints",
+    "legislative_constraints",
+)
+POLITICAL_MEDIA_FIELDS = _local_fields(
+    "eiu_civil_liberties",
+    "civil_liberties",
+    "freedom_expression",
+    "press_freedom_score",
+    "press_freedom_rank",
+    "voice_and_accountability",
+)
+
 
 @dataclass(frozen=True)
 class LocalPriorMapping:
@@ -275,9 +307,12 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=tuple(item for item in _chapter_methodology_ids("4B") if item != "4B.3"),
-        field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
-        mapping_note="Political-freedom D11 country-year facts usable as structured priors.",
+        methodology_ids=("4B.1", "4B.2"),
+        field_keys=POLITICAL_ELECTION_FIELDS,
+        mapping_note=(
+            "Election and regime measures contextualize contestability; they do not "
+            "establish ruler intent or a specific manipulation."
+        ),
     ),
     LocalPriorMapping(
         methodology_ids=("4B.3",),
@@ -286,6 +321,71 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
             "D11 civil-liberties, expression, association, press/media, voice, "
             "accountability, and rule-of-law facts usable as structured priors for "
             "opposition/media/protest/civil-society tolerance."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.4",),
+        field_keys=POLITICAL_CONSTRAINT_FIELDS,
+        mapping_note=(
+            "Constraint and rule-of-law measures contextualize institutional independence; "
+            "ruler-specific strengthening or interference still needs narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.5",),
+        field_keys=(
+            "regime_type",
+            "multiparty_institutions",
+            "accountability",
+            "polity_regime_durability",
+        ),
+        mapping_note=(
+            "Regime and party-system measures are context, not direct proof of personality "
+            "cult, loyalty tests, intimidation, or state politicization."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.6", "4B.9"),
+        field_keys=POLITICAL_MEDIA_FIELDS,
+        mapping_note=(
+            "Media, expression, and voice measures contextualize information controls; "
+            "specific censorship, propaganda, surveillance, or harassment needs evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.7",),
+        field_keys=(
+            "suffrage",
+            "political_liberties",
+            "civil_liberties",
+            "freedom_association",
+            "eiu_political_participation",
+        ),
+        mapping_note=(
+            "National participation and liberty averages require group-specific evidence "
+            "before supporting political-equality claims."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.8",),
+        field_keys=(
+            "polity_composite_score",
+            "polity_regime_durability",
+            "electoral_democracy",
+            "multiparty_institutions",
+            "regime_type",
+        ),
+        mapping_note=(
+            "Regime trajectory contextualizes succession but cannot establish compliance "
+            "with term limits, coalition promises, or constitutional transfer."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.10",),
+        field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "The full longitudinal political-freedom bundle supports inherited-versus-left "
+            "trajectory analysis without automatic ruler attribution."
         ),
     ),
     LocalPriorMapping(

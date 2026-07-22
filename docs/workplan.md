@@ -1,5 +1,17 @@
 # Workplan
 
+## 2026-07-22 — Political-freedom lens routing
+
+- Split 4B structured priors by question: election/regime facts for contestability,
+  opposition and civil-society facts for tolerance, constraint/rule-of-law facts for
+  institutional independence, press/expression facts for media and information
+  controls, participation/liberty facts for political equality, and regime trajectory
+  facts for succession. Only 4B.10 receives the full longitudinal bundle.
+- Mapping notes prohibit national indexes from proving specific manipulation,
+  censorship, surveillance, personality cult, succession violation, or ruler intent.
+- Live Putin 2022 packages demonstrate focused volumes: 293 facts for 4B.1, 184 for
+  4B.4, 133 for 4B.6, 150 for 4B.8, and 699 for the full 4B.10 trajectory lens.
+
 ## 2026-07-22 — Personal-nexus and effectiveness lens routing
 
 - Restricted chapter 7B national corruption/governance facts to scrutiny,

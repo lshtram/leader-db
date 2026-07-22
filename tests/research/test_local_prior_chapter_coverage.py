@@ -219,6 +219,19 @@ def test_integrity_and_effectiveness_preserve_personal_attribution_boundaries() 
     assert "government_effectiveness" in implementation_context.field_keys
 
 
+def test_political_freedom_lenses_do_not_receive_identical_bundles() -> None:
+    elections = mapping_for_methodology_id("4B.1")
+    institutions = mapping_for_methodology_id("4B.4")
+    media = mapping_for_methodology_id("4B.6")
+    trajectory = mapping_for_methodology_id("4B.10")
+
+    assert elections is not None and "eiu_electoral_process_pluralism" in elections.field_keys
+    assert institutions is not None and "judicial_constraints" in institutions.field_keys
+    assert media is not None and "press_freedom_score" in media.field_keys
+    assert trajectory is not None
+    assert len(trajectory.field_keys) > len(elections.field_keys)
+
+
 def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)
