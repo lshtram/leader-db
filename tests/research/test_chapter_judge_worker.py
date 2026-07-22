@@ -179,6 +179,14 @@ def test_null_judgment_requires_full_uncertainty_range() -> None:
     assert judgment.score_1_to_10 is None
 
 
+def test_judgment_requires_explicit_bias_safeguards() -> None:
+    evaluation = _evaluation(job_key="dossier", iso3="NZL", score=7.0)
+    del evaluation["bias_assessment"]["report_volume_not_used_as_severity"]
+
+    with pytest.raises(ValueError, match="report_volume_not_used_as_severity"):
+        RulerChapterJudgment.model_validate(evaluation)
+
+
 def test_normalize_judgment_envelope_repairs_only_explicit_contract_fields() -> None:
     evaluation: dict[str, object] = {
         "score_1_to_10": None,
@@ -394,6 +402,8 @@ profiles:
             dossier_job_keys=dossier_job_keys,
             iso3s=("AAA", "AAA"),
         )
+        for evaluation in candidate["evaluations"]:
+            del evaluation["bias_assessment"]
         result_path.write_text(json.dumps(candidate), encoding="utf-8")
         kwargs["events_path"].write_text(
             json.dumps(
@@ -428,8 +438,7 @@ profiles:
         result_path=result_path,
     )
 
-    assert completed["status"] == "completed"
-    assert batch.run_profile.usage.total_tokens == 1500
+    _assert_tolerant_bias_persistence(completed, batch)
     with engine.connect() as conn:
         rows = conn.execute(
             text(
@@ -774,6 +783,7 @@ def _dossier_payload(
             }
             for methodology_id in methodology_ids
         ],
+        "evidence_environment": _evidence_environment(),
         "run_profile": {
             "provider_profile": "fixture",
             "provider": "openai",
@@ -875,6 +885,7 @@ def _evaluation(*, job_key: str, iso3: str, score: float) -> dict[str, object]:
         "contrary_evidence": [],
         "source_mix": "One fixture primary source.",
         "structured_prior_summary": "Fixture prior summary.",
+        "bias_assessment": _bias_assessment(),
         "chapter_rationale": "Fits the selected comparative anchor.",
         "lower_anchor_rejected": "Too harsh for the documented record.",
         "higher_anchor_rejected": "Too generous given the evidence gap.",
@@ -920,4 +931,48 @@ def _unknown_usage() -> dict[str, str]:
         "output_tokens": "unknown_not_exposed_by_tool",
         "total_tokens": "unknown_not_exposed_by_tool",
         "estimated_cost_usd": "unknown_not_exposed_by_tool",
+    }
+
+
+def _assert_tolerant_bias_persistence(completed: dict[str, object], batch: object) -> None:
+    assert completed["status"] == "completed"
+    assert batch.run_profile.usage.total_tokens == 1500
+    assert all(item.confidence_score == 50 for item in batch.evaluations)
+    assert all(
+        not item.bias_assessment.report_volume_not_used_as_severity
+        for item in batch.evaluations
+    )
+
+
+def _evidence_environment() -> dict[str, object]:
+    return {
+        "criticism_possible": "Criticism was possible but the fixture record is thin.",
+        "censorship_and_self_censorship": "No censorship conclusion beyond E001.",
+        "safe_reporting_channels": "Formal reporting channels existed in the fixture.",
+        "official_statistics_reliability": "No statistics are used in this fixture.",
+        "languages_and_archives_searched": ["English fixture archive"],
+        "source_concentration": "The record is concentrated in one official source.",
+        "duplicate_event_risk": "Only one underlying fact is present.",
+        "complaint_volume_interpretation": "Volume is not treated as conduct severity.",
+        "relevant_denominators": "Population and exposure are not measured here.",
+        "inherited_conditions_shocks_and_authority": "Authority is direct in the fixture.",
+        "chapter_specific_biases": ["Official-source concentration"],
+        "supporting_evidence_ids": ["E001"],
+    }
+
+
+def _bias_assessment() -> dict[str, object]:
+    return {
+        "material_biases": [
+            {
+                "bias": "Official-source concentration",
+                "supporting_evidence_ids": ["E001"],
+                "likely_direction": "favors_ruler",
+                "interpretation_effect": "The official claim receives limited weight.",
+            }
+        ],
+        "confidence_and_range_effect": "Confidence is lower and the range is wider.",
+        "remaining_uncertainty": "Independent corroboration remains absent.",
+        "report_volume_not_used_as_severity": True,
+        "no_blanket_regime_correction": True,
     }

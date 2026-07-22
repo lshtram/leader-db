@@ -510,6 +510,14 @@ against that dossier. The immutable batch artifact records model and token usage
 all `chapter_scores` rows and ledger completion commit atomically under the active
 lease token, preventing stale or partial publication.
 
+Each validated dossier also carries a cited twelve-part evidence-environment
+assessment. Chapter projection preserves that assessment verbatim, and the judge
+must return a structured bias assessment whose supporting IDs resolve within the
+same projection. Current producers use strict schemas. Consumer-side normalization
+keeps usable incomplete or legacy artifacts judgeable by marking omitted assessments
+unresolved, capping confidence, and widening ranges; cross-dossier references and
+genuinely unusable inputs remain validation errors.
+
 Dossier research uses the versioned controls in `configs/research-workflow.yaml`.
 Before research, parent-side `local_structured_prior_v2` extraction covers every
 selected lens across all eight chapters and persists the complete hashed artifact.

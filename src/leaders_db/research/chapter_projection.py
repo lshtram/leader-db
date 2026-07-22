@@ -17,6 +17,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from .dossier_models import (
     DossierEvidence,
     DossierLocalPrior,
+    EvidenceEnvironmentAssessment,
     EvidenceQuestionMapping,
     QuestionCoverage,
     RulerEvidenceDossier,
@@ -67,6 +68,7 @@ class RulerChapterProjection(BaseModel):
     mappings: tuple[EvidenceQuestionMapping, ...]
     coverage: tuple[QuestionCoverage, ...] = Field(min_length=10, max_length=10)
     local_priors: tuple[DossierLocalPrior, ...] = Field(min_length=10, max_length=10)
+    evidence_environment: EvidenceEnvironmentAssessment
     unresolved_gaps: tuple[str, ...]
     contextual_discovery_only_evidence_ids: tuple[str, ...] = ()
     run_provenance: ChapterRunProvenance
@@ -219,6 +221,7 @@ def build_ruler_chapter_projection(
         "mappings": mappings,
         "coverage": coverage,
         "local_priors": local_priors,
+        "evidence_environment": dossier.evidence_environment,
         "unresolved_gaps": dossier.unresolved_gaps,
         "contextual_discovery_only_evidence_ids": tuple(sorted(discovery_relations)),
         "run_provenance": ChapterRunProvenance(

@@ -51,6 +51,39 @@ class PlausibleScoreRange(BaseModel):
         return self
 
 
+class MaterialBiasFinding(BaseModel):
+    """One material evidence distortion considered by the chapter judge."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    bias: str = Field(min_length=1)
+    supporting_evidence_ids: tuple[str, ...] = Field(min_length=1)
+    likely_direction: Literal[
+        "favors_ruler", "harms_ruler", "mixed", "uncertain"
+    ]
+    interpretation_effect: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _validate_support_ids(self) -> MaterialBiasFinding:
+        if len(self.supporting_evidence_ids) != len(set(self.supporting_evidence_ids)):
+            raise ValueError("bias support IDs must be unique")
+        if any(not item.startswith("E") for item in self.supporting_evidence_ids):
+            raise ValueError("bias findings must cite dossier evidence IDs")
+        return self
+
+
+class BiasAssessment(BaseModel):
+    """Auditable interpretation of reporting and comparison bias."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    material_biases: tuple[MaterialBiasFinding, ...] = Field(min_length=1)
+    confidence_and_range_effect: str = Field(min_length=1)
+    remaining_uncertainty: str = Field(min_length=1)
+    report_volume_not_used_as_severity: bool
+    no_blanket_regime_correction: bool
+
+
 class RulerChapterJudgment(BaseModel):
     """One holistic chapter score for one ruler-period dossier."""
 
@@ -80,6 +113,7 @@ class RulerChapterJudgment(BaseModel):
     contrary_evidence: tuple[ChapterEvidenceReference, ...] = ()
     source_mix: str = Field(min_length=1)
     structured_prior_summary: str = Field(min_length=1)
+    bias_assessment: BiasAssessment
     chapter_rationale: str = Field(min_length=1)
     lower_anchor_rejected: str = Field(min_length=1)
     higher_anchor_rejected: str = Field(min_length=1)

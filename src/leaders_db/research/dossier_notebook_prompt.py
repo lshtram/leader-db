@@ -120,6 +120,14 @@ genuinely inapplicable lens.
 
 Before lens work, perform one broad ruler-period reconnaissance to understand the
 ruler, period, major events, and likely source families across all eight chapters.
+As part of reconnaissance, build a cited evidence-environment assessment covering
+criticism and civil-society opportunity, censorship/surveillance/intimidation and
+self-censorship, safe reporting channels, official-statistics reliability, languages
+and archives searched, source-family concentration, repeated coverage of one event,
+complaint volume versus reporting freedom, relevant population/exposure denominators,
+inherited conditions and shocks, practical ruler authority, and chapter-specific bias
+risks. Record the stable provisional IDs supporting these conclusions. Do not score or
+apply a regime correction.
 During reconnaissance, establish one cited authority baseline covering the ruler's
 formal office, responsibility for national policy and appointments, command or party
 authority where relevant, and material legal or coalition constraints. Reuse this

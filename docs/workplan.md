@@ -1,5 +1,30 @@
 # Workplan
 
+## 2026-07-22 — Strict-producer, tolerant-consumer integration gate
+
+- Added the project-wide development rule that producers pursue complete current
+  contracts while consumers preserve usable imperfect inputs through explicit
+  uncertainty rather than propagating avoidable failures.
+- Missing dossier evidence-environment metadata is now normalized to a visible
+  unassessed state when cited evidence exists. Missing judge bias metadata is retained
+  with unresolved safeguards, confidence capped at 50, and the plausible range widened.
+- Added boundary and end-to-end worker coverage proving an imperfect judgment can pass
+  through projection, normalization, validated persistence, and score storage. The
+  focused producer/consumer suite passes 44 tests.
+
+## 2026-07-22 — Mandatory evidence-environment and judgment-bias contracts
+
+- Added a cited twelve-part evidence-environment assessment to every new ruler dossier
+  and carried it unchanged into chapter projections. Missing assessments and unknown
+  supporting E-IDs now fail validation.
+- Added a required structured bias assessment to every chapter judgment, including
+  material bias direction, interpretation effect, confidence/range effect, residual
+  uncertainty, and explicit report-volume and blanket-regime-correction safeguards.
+- Updated researcher, formatter, and judge prompts and preserved legacy conversational
+  conversion by marking its uncollected environment fields explicitly unassessed.
+  Focused bias-contract tests pass; the full suite retains eight unrelated pre-existing
+  Wikidata adapter fixture failures.
+
 ## 2026-07-22 — Improved lean-v4 2022 top-20 run complete
 
 - Completed the gated 1, 3, 5, and final 20-ruler progression while preserving the old

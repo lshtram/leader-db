@@ -82,13 +82,25 @@ the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of 
 decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
 manual review for a concrete issue that could materially change the chapter result;
 do not flag ordinary uncertainty already represented by confidence and range.
-Preserve inherited conditions, ruler authority, contrary evidence, source bias,
-and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
 own dossier and must not cite `discovery_only` items as decisive evidence. For a
 batch with multiple rulers, `calibrated_against` must name at least one other
 available dossier job key. Put guide-specific additions such as `trajectory` in
 the `chapter_specific` field/value list. Natural language inside semantic fields
 is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
 
 Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
 notes between specialists. Assume the reader knows the ruler's name but does not

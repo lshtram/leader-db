@@ -3,10 +3,7 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from leaders_db.research.codex_worker import (
-    WorkerOutputError,
-    _validate_substantive_evidence_yield,
-)
+from leaders_db.research.codex_worker import _validate_substantive_evidence_yield
 from leaders_db.research.dossier_models import (
     DossierEvidence,
     RulerEvidenceDossier,
@@ -275,6 +272,24 @@ def test_missing_coverage_row_becomes_blocked_not_no_evidence() -> None:
     ]
 
 
+def test_missing_environment_is_retained_as_explicit_uncertainty() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    del payload["evidence_environment"]
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert dossier.evidence_environment.supporting_evidence_ids == ("E001",)
+    assert dossier.evidence_environment.languages_and_archives_searched == (
+        "not_recorded_by_producer",
+    )
+    assert "explicitly unassessed" in dossier.normalization_warnings[-1]
+
+
 @pytest.mark.parametrize(
     "placeholder",
     ["", "No evidence found", "No explicit coverage explanation supplied."],
@@ -289,7 +304,7 @@ def test_unexplained_no_evidence_becomes_research_blocked(placeholder: str) -> N
     assert "search-specific" in normalized["coverage"][0]["reason"]
 
 
-def test_multi_chapter_dossier_cannot_publish_with_zero_evidence() -> None:
+def test_multi_chapter_dossier_requires_cited_evidence_environment() -> None:
     payload = _dossier(())
     payload["methodology_ids"] = ["1B.1", "2B.1"]
     payload["coverage"] = [
@@ -312,16 +327,13 @@ def test_multi_chapter_dossier_cannot_publish_with_zero_evidence() -> None:
         for methodology_id in payload["methodology_ids"]
     ]
 
-    dossier = RulerEvidenceDossier.model_validate(payload)
-
-    with pytest.raises(WorkerOutputError, match="cannot publish with zero evidence"):
-        _validate_substantive_evidence_yield(dossier)
+    with pytest.raises(ValidationError, match="evidence_environment"):
+        RulerEvidenceDossier.model_validate(payload)
 
 
-def test_single_chapter_zero_evidence_remains_publishable() -> None:
-    dossier = RulerEvidenceDossier.model_validate(_dossier(()))
-
-    _validate_substantive_evidence_yield(dossier)
+def test_single_chapter_zero_evidence_cannot_bypass_environment_assessment() -> None:
+    with pytest.raises(ValidationError, match="evidence_environment"):
+        RulerEvidenceDossier.model_validate(_dossier(()))
 
 
 def test_multi_chapter_nonzero_evidence_remains_publishable() -> None:
@@ -373,7 +385,7 @@ def _evidence() -> dict[str, object]:
 
 
 def _dossier(evidence: tuple[dict[str, object], ...]) -> dict[str, object]:
-    return {
+    payload = {
         "schema_version": "ruler_evidence_dossier_v2",
         "job_key": "dossier:test",
         "run_key": "test",
@@ -417,3 +429,19 @@ def _dossier(evidence: tuple[dict[str, object], ...]) -> dict[str, object]:
             },
         },
     }
+    if evidence:
+        payload["evidence_environment"] = {
+            "criticism_possible": "Criticism conditions are documented by E001.",
+            "censorship_and_self_censorship": "The record remains incomplete.",
+            "safe_reporting_channels": "Reporting opportunity was assessed.",
+            "official_statistics_reliability": "No official statistics are used.",
+            "languages_and_archives_searched": ["English fixture archive"],
+            "source_concentration": "One source family dominates.",
+            "duplicate_event_risk": "Duplicate facts are normalized below.",
+            "complaint_volume_interpretation": "Volume is not severity.",
+            "relevant_denominators": "Exposure remains contextual.",
+            "inherited_conditions_shocks_and_authority": "Authority was considered.",
+            "chapter_specific_biases": ["Source concentration"],
+            "supporting_evidence_ids": ["E001"],
+        }
+    return payload

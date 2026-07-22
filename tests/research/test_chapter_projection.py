@@ -37,6 +37,7 @@ def test_projection_is_compact_deterministic_and_preserves_provenance(tmp_path: 
     assert projection.source_dossier_path == str(source_path)
     assert projection.source_dossier_sha256 == "a" * 64
     assert projection.source_dossier_schema_version == "ruler_evidence_dossier_v2"
+    assert projection.evidence_environment.supporting_evidence_ids == ("E001",)
     assert projection.run_provenance.provider_profile == "researcher"
     assert projection.run_provenance.research_notebook_sha256 == "b" * 64
     estimated_payload = projection.model_dump(
@@ -226,6 +227,20 @@ def _dossier(*, job_key: str = "dossier:test") -> RulerEvidenceDossier:
                 }
                 for methodology_id in methodology_ids
             ],
+            "evidence_environment": {
+                "criticism_possible": "Criticism was possible in the fixture.",
+                "censorship_and_self_censorship": "E001 provides limited context.",
+                "safe_reporting_channels": "Channels existed but are incompletely documented.",
+                "official_statistics_reliability": "No statistics are used.",
+                "languages_and_archives_searched": ["English fixture archive"],
+                "source_concentration": "The evidence is source-concentrated.",
+                "duplicate_event_risk": "Repeated coverage was collapsed.",
+                "complaint_volume_interpretation": "Volume is not severity.",
+                "relevant_denominators": "Population and exposure remain contextual.",
+                "inherited_conditions_shocks_and_authority": "Authority was assessed separately.",
+                "chapter_specific_biases": ["Source concentration"],
+                "supporting_evidence_ids": ["E001"],
+            },
             "run_profile": {
                 "provider_profile": "researcher",
                 "provider": "openai",

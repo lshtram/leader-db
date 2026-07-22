@@ -11,6 +11,22 @@ These apply to the Python package under `src/leaders_db/`. The goal is a reprodu
 - Design for extension through typed config, Pydantic schemas, registries, and composition — not through editing core execution code for each new run.
 - Keep every source and test file focused; split before files grow unwieldy (mirror the AGENTS.md 400-line convention used by other projects).
 
+## Strict Producers, Tolerant Consumers
+
+- Every producer of files, observations, evidence, dossiers, projections, or judgments
+  must attempt to emit the complete and accurate current contract.
+- Every consumer must preserve and use as much valid input as possible. Missing optional
+  detail, older schema omissions, harmless formatting defects, and incomplete bias
+  metadata should become explicit warnings, uncertainty, wider ranges, or lower
+  confidence rather than terminal failures.
+- Reject input only when it is genuinely unusable, unsafe, identity-ambiguous, internally
+  contradictory in a result-changing way, or when bounded iteration can still recover a
+  materially better artifact. Never silently invent missing facts while normalizing.
+- Test each development increment at its actual producer/consumer boundary. Add an
+  end-to-end or preserved-artifact smoke test whenever a stricter producer contract could
+  make an existing downstream flow impractical. Do not defer all integration testing to
+  the final cohort run.
+
 ## Configuration-Driven Runs
 
 - Treat `RunConfig` and nested Pydantic models as the run contract.

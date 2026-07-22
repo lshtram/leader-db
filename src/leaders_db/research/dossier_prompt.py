@@ -131,6 +131,12 @@ Requirements:
   lacks an explicit disposition, use `research_blocked`; never manufacture
   `no_evidence_found` because formatting produced no mapping.
 - Collect meaningful contrary evidence and explicit gaps. Do not assign scores.
+- Populate `evidence_environment` from cited notebook material. Answer all twelve
+  environment questions: criticism opportunity; censorship/surveillance/intimidation;
+  safe reporting channels; official-statistics reliability; languages/archives searched;
+  source concentration; duplicate-event risk; complaint-volume interpretation;
+  relevant denominators; inherited conditions/shocks/authority; chapter-specific biases;
+  and supporting E-IDs. This assessment is mandatory and may not use uncited generalities.
 - Remove any researcher-written score, score range, anchor, ranking recommendation,
   or advice to a judge about scoring/null handling; record it as a normalization
   warning rather than evidence.

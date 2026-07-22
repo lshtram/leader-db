@@ -444,7 +444,7 @@ def _build_dossier(
             ],
             "completed_queries": [],
             "normalization_warnings": [],
-            "local_priors": [
+                "local_priors": [
                 {
                     "methodology_id": methodology_id,
                     "status": "not_available",
@@ -454,8 +454,9 @@ def _build_dossier(
                     "artifact_path": str(prior_path),
                     "artifact_sha256": prior_hash,
                 }
-                for methodology_id in methodology_ids
-            ],
+                    for methodology_id in methodology_ids
+                ],
+                "evidence_environment": _legacy_evidence_environment(evidence),
             "run_profile": {
                 "provider_profile": researcher_name,
                 "provider": str(researcher["provider"]),
@@ -587,7 +588,7 @@ def _build_hybrid_dossier(
             "unresolved_gaps": list(dict.fromkeys(gaps)),
             "completed_queries": [],
             "normalization_warnings": [],
-            "local_priors": local_priors or [
+                "local_priors": local_priors or [
                 {
                     "methodology_id": methodology_id,
                     "status": "not_available",
@@ -595,8 +596,9 @@ def _build_hybrid_dossier(
                     "artifact_path": str(prior_path),
                     "artifact_sha256": prior_hash,
                 }
-                for methodology_id in methodology_ids
-            ],
+                    for methodology_id in methodology_ids
+                ],
+                "evidence_environment": _legacy_evidence_environment(evidence),
             "run_profile": {
                 "provider_profile": researcher_name,
                 "provider": str(researcher["provider"]),
@@ -622,6 +624,34 @@ def _build_hybrid_dossier(
     return RulerEvidenceDossier.model_validate(
         normalize_dossier_candidate(candidate, methodology_ids=methodology_ids)
     )
+
+
+def _legacy_evidence_environment(
+    evidence: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Expose unassessed bias fields when converting preserved legacy collections."""
+
+    if not evidence:
+        raise ValueError("legacy conversion cannot assess evidence environment without evidence")
+    support_id = str(evidence[0]["evidence_id"])
+    unassessed = (
+        "Not assessed by the legacy collector; the cited record only proves that the "
+        "conversion retained evidence, not that this bias risk was resolved."
+    )
+    return {
+        "criticism_possible": unassessed,
+        "censorship_and_self_censorship": unassessed,
+        "safe_reporting_channels": unassessed,
+        "official_statistics_reliability": unassessed,
+        "languages_and_archives_searched": ["not_recorded_by_legacy_collector"],
+        "source_concentration": unassessed,
+        "duplicate_event_risk": unassessed,
+        "complaint_volume_interpretation": unassessed,
+        "relevant_denominators": unassessed,
+        "inherited_conditions_shocks_and_authority": unassessed,
+        "chapter_specific_biases": ["Legacy evidence-environment assessment unavailable"],
+        "supporting_evidence_ids": [support_id],
+    }
 
 
 def _hybrid_local_priors(path: Path) -> list[dict[str, str]]:

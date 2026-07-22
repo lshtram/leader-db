@@ -439,6 +439,12 @@ def _prepare_batch(  # noqa: PLR0912
                 item.evidence_id for item in projection_by_key[dossier_key].evidence
             },
         )
+        _ensure_bias_assessment(
+            evaluation,
+            valid_evidence_ids={
+                item.evidence_id for item in projection_by_key[dossier_key].evidence
+            },
+        )
         _normalize_judgment_envelope(evaluation)
         evaluation.update({
             "iso3": dossier.iso3,
@@ -513,6 +519,44 @@ def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
         reason = "The judge returned no defensible score; see the chapter rationale."
     evaluation["insufficient_evidence_reason"] = reason
     evaluation["plausible_score_range"] = {"lower": 1, "upper": 10}
+
+
+def _ensure_bias_assessment(
+    evaluation: dict[str, Any], *, valid_evidence_ids: set[str]
+) -> None:
+    """Retain an otherwise usable judgment while exposing missing bias reasoning."""
+
+    if isinstance(evaluation.get("bias_assessment"), dict) or not valid_evidence_ids:
+        return
+    evidence_id = sorted(valid_evidence_ids)[0]
+    evaluation["bias_assessment"] = {
+        "material_biases": [
+            {
+                "bias": "Bias assessment omitted by the producer",
+                "supporting_evidence_ids": [evidence_id],
+                "likely_direction": "uncertain",
+                "interpretation_effect": (
+                    "No result-changing interpretation adjustment was inferred."
+                ),
+            }
+        ],
+        "confidence_and_range_effect": (
+            "Confidence is capped and the range widened pending bias review."
+        ),
+        "remaining_uncertainty": "The omitted bias assessment remains unresolved.",
+        "report_volume_not_used_as_severity": False,
+        "no_blanket_regime_correction": False,
+    }
+    confidence = evaluation.get("confidence_score")
+    if isinstance(confidence, (int, float)) and not isinstance(confidence, bool):
+        evaluation["confidence_score"] = min(float(confidence), 50.0)
+    score_range = evaluation.get("plausible_score_range")
+    if isinstance(score_range, dict):
+        lower = score_range.get("lower")
+        upper = score_range.get("upper")
+        if isinstance(lower, (int, float)) and isinstance(upper, (int, float)):
+            score_range["lower"] = max(1, float(lower) - 1)
+            score_range["upper"] = min(10, float(upper) + 1)
 
 
 def _normalize_lens_lists(
@@ -643,6 +687,13 @@ def _validate_batch_evidence(
         )
         if any(item.evidence_id not in evidence_by_id for item in referenced):
             raise ValueError("chapter evaluation references evidence outside its dossier")
+        bias_ids = {
+            evidence_id
+            for finding in evaluation.bias_assessment.material_biases
+            for evidence_id in finding.supporting_evidence_ids
+        }
+        if not bias_ids.issubset(evidence_by_id):
+            raise ValueError("bias assessment references evidence outside its dossier")
         if any(
             evidence_by_id[item.evidence_id].final_evidence_use == "discovery_only"
             for item in referenced

@@ -167,6 +167,31 @@ class DossierLocalPrior(BaseModel):
     artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
 
 
+class EvidenceEnvironmentAssessment(BaseModel):
+    """Cited assessment of the conditions under which ruler evidence was produced."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    criticism_possible: str = Field(min_length=1)
+    censorship_and_self_censorship: str = Field(min_length=1)
+    safe_reporting_channels: str = Field(min_length=1)
+    official_statistics_reliability: str = Field(min_length=1)
+    languages_and_archives_searched: tuple[str, ...] = Field(min_length=1)
+    source_concentration: str = Field(min_length=1)
+    duplicate_event_risk: str = Field(min_length=1)
+    complaint_volume_interpretation: str = Field(min_length=1)
+    relevant_denominators: str = Field(min_length=1)
+    inherited_conditions_shocks_and_authority: str = Field(min_length=1)
+    chapter_specific_biases: tuple[str, ...] = Field(min_length=1)
+    supporting_evidence_ids: tuple[EvidenceId, ...] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _unique_support(self) -> EvidenceEnvironmentAssessment:
+        if len(self.supporting_evidence_ids) != len(set(self.supporting_evidence_ids)):
+            raise ValueError("evidence-environment support IDs must be unique")
+        return self
+
+
 class DossierRunProfile(BaseModel):
     """Auditable execution metadata exposed by the worker."""
 
@@ -219,6 +244,7 @@ class RulerEvidenceDossier(BaseModel):
     completed_queries: tuple[str, ...] = ()
     normalization_warnings: tuple[str, ...] = ()
     local_priors: tuple[DossierLocalPrior, ...] = Field(min_length=1)
+    evidence_environment: EvidenceEnvironmentAssessment
     run_profile: DossierRunProfile
 
     @model_validator(mode="after")
@@ -242,6 +268,8 @@ class RulerEvidenceDossier(BaseModel):
                     raise ValueError("canonical fact keys must be unique")
                 canonical_keys.add(item.canonical_fact_key)
         known = set(evidence_ids)
+        if not set(self.evidence_environment.supporting_evidence_ids).issubset(known):
+            raise ValueError("evidence environment references an unknown evidence ID")
         selected = set(self.methodology_ids)
         if {item.methodology_id for item in self.local_priors} != selected:
             raise ValueError("local-prior provenance must cover every selected methodology ID")
@@ -353,16 +381,70 @@ def normalize_dossier_candidate(
     normalized["evidence"] = deduplicated_evidence
     evidence = deduplicated_evidence
 
+    _ensure_evidence_environment(normalized, evidence, warnings)
+
     selected = set(methodology_ids)
     mappings = _normalize_mappings(normalized.get("mappings"), id_map, selected, warnings)
     _infer_local_prior_mappings(evidence, mappings, selected, warnings)
     coverage = _normalize_coverage(
         normalized.get("coverage"), methodology_ids, id_map, mappings, warnings
     )
+    _normalize_environment_references(normalized.get("evidence_environment"), id_map)
     normalized["mappings"] = mappings
     normalized["coverage"] = coverage
     normalized["normalization_warnings"] = list(dict.fromkeys(warnings))
     return normalized
+
+
+def _ensure_evidence_environment(
+    normalized: dict[str, Any], evidence: list[object], warnings: list[str]
+) -> None:
+    """Make an incomplete producer explicit without discarding usable evidence."""
+
+    if isinstance(normalized.get("evidence_environment"), dict) or not evidence:
+        return
+    first = next((item for item in evidence if isinstance(item, dict)), None)
+    if first is None:
+        return
+    evidence_id = str(first["evidence_id"])
+    unknown = (
+        "Not assessed by the producer; retain the evidence but lower confidence until "
+        "the evidence environment is reviewed."
+    )
+    normalized["evidence_environment"] = {
+        "criticism_possible": unknown,
+        "censorship_and_self_censorship": unknown,
+        "safe_reporting_channels": unknown,
+        "official_statistics_reliability": unknown,
+        "languages_and_archives_searched": ["not_recorded_by_producer"],
+        "source_concentration": unknown,
+        "duplicate_event_risk": unknown,
+        "complaint_volume_interpretation": unknown,
+        "relevant_denominators": unknown,
+        "inherited_conditions_shocks_and_authority": unknown,
+        "chapter_specific_biases": ["Evidence environment not assessed by producer"],
+        "supporting_evidence_ids": [evidence_id],
+    }
+    warnings.append("missing evidence environment retained as explicitly unassessed")
+
+
+def _normalize_environment_references(
+    environment: object, id_map: dict[str, list[str]]
+) -> None:
+    """Apply evidence-ID normalization to the cited environment assessment."""
+
+    if not isinstance(environment, dict):
+        return
+    raw_support = environment.get("supporting_evidence_ids")
+    if not isinstance(raw_support, (list, tuple)):
+        return
+    environment["supporting_evidence_ids"] = list(
+        dict.fromkeys(
+            normalized_id
+            for value in (str(item) for item in raw_support)
+            for normalized_id in id_map.get(value, ())
+        )
+    )
 
 
 def _canonical_source_locator_claim(item: dict[str, Any]) -> tuple[str, str, str] | None:
