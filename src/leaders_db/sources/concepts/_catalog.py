@@ -103,6 +103,11 @@ CONCEPT_MILITARY_SPEND_CONSTANT_USD: str = "military_spend_constant_usd"
 CONCEPT_MILITARY_SPEND_PER_CAPITA: str = "military_spend_per_capita"
 CONCEPT_MILITARY_SPEND_SHARE_GDP: str = "military_spend_share_gdp"
 CONCEPT_MILITARY_SPEND_SHARE_GOVT: str = "military_spend_share_govt"
+CONCEPT_POLITY_COMPOSITE_SCORE: str = "polity_composite_score"
+CONCEPT_POLITY_DEMOCRACY_SCORE: str = "polity_democracy_score"
+CONCEPT_POLITY_AUTOCRACY_SCORE: str = "polity_autocracy_score"
+CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS: str = "polity_executive_constraints"
+CONCEPT_POLITY_REGIME_DURABILITY: str = "polity_regime_durability"
 
 # Canonical ordered list of stable concept keys. The order is the
 # canonical iteration order for ``list_concepts()``; downstream code
@@ -111,6 +116,11 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_GDP_PER_CAPITA,
     CONCEPT_POPULATION,
     CONCEPT_GDP_TOTAL,
+    CONCEPT_POLITY_COMPOSITE_SCORE,
+    CONCEPT_POLITY_DEMOCRACY_SCORE,
+    CONCEPT_POLITY_AUTOCRACY_SCORE,
+    CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+    CONCEPT_POLITY_REGIME_DURABILITY,
     CONCEPT_HDI,
     CONCEPT_LIFE_EXPECTANCY,
     CONCEPT_GNI_PER_CAPITA,
@@ -201,6 +211,7 @@ TRANSPARENCY_CPI_SOURCE_KEY: str = "transparency_cpi"
 BTI_SOURCE_KEY: str = "bti"
 CIRIGHTS_SOURCE_KEY: str = "cirights"
 CLIENT_EXISTING_SOURCE_KEY: str = "client_existing"
+POLITY_V_SOURCE_KEY: str = "polity_v"
 
 
 # ---------------------------------------------------------------------------
@@ -228,6 +239,11 @@ MADDISON_PROJECT_GDP_TOTAL_DERIVED_INDICATOR_CODE: str = (
 PWT_POPULATION_INDICATOR_CODE: str = "pwt_population"
 PWT_REAL_GDP_OUTPUT_SIDE_INDICATOR_CODE: str = "pwt_real_gdp_output_side"
 PWT_REAL_GDP_EXPENDITURE_SIDE_INDICATOR_CODE: str = "pwt_real_gdp_expenditure_side"
+POLITY_V_POLITY2_INDICATOR_CODE: str = "polity_v_polity2"
+POLITY_V_DEMOCRACY_INDICATOR_CODE: str = "polity_v_democ"
+POLITY_V_AUTOCRACY_INDICATOR_CODE: str = "polity_v_autoc"
+POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE: str = "polity_v_xconst"
+POLITY_V_REGIME_DURABILITY_INDICATOR_CODE: str = "polity_v_durable"
 
 # Derived-recipe key (stable string) for the PWT
 # ``gdp_per_capita = real_gdp_output_side / population`` recipe.
@@ -311,12 +327,8 @@ RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE: str = "rsf_press_freedom_score"
 RSF_PRESS_FREEDOM_RANK_INDICATOR_CODE: str = "rsf_press_freedom_rank"
 
 # Freedom House Freedom in the World indicators.
-FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE: str = (
-    "freedom_house_political_rights"
-)
-FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE: str = (
-    "freedom_house_civil_liberties"
-)
+FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE: str = "freedom_house_political_rights"
+FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE: str = "freedom_house_civil_liberties"
 
 # FAS nuclear notebook status table indicators.
 FAS_TOTAL_INVENTORY_INDICATOR_CODE: str = "fas_total_inventory"
@@ -327,12 +339,8 @@ FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE: str = "fas_reserve_nondeployed"
 SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE: str = (
     "sipri_yearbook_ch7_nuclear_warheads_total_inventory"
 )
-SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE: str = (
-    "sipri_yearbook_ch7_nuclear_warheads_deployed"
-)
-SIPRI_YEARBOOK_CH7_RETIRED_INDICATOR_CODE: str = (
-    "sipri_yearbook_ch7_nuclear_warheads_retired"
-)
+SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE: str = "sipri_yearbook_ch7_nuclear_warheads_deployed"
+SIPRI_YEARBOOK_CH7_RETIRED_INDICATOR_CODE: str = "sipri_yearbook_ch7_nuclear_warheads_retired"
 
 # SIPRI Military Expenditure Database indicators.
 SIPRI_MILEX_SOURCE_KEY: str = "sipri_milex"
@@ -417,6 +425,34 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             ),
             unit=None,
             scale=None,
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_COMPOSITE_SCORE,
+            display_name="Polity composite regime score",
+            description="Polity V revised composite regime score (-10 to +10).",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_DEMOCRACY_SCORE,
+            display_name="Polity democracy component",
+            description="Polity V institutional democracy component (0 to 10).",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_AUTOCRACY_SCORE,
+            display_name="Polity autocracy component",
+            description="Polity V institutional autocracy component (0 to 10).",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+            display_name="Polity executive constraints",
+            description=(
+                "Polity V composite constraints on executive decision-making; not a "
+                "specifically judicial or legislative measure."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_REGIME_DURABILITY,
+            display_name="Polity regime durability",
+            description="Polity V years since the latest substantive regime transition.",
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_HDI,
@@ -598,9 +634,7 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
         ConceptDescriptor(
             concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
             display_name="Internationalized conflict events",
-            description=(
-                "UCDP country-year internationalized state-based conflict event count."
-            ),
+            description=("UCDP country-year internationalized state-based conflict event count."),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
@@ -789,6 +823,37 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
                 "Both alias the concept; extraction produces one "
                 "ConceptObservation per matching observation."
             ),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_COMPOSITE_SCORE,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_POLITY2_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_DEMOCRACY_SCORE,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_DEMOCRACY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_AUTOCRACY_SCORE,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_AUTOCRACY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE,),
+            notes="Composite executive constraints; do not relabel judicial or legislative.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_REGIME_DURABILITY,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_REGIME_DURABILITY_INDICATOR_CODE,),
         ),
         ConceptMapping(
             concept_key=CONCEPT_POPULATION,
@@ -1341,6 +1406,11 @@ __all__ = [
     "CONCEPT_MILITARY_SPEND_PER_CAPITA",
     "CONCEPT_MILITARY_SPEND_SHARE_GDP",
     "CONCEPT_MILITARY_SPEND_SHARE_GOVT",
+    "CONCEPT_POLITY_AUTOCRACY_SCORE",
+    "CONCEPT_POLITY_COMPOSITE_SCORE",
+    "CONCEPT_POLITY_DEMOCRACY_SCORE",
+    "CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS",
+    "CONCEPT_POLITY_REGIME_DURABILITY",
     "CONCEPT_POPULATION",
     "CONCEPT_PRESS_FREEDOM_RANK",
     "CONCEPT_PRESS_FREEDOM_SCORE",
@@ -1366,6 +1436,12 @@ __all__ = [
     "MADDISON_PROJECT_GDP_TOTAL_DERIVED_INDICATOR_CODE",
     "MADDISON_PROJECT_POPULATION_INDICATOR_CODE",
     "MADDISON_PROJECT_SOURCE_KEY",
+    "POLITY_V_AUTOCRACY_INDICATOR_CODE",
+    "POLITY_V_DEMOCRACY_INDICATOR_CODE",
+    "POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE",
+    "POLITY_V_POLITY2_INDICATOR_CODE",
+    "POLITY_V_REGIME_DURABILITY_INDICATOR_CODE",
+    "POLITY_V_SOURCE_KEY",
     "PWT_GDP_PER_CAPITA_RECIPE_KEY",
     "PWT_POPULATION_INDICATOR_CODE",
     "PWT_REAL_GDP_EXPENDITURE_SIDE_INDICATOR_CODE",

@@ -60,6 +60,11 @@ DOMESTIC_SAFETY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 POLITICAL_FREEDOM_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "polity_composite_score",
+    "polity_democracy_score",
+    "polity_autocracy_score",
+    "polity_executive_constraints",
+    "polity_regime_durability",
     "political_liberties",
     "civil_liberties",
     "electoral_democracy",
@@ -190,9 +195,7 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=tuple(
-            item for item in _chapter_methodology_ids("4B") if item != "4B.3"
-        ),
+        methodology_ids=tuple(item for item in _chapter_methodology_ids("4B") if item != "4B.3"),
         field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
         mapping_note="Political-freedom D11 country-year facts usable as structured priors.",
     ),

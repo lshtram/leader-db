@@ -1,5 +1,20 @@
 # Workplan
 
+## 2026-07-22 — Polity historical evidence routing
+
+- Added five source-native Polity concepts: revised composite regime score, democracy
+  component, autocracy component, composite executive constraints, and regime
+  durability. The executive-constraints descriptor and mapping explicitly prohibit
+  relabelling it as a specifically judicial or legislative measure.
+- Published 62,210 country-year facts per concept across the included historical scope;
+  59,931 auto-resolved and 2,279 missing/special-code facts remain reviewable rather
+  than being coerced to numbers. Russia examples retain 1999, 2000, 2012, and 2018
+  source values, with no rows after Polity's 2018 endpoint.
+- Added all five fields to political-freedom local evidence routing, so accession-aware
+  v3 packages can use them as inherited/tenure history while current V-Dem, Freedom
+  House, RSF, and EIU observations cover later years. No Polity value automatically
+  changes a score.
+
 ## 2026-07-22 — Polity/PTS runtime readiness repair and Polity ingestion
 
 - Reconstructed runtime-local Polity V metadata from the staged `p5v2018.sav`,
