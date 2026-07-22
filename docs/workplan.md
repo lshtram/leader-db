@@ -1,5 +1,28 @@
 # Workplan
 
+## 2026-07-22 — 2022 saturation-v3 one-ruler promotion gate
+
+- Preserved the completed 2022 top-20 v2 release and ran a controlled Putin 2022
+  saturation-v3 pilot without modifying any old artifact. The new flow collected 243
+  raw evidence records and independently curated them to 157 records / 133 distinct
+  URLs across 57 domains; the old Putin dossier had 102 records / 91 URLs.
+- The pilot added chapter-specific no-search curation, material-gap-only top-ups, full
+  research-plus-curation cost profiling, structured-local-prior preservation into judge
+  projections, stable evidence IDs across appended top-ups, exact-ledger curation
+  versioning, and consistent compaction of discovery-only context.
+- Controlled comparative judgment reused the exact old compact projections for the
+  other 19 rulers. Chapters 1B-7B used the old three-record-per-lens cap; dense 8B
+  required a symmetric two-record cap for all 20 rulers after larger attempts exhausted
+  context. Final Putin scores old -> new: 1B 2->2, 2B 1->1, 3B 2->2, 4B 1->1,
+  5B 1.5->3, 6B 3->4.5, 7B 2->1, 8B 3->4. A separate no-search audit accepted every
+  chapter and approved promotion to the three-ruler gate.
+- Measured research/review/curation cost was $4.97 for this defect-finding pilot. Valid
+  comparative judging cost $2.14 for the full 20-ruler cohort ($0.11 allocated per
+  ruler). Steady-state research cost should be lower because the stable-ID fix avoids
+  the pilot's unnecessary six-chapter recuration. Next action: run two contrasting
+  rulers to reach three total, then repeat the evidence, cost, and judgment gate before
+  promotion to five.
+
 ## 2026-07-21 — Automated 2022 chapter-saturation pilot
 
 - Added an isolated, resumable GPT-5.4-mini chapter pilot with persisted breadth
