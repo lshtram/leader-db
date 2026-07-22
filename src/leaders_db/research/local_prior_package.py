@@ -174,6 +174,48 @@ def compact_local_priors(
     )
 
 
+def summarize_local_priors_for_formatter(
+    local_priors: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
+    """Return the disposition index needed by the no-search formatter.
+
+    Research receives the complete compact package. The formatter receives the
+    completed notebook, whose manifest already records every accepted local fact,
+    while the parent deterministically restores the full hashed prior provenance.
+    Repeating every raw yearly fact here consumes output room without adding a
+    formatting decision.
+    """
+
+    package = compact_local_priors(local_priors)
+    return {
+        "schema_version": package.schema_version,
+        "source_prior_count": package.source_prior_count,
+        "unique_fact_count": package.unique_fact_count,
+        "status_counts": package.status_counts,
+        "methodology_statuses": package.methodology_statuses,
+        "methodology_dispositions": {
+            key: value.model_dump(mode="json")
+            for key, value in package.methodology_dispositions.items()
+        },
+        "disposition_reasons": package.disposition_reasons,
+        "disposition_instruction_sets": package.disposition_instruction_sets,
+        "no_evidence_methodology_ids": package.no_evidence_methodology_ids,
+        "not_applicable_methodology_ids": package.not_applicable_methodology_ids,
+        "error_methodology_ids": package.error_methodology_ids,
+        "chapters": [
+            {
+                "chapter_id": chapter.chapter_id,
+                "methodology_ids": chapter.methodology_ids,
+                "status_counts": chapter.status_counts,
+                "unique_fact_count": len(chapter.fact_ids),
+                "mapping_notes": chapter.mapping_notes,
+            }
+            for chapter in package.chapters
+        ],
+        "fact_payload": "omitted_after_research_use_parent_restores_hashed_provenance",
+    }
+
+
 def _fact_key(raw_fact: dict[str, Any]) -> str:
     return json.dumps(raw_fact, sort_keys=True, separators=(",", ":"), default=str)
 
@@ -238,4 +280,5 @@ __all__ = [
     "CompactLocalPriorPackage",
     "CompactMethodologyDisposition",
     "compact_local_priors",
+    "summarize_local_priors_for_formatter",
 ]

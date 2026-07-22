@@ -10,7 +10,10 @@ from leaders_db.db.engine import init_database
 from leaders_db.research._codex_worker_setup import collect_local_priors
 from leaders_db.research.dossier_notebook_prompt import build_research_notebook_prompt
 from leaders_db.research.dossier_prompt import build_dossier_prompt
-from leaders_db.research.local_prior_package import compact_local_priors
+from leaders_db.research.local_prior_package import (
+    compact_local_priors,
+    summarize_local_priors_for_formatter,
+)
 from leaders_db.research.local_prior_schema import (
     LOCAL_PRIOR_MAPPINGS,
     LocalPriorPeriod,
@@ -93,6 +96,25 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
         ("LF001",),
         ("LF001",),
     ]
+
+
+def test_formatter_prior_summary_omits_repeated_fact_payload() -> None:
+    fact = _fact_payload("shared_fact", "fixture_source")
+    priors = (
+        _prior_payload("4B.1", fact),
+        _prior_payload("4B.2", fact),
+    )
+
+    summary = summarize_local_priors_for_formatter(priors)
+
+    assert summary["methodology_statuses"] == {
+        "4B.1": "evidence_found",
+        "4B.2": "evidence_found",
+    }
+    assert summary["unique_fact_count"] == 1
+    assert "facts" not in summary
+    assert "longitudinal_signals" not in summary
+    assert summary["fact_payload"].startswith("omitted_after_research")
 
 
 def test_compact_local_prior_accepts_missing_optional_confidence() -> None:
@@ -367,7 +389,12 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         local_priors=priors,
         research_notebook="Research handoff.",
     )
-    assert formatter_prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 2
+    assert "undp_hdi:NZL:2020:gni_per_capita" not in formatter_prompt
+    assert "omitted_after_research_use_parent_restores_hashed_provenance" in (
+        formatter_prompt
+    )
+    assert '"5B.1": "evidence_found"' in formatter_prompt
+    assert '"6B.1": "evidence_found"' in formatter_prompt
     assert '"methodology_statuses"' in formatter_prompt
     assert "Every retained evidence item must appear in at least one `mappings` row" in (
         formatter_prompt

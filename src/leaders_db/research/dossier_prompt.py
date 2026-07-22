@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .local_prior_package import compact_local_priors
+from .local_prior_package import summarize_local_priors_for_formatter
 
 
 def build_dossier_prompt(
@@ -40,7 +40,7 @@ def build_dossier_prompt(
         "model": job["model"],
         "worker_output_dir": str(worker_output_dir),
     }
-    local_prior_package = compact_local_priors(local_priors)
+    local_prior_package = summarize_local_priors_for_formatter(local_priors)
     return f"""Format the supplied completed research notebook. This is a no-search,
 no-scoring serialization task. The parent has already performed research and supplied
 the applicable guide material; do not read researcher or judge directives again.
@@ -49,7 +49,7 @@ Job input:
 {json.dumps(payload, indent=2, sort_keys=True)}
 
 Deduplicated local structured evidence (client matrix excluded):
-{json.dumps(local_prior_package.model_dump(mode="json"), indent=2, sort_keys=True)}
+{json.dumps(local_prior_package, indent=2, sort_keys=True)}
 
 Permissive evidence-research notebook and handoff:
 {research_notebook}
@@ -148,6 +148,9 @@ Requirements:
 - Populate local_priors with one schema-valid placeholder for every selected
   methodology ID using `methodology_statuses`; the parent replaces them with its
   complete hashed provenance before validation.
+- Keep mapping `relevance`, coverage `reason`, and gap prose concise. Preserve every
+  required ID and relationship, but do not repeat the underlying claim in bookkeeping
+  fields. Output space belongs to distinct evidence, not duplicated prose.
 - The final response must be only one JSON object matching the supplied output schema.
 - Echo the exact job/run/identity/period/model fields from Job input.
 - Record unknown usage fields as unknown_not_exposed_by_tool; never invent usage.
