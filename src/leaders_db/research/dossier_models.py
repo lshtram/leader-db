@@ -183,7 +183,7 @@ class EvidenceEnvironmentAssessment(BaseModel):
     relevant_denominators: str = Field(min_length=1)
     inherited_conditions_shocks_and_authority: str = Field(min_length=1)
     chapter_specific_biases: tuple[str, ...] = Field(min_length=1)
-    supporting_evidence_ids: tuple[EvidenceId, ...] = Field(min_length=1)
+    supporting_evidence_ids: tuple[EvidenceId, ...]
 
     @model_validator(mode="after")
     def _unique_support(self) -> EvidenceEnvironmentAssessment:
@@ -268,8 +268,7 @@ class RulerEvidenceDossier(BaseModel):
                     raise ValueError("canonical fact keys must be unique")
                 canonical_keys.add(item.canonical_fact_key)
         known = set(evidence_ids)
-        if not set(self.evidence_environment.supporting_evidence_ids).issubset(known):
-            raise ValueError("evidence environment references an unknown evidence ID")
+        _validate_environment_support(self.evidence_environment, known)
         selected = set(self.methodology_ids)
         if {item.methodology_id for item in self.local_priors} != selected:
             raise ValueError("local-prior provenance must cover every selected methodology ID")
@@ -283,6 +282,17 @@ class RulerEvidenceDossier(BaseModel):
             if not set(item.evidence_ids).issubset(known):
                 raise ValueError("coverage references an unknown evidence ID")
         return self
+
+
+def _validate_environment_support(
+    environment: EvidenceEnvironmentAssessment, known_evidence_ids: set[str]
+) -> None:
+    """Keep current dossier producer requirements outside the shared legacy type."""
+
+    if not environment.supporting_evidence_ids:
+        raise ValueError("current dossier evidence environment requires cited support")
+    if not set(environment.supporting_evidence_ids).issubset(known_evidence_ids):
+        raise ValueError("evidence environment references an unknown evidence ID")
 
 
 def codex_dossier_json_schema() -> dict[str, Any]:

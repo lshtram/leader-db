@@ -6,6 +6,7 @@ from pydantic import ValidationError
 from leaders_db.research.codex_worker import _validate_substantive_evidence_yield
 from leaders_db.research.dossier_models import (
     DossierEvidence,
+    EvidenceEnvironmentAssessment,
     RulerEvidenceDossier,
     codex_dossier_json_schema,
     normalize_dossier_candidate,
@@ -374,6 +375,41 @@ def test_multi_chapter_dossier_requires_cited_evidence_environment() -> None:
 def test_single_chapter_zero_evidence_cannot_bypass_environment_assessment() -> None:
     with pytest.raises(ValidationError, match="evidence_environment"):
         RulerEvidenceDossier.model_validate(_dossier(()))
+
+
+def test_current_dossier_rejects_environment_without_cited_support() -> None:
+    evidence = _evidence() | {
+        "source_locator": "PDF p. 4",
+        "canonical_fact_key": "source|p4|claim",
+    }
+    payload = _dossier((evidence,))
+    payload["evidence_environment"]["supporting_evidence_ids"] = []
+
+    with pytest.raises(ValidationError, match="requires cited support"):
+        RulerEvidenceDossier.model_validate(payload)
+
+
+def test_shared_environment_type_can_represent_unassessed_legacy_projection() -> None:
+    environment = EvidenceEnvironmentAssessment.model_validate(
+        {
+            "criticism_possible": "Not assessed in legacy projection.",
+            "censorship_and_self_censorship": "Not assessed in legacy projection.",
+            "safe_reporting_channels": "Not assessed in legacy projection.",
+            "official_statistics_reliability": "Not assessed in legacy projection.",
+            "languages_and_archives_searched": ["Not recorded by legacy dossier"],
+            "source_concentration": "Not assessed in legacy projection.",
+            "duplicate_event_risk": "Not assessed in legacy projection.",
+            "complaint_volume_interpretation": "Not assessed in legacy projection.",
+            "relevant_denominators": "Not assessed in legacy projection.",
+            "inherited_conditions_shocks_and_authority": (
+                "Not assessed in legacy projection."
+            ),
+            "chapter_specific_biases": ["Not assessed in legacy projection."],
+            "supporting_evidence_ids": [],
+        }
+    )
+
+    assert environment.supporting_evidence_ids == ()
 
 
 def test_multi_chapter_nonzero_evidence_remains_publishable() -> None:

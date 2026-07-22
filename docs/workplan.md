@@ -1,5 +1,18 @@
 # Workplan
 
+## 2026-07-22 — Legacy empty-projection evidence environment
+
+- The full comparative-input build found one preserved China 7B projection with zero
+  evidence. Requiring its newly added legacy environment marker to cite an E-ID would
+  force fabricated evidence.
+- The shared environment value type can now represent an explicitly unassessed legacy
+  projection with no support IDs, while current dossier validation still rejects every
+  environment without cited support. This keeps the producer contract strict without
+  making honest historical missingness unrepresentable.
+- Dossier/projection tests and Ruff pass. All eight controlled comparative batches now
+  validate at 0.61-0.81 million input characters, below the configured Codex limit, and
+  the eight-chapter judge run is in progress.
+
 ## 2026-07-22 — Full-review tolerant recovery
 
 - The first all-eight-chapter Putin review produced eight substantive bias assessments
