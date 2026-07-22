@@ -60,6 +60,12 @@ DOMESTIC_SAFETY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 POLITICAL_FREEDOM_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "eiu_democracy_overall_score",
+    "eiu_electoral_process_pluralism",
+    "eiu_functioning_government",
+    "eiu_political_participation",
+    "eiu_political_culture",
+    "eiu_civil_liberties",
     "polity_composite_score",
     "polity_democracy_score",
     "polity_autocracy_score",

@@ -234,6 +234,12 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_CORRUPTION_INDEX,
         CONCEPT_CPI_SCORE,
         CONCEPT_DTP3_IMMUNIZATION,
+        CONCEPT_EIU_CIVIL_LIBERTIES,
+        CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+        CONCEPT_EIU_ELECTORAL_PROCESS,
+        CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+        CONCEPT_EIU_POLITICAL_CULTURE,
+        CONCEPT_EIU_POLITICAL_PARTICIPATION,
         CONCEPT_ELECTORAL_DEMOCRACY,
         CONCEPT_EXECUTIVE_CORRUPTION,
         CONCEPT_EXPECTED_YEARS_SCHOOLING,
@@ -306,6 +312,12 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_POLITY_AUTOCRACY_SCORE,
         CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
         CONCEPT_POLITY_REGIME_DURABILITY,
+        CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+        CONCEPT_EIU_ELECTORAL_PROCESS,
+        CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+        CONCEPT_EIU_POLITICAL_PARTICIPATION,
+        CONCEPT_EIU_POLITICAL_CULTURE,
+        CONCEPT_EIU_CIVIL_LIBERTIES,
         CONCEPT_HDI,
         CONCEPT_LIFE_EXPECTANCY,
         CONCEPT_GNI_PER_CAPITA,
@@ -442,6 +454,30 @@ def test_polity_executive_constraints_keeps_source_native_semantics() -> None:
     assert rows[0].concept_key == "polity_executive_constraints"
     assert rows[0].source_indicator_codes == (POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE,)
     assert rows[0].value == 4
+
+
+def test_eiu_component_is_a_direct_source_native_concept() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_EIU_CIVIL_LIBERTIES,
+        EIU_CIVIL_LIBERTIES_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    source = _make_observation(
+        source_slug="eiu_democracy_index",
+        indicator_code=EIU_CIVIL_LIBERTIES_INDICATOR_CODE,
+        value=2.35,
+        year=2022,
+        country_code=None,
+        country_name="Russia",
+        unit="index_score",
+    )
+    rows = extract_concept((source,), CONCEPT_EIU_CIVIL_LIBERTIES)
+
+    assert len(rows) == 1
+    assert rows[0].mapping_type == "direct"
+    assert rows[0].source_indicator_codes == (EIU_CIVIL_LIBERTIES_INDICATOR_CODE,)
+    assert rows[0].value == 2.35
 
 
 def _purge_source_boundary_modules(modules: dict[str, object]) -> None:

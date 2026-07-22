@@ -108,6 +108,12 @@ CONCEPT_POLITY_DEMOCRACY_SCORE: str = "polity_democracy_score"
 CONCEPT_POLITY_AUTOCRACY_SCORE: str = "polity_autocracy_score"
 CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS: str = "polity_executive_constraints"
 CONCEPT_POLITY_REGIME_DURABILITY: str = "polity_regime_durability"
+CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE: str = "eiu_democracy_overall_score"
+CONCEPT_EIU_ELECTORAL_PROCESS: str = "eiu_electoral_process_pluralism"
+CONCEPT_EIU_FUNCTIONING_GOVERNMENT: str = "eiu_functioning_government"
+CONCEPT_EIU_POLITICAL_PARTICIPATION: str = "eiu_political_participation"
+CONCEPT_EIU_POLITICAL_CULTURE: str = "eiu_political_culture"
+CONCEPT_EIU_CIVIL_LIBERTIES: str = "eiu_civil_liberties"
 
 # Canonical ordered list of stable concept keys. The order is the
 # canonical iteration order for ``list_concepts()``; downstream code
@@ -121,6 +127,12 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_POLITY_AUTOCRACY_SCORE,
     CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
     CONCEPT_POLITY_REGIME_DURABILITY,
+    CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+    CONCEPT_EIU_ELECTORAL_PROCESS,
+    CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+    CONCEPT_EIU_POLITICAL_PARTICIPATION,
+    CONCEPT_EIU_POLITICAL_CULTURE,
+    CONCEPT_EIU_CIVIL_LIBERTIES,
     CONCEPT_HDI,
     CONCEPT_LIFE_EXPECTANCY,
     CONCEPT_GNI_PER_CAPITA,
@@ -212,6 +224,7 @@ BTI_SOURCE_KEY: str = "bti"
 CIRIGHTS_SOURCE_KEY: str = "cirights"
 CLIENT_EXISTING_SOURCE_KEY: str = "client_existing"
 POLITY_V_SOURCE_KEY: str = "polity_v"
+EIU_DEMOCRACY_INDEX_SOURCE_KEY: str = "eiu_democracy_index"
 
 
 # ---------------------------------------------------------------------------
@@ -244,6 +257,12 @@ POLITY_V_DEMOCRACY_INDICATOR_CODE: str = "polity_v_democ"
 POLITY_V_AUTOCRACY_INDICATOR_CODE: str = "polity_v_autoc"
 POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE: str = "polity_v_xconst"
 POLITY_V_REGIME_DURABILITY_INDICATOR_CODE: str = "polity_v_durable"
+EIU_OVERALL_SCORE_INDICATOR_CODE: str = "eiu_democracy_index_overall_score"
+EIU_ELECTORAL_PROCESS_INDICATOR_CODE: str = "eiu_democracy_index_electoral_process_pluralism"
+EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE: str = "eiu_democracy_index_functioning_government"
+EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE: str = "eiu_democracy_index_political_participation"
+EIU_POLITICAL_CULTURE_INDICATOR_CODE: str = "eiu_democracy_index_political_culture"
+EIU_CIVIL_LIBERTIES_INDICATOR_CODE: str = "eiu_democracy_index_civil_liberties"
 
 # Derived-recipe key (stable string) for the PWT
 # ``gdp_per_capita = real_gdp_output_side / population`` recipe.
@@ -453,6 +472,36 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_POLITY_REGIME_DURABILITY,
             display_name="Polity regime durability",
             description="Polity V years since the latest substantive regime transition.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+            display_name="EIU Democracy Index overall score",
+            description="EIU report-year composite democracy score on its 0-10 scale.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_ELECTORAL_PROCESS,
+            display_name="EIU electoral process and pluralism",
+            description="EIU report-year electoral process and pluralism component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+            display_name="EIU functioning of government",
+            description="EIU report-year functioning-of-government component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_POLITICAL_PARTICIPATION,
+            display_name="EIU political participation",
+            description="EIU report-year political-participation component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_POLITICAL_CULTURE,
+            display_name="EIU political culture",
+            description="EIU report-year political-culture component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_CIVIL_LIBERTIES,
+            display_name="EIU civil liberties",
+            description="EIU report-year civil-liberties component.",
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_HDI,
@@ -854,6 +903,43 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
             mapping_type="direct",
             indicator_codes=(POLITY_V_REGIME_DURABILITY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_OVERALL_SCORE_INDICATOR_CODE,),
+            notes="Composite index; correlated components are not independent sources.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_ELECTORAL_PROCESS,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_ELECTORAL_PROCESS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_POLITICAL_PARTICIPATION,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_POLITICAL_CULTURE,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_POLITICAL_CULTURE_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_CIVIL_LIBERTIES,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_CIVIL_LIBERTIES_INDICATOR_CODE,),
         ),
         ConceptMapping(
             concept_key=CONCEPT_POPULATION,
@@ -1388,6 +1474,12 @@ __all__ = [
     "CONCEPT_BCG_IMMUNIZATION",
     "CONCEPT_CIVIL_LIBERTIES",
     "CONCEPT_DTP3_IMMUNIZATION",
+    "CONCEPT_EIU_CIVIL_LIBERTIES",
+    "CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE",
+    "CONCEPT_EIU_ELECTORAL_PROCESS",
+    "CONCEPT_EIU_FUNCTIONING_GOVERNMENT",
+    "CONCEPT_EIU_POLITICAL_CULTURE",
+    "CONCEPT_EIU_POLITICAL_PARTICIPATION",
     "CONCEPT_ELECTORAL_DEMOCRACY",
     "CONCEPT_EXPECTED_YEARS_SCHOOLING",
     "CONCEPT_FREEDOM_ASSOCIATION",
@@ -1428,6 +1520,13 @@ __all__ = [
     "CONCEPT_WARNING_PAIR_YEAR_MISMATCH",
     "CONCEPT_WARNING_ZERO_DENOMINATOR",
     "DERIVED_CONCEPT_QUALITY_FLAG",
+    "EIU_CIVIL_LIBERTIES_INDICATOR_CODE",
+    "EIU_DEMOCRACY_INDEX_SOURCE_KEY",
+    "EIU_ELECTORAL_PROCESS_INDICATOR_CODE",
+    "EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE",
+    "EIU_OVERALL_SCORE_INDICATOR_CODE",
+    "EIU_POLITICAL_CULTURE_INDICATOR_CODE",
+    "EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE",
     "FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE",
     "FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE",
     "FREEDOM_HOUSE_SOURCE_KEY",

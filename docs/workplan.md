@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-22 — EIU political-freedom evidence routing
+
+- Added six source-native EIU Democracy Index concepts: overall score, electoral
+  process and pluralism, functioning of government, political participation,
+  political culture, and civil liberties. The overall score and five components
+  remain one correlated source family and cannot be counted as six independent
+  corroborating sources.
+- Published 6,834 country-year facts (1,139 per concept), all country-resolved, while
+  preserving each PDF observation ID and report-year attribution. Rank, rank change,
+  and regime label remain source observations rather than being coerced into numeric
+  concepts with ambiguous direction or distance.
+- Routed the six measures to political-freedom local evidence. A live Putin 2022
+  package contains all six EIU facts, including overall `2.28`, electoral process
+  `0.92`, and civil liberties `2.35`, each linked to its original observation ID.
+  These are research context and do not automatically change a score.
+
 ## 2026-07-22 — EIU observation-attribution repair
 
 - Live inspection of Russia's nine EIU Democracy Index 2022 observations found that
@@ -8,8 +24,8 @@
 - The transform now renders the template from the source page year. A regression test
   rejects literal placeholders, and the 2022 EIU slice was reingested: 1,559 observations
   validated with attribution text ending in `report year 2022`.
-- EIU values remain unrouted pending the next concept-mapping increment; this repair
-  prevents malformed provenance from being amplified into local facts first.
+- EIU values were deliberately left unrouted by this repair and were mapped only in
+  the subsequent political-freedom evidence-routing increment above.
 
 ## 2026-07-22 — Polity historical evidence routing
 
