@@ -1,5 +1,16 @@
 # Workplan
 
+## 2026-07-22 — EIU observation-attribution repair
+
+- Live inspection of Russia's nine EIU Democracy Index 2022 observations found that
+  the producer persisted the attribution template with a literal `{year}` placeholder.
+  The PDF page, source row, raw value, and component values were otherwise intact.
+- The transform now renders the template from the source page year. A regression test
+  rejects literal placeholders, and the 2022 EIU slice was reingested: 1,559 observations
+  validated with attribution text ending in `report year 2022`.
+- EIU values remain unrouted pending the next concept-mapping increment; this repair
+  prevents malformed provenance from being amplified into local facts first.
+
 ## 2026-07-22 — Polity historical evidence routing
 
 - Added five source-native Polity concepts: revised composite regime score, democracy

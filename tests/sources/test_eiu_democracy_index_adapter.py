@@ -72,16 +72,19 @@ def test_descriptor_factory_and_default_registry_wiring() -> None:
     assert descriptor.source_type == "document"
     assert descriptor.requires_network is False
     assert descriptor.requires_manual_approval is True
-    assert descriptor.supported_observation_families == (
-        EIU_DEMOCRACY_INDEX_OBSERVATION_FAMILY,
-    )
+    assert descriptor.supported_observation_families == (EIU_DEMOCRACY_INDEX_OBSERVATION_FAMILY,)
 
     registry = InMemorySourceRegistry()
     register_eiu_democracy_index(registry)
     assert registry.get_adapter(SourceId(EIU_DEMOCRACY_INDEX_SOURCE_KEY)).descriptor == descriptor
-    assert build_default_source_registry().get_descriptor(
-        SourceId(EIU_DEMOCRACY_INDEX_SOURCE_KEY),
-    ).source_id.slug == EIU_DEMOCRACY_INDEX_SOURCE_KEY
+    assert (
+        build_default_source_registry()
+        .get_descriptor(
+            SourceId(EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+        )
+        .source_id.slug
+        == EIU_DEMOCRACY_INDEX_SOURCE_KEY
+    )
 
 
 def test_parse_representative_table_row_with_rank_change_and_regime_type() -> None:
@@ -152,9 +155,7 @@ def test_readiness_missing_checksum_entry_reports_structured_error(tmp_path: Pat
 
     assert readiness.ready is False
     assert readiness.errors[0].code == EIU_DEMOCRACY_INDEX_CHECKSUM_MISMATCH
-    assert readiness.errors[0].context["missing_checksum_files"] == (
-        "democracy-index-2023.pdf",
-    )
+    assert readiness.errors[0].context["missing_checksum_files"] == ("democracy-index-2023.pdf",)
 
 
 def test_readiness_missing_listed_pdf_still_reports_missing_raw(tmp_path: Path) -> None:
@@ -242,6 +243,8 @@ def test_transform_emits_observations_with_provenance() -> None:
     }
     regime = observations[-1]
     assert regime.indicator_code == "eiu_democracy_index_regime_type"
+    assert overall.extension["attribution"].endswith("report year 2023).")
+    assert "{year}" not in overall.extension["attribution"]
     assert regime.value == "Full democracy"
     assert regime.value_type == "categorical"
 

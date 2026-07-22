@@ -52,6 +52,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-SRC-007A**: UCDP facts shall preserve event location, conflict type, dyad, government involvement, host-government responsibility, and non-state responsibility as distinct semantics. Location-only aggregates must not establish ruler responsibility; uncertainty bounds must be retained when supplied.
 - **REQ-SRC-007B**: Republishing a concept after a semantic-key migration shall remove obsolete rows written by the same producer within the requested scope, while preserving other producers and frozen release artifacts. Incompatible GDP units, price bases, and PPP/nominal semantics must never coexist under one fact key.
 - **REQ-SRC-007C**: Historical Polity V measures shall retain source-native composite, democracy, autocracy, executive-constraints, and regime-durability semantics. The composite executive-constraints measure must not be relabelled as specifically judicial or legislative, and observations after 2018 must not be fabricated or proxied.
+- **REQ-SRC-007D**: Parameterized attribution templates shall be rendered with the observation's source year before persistence or public handoff. Literal placeholders such as `{year}` are invalid observation provenance even when the surrounding citation is correct.
 - **REQ-SRC-008**: Nuclear / global responsibility sources shall include FAS nuclear forces, SIPRI nuclear forces / military expenditure, NTI country profiles.
 
 ### Database schema (§7)
