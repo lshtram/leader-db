@@ -45,6 +45,7 @@ This document is the locally tracked REQ-* / NFR-* baseline derived from the aut
 - **REQ-SRC-001**: Leader identity sources shall include Archigos, Leader Survival / Political Leaders through Time, REIGN, with fallback to CIA World Leaders, Rulers.org, and Wikidata/Wikipedia. The client matrix is excluded from this source set and is used only as the validation reference.
 - **REQ-SRC-002**: Political freedom sources shall include V-Dem, Freedom House, EIU / Polity / BMR where available.
 - **REQ-SRC-003**: Economic sources shall include World Bank WDI, IMF where available, Penn World Table / Maddison later.
+- **REQ-SRC-003A**: UNSD SNAAMA current-price US-dollar GDP and expenditure aggregates shall retain nominal/current-price semantics. Their changes must not be presented as real growth, household distribution, or ruler-attributable policy effects; revisions and estimation caveats remain visible.
 - **REQ-SRC-004**: Governance / effectiveness sources shall include World Bank WGI, BTI Governance Index where available, V-Dem governance/executive-constraint/state-capacity indicators.
 - **REQ-SRC-005**: Corruption / integrity sources shall include Transparency International CPI, WGI Control of Corruption, V-Dem corruption indicators.
 - **REQ-SRC-006**: Conflict / international aggression sources shall include UCDP, COW/MID, SIPRI military expenditure / arms transfer data.

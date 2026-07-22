@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-23 — UNSD SNAAMA concepts and 5B routing increment
+
+- Ingested the complete 1970–2024 local archive (66,632 validated observations) and
+  published nominal GDP plus five expenditure concepts. Publication produced 54,131 new
+  country-year facts; unresolved aggregate/territory labels remain explicit skips rather
+  than guessed country mappings.
+- Current-price dollar semantics survive into every fact warning. GDP joins only the
+  nominal-current-USD GDP variant; consumption and capital-formation fields remain
+  separate. The latter reach only relevant 5B prosperity, stability, productivity, and
+  trajectory lenses and never political-freedom packages.
+- A Putin 2022 `5B.10` end-to-end package contains 160 expenditure-component facts:
+  five target values, 110 tenure observations, and 45 pre-accession observations spanning
+  1991–2022. The package remains usable rather than becoming a target-only snapshot.
+
 ## 2026-07-23 — UNSD SNAAMA adapter and persistence increment
 
 - Registered the locally staged UN National Accounts Main Aggregates export and added

@@ -37,6 +37,7 @@ CONCEPT_FACT_METHOD_VERSION = "concept-country-year-facts-v2"
 SOURCE_NATIVE_UCDP_COUNTRY_ID_SOURCES: frozenset[str] = frozenset({"ucdp"})
 DEFAULT_CONCEPT_SOURCE_PRECEDENCE: tuple[str, ...] = (
     "world_bank_wdi",
+    "un_snaama",
     "maddison_project",
     "pwt",
     "undp_hdi",
@@ -67,6 +68,10 @@ _GDP_FACT_VARIANTS: dict[tuple[str, str], tuple[str, str]] = {
         "GDP per capita — PPP, constant 2017 USD",
     ),
     ("gdp_total", "wdi_gdp_current_usd"): (
+        "gdp_total_nominal_current_usd",
+        "GDP total — nominal current USD",
+    ),
+    ("gdp_total", "un_snaama_gdp_current_usd"): (
         "gdp_total_nominal_current_usd",
         "GDP total — nominal current USD",
     ),
@@ -513,6 +518,14 @@ def _semantic_warning_payloads(
                 "military_spending_not_aggression",
                 "Military expenditure is capacity and policy context; it does not "
                 "by itself establish aggression or poor peace performance.",
+            )
+        )
+    if selected.source_id.slug == "un_snaama":
+        warnings.append(
+            _interpretation_warning(
+                "nominal_current_usd_not_real_growth",
+                "Current-price US-dollar changes combine real activity, inflation, "
+                "and exchange-rate movements; do not interpret them as real growth.",
             )
         )
     if selected.source_id.slug == "ucdp":

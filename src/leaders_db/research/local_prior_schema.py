@@ -142,6 +142,11 @@ ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "pwt_capital_stock_index",
     "pwt_tfp_at_constant_national_prices",
     "bti_status_index",
+    "final_consumption_current_usd",
+    "household_consumption_current_usd",
+    "government_consumption_current_usd",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
 )
 
 SOCIAL_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
@@ -195,6 +200,8 @@ ECONOMIC_LEVEL_FIELDS = _local_fields(
     "pwt_real_consumption",
     "pwt_employment",
     "wdi_gini_index",
+    "final_consumption_current_usd",
+    "household_consumption_current_usd",
 )
 ECONOMIC_STABILITY_FIELDS = _local_fields(
     "gdp_total_real_constant_2015_usd",
@@ -202,12 +209,17 @@ ECONOMIC_STABILITY_FIELDS = _local_fields(
     "gdp_total_ppp_expenditure_constant_2017_usd",
     "gdp_total_ppp_output_constant_2017_usd",
     "pwt_tfp_at_constant_national_prices",
+    "government_consumption_current_usd",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
 )
 ECONOMIC_PRODUCTIVITY_FIELDS = _local_fields(
     "pwt_human_capital_index",
     "pwt_capital_stock_index",
     "pwt_tfp_at_constant_national_prices",
     "pwt_average_annual_hours_worked",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
 )
 ECONOMIC_DISTRIBUTION_FIELDS = _local_fields(
     "gdp_per_capita_nominal_current_usd",

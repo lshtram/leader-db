@@ -36,6 +36,11 @@ from ._dataclasses import ConceptDescriptor, ConceptMapping
 CONCEPT_GDP_PER_CAPITA: str = "gdp_per_capita"
 CONCEPT_POPULATION: str = "population"
 CONCEPT_GDP_TOTAL: str = "gdp_total"
+CONCEPT_FINAL_CONSUMPTION_CURRENT_USD: str = "final_consumption_current_usd"
+CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD: str = "household_consumption_current_usd"
+CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD: str = "government_consumption_current_usd"
+CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD: str = "gross_capital_formation_current_usd"
+CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD: str = "gross_fixed_capital_formation_current_usd"
 CONCEPT_HDI: str = "hdi"
 CONCEPT_LIFE_EXPECTANCY: str = "life_expectancy"
 CONCEPT_GNI_PER_CAPITA: str = "gni_per_capita"
@@ -135,6 +140,11 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_GDP_PER_CAPITA,
     CONCEPT_POPULATION,
     CONCEPT_GDP_TOTAL,
+    CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+    CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+    CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+    CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+    CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
     CONCEPT_POLITY_COMPOSITE_SCORE,
     CONCEPT_POLITY_DEMOCRACY_SCORE,
     CONCEPT_POLITY_AUTOCRACY_SCORE,
@@ -234,6 +244,7 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
 # ---------------------------------------------------------------------------
 
 WDI_SOURCE_KEY: str = "world_bank_wdi"
+UN_SNAAMA_SOURCE_KEY: str = "un_snaama"
 MADDISON_PROJECT_SOURCE_KEY: str = "maddison_project"
 PWT_SOURCE_KEY: str = "pwt"
 UNDP_HDI_SOURCE_KEY: str = "undp_hdi"
@@ -263,6 +274,18 @@ WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE: str = "wdi_gdp_per_capita_p
 WDI_POPULATION_INDICATOR_CODE: str = "wdi_population"
 WDI_GDP_CURRENT_USD_INDICATOR_CODE: str = "wdi_gdp_current_usd"
 WDI_GDP_CONSTANT_2015_USD_INDICATOR_CODE: str = "wdi_gdp_constant_2015_usd"
+UN_SNAAMA_GDP_CURRENT_USD_INDICATOR_CODE: str = "un_snaama_gdp_current_usd"
+UN_SNAAMA_FINAL_CONSUMPTION_INDICATOR_CODE: str = "un_snaama_final_consumption_current_usd"
+UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE: str = "un_snaama_household_consumption_current_usd"
+UN_SNAAMA_GOVERNMENT_CONSUMPTION_INDICATOR_CODE: str = (
+    "un_snaama_government_consumption_current_usd"
+)
+UN_SNAAMA_GROSS_CAPITAL_FORMATION_INDICATOR_CODE: str = (
+    "un_snaama_gross_capital_formation_current_usd"
+)
+UN_SNAAMA_GROSS_FIXED_CAPITAL_FORMATION_INDICATOR_CODE: str = (
+    "un_snaama_gross_fixed_capital_formation_current_usd"
+)
 
 # Maddison catalog (src/leaders_db/ingest/catalogs/maddison_project.csv).
 MADDISON_PROJECT_GDP_PER_CAPITA_INDICATOR_CODE: str = "maddison_project_gdp_per_capita_2011_intl"
@@ -487,6 +510,31 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             ),
             unit=None,
             scale=None,
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+            display_name="Final consumption expenditure — current USD",
+            description="UNSD country-year final consumption at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+            display_name="Household consumption expenditure — current USD",
+            description="UNSD household and NPISH consumption at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+            display_name="Government consumption expenditure — current USD",
+            description="UNSD general-government final consumption at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+            display_name="Gross capital formation — current USD",
+            description="UNSD gross capital formation at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
+            display_name="Gross fixed capital formation — current USD",
+            description="UNSD gross fixed capital formation at current US-dollar prices.",
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_POLITY_COMPOSITE_SCORE,
@@ -1155,6 +1203,43 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
                 "(NY.GDP.MKTP.CD) and constant 2015 USD "
                 "(NY.GDP.MKTP.KD). Both alias the concept."
             ),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GDP_TOTAL,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GDP_CURRENT_USD_INDICATOR_CODE,),
+            notes="Current-price US dollars; not a real-growth measure.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_FINAL_CONSUMPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GOVERNMENT_CONSUMPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GROSS_CAPITAL_FORMATION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GROSS_FIXED_CAPITAL_FORMATION_INDICATOR_CODE,),
         ),
         # --- Maddison direct mappings ---------------------------------
         ConceptMapping(

@@ -19,6 +19,7 @@ from leaders_db.sources.concepts import (
     CONCEPT_CPI_SCORE,
     CONCEPT_GDP_PER_CAPITA,
     CONCEPT_GOVERNMENT_EFFECTIVENESS,
+    CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
     CONCEPT_MILITARY_SPEND_CONSTANT_USD,
     CONCEPT_MILITARY_SPEND_SHARE_GDP,
     CONCEPT_NUCLEAR_TOTAL_INVENTORY,
@@ -38,6 +39,7 @@ from leaders_db.sources.concepts import (
     UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE,
     UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,
     UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
+    UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE,
     WDI_POPULATION_INDICATOR_CODE,
@@ -878,6 +880,45 @@ def test_publish_ucdp_government_actor_fact_preserves_attribution_boundary(
         assert fact.selected_value_number == 1132
         assert {item["code"] for item in json.loads(fact.warnings_json)} == {
             "ucdp_government_actor_not_personal_direction"
+        }
+
+
+def test_publish_snaama_fact_warns_nominal_dollars_are_not_real_growth(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="RUS", country_name="Russia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="un_snaama",
+                indicator_code=UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE,
+                observation_id="un_snaama:Russia:2022:household",
+                value=1_100_000_000_000,
+                unit="current_usd",
+                year=2022,
+                country_code=None,
+                country_name="Russia",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert {item["code"] for item in json.loads(fact.warnings_json)} == {
+            "nominal_current_usd_not_real_growth"
         }
 
 

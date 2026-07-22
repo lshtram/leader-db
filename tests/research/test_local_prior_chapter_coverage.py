@@ -174,6 +174,8 @@ def test_economic_and_social_lenses_use_question_specific_fields() -> None:
     economic_productivity = mapping_for_methodology_id("5B.6")
     social_access = mapping_for_methodology_id("6B.2")
     social_politicization = mapping_for_methodology_id("6B.7")
+    economic_trajectory = mapping_for_methodology_id("5B.10")
+    political_trajectory = mapping_for_methodology_id("4B.10")
 
     assert economic_appointments is not None
     assert economic_productivity is not None
@@ -183,6 +185,11 @@ def test_economic_and_social_lenses_use_question_specific_fields() -> None:
     assert "pwt_human_capital_index" in economic_productivity.field_keys
     assert "under5_mortality" in social_access.field_keys
     assert social_politicization.field_keys == ()
+    assert economic_trajectory is not None
+    assert "household_consumption_current_usd" in economic_trajectory.field_keys
+    assert "gross_fixed_capital_formation_current_usd" in economic_trajectory.field_keys
+    assert political_trajectory is not None
+    assert "household_consumption_current_usd" not in political_trajectory.field_keys
 
 
 def test_empty_lens_mapping_requests_narrative_evidence(database_url: str) -> None:
