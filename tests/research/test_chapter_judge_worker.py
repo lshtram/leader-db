@@ -56,6 +56,24 @@ def test_normalize_lens_lists_preserves_supported_weak_overlap_as_note() -> None
     assert "weak source diversity" in evaluation["manual_review_reason"]
 
 
+def test_normalize_lens_lists_recovers_descriptive_lens_prefixes() -> None:
+    evaluation = {
+        "supported_lenses": ["2B.1 defensive conduct"],
+        "missing_or_weak_lenses": [
+            "2B.4 civilian protection, proportionality, and attribution",
+            "2B.10: durable end-state change",
+        ],
+    }
+
+    _normalize_lens_lists(
+        evaluation, valid_methodology_ids={"2B.1", "2B.4", "2B.10"}
+    )
+
+    assert evaluation["supported_lenses"] == ["2B.1"]
+    assert evaluation["missing_or_weak_lenses"] == ["2B.4", "2B.10"]
+    assert "civilian protection" in evaluation["manual_review_reason"]
+
+
 def test_null_recovery_queue_reuses_existing_judgment_fields(tmp_path: Path) -> None:
     evaluation = SimpleNamespace(
         score_1_to_10=None,

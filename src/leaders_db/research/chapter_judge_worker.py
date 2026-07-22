@@ -594,14 +594,18 @@ def _normalize_lens_lists(
         values = evaluation.get(field)
         if not isinstance(values, list):
             continue
-        valid_values = [
-            str(value) for value in values if str(value) in valid_methodology_ids
+        normalized_values = [
+            (_lens_id_from_value(value, valid_methodology_ids), str(value))
+            for value in values
         ]
+        valid_values = [lens_id for lens_id, _ in normalized_values if lens_id]
         if field == "supported_lenses":
             supported = set(valid_values)
         if field == "missing_or_weak_lenses":
             qualitative_gaps.extend(
-                str(value) for value in values if str(value) not in valid_methodology_ids
+                original
+                for lens_id, original in normalized_values
+                if not lens_id or original != lens_id
             )
             overlap = list(
                 dict.fromkeys(value for value in valid_values if value in supported)
@@ -616,6 +620,16 @@ def _normalize_lens_lists(
         existing = str(evaluation.get("manual_review_reason") or "").strip()
         suffix = "Additional weak areas: " + "; ".join(qualitative_gaps)
         evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
+
+
+def _lens_id_from_value(value: object, valid_methodology_ids: set[str]) -> str:
+    """Recover a valid lens ID from an exact value or a descriptive prefix."""
+
+    text = str(value).strip()
+    if text in valid_methodology_ids:
+        return text
+    prefix = text.split(maxsplit=1)[0].rstrip(":;,-") if text else ""
+    return prefix if prefix in valid_methodology_ids else ""
 
 
 def _normalize_evidence_reference_lists(
