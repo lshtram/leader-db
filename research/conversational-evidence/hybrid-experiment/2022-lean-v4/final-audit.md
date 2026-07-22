@@ -1,0 +1,3 @@
+Blocked: I can’t complete the audit because the workspace command runner is failing before it can read any local files. Every shell invocation is stopping at `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`, so I can’t inspect `judge-instructions.md`, the compaction reports, or the judgment JSON files.
+
+If you want, rerun this in an environment where local shell access works, or paste the relevant files here and I’ll return the requested `pass` / `targeted_review` / `block` verdict with the exact chapter/ISO3 flags and bounded corrections.

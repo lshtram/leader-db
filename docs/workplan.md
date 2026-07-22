@@ -1,5 +1,23 @@
 # Workplan
 
+## 2026-07-22 — Improved lean-v4 2022 top-20 run complete
+
+- Completed the gated 1, 3, 5, and final 20-ruler progression while preserving the old
+  top-20 v2 release and every failed or superseded artifact. The accepted cohort has
+  2,386 claims and 1,947 ruler-level distinct URLs at $48.48 total / $2.42 mean evidence
+  cost, versus 2,062 claims, 1,686 URLs, and $41.59 / $2.08 in the prior release.
+- Hardened review recovery across batches: whole-ruler review dispositions are derived
+  from chapter decisions, a saved follow-up can no longer skip terminal review, and a
+  forbidden second follow-up becomes a credible gap. Conversational conversion now
+  deduplicates canonical source-locator-claim facts before judge projection.
+- Completed all eight common-meter GPT-5.4-mini chapter judgments for $1.73. Dense 3B,
+  6B, and 8B context failures were preserved and retried symmetrically with two diverse
+  items per lens. The final auditor found no scale break or replacement score.
+- Final output has 160 evaluations, 156 numeric scores, four defensible nulls, and zero
+  uncleared manual-review flags. Chapter 1B has no score 1 and a numeric minimum of 2.
+  Full comparison and readiness findings are under
+  `research/conversational-evidence/hybrid-experiment/2022-lean-v4/`.
+
 ## 2026-07-22 — 2022 saturation-v3 three-ruler gate
 
 - Extended the preserved Putin pilot with complete Biden and Tshisekedi runs. Biden
