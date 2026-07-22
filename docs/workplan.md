@@ -1,5 +1,24 @@
 # Workplan
 
+## 2026-07-22 — Full Putin bias-aware pilot completed; promotion blocked
+
+- Completed all 80 evidence lenses, three bounded research continuations, terminal
+  no-search review, strict formatting, eight 20-ruler comparative judgments, and an
+  independent no-search score/order audit. The dossier has 60 evidence records, 335
+  mappings, and a cited twelve-part environment assessment; equivalent evidence cost is
+  $1.62-$3.04 and comparative judging cost $1.97.
+- Bias assessments were specific and cited, all judgment E-IDs resolved, report volume
+  was not used mechanically as severity, no blanket regime adjustment appeared, and
+  local priors remained context rather than ruler conduct.
+- Promotion failed for the correct methodological reason: two-per-lens compaction kept
+  the same broadly mapped context records repeatedly and omitted decisive evidence.
+  Large score changes in 1B, 3B, 5B, and 8B were therefore not accepted. The preserved
+  release remains authoritative.
+- Full artifacts, score comparison, failures, and next action are documented under
+  `research/conversational-evidence/bias-smoke/2022-putin-full-v1/`. Next increment:
+  make compaction relation/quality-aware and diversity-seeking across lenses, add
+  metamorphic tests, and rerun only affected chapters before re-audit.
+
 ## 2026-07-22 — Comparative judge output recovery
 
 - The full eight-chapter comparative run produced valid substantive judgments but two
