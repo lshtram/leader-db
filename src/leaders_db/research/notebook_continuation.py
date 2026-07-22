@@ -115,6 +115,7 @@ def review_and_resume_notebook_if_needed(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=current[1],
             )
         except ValueError:
             report = _repair_evidence_review_scope(
@@ -138,6 +139,7 @@ def review_and_resume_notebook_if_needed(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=current[1],
             )
         if not report.needs_continuation:
             break
@@ -208,6 +210,7 @@ def review_and_resume_notebook_if_needed(
                 final_report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=current[1],
             )
         except ValueError:
             final_report = _repair_evidence_review_scope(
@@ -231,6 +234,7 @@ def review_and_resume_notebook_if_needed(
                 final_report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=current[1],
             )
         _require_terminal_review(final_report)
     return NotebookContinuationResult(
@@ -394,7 +398,8 @@ def _repair_evidence_review_scope(
             qa=qa,
             terminal=_is_terminal_review_round(job, round_number),
         )
-        + "\n\nYour prior review omitted or expanded immutable chapter scope. "
+        + "\n\nYour prior review omitted or expanded immutable chapter scope, or cited "
+        + "an evidence ID absent from the notebook. "
         + "Return exactly one chapter_reviews row for every chapter in this list: "
         + ", ".join(expected_chapter_ids)
         + ". selected_theme_ids may remain a narrower subset. Preserve substantive "

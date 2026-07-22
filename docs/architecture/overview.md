@@ -566,7 +566,14 @@ gateway-only and missing-locator candidates remain non-final but identified sour
 with missing locators are recoverable extraction tasks rather than proof of absence.
 The reviewer excludes duplicates and bundled claims, requires continuation for named
 unfetched sources or incomplete discovery patterns, and does not use predicted marginal
-value or workflow exhaustion as a saturation finding.
+value or workflow exhaustion as a saturation finding. Every current chapter review also
+records whether favorable and adverse searches were balanced; how closed-system silence
+and open-system complaint visibility affect interpretation; whether repeated coverage
+describes one event; whether allegations and findings remain distinct; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and shocks are addressed; and which material source type remains missing.
+Reviewer evidence IDs must occur in the notebook. Legacy reviews remain usable with an
+explicit unassessed-bias marker instead of being discarded.
 An honestly sparse chapter remains valid when the researcher records the searches,
 rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,

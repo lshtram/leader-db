@@ -1,5 +1,25 @@
 # Workplan
 
+## 2026-07-22 — Bias-aware no-search evidence review
+
+- Every current chapter review now reports eight explicit bias checks covering search
+  balance, closed-system silence, open-system complaint visibility, duplicate reporting,
+  allegations versus findings, official-claim independence, denominators/authority/
+  baseline/shocks, and the source type still missing. Supporting IDs must occur in the
+  reviewed notebook; residual risks remain visible instead of becoming conduct.
+- Preserved legacy reviews remain loadable with an explicit unassessed-bias marker. This
+  follows the strict-producer/tolerant-consumer rule while the current strict output
+  schema requires all bias fields from new reviewers.
+- A real no-search Luna review of the preserved Putin 2022 4B notebook passed schema and
+  evidence-ID validation: 24 defensible units, 15 source families, 20 cited IDs, five
+  unresolved bias risks, and a bounded 4B.7 continuation recommendation. Sixty-four
+  focused review/recovery tests and Ruff pass. The full suite reaches completion with
+  only the same eight unrelated Wikidata offline-fixture failures recorded before this
+  increment.
+- Next increment: run the complete eight-chapter Putin research and review path with the
+  new reviewer contract, then proceed to full judging only if dossier production remains
+  valid and review continuations stay bounded.
+
 ## 2026-07-22 — Live Putin 2022 Chapter 4B bias-contract gate
 
 - Completed a real local-first research, iterative no-search review, formatter, chapter

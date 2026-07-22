@@ -99,6 +99,117 @@ def test_evidence_review_scope_and_strict_schema() -> None:
     assert set(schema["required"]) == set(schema["properties"])
     for definition in schema["$defs"].values():
         assert set(definition["required"]) == set(definition["properties"])
+    chapter_schema = schema["$defs"]["ChapterEvidenceReview"]
+    assert "bias_review" in chapter_schema["required"]
+    bias_schema = schema["$defs"]["EvidenceBiasReview"]
+    assert set(bias_schema["required"]) == set(bias_schema["properties"])
+
+
+def test_legacy_review_is_accepted_with_explicit_unassessed_bias() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "4B",
+                    "defensible_evidence_estimate": 8,
+                    "independent_source_family_estimate": 4,
+                    "attribution_risk": "medium",
+                    "substantive_issues": [],
+                    "missing_themes": [],
+                }
+            ],
+            "global_findings": [],
+            "reviewer_summary": "Legacy artifact remains usable.",
+        }
+    )
+
+    review = report.chapter_reviews[0].bias_review
+    assert review.supporting_evidence_ids == ()
+    assert "legacy" in review.unresolved_risks[0].lower()
+
+
+def test_current_bias_review_preserves_all_interpretation_checks() -> None:
+    payload = {
+        "favorable_and_adverse_search": "Both search directions are recorded.",
+        "closed_system_silence": "Silence cannot establish favorable conduct.",
+        "open_system_complaint_volume": "Complaint counts are not severity.",
+        "duplicate_reporting": "Syndicated reports describe one event.",
+        "allegations_vs_findings": "Allegations remain separately labelled.",
+        "official_claim_independence": "Official claims have an independent check.",
+        "population_exposure_authority_baseline_shocks": (
+            "Population, exposure, authority, baseline, and shocks are addressed."
+        ),
+        "missing_source_type": "No material source type is missing.",
+        "supporting_evidence_ids": ["E001", "E002"],
+        "unresolved_risks": [],
+    }
+
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "4B",
+                    "defensible_evidence_estimate": 8,
+                    "independent_source_family_estimate": 4,
+                    "attribution_risk": "medium",
+                    "substantive_issues": [],
+                    "missing_themes": [],
+                    "bias_review": payload,
+                }
+            ],
+            "global_findings": [],
+            "reviewer_summary": "Bias risks reviewed without scoring.",
+        }
+    )
+
+    assert report.chapter_reviews[0].bias_review.model_dump(mode="json") == payload
+
+
+def test_review_rejects_bias_reference_absent_from_notebook() -> None:
+    report = EvidenceReviewReport.model_validate(
+        {
+            "schema_version": "ruler_evidence_review_v1",
+            "needs_continuation": False,
+            "selected_theme_ids": [],
+            "chapter_reviews": [
+                {
+                    "chapter_id": "4B",
+                    "defensible_evidence_estimate": 1,
+                    "independent_source_family_estimate": 1,
+                    "attribution_risk": "medium",
+                    "substantive_issues": [],
+                    "missing_themes": [],
+                    "bias_review": {
+                        "favorable_and_adverse_search": "Reviewed.",
+                        "closed_system_silence": "Reviewed.",
+                        "open_system_complaint_volume": "Reviewed.",
+                        "duplicate_reporting": "Reviewed.",
+                        "allegations_vs_findings": "Reviewed.",
+                        "official_claim_independence": "Reviewed.",
+                        "population_exposure_authority_baseline_shocks": "Reviewed.",
+                        "missing_source_type": "Reviewed.",
+                        "supporting_evidence_ids": ["E999"],
+                        "unresolved_risks": [],
+                    },
+                }
+            ],
+            "global_findings": [],
+            "reviewer_summary": "Review complete.",
+        }
+    )
+
+    with pytest.raises(ValueError, match="unknown notebook evidence IDs: E999"):
+        validate_review_scope(
+            report,
+            selected_chapter_ids=("4B",),
+            notebook="E001 supports the review.",
+        )
 
 
 def test_evidence_review_scope_accepts_global_stop_without_chapter_rows() -> None:
@@ -230,6 +341,11 @@ def test_notebook_qa_and_reviewer_prompt_use_configured_yield_goals() -> None:
     assert "formal responsibility" in prompt
     assert "Chapter 7B requires a personal-integrity" in prompt
     assert "Do not pass a chapter merely because it has several sources" in prompt
+    assert "favorable and adverse searches were both" in prompt
+    assert "closed-system silence" in prompt
+    assert "open-system\ncomplaint volume" in prompt
+    assert "allegations are separated from findings" in prompt
+    assert "source type needed to\nresolve" in prompt
 
     assert qa.minimum_source_claim_units_per_chapter == 7
     assert qa.minimum_independent_source_families_per_chapter == 4

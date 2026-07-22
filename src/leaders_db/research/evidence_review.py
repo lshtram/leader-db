@@ -36,6 +36,41 @@ class NotebookQAReport(BaseModel):
     findings: tuple[NotebookQAFinding, ...]
 
 
+class EvidenceBiasReview(BaseModel):
+    """No-search review of visibility, independence, and interpretation risks."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    favorable_and_adverse_search: str = Field(min_length=1)
+    closed_system_silence: str = Field(min_length=1)
+    open_system_complaint_volume: str = Field(min_length=1)
+    duplicate_reporting: str = Field(min_length=1)
+    allegations_vs_findings: str = Field(min_length=1)
+    official_claim_independence: str = Field(min_length=1)
+    population_exposure_authority_baseline_shocks: str = Field(min_length=1)
+    missing_source_type: str = Field(min_length=1)
+    supporting_evidence_ids: tuple[str, ...]
+    unresolved_risks: tuple[str, ...]
+
+
+def _legacy_unassessed_bias_review() -> EvidenceBiasReview:
+    """Preserve old review artifacts while making their unassessed state explicit."""
+
+    unknown = "Not assessed by the legacy reviewer contract."
+    return EvidenceBiasReview(
+        favorable_and_adverse_search=unknown,
+        closed_system_silence=unknown,
+        open_system_complaint_volume=unknown,
+        duplicate_reporting=unknown,
+        allegations_vs_findings=unknown,
+        official_claim_independence=unknown,
+        population_exposure_authority_baseline_shocks=unknown,
+        missing_source_type=unknown,
+        supporting_evidence_ids=(),
+        unresolved_risks=("Bias review was not collected under the legacy contract.",),
+    )
+
+
 class ChapterEvidenceReview(BaseModel):
     """Reviewer assessment of one selected chapter's evidence handoff."""
 
@@ -47,6 +82,7 @@ class ChapterEvidenceReview(BaseModel):
     attribution_risk: Literal["low", "medium", "high"]
     substantive_issues: tuple[str, ...]
     missing_themes: tuple[str, ...]
+    bias_review: EvidenceBiasReview = Field(default_factory=_legacy_unassessed_bias_review)
 
 
 class EvidenceReviewReport(BaseModel):
@@ -162,8 +198,9 @@ def validate_review_scope(
     *,
     selected_chapter_ids: tuple[str, ...],
     expected_chapter_ids: tuple[str, ...] | None = None,
+    notebook: str | None = None,
 ) -> None:
-    """Reject a reviewer that omits expected chapters or expands immutable scope."""
+    """Reject scope changes and, when supplied, invented notebook evidence IDs."""
 
     selected = set(selected_chapter_ids)
     expected = (
@@ -177,6 +214,20 @@ def validate_review_scope(
         or not continuation.issubset(reviewed)
     ):
         raise ValueError("evidence review differs from the selected chapter scope")
+    if notebook is None:
+        return
+    notebook_ids = set(re.findall(r"(?<![A-Z0-9])E\d{3,}(?![A-Z0-9])", notebook))
+    referenced_ids = {
+        evidence_id
+        for review in report.chapter_reviews
+        for evidence_id in review.bias_review.supporting_evidence_ids
+    }
+    unknown_ids = sorted(referenced_ids - notebook_ids)
+    if unknown_ids:
+        raise ValueError(
+            "evidence review cites unknown notebook evidence IDs: "
+            + ", ".join(unknown_ids)
+        )
 
 
 def build_evidence_review_prompt(
@@ -229,6 +280,19 @@ open URLs, add facts from memory, rewrite the notebook, or assign scores. Format
 imperfections are not evidence defects. Assess defensible source-claim units, source
 independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
 and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
 
 The immutable selected lens scope is:
 {json.dumps(selected_methodology_ids, indent=2)}
@@ -328,6 +392,7 @@ def _require_every_property(node: object) -> None:
 
 
 __all__ = [
+    "EvidenceBiasReview",
     "EvidenceReviewReport",
     "NotebookQAReport",
     "assess_research_notebook",
