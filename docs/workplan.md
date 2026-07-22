@@ -1,5 +1,27 @@
 # Workplan
 
+## 2026-07-23 — Biden 2022 open-system full-evidence gate completed
+
+- Ran the complete reusable-dossier workflow for Joe Biden / United States / 2022 after
+  the two no-cost preflight defects were repaired. The third attempt completed research,
+  four bounded no-search review passes, supervisor recovery, strict formatting, and final
+  semantic validation.
+- The final dossier contains 51 curated evidence records, explicit status for all 80
+  chapter lenses (67 covered and 13 honest `no_evidence_found` results), 535 evidence
+  mappings, and 80 local-prior summaries. Its evidence-environment assessment cites 23
+  evidence IDs and every reference resolves to the ledger.
+- Review escalation behaved as designed rather than cycling: independent source-family
+  estimates and defensible evidence increased on every pass, then the terminal fourth
+  review requested no continuation. Remaining gaps are preserved as uncertainty, not
+  adverse ruler evidence. This establishes that the expanded producer contract remains
+  feasible for a high-visibility open-system case.
+- The next proportional gate is a full chapter judge using this validated dossier and
+  preserved cohort anchors. It must accept all 13 sparse lenses, lower confidence where
+  appropriate, and avoid treating complaint volume or disclosure as misconduct severity.
+- The planned Tshisekedi contrast remains safely blocked at identity resolution: the live
+  resolver selects the DRC prime minister while retaining Tshisekedi as a competing formal
+  president. The identity quarantine was not bypassed and requires a tested resolver fix.
+
 ## 2026-07-23 — Longitudinal derivation tolerates honest target-year gaps
 
 - Biden's second contrast preflight exposed a series with valid historical observations
