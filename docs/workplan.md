@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-22 — Controlled peer-comparison engine implemented; routing pending
+
+- Added an explicit five-kind peer contract (geographic region, income group, regime
+  type, conflict exposure, and state-capacity band) and a comparison engine that emits
+  country change, peer median, country-minus-peer difference, eligible/observed peer
+  counts, coverage, definition year/basis, and cross-definition sensitivity.
+- Peer definitions dated after the target year are rejected deterministically. Missing
+  peer observations remain visible through coverage, and sign disagreement across peer
+  definitions is surfaced rather than averaged away.
+- The live country table currently has zero populated region values and no authoritative
+  accession-dated income-group dimension, so automatic peer construction is deliberately
+  not enabled yet. The engine is tested and committed as a safe prerequisite; researcher
+  routing remains blocked until source-backed peer memberships are persisted.
+
 ## 2026-07-22 — Audited longitudinal signals implemented
 
 - Local Evidence Package v3 now derives target level; exact 1/3/5/10-year changes;
