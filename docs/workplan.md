@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-23 — Tshisekedi 2022 identity quarantine resolved canonically
+
+- The DRC contrast case was correctly blocked because the generic Wikidata role fallback
+  labels a head of government as actual and a head of state as formal-only. That fallback
+  cannot distinguish a ceremonial presidency from the DRC presidency and had selected
+  Prime Minister Jean-Michel Sama Lukonde instead of President Félix Tshisekedi.
+- Added Tshisekedi to the reviewed 2022 canonical identity addendum, using the same
+  explicit lock mechanism and Wikidata person record already used for the 2023 and 2024
+  population cohorts. The lock identifies him as President and publicly recognized
+  national ruler throughout 2022; it does not change the generic role heuristic or infer
+  hidden power.
+- Applying the manifest locked `COD/2022` to existing `ruler_year_id=16113` without
+  creating a duplicate. All canonical-lock and ruler-identity tests pass. The contrast
+  dossier may now be planned through normal readiness checks rather than bypassing the
+  identity gate.
+
 ## 2026-07-23 — Biden 2022 all-chapter judge acceptance gate completed
 
 - Ran one full no-search judge for each chapter against the validated Biden dossier.
