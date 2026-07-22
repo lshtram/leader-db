@@ -1,5 +1,29 @@
 # Workplan
 
+## 2026-07-22 — 2022 saturation-v3 three-ruler gate
+
+- Extended the preserved Putin pilot with complete Biden and Tshisekedi runs. Biden
+  finished with 229 raw / 162 curated records, 155 distinct curated URLs, and 61
+  domains at $4.94. Tshisekedi finished with 196 raw / 121 curated records, 93
+  distinct curated URLs, and 43 domains at $4.56. The completed top-20 v2 artifacts
+  remain unchanged for exact comparison.
+- Breadth improved strongly for Biden (82 -> 155 URLs) and source diversity improved
+  for Tshisekedi (38 -> 43 domains), but Tshisekedi's usable URL total was essentially
+  flat (94 -> 93). The latter is an important negative result: broader discovery does
+  not manufacture evidence where ruler attribution or credible source availability is
+  genuinely sparse.
+- Controlled 20-ruler re-judging recovered numeric Tshisekedi judgments for sparse 1B
+  and 5B, but unchanged rulers showed mean absolute rerun drift of 0.21-0.62 points by
+  chapter. Biden's changes of at most one point are therefore not cleanly attributable
+  to added evidence. No audited ruler received a 1B score of 1.
+- The promotion gate is paused before five rulers while two observed reliability
+  defects are corrected: verbose judge output caused context failure, and curation
+  retries were wasted on avoidable contract errors. Judge and curator prompts now cap
+  prose, require a final decisive-E-ID/confidence check, and enumerate the exact
+  curation IDs and count checks. Focused tests and Ruff pass. Next action: rerun these
+  controls on two contrasting rulers, then promote only if first-pass validity and
+  cost remain acceptable.
+
 ## 2026-07-22 — 2022 saturation-v3 one-ruler promotion gate
 
 - Preserved the completed 2022 top-20 v2 release and ran a controlled Putin 2022

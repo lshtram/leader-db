@@ -93,6 +93,9 @@ is welcome.
 Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
 notes between specialists. Assume the reader knows the ruler's name but does not
 know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
 Use this order: (1) state the overall chapter appraisal and score in plain language;
 (2) explain the main favorable and unfavorable findings, identifying what each
 specific case was and why it matters; (3) distinguish proven facts from allegations,
@@ -136,6 +139,9 @@ Return only the requested JSON batch. Include one evaluation per available
 dossier, the unavailable manifest unchanged, substantive calibration notes, and
 the run profile. If token usage is unavailable, use
 `unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays and that
+every confidence score is on the required 0-100 scale.
 """
 
 

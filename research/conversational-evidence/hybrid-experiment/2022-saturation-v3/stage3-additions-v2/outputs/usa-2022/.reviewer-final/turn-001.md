@@ -1,0 +1,193 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct 2022 command-and-control and safeguards evidence is thinner than the public nuclear rhetoric and treaty-posture record.",
+          "lenses": ["1B.3", "1B.7", "1B.9"],
+          "best_source_or_query_direction": "Contemporaneous DoD/DOE/State records on command-and-control safety, dual-use safeguards, and senior staffing decisions in 2022.",
+          "why_it_matters": "Those lenses are the main test of whether Biden materially improved risk governance rather than only expressing restraint."
+        },
+        {
+          "gap": "The strongest crisis evidence is mostly speeches and reported private warnings rather than a declassified operational de-escalation record.",
+          "lenses": ["1B.2", "1B.8"],
+          "best_source_or_query_direction": "Declassified White House, DoD, or State Department records on U.S.-Russia nuclear scare communications in 2022.",
+          "why_it_matters": "It affects how confidently the package can distinguish rhetoric from actual risk reduction."
+        }
+      ],
+      "reason": "The package fairly presents Biden's 2022 nuclear posture with direct policy, nonproliferation, and crisis-signaling evidence, plus meaningful contrary expert critique. The main limitation is depth of direct safeguards/command evidence, but the gap is disclosed and does not break the chapter."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0041",
+          "reason": "Later-trajectory evidence from 2023; useful context, but it is not 2022 conduct."
+        },
+        {
+          "evidence_id": "E0042",
+          "reason": "Later-trajectory evidence from 2023; useful context, but it is not 2022 conduct."
+        },
+        {
+          "evidence_id": "E0043",
+          "reason": "Later-trajectory evidence from 2024; do not treat as target-period evidence."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct 2022 documentary evidence on private diplomacy, ceasefire channels, and partner-use limits remains thinner than the public sanctions and aid record.",
+          "lenses": ["2B.1", "2B.7", "2B.10"],
+          "best_source_or_query_direction": "Archived White House, State Department, and allied transcripts on 2022 Ukraine de-escalation, deconfliction, and end-use guidance.",
+          "why_it_matters": "It would separate genuine de-escalation management from ordinary wartime support and coercive statecraft."
+        }
+      ],
+      "reason": "The package presents both restraint and escalation in the 2022 Ukraine war with decent balance: no-fly-zone refusal, sanctions, aid, NATO coordination, and contrary civilian-harm context. The later AP items should be treated as trajectory context only, not 2022 proof."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0062",
+          "reason": "Title 42 is partly inherited Trump-era policy, so it should not be read as purely Biden-authored abuse."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "National-level evidence on protest policing, retaliation for dissent, and the federal government's leverage over local police remains thinner than the anti-hate and gun-safety record.",
+          "lenses": ["3B.4", "3B.8", "3B.10"],
+          "best_source_or_query_direction": "DOJ, DHS, OIG, and independent reporting on 2022 protest policing, civil-rights complaints, and federal oversight outcomes.",
+          "why_it_matters": "It determines whether the package overstates federal restraint by relying mainly on policy announcements."
+        },
+        {
+          "gap": "Border-enforcement attribution is still mixed because a large share of the harmful conduct sits in inherited systems and sub-agency action.",
+          "lenses": ["3B.2", "3B.5", "3B.7"],
+          "best_source_or_query_direction": "CBP, DHS OIG, and court records on 2022 detention conditions, use of force, and Title 42 implementation.",
+          "why_it_matters": "It affects how much of the domestic-safety record can fairly be attributed to Biden personally."
+        }
+      ],
+      "reason": "The chapter is fairly balanced: it shows real federal anti-violence and police-reform actions, but also preserves the border-policy downside and makes clear that some harms are inherited or only indirectly attributable."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence on state-level election administration, intimidation, and coercive presidential leverage against opponents is still limited.",
+          "lenses": ["4B.2", "4B.5", "4B.9"],
+          "best_source_or_query_direction": "Reuters/AP 2022 midterm coverage, state election records, and independent democracy scholarship focused on federal pressure tactics.",
+          "why_it_matters": "It would better test whether the pro-democracy record is rhetoric plus legislation or actual structural restraint."
+        }
+      ],
+      "reason": "The package fairly presents Biden's 2022 democracy record with both positive reforms and the limits of congressional blockage. Most evidence is pro-democracy by design, but the contrary and incomplete-implementation evidence is present."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Household distribution by race, region, and income tier is thinner than the macro and legislative record.",
+          "lenses": ["5B.8", "5B.10"],
+          "best_source_or_query_direction": "Census appendix tables, CBO distribution tables, and TPC/PWBM analyses tied to 2022 outcomes.",
+          "why_it_matters": "It affects whether the package over-credits aggregate macro recovery while under-measuring who benefited."
+        },
+        {
+          "gap": "The causal split between Biden-era policy, global shocks, and Federal Reserve tightening remains mixed.",
+          "lenses": ["5B.3", "5B.9", "5B.10"],
+          "best_source_or_query_direction": "IMF, OECD, BLS wage series, Fed statements, and independent inflation attribution analyses.",
+          "why_it_matters": "It is necessary to keep policy credit separate from inherited rebound and external inflation drivers."
+        }
+      ],
+      "reason": "The package is strong enough for fair presentation: it combines real policy enactment, independent macro assessment, and adverse inflation/poverty evidence. The main caveat is attribution, not coverage failure."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Child care, disability services, and elder-care evidence is still thin compared with health, housing, food, and crisis-response coverage.",
+          "lenses": ["6B.2", "6B.3", "6B.4", "6B.9"],
+          "best_source_or_query_direction": "CCDBG, Head Start, HCBS, and independent evaluations of child-care and long-term-care access in 2022.",
+          "why_it_matters": "It would better test whether the welfare record is broad or concentrated in a few visible programs."
+        },
+        {
+          "gap": "The housing record is strong on funding and program design but weaker on realized rent-burden and eviction-prevention outcomes in 2022.",
+          "lenses": ["6B.2", "6B.6", "6B.10"],
+          "best_source_or_query_direction": "Princeton Eviction Lab, Census Household Pulse, HUD outcome data, and local housing studies.",
+          "why_it_matters": "It affects how much credit the package can give for actual life-chances rather than announced support."
+        }
+      ],
+      "reason": "The package fairly shows meaningful welfare action, especially on health coverage, food, housing, and crisis mitigation, while also preserving persistent hardship and incomplete attribution. It does not overstate universal success."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0132",
+          "reason": "This is negative-proof reporting on family-business allegations, not direct proof that Joe Biden personally benefited or directed the conduct."
+        },
+        {
+          "evidence_id": "E0133",
+          "reason": "The source explicitly distinguishes family-member payments from proof about Joe Biden himself; it should not be treated as direct personal wrongdoing evidence."
+        },
+        {
+          "evidence_id": "E0134",
+          "reason": "The source says there is no evidence of payments to Joe Biden; it is contrary context, not affirmative proof of personal misconduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct personal-nexus evidence on recusal, ethics waivers, family-business benefit, or obstruction of scrutiny remains thin.",
+          "lenses": ["7B.3", "7B.4", "7B.6", "7B.7"],
+          "best_source_or_query_direction": "OGE filings, DOJ/ethics records, financial-disclosure documents, and primary records on any recusal or enforcement decisions involving Biden himself.",
+          "why_it_matters": "This chapter requires ruler-specific integrity evidence, not generic corruption climate or unproven family allegations."
+        },
+        {
+          "gap": "The clearest negative pattern is repeated factual exaggeration in speeches, but the record lacks equally direct correction or retraction evidence.",
+          "lenses": ["7B.1", "7B.2", "7B.8"],
+          "best_source_or_query_direction": "Fact-checks paired with direct transcript corrections, press-briefing transcripts, or follow-up presidential statements from 2022.",
+          "why_it_matters": "It affects whether the package shows a mixed record or just repeated misleading rhetoric."
+        }
+      ],
+      "reason": "This is the one chapter that still needs human review. The package supports transparency and some professional staffing, but the direct personal-nexus evidence on self-dealing, recusal, and family-business benefit is not strong enough to be fully publication-safe without a final human check."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0167",
+          "reason": "Intel's plant announcement is private-sector action that only indirectly reflects Biden's program pull, not direct presidential execution."
+        },
+        {
+          "evidence_id": "E0177",
+          "reason": "This is a 2025 trajectory snapshot; it is useful later context but not target-year 2022 execution evidence."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent project-level verification of 2022 execution for CHIPS, IRA, and infrastructure remains thinner than the policy-architecture record.",
+          "lenses": ["8B.2", "8B.6", "8B.7", "8B.10"],
+          "best_source_or_query_direction": "GAO, CRS, Reuters/AP, and agency award/outcome records for CHIPS, IRA, and IIJA implementation.",
+          "why_it_matters": "It distinguishes effective governance from successful policy branding."
+        },
+        {
+          "gap": "Community-level outcomes for specific groups and regions are still not well verified in the package.",
+          "lenses": ["8B.7", "8B.10"],
+          "best_source_or_query_direction": "State and local implementation data, labor-market studies, and independent evaluations of specific project cohorts.",
+          "why_it_matters": "It would reduce the risk of over-crediting broad macro recovery as ruler competence."
+        }
+      ],
+      "reason": "The package is strong on program articulation, implementation architecture, and some observed rollout outcomes. The main limitation is not lack of evidence, but that later outcome verification is still partial and some private-sector successes should not be counted as direct presidential execution."
+    }
+  ]
+}

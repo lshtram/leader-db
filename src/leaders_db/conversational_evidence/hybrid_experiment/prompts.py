@@ -275,6 +275,7 @@ def saturation_curation(
     chapter_id: str,
     evidence: object,
 ) -> str:
+    evidence_ids = [str(record["evidence_id"]) for record in evidence]
     return f"""Curate the collected Chapter {chapter_id} evidence for {ruler}, {year}.
 Do not browse, add facts, rewrite claims, or score.
 
@@ -302,6 +303,16 @@ quality overrides the count. No source family should exceed 25 percent of the re
 or contextual records when credible alternatives or a synthesis exist. Set duplicate_of
 to the retained evidence ID for direct duplicates, otherwise null. Make the numeric
 summary match the records.
+
+Before returning, check mechanically that:
+- `records` contains exactly {len(evidence_ids)} objects;
+- its evidence IDs are exactly the supplied IDs below, with no omission or duplicate;
+- every `duplicate_of` is either null or an ID retained in this same result;
+- every source family is an institutional or underlying wire family, not a page title;
+- the three summary counts equal the dispositions.
+
+SUPPLIED EVIDENCE IDS
+{json.dumps(evidence_ids)}
 
 EVIDENCE
 {json.dumps(evidence, ensure_ascii=False)}"""

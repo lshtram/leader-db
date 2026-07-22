@@ -24,6 +24,7 @@ from leaders_db.conversational_evidence.hybrid_experiment.full_curation import (
 )
 from leaders_db.conversational_evidence.hybrid_experiment.prompts import (
     saturation_chapter,
+    saturation_curation,
 )
 from leaders_db.conversational_evidence.hybrid_experiment.runner import (
     _recoverable_gaps,
@@ -163,6 +164,20 @@ def test_curation_contract_reconciles_disposition_counts() -> None:
     )
 
     assert value.summary.dropped == 1
+
+
+def test_saturation_curation_names_exact_ids_and_validation_checks() -> None:
+    prompt = saturation_curation(
+        "Example Ruler",
+        2022,
+        "2B",
+        [{"evidence_id": "E0001"}, {"evidence_id": "E0002"}],
+    )
+
+    assert "exactly 2 objects" in prompt
+    assert '["E0001", "E0002"]' in prompt
+    assert "no omission or duplicate" in prompt
+    assert "summary counts equal the dispositions" in prompt
 
 
 def test_curation_summary_counts_are_derived_from_records() -> None:
