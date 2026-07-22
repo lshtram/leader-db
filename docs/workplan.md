@@ -1,5 +1,18 @@
 # Workplan
 
+## 2026-07-23 — UNSD SNAAMA adapter and persistence increment
+
+- Registered the locally staged UN National Accounts Main Aggregates export and added
+  checksum-gated, offline ingestion for nominal GDP plus final, household, government,
+  gross-capital, and fixed-capital expenditure at current US-dollar prices.
+- A live 2022 run emitted and persisted 1,268 validated observations. Russia's source
+  rows include GDP of about USD 2.292 trillion, final consumption of USD 1.486 trillion,
+  and gross capital formation of USD 531.7 billion; each carries a warning that nominal
+  dollar changes combine real activity, inflation, and exchange-rate movements.
+- This increment intentionally stops at normalized persistence. The registry labels the
+  source as not yet researcher-available until the next concept-publication and 5B lens
+  routing increment is complete.
+
 ## 2026-07-23 — Nuclear, peace, and domestic-safety lens routing
 
 - Completed lens-specific local-evidence routing across all eight chapters. Chapter 1B

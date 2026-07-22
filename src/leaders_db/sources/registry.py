@@ -27,6 +27,7 @@ _DEFAULT_SOURCE_REGISTRARS: tuple[tuple[str, str], ...] = (
     ("leaders_db.sources.adapters.sipri_yearbook_ch7", "register_sipri_yearbook_ch7"),
     ("leaders_db.sources.adapters.transparency_cpi", "register_transparency_cpi"),
     ("leaders_db.sources.adapters.ucdp", "register_ucdp"),
+    ("leaders_db.sources.adapters.un_snaama", "register_un_snaama"),
     ("leaders_db.sources.adapters.undp_hdi", "register_undp_hdi"),
     ("leaders_db.sources.adapters.vdem", "register_vdem"),
     ("leaders_db.sources.adapters.who_gho_api", "register_who_gho_api"),

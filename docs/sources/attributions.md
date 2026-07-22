@@ -62,6 +62,14 @@ Each source below is in active use by the pipeline. The table at the end of this
   > World Bank. 2024. World Development Indicators. Washington, D.C.: The World Bank. https://data.worldbank.org/ Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
 - **Attribution text in reports:** "World Bank WDI (World Bank 2024)."
 
+### `un_snaama` — UNSD National Accounts Main Aggregates Database, 1970–2024
+
+- **What we extract:** GDP and five expenditure aggregates at current prices in US dollars from the locally staged UNdata export. Current-price dollar movements combine real activity, price change, and exchange-rate change; they are not real-growth measures. UNSD may supplement incomplete official series with estimates and revises the database annually.
+- **License:** United Nations data; attribution required. Official downloads are provided without charge by the [UN Statistics Division](https://unstats.un.org/unsd/snaama/downloads).
+- **Citation:**
+  > United Nations Statistics Division. 2026. National Accounts Main Aggregates Database. https://unstats.un.org/unsd/snaama/
+- **Attribution text in reports:** "UNSD National Accounts Main Aggregates Database (United Nations 2026)."
+
 ### `world_bank_wgi` — World Bank WGI, 1996–2022
 
 - **What we extract:** six aggregate governance indicators (Voice and Accountability, Political Stability, Government Effectiveness, Regulatory Quality, Rule of Law, Control of Corruption). Estimate column only (the 5 other per-year statistics — StdErr, NumSrc, Rank, Lower, Upper — are deferred to a future iteration if the score module needs per-source confidence intervals).
@@ -288,6 +296,7 @@ Each source below is in active use by the pipeline. The table at the end of this
 | `leader_survival` | leader identity (historical) | 1789–2022 | free academic | "Leader Survival (PLT post-1789) v5, H-DATA (Gerring et al. 2024)." |
 | `vdem` | political freedom, governance, corruption, repression, social well-being (subset) | 1789–2025 | free academic, DOI 10.23696/vdemds26 | "V-Dem v16 (Coppedge et al. 2026)." |
 | `world_bank_wdi` | economic indicators, social well-being (subset) | 1960–2023+ | CC BY 4.0 | "World Bank WDI (World Bank 2024)." |
+| `un_snaama` | nominal GDP and expenditure aggregates | 1970–2024 | United Nations data; attribution required | "UNSD National Accounts Main Aggregates Database (United Nations 2026)." |
 | `maddison_project` | historical economic indicators (GDP per capita, population, derived real GDP total) | 1–2022 | CC BY 4.0 | "Bolt, Jutta and Jan Luiten van Zanden (2024), 'Maddison style estimates of the evolution of the world economy: A new 2023 update', Journal of Economic Surveys, 1-41. DOI: 10.1111/joes.12618. Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)." |
 | `cshapes` | country area (km²) | 1886–2019 | CC BY-NC-SA 4.0 | "CShapes 2.0 (Schvitz et al. 2022), ETH Zurich ICR." |
 | `soviet_leaders_curated` | SUN ruler identity (de facto leader spells) | 1922-12-30 to 1991-12-25 | Wikipedia-anchored curated facts | "Soviet leaders (curated subset, Wikipedia 'List of leaders of the Soviet Union'), as of 2026-06-21." |
