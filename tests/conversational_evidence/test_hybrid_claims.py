@@ -107,6 +107,21 @@ def test_parse_reuse_rejects_only_malformed_record() -> None:
     assert errors[0]["line_number"] == 2
 
 
+def test_parse_chapter_note_accepts_reuse_without_new_claims() -> None:
+    note = 'REUSE_JSON: {"evidence_ids":["E0001"],"lenses":["4B.1"]}'
+
+    claims = parse_chapter_note(note, "4B")
+    reused = parse_reuse(note, "4B")
+
+    assert claims == ()
+    assert len(reused) == 1
+
+
+def test_parse_chapter_note_rejects_note_without_claims_or_reuse() -> None:
+    with pytest.raises(ValueError, match="no SOURCE_CLAIM_JSON: or REUSE_JSON:"):
+        parse_chapter_note("No structured evidence records were emitted.", "4B")
+
+
 def test_recover_completed_chapter_turn(tmp_path: Path) -> None:
     work = tmp_path / ".researcher"
     work.mkdir()

@@ -69,8 +69,11 @@ def parse_chapter_note(note: str, chapter_id: str) -> tuple[AcceptedClaim, ...]:
     """Parse and validate every accepted source-claim JSON line."""
 
     claims, _ = _chapter_claim_records(note)
-    if not claims:
-        raise ValueError(f"{chapter_id} note contains no {_CLAIM_PREFIX} records")
+    reused, _ = _reuse_records(note)
+    if not claims and not reused:
+        raise ValueError(
+            f"{chapter_id} note contains no {_CLAIM_PREFIX} or {_REUSE_PREFIX} records"
+        )
     for claim in claims:
         if any(not lens.startswith(f"{chapter_id}.") for lens in claim.lenses):
             raise ValueError(f"{chapter_id} claim contains a cross-chapter lens")
