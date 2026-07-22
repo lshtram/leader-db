@@ -81,6 +81,7 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
 
     package = compact_local_priors(priors)
 
+    assert package.schema_version == "ruler_local_evidence_package_v3"
     assert package.source_prior_count == 20
     assert package.unique_fact_count == 1
     assert package.facts[0].fact_id == "LF001"

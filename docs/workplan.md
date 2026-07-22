@@ -1,5 +1,22 @@
 # Workplan
 
+## 2026-07-22 — Local Evidence Package v3 longitudinal window implemented
+
+- Upgraded local structured priors to v3 with explicit `pre_accession`, `tenure`, and
+  `target` roles. With a resolved accession year, the producer requests up to ten
+  pre-accession years, every available tenure year, and the target year; its bounded
+  range structurally excludes post-target observations.
+- Added conservative accession resolution across an exact leader record and a unique
+  surname-only historical identity in the same country. This repaired the live Putin
+  split between `Vladimir Putin` (Wikidata, 2012) and `Putin` (Archigos/REIGN, 2000)
+  without broadly fuzzy-merging names.
+- The compact researcher handoff is now versioned as
+  `ruler_local_evidence_package_v3`. Legacy facts without a period role remain accepted
+  as target-year facts, following the tolerant-consumer rule.
+- A live Putin 2022 Chapter 2B extraction resolves accession to 2000 and returns 241
+  facts spanning 1992–2022: 57 pre-accession, 176 tenure, and 8 target facts, with zero
+  post-target leakage. Focused and broad research tests pass.
+
 ## 2026-07-22 — V-Dem and WGI uncertainty preserved end to end
 
 - V-Dem ingestion now discovers each selected indicator's available `codelow`,

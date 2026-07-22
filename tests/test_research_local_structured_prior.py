@@ -10,10 +10,58 @@ from leaders_db.research.local_structured_prior import (
     CLIENT_MATRIX_SOURCE_SLUGS,
     OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS,
     POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
+    LeaderPriorMetadata,
     LocalPriorPeriod,
     LocalStructuredPriorRequest,
     build_local_structured_prior,
 )
+
+
+def test_v3_local_prior_includes_baseline_tenure_and_target_without_future_data(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    for country_year_id, year in enumerate((1998, 2000, 2021, 2022, 2023), start=1):
+        _insert_country_year(
+            engine,
+            country_id=1,
+            country_year_id=country_year_id,
+            iso3="RUS",
+            name="Russia",
+            year=year,
+        )
+        _insert_fact(
+            engine,
+            country_id=1,
+            country_year_id=country_year_id,
+            year=year,
+            field_key="military_spend_share_gdp",
+            value_type="number",
+            selected_value_number=float(year),
+            source_slugs=("sipri_milex",),
+            source_observation_ids=(f"sipri:RUS:{year}:share",),
+            confidence_score=80,
+        )
+
+    artifact = build_local_structured_prior(
+        engine,
+        LocalStructuredPriorRequest(
+            methodology_id="2B.1",
+            iso3="RUS",
+            period=LocalPriorPeriod(year=2022),
+            leader=LeaderPriorMetadata(name="Vladimir Putin", accession_year=2000),
+        ),
+    )
+
+    assert artifact.method_version == "local_structured_prior_v3"
+    assert [(fact.year, fact.period_role) for fact in artifact.local_facts] == [
+        (1998, "pre_accession"),
+        (2000, "tenure"),
+        (2021, "tenure"),
+        (2022, "target"),
+    ]
+    assert all(fact.year <= 2022 for fact in artifact.local_facts)
 
 
 def test_build_local_prior_finds_freedom_house_political_freedom_facts(

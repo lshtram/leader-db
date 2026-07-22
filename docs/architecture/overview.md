@@ -213,6 +213,7 @@ disagreement into the rationale and confidence components.
 | Confidence engine | `src/leaders_db/score/confidence.py` | 11 | Fixed formula and component score calculation. |
 | Concept country-year facts | `src/leaders_db/facts/concept_country_year_facts.py` | 5 | Publishes unit-specific concepts, selected and alternative provenance, fixed confidence components, and source-specific interpretation warnings. |
 | Source uncertainty transport | `src/leaders_db/ingest/{vdem_io,wgi_xlsx}.py`, `src/leaders_db/sources/adapters/{vdem,world_bank_wgi}/_transform.py` | 2/5 | Retains V-Dem coding bounds/standard deviations and WGI estimate standard errors/percentile-rank bounds in observation extensions that fact provenance carries forward. |
+| Local Evidence Package v3 | `src/leaders_db/research/{local_prior_schema,local_prior_query,local_structured_prior,local_prior_package}.py` | research handoff | Retrieves a bounded pre-accession/tenure/target series, labels each fact's period role, excludes future observations, deduplicates across lenses, and accepts legacy target-year facts. |
 | LLM adapter | `src/leaders_db/llm/{caller,schemas}.py` | 10/11 escalation | Strict JSON adjudication; optional gated external research later. |
 | Comparison | `src/leaders_db/validate/comparison.py` | 12 | Client-vs-system deltas; client remains validation reference only. |
 | Manual review queue | `src/leaders_db/validate/manual_review_queue.py` | 14 | Prioritized low-confidence/conflict/missingness/high-delta cases. |

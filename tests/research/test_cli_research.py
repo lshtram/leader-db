@@ -332,7 +332,7 @@ def _insert_country_year(
 
 def _insert_country_year_fact(engine: Engine) -> None:
     candidate = {
-        "concept_key": "gdp_per_capita",
+        "concept_key": "gdp_per_capita_nominal_current_usd",
         "source_slug": "world_bank_wdi",
         "value": 76399.0,
         "value_type": "numeric",
@@ -357,7 +357,8 @@ def _insert_country_year_fact(engine: Engine) -> None:
                     recommended_next_action, source_slugs_json,
                     source_observation_ids_json, producer, method_version
                 ) VALUES (
-                    1, 1, 2023, 'gdp_per_capita', 'GDP per capita', 'number',
+                    1, 1, 2023, 'gdp_per_capita_nominal_current_usd',
+                    'GDP per capita — nominal current USD', 'number',
                     76399.0, :selected_value_json, :candidate_values_json,
                     'test_rule', 'selected', 92, '{}', '[]', 'Selected fixture fact.',
                     'none', :source_slugs_json, :source_observation_ids_json,

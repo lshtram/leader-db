@@ -12,7 +12,7 @@ PriorStatus = Literal["evidence_found", "no_evidence_found", "not_applicable", "
 CLIENT_MATRIX_SOURCE_SLUGS = frozenset(
     {"client_existing", "client_matrix", "vertical_slice_client_seed"}
 )
-LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v2"
+LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v3"
 
 
 def _chapter_methodology_ids(chapter: str) -> tuple[str, ...]:
@@ -246,6 +246,7 @@ class LeaderPriorMetadata(BaseModel):
     name: str | None = None
     leader_id: int | None = None
     period_label: str | None = None
+    accession_year: int | None = None
 
 
 class LocalPriorCountry(BaseModel):
@@ -318,6 +319,7 @@ class LocalPriorFact(BaseModel):
     source_observation_ids: list[str]
     confidence: int | None = None
     warnings: list[str] = Field(default_factory=list)
+    period_role: Literal["pre_accession", "tenure", "target"] = "target"
 
 
 class LocalStructuredPriorArtifact(BaseModel):

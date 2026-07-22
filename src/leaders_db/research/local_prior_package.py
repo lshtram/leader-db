@@ -25,6 +25,7 @@ class CompactLocalFact(BaseModel):
     source_observation_ids: tuple[str, ...]
     confidence: int | None
     warnings: tuple[str, ...]
+    period_role: Literal["pre_accession", "tenure", "target"] = "target"
     candidate_methodology_ids: tuple[str, ...]
     chapter_ids: tuple[str, ...]
 
@@ -56,8 +57,8 @@ class CompactLocalPriorPackage(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["ruler_local_prior_package_v1"] = (
-        "ruler_local_prior_package_v1"
+    schema_version: Literal["ruler_local_evidence_package_v3"] = (
+        "ruler_local_evidence_package_v3"
     )
     source_prior_count: int
     unique_fact_count: int
