@@ -66,6 +66,11 @@ from leaders_db.sources.contracts import (
     SourceIngestRequest,
 )
 
+from ._actor_aware import (
+    CURRENT_COUNTRY_YEAR_ZIP,
+    CURRENT_VERSION,
+    read_actor_aware_country_year,
+)
 from ._descriptor import (
     UCDP_DEFAULT_VERSION,
     UCDP_ZIP_ASSET_ID,
@@ -157,6 +162,9 @@ def read_ucdp_zip(request: SourceIngestRequest) -> RawReadResult:
     # giving the new transform full control over the
     # request-scoping decisions.
     wide_df = _legacy_read_ucdp(zip_path=zip_path)
+    actor_aware_df, actor_aware_path = read_actor_aware_country_year(
+        _bundle_dir(request),
+    )
     metadata = _read_metadata_payload(_metadata_path(request))
 
     # Carry the source URL metadata onto the RawAsset. The
@@ -188,13 +196,27 @@ def read_ucdp_zip(request: SourceIngestRequest) -> RawReadResult:
         retrieved_at=None,
         immutable=True,
     )
+    assets = [asset]
+    if actor_aware_path is not None:
+        assets.append(
+            RawAsset(
+                asset_id=f"ucdp:{CURRENT_COUNTRY_YEAR_ZIP}",
+                source_id=request.source_id,
+                version=CURRENT_VERSION,
+                media_type="application/zip",
+                path=actor_aware_path,
+                immutable=True,
+            )
+        )
     return RawReadResult(
         source_id=request.source_id,
-        assets=(asset,),
+        assets=tuple(assets),
         payload={
             "wide_df": wide_df,
             "metadata": metadata,
             "zip_path": zip_path,
+            "actor_aware_df": actor_aware_df,
+            "actor_aware_path": actor_aware_path,
         },
         warnings=(),
     )

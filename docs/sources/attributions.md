@@ -72,11 +72,12 @@ Each source below is in active use by the pipeline. The table at the end of this
 
 ### `ucdp` — Uppsala Conflict Data Program, 1989–2022 (GED 23.1)
 
-- **What we extract:** country-year aggregates of organized violence. The UCDP GED 23.1 dataset is event-level (~316,818 events in v23.1); the Stage 2 adapter aggregates events to country-year using `type_of_violence` (1 = state-based, 2 = non-state, 3 = one-sided) and `gwnob` (the Gleditsch-Ward state number for side_b, identifying cross-border / internationalized state-based events). Feeds `international_peace` (type=1 + intl subset) and `domestic_violence` (type=3). Non-state conflict (type=2) is not on the indicator catalog.
+- **What we extract:** country-year aggregates of organized violence. The UCDP GED 23.1 dataset is event-level (~316,818 events in v23.1); the Stage 2 adapter aggregates events to country-year using `type_of_violence` and `gwnob`. When the staged Organized Violence 26.1 country-year archive is present, the clean adapter additionally emits separate intrastate, interstate, non-state-conflict, host-government, any-government, non-state-group, and event-location fatality facts with low/high bounds and dyad names. Location and actor-role facts remain separate and neither establishes ruler initiation or responsibility by itself.
 - **License:** free academic; cite UCDP per <https://ucdp.uu.se/terms-of-use/>.
 - **Citation (verbatim, byte-identical to `UCDP_ATTRIBUTION` in code):**
   > Davies, Shawn, Garounis, Nicholas, Sollenberg, Ralph, and Allansson, Marie (2023). UCDP Georeferenced Event Dataset (GED) 23.1. Uppsala Conflict Data Program. https://ucdp.uu.se/downloads/
 - **Attribution text in reports:** "UCDP GED 23.1 (Davies et al. 2023)."
+- **Supplementary 26.1 attribution text in reports:** "UCDP Organized Violence 26.1 (UCDP 2026)."
 
 ### `transparency_cpi` — Transparency International CPI, 1995–2023
 

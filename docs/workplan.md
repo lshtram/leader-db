@@ -1,5 +1,23 @@
 # Workplan
 
+## 2026-07-22 — UCDP actor-aware current country-year increment
+
+- The clean UCDP adapter now optionally reads the locally staged Organized Violence
+  26.1 country-year archive alongside GED 23.1. It emits seven distinct facts for
+  intrastate, interstate, non-state conflict, host-government killings,
+  any-government involvement, non-state-group killings, and location totals.
+- Each fact retains dyad names, source row/column, low/high uncertainty bounds, and an
+  explicit semantic role. Every fact warns that event location does not establish ruler
+  initiation, perpetration, or support. The legacy one-sided catalog descriptions were
+  corrected so they no longer call mixed government/non-state totals state-perpetrated.
+- A live 2022 clean-run emitted 1,372 current actor-aware observations and passed shared
+  validation. Russia/Ukraine inspection demonstrated the formerly collapsed case:
+  Ukraine's 1,132 location deaths are separate from zero host-government killings and
+  1,132 killings involving any government actor. Focused UCDP tests pass. The staged
+  one-sided actor archive, peace agreements, termination, external support, arms
+  transfers, and sanctions remain future increments; this is not claimed as completion
+  of the international-conflict source plan.
+
 ## 2026-07-22 — SIPRI Yearbook nuclear facts ingested and routed
 
 - Repaired the clean Yearbook adapter against the staged official 97-page 2024 chapter.
