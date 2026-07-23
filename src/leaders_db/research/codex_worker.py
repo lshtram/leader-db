@@ -1042,10 +1042,28 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
     if not isinstance(manifest, dict):
         return None
     entries = manifest.get("entries", [])
-    first_manifest = notebook.split(marker, maxsplit=1)[0]
+    first_manifest_text = notebook.split(marker, maxsplit=1)[1].lstrip()
+    try:
+        first_manifest, _ = json.JSONDecoder().raw_decode(first_manifest_text)
+    except json.JSONDecodeError:
+        first_manifest = {}
+    first_keys_by_id = {
+        str(entry["provisional_id"]): str(entry["canonical_fact_key"])
+        for entry in first_manifest.get("entries", [])
+        if isinstance(entry, dict)
+        and entry.get("provisional_id")
+        and entry.get("canonical_fact_key")
+    }
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        original_key = first_keys_by_id.get(str(entry.get("provisional_id", "")))
+        if original_key is not None:
+            entry["canonical_fact_key"] = original_key
+    first_notebook_part = notebook.split(marker, maxsplit=1)[0]
     historical_keys_by_id = {
         str(entry["provisional_id"]): str(entry["canonical_fact_key"])
-        for entry in _recover_markdown_ledger_entries(first_manifest)
+        for entry in _recover_markdown_ledger_entries(first_notebook_part)
     }
     declared_ids = {
         str(entry.get("provisional_id", ""))

@@ -923,6 +923,31 @@ def test_embedded_manifest_discards_historical_heading_replay() -> None:
     ]
 
 
+def test_embedded_manifest_preserves_first_canonical_key_for_existing_id() -> None:
+    notebook = """Initial research.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"canonical-url#L92-L150",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"}
+]}
+
+Later continuation.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"stale-display-url",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["canonical_fact_key"] == "canonical-url#L92-L150"
+    assert manifest["entries"][0]["methodology_ids"] == ["1B.3", "1B.7"]
+
+
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:
     handoff_path = tmp_path / "research-handoff.md"
     handoff_path.write_text(
