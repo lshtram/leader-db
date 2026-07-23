@@ -726,7 +726,7 @@ def test_formatter_restores_missing_exact_route_for_emitted_manifest_fact() -> N
 
     restored = _restore_formatter_ledger_evidence(
         candidate,
-        existing_candidate={"evidence": [evidence]},
+        existing_candidate=None,
         notebook=notebook,
     )
 

@@ -948,15 +948,16 @@ def _restore_formatter_ledger_evidence(
     """Restore exact reviewed facts preserved by an earlier formatter attempt."""
 
     manifest = _embedded_ledger_manifest(notebook)
-    if existing_candidate is None or manifest is None:
+    if manifest is None:
         return candidate
     evidence = candidate.get("evidence")
     mappings = candidate.get("mappings")
     coverage = candidate.get("coverage")
     if not all(isinstance(value, list) for value in (evidence, mappings, coverage)):
         return candidate
-    catalog_items = list(existing_candidate.get("evidence", [])) + list(
-        existing_candidate.get("recovery_evidence_catalog", [])
+    prior_candidate = existing_candidate or {}
+    catalog_items = list(prior_candidate.get("evidence", [])) + list(
+        prior_candidate.get("recovery_evidence_catalog", [])
     )
     catalog = {
         str(item.get("canonical_fact_key", "")): item
