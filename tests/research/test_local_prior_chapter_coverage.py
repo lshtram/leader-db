@@ -13,6 +13,7 @@ from leaders_db.research.dossier_prompt import build_dossier_prompt
 from leaders_db.research.local_prior_package import (
     compact_local_priors,
     summarize_local_priors_for_formatter,
+    summarize_local_priors_for_research,
 )
 from leaders_db.research.local_prior_schema import (
     LOCAL_PRIOR_MAPPINGS,
@@ -115,6 +116,37 @@ def test_formatter_prior_summary_omits_repeated_fact_payload() -> None:
     assert "facts" not in summary
     assert "longitudinal_signals" not in summary
     assert summary["fact_payload"].startswith("omitted_after_research")
+
+
+def test_research_prior_summary_keeps_target_and_period_boundaries() -> None:
+    facts = []
+    for year, period_role in (
+        (2018, "pre_accession"),
+        (2019, "pre_accession"),
+        (2020, "tenure"),
+        (2021, "tenure"),
+        (2022, "target"),
+    ):
+        fact = _fact_payload("hdi", "undp_hdi")
+        fact["year"] = year
+        fact["period_role"] = period_role
+        fact["source_observation_ids"] = [f"undp_hdi:NZL:{year}:hdi"]
+        facts.append(fact)
+    prior = _prior_payload("6B.10", None)
+    prior["local_facts"] = facts
+
+    summary = summarize_local_priors_for_research((prior,))
+
+    assert [fact["year"] for fact in summary["facts"]] == [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+    ]
+    assert summary["facts_omitted"] == 0
+    assert summary["longitudinal_signals"][0]["observed_year_range"] == [2018, 2022]
+    assert "observed_years" not in summary["longitudinal_signals"][0]
 
 
 def test_compact_local_prior_accepts_missing_optional_confidence() -> None:
@@ -316,7 +348,7 @@ def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) ->
     }
 
 
-def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
+def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(  # noqa: PLR0915
     tmp_path: Path,
 ) -> None:
     project = Path(__file__).resolve().parents[2]
@@ -354,9 +386,10 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         ),
     )
 
-    # Once in the raw fact register and once in its audited derived-signal lineage.
-    assert prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 2
-    assert '"unique_fact_count": 1' in prompt
+    # The bounded research view keeps the fact ID once and records signal lineage counts.
+    assert prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
+    assert '"source_observation_id_count":1' in prompt
+    assert '"unique_fact_count":1' in prompt
     assert '"candidate_methodology_ids"' in prompt
     assert "local-prior:5B.1" in prompt
     assert "Do not read\nadditional local files during this worker run" in prompt

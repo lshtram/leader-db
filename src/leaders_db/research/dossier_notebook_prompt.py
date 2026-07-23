@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .local_prior_package import compact_local_priors
+from .local_prior_package import summarize_local_priors_for_research
 from .research_workflow import ResearchWorkflow
 
 
@@ -63,7 +63,7 @@ def build_research_notebook_prompt(
         f"{path.read_text(encoding='utf-8')}"
         for path in required_methodology_paths
     )
-    local_prior_package = compact_local_priors(local_priors)
+    local_prior_package = summarize_local_priors_for_research(local_priors)
     return f"""Perform an evidence-collection pass using the compact execution contract,
 local facts, source registry, and chapter research lenses inlined below. Do not read
 additional local files during this worker run.
@@ -91,7 +91,7 @@ Job:
 {json.dumps(job_payload, indent=2, sort_keys=True)}
 
 Deduplicated local structured evidence package:
-{json.dumps(local_prior_package.model_dump(mode="json"), indent=2, sort_keys=True)}
+    {json.dumps(local_prior_package, separators=(",", ":"), sort_keys=True)}
 
 Research workflow:
     {json.dumps(workflow.model_dump(mode="json"), indent=2, sort_keys=True)}
@@ -109,8 +109,12 @@ what is only country or inherited-capacity context, and which attribution or nar
 gaps require internet evidence. Do not re-fetch a structured dataset already supplied
 locally. Absence of a local row is a gap, not proof that the real-world condition was
 zero, peaceful, safe, responsible, or inapplicable. The package's
-`candidate_methodology_ids` are routing hints, not proof that a fact directly answers
-every listed lens; decide and explain actual reuse yourself.
+    `candidate_methodology_ids` are routing hints, not proof that a fact directly answers
+    every listed lens; decide and explain actual reuse yourself.
+    For oversized time series, the inlined package contains all target-year facts,
+    audited longitudinal signals, and boundary observations rather than every annual row.
+    `facts_omitted` records the bounded reduction. Do not treat omitted annual rows as
+    missing evidence; the parent retains and restores their complete hashed provenance.
 Any `error_methodology_ids` entry is a local-input failure, not ordinary missing
 evidence: keep it visible as a separate data-quality issue. Continue collecting useful
 web evidence for the lens, but do not claim that web material repaired the local

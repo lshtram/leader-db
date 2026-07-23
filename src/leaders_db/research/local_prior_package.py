@@ -216,6 +216,55 @@ def summarize_local_priors_for_formatter(
     }
 
 
+def summarize_local_priors_for_research(
+    local_priors: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
+    """Bound a large time-series package while retaining audited decision points."""
+
+    package = compact_local_priors(local_priors)
+    selected_ids = _research_fact_ids(package.facts)
+    facts = [
+        fact.model_dump(mode="json")
+        for fact in package.facts
+        if fact.fact_id in selected_ids
+    ]
+    signals = []
+    for signal in package.longitudinal_signals:
+        payload = signal.model_dump(mode="json")
+        observed_years = payload.pop("observed_years")
+        source_ids = payload.pop("source_observation_ids")
+        payload["observed_year_range"] = (
+            [min(observed_years), max(observed_years)] if observed_years else []
+        )
+        payload["source_observation_id_count"] = len(source_ids)
+        signals.append(payload)
+    summary = summarize_local_priors_for_formatter(local_priors)
+    summary |= {
+        "facts": facts,
+        "facts_included": len(facts),
+        "facts_omitted": len(package.facts) - len(facts),
+        "fact_selection": (
+            "all target-year facts plus earliest/latest pre-accession and tenure facts "
+            "per indicator; full provenance is restored by the parent"
+        ),
+        "longitudinal_signals": signals,
+        "fact_payload": "bounded_research_view_parent_retains_full_hashed_provenance",
+    }
+    return summary
+
+
+def _research_fact_ids(facts: tuple[CompactLocalFact, ...]) -> set[str]:
+    selected = {fact.fact_id for fact in facts if fact.period_role == "target"}
+    grouped: dict[tuple[str, str], list[CompactLocalFact]] = {}
+    for fact in facts:
+        grouped.setdefault((fact.field_key, fact.period_role), []).append(fact)
+    for rows in grouped.values():
+        rows.sort(key=lambda item: (item.year, item.fact_id))
+        selected.add(rows[0].fact_id)
+        selected.add(rows[-1].fact_id)
+    return selected
+
+
 def _fact_key(raw_fact: dict[str, Any]) -> str:
     return json.dumps(raw_fact, sort_keys=True, separators=(",", ":"), default=str)
 
@@ -281,4 +330,5 @@ __all__ = [
     "CompactMethodologyDisposition",
     "compact_local_priors",
     "summarize_local_priors_for_formatter",
+    "summarize_local_priors_for_research",
 ]
