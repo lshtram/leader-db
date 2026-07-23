@@ -1,5 +1,23 @@
 # Workplan
 
+## 2026-07-23 — Støre 2022 high-baseline dossier gate completed
+
+- Completed the high-data/high-inherited-baseline case on its first worker attempt. The
+  validated dossier contains 64 evidence records (56 final, eight context), 522 mappings,
+  all 80 coverage rows, 80 restored local-prior provenance records, nine explicit gaps,
+  and an evidence-environment assessment whose 55 support IDs all resolve.
+- The first review requested only a 1B continuation. Two bounded all-chapter supervisor
+  passes followed, then the terminal fourth review stopped collection. The notebook grew
+  from 8 KB to 126 KB and the compact formatter prompt remained 159 KB; no provider-limit,
+  output-truncation, or semantic-retry failure occurred.
+- Every lens is conservatively marked partially covered. This avoids converting Norway's
+  strong inherited institutions or administrative-data visibility into automatic ruler
+  credit, while retaining enough mapped evidence and local time-series context for the
+  comparative judge to attempt a score with calibrated confidence and range.
+- All five pilot dossiers are now validated. The next gate is one common-meter judge per
+  chapter across Biden, Tshisekedi, Putin, Scholz, and Støre, followed by drift, bias,
+  local-prior, attribution, and score-order audits before any wider cohort run.
+
 ## 2026-07-23 — Scholz 2022 constrained-authority dossier gate completed
 
 - Completed the coalition/federal-authority case on its first worker attempt. The
