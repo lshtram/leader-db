@@ -880,7 +880,12 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     seen_keys: set[str] = set()
     for index, heading in enumerate(headings):
-        end = headings[index + 1].start() if index + 1 < len(headings) else len(handoff)
+        next_item = headings[index + 1].start() if index + 1 < len(headings) else len(handoff)
+        next_heading = re.search(r"(?m)^#{2,4}\s+", handoff[heading.end() :])
+        section_heading = (
+            heading.end() + next_heading.start() if next_heading is not None else len(handoff)
+        )
+        end = min(next_item, section_heading)
         section = handoff[heading.end() : end]
         key_match = re.search(
             r"(?mi)(?:canonical[_ ]fact[_ ]key|canonical key)\*{0,2}:\*{0,2}"
@@ -898,7 +903,7 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
         if not key or key in seen_keys:
             continue
         use_match = re.search(
-            r"(?mi)(?:final use|disposition|role)\*{0,2}:\*{0,2}\s*([^\n]+)",
+            r"(?mi)(?:final use|disposition|role|status)\*{0,2}:\*{0,2}\s*([^\n]+)",
             section,
         )
         use = use_match.group(1).lower() if use_match else "final_evidence"

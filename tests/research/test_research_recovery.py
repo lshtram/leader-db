@@ -778,6 +778,32 @@ def test_embedded_research_ledger_manifest_is_recovered(tmp_path: Path) -> None:
     assert json.loads(manifest_path.read_text(encoding="utf-8")) == recovered
 
 
+def test_markdown_manifest_recovery_preserves_discovery_status_and_section_boundary() -> None:
+    handoff = """### R027 — Inaccessible source
+
+- Canonical fact key: `https://example.org/inaccessible|candidate`
+- Status: `discovery_only`.
+- Reason: Retrieval failed; no precise locator or excerpt was verified.
+- Lens mappings suggested: `1B.1`, `1B.2`.
+
+## Later chapter
+
+This unrelated section discusses 2B.1 and must not expand R027 routing.
+"""
+
+    recovered = _recover_markdown_ledger_entries(handoff)
+
+    assert recovered == [
+        {
+            "provisional_id": "R027",
+            "canonical_fact_key": "https://example.org/inaccessible|candidate",
+            "disposition": "discovery_only",
+            "chapter_ids": ["1B"],
+            "methodology_ids": ["1B.1", "1B.2"],
+        }
+    ]
+
+
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:
     handoff_path = tmp_path / "research-handoff.md"
     handoff_path.write_text(
