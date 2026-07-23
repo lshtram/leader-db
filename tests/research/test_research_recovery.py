@@ -898,6 +898,31 @@ def test_embedded_manifest_cannot_promote_explicit_discovery_only_item() -> None
     assert manifest["entries"][0]["disposition"] == "discovery_only"
 
 
+def test_embedded_manifest_discards_historical_heading_replay() -> None:
+    notebook = """### P027 — Historical display entry
+- Canonical fact key: `stale-display-url`
+- Role: final_evidence.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"canonical-url#L1-L3",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"},
+  {"provisional_id":"P027-2","canonical_fact_key":"stale-display-url",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert [item["canonical_fact_key"] for item in manifest["entries"]] == [
+        "canonical-url#L1-L3"
+    ]
+
+
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:
     handoff_path = tmp_path / "research-handoff.md"
     handoff_path.write_text(

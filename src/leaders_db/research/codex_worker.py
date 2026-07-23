@@ -1041,16 +1041,55 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
         return None
     if not isinstance(manifest, dict):
         return None
+    entries = manifest.get("entries", [])
+    first_manifest = notebook.split(marker, maxsplit=1)[0]
+    historical_keys_by_id = {
+        str(entry["provisional_id"]): str(entry["canonical_fact_key"])
+        for entry in _recover_markdown_ledger_entries(first_manifest)
+    }
+    declared_ids = {
+        str(entry.get("provisional_id", ""))
+        for entry in entries
+        if isinstance(entry, dict)
+    }
+    manifest["entries"] = [
+        entry
+        for entry in entries
+        if not _is_replayed_historical_entry(
+            entry,
+            declared_ids=declared_ids,
+            historical_keys_by_id=historical_keys_by_id,
+        )
+    ]
     restrictive = {
         str(entry["canonical_fact_key"]): entry
         for entry in _recover_markdown_ledger_entries(notebook)
         if entry.get("disposition") in {"discovery_only", "rejected"}
     }
-    for entry in manifest.get("entries", []):
+    for entry in manifest["entries"]:
         correction = restrictive.get(str(entry.get("canonical_fact_key", "")))
         if correction is not None:
             entry.update(correction)
     return manifest
+
+
+def _is_replayed_historical_entry(
+    entry: object,
+    *,
+    declared_ids: set[str],
+    historical_keys_by_id: dict[str, str],
+) -> bool:
+    """Identify an old heading replayed under an artificial suffixed ID."""
+
+    if not isinstance(entry, dict):
+        return False
+    provisional_id = str(entry.get("provisional_id", ""))
+    match = re.fullmatch(r"(.+)-\d+", provisional_id)
+    if match is None or match.group(1) not in declared_ids:
+        return False
+    return historical_keys_by_id.get(match.group(1)) == str(
+        entry.get("canonical_fact_key", "")
+    )
 
 
 def _restore_ledger_routing(
