@@ -16,6 +16,7 @@ from leaders_db.research.codex_worker import (
     _load_or_recover_research_ledger_manifest,
     _load_research_ledger_manifest,
     _recover_completed_initial_research,
+    _recover_explicit_markdown_evidence,
     _recover_markdown_ledger_entries,
     _restore_formatter_ledger_evidence,
     _validate_formatter_ledger_accounting,
@@ -737,6 +738,61 @@ def test_formatter_restores_missing_exact_route_for_emitted_manifest_fact() -> N
         "1B.4",
         "1B.10",
     }
+
+
+def test_complete_markdown_evidence_block_can_be_recovered_exactly() -> None:
+    key = "https://example.test/report#L92-L150"
+    notebook = f"""### P027 — Independent reporting
+
+- Canonical fact key: `{key}`
+- Source: Example News, 26 July 2022.
+- Claim: Construction began after the safety-related concrete pour.
+- Locator: HTML lines 92–108 and 116–128.
+- Source type/confidence: independent reporting; medium for the event.
+- Attribution: national project under executive authority, with agency implementation.
+- Role: independent corroboration of project activity.
+"""
+
+    recovered = _recover_explicit_markdown_evidence(notebook, key)
+
+    assert recovered is not None
+    assert recovered["canonical_fact_key"] == key
+    assert recovered["url"] == key
+    assert recovered["source_locator"] == "HTML lines 92–108 and 116–128."
+    assert recovered["source_confidence"] == "medium"
+    assert recovered["publisher"] == "Example News"
+
+
+def test_incomplete_markdown_evidence_block_is_not_recovered() -> None:
+    key = "https://example.test/report#p4"
+    notebook = f"""### P027 — Incomplete item
+- Canonical fact key: `{key}`
+- Claim: A claim without a precise producer record.
+"""
+
+    assert _recover_explicit_markdown_evidence(notebook, key) is None
+
+
+def test_markdown_evidence_can_join_by_immutable_provisional_id() -> None:
+    key = "https://example.test/canonical#L92-L150"
+    notebook = """### P027 — Independent reporting
+- Canonical fact key: `https://example.test/stale-display`
+- Source: Example News, 26 July 2022.
+- Claim: Construction began after the safety-related concrete pour.
+- Locator: HTML lines 92–108 and 116–128.
+- Source type/confidence: independent reporting; medium for the event.
+- Attribution: national project under executive authority.
+- Role: independent corroboration.
+"""
+
+    recovered = _recover_explicit_markdown_evidence(
+        notebook,
+        key,
+        provisional_id="P027",
+    )
+
+    assert recovered is not None
+    assert recovered["canonical_fact_key"] == key
 
 
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:

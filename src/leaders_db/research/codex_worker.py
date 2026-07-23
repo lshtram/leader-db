@@ -987,7 +987,11 @@ def _restore_formatter_ledger_evidence(
         if not isinstance(entry, dict) or entry.get("disposition") != "final_evidence":
             continue
         key = str(entry.get("canonical_fact_key", ""))
-        source = catalog.get(key)
+        source = catalog.get(key) or _recover_explicit_markdown_evidence(
+            notebook,
+            key,
+            provisional_id=str(entry.get("provisional_id", "")),
+        )
         if key in emitted_by_key:
             _restore_ledger_routing(
                 entry,
@@ -1025,6 +1029,89 @@ def _restore_formatter_ledger_evidence(
                 f"attempts for {len(restored_keys)} canonical fact key(s)."
             )
     return candidate
+
+
+def _recover_explicit_markdown_evidence(
+    notebook: str,
+    canonical_key: str,
+    *,
+    provisional_id: str = "",
+) -> dict[str, Any] | None:
+    """Recover one complete producer-authored evidence block without inference."""
+
+    headings = list(re.finditer(r"(?m)^#{2,4}\s+([^\n]+)$", notebook))
+    for index, heading in enumerate(headings):
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(notebook)
+        section = notebook[heading.end() : end]
+        key_match = re.search(
+            r"(?mi)^-\s*(?:\*{0,2})Canonical fact key(?:\*{0,2}):\s*`([^`]+)`",
+            section,
+        )
+        heading_id_matches = bool(
+            provisional_id
+            and re.match(rf"^{re.escape(provisional_id)}(?:\s|—|-)", heading.group(1))
+        )
+        key_matches = key_match is not None and key_match.group(1).strip() == canonical_key
+        if not key_matches and not heading_id_matches:
+            continue
+        fields = {
+            label: _markdown_bullet_value(section, aliases)
+            for label, aliases in {
+                "source": ("Source",),
+                "claim": ("Claim",),
+                "locator": ("Locator",),
+                "profile": ("Source type/confidence", "Profile"),
+                "attribution": ("Attribution",),
+                "role": ("Role", "Final use"),
+            }.items()
+        }
+        if any(not value for value in fields.values()):
+            return None
+        url = canonical_key.split("|", maxsplit=1)[0]
+        if not url.startswith(("http://", "https://")):
+            return None
+        confidence_match = re.search(
+            r"\b(high|medium|low)(?:-medium)?\b", fields["profile"], re.IGNORECASE
+        )
+        if confidence_match is None:
+            return None
+        source_parts = [item.strip(" .") for item in fields["source"].split(",")]
+        publisher = source_parts[0]
+        publication_date = (
+            source_parts[-1]
+            if len(source_parts) > 1
+            else "unknown_not_exposed_by_source"
+        )
+        return {
+            "evidence_id": "E999999",
+            "claim": fields["claim"],
+            "url": url,
+            "title": heading.group(1).strip(),
+            "publisher": publisher,
+            "publication_date": publication_date,
+            "excerpt": fields["claim"],
+            "source_locator": fields["locator"],
+            "canonical_fact_key": canonical_key,
+            "source_type": fields["profile"],
+            "source_confidence": confidence_match.group(1).lower(),
+            "source_confidence_reason": fields["profile"],
+            "final_evidence_use": "final_evidence",
+            "period_fit": "Producer identified this as target-period evidence.",
+            "ruler_attribution": fields["attribution"],
+            "contrary_evidence": [],
+        }
+    return None
+
+
+def _markdown_bullet_value(section: str, aliases: tuple[str, ...]) -> str:
+    """Read one explicitly labeled single-line Markdown bullet value."""
+
+    labels = "|".join(re.escape(alias) for alias in aliases)
+    match = re.search(
+        rf"(?mi)^-\s*(?:\*{{0,2}})(?:{labels})(?:\*{{0,2}}):\s*([^\n]+)",
+        section,
+    )
+    return match.group(1).strip().strip("`") if match is not None else ""
 
 
 def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
