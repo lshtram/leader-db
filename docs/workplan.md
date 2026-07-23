@@ -1,5 +1,26 @@
 # Workplan
 
+## 2026-07-23 — Biden/Tshisekedi comparative judge gate completed
+
+- Ran all eight chapters as true two-ruler comparative batches. Every job completed with
+  two validated evaluations, an actual peer calibration reference, structured-prior
+  summaries, supported bias findings, and explicit confirmations against report-volume
+  severity and blanket regime correction.
+- The comparison primarily expressed visibility differences through confidence and range:
+  Tshisekedi 1B received 48 confidence and a 4.5–7.5 range versus Biden's 72 and 5.5–7.5;
+  the attribution-sensitive 7B results were 38 and 48 confidence respectively. DRC
+  institutional corruption and associate conduct were not converted into personal ruler
+  misconduct.
+- All chapters remained judgeable under the user's tolerant-consumer directive. The prior
+  singleton Biden 7B null became a cautious 6.0 in common-meter comparison, based on the
+  direct 2022 disclosure-and-review record, while preserving low confidence, a 5.0–7.5
+  range, and explicit unresolved personal-conduct gaps. This is a calibration/stability
+  signal for the five-ruler gate, not evidence that a peer created new facts.
+- Scores are provisional pilot outputs, not promoted rankings. A two-case meter is too
+  narrow to establish ordering stability; the next gate must add constrained-authority and
+  high-data/high-baseline cases and audit whether unchanged dossier interpretations remain
+  within the one-point promotion threshold.
+
 ## 2026-07-23 — Tshisekedi 2022 sparse/conflict evidence gate completed
 
 - Completed the full 80-lens DRC dossier from the preserved research notebook after the
