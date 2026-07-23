@@ -235,6 +235,11 @@ def _reuse_existing_notebook_candidate(
 
     if candidate is None or research_checkpoint is None:
         return None
+    candidate = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=candidate,
+        notebook=research_checkpoint[1],
+    )
     try:
         dossier = _prepare_dossier(
             candidate,
