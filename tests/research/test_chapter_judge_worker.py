@@ -756,6 +756,11 @@ def test_bias_assessment_drops_out_of_projection_references() -> None:
         "supporting_evidence_ids"
     ] == ["E001"]
 
+    missing_assessment: dict[str, object] = {}
+    _ensure_bias_assessment(missing_assessment, valid_evidence_ids={"E001"})
+    assert missing_assessment["bias_assessment"]["report_volume_not_used_as_severity"] is True
+    assert missing_assessment["bias_assessment"]["no_blanket_regime_correction"] is True
+
 
 def test_bias_assessment_remains_explicit_when_projection_has_no_evidence() -> None:
     evaluation = {}
@@ -1052,7 +1057,7 @@ def _assert_tolerant_bias_persistence(completed: dict[str, object], batch: objec
     assert batch.run_profile.usage.total_tokens == 1500
     assert all(item.confidence_score == 50 for item in batch.evaluations)
     assert all(
-        not item.bias_assessment.report_volume_not_used_as_severity
+        item.bias_assessment.report_volume_not_used_as_severity
         for item in batch.evaluations
     )
 

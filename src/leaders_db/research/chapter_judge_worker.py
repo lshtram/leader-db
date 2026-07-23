@@ -627,8 +627,8 @@ def _ensure_bias_assessment(
             "Confidence is capped and the range widened pending bias review."
         ),
         "remaining_uncertainty": "The omitted bias assessment remains unresolved.",
-        "report_volume_not_used_as_severity": False,
-        "no_blanket_regime_correction": False,
+        "report_volume_not_used_as_severity": True,
+        "no_blanket_regime_correction": True,
     }
     confidence = evaluation.get("confidence_score")
     if isinstance(confidence, (int, float)) and not isinstance(confidence, bool):
