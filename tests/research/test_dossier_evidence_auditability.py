@@ -31,6 +31,36 @@ def test_new_final_evidence_rejects_generic_locator(locator: str) -> None:
         DossierEvidence.model_validate(payload)
 
 
+def test_normalizer_retains_unlocated_final_evidence_as_context() -> None:
+    payload = _dossier(
+        (
+            _evidence()
+            | {
+                "source_locator": "unknown_not_recorded",
+                "canonical_fact_key": "source|unknown|claim",
+            },
+        )
+    )
+    payload["mappings"] = [
+        {
+            "evidence_id": "E001",
+            "methodology_id": "1B.1",
+            "relation": "supports",
+            "relevance": "Useful claim with an imprecise locator.",
+        }
+    ]
+
+    normalized = normalize_dossier_candidate(payload, methodology_ids=("1B.1",))
+    dossier = RulerEvidenceDossier.model_validate(normalized)
+
+    assert dossier.evidence[0].final_evidence_use == "context"
+    assert dossier.mappings[0].relation == "context"
+    assert any(
+        "unauditable final evidence E001 retained as context" in warning
+        for warning in dossier.normalization_warnings
+    )
+
+
 def test_strict_writer_schema_requires_new_audit_fields() -> None:
     schema = codex_dossier_json_schema()
     evidence_schema = schema["$defs"]["DossierEvidence"]

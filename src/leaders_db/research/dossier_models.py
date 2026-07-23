@@ -345,6 +345,8 @@ def normalize_dossier_candidate(
     if not isinstance(evidence, list):
         return normalized
 
+    downgraded_evidence = _downgrade_unauditable_final_evidence(evidence, warnings)
+
     id_map: dict[str, list[str]] = {}
     deduplicated_evidence: list[object] = []
     canonical_fact_ids: dict[tuple[str, str, str], str] = {}
@@ -395,16 +397,76 @@ def normalize_dossier_candidate(
 
     selected = set(methodology_ids)
     mappings = _normalize_mappings(normalized.get("mappings"), id_map, selected, warnings)
+    _normalize_context_only_mappings(evidence, downgraded_evidence, mappings, warnings)
     _infer_local_prior_mappings(evidence, mappings, selected, warnings)
     coverage = _normalize_coverage(
         normalized.get("coverage"), methodology_ids, id_map, mappings, warnings
     )
     _retain_unmapped_evidence_as_chapter_context(evidence, mappings, selected, warnings)
     _normalize_environment_references(normalized.get("evidence_environment"), id_map)
-    normalized["mappings"] = mappings
-    normalized["coverage"] = coverage
-    normalized["normalization_warnings"] = list(dict.fromkeys(warnings))
+    normalized.update(
+        mappings=mappings,
+        coverage=coverage,
+        normalization_warnings=list(dict.fromkeys(warnings)),
+    )
     return normalized
+
+
+def _downgrade_unauditable_final_evidence(
+    evidence: list[object], warnings: list[str]
+) -> set[int]:
+    """Retain useful claims without treating an imprecisely located claim as final."""
+
+    generic_locators = {
+        "unknown_not_recorded",
+        "gateway_only",
+        "locator_missing",
+        "underlying_source_missing",
+        "release page",
+        "article",
+        "section page",
+        "document index",
+    }
+    downgraded: set[int] = set()
+    for item in evidence:
+        if not isinstance(item, dict) or item.get("final_evidence_use") != "final_evidence":
+            continue
+        locator = str(item.get("source_locator", "")).strip().casefold()
+        canonical_key = str(item.get("canonical_fact_key", "")).strip()
+        if locator and locator not in generic_locators and canonical_key not in {
+            "",
+            "unknown_not_recorded",
+        }:
+            continue
+        item["final_evidence_use"] = "context"
+        downgraded.add(id(item))
+        warnings.append(
+            f"unauditable final evidence {item.get('evidence_id', 'unknown')} retained as context"
+        )
+    return downgraded
+
+
+def _normalize_context_only_mappings(
+    evidence: list[object],
+    downgraded_evidence: set[int],
+    mappings: list[dict[str, Any]],
+    warnings: list[str],
+) -> None:
+    """Prevent retained context records from being represented as directional findings."""
+
+    # The set uses object identity so originally contextual evidence keeps its producer
+    # relation; only records downgraded by this normalization lose directional force.
+    context_only_ids = {
+        str(item.get("evidence_id"))
+        for item in evidence
+        if isinstance(item, dict) and id(item) in downgraded_evidence
+    }
+    for mapping in mappings:
+        if mapping["evidence_id"] in context_only_ids and mapping["relation"] != "context":
+            mapping["relation"] = "context"
+            warnings.append(
+                f"context-only evidence {mapping['evidence_id']} mapping normalized to context"
+            )
 
 
 def _ensure_evidence_environment(
