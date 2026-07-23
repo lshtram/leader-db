@@ -9,6 +9,7 @@ from leaders_db.research._codex_worker_artifacts import find_previous_candidate
 from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.codex_worker import (
     WorkerOutputError,
+    _embedded_ledger_manifest,
     _events_show_failed_turn,
     _has_indeterminate_formatter_call,
     _has_indeterminate_initial_research,
@@ -802,6 +803,29 @@ This unrelated section discusses 2B.1 and must not expand R027 routing.
             "methodology_ids": ["1B.1", "1B.2"],
         }
     ]
+
+
+def test_embedded_manifest_cannot_promote_explicit_discovery_only_item() -> None:
+    notebook = """### R027 — Inaccessible source
+
+- Canonical fact key: `https://example.org/inaccessible|candidate`
+- Status: `discovery_only`.
+- Reason: No precise locator or excerpt was verified.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R027",
+   "canonical_fact_key":"https://example.org/inaccessible|candidate",
+   "chapter_ids":["1B"],"methodology_ids":["1B.1"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["disposition"] == "discovery_only"
 
 
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:

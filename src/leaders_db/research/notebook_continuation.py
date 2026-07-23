@@ -1069,6 +1069,12 @@ def _append_current_ledger_manifest(
         existing_id = ids_by_key.get(canonical_key)
         if existing_id is not None and existing_id != provisional_id:
             continue
+        if (
+            prior is not None
+            and prior.get("disposition") in {"discovery_only", "rejected"}
+            and normalized_entry.get("disposition") == "final_evidence"
+        ):
+            normalized_entry = prior
         entries_by_id[provisional_id] = normalized_entry
         ids_by_key[canonical_key] = provisional_id
     if not entries_by_id:

@@ -1029,7 +1029,18 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
         )
     except json.JSONDecodeError:
         return None
-    return manifest if isinstance(manifest, dict) else None
+    if not isinstance(manifest, dict):
+        return None
+    restrictive = {
+        str(entry["canonical_fact_key"]): entry
+        for entry in _recover_markdown_ledger_entries(notebook)
+        if entry.get("disposition") in {"discovery_only", "rejected"}
+    }
+    for entry in manifest.get("entries", []):
+        correction = restrictive.get(str(entry.get("canonical_fact_key", "")))
+        if correction is not None:
+            entry.update(correction)
+    return manifest
 
 
 def _restore_ledger_routing(
