@@ -1343,7 +1343,7 @@ def _validate_formatter_ledger_accounting(
     emitted = {
         item.canonical_fact_key: item
         for item in dossier.evidence
-        if item.final_evidence_use == "final_evidence"
+        if item.final_evidence_use != "discovery_only"
     }
     missing_keys = sorted(set(expected) - set(emitted))
     if missing_keys:

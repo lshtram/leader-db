@@ -565,6 +565,26 @@ def test_formatter_must_preserve_final_ledger_keys_and_chapter_routing() -> None
         preserved, notebook=notebook + "\nLater reviewer and continuation prose.\n"
     )
 
+    downgraded_but_preserved = SimpleNamespace(
+        evidence=(
+            SimpleNamespace(
+                evidence_id="E001",
+                canonical_fact_key="fact-1",
+                final_evidence_use="context",
+            ),
+            SimpleNamespace(
+                evidence_id="E002",
+                canonical_fact_key="fact-3",
+                final_evidence_use="final_evidence",
+            ),
+        ),
+        mappings=preserved.mappings,
+    )
+    _validate_formatter_ledger_accounting(
+        downgraded_but_preserved,
+        notebook=notebook,
+    )
+
 
 def test_previous_candidate_exposes_distinct_evidence_from_other_attempts(
     tmp_path: Path,
