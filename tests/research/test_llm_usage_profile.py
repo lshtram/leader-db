@@ -38,7 +38,9 @@ def test_usage_profile_reports_each_action_and_prompt_size(tmp_path: Path) -> No
     assert action["prompt_characters"] == 12
     assert action["estimated_prompt_tokens"] == 4
     assert action["actual_usage"]["input_tokens"] == 120
+    assert action["actual_usage"]["uncached_input_tokens"] == 100
     assert action["actual_usage"]["output_tokens"] == 30
+    assert action["input_amplification_vs_prompt_estimate"] == 30
 
 
 def test_usage_profile_does_not_duplicate_initial_or_formatter_actions(
@@ -69,3 +71,37 @@ def test_usage_profile_does_not_duplicate_initial_or_formatter_actions(
         "research_reconnaissance",
     ]
     assert [item["prompt_characters"] for item in payload["actions"]] == [6, 5]
+
+
+def test_usage_profile_breaks_known_payload_sections_apart(tmp_path: Path) -> None:
+    job_dir = tmp_path / "jobs" / "1"
+    attempt_dir = job_dir / "attempts" / "001-token"
+    trusted_dir = job_dir / "trusted" / "001-token"
+    attempt_dir.mkdir(parents=True)
+    trusted_dir.mkdir(parents=True)
+    prompt = (
+        "review preamble\n"
+        "Immutable job:\n{}\n"
+        "Deterministic QA:\n{\"large\": true}\n"
+        "Research notebook:\nnotebook body"
+    )
+    (trusted_dir / "evidence-review-round-01.prompt.txt").write_text(
+        prompt, encoding="utf-8"
+    )
+    (trusted_dir / "evidence-review-round-01.events.jsonl").write_text(
+        '{"type":"turn.completed","usage":{"input_tokens":50,"output_tokens":2}}\n',
+        encoding="utf-8",
+    )
+
+    payload = json.loads(
+        write_llm_usage_profile(attempt_dir).read_text(encoding="utf-8")
+    )
+
+    components = payload["actions"][0]["prompt_components"]
+    assert [item["component"] for item in components] == [
+        "preamble",
+        "immutable_job",
+        "deterministic_qa",
+        "research_notebook",
+    ]
+    assert sum(item["characters"] for item in components) == len(prompt)

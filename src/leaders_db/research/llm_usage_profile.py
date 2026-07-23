@@ -43,22 +43,88 @@ def write_llm_usage_profile(attempt_dir: Path) -> Path:
     return output_path
 
 
+_SECTION_MARKERS = (
+    "Evidence-environment and authority briefing:",
+    "Chapter questions and research note:",
+    "Known resource index from prior turns:",
+    "This is a fresh compact chapter session.",
+    "For every newly accepted unit,",
+    "The immutable selected lens scope is:",
+    "Immutable job:",
+    "Deterministic QA:",
+    "Configured research workflow:",
+    "Research notebook:",
+    "Job input:",
+    "Deduplicated local structured evidence",
+    "Permissive evidence-research notebook and handoff:",
+    "Existing candidate from a prior failed validation:",
+    "Requirements:",
+    "Immutable batch identity:",
+    "Unavailable dossiers ",
+    "Available dossier manifest:",
+    "Embedded chapter projections ",
+    "Active chapter guide:",
+    "Return only the requested JSON batch.",
+)
+
+
 def _profile_row(events_path: Path) -> dict[str, Any]:
     prompt_path = _prompt_path(events_path)
-    prompt_chars = (
-        len(prompt_path.read_text(encoding="utf-8"))
+    prompt = (
+        prompt_path.read_text(encoding="utf-8")
         if prompt_path is not None and prompt_path.is_file()
         else None
     )
+    prompt_chars = len(prompt) if prompt is not None else None
     usage = read_codex_usage(events_path)
+    actual_usage = usage.model_dump(mode="json") if usage is not None else None
+    if actual_usage is not None:
+        input_tokens = actual_usage.get("input_tokens")
+        cached_tokens = actual_usage.get("cached_input_tokens") or 0
+        actual_usage["uncached_input_tokens"] = (
+            max(0, input_tokens - cached_tokens)
+            if isinstance(input_tokens, int)
+            else None
+        )
+    estimated_tokens = ceil(prompt_chars / 3) if prompt_chars is not None else None
     return {
         "action": _action_name(events_path.name),
         "events_path": str(events_path),
         "prompt_path": str(prompt_path) if prompt_path is not None else None,
         "prompt_characters": prompt_chars,
-        "estimated_prompt_tokens": ceil(prompt_chars / 3) if prompt_chars is not None else None,
-        "actual_usage": usage.model_dump(mode="json") if usage is not None else None,
+        "estimated_prompt_tokens": estimated_tokens,
+        "prompt_components": _prompt_components(prompt) if prompt is not None else [],
+        "actual_usage": actual_usage,
+        "input_amplification_vs_prompt_estimate": (
+            round(actual_usage["input_tokens"] / estimated_tokens, 2)
+            if actual_usage is not None
+            and isinstance(actual_usage.get("input_tokens"), int)
+            and estimated_tokens
+            else None
+        ),
     }
+
+
+def _prompt_components(prompt: str) -> list[dict[str, Any]]:
+    starts = [(0, "preamble")]
+    for marker in _SECTION_MARKERS:
+        offset = prompt.find(marker)
+        if offset >= 0:
+            starts.append((offset, marker.rstrip(":,.").lower().replace(" ", "_")))
+    starts = sorted(set(starts))
+    components = []
+    for index, (start, name) in enumerate(starts):
+        end = starts[index + 1][0] if index + 1 < len(starts) else len(prompt)
+        characters = end - start
+        components.append(
+            {
+                "component": name,
+                "characters": characters,
+                "estimated_tokens": ceil(characters / 3),
+                "share_of_prompt": round(characters / len(prompt), 4) if prompt else 0,
+            }
+        )
+    return components
 
 
 def _prompt_path(events_path: Path) -> Path | None:
