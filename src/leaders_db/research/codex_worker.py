@@ -27,6 +27,7 @@ from .codex_worker_command import (
     read_codex_thread_id,
     validate_worker_timing,
 )
+from .compact_handoff import build_compact_research_handoff
 from .costing import combine_priced_usage
 from .dossier_models import (
     DossierLocalPrior,
@@ -96,7 +97,14 @@ def execute_claimed_dossier_job(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
-    research_notebook = research_checkpoint[1] if research_checkpoint else None
+    research_notebook = (
+        build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=research_checkpoint[1],
+        )
+        if research_checkpoint
+        else None
+    )
     recovered_path = _reuse_existing_notebook_candidate(
         engine,
         candidate=existing_candidate,

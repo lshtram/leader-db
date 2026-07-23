@@ -18,6 +18,7 @@ from .codex_worker_command import (
     build_codex_resume_command,
     read_codex_thread_id,
 )
+from .compact_handoff import build_compact_research_handoff
 from .evidence_review import (
     EvidenceReviewReport,
     assess_research_notebook,
@@ -95,6 +96,10 @@ def review_and_resume_notebook_if_needed(
             methodology_ids=tuple(job["input"]["question_ids"]),
             workflow=workflow,
         )
+        review_notebook = build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=current[1],
+        )
         report = _existing_review_report(attempt, round_number) or _run_evidence_review(
             engine,
             job=job,
@@ -102,7 +107,7 @@ def review_and_resume_notebook_if_needed(
             project_root=project_root,
             profile=reviewer_profile,
             attempt=attempt,
-            notebook=current[1],
+            notebook=review_notebook,
             qa=qa,
             round_number=round_number,
             lease_token=lease_token,
@@ -111,13 +116,13 @@ def review_and_resume_notebook_if_needed(
             timeout_seconds=timeout_seconds,
         )
         reviewed = True
-        report = normalize_review_evidence_references(report, notebook=current[1])
+        report = normalize_review_evidence_references(report, notebook=review_notebook)
         try:
             validate_review_scope(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
-                notebook=current[1],
+                notebook=review_notebook,
             )
         except ValueError:
             report = _repair_evidence_review_scope(
@@ -128,7 +133,7 @@ def review_and_resume_notebook_if_needed(
                 project_root=project_root,
                 profile=reviewer_profile,
                 attempt=attempt,
-                notebook=current[1],
+                notebook=review_notebook,
                 qa=qa,
                 round_number=round_number,
                 expected_chapter_ids=expected_review_ids,
@@ -137,12 +142,14 @@ def review_and_resume_notebook_if_needed(
                 heartbeat_seconds=heartbeat_seconds,
                 timeout_seconds=timeout_seconds,
             )
-            report = normalize_review_evidence_references(report, notebook=current[1])
+            report = normalize_review_evidence_references(
+                report, notebook=review_notebook
+            )
             validate_review_scope(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
-                notebook=current[1],
+                notebook=review_notebook,
             )
         if not report.needs_continuation:
             break
@@ -193,6 +200,10 @@ def review_and_resume_notebook_if_needed(
             workflow=workflow,
         )
         final_round = workflow.max_review_rounds + 1
+        review_notebook = build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=current[1],
+        )
         final_report = _existing_review_report(attempt, final_round) or _run_evidence_review(
             engine,
             job=job,
@@ -200,7 +211,7 @@ def review_and_resume_notebook_if_needed(
             project_root=project_root,
             profile=reviewer_profile,
             attempt=attempt,
-            notebook=current[1],
+            notebook=review_notebook,
             qa=qa,
             round_number=final_round,
             lease_token=lease_token,
@@ -209,14 +220,14 @@ def review_and_resume_notebook_if_needed(
             timeout_seconds=timeout_seconds,
         )
         final_report = normalize_review_evidence_references(
-            final_report, notebook=current[1]
+            final_report, notebook=review_notebook
         )
         try:
             validate_review_scope(
                 final_report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
-                notebook=current[1],
+                notebook=review_notebook,
             )
         except ValueError:
             final_report = _repair_evidence_review_scope(
@@ -227,7 +238,7 @@ def review_and_resume_notebook_if_needed(
                 project_root=project_root,
                 profile=reviewer_profile,
                 attempt=attempt,
-                notebook=current[1],
+                notebook=review_notebook,
                 qa=qa,
                 round_number=final_round,
                 expected_chapter_ids=expected_review_ids,
@@ -237,13 +248,13 @@ def review_and_resume_notebook_if_needed(
                 timeout_seconds=timeout_seconds,
             )
             final_report = normalize_review_evidence_references(
-                final_report, notebook=current[1]
+                final_report, notebook=review_notebook
             )
             validate_review_scope(
                 final_report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
-                notebook=current[1],
+                notebook=review_notebook,
             )
         _require_terminal_review(final_report)
     return NotebookContinuationResult(
@@ -328,7 +339,10 @@ def _run_evidence_review(
     )
     prompt = build_evidence_review_prompt(
         job=job,
-        notebook=notebook,
+        notebook=build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=notebook,
+        ),
         qa=qa,
         terminal=_is_terminal_review_round(job, round_number),
     )
