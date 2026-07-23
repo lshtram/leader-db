@@ -82,3 +82,41 @@ The result demonstrates that fresh short targeted sessions preserve quality whil
 avoiding the steep eight-chapter history replay. Iteration 4 promotes that topology:
 one short reconnaissance followed by fresh compact chapter sessions, each receiving a
 bounded relevant-resource index and writing into one parent-owned cumulative ledger.
+
+## Iteration 4 — full segmented research
+
+- Run key: `2022-amlo-web-consistency-i04`; all eight research chapters completed.
+  The run was intentionally stopped before formatter or judge execution because this
+  gate measures web research only.
+- The standalone cumulative ledger contains 102 evidence units, 83 distinct URLs,
+  51 domains, 371 exact-lens mappings, and valid locators on all 102 units. Of these,
+  97 are final evidence and five are context.
+- Mapped chapter depths are: 1B 11, 2B 14, 3B 20, 4B 22, 5B 16, 6B 14, 7B 20,
+  and 8B 22. This is a balanced full-ruler result rather than the manual union used
+  for iteration 3.
+- Lean-v4 remains broader in raw evidence units and URLs (111 and 98), while iteration
+  4 has more domains and nearly the same mapping breadth (51 and 371 versus 39 and
+  377). The compact run therefore restores broadly comparable research quality but
+  does not yet beat lean-v4 on every breadth measure.
+- Explicit prompt text stayed small: 6,809 characters for reconnaissance and
+  10,378–14,742 characters for chapter turns. No local-prior package or accumulated
+  raw dossier was embedded.
+- Provider-reported usage was 632,525 input / 7,221 output tokens for reconnaissance
+  and 4,429,207 input / 65,107 output tokens across all chapter turns. Of chapter input,
+  3,833,856 tokens were cached. Per-chapter input stayed bounded between 359,357 and
+  732,489 instead of growing to iteration 2's 5.46 million-token final turn.
+
+### Gate conclusion
+
+Compact segmentation fixes the qualitative regression and the runaway chapter-history
+growth. It also proves that explicit prompt length is no longer the main token hog:
+short 2.6K–3.7K-token prompts still produce hundreds of thousands of provider-reported
+input tokens through cached agent/tool/session context. The segmented mode remains
+experimental until its downstream reviewer and formatter receive the same compact-input
+treatment. The next focused work is therefore:
+
+1. retain the compact segmented researcher topology;
+2. add an explicit prompt-versus-provider-context breakdown to every LLM action;
+3. compact and profile the reviewer and formatter before an end-to-end dossier test;
+4. run a fifth AMLO iteration only if those changes can improve URL breadth or materially
+   reduce uncached input without sacrificing the iteration-4 evidence ledger.
