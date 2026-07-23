@@ -69,7 +69,11 @@ For every accepted unit, preserve one material claim, canonical URL, publisher/d
 precise locator, period fit, attribution limits, contrary evidence, and applicable
 methodology IDs. Keep stable IDs and append to `research-materials.md`. Maintain one
 cumulative `research-ledger-manifest.json`; later turns must extend, never replace, it.
-If file writing fails, include the complete handoff in the response.
+If file writing fails, include every accepted unit in the response as one physical
+`SOURCE_CLAIM_JSON:` line. Each line must contain `provisional_id`,
+`canonical_fact_key`, `disposition`, `chapter_ids`, `methodology_ids`, `url`, `claim`,
+and `locator`. A prose summary or Markdown table may accompany these lines but cannot
+replace them. The parent recovers these lines into the cumulative manifest.
 
 Do not pad counts, infer favorable conduct from missing reporting, confuse complaint
 volume with severity, count repeated coverage as independent corroboration, turn

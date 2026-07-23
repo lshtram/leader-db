@@ -1565,6 +1565,24 @@ def test_continuation_manifest_disposition_is_monotonic(tmp_path: Path) -> None:
     assert demoted_manifest["entries"][0]["chapter_ids"] == ["1B", "2B", "3B"]
 
 
+def test_markdown_table_fallback_is_recovered_acceptingly() -> None:
+    recovered = _recover_markdown_ledger_entries(
+        """| ID | Material claim and locator | Limits | Period / methodology |
+|---|---|---|---|
+| AMLO22-R01 | Claim. [INE](https://example.test/ine), lines 1-4. | Limit. | 2022; 1B, 4B |
+"""
+    )
+
+    assert recovered == [
+        {
+            "provisional_id": "AMLO22-R01",
+            "canonical_fact_key": "recovered:https://example.test/ine|AMLO22-R01",
+            "disposition": "final_evidence",
+            "chapter_ids": ["1B", "4B"],
+        }
+    ]
+
+
 def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     (current.attempt_dir / "research-ledger-manifest.json").write_text(

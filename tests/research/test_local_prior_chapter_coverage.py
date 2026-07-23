@@ -396,6 +396,7 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert "Never use a\nrecent-news filter" in prompt
     assert "Chapter 7B\nrequires a personal integrity nexus" in prompt
     assert "reconnaissance only" in prompt
+    assert "A prose summary or Markdown table may accompany these lines but cannot" in prompt
     assert len(prompt) < 10_000
 
     formatter_prompt = build_dossier_prompt(

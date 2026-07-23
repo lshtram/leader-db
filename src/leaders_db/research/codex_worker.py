@@ -953,6 +953,28 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
             entry["reason"] = use_match.group(1).strip() if use_match else "rejected"
         entries.append(entry)
         seen_keys.add(key)
+    for match in re.finditer(
+        r"(?m)^\|\s*((?=[A-Za-z0-9._-]*\d)[A-Za-z0-9][A-Za-z0-9._-]+)"
+        r"\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*$",
+        handoff,
+    ):
+        provisional_id, claim_cell, _, routing_cell = match.groups()
+        url_match = re.search(r"https?://[^\s)]+", claim_cell)
+        if url_match is None:
+            continue
+        url = url_match.group(0).rstrip(".,")
+        key = f"recovered:{url}|{provisional_id}"
+        if key in seen_keys:
+            continue
+        entries.append(
+            {
+                "provisional_id": provisional_id,
+                "canonical_fact_key": key,
+                "disposition": "final_evidence",
+                "chapter_ids": sorted(set(re.findall(r"\b([1-8]B)\b", routing_cell))),
+            }
+        )
+        seen_keys.add(key)
     return entries
 
 
