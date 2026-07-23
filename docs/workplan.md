@@ -1,5 +1,26 @@
 # Workplan
 
+## 2026-07-23 — Putin 2022 closed-regime dossier gate completed
+
+- Completed the five-ruler cohort's closed-regime/war/nuclear dossier after exercising
+  both large-input and malformed-output recovery. The validated artifact has 47 evidence
+  records, 113 mappings, all 80 coverage rows, 80 parent-restored local-prior provenance
+  records, nine explicit gaps, and a cited evidence environment whose 14 support IDs all
+  resolve.
+- The initial 2.16-million-character research prompt was reduced to 456 thousand
+  characters without dropping target-year facts or longitudinal signals. The successful
+  final attempt reused the preserved research and formatter candidate through a 142 KB
+  repair prompt; it did not repeat web collection.
+- Seventeen candidate claims lacked a precise page, section, paragraph, or record locator.
+  The receiver now retains this useful material as non-directional context, records an
+  audit warning, and refuses to treat it as final evidence. The repaired dossier contains
+  38 final-evidence and nine context records; every mapping and coverage reference resolves.
+- The formatter omitted explicit dispositions for 43 lenses. Those remain visibly marked
+  `research_blocked` rather than being silently upgraded; judges can still use the complete
+  local-prior provenance and mapped evidence. The comparative five-ruler judge gate will
+  determine whether that incompleteness principally widens confidence/ranges or makes a
+  chapter genuinely unjudgeable.
+
 ## 2026-07-23 — Five-ruler gate cohort identities locked
 
 - Selected Vladimir Putin, Olaf Scholz, and Jonas Gahr Støre to extend the validated
