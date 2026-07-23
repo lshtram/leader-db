@@ -1031,6 +1031,7 @@ def _append_current_ledger_manifest(
     attempt: WorkerAttempt,
     *,
     source_attempt_dir: Path | None = None,
+    base_manifest_path: Path | None = None,
 ) -> str:
     """Append the current accounting index after a continuation changes the ledger."""
 
@@ -1041,9 +1042,10 @@ def _append_current_ledger_manifest(
         _recover_markdown_ledger_entries,
     )
 
-    manifest_path = (source_attempt_dir or attempt.attempt_dir) / (
+    producer_manifest_path = (source_attempt_dir or attempt.attempt_dir) / (
         "research-ledger-manifest.json"
     )
+    manifest_path = base_manifest_path or producer_manifest_path
     try:
         manifest = (
             _load_research_ledger_manifest(manifest_path)
@@ -1062,6 +1064,12 @@ def _append_current_ledger_manifest(
         for entry in _recover_markdown_ledger_entries(recovery_source)
         if str(entry["provisional_id"]) not in explicit_ids
     ]
+    if producer_manifest_path != manifest_path and producer_manifest_path.is_file():
+        try:
+            producer_manifest = _load_research_ledger_manifest(producer_manifest_path)
+        except WorkerOutputError:
+            producer_manifest = {"entries": []}
+        recovered_entries.extend(producer_manifest.get("entries", []))
     entries_by_id: dict[str, dict[str, Any]] = {
         str(entry["provisional_id"]): entry for entry in manifest.get("entries", [])
     }
@@ -1089,14 +1097,15 @@ def _append_current_ledger_manifest(
     if not entries_by_id:
         return notebook
     manifest["entries"] = list(entries_by_id.values())
-    manifest_path.write_text(
+    if base_manifest_path is None:
+        producer_manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    current_manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
+    current_manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    current_manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
-    if manifest_path != current_manifest_path:
-        current_manifest_path.write_text(
-            json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
-        )
     return (
         notebook
         + "\n\n--- RESEARCH LEDGER MANIFEST ---\n\n"

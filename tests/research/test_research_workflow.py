@@ -18,6 +18,8 @@ def test_repository_workflow_is_sequential_and_allows_three_review_rounds() -> N
     assert workflow.chapter_opened_document_target == 12
     assert workflow.researcher_receives_compact_briefing is True
     assert workflow.complete_local_package_stays_parent_owned is True
+    assert workflow.researcher_session_scope == "one_ruler_period"
+    assert workflow.chapter_session_mode == "persistent_thread"
     assert workflow.continuation_minimum_expected_new_units_per_selected_chapter == 2
     assert workflow.continuation_marginal_value_policy_enabled is True
     assert workflow.supervisor_takeover_enabled is True
@@ -30,4 +32,14 @@ def test_workflow_rejects_missing_or_reordered_chapters() -> None:
             version=1,
             chapter_order=("2B", "1B"),
             max_review_rounds=3,
+        )
+
+
+def test_workflow_rejects_session_scope_mode_mismatch() -> None:
+    with pytest.raises(ValueError, match="researcher_session_scope"):
+        ResearchWorkflow(
+            version=1,
+            chapter_order=tuple(f"{index}B" for index in range(1, 9)),
+            researcher_session_scope="one_ruler_period",
+            chapter_session_mode="fresh_compact_context",
         )

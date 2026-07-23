@@ -39,9 +39,9 @@ def build_research_notebook_prompt(
     briefing = build_local_research_briefing(local_priors)
     return f"""Research the named ruler and period without scoring.
 
-This is a short reconnaissance turn. Later turns will resume this exact session once
-per selected chapter with that chapter's ten questions. Do not attempt the complete
-dossier now.
+This is a short reconnaissance turn. Later turns will start one fresh compact session
+per selected chapter with that chapter's ten questions and a bounded index of relevant
+resources found so far. Do not attempt the complete dossier now.
 
 Job:
 {json.dumps(job_payload, separators=(",", ":"), sort_keys=True)}

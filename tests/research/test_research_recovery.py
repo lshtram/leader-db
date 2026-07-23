@@ -1565,6 +1565,59 @@ def test_continuation_manifest_disposition_is_monotonic(tmp_path: Path) -> None:
     assert demoted_manifest["entries"][0]["chapter_ids"] == ["1B", "2B", "3B"]
 
 
+def test_parent_snapshot_survives_model_manifest_fragment(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    parent_snapshot = current.trusted_dir / "before-2B.json"
+    parent_snapshot.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "WEB-1B-001",
+                        "canonical_fact_key": "old-fact",
+                        "chapter_ids": ["1B"],
+                        "methodology_ids": ["1B.1"],
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "WEB-2B-001",
+                        "canonical_fact_key": "new-fact",
+                        "chapter_ids": ["2B"],
+                        "methodology_ids": ["2B.1"],
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    updated = _append_current_ledger_manifest(
+        "Chapter handoff without repeated claim lines.",
+        current,
+        base_manifest_path=parent_snapshot,
+    )
+    manifest = json.loads(
+        updated.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+
+    assert {entry["canonical_fact_key"] for entry in manifest["entries"]} == {
+        "old-fact",
+        "new-fact",
+    }
+
+
 def test_markdown_table_fallback_is_recovered_acceptingly() -> None:
     recovered = _recover_markdown_ledger_entries(
         """| ID | Material claim and locator | Limits | Period / methodology |

@@ -11,6 +11,7 @@ from sqlalchemy.engine import Engine
 
 from ._codex_worker_setup import WorkerAttempt
 from .codex_worker_command import (
+    build_codex_exec_command,
     build_codex_resume_command,
     read_codex_thread_id,
 )
@@ -36,41 +37,59 @@ def run_chapter_research_sequence(
     heartbeat_seconds: int,
     timeout_seconds: int,
 ) -> ResearchCheckpoint:
-    """Resume one persistent researcher once for every selected chapter."""
+    """Run one fresh compact researcher session for each selected chapter."""
 
     current = checkpoint
-    session_id = read_codex_thread_id(checkpoint[0])
+    reconnaissance_session_id = read_codex_thread_id(checkpoint[0])
     for chapter_id in _selected_chapters(job, workflow):
+        guide_path = next(
+            (project_root / "docs/methodology/chapter-guides").glob(
+                f"{chapter_id.lower()}-*.md"
+            )
+        )
+        prompt = build_chapter_research_prompt(
+            job=job,
+            chapter_id=chapter_id,
+            guide=guide_path.read_text(encoding="utf-8"),
+            workflow=workflow,
+            resource_index=_chapter_resource_index(attempt, chapter_id),
+            reconnaissance_summary=_bounded_reconnaissance_summary(current[1]),
+        )
+        prompt_hash = sha256(prompt.encode()).hexdigest()
         recovered = _existing_chapter_turn(
             attempt,
             chapter_id,
-            session_id=session_id,
             job_id=int(job["id"]),
+            chapter_session_mode=workflow.chapter_session_mode,
+            prompt_hash=prompt_hash,
+            provider_profile=str(job["provider_profile"]),
         )
         output_path = attempt.attempt_dir / f"research-chapter-{chapter_id}.md"
         events_path = attempt.trusted_dir / f"research-chapter-{chapter_id}.events.jsonl"
+        base_manifest_path = (
+            attempt.trusted_dir / f"research-ledger-before-{chapter_id}.json"
+        )
         if recovered is None:
-            guide_path = next(
-                (project_root / "docs/methodology/chapter-guides").glob(
-                    f"{chapter_id.lower()}-*.md"
-                )
-            )
-            prompt = build_chapter_research_prompt(
-                job=job,
-                chapter_id=chapter_id,
-                guide=guide_path.read_text(encoding="utf-8"),
-                workflow=workflow,
-            )
+            _snapshot_parent_manifest(attempt, base_manifest_path)
             (attempt.trusted_dir / f"research-chapter-{chapter_id}.prompt.txt").write_text(
                 prompt, encoding="utf-8"
             )
-            command = build_codex_resume_command(
-                profile=profile,
-                session_id=session_id,
-                project_root=project_root,
-                final_message_path=output_path,
-                writable_dir=attempt.attempt_dir,
-            )
+            if workflow.chapter_session_mode == "fresh_compact_context":
+                command = build_codex_exec_command(
+                    profile=profile,
+                    project_root=project_root,
+                    schema_path=None,
+                    final_message_path=output_path,
+                    writable_dir=attempt.attempt_dir,
+                )
+            else:
+                command = build_codex_resume_command(
+                    profile=profile,
+                    session_id=reconnaissance_session_id,
+                    project_root=project_root,
+                    final_message_path=output_path,
+                    writable_dir=attempt.attempt_dir,
+                )
             checkpoint_job(
                 engine,
                 job_id=int(job["id"]),
@@ -79,13 +98,23 @@ def run_chapter_research_sequence(
                 checkpoint={
                     "phase": "chapter_research",
                     "chapter_id": chapter_id,
-                    "session_id": session_id,
+                    "reconnaissance_session_id": reconnaissance_session_id,
+                    "chapter_session_mode": workflow.chapter_session_mode,
                 },
             )
             (
                 attempt.trusted_dir / f"research-chapter-{chapter_id}.starting.json"
             ).write_text(
-                json.dumps({"chapter_id": chapter_id, "job_id": job["id"]}),
+                json.dumps(
+                    {
+                        "chapter_id": chapter_id,
+                        "job_id": job["id"],
+                        "chapter_session_mode": workflow.chapter_session_mode,
+                        "prompt_sha256": prompt_hash,
+                        "provider_profile": str(job["provider_profile"]),
+                        "workflow_version": workflow.version,
+                    }
+                ),
                 encoding="utf-8",
             )
             from .codex_worker import _run_codex
@@ -103,7 +132,7 @@ def run_chapter_research_sequence(
                 timeout_seconds=timeout_seconds,
             )
         else:
-            events_path, output_path = recovered
+            events_path, output_path, base_manifest_path = recovered
         if not output_path.is_file() or not output_path.stat().st_size:
             from .codex_worker import WorkerOutputError
 
@@ -123,7 +152,10 @@ def run_chapter_research_sequence(
         from .notebook_continuation import _append_current_ledger_manifest
 
         notebook = _append_current_ledger_manifest(
-            notebook, attempt, source_attempt_dir=output_path.parent
+            notebook,
+            attempt,
+            source_attempt_dir=output_path.parent,
+            base_manifest_path=base_manifest_path,
         )
         notebook_path = attempt.trusted_dir / f"research-notebook-{chapter_id}.md"
         notebook_path.write_text(notebook, encoding="utf-8")
@@ -145,6 +177,8 @@ def build_chapter_research_prompt(
     chapter_id: str,
     guide: str,
     workflow: ResearchWorkflow,
+    resource_index: tuple[dict[str, Any], ...] = (),
+    reconnaissance_summary: str = "",
 ) -> str:
     """Build a measurable deep-research prompt for one chapter turn."""
 
@@ -154,19 +188,30 @@ def build_chapter_research_prompt(
         if str(item).startswith(f"{chapter_id}.")
     ]
     compact_guide = _compact_chapter_guide(guide)
-    return f"""Continue the same ruler-period research thread with Chapter {chapter_id}.
+    session_note = (
+        "This is a fresh compact chapter session."
+        if workflow.chapter_session_mode == "fresh_compact_context"
+        else "This resumes the ruler-period research thread."
+    )
+    return f"""Research Chapter {chapter_id} for the same ruler-period.
 Do not score and do not research another chapter during this turn.
 
 Ruler-period: {job["ruler_name"]}, {job["country_name"]},
 {job["period_start_year"]}-{job["period_end_year"]}.
 Selected lenses: {json.dumps(selected_lenses)}
+Evidence-environment and authority briefing:
+{reconnaissance_summary}
 
 Chapter questions and research note:
 {compact_guide}
 
-Use the accumulated authority baseline, evidence environment, local-prior audit,
-candidate pool, and global evidence ledger. Reuse existing evidence when it genuinely
-applies, but do not count reused records as newly discovered documents.
+Known resource index from prior turns:
+{json.dumps(resource_index, separators=(",", ":"), sort_keys=True)}
+
+{session_note} The index is a lead list, not evidence by
+itself. Open any reused source needed for this chapter and verify its claim and locator.
+Do not count reused records as newly discovered documents. The parent owns the complete
+ledger and will merge this turn deterministically.
 
 Run a complete chapter research wave:
 
@@ -194,6 +239,9 @@ SOURCE_CLAIM_JSON: {{"title":"...","publisher":"...","publication_date":"...",
 "final_evidence_use":"final_evidence|context|discovery_only","period_fit":"...",
 "ruler_attribution":"...","contrary_evidence":["..."],
 "lenses":["{chapter_id}.1"]}}
+
+Use the provisional-ID namespace `WEB-{chapter_id}-001`, `WEB-{chapter_id}-002`, and
+so on. Never use an unscoped ID such as `E001`.
 
 Before finishing, update the cumulative `research-ledger-manifest.json` in the writable
 attempt directory. It must retain every prior entry and add this turn's entries; never
@@ -236,6 +284,40 @@ def _compact_chapter_guide(guide: str) -> str:
     return "\n\n".join(sections) if sections else guide[:4_000].strip()
 
 
+def _bounded_reconnaissance_summary(notebook: str) -> str:
+    """Return a few paragraphs without carrying the evidence ledger or tool history."""
+
+    marker = "--- RESEARCH LEDGER MANIFEST ---"
+    text = notebook.rsplit(marker, maxsplit=1)[0]
+    anchors = (
+        "Evidence-environment",
+        "Evidence environment",
+        "Identity, authority",
+        "Identity and authority",
+    )
+    starts = [index for anchor in anchors if (index := text.find(anchor)) >= 0]
+    start = min(starts) if starts else 0
+    summary = text[start : start + 3_000].strip()
+    return summary or "No reconnaissance prose was recoverable; verify authority directly."
+
+
+def _snapshot_parent_manifest(attempt: WorkerAttempt, destination: Path) -> None:
+    """Freeze the parent ledger before a model can write a chapter delta."""
+
+    current = attempt.attempt_dir / "research-ledger-manifest.json"
+    if current.is_file():
+        payload = current.read_text(encoding="utf-8")
+    else:
+        payload = json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [],
+            },
+            sort_keys=True,
+        )
+    destination.write_text(payload, encoding="utf-8")
+
+
 def _selected_chapters(
     job: dict[str, Any], workflow: ResearchWorkflow
 ) -> tuple[str, ...]:
@@ -250,9 +332,11 @@ def _existing_chapter_turn(
     attempt: WorkerAttempt,
     chapter_id: str,
     *,
-    session_id: str,
     job_id: int,
-) -> tuple[Path, Path] | None:
+    chapter_session_mode: str,
+    prompt_hash: str,
+    provider_profile: str,
+) -> tuple[Path, Path, Path] | None:
     """Recover a completed chapter turn from any prior worker attempt."""
 
     job_dir = attempt.attempt_dir.parent.parent
@@ -267,20 +351,58 @@ def _existing_chapter_turn(
         if not events_path.is_file() or not output_path.is_file():
             continue
         starting_path = trusted / f"research-chapter-{chapter_id}.starting.json"
+        base_manifest_path = trusted / f"research-ledger-before-{chapter_id}.json"
         try:
             starting = json.loads(starting_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
-        if starting.get("job_id") != job_id:
+        if (
+            starting.get("job_id") != job_id
+            or starting.get("chapter_session_mode") != chapter_session_mode
+            or starting.get("prompt_sha256") != prompt_hash
+            or starting.get("provider_profile") != provider_profile
+            or not base_manifest_path.is_file()
+        ):
             continue
         from .codex_worker import _events_show_completed_turn
 
-        if (
-            _events_show_completed_turn(events_path)
-            and read_codex_thread_id(events_path) == session_id
-        ):
-            return events_path, output_path
+        if _events_show_completed_turn(events_path):
+            return events_path, output_path, base_manifest_path
     return None
+
+
+def _chapter_resource_index(
+    attempt: WorkerAttempt, chapter_id: str
+) -> tuple[dict[str, Any], ...]:
+    """Expose a small list of already found chapter-relevant resources."""
+
+    path = attempt.attempt_dir / "research-ledger-manifest.json"
+    try:
+        entries = json.loads(path.read_text(encoding="utf-8")).get("entries", [])
+    except (OSError, json.JSONDecodeError, AttributeError):
+        return ()
+    relevant = []
+    cross_chapter = []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        compact = {
+            key: entry[key]
+            for key in (
+                "provisional_id",
+                "url",
+                "claim",
+                "locator",
+                "disposition",
+            )
+            if entry.get(key)
+        }
+        chapter_ids = entry.get("chapter_ids", [])
+        if chapter_id in chapter_ids:
+            relevant.append(compact)
+        elif len(chapter_ids) >= 3:
+            cross_chapter.append(compact)
+    return tuple((relevant[:15] + cross_chapter[:5])[:20])
 
 
 __all__ = ["build_chapter_research_prompt", "run_chapter_research_sequence"]

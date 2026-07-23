@@ -61,3 +61,24 @@ sources, or unreasonable context amplification.
   tolerant receiver normalizes `accepted`, `retained`, and `final` to
   `final_evidence`, drops malformed routing labels, and preserves valid chapter and
   exact-lens IDs. All 11 real iteration-2 lines recover as valid final evidence.
+
+## Iteration 3 — targeted weak-chapter wave
+
+- Selected scope: 5B, 6B, and 8B only; downstream review disabled for this
+  web-research diagnostic.
+- Reconnaissance retained 12 reusable records with 539,074 input tokens.
+- Chapter 5B added 12 records with 1,012,330 input tokens; its mapped depth reached 16,
+  above lean-v4's 15.
+- Chapter 6B added 10 records with 1,548,109 input tokens; its mapped depth reached 22,
+  close to lean-v4's 25.
+- Chapter 8B added 10 records with 2,398,287 input tokens; its mapped depth reached 20,
+  close to lean-v4's 23.
+- The targeted ledger contains 44 records. Its canonical-key union with iteration 2
+  contains 131 records, 95 distinct URLs, 51 domains, and 449 exact-lens mappings.
+  That exceeds lean-v4 on claims, domains, and mappings and is within three URLs of its
+  URL breadth.
+
+The result demonstrates that fresh short targeted sessions preserve quality while
+avoiding the steep eight-chapter history replay. Iteration 4 promotes that topology:
+one short reconnaissance followed by fresh compact chapter sessions, each receiving a
+bounded relevant-resource index and writing into one parent-owned cumulative ledger.

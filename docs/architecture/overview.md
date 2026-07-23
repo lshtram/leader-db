@@ -555,10 +555,17 @@ ten questions and researcher note. The formatter receives a compact disposition 
 and deterministic parent code restores the complete hashed provenance. Missing facts
 remain explicit gaps and country-level indicators are not automatically attributed
 to the ruler.
-For the complete eight-chapter scope, one persistent evidence researcher works
-through chapters 1B–8B and their lenses in order. It begins with one broad
-ruler-period reconnaissance, then builds a lightweight candidate URL pool for each
-chapter using broad, archive/source-specific, adverse, and local-language searches.
+The feature-gated segmented research mode works through
+chapters 1B–8B and their lenses in order. It begins with one broad ruler-period
+reconnaissance. Each chapter then starts a fresh compact session containing only its
+questions, researcher note, and a bounded parent-built index of relevant resources
+already found. The parent owns and monotonically merges the cumulative ledger, so raw
+search/tool history is not replayed through every later chapter. Each chapter builds a
+lightweight candidate URL pool using broad, archive/source-specific, adverse, and
+local-language searches.
+It remains a research-only quality/token experiment until compact reviewer
+continuations and formatter handoff pass their own end-to-end gate; the checked-in
+score-bearing workflow retains its compatible persistent mode meanwhile.
 Historical searches do not use recent-news filters. Candidate discovery precedes
 source admissibility: promising underlying pages and documents are opened, claims and
 locators are extracted, and only then are accepted items added to the growing ledger.

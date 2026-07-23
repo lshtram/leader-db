@@ -16,7 +16,12 @@ class ResearchWorkflow(BaseModel):
 
     version: int = Field(ge=1)
     chapter_order: tuple[str, ...]
-    researcher_session_scope: Literal["one_ruler_period"] = "one_ruler_period"
+    researcher_session_scope: Literal[
+        "one_ruler_period", "segmented_ruler_period"
+    ] = "one_ruler_period"
+    chapter_session_mode: Literal[
+        "persistent_thread", "fresh_compact_context"
+    ] = "persistent_thread"
     researcher_receives_compact_briefing: Literal[True] = True
     complete_local_package_stays_parent_owned: Literal[True] = True
     researcher_direct_iterative_search: Literal[True] = True
@@ -56,6 +61,13 @@ class ResearchWorkflow(BaseModel):
             <= self.maximum_source_claim_units_per_chapter
         ):
             raise ValueError("source-claim goals must be ordered")
+        expected_scope = (
+            "segmented_ruler_period"
+            if self.chapter_session_mode == "fresh_compact_context"
+            else "one_ruler_period"
+        )
+        if self.researcher_session_scope != expected_scope:
+            raise ValueError("researcher_session_scope must match chapter_session_mode")
         return self
 
 

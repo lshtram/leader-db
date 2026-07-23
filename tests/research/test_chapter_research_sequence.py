@@ -13,6 +13,8 @@ def _workflow() -> ResearchWorkflow:
     return ResearchWorkflow(
         version=1,
         chapter_order=tuple(f"{index}B" for index in range(1, 9)),
+        researcher_session_scope="segmented_ruler_period",
+        chapter_session_mode="fresh_compact_context",
     )
 
 
@@ -30,6 +32,13 @@ def test_chapter_prompt_requires_measurable_opened_source_research() -> None:
         chapter_id="3B",
         guide="Guide text",
         workflow=_workflow(),
+        resource_index=(
+            {
+                "provisional_id": "R01",
+                "url": "https://example.test/source",
+                "claim": "Known lead",
+            },
+        ),
     )
 
     assert "about 30 plausible documents" in prompt
@@ -37,6 +46,10 @@ def test_chapter_prompt_requires_measurable_opened_source_research() -> None:
     assert "Selected lenses: [\"3B.1\", \"3B.2\"]" in prompt
     assert "Do not stop at search snippets" in prompt
     assert "SOURCE_CLAIM_JSON:" in prompt
+    assert "Known lead" in prompt
+    assert "fresh compact chapter session" in prompt
+    assert "WEB-3B-001" in prompt
+    assert len(prompt) < 15_000
 
 
 def test_chapter_prompt_requires_cumulative_manifest_and_residual_gap_audit() -> None:
@@ -82,7 +95,7 @@ def test_chapter_prompt_excludes_judge_only_guide_sections() -> None:
     assert "Judge-only token hog" not in prompt
 
 
-def test_chapter_recovery_requires_same_persistent_thread(tmp_path: Path) -> None:
+def test_chapter_recovery_requires_same_session_mode(tmp_path: Path) -> None:
     job_dir = tmp_path / "job"
     current_attempt = job_dir / "attempts" / "002-current"
     current_trusted = job_dir / "trusted" / "002-current"
@@ -109,7 +122,15 @@ def test_chapter_recovery_requires_same_persistent_thread(tmp_path: Path) -> Non
         encoding="utf-8",
     )
     (prior_trusted / "research-chapter-1B.starting.json").write_text(
-        json.dumps({"chapter_id": "1B", "job_id": 7}),
+        json.dumps(
+            {
+                "chapter_id": "1B",
+                "job_id": 7,
+                "chapter_session_mode": "legacy_persistent",
+                "prompt_sha256": "prompt-hash",
+                "provider_profile": "profile",
+            }
+        ),
         encoding="utf-8",
     )
     output = prior_attempt / "research-chapter-1B.md"
@@ -117,16 +138,41 @@ def test_chapter_recovery_requires_same_persistent_thread(tmp_path: Path) -> Non
 
     assert (
         _existing_chapter_turn(
-            attempt, "1B", session_id="expected-thread", job_id=7
+            attempt,
+            "1B",
+            job_id=7,
+            chapter_session_mode="fresh_compact_context",
+            prompt_hash="prompt-hash",
+            provider_profile="profile",
         )
         is None
     )
 
-    events.write_text(
-        '{"type":"thread.started","thread_id":"expected-thread"}\n'
-        '{"type":"turn.completed"}\n',
+    (prior_trusted / "research-chapter-1B.starting.json").write_text(
+        json.dumps(
+            {
+                "chapter_id": "1B",
+                "job_id": 7,
+                "chapter_session_mode": "fresh_compact_context",
+                "prompt_sha256": "prompt-hash",
+                "provider_profile": "profile",
+            }
+        ),
+        encoding="utf-8",
+    )
+    (prior_trusted / "research-ledger-before-1B.json").write_text(
+        '{"schema_version":"ruler_research_ledger_manifest_v1","entries":[]}',
         encoding="utf-8",
     )
     assert _existing_chapter_turn(
-        attempt, "1B", session_id="expected-thread", job_id=7
-    ) == (events, output)
+        attempt,
+        "1B",
+        job_id=7,
+        chapter_session_mode="fresh_compact_context",
+        prompt_hash="prompt-hash",
+        provider_profile="profile",
+    ) == (
+        events,
+        output,
+        prior_trusted / "research-ledger-before-1B.json",
+    )
