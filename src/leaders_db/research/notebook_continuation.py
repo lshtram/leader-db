@@ -1053,7 +1053,8 @@ def _append_current_ledger_manifest(
     except WorkerOutputError:
         manifest = {"schema_version": "ruler_research_ledger_manifest_v1", "entries": []}
     marker = "--- RESEARCH LEDGER MANIFEST ---"
-    recovery_source = notebook.rsplit(marker, maxsplit=1)[-1]
+    recovery_source = _content_after_latest_manifest(notebook, marker=marker)
+    notebook = _remove_embedded_manifests(notebook, marker=marker)
     explicit_entries = _recover_json_manifest_update_entries(recovery_source)
     explicit_ids = {str(entry["provisional_id"]) for entry in explicit_entries}
     recovered_entries = explicit_entries + [
@@ -1081,12 +1082,8 @@ def _append_current_ledger_manifest(
         existing_id = ids_by_key.get(canonical_key)
         if existing_id is not None and existing_id != provisional_id:
             continue
-        if (
-            prior is not None
-            and prior.get("disposition") in {"discovery_only", "rejected"}
-            and normalized_entry.get("disposition") == "final_evidence"
-        ):
-            normalized_entry = prior
+        if prior is not None:
+            normalized_entry = _merge_manifest_entries(prior, normalized_entry)
         entries_by_id[provisional_id] = normalized_entry
         ids_by_key[canonical_key] = provisional_id
     if not entries_by_id:
@@ -1105,6 +1102,60 @@ def _append_current_ledger_manifest(
         + "\n\n--- RESEARCH LEDGER MANIFEST ---\n\n"
         + json.dumps(manifest, indent=2, sort_keys=True)
     )
+
+
+def _remove_embedded_manifests(notebook: str, *, marker: str) -> str:
+    """Remove prior embedded manifest snapshots while preserving later prose."""
+
+    decoder = json.JSONDecoder()
+    remaining = notebook
+    pieces: list[str] = []
+    while marker in remaining:
+        before, after = remaining.split(marker, maxsplit=1)
+        pieces.append(before.rstrip())
+        stripped = after.lstrip()
+        try:
+            _, end = decoder.raw_decode(stripped)
+        except json.JSONDecodeError:
+            pieces.append(marker)
+            remaining = after
+            continue
+        remaining = stripped[end:].lstrip()
+    pieces.append(remaining)
+    return "\n\n".join(piece for piece in pieces if piece).strip()
+
+
+def _content_after_latest_manifest(notebook: str, *, marker: str) -> str:
+    """Return only material added after the most recent manifest snapshot."""
+
+    if marker not in notebook:
+        return notebook
+    tail = notebook.rsplit(marker, maxsplit=1)[1].lstrip()
+    try:
+        _, end = json.JSONDecoder().raw_decode(tail)
+    except json.JSONDecodeError:
+        return tail
+    return tail[end:].lstrip()
+
+
+def _merge_manifest_entries(
+    prior: dict[str, Any], update: dict[str, Any]
+) -> dict[str, Any]:
+    """Merge routing while making evidence disposition monotonically stronger."""
+
+    rank = {"rejected": 0, "discovery_only": 1, "context": 2, "final_evidence": 3}
+    prior_rank = rank.get(str(prior.get("disposition")), -1)
+    update_rank = rank.get(str(update.get("disposition")), -1)
+    merged = dict(update if update_rank >= prior_rank else prior)
+    for field in ("chapter_ids", "methodology_ids"):
+        merged[field] = sorted(
+            {
+                str(item)
+                for source in (prior.get(field, []), update.get(field, []))
+                for item in source
+            }
+        )
+    return merged
 
 
 def _next_available_provisional_id(

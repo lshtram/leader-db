@@ -253,6 +253,68 @@ def summarize_local_priors_for_research(
     return summary
 
 
+def build_local_research_briefing(
+    local_priors: tuple[dict[str, Any], ...],
+    *,
+    facts_per_chapter: int = 2,
+) -> dict[str, Any]:
+    """Return a deliberately small orientation briefing for internet research."""
+
+    package = compact_local_priors(local_priors)
+    facts_by_id = {fact.fact_id: fact for fact in package.facts}
+    chapter_briefs: list[dict[str, Any]] = []
+    source_families = {
+        source
+        for fact in package.facts
+        for source in fact.source_slugs
+    }
+    for chapter in package.chapters:
+        candidates = [
+            facts_by_id[fact_id]
+            for fact_id in chapter.fact_ids
+            if fact_id in facts_by_id
+        ]
+        candidates.sort(
+            key=lambda fact: (
+                fact.period_role != "target",
+                -fact.year,
+                fact.fact_id,
+            )
+        )
+        highlights = []
+        for fact in candidates[:facts_per_chapter]:
+            highlights.append(
+                {
+                    "fact_id": fact.fact_id,
+                    "year": fact.year,
+                    "label": fact.label,
+                    "value": fact.value,
+                    "unit": fact.unit,
+                    "sources": fact.source_slugs,
+                    "warnings": fact.warnings[:2],
+                }
+            )
+        chapter_briefs.append(
+            {
+                "chapter_id": chapter.chapter_id,
+                "status_counts": chapter.status_counts,
+                "local_fact_count": len(chapter.fact_ids),
+                "highlights": highlights,
+            }
+        )
+    return {
+        "purpose": (
+            "orientation only; verify claims independently and do not treat national "
+            "indicators as ruler attribution"
+        ),
+        "complete_local_package_retained_by_parent": True,
+        "unique_local_fact_count": package.unique_fact_count,
+        "source_family_index": sorted(source_families),
+        "chapter_briefs": chapter_briefs,
+        "error_methodology_ids": package.error_methodology_ids,
+    }
+
+
 def _research_fact_ids(facts: tuple[CompactLocalFact, ...]) -> set[str]:
     selected = {fact.fact_id for fact in facts if fact.period_role == "target"}
     grouped: dict[tuple[str, str], list[CompactLocalFact]] = {}
@@ -328,6 +390,7 @@ __all__ = [
     "CompactLocalFact",
     "CompactLocalPriorPackage",
     "CompactMethodologyDisposition",
+    "build_local_research_briefing",
     "compact_local_priors",
     "summarize_local_priors_for_formatter",
     "summarize_local_priors_for_research",

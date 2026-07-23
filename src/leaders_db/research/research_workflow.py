@@ -17,9 +17,12 @@ class ResearchWorkflow(BaseModel):
     version: int = Field(ge=1)
     chapter_order: tuple[str, ...]
     researcher_session_scope: Literal["one_ruler_period"] = "one_ruler_period"
-    researcher_receives_complete_selected_guides: Literal[True] = True
-    local_facts_before_internet: Literal[True] = True
+    researcher_receives_compact_briefing: Literal[True] = True
+    complete_local_package_stays_parent_owned: Literal[True] = True
     researcher_direct_iterative_search: Literal[True] = True
+    chapter_research_turns_enabled: Literal[True] = True
+    chapter_candidate_document_target: int = Field(default=30, ge=10, le=60)
+    chapter_opened_document_target: int = Field(default=12, ge=5, le=30)
     research_stop_condition: Literal["reasonable_saturation_or_blocker"] = (
         "reasonable_saturation_or_blocker"
     )

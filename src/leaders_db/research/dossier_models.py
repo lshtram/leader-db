@@ -211,6 +211,7 @@ class DossierRunProfile(BaseModel):
     research_notebook_sha256: str | None = Field(
         default=None, pattern=r"^[0-9a-f]{64}$"
     )
+    llm_usage_profile_path: str | None = None
     local_evidence_calls: tuple[str, ...] = ()
     searches_attempted: tuple[str, ...] = ()
     sources_visited: tuple[str, ...] = ()

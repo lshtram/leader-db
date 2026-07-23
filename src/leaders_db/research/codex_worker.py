@@ -547,6 +547,23 @@ def _prepare_execution_passes(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
+    if workflow.chapter_research_turns_enabled:
+        from .chapter_research_sequence import run_chapter_research_sequence
+
+        checkpoint = run_chapter_research_sequence(
+            engine,
+            checkpoint=checkpoint,
+            job=job,
+            worker_id=worker_id,
+            project_root=project_root,
+            profile=researcher_profile,
+            attempt=attempt,
+            workflow=workflow,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
     if workflow.max_review_rounds > 0:
         reviewer_name = str(job["input"].get("reviewer_profile"))
         reviewer = load_research_model_profiles(model_profiles_path).profiles.get(
@@ -1364,6 +1381,21 @@ def _recover_json_manifest_update_entries(text: str) -> list[dict[str, Any]]:
             ):
                 recovered.append(entry)
                 seen_ids.add(provisional_id)
+    for match in re.finditer(r"(?m)^SOURCE_CLAIM_JSON:\s*(\{.*\})\s*$", text):
+        try:
+            entry = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        provisional_id = str(entry.get("provisional_id", ""))
+        if not (
+            provisional_id
+            and entry.get("canonical_fact_key")
+            and entry.get("disposition")
+            and provisional_id not in seen_ids
+        ):
+            continue
+        recovered.append(entry)
+        seen_ids.add(provisional_id)
     return recovered
 
 
@@ -1591,6 +1623,7 @@ def _stamp_two_pass_usage(
     trusted_root = attempt_dir.parent.parent / "trusted"
     for directory in sorted(trusted_root.glob("*")):
         research_events = [directory / "research-events.jsonl"]
+        research_events.extend(sorted(directory.glob("research-chapter-*.events.jsonl")))
         research_events.extend(
             sorted(directory.glob("research-continuation-round-*.events.jsonl"))
         )
@@ -1675,6 +1708,11 @@ def _stamp_two_pass_usage(
     dossier.run_profile.reviewer_model = str(job["input"]["reviewer_model"])
     dossier.run_profile.research_notebook_path = str(research_checkpoint[2])
     dossier.run_profile.research_notebook_sha256 = research_checkpoint[3]
+    from .llm_usage_profile import write_llm_usage_profile
+
+    dossier.run_profile.llm_usage_profile_path = str(
+        write_llm_usage_profile(attempt_dir)
+    )
     dossier.run_profile.research_usage = combined_research
     dossier.run_profile.reviewer_usage = combined_reviewer
     dossier.run_profile.formatter_usage = combined_formatter
@@ -1804,6 +1842,18 @@ def _run_codex(
                 raise RuntimeError(f"Codex worker exited with status {process.returncode}")
         finally:
             _terminate_process_group(process)
+            from .llm_usage_profile import write_llm_usage_profile
+
+            matching_attempt = (
+                events_path.parent.parent.parent
+                / "attempts"
+                / events_path.parent.name
+            )
+            if matching_attempt.is_dir():
+                try:
+                    write_llm_usage_profile(matching_attempt)
+                except (OSError, ValueError):
+                    pass
 
 
 def _terminate_process_group(process: subprocess.Popen[str]) -> None:

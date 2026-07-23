@@ -546,9 +546,13 @@ without claiming lens relevance; the chapter judge applies the guide's scope gat
 Dossier research uses the versioned controls in `configs/research-workflow.yaml`.
 Before research, parent-side `local_structured_prior_v2` extraction covers every
 selected lens across all eight chapters and persists the complete hashed artifact.
-The researcher and formatter receive a deduplicated `ruler_local_prior_package_v1`,
-so identical facts are represented once with source-observation provenance and
-candidate lens links rather than repeated across question payloads. Missing facts
+The parent keeps the complete deduplicated local package and its source-observation
+provenance. Reconnaissance receives only a short orientation: chapter-level counts,
+at most two representative facts per chapter, material warnings and gaps, and a
+source-family index. It does not receive the complete fact payload, full methodology,
+or all eight chapter guides. Each resumed chapter turn receives only that chapter's
+ten questions and researcher note. The formatter receives a compact disposition index,
+and deterministic parent code restores the complete hashed provenance. Missing facts
 remain explicit gaps and country-level indicators are not automatically attributed
 to the ruler.
 For the complete eight-chapter scope, one persistent evidence researcher works

@@ -1494,6 +1494,77 @@ def test_continuation_manifest_merges_new_notebook_entries(tmp_path: Path) -> No
     assert '"provisional_id": "E101"' in notebook
 
 
+def test_continuation_keeps_only_latest_embedded_manifest(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    notebook = _append_current_ledger_manifest(
+        """## E101 — First fact
+- **Canonical fact key:** `first|p1|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+    updated = _append_current_ledger_manifest(
+        notebook
+        + """
+
+## E102 — Second fact
+- **Canonical fact key:** `second|p2|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+
+    assert updated.count("--- RESEARCH LEDGER MANIFEST ---") == 1
+    assert "first|p1|fact" in updated
+    assert "second|p2|fact" in updated
+
+
+def test_continuation_manifest_disposition_is_monotonic(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    manifest_path = current.attempt_dir / "research-ledger-manifest.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "E100",
+                        "canonical_fact_key": "same|p1|fact",
+                        "chapter_ids": ["1B"],
+                        "methodology_ids": ["1B.1"],
+                        "disposition": "discovery_only",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    promoted = _append_current_ledger_manifest(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"E100","canonical_fact_key":'
+        '"same|p1|fact","chapter_ids":["2B"],"methodology_ids":["2B.1"],'
+        '"disposition":"final_evidence"}',
+        current,
+    )
+    promoted_manifest = json.loads(
+        promoted.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+    assert promoted_manifest["entries"][0]["disposition"] == "final_evidence"
+    assert promoted_manifest["entries"][0]["chapter_ids"] == ["1B", "2B"]
+
+    demoted = _append_current_ledger_manifest(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"E100","canonical_fact_key":'
+        '"same|p1|fact","chapter_ids":["3B"],"methodology_ids":["3B.1"],'
+        '"disposition":"rejected"}',
+        current,
+    )
+    demoted_manifest = json.loads(
+        demoted.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+    assert demoted_manifest["entries"][0]["disposition"] == "final_evidence"
+    assert demoted_manifest["entries"][0]["chapter_ids"] == ["1B", "2B", "3B"]
+
+
 def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     (current.attempt_dir / "research-ledger-manifest.json").write_text(

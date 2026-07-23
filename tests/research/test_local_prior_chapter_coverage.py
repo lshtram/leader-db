@@ -348,7 +348,7 @@ def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) ->
     }
 
 
-def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(  # noqa: PLR0915
+def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     tmp_path: Path,
 ) -> None:
     project = Path(__file__).resolve().parents[2]
@@ -386,34 +386,17 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(  # noqa: 
         ),
     )
 
-    # The bounded research view keeps the fact ID once and records signal lineage counts.
-    assert prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
-    assert '"source_observation_id_count":1' in prompt
-    assert '"unique_fact_count":1' in prompt
-    assert '"candidate_methodology_ids"' in prompt
-    assert "local-prior:5B.1" in prompt
-    assert "Do not read\nadditional local files during this worker run" in prompt
-    assert "Do not call image or image-inspection tools" in prompt
-    assert "request elevated permissions" in prompt
-    assert "put the complete handoff in the final response" in prompt
-    assert "Required methodology (fully inlined" in prompt
-    assert (
-        "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md" not in prompt
-    )
-    assert "## Required methodology: docs/methodology/local-first-researcher-guide.md" not in prompt
-    assert "## Required methodology: docs/methodology/ranking-evaluation-criteria.md" not in prompt
-    assert "## Required methodology: docs/methodology/source-confidence-registry.json" in (prompt)
-    assert '"final_evidence_use_values"' in prompt
-    assert "build a lightweight\ncandidate pool" in prompt
-    assert "not a search-results ceiling" in prompt
-    assert "Never request a recency or recent-news filter" in prompt
-    assert "establish one cited authority baseline" in prompt
-    assert "Chapter 7B still requires a personal" in prompt
-    assert "Do not declare a chapter ready merely because it reached a count" in prompt
-    assert "work through only the selected chapters and methodology IDs" in prompt
-    assert "must not silently expand to its other nine chapter" in prompt
-    assert "substantive\nselected-scope handoff" in prompt
-    assert "a rejected or malformed Parallel call is\n  a tool failure" in prompt
+    # Reconnaissance receives a capped orientation, not raw observation provenance.
+    assert "undp_hdi:NZL:2020:gni_per_capita" not in prompt
+    assert '"unique_local_fact_count":1' in prompt
+    assert '"complete_local_package_retained_by_parent":true' in prompt
+    assert '"source_family_index":["undp_hdi"]' in prompt
+    assert "Chapter guides" not in prompt
+    assert "Required methodology" not in prompt
+    assert "Never use a\nrecent-news filter" in prompt
+    assert "Chapter 7B\nrequires a personal integrity nexus" in prompt
+    assert "reconnaissance only" in prompt
+    assert len(prompt) < 10_000
 
     formatter_prompt = build_dossier_prompt(
         job,
