@@ -104,7 +104,26 @@ def find_previous_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, An
             )
     if not candidates:
         return None
-    return max(candidates, key=lambda item: item[:4])[4]
+    selected = max(candidates, key=lambda item: item[:4])[4]
+    selected_keys = {
+        str(item.get("canonical_fact_key", ""))
+        for item in selected.get("evidence", [])
+        if isinstance(item, dict)
+    }
+    recovery_catalog: list[dict[str, Any]] = []
+    catalog_keys: set[str] = set()
+    for *_, payload in candidates:
+        for item in payload.get("evidence", []):
+            if not isinstance(item, dict):
+                continue
+            key = str(item.get("canonical_fact_key", "")).strip()
+            if not key or key in selected_keys or key in catalog_keys:
+                continue
+            recovery_catalog.append(item)
+            catalog_keys.add(key)
+    if not recovery_catalog:
+        return selected
+    return selected | {"recovery_evidence_catalog": recovery_catalog}
 
 
 def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] | None:

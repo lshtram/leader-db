@@ -158,6 +158,11 @@ Requirements:
   claims and citations, but compare it against the complete inlined notebook and
   restore any defensible source-claim units it collapsed or omitted. Correct
   schema/reference defects, perform the final consistency check, and do not repeat
-  research or broad file reading outside the supplied materials.
+  research or broad file reading outside the supplied materials. A
+  `recovery_evidence_catalog`, when present inside the candidate, contains cited
+  evidence objects preserved from other completed formatter attempts. It is not part
+  of the output schema: use it only to restore manifest-required canonical keys that
+  the selected candidate omitted, assigning collision-free evidence IDs and the exact
+  manifest routing, then omit the catalog field from the final output.
 """
 __all__ = ["build_dossier_prompt"]

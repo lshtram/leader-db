@@ -563,6 +563,61 @@ def test_formatter_must_preserve_final_ledger_keys_and_chapter_routing() -> None
     )
 
 
+def test_previous_candidate_exposes_distinct_evidence_from_other_attempts(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    attempts = job_dir / "attempts"
+    trusted = job_dir / "trusted"
+    for attempt_name, evidence in (
+        (
+            "001-first",
+                [
+                    _candidate_evidence(1)
+                    | {
+                        "canonical_fact_key": "fact-from-first",
+                        "source_locator": "paragraph 1",
+                    }
+                ],
+        ),
+        (
+            "002-strong",
+            [
+                    _candidate_evidence(1)
+                    | {"canonical_fact_key": "fact-a", "source_locator": "paragraph 1"},
+                    _candidate_evidence(2)
+                    | {"canonical_fact_key": "fact-b", "source_locator": "paragraph 2"},
+            ],
+        ),
+    ):
+        attempt = attempts / attempt_name
+        attempt.mkdir(parents=True)
+        (trusted / attempt_name).mkdir(parents=True)
+        (trusted / attempt_name / "formatter-complete.marker").write_text("complete\n")
+        (attempt / "dossier.pending.json").write_text(
+            json.dumps(
+                {
+                    "evidence": evidence,
+                    "mappings": [],
+                    "coverage": [],
+                    "methodology_ids": ["2B.1"],
+                }
+            )
+        )
+
+    candidate = find_previous_candidate(job_dir, attempt_dir=attempts / "003-new")
+
+    assert candidate is not None
+    assert [item["canonical_fact_key"] for item in candidate["evidence"]] == [
+        "fact-a",
+        "fact-b",
+    ]
+    assert [
+        item["canonical_fact_key"]
+        for item in candidate["recovery_evidence_catalog"]
+    ] == ["fact-from-first"]
+
+
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
     handoff = """## Chapter 2B
 
