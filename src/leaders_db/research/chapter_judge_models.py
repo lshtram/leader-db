@@ -77,7 +77,7 @@ class BiasAssessment(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    material_biases: tuple[MaterialBiasFinding, ...] = Field(min_length=1)
+    material_biases: tuple[MaterialBiasFinding, ...]
     confidence_and_range_effect: str = Field(min_length=1)
     remaining_uncertainty: str = Field(min_length=1)
     report_volume_not_used_as_severity: bool

@@ -11,6 +11,7 @@ from sqlalchemy import create_engine, text
 from leaders_db.db.engine import init_database
 from leaders_db.research.chapter_judge_models import RulerChapterJudgment
 from leaders_db.research.chapter_judge_worker import (
+    _ensure_bias_assessment,
     _find_previous_chapter_candidate,
     _normalize_confidence_scale,
     _normalize_evidence_reference_lists,
@@ -708,6 +709,62 @@ def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) 
             rubric_version="chapter_4b_v1",
             events_path=tmp_path / "events.jsonl",
         )
+
+    placeholder_candidate = _judge_candidate(
+        dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+        iso3s=("AAA", "BBB"),
+    )
+    placeholder = json.loads(json.dumps(placeholder_candidate["evaluations"][0]))
+    placeholder["score_1_to_10"] = None
+    placeholder["insufficient_evidence_reason"] = (
+        "Duplicate placeholder not intended for processing."
+    )
+    placeholder_candidate["evaluations"].append(placeholder)
+
+    batch = _prepare_batch(
+        placeholder_candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=dossiers,
+        projections=_projections(dossiers, chapter_id="4B"),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert len(batch.evaluations) == 2
+
+
+def test_bias_assessment_drops_out_of_projection_references() -> None:
+    evaluation = {
+        "bias_assessment": {
+            "material_biases": [
+                {
+                    "bias": "Reporting visibility",
+                    "supporting_evidence_ids": ["E001", "E999"],
+                    "likely_direction": "uncertain",
+                    "interpretation_effect": "Confidence only.",
+                }
+            ]
+        }
+    }
+
+    _ensure_bias_assessment(evaluation, valid_evidence_ids={"E001"})
+
+    assert evaluation["bias_assessment"]["material_biases"][0][
+        "supporting_evidence_ids"
+    ] == ["E001"]
+
+
+def test_bias_assessment_remains_explicit_when_projection_has_no_evidence() -> None:
+    evaluation = {}
+
+    _ensure_bias_assessment(evaluation, valid_evidence_ids=set())
+
+    assert evaluation["bias_assessment"]["material_biases"] == []
+    assert evaluation["bias_assessment"]["report_volume_not_used_as_severity"] is True
+    assert evaluation["bias_assessment"]["no_blanket_regime_correction"] is True
 
 
 def test_prepare_batch_rejects_all_null_multi_ruler_result(tmp_path: Path) -> None:

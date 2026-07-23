@@ -409,6 +409,12 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
         dossier_key = str(evaluation.get("dossier_job_key", ""))
         prior = emitted_by_key.get(dossier_key)
         if prior is not None:
+            if _is_duplicate_placeholder(evaluation):
+                continue
+            if _is_duplicate_placeholder(prior):
+                deduplicated[deduplicated.index(prior)] = evaluation
+                emitted_by_key[dossier_key] = evaluation
+                continue
             comparable_fields = (
                 "score_1_to_10",
                 "manual_review_required",
@@ -505,6 +511,13 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
     return batch
 
 
+def _is_duplicate_placeholder(evaluation: dict[str, Any]) -> bool:
+    """Recognize an explicit non-judgment duplicate row without guessing."""
+
+    reason = str(evaluation.get("insufficient_evidence_reason") or "").casefold()
+    return evaluation.get("score_1_to_10") is None and "duplicate placeholder" in reason
+
+
 def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
     """Canonicalize null fields or scored review taxonomy without changing substance."""
 
@@ -550,7 +563,53 @@ def _ensure_bias_assessment(
 ) -> None:
     """Retain an otherwise usable judgment while exposing missing bias reasoning."""
 
-    if isinstance(evaluation.get("bias_assessment"), dict) or not valid_evidence_ids:
+    assessment = evaluation.get("bias_assessment")
+    if isinstance(assessment, dict):
+        findings = assessment.get("material_biases")
+        retained_findings: list[dict[str, Any]] = []
+        if isinstance(findings, list):
+            for finding in findings:
+                if not isinstance(finding, dict):
+                    continue
+                raw_ids = finding.get("supporting_evidence_ids")
+                valid_ids = (
+                    [
+                        str(evidence_id)
+                        for evidence_id in raw_ids
+                        if str(evidence_id) in valid_evidence_ids
+                    ]
+                    if isinstance(raw_ids, list)
+                    else []
+                )
+                if not valid_ids:
+                    continue
+                finding["supporting_evidence_ids"] = list(dict.fromkeys(valid_ids))
+                retained_findings.append(finding)
+        if retained_findings:
+            assessment["material_biases"] = retained_findings
+            return
+        evaluation.pop("bias_assessment", None)
+        existing = str(evaluation.get("manual_review_reason") or "").strip()
+        suffix = (
+            "Producer bias findings had no same-dossier evidence references; "
+            "a conservative fallback assessment was applied."
+        )
+        evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
+        evaluation["manual_review_required"] = True
+        evaluation["manual_review_reason_type"] = "projection_integrity"
+    if not valid_evidence_ids:
+        evaluation["bias_assessment"] = {
+            "material_biases": [],
+            "confidence_and_range_effect": (
+                "No same-dossier evidence was available to support a material bias "
+                "finding; confidence remains minimal and the full range is retained."
+            ),
+            "remaining_uncertainty": (
+                "The evidence environment cannot be assessed with cited chapter evidence."
+            ),
+            "report_volume_not_used_as_severity": True,
+            "no_blanket_regime_correction": True,
+        }
         return
     evidence_id = sorted(valid_evidence_ids)[0]
     evaluation["bias_assessment"] = {
