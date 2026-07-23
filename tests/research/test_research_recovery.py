@@ -1715,6 +1715,29 @@ def test_operator_terminated_continuation_is_safe_to_retry(tmp_path: Path) -> No
     assert _has_indeterminate_continuation(current, 1) is False
 
 
+def test_explicit_failed_continuation_is_safe_to_retry(tmp_path: Path) -> None:
+    from leaders_db.research.notebook_continuation import (
+        _has_indeterminate_continuation,
+    )
+
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    suffix = "round-01"
+    (prior / f"research-continuation-{suffix}.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior / f"research-continuation-{suffix}.events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n'
+        '{"type":"error","message":"Selected model is at capacity."}\n'
+        '{"type":"turn.failed","error":{"message":"Selected model is at capacity."}}\n',
+        encoding="utf-8",
+    )
+
+    assert _has_indeterminate_continuation(current, 1) is False
+
+
 def test_explicit_failed_formatter_is_retryable_but_not_reusable(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     prior_trusted = current.trusted_dir.parent / "001-prior"

@@ -979,9 +979,12 @@ def _has_indeterminate_continuation(
             continue
         events = directory / f"research-continuation-{suffix}.events.jsonl"
         output = job_dir / "attempts" / directory.name / f"research-continuation-{suffix}.md"
+        from .codex_worker import _events_show_completed_turn, _events_show_failed_turn
+
+        if _events_show_failed_turn(events):
+            continue
         if not events.is_file() or not output.is_file():
             return True
-        from .codex_worker import _events_show_completed_turn
 
         if not _events_show_completed_turn(events):
             return True
