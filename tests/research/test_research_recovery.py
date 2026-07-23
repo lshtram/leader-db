@@ -985,7 +985,7 @@ def test_embedded_manifest_preserves_first_canonical_key_for_existing_id() -> No
 {"schema_version":"ruler_research_ledger_manifest_v1","entries":[
   {"provisional_id":"P027","canonical_fact_key":"canonical-url#L92-L150",
    "chapter_ids":["1B"],"methodology_ids":["1B.3"],
-   "disposition":"final_evidence"}
+   "disposition":"context"}
 ]}
 
 Later continuation.
@@ -1002,6 +1002,7 @@ Later continuation.
     assert manifest is not None
     assert manifest["entries"][0]["canonical_fact_key"] == "canonical-url#L92-L150"
     assert manifest["entries"][0]["methodology_ids"] == ["1B.3", "1B.7"]
+    assert manifest["entries"][0]["disposition"] == "context"
 
 
 def test_embedded_manifest_uses_earliest_fenced_handoff_before_separator() -> None:
@@ -1026,6 +1027,36 @@ def test_embedded_manifest_uses_earliest_fenced_handoff_before_separator() -> No
 
     assert manifest is not None
     assert manifest["entries"][0]["canonical_fact_key"] == "canonical-url#L92-L150"
+
+
+def test_embedded_manifest_preserves_first_explicit_update_for_later_id() -> None:
+    notebook = """Initial manifest.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[]}
+
+## Manifest update
+```json
+[
+  {"provisional_id":"E032","canonical_fact_key":"precise-url#L15-L39|meeting",
+   "chapter_ids":["1B"],"methodology_ids":["1B.7"],"disposition":"context"}
+]
+```
+
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"E032","canonical_fact_key":"recovered:display-url|E032",
+   "chapter_ids":["1B"],"methodology_ids":["1B.7"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["canonical_fact_key"] == (
+        "precise-url#L15-L39|meeting"
+    )
+    assert manifest["entries"][0]["disposition"] == "context"
 
 
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:

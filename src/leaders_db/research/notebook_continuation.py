@@ -1034,6 +1034,7 @@ def _append_current_ledger_manifest(
     from .codex_worker import (
         WorkerOutputError,
         _load_research_ledger_manifest,
+        _recover_json_manifest_update_entries,
         _recover_markdown_ledger_entries,
     )
 
@@ -1050,7 +1051,13 @@ def _append_current_ledger_manifest(
         manifest = {"schema_version": "ruler_research_ledger_manifest_v1", "entries": []}
     marker = "--- RESEARCH LEDGER MANIFEST ---"
     recovery_source = notebook.rsplit(marker, maxsplit=1)[-1]
-    recovered_entries = _recover_markdown_ledger_entries(recovery_source)
+    explicit_entries = _recover_json_manifest_update_entries(recovery_source)
+    explicit_ids = {str(entry["provisional_id"]) for entry in explicit_entries}
+    recovered_entries = explicit_entries + [
+        entry
+        for entry in _recover_markdown_ledger_entries(recovery_source)
+        if str(entry["provisional_id"]) not in explicit_ids
+    ]
     entries_by_id: dict[str, dict[str, Any]] = {
         str(entry["provisional_id"]): entry for entry in manifest.get("entries", [])
     }

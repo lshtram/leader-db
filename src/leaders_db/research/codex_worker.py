@@ -1130,20 +1130,15 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
     if not isinstance(manifest, dict):
         return None
     entries = manifest.get("entries", [])
-    first_manifest = _first_ledger_manifest_in_text(notebook) or {}
-    first_keys_by_id = {
-        str(entry["provisional_id"]): str(entry["canonical_fact_key"])
-        for entry in first_manifest.get("entries", [])
-        if isinstance(entry, dict)
-        and entry.get("provisional_id")
-        and entry.get("canonical_fact_key")
-    }
+    first_entries_by_id = _first_ledger_entries_by_id(notebook)
     for entry in entries:
         if not isinstance(entry, dict):
             continue
-        original_key = first_keys_by_id.get(str(entry.get("provisional_id", "")))
-        if original_key is not None:
-            entry["canonical_fact_key"] = original_key
+        original = first_entries_by_id.get(str(entry.get("provisional_id", "")))
+        if original is not None:
+            entry["canonical_fact_key"] = str(original["canonical_fact_key"])
+            if original.get("disposition") is not None:
+                entry["disposition"] = original["disposition"]
     first_notebook_part = notebook.split(marker, maxsplit=1)[0]
     historical_keys_by_id = {
         str(entry["provisional_id"]): str(entry["canonical_fact_key"])
@@ -1175,11 +1170,21 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
     return manifest
 
 
-def _first_ledger_manifest_in_text(text: str) -> dict[str, Any] | None:
-    """Return the earliest valid ledger manifest, including fenced handoffs."""
+def _first_ledger_entries_by_id(text: str) -> dict[str, dict[str, Any]]:
+    """Return each provisional ID's first valid producer-manifest appearance."""
 
     decoder = json.JSONDecoder()
     marker = '"schema_version"'
+    groups: list[tuple[int, list[dict[str, Any]]]] = []
+    for match in re.finditer(r"(?s)```json\s*(.*?)\s*```", text):
+        try:
+            payload = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        entries = [entry for entry in payload if isinstance(entry, dict)]
+        if entries:
+            groups.append((match.start(), entries))
+    first_entries: dict[str, dict[str, Any]] = {}
     for marker_index in (
         index for index in range(len(text)) if text.startswith(marker, index)
     ):
@@ -1190,11 +1195,50 @@ def _first_ledger_manifest_in_text(text: str) -> dict[str, Any] | None:
             candidate, _ = decoder.raw_decode(text[object_start:])
         except json.JSONDecodeError:
             continue
-        if isinstance(candidate, dict) and candidate.get("schema_version") == (
+        if not isinstance(candidate, dict) or candidate.get("schema_version") != (
             "ruler_research_ledger_manifest_v1"
         ):
-            return candidate
-    return None
+            continue
+        groups.append(
+            (
+                object_start,
+                [entry for entry in candidate.get("entries", []) if isinstance(entry, dict)],
+            )
+        )
+    for _, entries in sorted(groups, key=lambda item: item[0]):
+        for entry in entries:
+            if (
+                entry.get("provisional_id")
+                and entry.get("canonical_fact_key")
+                and entry.get("disposition")
+            ):
+                first_entries.setdefault(str(entry["provisional_id"]), entry)
+    return first_entries
+
+
+def _recover_json_manifest_update_entries(text: str) -> list[dict[str, Any]]:
+    """Recover explicit fenced JSON manifest-update arrays in source order."""
+
+    recovered: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for match in re.finditer(r"(?s)```json\s*(.*?)\s*```", text):
+        try:
+            payload = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        for entry in payload:
+            if not isinstance(entry, dict):
+                continue
+            provisional_id = str(entry.get("provisional_id", ""))
+            if (
+                provisional_id
+                and entry.get("canonical_fact_key")
+                and entry.get("disposition")
+                and provisional_id not in seen_ids
+            ):
+                recovered.append(entry)
+                seen_ids.add(provisional_id)
+    return recovered
 
 
 def _is_replayed_historical_entry(
