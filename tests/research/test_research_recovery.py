@@ -774,6 +774,24 @@ def test_formatter_recovers_explicit_cited_bullets_as_context_without_manifest()
     } == {"3B.3", "3B.6"}
 
 
+def test_cited_bullet_recovery_repairs_unresolvable_environment_support() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["3B.3"],
+        "normalization_warnings": [],
+        "evidence_environment": {"supporting_evidence_ids": ["E001"]},
+    }
+    notebook = """- **EV057** — GAO found a federal safeguard.
+Lens: `3B.3`. [GAO](https://www.gao.gov/products/gao-23-105927), lines 284–289.
+"""
+
+    restored = _restore_explicit_cited_bullets(candidate, notebook=notebook)
+
+    assert restored["evidence_environment"]["supporting_evidence_ids"] == ["EV057"]
+
+
 def test_restored_manifest_fact_precedes_equivalent_rewritten_candidate() -> None:
     rewritten = _candidate_evidence(1) | {
         "canonical_fact_key": "formatter-rewritten-key",

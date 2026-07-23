@@ -1111,6 +1111,28 @@ def _restore_explicit_cited_bullets(
             )
         restored += 1
     if restored:
+        environment = candidate.get("evidence_environment")
+        if isinstance(environment, dict):
+            recovered_ids = {
+                str(item.get("evidence_id", ""))
+                for item in evidence
+                if isinstance(item, dict)
+            }
+            raw_support = environment.get("supporting_evidence_ids")
+            retained_support = (
+                [
+                    str(item)
+                    for item in raw_support
+                    if str(item) in recovered_ids
+                ]
+                if isinstance(raw_support, list)
+                else []
+            )
+            environment["supporting_evidence_ids"] = (
+                retained_support
+                if retained_support
+                else [str(item["evidence_id"]) for item in evidence[: min(8, restored)]]
+            )
         warnings = candidate.setdefault("normalization_warnings", [])
         if isinstance(warnings, list):
             warnings.append(
