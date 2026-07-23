@@ -1,0 +1,143 @@
+schema_version: controlled_evaluation_v1
+evaluation_id: 2022-bias-local-v3-controlled
+status: frozen_ready
+target_year: 2022
+purpose: controlled_full_evaluation_not_production_promotion
+
+code:
+  implementation_commit: 55716a6
+  prompt_sha256:
+    src/leaders_db/research/dossier_notebook_prompt.py: 0933e8c55d4e1199ecbb78b9bcb573280f412d45dab99c4493262b2ffb5fa0bb
+    src/leaders_db/research/chapter_research_sequence.py: c10bdc5cbd9c6dc22179170de417ac16d10d3312baa1bc64f4eaebd15653d164
+    src/leaders_db/research/evidence_review.py: d930cda5c117be94074ceed43747deb752a5b54acdd877727dda59e70f198218
+    src/leaders_db/research/dossier_prompt.py: c2540f82508d40f896360b383b29dd14d4ac05967a444d2d85d1dbca93a19a05
+    src/leaders_db/research/codex_worker.py: 1461f762e61302935ed4e5cb6d569e9e1e96dc0b0b7f50a2640a2c4f8d4708fe
+    src/leaders_db/research/chapter_judge_prompt.py: 824047883d3374a5d53f3ffc0574833e0134e69be3e817c9c518e3021ac782d3
+    src/leaders_db/research/compact_handoff.py: a6d5f248f3f591c3747c4df29ce1fc77a942d38c19f3d9c764d682cbd928838a
+  rubric_sha256:
+    1B: 60730f2230d8ab3119ab84e7878de1c0653d1e0b9060762cc555da0b25e8f639
+    2B: 68eb944fdc811eccdb2717b12c09b451e566199bc0097ab548825e6ded875dd6
+    3B: 3699b684b3c952e10835dc51077603109d2a18fee7f34bd74e0c34163159b9b9
+    4B: ad293901ec64f1476be4c79ac5a6a7180e7477737d7c75b44b7fa733698e06a6
+    5B: 92151f10e770276a4c09a6ba5d2be05d106e5a6f0ac0da89948782c8a892a555
+    6B: 5c98b4c23b589391fa5ac62963184c3880d9ff5a4056b0dd4a37e85b0ef193fa
+    7B: dc493d6fab736114cef3b41a46fa15cc78caaf90deaeb8473ad10d310e6f26e9
+    8B: 12de1cc8c800fb45da5d4bdb3296588f32830f0d0f4b48a4a6dc596ed137daa1
+  methodology_sha256:
+    docs/methodology/cited-evaluation-calibration.md: 9b27108459cc6b8d0c632755891d4bf213854f1d90528f41f2e639b836e48ff8
+    docs/methodology/ranking-evaluation-criteria.md: cbd2f19aaeb079c241df0f44b515d9153e78d9c04803aa23fdacd8eda45c1d29
+  model_profiles: configs/research-models.yaml
+  model_profiles_sha256: 28b82af6708afeda6e0a2bf9fe0f156cffce42162260fbee0cafbb2029b7b9e8
+  research_workflow: configs/research-workflow.yaml
+  research_workflow_sha256: d066092c23653bb8fbf7d6e1a16af66c6e7f753fa1982cf8761959fd29230ac5
+  provider_profile:
+    researcher: openai-luna-candidate
+    evidence_reviewer: openai-luna-candidate
+    formatter: openai-luna-candidate
+    chapter_judge: openai-luna-candidate
+
+preserved_baselines:
+  lean_v4_root: research/conversational-evidence/hybrid-experiment/2022-lean-v4
+  prior_controlled_judgments:
+    root: research/conversational-evidence/hybrid-experiment/2022-saturation-v3/stage3-additions-v2/judgments-final
+    sha256:
+      1B: cd43042b0ebc39e78d4bba6ef62939be9fe7855b58e9a785b0a5de0953bcdc47
+      2B: 0fc4de2834afd3bd323bf7ee962c486cbbd4a107309f85e6bcaebc4d440e7f32
+      3B: ab37c6d2a72bd593146127d63c6ff0da68f79e79ddab59dd1556f6615b16e159
+      4B: 199c4aef3d1deda4be95bc1c860c6522e39e68b9ce68990ed3ded9c22646735b
+      5B: e9e4c1f7e06dfbdffbafc93cc1bac9db07dea134a46e1c3e014356b6cfcb4e97
+      6B: 76a2952474de183f52f175d77ad3273929b520efe33103d91d7df52c0ce806e6
+      7B: d4157dbf7789fbe1d60574496dc94f0eb643e48ed9f43ce3d0c25d592e8abfa3
+      8B: cb1534b7c4e82c3b2625d5bde3b868ac657fe95838d1aba4c476680632ffe14b
+
+preflight_audit:
+  amlo_dossier: research/conversational-evidence/web-research-consistency/amlo-2022-i04/jobs/516/attempts/008-047b7441-89c/dossier.json
+  amlo_dossier_sha256: f62a1c94b367f92f9f912ff33b7cc8438ccfc89970a47bb5dd302affe7671251
+  selected_corrected_2B: research/conversational-evidence/web-research-consistency/amlo-2022-i04/rejudgments-v1/2B-audit-corrected/judgment.json
+  selected_corrected_2B_sha256: a5c1fff68a35fc55ad368d4d459c0cd844a83cbbc50bb681ccb31ac2e2d8d193
+  audit_report: docs/reviews/2026-07-23-amlo-preflight-score-audit.md
+  audit_report_sha256: 6bd49cf3d6548a6e7431307ad756f2b93d2d9bb92e0fbc58b20c1e1e0bff4067
+
+frozen_inputs:
+  cohort_and_local_prior_manifest: configs/evaluations/2022-bias-local-v3-inputs.yaml
+  cohort_and_local_prior_manifest_sha256: 0cf6249e08471216ff94dfe7a8c6e33bbd10e480e035df81fc38318f95f5572e
+
+completed_prerequisite_gates:
+  putin_singleton:
+    artifact: research/conversational-evidence/bias-smoke/2022-putin-full-v1/comparative-judgments/run-summary.json
+    sha256: cbc4857d20e9e38823e035a5ac5668a10d2a12142ceffe7a69586bf73df67a18
+  contrast_and_five_ruler:
+    artifact: docs/reviews/2022-five-ruler-bias-pilot.md
+    sha256: 69ad0faada330148cc10dd2293f95b0a66c22c9573c55f6e6279a16e91d388f5
+  prior_full_cohort:
+    artifact: docs/reviews/2022-bias-aware-top20-gate.md
+    sha256: 501094a2d4b0237d0243a43a0350b884945b5bd528f1af2070ac2635258982b4
+
+cohort:
+  - [BGD, 17068, Sheikh Hasina]
+  - [BRA, 19646, Jair Bolsonaro]
+  - [CHN, 15832, Xi Jinping]
+  - [COD, 16113, Félix Tshisekedi]
+  - [DEU, 16984, Olaf Scholz]
+  - [EGY, 16232, Abdel Fattah el-Sisi]
+  - [ETH, 16782, Abiy Ahmed]
+  - [IDN, 16199, Joko Widodo]
+  - [IND, 19645, Narendra Modi]
+  - [IRN, 19648, Ali Khamenei]
+  - [JPN, 16638, Fumio Kishida]
+  - [MEX, 15801, Andrés Manuel López Obrador]
+  - [NGA, 15787, Muhammadu Buhari]
+  - [PAK, 16682, Shehbaz Sharif]
+  - [PHL, 16194, Bongbong Marcos]
+  - [RUS, 15706, Vladimir Putin]
+  - [THA, 19649, Prayut Chan-o-cha]
+  - [TUR, 15972, Recep Tayyip Erdoğan]
+  - [USA, 15810, Joe Biden]
+  - [VNM, 19647, Nguyễn Phú Trọng]
+
+execution:
+  batches:
+    - [RUS, USA, COD, DEU, JPN]
+    - [MEX, BRA, IND, IDN, PHL]
+    - [CHN, IRN, TUR, EGY, VNM]
+    - [BGD, ETH, NGA, PAK, THA]
+  stop_after_each_batch_for_automated_gate: true
+  continue_without_user_presence_when_all_gates_pass: true
+  preserve_every_attempt_and_usage_event: true
+  prohibit_client_scores_in_research_and_judge_prompts: true
+  preserve_old_release_side_by_side: true
+
+batch_gates:
+  - all identities remain reviewed and locked
+  - every dossier validates with all 80 coverage and local-prior provenance rows
+  - every dossier has a cited evidence-environment assessment
+  - every chapter judgment has a cited bias assessment
+  - all evidence, local-prior, decisive, contrary, and bias references resolve
+  - local evidence survives package to research briefing to dossier to projection to judge
+  - structured prior summaries match packages and never falsely claim unavailability
+  - no event-location fact is interpreted as ruler aggression
+  - no national corruption fact becomes personal 7B evidence without personal nexus
+  - no favorable outcome establishes 8B effectiveness without ruler program and attribution
+  - report volume and closed-system silence do not determine score direction
+  - no blanket democracy or autocracy score correction is applied
+  - prompt and provider token profiles exist for every LLM action, including failures
+  - evidence breadth and source diversity do not materially regress from preserved baselines
+  - any movement greater than one point enters the score/order audit
+  - token or runtime growth above 1.5 times the AMLO accepted-path benchmark is investigated
+
+evaluation_success:
+  median_unchanged_evidence_rerun_drift_max: 0.5
+  unexplained_score_movement_max: 1.0
+  manual_complete_ruler_reads_minimum: 4
+  required_manual_contrasts: [RUS, USA, COD, DEU]
+  production_promotion: false
+  comparison_manifest_fields:
+    - local_evidence_records
+    - web_evidence_records
+    - evidence_mappings
+    - source_family_diversity
+    - score
+    - confidence
+    - plausible_range
+    - null_status
+    - manual_review_status

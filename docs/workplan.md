@@ -1,5 +1,27 @@
 # Workplan
 
+## 2026-07-23 — Controlled 2022 evaluation safeguards complete
+
+- Added a reviewed, bounded local-data disposition audit to compact reviewer and
+  formatter handoffs. It reports parent-owned retained-context, explicit-gap, and
+  invalid/unresolved decisions without replaying fact values or prose; malformed or
+  excessive packages are safely omitted.
+- Audited AMLO's two-point 2B movement. The original 5.5 improperly used domestic
+  National Guard evidence in the international-peace chapter and is rejected. A corrected
+  no-search judgment excludes domestic policing and scores 6.0 with 78 confidence and a
+  5.5–6.5 range. The four other attribution flags were reviewed and classified as
+  ordinary uncertainty for controlled-evaluation purposes.
+- Froze the 20-ruler cohort, baseline hashes, model/workflow hashes, four five-ruler
+  batches, automatic stop gates, stability thresholds, and client-score prohibition in
+  `configs/evaluations/2022-bias-local-v3-controlled.yaml`.
+- The complete distinction between controlled evaluation and production promotion is now
+  explicit in `docs/process/2022-controlled-evaluation-and-production-promotion.md`.
+  All pre-run safeguards pass; production Gates B–G remain open and are the authoritative
+  checklist for evidence, methodology, source, operational, release, and human-approval
+  maturity.
+- The repository is ready to begin the controlled full evaluation. Results remain
+  provisional until every open promotion gate passes.
+
 ## 2026-07-23 — AMLO compact end-to-end profile completed
 
 - Passed AMLO 2022 through local structured evidence, segmented web research, one fresh
@@ -12,9 +34,10 @@
 - Accepted-path usage was 5.589M input tokens, including 4.474M cached tokens, and
   129.2K output tokens. Research remains the dominant cost: explicit research prompts
   are short, while provider tool/session context produced 5.062M input tokens.
-- The new scores are 1B 5.0, 2B 5.5, 3B 4.5, 4B 5.0, 5B 5.5, 6B 5.5, 7B 4.5, and
-  8B 6.0. The two-point 2B movement and four emitted attribution-review flags must be
-  audited before AMLO replaces the preserved cohort result.
+- The preflight-selected scores are 1B 5.0, 2B 6.0, 3B 4.5, 4B 5.0, 5B 5.5, 6B 5.5,
+  7B 4.5, and 8B 6.0. The corrected 1.5-point 2B movement remains in the full-cohort
+  score/order audit; the four initial attribution flags were dispositioned as ordinary
+  uncertainty for evaluation.
 - The full profile and optimization order are in
   `docs/reviews/2026-07-23-amlo-end-to-end-profile.md`. Next: add the compact
   local-disposition audit, productionize anchor-reuse rejudgment, and audit AMLO 2B plus

@@ -31,6 +31,14 @@ The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,
 source authority, factual claims, leader identity, or category scoring.
 
+Controlled cohort evaluations are frozen separately from production releases. The
+evaluation manifest binds the ruler cohort, preserved baselines, model/workflow
+configuration, artifact hashes, batch order, token checkpoints, and stop gates.
+Changed-ruler diagnostics may reuse compact immutable score/rationale anchors for
+unchanged rulers, but a production release still requires complete common-meter and
+score/order audits plus the operational, source, attribution, and publication gates in
+[`../process/2022-controlled-evaluation-and-production-promotion.md`](../process/2022-controlled-evaluation-and-production-promotion.md).
+
 ## Scope
 
 **In scope (§2):** one target year at a time, initially 2023; countries above the

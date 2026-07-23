@@ -30,6 +30,9 @@ Actual subscription billing and hidden cache-write costs were not exposed.
 The development/recovery audit also preserves an additional completed formatter call
 of 134,221 input and 3,492 output tokens. It is excluded from the accepted-path table
 but remains part of cumulative development cost, as required by REQ-LLM-019.
+The subsequent 2B preflight correction used 78,488 input tokens (38,656 cached) and
+3,012 output tokens. It replaces the original 2B judgment for the controlled run but
+is likewise reported separately from the original end-to-end benchmark.
 
 ## Local evidence detail
 
@@ -115,7 +118,7 @@ serialization defects without inventing facts, mappings, or bias support.
 | Chapter | New score | Confidence | Plausible range | Previous stage-3 score | Lean-v4 score | Manual review |
 |---|---:|---:|---:|---:|---:|---|
 | 1B | 5.0 | 55 | 4.5–6.0 | 5.0 | 6.5 | No |
-| 2B | 5.5 | 78 | 4.5–6.5 | 7.5 | 7.0 | No |
+| 2B | 6.0 | 78 | 5.5–6.5 | 7.5 | 7.0 | No |
 | 3B | 4.5 | 82 | 3.5–5.5 | 4.0 | 4.0 | No |
 | 4B | 5.0 | 82 | 4.5–6.0 | 5.0 | 5.0 | Attribution review |
 | 5B | 5.5 | 68 | 5.0–6.0 | 5.5 | 5.5 | Attribution review |
@@ -123,12 +126,12 @@ serialization defects without inventing facts, mappings, or bias support.
 | 7B | 4.5 | 65 | 3.5–5.5 | 3.5 | 3.5 | Attribution review |
 | 8B | 6.0 | 81 | 5.5–7.0 | 6.0 | 5.5 | Attribution review |
 
-The two-point 2B reduction is the only movement beyond one point and therefore requires
-score/order audit before promotion. The new judge credited AMLO's truce proposal and
-Mexico's mediation posture, but declined to treat absence of foreign aggression as
-exemplary conduct and weighed the ruler-attributed National Guard militarization and
-accountability record. This is a plausible methodological correction, not yet an
-approved release change.
+The original two-point 2B reduction failed preflight audit because it gave directional
+international-peace weight to domestic National Guard policing. The corrected judge
+excluded those records under the chapter's international-conduct gate, credited AMLO's
+truce proposal, Mexico's mediation posture and UN conduct, and declined to treat absence
+of aggression as exemplary. The corrected 6.0 remains 1.5 points below the previous
+stage-3 result and therefore still receives full-cohort score/order audit.
 
 The one-point 7B increase rests on direct personal-nexus evidence: sampled false or
 misleading presidential claims and personal pressure on a critical journalist, balanced
@@ -169,8 +172,7 @@ full evidence for the changed ruler, compact immutable outcomes for unchanged an
    script, including strict identity and evidence validation.
 4. Profile research invocation context beyond prompt text; 4.39M cached tokens are the
    dominant cost.
-5. Audit AMLO 2B and the four manual-review chapters before replacing any preserved
-   score.
+5. Carry the completed AMLO preflight audit into the full-cohort score/order audit.
 6. After that audit, replace only AMLO in the preserved 2022 cohort and rerun/order-audit
    affected common-meter outputs before considering wider promotion.
 
