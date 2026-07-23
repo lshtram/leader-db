@@ -18,6 +18,7 @@ from leaders_db.research.codex_worker import (
     _recover_completed_initial_research,
     _recover_explicit_markdown_evidence,
     _recover_markdown_ledger_entries,
+    _restore_explicit_cited_bullets,
     _restore_formatter_ledger_evidence,
     _validate_formatter_ledger_accounting,
     _validate_recovered_candidate_references,
@@ -743,6 +744,34 @@ def test_formatter_restores_exact_manifest_fact_from_recovery_catalog() -> None:
     assert restored["coverage"][0]["status"] == "partially_covered"
     assert restored["coverage"][0]["evidence_ids"] == ["E001"]
     assert "1 canonical fact key(s)" in restored["normalization_warnings"][-1]
+
+
+def test_formatter_recovers_explicit_cited_bullets_as_context_without_manifest() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["3B.3", "3B.6"],
+        "normalization_warnings": [],
+    }
+    notebook = """Research handoff without a JSON manifest.
+
+- **EV057** — GAO found that review boards generally found incidents aligned
+  with policy, while federal standards were tightened. This supports safeguards,
+  not population outcomes. Lens: `3B.3`, `3B.6`.
+  [GAO-23-105927](https://www.gao.gov/products/gao-23-105927), lines 284–289.
+- **RB058** — No complete target-year denominator was found.
+"""
+
+    restored = _restore_explicit_cited_bullets(candidate, notebook=notebook)
+
+    assert len(restored["evidence"]) == 1
+    assert restored["evidence"][0]["evidence_id"] == "EV057"
+    assert restored["evidence"][0]["final_evidence_use"] == "context"
+    assert restored["evidence"][0]["publication_date"] == "unknown_not_recorded"
+    assert {
+        mapping["methodology_id"] for mapping in restored["mappings"]
+    } == {"3B.3", "3B.6"}
 
 
 def test_restored_manifest_fact_precedes_equivalent_rewritten_candidate() -> None:

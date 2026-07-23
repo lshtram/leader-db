@@ -949,7 +949,7 @@ def _restore_formatter_ledger_evidence(
 
     manifest = _embedded_ledger_manifest(notebook)
     if manifest is None:
-        return candidate
+        return _restore_explicit_cited_bullets(candidate, notebook=notebook)
     evidence = candidate.get("evidence")
     mappings = candidate.get("mappings")
     coverage = candidate.get("coverage")
@@ -1028,6 +1028,95 @@ def _restore_formatter_ledger_evidence(
             warnings.append(
                 "Restored manifest-required evidence from prior completed formatter "
                 f"attempts for {len(restored_keys)} canonical fact key(s)."
+            )
+    return candidate
+
+
+def _restore_explicit_cited_bullets(
+    candidate: dict[str, Any], *, notebook: str
+) -> dict[str, Any]:
+    """Retain explicit cited producer bullets as context when no manifest exists."""
+
+    evidence = candidate.get("evidence")
+    mappings = candidate.get("mappings")
+    coverage = candidate.get("coverage")
+    selected = {str(item) for item in candidate.get("methodology_ids", [])}
+    if not all(isinstance(value, list) for value in (evidence, mappings, coverage)):
+        return candidate
+    if evidence or not selected:
+        return candidate
+    restored = 0
+    pattern = re.compile(
+        r"(?ms)^-\s+\*\*(E[V-]?\d{3,})\*\*\s+[—-]\s+"
+        r"(?P<body>.*?)(?=^-\s+\*\*E[V-]?\d{3,}\*\*\s+[—-]\s+|^#{1,4}\s|\Z)"
+    )
+    for match in pattern.finditer(notebook):
+        body = " ".join(match.group("body").split())
+        links = re.findall(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", body)
+        methodology_ids = sorted(
+            set(re.findall(r"\b([1-8]B\.(?:10|[1-9]))\b", body)) & selected
+        )
+        if not links or not methodology_ids:
+            continue
+        label, url = links[-1]
+        claim = re.split(r"\bLens(?:es)?\s*:", body, maxsplit=1)[0].strip()
+        claim = re.sub(r"\s*\[[^\]]+\]\(https?://[^)]+\).*", "", claim).strip()
+        if not claim:
+            continue
+        provisional_id = match.group(1)
+        locator_match = re.search(
+            r"(?:,\s*|;\s*)(lines?\s+\d+(?:[–-]\d+)?(?:,\s*\d+(?:[–-]\d+)?)*)",
+            body,
+            flags=re.IGNORECASE,
+        )
+        locator = (
+            locator_match.group(1)
+            if locator_match is not None
+            else f"producer bullet {provisional_id}"
+        )
+        canonical_key = f"{url}:producer-bullet-{provisional_id.casefold()}"
+        evidence.append(
+            {
+                "evidence_id": provisional_id,
+                "claim": claim,
+                "url": url,
+                "title": label,
+                "publisher": label,
+                "publication_date": "unknown_not_recorded",
+                "excerpt": claim,
+                "source_locator": locator,
+                "canonical_fact_key": canonical_key,
+                "source_type": "producer-authored cited context; type not normalized",
+                "source_confidence": "low",
+                "source_confidence_reason": (
+                    "Recovered conservatively from an explicit cited producer bullet "
+                    "because no machine-readable ledger manifest was supplied."
+                ),
+                "final_evidence_use": "context",
+                "period_fit": "target-period fit not fully normalized",
+                "ruler_attribution": (
+                    "Use only with the attribution limits stated in the recovered claim."
+                ),
+                "contrary_evidence": [],
+            }
+        )
+        for methodology_id in methodology_ids:
+            mappings.append(
+                {
+                    "evidence_id": provisional_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": "Recovered explicit producer routing; contextual only.",
+                }
+            )
+        restored += 1
+    if restored:
+        warnings = candidate.setdefault("normalization_warnings", [])
+        if isinstance(warnings, list):
+            warnings.append(
+                "Recovered "
+                f"{restored} explicit cited producer bullet(s) as context because "
+                "the producer supplied no machine-readable ledger manifest."
             )
     return candidate
 
