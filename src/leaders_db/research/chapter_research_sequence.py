@@ -168,6 +168,23 @@ def run_chapter_research_sequence(
             notebook_hash,
             events_hash,
         )
+        (attempt.trusted_dir / "research-notebook-checkpoint.json").write_text(
+            json.dumps(
+                {
+                    "job_key": job["job_key"],
+                    "provider_profile": job["provider_profile"],
+                    "provider": profile.provider,
+                    "model": profile.model,
+                    "notebook_path": str(notebook_path),
+                    "notebook_sha256": notebook_hash,
+                    "events_path": str(events_path),
+                    "events_sha256": events_hash,
+                },
+                indent=2,
+                sort_keys=True,
+            ),
+            encoding="utf-8",
+        )
     return current
 
 

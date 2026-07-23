@@ -746,6 +746,185 @@ def test_formatter_restores_exact_manifest_fact_from_recovery_catalog() -> None:
     assert "1 canonical fact key(s)" in restored["normalization_warnings"][-1]
 
 
+def test_candidate_recovery_prefers_richer_earlier_agent_message(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    trusted = job_dir / "trusted" / "001-prior"
+    attempts = job_dir / "attempts"
+    trusted.mkdir(parents=True)
+    attempts.mkdir()
+    (trusted / "formatter-complete.marker").write_text("complete\n", encoding="utf-8")
+    rich = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [_candidate_evidence(1)],
+        "mappings": [
+            {
+                "evidence_id": "E001",
+                "methodology_id": "1B.1",
+                "relation": "context",
+                "relevance": "Relevant.",
+            }
+        ],
+        "coverage": [
+            {
+                "methodology_id": "1B.1",
+                "status": "covered",
+                "evidence_ids": ["E001"],
+                "reason": "Covered.",
+            }
+        ],
+    }
+    empty = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+    }
+    (trusted / "codex-events.jsonl").write_text(
+        "\n".join(
+            json.dumps(
+                {
+                    "type": "item.completed",
+                    "item": {"type": "agent_message", "text": json.dumps(payload)},
+                }
+            )
+            for payload in (rich, empty)
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    recovered = find_previous_candidate(
+        job_dir,
+        attempt_dir=attempts / "002-current",
+    )
+
+    assert recovered is not None
+    assert len(recovered["evidence"]) == 1
+
+
+def test_candidate_recovery_does_not_prefer_fake_environment_support(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    trusted = job_dir / "trusted" / "001-prior"
+    attempts = job_dir / "attempts"
+    trusted.mkdir(parents=True)
+    attempts.mkdir()
+    (trusted / "formatter-complete.marker").write_text("complete\n", encoding="utf-8")
+    rich = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [_candidate_evidence(1)],
+        "mappings": [
+            {
+                "evidence_id": "E001",
+                "methodology_id": "1B.1",
+                "relation": "context",
+                "relevance": "Relevant.",
+            }
+        ],
+        "coverage": [
+            {
+                "methodology_id": "1B.1",
+                "status": "covered",
+                "evidence_ids": ["E001"],
+                "reason": "Covered.",
+            }
+        ],
+    }
+    malformed = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "evidence_environment": {"supporting_evidence_ids": ["FAKE"]},
+    }
+    (trusted / "codex-events.jsonl").write_text(
+        "\n".join(
+            json.dumps(
+                {
+                    "type": "item.completed",
+                    "item": {"type": "agent_message", "text": json.dumps(payload)},
+                }
+            )
+            for payload in (rich, malformed)
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    recovered = find_previous_candidate(
+        job_dir,
+        attempt_dir=attempts / "002-current",
+    )
+
+    assert recovered is not None
+    assert len(recovered["evidence"]) == 1
+
+
+def test_formatter_restores_complete_evidence_directly_from_manifest() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.2"],
+        "normalization_warnings": [],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[{
+  "provisional_id":"WEB-1B-001","canonical_fact_key":"reviewed-fact",
+  "chapter_ids":["1B"],"methodology_ids":["1B.2"],
+  "disposition":"final_evidence","claim":"A retained claim.",
+  "url":"https://example.test/report","locator":"page 4",
+  "publisher":"Example Institute","publication_date":"2022-03-01",
+  "source_type":"report","source_confidence":"high",
+  "source_confidence_reason":"Primary record.","period_fit":"Target year.",
+  "ruler_attribution":"National policy.","contrary_evidence":["A limit."]}]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert restored["evidence"][0]["claim"] == "A retained claim."
+    assert restored["evidence"][0]["source_locator"] == "page 4"
+    assert restored["mappings"][0]["methodology_id"] == "1B.2"
+
+
+def test_formatter_does_not_invent_exact_routes_from_chapter_hints() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["2B.1", "8B.1"],
+        "normalization_warnings": [],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[{
+  "provisional_id":"R001","canonical_fact_key":"authority-fact",
+  "chapter_ids":["2B","8B"],"methodology_ids":["8B.1"],
+  "disposition":"final_evidence","claim":"The ruler held executive authority.",
+  "url":"https://example.test/law","locator":"article 1",
+  "publisher":"Example Legislature","publication_date":"2022",
+  "source_type":"official_record","source_confidence":"high",
+  "source_confidence_reason":"Primary law.","period_fit":"Target year.",
+  "ruler_attribution":"Authority baseline."}]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert {
+        item["methodology_id"] for item in restored["mappings"]
+    } == {"8B.1"}
+
+
 def test_formatter_recovers_explicit_cited_bullets_as_context_without_manifest() -> None:
     candidate = {
         "evidence": [],

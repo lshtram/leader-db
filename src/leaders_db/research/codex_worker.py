@@ -530,6 +530,8 @@ def _prepare_execution_passes(
     checkpoint = _load_previous_research_checkpoint(
         attempt.trusted_dir, job=job, profile=researcher_profile
     )
+    if checkpoint is not None:
+        _recover_consumer_materials(checkpoint, attempt=attempt)
     if checkpoint is None:
         checkpoint = _recover_completed_initial_research(
             attempt=attempt,
@@ -555,7 +557,9 @@ def _prepare_execution_passes(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
-    if workflow.chapter_research_turns_enabled:
+    if workflow.chapter_research_turns_enabled and not _checkpoint_covers_chapters(
+        checkpoint, job=job, workflow=workflow
+    ):
         from .chapter_research_sequence import run_chapter_research_sequence
 
         checkpoint = run_chapter_research_sequence(
@@ -621,6 +625,55 @@ def _prepare_execution_passes(
     ):
         raise ValueError("formatter profile differs from the persisted job input")
     return formatter, checkpoint
+
+
+def _checkpoint_covers_chapters(
+    checkpoint: tuple[Path, str, Path, str, str],
+    *,
+    job: dict[str, Any],
+    workflow: ResearchWorkflow,
+) -> bool:
+    """Return whether the recovered notebook already contains every selected chapter."""
+
+    selected = {
+        str(item).split(".", maxsplit=1)[0]
+        for item in job["input"]["question_ids"]
+    }
+    return all(
+        f"--- CHAPTER RESEARCH {chapter_id} ---" in checkpoint[1]
+        for chapter_id in workflow.chapter_order
+        if chapter_id in selected
+    )
+
+
+def _recover_consumer_materials(
+    checkpoint: tuple[Path, str, Path, str, str],
+    *,
+    attempt: WorkerAttempt,
+) -> None:
+    """Copy immutable ledger inputs from the checkpoint's prior attempt."""
+
+    manifest = _embedded_ledger_manifest(checkpoint[1])
+    if manifest is None:
+        return
+    (attempt.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(manifest, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    matches = list(
+        re.finditer(r"(?m)^--- CHAPTER RESEARCH ([1-8]B) ---$", checkpoint[1])
+    )
+    ledger_start = checkpoint[1].rfind("--- RESEARCH LEDGER MANIFEST ---")
+    for index, match in enumerate(matches):
+        end = (
+            matches[index + 1].start()
+            if index + 1 < len(matches)
+            else ledger_start if ledger_start > match.end() else len(checkpoint[1])
+        )
+        (attempt.attempt_dir / f"research-chapter-{match.group(1)}.md").write_text(
+            checkpoint[1][match.end() : end].strip(),
+            encoding="utf-8",
+        )
 
 
 def _recover_completed_initial_research(
@@ -1045,12 +1098,11 @@ def _restore_formatter_ledger_evidence(
             notebook,
             key,
             provisional_id=str(entry.get("provisional_id", "")),
-        )
+        ) or _evidence_from_manifest_entry(entry)
         if key in emitted_by_key:
             _restore_ledger_routing(
                 entry,
                 evidence_id=emitted_by_key[key],
-                selected=[str(item) for item in candidate.get("methodology_ids", [])],
                 mappings=mappings,
                 coverage=coverage,
                 coverage_by_methodology=coverage_by_methodology,
@@ -1070,7 +1122,6 @@ def _restore_formatter_ledger_evidence(
         _restore_ledger_routing(
             entry,
             evidence_id=evidence_id,
-            selected=[str(item) for item in candidate.get("methodology_ids", [])],
             mappings=mappings,
             coverage=coverage,
             coverage_by_methodology=coverage_by_methodology,
@@ -1083,6 +1134,50 @@ def _restore_formatter_ledger_evidence(
                 f"attempts for {len(restored_keys)} canonical fact key(s)."
             )
     return candidate
+
+
+def _evidence_from_manifest_entry(entry: dict[str, Any]) -> dict[str, Any] | None:
+    """Convert a complete producer ledger row into formatter evidence."""
+
+    required = ("canonical_fact_key", "claim", "url", "locator", "publisher")
+    if any(not str(entry.get(field, "")).strip() for field in required):
+        return None
+    contrary = entry.get("contrary_evidence", ())
+    if isinstance(contrary, str):
+        contrary = [contrary] if contrary.strip() else []
+    elif not isinstance(contrary, list):
+        contrary = []
+    claim = str(entry["claim"])
+    publisher = str(entry["publisher"])
+    return {
+        "claim": claim,
+        "url": str(entry["url"]),
+        "title": str(entry.get("title") or f"{publisher} evidence record"),
+        "publisher": publisher,
+        "publication_date": str(
+            entry.get("publication_date")
+            or entry.get("publisher_date")
+            or "unknown_not_exposed_by_source"
+        ),
+        "excerpt": claim,
+        "source_locator": str(entry["locator"]),
+        "canonical_fact_key": str(entry["canonical_fact_key"]),
+        "source_type": str(entry.get("source_type") or "unknown_not_recorded"),
+        "source_confidence": str(
+            entry.get("source_confidence") or "unknown_not_recorded"
+        ),
+        "source_confidence_reason": str(
+            entry.get("source_confidence_reason") or "Producer did not record a reason."
+        ),
+        "final_evidence_use": "final_evidence",
+        "period_fit": str(entry.get("period_fit") or "unknown_not_recorded"),
+        "ruler_attribution": str(
+            entry.get("ruler_attribution")
+            or entry.get("attribution_limits")
+            or "unknown_not_recorded"
+        ),
+        "contrary_evidence": contrary,
+    }
 
 
 def _restore_explicit_cited_bullets(
@@ -1489,7 +1584,6 @@ def _restore_ledger_routing(
     entry: dict[str, Any],
     *,
     evidence_id: str,
-    selected: list[str],
     mappings: list[Any],
     coverage: list[Any],
     coverage_by_methodology: dict[str, Any],
@@ -1497,11 +1591,6 @@ def _restore_ledger_routing(
     """Restore exact lens routing with a neutral relation and valid coverage joins."""
 
     methodology_ids = [str(item) for item in entry.get("methodology_ids", [])]
-    if not methodology_ids:
-        methodology_ids = [
-            next((item for item in selected if item.startswith(f"{chapter}.")), "")
-            for chapter in entry.get("chapter_ids", [])
-        ]
     for methodology_id in dict.fromkeys(item for item in methodology_ids if item):
         mapping_exists = any(
             isinstance(item, dict)
@@ -1571,9 +1660,19 @@ def _validate_formatter_ledger_accounting(
                 mapping.methodology_id.split(".", maxsplit=1)[0]
             )
     routing_failures = {
-        key: sorted(set(entry.get("chapter_ids", [])) - mapped_chapters.get(key, set()))
+        key: sorted(
+            {
+                str(item).split(".", maxsplit=1)[0]
+                for item in entry.get("methodology_ids", [])
+            }
+            - mapped_chapters.get(key, set())
+        )
         for key, entry in expected.items()
-        if set(entry.get("chapter_ids", [])) - mapped_chapters.get(key, set())
+        if {
+            str(item).split(".", maxsplit=1)[0]
+            for item in entry.get("methodology_ids", [])
+        }
+        - mapped_chapters.get(key, set())
     }
     if routing_failures:
         summary = ", ".join(

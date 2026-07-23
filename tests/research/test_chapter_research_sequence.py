@@ -6,6 +6,10 @@ from leaders_db.research.chapter_research_sequence import (
     _existing_chapter_turn,
     build_chapter_research_prompt,
 )
+from leaders_db.research.codex_worker import (
+    _checkpoint_covers_chapters,
+    _recover_consumer_materials,
+)
 from leaders_db.research.research_workflow import ResearchWorkflow
 
 
@@ -176,3 +180,65 @@ def test_chapter_recovery_requires_same_session_mode(tmp_path: Path) -> None:
         output,
         prior_trusted / "research-ledger-before-1B.json",
     )
+
+
+def test_completed_chapter_checkpoint_prevents_research_replay(tmp_path: Path) -> None:
+    notebook = (
+        "initial\n\n--- CHAPTER RESEARCH 1B ---\nfirst"
+        "\n\n--- CHAPTER RESEARCH 2B ---\nsecond"
+    )
+    checkpoint = (
+        tmp_path / "events.jsonl",
+        notebook,
+        tmp_path / "notebook.md",
+        "notebook-hash",
+        "events-hash",
+    )
+    workflow = _workflow()
+    job = {"input": {"question_ids": ["1B.1", "2B.1"]}}
+
+    assert _checkpoint_covers_chapters(checkpoint, job=job, workflow=workflow)
+    assert not _checkpoint_covers_chapters(
+        (checkpoint[0], notebook.replace("2B", "3B"), *checkpoint[2:]),
+        job=job,
+        workflow=workflow,
+    )
+
+
+def test_recovered_checkpoint_copies_consumer_materials(tmp_path: Path) -> None:
+    job_dir = tmp_path / "job"
+    prior_attempt = job_dir / "attempts" / "001-prior"
+    current_attempt = job_dir / "attempts" / "002-current"
+    prior_trusted = job_dir / "trusted" / "001-prior"
+    current_trusted = job_dir / "trusted" / "002-current"
+    for path in (prior_attempt, current_attempt, prior_trusted, current_trusted):
+        path.mkdir(parents=True)
+    attempt = WorkerAttempt(
+        attempt_dir=current_attempt,
+        trusted_dir=current_trusted,
+        result_path=current_attempt / "dossier.json",
+        schema_path=current_trusted / "schema.json",
+        prompt_path=current_attempt / "prompt.txt",
+        pending_path=current_attempt / "pending.json",
+        events_path=current_trusted / "events.jsonl",
+        existing_candidate=None,
+        local_priors=(),
+        local_prior_provenance=(),
+    )
+    checkpoint = (
+        prior_trusted / "events.jsonl",
+        (
+            "notebook\n\n--- CHAPTER RESEARCH 1B ---\nchapter\n\n"
+            "--- RESEARCH LEDGER MANIFEST ---\n"
+            '{"schema_version":"ruler_research_ledger_manifest_v1",'
+            '"entries":[{"canonical_fact_key":"fact-1"}]}'
+        ),
+        prior_trusted / "research-notebook-8B.md",
+        "notebook-hash",
+        "events-hash",
+    )
+
+    _recover_consumer_materials(checkpoint, attempt=attempt)
+
+    assert (current_attempt / "research-ledger-manifest.json").is_file()
+    assert (current_attempt / "research-chapter-1B.md").read_text() == "chapter"
