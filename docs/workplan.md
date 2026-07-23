@@ -1,5 +1,20 @@
 # Workplan
 
+## 2026-07-23 — Five-ruler comparative judge gate passed
+
+- Completed all eight common-meter chapter jobs across Biden, Tshisekedi, Putin, Scholz,
+  and Støre. The run produced 40 validated evaluations: 37 scores and three reasoned nulls.
+  All bias assessments are cited and confirm both report-volume and blanket-regime controls.
+- Unchanged Biden/Tshisekedi cases have median absolute drift 0.5 and maximum drift 1.0
+  versus the prior two-ruler run. Personal-integrity and inherited-baseline boundaries held;
+  no client-score fields entered any judge prompt.
+- Chapter 4B needed one bounded semantic repair; every other judge passed on its first
+  attempt. The full score, confidence, null, attribution, and stability audit is preserved
+  in `docs/reviews/2022-five-ruler-bias-pilot.md`.
+- The next controlled gate is the complete preserved 20-ruler 2022 cohort, not production
+  promotion. It must include source-family, duplication, score-order, local-evidence, cost,
+  and contrasting-case manual audits.
+
 ## 2026-07-23 — Støre 2022 high-baseline dossier gate completed
 
 - Completed the high-data/high-inherited-baseline case on its first worker attempt. The
