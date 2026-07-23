@@ -1,5 +1,20 @@
 # Workplan
 
+## 2026-07-23 — Scholz 2022 constrained-authority dossier gate completed
+
+- Completed the coalition/federal-authority case on its first worker attempt. The
+  validated dossier contains 30 precisely located final-evidence records, 58 mappings,
+  all 80 coverage rows, 80 restored local-prior provenance records, eight explicit gaps,
+  and an evidence-environment assessment whose 11 support IDs all resolve.
+- The initial review requested a targeted 1B continuation; the second review invoked the
+  configured all-chapter supervisor, and the third review terminated collection. The
+  notebook expanded from 21 KB to 98 KB while the compact formatter input remained 131 KB,
+  demonstrating that the size controls work on a clean end-to-end run.
+- Coverage is explicit rather than mechanically optimistic: 37 lenses are covered, nine
+  partially covered, 15 report no evidence found, and 19 preserve a research blocker.
+  Every evidence, coverage, and environment reference validates. The next ruler gate is
+  Støre, which tests high-quality administrative data and a high inherited baseline.
+
 ## 2026-07-23 — Putin 2022 closed-regime dossier gate completed
 
 - Completed the five-ruler cohort's closed-regime/war/nuclear dossier after exercising
