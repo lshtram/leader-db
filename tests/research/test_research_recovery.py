@@ -948,6 +948,30 @@ Later continuation.
     assert manifest["entries"][0]["methodology_ids"] == ["1B.3", "1B.7"]
 
 
+def test_embedded_manifest_uses_earliest_fenced_handoff_before_separator() -> None:
+    notebook = """Researcher handoff:
+```json
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"canonical-url#L92-L150",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"}
+]}
+```
+
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"stale-display-url",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["canonical_fact_key"] == "canonical-url#L92-L150"
+
+
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:
     handoff_path = tmp_path / "research-handoff.md"
     handoff_path.write_text(

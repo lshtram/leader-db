@@ -1042,11 +1042,7 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
     if not isinstance(manifest, dict):
         return None
     entries = manifest.get("entries", [])
-    first_manifest_text = notebook.split(marker, maxsplit=1)[1].lstrip()
-    try:
-        first_manifest, _ = json.JSONDecoder().raw_decode(first_manifest_text)
-    except json.JSONDecodeError:
-        first_manifest = {}
+    first_manifest = _first_ledger_manifest_in_text(notebook) or {}
     first_keys_by_id = {
         str(entry["provisional_id"]): str(entry["canonical_fact_key"])
         for entry in first_manifest.get("entries", [])
@@ -1089,6 +1085,28 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
         if correction is not None:
             entry.update(correction)
     return manifest
+
+
+def _first_ledger_manifest_in_text(text: str) -> dict[str, Any] | None:
+    """Return the earliest valid ledger manifest, including fenced handoffs."""
+
+    decoder = json.JSONDecoder()
+    marker = '"schema_version"'
+    for marker_index in (
+        index for index in range(len(text)) if text.startswith(marker, index)
+    ):
+        object_start = text.rfind("{", 0, marker_index)
+        if object_start < 0:
+            continue
+        try:
+            candidate, _ = decoder.raw_decode(text[object_start:])
+        except json.JSONDecodeError:
+            continue
+        if isinstance(candidate, dict) and candidate.get("schema_version") == (
+            "ruler_research_ledger_manifest_v1"
+        ):
+            return candidate
+    return None
 
 
 def _is_replayed_historical_entry(
