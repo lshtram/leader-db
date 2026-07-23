@@ -690,6 +690,35 @@ def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) 
 
     assert len(batch.evaluations) == 2
 
+    null_duplicate_candidate = _judge_candidate(
+        dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+        iso3s=("AAA", "BBB"),
+    )
+    first = null_duplicate_candidate["evaluations"][0]
+    first["score_1_to_10"] = None
+    first["insufficient_evidence_reason"] = "The admissible record is incomplete."
+    first["plausible_score_range"] = {"lower": 1, "upper": 10}
+    duplicate_null = json.loads(json.dumps(first))
+    duplicate_null["insufficient_evidence_reason"] = (
+        "The projection contains only contextual fragments."
+    )
+    null_duplicate_candidate["evaluations"].append(duplicate_null)
+
+    batch = _prepare_batch(
+        null_duplicate_candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=dossiers,
+        projections=_projections(dossiers, chapter_id="4B"),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert len(batch.evaluations) == 2
+    assert "contextual fragments" in batch.evaluations[0].insufficient_evidence_reason
+
     conflicting = _judge_candidate(
         dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
         iso3s=("AAA", "BBB"),

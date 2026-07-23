@@ -418,10 +418,17 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
             comparable_fields = (
                 "score_1_to_10",
                 "manual_review_required",
-                "insufficient_evidence_reason",
             )
             if any(prior.get(field) != evaluation.get(field) for field in comparable_fields):
                 raise ValueError("chapter evaluation has conflicting duplicate judgments")
+            prior_reason = str(prior.get("insufficient_evidence_reason") or "").strip()
+            duplicate_reason = str(
+                evaluation.get("insufficient_evidence_reason") or ""
+            ).strip()
+            if duplicate_reason and duplicate_reason != prior_reason:
+                prior["insufficient_evidence_reason"] = (
+                    f"{prior_reason} {duplicate_reason}".strip()
+                )
             continue
         deduplicated.append(evaluation)
         emitted_by_key[dossier_key] = evaluation
