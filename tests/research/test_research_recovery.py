@@ -704,6 +704,41 @@ def test_restored_manifest_fact_precedes_equivalent_rewritten_candidate() -> Non
     ]
 
 
+def test_formatter_restores_missing_exact_route_for_emitted_manifest_fact() -> None:
+    evidence = _candidate_evidence(1) | {
+        "canonical_fact_key": "reviewed-key",
+        "source_locator": "page 4",
+    }
+    candidate = {
+        "evidence": [evidence],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.4", "1B.10"],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R001","canonical_fact_key":"reviewed-key",
+   "chapter_ids":["1B"],"methodology_ids":["1B.4","1B.10"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate={"evidence": [evidence]},
+        notebook=notebook,
+    )
+
+    assert {
+        (item["evidence_id"], item["methodology_id"])
+        for item in restored["mappings"]
+    } == {("E001", "1B.4"), ("E001", "1B.10")}
+    assert {item["methodology_id"] for item in restored["coverage"]} == {
+        "1B.4",
+        "1B.10",
+    }
+
+
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
     handoff = """## Chapter 2B
 

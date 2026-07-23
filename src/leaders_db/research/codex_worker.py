@@ -963,8 +963,8 @@ def _restore_formatter_ledger_evidence(
         for item in catalog_items
         if isinstance(item, dict) and item.get("canonical_fact_key")
     }
-    emitted_keys = {
-        str(item.get("canonical_fact_key", ""))
+    emitted_by_key = {
+        str(item.get("canonical_fact_key", "")): str(item.get("evidence_id", ""))
         for item in evidence
         if isinstance(item, dict)
     }
@@ -988,7 +988,17 @@ def _restore_formatter_ledger_evidence(
             continue
         key = str(entry.get("canonical_fact_key", ""))
         source = catalog.get(key)
-        if not key or key in emitted_keys or source is None:
+        if key in emitted_by_key:
+            _restore_ledger_routing(
+                entry,
+                evidence_id=emitted_by_key[key],
+                selected=[str(item) for item in candidate.get("methodology_ids", [])],
+                mappings=mappings,
+                coverage=coverage,
+                coverage_by_methodology=coverage_by_methodology,
+            )
+            continue
+        if not key or source is None:
             continue
         next_number += 1
         evidence_id = f"E{next_number:03d}"
@@ -997,7 +1007,7 @@ def _restore_formatter_ledger_evidence(
         restored["canonical_fact_key"] = key
         restored["final_evidence_use"] = "final_evidence"
         evidence.insert(0, restored)
-        emitted_keys.add(key)
+        emitted_by_key[key] = evidence_id
         restored_keys.append(key)
         _restore_ledger_routing(
             entry,
@@ -1061,14 +1071,21 @@ def _restore_ledger_routing(
             for chapter in entry.get("chapter_ids", [])
         ]
     for methodology_id in dict.fromkeys(item for item in methodology_ids if item):
-        mappings.append(
-            {
-                "evidence_id": evidence_id,
-                "methodology_id": methodology_id,
-                "relation": "context",
-                "relevance": "Restored exact reviewed ledger routing.",
-            }
+        mapping_exists = any(
+            isinstance(item, dict)
+            and item.get("evidence_id") == evidence_id
+            and item.get("methodology_id") == methodology_id
+            for item in mappings
         )
+        if not mapping_exists:
+            mappings.append(
+                {
+                    "evidence_id": evidence_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": "Restored exact reviewed ledger routing.",
+                }
+            )
         coverage_item = coverage_by_methodology.get(methodology_id)
         if coverage_item is None:
             coverage_item = {
