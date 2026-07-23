@@ -996,7 +996,7 @@ def _restore_formatter_ledger_evidence(
         restored["evidence_id"] = evidence_id
         restored["canonical_fact_key"] = key
         restored["final_evidence_use"] = "final_evidence"
-        evidence.append(restored)
+        evidence.insert(0, restored)
         emitted_keys.add(key)
         restored_keys.append(key)
         _restore_ledger_routing(

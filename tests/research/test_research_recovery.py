@@ -669,6 +669,41 @@ def test_formatter_restores_exact_manifest_fact_from_recovery_catalog() -> None:
     assert "1 canonical fact key(s)" in restored["normalization_warnings"][-1]
 
 
+def test_restored_manifest_fact_precedes_equivalent_rewritten_candidate() -> None:
+    rewritten = _candidate_evidence(1) | {
+        "canonical_fact_key": "formatter-rewritten-key",
+        "source_locator": "page 4",
+    }
+    reviewed = rewritten | {
+        "evidence_id": "E009",
+        "canonical_fact_key": "reviewed-key",
+    }
+    candidate = {
+        "evidence": [rewritten],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.1"],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R001","canonical_fact_key":"reviewed-key",
+   "chapter_ids":["1B"],"methodology_ids":["1B.1"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate={"evidence": [reviewed]},
+        notebook=notebook,
+    )
+
+    assert [item["canonical_fact_key"] for item in restored["evidence"]] == [
+        "reviewed-key",
+        "formatter-rewritten-key",
+    ]
+
+
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
     handoff = """## Chapter 2B
 
