@@ -1,5 +1,18 @@
 # Workplan
 
+## 2026-07-23 — Five-ruler gate cohort identities locked
+
+- Selected Vladimir Putin, Olaf Scholz, and Jonas Gahr Støre to extend the validated
+  Biden/Tshisekedi pair. Putin preserves the original closed-regime/war/nuclear anchor;
+  Scholz tests coalition and federal constraints; Støre tests high-quality administrative
+  data and a high inherited baseline without relying only on a globally dominant case.
+- Added reviewed 2022 canonical locks for Russia, Germany, and Norway. The records use
+  official or already-vetted identity sources and explicitly select the formal governing
+  office rather than inferring hidden power. Applying the expanded manifest updated no
+  duplicate ruler-years and locked all nine listed cases idempotently.
+- The next gate is three full reusable dossiers in the existing contrast run, followed by
+  all eight five-ruler comparative chapters and a score-drift/local-prior/bias audit.
+
 ## 2026-07-23 — Biden/Tshisekedi comparative judge gate completed
 
 - Ran all eight chapters as true two-ruler comparative batches. Every job completed with
