@@ -1,5 +1,26 @@
 # Workplan
 
+## 2026-07-23 — Full 2022 bias-aware cohort completed; remediation gate opened
+
+- Completed 20 validated bias-aware dossiers and all eight 20-ruler common-meter judge
+  batches: 1,092 evidence records, 5,377 mappings, all 1,600 coverage rows, all 1,600
+  local-prior provenance rows, and 160 chapter judgments. Every evidence and bias
+  reference resolves, and all judgments affirm the report-volume and no-blanket-regime
+  safeguards.
+- Compared with lean-v4, median absolute movement among jointly numeric cells is 0.5,
+  but 33 cells move by more than one point and nulls increase from four to 22. Lower
+  confidence and more 7B nulls often reflect the intended personal-nexus and
+  missing-evidence boundaries, but those movements require an explicit score/order audit.
+- The cohort exposed two producer-completeness regressions that tolerant receiver
+  behavior correctly contained but could not cure: Biden has 25 context-only recovered
+  records and no final evidence; AMLO has only 13 evidence records. The result is
+  auditable and non-failing, but not yet a defensible replacement for the preserved
+  release.
+- The complete audit and gate decision are in
+  `docs/reviews/2022-bias-aware-top20-gate.md`. Next: migrate or recollect Biden,
+  supplement AMLO, rerun the eight common-meter chapters, audit all greater-than-one
+  movements, then rebuild the viewer. Production promotion remains disabled.
+
 ## 2026-07-23 — Five-ruler comparative judge gate passed
 
 - Completed all eight common-meter chapter jobs across Biden, Tshisekedi, Putin, Scholz,
