@@ -176,6 +176,11 @@ def execute_claimed_dossier_job(
         raise WorkerOutputError("Codex worker produced invalid JSON") from exc
     if not isinstance(candidate, dict):
         raise WorkerOutputError("Codex worker output must be a JSON object")
+    candidate = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=existing_candidate,
+        notebook=research_notebook or "",
+    )
     try:
         dossier = _prepare_dossier(
             candidate,
@@ -924,19 +929,151 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
     return entries
 
 
-def _validate_formatter_ledger_accounting(
-    dossier: RulerEvidenceDossier, *, notebook: str
-) -> None:
-    """Prevent formatter collapse while allowing consolidation and source upgrades."""
+def _restore_formatter_ledger_evidence(
+    candidate: dict[str, Any],
+    *,
+    existing_candidate: dict[str, Any] | None,
+    notebook: str,
+) -> dict[str, Any]:
+    """Restore exact reviewed facts preserved by an earlier formatter attempt."""
+
+    manifest = _embedded_ledger_manifest(notebook)
+    if existing_candidate is None or manifest is None:
+        return candidate
+    evidence = candidate.get("evidence")
+    mappings = candidate.get("mappings")
+    coverage = candidate.get("coverage")
+    if not all(isinstance(value, list) for value in (evidence, mappings, coverage)):
+        return candidate
+    catalog_items = list(existing_candidate.get("evidence", [])) + list(
+        existing_candidate.get("recovery_evidence_catalog", [])
+    )
+    catalog = {
+        str(item.get("canonical_fact_key", "")): item
+        for item in catalog_items
+        if isinstance(item, dict) and item.get("canonical_fact_key")
+    }
+    emitted_keys = {
+        str(item.get("canonical_fact_key", ""))
+        for item in evidence
+        if isinstance(item, dict)
+    }
+    used_ids = {
+        str(item.get("evidence_id", ""))
+        for item in evidence
+        if isinstance(item, dict)
+    }
+    next_number = max(
+        (int(match.group(1)) for item in used_ids if (match := re.fullmatch(r"E(\d+)", item))),
+        default=0,
+    )
+    coverage_by_methodology = {
+        str(item.get("methodology_id")): item
+        for item in coverage
+        if isinstance(item, dict)
+    }
+    restored_keys: list[str] = []
+    for entry in manifest.get("entries", []):
+        if not isinstance(entry, dict) or entry.get("disposition") != "final_evidence":
+            continue
+        key = str(entry.get("canonical_fact_key", ""))
+        source = catalog.get(key)
+        if not key or key in emitted_keys or source is None:
+            continue
+        next_number += 1
+        evidence_id = f"E{next_number:03d}"
+        restored = dict(source)
+        restored["evidence_id"] = evidence_id
+        restored["canonical_fact_key"] = key
+        restored["final_evidence_use"] = "final_evidence"
+        evidence.append(restored)
+        emitted_keys.add(key)
+        restored_keys.append(key)
+        _restore_ledger_routing(
+            entry,
+            evidence_id=evidence_id,
+            selected=[str(item) for item in candidate.get("methodology_ids", [])],
+            mappings=mappings,
+            coverage=coverage,
+            coverage_by_methodology=coverage_by_methodology,
+        )
+    if restored_keys:
+        warnings = candidate.setdefault("normalization_warnings", [])
+        if isinstance(warnings, list):
+            warnings.append(
+                "Restored manifest-required evidence from prior completed formatter "
+                f"attempts for {len(restored_keys)} canonical fact key(s)."
+            )
+    return candidate
+
+
+def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
+    """Read the final inlined ledger manifest from a research notebook."""
 
     marker = "--- RESEARCH LEDGER MANIFEST ---"
     if marker not in notebook:
-        return
+        return None
     try:
         manifest, _ = json.JSONDecoder().raw_decode(
             notebook.rsplit(marker, maxsplit=1)[1].lstrip()
         )
     except json.JSONDecodeError:
+        return None
+    return manifest if isinstance(manifest, dict) else None
+
+
+def _restore_ledger_routing(
+    entry: dict[str, Any],
+    *,
+    evidence_id: str,
+    selected: list[str],
+    mappings: list[Any],
+    coverage: list[Any],
+    coverage_by_methodology: dict[str, Any],
+) -> None:
+    """Restore exact lens routing with a neutral relation and valid coverage joins."""
+
+    methodology_ids = [str(item) for item in entry.get("methodology_ids", [])]
+    if not methodology_ids:
+        methodology_ids = [
+            next((item for item in selected if item.startswith(f"{chapter}.")), "")
+            for chapter in entry.get("chapter_ids", [])
+        ]
+    for methodology_id in dict.fromkeys(item for item in methodology_ids if item):
+        mappings.append(
+            {
+                "evidence_id": evidence_id,
+                "methodology_id": methodology_id,
+                "relation": "context",
+                "relevance": "Restored exact reviewed ledger routing.",
+            }
+        )
+        coverage_item = coverage_by_methodology.get(methodology_id)
+        if coverage_item is None:
+            coverage_item = {
+                "methodology_id": methodology_id,
+                "status": "partially_covered",
+                "evidence_ids": [],
+                "reason": "Contains restored reviewed evidence.",
+            }
+            coverage.append(coverage_item)
+            coverage_by_methodology[methodology_id] = coverage_item
+        ids = list(coverage_item.get("evidence_ids", []))
+        if evidence_id not in ids:
+            ids.append(evidence_id)
+        coverage_item["evidence_ids"] = ids
+        if coverage_item.get("status") in {"research_blocked", "no_evidence_found"}:
+            coverage_item["status"] = "partially_covered"
+            coverage_item["reason"] = "Contains restored reviewed evidence."
+
+
+def _validate_formatter_ledger_accounting(
+    dossier: RulerEvidenceDossier, *, notebook: str
+) -> None:
+    """Prevent formatter collapse while allowing consolidation and source upgrades."""
+
+    manifest = _embedded_ledger_manifest(notebook)
+    if manifest is None:
         return
     expected = {
         str(entry["canonical_fact_key"]): entry

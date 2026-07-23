@@ -16,6 +16,7 @@ from leaders_db.research.codex_worker import (
     _load_research_ledger_manifest,
     _recover_completed_initial_research,
     _recover_markdown_ledger_entries,
+    _restore_formatter_ledger_evidence,
     _validate_formatter_ledger_accounting,
     _validate_recovered_candidate_references,
 )
@@ -616,6 +617,55 @@ def test_previous_candidate_exposes_distinct_evidence_from_other_attempts(
         item["canonical_fact_key"]
         for item in candidate["recovery_evidence_catalog"]
     ] == ["fact-from-first"]
+
+
+def test_formatter_restores_exact_manifest_fact_from_recovery_catalog() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [
+            {
+                "methodology_id": "1B.2",
+                "status": "research_blocked",
+                "evidence_ids": [],
+                "reason": "Formatter omitted the reviewed fact.",
+            }
+        ],
+        "methodology_ids": ["1B.2"],
+        "normalization_warnings": [],
+    }
+    recovered_fact = _candidate_evidence(1) | {
+        "canonical_fact_key": "reviewed-fact",
+        "source_locator": "page 4",
+    }
+    notebook = """Notebook.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R001","canonical_fact_key":"reviewed-fact",
+   "chapter_ids":["1B"],"methodology_ids":["1B.2"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate={"evidence": [], "recovery_evidence_catalog": [recovered_fact]},
+        notebook=notebook,
+    )
+
+    assert restored["evidence"][0]["canonical_fact_key"] == "reviewed-fact"
+    assert restored["evidence"][0]["evidence_id"] == "E001"
+    assert restored["mappings"] == [
+        {
+            "evidence_id": "E001",
+            "methodology_id": "1B.2",
+            "relation": "context",
+            "relevance": "Restored exact reviewed ledger routing.",
+        }
+    ]
+    assert restored["coverage"][0]["status"] == "partially_covered"
+    assert restored["coverage"][0]["evidence_ids"] == ["E001"]
+    assert "1 canonical fact key(s)" in restored["normalization_warnings"][-1]
 
 
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
