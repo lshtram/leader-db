@@ -139,12 +139,21 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
     )
     if not has_list_contract:
         return None
-    try:
-        evidence = tuple(DossierEvidence.model_validate(item) for item in raw_evidence)
-        mappings = tuple(EvidenceQuestionMapping.model_validate(item) for item in raw_mappings)
-        coverage = tuple(QuestionCoverage.model_validate(item) for item in raw_coverage)
-    except (ValidationError, TypeError):
-        return None
+    evidence = tuple(
+        parsed
+        for item in raw_evidence
+        if (parsed := _best_effort_validate(DossierEvidence, item)) is not None
+    )
+    mappings = tuple(
+        parsed
+        for item in raw_mappings
+        if (parsed := _best_effort_validate(EvidenceQuestionMapping, item)) is not None
+    )
+    coverage = tuple(
+        parsed
+        for item in raw_coverage
+        if (parsed := _best_effort_validate(QuestionCoverage, item)) is not None
+    )
     declared_ids = {item.evidence_id for item in evidence}
     selected = {str(item) for item in raw_methodology_ids}
     coverage_ids = [item.methodology_id for item in coverage]
@@ -157,6 +166,15 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
     }
     covered_selected = {item for item in coverage_ids if item in selected}
     return len(linked_ids), len(covered_selected), len(evidence)
+
+
+def _best_effort_validate(model: Any, item: Any) -> Any | None:
+    """Validate one receiver input without rejecting its useful siblings."""
+
+    try:
+        return model.model_validate(item)
+    except (ValidationError, TypeError):
+        return None
 
 
 def write_local_priors(

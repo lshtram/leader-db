@@ -621,6 +621,61 @@ def test_previous_candidate_exposes_distinct_evidence_from_other_attempts(
     ] == ["fact-from-first"]
 
 
+def test_previous_candidate_tolerates_one_malformed_evidence_record(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    attempts = job_dir / "attempts"
+    trusted = job_dir / "trusted"
+    rich_attempt = attempts / "001-rich"
+    empty_attempt = attempts / "002-empty"
+    for attempt in (rich_attempt, empty_attempt):
+        attempt.mkdir(parents=True)
+        marker = trusted / attempt.name / "formatter-complete.marker"
+        marker.parent.mkdir(parents=True)
+        marker.write_text("complete\n")
+    evidence = _candidate_evidence(1) | {"canonical_fact_key": "fact-1"}
+    (rich_attempt / "dossier.pending.json").write_text(
+        json.dumps(
+            {
+                "evidence": [evidence, {"not": "valid evidence"}],
+                "mappings": [
+                    {
+                        "evidence_id": evidence["evidence_id"],
+                        "methodology_id": "1B.1",
+                        "relation": "context",
+                        "relevance": "Useful evidence survives a malformed sibling.",
+                    }
+                ],
+                "coverage": [
+                    {
+                        "methodology_id": "1B.1",
+                        "status": "partially_covered",
+                        "evidence_ids": [evidence["evidence_id"]],
+                        "reason": "One useful record is available.",
+                    }
+                ],
+                "methodology_ids": ["1B.1"],
+            }
+        )
+    )
+    (empty_attempt / "dossier.pending.json").write_text(
+        json.dumps(
+            {
+                "evidence": [],
+                "mappings": [],
+                "coverage": [],
+                "methodology_ids": ["1B.1"],
+            }
+        )
+    )
+
+    candidate = find_previous_candidate(job_dir, attempt_dir=attempts / "003-new")
+
+    assert candidate is not None
+    assert candidate["evidence"][0]["canonical_fact_key"] == "fact-1"
+
+
 def test_formatter_restores_exact_manifest_fact_from_recovery_catalog() -> None:
     candidate = {
         "evidence": [],
