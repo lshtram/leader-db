@@ -1,5 +1,25 @@
 # Workplan
 
+## 2026-07-23 — AMLO compact end-to-end profile completed
+
+- Passed AMLO 2022 through local structured evidence, segmented web research, one fresh
+  no-search bias review, compact formatting, and all eight chapter judges. The accepted
+  dossier has 105 evidence records, 405 mappings, all 80 coverage rows, all 80
+  local-prior provenance rows, and a cited evidence environment.
+- Reused the preserved other 19 rulers as compact score/rationale anchors instead of
+  replaying their full projections. The eight AMLO judge prompts were 71–102 KB rather
+  than 589 KB–1.249 MB, and all chapters produced validated numeric judgments.
+- Accepted-path usage was 5.589M input tokens, including 4.474M cached tokens, and
+  129.2K output tokens. Research remains the dominant cost: explicit research prompts
+  are short, while provider tool/session context produced 5.062M input tokens.
+- The new scores are 1B 5.0, 2B 5.5, 3B 4.5, 4B 5.0, 5B 5.5, 6B 5.5, 7B 4.5, and
+  8B 6.0. The two-point 2B movement and four emitted attribution-review flags must be
+  audited before AMLO replaces the preserved cohort result.
+- The full profile and optimization order are in
+  `docs/reviews/2026-07-23-amlo-end-to-end-profile.md`. Next: add the compact
+  local-disposition audit, productionize anchor-reuse rejudgment, and audit AMLO 2B plus
+  the four manual-review chapters.
+
 ## 2026-07-23 — Full 2022 bias-aware cohort completed; remediation gate opened
 
 - Completed 20 validated bias-aware dossiers and all eight 20-ruler common-meter judge
