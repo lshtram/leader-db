@@ -1583,6 +1583,38 @@ def test_markdown_table_fallback_is_recovered_acceptingly() -> None:
     ]
 
 
+def test_initial_claim_lines_normalize_disposition_and_routing(
+    tmp_path: Path,
+) -> None:
+    handoff = tmp_path / "handoff.md"
+    manifest = tmp_path / "manifest.json"
+    handoff.write_text(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"R01","canonical_fact_key":"fact",'
+        '"disposition":"accepted","chapter_ids":["4B","bad"],'
+        '"methodology_ids":["authority_baseline","4B.2"],'
+        '"url":"https://example.test","claim":"Claim","locator":"lines 1-2"}\n',
+        encoding="utf-8",
+    )
+
+    recovered = _load_or_recover_research_ledger_manifest(
+        manifest, handoff_path=handoff
+    )
+
+    assert recovered is not None
+    assert recovered["entries"] == [
+        {
+            "provisional_id": "R01",
+            "canonical_fact_key": "fact",
+            "disposition": "final_evidence",
+            "chapter_ids": ["4B"],
+            "methodology_ids": ["4B.2"],
+            "url": "https://example.test",
+            "claim": "Claim",
+            "locator": "lines 1-2",
+        }
+    ]
+
+
 def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     (current.attempt_dir / "research-ledger-manifest.json").write_text(

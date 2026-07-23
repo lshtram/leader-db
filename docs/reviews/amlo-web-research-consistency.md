@@ -46,3 +46,18 @@ chapter:
 
 Stop early on evidence loss, repeated manifest growth, failure to open underlying
 sources, or unreasonable context amplification.
+
+## Iteration 2 — structured fallback
+
+- Run key: `2022-amlo-web-consistency-i02`.
+- Reconnaissance: 11 substantive claims from eight source organizations, returned as
+  the required physical `SOURCE_CLAIM_JSON` lines.
+- Trusted usage: 369,671 input tokens, of which 306,944 were cached; 10,071 output
+  tokens. Input fell another 33% from iteration 1.
+- Failure: the producer used `accepted` as its disposition and semantic routing labels
+  instead of exact methodology IDs. Initial recovery also had not yet called the claim
+  line parser. The run was stopped before completing Chapter 1B.
+- Repair: initial and continuation handoffs now share the claim-line parser. The
+  tolerant receiver normalizes `accepted`, `retained`, and `final` to
+  `final_evidence`, drops malformed routing labels, and preserves valid chapter and
+  exact-lens IDs. All 11 real iteration-2 lines recover as valid final evidence.

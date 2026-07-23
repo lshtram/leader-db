@@ -871,7 +871,13 @@ def _load_or_recover_research_ledger_manifest(
             return _load_research_ledger_manifest(path)
         except WorkerOutputError:
             continue
-    entries = _recover_markdown_ledger_entries(handoff)
+    entries = _recover_json_manifest_update_entries(handoff)
+    explicit_ids = {str(entry["provisional_id"]) for entry in entries}
+    entries.extend(
+        entry
+        for entry in _recover_markdown_ledger_entries(handoff)
+        if str(entry["provisional_id"]) not in explicit_ids
+    )
     if entries:
         candidate = {
             "schema_version": "ruler_research_ledger_manifest_v1",
@@ -1401,7 +1407,7 @@ def _recover_json_manifest_update_entries(text: str) -> list[dict[str, Any]]:
                 and entry.get("disposition")
                 and provisional_id not in seen_ids
             ):
-                recovered.append(entry)
+                recovered.append(_normalize_recovered_manifest_entry(entry))
                 seen_ids.add(provisional_id)
     for match in re.finditer(r"(?m)^SOURCE_CLAIM_JSON:\s*(\{.*\})\s*$", text):
         try:
@@ -1416,9 +1422,40 @@ def _recover_json_manifest_update_entries(text: str) -> list[dict[str, Any]]:
             and provisional_id not in seen_ids
         ):
             continue
-        recovered.append(entry)
+        recovered.append(_normalize_recovered_manifest_entry(entry))
         seen_ids.add(provisional_id)
     return recovered
+
+
+def _normalize_recovered_manifest_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    """Normalize common producer wording while retaining useful ledger identity."""
+
+    normalized = dict(entry)
+    disposition = str(normalized.get("disposition", "")).strip().casefold()
+    aliases = {
+        "accepted": "final_evidence",
+        "accept": "final_evidence",
+        "retained": "final_evidence",
+        "final": "final_evidence",
+        "contextual": "context",
+        "discovery": "discovery_only",
+    }
+    normalized["disposition"] = aliases.get(disposition, disposition)
+    normalized["chapter_ids"] = sorted(
+        {
+            str(item)
+            for item in normalized.get("chapter_ids", [])
+            if re.fullmatch(r"[1-8]B", str(item))
+        }
+    )
+    normalized["methodology_ids"] = sorted(
+        {
+            str(item)
+            for item in normalized.get("methodology_ids", [])
+            if re.fullmatch(r"[1-8]B\.(?:10|[1-9])", str(item))
+        }
+    )
+    return normalized
 
 
 def _is_replayed_historical_entry(
