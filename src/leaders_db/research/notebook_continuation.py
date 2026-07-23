@@ -1048,7 +1048,9 @@ def _append_current_ledger_manifest(
         )
     except WorkerOutputError:
         manifest = {"schema_version": "ruler_research_ledger_manifest_v1", "entries": []}
-    recovered_entries = _recover_markdown_ledger_entries(notebook)
+    marker = "--- RESEARCH LEDGER MANIFEST ---"
+    recovery_source = notebook.rsplit(marker, maxsplit=1)[-1]
+    recovered_entries = _recover_markdown_ledger_entries(recovery_source)
     entries_by_id: dict[str, dict[str, Any]] = {
         str(entry["provisional_id"]): entry for entry in manifest.get("entries", [])
     }

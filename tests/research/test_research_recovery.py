@@ -1215,6 +1215,49 @@ def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> N
     assert '"provisional_id": "E101-2"' in notebook
 
 
+def test_continuation_does_not_reparse_headings_before_authoritative_manifest(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "P027",
+                        "canonical_fact_key": "canonical-url#L92-L150",
+                        "chapter_ids": ["1B"],
+                        "methodology_ids": ["1B.3"],
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    notebook = """### P027 — Historical display heading
+- Canonical fact key: `stale-display-url`
+- Role: final_evidence.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[]}
+
+## Evidence review
+No continuation was requested.
+"""
+
+    updated = _append_current_ledger_manifest(notebook, current)
+    final_manifest = json.loads(
+        updated.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+
+    assert [item["canonical_fact_key"] for item in final_manifest["entries"]] == [
+        "canonical-url#L92-L150"
+    ]
+
+
 def test_continuation_manifest_recovers_from_invalid_optional_manifest(
     tmp_path: Path,
 ) -> None:
