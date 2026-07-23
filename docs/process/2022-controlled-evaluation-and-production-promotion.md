@@ -8,6 +8,16 @@ the resulting scores to production. Controlled evaluation asks whether the metho
 at cohort scale; production promotion additionally requires stable, reviewed, reproducible,
 publishable results.
 
+The executable freeze is
+`configs/evaluations/2022-bias-local-v3-controlled.lock.yaml`. It binds the exact Git
+commit/tree and hashes the evaluation configuration, cohort identities, 20 local-prior
+snapshots, prompts, rubrics, methodology, baselines, prerequisite pilots, and AMLO
+preflight artifacts.
+The local packages are stored in the tracked, deterministic, content-addressed archive
+`configs/evaluations/snapshots/2022-bias-local-v3-local-priors.tar.gz`; a fresh checkout
+can therefore reproduce and verify every frozen local input without the ignored research
+workspace.
+
 ## Gate A — safeguards required before the controlled run
 
 - [x] Compact prompts do not replay the complete local package or raw accumulated notebook.

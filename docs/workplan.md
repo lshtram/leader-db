@@ -13,7 +13,10 @@
   ordinary uncertainty for controlled-evaluation purposes.
 - Froze the 20-ruler cohort, baseline hashes, model/workflow hashes, four five-ruler
   batches, automatic stop gates, stability thresholds, and client-score prohibition in
-  `configs/evaluations/2022-bias-local-v3-controlled.yaml`.
+  `configs/evaluations/2022-bias-local-v3-controlled.yaml`. The companion
+  `.lock.yaml` binds the exact executable Git commit/tree and configuration/input hashes.
+  All 20 local packages are preserved in a tracked 2.9 MB content-addressed archive,
+  rather than depending on ignored research artifacts.
 - The complete distinction between controlled evaluation and production promotion is now
   explicit in `docs/process/2022-controlled-evaluation-and-production-promotion.md`.
   All pre-run safeguards pass; production Gates B–G remain open and are the authoritative
