@@ -795,6 +795,32 @@ def test_markdown_evidence_can_join_by_immutable_provisional_id() -> None:
     assert recovered["canonical_fact_key"] == key
 
 
+def test_markdown_evidence_accepts_separate_title_publisher_and_date() -> None:
+    key = "https://example.test/report.pdf#P2|dual-use risk"
+    notebook = """### E034 — Dual-use biotechnology risk
+- Canonical URL: https://example.test/report.pdf
+- Title: National statement
+- Publisher: Example Ministry
+- Date: 2022
+- Claim: The statement recognizes dual-use biotechnology risk.
+- Locator: PDF p. 2
+- Profile: `source_confidence=high`; `source_type=official_statement`.
+- Attribution: State position; no direct ruler wording.
+- Role: final evidence for the stated position.
+"""
+
+    recovered = _recover_explicit_markdown_evidence(
+        notebook,
+        key,
+        provisional_id="E034",
+    )
+
+    assert recovered is not None
+    assert recovered["title"] == "National statement"
+    assert recovered["publisher"] == "Example Ministry"
+    assert recovered["publication_date"] == "2022"
+
+
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
     handoff = """## Chapter 2B
 

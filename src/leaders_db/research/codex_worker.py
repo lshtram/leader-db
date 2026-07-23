@@ -1058,7 +1058,6 @@ def _recover_explicit_markdown_evidence(
         fields = {
             label: _markdown_bullet_value(section, aliases)
             for label, aliases in {
-                "source": ("Source",),
                 "claim": ("Claim",),
                 "locator": ("Locator",),
                 "profile": ("Source type/confidence", "Profile"),
@@ -1068,26 +1067,42 @@ def _recover_explicit_markdown_evidence(
         }
         if any(not value for value in fields.values()):
             return None
+        source = _markdown_bullet_value(section, ("Source",))
+        explicit_title = _markdown_bullet_value(section, ("Title",))
+        explicit_publisher = _markdown_bullet_value(section, ("Publisher",))
+        explicit_date = _markdown_bullet_value(section, ("Date",))
         url = canonical_key.split("|", maxsplit=1)[0]
         if not url.startswith(("http://", "https://")):
             return None
+        normalized_profile = fields["profile"].replace("_", "-")
         confidence_match = re.search(
-            r"\b(high|medium|low)(?:-medium)?\b", fields["profile"], re.IGNORECASE
+            r"\b(high|medium|low)(?:-medium)?\b", normalized_profile, re.IGNORECASE
         )
         if confidence_match is None:
             return None
-        source_parts = [item.strip(" .") for item in fields["source"].split(",")]
-        publisher = source_parts[0]
-        publication_date = (
-            source_parts[-1]
-            if len(source_parts) > 1
-            else "unknown_not_exposed_by_source"
+        source_parts = [item.strip(" .") for item in source.split(",")] if source else []
+        publisher = explicit_publisher or (source_parts[0] if source_parts else "")
+        publication_date = explicit_date or (
+            source_parts[-1] if len(source_parts) > 1 else ""
         )
+        if not publication_date:
+            distributed = re.search(
+                r"\bdistributed\s+([^;,.]+(?:\s+\d{4})?)",
+                fields["locator"],
+                re.IGNORECASE,
+            )
+            publication_date = (
+                distributed.group(1).strip()
+                if distributed is not None
+                else "unknown_not_exposed_by_source"
+            )
+        if not publisher:
+            return None
         return {
             "evidence_id": "E999999",
             "claim": fields["claim"],
             "url": url,
-            "title": heading.group(1).strip(),
+            "title": explicit_title or heading.group(1).strip(),
             "publisher": publisher,
             "publication_date": publication_date,
             "excerpt": fields["claim"],
