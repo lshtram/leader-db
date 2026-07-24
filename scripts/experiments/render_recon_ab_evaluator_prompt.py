@@ -16,8 +16,16 @@ def main() -> None:
         action="store_true",
         help="Present B as X and A as Y to test position sensitivity.",
     )
+    parser.add_argument(
+        "--challenger",
+        choices=("b", "c"),
+        default="b",
+        help="Variant compared with the current A prompt.",
+    )
     args = parser.parse_args()
-    first, second = ("b", "a") if args.reverse else ("a", "b")
+    first, second = (
+        (args.challenger, "a") if args.reverse else ("a", args.challenger)
+    )
 
     print(
         """Evaluate two reconnaissance research memos for each of two rulers.

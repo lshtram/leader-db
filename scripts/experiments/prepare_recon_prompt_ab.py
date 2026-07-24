@@ -1,4 +1,4 @@
-"""Prepare the frozen prompts for the reconnaissance language A/B experiment."""
+"""Prepare frozen prompts for reconnaissance language experiments."""
 
 from __future__ import annotations
 
@@ -86,8 +86,10 @@ def main() -> None:
             ),
         )
         prompt_b = build_natural_prompt(case, briefing)
+        prompt_c = build_hybrid_prompt(case, briefing)
         (case_dir / "prompt-a.txt").write_text(prompt_a, encoding="utf-8")
         (case_dir / "prompt-b.txt").write_text(prompt_b, encoding="utf-8")
+        (case_dir / "prompt-c.txt").write_text(prompt_c, encoding="utf-8")
         (case_dir / "briefing.json").write_text(
             json.dumps(briefing, indent=2, sort_keys=True, default=str) + "\n",
             encoding="utf-8",
@@ -100,6 +102,7 @@ def main() -> None:
             "local_prior_count": len(local_priors),
             "prompt_a": str((case_dir / "prompt-a.txt").relative_to(output_dir)),
             "prompt_b": str((case_dir / "prompt-b.txt").relative_to(output_dir)),
+            "prompt_c": str((case_dir / "prompt-c.txt").relative_to(output_dir)),
         }
     (output_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
@@ -170,6 +173,88 @@ Organize the result as:
 4. the information environment and limitations of the available evidence;
 5. important questions for deeper research; and
 6. sources opened and sources used.
+
+Here is the factual background already available from statistical and institutional
+datasets:
+
+{json.dumps(briefing, separators=(",", ":"), sort_keys=True, default=str)}
+"""
+
+
+def build_hybrid_prompt(case: dict[str, Any], briefing: dict[str, Any]) -> str:
+    """Return the natural prompt with compact, reusable evidence packaging."""
+
+    identity = (
+        f'{case["ruler_name"]}, who governed {case["country_name"]}, '
+        f'focusing on {case["period_start_year"]}'
+    )
+    return f"""Research {identity}.
+
+We are preparing an evidence-based assessment of this ruler. Give the researchers who
+continue this work a reliable, well-organized starting point.
+
+Begin by confirming who held power, the ruler's official position and actual influence,
+and important limits on that influence. These may include courts, parliament, coalition
+partners, the military, regional governments, foreign powers, or other institutions.
+
+Then identify the most important events, decisions, policies, controversies, successes,
+and failures from this period. Cover war and diplomacy; major military and security
+risks; domestic violence, policing, repression, and public safety; elections, political
+competition, media freedom, protest, and civil liberties; economic policy and living
+standards; health, education, welfare, and essential services; honesty, corruption,
+conflicts of interest, nepotism, and accountability; and the ruler's main goals and how
+successfully the government carried them out.
+
+Explain how easy or difficult it was to obtain reliable information. Consider
+censorship, intimidation, weak statistics, propaganda, political polarization, unequal
+international attention, and restrictions affecting journalists, victims, opposition
+groups, officials, courts, and investigators.
+
+Search until additional work mostly repeats facts already found instead of adding
+material information, a stronger underlying source, credible contrary evidence, or an
+important missing perspective. Preserve every credible source that could be useful to
+the researchers who continue this work.
+
+Open and examine the underlying source before treating it as evidence. Prefer original
+documents, official records, courts, international organizations, independent
+investigations, academic research, and high-quality reporting. Use a mixture of source
+types and perspectives.
+
+Write a separate evidence record for each important underlying fact. A report containing
+several materially different findings may support several records. Several articles
+repeating the same underlying fact belong in one record.
+
+Each evidence record should contain:
+
+- a short name for the underlying fact;
+- one precise factual description and why it matters;
+- the strongest source's title, publisher, date, and direct link;
+- a stable page, section, table, paragraph, or short passage that supports it;
+- whether it concerns 2022, an inherited condition, or a later retrospective finding;
+- how strongly it can be connected to the ruler or to decisions within the ruler's
+  authority;
+- credible evidence that complicates or contradicts it;
+- reasons to be cautious about the source; and
+- other sources that independently support the same fact.
+
+Keep later retrospective evidence in a clearly marked subsection. Keep these three
+source categories separate:
+
+1. evidence opened and fully extracted into a record;
+2. sources opened and useful mainly for corroboration; and
+3. promising leads that still need to be opened or examined.
+
+Organize the result as:
+
+1. a short overview of the ruler and the period;
+2. compact evidence records, with one underlying fact per record;
+3. the information environment and limitations of the evidence;
+4. a concise list of important questions for deeper research;
+5. corroborating sources; and
+6. promising leads still needing inspection.
+
+Make the overview and final research plan concise. Put factual detail in the evidence
+records, state repeated facts once, and make clear which sources were actually opened.
 
 Here is the factual background already available from statistical and institutional
 datasets:
