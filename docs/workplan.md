@@ -1,5 +1,27 @@
 # Workplan
 
+## 2026-07-24 — Ten-case deep-chapter D/E efficiency gate rejected E
+
+- Tested hybrid prompt E against the preserved D baseline on the same ten cases, with
+  ten fresh isolated web researchers and two order-reversed blind evaluations. Every E
+  output completed, covered all ten question IDs, and emitted valid machine records.
+- D remained stronger in both evaluator orders and averaged 8.675 versus E's 8.510.
+  E improved Nguyễn and Xi and tied Putin, but materially lost evidence for AMLO,
+  Bolsonaro, Hasina, Scholz, and Tshisekedi.
+- E reduced output tokens by only 5.9% and records by 14.1%, while raising total input
+  16.8%, non-cached input 4.4%, and searches 10.3%. Median input fell 4.9%, but the
+  maximum rose from 1.117M to 2.671M. Compactness sometimes came from omitted material
+  evidence rather than deduplication.
+- Do not promote E. Retain D as the web-research quality baseline. Move E's useful
+  `inspection_state`, `new_fact_contribution`, `source_dependencies`, and
+  `evidence_status` concepts into tolerant compact reviewer/formatter validation, where
+  they cannot discourage complete collection.
+- Full outputs and metrics are in
+  `research/conversational-evidence/chapter-prompt-de-2022-v1/`. Next: test one
+  D-quality notebook through compact no-search review, targeted continuation, formatting,
+  and recombination with the parent-held local package; explicitly preserve the
+  local-evidence/web-research boundary.
+
 ## 2026-07-24 — Ten-case deep-chapter A/D gate completed
 
 - Completed twenty isolated `gpt-5.6-sol` web-research cells covering every scored
