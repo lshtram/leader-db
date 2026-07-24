@@ -1,23 +1,24 @@
 # Workplan
 
-## 2026-07-24 — Ten-case deep-chapter prompt gate prepared
+## 2026-07-24 — Ten-case deep-chapter A/D gate completed
 
-- Froze a current-versus-refined prompt comparison covering every scored chapter:
-  Xi 1B; Putin, Scholz, and Tshisekedi 2B; Sisi 3B; Hasina 4B; AMLO 5B; Biden
-  6B; Bolsonaro 7B; and Nguyễn 8B. The repeated 2B cases test attribution under
-  concentrated, shared, and conflict-exposed authority.
-- The refined prompt uses natural language while retaining the evidence-engineering
-  controls from the executable prompt: saturation-based research, atomic facts,
-  stable locators, contrary evidence, source dependencies, attribution, baseline and
-  shocks, explicit source dispositions, and machine-readable append-only records.
-  Prior resources are no longer capped at an arbitrary count.
-- No run has been accepted yet. Repository-rule leakage invalidated the first attempt;
-  a fallback-model probe was rejected because it lacked web access and answered from
-  prior knowledge. The browsing-capable primary model then reached its account usage
-  limit through July 28, 2026.
-- Next gate: execute all twenty frozen cells with one browsing-capable model in isolated
-  sessions, then evaluate every pair blind in both presentation orders. Do not promote
-  the refined prompt from the earlier three-case sample or from any non-browsing output.
+- Completed twenty isolated `gpt-5.6-sol` web-research cells covering every scored
+  chapter: Xi 1B; Putin, Scholz, and Tshisekedi 2B; Sisi 3B; Hasina 4B; AMLO 5B;
+  Biden 6B; Bolsonaro 7B; and Nguyễn 8B. Every cell has live-search events, all ten
+  question IDs, a terminal usage record, and a nonempty output.
+- Two no-search blinded evaluations reversed the X/Y presentation order. Refined prompt
+  D averaged 8.71 versus 8.59 for current prompt A, led in eight cases, and remained
+  ahead under both label assignments. D improved coverage, authority/baseline framing,
+  contrary research, direct-ruler evidence, and source-state reporting.
+- D is not ready for unchanged promotion. It consumed 6.117M input and 108.6K output
+  tokens versus A's 4.175M and 71.1K, produced 163 records versus 107, sometimes split
+  one report excessively, overstated inspection status, and overused later or synthetic
+  records. One A machine line was malformed; all 163 D lines parsed.
+- The complete paired outputs, token metrics, blinded evaluations, and decision are in
+  `research/conversational-evidence/chapter-prompt-ad-2022-v1/`. Next gate: build prompt
+  E combining D's breadth with A's atomicity, locator discipline, contemporaneous-source
+  preference, and efficiency; compare E with D on the same ten frozen cases before
+  compact reviewer-continuation and formatter testing.
 
 ## 2026-07-23 — Controlled 2022 evaluation safeguards complete
 

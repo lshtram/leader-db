@@ -43,11 +43,11 @@ handling, honest gaps, reusable atomic records, and efficiency.
 
 ## Execution status
 
-The prompts and inputs are frozen, but no valid A/D outputs have been accepted yet.
+All twenty valid cells completed with `gpt-5.6-sol`, live web search, isolated working
+directories, and terminal token records. Two no-search blind evaluations completed
+with the artifact order reversed. See `comparison.md`, `metrics.csv`, and
+`metrics-summary.json`.
+
 The first execution attempt was rejected because sessions inherited repository rules.
 A second attempt was rejected because the fallback model had no web tool and generated
-records from prior knowledge. The primary browsing-capable model then reported an
-account usage limit through July 28, 2026.
-
-These rejected attempts are not experiment results. Run the full matrix only when one
-browsing-capable model can execute all twenty cells under the same controls.
+records from prior knowledge. Those rejected attempts are not experiment results.
