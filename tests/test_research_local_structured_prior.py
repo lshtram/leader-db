@@ -358,7 +358,9 @@ def test_build_local_prior_4b2_uses_same_political_freedom_mapping_as_4b1(
     )
 
     assert artifact.status == "evidence_found"
-    assert artifact.question_text.startswith("Did the ruler refrain from manipulating")
+    assert artifact.question_text.startswith(
+        "Did the ruler refrain from proposing, signing, decreeing"
+    )
     assert "civil_liberties" in POLITICAL_FREEDOM_PRIOR_FIELD_KEYS
     assert artifact.local_facts[0].field_key == "civil_liberties"
 
@@ -392,7 +394,9 @@ def test_build_local_prior_4b3_uses_opposition_tolerance_mapping(
     )
 
     assert artifact.status == "evidence_found"
-    assert artifact.question_text.startswith("Did the ruler tolerate opposition")
+    assert artifact.question_text.startswith(
+        "Did the ruler protect in law and practice opposition"
+    )
     assert "freedom_expression" in OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS
     assert artifact.mapping_note is not None
     assert "opposition/media/protest/civil-society tolerance" in artifact.mapping_note

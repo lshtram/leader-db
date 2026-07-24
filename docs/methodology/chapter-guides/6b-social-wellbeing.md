@@ -1,6 +1,6 @@
 # 6B Social Well-Being and Human Development
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v4 objective-evidence questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,23 +8,23 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: ruler intention and action for social well-being and human development
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_6b_v3`
+- Rubric version: `chapter_6b_v4`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
 
 ## Ten Evidence Lenses
 
-1. **6B.1** — Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?
-2. **6B.2** — Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?
-3. **6B.3** — Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?
-4. **6B.4** — Did the ruler fund and manage social services with competent professionals rather than patronage networks?
-5. **6B.5** — Did the ruler use evidence, measurement, and transparent correction to improve service delivery?
-6. **6B.6** — Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?
-7. **6B.7** — Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?
-8. **6B.8** — Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?
-9. **6B.9** — Did the ruler build durable social institutions that would survive beyond their personal rule?
-10. **6B.10** — Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?
+1. **6B.1** — Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?
+2. **6B.2** — Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?
+3. **6B.3** — Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?
+4. **6B.4** — Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?
+5. **6B.5** — Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?
+6. **6B.6** — Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?
+7. **6B.7** — Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?
+8. **6B.8** — Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?
+9. **6B.9** — Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?
+10. **6B.10** — Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?
 
 ## Researcher Evidence Plan
 
@@ -71,7 +71,7 @@ Question redundancy is a feature: several lenses may corroborate the same welfar
 The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
 
 - `chapter_id`: `6B`
-- `rubric_version`: `chapter_6b_v3`
+- `rubric_version`: `chapter_6b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`

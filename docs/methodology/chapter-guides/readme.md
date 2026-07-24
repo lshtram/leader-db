@@ -10,6 +10,50 @@ follow-up, but do not invalidate otherwise useful evidence. Chapter judges then
 apply one guide across all eligible rulers for the target year or period. They do
 not mechanically average ten question scores.
 
+## Observable evidence catalogue
+
+Every chapter researcher organizes concrete evidence through six observable channels:
+
+1. **Formal acts and law:** bills, enacted laws, votes, vetoes, decrees, regulations,
+   treaties, pardons, directives, official strategy and doctrine.
+2. **Resources:** proposed and enacted budgets, actual expenditure, transfers,
+   subsidies, procurement, contracts, staffing, equipment and infrastructure.
+3. **Personnel:** appointments, removals, qualifications, conflicts, confirmation,
+   tenure protection and operational autonomy.
+4. **Implementation and operational conduct:** rules issued, programs delivered,
+   inspections, enforcement, deployments, permits, investigations, discipline,
+   compliance, correction and remedy.
+5. **Public communications and representations:** speeches, testimony, manifestos,
+   promises, explanations, threats, denials, propaganda, admissions and corrections.
+6. **Outcomes:** observable changes in security, rights, welfare, institutional
+   practice, program delivery, compliance and other chapter-relevant results.
+
+These are evidence categories, not six subscores and not six mandatory records per
+lens. The same fact may legitimately occupy more than one category. Researchers retain
+the source type separately: legislation, budgets, administrative records, official
+transcripts, statistics, courts, audits, inquiries, scholarship and reporting are
+different ways to establish or test the observable fact.
+
+Authority, baseline, constraints, distribution, exposure, causation, fairness,
+durability and source bias are interpretive questions applied to the evidence. They are
+not parallel evidence categories. Audit, court and inquiry records are verification
+sources; a ruler's response to them is formal or operational conduct.
+
+For every selected chapter, research must ask:
+
+- What relevant formal measure did the ruler propose, support, negotiate, sign, veto,
+  obstruct, weaken, repeal or implement?
+- What resources were authorized and actually spent?
+- Whom did the ruler appoint, empower, retain, remove or protect?
+- What did the state actually implement, enforce, correct or remedy?
+- What did the ruler and government publicly represent, and did action corroborate it?
+- What outcomes followed, without assuming that outcome alone proves attribution?
+
+Record the ruler's documented action and actual authority. Distinguish a proposal from
+enactment, enactment from implementation, allocation from expenditure, appointment
+from autonomy, statement from action and national outcome from ruler responsibility.
+Closed-system absence lowers confidence rather than becoming favorable evidence.
+
 ## Reader-facing rationale contract
 
 Every `chapter_rationale` is an abstract, not an analyst's private shorthand. It
@@ -37,8 +81,10 @@ The active guides are:
 The 2020 twenty-ruler smoke batch and two independent comparative audits exposed
 midpoint fabrication under absent evidence, cross-chapter contamination, inherited-
 baseline overcredit, and non-discriminating manual-review flags. All eight guides
-were revised as v2 drafts and then tightened after the v2 acceptance audit. The v1
-and v2 scores remain audit artifacts and are not production-valid. Activation
-requires a clean v3 rejudgment and acceptance audit.
+were later tightened through chapter-specific versions. The 2026 objective-evidence
+revision keeps ten lenses per chapter while making formal acts, resources, personnel,
+implementation, communications and outcomes more explicit. Earlier scores remain
+audit artifacts under their original rubric versions. Activation of the revised
+guides requires a controlled rejudgment and acceptance audit.
 The superseded per-question guides are retained only as design history under
 `docs/archive/methodology/per-question-guides-2026-07-12/`.

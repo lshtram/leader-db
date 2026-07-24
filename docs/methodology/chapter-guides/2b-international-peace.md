@@ -1,13 +1,13 @@
 # Chapter 2B — International Peace, Restraint, And Lawful Security
 
-Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+Status: **draft; v4 objective-evidence questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `2B`
 - Rating: international peace versus aggression and war
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_2b_v3`
+- Rubric version: `chapter_2b_v4`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -22,16 +22,16 @@ matrix is never evidence.
 
 ## Ten Evidence Lenses
 
-1. **2B.1:** Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed, rather than treating force as the preferred first option?
-2. **2B.2:** Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, covert destabilization, or proxy conflict beyond defensive necessity?
-3. **2B.3:** Did the ruler distinguish genuine defensive security needs from prestige, revenge, nationalism, manufactured threats, diversionary politics, or regime-survival motives?
-4. **2B.4:** Did the ruler respect civilian protection, humanitarian law, prisoner treatment, necessity, and proportionality in military operations?
-5. **2B.5:** Did the ruler restrain security forces, militias, allies, proxies, clients, and arms recipients from atrocities or destabilization, and accept responsibility for foreseeable proxy conduct?
-6. **2B.6:** Did the ruler truthfully explain security threats to the public, or manipulate intelligence, fear, historical grievance, and misinformation to build support for conflict?
-7. **2B.7:** Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, lawful settlements, or post-conflict reconciliation when possible?
-8. **2B.8:** Did the ruler use military spending and mobilization to meet real security needs, or to enrich networks, reward security elites, intimidate neighbors, or project personal strength?
-9. **2B.9:** Did the ruler accept accountability for military failures, civilian harm, illegal conduct, and later evidence that contradicted the stated justification for conflict?
-10. **2B.10:** Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them, accounting for inherited conflicts and external constraints?
+1. **2B.1:** When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?
+2. **2B.2:** Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?
+3. **2B.3:** Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats, prestige claims, or regime-survival justifications?
+4. **2B.4:** Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?
+5. **2B.5:** Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?
+6. **2B.6:** Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?
+7. **2B.7:** Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?
+8. **2B.8:** Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?
+9. **2B.9:** Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?
+10. **2B.10:** Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?
 
 The lens statuses and wording are advisory. Missing lenses reduce confidence; they do
 not invalidate the dossier, force zero, or require a rigid status vocabulary.
@@ -179,7 +179,7 @@ without credible alternatives and conduct evidence.
 
 ## Chapter-Specific Calibration Fields
 
-- `chapter_rubric_version`: `chapter_2b_v3`
+- `chapter_rubric_version`: `chapter_2b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `conflict_exposure_and_inherited_baseline`
 - `ruler_command_authority_and_attribution`

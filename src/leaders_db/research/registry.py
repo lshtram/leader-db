@@ -724,7 +724,12 @@ CONCEPT_SPECS: dict[str, ConceptSpec] = {
         evidence_shape="evidence_bundle",
         observation_families=("government_outcomes",),
         required_output_schema="AcquiredEvidenceRecord",
-        allowed_source_types=("structured_dataset", "official_record", "reputable_news", "scholarly_source"),
+        allowed_source_types=(
+            "structured_dataset",
+            "official_record",
+            "reputable_news",
+            "scholarly_source",
+        ),
         acquisition_allowed=True,
     ),
     "baseline_peer_adjusted_outcomes": ConceptSpec(
@@ -760,7 +765,12 @@ CONCEPT_SPECS: dict[str, ConceptSpec] = {
         evidence_shape="evidence_bundle",
         observation_families=("cross_category_side_effects",),
         required_output_schema="AcquiredEvidenceRecord",
-        allowed_source_types=("structured_dataset", "official_record", "reputable_news", "scholarly_source"),
+        allowed_source_types=(
+            "structured_dataset",
+            "official_record",
+            "reputable_news",
+            "scholarly_source",
+        ),
         acquisition_allowed=True,
     ),
     "crisis_performance": ConceptSpec(
@@ -769,7 +779,12 @@ CONCEPT_SPECS: dict[str, ConceptSpec] = {
         evidence_shape="evidence_bundle",
         observation_families=("crisis_performance",),
         required_output_schema="AcquiredEvidenceRecord",
-        allowed_source_types=("structured_dataset", "official_record", "reputable_news", "scholarly_source"),
+        allowed_source_types=(
+            "structured_dataset",
+            "official_record",
+            "reputable_news",
+            "scholarly_source",
+        ),
         acquisition_allowed=True,
     ),
     "governance_capacity_context": ConceptSpec(
@@ -886,7 +901,12 @@ CONCEPT_SPECS: dict[str, ConceptSpec] = {
         evidence_shape="evidence_bundle",
         observation_families=("proxy_warfare_support",),
         required_output_schema="AcquiredEvidenceRecord",
-        allowed_source_types=("structured_dataset", "official_record", "reputable_news", "scholarly_source"),
+        allowed_source_types=(
+            "structured_dataset",
+            "official_record",
+            "reputable_news",
+            "scholarly_source",
+        ),
         acquisition_allowed=True,
     ),
     "arms_support_to_abusive_recipients": ConceptSpec(
@@ -895,7 +915,12 @@ CONCEPT_SPECS: dict[str, ConceptSpec] = {
         evidence_shape="evidence_bundle",
         observation_families=("arms_transfer_harm_risk",),
         required_output_schema="AcquiredEvidenceRecord",
-        allowed_source_types=("structured_dataset", "official_record", "reputable_news", "scholarly_source"),
+        allowed_source_types=(
+            "structured_dataset",
+            "official_record",
+            "reputable_news",
+            "scholarly_source",
+        ),
         acquisition_allowed=True,
     ),
     "peace_agreement_participation": ConceptSpec(
@@ -958,88 +983,352 @@ RULER_QUALITY_CATEGORY_SPECS: dict[str, tuple[str, str, str]] = {
 
 RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
     "1B": (
-        "Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?",
-        "Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?",
-        "Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?",
-        "Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?",
-        "Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?",
-        "Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?",
-        "Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?",
-        "In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?",
-        "Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?",
-        "Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?",
+        (
+            "Did the ruler use formal authority, strategy, directives, and resource choices to reduce "
+            "nuclear or other existential risk rather than increase prestige, leverage, or personal "
+            "power through escalation?"
+        ),
+        (
+            "Did the ruler use nuclear rhetoric responsibly, and did formal doctrine, orders, and "
+            "operational posture corroborate rather than contradict that rhetoric?"
+        ),
+        (
+            "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, "
+            "custody, safety, inspection, and accident-prevention safeguards, and correct identified "
+            "failures?"
+        ),
+        (
+            "Did the ruler support, ratify, implement, fund, and comply with arms-control, "
+            "inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and "
+            "weaken them?"
+        ),
+        (
+            "Did the ruler avoid formally or operationally using nuclear capability to authorize, "
+            "shield, or intensify conventional aggression, territorial coercion, or domestic "
+            "repression?"
+        ),
+        (
+            "Did the ruler establish and enforce proliferation controls against allies, proxies, "
+            "clients, firms, and domestic factions, and respond when monitoring exposed evasion or "
+            "assistance?"
+        ),
+        (
+            "Did the ruler appoint qualified, independent experts, protect their access and dissent, "
+            "and resource risk-reducing institutions rather than replace expertise with loyalty or "
+            "ideology?"
+        ),
+        (
+            "In crises, did the ruler issue and implement de-escalatory decisions, preserve "
+            "communication and decision safeguards, and correct procedures exposed as dangerous?"
+        ),
+        (
+            "Did the ruler establish, fund, enforce, and transparently review precautionary legal and "
+            "institutional safeguards for AI, cyber, biological, and other catastrophic dual-use "
+            "risks?"
+        ),
+        (
+            "Did the ruler leave a demonstrably safer and more durable existential-risk posture than "
+            "inherited, accounting for authority, implementation, external shocks, and unresolved "
+            "exposure?"
+        ),
     ),
     "2B": (
-        "Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed, rather than treating force as the preferred first option?",
-        "Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, covert destabilization, or proxy conflict beyond defensive necessity?",
-        "Did the ruler distinguish genuine defensive security needs from prestige, revenge, nationalism, manufactured threats, diversionary politics, or regime-survival motives?",
-        "Did the ruler respect civilian protection, humanitarian law, prisoner treatment, necessity, and proportionality in military operations?",
-        "Did the ruler restrain security forces, militias, allies, proxies, clients, and arms recipients from atrocities or destabilization, and accept responsibility for foreseeable proxy conduct?",
-        "Did the ruler truthfully explain security threats to the public, or manipulate intelligence, fear, historical grievance, and misinformation to build support for conflict?",
-        "Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, lawful settlements, or post-conflict reconciliation when possible?",
-        "Did the ruler use military spending and mobilization to meet real security needs, or to enrich networks, reward security elites, intimidate neighbors, or project personal strength?",
-        "Did the ruler accept accountability for military failures, civilian harm, illegal conduct, and later evidence that contradicted the stated justification for conflict?",
-        "Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them, accounting for inherited conflicts and external constraints?",
+        (
+            "When credible peaceful alternatives existed, did the ruler use formal decisions, "
+            "diplomatic authority, and available legislative or cabinet processes to pursue them "
+            "before authorizing or supporting force?"
+        ),
+        (
+            "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of "
+            "choice, annexation, cross-border coercion, covert destabilization, or proxy conflict "
+            "beyond defensive necessity?"
+        ),
+        (
+            "Did the ruler present decision-makers and the public with accurate, reviewable evidence "
+            "of defensive need, alternatives, and objectives rather than manufacture threats, "
+            "prestige claims, or regime-survival justifications?"
+        ),
+        (
+            "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian "
+            "protection, and prisoner safeguards, investigate violations, and provide discipline or "
+            "remedy?"
+        ),
+        (
+            "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, "
+            "monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        ),
+        (
+            "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict "
+            "claims and correct false or misleading official accounts?"
+        ),
+        (
+            "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace "
+            "agreements, confidence-building measures, and lawful settlements, and help make them "
+            "durable?"
+        ),
+        (
+            "Did military budgets, mobilization, and procurement address genuine security needs "
+            "transparently and proportionately rather than enrich networks, entrench security elites, "
+            "or intimidate neighbors?"
+        ),
+        (
+            "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept "
+            "responsibility; correct unlawful policy; discipline responsible actors; and provide "
+            "meaningful remedy?"
+        ),
+        (
+            "Did the ruler leave relations more peaceful, stable, and lawful through durable "
+            "institutions and settlements, accounting for inherited conflicts, actual authority, and "
+            "external constraints?"
+        ),
     ),
     "3B": (
-        "Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment?",
-        "Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes?",
-        "Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups?",
-        "Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors?",
-        "Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control?",
-        "Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate?",
-        "Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect?",
-        "Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment?",
-        "Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle?",
-        "Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them?",
+        (
+            "Did the ruler establish and enforce laws, orders, and detention practices that protected "
+            "residents from torture, disappearance, political imprisonment, extrajudicial killing, "
+            "and arbitrary punishment, and remedy verified abuse?"
+        ),
+        (
+            "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, "
+            "prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        ),
+        (
+            "Did the ruler avoid rhetoric and formal directives that incited hatred, revenge, "
+            "scapegoating, or violence, and act when supporters or officials translated such messages "
+            "into harm?"
+        ),
+        (
+            "Did the ruler create, fund, and respect independent courts, complaint systems, civilian "
+            "oversight, and investigations, comply with findings, and provide victim remedy?"
+        ),
+        (
+            "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, "
+            "anti-terror, and security powers narrowly and lawfully rather than use them for "
+            "intimidation, collective punishment, or control?"
+        ),
+        (
+            "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence "
+            "through lawful, proportionate policy without replacing it with state terror or a broader "
+            "fear climate?"
+        ),
+        (
+            "Did the ruler enact, fund, and enforce effective protection for women, children, "
+            "minorities, and vulnerable groups, with equitable access across regions and populations?"
+        ),
+        (
+            "Did laws, permit systems, policing orders, and actual enforcement protect peaceful "
+            "protest, dissent, and organization, with accountability and remedy for retaliation or "
+            "excessive force?"
+        ),
+        (
+            "During domestic crises, did the ruler issue and implement protective, restrained "
+            "measures, allocate resources according to exposure, and correct failures found in later "
+            "review?"
+        ),
+        (
+            "Did the ruler leave people durably safer from state and non-state violence than "
+            "inherited, accounting for reporting freedom, population exposure, authority, and "
+            "external shocks?"
+        ),
     ),
     "4B": (
-        "Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?",
-        "Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?",
-        "Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?",
-        "Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?",
-        "Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?",
-        "Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?",
-        "Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?",
-        "Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?",
-        "Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?",
-        "Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?",
+        (
+            "Did the ruler support and implement electoral and constitutional laws, funding, and "
+            "administration that made power genuinely contestable, and accept verified opposition "
+            "victories?"
+        ),
+        (
+            "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing "
+            "laws and institutional changes designed to entrench personal or party power?"
+        ),
+        (
+            "Did the ruler protect in law and practice opposition, criticism, satire, investigative "
+            "journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        ),
+        (
+            "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and "
+            "decisions of courts, legislatures, election bodies, auditors, and local governments even "
+            "when they constrained the ruler?"
+        ),
+        (
+            "Did appointments, dismissals, civil-service rules, and administrative practice preserve "
+            "politically neutral institutions rather than impose loyalty tests, party capture, "
+            "intimidation, or a personality cult?"
+        ),
+        (
+            "Did the ruler support and enforce media, information-access, ownership, and licensing "
+            "rules that enabled independent information rather than censorship, propaganda, "
+            "disinformation, or pressure?"
+        ),
+        (
+            "Did the ruler enact and enforce equal political rights and access for minorities, women, "
+            "excluded groups, opposition regions, and unpopular viewpoints?"
+        ),
+        (
+            "Did the ruler preserve and comply with term limits, succession rules, coalition "
+            "commitments, and constitutional transfer rather than amend, evade, or obstruct them for "
+            "continued power?"
+        ),
+        (
+            "Did the ruler narrowly authorize, transparently procure, and lawfully oversee "
+            "surveillance and digital controls, or use law, shutdowns, and administrative harassment "
+            "to suppress political freedom?"
+        ),
+        (
+            "Did the ruler leave political freedom and democratic resilience durably stronger than "
+            "inherited through enacted, implemented, and independently reviewable institutions, "
+            "accounting for correction and constraints?"
+        ),
     ),
     "5B": (
-        "Did the ruler intend and act to create broad-based, sustainable prosperity rather than extract rents, buy loyalty, or maximize short-term popularity?",
-        "Did the ruler appoint competent economic professionals and empower them, rather than loyalists, family members, business partners, or ideological yes-men?",
-        "Did the ruler protect macroeconomic stability, fiscal responsibility, monetary credibility, and long-term investment conditions?",
-        "Did the ruler create fair rules for entrepreneurship, competition, property rights, trade, investment, and job creation?",
-        "Did the ruler resist corruption, favoritism, monopolies, oligarchic capture, and politically connected business privileges?",
-        "Did the ruler invest in productivity foundations: infrastructure, education, health, technology, administrative capacity, and predictable regulation?",
-        "Did the ruler make economic policy based on evidence and correction of mistakes, or on slogans, denial, patronage, and scapegoating?",
-        "Did the ruler distribute economic gains fairly across regions, classes, genders, and groups rather than privileging regime supporters?",
-        "Did the ruler manage shocks, inflation, unemployment, debt, sanctions, commodity changes, or crises with competence and honesty?",
-        "Did the ruler leave the economy on a stronger trajectory than they inherited, accounting for external constraints?",
+        (
+            "Did the ruler's legislative agenda, formal policies, and executed budgets pursue "
+            "broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term "
+            "popularity?"
+        ),
+        (
+            "Did the ruler appoint qualified economic professionals through credible processes, "
+            "empower their operational independence, and retain or replace them based on performance "
+            "rather than loyalty?"
+        ),
+        (
+            "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, "
+            "and financial rules that protected macroeconomic stability and long-term investment?"
+        ),
+        (
+            "Did the ruler create and consistently enforce fair laws and regulations for competition, "
+            "entrepreneurship, property, trade, investment, and job creation?"
+        ),
+        (
+            "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules "
+            "against politically connected actors, cooperate with audits and courts, and remedy "
+            "proven favoritism or capture?"
+        ),
+        (
+            "Did enacted and executed budgets produce timely, high-quality infrastructure, education, "
+            "health, technology, administrative capacity, and predictable regulation rather than "
+            "announcements or patronage projects?"
+        ),
+        (
+            "Did the ruler publish reliable economic information, permit independent evaluation and "
+            "audit, and correct laws, programs, or implementers when evidence showed failure?"
+        ),
+        (
+            "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and "
+            "burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        ),
+        (
+            "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the "
+            "ruler use timely, funded, and transparently targeted measures, monitor their effects, "
+            "and correct mistakes?"
+        ),
+        (
+            "Did the ruler leave a stronger and more durable economic trajectory than inherited, "
+            "accounting for implementation lags, external conditions, institutional constraints, and "
+            "distribution rather than GDP alone?"
+        ),
     ),
     "6B": (
-        "Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?",
-        "Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?",
-        "Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?",
-        "Did the ruler fund and manage social services with competent professionals rather than patronage networks?",
-        "Did the ruler use evidence, measurement, and transparent correction to improve service delivery?",
-        "Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?",
-        "Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?",
-        "Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?",
-        "Did the ruler build durable social institutions that would survive beyond their personal rule?",
-        "Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?",
+        (
+            "Did the ruler enact and fund enforceable social commitments that made human welfare a "
+            "core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        ),
+        (
+            "Did laws, eligibility rules, executed budgets, and service administration improve "
+            "affordable, effective access and uptake across health, education, water, sanitation, "
+            "housing, food security, and social protection?"
+        ),
+        (
+            "Did the ruler enact, target, fund, and enforce protection for poor regions, children, "
+            "older people, women, minorities, disabled people, and marginalized groups, with evidence "
+            "of actual incidence and exclusion?"
+        ),
+        (
+            "Did the ruler appoint and retain qualified administrators, provide adequate staffing and "
+            "resources, and use transparent procurement to deliver social services rather than "
+            "patronage?"
+        ),
+        (
+            "Did the ruler publish credible welfare and service data, permit audit and independent "
+            "evaluation, and correct program design, implementation, or personnel when evidence "
+            "showed failure?"
+        ),
+        (
+            "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable "
+            "and unequally distributed suffering during pandemics, disasters, displacement, famine, "
+            "or economic shocks?"
+        ),
+        (
+            "Did formal eligibility rules, administrative practice, and appeal systems prevent "
+            "welfare, permits, jobs, food, and housing from becoming instruments of political loyalty "
+            "or punishment?"
+        ),
+        (
+            "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and "
+            "dignity protections, with practical remedy rather than relying on national averages "
+            "alone?"
+        ),
+        (
+            "Did the ruler create durable social institutions with statutory authority, reliable "
+            "funding, professional staffing, transparent standards, and resilience beyond personal "
+            "rule?"
+        ),
+        (
+            "Did ordinary people, including disadvantaged groups, finish the period with durably "
+            "better life chances than inherited, accounting for policy lag, baseline, donor or "
+            "subnational roles, and external shocks?"
+        ),
     ),
     "7B": (
-        "Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners, especially on matters where deception would protect power or reputation?",
-        "Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they knowingly mislead, double down, blame others, and punish truth-tellers?",
-        "Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, law enforcement, and foreign policy?",
-        "Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, opaque foundations, or hidden conflicts of interest?",
-        "Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men to protect personal power or self-dealing?",
-        "Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, associates, and concealed official decisions?",
-        "Does the ruler use state power to conceal illegal, destructive, or self-serving activity, protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, media, and whistleblowers?",
-        "Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions, manipulate public information, and conceal tradeoffs for personal advantage?",
-        "Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, enforcement, and access to public information?",
-        "Does the ruler model ethical standards that improve public trust, or normalize deliberate lying, impunity, self-dealing, conflicts of interest, and cynicism?",
+        (
+            "Does the ruler tell the truth in verifiable public statements, formal records, "
+            "legislative testimony, courts, and international commitments, especially when deception "
+            "would protect power, benefit, or reputation?"
+        ),
+        (
+            "When reliable records, courts, audits, or investigations expose error or falsehood, does "
+            "the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or "
+            "knowingly repeat the claim?"
+        ),
+        (
+            "Does the ruler support and personally comply with conflict-of-interest, disclosure, "
+            "recusal, divestment, and ethics rules separating personal, family, and business "
+            "interests from state decisions?"
+        ),
+        (
+            "Do asset, tax, gift, ownership, contract, and legal records show that the ruler or close "
+            "family profited from office, and did the ruler permit final findings, recovery, and "
+            "accountability?"
+        ),
+        (
+            "Do the ruler's appointments and removals reflect competence and lawful process, or "
+            "family, friendship, donations, business ties, and loyalty used to protect personal power "
+            "or self-dealing?"
+        ),
+        (
+            "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed "
+            "for independent investigation of their conduct, assets, campaigns, associates, and "
+            "concealed decisions?"
+        ),
+        (
+            "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use "
+            "vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and "
+            "obstruct accountability?"
+        ),
+        (
+            "Do the ruler's documented legislative positions, formal commitments, and implemented "
+            "decisions show consistent good-faith promises, or opportunistic reversal and concealed "
+            "tradeoffs for personal advantage?"
+        ),
+        (
+            "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism "
+            "and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        ),
+        (
+            "Did the ruler's personal conduct and support for durable integrity institutions "
+            "strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and "
+            "cynicism?"
+        ),
     ),
 }
 
@@ -2614,9 +2903,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/program",
         question_key="ruler_effectiveness_program",
         text=(
-            "Does the ruler articulate a clear governing ideology, strategic direction, "
-            "or program, including explicit or revealed goals for power, policy, or "
-            "regime control, that can be evaluated against later action?"
+            "Did the ruler state or reliably reveal a sufficiently clear program in dated "
+            "speeches, manifestos, strategies, directives, or formal acts to freeze and test its "
+            "policy, ideological, power, and international goals?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2634,8 +2923,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/priorities",
         question_key="ruler_effectiveness_priorities",
         text=(
-            "Does the ruler translate that program into concrete priorities, plans, "
-            "budgets, appointments, timelines, institutions, and enforcement mechanisms?"
+            "Did the ruler translate that program into enacted laws, budgets, appointments, "
+            "timelines, institutions, regulations, and enforcement mechanisms within actual "
+            "authority?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2653,9 +2943,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/mobilization",
         question_key="ruler_effectiveness_mobilization",
         text=(
-            "Does the ruler mobilize the state apparatus, party, military, bureaucracy, "
-            "coalition, or ruling network effectively toward the chosen program and the "
-            "ruler's own goals?"
+            "Did executed resources and administrative records show effective mobilization of the "
+            "state, party, military, coalition, or ruling network toward the ruler's chosen "
+            "program?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2673,9 +2963,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/appointments",
         question_key="ruler_effectiveness_appointments",
         text=(
-            "Does the ruler select and empower people who are capable of executing the "
-            "program, whether professionals, loyal operators, technocrats, organizers, "
-            "security officials, or coercive administrators?"
+            "Did the ruler appoint, empower, retain, and when necessary replace people capable of "
+            "executing the program, whether professionals, technocrats, organizers, loyal "
+            "operators, or coercive administrators?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2693,9 +2983,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/coordination",
         question_key="ruler_effectiveness_coordination",
         text=(
-            "Does the ruler maintain internal discipline, coordination, control, and "
-            "follow-through across ministries, regions, territory, institutions, "
-            "security forces, party structures, and implementing agencies?"
+            "Did the ruler maintain documented coordination, territorial reach, milestone "
+            "completion, and compliance across ministries, regions, institutions, security "
+            "forces, and implementing agencies?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2713,9 +3003,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/implementation",
         question_key="ruler_effectiveness_implementation",
         text=(
-            "Does the ruler convert declarations into observable implementation and "
-            "state reach rather than leaving goals as slogans, speeches, symbolic "
-            "gestures, or propaganda only?"
+            "Did legislation, budgets, and directives become observable enforcement, services, "
+            "projects, and institutional practice rather than remain slogans, plans, or symbolic "
+            "acts?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2733,9 +3023,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/outcomes",
         question_key="ruler_effectiveness_outcomes",
         text=(
-            "Do outcome indicators move in the direction the ruler claimed or revealed "
-            "they sought, after allowing for realistic lags, inherited conditions, and "
-            "external constraints?"
+            "Did outcome and distribution indicators move toward the ruler's frozen goals after "
+            "accounting for baseline, realistic lag, authority, external shocks, and plausible "
+            "causal alternatives?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2753,9 +3043,8 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/adaptation",
         question_key="ruler_effectiveness_adaptation",
         text=(
-            "When tactics fail, does the ruler adapt methods, replace ineffective "
-            "implementers, reallocate resources, or otherwise correct course to keep "
-            "advancing the program and maintaining effective control?"
+            "Did audits, evaluations, and implementation failures lead the ruler to adapt "
+            "methods, replace implementers, reallocate resources, and correct course?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2773,10 +3062,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/crisis_management",
         question_key="ruler_effectiveness_crisis_management",
         text=(
-            "Does the ruler manage crises, opposition, international relationships, "
-            "and institutional resistance in a way that preserves or advances the "
-            "regime's chosen objectives, durability, and influence, regardless of "
-            "whether those objectives are morally good?"
+            "Did formal decisions and implemented responses to crises, opposition, international "
+            "relations, and institutional resistance preserve or advance the ruler's chosen "
+            "objectives and durable control?"
         ),
         category="effectiveness",
         answer_level="ruler_period",
@@ -2794,11 +3082,9 @@ QUESTION_SPECS: dict[str, QuestionSpec] = {
         question_code="effectiveness/period_end",
         question_key="ruler_effectiveness_period_end",
         text=(
-            "By the end of the relevant period, is the ruler closer to achieving the "
-            "stated or revealed ideological, policy, power-consolidation, or "
-            "international-influence program than at the start, accounting for "
-            "short-term wins, long-term durability, inherited conditions, and external "
-            "shocks?"
+            "By the end of the period, had the ruler converted more of the frozen program into "
+            "durable law, institutions, capacity, state practice, and achieved outcomes than at "
+            "the start, accounting for failures and long-term fragility?"
         ),
         category="effectiveness",
         answer_level="ruler_period",

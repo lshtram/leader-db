@@ -1,6 +1,6 @@
 # 8B. Ruler Effectiveness and Competence
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v4 objective-evidence questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,7 +8,7 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: `ruler_effectiveness_and_competence`
 - Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
 - Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
-- Rubric version: `chapter_8b_v3`
+- Rubric version: `chapter_8b_v4`
 
 ## Chapter Purpose
 
@@ -29,16 +29,16 @@ research manifest.
 
 | ID | Evidence lens |
 |---|---|
-| **8B.1** | Does the ruler articulate a clear governing ideology, strategic direction, or program, including explicit or revealed goals for power, policy, or regime control, that can be evaluated against later action? |
-| **8B.2** | Does the ruler translate that program into concrete priorities, plans, budgets, appointments, timelines, institutions, and enforcement mechanisms? |
-| **8B.3** | Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program and the ruler's own goals? |
-| **8B.4** | Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, security officials, or coercive administrators? |
-| **8B.5** | Does the ruler maintain internal discipline, coordination, control, and follow-through across ministries, regions, territory, institutions, security forces, party structures, and implementing agencies? |
-| **8B.6** | Does the ruler convert declarations into observable implementation and state reach rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only? |
-| **8B.7** | Do outcome indicators move in the direction the ruler claimed or revealed they sought, after allowing for realistic lags, inherited conditions, and external constraints? |
-| **8B.8** | When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program and maintaining effective control? |
-| **8B.9** | Does the ruler manage crises, opposition, international relationships, and institutional resistance in a way that preserves or advances the regime's chosen objectives, durability, and influence, regardless of whether those objectives are morally good? |
-| **8B.10** | By the end of the relevant period, is the ruler closer to achieving the stated or revealed ideological, policy, power-consolidation, or international-influence program than at the start, accounting for short-term wins, long-term durability, inherited conditions, and external shocks? |
+| **8B.1** | Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals? |
+| **8B.2** | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? |
+| **8B.3** | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? |
+| **8B.4** | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? |
+| **8B.5** | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? |
+| **8B.6** | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? |
+| **8B.7** | Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? |
+| **8B.8** | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? |
+| **8B.9** | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control? |
+| **8B.10** | By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility? |
 
 ## Scope and Non-Goals
 
@@ -194,7 +194,7 @@ The judge returns one object per ruler using these exact semantic field names so
 all eight chapter outputs can be normalized by the same inexpensive formatter:
 
 - `chapter_id`: `8B`
-- `rubric_version`: `chapter_8b_v3`
+- `rubric_version`: `chapter_8b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`
@@ -218,7 +218,7 @@ moral worth did not affect the execution score.
 
 Use common calibration and bias checks where meaningful, plus:
 
-- `rubric_version`: `chapter_8b_v3`
+- `rubric_version`: `chapter_8b_v4`
 - `program_basis`: `explicit`, `mostly_explicit`, `mixed`, `mostly_revealed`,
   `speculative`, or `unclear`
 - `program_type`: list from `policy`, `state_building`, `regime_control`,

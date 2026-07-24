@@ -1,6 +1,6 @@
 # 7B. Ruler Personal Integrity and Honesty
 
-Status: draft; revised after the 2024 personal-nexus audit; requires v4 rejudgment; v1 invalid
+Status: draft; v5 objective-evidence questions require controlled rejudgment; v1 invalid
 
 ## Chapter Identity
 
@@ -8,7 +8,7 @@ Status: draft; revised after the 2024 personal-nexus audit; requires v4 rejudgme
 - Category: `ruler_personal_integrity_and_honesty`
 - Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
 - Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
-- Rubric version: `chapter_7b_v4`
+- Rubric version: `chapter_7b_v5`
 
 ## Chapter Purpose
 
@@ -29,16 +29,16 @@ research manifest.
 
 | ID | Evidence lens |
 |---|---|
-| **7B.1** | Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners, especially on matters where deception would protect power or reputation? |
-| **7B.2** | Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they knowingly mislead, double down, blame others, and punish truth-tellers? |
-| **7B.3** | Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, law enforcement, and foreign policy? |
-| **7B.4** | Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, opaque foundations, or hidden conflicts of interest? |
-| **7B.5** | Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men to protect personal power or self-dealing? |
-| **7B.6** | Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, associates, and concealed official decisions? |
-| **7B.7** | Does the ruler use state power to conceal illegal, destructive, or self-serving activity, protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, media, and whistleblowers? |
-| **7B.8** | Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions, manipulate public information, and conceal tradeoffs for personal advantage? |
-| **7B.9** | Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, enforcement, and access to public information? |
-| **7B.10** | Does the ruler model ethical standards that improve public trust, or normalize deliberate lying, impunity, self-dealing, conflicts of interest, and cynicism? |
+| **7B.1** | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? |
+| **7B.2** | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? |
+| **7B.3** | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? |
+| **7B.4** | Do asset, tax, gift, ownership, contract, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? |
+| **7B.5** | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? |
+| **7B.6** | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? |
+| **7B.7** | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? |
+| **7B.8** | Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage? |
+| **7B.9** | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access? |
+| **7B.10** | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism? |
 
 ## Scope and Non-Goals
 
@@ -222,7 +222,7 @@ The judge returns one object per ruler using these exact semantic field names so
 all eight chapter outputs can be normalized by the same inexpensive formatter:
 
 - `chapter_id`: `7B`
-- `rubric_version`: `chapter_7b_v4`
+- `rubric_version`: `chapter_7b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`
@@ -246,7 +246,7 @@ wording.
 Use the common bias checks in `cited-evaluation-calibration.md`, interpreted at
 chapter level, plus:
 
-- `rubric_version`: `chapter_7b_v4`
+- `rubric_version`: `chapter_7b_v5`
 - `integrity_pattern`: `systemic_abuse`, `recurring_serious_abuse`, `mixed`,
   `generally_high_integrity`, `exceptional_integrity`, or `unclear`
 - `deception_pattern`: `strategic_systematic`, `recurring_material`, `mixed`,

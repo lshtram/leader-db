@@ -233,6 +233,28 @@ These web resources were found in earlier research and may be useful:
 
 {json.dumps(resource_index, separators=(",", ":"), sort_keys=True)}
 
+Build the factual record through six observable evidence channels:
+
+1. formal acts and law: bills, enacted laws, votes, vetoes, decrees, regulations,
+   treaties, pardons, directives, and official strategy;
+2. resources: authorized and executed budgets, transfers, procurement, contracts,
+   staffing, equipment, and infrastructure;
+3. personnel: appointments, removals, qualifications, conflicts, tenure, and practical
+   autonomy;
+4. implementation and operational conduct: rules issued, delivery, inspections,
+   enforcement, deployments, compliance, correction, and remedy;
+5. public communications and representations: speeches, testimony, promises,
+   explanations, threats, denials, propaganda, admissions, and corrections; and
+6. outcomes: observable chapter-relevant changes without assuming that outcomes alone
+   prove ruler credit or blame.
+
+Use the channels that materially fit this chapter; they are not quotas or separate
+scores. Keep the evidence source type separate from the observed fact. For example, an
+audit or court record may verify a resource, formal-act, implementation, communication,
+or outcome claim. Authority, baseline, constraints, distribution, exposure, causation,
+durability, and source bias are questions for interpreting the evidence rather than
+additional evidence channels.
+
 Start by forming a working account of the ruler's formal and practical authority, the
 inherited baseline, external shocks and constraints, and the important favorable,
 adverse, disputed, and exculpatory possibilities raised by every selected question.

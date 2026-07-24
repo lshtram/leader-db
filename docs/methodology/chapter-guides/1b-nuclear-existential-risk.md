@@ -1,13 +1,13 @@
 # Chapter 1B — Nuclear And Existential-Risk Responsibility
 
-Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
+Status: **draft; v5 objective-evidence questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `1B`
 - Rating: nuclear and global existential-risk responsibility
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_1b_v4`
+- Rubric version: `chapter_1b_v5`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -29,16 +29,16 @@ ruler-level choice are shown. The client matrix is never evidence.
 
 These are complementary prompts for evidence collection, not ten independent scores:
 
-1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
-2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
-3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
-4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
-5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
-6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
-7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
-8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
-9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
-10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
+1. **1B.1:** Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?
+2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, and did formal doctrine, orders, and operational posture corroborate rather than contradict that rhetoric?
+3. **1B.3:** Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?
+4. **1B.4:** Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?
+5. **1B.5:** Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?
+6. **1B.6:** Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?
+7. **1B.7:** Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?
+8. **1B.8:** In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?
+9. **1B.9:** Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?
+10. **1B.10:** Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?
 
 Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
 confidence; they do not invalidate the dossier, mechanically produce zero, or require
@@ -220,7 +220,7 @@ never sought or controlled.
 
 Alongside common calibration metadata, record:
 
-- `chapter_rubric_version`: `chapter_1b_v4`
+- `chapter_rubric_version`: `chapter_1b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `exposure_profile`: nuclear authority, latent/dual-use exposure, crisis exposure
 - `inherited_risk_posture` and `end_posture`

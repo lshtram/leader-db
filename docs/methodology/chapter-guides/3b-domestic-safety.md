@@ -1,13 +1,13 @@
 # Chapter 3B — Domestic Safety, Restraint, And Protection
 
-Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
+Status: **draft; v5 objective-evidence questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `3B`
 - Rating: domestic safety versus violence, oppression, and incitement
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_3b_v4`
+- Rubric version: `chapter_3b_v5`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -22,16 +22,16 @@ with credible remedy is not equivalent to state policy. The client matrix is not
 
 ## Ten Evidence Lenses
 
-1. **3B.1:** Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment?
-2. **3B.2:** Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes?
-3. **3B.3:** Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups?
-4. **3B.4:** Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors?
-5. **3B.5:** Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control?
-6. **3B.6:** Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate?
-7. **3B.7:** Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect?
-8. **3B.8:** Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment?
-9. **3B.9:** Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle?
-10. **3B.10:** Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them?
+1. **3B.1:** Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?
+2. **3B.2:** Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?
+3. **3B.3:** Did the ruler avoid rhetoric and formal directives that incited hatred, revenge, scapegoating, or violence, and act when supporters or officials translated such messages into harm?
+4. **3B.4:** Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?
+5. **3B.5:** Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?
+6. **3B.6:** Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?
+7. **3B.7:** Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups, with equitable access across regions and populations?
+8. **3B.8:** Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?
+9. **3B.9:** During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures found in later review?
+10. **3B.10:** Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?
 
 Lens status names are advisory. Missing lenses lower confidence, not validity, and never
 mechanically zero the chapter. Natural-language coverage differences can be normalized
@@ -227,7 +227,7 @@ oversight bodies as effective without evidence of independence and remedy.
 
 ## Chapter-Specific Calibration Fields
 
-- `chapter_rubric_version`: `chapter_3b_v4`
+- `chapter_rubric_version`: `chapter_3b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `severity_band`: none/isolated/recurring/widespread/systematic/mass
 - `state_responsibility`: direct/state-aligned/tolerated/failed-to-prevent/non-state/unclear

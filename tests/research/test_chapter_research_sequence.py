@@ -49,6 +49,12 @@ def test_chapter_prompt_uses_natural_saturation_based_research() -> None:
     )
 
     assert "There is no document or evidence-record quota." in prompt
+    assert "six observable evidence channels" in prompt
+    assert "formal acts and law" in prompt
+    assert "public communications and representations" in prompt
+    assert "outcomes alone" in prompt
+    assert "not quotas or separate" in prompt
+    assert "scores." in prompt
     assert (
         "Use only `final_evidence`, `context`, or `discovery_only` for both "
         "`disposition` and" in prompt

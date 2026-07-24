@@ -590,6 +590,18 @@ ten questions and researcher note. The formatter receives a compact disposition 
 but never owns, reconstructs, or web-cites local facts. Missing facts remain
 explicit gaps and country-level indicators are not automatically attributed to the
 ruler.
+
+The ten chapter questions organize collection through six observable evidence
+channels where relevant: formal acts and law, resources, personnel, implementation
+and operational conduct, public communications and representations, and outcomes.
+These channels describe what can be observed; they are neither quotas nor component
+scores. A source type is kept separate from the fact it verifies—for example, an
+audit or court record may establish a resource decision, personnel action,
+implementation failure, or outcome. Authority, inherited baseline, constraints,
+distribution and exposure, causation, durability, and information-environment bias
+are interpretive dimensions applied during review and judgment rather than additional
+evidence categories.
+
 The feature-gated segmented research mode works through
 chapters 1B–8B and their lenses in order. It begins with one broad ruler-period
 reconnaissance. Each chapter then starts a fresh compact session containing only its

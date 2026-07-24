@@ -1,6 +1,6 @@
 # 5B Economic Well-Being and Prosperity
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v4 objective-evidence questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,23 +8,23 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: ruler intention and action for economic well-being and prosperity
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_5b_v3`
+- Rubric version: `chapter_5b_v4`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The ten questions are overlapping lenses on one judgment: whether the ruler used available authority competently and fairly to improve durable economic opportunity.
 
 ## Ten Evidence Lenses
 
-1. **5B.1** — Did the ruler intend and act to create broad-based, sustainable prosperity rather than extract rents, buy loyalty, or maximize short-term popularity?
-2. **5B.2** — Did the ruler appoint competent economic professionals and empower them, rather than loyalists, family members, business partners, or ideological yes-men?
-3. **5B.3** — Did the ruler protect macroeconomic stability, fiscal responsibility, monetary credibility, and long-term investment conditions?
-4. **5B.4** — Did the ruler create fair rules for entrepreneurship, competition, property rights, trade, investment, and job creation?
-5. **5B.5** — Did the ruler resist corruption, favoritism, monopolies, oligarchic capture, and politically connected business privileges?
-6. **5B.6** — Did the ruler invest in productivity foundations: infrastructure, education, health, technology, administrative capacity, and predictable regulation?
-7. **5B.7** — Did the ruler make economic policy based on evidence and correction of mistakes, or on slogans, denial, patronage, and scapegoating?
-8. **5B.8** — Did the ruler distribute economic gains fairly across regions, classes, genders, and groups rather than privileging regime supporters?
-9. **5B.9** — Did the ruler manage shocks, inflation, unemployment, debt, sanctions, commodity changes, or crises with competence and honesty?
-10. **5B.10** — Did the ruler leave the economy on a stronger trajectory than they inherited, accounting for external constraints?
+1. **5B.1** — Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?
+2. **5B.2** — Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?
+3. **5B.3** — Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?
+4. **5B.4** — Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?
+5. **5B.5** — Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?
+6. **5B.6** — Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?
+7. **5B.7** — Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure?
+8. **5B.8** — Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?
+9. **5B.9** — During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?
+10. **5B.10** — Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?
 
 ## Researcher Evidence Plan
 
@@ -71,7 +71,7 @@ Ten lenses provide redundancy: missing appointment evidence may be offset by str
 The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
 
 - `chapter_id`: `5B`
-- `rubric_version`: `chapter_5b_v3`
+- `rubric_version`: `chapter_5b_v4`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`

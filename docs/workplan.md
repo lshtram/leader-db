@@ -1,5 +1,25 @@
 # Workplan
 
+## 2026-07-24 — Chapter questions grounded in observable evidence
+
+- Rewrote all eighty ruler-quality questions while preserving exactly ten lenses in
+  each chapter and retaining the stable `1B.1`–`8B.10` identifiers.
+- The questions now direct collection toward six observable evidence channels:
+  formal acts and law; resources; personnel; implementation and operational conduct;
+  public communications and representations; and outcomes. These are complementary
+  routes to evidence, not quotas, component scores, or a mechanical checklist.
+- Authority, inherited baseline, external constraints, distribution and exposure,
+  causation, durability, and source bias remain required interpretive dimensions.
+  They are applied to the observable record rather than catalogued as evidence types.
+- Synchronized the authoritative question bank, eight chapter guides, runtime
+  registry, collector catalogue, pipeline prompt review, and executable compact
+  chapter-research prompt. Added a deterministic test that prevents those copies from
+  drifting.
+- Bumped every active chapter-guide rubric version. Existing judgments remain valid
+  historical artifacts under their recorded versions; they are not silently
+  relabelled under the new questions. The next gate is a controlled remapping and
+  selected fresh-research comparison before any full-cohort rejudgment.
+
 ## 2026-07-24 — Local/web-separated ten-case gate passed
 
 The local evidence builder and compact web-research architecture passed the complete

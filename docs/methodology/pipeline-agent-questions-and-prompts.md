@@ -171,6 +171,17 @@ Stable prompt:
 > questions below as different angles on the same subject. They identify important
 > evidence; they are not separate ratings, search quotas, or an arithmetic checklist.
 >
+> Build the factual record through six observable evidence channels: formal acts and
+> law; resources; personnel; implementation and operational conduct; public
+> communications and representations; and outcomes. Use the channels that materially
+> fit this chapter. They are not quotas or separate scores.
+>
+> Keep the source type separate from the observed fact. An audit, court record or
+> inquiry may verify a formal act, resource, personnel, implementation, communication
+> or outcome claim. Authority, baseline, constraints, distribution, exposure,
+> causation, durability and source bias are questions for interpreting evidence, not
+> additional evidence channels.
+>
 > Start by forming a working account of the ruler's formal and practical authority, the
 > inherited baseline, external shocks and constraints, and the important favorable,
 > adverse, disputed, and exculpatory possibilities raised by every selected question.
@@ -202,16 +213,16 @@ chapter-specific calibration.
 Full guide:
 [`1b-nuclear-existential-risk.md`](chapter-guides/1b-nuclear-existential-risk.md)
 
-1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
-2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
-3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
-4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
-5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
-6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
-7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
-8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
-9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
-10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
+1. **1B.1:** Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?
+2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, and did formal doctrine, orders, and operational posture corroborate rather than contradict that rhetoric?
+3. **1B.3:** Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?
+4. **1B.4:** Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?
+5. **1B.5:** Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?
+6. **1B.6:** Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?
+7. **1B.7:** Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?
+8. **1B.8:** In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?
+9. **1B.9:** Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?
+10. **1B.10:** Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?
 
 Research emphasis: exposure and authority; inherited capability; doctrine and arsenal
 change; command safety; treaties and inspections; threats and crises; proliferation;
@@ -222,16 +233,16 @@ expert appointments; catastrophic dual-use policy; end-of-period posture.
 Full guide:
 [`2b-international-peace.md`](chapter-guides/2b-international-peace.md)
 
-1. **2B.1:** Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed, rather than treating force as the preferred first option?
-2. **2B.2:** Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, covert destabilization, or proxy conflict beyond defensive necessity?
-3. **2B.3:** Did the ruler distinguish genuine defensive security needs from prestige, revenge, nationalism, manufactured threats, diversionary politics, or regime-survival motives?
-4. **2B.4:** Did the ruler respect civilian protection, humanitarian law, prisoner treatment, necessity, and proportionality in military operations?
-5. **2B.5:** Did the ruler restrain security forces, militias, allies, proxies, clients, and arms recipients from atrocities or destabilization, and accept responsibility for foreseeable proxy conduct?
-6. **2B.6:** Did the ruler truthfully explain security threats to the public, or manipulate intelligence, fear, historical grievance, and misinformation to build support for conflict?
-7. **2B.7:** Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, lawful settlements, or post-conflict reconciliation when possible?
-8. **2B.8:** Did the ruler use military spending and mobilization to meet real security needs, or to enrich networks, reward security elites, intimidate neighbors, or project personal strength?
-9. **2B.9:** Did the ruler accept accountability for military failures, civilian harm, illegal conduct, and later evidence that contradicted the stated justification for conflict?
-10. **2B.10:** Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them, accounting for inherited conflicts and external constraints?
+1. **2B.1:** When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?
+2. **2B.2:** Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?
+3. **2B.3:** Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats, prestige claims, or regime-survival justifications?
+4. **2B.4:** Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?
+5. **2B.5:** Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?
+6. **2B.6:** Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?
+7. **2B.7:** Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?
+8. **2B.8:** Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?
+9. **2B.9:** Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?
+10. **2B.10:** Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?
 
 Research emphasis: inherited conflicts and threats; initiation and alternatives;
 objectives and justification; civilian conduct; proxies and arms recipients; public
@@ -242,16 +253,16 @@ claims; negotiations; military patronage; accountability; end-state change.
 Full guide:
 [`3b-domestic-safety.md`](chapter-guides/3b-domestic-safety.md)
 
-1. **3B.1:** Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment?
-2. **3B.2:** Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes?
-3. **3B.3:** Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups?
-4. **3B.4:** Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors?
-5. **3B.5:** Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control?
-6. **3B.6:** Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate?
-7. **3B.7:** Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect?
-8. **3B.8:** Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment?
-9. **3B.9:** Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle?
-10. **3B.10:** Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them?
+1. **3B.1:** Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?
+2. **3B.2:** Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?
+3. **3B.3:** Did the ruler avoid rhetoric and formal directives that incited hatred, revenge, scapegoating, or violence, and act when supporters or officials translated such messages into harm?
+4. **3B.4:** Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?
+5. **3B.5:** Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?
+6. **3B.6:** Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?
+7. **3B.7:** Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups, with equitable access across regions and populations?
+8. **3B.8:** Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?
+9. **3B.9:** During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures found in later review?
+10. **3B.10:** Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?
 
 Research emphasis: physical-integrity abuse; aligned actors; ruler rhetoric; oversight
 and remedies; emergency and surveillance powers; state versus non-state fear;
@@ -262,16 +273,16 @@ vulnerable groups; protest treatment; crisis response; inherited-to-end safety.
 Full guide:
 [`4b-political-freedom.md`](chapter-guides/4b-political-freedom.md)
 
-1. **4B.1** — Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?
-2. **4B.2** — Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?
-3. **4B.3** — Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?
-4. **4B.4** — Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?
-5. **4B.5** — Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?
-6. **4B.6** — Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?
-7. **4B.7** — Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
-8. **4B.8** — Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?
-9. **4B.9** — Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?
-10. **4B.10** — Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?
+1. **4B.1** — Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?
+2. **4B.2** — Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws and institutional changes designed to entrench personal or party power?
+3. **4B.3** — Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?
+4. **4B.4** — Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?
+5. **4B.5** — Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?
+6. **4B.6** — Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?
+7. **4B.7** — Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
+8. **4B.8** — Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?
+9. **4B.9** — Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?
+10. **4B.10** — Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?
 
 Research emphasis: election contestability; entrenchment; opposition and civic space;
 checks and oversight; institutional capture; media and information; political equality;
@@ -282,16 +293,16 @@ succession; digital controls; inherited-to-end trajectory.
 Full guide:
 [`5b-economic-wellbeing.md`](chapter-guides/5b-economic-wellbeing.md)
 
-1. **5B.1** — Did the ruler intend and act to create broad-based, sustainable prosperity rather than extract rents, buy loyalty, or maximize short-term popularity?
-2. **5B.2** — Did the ruler appoint competent economic professionals and empower them, rather than loyalists, family members, business partners, or ideological yes-men?
-3. **5B.3** — Did the ruler protect macroeconomic stability, fiscal responsibility, monetary credibility, and long-term investment conditions?
-4. **5B.4** — Did the ruler create fair rules for entrepreneurship, competition, property rights, trade, investment, and job creation?
-5. **5B.5** — Did the ruler resist corruption, favoritism, monopolies, oligarchic capture, and politically connected business privileges?
-6. **5B.6** — Did the ruler invest in productivity foundations: infrastructure, education, health, technology, administrative capacity, and predictable regulation?
-7. **5B.7** — Did the ruler make economic policy based on evidence and correction of mistakes, or on slogans, denial, patronage, and scapegoating?
-8. **5B.8** — Did the ruler distribute economic gains fairly across regions, classes, genders, and groups rather than privileging regime supporters?
-9. **5B.9** — Did the ruler manage shocks, inflation, unemployment, debt, sanctions, commodity changes, or crises with competence and honesty?
-10. **5B.10** — Did the ruler leave the economy on a stronger trajectory than they inherited, accounting for external constraints?
+1. **5B.1** — Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?
+2. **5B.2** — Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?
+3. **5B.3** — Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?
+4. **5B.4** — Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?
+5. **5B.5** — Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?
+6. **5B.6** — Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?
+7. **5B.7** — Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure?
+8. **5B.8** — Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?
+9. **5B.9** — During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?
+10. **5B.10** — Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?
 
 Research emphasis: goals and appointments; macro stability; market rules; capture;
 productivity investment; evidence and correction; distribution; shocks; inherited
@@ -302,16 +313,16 @@ trend; ruler-attributable implementation and outcomes.
 Full guide:
 [`6b-social-wellbeing.md`](chapter-guides/6b-social-wellbeing.md)
 
-1. **6B.1** — Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?
-2. **6B.2** — Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?
-3. **6B.3** — Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?
-4. **6B.4** — Did the ruler fund and manage social services with competent professionals rather than patronage networks?
-5. **6B.5** — Did the ruler use evidence, measurement, and transparent correction to improve service delivery?
-6. **6B.6** — Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?
-7. **6B.7** — Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?
-8. **6B.8** — Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?
-9. **6B.9** — Did the ruler build durable social institutions that would survive beyond their personal rule?
-10. **6B.10** — Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?
+1. **6B.1** — Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?
+2. **6B.2** — Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?
+3. **6B.3** — Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?
+4. **6B.4** — Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?
+5. **6B.5** — Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?
+6. **6B.6** — Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?
+7. **6B.7** — Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?
+8. **6B.8** — Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?
+9. **6B.9** — Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?
+10. **6B.10** — Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?
 
 Research emphasis: welfare goals; access, coverage, quality, outcomes, and inequality;
 vulnerable groups; professional delivery; evidence and correction; crises; political
@@ -322,16 +333,16 @@ allocation; dignity; durability; inherited-to-end life chances.
 Full guide:
 [`7b-integrity.md`](chapter-guides/7b-integrity.md)
 
-1. **7B.1** — Does the ruler habitually tell the truth to the public, legislature, courts, allies, and international partners, especially on matters where deception would protect power or reputation?
-2. **7B.2** — Does the ruler admit errors, correct false claims, and allow truthful reporting, or do they knowingly mislead, double down, blame others, and punish truth-tellers?
-3. **7B.3** — Does the ruler separate personal/family/business interests from state decisions, public contracts, licensing, regulation, law enforcement, and foreign policy?
-4. **7B.4** — Does the ruler or close family profit from office through assets, contracts, monopolies, gifts, bribes, emoluments, insider access, opaque foundations, or hidden conflicts of interest?
-5. **7B.5** — Does the ruler appoint competent professionals, or fill government with family, friends, cronies, donors, business associates, loyalists, and yes-men to protect personal power or self-dealing?
-6. **7B.6** — Does the ruler tolerate independent investigation of their conduct, assets, campaign finance, conflicts of interest, associates, and concealed official decisions?
-7. **7B.7** — Does the ruler use state power to conceal illegal, destructive, or self-serving activity, protect themselves from accountability, punish investigators, or neutralize courts, prosecutors, auditors, media, and whistleblowers?
-8. **7B.8** — Does the ruler keep promises and respect formal commitments, or opportunistically reverse positions, manipulate public information, and conceal tradeoffs for personal advantage?
-9. **7B.9** — Does the ruler avoid nepotism, favoritism, clientelism, and transactional politics in appointments, pardons, procurement, enforcement, and access to public information?
-10. **7B.10** — Does the ruler model ethical standards that improve public trust, or normalize deliberate lying, impunity, self-dealing, conflicts of interest, and cynicism?
+1. **7B.1** — Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?
+2. **7B.2** — When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?
+3. **7B.3** — Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?
+4. **7B.4** — Do asset, tax, gift, ownership, contract, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?
+5. **7B.5** — Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?
+6. **7B.6** — Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?
+7. **7B.7** — Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?
+8. **7B.8** — Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?
+9. **7B.9** — Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?
+10. **7B.10** — Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?
 
 Research emphasis: Chapter 7B requires a personal ruler nexus. National corruption,
 institutional weakness, associate conduct, or silence about scandal is context unless
@@ -343,16 +354,16 @@ or accountability choices.
 Full guide:
 [`8b-effectiveness.md`](chapter-guides/8b-effectiveness.md)
 
-1. **8B.1** — Does the ruler articulate a clear governing ideology, strategic direction, or program, including explicit or revealed goals for power, policy, or regime control, that can be evaluated against later action?
-2. **8B.2** — Does the ruler translate that program into concrete priorities, plans, budgets, appointments, timelines, institutions, and enforcement mechanisms?
-3. **8B.3** — Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program and the ruler's own goals?
-4. **8B.4** — Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, security officials, or coercive administrators?
-5. **8B.5** — Does the ruler maintain internal discipline, coordination, control, and follow-through across ministries, regions, territory, institutions, security forces, party structures, and implementing agencies?
-6. **8B.6** — Does the ruler convert declarations into observable implementation and state reach rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only?
-7. **8B.7** — Do outcome indicators move in the direction the ruler claimed or revealed they sought, after allowing for realistic lags, inherited conditions, and external constraints?
-8. **8B.8** — When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program and maintaining effective control?
-9. **8B.9** — Does the ruler manage crises, opposition, international relationships, and institutional resistance in a way that preserves or advances the regime's chosen objectives, durability, and influence, regardless of whether those objectives are morally good?
-10. **8B.10** — By the end of the relevant period, is the ruler closer to achieving the stated or revealed ideological, policy, power-consolidation, or international-influence program than at the start, accounting for short-term wins, long-term durability, inherited conditions, and external shocks?
+1. **8B.1** — Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?
+2. **8B.2** — Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?
+3. **8B.3** — Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?
+4. **8B.4** — Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?
+5. **8B.5** — Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?
+6. **8B.6** — Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?
+7. **8B.7** — Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?
+8. **8B.8** — Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?
+9. **8B.9** — Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?
+10. **8B.10** — By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?
 
 Research emphasis: freeze a broad portfolio of explicit or reliably revealed goals;
 trace program, resources, appointments, mobilization, implementation, outcomes,

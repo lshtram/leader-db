@@ -1,22 +1,30 @@
-# Chapter Question Objective-Evidence Audit
+# Archived Chapter Question Objective-Evidence Design Audit
 
-Status: proposal for human review; no authoritative question or rubric has changed  
+Status: archived pre-adoption working paper; superseded on 2026-07-24
 Date: 2026-07-24
+
+> **Historical artifact—do not implement from this file.** This working paper records
+> the proposal that preceded adoption. Its proposed nine-field “evidence spine,”
+> question labels, risk list, and review sequence are preserved as decision history
+> and are superseded. The adopted six-channel method, current wording, and process are
+> authoritative in [`chapter-guides/readme.md`](chapter-guides/readme.md), the active
+> chapter guides, and
+> [`ranking-evaluation-criteria.md`](ranking-evaluation-criteria.md).
 
 ## Purpose
 
-This audit tests whether the ten lenses in each chapter explicitly elicit observable
+This audit tested whether the ten lenses in each chapter explicitly elicited observable
 governing conduct. It responds to a gap in the current wording: legislation and other
 formal exercises of power are often relevant, but researchers are not consistently
 required to examine what the ruler proposed, supported, negotiated, signed, vetoed,
 blocked, repealed, funded, staffed, implemented, enforced, corrected, or made durable.
 
-The proposal retains exactly ten questions per chapter. It does not create mechanical
+The proposal retained exactly ten questions per chapter. It did not create mechanical
 subscores or make legislation decisive by itself. The authoritative questions remain
-in [`ranking-evaluation-criteria.md`](ranking-evaluation-criteria.md) and the
-[`chapter-guides`](chapter-guides/readme.md) until a later approved change.
+in the approved sources linked above; the proposal text below must not be used as a
+runtime or review reference.
 
-## Evidence spine
+## Superseded proposed evidence spine
 
 The revised questions collectively seek a traceable chain:
 
@@ -467,7 +475,7 @@ Chapter 8B continues to judge effectiveness at the ruler's own goals, not the mo
 quality of those goals. Harmful effectiveness belongs here as effectiveness; its moral
 consequences are evaluated in the substantive chapters.
 
-## Cross-chapter assessment
+## Historical cross-chapter assessment
 
 The proposed wording produces the following minimum observable-evidence coverage:
 
@@ -482,7 +490,7 @@ The proposed wording produces the following minimum observable-evidence coverage
 | 7B | Strong | Indirect | Strong | Strong | Strong | Personal nexus | Strong |
 | 8B | Strong | Strong | Strong | Strong | Strong | Goal-relative | Strong |
 
-## Risks to review before adoption
+## Risks recorded before adoption
 
 1. Questions are longer. The final wording should be shortened where possible without
    losing the observable evidence chain.
@@ -502,7 +510,7 @@ The proposed wording produces the following minimum observable-evidence coverage
    one holistic chapter judgment using source strength, attribution and the active
    rubric.
 
-## Proposed review sequence
+## Superseded proposed review sequence
 
 1. Review the revised wording chapter by chapter for scope loss and overlap.
 2. Shorten each question while preserving its observable acts.
