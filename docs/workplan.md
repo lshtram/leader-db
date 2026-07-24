@@ -1,5 +1,25 @@
 # Workplan
 
+## 2026-07-24 — Previous-lens and source-ecology continuity audit
+
+- Compared the current eighty questions ID by ID with the immediately preceding
+  question bank. All previous conceptual lenses remain represented.
+- Restored eight sets of concrete examples that had become less explicit, including
+  reckless nuclear threats, manufactured conflict motives, named incitement targets,
+  displacement, crisis censorship, electoral misuse of public resources, economic
+  scapegoating, and opaque personal enrichment.
+- Clarified across the guide, executable researcher prompt, role skill, architecture,
+  and requirements that the six observable channels classify facts rather than
+  privilege “objective” or official sources. Books, academic work, NGO and
+  international-organization reports, journalism, histories, biographies, and expert
+  analysis remain essential.
+- Added a proportional collection rule: begin with high-quality overviews, inspect
+  primary records selectively for consequential claims or disputes, seek material
+  contrary cases, and never attempt an exhaustive review of every law, budget line,
+  appointment, statement, program, or outcome.
+- The detailed comparison is
+  [`docs/methodology/chapter-question-continuity-audit.md`](methodology/chapter-question-continuity-audit.md).
+
 ## 2026-07-24 — Chapter questions grounded in observable evidence
 
 - Rewrote all eighty ruler-quality questions while preserving exactly ten lenses in

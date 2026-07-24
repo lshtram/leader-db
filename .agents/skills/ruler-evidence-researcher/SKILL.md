@@ -49,6 +49,18 @@ research.
    ledger, then search for remaining events, contrary interpretations, or attribution
    gaps. Continue until the chapter is reasonably saturated or a specific access
    blocker is documented.
+   Treat formal acts, resources, personnel, implementation, communications, and
+   outcomes as ways to classify relevant facts, not as a preferred-source hierarchy.
+   Books, academic research, NGO and international-organization reports,
+   investigative and specialist journalism, biographies, histories, expert analysis,
+   and credible local reporting remain essential for overview, informal conduct,
+   materiality, interpretation, attribution, and scrutiny of official claims.
+   Research proportionately: begin with strong syntheses that identify consequential
+   conduct, then inspect primary laws, budgets, appointments, transcripts, audits,
+   judgments, and datasets selectively when they establish a material claim, resolve
+   disagreement, improve attribution, or test implementation. Never attempt an
+   exhaustive census of every act, budget line, appointment, statement, program, or
+   outcome in the period.
 4. Persist every accepted evidence item immediately under a stable evidence ID in the
    permissive notebook. A separate machine-readable ledger manifest is optional and must
    never block a substantive handoff when the execution profile cannot write files.
@@ -58,7 +70,8 @@ research.
    normal target. One unit is one traceable source supporting one materially
    distinct claim; headings, excerpt fragments, empty priors, equivalent URLs, and
    repeated statements do not create new units. A substantial report may support more
-   than two distinct claims when each has its own locator and material meaning; report
+   than two distinct selected claims when each has its own locator and material
+   meaning; this does not require extracting every finding in the report. Report
    source concentration rather than discarding them. Report chapter mappings separately
    from independent locator/source families. This is a research-depth goal, not a
    publication gate: sparse or closed-information cases remain valid when the

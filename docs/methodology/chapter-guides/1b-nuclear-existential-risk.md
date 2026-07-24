@@ -30,7 +30,7 @@ ruler-level choice are shown. The client matrix is never evidence.
 These are complementary prompts for evidence collection, not ten independent scores:
 
 1. **1B.1:** Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?
-2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, and did formal doctrine, orders, and operational posture corroborate rather than contradict that rhetoric?
+2. **1B.2:** Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?
 3. **1B.3:** Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?
 4. **1B.4:** Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?
 5. **1B.5:** Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?

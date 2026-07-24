@@ -34,6 +34,26 @@ the source type separately: legislation, budgets, administrative records, offici
 transcripts, statistics, courts, audits, inquiries, scholarship and reporting are
 different ways to establish or test the observable fact.
 
+The catalogue does not create an “objective sources” hierarchy. Books, academic
+research, NGO and international-organization reports, investigative and specialist
+journalism, biographies, histories, expert analysis, and credible local reporting
+remain essential. They often provide the best overview, reveal informal conduct,
+connect dispersed records, identify what mattered contemporaneously, test official
+accounts, and explain attribution or constraints. Primary records can be incomplete,
+misleading, inaccessible, or meaningful only with such interpretation. Source
+authority, independence, method, proximity, and corroboration are assessed separately
+from the evidence channel.
+
+Research is materiality-based, not exhaustive. Start with strong overview and
+synthesis sources to identify the ruler's principal decisions, controversies,
+programs, institutions, and outcomes. Then inspect primary laws, budgets, appointment
+records, transcripts, audits, judgments, or datasets selectively when they establish a
+material claim, resolve disagreement, improve attribution, or test implementation.
+Do not enumerate every bill, regulation, budget line, appointment, speech, program, or
+outcome in the period. Continue while another search is reasonably likely to change
+the account of consequential conduct, contrary evidence, attribution, or confidence.
+Record representative evidence and important exceptions; explain remaining gaps.
+
 Authority, baseline, constraints, distribution, exposure, causation, fairness,
 durability and source bias are interpretive questions applied to the evidence. They are
 not parallel evidence categories. Audit, court and inquiry records are verification

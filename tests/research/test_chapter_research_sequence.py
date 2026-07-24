@@ -55,15 +55,19 @@ def test_chapter_prompt_uses_natural_saturation_based_research() -> None:
     assert "outcomes alone" in prompt
     assert "not quotas or separate" in prompt
     assert "scores." in prompt
+    assert "not a preferred-source list" in prompt
+    assert "Use books, academic work, NGO and" in prompt
+    assert "Begin with strong overview and synthesis sources" in prompt
+    assert "Do not attempt to catalogue every legislative act" in prompt
     assert (
         "Use only `final_evidence`, `context`, or `discovery_only` for both "
         "`disposition` and" in prompt
     )
     assert "one machine record for one source supporting one material claim" in prompt
     assert "shared `underlying_fact_key`" in prompt
-    assert "Do not bundle them into an omnibus" in prompt
+    assert "Do not bundle selected claims into an omnibus" in prompt
     assert "Continue while research produces a materially new fact" in prompt
-    assert "exact supported question IDs from\n[\"3B.1\", \"3B.2\"]" in prompt
+    assert 'exact supported question IDs from\n["3B.1", "3B.2"]' in prompt
     assert "Open an underlying source before using it" in prompt
     assert "SOURCE_CLAIM_JSON:" in prompt
     assert "Known lead" in prompt
@@ -143,9 +147,7 @@ def test_d_style_machine_record_survives_parent_ledger_merge(
         "claim": "The court issued a final finding.",
         "locator": "paragraph 42",
         "provisional_id": "WEB-7B-001",
-        "canonical_fact_key": (
-            "https://example.test/judgment|paragraph 42|final finding"
-        ),
+        "canonical_fact_key": ("https://example.test/judgment|paragraph 42|final finding"),
         "underlying_fact_key": "example-final-finding",
         "disposition": "final_evidence",
         "chapter_ids": ["7B"],
@@ -194,8 +196,7 @@ def test_chapter_recovery_requires_same_session_mode(tmp_path: Path) -> None:
     )
     events = prior_trusted / "research-chapter-1B.events.jsonl"
     events.write_text(
-        '{"type":"thread.started","thread_id":"wrong-thread"}\n'
-        '{"type":"turn.completed"}\n',
+        '{"type":"thread.started","thread_id":"wrong-thread"}\n{"type":"turn.completed"}\n',
         encoding="utf-8",
     )
     (prior_trusted / "research-chapter-1B.starting.json").write_text(
@@ -257,8 +258,7 @@ def test_chapter_recovery_requires_same_session_mode(tmp_path: Path) -> None:
 
 def test_completed_chapter_checkpoint_prevents_research_replay(tmp_path: Path) -> None:
     notebook = (
-        "initial\n\n--- CHAPTER RESEARCH 1B ---\nfirst"
-        "\n\n--- CHAPTER RESEARCH 2B ---\nsecond"
+        "initial\n\n--- CHAPTER RESEARCH 1B ---\nfirst\n\n--- CHAPTER RESEARCH 2B ---\nsecond"
     )
     checkpoint = (
         tmp_path / "events.jsonl",

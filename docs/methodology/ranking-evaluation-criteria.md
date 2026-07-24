@@ -346,7 +346,7 @@ General attribution rules for all 1B-8B questions:
 | ID | Ruler-quality question |
 |---|---|
 | **1B.1** | Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation? |
-| **1B.2** | Did the ruler use nuclear rhetoric responsibly, and did formal doctrine, orders, and operational posture corroborate rather than contradict that rhetoric? |
+| **1B.2** | Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric? |
 | **1B.3** | Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures? |
 | **1B.4** | Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them? |
 | **1B.5** | Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression? |
@@ -362,7 +362,7 @@ General attribution rules for all 1B-8B questions:
 |---|---|
 | **2B.1** | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? |
 | **2B.2** | Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity? |
-| **2B.3** | Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats, prestige claims, or regime-survival justifications? |
+| **2B.3** | Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims? |
 | **2B.4** | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? |
 | **2B.5** | Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged? |
 | **2B.6** | Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts? |
@@ -377,13 +377,13 @@ General attribution rules for all 1B-8B questions:
 |---|---|
 | **3B.1** | Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse? |
 | **3B.2** | Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it? |
-| **3B.3** | Did the ruler avoid rhetoric and formal directives that incited hatred, revenge, scapegoating, or violence, and act when supporters or officials translated such messages into harm? |
+| **3B.3** | Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm? |
 | **3B.4** | Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy? |
 | **3B.5** | Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control? |
 | **3B.6** | Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate? |
-| **3B.7** | Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups, with equitable access across regions and populations? |
+| **3B.7** | Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations? |
 | **3B.8** | Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force? |
-| **3B.9** | During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures found in later review? |
+| **3B.9** | During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle? |
 | **3B.10** | Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks? |
 
 ### 4B. Ruler commitment to political freedom vs authoritarian rule
@@ -391,7 +391,7 @@ General attribution rules for all 1B-8B questions:
 | ID | Ruler-quality question |
 |---|---|
 | **4B.1** | Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories? |
-| **4B.2** | Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws and institutional changes designed to entrench personal or party power? |
+| **4B.2** | Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power? |
 | **4B.3** | Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations? |
 | **4B.4** | Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler? |
 | **4B.5** | Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult? |
@@ -411,7 +411,7 @@ General attribution rules for all 1B-8B questions:
 | **5B.4** | Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation? |
 | **5B.5** | Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture? |
 | **5B.6** | Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects? |
-| **5B.7** | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure? |
+| **5B.7** | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating? |
 | **5B.8** | Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups? |
 | **5B.9** | During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes? |
 | **5B.10** | Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone? |
@@ -438,7 +438,7 @@ General attribution rules for all 1B-8B questions:
 | **7B.1** | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? |
 | **7B.2** | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? |
 | **7B.3** | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? |
-| **7B.4** | Do asset, tax, gift, ownership, contract, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? |
+| **7B.4** | Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? |
 | **7B.5** | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? |
 | **7B.6** | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? |
 | **7B.7** | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? |

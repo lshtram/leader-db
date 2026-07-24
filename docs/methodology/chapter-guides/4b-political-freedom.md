@@ -16,7 +16,7 @@ The ten questions below are complementary evidence lenses. They direct collectio
 ## Ten Evidence Lenses
 
 1. **4B.1** — Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?
-2. **4B.2** — Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws and institutional changes designed to entrench personal or party power?
+2. **4B.2** — Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?
 3. **4B.3** — Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?
 4. **4B.4** — Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?
 5. **4B.5** — Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?

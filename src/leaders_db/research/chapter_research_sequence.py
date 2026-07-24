@@ -255,6 +255,21 @@ or outcome claim. Authority, baseline, constraints, distribution, exposure, caus
 durability, and source bias are questions for interpreting the evidence rather than
 additional evidence channels.
 
+The six channels classify relevant facts; they are not a preferred-source list and do
+not make official records inherently superior. Use books, academic work, NGO and
+international-organization reports, investigative and specialist journalism,
+biographies, histories, expert analysis, and credible local reporting when they
+provide overview, reveal informal conduct, identify consequential events, interpret
+primary records, test official claims, or clarify attribution. Assess every source for
+authority, independence, method, proximity, and corroboration.
+
+Research proportionately. Begin with strong overview and synthesis sources to identify
+the consequential decisions, controversies, programs, institutions, and outcomes.
+Inspect specific laws, budgets, appointments, speeches, audits, judgments, and datasets
+when they establish a material claim, resolve disagreement, improve attribution, or
+test implementation. Do not attempt to catalogue every legislative act, budget line,
+appointment, statement, program, or outcome from the period.
+
 Start by forming a working account of the ruler's formal and practical authority, the
 inherited baseline, external shocks and constraints, and the important favorable,
 adverse, disputed, and exculpatory possibilities raised by every selected question.
@@ -276,10 +291,11 @@ about the same underlying fact or event a shared `underlying_fact_key`, while ke
 their distinct URLs, locators, publication dates, and evidentiary status. State when
 apparently independent reports depend on the same investigation, dataset, wire story,
 official claim, or event.
-A report that contains materially distinct audit rows, programs, decisions, events,
-findings, or remedies needs a separate source-claim record and precise locator for each
-one you intend downstream users to reason from. Do not bundle them into an omnibus
-record merely because they share a PDF or publisher.
+A report that supports materially distinct claims selected for downstream use needs a
+separate source-claim record and precise locator for each selected claim. This does not
+require extracting every row, program, decision, event, finding, or remedy in the
+report. Do not bundle selected claims into an omnibus record merely because they share
+a PDF or publisher.
 
 Each developed record contains:
 

@@ -989,8 +989,9 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
             "power through escalation?"
         ),
         (
-            "Did the ruler use nuclear rhetoric responsibly, and did formal doctrine, orders, and "
-            "operational posture corroborate rather than contradict that rhetoric?"
+            "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and "
+            "normalization of nuclear use, and did formal doctrine, orders, and operational posture "
+            "corroborate rather than contradict responsible rhetoric?"
         ),
         (
             "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, "
@@ -1045,8 +1046,9 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
         ),
         (
             "Did the ruler present decision-makers and the public with accurate, reviewable evidence "
-            "of defensive need, alternatives, and objectives rather than manufacture threats, "
-            "prestige claims, or regime-survival justifications?"
+            "of defensive need, alternatives, and objectives rather than manufacture threats or "
+            "exploit prestige, revenge, nationalism, historical grievance, diversionary politics, "
+            "or regime-survival claims?"
         ),
         (
             "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian "
@@ -1093,8 +1095,9 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
             "prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
         ),
         (
-            "Did the ruler avoid rhetoric and formal directives that incited hatred, revenge, "
-            "scapegoating, or violence, and act when supporters or officials translated such messages "
+            "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, "
+            "scapegoating, or violence against opponents, minorities, migrants, journalists, civil "
+            "society, or other groups, and act when supporters or officials translated such messages "
             "into harm?"
         ),
         (
@@ -1113,7 +1116,8 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
         ),
         (
             "Did the ruler enact, fund, and enforce effective protection for women, children, "
-            "minorities, and vulnerable groups, with equitable access across regions and populations?"
+            "minorities, and vulnerable groups against targeted and intergroup violence, displacement, "
+            "and systematic neglect, with equitable access across regions and populations?"
         ),
         (
             "Did laws, permit systems, policing orders, and actual enforcement protect peaceful "
@@ -1122,8 +1126,8 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
         ),
         (
             "During domestic crises, did the ruler issue and implement protective, restrained "
-            "measures, allocate resources according to exposure, and correct failures found in later "
-            "review?"
+            "measures, allocate resources according to exposure, and correct failures rather than use "
+            "incitement, collective punishment, censorship, or militarized spectacle?"
         ),
         (
             "Did the ruler leave people durably safer from state and non-state violence than "
@@ -1139,7 +1143,8 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
         ),
         (
             "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing "
-            "laws and institutional changes designed to entrench personal or party power?"
+            "laws, courts, election administration, security forces, media, or public resources to "
+            "entrench personal or party power?"
         ),
         (
             "Did the ruler protect in law and practice opposition, criticism, satire, investigative "
@@ -1211,7 +1216,8 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
         ),
         (
             "Did the ruler publish reliable economic information, permit independent evaluation and "
-            "audit, and correct laws, programs, or implementers when evidence showed failure?"
+            "audit, and correct laws, programs, or implementers when evidence showed failure rather "
+            "than rely on slogans, denial, patronage, or scapegoating?"
         ),
         (
             "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and "
@@ -1296,9 +1302,9 @@ RULER_QUALITY_QUESTION_TEXTS: dict[str, tuple[str, ...]] = {
             "interests from state decisions?"
         ),
         (
-            "Do asset, tax, gift, ownership, contract, and legal records show that the ruler or close "
-            "family profited from office, and did the ruler permit final findings, recovery, and "
-            "accountability?"
+            "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, "
+            "and legal records show that the ruler or close family profited from office, and did the "
+            "ruler permit final findings, recovery, and accountability?"
         ),
         (
             "Do the ruler's appointments and removals reflect competence and lawful process, or "

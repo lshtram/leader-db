@@ -602,6 +602,15 @@ distribution and exposure, causation, durability, and information-environment bi
 are interpretive dimensions applied during review and judgment rather than additional
 evidence categories.
 
+The channels do not privilege official or nominally “objective” sources. Research
+begins with strong books, academic work, NGO and international-organization reports,
+investigative and specialist journalism, histories, expert analysis, and other
+syntheses that identify consequential conduct and interpret the record. Primary laws,
+budgets, appointments, transcripts, audits, judgments, and datasets are then inspected
+selectively for material claims, disputes, attribution, and implementation. The
+researcher samples consequential and contrary evidence rather than attempting an
+exhaustive census of every observable act in the period.
+
 The feature-gated segmented research mode works through
 chapters 1B–8B and their lenses in order. It begins with one broad ruler-period
 reconnaissance. Each chapter then starts a fresh compact session containing only its
