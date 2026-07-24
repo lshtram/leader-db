@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-07-24 — Local/web-separated ten-case gate passed
+
+The local evidence builder and compact web-research architecture passed the complete
+ten-case, all-chapter integration gate. See
+[`docs/reviews/local-web-separated-2022-ten-case-gate.md`](reviews/local-web-separated-2022-ten-case-gate.md).
+The run produced 318 accepted web evidence records, 1,167 mappings, 518 direct local
+facts, 99 direct longitudinal signals, and ten validated judgments. Chapter 2B was
+judged as a three-ruler common-meter batch; the other chapters remain singleton
+integration gates. Before the full cohort, repair and repeat the formatter handoff
+gate: tolerant normalization inferred 45 lens-level mappings across eight dossiers
+and restored one manifest-required Scholz fact. The next controlled stages are that
+producer repair, a sampled source/locator audit, and then the full 20-ruler ×
+8-chapter 2022 comparative rerun. Production promotion remains blocked on the complete
+cohort, drift/order/manual score-change audits, cost controls, and release/viewer
+review.
+
 ## 2026-07-24 — AMLO 5B separated local/web smoke gate passed
 
 - Passed AMLO 2022 chapter 5B through the complete separated workflow: frozen
