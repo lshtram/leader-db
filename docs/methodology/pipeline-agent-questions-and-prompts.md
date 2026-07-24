@@ -8,6 +8,11 @@ pipeline in one place. It is intended for human review. The executable prompt bu
 schemas, and chapter guides remain authoritative; links to them are included so a
 reviewer can detect drift.
 
+The latest validated workflow and measured results are recorded in
+[`local-web-separated-2022-ten-case-gate.md`](../reviews/local-web-separated-2022-ten-case-gate.md).
+That gate is the authority for the currently accepted separation between structured
+local evidence and web research.
+
 Dynamic run data is shown as `{placeholders}` rather than copying a ruler's evidence
 into this document. JSON-only serialization instructions are summarized where the exact
 shape is enforced by a Pydantic schema rather than prose.
@@ -16,35 +21,88 @@ shape is enforced by a Pydantic schema rather than prose.
 
 | Phase | Agent | Web access | Scores | Primary input | Primary output |
 |---|---|---:|---:|---|---|
-| A | Reconnaissance researcher | Yes | No | Short ruler brief and compact local-evidence summary | Initial notebook and source-claim ledger |
-| B | Chapter researcher, repeated for 1B-8B | Yes | No | Recon summary, one compact chapter guide, resource index | Chapter source-claim units |
+| L | Deterministic local evidence builder | No | No | Hash-verified structured observations and chapter mappings | Parent-owned package plus bounded chapter judge packages |
+| A | Reconnaissance researcher | Yes | No | Short ruler brief and deliberately small orientation briefing | Initial web notebook and source-claim ledger |
+| B | Chapter researcher, once per selected chapter | Yes | No | Bounded recon summary, one compact chapter guide, resource index | Chapter web source-claim units |
 | C | Evidence reviewer | No | No | Accumulated notebook, ledger, required lenses | Defects, gaps, and continuation request |
-| D | Research continuation | Yes | No | Reviewer brief in the same researcher session | Added or corrected evidence |
+| D | Targeted research continuation | Yes | No | Reviewer gaps and bounded prior-resource index | Added or corrected web evidence |
 | E | Supervisor takeover, only after recoverable stalling | Yes | No | Review report and accumulated notebook | Completed permissive research handoff |
-| F | Dossier formatter | No | No | Research handoff, ledger, compact local summary, guides | Strict cited dossier |
-| G | Comparative chapter judge, one per chapter | No | Yes | All rulers' compact projections for one chapter and its full guide | One calibrated chapter score per ruler |
+| F | Dossier formatter | No | No | Web handoff, ledger, local status/disposition summary | Strict cited web dossier |
+| G | Comparative chapter judge, one per chapter | No | Yes | Web projections, direct bounded local packages, and full chapter guide | One calibrated chapter score per ruler |
 
-The producer/receiver rule applies throughout: producers should make outputs as complete
-and accurate as possible; receivers should normalize and use imperfect but meaningful
-inputs where possible. Missing evidence normally lowers confidence or triggers an
-iteration. It causes terminal failure only when the remaining material is genuinely
-insufficient to support the requested judgment.
+The producer/receiver rule applies throughout:
 
-## 2. General Evidence Collection
+- every producer must try to make its output complete, accurate, internally
+  reconciled, and maximally useful;
+- every receiver must preserve and use meaningful input, tolerate harmless format or
+  vocabulary variation, and repair deterministic defects when the intended content is
+  unambiguous;
+- a tolerant receiver does not excuse a producer defect: every recovery is recorded,
+  measured, and routed back into producer improvement;
+- missing evidence normally lowers confidence, widens the plausible range, or triggers
+  a bounded iteration; it causes terminal failure only when the remaining material is
+  genuinely insufficient for the requested judgment.
 
-### 2.1 Reconnaissance researcher
+The ten-case gate demonstrated both sides of this rule. All dossiers remained
+judgeable, but eight formatter outputs needed 45 inferred lens mappings and one
+manifest-required Scholz fact was restored. Formatter-producer completeness therefore
+remains a required repair gate before the full cohort.
+
+## 2. Structured Local Evidence
+
+### 2.1 Local evidence builder
+
+Executable sources:
+[`local_prior_package.py`](../../src/leaders_db/research/local_prior_package.py),
+[`local_longitudinal.py`](../../src/leaders_db/research/local_longitudinal.py), and
+[`chapter_projection.py`](../../src/leaders_db/research/chapter_projection.py)
+
+The local evidence builder is independent of the web researcher. It:
+
+1. starts from the complete hash-verified, client-excluding local artifact;
+2. deduplicates repeated question-level facts into stable `LF*` facts;
+3. preserves observation IDs, exact concepts, units, uncertainty, warnings, years,
+   period roles, and chapter-routing candidates;
+4. derives reconstructable `LS*` longitudinal signals without allowing a signal to
+   change a score mechanically;
+5. builds one bounded package per chapter containing all target-year facts plus
+   earliest/latest pre-accession and tenure facts per indicator;
+6. retains the complete artifact with the parent and sends the bounded chapter package
+   directly to the judge, bypassing web research and dossier formatting.
+
+The builder asks deterministic questions rather than open-ended research questions:
+
+1. Does the package contain all ten methodology IDs for the chapter exactly once?
+2. Does every included fact genuinely route to the selected chapter?
+3. Are nominal, PPP, constant-price, rate, share, count, and index concepts separate?
+4. Are units, scales, uncertainty bounds, proxy years, revisions, breaks, and
+   missingness warnings preserved?
+5. Do derived signals retain their source observation IDs, formula, transformation
+   version, lag, causal distance, and attribution limitation?
+6. Is country-level context clearly separated from ruler credit or blame?
+7. Are local errors visible rather than silently replaced by web evidence?
+
+Local evidence is contextual unless separately cited ruler evidence establishes
+authority, ownership, implementation, tolerance, correction, or another valid
+attribution nexus. Missing local evidence is never a zero and never favorable evidence.
+
+## 3. General Web Evidence Collection
+
+### 3.1 Reconnaissance researcher
 
 Executable source:
 [`dossier_notebook_prompt.py`](../../src/leaders_db/research/dossier_notebook_prompt.py)
 
-The researcher receives:
+The researcher is treated as a blank slate. It receives:
 
 - immutable ruler identity and period;
-- a compact local briefing, not the full local evidence package;
+- a deliberately small parent-produced orientation briefing, never the full local
+  evidence package or raw yearly series;
 - plain-language descriptions of the eight subject areas;
 - the small machine-recovery appendix contract.
 
-The researcher runs without project instructions, shell access, filesystem reads,
+The researcher runs without project instructions, shell access, repository or
+filesystem reads,
 plugins, apps, subagents, or goals. Web research and the material embedded in the prompt
 are its complete working context.
 
@@ -71,6 +129,11 @@ Stable prompt:
 > period relevance, connection to the ruler, contrary evidence, source cautions, and
 > independent corroboration.
 
+The orientation briefing exists only to prevent needless rediscovery and point out
+known data families or obvious context. The researcher remains responsible solely for
+web research. It does not build, validate, reinterpret, or re-fetch the structured
+local package, and it cannot establish ruler attribution from a national indicator.
+
 The prompt ends by requiring:
 
 - a concise overview and evidence-environment assessment;
@@ -81,50 +144,60 @@ The prompt ends by requiring:
 - unresolved questions for deeper research;
 - one machine-recoverable `SOURCE_CLAIM_JSON` line for each developed record.
 
-### 2.2 Deep chapter researcher
+### 3.2 Deep chapter researcher
 
 Executable source:
 [`chapter_research_sequence.py`](../../src/leaders_db/research/chapter_research_sequence.py)
 
-This prompt is run once for each chapter. It receives only:
+This prompt is run in a fresh compact session once for each selected chapter. It
+receives only:
 
 - the immutable ruler-period;
 - that chapter's ten lens IDs;
 - a bounded reconnaissance summary;
-- the chapter guide's `Ten Evidence Lenses` and researcher-facing guidance;
+- the chapter guide's ten lenses and researcher-facing guidance;
 - a compact index of already found resources.
+
+It explicitly receives neither the structured local package nor the complete
+accumulated dossier, prior tool history, other chapter guides, client scores, or
+internal project materials.
 
 Stable prompt:
 
-> Research Chapter `{chapter_id}` for the same ruler-period. Search directly and do the
-> substantive research; do not merely propose searches and do not score.
+> Research `{chapter subject}` under `{ruler}` in `{country}` during `{period}`.
 >
-> 1. Read the ten evidence lenses and researcher plan together as one thematic inquiry.
-> 2. Inspect the resource index, reuse useful sources, and do not treat it as exhaustive.
-> 3. Search broadly across primary, independent, favorable, adverse, contrary, archival,
->    and relevant local-language sources.
-> 4. Open promising underlying pages or reports and extract atomic claims with precise
->    locators, period fit, ruler attribution, contrary evidence, and lens mappings.
-> 5. Separate inherited conditions, country context, subordinate conduct, ruler choices,
->    implementation, outcomes, allegations, and formal findings.
-> 6. Continue until the chapter is reasonably saturated or explain the honest,
->    source-specific reason for a remaining gap.
+> Prepare a complete, carefully sourced account for researchers who will assess this
+> part of the ruler's record. Research the subject without assigning a score. Use the
+> questions below as different angles on the same subject. They identify important
+> evidence; they are not separate ratings, search quotas, or an arithmetic checklist.
 >
-> Preserve reusable sources and assign globally unique provisional IDs scoped to the
-> chapter. Update the ledger manifest for every retained, rejected, or changed item.
-> Report searches performed, sources opened, source-claim units retained, remaining
-> gaps, and why further searching would or would not add value.
+> Start by forming a working account of the ruler's formal and practical authority, the
+> inherited baseline, external shocks and constraints, and the important favorable,
+> adverse, disputed, and exculpatory possibilities raised by every selected question.
+> Treat the resource list as a starting point. Open an underlying source before using
+> it as evidence. Search primary and legal records, independent monitoring,
+> scholarship, reputable reporting, archives, relevant local-language material, and
+> credible favorable, adverse, and contrary interpretations.
+>
+> Continue while research produces a materially new fact, a stronger underlying
+> source, credible contrary evidence, an important missing perspective, or a necessary
+> correction. Conclude when additional searching mostly repeats what is already known.
+> There is no document or evidence-record quota.
 
-The chapter researcher is explicitly told that five to twenty defensible atomic
-source-claim units is a normal target, not a quota or validity threshold.
+There is no resource or evidence-record cap. Earlier numeric guidance is diagnostic,
+not a collection limit: retain every materially useful, defensible source-claim unit.
+A report containing distinct audit rows, programs, decisions, events, findings, or
+remedies requires a separate record and precise locator for each downstream fact.
+Research ends on reasoned saturation or a concrete blocker, not when a target count is
+reached.
 
-## 3. The Eight Chapter Question Sets
+## 4. The Eight Chapter Question Sets
 
 These are overlapping evidence lenses, not eighty scores and not an arithmetic
 checklist. The full guides add scope gates, exclusions, attribution rules, rubrics, and
 chapter-specific calibration.
 
-### 3.1 Chapter 1B — Nuclear and existential risk
+### 4.1 Chapter 1B — Nuclear and existential risk
 
 Full guide:
 [`1b-nuclear-existential-risk.md`](chapter-guides/1b-nuclear-existential-risk.md)
@@ -144,7 +217,7 @@ Research emphasis: exposure and authority; inherited capability; doctrine and ar
 change; command safety; treaties and inspections; threats and crises; proliferation;
 expert appointments; catastrophic dual-use policy; end-of-period posture.
 
-### 3.2 Chapter 2B — International peace
+### 4.2 Chapter 2B — International peace
 
 Full guide:
 [`2b-international-peace.md`](chapter-guides/2b-international-peace.md)
@@ -164,7 +237,7 @@ Research emphasis: inherited conflicts and threats; initiation and alternatives;
 objectives and justification; civilian conduct; proxies and arms recipients; public
 claims; negotiations; military patronage; accountability; end-state change.
 
-### 3.3 Chapter 3B — Domestic safety
+### 4.3 Chapter 3B — Domestic safety
 
 Full guide:
 [`3b-domestic-safety.md`](chapter-guides/3b-domestic-safety.md)
@@ -184,7 +257,7 @@ Research emphasis: physical-integrity abuse; aligned actors; ruler rhetoric; ove
 and remedies; emergency and surveillance powers; state versus non-state fear;
 vulnerable groups; protest treatment; crisis response; inherited-to-end safety.
 
-### 3.4 Chapter 4B — Political freedom
+### 4.4 Chapter 4B — Political freedom
 
 Full guide:
 [`4b-political-freedom.md`](chapter-guides/4b-political-freedom.md)
@@ -204,7 +277,7 @@ Research emphasis: election contestability; entrenchment; opposition and civic s
 checks and oversight; institutional capture; media and information; political equality;
 succession; digital controls; inherited-to-end trajectory.
 
-### 3.5 Chapter 5B — Economic wellbeing
+### 4.5 Chapter 5B — Economic wellbeing
 
 Full guide:
 [`5b-economic-wellbeing.md`](chapter-guides/5b-economic-wellbeing.md)
@@ -224,7 +297,7 @@ Research emphasis: goals and appointments; macro stability; market rules; captur
 productivity investment; evidence and correction; distribution; shocks; inherited
 trend; ruler-attributable implementation and outcomes.
 
-### 3.6 Chapter 6B — Social wellbeing
+### 4.6 Chapter 6B — Social wellbeing
 
 Full guide:
 [`6b-social-wellbeing.md`](chapter-guides/6b-social-wellbeing.md)
@@ -244,7 +317,7 @@ Research emphasis: welfare goals; access, coverage, quality, outcomes, and inequ
 vulnerable groups; professional delivery; evidence and correction; crises; political
 allocation; dignity; durability; inherited-to-end life chances.
 
-### 3.7 Chapter 7B — Personal integrity
+### 4.7 Chapter 7B — Personal integrity
 
 Full guide:
 [`7b-integrity.md`](chapter-guides/7b-integrity.md)
@@ -265,7 +338,7 @@ institutional weakness, associate conduct, or silence about scandal is context u
 connected to the ruler's own acts, benefit, knowledge, tolerance, concealment, remedy,
 or accountability choices.
 
-### 3.8 Chapter 8B — Effectiveness
+### 4.8 Chapter 8B — Effectiveness
 
 Full guide:
 [`8b-effectiveness.md`](chapter-guides/8b-effectiveness.md)
@@ -285,9 +358,9 @@ Research emphasis: freeze a broad portfolio of explicit or reliably revealed goa
 trace program, resources, appointments, mobilization, implementation, outcomes,
 adaptation, and durability. The moral worth of the program is scored elsewhere.
 
-## 4. Evidence Environment and Bias Questions
+## 5. Evidence Environment and Bias Questions
 
-### 4.1 Twelve dossier evidence-environment questions
+### 5.1 Twelve dossier evidence-environment questions
 
 The researcher reports these conditions; the formatter makes them complete and cited.
 The collector does not convert them into a score or apply a regime adjustment.
@@ -305,13 +378,14 @@ The collector does not convert them into a score or apply a regime adjustment.
 11. Which chapter-specific biases are material?
 12. Which evidence IDs support these conclusions?
 
-### 4.2 No-search evidence reviewer
+### 5.2 No-search evidence reviewer
 
 Executable source:
 [`evidence_review.py`](../../src/leaders_db/research/evidence_review.py)
 
-The reviewer receives the immutable ruler-period, selected chapters and lenses, compact
-local-evidence state, accumulated notebook, and ledger. It is instructed:
+The reviewer receives the immutable ruler-period, selected chapters and lenses,
+accumulated web notebook and ledger, plus compact local status/disposition information.
+It does not receive the full local fact payload and it cannot browse. It is instructed:
 
 > Review evidence quality and research completeness, not the ruler and not a future
 > score. Do not search. Treat exact coverage vocabulary and harmless formatting
@@ -335,28 +409,41 @@ Stable decision prompt:
 
 > Return the selected chapters exactly once with their concrete defects and recoverable
 > tasks. Do not prescribe a score or decide whether a judge should return numeric or
-> null. Terminal insufficiency is reserved for identity failure or evidence that remains
-> genuinely unusable after reasonable, documented attempts.
+> null. Missing evidence is not adverse ruler evidence. Terminal insufficiency is
+> reserved for identity failure or evidence that remains genuinely unusable after
+> reasonable, documented attempts.
 
-### 4.3 Research continuation
+An initial review may request a targeted continuation. A second review may request one
+final targeted continuation. The third review is terminal: it preserves all residual
+gaps and explicitly records exhausted rounds, but it cannot request endless research
+or pretend that exhaustion means completeness.
+
+### 5.3 Research continuation
 
 Executable source:
 [`notebook_continuation.py`](../../src/leaders_db/research/notebook_continuation.py)
 
-Stable prompt:
+Stable compact prompt:
 
-> Resume the same ruler research session for review round `{round_number}`. Search
-> directly and iteratively for every selected chapter. Follow event- and source-specific
-> leads; do not rely on one omnibus query or recent-news filters for historical work.
-> Expand the candidate pool with broad, archive, source-family, adverse/contrary, and
-> local-language queries. Open promising underlying sources and extract precise
-> locators. Add traceable source-claim units, preserve contrary evidence and attribution
-> limits, and explain when a gap cannot be improved or the chapter is saturated. Work
-> only on the immutable ruler-period and do not score.
+> Research the remaining evidence gaps for `{ruler}` governing `{country}` during
+> `{period}`. Search the web directly. The independent reviewer identified the
+> recoverable gaps and concrete source problems below. Previously found resources are
+> listed afterward. Do not repeat them unless you recover a stronger underlying source,
+> a missing precise locator, contrary evidence, or a materially distinct fact.
+>
+> Open the underlying source before accepting it. Keep allegations separate from
+> findings and country outcomes separate from ruler attribution. Continue until further
+> searches mostly repeat existing material or a concrete access blocker remains. There
+> is no evidence-count target. Return one machine record for each new or upgraded
+> source-claim.
 
-The complete structured reviewer brief is appended to that prompt.
+The continuation receives the reviewer brief and a bounded resource index. It does not
+receive the full local evidence package, repository context, all guides, or raw prior
+tool history. A persistent researcher session may be resumed when it is reliable;
+fresh compact continuation sessions are valid when they preserve stable global IDs and
+the cumulative parent ledger.
 
-### 4.4 Supervisor takeover
+### 5.4 Supervisor takeover
 
 This fallback is activated only when ordinary iterative research stalls on recoverable
 tasks. It receives the latest review report and the complete accumulated notebook.
@@ -371,7 +458,7 @@ Stable prompt:
 > responsibility is the relevant attribution. Do not score. Return a permissive research
 > handoff, not strict JSON, and do not merely describe research that should be done.
 
-## 5. Dossier Formatter
+## 6. Dossier Formatter
 
 Executable source:
 [`dossier_prompt.py`](../../src/leaders_db/research/dossier_prompt.py)  
@@ -381,8 +468,9 @@ Output contract:
 The formatter is a separate no-search, no-score agent. It receives:
 
 - immutable ruler identity and period;
-- applicable guide material;
-- compact local evidence and derived-signal summary;
+- applicable question IDs and formatting rules;
+- compact local methodology statuses and disposition/provenance summaries, without the
+  complete local fact or longitudinal-signal payload;
 - the completed research notebook and authoritative ledger manifest;
 - an existing candidate only during a repair attempt.
 
@@ -407,15 +495,28 @@ Its review questions and requirements are:
 10. Is every applicable lens given an evidence-backed disposition or an honest gap?
 11. Are all twelve evidence-environment questions answered with supporting E-IDs where available?
 12. Are bias risks, source concentration, reporting freedom, complaint volume, denominators, authority, shocks, and missingness warnings retained?
-13. Does the structured-prior summary match the actual local package?
+13. Does the structured-prior summary match the supplied compact status/disposition
+    summary, with the parent responsible for validation against the actual local
+    package?
 14. Does the dossier avoid statements that local priors were unavailable when they were supplied?
 15. Does the handoff avoid instructions to the judge about what score or null decision to make?
+16. Does every manifest-required final fact survive with every exact recorded lens
+    mapping?
+17. Do coverage rows reference declared evidence through mappings rather than serving
+    as an implicit substitute for missing mappings?
 
 The formatter must produce a dossier even when some fields need cautious normalization.
 It should reject the whole handoff only when identity or traceability is genuinely
 insufficient, not because exact wording, sequence, or coverage labels differ.
 
-## 6. Comparative Chapter Judges
+The receiver may infer an unambiguous mapping from an explicit coverage reference or
+restore a manifest-required fact from the accumulated notebook/recovery catalog. Every
+such repair is a normalization warning and a producer-quality failure, not silent
+success. The ten-case gate required 45 inferred lens mappings across eight dossiers
+and restored one Scholz fact; the formatter prompt and producer must be improved and
+the handoff gate repeated before full-cohort evaluation.
+
+## 7. Comparative Chapter Judges
 
 Executable shared prompt:
 [`chapter_judge_prompt.py`](../../src/leaders_db/research/chapter_judge_prompt.py)  
@@ -426,7 +527,9 @@ There are eight judge jobs, one for each chapter. They do **not** receive eight 
 hardcoded prompts. Each receives the shared prompt below plus:
 
 - the complete guide for its own chapter, including its ten questions and rubric;
-- every eligible ruler's compact, hash-bound projection for that chapter;
+- every eligible ruler's compact, hash-bound web projection for that chapter;
+- the independently built bounded chapter-local `LF*` facts and `LS*` longitudinal
+  signals, with observation provenance and warnings;
 - the unavailable-dossier manifest;
 - run-scoped audit corrections, if any;
 - a repair note when a previous candidate failed semantic validation.
@@ -434,12 +537,12 @@ hardcoded prompts. Each receives the shared prompt below plus:
 The judge never receives the client scores and may not browse, search, read local files,
 or add remembered facts.
 
-### 6.1 Shared judge prompt
+### 7.1 Shared judge prompt
 
 > Judge every dossier in the manifest using one common meter. The ten questions are
 > overlapping evidence lenses, not ten scores and not an arithmetic checklist. Read
-> each compact projection in full and use only its cited evidence and local-prior
-> summaries.
+> each compact projection in full and use only its cited web evidence and supplied
+> local evidence package.
 >
 > First inspect the whole batch and establish low, middle, high, and edge anchors. Then
 > score every available dossier exactly once. Missing lenses reduce confidence and widen
@@ -455,6 +558,11 @@ or add remembered facts.
 > attribution without proof of a personal order. Chapter 7B requires a personal-integrity
 > nexus. Shared authority affects weight and confidence rather than automatically
 > erasing evidence.
+>
+> Treat `LF*` facts and `LS*` signals as structured country context unless cited web
+> evidence supports ruler attribution. Never rewrite them as `E*` web citations, never
+> let a derived signal change a score mechanically, and never treat absent local data
+> as a favorable result.
 >
 > Before scoring each ruler:
 >
@@ -476,7 +584,7 @@ words, explaining the overall appraisal, main favorable and adverse cases, disti
 between proven facts and allegations/context/uncertain attribution, and why materially
 higher and lower anchors were rejected.
 
-### 6.2 Required judge bias assessment
+### 7.2 Required judge bias assessment
 
 Every ruler evaluation must answer:
 
@@ -491,7 +599,7 @@ Every ruler evaluation must answer:
 9. Was closed-system silence avoided as favorable evidence?
 10. Were open-system disclosure and effective remedy avoided as extra misconduct?
 
-### 6.3 Chapter-specific prompt received by each judge
+### 7.3 Chapter-specific prompt received by each judge
 
 | Judge | Additional guide questions and mandatory calibration focus |
 |---|---|
@@ -504,7 +612,7 @@ Every ruler evaluation must answer:
 | 7B judge | Questions 7B.1-7B.10; direct personal nexus, allegation/finding distinction, benefit, knowledge, correction, concealment, obstruction, nepotism, and truthfulness |
 | 8B judge | Questions 8B.1-8B.10; frozen program portfolio, program basis and type, operationalization, mobilization, implementation, adaptation, goal progress, durability, causal attribution, and explicit moral separation |
 
-### 6.4 Required judge output questions
+### 7.4 Required judge output questions
 
 For each ruler the output contract requires the judge to resolve:
 
@@ -521,24 +629,60 @@ For each ruler the output contract requires the judge to resolve:
 11. Is manual review required for a concrete score-material issue?
 12. What chapter-specific fields required by the active guide apply?
 
-## 7. Prompt Payload Boundaries
+## 8. Prompt Payload Boundaries
 
 To keep model context useful rather than merely large:
 
-- reconnaissance receives a compact local briefing, not the full local package;
+- the parent owns the complete hash-verified local artifact throughout;
+- reconnaissance receives only a deliberately small orientation briefing, not the
+  complete local package or yearly series;
 - chapter research receives one chapter guide, a bounded recon summary, and a resource
-  index, not the complete accumulated dossier;
+  index, not local facts, the complete accumulated dossier, or raw tool history;
 - the reviewer receives the notebook and ledger because it must audit completeness but
-  cannot browse;
-- continuation receives only the reviewer brief in the same persistent research
-  session;
+  cannot browse; local input is limited to status/disposition context;
+- continuation receives the reviewer brief and bounded prior-resource index, not the
+  complete notebook or local package;
 - the formatter receives the complete research handoff because it must preserve and
-  normalize it, but cannot research or score;
-- each judge receives only its chapter projections across rulers, not eight full
-  dossiers and not other chapters;
+  normalize it, plus compact local dispositions but not local fact payloads;
+- each judge receives only its chapter web projections and independently built bounded
+  local packages across rulers, not eight full dossiers and not other chapters;
 - client scores never enter researcher, formatter, or judge prompts.
 
-## 8. Drift Review Checklist
+## 9. Token and Quality Profiling
+
+Every model call from initial web research through final judging must preserve
+provider-reported input, cached-input where exposed, output, and reasoning tokens.
+Reports must also retain explicit prompt bytes so prompt size is not confused with
+provider-side browsing/tool context.
+
+The validated ten-case gate measured:
+
+| Phase | Calls | Input tokens | Output tokens |
+|---|---:|---:|---:|
+| Web research | 30 | 19,154,134 | 223,947 |
+| No-search evidence review | 30 | 1,658,809 | 70,320 |
+| Dossier formatting | 10 | 633,861 | 160,416 |
+| Chapter judging | 8 | 614,914 | 29,824 |
+
+The compact continuation prompts were approximately 10–23 KB, yet browser-enabled
+research remained the dominant token consumer because search results, opened sources,
+and provider tool context enter usage. Therefore:
+
+1. do not diagnose researcher bloat from total input tokens alone;
+2. report explicit prompt bytes, cached input, searches, opened sources, accepted
+   records, defensible-record estimates, and independent source-family estimates;
+3. optimize redundant searching and repeated source opening without imposing an
+   evidence cap or discouraging contrary evidence;
+4. compare quality and cost on the same frozen cases before promoting a prompt;
+5. profile formatter and judge phases separately rather than attributing their input
+   to research.
+
+The gate improved the preserved first-pass ledgers from 163 to 344 records, with 318
+surviving strict formatting and terminal reviewers estimating 25–37 defensible
+source-claims across 10–20 source families per case. These are diagnostics, not quotas
+or guarantees that every residual theme was resolved.
+
+## 10. Drift Review Checklist
 
 When a prompt or guide changes:
 
@@ -548,4 +692,7 @@ When a prompt or guide changes:
 4. verify all eighty lens IDs and texts against the guides;
 5. verify the twelve evidence-environment questions and judge bias fields;
 6. render representative prompts and confirm payload boundaries and token profiles;
-7. run the affected prompt, schema, reviewer, formatter, and judge tests.
+7. run the affected prompt, schema, reviewer, formatter, and judge tests;
+8. inspect producer normalization warnings and fail promotion when receiver recovery
+   hides a repeated producer defect;
+9. preserve a curated, checksum-manifested experiment bundle for every promotion gate.
