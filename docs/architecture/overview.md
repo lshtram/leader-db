@@ -531,10 +531,14 @@ resumable without stale-worker writes. Eight chapter-judge jobs and their
 eligible ruler-dossier dependencies are created atomically. Judges cannot be
 claimed until usable dependencies finish; terminal unavailable dossiers are
 reconciled into the judge's missing-case manifest instead of blocking forever.
-The executable judge reads those completed dossier artifacts and its versioned
-chapter guide without performing new discovery. Parent-side validation requires
-one evaluation per available dossier and checks every decisive evidence ID
-against that dossier. The immutable batch artifact records model and token usage;
+The executable judge reads those completed web-dossier artifacts, an independently
+built and hash-verified chapter-local evidence package, and its versioned chapter
+guide without performing new discovery. Parent-side validation requires one
+evaluation per available dossier and checks every decisive web (`E*`) and local
+(`LF*`/`LS*`) evidence ID against its own provenance family. The immutable batch
+artifact records model and token usage. Local country facts can establish level,
+trajectory, baseline, or uncertainty, but a numeric ruler score still requires a
+decisive cited `E*` record establishing the relevant ruler authority or nexus;
 all `chapter_scores` rows and ledger completion commit atomically under the active
 lease token, preventing stale or partial publication.
 
@@ -552,22 +556,40 @@ advisory context at each selected chapter boundary. This preserves the source re
 without claiming lens relevance; the chapter judge applies the guide's scope gates.
 
 Dossier research uses the versioned controls in `configs/research-workflow.yaml`.
-Before research, parent-side `local_structured_prior_v2` extraction covers every
-selected lens across all eight chapters and persists the complete hashed artifact.
-The parent keeps the complete deduplicated local package and its source-observation
-provenance. Reconnaissance receives only a short orientation: chapter-level counts,
-at most two representative facts per chapter, material warnings and gaps, and a
-source-family index. It does not receive the complete fact payload, full methodology,
-or all eight chapter guides. Its prompt is self-contained natural language and the
+Local and web evidence follow independent paths:
+
+```text
+structured sources -> local evidence builder -> hashed full artifact
+                                      |       -> bounded LF/LS chapter package -> judge
+web search -> researcher -> reviewer -> formatter -> cited web dossier ----------^
+```
+
+Before web research, the separate parent-side `local_structured_prior_v2` builder
+covers every selected lens across all eight chapters and persists the complete
+hashed artifact. It retains the deduplicated fact payload, original observation
+IDs, source locators, units, warnings, routing, longitudinal calculations, and
+attribution limits. At projection time, parent code independently verifies that
+artifact and derives the bounded chapter package that the judge receives. This
+delivery path does not depend on the researcher mentioning a local fact or the
+formatter copying it into the web dossier. An unavailable, malformed, or
+hash-mismatched package stays explicitly unavailable or invalid; it can lower
+confidence but does not discard otherwise usable web evidence.
+
+Reconnaissance receives only a short orientation: chapter-level counts, at most
+two representative facts per chapter, material warnings and gaps, and a
+source-family index. This is context for directing web searches, not a local
+evidence-building assignment. It does not receive the complete fact payload, full
+methodology, or all eight chapter guides. Its prompt is self-contained natural language and the
 execution role cannot read project files or rules, invoke a shell, or use apps, plugins,
 subagents, or goals. It searches until informational saturation rather than stopping at
 an evidence-count ceiling, preserves useful sources by source state, and emits one
-atomic record per underlying fact with a machine-recoverable appendix. Each resumed
+machine-recoverable record per source-claim; corroborating records share an
+`underlying_fact_key` so repeated coverage does not become false independence. Each resumed
 chapter turn receives only that chapter's
 ten questions and researcher note. The formatter receives a compact disposition index,
-and deterministic parent code restores the complete hashed provenance. Missing facts
-remain explicit gaps and country-level indicators are not automatically attributed
-to the ruler.
+but never owns, reconstructs, or web-cites local facts. Missing facts remain
+explicit gaps and country-level indicators are not automatically attributed to the
+ruler.
 The feature-gated segmented research mode works through
 chapters 1B–8B and their lenses in order. It begins with one broad ruler-period
 reconnaissance. Each chapter then starts a fresh compact session containing only its

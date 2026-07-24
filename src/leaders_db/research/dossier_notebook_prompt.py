@@ -95,8 +95,10 @@ Organize the result as:
 Make the overview and final research plan concise. Put factual detail in the evidence
 records, state repeated facts once, and make clear which sources were actually opened.
 
-Here is the factual background already available from statistical and institutional
-datasets:
+The parent workflow has already prepared the following small orientation briefing from
+its structured local-data package. The complete package, observation provenance, and
+chapter routing remain parent-owned. Use this briefing to orient web research; local
+evidence preparation and re-fetching are outside this research assignment.
 
 {json.dumps(briefing, separators=(",", ":"), sort_keys=True, default=str)}
 

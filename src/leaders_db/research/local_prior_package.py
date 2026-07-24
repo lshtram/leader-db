@@ -6,7 +6,7 @@ import json
 from collections import Counter
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .local_longitudinal import LocalLongitudinalSignal, derive_longitudinal_signals
 from .local_prior_schema import LocalPriorFact
@@ -77,6 +77,51 @@ class CompactLocalPriorPackage(BaseModel):
     facts: tuple[CompactLocalFact, ...]
     longitudinal_signals: tuple[LocalLongitudinalSignal, ...]
     chapters: tuple[CompactChapterPrior, ...]
+
+
+class JudgeLocalEvidencePackage(BaseModel):
+    """Parent-built chapter-local evidence supplied directly to the judge."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["ruler_local_judge_package_v1"] = (
+        "ruler_local_judge_package_v1"
+    )
+    chapter_id: str = Field(pattern=r"^[1-8]B$")
+    methodology_ids: tuple[str, ...] = Field(min_length=10, max_length=10)
+    methodology_statuses: dict[str, str]
+    facts: tuple[CompactLocalFact, ...]
+    facts_included: int = Field(ge=0)
+    facts_omitted: int = Field(ge=0)
+    fact_selection: str
+    longitudinal_signals: tuple[LocalLongitudinalSignal, ...]
+    mapping_notes: tuple[str, ...]
+    attribution_policy: str = (
+        "Local facts and derived signals are country-level structured context. "
+        "They establish ruler credit or blame only when separate cited evidence "
+        "supports attribution."
+    )
+
+    @model_validator(mode="after")
+    def _validate_local_package(self) -> JudgeLocalEvidencePackage:
+        expected = tuple(f"{self.chapter_id}.{index}" for index in range(1, 11))
+        if self.methodology_ids != expected:
+            raise ValueError(
+                "judge local evidence must contain all ten chapter lenses in order"
+            )
+        if set(self.methodology_statuses) != set(expected):
+            raise ValueError(
+                "judge local evidence statuses must cover the complete chapter"
+            )
+        if self.facts_included != len(self.facts):
+            raise ValueError("judge local evidence fact count does not reconcile")
+        if any(
+            self.chapter_id not in fact.chapter_ids
+            or not set(fact.candidate_methodology_ids).intersection(expected)
+            for fact in self.facts
+        ):
+            raise ValueError("judge local evidence fact is routed outside the chapter")
+        return self
 
 
 def compact_local_priors(
@@ -253,6 +298,65 @@ def summarize_local_priors_for_research(
     return summary
 
 
+def build_local_judge_package(
+    local_priors: tuple[dict[str, Any], ...],
+    *,
+    chapter_id: str,
+) -> JudgeLocalEvidencePackage:
+    """Build the bounded local package that bypasses web research and formatting."""
+
+    normalized_chapter = chapter_id.strip().upper()
+    methodology_ids = tuple(
+        f"{normalized_chapter}.{index}" for index in range(1, 11)
+    )
+    package = compact_local_priors(local_priors)
+    chapter = next(
+        (
+            item
+            for item in package.chapters
+            if item.chapter_id == normalized_chapter
+        ),
+        None,
+    )
+    if chapter is None or chapter.methodology_ids != methodology_ids:
+        raise ValueError(
+            f"local evidence does not cover the complete {normalized_chapter} chapter"
+        )
+    chapter_fact_ids = set(chapter.fact_ids)
+    chapter_facts = tuple(
+        fact for fact in package.facts if fact.fact_id in chapter_fact_ids
+    )
+    selected_ids = _research_fact_ids(chapter_facts)
+    selected_facts = tuple(
+        fact for fact in chapter_facts if fact.fact_id in selected_ids
+    )
+    chapter_fields = {fact.field_key for fact in chapter_facts}
+    signals = tuple(
+        signal
+        for signal in package.longitudinal_signals
+        if signal.field_key in chapter_fields
+    )
+    return JudgeLocalEvidencePackage(
+        chapter_id=normalized_chapter,
+        methodology_ids=methodology_ids,
+        methodology_statuses={
+            methodology_id: package.methodology_statuses.get(
+                methodology_id, "error"
+            )
+            for methodology_id in methodology_ids
+        },
+        facts=selected_facts,
+        facts_included=len(selected_facts),
+        facts_omitted=len(chapter_facts) - len(selected_facts),
+        fact_selection=(
+            "All target-year facts plus earliest/latest pre-accession and tenure facts "
+            "per indicator; complete hashed source package remains parent-owned."
+        ),
+        longitudinal_signals=signals,
+        mapping_notes=chapter.mapping_notes,
+    )
+
+
 def build_local_research_briefing(
     local_priors: tuple[dict[str, Any], ...],
     *,
@@ -390,6 +494,8 @@ __all__ = [
     "CompactLocalFact",
     "CompactLocalPriorPackage",
     "CompactMethodologyDisposition",
+    "JudgeLocalEvidencePackage",
+    "build_local_judge_package",
     "build_local_research_briefing",
     "compact_local_priors",
     "summarize_local_priors_for_formatter",

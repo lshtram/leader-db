@@ -10,6 +10,9 @@ from leaders_db.research.codex_worker import (
     _checkpoint_covers_chapters,
     _recover_consumer_materials,
 )
+from leaders_db.research.notebook_continuation import (
+    _append_current_ledger_manifest,
+)
 from leaders_db.research.research_workflow import ResearchWorkflow
 
 
@@ -22,7 +25,7 @@ def _workflow() -> ResearchWorkflow:
     )
 
 
-def test_chapter_prompt_requires_measurable_opened_source_research() -> None:
+def test_chapter_prompt_uses_natural_saturation_based_research() -> None:
     prompt = build_chapter_research_prompt(
         job={
             "ruler_name": "Test Ruler",
@@ -45,18 +48,25 @@ def test_chapter_prompt_requires_measurable_opened_source_research() -> None:
         ),
     )
 
-    assert "about 30 plausible documents" in prompt
-    assert "open at least 12 promising underlying" in prompt
-    assert "Selected lenses: [\"3B.1\", \"3B.2\"]" in prompt
-    assert "Do not stop at search snippets" in prompt
+    assert "There is no document or evidence-record quota." in prompt
+    assert (
+        "Use only `final_evidence`, `context`, or `discovery_only` for both "
+        "`disposition` and" in prompt
+    )
+    assert "one machine record for one source supporting one material claim" in prompt
+    assert "shared `underlying_fact_key`" in prompt
+    assert "Continue while research produces a materially new fact" in prompt
+    assert "exact supported question IDs from\n[\"3B.1\", \"3B.2\"]" in prompt
+    assert "Open an underlying source before using it" in prompt
     assert "SOURCE_CLAIM_JSON:" in prompt
     assert "Known lead" in prompt
-    assert "fresh compact chapter session" in prompt
-    assert "WEB-3B-001" in prompt
+    assert "WEB-3B-" in prompt
+    assert "structured local-data package is prepared and retained separately" in prompt
+    assert "Earlier web reconnaissance" in prompt
     assert len(prompt) < 15_000
 
 
-def test_chapter_prompt_requires_cumulative_manifest_and_residual_gap_audit() -> None:
+def test_chapter_prompt_requires_parent_merge_and_residual_gap_audit() -> None:
     prompt = build_chapter_research_prompt(
         job={
             "ruler_name": "Test Ruler",
@@ -70,10 +80,10 @@ def test_chapter_prompt_requires_cumulative_manifest_and_residual_gap_audit() ->
         workflow=_workflow(),
     )
 
-    assert "cumulative `research-ledger-manifest.json`" in prompt
-    assert "chapter-only fragment" in prompt
-    assert "exact residual gaps" in prompt
-    assert "why another chapter-specific search wave would or would not" in prompt
+    assert "parent workflow merges these append-only records" in prompt
+    assert "disposition for every selected question" in prompt
+    assert "whether more research is likely to add material information" in prompt
+    assert "complete ledger" in prompt
 
 
 def test_chapter_prompt_excludes_judge_only_guide_sections() -> None:
@@ -97,6 +107,62 @@ def test_chapter_prompt_excludes_judge_only_guide_sections() -> None:
     assert "Research question" in prompt
     assert "Use primary records" in prompt
     assert "Judge-only token hog" not in prompt
+
+
+def test_d_style_machine_record_survives_parent_ledger_merge(
+    tmp_path: Path,
+) -> None:
+    attempt_dir = tmp_path / "job" / "attempts" / "001-current"
+    trusted_dir = tmp_path / "job" / "trusted" / "001-current"
+    attempt_dir.mkdir(parents=True)
+    trusted_dir.mkdir(parents=True)
+    attempt = WorkerAttempt(
+        attempt_dir=attempt_dir,
+        trusted_dir=trusted_dir,
+        result_path=attempt_dir / "dossier.json",
+        schema_path=trusted_dir / "schema.json",
+        prompt_path=attempt_dir / "prompt.txt",
+        pending_path=attempt_dir / "pending.json",
+        events_path=trusted_dir / "events.jsonl",
+        existing_candidate=None,
+        local_priors=(),
+        local_prior_provenance=(),
+    )
+    record = {
+        "title": "Primary record",
+        "publisher": "Example Court",
+        "publication_date": "2022-06-01",
+        "url": "https://example.test/judgment",
+        "claim": "The court issued a final finding.",
+        "locator": "paragraph 42",
+        "provisional_id": "WEB-7B-001",
+        "canonical_fact_key": (
+            "https://example.test/judgment|paragraph 42|final finding"
+        ),
+        "underlying_fact_key": "example-final-finding",
+        "disposition": "final_evidence",
+        "chapter_ids": ["7B"],
+        "methodology_ids": ["7B.1", "7B.6"],
+        "source_type": "legal",
+        "source_confidence": "high",
+        "source_confidence_reason": "Opened final judgment.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target period",
+        "ruler_attribution": "direct",
+        "contrary_evidence": [],
+        "lenses": ["7B.1", "7B.6"],
+    }
+    notebook = "SOURCE_CLAIM_JSON: " + json.dumps(record, separators=(",", ":"))
+
+    merged = _append_current_ledger_manifest(notebook, attempt)
+
+    manifest = json.loads(
+        (attempt_dir / "research-ledger-manifest.json").read_text(encoding="utf-8")
+    )
+    assert manifest["entries"] == [record]
+    assert record["canonical_fact_key"] in merged
+    assert record["locator"] in merged
+    assert record["methodology_ids"] == manifest["entries"][0]["methodology_ids"]
 
 
 def test_chapter_recovery_requires_same_session_mode(tmp_path: Path) -> None:

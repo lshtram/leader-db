@@ -8,9 +8,10 @@ it is a planning guard, not provider billing telemetry or an exact tokenizer.
 from __future__ import annotations
 
 import json
+from hashlib import sha256
 from math import ceil
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -21,6 +22,10 @@ from .dossier_models import (
     EvidenceQuestionMapping,
     QuestionCoverage,
     RulerEvidenceDossier,
+)
+from .local_prior_package import (
+    JudgeLocalEvidencePackage,
+    build_local_judge_package,
 )
 
 CONSERVATIVE_BYTES_PER_TOKEN = 3
@@ -42,6 +47,47 @@ class ChapterRunProvenance(BaseModel):
         default=None, pattern=r"^[0-9a-f]{64}$"
     )
     source_mix_note: str = Field(min_length=1)
+
+
+class ChapterLocalEvidenceInput(BaseModel):
+    """Hash-verified local evidence routed directly from its parent artifact."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    status: Literal["available", "unavailable", "invalid"]
+    artifact_path: str | None
+    artifact_sha256: str | None = Field(
+        default=None, pattern=r"^[0-9a-f]{64}$"
+    )
+    package: JudgeLocalEvidencePackage | None
+    error: str | None
+
+    @model_validator(mode="after")
+    def _coherent_status(self) -> ChapterLocalEvidenceInput:
+        if self.status == "available" and (
+            self.package is None
+            or self.artifact_path is None
+            or self.artifact_sha256 is None
+            or self.error is not None
+        ):
+            raise ValueError("available local evidence requires a verified package")
+        if self.status != "available" and (
+            self.package is not None or not self.error
+        ):
+            raise ValueError("unavailable local evidence requires an explicit error")
+        return self
+
+
+def _legacy_unavailable_local_evidence() -> ChapterLocalEvidenceInput:
+    """Keep preserved v1 projections readable without inventing local facts."""
+
+    return ChapterLocalEvidenceInput(
+        status="unavailable",
+        artifact_path=None,
+        artifact_sha256=None,
+        package=None,
+        error="legacy projection does not embed a direct local-evidence package",
+    )
 
 
 class RulerChapterProjection(BaseModel):
@@ -68,6 +114,9 @@ class RulerChapterProjection(BaseModel):
     mappings: tuple[EvidenceQuestionMapping, ...]
     coverage: tuple[QuestionCoverage, ...] = Field(min_length=10, max_length=10)
     local_priors: tuple[DossierLocalPrior, ...] = Field(min_length=10, max_length=10)
+    local_evidence: ChapterLocalEvidenceInput = Field(
+        default_factory=_legacy_unavailable_local_evidence
+    )
     evidence_environment: EvidenceEnvironmentAssessment
     unresolved_gaps: tuple[str, ...]
     contextual_discovery_only_evidence_ids: tuple[str, ...] = ()
@@ -200,6 +249,10 @@ def build_ruler_chapter_projection(
         if item.methodology_id in selected
     }
     local_priors = tuple(local_prior_by_id[item] for item in methodology_ids)
+    local_evidence = _load_local_evidence(
+        local_priors=local_priors,
+        chapter_id=normalized_chapter,
+    )
     run_profile = dossier.run_profile
     payload = {
         "schema_version": "ruler_chapter_projection_v1",
@@ -221,6 +274,7 @@ def build_ruler_chapter_projection(
         "mappings": mappings,
         "coverage": coverage,
         "local_priors": local_priors,
+        "local_evidence": local_evidence,
         "evidence_environment": dossier.evidence_environment,
         "unresolved_gaps": dossier.unresolved_gaps,
         "contextual_discovery_only_evidence_ids": tuple(sorted(discovery_relations)),
@@ -238,6 +292,85 @@ def build_ruler_chapter_projection(
     }
     payload["estimated_input_tokens"] = _estimate_json_tokens(payload)
     return RulerChapterProjection.model_validate(payload)
+
+
+def _load_local_evidence(
+    *,
+    local_priors: tuple[DossierLocalPrior, ...],
+    chapter_id: str,
+) -> ChapterLocalEvidenceInput:
+    """Load and compact one hash-bound parent artifact without using web output."""
+
+    artifact_pairs = {
+        (item.artifact_path, item.artifact_sha256) for item in local_priors
+    }
+    if len(artifact_pairs) != 1:
+        return ChapterLocalEvidenceInput(
+            status="invalid",
+            artifact_path=None,
+            artifact_sha256=None,
+            package=None,
+            error="chapter local-prior provenance references multiple artifacts",
+        )
+    artifact_path, expected_sha256 = next(iter(artifact_pairs))
+    path = Path(artifact_path)
+    if not path.is_file():
+        return ChapterLocalEvidenceInput(
+            status="unavailable",
+            artifact_path=artifact_path,
+            artifact_sha256=expected_sha256,
+            package=None,
+            error="parent local-evidence artifact is unavailable",
+        )
+    try:
+        encoded = path.read_bytes()
+    except OSError as exc:
+        return ChapterLocalEvidenceInput(
+            status="unavailable",
+            artifact_path=artifact_path,
+            artifact_sha256=expected_sha256,
+            package=None,
+            error=f"parent local-evidence artifact could not be read: {exc}",
+        )
+    if sha256(encoded).hexdigest() != expected_sha256:
+        return ChapterLocalEvidenceInput(
+            status="invalid",
+            artifact_path=artifact_path,
+            artifact_sha256=expected_sha256,
+            package=None,
+            error="parent local-evidence artifact hash does not match provenance",
+        )
+    try:
+        payload = json.loads(encoded)
+        if not isinstance(payload, list):
+            raise ValueError("local-evidence artifact must contain a list")
+        package = build_local_judge_package(
+            tuple(_require_mapping(item) for item in payload),
+            chapter_id=chapter_id,
+        )
+    except (json.JSONDecodeError, TypeError, ValueError) as exc:
+        return ChapterLocalEvidenceInput(
+            status="invalid",
+            artifact_path=artifact_path,
+            artifact_sha256=expected_sha256,
+            package=None,
+            error=f"parent local-evidence artifact is invalid: {exc}",
+        )
+    return ChapterLocalEvidenceInput(
+        status="available",
+        artifact_path=artifact_path,
+        artifact_sha256=expected_sha256,
+        package=package,
+        error=None,
+    )
+
+
+def _require_mapping(value: Any) -> dict[str, Any]:
+    """Return one local-prior object or reject malformed artifact content."""
+
+    if not isinstance(value, dict):
+        raise ValueError("local-evidence artifact entries must be objects")
+    return value
 
 
 def estimate_chapter_projection_batch_context(
@@ -307,6 +440,7 @@ def _json_default(value: object) -> object:
 
 __all__ = [
     "CONSERVATIVE_BYTES_PER_TOKEN",
+    "ChapterLocalEvidenceInput",
     "ChapterProjectionBatchEstimate",
     "ChapterRunProvenance",
     "RulerChapterProjection",

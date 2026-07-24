@@ -197,82 +197,123 @@ def build_chapter_research_prompt(
     resource_index: tuple[dict[str, Any], ...] = (),
     reconnaissance_summary: str = "",
 ) -> str:
-    """Build a measurable deep-research prompt for one chapter turn."""
+    """Build the validated natural-language deep-research prompt."""
 
+    del workflow
     selected_lenses = [
         item
         for item in job["input"]["question_ids"]
         if str(item).startswith(f"{chapter_id}.")
     ]
     compact_guide = _compact_chapter_guide(guide)
-    session_note = (
-        "This is a fresh compact chapter session."
-        if workflow.chapter_session_mode == "fresh_compact_context"
-        else "This resumes the ruler-period research thread."
+    subject = _chapter_subject(guide, chapter_id)
+    identity = (
+        f'{subject} under {job["ruler_name"]} in {job["country_name"]} '
+        f'during {job["period_start_year"]}-{job["period_end_year"]}'
     )
-    return f"""Research Chapter {chapter_id} for the same ruler-period.
-Do not score and do not research another chapter during this turn.
+    return f"""Research {identity}.
 
-Ruler-period: {job["ruler_name"]}, {job["country_name"]},
-{job["period_start_year"]}-{job["period_end_year"]}.
-Selected lenses: {json.dumps(selected_lenses)}
-Evidence-environment and authority briefing:
-{reconnaissance_summary}
+Prepare a complete, carefully sourced account for researchers who will assess this part
+of the ruler's record. Research the subject without assigning a score.
 
-Chapter questions and research note:
+Use the questions below as different angles on the same subject. They identify important
+evidence; they are not separate ratings, search quotas, or an arithmetic checklist.
+
 {compact_guide}
 
-Known resource index from prior turns:
+Earlier web reconnaissance produced this short briefing about authority, reporting
+conditions, statistics, source concentration, and possible distortions:
+
+{reconnaissance_summary}
+
+The structured local-data package is prepared and retained separately by the parent
+workflow. It is not reproduced here and does not need to be rebuilt or re-fetched.
+
+These web resources were found in earlier research and may be useful:
+
 {json.dumps(resource_index, separators=(",", ":"), sort_keys=True)}
 
-{session_note} The index is a lead list, not evidence by
-itself. Open any reused source needed for this chapter and verify its claim and locator.
-Do not count reused records as newly discovered documents. The parent owns the complete
-ledger and will merge this turn deterministically.
+Start by forming a working account of the ruler's formal and practical authority, the
+inherited baseline, external shocks and constraints, and the important favorable,
+adverse, disputed, and exculpatory possibilities raised by every selected question.
 
-Run a complete chapter research wave:
+Treat the resource list as a starting point. Open an underlying source before using it
+as evidence, including a source found earlier. Search primary and legal records,
+independent monitoring, scholarship, reputable reporting, archives, relevant
+local-language material, and credible favorable, adverse, and contrary interpretations.
+Look for direct ruler statements, decisions, implementation, outcomes, correction or
+remedy, and evidence that challenges an initially plausible conclusion.
 
-1. Use broad, event-specific, institution/archive, adverse or contrary, and
-   local-language discovery queries.
-2. Inspect about {workflow.chapter_candidate_document_target} plausible documents and
-   open at least {workflow.chapter_opened_document_target} promising underlying pages,
-   reports, legal records, or PDFs when accessible.
-3. Retain 5-20 defensible source-claim units, normally about 10, from at least three
-   source organizations and two source types when the evidence permits.
-4. Include both favorable and adverse or limiting evidence, target-period fit,
-   inherited conditions, practical authority, and contrary interpretations.
-5. Do not stop at search snippets. Open the source and record a page, section,
-   paragraph, table, legal provision, transcript timestamp, or short exact excerpt.
-6. Check every selected lens. An empty lens requires its own source-landscape search
-   and recorded rejection or access-blocker reason.
+Continue while research produces a materially new fact, a stronger underlying source,
+credible contrary evidence, an important missing perspective, or a necessary
+correction. Conclude when additional searching mostly repeats what is already known.
+There is no document or evidence-record quota.
 
-For every newly accepted unit, include one physical line outside code fences:
-SOURCE_CLAIM_JSON: {{"title":"...","publisher":"...","publication_date":"...",
-"url":"https://...","claim":"one material claim","locator":"precise locator",
-"provisional_id":"E...","canonical_fact_key":"canonical URL|locator|claim",
-"disposition":"final_evidence|context|discovery_only",
-"chapter_ids":["{chapter_id}"],"methodology_ids":["{chapter_id}.1"],
-"source_type":"...","source_confidence":"...","source_confidence_reason":"...",
-"final_evidence_use":"final_evidence|context|discovery_only","period_fit":"...",
-"ruler_attribution":"...","contrary_evidence":["..."],
-"lenses":["{chapter_id}.1"]}}
+Write one machine record for one source supporting one material claim. Give records
+about the same underlying fact or event a shared `underlying_fact_key`, while keeping
+their distinct URLs, locators, publication dates, and evidentiary status. State when
+apparently independent reports depend on the same investigation, dataset, wire story,
+official claim, or event.
 
-Use the provisional-ID namespace `WEB-{chapter_id}-001`, `WEB-{chapter_id}-002`, and
-so on. Never use an unscoped ID such as `E001`.
+Each developed record contains:
 
-Before finishing, update the cumulative `research-ledger-manifest.json` in the writable
-attempt directory. It must retain every prior entry and add this turn's entries; never
-replace it with a chapter-only fragment. If file writing fails, include a cumulative
-manifest in the response. Finish with:
+- a short name and one precise factual claim;
+- why the fact matters to the selected questions;
+- source title, publisher, date, direct URL, and stable locator;
+- target-period, inherited, or later-retrospective status;
+- direct, authority-based, institutional, shared, limited, or unknown attribution;
+- credible contrary or limiting evidence;
+- source limitations and dependencies;
+- exact question IDs supported; and
+- separately identified independent corroboration.
 
-- documents discovered, opened, accepted, rejected, and access-blocked;
-- new and reused evidence counts;
-- distinct organizations and source types;
-- lens coverage and exact residual gaps;
-- why another chapter-specific search wave would or would not have material value.
+Keep fully extracted evidence, opened corroboration, reused evidence, uninspected leads,
+rejected sources, and access-blocked sources separate. An unanswered question gets an
+honest source-landscape summary.
 
-Do the searches now. Do not return a plan for later research.
+Return:
+
+1. a concise authority, baseline, shock, and information-environment orientation;
+2. a compact evidence index listing each record ID, fact name, and why it matters;
+3. a disposition for every selected question, citing records or explaining the gap;
+4. separate corroboration, reused-source, uninspected-lead, rejected, and blocked lists;
+5. counts of sources discovered, opened, accepted, reused, rejected, and blocked;
+6. remaining questions and whether more research is likely to add material information;
+7. the machine records below.
+
+Keep the compact index short and put each complete record only in its machine line.
+
+For every developed record, include one physical line outside code fences beginning
+`SOURCE_CLAIM_JSON:`. The remainder is a valid JSON object containing `title`,
+`publisher`, `publication_date`, `url`, `claim`, `locator`, `provisional_id`,
+`canonical_fact_key`, `disposition`, `chapter_ids`, `methodology_ids`, `source_type`,
+`source_confidence`, `source_confidence_reason`, `final_evidence_use`, `period_fit`,
+`ruler_attribution`, `contrary_evidence`, `underlying_fact_key`, and `lenses`.
+
+Use only `final_evidence`, `context`, or `discovery_only` for both `disposition` and
+`final_evidence_use`. Put rejected and uninspected sources in their separate lists
+rather than emitting them as accepted machine records.
+
+Use unique IDs beginning `WEB-{chapter_id}-`, use `{chapter_id}` as the chapter label,
+and include the exact supported question IDs from
+{json.dumps(selected_lenses)}. The parent workflow merges these append-only records into
+the complete ledger.
 """
+
+
+def _chapter_subject(guide: str, chapter_id: str) -> str:
+    """Return the chapter's plain-language subject from its title."""
+
+    first_line = next(
+        (
+            line.removeprefix("# ").strip()
+            for line in guide.splitlines()
+            if line.startswith("# ")
+        ),
+        f"Chapter {chapter_id}",
+    )
+    subject = first_line.replace(f"Chapter {chapter_id}", "").strip(" —-:")
+    return subject or f"Chapter {chapter_id}"
 
 
 def _compact_chapter_guide(guide: str) -> str:

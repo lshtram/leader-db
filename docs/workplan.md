@@ -1,5 +1,32 @@
 # Workplan
 
+## 2026-07-24 — Separate local-evidence builder and direct judge handoff completed
+
+- Audited the local-evidence path and found a material architectural gap: the parent
+  preserved the full hashed local package, but chapter judges received mainly
+  provenance summaries unless the web researcher and formatter happened to restate
+  the underlying facts.
+- Implemented two independent evidence tracks. A deterministic local-evidence builder
+  now derives bounded chapter packages with `LF*` facts and `LS*` longitudinal signals
+  from the verified full artifact and sends them directly to the judge. Web research
+  remains responsible only for external discovery and the cited `E*` dossier.
+- The judge prompt and output contract keep local and web provenance separate. Missing,
+  malformed, or hash-invalid local packages are explicit and may lower confidence, but
+  do not erase usable web evidence or force a null unless the combined record is truly
+  insufficient.
+- Promoted the validated natural-language D chapter-research prompt: blank-slate
+  researchers receive a self-contained chapter assignment, a compact orientation, and
+  a bounded index of prior web resources; they receive neither the full local package
+  nor an arbitrary evidence quota.
+- Focused boundary, hash/provenance, direct-handoff, legacy-compatibility,
+  attribution, and tolerant-receiver tests pass. An independent review found and
+  closed the legacy-projection, local-only attribution, machine-contract, and malformed
+  local-reference risks. The complete repository suite reaches 100%; its only eight
+  failures are confined to an unrelated Wikidata adapter fixture group that returns
+  zero observations; none of the changed research/judge modules occur in those traces.
+- Next: run AMLO 5B through compact review, formatting, direct local/web
+  recombination, and judging with per-phase token profiling.
+
 ## 2026-07-24 — Ten-case deep-chapter D/E efficiency gate rejected E
 
 - Tested hybrid prompt E against the preserved D baseline on the same ten cases, with

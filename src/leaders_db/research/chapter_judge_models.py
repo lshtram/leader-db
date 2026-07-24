@@ -27,6 +27,15 @@ class ChapterEvidenceReference(BaseModel):
     explanation: str = Field(min_length=1)
 
 
+class ChapterLocalEvidenceReference(BaseModel):
+    """Reference to parent-built local evidence embedded in the projection."""
+
+    model_config = ConfigDict(extra="ignore")
+
+    local_evidence_id: str = Field(pattern=r"^L[FS][0-9]{3,}$")
+    explanation: str = Field(min_length=1)
+
+
 class ChapterSpecificFinding(BaseModel):
     """Guide-specific value preserved without changing the common envelope."""
 
@@ -106,6 +115,8 @@ class RulerChapterJudgment(BaseModel):
     plausible_score_range: PlausibleScoreRange
     decisive_positive_evidence: tuple[ChapterEvidenceReference, ...] = ()
     decisive_negative_evidence: tuple[ChapterEvidenceReference, ...] = ()
+    decisive_local_evidence: tuple[ChapterLocalEvidenceReference, ...] = ()
+    contextual_local_evidence: tuple[ChapterLocalEvidenceReference, ...] = ()
     inherited_baseline_and_constraints: str = Field(min_length=1)
     ruler_attribution: str = Field(min_length=1)
     supported_lenses: tuple[str, ...] = ()
@@ -136,7 +147,9 @@ class RulerChapterJudgment(BaseModel):
         if self.score_1_to_10 is not None and not (
             self.decisive_positive_evidence or self.decisive_negative_evidence
         ):
-            raise ValueError("a scored judgment requires decisive evidence")
+            raise ValueError(
+                "a scored ruler judgment requires decisive cited web evidence"
+            )
         if (
             self.score_1_to_10 is not None
             and self.manual_review_reason_type == "recoverable_null"

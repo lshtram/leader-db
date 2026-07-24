@@ -47,14 +47,20 @@ def build_chapter_judge_prompt(
 
 Judge every dossier in the manifest using one common meter. The ten questions are
 overlapping evidence lenses, not ten scores and not an arithmetic checklist.
-Read each compact chapter projection in full and use only its cited evidence and
-local-prior summaries. The parent has hash-bound each projection to its complete
-source dossier. Do not browse, search the web, use the client matrix, or add facts from
-memory. Evidence IDs are local to each dossier.
+Read each compact chapter projection in full and use only its cited web evidence and
+its separately embedded `local_evidence` package. The parent has hash-bound each
+projection to its complete source dossier and local-evidence artifact. Web evidence
+uses E-IDs; structured local facts and signals use LF/LS IDs. Keep those provenance
+families separate. Do not browse, search the web, use the client matrix, add facts from
+memory, or rewrite a local fact as a web citation. Evidence IDs are local to each
+dossier.
 
 All scoring inputs are embedded below. Do not invoke shell commands, filesystem
 tools, MCP resources, or local file reads. A local-tool failure is not a reason to
 return null scores because the complete chapter projections are present in this prompt.
+An `available` local package is authoritative structured context. An `unavailable` or
+`invalid` local package lowers confidence when material but does not erase usable web
+evidence or automatically force a null.
 
 First inspect the whole batch and establish low, middle, high, and edge anchors.
 Then score every available dossier exactly once. Missing lenses reduce confidence
@@ -78,8 +84,13 @@ Shared authority affects weight and confidence rather than automatically erasing
 evidence. Inherited conditions, generic country
 context, intentions, missing implementation evidence, or missing adverse evidence
 cannot determine the score's direction. If the record remains insufficient, return null with
-the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
-decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+the full 1-10 range. Cite the qualifying ruler-attribution evidence by stable E-ID in
+a decisive web-evidence array. Local structured evidence is country-level context and
+cannot support a numeric ruler score by itself. Use `decisive_local_evidence` only
+alongside a decisive E-ID that establishes the ruler's relevant authority or nexus;
+use `contextual_local_evidence` for baselines or signals that frame interpretation
+without independently determining direction. Never
+attach `recoverable_null` to a numeric score. Reserve
 manual review for a concrete issue that could materially change the chapter result;
 do not flag ordinary uncertainty already represented by confidence and range.
 Before scoring each ruler: (1) establish the information environment and evidence
@@ -152,7 +163,9 @@ dossier, the unavailable manifest unchanged, substantive calibration notes, and
 the run profile. If token usage is unavailable, use
 `unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
 Before returning, verify that every numeric evaluation cites at least one valid
-same-dossier E-ID in its decisive positive or negative evidence arrays and that
+same-dossier E-ID in its decisive positive or negative evidence arrays; that every
+LF/LS ID in `decisive_local_evidence` accompanies such a decisive E-ID; that
+`structured_prior_summary` accurately describes the embedded local package; and that
 every confidence score is on the required 0-100 scale.
 """
 

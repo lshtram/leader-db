@@ -11,6 +11,7 @@ from leaders_db.research._codex_worker_setup import collect_local_priors
 from leaders_db.research.dossier_notebook_prompt import build_research_notebook_prompt
 from leaders_db.research.dossier_prompt import build_dossier_prompt
 from leaders_db.research.local_prior_package import (
+    build_local_judge_package,
     compact_local_priors,
     summarize_local_priors_for_formatter,
     summarize_local_priors_for_research,
@@ -97,6 +98,26 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
         ("LF001",),
         ("LF001",),
     ]
+
+
+def test_local_judge_package_is_complete_and_independent_of_web_research() -> None:
+    fact = _fact_payload("gni_per_capita", "undp_hdi")
+    priors = tuple(
+        _prior_payload(f"5B.{question}", fact) for question in range(1, 11)
+    )
+
+    package = build_local_judge_package(priors, chapter_id="5b")
+
+    assert package.schema_version == "ruler_local_judge_package_v1"
+    assert package.chapter_id == "5B"
+    assert package.methodology_ids == tuple(
+        f"5B.{question}" for question in range(1, 11)
+    )
+    assert set(package.methodology_statuses) == set(package.methodology_ids)
+    assert package.facts[0].fact_id == "LF001"
+    assert package.facts[0].locator == "local-prior:5B.1"
+    assert package.longitudinal_signals[0].signal_id == "LS001"
+    assert "country-level structured context" in package.attribution_policy
 
 
 def test_formatter_prior_summary_omits_repeated_fact_payload() -> None:
@@ -391,6 +412,11 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert '"unique_local_fact_count":1' in prompt
     assert '"complete_local_package_retained_by_parent":true' in prompt
     assert '"source_family_index":["undp_hdi"]' in prompt
+    assert (
+        "complete package, observation provenance, and\n"
+        "chapter routing remain parent-owned"
+    ) in prompt
+    assert "local\nevidence preparation and re-fetching are outside" in prompt
     assert "Chapter guides" not in prompt
     assert "Required methodology" not in prompt
     assert "Search until additional work mostly repeats facts already found" in prompt
@@ -417,6 +443,9 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert '"5B.1": "evidence_found"' in formatter_prompt
     assert '"6B.1": "evidence_found"' in formatter_prompt
     assert '"methodology_statuses"' in formatter_prompt
+    assert "Parent-owned compact local structured evidence" in formatter_prompt
+    assert "Separately collected permissive web-research notebook" in formatter_prompt
+    assert "do not convert a local fact into a web citation" in formatter_prompt
     assert "Every retained evidence item must appear in at least one `mappings` row" in (
         formatter_prompt
     )

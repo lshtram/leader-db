@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from datetime import UTC, datetime, timedelta
+from hashlib import sha256
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -17,6 +18,7 @@ from leaders_db.research.chapter_judge_worker import (
     _normalize_evidence_reference_lists,
     _normalize_judgment_envelope,
     _normalize_lens_lists,
+    _normalize_local_evidence_reference_lists,
     _prepare_batch,
     _write_null_recovery_queue,
     execute_claimed_chapter_judge_job,
@@ -172,7 +174,17 @@ def test_numeric_judgment_requires_traceable_decisive_evidence() -> None:
     evaluation["decisive_positive_evidence"] = []
     evaluation["decisive_negative_evidence"] = []
 
-    with pytest.raises(ValueError, match="requires decisive evidence"):
+    with pytest.raises(ValueError, match="requires decisive cited web evidence"):
+        RulerChapterJudgment.model_validate(evaluation)
+
+    evaluation["decisive_local_evidence"] = [
+        {
+            "local_evidence_id": "LF001",
+            "explanation": "Country-level structured context.",
+            "harmless_extra_field": "accepted by the tolerant receiver",
+        }
+    ]
+    with pytest.raises(ValueError, match="requires decisive cited web evidence"):
         RulerChapterJudgment.model_validate(evaluation)
 
     evaluation["score_1_to_10"] = None
@@ -181,6 +193,29 @@ def test_numeric_judgment_requires_traceable_decisive_evidence() -> None:
     judgment = RulerChapterJudgment.model_validate(evaluation)
 
     assert judgment.score_1_to_10 is None
+
+
+@pytest.mark.parametrize(
+    "malformed",
+    (None, "LF001", [None, "LF001", {"local_evidence_id": "LF999"}]),
+)
+def test_local_reference_normalization_tolerates_malformed_values(
+    malformed: object,
+) -> None:
+    evaluation = _evaluation(job_key="dossier", iso3="NZL", score=7.0)
+    evaluation["contextual_local_evidence"] = malformed
+
+    _normalize_local_evidence_reference_lists(
+        evaluation,
+        valid_local_evidence_ids={"LF001"},
+    )
+
+    assert evaluation["contextual_local_evidence"] == []
+    if malformed is None:
+        assert evaluation["manual_review_required"] is False
+    else:
+        assert evaluation["manual_review_required"] is True
+        assert evaluation["manual_review_reason_type"] == "projection_integrity"
 
 
 def test_null_judgment_requires_full_uncertainty_range() -> None:
@@ -284,7 +319,7 @@ def test_normalize_confidence_scale_repairs_only_unambiguous_fraction_batch() ->
     assert all_zero_candidate == {}
 
 
-def test_chapter_judge_executes_two_dossiers_and_persists_scores_atomically(
+def test_chapter_judge_executes_two_dossiers_and_persists_scores_atomically(  # noqa: PLR0915
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     database_url = f"sqlite:///{tmp_path / 'judge.sqlite'}"
@@ -317,6 +352,36 @@ profiles:
     )
     output_root = project / "outputs"
     methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
+    local_path = project / "local-priors.json"
+    local_payload = [
+        {
+            "methodology_id": methodology_id,
+            "status": "evidence_found",
+            "mapping_note": "Country-level structured context.",
+            "local_facts": [
+                {
+                    "field_key": "electoral_democracy",
+                    "label": "Electoral democracy",
+                    "value": 0.62,
+                    "value_type": "number",
+                    "year": 2020,
+                    "source_slugs": ["vdem"],
+                    "source_observation_ids": [
+                        "vdem:AAA:2020:electoral_democracy"
+                    ],
+                    "confidence": 88,
+                    "warnings": ["Ruler attribution requires cited evidence."],
+                    "period_role": "target",
+                    "unit": "index",
+                    "scale": "0-1",
+                }
+            ],
+        }
+        for methodology_id in methodology_ids
+    ]
+    local_encoded = json.dumps(local_payload, sort_keys=True).encode()
+    local_path.write_bytes(local_encoded)
+    local_digest = sha256(local_encoded).hexdigest()
     parent_ids: list[int] = []
     dossier_job_keys: list[str] = []
     for index, iso3 in enumerate(("AAA", "AAA"), start=1):
@@ -356,10 +421,11 @@ profiles:
         )
         assert parent is not None
         dossier_path = project / f"dossier-{iso3}-{index}.json"
-        dossier_path.write_text(
-            json.dumps(_dossier_payload(parent, methodology_ids=methodology_ids)),
-            encoding="utf-8",
-        )
+        dossier_payload = _dossier_payload(parent, methodology_ids=methodology_ids)
+        for prior in dossier_payload["local_priors"]:
+            prior["artifact_path"] = str(local_path)
+            prior["artifact_sha256"] = local_digest
+        dossier_path.write_text(json.dumps(dossier_payload), encoding="utf-8")
         complete_job(
             engine,
             job_id=int(parent["id"]),
@@ -407,12 +473,17 @@ profiles:
         prompt = kwargs["prompt"]
         assert "Embedded chapter projections (authoritative judge inputs)" in prompt
         assert "A cited political-freedom fact." in prompt
+        assert "LF001" in prompt
+        assert "0.62" in prompt
         assert "Do not invoke shell commands" in prompt
         assert all(
             text in prompt
             for text in (
                 "formal responsibility for national policy",
                 "Chapter 7B requires a personal-integrity nexus",
+                '"local_evidence"',
+                "structured local facts and signals use LF/LS IDs",
+                "rewrite a local fact as a web citation",
             )
         )
         command = kwargs["command"]
@@ -421,6 +492,17 @@ profiles:
             dossier_job_keys=dossier_job_keys,
             iso3s=("AAA", "AAA"),
         )
+        for evaluation in candidate["evaluations"]:
+            evaluation["contextual_local_evidence"] = [
+                {
+                    "local_evidence_id": "LF001",
+                    "explanation": "Structured target-year country context.",
+                }
+            ]
+            evaluation["structured_prior_summary"] = (
+                "The available LF001 structured context is interpreted with cited "
+                "ruler-attribution evidence."
+            )
         for evaluation in candidate["evaluations"]:
             del evaluation["bias_assessment"]
         result_path.write_text(json.dumps(candidate), encoding="utf-8")
@@ -472,6 +554,13 @@ profiles:
     assert {row["method_version"] for row in rows} == {"chapter_4b_v1"}
     assert {row["job_key"] for row in rows} == {judge_key}
     assert all(json.loads(row["judgment_json"])["chapter_rationale"] for row in rows)
+    assert all(
+        json.loads(row["judgment_json"])["contextual_local_evidence"][0][
+            "local_evidence_id"
+        ]
+        == "LF001"
+        for row in rows
+    )
     assert json.loads(rows[0]["judgment_json"])["chapter_specific"] == [
         {"field": "trajectory", "value": "Stable fixture trajectory."}
     ]
@@ -1025,6 +1114,8 @@ def _evaluation(*, job_key: str, iso3: str, score: float) -> dict[str, object]:
             {"evidence_id": "E001", "explanation": "Positive fixture evidence."}
         ],
         "decisive_negative_evidence": [],
+        "decisive_local_evidence": [],
+        "contextual_local_evidence": [],
         "inherited_baseline_and_constraints": "Inherited fixture conditions.",
         "ruler_attribution": "Attributable within the fixture period.",
         "supported_lenses": ["4B.1"],

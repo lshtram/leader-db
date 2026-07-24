@@ -48,10 +48,10 @@ the applicable guide material; do not read researcher or judge directives again.
 Job input:
 {json.dumps(payload, indent=2, sort_keys=True)}
 
-Deduplicated local structured evidence (client matrix excluded):
+Parent-owned compact local structured evidence (client matrix excluded):
 {json.dumps(local_prior_package, indent=2, sort_keys=True)}
 
-Permissive evidence-research notebook and handoff:
+Separately collected permissive web-research notebook and handoff:
 {research_notebook}
 
 Existing candidate from a prior failed validation:
@@ -75,7 +75,9 @@ Requirements:
   Source upgrades and disposition changes belong in research before formatting.
   Manifest entries marked `rejected` must not be emitted as evidence.
 - Treat the local structured priors above as the required local-first
-  step. Do not rerun the local-evidence CLI when those payloads are present.
+  input prepared by the parent. Keep their identifiers and provenance separate from
+  web evidence. Do not rerun the local-evidence CLI when those payloads are present,
+  and do not convert a local fact into a web citation.
 - Never use the client matrix as evidence.
 - Do not search or add facts. The researcher has already completed direct internet
   research and reviewer-directed continuations in the notebook.

@@ -452,6 +452,12 @@ def _prepare_batch(  # noqa: PLR0912, PLR0915
                 item.evidence_id for item in projection_by_key[dossier_key].evidence
             },
         )
+        _normalize_local_evidence_reference_lists(
+            evaluation,
+            valid_local_evidence_ids=_local_evidence_ids(
+                projection_by_key[dossier_key]
+            ),
+        )
         _ensure_bias_assessment(
             evaluation,
             valid_evidence_ids={
@@ -735,6 +741,58 @@ def _normalize_evidence_reference_lists(
         evaluation["manual_review_reason_type"] = "projection_integrity"
 
 
+def _normalize_local_evidence_reference_lists(
+    evaluation: dict[str, Any],
+    *,
+    valid_local_evidence_ids: set[str],
+) -> None:
+    """Drop local references not present in the parent-built package."""
+
+    dropped: list[str] = []
+    for field in ("decisive_local_evidence", "contextual_local_evidence"):
+        values = evaluation.get(field)
+        if values is None:
+            evaluation[field] = []
+            continue
+        if not isinstance(values, list):
+            dropped.append(f"{field}:<non-list>")
+            evaluation[field] = []
+            continue
+        retained: list[object] = []
+        for value in values:
+            if not isinstance(value, dict):
+                dropped.append(f"{field}:<non-object>")
+                continue
+            evidence_id = str(value.get("local_evidence_id", ""))
+            if evidence_id not in valid_local_evidence_ids:
+                dropped.append(evidence_id or "<missing>")
+                continue
+            retained.append(value)
+        evaluation[field] = retained
+    if dropped:
+        existing = str(evaluation.get("manual_review_reason") or "").strip()
+        suffix = (
+            "Dropped out-of-package local evidence references during normalization: "
+            + ", ".join(dict.fromkeys(dropped))
+            + "."
+        )
+        evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
+        evaluation["manual_review_required"] = True
+        evaluation["manual_review_reason_type"] = "projection_integrity"
+
+
+def _local_evidence_ids(projection: RulerChapterProjection) -> set[str]:
+    """Return local fact and signal IDs available to one judge projection."""
+
+    package = projection.local_evidence.package
+    if package is None:
+        return set()
+    return {
+        *(fact.fact_id for fact in package.facts),
+        *(signal.signal_id for signal in package.longitudinal_signals),
+    }
+
+
 def _normalize_confidence_scale(
     evaluations: list[object], *, candidate: dict[str, Any]
 ) -> None:
@@ -791,6 +849,25 @@ def _validate_batch_evidence(
         )
         if any(item.evidence_id not in evidence_by_id for item in referenced):
             raise ValueError("chapter evaluation references evidence outside its dossier")
+        local_ids = _local_evidence_ids(projection)
+        local_references = (
+            *evaluation.decisive_local_evidence,
+            *evaluation.contextual_local_evidence,
+        )
+        if any(
+            item.local_evidence_id not in local_ids for item in local_references
+        ):
+            raise ValueError(
+                "chapter evaluation references local evidence outside its package"
+            )
+        summary = evaluation.structured_prior_summary.casefold()
+        if (
+            projection.local_evidence.status == "available"
+            and ("not_available" in summary or "unavailable" in summary)
+        ):
+            raise ValueError(
+                "structured_prior_summary contradicts available local evidence"
+            )
         bias_ids = {
             evidence_id
             for finding in evaluation.bias_assessment.material_biases
