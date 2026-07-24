@@ -558,7 +558,12 @@ The parent keeps the complete deduplicated local package and its source-observat
 provenance. Reconnaissance receives only a short orientation: chapter-level counts,
 at most two representative facts per chapter, material warnings and gaps, and a
 source-family index. It does not receive the complete fact payload, full methodology,
-or all eight chapter guides. Each resumed chapter turn receives only that chapter's
+or all eight chapter guides. Its prompt is self-contained natural language and the
+execution role cannot read project files or rules, invoke a shell, or use apps, plugins,
+subagents, or goals. It searches until informational saturation rather than stopping at
+an evidence-count ceiling, preserves useful sources by source state, and emits one
+atomic record per underlying fact with a machine-recoverable appendix. Each resumed
+chapter turn receives only that chapter's
 ten questions and researcher note. The formatter receives a compact disposition index,
 and deterministic parent code restores the complete hashed provenance. Missing facts
 remain explicit gaps and country-level indicators are not automatically attributed

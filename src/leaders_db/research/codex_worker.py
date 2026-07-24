@@ -435,6 +435,7 @@ def _run_research_notebook_pass(
         schema_path=None,
         final_message_path=handoff_path,
         writable_dir=attempt.attempt_dir,
+        isolated_web_research=True,
     )
     checkpoint_job(
         engine,

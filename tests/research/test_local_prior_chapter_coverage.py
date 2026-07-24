@@ -393,10 +393,14 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
     assert '"source_family_index":["undp_hdi"]' in prompt
     assert "Chapter guides" not in prompt
     assert "Required methodology" not in prompt
-    assert "Never use a\nrecent-news filter" in prompt
-    assert "Chapter 7B\nrequires a personal integrity nexus" in prompt
-    assert "reconnaissance only" in prompt
-    assert "A prose summary or Markdown table may accompany these lines but cannot" in prompt
+    assert "Search until additional work mostly repeats facts already found" in prompt
+    assert "Preserve every credible source" in prompt
+    assert "one underlying fact per record" in prompt
+    assert "sources opened and useful mainly for corroboration" in prompt
+    assert "promising leads that still need to be opened or examined" in prompt
+    assert "7B: the ruler's personal integrity" in prompt
+    assert "SOURCE_CLAIM_JSON:" in prompt
+    assert "an empty\n`methodology_ids` list" in prompt
     assert len(prompt) < 10_000
 
     formatter_prompt = build_dossier_prompt(

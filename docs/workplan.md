@@ -4534,6 +4534,22 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
   five-ruler gate before releasing the remaining 15. Full findings are preserved in
   `research/conversational-evidence/hybrid-experiment/2022-pilot-3-v2/comparison-and-readiness.md`.
 
+- **Natural-language reconnaissance prompt validated and promoted (2026-07-24).**
+  A controlled prompt experiment ran fresh current-versus-natural and
+  current-versus-hybrid reconnaissance for Putin 2022 and Tshisekedi 2022 using the
+  same `gpt-5.6-sol` model, compact local briefings, web access, and isolated
+  no-filesystem execution. Order-reversed blinded review preferred the hybrid for both
+  rulers: mean quality was 8.50 versus 8.15 for Putin and 8.65 versus 8.10 for
+  Tshisekedi. The hybrid cut cumulative input use by 70.6% and 53.2% relative to the
+  unconstrained natural variant while retaining its coverage advantage. Production
+  reconnaissance now uses a self-contained plain-language prompt, informational
+  saturation rather than an evidence-count ceiling, one underlying fact per record,
+  separate extracted/corroborating/lead source states, retrospective segregation, and
+  a compact machine-recovery appendix. The reconnaissance Codex role cannot load
+  project rules or use shell, filesystem, app, plugin, subagent, or goal tools.
+  Artifacts and both blinded assessments are preserved under
+  `research/conversational-evidence/recon-prompt-ac-2022-v1/`.
+
 ## Phase C approach (data acquisition)
 
 Phase C builds one Stage 2 ingest adapter per ✅ vetted_ok source. The pattern is set by V-Dem (the first and biggest) and reused by all the others. **One source lands → self-reviewed → tested → user sign-off → next source.** This avoids stacking unreviewed code (Rule #14) and lets the user steer the indicator catalog before we get too far.

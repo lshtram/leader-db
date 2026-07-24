@@ -40,37 +40,46 @@ Executable source:
 The researcher receives:
 
 - immutable ruler identity and period;
-- selected chapter IDs and all applicable lens IDs;
-- a short research job payload;
 - a compact local briefing, not the full local evidence package;
-- the output path and ledger-manifest requirements.
+- plain-language descriptions of the eight subject areas;
+- the small machine-recovery appendix contract.
+
+The researcher runs without project instructions, shell access, filesystem reads,
+plugins, apps, subagents, or goals. Web research and the material embedded in the prompt
+are its complete working context.
 
 Stable prompt:
 
-> Research the named ruler and period without scoring. This first pass is short
-> reconnaissance, not the final dossier and not eight full chapter investigations.
-> Search the web directly and do four things:
+> Research `{ruler}`, who governed `{country}`, focusing on `{period}`. We are preparing
+> an evidence-based assessment of this ruler. Give the researchers who continue this
+> work a reliable, well-organized starting point.
 >
-> 1. verify identity, tenure, formal authority, practical authority, and important
->    constraints;
-> 2. identify major ruler-period events and the information environment;
-> 3. retain roughly 8-15 reusable source-claim units that provide the strongest
->    cross-chapter starting points; and
-> 4. leave a concise chapter-by-chapter search plan for the deep passes.
+> Confirm who held power, the ruler's official position and actual influence, and
+> important limits on that influence. Identify the most important events, decisions,
+> policies, controversies, successes, and failures across security, peace, domestic
+> safety, political freedom, economic and social wellbeing, personal integrity, and
+> effectiveness.
 >
-> For each retained or rejected source-claim unit, record the material claim, canonical
-> URL, publisher and date, precise locator, temporal fit, ruler attribution and limits,
-> contrary evidence, and all applicable methodology IDs. Store the source once and map
-> it to every relevant lens. Distinguish discovery-only leads from evidence. Update the
-> research ledger manifest whenever a unit is added, rejected, or changed. Do not score
-> the ruler.
+> Search until additional work mostly repeats facts already found instead of adding
+> material information, a stronger underlying source, credible contrary evidence, or an
+> important missing perspective. Preserve every credible source that could help later
+> research.
+>
+> Write one evidence record per important underlying fact. Several articles repeating
+> the same fact belong in one record; one report with materially different findings may
+> support several records. Each record includes the strongest source and stable locator,
+> period relevance, connection to the ruler, contrary evidence, source cautions, and
+> independent corroboration.
 
 The prompt ends by requiring:
 
-- sources opened and sources retained;
-- an initial evidence-environment summary;
-- unresolved chapter gaps and planned searches;
-- machine-recoverable `SOURCE_CLAIM_JSON` blocks if the manifest cannot be written.
+- a concise overview and evidence-environment assessment;
+- compact atomic evidence records;
+- separate later-retrospective evidence;
+- separate lists for fully extracted evidence, opened corroboration, and uninspected
+  leads;
+- unresolved questions for deeper research;
+- one machine-recoverable `SOURCE_CLAIM_JSON` line for each developed record.
 
 ### 2.2 Deep chapter researcher
 
@@ -540,4 +549,3 @@ When a prompt or guide changes:
 5. verify the twelve evidence-environment questions and judge bias fields;
 6. render representative prompts and confirm payload boundaries and token profiles;
 7. run the affected prompt, schema, reviewer, formatter, and judge tests.
-

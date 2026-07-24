@@ -1,4 +1,4 @@
-"""Short reconnaissance prompt for ruler evidence research."""
+"""Self-contained reconnaissance prompt for ruler evidence research."""
 
 from __future__ import annotations
 
@@ -18,71 +18,108 @@ def build_research_notebook_prompt(
     local_priors: tuple[dict[str, Any], ...],
     workflow: ResearchWorkflow,
 ) -> str:
-    """Build a small orientation prompt; deep research happens chapter by chapter."""
+    """Build the tested natural-language, saturation-based orientation prompt."""
 
-    del project_root
-    question_ids = tuple(job["input"]["question_ids"])
-    job_payload = {
-        "iso3": job["iso3"],
-        "country_name": job["country_name"],
-        "ruler_name": job["ruler_name"],
-        "period_start_year": job["period_start_year"],
-        "period_end_year": job["period_end_year"],
-        "selected_chapters": sorted(
-            {item.split(".", maxsplit=1)[0] for item in question_ids}
-        ),
-        "research_materials_path": str(worker_output_dir / "research-materials.md"),
-        "research_ledger_manifest_path": str(
-            worker_output_dir / "research-ledger-manifest.json"
-        ),
-    }
+    del project_root, worker_output_dir, workflow
     briefing = build_local_research_briefing(local_priors)
-    return f"""Research the named ruler and period without scoring.
+    identity = (
+        f'{job["ruler_name"]}, who governed {job["country_name"]}, '
+        f'focusing on {job["period_start_year"]}-{job["period_end_year"]}'
+    )
+    return f"""Research {identity}.
 
-This is a short reconnaissance turn. Later turns will start one fresh compact session
-per selected chapter with that chapter's ten questions and a bounded index of relevant
-resources found so far. Do not attempt the complete dossier now.
+We are preparing an evidence-based assessment of this ruler. Give the researchers who
+continue this work a reliable, well-organized starting point.
 
-Job:
-{json.dumps(job_payload, separators=(",", ":"), sort_keys=True)}
+Begin by confirming who held power, the ruler's official position and actual influence,
+and important limits on that influence. These may include courts, parliament, coalition
+partners, the military, regional governments, foreign powers, or other institutions.
 
-What the local pipeline already knows:
+Then identify the most important events, decisions, policies, controversies, successes,
+and failures from this period. Cover war and diplomacy; major military and security
+risks; domestic violence, policing, repression, and public safety; elections, political
+competition, media freedom, protest, and civil liberties; economic policy and living
+standards; health, education, welfare, and essential services; honesty, corruption,
+conflicts of interest, nepotism, and accountability; and the ruler's main goals and how
+successfully the government carried them out.
+
+Explain how easy or difficult it was to obtain reliable information. Consider
+censorship, intimidation, weak statistics, propaganda, political polarization, unequal
+international attention, and restrictions affecting journalists, victims, opposition
+groups, officials, courts, and investigators.
+
+Search until additional work mostly repeats facts already found instead of adding
+material information, a stronger underlying source, credible contrary evidence, or an
+important missing perspective. Preserve every credible source that could be useful to
+the researchers who continue this work.
+
+Open and examine the underlying source before treating it as evidence. Prefer original
+documents, official records, courts, international organizations, independent
+investigations, academic research, and high-quality reporting. Use a mixture of source
+types and perspectives.
+
+Write a separate evidence record for each important underlying fact. A report containing
+several materially different findings may support several records. Several articles
+repeating the same underlying fact belong in one record.
+
+Each evidence record should contain:
+
+- a short name for the underlying fact;
+- one precise factual description and why it matters;
+- the strongest source's title, publisher, date, and direct link;
+- a stable page, section, table, paragraph, or short passage that supports it;
+- whether it concerns the requested period, an inherited condition, or a later
+  retrospective finding;
+- how strongly it can be connected to the ruler or to decisions within the ruler's
+  authority;
+- credible evidence that complicates or contradicts it;
+- reasons to be cautious about the source; and
+- other sources that independently support the same fact.
+
+Keep later retrospective evidence in a clearly marked subsection. Keep these three
+source categories separate:
+
+1. evidence opened and fully extracted into a record;
+2. sources opened and useful mainly for corroboration; and
+3. promising leads that still need to be opened or examined.
+
+Organize the result as:
+
+1. a short overview of the ruler and the period;
+2. compact evidence records, with one underlying fact per record;
+3. the information environment and limitations of the evidence;
+4. a concise list of important questions for deeper research;
+5. corroborating sources; and
+6. promising leads still needing inspection.
+
+Make the overview and final research plan concise. Put factual detail in the evidence
+records, state repeated facts once, and make clear which sources were actually opened.
+
+Here is the factual background already available from statistical and institutional
+datasets:
+
 {json.dumps(briefing, separators=(",", ":"), sort_keys=True, default=str)}
 
-The local briefing is orientation, not web evidence and not ruler attribution. The
-parent retains the complete local package; do not request or reconstruct it. Avoid
-re-fetching listed structured datasets unless a specific web source is needed to
-interpret a material gap.
+The following labels let the next researchers route each developed record:
 
-Use web search and open promising underlying sources. Search results and snippets are
-discovery only. Prefer primary records plus independent high-quality analysis, include
-credible contrary material, and use local-language searches where useful. Never use a
-recent-news filter for this historical period.
+- 1B: catastrophic and nuclear risk
+- 2B: international peace and conflict
+- 3B: domestic safety and political violence
+- 4B: political freedom
+- 5B: economic wellbeing
+- 6B: social wellbeing
+- 7B: the ruler's personal integrity
+- 8B: effectiveness in carrying out the ruler's own program
 
-In this turn:
-1. verify ruler identity, practical authority, and important constraints;
-2. identify major period events and the information environment;
-3. find 8-15 reusable cross-chapter source-claim units when genuinely useful;
-4. give a brief chapter search plan naming unresolved themes and likely source families.
+At the end of the memo, repeat each fully developed evidence record on one physical
+line beginning `SOURCE_CLAIM_JSON:`. The remainder of that line is a JSON object with
+these fields: `provisional_id`, `canonical_fact_key`, `disposition`,
+`chapter_ids`, `methodology_ids`, `url`, `claim`, and `locator`.
 
-For every accepted unit, preserve one material claim, canonical URL, publisher/date,
-precise locator, period fit, attribution limits, contrary evidence, and applicable
-methodology IDs. Keep stable IDs and append to `research-materials.md`. Maintain one
-cumulative `research-ledger-manifest.json`; later turns must extend, never replace, it.
-If file writing fails, include every accepted unit in the response as one physical
-`SOURCE_CLAIM_JSON:` line. Each line must contain `provisional_id`,
-`canonical_fact_key`, `disposition`, `chapter_ids`, `methodology_ids`, `url`, `claim`,
-and `locator`. A prose summary or Markdown table may accompany these lines but cannot
-replace them. The parent recovers these lines into the cumulative manifest.
-
-Do not pad counts, infer favorable conduct from missing reporting, confuse complaint
-volume with severity, count repeated coverage as independent corroboration, turn
-country context into personal conduct, or treat allegations as findings. Chapter 7B
-requires a personal integrity nexus. Missing evidence lowers confidence later; it does
-not invalidate useful research.
-
-Finish with sources opened and retained, the evidence-environment summary, and the
-chapter-by-chapter gaps. This turn is reconnaissance only.
+Use a unique provisional ID, a stable short canonical fact key, `accepted` as the
+disposition, every relevant chapter label from the list above, and an empty
+`methodology_ids` list. This compact appendix allows the next researchers to recover
+the evidence records without changing the readable memo.
 """
 
 

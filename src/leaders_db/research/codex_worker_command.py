@@ -15,6 +15,7 @@ def build_codex_exec_command(
     schema_path: Path | None,
     final_message_path: Path,
     writable_dir: Path,
+    isolated_web_research: bool = False,
 ) -> tuple[str, ...]:
     """Return an argv-only Codex invocation without shell interpolation."""
 
@@ -37,6 +38,24 @@ def build_codex_exec_command(
         "--output-last-message",
         str(final_message_path),
     ]
+    if isolated_web_research:
+        command[2:2] = [
+            "--ignore-rules",
+            "--disable",
+            "shell_tool",
+            "--disable",
+            "unified_exec",
+            "--disable",
+            "code_mode_host",
+            "--disable",
+            "apps",
+            "--disable",
+            "plugins",
+            "--disable",
+            "multi_agent",
+            "--disable",
+            "goals",
+        ]
     if schema_path is not None:
         command.extend(("--output-schema", str(schema_path)))
     config_path = Path(profile.codex_config_path).expanduser()
