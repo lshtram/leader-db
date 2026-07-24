@@ -1,5 +1,32 @@
 # Workplan
 
+## 2026-07-24 — AMLO 5B separated local/web smoke gate passed
+
+- Passed AMLO 2022 chapter 5B through the complete separated workflow: frozen
+  client-excluding local package, preserved D-quality web notebook, three no-search
+  evidence reviews, two compact reviewer-directed web continuations, no-search
+  formatting, direct local/web recombination, and no-search judging.
+- The final web dossier contains 35 evidence records, 120 mappings, all ten coverage
+  rows, and a cited evidence environment. The terminal reviewer estimates 31
+  defensible source-claims across 13 source families and preserves unresolved causal,
+  final-audit, delegation, correction, and durability gaps.
+- The judge independently received 98 selected local facts and 14 longitudinal
+  signals from the hash-verified artifact. It cited `LS029`, `LS032`, and `LF813`
+  as structured context without rewriting them as web citations; nine decisive web
+  references supplied the ruler-attribution boundary. The validated singleton smoke
+  score is 5.5, confidence 82, range 4.5–6.5; cohort ordering remains intentionally
+  unpromoted.
+- The smoke gate exposed and fixed a real local-builder defect: complete frozen
+  chapters sorted lexically (`5B.1`, `5B.10`, `5B.2`...) were rejected. Completeness
+  now accepts any order while still rejecting missing or duplicated lenses.
+- The continuation also exposed source bundling in audit reports. The production
+  researcher prompt now explicitly requires separate source-claim records and precise
+  locators for materially distinct audit rows, programs, events, decisions, findings,
+  and remedies.
+- Next: scale the same gated workflow to the frozen ten-case matrix, then compare
+  evidence quality, coverage, local use, bias treatment, scores, and phase-level
+  token consumption.
+
 ## 2026-07-24 — Separate local-evidence builder and direct judge handoff completed
 
 - Audited the local-evidence path and found a material architectural gap: the parent

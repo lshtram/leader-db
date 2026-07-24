@@ -318,7 +318,11 @@ def build_local_judge_package(
         ),
         None,
     )
-    if chapter is None or chapter.methodology_ids != methodology_ids:
+    if (
+        chapter is None
+        or len(chapter.methodology_ids) != len(methodology_ids)
+        or set(chapter.methodology_ids) != set(methodology_ids)
+    ):
         raise ValueError(
             f"local evidence does not cover the complete {normalized_chapter} chapter"
         )

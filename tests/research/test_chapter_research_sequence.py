@@ -55,6 +55,7 @@ def test_chapter_prompt_uses_natural_saturation_based_research() -> None:
     )
     assert "one machine record for one source supporting one material claim" in prompt
     assert "shared `underlying_fact_key`" in prompt
+    assert "Do not bundle them into an omnibus" in prompt
     assert "Continue while research produces a materially new fact" in prompt
     assert "exact supported question IDs from\n[\"3B.1\", \"3B.2\"]" in prompt
     assert "Open an underlying source before using it" in prompt

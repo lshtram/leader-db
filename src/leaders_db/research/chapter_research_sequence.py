@@ -254,6 +254,10 @@ about the same underlying fact or event a shared `underlying_fact_key`, while ke
 their distinct URLs, locators, publication dates, and evidentiary status. State when
 apparently independent reports depend on the same investigation, dataset, wire story,
 official claim, or event.
+A report that contains materially distinct audit rows, programs, decisions, events,
+findings, or remedies needs a separate source-claim record and precise locator for each
+one you intend downstream users to reason from. Do not bundle them into an omnibus
+record merely because they share a PDF or publisher.
 
 Each developed record contains:
 

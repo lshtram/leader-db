@@ -120,6 +120,39 @@ def test_local_judge_package_is_complete_and_independent_of_web_research() -> No
     assert "country-level structured context" in package.attribution_policy
 
 
+def test_local_judge_package_accepts_lexically_ordered_complete_chapter() -> None:
+    priors = tuple(
+        _prior_payload(methodology_id, _fact_payload("gni_per_capita", "undp_hdi"))
+        for methodology_id in sorted(f"5B.{question}" for question in range(1, 11))
+    )
+
+    package = build_local_judge_package(priors, chapter_id="5B")
+
+    assert package.methodology_ids == tuple(
+        f"5B.{question}" for question in range(1, 11)
+    )
+
+
+def test_local_judge_package_rejects_duplicate_complete_chapter() -> None:
+    priors = [
+        _prior_payload(
+            f"5B.{question}", _fact_payload("gni_per_capita", "undp_hdi")
+        )
+        for question in range(1, 11)
+    ]
+    priors.append(
+        _prior_payload(
+            "5B.10",
+            _fact_payload("conflicting_duplicate", "world_bank_wdi"),
+            status="error",
+            reason="Conflicting duplicate package.",
+        )
+    )
+
+    with pytest.raises(ValueError, match="does not cover the complete 5B chapter"):
+        build_local_judge_package(tuple(priors), chapter_id="5B")
+
+
 def test_formatter_prior_summary_omits_repeated_fact_payload() -> None:
     fact = _fact_payload("shared_fact", "fixture_source")
     priors = (
