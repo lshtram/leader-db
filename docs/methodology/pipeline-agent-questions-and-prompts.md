@@ -1,23 +1,41 @@
 # Pipeline Agent Questions and Prompts
 
-Status: review reference for the controlled 2022 evaluation  
-Last synchronized: 2026-07-24
+Status: organized human-review reference for the controlled evaluation
 
-This document puts the questions and model instructions used by the cited-evaluation
-pipeline in one place. It is intended for human review. The executable prompt builders,
-schemas, and chapter guides remain authoritative; links to them are included so a
-reviewer can detect drift.
+Last synchronized: 2026-07-25
 
-The latest validated workflow and measured results are recorded in
-[`local-web-separated-2022-ten-case-gate.md`](../reviews/local-web-separated-2022-ten-case-gate.md).
-That gate is the authority for the currently accepted separation between structured
-local evidence and web research.
+Active layered lens version: `layered_lenses_v1`
 
-Dynamic run data is shown as `{placeholders}` rather than copying a ruler's evidence
-into this document. JSON-only serialization instructions are summarized where the exact
-shape is enforced by a Pydantic schema rather than prose.
+Active chapter-research prompt version: `chapter_research_prompt_v1`
 
-## 1. Pipeline Map
+This document answers four review questions: what each agent receives, what it is asked
+to do, which questions guide each chapter, and what it must hand to the next phase. It
+does not create a second executable question or prompt catalogue. Research-changing
+text is owned by the versioned JSON files listed below; this file presents that material
+in a readable sequence.
+
+## 1. Authoritative Configuration and How to Read This Document
+
+| Material | Authoritative source | Runtime consumer |
+|---|---|---|
+| Detailed chapter questions, stable IDs, chapter grid, registry metadata | `src/leaders_db/conversational_evidence/data/questions.json` | collector, registry, local routing, chapter research |
+| Short titles, simple questions, evidence categories, priority categories | `src/leaders_db/conversational_evidence/data/question_lens_presentation.json` | chapter prompt renderer |
+| Active deep chapter-research instructions | `src/leaders_db/conversational_evidence/data/chapter_research_prompt.json` | chapter research sequence |
+| General collector prompts | `src/leaders_db/conversational_evidence/data/prompts.json` | conversational collector |
+| Chapter scope, exclusions, rubric and judge calibration | `docs/methodology/chapter-guides/*.md` | researcher guide extraction and judge |
+| Research/review/formatter/judge output contracts | Pydantic models under `src/leaders_db/research/` | each corresponding receiver |
+
+Dynamic ruler, period, evidence, resource-index and batch material appears here as
+`{placeholders}`. Exact machine schemas and stable delimiters are summarized rather than
+reproduced field-for-field. Client scores never enter researcher, reviewer, formatter,
+or judge prompts.
+
+The detailed-only predecessor is preserved at tag `question-prompts-detailed-v1`; this
+layered candidate is tagged `question-prompts-layered-v1`. See
+[`question-prompt-versioning.md`](question-prompt-versioning.md) for comparison and
+rollback rules.
+
+## 2. Pipeline Map
 
 | Phase | Agent | Web access | Scores | Primary input | Primary output |
 |---|---|---:|---:|---|---|
@@ -48,9 +66,51 @@ judgeable, but eight formatter outputs needed 45 inferred lens mappings and one
 manifest-required Scholz fact was restored. Formatter-producer completeness therefore
 remains a required repair gate before the full cohort.
 
-## 2. Structured Local Evidence
+## 3. Evidence Framework
 
-### 2.1 Local evidence builder
+### 3.1 Observable evidence categories
+
+These categories describe the kind of fact being collected. They are not source-quality
+rankings, quotas, component scores, or exclusive search instructions. A book, audit,
+court record, dataset, investigation, or article may establish facts in several
+categories. Per-lens tables list only the most promising categories so the prompt stays
+clear and compact.
+
+| Evidence category | What it covers | Typical sources |
+|---|---|---|
+| **Formal acts and law** | Laws, bills, votes, decrees, regulations, treaties, directives, strategies and formal commitments. | legislative summaries and histories; legal databases and gazettes; treaty and court records; official archives; legal scholarship; NGO and journalistic analysis |
+| **Resources** | Authorized and actual spending, staffing, procurement, contracts, equipment and infrastructure. | budgets and execution reports; procurement records; audits; legislative analysis; academic and NGO studies; investigative reporting |
+| **Personnel** | Appointments, removals, qualifications, conflicts, tenure and practical autonomy. | appointment records; official biographies; confirmation proceedings; institutional reports; biographies; academic work and reporting |
+| **Implementation and operational conduct** | Delivery, enforcement, administration, inspection, compliance, correction and remedy. | administrative and inspection records; audits and judgments; monitoring reports; academic studies; NGO investigations; local and investigative reporting |
+| **Rhetoric and representations** | Speeches, testimony, interviews, promises, explanations, threats, denials, propaganda and corrections. | transcripts and recordings; official and campaign archives; diplomatic records; memoirs and biographies; histories; contemporary reporting |
+| **Outcomes** | Observed changes in conduct, institutions, rights, security, welfare, delivery and compliance. | statistics and datasets; evaluations and surveys; audits; academic research; NGO and international-organization reports; histories and reporting |
+
+### 3.2 Evidence-environment questions
+
+The researcher reports these conditions; the formatter makes them complete and cited.
+The collector does not convert them into a score or apply a regime adjustment.
+
+1. Was media and civil-society criticism meaningfully possible?
+2. Is there evidence of censorship, surveillance, intimidation, punishment, or self-censorship?
+3. Could victims, opposition figures, auditors, courts, journalists, and officials report misconduct safely?
+4. Are official statistics credible, incomplete, disputed, manipulated, or unavailable?
+5. Which languages and archives were searched?
+6. Is evidence concentrated in official, opposition, NGO, academic, or foreign-government sources?
+7. Do many records describe one underlying event?
+8. Does complaint volume reflect conduct, reporting freedom, or both?
+9. What population, geographic, institutional, or exposure denominators matter?
+10. What inherited conditions, external shocks, and authority constraints affect interpretation?
+11. Which chapter-specific biases are material?
+12. Which evidence IDs support these conclusions?
+
+## 4. Agent Questions and Prompt Instructions
+
+The web researcher is responsible for web evidence only. The deterministic local
+evidence builder is separate and its chapter package travels directly to the judge.
+Reviewers and formatters cannot browse. Judges score only after local and web evidence
+are recombined, with their provenance kept separate.
+
+### 4.1 Deterministic local evidence builder
 
 Executable sources:
 [`local_prior_package.py`](../../src/leaders_db/research/local_prior_package.py),
@@ -86,9 +146,7 @@ Local evidence is contextual unless separately cited ruler evidence establishes
 authority, ownership, implementation, tolerance, correction, or another valid
 attribution nexus. Missing local evidence is never a zero and never favorable evidence.
 
-## 3. General Web Evidence Collection
-
-### 3.1 Reconnaissance researcher
+### 4.2 Reconnaissance researcher
 
 Executable source:
 [`dossier_notebook_prompt.py`](../../src/leaders_db/research/dossier_notebook_prompt.py)
@@ -144,7 +202,7 @@ The prompt ends by requiring:
 - unresolved questions for deeper research;
 - one machine-recoverable `SOURCE_CLAIM_JSON` line for each developed record.
 
-### 3.2 Deep chapter researcher
+### 4.3 Deep chapter researcher
 
 Executable source:
 [`chapter_research_sequence.py`](../../src/leaders_db/research/chapter_research_sequence.py)
@@ -220,228 +278,7 @@ extracting every row, program, decision, event, finding, or remedy in the report
 Research ends on reasoned saturation or a concrete blocker, not when a target count is
 reached.
 
-## 4. The Eight Chapter Question Sets
-
-These are overlapping evidence lenses, not eighty scores and not an arithmetic
-checklist. The full guides add scope gates, exclusions, attribution rules, rubrics, and
-chapter-specific calibration.
-
-### 4.0 Evidence categories and typical sources
-
-Priority evidence in the chapter tables refers to this shared catalogue. Categories
-identify promising kinds of facts, not required records or exclusive sources.
-
-| Evidence category | What it covers | Typical sources |
-|---|---|---|
-| **Formal acts and law** | Laws, bills, votes, decrees, regulations, treaties, directives, strategies and formal commitments | Legislative summaries and histories, legal databases, gazettes, treaty and court records, official archives, scholarship, NGO and journalistic analysis |
-| **Resources** | Authorized and actual spending, staffing, procurement, contracts, equipment and infrastructure | Budgets, execution and procurement records, audits, legislative analysis, academic and NGO studies, investigative reporting |
-| **Personnel** | Appointments, removals, qualifications, conflicts, tenure and practical autonomy | Appointment records, biographies, confirmation proceedings, institutional reports, academic work and reporting |
-| **Implementation and operational conduct** | Delivery, enforcement, administration, inspection, compliance, correction and remedy | Administrative records, audits, judgments, monitoring reports, academic studies, NGO investigations, local and investigative reporting |
-| **Rhetoric and representations** | Speeches, testimony, interviews, promises, explanations, threats, denials, propaganda and corrections | Transcripts, recordings, archives, diplomatic records, memoirs, biographies, histories and contemporary reporting |
-| **Outcomes** | Observed changes in conduct, institutions, rights, security, welfare, delivery and compliance | Statistics, datasets, evaluations, surveys, audits, academic research, NGO and international-organization reports, histories and reporting |
-
-Books, reports, articles, scholarship and civil-society work can establish, connect,
-interpret or challenge facts in any category. Primary records are not automatically
-more complete, independent or truthful.
-
-### 4.1 Chapter 1B — Nuclear and existential risk
-
-Full guide:
-[`1b-nuclear-existential-risk.md`](chapter-guides/1b-nuclear-existential-risk.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **1B.1 — Reducing existential risk** | Did the ruler try to make catastrophic conflict less likely? | Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **1B.2 — Responsible nuclear rhetoric** | Did the ruler speak about nuclear weapons responsibly? | Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
-| **1B.3 — Safe nuclear control** | Did the ruler keep nuclear weapons and decisions safe and controlled? | Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures? | **Resources**; **Personnel**; **Implementation and operational conduct** |
-| **1B.4 — Arms control and inspections** | Did the ruler support and follow agreements that reduce nuclear danger? | Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **1B.5 — Nuclear cover for aggression** | Did the ruler avoid using nuclear power to protect aggression or repression? | Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression? | **Formal acts and law**; **Rhetoric and representations**; **Implementation and operational conduct** |
-| **1B.6 — Preventing proliferation** | Did the ruler stop allies, clients, and domestic actors from spreading nuclear weapons? | Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **1B.7 — Independent risk expertise** | Did the ruler empower qualified experts who could warn about catastrophic risks? | Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology? | **Personnel**; **Resources**; **Implementation and operational conduct** |
-| **1B.8 — Crisis de-escalation** | During crises, did the ruler act to prevent catastrophic escalation? | In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous? | **Implementation and operational conduct**; **Rhetoric and representations**; **Formal acts and law** |
-| **1B.9 — Other catastrophic risks** | Did the ruler manage AI, cyber, biological, and similar catastrophic risks carefully? | Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **1B.10 — Lasting risk posture** | Did the ruler leave the country’s catastrophic-risk posture safer than before? | Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure? | **Outcomes**; **Implementation and operational conduct** |
-
-Research emphasis: exposure and authority; inherited capability; doctrine and arsenal
-change; command safety; treaties and inspections; threats and crises; proliferation;
-expert appointments; catastrophic dual-use policy; end-of-period posture.
-
-### 4.2 Chapter 2B — International peace
-
-Full guide:
-[`2b-international-peace.md`](chapter-guides/2b-international-peace.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **2B.1 — Peaceful alternatives** | Did the ruler seriously try peaceful options before using force? | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? | **Formal acts and law**; **Implementation and operational conduct** |
-| **2B.2 — Starting or prolonging war** | Did the ruler start or unnecessarily prolong aggression or war? | Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.3 — Honest justification for force** | Did the ruler explain honestly why force was needed? | Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims? | **Rhetoric and representations**; **Formal acts and law** |
-| **2B.4 — Civilian and prisoner protection** | Did the ruler protect civilians and prisoners during conflict? | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.5 — Control of proxies and arms** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.6 — Scrutiny of war claims** | Did the ruler allow independent checks of claims made about conflict? | Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
-| **2B.7 — Ceasefires and settlements** | Did the ruler seriously pursue and uphold peace agreements? | Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.8 — Responsible military resources** | Were military resources used for real security rather than power, profit, or intimidation? | Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.9 — Accountability and remedy** | Did the ruler accept responsibility and remedy unlawful harm from conflict? | Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy? | **Implementation and operational conduct**; **Rhetoric and representations**; **Outcomes** |
-| **2B.10 — Lasting international peace** | Did the ruler leave international relations more peaceful and lawful? | Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
-
-Research emphasis: inherited conflicts and threats; initiation and alternatives;
-objectives and justification; civilian conduct; proxies and arms recipients; public
-claims; negotiations; military patronage; accountability; end-state change.
-
-### 4.3 Chapter 3B — Domestic safety
-
-Full guide:
-[`3b-domestic-safety.md`](chapter-guides/3b-domestic-safety.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **3B.1 — Protection from state abuse** | Did the ruler protect people from torture, disappearance, political imprisonment, and unlawful killing? | Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.2 — Control of coercive forces** | Did the ruler prevent and punish abuse by security forces and aligned groups? | Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.3 — Incitement and targeted hatred** | Did the ruler avoid encouraging hatred or violence against people or groups? | Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.4 — Complaints and independent oversight** | Could abuse be reported, investigated, corrected, and remedied independently? | Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.5 — Emergency and surveillance powers** | Did the ruler use exceptional security powers narrowly and lawfully? | Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.6 — Safety without state terror** | Did the ruler reduce violence without creating a broader climate of fear? | Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate? | **Implementation and operational conduct**; **Outcomes** |
-| **3B.7 — Protection of vulnerable groups** | Did the ruler protect vulnerable groups from violence, displacement, and neglect? | Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.8 — Safe protest and dissent** | Could people protest, dissent, and organize without unlawful retaliation? | Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.9 — Restrained crisis response** | During domestic crises, did the ruler protect people without collective punishment or spectacle? | During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle? | **Resources**; **Implementation and operational conduct**; **Rhetoric and representations** |
-| **3B.10 — Lasting domestic safety** | Did the ruler leave people safer from state and non-state violence? | Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
-
-Research emphasis: physical-integrity abuse; aligned actors; ruler rhetoric; oversight
-and remedies; emergency and surveillance powers; state versus non-state fear;
-vulnerable groups; protest treatment; crisis response; inherited-to-end safety.
-
-### 4.4 Chapter 4B — Political freedom
-
-Full guide:
-[`4b-political-freedom.md`](chapter-guides/4b-political-freedom.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **4B.1 — Genuine electoral choice** | Did the ruler support elections in which they could truly lose? | Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **4B.2 — No entrenchment of power** | Did the ruler avoid changing or abusing institutions to stay in power? | Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **4B.3 — Opposition and civic freedom** | Could opponents, journalists, protesters, and civic groups criticize the ruler safely? | Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **4B.4 — Independent checks on power** | Did courts, legislatures, auditors, and other institutions remain able to constrain the ruler? | Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
-| **4B.5 — Politically neutral institutions** | Did the ruler avoid filling neutral institutions with loyalists and political pressure? | Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult? | **Personnel**; **Formal acts and law**; **Implementation and operational conduct** |
-| **4B.6 — Independent information and media** | Could people receive independent information rather than censorship and propaganda? | Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **4B.7 — Equal political rights** | Did all groups have equal political rights and access? | Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **4B.8 — Term limits and transfer** | Did the ruler respect succession rules and peaceful transfer of power? | Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **4B.9 — Digital freedom and surveillance** | Did the ruler avoid using surveillance and digital controls to suppress politics? | Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **4B.10 — Lasting democratic resilience** | Did the ruler leave political freedom and democracy stronger? | Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
-
-Research emphasis: election contestability; entrenchment; opposition and civic space;
-checks and oversight; institutional capture; media and information; political equality;
-succession; digital controls; inherited-to-end trajectory.
-
-### 4.5 Chapter 5B — Economic wellbeing
-
-Full guide:
-[`5b-economic-wellbeing.md`](chapter-guides/5b-economic-wellbeing.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **5B.1 — Broad and sustainable prosperity** | Did the ruler pursue lasting prosperity for the public rather than private gain and political loyalty? | Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **5B.2 — Qualified economic leadership** | Did the ruler empower capable economic professionals rather than loyalists? | Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.3 — Macroeconomic stability** | Did the ruler protect stable public finances, money, debt, and investment conditions? | Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.4 — Fair economic rules** | Did businesses and workers operate under fair and predictable economic rules? | Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.5 — Resistance to economic capture** | Did the ruler resist favoritism, monopoly power, and politically connected privilege? | Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.6 — Productive public investment** | Did public resources produce useful foundations for long-term prosperity? | Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.7 — Evidence and correction** | Did the ruler use honest evidence and correct economic policies that failed? | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.8 — Fair distribution** | Were economic gains and burdens shared fairly across people and regions? | Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.9 — Managing economic shocks** | Did the ruler respond competently and fairly to major economic shocks? | During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.10 — Lasting economic trajectory** | Did the ruler leave the economy on a stronger and fairer path? | Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone? | **Outcomes**; **Implementation and operational conduct** |
-
-Research emphasis: goals and appointments; macro stability; market rules; capture;
-productivity investment; evidence and correction; distribution; shocks; inherited
-trend; ruler-attributable implementation and outcomes.
-
-### 4.6 Chapter 6B — Social wellbeing
-
-Full guide:
-[`6b-social-wellbeing.md`](chapter-guides/6b-social-wellbeing.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **6B.1 — Welfare as a governing purpose** | Did the ruler make people's wellbeing a real priority? | Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
-| **6B.2 — Access to essential services** | Did people gain effective access to essential services and social protection? | Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.3 — Priority for vulnerable groups** | Did vulnerable people and poor regions receive real protection and support? | Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.4 — Professional service delivery** | Were social services run by capable people with adequate resources? | Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.5 — Measurement and correction** | Did the ruler measure social programs honestly and fix what did not work? | Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.6 — Protection during crises** | Did the ruler reduce avoidable suffering during major crises? | Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.7 — No political allocation of welfare** | Were benefits and basic needs protected from political favoritism and punishment? | Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.8 — Dignity and equal opportunity** | Did the ruler protect equal dignity and opportunity in everyday life? | Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.9 — Durable social institutions** | Did the ruler build social institutions that could last beyond personal rule? | Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **6B.10 — Lasting life chances** | Did ordinary people finish the period with better life chances? | Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
-
-Research emphasis: welfare goals; access, coverage, quality, outcomes, and inequality;
-vulnerable groups; professional delivery; evidence and correction; crises; political
-allocation; dignity; durability; inherited-to-end life chances.
-
-### 4.7 Chapter 7B — Personal integrity
-
-Full guide:
-[`7b-integrity.md`](chapter-guides/7b-integrity.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **7B.1 — Truthfulness** | Did the ruler tell the truth when lying could protect their power or reputation? | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? | **Rhetoric and representations**; **Formal acts and law** |
-| **7B.2 — Correcting falsehoods and errors** | Did the ruler admit and correct false claims and mistakes? | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.3 — Conflicts of interest** | Did the ruler keep personal and family interests separate from public decisions? | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.4 — Personal profit from office** | Did the ruler or close family improperly profit from public office? | Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.5 — Nepotism and loyalist appointments** | Did the ruler choose officials for competence rather than personal loyalty or connections? | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.6 — Independent investigation** | Could independent institutions investigate the ruler and close associates? | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
-| **7B.7 — Obstruction and concealment** | Did the ruler obey accountability processes rather than obstruct or conceal wrongdoing? | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
-| **7B.8 — Promises and good faith** | Did the ruler keep commitments and explain changes honestly? | Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
-| **7B.9 — Favoritism and clientelism** | Did the ruler avoid using public power to reward favored people and networks? | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.10 — Ethical example and public trust** | Did the ruler's conduct strengthen ethical standards and public trust? | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
-
-Research emphasis: Chapter 7B requires a personal ruler nexus. National corruption,
-institutional weakness, associate conduct, or silence about scandal is context unless
-connected to the ruler's own acts, benefit, knowledge, tolerance, concealment, remedy,
-or accountability choices.
-
-### 4.8 Chapter 8B — Effectiveness
-
-Full guide:
-[`8b-effectiveness.md`](chapter-guides/8b-effectiveness.md)
-
-| Lens | Simple question | Detailed research question | Priority evidence |
-|---|---|---|---|
-| **8B.1 — Clear governing program** | Were the ruler's real goals clear enough to evaluate? | Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals? | **Rhetoric and representations**; **Formal acts and law** |
-| **8B.2 — Turning goals into machinery** | Did the ruler turn goals into concrete plans, rules, resources, people, and institutions? | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
-| **8B.3 — Mobilizing the ruling system** | Did the ruler effectively mobilize the state and ruling network toward those goals? | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? | **Resources**; **Personnel**; **Implementation and operational conduct** |
-| **8B.4 — Capable implementers** | Did the ruler choose and manage people capable of carrying out the program? | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.5 — Coordination and control** | Did the ruler maintain coordination and follow-through across the system? | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? | **Implementation and operational conduct**; **Outcomes** |
-| **8B.6 — From plans to practice** | Did the ruler turn plans and announcements into real government action? | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.7 — Progress toward chosen goals** | Did results move toward the ruler's own goals? | Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? | **Outcomes**; **Implementation and operational conduct** |
-| **8B.8 — Learning and correction** | Did the ruler adapt and correct course when methods failed? | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.9 — Managing crises and resistance** | Did the ruler handle crises and resistance without losing the chosen program? | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **8B.10 — Durable goal achievement** | By the end, had the ruler achieved more of the program in a lasting way? | By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
-
-Research emphasis: freeze a broad portfolio of explicit or reliably revealed goals;
-trace program, resources, appointments, mobilization, implementation, outcomes,
-adaptation, and durability. The moral worth of the program is scored elsewhere.
-
-## 5. Evidence Environment and Bias Questions
-
-### 5.1 Twelve dossier evidence-environment questions
-
-The researcher reports these conditions; the formatter makes them complete and cited.
-The collector does not convert them into a score or apply a regime adjustment.
-
-1. Was media and civil-society criticism meaningfully possible?
-2. Is there evidence of censorship, surveillance, intimidation, punishment, or self-censorship?
-3. Could victims, opposition figures, auditors, courts, journalists, and officials report misconduct safely?
-4. Are official statistics credible, incomplete, disputed, manipulated, or unavailable?
-5. Which languages and archives were searched?
-6. Is evidence concentrated in official, opposition, NGO, academic, or foreign-government sources?
-7. Do many records describe one underlying event?
-8. Does complaint volume reflect conduct, reporting freedom, or both?
-9. What population, geographic, institutional, or exposure denominators matter?
-10. What inherited conditions, external shocks, and authority constraints affect interpretation?
-11. Which chapter-specific biases are material?
-12. Which evidence IDs support these conclusions?
-
-### 5.2 No-search evidence reviewer
+### 4.4 No-search evidence reviewer
 
 Executable source:
 [`evidence_review.py`](../../src/leaders_db/research/evidence_review.py)
@@ -481,7 +318,7 @@ final targeted continuation. The third review is terminal: it preserves all resi
 gaps and explicitly records exhausted rounds, but it cannot request endless research
 or pretend that exhaustion means completeness.
 
-### 5.3 Research continuation
+### 4.5 Targeted research continuation
 
 Executable source:
 [`notebook_continuation.py`](../../src/leaders_db/research/notebook_continuation.py)
@@ -506,7 +343,7 @@ tool history. A persistent researcher session may be resumed when it is reliable
 fresh compact continuation sessions are valid when they preserve stable global IDs and
 the cumulative parent ledger.
 
-### 5.4 Supervisor takeover
+### 4.6 Supervisor takeover
 
 This fallback is activated only when ordinary iterative research stalls on recoverable
 tasks. It receives the latest review report and the complete accumulated notebook.
@@ -521,7 +358,7 @@ Stable prompt:
 > responsibility is the relevant attribution. Do not score. Return a permissive research
 > handoff, not strict JSON, and do not merely describe research that should be done.
 
-## 6. Dossier Formatter
+### 4.7 Dossier formatter
 
 Executable source:
 [`dossier_prompt.py`](../../src/leaders_db/research/dossier_prompt.py)  
@@ -579,7 +416,7 @@ success. The ten-case gate required 45 inferred lens mappings across eight dossi
 and restored one Scholz fact; the formatter prompt and producer must be improved and
 the handoff gate repeated before full-cohort evaluation.
 
-## 7. Comparative Chapter Judges
+### 4.8 Comparative chapter judge
 
 Executable shared prompt:
 [`chapter_judge_prompt.py`](../../src/leaders_db/research/chapter_judge_prompt.py)  
@@ -600,7 +437,7 @@ hardcoded prompts. Each receives the shared prompt below plus:
 The judge never receives the client scores and may not browse, search, read local files,
 or add remembered facts.
 
-### 7.1 Shared judge prompt
+#### 4.8.1 Shared judge prompt
 
 > Judge every dossier in the manifest using one common meter. The ten questions are
 > overlapping evidence lenses, not ten scores and not an arithmetic checklist. Read
@@ -647,7 +484,7 @@ words, explaining the overall appraisal, main favorable and adverse cases, disti
 between proven facts and allegations/context/uncertain attribution, and why materially
 higher and lower anchors were rejected.
 
-### 7.2 Required judge bias assessment
+#### 4.8.2 Required judge bias assessment
 
 Every ruler evaluation must answer:
 
@@ -662,7 +499,7 @@ Every ruler evaluation must answer:
 9. Was closed-system silence avoided as favorable evidence?
 10. Were open-system disclosure and effective remedy avoided as extra misconduct?
 
-### 7.3 Chapter-specific prompt received by each judge
+#### 4.8.3 Chapter-specific prompt received by each judge
 
 | Judge | Additional guide questions and mandatory calibration focus |
 |---|---|
@@ -675,7 +512,7 @@ Every ruler evaluation must answer:
 | 7B judge | Questions 7B.1-7B.10; direct personal nexus, allegation/finding distinction, benefit, knowledge, correction, concealment, obstruction, nepotism, and truthfulness |
 | 8B judge | Questions 8B.1-8B.10; frozen program portfolio, program basis and type, operationalization, mobilization, implementation, adaptation, goal progress, durability, causal attribution, and explicit moral separation |
 
-### 7.4 Required judge output questions
+#### 4.8.4 Required judge output questions
 
 For each ruler the output contract requires the judge to resolve:
 
@@ -692,7 +529,154 @@ For each ruler the output contract requires the judge to resolve:
 11. Is manual review required for a concrete score-material issue?
 12. What chapter-specific fields required by the active guide apply?
 
-## 8. Prompt Payload Boundaries
+## 5. Chapter Question Tables
+
+Each chapter has one holistic score. Its ten questions are overlapping research lenses,
+not ten component scores and not an arithmetic checklist. The short question gives the
+blank-slate researcher immediate orientation; the detailed question preserves scope and
+nuance; priority categories point toward likely evidence without suppressing other
+relevant sources.
+
+The tables below are synchronized from `questions.json` and
+`question_lens_presentation.json` (`layered_lenses_v1`).
+
+### 5.1 Chapter 1B — Nuclear And Existential-Risk Responsibility
+
+Full guide: [`1b-nuclear-existential-risk.md`](chapter-guides/1b-nuclear-existential-risk.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **1B.1 — Reducing existential risk** | Did the ruler try to make catastrophic conflict less likely? | Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.2 — Responsible nuclear rhetoric** | Did the ruler speak about nuclear weapons responsibly? | Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
+| **1B.3 — Safe nuclear control** | Did the ruler keep nuclear weapons and decisions safe and controlled? | Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures? | **Resources**; **Personnel**; **Implementation and operational conduct** |
+| **1B.4 — Arms control and inspections** | Did the ruler support and follow agreements that reduce nuclear danger? | Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.5 — Nuclear cover for aggression** | Did the ruler avoid using nuclear power to protect aggression or repression? | Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression? | **Formal acts and law**; **Rhetoric and representations**; **Implementation and operational conduct** |
+| **1B.6 — Preventing proliferation** | Did the ruler stop allies, clients, and domestic actors from spreading nuclear weapons? | Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.7 — Independent risk expertise** | Did the ruler empower qualified experts who could warn about catastrophic risks? | Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology? | **Personnel**; **Resources**; **Implementation and operational conduct** |
+| **1B.8 — Crisis de-escalation** | During crises, did the ruler act to prevent catastrophic escalation? | In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous? | **Implementation and operational conduct**; **Rhetoric and representations**; **Formal acts and law** |
+| **1B.9 — Other catastrophic risks** | Did the ruler manage AI, cyber, biological, and similar catastrophic risks carefully? | Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.10 — Lasting risk posture** | Did the ruler leave the country’s catastrophic-risk posture safer than before? | Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure? | **Outcomes**; **Implementation and operational conduct** |
+
+### 5.2 Chapter 2B — International Peace, Restraint, And Lawful Security
+
+Full guide: [`2b-international-peace.md`](chapter-guides/2b-international-peace.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **2B.1 — Peaceful alternatives** | Did the ruler seriously try peaceful options before using force? | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? | **Formal acts and law**; **Implementation and operational conduct** |
+| **2B.2 — Starting or prolonging war** | Did the ruler start or unnecessarily prolong aggression or war? | Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.3 — Honest justification for force** | Did the ruler explain honestly why force was needed? | Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims? | **Rhetoric and representations**; **Formal acts and law** |
+| **2B.4 — Civilian and prisoner protection** | Did the ruler protect civilians and prisoners during conflict? | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.5 — Control of proxies and arms** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.6 — Scrutiny of war claims** | Did the ruler allow independent checks of claims made about conflict? | Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **2B.7 — Ceasefires and settlements** | Did the ruler seriously pursue and uphold peace agreements? | Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.8 — Responsible military resources** | Were military resources used for real security rather than power, profit, or intimidation? | Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.9 — Accountability and remedy** | Did the ruler accept responsibility and remedy unlawful harm from conflict? | Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy? | **Implementation and operational conduct**; **Rhetoric and representations**; **Outcomes** |
+| **2B.10 — Lasting international peace** | Did the ruler leave international relations more peaceful and lawful? | Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
+
+### 5.3 Chapter 3B — Domestic Safety, Restraint, And Protection
+
+Full guide: [`3b-domestic-safety.md`](chapter-guides/3b-domestic-safety.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **3B.1 — Protection from state abuse** | Did the ruler protect people from torture, disappearance, political imprisonment, and unlawful killing? | Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.2 — Control of coercive forces** | Did the ruler prevent and punish abuse by security forces and aligned groups? | Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.3 — Incitement and targeted hatred** | Did the ruler avoid encouraging hatred or violence against people or groups? | Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.4 — Complaints and independent oversight** | Could abuse be reported, investigated, corrected, and remedied independently? | Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.5 — Emergency and surveillance powers** | Did the ruler use exceptional security powers narrowly and lawfully? | Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.6 — Safety without state terror** | Did the ruler reduce violence without creating a broader climate of fear? | Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate? | **Implementation and operational conduct**; **Outcomes** |
+| **3B.7 — Protection of vulnerable groups** | Did the ruler protect vulnerable groups from violence, displacement, and neglect? | Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.8 — Safe protest and dissent** | Could people protest, dissent, and organize without unlawful retaliation? | Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.9 — Restrained crisis response** | During domestic crises, did the ruler protect people without collective punishment or spectacle? | During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle? | **Resources**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **3B.10 — Lasting domestic safety** | Did the ruler leave people safer from state and non-state violence? | Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+
+### 5.4 4B Political Freedom vs Authoritarian Rule
+
+Full guide: [`4b-political-freedom.md`](chapter-guides/4b-political-freedom.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **4B.1 — Genuine electoral choice** | Did the ruler support elections in which they could truly lose? | Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.2 — No entrenchment of power** | Did the ruler avoid changing or abusing institutions to stay in power? | Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **4B.3 — Opposition and civic freedom** | Could opponents, journalists, protesters, and civic groups criticize the ruler safely? | Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.4 — Independent checks on power** | Did courts, legislatures, auditors, and other institutions remain able to constrain the ruler? | Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **4B.5 — Politically neutral institutions** | Did the ruler avoid filling neutral institutions with loyalists and political pressure? | Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult? | **Personnel**; **Formal acts and law**; **Implementation and operational conduct** |
+| **4B.6 — Independent information and media** | Could people receive independent information rather than censorship and propaganda? | Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.7 — Equal political rights** | Did all groups have equal political rights and access? | Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.8 — Term limits and transfer** | Did the ruler respect succession rules and peaceful transfer of power? | Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.9 — Digital freedom and surveillance** | Did the ruler avoid using surveillance and digital controls to suppress politics? | Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.10 — Lasting democratic resilience** | Did the ruler leave political freedom and democracy stronger? | Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
+
+### 5.5 5B Economic Well-Being and Prosperity
+
+Full guide: [`5b-economic-wellbeing.md`](chapter-guides/5b-economic-wellbeing.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **5B.1 — Broad and sustainable prosperity** | Did the ruler pursue lasting prosperity for the public rather than private gain and political loyalty? | Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **5B.2 — Qualified economic leadership** | Did the ruler empower capable economic professionals rather than loyalists? | Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.3 — Macroeconomic stability** | Did the ruler protect stable public finances, money, debt, and investment conditions? | Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.4 — Fair economic rules** | Did businesses and workers operate under fair and predictable economic rules? | Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.5 — Resistance to economic capture** | Did the ruler resist favoritism, monopoly power, and politically connected privilege? | Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.6 — Productive public investment** | Did public resources produce useful foundations for long-term prosperity? | Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.7 — Evidence and correction** | Did the ruler use honest evidence and correct economic policies that failed? | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.8 — Fair distribution** | Were economic gains and burdens shared fairly across people and regions? | Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.9 — Managing economic shocks** | Did the ruler respond competently and fairly to major economic shocks? | During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.10 — Lasting economic trajectory** | Did the ruler leave the economy on a stronger and fairer path? | Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone? | **Outcomes**; **Implementation and operational conduct** |
+
+### 5.6 6B Social Well-Being and Human Development
+
+Full guide: [`6b-social-wellbeing.md`](chapter-guides/6b-social-wellbeing.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **6B.1 — Welfare as a governing purpose** | Did the ruler make people's wellbeing a real priority? | Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **6B.2 — Access to essential services** | Did people gain effective access to essential services and social protection? | Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.3 — Priority for vulnerable groups** | Did vulnerable people and poor regions receive real protection and support? | Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.4 — Professional service delivery** | Were social services run by capable people with adequate resources? | Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.5 — Measurement and correction** | Did the ruler measure social programs honestly and fix what did not work? | Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.6 — Protection during crises** | Did the ruler reduce avoidable suffering during major crises? | Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.7 — No political allocation of welfare** | Were benefits and basic needs protected from political favoritism and punishment? | Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.8 — Dignity and equal opportunity** | Did the ruler protect equal dignity and opportunity in everyday life? | Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.9 — Durable social institutions** | Did the ruler build social institutions that could last beyond personal rule? | Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.10 — Lasting life chances** | Did ordinary people finish the period with better life chances? | Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+
+### 5.7 7B. Ruler Personal Integrity and Honesty
+
+Full guide: [`7b-integrity.md`](chapter-guides/7b-integrity.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **7B.1 — Truthfulness** | Did the ruler tell the truth when lying could protect their power or reputation? | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? | **Rhetoric and representations**; **Formal acts and law** |
+| **7B.2 — Correcting falsehoods and errors** | Did the ruler admit and correct false claims and mistakes? | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.3 — Conflicts of interest** | Did the ruler keep personal and family interests separate from public decisions? | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.4 — Personal profit from office** | Did the ruler or close family improperly profit from public office? | Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.5 — Nepotism and loyalist appointments** | Did the ruler choose officials for competence rather than personal loyalty or connections? | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.6 — Independent investigation** | Could independent institutions investigate the ruler and close associates? | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **7B.7 — Obstruction and concealment** | Did the ruler obey accountability processes rather than obstruct or conceal wrongdoing? | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **7B.8 — Promises and good faith** | Did the ruler keep commitments and explain changes honestly? | Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
+| **7B.9 — Favoritism and clientelism** | Did the ruler avoid using public power to reward favored people and networks? | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.10 — Ethical example and public trust** | Did the ruler's conduct strengthen ethical standards and public trust? | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+
+### 5.8 8B. Ruler Effectiveness and Competence
+
+Full guide: [`8b-effectiveness.md`](chapter-guides/8b-effectiveness.md)
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **8B.1 — Clear governing program** | Were the ruler's real goals clear enough to evaluate? | Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals? | **Rhetoric and representations**; **Formal acts and law** |
+| **8B.2 — Turning goals into machinery** | Did the ruler turn goals into concrete plans, rules, resources, people, and institutions? | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **8B.3 — Mobilizing the ruling system** | Did the ruler effectively mobilize the state and ruling network toward those goals? | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? | **Resources**; **Personnel**; **Implementation and operational conduct** |
+| **8B.4 — Capable implementers** | Did the ruler choose and manage people capable of carrying out the program? | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.5 — Coordination and control** | Did the ruler maintain coordination and follow-through across the system? | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? | **Implementation and operational conduct**; **Outcomes** |
+| **8B.6 — From plans to practice** | Did the ruler turn plans and announcements into real government action? | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.7 — Progress toward chosen goals** | Did results move toward the ruler's own goals? | Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? | **Outcomes**; **Implementation and operational conduct** |
+| **8B.8 — Learning and correction** | Did the ruler adapt and correct course when methods failed? | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.9 — Managing crises and resistance** | Did the ruler handle crises and resistance without losing the chosen program? | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.10 — Durable goal achievement** | By the end, had the ruler achieved more of the program in a lasting way? | By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
+
+## 6. Prompt Payload Boundaries
 
 To keep model context useful rather than merely large:
 
@@ -711,7 +695,7 @@ To keep model context useful rather than merely large:
   local packages across rulers, not eight full dossiers and not other chapters;
 - client scores never enter researcher, formatter, or judge prompts.
 
-## 9. Token and Quality Profiling
+## 7. Token and Quality Profiling
 
 Every model call from initial web research through final judging must preserve
 provider-reported input, cached-input where exposed, output, and reasoning tokens.
@@ -745,7 +729,7 @@ surviving strict formatting and terminal reviewers estimating 25–37 defensible
 source-claims across 10–20 source families per case. These are diagnostics, not quotas
 or guarantees that every residual theme was resolved.
 
-## 10. Drift Review Checklist
+## 8. Change, Comparison, and Rollback Checklist
 
 When a prompt or guide changes:
 
