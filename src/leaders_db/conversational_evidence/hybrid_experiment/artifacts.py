@@ -8,13 +8,35 @@ import os
 import re
 import subprocess
 from collections import Counter
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from urllib.parse import urlparse
 
+from pydantic import BaseModel, ConfigDict, field_validator
+
+from leaders_db.conversational_evidence.data import load
 from leaders_db.conversational_evidence.deep_artifacts import canonical_url, urls
 
 CHAPTERS = tuple(f"{number}B" for number in range(1, 9))
 _LENS = re.compile(r"\b([1-8]B\.(?:10|[1-9]))\b", re.IGNORECASE)
+
+
+class BaselineManifestConfig(BaseModel):
+    """Validated list of production artifacts covered by an experiment baseline."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    schema_version: str
+    production_files: tuple[str, ...]
+
+    @field_validator("production_files")
+    @classmethod
+    def require_safe_unique_paths(cls, value: tuple[str, ...]) -> tuple[str, ...]:
+        if not value or len(value) != len(set(value)):
+            raise ValueError("production_files must be non-empty and unique")
+        paths = tuple(PurePosixPath(path) for path in value)
+        if any(path.is_absolute() or ".." in path.parts for path in paths):
+            raise ValueError("production_files must be project-relative paths")
+        return value
 
 
 def write_json(path: Path, value: object) -> None:
@@ -29,16 +51,12 @@ def write_json(path: Path, value: object) -> None:
 def baseline_manifest(project_root: Path) -> dict[str, object]:
     """Fingerprint the production flow without changing it."""
 
-    relative_paths = (
-        "src/leaders_db/conversational_evidence/collector.py",
-        "src/leaders_db/conversational_evidence/data/prompts.json",
-        "src/leaders_db/conversational_evidence/data/questions.json",
-        "src/leaders_db/conversational_evidence/data/result.schema.json",
-        "src/leaders_db/conversational_evidence/luna.py",
-        "src/leaders_db/conversational_evidence/researcher.py",
+    config = BaselineManifestConfig.model_validate(
+        load("hybrid_baseline_manifest.json")
     )
+    relative_paths = config.production_files
     return {
-        "schema_version": "hybrid-experiment-baseline-v1",
+        "schema_version": config.schema_version,
         "git_head": _git(project_root, "rev-parse", "HEAD"),
         "git_status": _git(project_root, "status", "--short"),
         "production_files": {

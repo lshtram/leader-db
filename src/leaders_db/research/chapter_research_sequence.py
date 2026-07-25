@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from hashlib import sha256
 from pathlib import Path
+from string import Formatter
 from typing import Any
 
+from pydantic import BaseModel, ConfigDict, model_validator
 from sqlalchemy.engine import Engine
+
+from leaders_db.conversational_evidence.data import load
 
 from ._codex_worker_setup import WorkerAttempt
 from .codex_worker_command import (
@@ -17,9 +22,63 @@ from .codex_worker_command import (
 )
 from .job_ledger import checkpoint_job
 from .model_profiles import ResearchModelProfile
+from .question_lens_presentation import (
+    load_question_lens_presentation,
+    render_evidence_category_key,
+    render_lens_table,
+)
 from .research_workflow import ResearchWorkflow
 
 ResearchCheckpoint = tuple[Path, str, Path, str, str]
+
+_CHAPTER_PROMPT_FIELDS = frozenset(
+    {
+        "chapter_id",
+        "compact_guide",
+        "evidence_category_key",
+        "identity",
+        "layered_lenses",
+        "lens_presentation_version",
+        "prompt_config_version",
+        "reconnaissance_summary",
+        "resource_index_json",
+        "selected_lenses_json",
+    }
+)
+
+
+class ChapterResearchPromptConfig(BaseModel):
+    """Validated editable text template for the chapter researcher."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    version: str
+    template: str
+
+    @model_validator(mode="after")
+    def require_interpolation_contract(self) -> ChapterResearchPromptConfig:
+        parsed = tuple(Formatter().parse(self.template))
+        if any(
+            field_name == ""
+            or conversion is not None
+            or bool(format_spec)
+            or (field_name is not None and not field_name.isidentifier())
+            for _, field_name, format_spec, conversion in parsed
+        ):
+            raise ValueError("chapter prompt contains unsupported formatting syntax")
+        fields = {field_name for _, field_name, _, _ in parsed if field_name is not None}
+        if fields != _CHAPTER_PROMPT_FIELDS:
+            raise ValueError("chapter prompt interpolation fields do not match runtime")
+        return self
+
+
+@lru_cache(maxsize=1)
+def load_chapter_research_prompt() -> ChapterResearchPromptConfig:
+    """Load the versioned chapter-research prompt from package data."""
+
+    return ChapterResearchPromptConfig.model_validate(
+        load("chapter_research_prompt.json")
+    )
 
 
 def run_chapter_research_sequence(
@@ -206,141 +265,29 @@ def build_chapter_research_prompt(
         if str(item).startswith(f"{chapter_id}.")
     ]
     compact_guide = _compact_chapter_guide(guide)
+    lens_presentation_version = load_question_lens_presentation().version
+    evidence_category_key = render_evidence_category_key()
+    layered_lenses = render_lens_table(selected_lenses)
     subject = _chapter_subject(guide, chapter_id)
     identity = (
         f'{subject} under {job["ruler_name"]} in {job["country_name"]} '
         f'during {job["period_start_year"]}-{job["period_end_year"]}'
     )
-    return f"""Research {identity}.
-
-Prepare a complete, carefully sourced account for researchers who will assess this part
-of the ruler's record. Research the subject without assigning a score.
-
-Use the questions below as different angles on the same subject. They identify important
-evidence; they are not separate ratings, search quotas, or an arithmetic checklist.
-
-{compact_guide}
-
-Earlier web reconnaissance produced this short briefing about authority, reporting
-conditions, statistics, source concentration, and possible distortions:
-
-{reconnaissance_summary}
-
-The structured local-data package is prepared and retained separately by the parent
-workflow. It is not reproduced here and does not need to be rebuilt or re-fetched.
-
-These web resources were found in earlier research and may be useful:
-
-{json.dumps(resource_index, separators=(",", ":"), sort_keys=True)}
-
-Build the factual record through six observable evidence channels:
-
-1. formal acts and law: bills, enacted laws, votes, vetoes, decrees, regulations,
-   treaties, pardons, directives, and official strategy;
-2. resources: authorized and executed budgets, transfers, procurement, contracts,
-   staffing, equipment, and infrastructure;
-3. personnel: appointments, removals, qualifications, conflicts, tenure, and practical
-   autonomy;
-4. implementation and operational conduct: rules issued, delivery, inspections,
-   enforcement, deployments, compliance, correction, and remedy;
-5. public communications and representations: speeches, testimony, promises,
-   explanations, threats, denials, propaganda, admissions, and corrections; and
-6. outcomes: observable chapter-relevant changes without assuming that outcomes alone
-   prove ruler credit or blame.
-
-Use the channels that materially fit this chapter; they are not quotas or separate
-scores. Keep the evidence source type separate from the observed fact. For example, an
-audit or court record may verify a resource, formal-act, implementation, communication,
-or outcome claim. Authority, baseline, constraints, distribution, exposure, causation,
-durability, and source bias are questions for interpreting the evidence rather than
-additional evidence channels.
-
-The six channels classify relevant facts; they are not a preferred-source list and do
-not make official records inherently superior. Use books, academic work, NGO and
-international-organization reports, investigative and specialist journalism,
-biographies, histories, expert analysis, and credible local reporting when they
-provide overview, reveal informal conduct, identify consequential events, interpret
-primary records, test official claims, or clarify attribution. Assess every source for
-authority, independence, method, proximity, and corroboration.
-
-Research proportionately. Begin with strong overview and synthesis sources to identify
-the consequential decisions, controversies, programs, institutions, and outcomes.
-Inspect specific laws, budgets, appointments, speeches, audits, judgments, and datasets
-when they establish a material claim, resolve disagreement, improve attribution, or
-test implementation. Do not attempt to catalogue every legislative act, budget line,
-appointment, statement, program, or outcome from the period.
-
-Start by forming a working account of the ruler's formal and practical authority, the
-inherited baseline, external shocks and constraints, and the important favorable,
-adverse, disputed, and exculpatory possibilities raised by every selected question.
-
-Treat the resource list as a starting point. Open an underlying source before using it
-as evidence, including a source found earlier. Search primary and legal records,
-independent monitoring, scholarship, reputable reporting, archives, relevant
-local-language material, and credible favorable, adverse, and contrary interpretations.
-Look for direct ruler statements, decisions, implementation, outcomes, correction or
-remedy, and evidence that challenges an initially plausible conclusion.
-
-Continue while research produces a materially new fact, a stronger underlying source,
-credible contrary evidence, an important missing perspective, or a necessary
-correction. Conclude when additional searching mostly repeats what is already known.
-There is no document or evidence-record quota.
-
-Write one machine record for one source supporting one material claim. Give records
-about the same underlying fact or event a shared `underlying_fact_key`, while keeping
-their distinct URLs, locators, publication dates, and evidentiary status. State when
-apparently independent reports depend on the same investigation, dataset, wire story,
-official claim, or event.
-A report that supports materially distinct claims selected for downstream use needs a
-separate source-claim record and precise locator for each selected claim. This does not
-require extracting every row, program, decision, event, finding, or remedy in the
-report. Do not bundle selected claims into an omnibus record merely because they share
-a PDF or publisher.
-
-Each developed record contains:
-
-- a short name and one precise factual claim;
-- why the fact matters to the selected questions;
-- source title, publisher, date, direct URL, and stable locator;
-- target-period, inherited, or later-retrospective status;
-- direct, authority-based, institutional, shared, limited, or unknown attribution;
-- credible contrary or limiting evidence;
-- source limitations and dependencies;
-- exact question IDs supported; and
-- separately identified independent corroboration.
-
-Keep fully extracted evidence, opened corroboration, reused evidence, uninspected leads,
-rejected sources, and access-blocked sources separate. An unanswered question gets an
-honest source-landscape summary.
-
-Return:
-
-1. a concise authority, baseline, shock, and information-environment orientation;
-2. a compact evidence index listing each record ID, fact name, and why it matters;
-3. a disposition for every selected question, citing records or explaining the gap;
-4. separate corroboration, reused-source, uninspected-lead, rejected, and blocked lists;
-5. counts of sources discovered, opened, accepted, reused, rejected, and blocked;
-6. remaining questions and whether more research is likely to add material information;
-7. the machine records below.
-
-Keep the compact index short and put each complete record only in its machine line.
-
-For every developed record, include one physical line outside code fences beginning
-`SOURCE_CLAIM_JSON:`. The remainder is a valid JSON object containing `title`,
-`publisher`, `publication_date`, `url`, `claim`, `locator`, `provisional_id`,
-`canonical_fact_key`, `disposition`, `chapter_ids`, `methodology_ids`, `source_type`,
-`source_confidence`, `source_confidence_reason`, `final_evidence_use`, `period_fit`,
-`ruler_attribution`, `contrary_evidence`, `underlying_fact_key`, and `lenses`.
-
-Use only `final_evidence`, `context`, or `discovery_only` for both `disposition` and
-`final_evidence_use`. Put rejected and uninspected sources in their separate lists
-rather than emitting them as accepted machine records.
-
-Use unique IDs beginning `WEB-{chapter_id}-`, use `{chapter_id}` as the chapter label,
-and include the exact supported question IDs from
-{json.dumps(selected_lenses)}. The parent workflow merges these append-only records into
-the complete ledger.
-"""
+    prompt_config = load_chapter_research_prompt()
+    return prompt_config.template.format(
+        identity=identity,
+        prompt_config_version=prompt_config.version,
+        lens_presentation_version=lens_presentation_version,
+        evidence_category_key=evidence_category_key,
+        layered_lenses=layered_lenses,
+        compact_guide=compact_guide,
+        reconnaissance_summary=reconnaissance_summary,
+        resource_index_json=json.dumps(
+            resource_index, separators=(",", ":"), sort_keys=True
+        ),
+        chapter_id=chapter_id,
+        selected_lenses_json=json.dumps(selected_lenses),
+    )
 
 
 def _chapter_subject(guide: str, chapter_id: str) -> str:
@@ -361,7 +308,11 @@ def _chapter_subject(guide: str, chapter_id: str) -> str:
 def _compact_chapter_guide(guide: str) -> str:
     """Keep researcher-facing questions while excluding judge-only instructions."""
 
-    headings = ("## Ten Evidence Lenses", "## Researcher Evidence Plan")
+    headings = (
+        "## Researcher Guidance",
+        "## Researcher Evidence Plan",
+        "## Researcher Workflow and Evidence Themes",
+    )
     stop_headings = (
         "## Baseline, Attribution, and Sparse Evidence",
         "## Chapter Judge",

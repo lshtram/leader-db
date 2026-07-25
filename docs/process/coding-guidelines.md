@@ -105,6 +105,26 @@ The fixed weights are normative. See [`src/leaders_db/score/confidence.py`](../.
 - Mark expensive real-bundle / all-country artifact writes with `@pytest.mark.slow`; normal `pytest` skips slow tests, while `pytest --runslow` includes them and `pytest -m slow --runslow` runs only that tier.
 - Always run the affected test file before committing (`pytest tests/test_<file>.py -q`). Use `pytest --runslow` only when the changed behavior touches slow real-data smoke paths.
 
+### No shadow configuration in tests
+
+- Tests must not contain a second handwritten copy of prompts, questions, source
+  lists, category lists, expected record counts, model names, thresholds, or other
+  research-changing configuration.
+- Load expected values from the same versioned configuration artifact used by
+  production. Test selection, interpolation, ordering, validation, deduplication,
+  malformed-input rejection, persistence, and round trips.
+- To test duplicate rejection, copy the loaded fixture in memory and introduce a
+  duplicate. Do not reproduce the full expected catalogue in test code.
+- Literal assertions are appropriate only for stable machine syntax, public serialized
+  contracts, security boundaries, legally/normatively exact attribution text, or a
+  minimal synthetic value created inside that test.
+- Do not test that mutable documentation contains current prose, that a prompt uses a
+  favored sentence, that a production file currently has a particular editorial
+  layout, or that code and docs contain matching handwritten copies. Such duplication
+  must be removed through a single configuration source, not protected by more tests.
+- Every regression test should name the behavior or failure mode it protects. A test
+  that merely restates current content or increases coverage count is not acceptable.
+
 ## Safety And Security
 
 - Never commit secrets, API keys, credentials, `.env`, tokens, or private datasets. The `.gitignore` already excludes them; do not bypass it with `git add -f`.

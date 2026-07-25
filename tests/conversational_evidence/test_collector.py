@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from leaders_db.conversational_evidence.collector import _unexplained_empty, collect
-from leaders_db.conversational_evidence.data import questions
+from leaders_db.conversational_evidence.data import load, questions
 from leaders_db.conversational_evidence.luna import _validate
 from leaders_db.conversational_evidence.store import Store
 
@@ -70,9 +70,10 @@ def test_complete_outputs_for_example_rulers(tmp_path: Path, ruler: str, country
 
     evidence = json.loads(evidence_path.read_text())
     mappings = json.loads(mappings_path.read_text())
-    assert len(chat.prompts) == 81
-    assert len(formatter.prompts) == 81
-    assert len(evidence["evidence"]) == 80
+    configured = questions()
+    assert len(chat.prompts) == len(configured) + 1
+    assert len(formatter.prompts) == len(configured) + 1
+    assert len(evidence["evidence"]) == len(configured)
     assert set(mappings["questions"]) == {q["id"] for q in questions()}
     assert all(item["evidence_ids"] for item in mappings["questions"].values())
     assert "9B.1" not in mappings["questions"]
@@ -103,8 +104,9 @@ def test_resume_continues_after_last_saved_question(tmp_path: Path) -> None:
     )
 
     state = json.loads((output / "session.json").read_text())
-    assert len(state["completed"]) == 81
-    assert len(second.prompts) == 78
+    expected_turns = len(questions()) + 1
+    assert len(state["completed"]) == expected_turns
+    assert len(second.prompts) == expected_turns - len(first.prompts)
 
 
 def test_formatter_failure_does_not_repeat_m3_research(tmp_path: Path) -> None:
@@ -131,14 +133,18 @@ def test_formatter_failure_does_not_repeat_m3_research(tmp_path: Path) -> None:
         conversation=second,
         formatter=FakeFormatter(),
     )
-    assert len(second.prompts) == 80
+    assert len(second.prompts) == len(questions())
 
 
-def test_question_data_contains_exactly_eight_chapters_and_eighty_lenses() -> None:
+def test_question_data_has_unique_ids_in_configured_chapter_order() -> None:
+    configured_chapters = load("questions.json")["chapters"]
     configured = questions()
-    assert len(configured) == 80
-    assert len({q["id"] for q in configured}) == 80
-    assert [q["id"] for q in configured[::10]] == [f"{chapter}B.1" for chapter in range(1, 9)]
+    assert len({q["id"] for q in configured}) == len(configured)
+    assert configured == [
+        question
+        for chapter in configured_chapters
+        for question in chapter["questions"]
+    ]
 
 
 def test_legacy_dossier_output_is_rejected_by_luna_boundary() -> None:

@@ -1,9 +1,13 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
+from leaders_db.conversational_evidence.data import load
 from leaders_db.conversational_evidence.hybrid_experiment.artifacts import (
+    BaselineManifestConfig,
     baseline_manifest,
     evidence_index,
     normalize_url,
@@ -73,8 +77,17 @@ def test_baseline_manifest_hashes_production_files() -> None:
     value = baseline_manifest(root)
 
     assert value["git_head"]
-    assert len(value["production_files"]) == 6
+    assert value["production_files"]
+    assert all(value["production_files"].values())
     assert normalize_url("https://EXAMPLE.com/a/?utm_campaign=x") == "https://example.com/a"
+
+
+def test_baseline_manifest_config_rejects_duplicate_paths() -> None:
+    configured = deepcopy(load("hybrid_baseline_manifest.json"))
+    configured["production_files"].append(configured["production_files"][0])
+
+    with pytest.raises(ValidationError, match="non-empty and unique"):
+        BaselineManifestConfig.model_validate(configured)
 
 
 def test_follow_up_uses_only_gaps_from_targeted_chapters() -> None:

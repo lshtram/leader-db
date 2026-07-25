@@ -611,6 +611,31 @@ selectively for material claims, disputes, attribution, and implementation. The
 researcher samples consequential and contrary evidence rather than attempting an
 exhaustive census of every observable act in the period.
 
+The researcher-facing lens catalogue is a separate, versioned presentation layer over
+the stable detailed questions. Each lens is rendered in this order: short title,
+plain-language question, unchanged detailed research question, and a compact list of
+priority evidence categories. The priorities are advisory and non-exclusive. The
+validated `question_lens_presentation.json` catalogue must cover the same eighty IDs as
+the detailed question registry, and its version is embedded in every chapter-research
+prompt. Previous prompt designs are retained by immutable commit and file hashes so
+controlled runs can compare or restore them without reconstructing prompt state.
+The active chapter-research instructions are stored in
+`chapter_research_prompt.json`; Python owns and validates only the interpolation
+contract. The hybrid experiment's production fingerprint list is likewise stored in
+`hybrid_baseline_manifest.json`, rather than duplicated in implementation and tests.
+
+All research-changing language follows a single-source configuration boundary.
+Versioned JSON owns question text, lens presentation, prompt templates, category/source
+catalogues, and other scientific workflow values. Python validates, selects,
+interpolates, and executes those configurations; it must not retain a second
+handwritten copy. Tests consume the same configuration and exercise behavior,
+malformed-input rejection, selection, isolation, serialization, and version/hash
+propagation rather than pinning mutable prose. Legacy Python prompt literals are being
+migrated in the staged order recorded in the workplan and configuration audit.
+`questions.json` owns the chapter registry metadata and required chapter/lens grid as
+well as the text; runtime validation enforces the exact stable question-ID set and
+unique derived registry keys before the research registry is built.
+
 The feature-gated segmented research mode works through
 chapters 1B–8B and their lenses in order. It begins with one broad ruler-period
 reconnaissance. Each chapter then starts a fresh compact session containing only its

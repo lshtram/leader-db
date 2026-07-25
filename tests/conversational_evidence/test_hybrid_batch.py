@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from leaders_db.conversational_evidence.data import questions
 from leaders_db.conversational_evidence.hybrid_experiment import batch
 from leaders_db.conversational_evidence.hybrid_experiment.batch_models import (
     BatchManifest,
@@ -60,7 +61,8 @@ def test_preflight_builds_all_local_packages(
         path = output / "inputs" / "local-priors.json"
         path.parent.mkdir(parents=True)
         path.write_text(
-            json.dumps([{"status": "evidence_found"}] * 80), encoding="utf-8"
+            json.dumps([{"status": "evidence_found"}] * len(questions())),
+            encoding="utf-8",
         )
 
     monkeypatch.setattr(batch, "prepare_inputs", fake_prepare)
@@ -69,7 +71,7 @@ def test_preflight_builds_all_local_packages(
 
     assert result["ready"] is True
     assert len(result["cases"]) == 2
-    assert all(item["prior_rows"] == 80 for item in result["cases"])
+    assert all(item["prior_rows"] == len(questions()) for item in result["cases"])
 
 
 def test_full_and_pilot_manifests_are_valid_and_locked() -> None:

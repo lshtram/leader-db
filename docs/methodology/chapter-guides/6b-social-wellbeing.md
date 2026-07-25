@@ -15,16 +15,21 @@ The questions are ten mutually reinforcing lenses on whether the ruler used feas
 
 ## Ten Evidence Lenses
 
-1. **6B.1** — Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?
-2. **6B.2** — Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?
-3. **6B.3** — Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?
-4. **6B.4** — Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?
-5. **6B.5** — Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?
-6. **6B.6** — Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?
-7. **6B.7** — Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?
-8. **6B.8** — Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?
-9. **6B.9** — Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?
-10. **6B.10** — Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **6B.1 — Welfare as a governing purpose** | Did the ruler make people's wellbeing a real priority? | Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **6B.2 — Access to essential services** | Did people gain effective access to essential services and social protection? | Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.3 — Priority for vulnerable groups** | Did vulnerable people and poor regions receive real protection and support? | Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.4 — Professional service delivery** | Were social services run by capable people with adequate resources? | Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.5 — Measurement and correction** | Did the ruler measure social programs honestly and fix what did not work? | Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.6 — Protection during crises** | Did the ruler reduce avoidable suffering during major crises? | Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.7 — No political allocation of welfare** | Were benefits and basic needs protected from political favoritism and punishment? | Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.8 — Dignity and equal opportunity** | Did the ruler protect equal dignity and opportunity in everyday life? | Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.9 — Durable social institutions** | Did the ruler build social institutions that could last beyond personal rule? | Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.10 — Lasting life chances** | Did ordinary people finish the period with better life chances? | Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Evidence Plan
 

@@ -1,5 +1,50 @@
 # Workplan
 
+## 2026-07-25 — Configuration and test-purpose audit opened
+
+- Inventoried all 230 test files (3,405 tests, 11,875 assertions) and all Python prompt
+  builders. The repository is only partly configuration-driven.
+- Adopted the no-shadow-configuration rule for production and tests. Tests load the
+  authoritative configuration and exercise behavior; they do not contain a second copy
+  of questions, prompts, lists, counts, or editorial prose.
+- Removed the newly added production-guide prose test and replaced it with a synthetic
+  regression test of the actual guide-section extraction bug. Reduced adjacent prompt
+  tests to selection, isolation, interpolation, machine-contract, and size behavior.
+- Recorded remaining hard-coded prompt and question families in
+  [`docs/reviews/configuration-and-test-purpose-audit-2026-07-25.md`](reviews/configuration-and-test-purpose-audit-2026-07-25.md).
+- Completed the first executable migration: all 1B–8B registry question prose and
+  identity metadata now come from validated `questions.json`; its configured
+  exact chapter/lens grid is enforced at load time. The active chapter-research
+  prompt and hybrid baseline file
+  manifest now come from versioned JSON; newly touched tests derive mutable
+  expectations from those same files.
+- Research and conversational-evidence boundary verification passes in full.
+- Next migration order: reviewer and continuation prompts; formatter; chapter judge;
+  remaining hybrid-experiment prompts.
+  Each lands separately with schema validation, hashes, behavioral tests, and rollback
+  metadata.
+
+## 2026-07-25 — Layered eighty-lens presentation implemented
+
+- Reorganized all eighty chapter lenses into a reviewable four-column form: short
+  title, plain-language question, unchanged detailed research question, and priority
+  evidence categories.
+- Defined the six evidence categories and typical source families once. Per-lens
+  priorities are advisory and non-exclusive; they do not create quotas or suppress
+  sources outside the highlighted categories.
+- Added the validated `layered_lenses_v1` catalogue and wired the executable chapter
+  researcher to render it before the chapter-specific research plan. The presentation
+  version is embedded in every emitted prompt.
+- Preserved the detailed-only implementation at immutable commit
+  `143a0757d7a4d5ca2e819f243eb02af09d3e229b`, recorded hashes for every material
+  prompt/question/guide file, and documented the run metadata required for controlled
+  comparison and rollback.
+- Existing detailed questions, stable IDs, guide rubrics, source breadth,
+  proportional-search safeguards, and tolerant downstream contracts remain unchanged.
+- Next gate: compare `layered_lenses_v1` against the frozen detailed baseline on a
+  controlled multi-chapter matrix before treating the presentation as production
+  superior.
+
 ## 2026-07-24 — Previous-lens and source-ecology continuity audit
 
 - Compared the current eighty questions ID by ID with the immediately preceding

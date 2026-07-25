@@ -22,19 +22,21 @@ matrix is never evidence.
 
 ## Ten Evidence Lenses
 
-1. **2B.1:** When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?
-2. **2B.2:** Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?
-3. **2B.3:** Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?
-4. **2B.4:** Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?
-5. **2B.5:** Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?
-6. **2B.6:** Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?
-7. **2B.7:** Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?
-8. **2B.8:** Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?
-9. **2B.9:** Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?
-10. **2B.10:** Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **2B.1 — Peaceful alternatives** | Did the ruler seriously try peaceful options before using force? | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? | **Formal acts and law**; **Implementation and operational conduct** |
+| **2B.2 — Starting or prolonging war** | Did the ruler start or unnecessarily prolong aggression or war? | Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.3 — Honest justification for force** | Did the ruler explain honestly why force was needed? | Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims? | **Rhetoric and representations**; **Formal acts and law** |
+| **2B.4 — Civilian and prisoner protection** | Did the ruler protect civilians and prisoners during conflict? | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.5 — Control of proxies and arms** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.6 — Scrutiny of war claims** | Did the ruler allow independent checks of claims made about conflict? | Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **2B.7 — Ceasefires and settlements** | Did the ruler seriously pursue and uphold peace agreements? | Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.8 — Responsible military resources** | Were military resources used for real security rather than power, profit, or intimidation? | Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.9 — Accountability and remedy** | Did the ruler accept responsibility and remedy unlawful harm from conflict? | Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy? | **Implementation and operational conduct**; **Rhetoric and representations**; **Outcomes** |
+| **2B.10 — Lasting international peace** | Did the ruler leave international relations more peaceful and lawful? | Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
 
-The lens statuses and wording are advisory. Missing lenses reduce confidence; they do
-not invalidate the dossier, force zero, or require a rigid status vocabulary.
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Guidance
 

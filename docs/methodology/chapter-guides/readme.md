@@ -4,6 +4,11 @@ The ruler-quality methodology defines eight chapter guides, one for each of
 `1B` through `8B`. Each guide treats its ten questions as overlapping evidence
 lenses and produces one final chapter score per ruler-period.
 
+Active lens presentation: `layered_lenses_v1`. The detailed-only predecessor is
+frozen at commit `143a0757d7a4d5ca2e819f243eb02af09d3e229b` with its file hashes
+in
+[`docs/archive/methodology/question-prompts-detailed-v1/readme.md`](../../archive/methodology/question-prompts-detailed-v1/readme.md).
+
 Researchers collect one reusable ruler dossier across all chapters. They may use
 natural coverage language; missing lenses reduce confidence and trigger targeted
 follow-up, but do not invalidate otherwise useful evidence. Chapter judges then
@@ -12,21 +17,17 @@ not mechanically average ten question scores.
 
 ## Observable evidence catalogue
 
-Every chapter researcher organizes concrete evidence through six observable channels:
+Every chapter researcher organizes concrete evidence through six observable channels.
+The source examples are useful starting points, not an exclusive hierarchy.
 
-1. **Formal acts and law:** bills, enacted laws, votes, vetoes, decrees, regulations,
-   treaties, pardons, directives, official strategy and doctrine.
-2. **Resources:** proposed and enacted budgets, actual expenditure, transfers,
-   subsidies, procurement, contracts, staffing, equipment and infrastructure.
-3. **Personnel:** appointments, removals, qualifications, conflicts, confirmation,
-   tenure protection and operational autonomy.
-4. **Implementation and operational conduct:** rules issued, programs delivered,
-   inspections, enforcement, deployments, permits, investigations, discipline,
-   compliance, correction and remedy.
-5. **Public communications and representations:** speeches, testimony, manifestos,
-   promises, explanations, threats, denials, propaganda, admissions and corrections.
-6. **Outcomes:** observable changes in security, rights, welfare, institutional
-   practice, program delivery, compliance and other chapter-relevant results.
+| Evidence category | What it covers | Typical sources |
+|---|---|---|
+| **Formal acts and law** | Bills, enacted laws, votes, vetoes, decrees, regulations, treaties, pardons, directives, official strategies and doctrine | Legislative summaries and histories, legal databases, gazettes, treaty records, court records, official archives, legal scholarship, NGO and journalistic analysis |
+| **Resources** | Proposed and enacted budgets, actual expenditure, transfers, subsidies, procurement, contracts, staffing, equipment and infrastructure | Budgets and execution reports, procurement records, audits, legislative analysis, academic and NGO studies, investigative reporting |
+| **Personnel** | Appointments, removals, qualifications, conflicts, confirmation, tenure protection and practical autonomy | Appointment records, official biographies, confirmation proceedings, institutional reports, biographies, academic work and reporting |
+| **Implementation and operational conduct** | Rules issued, programs delivered, inspections, enforcement, deployments, permits, investigations, discipline, compliance, correction and remedy | Administrative and inspection records, audits, judgments, monitoring reports, academic studies, NGO investigations, local and investigative reporting |
+| **Rhetoric and representations** | Speeches, testimony, interviews, manifestos, promises, explanations, threats, denials, propaganda, admissions and corrections | Transcripts, recordings, official and campaign archives, diplomatic records, memoirs, biographies, histories and contemporary reporting |
+| **Outcomes** | Observable changes in security, rights, welfare, institutions, delivery, conduct and compliance | Statistics, datasets, evaluations, surveys, audits, academic research, NGO and international-organization reports, histories and reporting |
 
 These are evidence categories, not six subscores and not six mandatory records per
 lens. The same fact may legitimately occupy more than one category. Researchers retain

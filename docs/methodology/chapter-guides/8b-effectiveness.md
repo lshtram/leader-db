@@ -24,21 +24,21 @@ chapters. Never smuggle moral approval or condemnation into the competence score
 
 ## Ten Evidence Lenses
 
-The question text below is authoritative and must not be paraphrased in the
-research manifest.
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **8B.1 — Clear governing program** | Were the ruler's real goals clear enough to evaluate? | Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals? | **Rhetoric and representations**; **Formal acts and law** |
+| **8B.2 — Turning goals into machinery** | Did the ruler turn goals into concrete plans, rules, resources, people, and institutions? | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **8B.3 — Mobilizing the ruling system** | Did the ruler effectively mobilize the state and ruling network toward those goals? | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? | **Resources**; **Personnel**; **Implementation and operational conduct** |
+| **8B.4 — Capable implementers** | Did the ruler choose and manage people capable of carrying out the program? | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.5 — Coordination and control** | Did the ruler maintain coordination and follow-through across the system? | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? | **Implementation and operational conduct**; **Outcomes** |
+| **8B.6 — From plans to practice** | Did the ruler turn plans and announcements into real government action? | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.7 — Progress toward chosen goals** | Did results move toward the ruler's own goals? | Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? | **Outcomes**; **Implementation and operational conduct** |
+| **8B.8 — Learning and correction** | Did the ruler adapt and correct course when methods failed? | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.9 — Managing crises and resistance** | Did the ruler handle crises and resistance without losing the chosen program? | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.10 — Durable goal achievement** | By the end, had the ruler achieved more of the program in a lasting way? | By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
 
-| ID | Evidence lens |
-|---|---|
-| **8B.1** | Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals? |
-| **8B.2** | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? |
-| **8B.3** | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? |
-| **8B.4** | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? |
-| **8B.5** | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? |
-| **8B.6** | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? |
-| **8B.7** | Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? |
-| **8B.8** | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? |
-| **8B.9** | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control? |
-| **8B.10** | By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility? |
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Scope and Non-Goals
 

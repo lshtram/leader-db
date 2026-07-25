@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 from sqlalchemy import create_engine, text
 
+from leaders_db.conversational_evidence.data import questions
 from leaders_db.db.engine import init_database
 from leaders_db.research._codex_worker_setup import collect_local_priors
 from leaders_db.research.dossier_notebook_prompt import build_research_notebook_prompt
@@ -37,16 +38,16 @@ CHAPTER_FACTS = (
 )
 
 
-def test_local_prior_mappings_cover_all_eighty_ruler_lenses_once() -> None:
+def test_local_prior_mappings_cover_every_configured_ruler_lens_once() -> None:
     mapped = [
         methodology_id
         for mapping in LOCAL_PRIOR_MAPPINGS
         for methodology_id in mapping.methodology_ids
     ]
-    expected = {f"{chapter}B.{question}" for chapter in range(1, 9) for question in range(1, 11)}
+    expected = {question["id"] for question in questions()}
 
     assert set(mapped) == expected
-    assert len(mapped) == len(set(mapped)) == 80
+    assert len(mapped) == len(set(mapped)) == len(expected)
 
 
 @pytest.mark.parametrize(("methodology_id", "field_key", "source_slug"), CHAPTER_FACTS)

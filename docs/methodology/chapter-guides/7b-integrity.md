@@ -24,21 +24,21 @@ confidence rather than invalidating the dossier or preventing a chapter score.
 
 ## Ten Evidence Lenses
 
-The question text below is authoritative and must not be paraphrased in the
-research manifest.
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **7B.1 — Truthfulness** | Did the ruler tell the truth when lying could protect their power or reputation? | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? | **Rhetoric and representations**; **Formal acts and law** |
+| **7B.2 — Correcting falsehoods and errors** | Did the ruler admit and correct false claims and mistakes? | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.3 — Conflicts of interest** | Did the ruler keep personal and family interests separate from public decisions? | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.4 — Personal profit from office** | Did the ruler or close family improperly profit from public office? | Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.5 — Nepotism and loyalist appointments** | Did the ruler choose officials for competence rather than personal loyalty or connections? | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.6 — Independent investigation** | Could independent institutions investigate the ruler and close associates? | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **7B.7 — Obstruction and concealment** | Did the ruler obey accountability processes rather than obstruct or conceal wrongdoing? | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **7B.8 — Promises and good faith** | Did the ruler keep commitments and explain changes honestly? | Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
+| **7B.9 — Favoritism and clientelism** | Did the ruler avoid using public power to reward favored people and networks? | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.10 — Ethical example and public trust** | Did the ruler's conduct strengthen ethical standards and public trust? | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
 
-| ID | Evidence lens |
-|---|---|
-| **7B.1** | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? |
-| **7B.2** | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? |
-| **7B.3** | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? |
-| **7B.4** | Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? |
-| **7B.5** | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? |
-| **7B.6** | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? |
-| **7B.7** | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? |
-| **7B.8** | Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage? |
-| **7B.9** | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access? |
-| **7B.10** | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism? |
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Scope and Non-Goals
 

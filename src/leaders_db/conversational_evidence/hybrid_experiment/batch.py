@@ -12,6 +12,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from leaders_db.conversational_evidence.data import questions
+
 from .artifacts import write_json
 from .batch_models import BatchManifest
 from .runner import prepare_inputs
@@ -47,7 +49,7 @@ def preflight(manifest_path: Path, batch_dir: Path, project_root: Path) -> dict[
                 "ruler": case.ruler,
                 "prior_rows": len(priors),
                 "statuses": statuses,
-                "ready": len(priors) == 80 and not statuses.get("error"),
+                "ready": len(priors) == len(questions()) and not statuses.get("error"),
             }
         )
     report = {

@@ -27,22 +27,21 @@ ruler-level choice are shown. The client matrix is never evidence.
 
 ## Ten Evidence Lenses
 
-These are complementary prompts for evidence collection, not ten independent scores:
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **1B.1 — Reducing existential risk** | Did the ruler try to make catastrophic conflict less likely? | Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.2 — Responsible nuclear rhetoric** | Did the ruler speak about nuclear weapons responsibly? | Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
+| **1B.3 — Safe nuclear control** | Did the ruler keep nuclear weapons and decisions safe and controlled? | Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures? | **Resources**; **Personnel**; **Implementation and operational conduct** |
+| **1B.4 — Arms control and inspections** | Did the ruler support and follow agreements that reduce nuclear danger? | Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.5 — Nuclear cover for aggression** | Did the ruler avoid using nuclear power to protect aggression or repression? | Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression? | **Formal acts and law**; **Rhetoric and representations**; **Implementation and operational conduct** |
+| **1B.6 — Preventing proliferation** | Did the ruler stop allies, clients, and domestic actors from spreading nuclear weapons? | Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.7 — Independent risk expertise** | Did the ruler empower qualified experts who could warn about catastrophic risks? | Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology? | **Personnel**; **Resources**; **Implementation and operational conduct** |
+| **1B.8 — Crisis de-escalation** | During crises, did the ruler act to prevent catastrophic escalation? | In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous? | **Implementation and operational conduct**; **Rhetoric and representations**; **Formal acts and law** |
+| **1B.9 — Other catastrophic risks** | Did the ruler manage AI, cyber, biological, and similar catastrophic risks carefully? | Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.10 — Lasting risk posture** | Did the ruler leave the country’s catastrophic-risk posture safer than before? | Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure? | **Outcomes**; **Implementation and operational conduct** |
 
-1. **1B.1:** Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?
-2. **1B.2:** Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?
-3. **1B.3:** Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?
-4. **1B.4:** Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?
-5. **1B.5:** Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?
-6. **1B.6:** Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?
-7. **1B.7:** Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?
-8. **1B.8:** In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?
-9. **1B.9:** Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?
-10. **1B.10:** Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?
-
-Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
-confidence; they do not invalidate the dossier, mechanically produce zero, or require
-exact status vocabulary.
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Guidance
 
