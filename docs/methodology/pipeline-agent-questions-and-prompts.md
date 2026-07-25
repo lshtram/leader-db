@@ -6,7 +6,7 @@ Last synchronized: 2026-07-25
 
 Active layered lens version: `layered_lenses_v1`
 
-Active chapter-research prompt version: `chapter_research_prompt_v1`
+Active chapter-research prompt version: `chapter_research_prompt_v2`
 
 This document answers four review questions: what each agent receives, what it is asked
 to do, which questions guide each chapter, and what it must hand to the next phase. It
@@ -204,79 +204,108 @@ The prompt ends by requiring:
 
 ### 4.3 Deep chapter researcher
 
-Executable source:
+Executable sources:
+[`chapter_research_prompt.json`](../../src/leaders_db/conversational_evidence/data/chapter_research_prompt.json) and
 [`chapter_research_sequence.py`](../../src/leaders_db/research/chapter_research_sequence.py)
 
-This prompt is run in a fresh compact session once for each selected chapter. It
-receives only:
+This is a fresh compact web-research session for one ruler and one chapter. The agent
+starts as a blank slate and receives the ruler-period, the selected chapter lenses,
+chapter guidance, a short reconnaissance summary, and a compact resource index. The
+parent keeps structured local evidence on a separate path and sends it directly to the
+judge.
 
-- the immutable ruler-period;
-- that chapter's ten lens IDs;
-- a bounded reconnaissance summary;
-- the chapter guide's ten lenses and researcher-facing guidance;
-- a compact index of already found resources.
+The prompt is organized as a seven-step workplan: orient, plan coverage, find the main
+record, verify material claims, test the account, deepen iteratively, and prepare the
+handoff. Negative instructions are limited to the score boundary and strict machine
+contract where ambiguity would create a demonstrated pipeline failure.
 
-It explicitly receives neither the structured local package nor the complete
-accumulated dossier, prior tool history, other chapter guides, client scores, or
-internal project materials.
+Active prompt (`chapter_research_prompt_v2`):
 
-Stable prompt:
+> Research {identity}. Build a complete, well-sourced factual record for this chapter. Do not assign a score.
+>
+> Prompt version: `{prompt_config_version}`.
+> Lens presentation version: `{lens_presentation_version}`.
+>
+> ## Your research lenses
+>
+> Each lens has a simple question, a detailed question, and priority evidence categories. Use the priorities as useful starting points and follow other relevant evidence when it improves the account.
+>
+> Evidence categories:
+>
+> {evidence_category_key}
+>
+> {layered_lenses}
+>
+> Chapter guidance:
+>
+> {compact_guide}
+>
+> ## Starting material
+>
+> Earlier reconnaissance:
+>
+> {reconnaissance_summary}
+>
+> Resources already identified:
+>
+> {resource_index_json}
+>
+> The parent workflow handles structured local data separately. Concentrate here on web sources and ruler-attributed evidence.
+>
+> ## Workplan
+>
+> 1. **Orient.** Establish the ruler's formal and practical authority, the inherited situation, major external shocks or constraints, and the information environment.
+> 2. **Plan coverage.** For every selected lens, identify the important favorable, adverse, disputed, and exculpatory possibilities that research should test.
+> 3. **Find the main record.** Begin with strong overviews and syntheses. Identify the consequential decisions, laws, budgets, appointments, statements, implementation, corrections, and outcomes.
+> 4. **Verify material claims.** Open the underlying sources. Use precise laws, official records, audits, judgments, datasets, scholarship, monitoring, and credible reporting where they establish or challenge an important claim. Assess each source’s authority, independence, method, proximity, and date.
+> 5. **Test the account.** Look for contrary evidence, independent corroboration, relevant local-language material, source dependencies, and alternative explanations. Distinguish inherited conditions and country context from conduct attributable to the ruler.
+> 6. **Deepen where useful.** Repeat steps 3–5 while new searches add a material fact, a stronger source, a missing perspective, or a necessary correction. Finish when further searching mainly repeats the established record or reaches a concrete access barrier.
+> 7. **Prepare the handoff.** Organize the evidence by underlying fact and map each developed claim to every selected lens it supports.
+>
+> ## Evidence records
+>
+> Create one record for one source supporting one material claim. If one source supports several materially different claims used downstream, create a separate record and locator for each claim. Give records about the same underlying fact or event the same `underlying_fact_key`, and identify reports that depend on the same investigation, dataset, wire story, or official claim.
+>
+> Each developed record includes:
+>
+> - one precise factual claim and why it matters;
+> - source title, publisher, date, direct URL, and stable locator;
+> - target-period, inherited, or later-retrospective status;
+> - the ruler-attribution basis;
+> - source limitations, dependencies, and credible contrary evidence;
+> - independent corroboration; and
+> - every selected question ID the claim supports.
+>
+> Keep accepted evidence, corroboration, reused sources, uninspected leads, rejected sources, and blocked sources in clearly labelled groups. Explain the source landscape when a lens remains unanswered.
+>
+> ## Deliverables
+>
+> Return:
+>
+> 1. a concise orientation covering authority, baseline, shocks, and information environment;
+> 2. a compact evidence index;
+> 3. a disposition for every selected lens, with evidence IDs or a clear gap explanation;
+> 4. the labelled source groups;
+> 5. source counts and remaining research gaps; and
+> 6. one machine line for every developed record.
+>
+> Each machine line begins `SOURCE_CLAIM_JSON:` outside a code fence, followed by a valid JSON object with `title`, `publisher`, `publication_date`, `url`, `claim`, `locator`, `provisional_id`, `canonical_fact_key`, `disposition`, `chapter_ids`, `methodology_ids`, `source_type`, `source_confidence`, `source_confidence_reason`, `final_evidence_use`, `period_fit`, `ruler_attribution`, `contrary_evidence`, `underlying_fact_key`, and `lenses`.
+>
+> Machine records represent accepted, context, or discovery evidence. Keep rejected sources and uninspected leads in their labelled groups. Use `final_evidence`, `context`, or `discovery_only` for `disposition` and `final_evidence_use`. Use unique IDs beginning `WEB-{chapter_id}-`, the chapter label `{chapter_id}`, and exact selected question IDs from {selected_lenses_json}. The parent workflow will merge these records into the cumulative ledger.
 
-> Research `{chapter subject}` under `{ruler}` in `{country}` during `{period}`.
->
-> Prepare a complete, carefully sourced account for researchers who will assess this
-> part of the ruler's record. Research the subject without assigning a score. Use the
-> lenses below as different angles on the same subject. Each starts with a short title
-> and simple question, then preserves the detailed research question. Priority evidence
-> categories identify promising kinds of facts; they are suggestions, not required
-> coverage, exclusive search instructions, separate ratings, quotas, or an arithmetic
-> checklist.
->
-> Lens presentation version: `layered_lenses_v1`.
->
-> Build the factual record through six observable evidence channels: formal acts and
-> law; resources; personnel; implementation and operational conduct; rhetoric and
-> representations; and outcomes. Use the channels that materially
-> fit this chapter. They are not quotas or separate scores.
->
-> Keep the source type separate from the observed fact. An audit, court record or
-> inquiry may verify a formal act, resource, personnel, implementation, communication
-> or outcome claim. Authority, baseline, constraints, distribution, exposure,
-> causation, durability and source bias are questions for interpreting evidence, not
-> additional evidence channels.
->
-> The six channels classify facts; they are not a preferred-source list. Books,
-> academic research, NGO and international-organization reports, investigative and
-> specialist journalism, biographies, histories, expert analysis, and credible local
-> reporting remain essential for overview, informal conduct, materiality,
-> interpretation, attribution, and scrutiny of official claims.
->
-> Research proportionately. Begin with strong overview and synthesis sources that
-> identify consequential conduct. Inspect particular laws, budgets, appointments,
-> speeches, audits, judgments, and datasets when they establish a material claim,
-> resolve disagreement, improve attribution, or test implementation. Do not catalogue
-> every act, budget line, appointment, statement, program, or outcome from the period.
->
-> Start by forming a working account of the ruler's formal and practical authority, the
-> inherited baseline, external shocks and constraints, and the important favorable,
-> adverse, disputed, and exculpatory possibilities raised by every selected question.
-> Treat the resource list as a starting point. Open an underlying source before using
-> it as evidence. Search primary and legal records, independent monitoring,
-> scholarship, reputable reporting, archives, relevant local-language material, and
-> credible favorable, adverse, and contrary interpretations.
->
-> Continue while research produces a materially new fact, a stronger underlying
-> source, credible contrary evidence, an important missing perspective, or a necessary
-> correction. Conclude when additional searching mostly repeats what is already known.
-> There is no document or evidence-record quota.
+Design comparison with v1:
 
-There is no resource or evidence-record cap. Earlier numeric guidance is diagnostic,
-not a collection limit: retain every materially useful, defensible source-claim unit.
-A report containing distinct material claims selected for downstream use requires a
-separate record and precise locator for each selected claim; this does not require
-extracting every row, program, decision, event, finding, or remedy in the report.
-Research ends on reasoned saturation or a concrete blocker, not when a target count is
-reached.
+| Measure | v1 | v2 | Change |
+|---|---:|---:|---:|
+| Static prompt characters | 6,711 | 4,518 | -32.7% |
+| Static prompt words | 859 | 568 | -33.9% |
+| Static prompt lines | 127 | 71 | -44.1% |
+
+The shorter prompt preserves the local/web separation, selected-lens scope, authority
+and baseline analysis, contrary research, source opening, atomic source-claim records,
+deduplication, saturation rule, precise locators, and machine handoff. Its semantic
+quality still requires controlled comparison on preserved cases before promotion to a
+full evaluation.
 
 ### 4.4 No-search evidence reviewer
 

@@ -1,5 +1,19 @@
 # Workplan
 
+## 2026-07-25 — Deep chapter-research prompt simplified
+
+- Replaced the 859-word chapter researcher instructions with a 568-word, seven-step
+  workplan: orient, plan coverage, find the main record, verify claims, test the
+  account, deepen iteratively, and prepare the handoff.
+- Removed repeated negative framing and retained only the score boundary and strict
+  machine-contract constraints tied to demonstrated failure modes.
+- Preserved selected-lens scope, local/web separation, authority and baseline analysis,
+  contrary research, source opening, atomic source-claim records, deduplication,
+  saturation, locators, and the cumulative-ledger handoff.
+- Promoted the editable configuration to `chapter_research_prompt_v2` and synchronized
+  the human review guide. Controlled preserved-case quality comparison remains required
+  before treating the shorter wording as superior in evidence quality.
+
 ## 2026-07-25 — Configuration and test-purpose audit opened
 
 - Inventoried all 230 test files (3,405 tests, 11,875 assertions) and all Python prompt

@@ -10,6 +10,13 @@ promoted solely because it looks clearer.
 |---|---|---|---|
 | `detailed_questions_v1` | Frozen comparison baseline | Commit `143a0757d7a4d5ca2e819f243eb02af09d3e229b`; hashes in `docs/archive/methodology/question-prompts-detailed-v1/readme.md` | Ten detailed questions per chapter without a short title, simple question, or priority-category layer |
 | `layered_lenses_v1` | Active candidate | The commit containing this document and `question_lens_presentation.json` | Short title, simple question, unchanged detailed question, and non-exclusive priority evidence categories |
+| `chapter_research_prompt_v1` | Frozen prompt baseline | Tag `question-prompts-layered-v1`; commit `8d40df0` | Prose-led deep chapter research instructions |
+| `chapter_research_prompt_v2` | Active prompt candidate | `chapter_research_prompt.json` | Seven-step research workplan with the same local/web and machine-record contracts |
+
+The v2 static template is 4,518 characters and 568 words, compared with 6,711
+characters and 859 words in v1. The shorter structure is a design improvement, not yet
+proof of better evidence. It requires controlled comparison on preserved cases before
+promotion beyond the candidate path.
 
 ## Required run record
 
