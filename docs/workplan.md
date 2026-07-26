@@ -1,5 +1,90 @@
 # Workplan
 
+## 2026-07-25 — Biography compression acceptance criterion corrected
+
+- Rejected the 632-token `BOOK-013` synthesis as an orientation note, not a
+  decision-useful evidence paper. Preserving headings and high-level conclusions is
+  insufficient when the downstream judge needs the underlying facts.
+- Replaced the compression prompt and reviewer contract with a factual-payload test:
+  retain concrete episodes, actors, actions, dates or periods, mechanisms, outcomes,
+  material figures, competing accounts, evidentiary status, and locators. A back-cover
+  or table-of-contents-style summary now fails even when its themes are accurate.
+- The first corrected M3 biography pass produced 5,425 words / 7,804 output tokens
+  from a 31,212-token extract (about 4:1 by provider tokens). It is a materially richer
+  evidence paper. No further compression is authorized until a manual, question-aware
+  payload audit distinguishes consequential omissions from irrelevant biography.
+- The reviewer must assess only useful content the source can support. It must not
+  treat the source's lack of 2022 coverage as a compression failure or require family,
+  health, campaign-venue, and party-history detail without a material Chapter 5B link.
+- Next: manually audit the corrected paper's concrete claims and locators, then test
+  one redundancy-removal pass. Add a closed-book downstream-judge comparison before
+  selecting a compression frontier.
+
+## 2026-07-25 — AMLO long-document reader fidelity experiment opened
+
+- Opened a frozen, content-first A/B design for AMLO 2022 Chapter 5B using a
+  stratified sixteen-document pack. GPT-5.6 Sol is the baseline reader and common
+  compiler; the candidate ladder starts with MiniMax M2.7 and falls back to GPT-5.6
+  Luna when content, rather than formatting, fails.
+- Serialization defects do not count as reader-quality failures. A separate
+  high-quality normalization pass may restore JSON from the reader summary and the
+  original hash-bound extract without adding or strengthening substantive claims.
+- Added explicit access states for machine-readable text, metadata, paywall/login,
+  bot or JavaScript challenge, robots denial, transient failure, and unavailability.
+  Restricted sources remain catalogued but are never bypassed or silently treated as
+  readable.
+- The expanded AMLO universe is heavily weighted toward executive, administrative,
+  audit, court, regulator, and state-enterprise records. Future selection, source maps,
+  review, and judgment must not treat official volume or formal status as truth.
+  Consequential official claims require independent corroboration or an explicit
+  unresolved warning, with deliberate use of scholarship, civil society, critical
+  local journalism, affected parties, courts, autonomous oversight, and credible
+  opposing accounts.
+- Next: complete the longer access retry, freeze and acquire the matched pack, run the
+  three-document M2.7 calibration with format-neutral normalization, then execute the
+  matched arms and order-reversed blind evaluation.
+
+## 2026-07-25 — Mini researcher profile restored; source-ecology v3 rejected
+
+- Confirmed that the production evidence researcher is `gpt-5.4-mini` with its
+  configured default reasoning profile. Marked the earlier `gpt-5.6-sol` AMLO pairs
+  as wrong-model diagnostics with no prompt-promotion authority.
+- Changed both experiment generators to freeze `gpt-5.4-mini`; larger-model runs can
+  diagnose workflow behavior but cannot select a production researcher prompt.
+- Ran a fresh mini v1/v2 pair. v2 broadened publisher labels from 6 to 14 and unique
+  URLs from 9 to 15 at nearly equal input-token cost, while v1 sometimes retained
+  better line-level locators. Neither passed the methodology-ID handoff.
+- Ran a fresh mini v2/v3 pair. The source-ecology paragraph did not increase searches,
+  unique URLs, publisher diversity, or record yield; v3 also failed the methodology-ID
+  contract. Do not promote v3.
+- Next: optimize for the mini model with explicit bounded phases—coverage discovery,
+  targeted underlying-document opening, and separate deterministic/no-search handoff
+  repair—then test locator precision and unique supported facts before adding more
+  prompt prose.
+
+## 2026-07-25 — Fresh AMLO 5B prompt v1/v2 gate inconclusive
+
+- Superseded for production-prompt selection: the pair was mistakenly executed with
+  `gpt-5.6-sol` rather than the agreed affordable `gpt-5.4-mini` researcher. Its
+  artifacts remain diagnostic history but cannot promote or reject a prompt intended
+  for the production researcher.
+- Removed the v1/v2 measurement table and comparative commentary from the human
+  prompt-review document; comparisons now live only in prompt versioning and the
+  experiment report.
+- Froze the progressive quality protocol and a dedicated AMLO 2022 5B package with
+  hashed v1/v2 prompt sources, emitted prompts, case inputs, questions, layered lens
+  presentation, guide, workflow, researcher skill, evaluator rubric, execution
+  controls, label maps, and repository state.
+- Ran one fresh isolated diagnostic `gpt-5.6-sol` pair. v1 produced 12 valid machine records and
+  v2 produced 16; both covered all ten lenses with no parse or required-field failure.
+  Counts and token use remain diagnostic only.
+- The order-reversed blind evaluations disagreed: each preferred the artifact shown
+  first. No prompt advances. The result is recorded as evaluator order sensitivity,
+  not averaged into a winner.
+- Next gate: complete record-by-record source and locator verification, tighten
+  deterministic field semantics, and rerun blind evaluation with independently
+  randomized per-record or per-dimension presentation before another prompt mutation.
+
 ## 2026-07-25 — Deep chapter-research prompt simplified
 
 - Replaced the 859-word chapter researcher instructions with a 568-word, seven-step
@@ -4811,3 +4896,41 @@ Per [`docs/sources/vetting/report.md`](sources/vetting/report.md) §8, the build
 - [ ] No raw files modified, no `TODO(debug)`, no scratch scripts in the project root (Rule #13).
 - [ ] No unreviewed code lands (Rule #14).
 - [ ] Workplan Done History updated as each source lands.
+## 2026-07-25 — Low-cost long-document reader calibration
+
+- Froze a 16-document, approximately 250,846-token AMLO 2022 Chapter 5B pack and
+  audited the 208-URL discovery catalog for machine access, bot challenges,
+  transient failures, robots denial, and unavailability.
+- Preserved reader prose in a deterministic lossless JSON envelope so malformed
+  organization is never treated as a content failure.
+- Calibrated M2.7, M2.7 with a fresh M2.7 factual reviewer, M3, M3 with M2.7
+  verification, M3 with fresh M3 verification, Luna, Terra, and GPT-5.4-mini.
+- M3 was activated by restarting the existing local Responses compatibility bridge.
+  The best M3→M3 run achieved 41 supported claims out of 42 with 41 usable locators,
+  but fresh runs exposed legal-inference and coverage variability. No low-cost arm
+  was promoted to the 16-document A/B.
+- The next experiment will separate locator-indexed coverage inventory, factual
+  verification, and compression. Official-source volume remains a bias risk:
+  government assertions require explicit source-role labeling and independent or
+  opposing checks.
+- Results package:
+  `research/conversational-evidence/amlo-2022-5b-document-reader-ab-v1/low-cost-reader-calibration-results.md`.
+
+## 2026-07-25 — Full AMLO 5B M3/M3 document-reader run completed
+
+- Completed the frozen sixteen-document AMLO 2022 Chapter 5B pack with one fresh
+  MiniMax M3 reader and a separate fresh MiniMax M3 factual-verification pass per
+  chunk. The 250,846-source-token pack produced 25 chunks and 870 audited claims.
+- The content audit classified 858 claims as supported and 12 as unsupported or
+  materially misstated. A targeted manual check reopened all twelve flagged claims
+  against the frozen extracts and at least one representative accepted claim from
+  every document.
+- The M3 reader used 555,472 input and 43,451 output tokens; the M3 verifier used
+  565,321 input and 85,659 output tokens. The complete artifact span was 63.36
+  minutes. GPT-5.4-mini reading briefs and GPT-5.6 Sol experimental audits are
+  reported separately and are not part of the proposed production reader cost.
+- Complete dossier:
+  `research/conversational-evidence/amlo-2022-5b-document-reader-ab-v1/full-m3-evidence-dossier.md`.
+- Next: correct or exclude the twelve flagged claims, restore decisive omissions,
+  and perform a separate external/general-knowledge contradiction and gap check
+  before any downstream chapter judgment.

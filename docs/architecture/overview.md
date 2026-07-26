@@ -705,6 +705,17 @@ total above a long-context threshold produces lower and upper bounds.
 Search activity is driven by chapter evidence needs, not a fixed call allowance.
 Every researcher, reviewer, formatter, and judge turn remains separately auditable.
 
+An experimental long-document branch may sit between discovery and dossier acceptance.
+It deterministically acquires and chunks lawfully machine-readable sources, then routes
+each chunk through versioned document-type guidance to a low-cost reader. The resulting
+source map preserves atomic claims, locators, limitations, source incentives, and reopen
+requests, but is not evidence by itself. A content-neutral normalization pass may repair
+serialization from the map and original extract. The dossier compiler reopens every
+consequential claim against the hash-bound extract before acceptance. Reader fallback is
+based on supported content, material omissions, and locator fidelity rather than JSON
+polish. Access states and usage for acquisition, reading, normalization, compilation,
+retry, and evaluation remain separate.
+
 ---
 
 ## Database Schema

@@ -1,0 +1,91 @@
+{
+  "version": "amlo_5b_document_reader_ab_v2_fidelity_checklist",
+  "chapter_id": "5B",
+  "reader_ladder": [
+    "minimax-m2.7-researcher",
+    "openai-luna-candidate",
+    "openai-terra-candidate",
+    "openai-gpt54-mini-researcher",
+    "minimax-m3-long-context"
+  ],
+  "baseline_reader": "openai-sol-supervisor",
+  "reading_brief_model": "openai-gpt54-mini-researcher",
+  "compiler": "openai-sol-supervisor",
+  "normalizer": "openai-gpt54-mini-researcher",
+  "content_auditor": "openai-sol-supervisor",
+  "chunk_target_tokens": 18000,
+  "chunk_max_tokens": 24000,
+  "chunk_overlap_tokens": 300,
+  "calibration_document_ids": [
+    "GOV-003",
+    "LAW-005",
+    "BOOK-013"
+  ],
+  "document_pack": [
+    {"source_id": "GOV-003", "document_type": "financial_report", "source_role": "executive_official_report"},
+    {"source_id": "GOV-017", "document_type": "statistical_release", "source_role": "official_statistical_body"},
+    {"source_id": "MAC-010", "document_type": "financial_report", "source_role": "international_organization"},
+    {"source_id": "MAC-015", "document_type": "policy_synthesis", "source_role": "international_organization"},
+    {"source_id": "LAW-005", "document_type": "legislation", "source_role": "executive_legislative_record"},
+    {"source_id": "LAW-017", "document_type": "trade_dispute_record", "source_role": "foreign_government"},
+    {"source_id": "LAW-019", "document_type": "regulatory_report", "source_role": "domestic_regulator"},
+    {"source_id": "IMP-005", "document_type": "audit_summary", "source_role": "executive_oversight_body"},
+    {"source_id": "RES-001", "document_type": "procurement_analysis", "source_role": "independent_civil_society"},
+    {"source_id": "IMP-001", "document_type": "program_evaluation", "source_role": "autonomous_evaluator"},
+    {"source_id": "RES-006", "document_type": "distribution_report", "source_role": "independent_civil_society"},
+    {"source_id": "RES-005", "document_type": "civil_society_analysis", "source_role": "independent_civil_society"},
+    {"source_id": "RES-019", "document_type": "academic_research", "source_role": "independent_academic"},
+    {"source_id": "BOOK-013", "document_type": "biography", "source_role": "independent_reference"},
+    {"source_id": "PREZ-005", "document_type": "speech_transcript", "source_role": "executive_self_report"},
+    {"source_id": "NEWS-010", "document_type": "investigative_news", "source_role": "independent_journalism"}
+  ],
+  "fallbacks": {
+    "NEWS-010": ["NEWS-004", "NEWS-006"],
+    "IMP-005": ["RES-002"],
+    "RES-001": ["RES-002"],
+    "BOOK-013": ["BOOK-014"]
+  },
+  "summary_target_tokens": {
+    "audit_summary": 900,
+    "financial_report": 1200,
+    "program_evaluation": 1200,
+    "policy_synthesis": 1200,
+    "distribution_report": 1200,
+    "legislation": 900,
+    "procurement_analysis": 900,
+    "regulatory_report": 900,
+    "trade_dispute_record": 900,
+    "academic_research": 900,
+    "biography": 900,
+    "civil_society_analysis": 900,
+    "statistical_release": 600,
+    "speech_transcript": 600,
+    "investigative_news": 600
+  },
+  "document_type_guidance": {
+    "audit_summary": "Capture audit mandate, audited entity and period, named underlying audits, each material finding, amount or scale, entity response, remedy or recovery status, and what requires reopening in the full audit.",
+    "financial_report": "Capture accounting period, units, nominal versus real basis, approved versus executed values, revisions, material balances and risks, attribution boundaries, and auditor or methodology qualifications.",
+    "program_evaluation": "Capture intervention, theory of change, population, method and comparison basis, implementation findings, measured outcomes, distribution, limitations, and corrective response.",
+    "policy_synthesis": "Separate reported facts from recommendations and interpretation; preserve data periods, causal limits, external conditions, distributional findings, and disagreements.",
+    "distribution_report": "Capture data sources, population and period, expenditure definitions, group or regional incidence, inequality measures, implementation mechanisms, policy interpretation, uncertainty, and official response.",
+    "legislation": "Capture issuing authority, exact provisions changed, effective date, delegated powers, affected actors, implementation requirements, and what the text does not establish about results.",
+    "procurement_analysis": "Capture data sources, risk model or audit basis, procurement period, named entities and practices, finding versus risk flag, scale, limitations, and official response.",
+    "regulatory_report": "Capture regulator mandate, market definition, competition or consumer mechanism, evidentiary basis, recommendation or action, legal status, and institutional constraints.",
+    "trade_dispute_record": "Capture parties, treaty or legal basis, challenged measures, procedural stage, complainant assertions, respondent position when present, remedy sought, and what has not been adjudicated.",
+    "academic_research": "Capture research question, data, identification or method, period, findings, uncertainty, external validity, funding or author perspective, and what is interpretation rather than observation.",
+    "biography": "Capture chronology, offices and authority, documented decisions or relationships, author sourcing, direct evidence versus interpretation, retrospective distance, and perspective or selection bias.",
+    "civil_society_analysis": "Capture data sources, method, normative framework, findings, affected groups, independence and funding where disclosed, limitations, and official response or contrary account.",
+    "statistical_release": "Capture indicator definition, population, period, units, seasonal or price adjustment, uncertainty, revisions, subgroup or regional distribution, and limits on ruler attribution.",
+    "speech_transcript": "Capture exact speaker claims, commitments, admissions and causal representations; label all as self-report unless independently verified and identify the underlying records needed.",
+    "investigative_news": "Capture event chronology, named sources and documents, allegation versus finding, responses from affected parties, source dependencies, unresolved claims, and follow-up records."
+  },
+  "reader_prompt": "Read the supplied document extract for AMLO, Mexico, 2022, Chapter 5B. Do not score. Follow the document-type guidance and reading brief. Preserve content over format. Produce a compact source map with atomic claims and precise locators. Distinguish observed facts, official or author assertions, interpretation, and unresolved allegations. Record limitations, source role, contrary material, and sections that a stronger model should reopen. Never infer an author's motive or incentive beyond the document's observable institutional role and stated purpose. For every claim, recheck the exact wording, unit, time span, comparison basis, qualification, and locator against the extract; do not call a change real, causal, adjudicated, open-ended, or ruler-attributable unless the text supports that characterization. Legal records must retain the complete cited authority, amendments, procedural status, exceptions, and effective dates relevant to the claim. Before returning, remove or correct every claim whose locator does not identify its supporting passage. Never invent missing text. The target length is {summary_target_tokens} tokens; if material content does not fit, emit an explicitly labelled continuation rather than dropping it.",
+  "normalizer_prompt": "Convert the reader's source map into the required JSON structure using only the reader output and the supplied original-document extract. Formatting repair is not a quality judgment. Preserve every supported claim, qualifier, locator, uncertainty, and reopen request. You may correct syntax, split bundled claims, and recover fields directly visible in the supplied extract. Do not add substantive claims, strengthen attribution, or silently repair unsupported content.",
+  "compiler_prompt": "Build a complete cited Chapter 5B evidence dossier without scoring. Treat source maps as leads. Reopen and verify every consequential accepted claim against the supplied underlying-document passages. Preserve source roles, official-source incentives, contrary evidence, attribution limits, period fit, and exact locators. An executive or state-owned-enterprise claim requires independent corroboration or an explicit unresolved-verification warning.",
+  "content_acceptance": {
+    "minimum_decisive_fact_recall": 0.95,
+    "minimum_usable_locator_rate": 0.9,
+    "fabricated_accepted_claims_allowed": 0,
+    "format_errors_are_quality_failures": false
+  }
+}

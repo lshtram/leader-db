@@ -40,6 +40,14 @@ orientation and resource index. Evaluate evidence quality, lens coverage, contra
 evidence, attribution, source diversity, duplication, token use and downstream
 judgeability. Do not overwrite prior artifacts.
 
+The active progressive quality experiment is defined in
+[`deep-chapter-researcher-quality-experiment.md`](deep-chapter-researcher-quality-experiment.md).
+It begins with a fresh matched AMLO 2022 Chapter 5B v1/v2 pair, permits at most five
+prompt versions on that case before reassessment, confirms a provisional winner with
+two additional fresh runs, then expands to contrasting information environments and
+the established ten-case matrix. Raw record count, runtime, and token use are
+diagnostics rather than promotion targets.
+
 A presentation can be promoted only when it is at least as good as the frozen baseline
 on material evidence quality and does not create a systematic blind spot. If it
 underperforms, restore the prior implementation from its immutable commit or run the

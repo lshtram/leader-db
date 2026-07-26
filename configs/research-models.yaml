@@ -1,5 +1,17 @@
 version: 1
 profiles:
+  openai-gpt54-mini-researcher:
+    provider: openai
+    model: gpt-5.4-mini
+    execution_surface: codex
+    roles:
+      - dossier_researcher
+      - document_reader
+    cost_class: affordable_production_researcher
+    context_window: null
+    codex_config_path: ~/.codex/config.toml
+    credential_path: ~/.codex/auth.json
+    notes: Production evidence-discovery and document-reading-brief profile.
   openai-luna-candidate:
     provider: openai
     model: gpt-5.6-luna
@@ -8,6 +20,7 @@ profiles:
       - dossier_researcher
       - dossier_evidence_reviewer
       - dossier_formatter
+      - document_reader
       - chapter_judge
     cost_class: low_cost_candidate
     context_window: 372000
@@ -22,6 +35,7 @@ profiles:
       - dossier_researcher
       - dossier_evidence_reviewer
       - dossier_formatter
+      - document_reader
       - chapter_judge
     cost_class: low_cost_candidate
     context_window: 372000
@@ -36,6 +50,7 @@ profiles:
       - dossier_researcher
       - dossier_evidence_reviewer
       - dossier_formatter
+      - document_reader
       - chapter_judge
     cost_class: high_capability_candidate
     context_window: 1050000
@@ -48,6 +63,7 @@ profiles:
     execution_surface: codex
     roles:
       - dossier_researcher
+      - document_reader
     cost_class: low_cost_candidate
     context_window: 204800
     codex_config_path: ~/.codex/minimax-m27.config.toml
@@ -60,6 +76,7 @@ profiles:
     execution_surface: codex
     roles:
       - dossier_researcher
+      - document_reader
       - chapter_judge
     cost_class: user_managed
     context_window: 1000000

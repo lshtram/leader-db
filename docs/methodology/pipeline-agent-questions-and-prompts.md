@@ -293,19 +293,10 @@ Active prompt (`chapter_research_prompt_v2`):
 >
 > Machine records represent accepted, context, or discovery evidence. Keep rejected sources and uninspected leads in their labelled groups. Use `final_evidence`, `context`, or `discovery_only` for `disposition` and `final_evidence_use`. Use unique IDs beginning `WEB-{chapter_id}-`, the chapter label `{chapter_id}`, and exact selected question IDs from {selected_lenses_json}. The parent workflow will merge these records into the cumulative ledger.
 
-Design comparison with v1:
-
-| Measure | v1 | v2 | Change |
-|---|---:|---:|---:|
-| Static prompt characters | 6,711 | 4,518 | -32.7% |
-| Static prompt words | 859 | 568 | -33.9% |
-| Static prompt lines | 127 | 71 | -44.1% |
-
-The shorter prompt preserves the local/web separation, selected-lens scope, authority
-and baseline analysis, contrary research, source opening, atomic source-claim records,
-deduplication, saturation rule, precise locators, and machine handoff. Its semantic
-quality still requires controlled comparison on preserved cases before promotion to a
-full evaluation.
+Version measurements, comparative claims, experiment controls, and promotion decisions
+belong in [`question-prompt-versioning.md`](question-prompt-versioning.md) and the
+versioned experiment reports. This human prompt-review document describes only the
+active design and handoff.
 
 ### 4.4 No-search evidence reviewer
 
