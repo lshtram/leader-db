@@ -1,0 +1,31 @@
+schema_version: evidence_pipeline_freeze_v1
+release_id: netanyahu-2023-pilot-v2.1
+base_config: configs/evidence-funnel/netanyahu-2023-pilot-v2.yaml
+frozen_at: '2026-08-06'
+status: frozen_for_pilot
+source_commit: 04fd102ee7cbeff76b6903472630e2dd843ea625
+target_year: 2023
+scope:
+  rulers: 1
+  chapters: 8
+  questions_per_chapter: 10
+aggregate_hashes:
+  research_and_cli_python: 1e7caad6fe3e22527ab106d7a95bd7bd1154f2786d29ff71861f4424c12a49e2
+  chapter_guides: b266a52d475779128b2392b1d470571aba9ac59f01e8708d039d5e5dc016f699
+critical_file_hashes:
+  pilot_config: 78e17dd06b0d9064b606ca46bb686a0395b861795726e03b6618804ed7df3192
+  batch_manifest: 2c3e87c60ae89684a89b8bcabe385f4bc774cfeb2875cdadee2e8d6160d974e7
+  methodology_freeze: 45a0cba7ceeb131ee1e7a5200aa1427af5b0267c73172d69728df3f663e0039f
+  research_workflow: fda99de7f1a05387226bbd16eba0af15c45c96de550d506f5fd19185abd20a2c
+  model_profiles: c02eb6ff3a89a2de1ce10edf9f9130ffc9ad6456e72c5ecc12fbf9bd0e6ec4d9
+  pricing: 2fc2c7c22683403356448154c5a388d9dffb684fdd3fc4ceeea5ca6ae60dcc2a
+  requirements: 3aace5daeea0443e883699beb1ed6e2f1f72e004aa28863d2a036e9e64bb8904
+recovery_equivalence:
+  reusable_stages: [local_evidence, reconnaissance, source_discovery, chapter_research]
+  reusable_paid_review_outputs: [round-01-1B]
+  rerun_from: evidence_review_round_01_2B
+  rationale: >-
+    Luna's substantive 1B review completed, but its sole mechanical continuation ID
+    was malformed. Version 2.1 makes that ID code-owned and reuses the validated review.
+change_control: >-
+  Any further behavior change creates another release and records stage equivalence.
