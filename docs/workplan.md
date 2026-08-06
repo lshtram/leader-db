@@ -1,5 +1,22 @@
 # Workplan
 
+## 2026-08-06 — Netanyahu pilot reviewer transport correction
+
+- The Netanyahu pilot completed reconnaissance, all eight chapter discovery passes,
+  and all eight chapter research handoffs, yielding 407 deduplicated candidate URLs
+  across 182 publishers and 167 domains.
+- The first evidence-review call failed at the transport boundary: a 179,183-character
+  all-chapter prompt produced a truncated 147,108-character JSON message. No completed
+  research artifact was lost or repeated.
+- Replaced that single response with eight independently resumable Luna chapter reviews
+  projected deterministically from the same ledger, followed by a code-owned merge into
+  the unchanged review contract. On the live ledger, projections contain 6–14 mapped
+  evidence entries and 15,176–26,414 characters each instead of 171,154 compact-handoff
+  characters at once.
+- Next: freeze this transport-only correction, resume the preserved Netanyahu job at
+  evidence review, then continue acquisition, corpus reading, chapter-answer review,
+  judge preparation, and complete phase profiling.
+
 ## 2026-08-06 — Netanyahu pilot preparation and temporal local evidence v4
 
 - Prepared a reusable Benjamin Netanyahu/Israel 2023 pilot as the gate before the next

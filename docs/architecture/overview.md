@@ -782,10 +782,14 @@ all selected lenses, while bounded diagnostic pilots do not expand to sibling le
 Mapping-backed coverage is
 authoritative; absent or unexplained formatting output remains `research_blocked`
 rather than becoming `no_evidence_found`. Retry recovery considers only structurally
-valid candidates. A no-search reviewer inspects every selected chapter and may
-return gaps for up to three bounded research rounds. The primary low-cost researcher owns
+valid candidates. A no-search reviewer inspects every selected chapter through a
+deterministic chapter projection of the same parent ledger. Each chapter call is
+independently resumable; code validates and merges all chapter decisions into the
+existing review report contract, so a long full-ruler ledger does not require one
+oversized JSON response. The reviewer may return gaps for up to three bounded research
+rounds. The primary low-cost researcher owns
 the initial pass and one continuation; later recoverable gaps trigger a fresh search-enabled
-supervisor session over the accumulated notebook. A final all-chapter review follows the
+supervisor session over the accumulated notebook. A final chapter-partitioned review follows the
 last takeover, and an omitted-chapter review receives one bounded scope-repair turn rather
 than failing the ruler job. The researcher
 maintains one append-only global evidence ledger rather than chapter-specific copies.

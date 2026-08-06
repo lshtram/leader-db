@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
 
-from leaders_db.research.compact_handoff import build_compact_research_handoff
+from leaders_db.research.compact_handoff import (
+    build_chapter_research_handoff,
+    build_compact_research_handoff,
+)
 
 
 def test_compact_handoff_keeps_ledger_and_accounting_without_raw_claims(
@@ -39,6 +42,37 @@ def test_compact_handoff_falls_back_without_manifest(tmp_path: Path) -> None:
         )
         == "complete notebook"
     )
+
+
+def test_chapter_handoff_keeps_only_cross_mapped_chapter_evidence(
+    tmp_path: Path,
+) -> None:
+    manifest = {
+        "schema_version": "ruler_research_ledger_manifest_v1",
+        "entries": [
+            {"provisional_id": "E1", "methodology_ids": ["1B.1", "2B.2"]},
+            {"provisional_id": "E2", "methodology_ids": ["2B.3"]},
+            {"provisional_id": "E3", "methodology_ids": ["3B.1"]},
+        ],
+    }
+    (tmp_path / "research-ledger-manifest.json").write_text(
+        json.dumps(manifest), encoding="utf-8"
+    )
+    (tmp_path / "research-chapter-2B.md").write_text(
+        "raw notes\nResearch accounting:\n- retained 2",
+        encoding="utf-8",
+    )
+
+    result = build_chapter_research_handoff(
+        attempt_dir=tmp_path,
+        fallback_notebook="fallback",
+        chapter_id="2B",
+    )
+
+    assert '"provisional_id":"E1"' in result
+    assert '"provisional_id":"E2"' in result
+    assert '"provisional_id":"E3"' not in result
+    assert "Research accounting:\n- retained 2" in result
 
 
 def test_compact_handoff_includes_bounded_local_disposition(tmp_path: Path) -> None:

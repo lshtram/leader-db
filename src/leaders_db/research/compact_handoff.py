@@ -79,6 +79,67 @@ def build_compact_research_handoff(
     return "\n\n".join(sections)
 
 
+def build_chapter_research_handoff(
+    *,
+    attempt_dir: Path,
+    fallback_notebook: str,
+    chapter_id: str,
+) -> str:
+    """Project the compact handoff to one chapter without rewriting evidence."""
+
+    if chapter_id not in _CHAPTER_IDS:
+        raise ValueError(f"unsupported chapter ID: {chapter_id}")
+    manifest_path = attempt_dir / "research-ledger-manifest.json"
+    if not manifest_path.is_file():
+        return fallback_notebook
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return fallback_notebook
+    entries = manifest.get("entries") if isinstance(manifest, dict) else None
+    if not isinstance(entries, list):
+        return fallback_notebook
+    projected_entries = [
+        entry
+        for entry in entries
+        if isinstance(entry, dict)
+        and _entry_maps_to_chapter(entry, chapter_id)
+    ]
+    projected_manifest = dict(manifest)
+    projected_manifest["entries"] = projected_entries
+    sections = [
+        f"Compact evidence handoff projected deterministically to {chapter_id}.",
+        "--- RESEARCH LEDGER MANIFEST ---\n"
+        + json.dumps(projected_manifest, ensure_ascii=False, separators=(",", ":")),
+    ]
+    local_disposition = _local_disposition_summary(attempt_dir)
+    if local_disposition is not None:
+        chapter_local = dict(local_disposition)
+        chapter_local["chapters"] = {
+            chapter_id: local_disposition.get("chapters", {}).get(chapter_id, {})
+        }
+        sections.append(
+            "--- LOCAL DATA DISPOSITION AUDIT ---\n"
+            + json.dumps(chapter_local, ensure_ascii=False, separators=(",", ":"))
+        )
+    chapter_path = attempt_dir / f"research-chapter-{chapter_id}.md"
+    if chapter_path.is_file():
+        text = chapter_path.read_text(encoding="utf-8")
+        starts = [text.rfind(marker) for marker in _ACCOUNTING_MARKERS]
+        starts = [offset for offset in starts if offset >= 0]
+        conclusion = text[max(starts) :] if starts else text[-5_000:]
+        sections.append(f"CHAPTER_CONCLUSION {chapter_id}:\n{conclusion.strip()}")
+    return "\n\n".join(sections)
+
+
+def _entry_maps_to_chapter(entry: dict[str, Any], chapter_id: str) -> bool:
+    methodology_ids = entry.get("methodology_ids")
+    return isinstance(methodology_ids, list) and any(
+        str(methodology_id).startswith(f"{chapter_id}.")
+        for methodology_id in methodology_ids
+    )
+
+
 def _local_disposition_summary(attempt_dir: Path) -> dict[str, Any] | None:
     """Summarize authoritative local-prior routing without replaying every fact."""
 
@@ -250,4 +311,4 @@ def _bounded_fact_components(
     return identifiers, slugs, normalized_year, len(raw_warnings)
 
 
-__all__ = ["build_compact_research_handoff"]
+__all__ = ["build_chapter_research_handoff", "build_compact_research_handoff"]

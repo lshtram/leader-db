@@ -319,68 +319,25 @@ def _run_evidence_review(
     heartbeat_seconds: int,
     timeout_seconds: int,
 ) -> EvidenceReviewReport:
-    suffix = f"round-{round_number:02d}"
-    schema_path = attempt.trusted_dir / f"evidence-review-{suffix}.schema.json"
-    output_path = attempt.trusted_dir / f"evidence-review-{suffix}.json"
-    events_path = attempt.trusted_dir / f"evidence-review-{suffix}.events.jsonl"
-    if _has_indeterminate_review(attempt, round_number):
-        from .codex_worker import WorkerOutputError
+    from .codex_worker import _run_codex
+    from .partitioned_evidence_review import run_partitioned_evidence_review
 
-        raise WorkerOutputError(
-            f"review round {round_number} has a prior paid call without recoverable output"
-        )
-    (attempt.trusted_dir / f"evidence-review-{suffix}.starting.json").write_text(
-        json.dumps({"job_id": job["id"], "round": round_number}, sort_keys=True),
-        encoding="utf-8",
-    )
-    schema_path.write_text(
-        json.dumps(evidence_review_json_schema(), indent=2, sort_keys=True),
-        encoding="utf-8",
-    )
-    prompt = build_evidence_review_prompt(
+    return run_partitioned_evidence_review(
+        engine,
         job=job,
-        notebook=build_compact_research_handoff(
-            attempt_dir=attempt.attempt_dir,
-            fallback_notebook=notebook,
-        ),
-        qa=qa,
-        terminal=_is_terminal_review_round(job, round_number),
-    )
-    (attempt.trusted_dir / f"evidence-review-{suffix}.prompt.txt").write_text(
-        prompt, encoding="utf-8"
-    )
-    command = build_codex_exec_command(
-        profile=profile,
+        worker_id=worker_id,
         project_root=project_root,
-        schema_path=schema_path,
-        final_message_path=output_path,
-        writable_dir=attempt.attempt_dir,
-    )
-    checkpoint_job(
-        engine,
-        job_id=int(job["id"]),
-        worker_id=worker_id,
-        lease_token=lease_token,
-        checkpoint={"phase": "evidence_review", "round": round_number},
-    )
-    from .codex_worker import WorkerOutputError, _run_codex
-
-    _run_codex(
-        engine,
-        command=command,
-        prompt=prompt,
-        events_path=events_path,
-        job_id=int(job["id"]),
-        worker_id=worker_id,
+        profile=profile,
+        attempt=attempt,
+        notebook=notebook,
+        round_number=round_number,
+        terminal=_is_terminal_review_round(job, round_number),
         lease_token=lease_token,
         lease_seconds=lease_seconds,
         heartbeat_seconds=heartbeat_seconds,
         timeout_seconds=timeout_seconds,
+        codex_runner=_run_codex,
     )
-    try:
-        return _load_evidence_review(output_path)
-    except (OSError, UnicodeError, json.JSONDecodeError, ValidationError) as exc:
-        raise WorkerOutputError("evidence reviewer produced invalid output") from exc
 
 
 def _repair_evidence_review_scope(
