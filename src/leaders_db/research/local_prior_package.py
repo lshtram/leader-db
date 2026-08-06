@@ -28,7 +28,10 @@ class CompactLocalFact(BaseModel):
     source_observation_ids: tuple[str, ...]
     confidence: int | None = None
     warnings: tuple[str, ...]
-    period_role: Literal["pre_accession", "tenure", "target"] = "target"
+    period_role: Literal[
+        "pre_accession", "tenure", "interregnum", "target", "post_target"
+    ] = "target"
+    ruler_in_office: bool | None = None
     unit: str | None = None
     scale: str | None = None
     uncertainty: dict[str, Any] | None = None
@@ -63,7 +66,7 @@ class CompactLocalPriorPackage(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["ruler_local_evidence_package_v3"] = "ruler_local_evidence_package_v3"
+    schema_version: Literal["ruler_local_evidence_package_v4"] = "ruler_local_evidence_package_v4"
     source_prior_count: int
     unique_fact_count: int
     status_counts: dict[str, int]
@@ -289,7 +292,7 @@ def summarize_local_priors_for_research(
         "facts_included": len(facts),
         "facts_omitted": len(package.facts) - len(facts),
         "fact_selection": (
-            "all target-year facts plus earliest/latest pre-accession and tenure facts "
+            "all target-year facts plus earliest/latest facts for each temporal role "
             "per indicator; full provenance is restored by the parent"
         ),
         "longitudinal_signals": signals,
@@ -353,7 +356,7 @@ def build_local_judge_package(
         facts_included=len(selected_facts),
         facts_omitted=len(chapter_facts) - len(selected_facts),
         fact_selection=(
-            "All target-year facts plus earliest/latest pre-accession and tenure facts "
+            "All target-year facts plus earliest/latest facts for each temporal role "
             "per indicator; complete hashed source package remains parent-owned."
         ),
         longitudinal_signals=signals,

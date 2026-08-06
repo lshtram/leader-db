@@ -14,7 +14,7 @@ from ._codex_worker_artifacts import (
     write_local_priors,
 )
 from .dossier_models import DossierLocalPrior, codex_dossier_json_schema
-from .local_prior_query import load_leader_accession_year
+from .local_prior_query import load_leader_accession_year, load_leader_tenure_years
 from .local_prior_schema import (
     LeaderPriorMetadata,
     LocalPriorPeriod,
@@ -110,6 +110,18 @@ def collect_local_priors(
         if numeric_ruler_id is not None
         else None
     )
+    post_target_context_years = 3
+    tenure_years = (
+        load_leader_tenure_years(
+            engine,
+            leader_id=numeric_ruler_id,
+            iso3=str(job["iso3"]),
+            through_year=end_year + post_target_context_years,
+            leader_name=str(job.get("ruler_name") or "") or None,
+        )
+        if numeric_ruler_id is not None
+        else ()
+    )
     leader = LeaderPriorMetadata(
         name=str(job.get("ruler_name") or "") or None,
         leader_id=numeric_ruler_id,
@@ -117,6 +129,7 @@ def collect_local_priors(
             str(start_year) if start_year == end_year else f"{start_year}-{end_year}"
         ),
         accession_year=accession_year,
+        tenure_years=tenure_years,
     )
     return tuple(
         build_local_structured_prior(
@@ -126,6 +139,7 @@ def collect_local_priors(
                 iso3=str(job["iso3"]),
                 period=period,
                 leader=leader,
+                post_target_context_years=post_target_context_years,
             ),
         ).model_dump(mode="json", exclude_none=True)
         for methodology_id in job["input"]["question_ids"]

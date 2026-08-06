@@ -1,5 +1,21 @@
 # Workplan
 
+## 2026-08-06 — Netanyahu pilot preparation and temporal local evidence v4
+
+- Prepared a reusable Benjamin Netanyahu/Israel 2023 pilot as the gate before the next
+  twenty-ruler run.
+- Corrected local temporal preparation so unambiguous surname-only identity aliases
+  reconnect Netanyahu's earlier terms, interrupted years are labelled `interregnum`,
+  and known ruler years carry explicit in-office status.
+- Added a bounded three-year post-target context window. Later observations remain
+  labelled context and are excluded from target-period longitudinal signals, while
+  still allowing researchers and judges to see delayed findings or nearby-year proxies.
+- The live local package test contains all 80 lenses, 2,724 unique structured facts
+  spanning 1986–2025, 47 target-period longitudinal signals, and distinct pre-accession,
+  tenure, interregnum, target, and post-target roles.
+- Next: freeze the revised pilot inputs, run the complete Netanyahu discovery-to-judge
+  flow with Luna-majority profiling, and perform chapter-by-chapter quality review.
+
 ## 2026-08-06 — Revised eighty-question methodology synchronized
 
 - Promoted the reviewed Word revision to `ruler-quality-questions-v2` and

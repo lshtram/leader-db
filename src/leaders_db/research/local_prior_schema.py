@@ -12,7 +12,7 @@ PriorStatus = Literal["evidence_found", "no_evidence_found", "not_applicable", "
 CLIENT_MATRIX_SOURCE_SLUGS = frozenset(
     {"client_existing", "client_matrix", "vertical_slice_client_seed"}
 )
-LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v3"
+LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v4"
 
 
 def _chapter_methodology_ids(chapter: str) -> tuple[str, ...]:
@@ -729,6 +729,7 @@ class LeaderPriorMetadata(BaseModel):
     leader_id: int | None = None
     period_label: str | None = None
     accession_year: int | None = None
+    tenure_years: tuple[int, ...] = ()
 
 
 class LocalPriorCountry(BaseModel):
@@ -779,6 +780,7 @@ class LocalStructuredPriorRequest(BaseModel):
     iso3: str
     period: LocalPriorPeriod
     leader: LeaderPriorMetadata = Field(default_factory=LeaderPriorMetadata)
+    post_target_context_years: int = Field(default=3, ge=0, le=10)
 
     @model_validator(mode="after")
     def _normalize(self) -> LocalStructuredPriorRequest:
@@ -801,7 +803,10 @@ class LocalPriorFact(BaseModel):
     source_observation_ids: list[str]
     confidence: int | None = None
     warnings: list[str] = Field(default_factory=list)
-    period_role: Literal["pre_accession", "tenure", "target"] = "target"
+    period_role: Literal[
+        "pre_accession", "tenure", "interregnum", "target", "post_target"
+    ] = "target"
+    ruler_in_office: bool | None = None
     unit: str | None = None
     scale: str | None = None
     uncertainty: dict[str, Any] | None = None

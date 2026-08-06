@@ -162,11 +162,12 @@ def _build_local_structured_prior_for_spec(
 
 def _evidence_years(request: LocalStructuredPriorRequest) -> tuple[int, ...]:
     target_year = max(request.period.years())
+    context_end = target_year + request.post_target_context_years
     accession_year = request.leader.accession_year
     if accession_year is None:
-        return request.period.years()
+        return tuple(range(min(request.period.years()), context_end + 1))
     baseline_start = max(0, accession_year - 10)
-    return tuple(range(baseline_start, target_year + 1))
+    return tuple(range(baseline_start, context_end + 1))
 
 
 def local_structured_prior_json_schema() -> dict[str, Any]:

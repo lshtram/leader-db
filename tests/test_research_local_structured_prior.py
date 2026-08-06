@@ -17,12 +17,14 @@ from leaders_db.research.local_structured_prior import (
 )
 
 
-def test_v3_local_prior_includes_baseline_tenure_and_target_without_future_data(
+def test_v4_local_prior_labels_baseline_interregnum_target_and_future_context(
     database_url: str,
 ) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)
-    for country_year_id, year in enumerate((1998, 2000, 2021, 2022, 2023), start=1):
+    for country_year_id, year in enumerate(
+        (1998, 2000, 2005, 2021, 2022, 2023), start=1
+    ):
         _insert_country_year(
             engine,
             country_id=1,
@@ -50,18 +52,31 @@ def test_v3_local_prior_includes_baseline_tenure_and_target_without_future_data(
             methodology_id="2B.8",
             iso3="RUS",
             period=LocalPriorPeriod(year=2022),
-            leader=LeaderPriorMetadata(name="Vladimir Putin", accession_year=2000),
+            leader=LeaderPriorMetadata(
+                name="Vladimir Putin",
+                accession_year=2000,
+                tenure_years=(2000, 2021, 2022, 2023),
+            ),
         ),
     )
 
-    assert artifact.method_version == "local_structured_prior_v3"
+    assert artifact.method_version == "local_structured_prior_v4"
     assert [(fact.year, fact.period_role) for fact in artifact.local_facts] == [
         (1998, "pre_accession"),
         (2000, "tenure"),
+        (2005, "interregnum"),
         (2021, "tenure"),
         (2022, "target"),
+        (2023, "post_target"),
     ]
-    assert all(fact.year <= 2022 for fact in artifact.local_facts)
+    assert [fact.ruler_in_office for fact in artifact.local_facts] == [
+        False,
+        True,
+        False,
+        True,
+        True,
+        True,
+    ]
 
 
 def test_build_local_prior_finds_freedom_house_political_freedom_facts(
@@ -394,9 +409,7 @@ def test_build_local_prior_4b3_uses_opposition_tolerance_mapping(
     )
 
     assert artifact.status == "evidence_found"
-    assert artifact.question_text.startswith(
-        "Did the ruler protect in law and practice opposition"
-    )
+    assert artifact.question_text.startswith("Examine changes in law and practice")
     assert "freedom_expression" in OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS
     assert artifact.mapping_note is not None
     assert "opposition/media/protest/civil-society tolerance" in artifact.mapping_note

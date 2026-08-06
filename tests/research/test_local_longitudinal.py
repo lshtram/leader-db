@@ -73,3 +73,18 @@ def test_longitudinal_signal_skips_series_without_target_observation() -> None:
     )
 
     assert signals == ()
+
+
+def test_longitudinal_signal_excludes_post_target_context() -> None:
+    signal = derive_longitudinal_signals(
+        (
+            _fact(2021, 10.0, "tenure"),
+            _fact(2022, 12.0, "target"),
+            _fact(2023, 99.0, "post_target"),
+        )
+    )[0]
+
+    assert signal.target_value == 12.0
+    assert signal.observation_count == 2
+    assert signal.observed_years == (2021, 2022)
+    assert signal.tenure_average == pytest.approx(11.0)

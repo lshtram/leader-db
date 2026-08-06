@@ -68,6 +68,64 @@ def load_leader_accession_year(
     return None
 
 
+def load_leader_tenure_years(
+    bind: Engine | Session,
+    *,
+    leader_id: int,
+    iso3: str,
+    through_year: int,
+    leader_name: str | None = None,
+) -> tuple[int, ...]:
+    """Return known in-office years across exact and unambiguous surname aliases."""
+
+    statement = text(
+        """
+        SELECT rs.leader_id, rs.start_date, rs.end_date, l.normalized_name
+        FROM ruler_spells rs
+        JOIN leaders l ON l.id = rs.leader_id
+        JOIN countries c ON c.id = rs.country_id
+        WHERE c.iso3 = :iso3
+          AND rs.is_actual_ruler = :is_actual_ruler
+        ORDER BY rs.start_date
+        """
+    )
+    rows = execute_mappings(
+        bind,
+        statement,
+        {"iso3": iso3, "is_actual_ruler": True},
+    )
+    eligible_leader_ids = _eligible_leader_ids(
+        rows, leader_id=leader_id, leader_name=leader_name
+    )
+    years: set[int] = set()
+    for row in rows:
+        if int(row["leader_id"]) not in eligible_leader_ids:
+            continue
+        start_year = int(str(row["start_date"])[:4])
+        end_value = row["end_date"]
+        end_year = through_year if end_value is None else int(str(end_value)[:4])
+        years.update(range(start_year, min(end_year, through_year) + 1))
+    return tuple(sorted(years))
+
+
+def _eligible_leader_ids(
+    rows: list[Any], *, leader_id: int, leader_name: str | None
+) -> set[int]:
+    eligible = {leader_id}
+    normalized_name = " ".join((leader_name or "").casefold().split())
+    name_tokens = normalized_name.split()
+    if len(name_tokens) < 2:
+        return eligible
+    surname_only_ids = {
+        int(row["leader_id"])
+        for row in rows
+        if str(row["normalized_name"]).casefold() == name_tokens[-1]
+    }
+    if len(surname_only_ids) == 1:
+        eligible.update(surname_only_ids)
+    return eligible
+
+
 def load_included_scope_years(
     bind: Engine | Session,
     *,
@@ -157,6 +215,12 @@ def load_local_prior_facts(
                     year=int(row["year"]),
                     target_year=max(request.period.years()),
                     accession_year=request.leader.accession_year,
+                    tenure_years=request.leader.tenure_years,
+                ),
+                ruler_in_office=(
+                    int(row["year"]) in request.leader.tenure_years
+                    if request.leader.tenure_years
+                    else None
                 ),
                 unit=_optional_text(selected_metadata.get("unit")),
                 scale=_optional_text(selected_metadata.get("scale")),
@@ -166,12 +230,26 @@ def load_local_prior_facts(
     return facts
 
 
-def _period_role(*, year: int, target_year: int, accession_year: int | None) -> str:
+def _period_role(
+    *,
+    year: int,
+    target_year: int,
+    accession_year: int | None,
+    tenure_years: tuple[int, ...],
+) -> str:
     if year == target_year:
         return "target"
-    if accession_year is not None and year < accession_year:
-        return "pre_accession"
-    return "tenure"
+    if year > target_year:
+        return "post_target"
+    if tenure_years:
+        if year in tenure_years:
+            return "tenure"
+        return "pre_accession" if year < min(tenure_years) else "interregnum"
+    return (
+        "pre_accession"
+        if accession_year is not None and year < accession_year
+        else "tenure"
+    )
 
 
 def execute_mappings(
@@ -231,5 +309,6 @@ __all__ = [
     "load_country_name",
     "load_included_scope_years",
     "load_leader_accession_year",
+    "load_leader_tenure_years",
     "load_local_prior_facts",
 ]

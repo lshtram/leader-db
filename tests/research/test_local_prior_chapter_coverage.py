@@ -17,6 +17,7 @@ from leaders_db.research.local_prior_package import (
     summarize_local_priors_for_formatter,
     summarize_local_priors_for_research,
 )
+from leaders_db.research.local_prior_query import load_leader_tenure_years
 from leaders_db.research.local_prior_schema import (
     LOCAL_PRIOR_MAPPINGS,
     LocalPriorPeriod,
@@ -87,7 +88,7 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
 
     package = compact_local_priors(priors)
 
-    assert package.schema_version == "ruler_local_evidence_package_v3"
+    assert package.schema_version == "ruler_local_evidence_package_v4"
     assert package.source_prior_count == 20
     assert package.unique_fact_count == 1
     assert len(package.longitudinal_signals) == 1
@@ -400,7 +401,59 @@ def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) ->
         "name": "Jacinda Ardern",
         "leader_id": 15125,
         "period_label": "2020",
+        "tenure_years": [],
     }
+
+
+def test_tenure_years_reconcile_unambiguous_surname_alias_and_interruption(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
+                INSERT INTO countries (id, iso3, country_name, country_name_normalized)
+                VALUES (1, 'ISR', 'Israel', 'israel')
+                """
+            )
+        )
+        conn.execute(
+            text(
+                """
+                INSERT INTO leaders (id, full_name, normalized_name)
+                VALUES (10, 'Netanyahu', 'netanyahu'),
+                       (20, 'Benjamin Netanyahu', 'benjamin netanyahu')
+                """
+            )
+        )
+        conn.execute(
+            text(
+                """
+                INSERT INTO ruler_spells (
+                    id, leader_id, country_id, start_date, end_date,
+                    source_dataset, is_actual_ruler, is_formal_leader
+                ) VALUES
+                    (1, 10, 1, '1996-06-01', '1999-07-31', 'fixture', 1, 1),
+                    (2, 10, 1, '2009-03-01', '2021-06-30', 'fixture', 1, 1),
+                    (3, 20, 1, '2022-12-29', '2025-12-31', 'fixture', 1, 1)
+                """
+            )
+        )
+
+    years = load_leader_tenure_years(
+        engine,
+        leader_id=20,
+        iso3="ISR",
+        through_year=2025,
+        leader_name="Benjamin Netanyahu",
+    )
+
+    assert years[:4] == (1996, 1997, 1998, 1999)
+    assert 2000 not in years
+    assert 2009 in years
+    assert years[-4:] == (2022, 2023, 2024, 2025)
 
 
 def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(

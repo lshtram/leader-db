@@ -1,4 +1,4 @@
-"""Auditable longitudinal summaries for Local Evidence Package v3."""
+"""Auditable target-period summaries for Local Evidence Package v4."""
 
 from __future__ import annotations
 
@@ -75,7 +75,8 @@ def derive_longitudinal_signals(
             continue
         index = len(signals) + 1
         target_year = max(item.year for item in target_rows)
-        values_by_year = {item.year: float(item.value) for item in rows}
+        target_period_rows = [item for item in rows if item.year <= target_year]
+        values_by_year = {item.year: float(item.value) for item in target_period_rows}
         target_value = values_by_year.get(target_year)
         pre_rows = [item for item in rows if item.period_role == "pre_accession"]
         tenure_rows = [item for item in rows if item.period_role in {"tenure", "target"}]
@@ -116,19 +117,25 @@ def derive_longitudinal_signals(
                     if len(tenure_rows) >= 2
                     else None
                 ),
-                observation_count=len(rows),
-                coverage_ratio=len({item.year for item in rows})
-                / (max(item.year for item in rows) - min(item.year for item in rows) + 1),
-                observed_years=tuple(item.year for item in rows),
+                observation_count=len(target_period_rows),
+                coverage_ratio=len({item.year for item in target_period_rows})
+                / (
+                    max(item.year for item in target_period_rows)
+                    - min(item.year for item in target_period_rows)
+                    + 1
+                ),
+                observed_years=tuple(item.year for item in target_period_rows),
                 source_observation_ids=tuple(
                     dict.fromkeys(
                         observation_id
-                        for item in rows
+                        for item in target_period_rows
                         for observation_id in item.source_observation_ids
                     )
                 ),
                 source_uncertainty=tuple(
-                    item.uncertainty for item in rows if item.uncertainty is not None
+                    item.uncertainty
+                    for item in target_period_rows
+                    if item.uncertainty is not None
                 ),
                 formula=(
                     "changes[target_n]=value(target_year)-value(target_year-n), exact years only; "

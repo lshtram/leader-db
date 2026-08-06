@@ -176,7 +176,7 @@ retains all per-lens statuses and hashes; the prompt package stores each identic
 fact once with stable `LF###` IDs, its exact source observation IDs, a valid
 `local-prior:<methodology-id>` locator, and candidate chapter/lens links.
 
-The active `local_structured_prior_v2` routing is:
+The active `local_structured_prior_v4` temporal package and lens routing are:
 
 | Chapter | Local fact families | Required interpretation boundary |
 |---|---|---|
@@ -196,6 +196,13 @@ are retained, contextual, or unused. It then uses approved internet discovery on
 for missing narrative, attribution, contrary evidence, decisions, implementation,
 and outcomes. A missing database row is never interpreted as a zero event or a
 favorable condition.
+
+The package includes up to ten pre-accession years, known tenure and interregnum years
+through the target, and up to three available later context years. Interrupted ruler
+spells are preserved rather than treated as continuous tenure. Later facts are labelled
+`post_target`; they may help identify delayed effects, retrospective findings, or a
+nearby-year proxy, but they are not contemporaneous evidence and are excluded from
+target-period signal calculations.
 
 The compact package preserves a disposition for every methodology lens. Repeated
 missingness reasons and recommended instruction sets are stored once and referenced
