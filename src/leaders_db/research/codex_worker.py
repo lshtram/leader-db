@@ -1572,7 +1572,9 @@ def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
             set(entry.get("methodology_ids", []))
             | set(routing.get("methodology_ids", []))
         )
-    return manifest
+    from .ledger_manifest_dedup import collapse_recovered_url_duplicates
+
+    return collapse_recovered_url_duplicates(manifest)[0]
 
 
 def _first_ledger_entries_by_id(text: str) -> dict[str, dict[str, Any]]:
