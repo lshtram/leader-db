@@ -1,0 +1,25 @@
+schema_version: evidence_pipeline_freeze_v1
+release_id: netanyahu-2023-pilot-v2.2
+base_config: configs/evidence-funnel/netanyahu-2023-pilot-v2.yaml
+frozen_at: '2026-08-06'
+status: frozen_for_pilot
+source_commit: a8d7784ec79b1243c592bdc792a92f0e27ff560f
+aggregate_hashes:
+  research_and_cli_python: 7e7cc999c21263f2d67c1c244d591c6b25dd765162433725c26646e1699180d6
+  chapter_guides: b266a52d475779128b2392b1d470571aba9ac59f01e8708d039d5e5dc016f699
+recovery_equivalence:
+  reusable_stages:
+    - local_evidence
+    - reconnaissance
+    - source_discovery
+    - chapter_research
+    - evidence_review
+    - research_continuations
+    - formatter_model_output
+  rerun_from: deterministic_formatter_validation
+  rationale: >-
+    Two incomplete Markdown-recovery rows duplicated complete URL-owned ledger facts.
+    Version 2.2 merges their extra lens routing into the unique complete owners before
+    accounting. The formatter draft and all paid evidence work remain unchanged.
+change_control: >-
+  Any further behavior change creates another release and records stage equivalence.
