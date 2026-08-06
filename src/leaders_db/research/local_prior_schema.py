@@ -12,7 +12,7 @@ PriorStatus = Literal["evidence_found", "no_evidence_found", "not_applicable", "
 CLIENT_MATRIX_SOURCE_SLUGS = frozenset(
     {"client_existing", "client_matrix", "vertical_slice_client_seed"}
 )
-LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v2"
+LOCAL_PRIOR_METHOD_VERSION = "local_structured_prior_v3"
 
 
 def _chapter_methodology_ids(chapter: str) -> tuple[str, ...]:
@@ -25,6 +25,8 @@ NUCLEAR_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "nuclear_operational_strategic",
     "nuclear_operational_nonstrategic",
     "nuclear_reserve_nondeployed",
+    "nuclear_deployed_warheads",
+    "nuclear_retired_warheads",
 )
 
 INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS: tuple[str, ...] = (
@@ -51,6 +53,9 @@ DOMESTIC_SAFETY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "pts_state_dept_score",
     "one_sided_violence_events",
     "one_sided_violence_fatalities",
+    "one_sided_government_actor_killings",
+    "one_sided_nonstate_actor_killings",
+    "one_sided_location_killings",
     "physical_integrity",
     "private_civil_liberties",
     "extrajudicial_killings",
@@ -58,6 +63,17 @@ DOMESTIC_SAFETY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 POLITICAL_FREEDOM_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    "eiu_democracy_overall_score",
+    "eiu_electoral_process_pluralism",
+    "eiu_functioning_government",
+    "eiu_political_participation",
+    "eiu_political_culture",
+    "eiu_civil_liberties",
+    "polity_composite_score",
+    "polity_democracy_score",
+    "polity_autocracy_score",
+    "polity_executive_constraints",
+    "polity_regime_durability",
     "political_liberties",
     "civil_liberties",
     "electoral_democracy",
@@ -103,11 +119,34 @@ OPPOSITION_TOLERANCE_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
+    # Legacy aliases remain readable so preserved releases degrade gracefully.
     "gdp_per_capita",
     "gdp_total",
+    "gdp_per_capita_nominal_current_usd",
+    "gdp_per_capita_ppp_constant_2017_intl",
+    "gdp_per_capita_ppp_constant_2011_intl",
+    "gdp_per_capita_ppp_constant_2017_usd",
+    "gdp_total_nominal_current_usd",
+    "gdp_total_real_constant_2015_usd",
+    "gdp_total_ppp_constant_2011_intl",
+    "gdp_total_ppp_expenditure_constant_2017_usd",
+    "gdp_total_ppp_output_constant_2017_usd",
     "gni_per_capita",
     "population",
+    "wdi_gini_index",
+    "pwt_employment",
+    "pwt_average_annual_hours_worked",
+    "pwt_human_capital_index",
+    "pwt_real_consumption",
+    "pwt_real_domestic_absorption",
+    "pwt_capital_stock_index",
+    "pwt_tfp_at_constant_national_prices",
     "bti_status_index",
+    "final_consumption_current_usd",
+    "household_consumption_current_usd",
+    "government_consumption_current_usd",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
 )
 
 SOCIAL_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
@@ -120,6 +159,9 @@ SOCIAL_WELLBEING_PRIOR_FIELD_KEYS: tuple[str, ...] = (
     "expected_years_schooling",
     "mean_years_schooling",
     "gni_per_capita",
+    "wdi_gini_index",
+    "wdi_literacy_rate_adult",
+    "wdi_secondary_school_enrollment",
 )
 
 INTEGRITY_PRIOR_FIELD_KEYS: tuple[str, ...] = (
@@ -143,6 +185,160 @@ EFFECTIVENESS_PRIOR_FIELD_KEYS: tuple[str, ...] = (
 )
 
 
+def _local_fields(*field_keys: str) -> tuple[str, ...]:
+    """Declare an ordered, lens-specific local evidence selection."""
+    return field_keys
+
+
+ECONOMIC_LEVEL_FIELDS = _local_fields(
+    "gdp_per_capita",
+    "gdp_per_capita_nominal_current_usd",
+    "gdp_per_capita_ppp_constant_2017_intl",
+    "gdp_per_capita_ppp_constant_2011_intl",
+    "gdp_per_capita_ppp_constant_2017_usd",
+    "gni_per_capita",
+    "pwt_real_consumption",
+    "pwt_employment",
+    "wdi_gini_index",
+    "final_consumption_current_usd",
+    "household_consumption_current_usd",
+)
+ECONOMIC_STABILITY_FIELDS = _local_fields(
+    "gdp_total_real_constant_2015_usd",
+    "gdp_total_ppp_constant_2011_intl",
+    "gdp_total_ppp_expenditure_constant_2017_usd",
+    "gdp_total_ppp_output_constant_2017_usd",
+    "pwt_tfp_at_constant_national_prices",
+    "government_consumption_current_usd",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
+)
+ECONOMIC_PRODUCTIVITY_FIELDS = _local_fields(
+    "pwt_human_capital_index",
+    "pwt_capital_stock_index",
+    "pwt_tfp_at_constant_national_prices",
+    "pwt_average_annual_hours_worked",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
+)
+ECONOMIC_DISTRIBUTION_FIELDS = _local_fields(
+    "gdp_per_capita_nominal_current_usd",
+    "gdp_per_capita_ppp_constant_2017_intl",
+    "gni_per_capita",
+    "wdi_gini_index",
+)
+
+SOCIAL_OUTCOME_FIELDS = _local_fields(
+    "hdi",
+    "life_expectancy",
+    "under5_mortality",
+    "expected_years_schooling",
+    "mean_years_schooling",
+    "gni_per_capita",
+)
+SOCIAL_ACCESS_FIELDS = _local_fields(
+    "life_expectancy",
+    "under5_mortality",
+    "bcg_immunization",
+    "dtp3_immunization",
+    "hepb3_immunization",
+    "expected_years_schooling",
+    "mean_years_schooling",
+    "wdi_literacy_rate_adult",
+    "wdi_secondary_school_enrollment",
+)
+SOCIAL_DISTRIBUTION_FIELDS = _local_fields(
+    "wdi_gini_index",
+    "gni_per_capita",
+    "wdi_literacy_rate_adult",
+    "wdi_secondary_school_enrollment",
+)
+
+POLITICAL_ELECTION_FIELDS = _local_fields(
+    "eiu_democracy_overall_score",
+    "eiu_electoral_process_pluralism",
+    "polity_composite_score",
+    "polity_democracy_score",
+    "polity_autocracy_score",
+    "political_liberties",
+    "civil_liberties",
+    "electoral_democracy",
+    "suffrage",
+    "multiparty_institutions",
+    "regime_type",
+    "bti_democracy_status",
+)
+POLITICAL_CONSTRAINT_FIELDS = _local_fields(
+    "eiu_functioning_government",
+    "polity_executive_constraints",
+    "rule_of_law",
+    "wgi_rule_of_law",
+    "accountability",
+    "judicial_constraints",
+    "legislative_constraints",
+)
+POLITICAL_MEDIA_FIELDS = _local_fields(
+    "eiu_civil_liberties",
+    "civil_liberties",
+    "freedom_expression",
+    "press_freedom_score",
+    "press_freedom_rank",
+    "voice_and_accountability",
+)
+
+NUCLEAR_INVENTORY_FIELDS = _local_fields(
+    "nuclear_total_inventory",
+    "nuclear_military_stockpile",
+    "nuclear_deployed_warheads",
+    "nuclear_retired_warheads",
+)
+NUCLEAR_OPERATIONAL_FIELDS = _local_fields(
+    "nuclear_military_stockpile",
+    "nuclear_operational_strategic",
+    "nuclear_operational_nonstrategic",
+    "nuclear_reserve_nondeployed",
+    "nuclear_deployed_warheads",
+)
+CONFLICT_EXPOSURE_FIELDS = _local_fields(
+    "state_based_conflict_events",
+    "state_based_conflict_fatalities",
+    "internationalized_conflict_events",
+    "internationalized_conflict_fatalities",
+)
+MILITARY_BURDEN_FIELDS = _local_fields(
+    "military_spend_constant_usd",
+    "military_spend_per_capita",
+    "military_spend_share_gdp",
+    "military_spend_share_govt",
+)
+PHYSICAL_INTEGRITY_FIELDS = _local_fields(
+    "cirights_disappearances",
+    "cirights_killings",
+    "cirights_physical_integrity",
+    "cirights_political_imprisonment",
+    "cirights_torture",
+    "pts_amnesty_score",
+    "pts_human_rights_watch_score",
+    "pts_state_dept_score",
+    "physical_integrity",
+    "extrajudicial_killings",
+    "one_sided_government_actor_killings",
+)
+DOMESTIC_FEAR_FIELDS = _local_fields(
+    "cirights_civil_political_rights",
+    "cirights_repression",
+    "pts_amnesty_score",
+    "pts_human_rights_watch_score",
+    "pts_state_dept_score",
+    "one_sided_violence_events",
+    "one_sided_violence_fatalities",
+    "one_sided_nonstate_actor_killings",
+    "one_sided_location_killings",
+    "private_civil_liberties",
+    "civil_society_repression",
+)
+
+
 @dataclass(frozen=True)
 class LocalPriorMapping:
     """Config-like mapping from a manual methodology question to local fact keys."""
@@ -154,35 +350,130 @@ class LocalPriorMapping:
 
 LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("1B"),
+        methodology_ids=("1B.1", "1B.2", "1B.4", "1B.5", "1B.6"),
+        field_keys=NUCLEAR_INVENTORY_FIELDS,
+        mapping_note=(
+            "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, "
+            "restraint, agreements, aggression shielding, and proliferation require "
+            "ruler-specific evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("1B.3", "1B.7", "1B.8"),
+        field_keys=NUCLEAR_OPERATIONAL_FIELDS,
+        mapping_note=(
+            "Operational/deployed capability provides command-and-crisis exposure; it "
+            "does not establish safeguards, expertise, discipline, or de-escalation."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("1B.9",),
+        field_keys=(),
+        mapping_note=(
+            "Nuclear inventory facts do not answer cyber, biological, AI, or other "
+            "non-nuclear catastrophic-risk governance."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("1B.10",),
         field_keys=NUCLEAR_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D17 FAS nuclear-force country-year facts provide capability context; "
-            "absence of a row is not evidence of responsible ruler conduct."
+            "The full arsenal series supports inherited-versus-left posture context; "
+            "safer or more dangerous conduct still requires ruler attribution."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("2B"),
+        methodology_ids=("2B.1", "2B.2", "2B.5", "2B.6", "2B.7"),
+        field_keys=CONFLICT_EXPOSURE_FIELDS,
+        mapping_note=(
+            "Conflict events and fatalities establish country exposure/location, not "
+            "initiation, perpetration, proxy support, truthfulness, or peace effort."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("2B.3",),
         field_keys=INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D13-D14 UCDP conflict and SIPRI military-expenditure facts provide "
-            "country-year exposure/context, not automatic ruler attribution."
+            "Conflict exposure and military burden contextualize claimed security needs; "
+            "they cannot distinguish defense from prestige or manufactured threats."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("3B"),
+        methodology_ids=("2B.4", "2B.9"),
+        field_keys=("state_based_conflict_fatalities", "internationalized_conflict_fatalities"),
+        mapping_note=(
+            "Fatalities establish harm/exposure only; civilian protection, legality, "
+            "proportionality, responsibility, and accountability require actor evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("2B.8",),
+        field_keys=MILITARY_BURDEN_FIELDS,
+        mapping_note=(
+            "Military expenditure establishes level and burden, not aggression, defensive "
+            "necessity, enrichment, intimidation, or ruler motive."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("2B.10",),
+        field_keys=INTERNATIONAL_PEACE_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "Full conflict and military-burden series supports inherited-versus-left "
+            "trajectory context without assigning ruler responsibility."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.1", "3B.2", "3B.5"),
+        field_keys=PHYSICAL_INTEGRITY_FIELDS,
+        mapping_note=(
+            "Physical-integrity and terror measures contextualize abuse; ruler direction, "
+            "tolerance, protected actors, and legal misuse require narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.3", "3B.7"),
+        field_keys=(),
+        mapping_note=(
+            "National repression aggregates cannot establish ruler incitement or violence "
+            "against a specific vulnerable group."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.4", "3B.8"),
+        field_keys=(
+            "cirights_civil_political_rights",
+            "cirights_repression",
+            "private_civil_liberties",
+            "civil_society_repression",
+        ),
+        mapping_note=(
+            "Rights and civil-society measures contextualize oversight/protest conditions; "
+            "specific complaint, investigation, surveillance, or retaliation needs evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.6", "3B.9"),
+        field_keys=DOMESTIC_FEAR_FIELDS,
+        mapping_note=(
+            "Terror, one-sided violence, liberty, and repression trends contextualize fear "
+            "or crises without proving ruler protection, restraint, or incitement."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("3B.10",),
         field_keys=DOMESTIC_SAFETY_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D12 CIRIGHTS, PTS, UCDP, and V-Dem safety/repression facts provide "
-            "country-year baselines requiring narrative ruler attribution."
+            "Full domestic-safety series supports inherited-versus-left trajectory context; "
+            "attribution and non-state/public-safety gaps remain explicit."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=tuple(
-            item for item in _chapter_methodology_ids("4B") if item != "4B.3"
+        methodology_ids=("4B.1", "4B.2"),
+        field_keys=POLITICAL_ELECTION_FIELDS,
+        mapping_note=(
+            "Election and regime measures contextualize contestability; they do not "
+            "establish ruler intent or a specific manipulation."
         ),
-        field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
-        mapping_note="Political-freedom D11 country-year facts usable as structured priors.",
     ),
     LocalPriorMapping(
         methodology_ids=("4B.3",),
@@ -194,35 +485,236 @@ LOCAL_PRIOR_MAPPINGS: tuple[LocalPriorMapping, ...] = (
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("5B"),
+        methodology_ids=("4B.4",),
+        field_keys=POLITICAL_CONSTRAINT_FIELDS,
+        mapping_note=(
+            "Constraint and rule-of-law measures contextualize institutional independence; "
+            "ruler-specific strengthening or interference still needs narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.5",),
+        field_keys=(
+            "regime_type",
+            "multiparty_institutions",
+            "accountability",
+            "polity_regime_durability",
+        ),
+        mapping_note=(
+            "Regime and party-system measures are context, not direct proof of personality "
+            "cult, loyalty tests, intimidation, or state politicization."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.6", "4B.9"),
+        field_keys=POLITICAL_MEDIA_FIELDS,
+        mapping_note=(
+            "Media, expression, and voice measures contextualize information controls; "
+            "specific censorship, propaganda, surveillance, or harassment needs evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.7",),
+        field_keys=(
+            "suffrage",
+            "political_liberties",
+            "civil_liberties",
+            "freedom_association",
+            "eiu_political_participation",
+        ),
+        mapping_note=(
+            "National participation and liberty averages require group-specific evidence "
+            "before supporting political-equality claims."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.8",),
+        field_keys=(
+            "polity_composite_score",
+            "polity_regime_durability",
+            "electoral_democracy",
+            "multiparty_institutions",
+            "regime_type",
+        ),
+        mapping_note=(
+            "Regime trajectory contextualizes succession but cannot establish compliance "
+            "with term limits, coalition promises, or constitutional transfer."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("4B.10",),
+        field_keys=POLITICAL_FREEDOM_PRIOR_FIELD_KEYS,
+        mapping_note=(
+            "The full longitudinal political-freedom bundle supports inherited-versus-left "
+            "trajectory analysis without automatic ruler attribution."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.1",),
+        field_keys=ECONOMIC_LEVEL_FIELDS,
+        mapping_note=(
+            "Broad prosperity outcomes are context; intent and ruler action need "
+            "narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.2",),
+        field_keys=(),
+        mapping_note=(
+            "No structured country outcome establishes the competence or independence "
+            "of appointees."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.3", "5B.9"),
+        field_keys=ECONOMIC_STABILITY_FIELDS,
+        mapping_note=(
+            "Real-output and productivity trajectories contextualize stability or "
+            "shocks but do not prove policy competence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.4",),
+        field_keys=("pwt_employment", "pwt_real_domestic_absorption"),
+        mapping_note=(
+            "Employment count and absorption are outcome context, not direct evidence "
+            "of fair market rules."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.5",),
+        field_keys=("wdi_gini_index",),
+        mapping_note=(
+            "National inequality is context only and cannot establish corruption, "
+            "capture, or personal nexus."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.6",),
+        field_keys=ECONOMIC_PRODUCTIVITY_FIELDS,
+        mapping_note=(
+            "Human-capital, capital-stock, hours, and TFP trends contextualize "
+            "productivity foundations."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.7",),
+        field_keys=(),
+        mapping_note=(
+            "Country outcomes cannot establish evidence-based decision-making or "
+            "correction of mistakes."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.8",),
+        field_keys=ECONOMIC_DISTRIBUTION_FIELDS,
+        mapping_note=(
+            "Average income and Gini provide distribution context but do not identify "
+            "favored groups or ruler intent."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("5B.10",),
         field_keys=ECONOMIC_WELLBEING_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D5 economic level/scale and BTI status facts provide country-year context; "
-            "they do not by themselves establish distribution, causation, or ruler credit."
+            "Full longitudinal context supports inherited-versus-left trajectory "
+            "analysis without automatic ruler credit."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("6B"),
+        methodology_ids=("6B.1",),
+        field_keys=SOCIAL_OUTCOME_FIELDS,
+        mapping_note=(
+            "Aggregate welfare outcomes contextualize priority but cannot establish "
+            "purpose or propaganda intent."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.2",),
+        field_keys=SOCIAL_ACCESS_FIELDS,
+        mapping_note=(
+            "Health and education coverage/outcomes inform access; they do not alone "
+            "establish affordability or quality."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.3", "6B.8"),
+        field_keys=SOCIAL_DISTRIBUTION_FIELDS,
+        mapping_note=(
+            "National distribution and participation measures require group and "
+            "regional evidence for equity claims."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.4", "6B.5"),
+        field_keys=SOCIAL_ACCESS_FIELDS,
+        mapping_note=(
+            "Service outcomes are implementation context; professional management "
+            "and correction require narrative evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.6",),
+        field_keys=("life_expectancy", "under5_mortality", "hdi"),
+        mapping_note=(
+            "Outcome changes contextualize crises but require shock-specific timing "
+            "and ruler-attributed response evidence."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.7",),
+        field_keys=(),
+        mapping_note=(
+            "Aggregate service data cannot establish political conditionality, "
+            "loyalty rewards, or punishment."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.9",),
+        field_keys=SOCIAL_ACCESS_FIELDS,
+        mapping_note=(
+            "Sustained service series contextualize durability but do not establish "
+            "institutional survival beyond the ruler."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("6B.10",),
         field_keys=SOCIAL_WELLBEING_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D6 HDI, health, education, and income facts provide welfare baselines; "
-            "publication/source-year warnings and ruler attribution still apply."
+            "Full longitudinal welfare context supports inherited-versus-left "
+            "life-chance analysis without automatic attribution."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("7B"),
+        methodology_ids=("7B.1", "7B.2", "7B.3", "7B.4", "7B.5", "7B.8", "7B.9"),
+        field_keys=(),
+        mapping_note=(
+            "National corruption or governance indicators cannot establish ruler-specific "
+            "truthfulness, interests, benefit, appointments, promises, or favoritism."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("7B.6", "7B.7", "7B.10"),
         field_keys=INTEGRITY_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D15 corruption, accountability, and rule-of-law facts provide institutional "
-            "context and must not be converted into personal-integrity claims without evidence."
+            "Institutional corruption, accountability, and rule-of-law facts are context "
+            "for scrutiny or concealment only; scoring requires a direct personal nexus."
         ),
     ),
     LocalPriorMapping(
-        methodology_ids=_chapter_methodology_ids("8B"),
+        methodology_ids=("8B.1", "8B.8"),
+        field_keys=(),
+        mapping_note=(
+            "Generic capacity indicators cannot identify the ruler's program or establish "
+            "adaptation and correction."
+        ),
+    ),
+    LocalPriorMapping(
+        methodology_ids=("8B.2", "8B.3", "8B.4", "8B.5", "8B.6", "8B.7", "8B.9", "8B.10"),
         field_keys=EFFECTIVENESS_PRIOR_FIELD_KEYS,
         mapping_note=(
-            "D16 governance-capacity facts provide inherited/state-capacity context, not "
-            "proof that the ruler selected goals or implemented them effectively."
+            "Governance-capacity facts provide inherited implementation context only; "
+            "program ownership, action, goal fit, and ruler attribution remain required."
         ),
     ),
 )
@@ -236,6 +728,7 @@ class LeaderPriorMetadata(BaseModel):
     name: str | None = None
     leader_id: int | None = None
     period_label: str | None = None
+    accession_year: int | None = None
 
 
 class LocalPriorCountry(BaseModel):
@@ -308,6 +801,10 @@ class LocalPriorFact(BaseModel):
     source_observation_ids: list[str]
     confidence: int | None = None
     warnings: list[str] = Field(default_factory=list)
+    period_role: Literal["pre_accession", "tenure", "target"] = "target"
+    unit: str | None = None
+    scale: str | None = None
+    uncertainty: dict[str, Any] | None = None
 
 
 class LocalStructuredPriorArtifact(BaseModel):

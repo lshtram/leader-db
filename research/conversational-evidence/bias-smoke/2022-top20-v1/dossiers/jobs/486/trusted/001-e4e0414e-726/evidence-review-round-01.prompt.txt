@@ -1,0 +1,412 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:BRA:19646",
+  "iso3": "BRA",
+  "country_name": "Brazil",
+  "ruler_name": "Jair Bolsonaro",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 21,
+  "approximate_source_family_count": 15,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 21 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 15 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+## Research handoff — Jair Bolsonaro, Brazil, 2022
+
+No scores or score ranges assigned. The supplied local package was treated as the starting baseline; structured datasets were not re-fetched. The requested output files could not be written because this worker has read-only filesystem access, so the handoff is provided here for parent persistence.
+
+### Reconnaissance and authority baseline
+
+Bolsonaro was Brazil’s president during the full target year. The Brazilian constitutional framework places federal administration under the president and gives the office authority over ministers and major executive appointments; the Federal Supreme Court’s constitutional summary confirms that ministers are subordinate to the president. This supports formal attribution for national executive policy, while Congress, courts, state governments, the independent central bank, electoral authorities, and coalition politics remain material constraints. [Brazilian Federal Supreme Court constitutional authority](https://portal.stf.jus.br/constituicao-supremo/artigo.asp?abrirArtigo=76&abrirBase=CF)
+
+The evidence environment was relatively open but highly polarized. Independent observers, courts, NGOs, journalists, civil-society organizations, and international institutions remained active, while Bolsonaro repeatedly attacked electoral institutions, critics, fact-checking, and parts of the press. This creates both strong source availability and visibility bias: allegations and controversies are heavily documented, but open-system reporting should not be equated with uniquely worse conduct.
+
+Stable reconnaissance evidence:
+
+- `WEB001`: OAS election observation mission, high-confidence intergovernmental/election-observer source. The mission deployed 111 observers and assessed electoral technology, political finance, participation, freedom of expression, political violence, and electoral justice. It described the 2022 election as conducted amid polarization, disinformation, and attacks on electoral institutions, while finding the TSE professional and robust. [OAS preliminary report](https://www.oas.org/en/media_center/press_release.asp?sCodigo=S-023%2F22)
+- `WEB002`: TSE reports on 2022 ballot-integrity audits, high-confidence official record. The audits were public, filmed, included party and civil-society observers, covered 641 traditional tests plus 58 biometric pilot tests, and were independently audited. [TSE audit records](https://www.tse.jus.br/eleicoes/eleicoes-2022/testes-de-integridade-relatorios-referentes-ao-1o-e-2o-turnos)
+- `WEB003`: Human Rights Watch 2022 country report, medium-high NGO source. It documents democratic pressure, COVID failures, environmental enforcement weakness, Indigenous insecurity, and restrictions affecting migrants. [HRW World Report 2022: Brazil](https://www.hrw.org/world-report/2022/country-chapters/brazil)
+- `WEB004`: Official TSE result record, high confidence for certified electoral totals. Lula received 60,345,999 valid votes and Bolsonaro 58,206,354 in the second round. [TSE proclamation of results](https://www.tse.jus.br/comunicacao/noticias/2022/Dezembro/tse-proclama-eleitos-presidente-e-vice-presidente-da-republica-luiz-inacio-lula-da-silva-e-geraldo-alckmin)
+
+### Chapter 1B — Nuclear and existential-risk responsibility
+
+Local baseline: no country-specific nuclear arsenal, deployment, command, or ruler-attributed existential-risk facts were supplied. The local package therefore does not establish material nuclear exposure or a ruler-specific nuclear choice.
+
+Accepted narrative/context:
+
+- `WEB005`: Brazil deposited an IAEA nuclear-material physical-protection convention amendment in March 2022. This is a formal nonproliferation/safeguards action during Bolsonaro’s presidency, but attribution is institutional and indirect rather than evidence of a personal Bolsonaro decision. [Brazilian decree on the IAEA convention amendment](https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11188.htm)
+- `WEB006`: Brazil’s 2022 IAEA national statement reaffirmed nonproliferation commitments and safeguards cooperation. Official diplomatic material; useful as context and formal policy evidence, not as independent proof of personal restraint. [IAEA Brazil statement](https://www.iaea.org/sites/default/files/22/09/brazil-gc66.pdf)
+
+Coverage: limited exposure and no located evidence of nuclear threats, near-use, proliferation, command-safety changes, or catastrophic dual-use governance. The local SIPRI military series is contextual only and cannot answer this chapter’s ruler-specific questions.
+
+### Chapter 2B — International peace and lawful security
+
+Local baseline: UCDP records supplied zero Brazilian state-based and internationalized conflict events and fatalities for 2009, 2018–2022. SIPRI records show military spending declined from approximately $26.4bn in 2018 to $21.5bn in 2022 constant dollars, with 2022 military expenditure at approximately 1.05% of GDP. These are country exposure and burden facts, not evidence of peaceful intent or ruler responsibility.
+
+Accepted evidence:
+
+- `WEB007`: Bolsonaro visited Putin shortly before Russia’s invasion of Ukraine and publicly emphasized solidarity/neutrality. Reuters reporting records his decision to maintain neutrality and avoid taking sides. This directly informs diplomatic positioning and truth/justification lenses, but does not establish support for aggression or material Brazilian participation. [Reuters report on Bolsonaro’s neutrality](https://economia.uol.com.br/noticias/reuters/2022/03/30/bolsonaro-diz-que-nao-toma-partido-na-invasao-russa-da-ucrania.htm)
+- `WEB008`: Contemporary reporting described the Moscow visit as motivated partly by fertilizer dependence and agricultural supply concerns. This is a plausible economic-security constraint, not a complete defense of the diplomatic choice. [Contemporary account of the Putin visit](https://time.com/6148311/bolsonaro-putin-visit-ukraine/)
+- `WEB009`: Brazil had no supplied evidence of cross-border war, proxy warfare, or Brazilian military operations in the target period. This remains a research gap rather than proof of exemplary peace conduct.
+
+Coverage: international exposure was limited. Evidence is stronger for diplomatic posture than for civilian protection, proxy responsibility, military patronage, or accountability for external harm.
+
+### Chapter 3B — Domestic safety and protection
+
+Local baseline: supplied facts show serious country-level physical-integrity concerns. In 2022 CIRIGHTS records include disappearance `2/2`, political imprisonment `2/2`, physical-integrity score `4/8`, repression `10/17`, and civil/political rights `5/6`. V-Dem records physical-integrity liberties at `0.44`, with one-sided violence at 102 events and 116 fatalities. These figures do not by themselves establish Bolsonaro’s personal direction or responsibility.
+
+Accepted evidence:
+
+- `WEB010`: HRW reports that the Bolsonaro administration continued to promote ineffective COVID drugs, flouted WHO recommendations, and that a congressional inquiry found failures to ensure oxygen supplies in Amazonas, with dozens of deaths, plus evidence of vaccine-purchase corruption and other failures. This is target-period-relevant crisis-response evidence, though the inquiry’s findings and causal allocation should be preserved separately. [HRW COVID section](https://www.hrw.org/world-report/2022/country-chapters/brazil)
+- `WEB011`: The UN Committee on the Elimination of Racial Discrimination documented persistent excessive and lethal force by Brazilian law-enforcement and military officials and reported that 84.1% of police-violence victims in 2021 were Afro-Brazilian. This is strong intergovernmental evidence of national conditions, but national and state-level policing must not automatically be personalized to Bolsonaro. [UN CERD observations](https://docstore.ohchr.org/SelfServices/FilesHandler.ashx?enc=RYlsDMB8KjaFWKvwucH64GkY%2B99SwBsEBCP8tjpT%2FWEjPSMJ2FBBVxqDFsQNhfIXqk4eE%2BHK95XsQL%2Fx9e%2FfxY2KhKrPya73LMbylKIIwMA%3D)
+- `WEB012`: HRW documented Indigenous violence and institutional weakening, including the killings of FUNAI agent Maxciel Pereira dos Santos in 2019 and former FUNAI official Bruno Pereira and journalist Dom Phillips in 2022. The source supports institutional and protection failures; it does not prove Bolsonaro ordered those killings. [HRW Indigenous-rights report](https://www.hrw.org/news/2022/08/09/brazil-indigenous-rights-under-serious-threat)
+- `WEB013`: HRW reported that Bolsonaro government statements and policies weakened FUNAI and emboldened miners, loggers, land grabbers, and poachers, with increased encroachment and violence. This is evidence of policy environment and foreseeable risk, with attribution stronger for institutional weakening and rhetoric than for every resulting act.
+
+Coverage: strong for physical-integrity, crisis-response, Indigenous protection, and institutional tolerance/neglect themes; weak for personal incitement against specific groups, complaint systems, remedy effectiveness, surveillance, and protest-specific national attribution.
+
+### Chapter 4B — Political freedom and authoritarian rule
+
+Local baseline: the structured package shows a competitive electoral regime in 2022, but deterioration from inherited levels in several indicators. Freedom House civil liberties were rated `3`, political rights `2`; V-Dem electoral democracy was `0.699`, multiparty institutions `0.534`, liberal democracy `0.540`, expression `0.669`, rule of law `0.635`; RSF press-freedom score was `55.36`, rank `110`; WGI voice and accountability was `0.215`. These facts provide strong country context but require ruler-specific narrative attribution.
+
+Accepted evidence:
+
+- `WEB014`: OAS observers found the 2022 election professionally administered despite polarization, disinformation, and attacks on electoral institutions. This is strong contrary evidence against claims that the election administration itself was captured or technically fraudulent.
+- `WEB015`: Reuters reported that Bolsonaro repeatedly made baseless electoral-fraud allegations, attacked the electoral court, and suggested he might not accept an unfavorable result. [Reuters on institutions and election concerns](https://www.euronews.com/2022/06/25/uk-brazil-election-military-exclusive)
+- `WEB016`: Reuters reported that Bolsonaro again questioned electronic voting without evidence in October 2022 and said the Armed Forces were analyzing possible fraud. [Reuters report](https://noticias.uol.com.br/ultimas-noticias/reuters/2022/10/17/bolsonaro-volta-a-questionar-urna-eletronica-e-diz-que-analise-esta-sendo-feita-pelas-forcas-armadas.htm)
+- `WEB017`: HRW documented threats to democratic rule, blocking of critics on presidential social-media accounts, attempts to limit platform moderation of misinformation, and a secretive government working group altering the National Human Rights Program without participation from Congress, courts, or civil society.
+- `WEB018`: TSE audit records and the certified result provide contrary evidence that electoral procedures remained auditable and that lawful transfer occurred despite Bolsonaro’s attacks.
+
+Coverage: strong for electoral delegitimization, media/information pressure, institutional attacks, and transfer stress; partial for opposition tolerance, minority equality, personality cult, surveillance, and concrete court/legislative capture.
+
+### Chapter 5B — Economic wellbeing
+
+Local baseline: supplied 2022 facts show nominal GDP of approximately $1.95tn, real GDP of approximately $1.90tn in constant 2015 dollars, PPP GDP per capita of approximately $14,640, Gini `51.9`, and substantial improvements from 2009 in PPP income measures. These are outcomes and context, not automatic ruler credit. Longitudinal signals show recent improvement in PPP GDP per capita but declining government effectiveness and regulatory-quality indicators.
+
+Accepted evidence:
+
+- `WEB019`: World Bank analysis reports unemployment at 7.9% in Q4 2022, down from the previous year and 2020, while also documenting poverty volatility, dependence on transfers, and food insecurity. [World Bank Brazil food insecurity and inflation](https://www.worldbank.org/pt/country/brazil/publication/brazil-food-insecurity-and-food-inflation)
+- `WEB020`: The World Bank reports that emergency transfers reduced poverty sharply in 2020, but the gains were fiscally unsustainable, poverty rebounded in 2021, and food insecurity reached 30.7% in 2022. This supports both mitigation and durability concerns.
+- `WEB021`: AP reported 2.9% full-year GDP growth in 2022 but a 0.22% contraction in Q4, with high interest rates and election-year spending contributing to policy tension. This is media-based macro context and should not be treated as sole attribution. [AP 2022 economy report](https://apnews.com/article/brazil-economy-gdp-2022-fourth-quarter-5b385f81f4ea20094afe720e055ce466)
+- `WEB022`: Bolsonaro’s government rebranded Bolsa Família as Auxílio Brasil during the pandemic. AP records the program’s continuation and scale, while World Bank materials emphasize both transfer reach and sustainability/design challenges. [World Bank social-protection analysis](https://www.worldbank.org/pt/news/opinion/2022/01/26/licoes-e-legados-do-auxilio-emergencial-para-o-fortalecimento-da-protecao-social-brasileira)
+
+Coverage: reasonable for transfers, macro outcomes, poverty, inflation, and household insecurity; weak for competent appointments, anti-corruption policy, competition rules, evidence-based correction, and distribution across regions/groups.
+
+### Chapter 6B — Social wellbeing
+
+Local baseline: supplied facts show 2022 HDI `0.760`, life expectancy `73.425`, mean schooling `8.278` years, expected schooling `15.579`, under-five mortality approximately `21.6/1,000`, BCG coverage `88%`, DTP3 and HepB3 coverage `77%`, adult literacy `94.4%`, and gross secondary enrollment `105.7%`. Longitudinally, HDI and schooling improved from 2009, while life expectancy fell sharply during the pandemic and recovered partially by 2022. These are country outcomes, not standalone Bolsonaro attribution.
+
+Accepted evidence:
+
+- `WEB023`: HRW’s COVID documentation links federal conduct to ineffective-drug promotion, resistance to public-health guidance, oxygen-supply failures, and vaccine procurement concerns.
+- `WEB024`: World Bank evidence records the protective effect of emergency transfers but also poverty rebound, food insecurity, dependence on transfers, and uneven rural/urban exposure.
+- `WEB025`: WHO’s 2022 mid-year report establishes the international preparedness and response framework against which national COVID coordination can be assessed, but does not itself evaluate Bolsonaro’s government. [WHO COVID-19 2022 report](https://www.who.int/publications/m/item/who-s-response-to-covid-19-2022-mid-year-report)
+- `WEB026`: HRW Indigenous-rights evidence documents vulnerability, weakened FUNAI capacity, and exposure of Indigenous communities to encroachment and violence.
+
+Coverage: strongest for crisis response, social transfers, Indigenous vulnerability, and aggregate health/education outcomes; weak for service quality, professional management, political conditionality, durable institutional reform, and group-level distribution beyond Indigenous and poverty evidence.
+
+### Chapter 7B — Personal integrity and honesty
+
+Local baseline: WGI/V-Dem corruption indicators show country-level deterioration or weakness, including 2022 control of corruption `-0.566`, political corruption `0.545`, executive corruption `0.759`, and public corruption `0.327`. These are context only and cannot establish Bolsonaro’s personal integrity.
+
+Accepted evidence:
+
+- `WEB027`: HRW documents Bolsonaro’s repeated public promotion of ineffective COVID treatments and attacks on scientific/public-health guidance. This supports a ruler-specific truthfulness and correction theme, though individual statements should be preserved with their exact dates and wording.
+- `WEB028`: Reuters reported that Facebook and YouTube removed a Bolsonaro video containing the false claim that COVID vaccines were linked to AIDS. [Reuters account](https://www.investing.com/news/coronavirus/facebook-youtube-take-down-bolsonaro-video-over-false-vaccine-claim-2654062)
+- `WEB029`: Reuters reported that a Rio court confirmed dismissal of the prosecution against Bolsonaro’s son Flávio in the alleged “rachadinha” scheme. This is relevant to family-network scrutiny and contrary/mitigating evidence, but does not establish Jair Bolsonaro’s personal benefit or responsibility. [Reuters report](https://noticias.uol.com.br/ultimas-noticias/reuters/2022/05/16/tj-do-rio-arquiva-denuncia-do-mp-contra-flavio-bolsonaro-em-caso-das-rachadinhas.htm)
+- `WEB030`: Reuters documented Bolsonaro’s unsupported claims about electoral fraud and the use of military analysis as a political justification. This is a direct ruler-specific integrity/truthfulness item.
+- `WEB031`: Later AP reporting alleges falsification of vaccination records between November 2021 and December 2022. Because this is post-period investigative material and an allegation/indictment rather than a 2022 adjudicated finding, it should be retained only as labeled retrospective evidence, not treated as settled fact. [AP report](https://apnews.com/article/a0c1f1dba71553096d0de0f4f39d4caa)
+
+Coverage: direct evidence exists for repeated misleading public claims and resistance to correction; personal enrichment, procurement benefit, asset disclosure, appointments for personal gain, and obstruction of personal investigations remain substantially under-researched. Country corruption indicators were not used as personal evidence.
+
+### Chapter 8B — Effectiveness and competence
+
+Local baseline: supplied WGI data show government effectiveness declining from `-0.151` in 2009 to `-0.588` in 2022 and regulatory quality from `0.128` to `-0.220`. These are context and cannot establish program ownership or execution by themselves.
+
+Provisional program themes identified:
+
+1. conservative cultural and security agenda;
+2. expansion and rebranding of social transfers through Auxílio Brasil;
+3. support for agribusiness, mining, and reduced environmental restrictions;
+4. strengthening of executive/military influence and political control;
+5. electoral and institutional self-preservation.
+
+Accepted evidence:
+
+- `WEB032`: AP reports that Auxílio Brasil served as the Bolsonaro-era rebranding of Bolsa Família during the pandemic and that transfer expansion had substantial poverty-protection effects but was embedded in a difficult fiscal and post-pandemic environment.
+- `WEB033`: HRW documents concrete implementation consequences of the environmental agenda: weakened enforcement, reduced paid fines, increased deforestation, proposed mining access to Indigenous territories, and incomplete operationalization of environmental pledges.
+- `WEB034`: HRW documents the transformation and paralysis of FUNAI, showing observable institutional consequences for the Indigenous-rights program.
+- `WEB035`: Reuters reporting documents Bolsonaro’s use of Armed Forces scrutiny of elections and unprecedented military presence in civilian government roles, relevant to mobilization and regime-control execution. [Reuters military analysis](https://www.euronews.com/2022/02/02/us-brazil-politics-military-analysis)
+- `WEB036`: World Bank evidence supplies independent outcome checks for poverty, transfers, employment, food insecurity, and fiscal sustainability.
+
+Coverage: reasonable for program identification, executive mobilization, social-transfer delivery, environmental implementation, and crisis response; weak for systematic appointment competence, internal coordination, adaptation after failure, and durable cross-program results. Moral consequences should remain analytically separate from effectiveness.
+
+## Local-data audit
+
+Retained or actively used as context:
+
+- Chapter 2B: `LF001–LF112` conflict and SIPRI facts; used for exposure, inherited baseline, and military-burden context only.
+- Chapter 3B: `LF113–LF332`; used for physical-integrity, repression, civil-liberties, and one-sided-violence context, with UCDP non-state responsibility warnings preserved.
+- Chapter 4B: `LF333–LF669`; used for regime, electoral, civil-liberties, accountability, expression, press, rule-of-law, and trajectory context.
+- Chapter 5B: `LF670–LF923`; used for income, GDP, poverty/distribution proxies, employment, consumption, fiscal-investment context, and longitudinal trends.
+- Chapter 6B: `LF924–LF985`; used for HDI, schooling, life expectancy, immunization, mortality, literacy, and enrollment context.
+- Chapter 7B: `LF986–LF1041`; used only as country-level corruption and accountability context, never as personal-integrity evidence.
+- Chapter 8B: `LF1042–LF1069`; used as inherited-capacity and governance-performance context, never as direct ruler effectiveness evidence.
+- Chapter 1B: no supplied local facts; absence treated as an exposure/evidence gap, not as proof of safety or inapplicability.
+
+Local longitudinal signals were used where relevant, especially `LS012–LS013`, `LS024`, `LS036`, `LS039`, `LS047`, `LS049–LS052`, `LS062`, `LS069–LS070`, and `LS075`. Their attribution warnings were retained: none establishes ruler credit or blame automatically.
+
+## Source diversity and unresolved gaps
+
+Source families represented: OAS, TSE, HRW, UN CERD, WHO, World Bank, AP, Reuters, IAEA, and Brazilian official legal records. Source types include election observation, official records, intergovernmental reporting, NGO investigations, international media, and structured local datasets.
+
+Same-URL splits/reuse:
+
+- HRW 2022 Brazil report supports 3B, 4B, 5B/6B context, and 8B implementation evidence.
+- HRW Indigenous-rights report supports 3B, 6B, and 8B.
+- OAS/TSE materials support 4B and provide contrary evidence against claims of technically fraudulent administration.
+- World Bank materials support 5B, 6B, and 8B.
+- Reuters/AP items are reused across 2B, 4B, 5B, 6B, 7B, and 8B only where the underlying claim is materially relevant.
+
+Key unresolved gaps:
+
+- 1B: no ruler-specific nuclear or catastrophic-risk choice beyond formal safeguards/nonproliferation records.
+- 2B: limited evidence on Brazil’s actual conduct regarding Ukraine, arms transfers, peace initiatives, and accountability.
+- 3B: weak national-level evidence on protest policing, surveillance, due process, remedies, and Bolsonaro’s personal incitement.
+- 4B: further primary court/electoral decisions and detailed campaign-finance findings would improve attribution.
+- 5B: insufficient evidence on economic appointments, competition policy, corruption control, productivity investment, and regional distribution.
+- 6B: insufficient evidence on service quality, education disruption, sanitation/housing, and political conditionality.
+- 7B: personal-benefit and family-network evidence remains incomplete; allegations must not be upgraded to findings.
+- 8B: insufficient evidence on internal coordination, personnel competence, adaptation, and durable outcomes across the full program portfolio.
+
+No candidate source was treated as final evidence when it was only a search-result page, inaccessible gateway, or unsupported summary.
+---

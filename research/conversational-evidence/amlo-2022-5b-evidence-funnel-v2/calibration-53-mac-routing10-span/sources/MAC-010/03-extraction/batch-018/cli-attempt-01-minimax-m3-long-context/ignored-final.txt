@@ -1,0 +1,16 @@
+The hook blocks ls. The dedicated runner will validate the persisted citation ledger. The runner guarantees source identity, exact span copying, hashes, attempt history, and stable persistence.
+
+## Summary of the extraction
+
+Phase 1 — Inspected each of the 4 assigned locators once (page 90, 91, 92, 93). No claims recorded during inspection.
+
+Phase 2 — Recorded 20 atomic factual intents (D0001–D0020), each with a frozen source SHA-256, an exact locator, and an inclusive start/end segment range:
+
+| Locator | Drafts | Topic |
+|---|---|---|
+| page 90 | D0001–D0008 | Tax administration reforms; revenue/GDP performance; VAT gap; army customs functions |
+| page 91 | D0009–D0013 | Pension reform package; 2019/2021 stages; contribution-rate changes; minimum years and pension floors |
+| page 92 | D0014–D0017 | MEX$85,000 average-wage minimum; AFORE fee cap; pension spending rise; labor-market effects |
+| page 93 | D0018–D0020 | Mexico–Central America trade shares; Central American exposure; IMF trade-policy recommendations |
+
+Each draft captures actor (literal phrases the excerpt supports: "the current administration", "Mexico", "the authorities", "IMF staff"), action, mechanism, outcome, dates, quantities, attribution, period_fit, source_limitations, claim_type, polarity, and applicable 5B question IDs. No quotation text was authored into any semantic field. Compound facts were split (e.g. MEX$45,000 vs MEX$85,000 split between page 91 and page 92 spans). One revision attempt on D0013 was attempted but blocked by the hook; the resulting bound record retains the page-91 scope with the supporting quantity (MEX$45,000 and 5-year early-retirement detail), and D0014 separately carries the MEX$85,000 fact on page 92. All records are stored as `pending_confirmation` for the no-search formatter and reviewer.

@@ -1,0 +1,1449 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "MAC-010",
+  "title": "IMF 2022 Article IV full report",
+  "url": "https://www.imf.org/-/media/files/publications/cr/2022/english/1mexea2022001.pdf",
+  "publisher": "www.imf.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "financial_report",
+  "source_role": "international_organization",
+  "source_family": "www.imf.org",
+  "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 24",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 198,
+        "text": "MEXICO\n37. The authorities should take steps to further enhance the resilience of the financial\nsystem. The authorities have already rolled out critical Basel reforms, including the introduction of\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 198,
+        "end_char": 378,
+        "text": "Total Loss Absorbing Capacity (TLAC) requirements and improved supervisory techniques and\nmethodologies. The 2022 FSAP offers several recommendations for further steps (Annex XI).\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 378,
+        "end_char": 595,
+        "text": "• Capacity of regulatory agencies. The autonomy and resources of regulatory government\nagencies and the legal protection of supervisors could be strengthened, to equip them to deal\nwith the evolving risk environment.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 595,
+        "end_char": 767,
+        "text": "• Banking supervision and regulation. The banking regulator (CNBV) should continue to\nimprove supervisory techniques, by simplifying its risk-based rating system and using\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 767,
+        "end_char": 947,
+        "text": "methodologies that are principles- rather than rules-based. It should also be enabled to\nsupervise effectively all financial conglomerates on a consolidated basis. Currently, such\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 947,
+        "end_char": 1176,
+        "text": "conglomerates can voluntarily request authorization to operate as a financial group, but some\nhave not done so. The authorities should amend the 2014 Financial Groups law to make\napplication mandatory for all such conglomerates.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1176,
+        "end_char": 1357,
+        "text": "• Systemic liquidity management. System-wide liquidity risks appear contained, with\ncommercial banks well-placed to provide liquidity to other financial institutions during periods\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1357,
+        "end_char": 1540,
+        "text": "of stress. Moreover, the authorities have demonstrated the effectiveness of their toolkit to\nsupport systemic liquidity during the pandemic. But conditions bear continued monitoring,\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1540,
+        "end_char": 1723,
+        "text": "particularly in a context of severe downside risks, and high levels of short-term wholesale\nfunding of development banks deserve further consideration, though risks are attenuated by\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1723,
+        "end_char": 1942,
+        "text": "their liabilities guaranteed by the sovereign. Banxico’s Emergency Liquidity Assistance\nframework could be further enhanced.\n• Safety nets. CNBV should closely monitor risks from loan concentration risks and contingent\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1942,
+        "end_char": 2126,
+        "text": "credit lines to non-financial corporates and apply Pillar 2 requirements as needed. Bank\nresolution and recovery could be strengthened by removing impediments to banks’ resolvability,\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2126,
+        "end_char": 2317,
+        "text": "eliminating barriers to the effective use of the purchase and assumption and bridge bank tools,\nand expanding the resolution regime’s remit to financial holding companies. Board vacancies at\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2317,
+        "end_char": 2483,
+        "text": "the Deposit Insurance and Resolution Authority (IPAB) should be filled.\n• Cybersecurity. Banxico and CNBV could enhance their approach to strengthening cybersecurity\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2483,
+        "end_char": 2723,
+        "text": "in the financial system, by further developing their strategy and enhancing oversight, inspection,\nand investigative powers and instruments.\n• Climate risks. Financial system exposure to physical and transition risks from climate change is\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2723,
+        "end_char": 2935,
+        "text": "manageable but financial tail risks will worsen, particularly if investments in resilience are not\nmade and global climate policy action is delayed, resulting in higher corporate defaults and\nlower bank capital.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2935,
+        "end_char": 3149,
+        "text": "38. The macrofinancial toolkit could benefit from additional instruments. While banking\nsystem and corporate sector risks appear contained, the mortgage market is less well regulated.\n20 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 25",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 206,
+        "text": "MEXICO\nMortgages are still small as a share of bank capital and GDP, but they are growing rapidly (Figure 9).\nIntroducing loan-to-value and debt-to-income requirements at this early stage would be prudent,\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 206,
+        "end_char": 364,
+        "text": "ahead of a possible risk build-up. Publishing a macroprudential strategy and counter-cyclical buffer\nguidelines would further advance macroprudential policy.\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 364,
+        "end_char": 556,
+        "text": "39. Financial deepening should remain a policy priority. The authorities have undertaken\nvarious efforts in recent years, including to increase access to bank branches and financial products,\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 556,
+        "end_char": 751,
+        "text": "improve transparency and broaden access with more digital connectivity. These efforts should\ncontinue. Mexico’s relatively poor financial depth is a headwind to inclusive growth. Difficulties in\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 751,
+        "end_char": 924,
+        "text": "collateral recovery and perceptions of judicial quality are also headwinds (see below).\n40. The authorities should continue to foster the development of Fintech to increase\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 924,
+        "end_char": 1118,
+        "text": "competition in the financial sector and broaden financial inclusion. Mexico’s 2018 Fintech law\nwas an important step in developing the digital financial services industry, and helped foster the\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1118,
+        "end_char": 1314,
+        "text": "rapid creation of new firms, primarily in the e-payments sector. Additionally, Banxico has recently\nundertaken a plan to launch a central bank digital currency (CBDC). A primary objective of this\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1314,
+        "end_char": 1513,
+        "text": "initiative is to promote greater financial inclusion. As CBDC implementation raises complex legal,\nregulatory, and operational issues with little global experience so far, Banxico should continue to\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1513,
+        "end_char": 1673,
+        "text": "engage with stakeholders and ensure sufficient resources are allocated, including to ensure that\nsafeguards to financial stability and integrity remain robust.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1673,
+        "end_char": 1842,
+        "text": "41. The authorities should build on their good progress in aligning the legal and\nregulatory framework with the Financial Action Task Force (FATF) standard by enhancing\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1842,
+        "end_char": 2044,
+        "text": "effectiveness. Efforts should continue to ensure that adequate, accurate and timely information on\nbeneficial ownership is available. The authorities’ plans to establish a beneficial ownership register\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2044,
+        "end_char": 2225,
+        "text": "and strengthen the legal framework applicable to designated non-financial business and professions\nare key elements of this endeavor. Efforts should remain to strengthen Anti-Money\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2225,
+        "end_char": 2415,
+        "text": "Laundering/Combating the Financing of Terrorism (AML/CFT) consolidated supervision, allocate\nadequate resources and reinforce enforcement to ensure effective, proportionate, consistent, and\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2415,
+        "end_char": 2630,
+        "text": "dissuasive sanctions. Emerging financial integrity risks, including those related to fintech and virtual\nassets (i.e., registration, customer due diligence, and supervision) also need monitoring.\nAuthorities’ Views\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2630,
+        "end_char": 2804,
+        "text": "42. The authorities underscored their commitment to monitoring and containing\nemerging systemic risks in the context of their risk-based prudential oversight. They concurred\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2804,
+        "end_char": 2993,
+        "text": "that the Mexican financial system is robust and resilient to possible future adverse shocks. They\nshared the view that the policy framework performed well during the pandemic shock and are\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 2993,
+        "end_char": 3189,
+        "text": "considering further analysis of potential system-wide liquidity risks, as new global shocks emerge.\nThey intend to continue strengthening the risk-based supervisory framework and take note of the\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3189,
+        "end_char": 3379,
+        "text": "recommendations to expand the application of the consolidated supervision framework. As for\nother potential risks and recommendations, the authorities did not fully share the concern on the\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3379,
+        "end_char": 3603,
+        "text": "risks associated to contingent credit lines (the vast majority of such lines are revocable) or on\nliquidity risks from development banks (as these institutions are fully backed by the sovereign\nINTERNATIONAL MONETARY FUND 21"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 26",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 192,
+        "text": "MEXICO\ngovernment). They agreed, however, to monitor and continue assessing these issues. They also\nnoted that the institutional arrangements governing the autonomy of regulatory agencies are\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 192,
+        "end_char": 394,
+        "text": "defined legislatively, emphasizing that there is a track record of supervisors and regulators operating\nwith a high level of independence. The authorities are committed to boosting cyber resilience and\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 394,
+        "end_char": 609,
+        "text": "will continue to develop new areas, such as climate risk and fintech, including in the context of their\nCBDC project, which focuses on promoting financial inclusion.\nD. Policies for Higher and More Equitable Growth\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 609,
+        "end_char": 773,
+        "text": "43. Productivity growth has been weak despite successful trade opening and a stable\nmacroeconomic environment. The 1994 North American Free Trade Agreement (NAFTA)\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 773,
+        "end_char": 973,
+        "text": "eliminated almost all tariffs among Canada, Mexico, and the U.S. This opening reshaped the Mexican\neconomy, with exports as a share of GDP rising threefold. Foreign direct investments also increased.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 973,
+        "end_char": 1163,
+        "text": "Simultaneously, cautious fiscal and monetary policies have achieved moderate inflation, exchange\nrate stability, and stable public debt. This growth strategy should have spurred investment,\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1163,
+        "end_char": 1365,
+        "text": "productivity, and growth. Other supply side impediments, however, appear to have held back\nproductivity gains.10\nStructural Indicators, 2021 or Latest Available Year\nEmployment protection legislation\n1\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1365,
+        "end_char": 1605,
+        "text": "FDI restrictiveness Product Market Regulation\n0.8\n0.6\nService trade restrictiveness Regulatory Quality\n0.4\n0.2\nExpected Years of School 0 Voice and Accountability\nPolitical Stability and Absence of\nHarmonized Test Scores\nViolence/Terrorism\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1605,
+        "end_char": 1808,
+        "text": "Government Effectiveness Rule of Law\nControl of Corruption\nMexico LA5 excluding Mexico (Brazil, Chile, Colombia, and Peru) Advanced economies\nSources: OECD, World Bank;andWorldwideGovernance Indicators.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1808,
+        "end_char": 1965,
+        "text": "Note: Higer values indicate values more favorable to growth. The WorldwideGovernance Indicators (WGI) database reports normalized data, the blue arrows show\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1965,
+        "end_char": 2205,
+        "text": "90 percent confidence intervals. Other indicators are rescaled so that the standard deviation across advanced economies and LA5 countries is equal to the average\nstandard deviation across the 6 dimensions of the WGI for the same countries.\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2205,
+        "end_char": 2416,
+        "text": "10 Total factor productivity which account for financial deepening has even been negative over 1990–2020 including\nin the manufacturing sector according to estimates from INEGI, the national statistical agency.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2416,
+        "end_char": 2446,
+        "text": "22 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 27",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 195,
+        "text": "MEXICO\n44. Alongside weak per capita income\n3000 50\ngrowth, poverty rates in Mexico have\nremained stubbornly high. Poverty rates have 2900\nconsistently hovered around 40 percent but rose 2800 45\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 195,
+        "end_char": 412,
+        "text": "in 2020 due to the pandemic. With the economic 2700\nrecovery, real income has rebounded, and\n2600 40\npoverty rates have fallen back to pre-pandemic\n2500\nlevels.11\n2400 35\n45. There are persistent, stark regional 2300\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 412,
+        "end_char": 617,
+        "text": "inequalities that show no sign of narrowing. 2200 30\nBoth the Northern and Central regions of Mexico\n2100\nhave greatly benefitted from proximity to the\n2000 25\nU.S. Meanwhile, the South of the country has\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 617,
+        "end_char": 799,
+        "text": "suffered from little integration with the rest of\nthe country and the U.S., and limited economic\nopportunity. This has resulted in low levels of\ninvestment in health, education, and\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 799,
+        "end_char": 1027,
+        "text": "infrastructure, thereby reinforcing a significantly poorer economic performance and lower real\nincomes.\n11 Given public health restrictions, income surveys were not conducted in 2020Q2 resulting in missing data for this\nperiod.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1027,
+        "end_char": 1228,
+        "text": "INTERNATIONAL MONETARY FUND 23\n$XEM\nlaeR\nnoitalupoP\nfo\ntnecreP\nTrends in Labor Income and Poverty\nReal Per Capita Labor Income 1/\nPercent of Population in Labor Income Poverty 2/ (RHS)\nSource: CONEVAL\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1228,
+        "end_char": 1402,
+        "text": "1/Real per capita labor income is taken from CONEVAL's Cuadro de Indicadores ITLP\nstatisticalreleaseand defined as per capital labor income (including informal labor income)\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1402,
+        "end_char": 1624,
+        "text": "deflated by CPI. Data on per capita labor income is missing for 2020Q2 due the impact of\nthe COVID-19 pandemic on data collection.\n2/ The official labor income poverty line is determined by CONEVAL using its labor poverty\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1624,
+        "end_char": 1856,
+        "text": "index methodology.\n4000\n3500\n3000\n2500\n2000\n1500\n$XEM\nlaeR\nLabor Income by Region 1/\n125\nNorthern Mexico 2/\nCentral Mexico 2/ 120\nSouthern Mexico 2/\n115\n110\n105\n100\n95\n90\n85\n80\n001\n=\n1Q0102\nxednI\nTrends in Labor Income by Region 1/\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1856,
+        "end_char": 2094,
+        "text": "Northern Mexico 2/\nCentral Mexico 2/\nSouthern Mexico 2/\nSources: CONEVAL, INEGI;andIMFstaff calculations\n1/Real per capita labor income is taken from CONEVAL's Cuadro de Indicadores ITLP statisticalreleaseand defined as per capital labor "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2094,
+        "end_char": 2257,
+        "text": "income (including\ninformal labor income) deflated by CPI. Data on per capita labor income is missing for 2020Q2 due to the impact of the COVID-19 pandemic on data\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2257,
+        "end_char": 2412,
+        "text": "collection. Regional averages are calculated as the average of state-level per capita income from CONEVAL weighted by the share of the economically active\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2412,
+        "end_char": 2589,
+        "text": "population aged 15+ that the state contributes to the broad geographic region. This data is taken from INEGI's National Survey of Occupation and\nEmployment statistical release.\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2589,
+        "end_char": 2741,
+        "text": "2/ Northern Mexico includes the states of Aguascalientes, Baja California, Baja California Sur, Coahuila de Zaragoza, Chihuahua,Durango, Nayarit, Nuevo\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2741,
+        "end_char": 2894,
+        "text": "León, San Luis Potosí, Sinaloa, Sonora, Tamaulipas, and Zacatecas. Central Mexico includes the states of Colima, Ciudad de México, Guanajuato, Guerrero,\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2894,
+        "end_char": 3115,
+        "text": "Hidalgo, Jalisco, México, Michoacán de Ocampo, Morelos, Puebla, Querétaro, Tlaxcala, and Veracruz de Ignacio de la Llave. Southern Mexicoincludes the\nstates ofCampeche, Chiapas, Oaxaca, Quintana Roo, Tabasco, and Yucatán."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 28",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 178,
+        "text": "MEXICO\n46. The supply side policy agenda should be broadened to unlock Mexico’s growth\npotential. The current administration’s policy agenda has focused on redistribution, trade\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 178,
+        "end_char": 366,
+        "text": "promotion, infrastructure investment, and trade integration to foster development, especially in\nSouthern states. Flagship reforms include (i) the implementation of the U.S.-Mexico-Canada\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 366,
+        "end_char": 560,
+        "text": "Agreement (USMCA); (ii) increases in the minimum wage and the subcontracting law to reduce wage\ninequality; (iii) increases in the general social pension to reduce old age poverty; and (iv) the\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 560,
+        "end_char": 749,
+        "text": "development of trade infrastructure in the Isthmus of Tehuantepec (“Isthmus corridor”) in the South\nof Mexico. While this agenda addresses some obstacles to higher productivity and growth,\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 749,
+        "end_char": 948,
+        "text": "additional efforts are needed. Priorities include corruption, crime and rule of law issues; addressing\nhuman capital and infrastructure shortfalls; and lessening labor and product market rigidities.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 948,
+        "end_char": 1168,
+        "text": "A Budget for Higher, More Equitable Growth\n47. A pivot to a more equitable and pro-growth budget would entail a gradual increase in\nproductive government spending, financed by revenue-increasing tax reforms. To lift the\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1168,
+        "end_char": 1355,
+        "text": "growth potential and reduce socioeconomic gaps, Mexico should address spending shortfalls in\neducation, health, public investment, and social safety nets (IMF Staff Report 2021/2020; IMF\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1355,
+        "end_char": 1546,
+        "text": "Selected Issues 2019, Paper 2; IMF WP/20/215). Structural indicators such as spending per student,\nthe teacher-to-student ratio, and public health spending per capita are well below the OECD\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1546,
+        "end_char": 1735,
+        "text": "averages and somewhat below emerging market averages (IMF WP/21/244). The pandemic has\nfurther increased spending needs, particularly in education (following 18 months of school closures).\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1735,
+        "end_char": 1923,
+        "text": "Separately, there is scope, and a need, to increase revenue through tax reform, to support the\nadditional spending and secure tax buoyancy.12\n48. A gradual, permanent Growth Decomposition\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1923,
+        "end_char": 2159,
+        "text": "increase in spending of around 2 (Annual averages in percent)\n4\nto 3 percent of GDP could foster\n3\ninclusive growth, reduce\n2\npoverty, and address pandemic\n1\nlegacies. This feasible step would\n0\nhelp make progress in achieving\n-1 Labor\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2159,
+        "end_char": 2397,
+        "text": "the Social Development Goals Capital\n-2 Total factor productivity\n(SDG; IMF WP/21/244). The gains Total GDP\n-3\nfrom higher spending on\neducation, health, public\ninvestment, and social safety nets\nSources:INEGI and IMF staff calculations.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2397,
+        "end_char": 2621,
+        "text": "could be enhanced with more\nefficiency in programs. For example, social assistance could reduce the leakage of benefits to high-\nincome groups and eliminate overlaps and coverage gaps with the creation of single beneficiary\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2621,
+        "end_char": 2850,
+        "text": "12 Based on staff’s macroeconomic forecasts, there is a fiscal gap of 0.2 percent of GDP in 2023, which gradually\nincreases to around 1.3 percent of GDP by 2027. In recent years, the authorities have closed expected gaps through\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2850,
+        "end_char": 3055,
+        "text": "revenue and spending measures and small changes in the budget deficit target. The revenues generated from staff’s\nproposed tax reforms could also be used to close these gaps.\n24 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 29",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 231,
+        "text": "MEXICO\nregistry. Efficiency gains in public investment could be achieved through better coordination across\ngovernment levels, effective national and sector strategies to guide planning, and better multi-year\nbudgeting (IMF 2019).\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 231,
+        "end_char": 410,
+        "text": "49. While higher oil prices have lowered immediate debt service pressures on Pemex,\nrestructuring efforts need to continue. Changes to the business plan should remain a priority,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 410,
+        "end_char": 596,
+        "text": "including focusing on production in profitable fields, selling non-core assets, and reforming its\npension scheme. More partnerships with private firms in upstream projects could help in\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 596,
+        "end_char": 820,
+        "text": "maintaining or increasing production capacity at lower cost and reducing risks to Pemex’s financial\nposition and the government budget.\n50. A credible, well-designed medium-term tax reform could generate additional revenues\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 820,
+        "end_char": 1006,
+        "text": "to finance the permanent increase in spending on health, education and social assistance.\nMexico’s non-oil revenue was nearly 6 percent of GDP below Latin American peers (and only about\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1006,
+        "end_char": 1167,
+        "text": "half the OECD average) before the pandemic. Actions to strengthen tax administration should\ncontinue (Annex XII) but tax policy reforms would also be essential:\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1167,
+        "end_char": 1353,
+        "text": "• Value Added Tax (VAT). Eliminating zero-ratings, except for a few essential foodstuffs, and\nrationalizing exemptions and differences in rates increase collection. A comprehensive risk\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1353,
+        "end_char": 1560,
+        "text": "management strategy and a high-coverage audit process for VAT returns could also reduce the\ncompliance gap.\n• Personal income tax. Eliminating exclusions (e.g., of income on personal business activities and\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1560,
+        "end_char": 1711,
+        "text": "independent services), reducing tax expenditure, and widening the top personal income tax\nbracket. These measures could yield around ¾ percent of GDP.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1711,
+        "end_char": 1900,
+        "text": "• Subnational taxes. Property taxes could be increased gradually to raise over ¾ percent of GDP.\nUpdating the cadaster and enhancing policy coordination between the federal and subnational\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1900,
+        "end_char": 2136,
+        "text": "governments would be essential. Simplifying and better enforcing the local vehicle tax could\nincrease revenue for states and municipalities.\n• Carbon tax. While carbon pricing coverage through both the Emission Trading Scheme (ETS) and\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2136,
+        "end_char": 2325,
+        "text": "carbon taxation is high relative to peers, Mexico could further raise the carbon price to levels\nconsistent with the Nationally Determined Contributions (NDCs; Black and others, 2021). The\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2325,
+        "end_char": 2515,
+        "text": "carbon tax remains relatively narrow in scope with a de facto exemption of natural gas.13 Also,\nthe tax rate (USD 3 per ton of CO2) is very low and should be raised to USD 75 by 2030 (along\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2515,
+        "end_char": 2698,
+        "text": "the lines of the global carbon tax floor proposed for G20 economies by the IMF). Such a carbon\nprice, combined with an expansion of emissions pricing coverage, would raise additional\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2698,
+        "end_char": 2918,
+        "text": "revenues of close to 1.8 percent of GDP by 2030 (Black and others, 2021). A compensation\n13 The carbon tax is an excise applied to the CO2 emissions of fossil fuel suppliers that exceed the emission rate of\nnatural gas.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2918,
+        "end_char": 2948,
+        "text": "INTERNATIONAL MONETARY FUND 25"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 3",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 236,
+        "text": "2\nDirectors agreed that Mexico is well placed to navigate the challenges, owing to its very strong\nmacroeconomic policies and policy frameworks.\nDirectors welcomed Banco de México’s proactive approach to addressing the inflation surge.\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 236,
+        "end_char": 424,
+        "text": "With significant uncertainty about the inflation path in 2023 and upside risks, they concurred\nthat further increases in the policy rate and maintaining a restrictive policy stance may be\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 424,
+        "end_char": 651,
+        "text": "needed for some time. They also generally underscored the importance of clear policy\ncommunication. Directors recommended aligning wage increases more closely with expected\ninflation and the productivity of lower wage workers.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 651,
+        "end_char": 837,
+        "text": "Directors agreed that the envisaged neutral fiscal stance in 2022 and 2023 is appropriate.\nThey noted that retail fuel price smoothing, while reducing cost pressures, had a sizable cost\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 837,
+        "end_char": 1023,
+        "text": "on the budget, and generally encouraged the authorities to shift toward more targeted support\nshould oil prices rise again in order to protect other priority spending. Contingency plans\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1023,
+        "end_char": 1218,
+        "text": "should be prepared for a swift policy response should downside risks materialize. Increasing\nfiscal buffers in the short term and reforming the institutional framework for greater flexibility in\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1218,
+        "end_char": 1394,
+        "text": "the longer term would be important. Directors noted that the floating exchange rate should\ncontinue to act as a shock absorber, although foreign exchange intervention could be\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1394,
+        "end_char": 1553,
+        "text": "considered if there is a significant worsening of market illiquidity.\nDirectors agreed that the financial system remains resilient post pandemic, welcomed the\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1553,
+        "end_char": 1731,
+        "text": "favorable assessment of the effectiveness of Mexico’s financial stability framework, and\nbroadly supported the key policy recommendations of the 2022 Financial Sector Assessment\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1731,
+        "end_char": 1916,
+        "text": "Program. They concurred that additional measures, including an update of the financial sector\noversight and crisis management frameworks, are needed to keep up with a changing risk and\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1916,
+        "end_char": 2082,
+        "text": "regulatory landscape. After aligning the legal and regulatory AML/CFT framework with\nFinancial Action Task Force standards, the focus should now be to strengthen the\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2082,
+        "end_char": 2289,
+        "text": "effectiveness of the AML/CFT regime, including through adequate resources, ensuring\navailability of high-quality beneficial ownership information, and monitoring emerging financial\nrisks related to fintech.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2289,
+        "end_char": 2468,
+        "text": "Directors urged the authorities to broaden the supply side policy agenda for higher and more\ninclusive growth. Efforts should include measures to address corruption and crime and\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2468,
+        "end_char": 2646,
+        "text": "strengthen the rule of law, increase human capital investment, tackle infrastructure\nbottlenecks, reduce labor and product market rigidities, and promote financial deepening and\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2646,
+        "end_char": 2870,
+        "text": "inclusion. Directors recommended a gradual increase in productive spending, financed by tax\nreforms, to improve human and physical capital.\nDirectors generally noted the need to take further steps toward reducing greenhouse\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2870,
+        "end_char": 3108,
+        "text": "emissions. Fostering greater private sector participation in the energy sector would help boost\ncompetitiveness and investment.\nIt is expected that the next Article IV consultation with Mexico will be held on the standard 12-\nmonth cycle."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 30",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 199,
+        "text": "MEXICO\nscheme would be needed for those who are most negatively affected by the resulting energy\nprice increase.\n51. Overall, the comprehensive fiscal package of higher spending financed with higher\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 199,
+        "end_char": 365,
+        "text": "revenues should have positive complementarities between growth and equity.\n• The higher permanent spending aims to close above-discussed socioeconomic gaps that have\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 365,
+        "end_char": 546,
+        "text": "held back investment in human capital and productivity. In the context of Mexico where the\nsocioeconomic gaps are concentrated in specific regions, the increased and more efficient\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 546,
+        "end_char": 735,
+        "text": "productive spending, especially in those regions, should enhance both growth and equity.\n• The trade-offs between growth and increased revenues are likely to be small as a significant part\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 735,
+        "end_char": 913,
+        "text": "come from VAT reforms, which should not distort factor supplies or affect long-term growth\nespecially since the reforms would be accompanied by compensation for poor households.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 913,
+        "end_char": 1151,
+        "text": "Increases in the personal income tax would largely be through simplifying and expanding the\ntax base, which would have minimal effects on labor supply.\n• Together, such budget reforms would increase growth and place public debt on a firm\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1151,
+        "end_char": 1360,
+        "text": "downward trajectory over the medium term (IMF Staff Report 2021, IMF Staff Report 2020, IMF\nWP/20/215).\nAuthorities’ Views\n52. They are supportive of a pro-growth productive spending increase supported by tax\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1360,
+        "end_char": 1551,
+        "text": "reforms. But note such measures would require time to be implemented. In the meantime, they\nremain confident that the administrative measures to combat tax evasion and tax fraud taken by the\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1551,
+        "end_char": 1722,
+        "text": "current administration would continue to maintain robust revenues.\nOther Structural Policies\n53. A determined implementation of the anticorruption framework would help in\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1722,
+        "end_char": 1913,
+        "text": "addressing corruption and other governance issues. Contract enforcement by civil justice is very\nweak, discouraging business expansion and formal employment. This also complicates collateral\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1913,
+        "end_char": 2102,
+        "text": "seizure and impedes financial development. Corruption undermines the provision on public services.\nOrganized crime increases transport and insurance costs and discourages entrepreneurs and\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2102,
+        "end_char": 2289,
+        "text": "business formation. Improving governance would unlock investment and growth potential. A new\nlaw treating corruption and fraud as felony offenses is expected to enable more comprehensive\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2289,
+        "end_char": 2495,
+        "text": "investigations on corruption. The challenge lies in implementing and assessing effectiveness of the\nanti-corruption policies, and in further coordinating state levels. Prevention, facilitation of reporting\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2495,
+        "end_char": 2687,
+        "text": "including with whistleblowing protection and further empowering the institutions in charge of\ninvestigation, prosecution and oversight can improve implementation. Mexico should participate in\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2687,
+        "end_char": 2809,
+        "text": "the next round of voluntary assessments of transnational aspects of corruption by the Fund.\n26 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 31",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 181,
+        "text": "MEXICO\n54. Recent labor market reforms should be complemented by measures to reduce\ninformality. The 2021 pension reform risks reducing formal labor supply incentives, including by\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 181,
+        "end_char": 381,
+        "text": "reducing the number of qualifying weeks for pension eligibility and raising contribution rates (Annex\nXIII). At the same time, the share of informal employment remains elevated and is associated with\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 381,
+        "end_char": 575,
+        "text": "low productivity. Recent reforms to reduce inequality—notably increases in the minimum wage—\nrisk increasing incentives for informality and reduce opportunities for workers to transition to the\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 575,
+        "end_char": 764,
+        "text": "formal sector. It would be preferable, therefore, to align real minimum wage increases more closely\nwith average productivity growth of low wage workers. Other steps that could help reduce\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 764,
+        "end_char": 958,
+        "text": "informality could include: (i) continuing to improve labor dispute resolution mechanisms (building\non the experience of the 21 states that have already implemented the mechanism); (ii) lowering\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 958,
+        "end_char": 1197,
+        "text": "restrictions to layoffs; and (iii) reducing regulatory costs of formalizing a business. Also, improving\naccess to, and the quality of, childcare would increase female labor force participation.\nMinimum Wage and Full-time Wage Distribution\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1197,
+        "end_char": 1433,
+        "text": "(Monthly salary (40+hrs/week) andmonthly minimum salary, current pesos) Minimum Wage\n85 6,000\n120% OECD 25-75 percentile range, Pct of Mean Wage\nMin. Wage\n75 Mexico, pct of Mean Wage 5,000\n100% 2020\n2021 Mexico, real 2020 USD PPP (RHS)\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1433,
+        "end_char": 1652,
+        "text": "2022 65 4,000\n80% 2023\n2024\n60% 55 3,000\n40% 45 2,000\n20% 35 1,000\n0% 25 0\n2000 8000 32000\n2020 Formal 2021 Formal\n2022Q1-2 Formal 2020 Informal Sources: OECD and IMF staff calculations.\n2021 Informal 2022Q1-2 Informal\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1652,
+        "end_char": 1860,
+        "text": "Sources: ENOE and IMFstaff calculations. Income and minimum wages are\nmonthly as recorded in ENOE exluding municipalities along the northern\nborder with the U.S. Minimum wages for 2023 and 2024 are estimated\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1860,
+        "end_char": 1954,
+        "text": "based on assumption of 50.4 percent cumulative growth.\nINTERNATIONAL MONETARY FUND 27\ntsaceroF"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 32",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 192,
+        "text": "MEXICO\nInformality Rate in Mexico\n(Percent of total employment)\n61\n60\n59\n58\n57\n56\n55\n54\n2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022\nSource:INEGI.\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 192,
+        "end_char": 412,
+        "text": "Note:Data on informality is missing for 2020Q2 due to the impact of the COVID-19 pandemic on data collection.\n55. The USMCA trade agreement and its implementation remain important catalysts for\nhigher growth and reform.\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 412,
+        "end_char": 595,
+        "text": "• The agreement with the U.S. and Canada reduces regulatory divergence, complementing the\nelimination of many tariffs under NAFTA. Implementation efforts include the establishment of\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 595,
+        "end_char": 753,
+        "text": "new, independent labor adjudication courts at the state level.\n• An important challenge for Mexico is to increase the domestic value-added content of exports\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 753,
+        "end_char": 944,
+        "text": "to abide by the tighter rules of origin, including in the automotive and textile sectors. Meeting\nthese rules calls for complementary reforms, including through the structural fiscal reforms\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 944,
+        "end_char": 1102,
+        "text": "discussed earlier (e.g., to support education and training).\n• Mexico could also take steps to reduce trade barriers with other important partners, including\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1102,
+        "end_char": 1257,
+        "text": "China, the EU, and Latin America. Strengthening customs cooperation could further increase\ntrade integration with neighboring Central America (Annex XIV).\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1257,
+        "end_char": 1440,
+        "text": "• The implementation agenda should be complemented with regulatory moves fostering more\ncompetition. High rates of firm creations suggest that the regulatory framework provides for a\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1440,
+        "end_char": 1632,
+        "text": "low entry cost for businesses in many sectors. Yet regulatory hurdles in some sectors with critical\nforward linkages (e.g., foreign direct investment restrictions in surface, maritime and air\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1632,
+        "end_char": 1808,
+        "text": "transport) limit competition and, through the implications for input costs, harms the\ncompetitiveness of other sectors. Also, cumbersome licenses and permits procedures create\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1808,
+        "end_char": 2001,
+        "text": "vulnerabilities to corruption (e.g., road transport, custom brokerage and restaurants licenses,\nconstruction permits). Streamlining licensing and permit procedures would reduce vulnerabilities\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2001,
+        "end_char": 2188,
+        "text": "to corruption and improve competitiveness. Finally, the autonomous competition authority\nshould be strengthened by reversing recent budget cuts and preserving its statutory\nindependence.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2188,
+        "end_char": 2362,
+        "text": "56. Restoring a more predictable and independent energy policy would also boost\ncompetitiveness and investment. Actions to reverse the 2013 energy reforms remain incomplete,\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2362,
+        "end_char": 2484,
+        "text": "as Parliament rejected the change in the constitution needed for a full reversal, which has\n28 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  }
+]

@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .local_prior_package import compact_local_priors
+from .local_prior_package import summarize_local_priors_for_formatter
 
 
 def build_dossier_prompt(
@@ -40,7 +40,7 @@ def build_dossier_prompt(
         "model": job["model"],
         "worker_output_dir": str(worker_output_dir),
     }
-    local_prior_package = compact_local_priors(local_priors)
+    local_prior_package = summarize_local_priors_for_formatter(local_priors)
     return f"""Format the supplied completed research notebook. This is a no-search,
 no-scoring serialization task. The parent has already performed research and supplied
 the applicable guide material; do not read researcher or judge directives again.
@@ -48,10 +48,10 @@ the applicable guide material; do not read researcher or judge directives again.
 Job input:
 {json.dumps(payload, indent=2, sort_keys=True)}
 
-Deduplicated local structured evidence (client matrix excluded):
-{json.dumps(local_prior_package.model_dump(mode="json"), indent=2, sort_keys=True)}
+Parent-owned compact local structured evidence (client matrix excluded):
+{json.dumps(local_prior_package, indent=2, sort_keys=True)}
 
-Permissive evidence-research notebook and handoff:
+Separately collected permissive web-research notebook and handoff:
 {research_notebook}
 
 Existing candidate from a prior failed validation:
@@ -75,7 +75,9 @@ Requirements:
   Source upgrades and disposition changes belong in research before formatting.
   Manifest entries marked `rejected` must not be emitted as evidence.
 - Treat the local structured priors above as the required local-first
-  step. Do not rerun the local-evidence CLI when those payloads are present.
+  input prepared by the parent. Keep their identifiers and provenance separate from
+  web evidence. Do not rerun the local-evidence CLI when those payloads are present,
+  and do not convert a local fact into a web citation.
 - Never use the client matrix as evidence.
 - Do not search or add facts. The researcher has already completed direct internet
   research and reviewer-directed continuations in the notebook.
@@ -131,6 +133,12 @@ Requirements:
   lacks an explicit disposition, use `research_blocked`; never manufacture
   `no_evidence_found` because formatting produced no mapping.
 - Collect meaningful contrary evidence and explicit gaps. Do not assign scores.
+- Populate `evidence_environment` from cited notebook material. Answer all twelve
+  environment questions: criticism opportunity; censorship/surveillance/intimidation;
+  safe reporting channels; official-statistics reliability; languages/archives searched;
+  source concentration; duplicate-event risk; complaint-volume interpretation;
+  relevant denominators; inherited conditions/shocks/authority; chapter-specific biases;
+  and supporting E-IDs. This assessment is mandatory and may not use uncited generalities.
 - Remove any researcher-written score, score range, anchor, ranking recommendation,
   or advice to a judge about scoring/null handling; record it as a normalization
   warning rather than evidence.
@@ -142,6 +150,9 @@ Requirements:
 - Populate local_priors with one schema-valid placeholder for every selected
   methodology ID using `methodology_statuses`; the parent replaces them with its
   complete hashed provenance before validation.
+- Keep mapping `relevance`, coverage `reason`, and gap prose concise. Preserve every
+  required ID and relationship, but do not repeat the underlying claim in bookkeeping
+  fields. Output space belongs to distinct evidence, not duplicated prose.
 - The final response must be only one JSON object matching the supplied output schema.
 - Echo the exact job/run/identity/period/model fields from Job input.
 - Record unknown usage fields as unknown_not_exposed_by_tool; never invent usage.
@@ -149,6 +160,11 @@ Requirements:
   claims and citations, but compare it against the complete inlined notebook and
   restore any defensible source-claim units it collapsed or omitted. Correct
   schema/reference defects, perform the final consistency check, and do not repeat
-  research or broad file reading outside the supplied materials.
+  research or broad file reading outside the supplied materials. A
+  `recovery_evidence_catalog`, when present inside the candidate, contains cited
+  evidence objects preserved from other completed formatter attempts. It is not part
+  of the output schema: use it only to restore manifest-required canonical keys that
+  the selected candidate omitted, assigning collision-free evidence IDs and the exact
+  manifest routing, then omit the catalog field from the final output.
 """
 __all__ = ["build_dossier_prompt"]

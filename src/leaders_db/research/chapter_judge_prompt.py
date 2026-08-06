@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,7 @@ def build_chapter_judge_prompt(
     projections: tuple[tuple[Path, RulerChapterProjection], ...],
     previous_candidate_path: Path | None = None,
     supplemental_instructions: str = "",
+    embed_projections: bool = True,
 ) -> str:
     """Build a no-discovery prompt for one chapter-wide comparative judgment."""
 
@@ -32,13 +34,41 @@ def build_chapter_judge_prompt(
         }
         for _, dossier in projections
     ]
-    embedded_projections = [
-        projection.model_dump(mode="json") for _, projection in projections
-    ]
+    if not embed_projections:
+        _validate_file_backed_paths(project_root=project_root, projections=projections)
+    projection_payload = (
+        json.dumps(
+            [projection.model_dump(mode="json") for _, projection in projections],
+            indent=2,
+            sort_keys=True,
+        )
+        if embed_projections
+        else json.dumps(
+            [
+                {
+                    "dossier_job_key": projection.job_key,
+                    "path": str(path.resolve()),
+                    "sha256": _file_sha256(path),
+                }
+                for path, projection in projections
+            ],
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    projection_access = (
+        "All scoring inputs are embedded below. Do not invoke shell commands, "
+        "filesystem tools, MCP resources, or local file reads."
+        if embed_projections
+        else "The complete scoring inputs are the hash-bound local JSON files listed "
+        "below. Read every listed file in full using local filesystem tools. Do not "
+        "browse, search the web, read any unlisted research file, or modify an input."
+    )
     unavailable = job["input"].get("unavailable_dossiers", [])
     repair_note = (
         "A prior candidate was semantically rejected. Produce a fresh complete batch "
-        "from the embedded projections and correct the earlier defects; do not read "
+        f"from the {'embedded' if embed_projections else 'listed'} projections and "
+        "correct the earlier defects; do not read "
         "the prior candidate from the filesystem."
         if previous_candidate_path is not None
         else "There is no prior candidate for this attempt."
@@ -47,14 +77,19 @@ def build_chapter_judge_prompt(
 
 Judge every dossier in the manifest using one common meter. The ten questions are
 overlapping evidence lenses, not ten scores and not an arithmetic checklist.
-Read each compact chapter projection in full and use only its cited evidence and
-local-prior summaries. The parent has hash-bound each projection to its complete
-source dossier. Do not browse, search the web, use the client matrix, or add facts from
-memory. Evidence IDs are local to each dossier.
+Read each compact chapter projection in full and use only its cited web evidence and
+its separately embedded `local_evidence` package. The parent has hash-bound each
+projection to its complete source dossier and local-evidence artifact. Web evidence
+uses E-IDs; structured local facts and signals use LF/LS IDs. Keep those provenance
+families separate. Do not browse, search the web, use the client matrix, add facts from
+memory, or rewrite a local fact as a web citation. Evidence IDs are local to each
+dossier.
 
-All scoring inputs are embedded below. Do not invoke shell commands, filesystem
-tools, MCP resources, or local file reads. A local-tool failure is not a reason to
-return null scores because the complete chapter projections are present in this prompt.
+{projection_access} A local-tool failure is not a reason to return null scores; retry
+the local read before producing the complete batch.
+An `available` local package is authoritative structured context. An `unavailable` or
+`invalid` local package lowers confidence when material but does not erase usable web
+evidence or automatically force a null.
 
 First inspect the whole batch and establish low, middle, high, and edge anchors.
 Then score every available dossier exactly once. Missing lenses reduce confidence
@@ -78,21 +113,41 @@ Shared authority affects weight and confidence rather than automatically erasing
 evidence. Inherited conditions, generic country
 context, intentions, missing implementation evidence, or missing adverse evidence
 cannot determine the score's direction. If the record remains insufficient, return null with
-the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
-decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+the full 1-10 range. Cite the qualifying ruler-attribution evidence by stable E-ID in
+a decisive web-evidence array. Local structured evidence is country-level context and
+cannot support a numeric ruler score by itself. Use `decisive_local_evidence` only
+alongside a decisive E-ID that establishes the ruler's relevant authority or nexus;
+use `contextual_local_evidence` for baselines or signals that frame interpretation
+without independently determining direction. Never
+attach `recoverable_null` to a numeric score. Reserve
 manual review for a concrete issue that could materially change the chapter result;
 do not flag ordinary uncertainty already represented by confidence and range.
-Preserve inherited conditions, ruler authority, contrary evidence, source bias,
-and adjacent-case comparisons. Evidence references must use IDs from that ruler's
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
 own dossier and must not cite `discovery_only` items as decisive evidence. For a
 batch with multiple rulers, `calibrated_against` must name at least one other
 available dossier job key. Put guide-specific additions such as `trajectory` in
 the `chapter_specific` field/value list. Natural language inside semantic fields
 is welcome.
 
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
 Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
 notes between specialists. Assume the reader knows the ruler's name but does not
 know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
 Use this order: (1) state the overall chapter appraisal and score in plain language;
 (2) explain the main favorable and unfavorable findings, identifying what each
 specific case was and why it matters; (3) distinguish proven facts from allegations,
@@ -124,8 +179,8 @@ Unavailable dossiers (report them, do not invent evaluations):
 Available dossier manifest:
 {json.dumps(manifest, indent=2)}
 
-Embedded chapter projections (authoritative judge inputs):
-{json.dumps(embedded_projections, indent=2, sort_keys=True)}
+Chapter projections (authoritative judge inputs):
+{projection_payload}
 
 Active chapter guide:
 ---
@@ -136,7 +191,38 @@ Return only the requested JSON batch. Include one evaluation per available
 dossier, the unavailable manifest unchanged, substantive calibration notes, and
 the run profile. If token usage is unavailable, use
 `unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays; that every
+LF/LS ID in `decisive_local_evidence` accompanies such a decisive E-ID; that
+`structured_prior_summary` accurately describes the embedded local package; and that
+every confidence score is on the required 0-100 scale.
 """
 
 
 __all__ = ["build_chapter_judge_prompt"]
+
+
+def _file_sha256(path: Path) -> str:
+    """Return the immutable digest shown to a file-backed judge."""
+
+    return sha256(path.read_bytes()).hexdigest()
+
+
+def _validate_file_backed_paths(
+    *,
+    project_root: Path,
+    projections: tuple[tuple[Path, RulerChapterProjection], ...],
+) -> None:
+    """Reject untrusted projection paths before any file-backed input is read."""
+
+    root = project_root.resolve()
+    resolved = tuple(path.resolve() for path, _ in projections)
+    if any(
+        not path.is_relative_to(root) or path.parent.name != "chapter-inputs"
+        for path in resolved
+    ):
+        raise ValueError(
+            "file-backed judge inputs must remain in a project chapter-inputs directory"
+        )
+    if len({path.parent for path in resolved}) != 1:
+        raise ValueError("file-backed judge inputs must share one chapter-inputs directory")

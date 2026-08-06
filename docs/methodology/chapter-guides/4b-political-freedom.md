@@ -1,6 +1,6 @@
 # 4B Political Freedom vs Authoritarian Rule
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v5 change-focused questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,23 +8,36 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: political freedom vs authoritarian rule
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_4b_v3`
+- Rubric version: `chapter_4b_v5`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The ten questions below are complementary evidence lenses. They direct collection and expose different mechanisms; they are not independent gates or equally weighted sub-scores.
 
+Before applying the lenses, establish the inherited level and prior direction of
+political freedom; material changes in voting, expression, media, assembly,
+association, opposition, and political equality; the principal laws, actions, and
+incidents; beginning-and-end comparative assessments where available; and ruler
+attribution. Comparative datasets guide research but do not determine the judgment.
+A significant decline remains adverse even when formally legal or presented as an
+emergency.
+
 ## Ten Evidence Lenses
 
-1. **4B.1** — Did the ruler genuinely accept that power should be contestable through free, fair, and meaningful elections?
-2. **4B.2** — Did the ruler refrain from manipulating electoral rules, courts, media, election commissions, security forces, or public resources to entrench themselves?
-3. **4B.3** — Did the ruler tolerate opposition victories, criticism, satire, investigative journalism, protest, and civil-society monitoring?
-4. **4B.4** — Did the ruler strengthen independent courts, legislatures, audit bodies, local governments, and oversight institutions even when they constrained the ruler?
-5. **4B.5** — Did the ruler avoid personality cults, intimidation, arbitrary loyalty tests, party capture, or politicization of neutral state institutions?
-6. **4B.6** — Did the ruler protect independent media and information access instead of spreading propaganda, disinformation, censorship, or pressure on owners/journalists?
-7. **4B.7** — Did the ruler protect political equality for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?
-8. **4B.8** — Did the ruler respect term limits, succession rules, coalition commitments, and constitutional transfer of power?
-9. **4B.9** — Did the ruler use surveillance, digital controls, internet shutdowns, or administrative harassment to limit political freedom?
-10. **4B.10** — Did the ruler leave political freedom and democratic resilience stronger or weaker than they inherited it?
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **4B.1 — Genuine electoral choice** | Did genuine electoral choice and the ability to vote freely increase or decrease during the ruler’s tenure? | Examine changes in voter eligibility, registration, intimidation, competition, electoral administration, and acceptance of verified results, together with the ruler’s relevant laws, resources, and conduct. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.2 — No entrenchment of power** | Did the ruler avoid changing or abusing institutions to stay in power? | Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **4B.3 — Opposition and civic freedom** | Did people’s freedom to criticize, assemble, protest, associate, and organize political opposition increase or decrease during the ruler’s tenure? | Examine changes in law and practice affecting opposition, criticism, satire, protest, assembly, association, and civil-society monitoring, and whether violations were corrected and remedied. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.4 — Independent checks on power** | Did courts, legislatures, auditors, and other institutions remain able to constrain the ruler? | Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **4B.5 — Politically neutral institutions** | Did the ruler avoid filling neutral institutions with loyalists and political pressure? | Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult? | **Personnel**; **Formal acts and law**; **Implementation and operational conduct** |
+| **4B.6 — Independent information and media** | Did freedom of expression, independent media, and access to uncensored information increase or decrease during the ruler’s tenure? | Examine changes in media, information-access, ownership, and licensing rules and in actual censorship, propaganda, disinformation, pressure, and access to independent information. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.7 — Equal political rights** | Did all groups have equal political rights and access? | Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.8 — Term limits and transfer** | Did the ruler respect succession rules and peaceful transfer of power? | Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power? Formal legality, public debate, or claims of emergency, stability, or national necessity create no presumption of legitimacy; assess the practical effect on succession, competition, institutional independence, coercion, and state resources. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.9 — Digital freedom and surveillance** | Did the ruler avoid using surveillance and digital controls to suppress politics? | Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **4B.10 — Lasting democratic resilience** | Did the ruler leave political freedom and democracy durably stronger or weaker, both overall and in the specific political freedoms examined above? | Assess durable change from the inherited position through enacted, implemented, and independently reviewable institutions, including voting, expression, media, assembly, association, opposition, and political equality, while accounting for correction and constraints. | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
+
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Evidence Plan
 
@@ -72,7 +85,7 @@ The judge may score with only part of the lens set when the available evidence e
 The chapter result should use the shared semantic envelope below. Exact field spelling can be normalized cheaply after LLM handoff; no useful judgment should be rejected only for synonymous wording.
 
 - `chapter_id`: `4B`
-- `rubric_version`: `chapter_4b_v3`
+- `rubric_version`: `chapter_4b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`

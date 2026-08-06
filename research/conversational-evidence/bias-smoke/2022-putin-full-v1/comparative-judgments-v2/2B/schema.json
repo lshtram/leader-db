@@ -1,0 +1,634 @@
+{
+  "$defs": {
+    "BiasAssessment": {
+      "additionalProperties": false,
+      "description": "Auditable interpretation of reporting and comparison bias.",
+      "properties": {
+        "material_biases": {
+          "items": {
+            "$ref": "#/$defs/MaterialBiasFinding"
+          },
+          "minItems": 1,
+          "title": "Material Biases",
+          "type": "array"
+        },
+        "confidence_and_range_effect": {
+          "minLength": 1,
+          "title": "Confidence And Range Effect",
+          "type": "string"
+        },
+        "remaining_uncertainty": {
+          "minLength": 1,
+          "title": "Remaining Uncertainty",
+          "type": "string"
+        },
+        "report_volume_not_used_as_severity": {
+          "title": "Report Volume Not Used As Severity",
+          "type": "boolean"
+        },
+        "no_blanket_regime_correction": {
+          "title": "No Blanket Regime Correction",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "material_biases",
+        "confidence_and_range_effect",
+        "remaining_uncertainty",
+        "report_volume_not_used_as_severity",
+        "no_blanket_regime_correction"
+      ],
+      "title": "BiasAssessment",
+      "type": "object"
+    },
+    "ChapterEvidenceReference": {
+      "description": "Reference to evidence already present in the ruler dossier.",
+      "properties": {
+        "evidence_id": {
+          "pattern": "^E[0-9]{3,}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "explanation": {
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "explanation"
+      ],
+      "title": "ChapterEvidenceReference",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ChapterJudgeRunProfile": {
+      "description": "Auditable provider and usage metadata for the judge batch.",
+      "properties": {
+        "provider_profile": {
+          "title": "Provider Profile",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "dossier_count": {
+          "minimum": 1,
+          "title": "Dossier Count",
+          "type": "integer"
+        },
+        "unavailable_dossier_count": {
+          "minimum": 0,
+          "title": "Unavailable Dossier Count",
+          "type": "integer"
+        },
+        "usage": {
+          "$ref": "#/$defs/DossierUsage"
+        }
+      },
+      "required": [
+        "provider_profile",
+        "provider",
+        "model",
+        "dossier_count",
+        "unavailable_dossier_count",
+        "usage"
+      ],
+      "title": "ChapterJudgeRunProfile",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ChapterSpecificFinding": {
+      "description": "Guide-specific value preserved without changing the common envelope.",
+      "properties": {
+        "field": {
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "value": {
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "value"
+      ],
+      "title": "ChapterSpecificFinding",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "DossierUsage": {
+      "description": "Provider usage fields without an unrestricted structured-output object.",
+      "properties": {
+        "input_tokens": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "const": "unknown_not_exposed_by_tool",
+              "type": "string"
+            }
+          ],
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "const": "unknown_not_exposed_by_tool",
+              "type": "string"
+            }
+          ],
+          "title": "Output Tokens"
+        },
+        "total_tokens": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "const": "unknown_not_exposed_by_tool",
+              "type": "string"
+            }
+          ],
+          "title": "Total Tokens"
+        },
+        "estimated_cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "const": "unknown_not_exposed_by_tool",
+              "type": "string"
+            }
+          ],
+          "title": "Estimated Cost Usd"
+        }
+      },
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "estimated_cost_usd"
+      ],
+      "title": "DossierUsage",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "MaterialBiasFinding": {
+      "additionalProperties": false,
+      "description": "One material evidence distortion considered by the chapter judge.",
+      "properties": {
+        "bias": {
+          "minLength": 1,
+          "title": "Bias",
+          "type": "string"
+        },
+        "supporting_evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Supporting Evidence Ids",
+          "type": "array"
+        },
+        "likely_direction": {
+          "enum": [
+            "favors_ruler",
+            "harms_ruler",
+            "mixed",
+            "uncertain"
+          ],
+          "title": "Likely Direction",
+          "type": "string"
+        },
+        "interpretation_effect": {
+          "minLength": 1,
+          "title": "Interpretation Effect",
+          "type": "string"
+        }
+      },
+      "required": [
+        "bias",
+        "supporting_evidence_ids",
+        "likely_direction",
+        "interpretation_effect"
+      ],
+      "title": "MaterialBiasFinding",
+      "type": "object"
+    },
+    "PlausibleScoreRange": {
+      "description": "Uncertainty interval around a chapter judgment.",
+      "properties": {
+        "lower": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Lower",
+          "type": "number"
+        },
+        "upper": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "upper"
+      ],
+      "title": "PlausibleScoreRange",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RulerChapterJudgment": {
+      "description": "One holistic chapter score for one ruler-period dossier.",
+      "properties": {
+        "dossier_job_key": {
+          "minLength": 1,
+          "title": "Dossier Job Key",
+          "type": "string"
+        },
+        "iso3": {
+          "maxLength": 3,
+          "minLength": 3,
+          "title": "Iso3",
+          "type": "string"
+        },
+        "ruler_id": {
+          "title": "Ruler Id",
+          "type": "string"
+        },
+        "ruler_year_id": {
+          "title": "Ruler Year Id",
+          "type": "integer"
+        },
+        "ruler_name": {
+          "minLength": 1,
+          "title": "Ruler Name",
+          "type": "string"
+        },
+        "period_start_year": {
+          "title": "Period Start Year",
+          "type": "integer"
+        },
+        "period_end_year": {
+          "title": "Period End Year",
+          "type": "integer"
+        },
+        "chapter_id": {
+          "pattern": "^[1-8]B$",
+          "title": "Chapter Id",
+          "type": "string"
+        },
+        "rubric_version": {
+          "minLength": 1,
+          "title": "Rubric Version",
+          "type": "string"
+        },
+        "calibration_batch_id": {
+          "minLength": 1,
+          "title": "Calibration Batch Id",
+          "type": "string"
+        },
+        "calibrated_against": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Calibrated Against",
+          "type": "array"
+        },
+        "score_1_to_10": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 1,
+              "multipleOf": 0.5,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Score 1 To 10"
+        },
+        "insufficient_evidence_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Insufficient Evidence Reason"
+        },
+        "confidence_score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Confidence Score",
+          "type": "number"
+        },
+        "plausible_score_range": {
+          "$ref": "#/$defs/PlausibleScoreRange"
+        },
+        "decisive_positive_evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ChapterEvidenceReference"
+          },
+          "title": "Decisive Positive Evidence",
+          "type": "array"
+        },
+        "decisive_negative_evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ChapterEvidenceReference"
+          },
+          "title": "Decisive Negative Evidence",
+          "type": "array"
+        },
+        "inherited_baseline_and_constraints": {
+          "minLength": 1,
+          "title": "Inherited Baseline And Constraints",
+          "type": "string"
+        },
+        "ruler_attribution": {
+          "minLength": 1,
+          "title": "Ruler Attribution",
+          "type": "string"
+        },
+        "supported_lenses": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Lenses",
+          "type": "array"
+        },
+        "missing_or_weak_lenses": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Or Weak Lenses",
+          "type": "array"
+        },
+        "contrary_evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ChapterEvidenceReference"
+          },
+          "title": "Contrary Evidence",
+          "type": "array"
+        },
+        "source_mix": {
+          "minLength": 1,
+          "title": "Source Mix",
+          "type": "string"
+        },
+        "structured_prior_summary": {
+          "minLength": 1,
+          "title": "Structured Prior Summary",
+          "type": "string"
+        },
+        "bias_assessment": {
+          "$ref": "#/$defs/BiasAssessment"
+        },
+        "chapter_rationale": {
+          "minLength": 1,
+          "title": "Chapter Rationale",
+          "type": "string"
+        },
+        "lower_anchor_rejected": {
+          "minLength": 1,
+          "title": "Lower Anchor Rejected",
+          "type": "string"
+        },
+        "higher_anchor_rejected": {
+          "minLength": 1,
+          "title": "Higher Anchor Rejected",
+          "type": "string"
+        },
+        "manual_review_required": {
+          "title": "Manual Review Required",
+          "type": "boolean"
+        },
+        "manual_review_reason_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "identity",
+                "projection_integrity",
+                "decisive_source",
+                "material_attribution",
+                "recoverable_null",
+                "calibration_inconsistency"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Manual Review Reason Type"
+        },
+        "manual_review_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Manual Review Reason"
+        },
+        "chapter_specific": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ChapterSpecificFinding"
+          },
+          "title": "Chapter Specific",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dossier_job_key",
+        "iso3",
+        "ruler_id",
+        "ruler_year_id",
+        "ruler_name",
+        "period_start_year",
+        "period_end_year",
+        "chapter_id",
+        "rubric_version",
+        "calibration_batch_id",
+        "calibrated_against",
+        "score_1_to_10",
+        "insufficient_evidence_reason",
+        "confidence_score",
+        "plausible_score_range",
+        "decisive_positive_evidence",
+        "decisive_negative_evidence",
+        "inherited_baseline_and_constraints",
+        "ruler_attribution",
+        "supported_lenses",
+        "missing_or_weak_lenses",
+        "contrary_evidence",
+        "source_mix",
+        "structured_prior_summary",
+        "bias_assessment",
+        "chapter_rationale",
+        "lower_anchor_rejected",
+        "higher_anchor_rejected",
+        "manual_review_required",
+        "manual_review_reason_type",
+        "manual_review_reason",
+        "chapter_specific"
+      ],
+      "title": "RulerChapterJudgment",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "UnavailableDossier": {
+      "description": "Explicit terminal dossier omission carried into the judge result.",
+      "properties": {
+        "job_key": {
+          "title": "Job Key",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "iso3": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Iso3"
+        },
+        "ruler_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ruler Name"
+        }
+      },
+      "required": [
+        "job_key",
+        "status",
+        "iso3",
+        "ruler_name"
+      ],
+      "title": "UnavailableDossier",
+      "type": "object",
+      "additionalProperties": false
+    }
+  },
+  "description": "Complete output from one chapter judge job.",
+  "properties": {
+    "schema_version": {
+      "const": "ruler_chapter_judgment_v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "job_key": {
+      "title": "Job Key",
+      "type": "string"
+    },
+    "run_key": {
+      "title": "Run Key",
+      "type": "string"
+    },
+    "chapter_id": {
+      "pattern": "^[1-8]B$",
+      "title": "Chapter Id",
+      "type": "string"
+    },
+    "target_year": {
+      "title": "Target Year",
+      "type": "integer"
+    },
+    "rubric_version": {
+      "title": "Rubric Version",
+      "type": "string"
+    },
+    "calibration_batch_id": {
+      "title": "Calibration Batch Id",
+      "type": "string"
+    },
+    "evaluations": {
+      "items": {
+        "$ref": "#/$defs/RulerChapterJudgment"
+      },
+      "minItems": 1,
+      "title": "Evaluations",
+      "type": "array"
+    },
+    "unavailable_dossiers": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/UnavailableDossier"
+      },
+      "title": "Unavailable Dossiers",
+      "type": "array"
+    },
+    "batch_notes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Batch Notes",
+      "type": "array"
+    },
+    "run_profile": {
+      "$ref": "#/$defs/ChapterJudgeRunProfile"
+    }
+  },
+  "required": [
+    "schema_version",
+    "job_key",
+    "run_key",
+    "chapter_id",
+    "target_year",
+    "rubric_version",
+    "calibration_batch_id",
+    "evaluations",
+    "unavailable_dossiers",
+    "batch_notes",
+    "run_profile"
+  ],
+  "title": "ChapterJudgmentBatch",
+  "type": "object",
+  "additionalProperties": false
+}

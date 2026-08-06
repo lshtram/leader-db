@@ -36,6 +36,11 @@ from ._dataclasses import ConceptDescriptor, ConceptMapping
 CONCEPT_GDP_PER_CAPITA: str = "gdp_per_capita"
 CONCEPT_POPULATION: str = "population"
 CONCEPT_GDP_TOTAL: str = "gdp_total"
+CONCEPT_FINAL_CONSUMPTION_CURRENT_USD: str = "final_consumption_current_usd"
+CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD: str = "household_consumption_current_usd"
+CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD: str = "government_consumption_current_usd"
+CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD: str = "gross_capital_formation_current_usd"
+CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD: str = "gross_fixed_capital_formation_current_usd"
 CONCEPT_HDI: str = "hdi"
 CONCEPT_LIFE_EXPECTANCY: str = "life_expectancy"
 CONCEPT_GNI_PER_CAPITA: str = "gni_per_capita"
@@ -75,6 +80,9 @@ CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS: str = "internationalized_conflict_eve
 CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES: str = "internationalized_conflict_fatalities"
 CONCEPT_ONE_SIDED_VIOLENCE_EVENTS: str = "one_sided_violence_events"
 CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES: str = "one_sided_violence_fatalities"
+CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS: str = "one_sided_government_actor_killings"
+CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS: str = "one_sided_nonstate_actor_killings"
+CONCEPT_ONE_SIDED_LOCATION_KILLINGS: str = "one_sided_location_killings"
 CONCEPT_CORRUPTION_INDEX: str = "corruption_index"
 CONCEPT_CPI_SCORE: str = "cpi_score"
 CONCEPT_CONTROL_OF_CORRUPTION: str = "control_of_corruption"
@@ -97,10 +105,33 @@ CONCEPT_NUCLEAR_MILITARY_STOCKPILE: str = "nuclear_military_stockpile"
 CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC: str = "nuclear_operational_strategic"
 CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC: str = "nuclear_operational_nonstrategic"
 CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED: str = "nuclear_reserve_nondeployed"
+CONCEPT_NUCLEAR_DEPLOYED: str = "nuclear_deployed_warheads"
+CONCEPT_NUCLEAR_RETIRED: str = "nuclear_retired_warheads"
 CONCEPT_MILITARY_SPEND_CONSTANT_USD: str = "military_spend_constant_usd"
 CONCEPT_MILITARY_SPEND_PER_CAPITA: str = "military_spend_per_capita"
 CONCEPT_MILITARY_SPEND_SHARE_GDP: str = "military_spend_share_gdp"
 CONCEPT_MILITARY_SPEND_SHARE_GOVT: str = "military_spend_share_govt"
+CONCEPT_POLITY_COMPOSITE_SCORE: str = "polity_composite_score"
+CONCEPT_POLITY_DEMOCRACY_SCORE: str = "polity_democracy_score"
+CONCEPT_POLITY_AUTOCRACY_SCORE: str = "polity_autocracy_score"
+CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS: str = "polity_executive_constraints"
+CONCEPT_POLITY_REGIME_DURABILITY: str = "polity_regime_durability"
+CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE: str = "eiu_democracy_overall_score"
+CONCEPT_EIU_ELECTORAL_PROCESS: str = "eiu_electoral_process_pluralism"
+CONCEPT_EIU_FUNCTIONING_GOVERNMENT: str = "eiu_functioning_government"
+CONCEPT_EIU_POLITICAL_PARTICIPATION: str = "eiu_political_participation"
+CONCEPT_EIU_POLITICAL_CULTURE: str = "eiu_political_culture"
+CONCEPT_EIU_CIVIL_LIBERTIES: str = "eiu_civil_liberties"
+CONCEPT_PWT_EMPLOYMENT: str = "pwt_employment"
+CONCEPT_PWT_AVERAGE_ANNUAL_HOURS: str = "pwt_average_annual_hours_worked"
+CONCEPT_PWT_HUMAN_CAPITAL: str = "pwt_human_capital_index"
+CONCEPT_PWT_REAL_CONSUMPTION: str = "pwt_real_consumption"
+CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION: str = "pwt_real_domestic_absorption"
+CONCEPT_PWT_CAPITAL_STOCK_INDEX: str = "pwt_capital_stock_index"
+CONCEPT_PWT_TFP_CONSTANT_PRICES: str = "pwt_tfp_at_constant_national_prices"
+CONCEPT_WDI_GINI_INDEX: str = "wdi_gini_index"
+CONCEPT_WDI_ADULT_LITERACY: str = "wdi_literacy_rate_adult"
+CONCEPT_WDI_SECONDARY_ENROLLMENT: str = "wdi_secondary_school_enrollment"
 
 # Canonical ordered list of stable concept keys. The order is the
 # canonical iteration order for ``list_concepts()``; downstream code
@@ -109,6 +140,32 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_GDP_PER_CAPITA,
     CONCEPT_POPULATION,
     CONCEPT_GDP_TOTAL,
+    CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+    CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+    CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+    CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+    CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
+    CONCEPT_POLITY_COMPOSITE_SCORE,
+    CONCEPT_POLITY_DEMOCRACY_SCORE,
+    CONCEPT_POLITY_AUTOCRACY_SCORE,
+    CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+    CONCEPT_POLITY_REGIME_DURABILITY,
+    CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+    CONCEPT_EIU_ELECTORAL_PROCESS,
+    CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+    CONCEPT_EIU_POLITICAL_PARTICIPATION,
+    CONCEPT_EIU_POLITICAL_CULTURE,
+    CONCEPT_EIU_CIVIL_LIBERTIES,
+    CONCEPT_PWT_EMPLOYMENT,
+    CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+    CONCEPT_PWT_HUMAN_CAPITAL,
+    CONCEPT_PWT_REAL_CONSUMPTION,
+    CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+    CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+    CONCEPT_PWT_TFP_CONSTANT_PRICES,
+    CONCEPT_WDI_GINI_INDEX,
+    CONCEPT_WDI_ADULT_LITERACY,
+    CONCEPT_WDI_SECONDARY_ENROLLMENT,
     CONCEPT_HDI,
     CONCEPT_LIFE_EXPECTANCY,
     CONCEPT_GNI_PER_CAPITA,
@@ -148,6 +205,9 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
     CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
     CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+    CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+    CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+    CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
     CONCEPT_CORRUPTION_INDEX,
     CONCEPT_CPI_SCORE,
     CONCEPT_CONTROL_OF_CORRUPTION,
@@ -170,6 +230,8 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
     CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
     CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
     CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+    CONCEPT_NUCLEAR_DEPLOYED,
+    CONCEPT_NUCLEAR_RETIRED,
     CONCEPT_MILITARY_SPEND_CONSTANT_USD,
     CONCEPT_MILITARY_SPEND_PER_CAPITA,
     CONCEPT_MILITARY_SPEND_SHARE_GDP,
@@ -182,6 +244,7 @@ KNOWN_CONCEPT_KEYS: tuple[str, ...] = (
 # ---------------------------------------------------------------------------
 
 WDI_SOURCE_KEY: str = "world_bank_wdi"
+UN_SNAAMA_SOURCE_KEY: str = "un_snaama"
 MADDISON_PROJECT_SOURCE_KEY: str = "maddison_project"
 PWT_SOURCE_KEY: str = "pwt"
 UNDP_HDI_SOURCE_KEY: str = "undp_hdi"
@@ -191,11 +254,14 @@ RSF_PRESS_FREEDOM_SOURCE_KEY: str = "rsf_press_freedom"
 FREEDOM_HOUSE_SOURCE_KEY: str = "freedom_house"
 UCDP_SOURCE_KEY: str = "ucdp"
 FAS_SOURCE_KEY: str = "fas"
+SIPRI_YEARBOOK_CH7_SOURCE_KEY: str = "sipri_yearbook_ch7"
 WGI_SOURCE_KEY: str = "world_bank_wgi"
 TRANSPARENCY_CPI_SOURCE_KEY: str = "transparency_cpi"
 BTI_SOURCE_KEY: str = "bti"
 CIRIGHTS_SOURCE_KEY: str = "cirights"
 CLIENT_EXISTING_SOURCE_KEY: str = "client_existing"
+POLITY_V_SOURCE_KEY: str = "polity_v"
+EIU_DEMOCRACY_INDEX_SOURCE_KEY: str = "eiu_democracy_index"
 
 
 # ---------------------------------------------------------------------------
@@ -208,6 +274,18 @@ WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE: str = "wdi_gdp_per_capita_p
 WDI_POPULATION_INDICATOR_CODE: str = "wdi_population"
 WDI_GDP_CURRENT_USD_INDICATOR_CODE: str = "wdi_gdp_current_usd"
 WDI_GDP_CONSTANT_2015_USD_INDICATOR_CODE: str = "wdi_gdp_constant_2015_usd"
+UN_SNAAMA_GDP_CURRENT_USD_INDICATOR_CODE: str = "un_snaama_gdp_current_usd"
+UN_SNAAMA_FINAL_CONSUMPTION_INDICATOR_CODE: str = "un_snaama_final_consumption_current_usd"
+UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE: str = "un_snaama_household_consumption_current_usd"
+UN_SNAAMA_GOVERNMENT_CONSUMPTION_INDICATOR_CODE: str = (
+    "un_snaama_government_consumption_current_usd"
+)
+UN_SNAAMA_GROSS_CAPITAL_FORMATION_INDICATOR_CODE: str = (
+    "un_snaama_gross_capital_formation_current_usd"
+)
+UN_SNAAMA_GROSS_FIXED_CAPITAL_FORMATION_INDICATOR_CODE: str = (
+    "un_snaama_gross_fixed_capital_formation_current_usd"
+)
 
 # Maddison catalog (src/leaders_db/ingest/catalogs/maddison_project.csv).
 MADDISON_PROJECT_GDP_PER_CAPITA_INDICATOR_CODE: str = "maddison_project_gdp_per_capita_2011_intl"
@@ -223,6 +301,27 @@ MADDISON_PROJECT_GDP_TOTAL_DERIVED_INDICATOR_CODE: str = (
 PWT_POPULATION_INDICATOR_CODE: str = "pwt_population"
 PWT_REAL_GDP_OUTPUT_SIDE_INDICATOR_CODE: str = "pwt_real_gdp_output_side"
 PWT_REAL_GDP_EXPENDITURE_SIDE_INDICATOR_CODE: str = "pwt_real_gdp_expenditure_side"
+POLITY_V_POLITY2_INDICATOR_CODE: str = "polity_v_polity2"
+POLITY_V_DEMOCRACY_INDICATOR_CODE: str = "polity_v_democ"
+POLITY_V_AUTOCRACY_INDICATOR_CODE: str = "polity_v_autoc"
+POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE: str = "polity_v_xconst"
+POLITY_V_REGIME_DURABILITY_INDICATOR_CODE: str = "polity_v_durable"
+EIU_OVERALL_SCORE_INDICATOR_CODE: str = "eiu_democracy_index_overall_score"
+EIU_ELECTORAL_PROCESS_INDICATOR_CODE: str = "eiu_democracy_index_electoral_process_pluralism"
+EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE: str = "eiu_democracy_index_functioning_government"
+EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE: str = "eiu_democracy_index_political_participation"
+EIU_POLITICAL_CULTURE_INDICATOR_CODE: str = "eiu_democracy_index_political_culture"
+EIU_CIVIL_LIBERTIES_INDICATOR_CODE: str = "eiu_democracy_index_civil_liberties"
+PWT_EMPLOYMENT_INDICATOR_CODE: str = "pwt_employment"
+PWT_AVERAGE_ANNUAL_HOURS_INDICATOR_CODE: str = "pwt_average_annual_hours_worked"
+PWT_HUMAN_CAPITAL_INDICATOR_CODE: str = "pwt_human_capital_index"
+PWT_REAL_CONSUMPTION_INDICATOR_CODE: str = "pwt_real_consumption"
+PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE: str = "pwt_real_domestic_absorption"
+PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE: str = "pwt_capital_stock_index"
+PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE: str = "pwt_tfp_at_constant_national_prices"
+WDI_GINI_INDEX_INDICATOR_CODE: str = "wdi_gini_index"
+WDI_ADULT_LITERACY_INDICATOR_CODE: str = "wdi_literacy_rate_adult"
+WDI_SECONDARY_ENROLLMENT_INDICATOR_CODE: str = "wdi_secondary_school_enrollment"
 
 # Derived-recipe key (stable string) for the PWT
 # ``gdp_per_capita = real_gdp_output_side / population`` recipe.
@@ -300,18 +399,21 @@ UCDP_INTL_EVENTS_INDICATOR_CODE: str = "ucdp_intl_events"
 UCDP_INTL_FATALITIES_INDICATOR_CODE: str = "ucdp_intl_fatalities"
 UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE: str = "ucdp_onesided_events"
 UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE: str = "ucdp_onesided_fatalities"
+UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE: str = (
+    "ucdp_onesided_government_actor_killings_best"
+)
+UCDP_ONE_SIDED_NONSTATE_ACTOR_KILLINGS_INDICATOR_CODE: str = (
+    "ucdp_onesided_nonstate_actor_killings_best"
+)
+UCDP_ONE_SIDED_LOCATION_KILLINGS_INDICATOR_CODE: str = "ucdp_onesided_location_killings_best"
 
 # RSF press freedom indicators.
 RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE: str = "rsf_press_freedom_score"
 RSF_PRESS_FREEDOM_RANK_INDICATOR_CODE: str = "rsf_press_freedom_rank"
 
 # Freedom House Freedom in the World indicators.
-FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE: str = (
-    "freedom_house_political_rights"
-)
-FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE: str = (
-    "freedom_house_civil_liberties"
-)
+FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE: str = "freedom_house_political_rights"
+FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE: str = "freedom_house_civil_liberties"
 
 # FAS nuclear notebook status table indicators.
 FAS_TOTAL_INVENTORY_INDICATOR_CODE: str = "fas_total_inventory"
@@ -319,6 +421,11 @@ FAS_MILITARY_STOCKPILE_INDICATOR_CODE: str = "fas_military_stockpile"
 FAS_OPERATIONAL_STRATEGIC_INDICATOR_CODE: str = "fas_operational_strategic"
 FAS_OPERATIONAL_NONSTRATEGIC_INDICATOR_CODE: str = "fas_operational_nonstrategic"
 FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE: str = "fas_reserve_nondeployed"
+SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE: str = (
+    "sipri_yearbook_ch7_nuclear_warheads_total_inventory"
+)
+SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE: str = "sipri_yearbook_ch7_nuclear_warheads_deployed"
+SIPRI_YEARBOOK_CH7_RETIRED_INDICATOR_CODE: str = "sipri_yearbook_ch7_nuclear_warheads_retired"
 
 # SIPRI Military Expenditure Database indicators.
 SIPRI_MILEX_SOURCE_KEY: str = "sipri_milex"
@@ -403,6 +510,152 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             ),
             unit=None,
             scale=None,
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+            display_name="Final consumption expenditure — current USD",
+            description="UNSD country-year final consumption at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+            display_name="Household consumption expenditure — current USD",
+            description="UNSD household and NPISH consumption at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+            display_name="Government consumption expenditure — current USD",
+            description="UNSD general-government final consumption at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+            display_name="Gross capital formation — current USD",
+            description="UNSD gross capital formation at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
+            display_name="Gross fixed capital formation — current USD",
+            description="UNSD gross fixed capital formation at current US-dollar prices.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_COMPOSITE_SCORE,
+            display_name="Polity composite regime score",
+            description="Polity V revised composite regime score (-10 to +10).",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_DEMOCRACY_SCORE,
+            display_name="Polity democracy component",
+            description="Polity V institutional democracy component (0 to 10).",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_AUTOCRACY_SCORE,
+            display_name="Polity autocracy component",
+            description="Polity V institutional autocracy component (0 to 10).",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+            display_name="Polity executive constraints",
+            description=(
+                "Polity V composite constraints on executive decision-making; not a "
+                "specifically judicial or legislative measure."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_POLITY_REGIME_DURABILITY,
+            display_name="Polity regime durability",
+            description="Polity V years since the latest substantive regime transition.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+            display_name="EIU Democracy Index overall score",
+            description="EIU report-year composite democracy score on its 0-10 scale.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_ELECTORAL_PROCESS,
+            display_name="EIU electoral process and pluralism",
+            description="EIU report-year electoral process and pluralism component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+            display_name="EIU functioning of government",
+            description="EIU report-year functioning-of-government component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_POLITICAL_PARTICIPATION,
+            display_name="EIU political participation",
+            description="EIU report-year political-participation component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_POLITICAL_CULTURE,
+            display_name="EIU political culture",
+            description="EIU report-year political-culture component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_EIU_CIVIL_LIBERTIES,
+            display_name="EIU civil liberties",
+            description="EIU report-year civil-liberties component.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_EMPLOYMENT,
+            display_name="PWT persons engaged",
+            description="Persons engaged, in millions; not an unemployment rate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+            display_name="PWT average annual hours worked",
+            description="Annual hours per person engaged; not hours for the whole population.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_HUMAN_CAPITAL,
+            display_name="PWT human capital index",
+            description="Schooling-and-returns human-capital index; not bounded to 0-1 or 0-10.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_REAL_CONSUMPTION,
+            display_name="PWT real aggregate consumption",
+            description=(
+                "Aggregate household, government, and nonprofit consumption at "
+                "chained PPPs; not household income or distribution."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+            display_name="PWT real domestic absorption",
+            description="Aggregate domestic absorption at chained PPPs; not capital depreciation.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+            display_name="PWT capital-stock index",
+            description=(
+                "Capital stock at constant national prices, indexed to 2017=1; not a USD level."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_PWT_TFP_CONSTANT_PRICES,
+            display_name="PWT total factor productivity index",
+            description="TFP at constant national prices, indexed to 2017=1.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WDI_GINI_INDEX,
+            display_name="WDI Gini inequality index",
+            description=(
+                "Income-inequality index points on the source-native 0-100 scale; "
+                "lower indicates less inequality."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WDI_ADULT_LITERACY,
+            display_name="WDI adult literacy rate",
+            description=(
+                "Percentage of people age 15 and older; missing survey years are not zero literacy."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_WDI_SECONDARY_ENROLLMENT,
+            display_name="WDI gross secondary enrollment",
+            description=(
+                "Gross enrollment percentage; may exceed 100 and does not directly "
+                "establish education quality."
+            ),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_HDI,
@@ -584,9 +837,7 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
         ConceptDescriptor(
             concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
             display_name="Internationalized conflict events",
-            description=(
-                "UCDP country-year internationalized state-based conflict event count."
-            ),
+            description=("UCDP country-year internationalized state-based conflict event count."),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
@@ -604,6 +855,30 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             concept_key=CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
             display_name="One-sided violence fatalities",
             description="UCDP country-year one-sided violence fatality count.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+            display_name="One-sided killings by a government actor",
+            description=(
+                "UCDP actor-year killings attributed to a named government actor; "
+                "personal ruler direction is not implied."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+            display_name="One-sided killings by non-state actors",
+            description=(
+                "UCDP non-state-actor killings aggregated at event location; host "
+                "government responsibility is not implied."
+            ),
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
+            display_name="One-sided killings at event location",
+            description=(
+                "UCDP location total across government and non-state perpetrators; "
+                "location does not establish responsibility."
+            ),
         ),
         ConceptDescriptor(
             concept_key=CONCEPT_CORRUPTION_INDEX,
@@ -716,6 +991,16 @@ def build_concept_descriptors() -> tuple[ConceptDescriptor, ...]:
             description="FAS country-year reserve or nondeployed nuclear warhead estimate.",
         ),
         ConceptDescriptor(
+            concept_key=CONCEPT_NUCLEAR_DEPLOYED,
+            display_name="Deployed nuclear warheads",
+            description="SIPRI country-year deployed nuclear warhead estimate.",
+        ),
+        ConceptDescriptor(
+            concept_key=CONCEPT_NUCLEAR_RETIRED,
+            display_name="Retired nuclear warheads",
+            description="SIPRI country-year retired nuclear warhead estimate.",
+        ),
+        ConceptDescriptor(
             concept_key=CONCEPT_MILITARY_SPEND_CONSTANT_USD,
             display_name="Military expenditure, constant USD",
             description="SIPRI country-year military expenditure in constant US dollars.",
@@ -767,6 +1052,139 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             ),
         ),
         ConceptMapping(
+            concept_key=CONCEPT_POLITY_COMPOSITE_SCORE,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_POLITY2_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_DEMOCRACY_SCORE,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_DEMOCRACY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_AUTOCRACY_SCORE,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_AUTOCRACY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE,),
+            notes="Composite executive constraints; do not relabel judicial or legislative.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_POLITY_REGIME_DURABILITY,
+            source_id=SourceId(slug=POLITY_V_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(POLITY_V_REGIME_DURABILITY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_OVERALL_SCORE_INDICATOR_CODE,),
+            notes="Composite index; correlated components are not independent sources.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_ELECTORAL_PROCESS,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_ELECTORAL_PROCESS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_POLITICAL_PARTICIPATION,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_POLITICAL_CULTURE,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_POLITICAL_CULTURE_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_EIU_CIVIL_LIBERTIES,
+            source_id=SourceId(slug=EIU_DEMOCRACY_INDEX_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(EIU_CIVIL_LIBERTIES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_EMPLOYMENT,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_EMPLOYMENT_INDICATOR_CODE,),
+            notes="Count of persons engaged; prohibited as an unemployment-rate proxy.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_AVERAGE_ANNUAL_HOURS_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_HUMAN_CAPITAL,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_HUMAN_CAPITAL_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_REAL_CONSUMPTION,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_REAL_CONSUMPTION_INDICATOR_CODE,),
+            notes=(
+                "Aggregate demand context; prohibited as distributional or "
+                "household-income evidence."
+            ),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_PWT_TFP_CONSTANT_PRICES,
+            source_id=SourceId(slug=PWT_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WDI_GINI_INDEX,
+            source_id=SourceId(slug=WDI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WDI_GINI_INDEX_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WDI_ADULT_LITERACY,
+            source_id=SourceId(slug=WDI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WDI_ADULT_LITERACY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_WDI_SECONDARY_ENROLLMENT,
+            source_id=SourceId(slug=WDI_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(WDI_SECONDARY_ENROLLMENT_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
             concept_key=CONCEPT_POPULATION,
             source_id=SourceId(slug=WDI_SOURCE_KEY),
             mapping_type="direct",
@@ -785,6 +1203,43 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
                 "(NY.GDP.MKTP.CD) and constant 2015 USD "
                 "(NY.GDP.MKTP.KD). Both alias the concept."
             ),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GDP_TOTAL,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GDP_CURRENT_USD_INDICATOR_CODE,),
+            notes="Current-price US dollars; not a real-growth measure.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_FINAL_CONSUMPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GOVERNMENT_CONSUMPTION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GROSS_CAPITAL_FORMATION_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
+            source_id=SourceId(slug=UN_SNAAMA_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UN_SNAAMA_GROSS_FIXED_CAPITAL_FORMATION_INDICATOR_CODE,),
         ),
         # --- Maddison direct mappings ---------------------------------
         ConceptMapping(
@@ -1113,6 +1568,27 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             mapping_type="direct",
             indicator_codes=(UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,),
         ),
+        ConceptMapping(
+            concept_key=CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,),
+            notes="Government actor is identified; personal ruler direction is not implied.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_ONE_SIDED_NONSTATE_ACTOR_KILLINGS_INDICATOR_CODE,),
+            notes="Non-state perpetration must not be relabelled as host-state conduct.",
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
+            source_id=SourceId(slug=UCDP_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(UCDP_ONE_SIDED_LOCATION_KILLINGS_INDICATOR_CODE,),
+            notes="Event location is exposure, not perpetrator or ruler responsibility.",
+        ),
         # --- V-Dem corruption / integrity mappings --------------------
         ConceptMapping(
             concept_key=CONCEPT_CORRUPTION_INDEX,
@@ -1248,6 +1724,24 @@ def build_concept_mappings() -> tuple[ConceptMapping, ...]:
             mapping_type="direct",
             indicator_codes=(FAS_RESERVE_NONDEPLOYED_INDICATOR_CODE,),
         ),
+        ConceptMapping(
+            concept_key=CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+            source_id=SourceId(slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_NUCLEAR_DEPLOYED,
+            source_id=SourceId(slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE,),
+        ),
+        ConceptMapping(
+            concept_key=CONCEPT_NUCLEAR_RETIRED,
+            source_id=SourceId(slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY),
+            mapping_type="direct",
+            indicator_codes=(SIPRI_YEARBOOK_CH7_RETIRED_INDICATOR_CODE,),
+        ),
         # --- SIPRI military expenditure mappings -----------------------
         ConceptMapping(
             concept_key=CONCEPT_MILITARY_SPEND_CONSTANT_USD,
@@ -1281,6 +1775,12 @@ __all__ = [
     "CONCEPT_BCG_IMMUNIZATION",
     "CONCEPT_CIVIL_LIBERTIES",
     "CONCEPT_DTP3_IMMUNIZATION",
+    "CONCEPT_EIU_CIVIL_LIBERTIES",
+    "CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE",
+    "CONCEPT_EIU_ELECTORAL_PROCESS",
+    "CONCEPT_EIU_FUNCTIONING_GOVERNMENT",
+    "CONCEPT_EIU_POLITICAL_CULTURE",
+    "CONCEPT_EIU_POLITICAL_PARTICIPATION",
     "CONCEPT_ELECTORAL_DEMOCRACY",
     "CONCEPT_EXPECTED_YEARS_SCHOOLING",
     "CONCEPT_FREEDOM_ASSOCIATION",
@@ -1299,9 +1799,21 @@ __all__ = [
     "CONCEPT_MILITARY_SPEND_PER_CAPITA",
     "CONCEPT_MILITARY_SPEND_SHARE_GDP",
     "CONCEPT_MILITARY_SPEND_SHARE_GOVT",
+    "CONCEPT_POLITY_AUTOCRACY_SCORE",
+    "CONCEPT_POLITY_COMPOSITE_SCORE",
+    "CONCEPT_POLITY_DEMOCRACY_SCORE",
+    "CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS",
+    "CONCEPT_POLITY_REGIME_DURABILITY",
     "CONCEPT_POPULATION",
     "CONCEPT_PRESS_FREEDOM_RANK",
     "CONCEPT_PRESS_FREEDOM_SCORE",
+    "CONCEPT_PWT_AVERAGE_ANNUAL_HOURS",
+    "CONCEPT_PWT_CAPITAL_STOCK_INDEX",
+    "CONCEPT_PWT_EMPLOYMENT",
+    "CONCEPT_PWT_HUMAN_CAPITAL",
+    "CONCEPT_PWT_REAL_CONSUMPTION",
+    "CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION",
+    "CONCEPT_PWT_TFP_CONSTANT_PRICES",
     "CONCEPT_RULE_OF_LAW",
     "CONCEPT_STATE_BASED_CONFLICT_EVENTS",
     "CONCEPT_STATE_BASED_CONFLICT_FATALITIES",
@@ -1315,7 +1827,17 @@ __all__ = [
     "CONCEPT_WARNING_NON_NUMERIC_NUMERATOR",
     "CONCEPT_WARNING_PAIR_YEAR_MISMATCH",
     "CONCEPT_WARNING_ZERO_DENOMINATOR",
+    "CONCEPT_WDI_ADULT_LITERACY",
+    "CONCEPT_WDI_GINI_INDEX",
+    "CONCEPT_WDI_SECONDARY_ENROLLMENT",
     "DERIVED_CONCEPT_QUALITY_FLAG",
+    "EIU_CIVIL_LIBERTIES_INDICATOR_CODE",
+    "EIU_DEMOCRACY_INDEX_SOURCE_KEY",
+    "EIU_ELECTORAL_PROCESS_INDICATOR_CODE",
+    "EIU_FUNCTIONING_GOVERNMENT_INDICATOR_CODE",
+    "EIU_OVERALL_SCORE_INDICATOR_CODE",
+    "EIU_POLITICAL_CULTURE_INDICATOR_CODE",
+    "EIU_POLITICAL_PARTICIPATION_INDICATOR_CODE",
     "FREEDOM_HOUSE_CIVIL_LIBERTIES_INDICATOR_CODE",
     "FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE",
     "FREEDOM_HOUSE_SOURCE_KEY",
@@ -1324,11 +1846,24 @@ __all__ = [
     "MADDISON_PROJECT_GDP_TOTAL_DERIVED_INDICATOR_CODE",
     "MADDISON_PROJECT_POPULATION_INDICATOR_CODE",
     "MADDISON_PROJECT_SOURCE_KEY",
+    "POLITY_V_AUTOCRACY_INDICATOR_CODE",
+    "POLITY_V_DEMOCRACY_INDICATOR_CODE",
+    "POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE",
+    "POLITY_V_POLITY2_INDICATOR_CODE",
+    "POLITY_V_REGIME_DURABILITY_INDICATOR_CODE",
+    "POLITY_V_SOURCE_KEY",
+    "PWT_AVERAGE_ANNUAL_HOURS_INDICATOR_CODE",
+    "PWT_CAPITAL_STOCK_INDEX_INDICATOR_CODE",
+    "PWT_EMPLOYMENT_INDICATOR_CODE",
     "PWT_GDP_PER_CAPITA_RECIPE_KEY",
+    "PWT_HUMAN_CAPITAL_INDICATOR_CODE",
     "PWT_POPULATION_INDICATOR_CODE",
+    "PWT_REAL_CONSUMPTION_INDICATOR_CODE",
+    "PWT_REAL_DOMESTIC_ABSORPTION_INDICATOR_CODE",
     "PWT_REAL_GDP_EXPENDITURE_SIDE_INDICATOR_CODE",
     "PWT_REAL_GDP_OUTPUT_SIDE_INDICATOR_CODE",
     "PWT_SOURCE_KEY",
+    "PWT_TFP_CONSTANT_PRICES_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_RANK_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_SCORE_INDICATOR_CODE",
     "RSF_PRESS_FREEDOM_SOURCE_KEY",
@@ -1355,11 +1890,14 @@ __all__ = [
     "VDEM_RULE_OF_LAW_INDICATOR_CODE",
     "VDEM_SOURCE_KEY",
     "VDEM_SUFFRAGE_INDICATOR_CODE",
+    "WDI_ADULT_LITERACY_INDICATOR_CODE",
     "WDI_GDP_CONSTANT_2015_USD_INDICATOR_CODE",
     "WDI_GDP_CURRENT_USD_INDICATOR_CODE",
     "WDI_GDP_PER_CAPITA_INDICATOR_CODE",
     "WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE",
+    "WDI_GINI_INDEX_INDICATOR_CODE",
     "WDI_POPULATION_INDICATOR_CODE",
+    "WDI_SECONDARY_ENROLLMENT_INDICATOR_CODE",
     "WDI_SOURCE_KEY",
     "WHO_GHO_API_SOURCE_KEY",
     "WHO_GHO_BCG_IMMUNIZATION_INDICATOR_CODE",

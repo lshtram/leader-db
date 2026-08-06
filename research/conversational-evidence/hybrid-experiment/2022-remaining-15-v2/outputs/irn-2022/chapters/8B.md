@@ -1,0 +1,43 @@
+**Reused Evidence**
+REUSE_JSON: {"evidence_ids":["E0001"],"lenses":["8B.4","8B.5"]}
+- The constitution gives the Leader appointment and dismissal authority over key state posts, which matters here as formal control over personnel selection and internal discipline.
+
+REUSE_JSON: {"evidence_ids":["E0005"],"lenses":["8B.1","8B.2","8B.8","8B.10"]}
+- Khamenei said economic development should not depend on sanctions relief and that Iran should be run so sanctions do not hurt it. This is direct program articulation and a revealed preference for sanctions resilience.
+
+REUSE_JSON: {"evidence_ids":["E0022"],"lenses":["8B.3","8B.5","8B.9","8B.10"]}
+- Khamenei publicly backed the security forces and framed the protest wave as enemy-planned, which shows crisis mobilization in service of regime preservation.
+
+REUSE_JSON: {"evidence_ids":["E0050"],"lenses":["8B.7","8B.10"]}
+- The World Bank said Iran’s recovery was only gradual, with large pandemic-era job losses still unrecovered and oil shortfalls widening fiscal pressure.
+
+REUSE_JSON: {"evidence_ids":["E0051"],"lenses":["8B.7","8B.8","8B.10"]}
+- The World Bank monitor said inflation was eroding low-income welfare and that the medium-term fiscal path still required corrective action, which cuts against strong outcome claims.
+
+REUSE_JSON: {"evidence_ids":["E0058"],"lenses":["8B.4","8B.8","8B.10"]}
+- Iran replaced the central bank chief as the rial kept falling, which is evidence of an attempted personnel correction, though not proof of durable macro success.
+
+REUSE_JSON: {"evidence_ids":["E0060"],"lenses":["8B.1","8B.2","8B.6","8B.7"]}
+- Khamenei’s seventh-development-plan guidelines set explicit targets, including about 8 percent growth and justice-oriented development, which is one of the clearest 2022 program documents.
+
+REUSE_JSON: {"evidence_ids":["E0080"],"lenses":["8B.3","8B.4","8B.5","8B.9","8B.10"]}
+- Chatham House describes Khamenei’s office as vetting ministers and ambassadors and the broader deep state as tightly involved in oversight and protest suppression, which speaks to centralized execution capacity.
+
+**New Evidence**
+SOURCE_CLAIM_JSON: {"title":"Khamenei on Nuclear Program, Talks","publisher":"The Iran Primer, U.S. Institute of Peace","publication_date":"2022-02-17","url":"https://iranprimer.usip.org/index.php/blog/2022/feb/17/khamenei-nuclear-program-talks","claim":"Khamenei framed Iran's direction as resistance-oriented and insisted the country's progress should not depend on sanctions relief or outside bargaining.","locator":"article summary of his February 17 remarks","source_type":"scholarship","source_confidence":"medium_high","source_confidence_reason":"USIP is a reputable secondary source and the claim is tied to a dated 2022 speech, though it is still a summary rather than the original transcript.","final_evidence_use":"final_evidence","period_fit":"Exact 2022 target-period speech context.","ruler_attribution":"Directly attributes the program framing to Khamenei's public remarks; this is his stated direction, not an inference from later outcomes.","contrary_evidence":["The article is not the full speech transcript, so wording is summarized rather than verbatim."],"lenses":["8B.1","8B.2","8B.6","8B.8","8B.10"]}
+
+SOURCE_CLAIM_JSON: {"title":"Iran's supreme leader blames protests on Israel and US","publisher":"Jewish Telegraphic Agency","publication_date":"2022-10-03","url":"https://www.jta.org/2022/10/03/global/irans-supreme-leader-blames-protests-on-israel-and-us","claim":"Khamenei publicly blamed the 2022 unrest on U.S. and Israeli schemes and did not provide evidence for that accusation.","locator":"article text summarizing his October 2022 statement","source_type":"media","source_confidence":"medium_high","source_confidence_reason":"Reuters-derived reporting is strong for the fact of the statement, but the article is still secondary coverage of a speech rather than a direct transcript.","final_evidence_use":"final_evidence","period_fit":"Exact 2022 period fit.","ruler_attribution":"Directly attributed to Khamenei's own public messaging; useful for revealed priorities and crisis framing.","contrary_evidence":["The source reports the accusation, not proof that the underlying claim was true."],"lenses":["8B.1","8B.6","8B.9","8B.10"]}
+
+**Search and Rejection Summary**
+- I considered roughly 30 documents across Reuters and Reuters-derivative reporting, USIP/Iran Primer, JTA, Chatham House, World Bank, IMF, IranWire, Press TV, Tasnim, RFE/RL, and other Iran-focused material.
+- I kept sources that showed one of three things: a Khamenei-stated program, concrete coordination/appointments, or outcome evidence tied to that program.
+- I rejected many protest-crackdown articles because they were better evidence for 3B/4B unless they specifically showed Khamenei’s own crisis management or revealed goals.
+- I also rejected generic country indicators, corruption context, and broad authoritarian descriptions when they did not show a direct Khamenei nexus.
+- I avoided repeating the same protest event through multiple publishers; where several articles covered the same speech or crackdown, I kept one and dropped the rest as duplicate or weakly additive.
+
+**Remaining Gaps**
+- The biggest gap is direct 2022 documentary evidence of how Khamenei’s office converted the seventh-development-plan rhetoric into budgets, deadlines, and implementation audits.
+- I also lack a clean 2022 paper trail showing whether he personally reviewed failures and replaced ineffective implementers beyond the central-bank personnel change.
+- The economic side is weaker than the regime-control side: the evidence shows explicit goals and some administrative correction, but the outcome trail still looks mixed against the stated growth and resilience agenda.
+- More Persian-language budget documents, Supreme Leader office directives, and implementation reports would help separate Khamenei’s own direction from the Raisi government’s execution.
+- I did not score the chapter.

@@ -1,0 +1,387 @@
+Resume the same ruler research session for review round 1.
+
+The independent evidence reviewer identified the chapters and gaps below. Search the
+internet directly and iteratively for every selected chapter. Follow event-specific
+and source-specific leads; do not rely on one omnibus query or apply recent-news
+filters to historical research. Expand the candidate pool with broad, archive,
+source-family, adverse/contrary, and local-language queries. Then open or fetch the
+promising underlying sources and extract precise locators. Add traceable source-claim
+units and summaries to the existing evidence register, preserve contrary evidence and
+attribution limits, and explain when a gap cannot be improved or the chapter is
+saturated. Work only on the immutable ruler-period and do not score.
+Update `research-ledger-manifest.json` whenever you add, reject, or change the
+disposition of a ledger item. Preserve every exact lens mapping in its
+`methodology_ids`; use a new globally unique provisional ID for every new fact and
+never restart numbering in a continuation.
+
+Reviewer brief:
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Several evidence items are duplicated across chapter IDs and should be globally deduplicated.",
+        "The chapter conclusion appears malformed and does not provide a reliable complete lens disposition.",
+        "The local audit reports ten explicit evidence gaps, so web evidence does not establish complete chapter coverage."
+      ],
+      "missing_themes": [
+        "Adjudicated or technically documented evidence on alleged 2023 UAV transfers.",
+        "More precise, country-specific IAEA safeguards findings covering the full target year.",
+        "Evidence addressing the positive and negative consequences of the ruler’s nuclear and security choices beyond official statements."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Not demonstrated. The record includes diplomatic engagement and Iranian denials, but does not establish balanced favorable and adverse searching across nuclear conduct and external-security claims.",
+        "closed_system_silence": "High risk: Iran’s restricted information environment and incomplete IAEA cooperation can suppress contrary or exculpatory evidence.",
+        "open_system_complaint_volume": "Low relevance to this chapter; the principal risk is restricted observability rather than complaint inflation.",
+        "duplicate_reporting": "Material duplication exists around stockpile, IAEA verification, and UAV claims across UN records. These should be counted once per underlying source-locator-claim fact.",
+        "allegations_vs_findings": "Mostly separated: UAV transfers remain allegations/discovery-only, while IAEA and UN nuclear-status claims are institutional findings. Some state-policy attribution is appropriately qualified.",
+        "official_claim_independence": "IAEA and UN verification records provide independent checks; Iranian official rhetoric is clearly marked as self-serving.",
+        "population_exposure_authority_baseline_shocks": "Authority is addressed through Khamenei’s system-level role, but exposure, inherited nuclear baseline, and external diplomatic/security shocks are only partly developed.",
+        "missing_source_type": "Missing a recovered underlying technical or inspection record resolving the UAV-transfer allegations and a fuller original IAEA country-specific safeguards report.",
+        "supporting_evidence_ids": [
+          "WEB-1B-01",
+          "WEB-1B-02",
+          "WEB-1B-04",
+          "WEB-1B-09",
+          "WEB-1B-10",
+          "WEB-1B-11",
+          "WEB-1B-12"
+        ],
+        "unresolved_risks": [
+          "Local disposition records no evidence for all ten lenses despite the web ledger.",
+          "UAV claims remain unresolved and cannot support a settled ruler attribution.",
+          "Some locators identify sections or summaries rather than precise passages."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Repeated UN and IAEA claims require deterministic deduplication.",
+        "Some source claims infer leadership responsibility from institutional authority without documenting the specific approval chain.",
+        "The notebook reports broad local evidence coverage but does not show how all ten selected lenses are substantively supported."
+      ],
+      "missing_themes": [
+        "Independent resolution of alleged UAV transfers and their attribution.",
+        "Evidence on implementation and durability of the Saudi rapprochement beyond the joint announcement.",
+        "More systematic coverage of favorable and adverse regional-security outcomes."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partially demonstrated through rapprochement, procedural IAEA engagement, denials, and adverse verification findings, but systematic search balance is not documented.",
+        "closed_system_silence": "High risk because incomplete safeguards cooperation and restricted access limit visibility into security and nuclear conduct.",
+        "open_system_complaint_volume": "Not a central risk; this chapter concerns state conduct and external security rather than complaint-generated severity.",
+        "duplicate_reporting": "The Saudi rapprochement, IAEA non-assurance, stockpile levels, and UAV allegations recur in multiple records and must not be counted as independent facts merely because the publishers differ.",
+        "allegations_vs_findings": "Generally separated. Diplomatic restoration and IAEA cooperation are documented events; UAV transfers remain allegations and are explicitly discovery-only.",
+        "official_claim_independence": "IAEA and UN records independently check Iranian claims; the Saudi joint statement documents the agreement but not its longer-term effects.",
+        "population_exposure_authority_baseline_shocks": "Authority is reasonably addressed through system attribution. Regional baseline, sanctions, external actors, and inherited nuclear conditions are present but exposure and downstream effects are incomplete.",
+        "missing_source_type": "Missing an independent, non-party adjudication or technical record on UAV transfers and broader regional-security outcomes.",
+        "supporting_evidence_ids": [
+          "WEB-2B-01",
+          "WEB-2B-04",
+          "WEB-2B-05",
+          "WEB-2B-06",
+          "WEB-2B-08",
+          "WEB-2B-09",
+          "WEB-2B-10",
+          "WEB-2B-11"
+        ],
+        "unresolved_risks": [
+          "The chapter relies heavily on a small set of IAEA and UN families with repeated claims.",
+          "UAV allegations remain unresolved.",
+          "The conclusion handoff is malformed and appears to omit a clean final chapter disposition."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Amnesty items should not be treated as findings without corroboration.",
+        "Freedom House records are distinct reports but may share an underlying monitoring perspective.",
+        "The chapter should preserve missing official data as an observability limitation, not adverse ruler evidence."
+      ],
+      "missing_themes": [
+        "Independent case-level confirmation or rebuttal of arrests, trials, deaths, and alleged torture.",
+        "Official disaggregated data or a documented explanation for its absence.",
+        "Evidence on remedies, releases, pardons, and institutional correction beyond broad references."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Pardons, releases, formal institutions, continuing online activism, and limited protest activity are included, but a systematic favorable search is not demonstrated.",
+        "closed_system_silence": "Very high risk: internet shutdowns, intimidation, missing official arrest data, and non-transparent institutions can hide abuse and reduce contrary evidence.",
+        "open_system_complaint_volume": "Moderate risk: advocacy and rights-monitoring sources may emphasize complaints and abuses, though the convergence of UN, State Department, and comparative monitoring reduces but does not eliminate inflation risk.",
+        "duplicate_reporting": "The same crackdown, arrests, internet controls, and oversight weakness are repeated across Amnesty, Freedom House, UN, and State Department records. They represent several source families but fewer independent underlying events.",
+        "allegations_vs_findings": "Amnesty claims are identified as advocacy material and should be paired with UN, State Department, or judicial findings. UN findings and Freedom House reporting are more clearly distinguished, though some descriptions still combine reported conduct with conclusions.",
+        "official_claim_independence": "Official Iranian pardon and institutional claims are not independently checked in the ledger; UN and NGO materials provide external checks but not full case-level verification.",
+        "population_exposure_authority_baseline_shocks": "Population groups and exposure are partly addressed through women, students, journalists, relatives, and protesters. Inherited post-Amini conditions and external information constraints are present; baseline and shock separation remain incomplete.",
+        "missing_source_type": "Missing independent case-level judicial records, Iranian official datasets, and local-language reporting capable of testing both repression claims and government explanations.",
+        "supporting_evidence_ids": [
+          "WEB-3B-01",
+          "WEB-3B-02",
+          "WEB-3B-03",
+          "WEB-3B-04",
+          "WEB-3B-05",
+          "WEB-3B-06",
+          "WEB-3B-07",
+          "WEB-3B-08",
+          "WEB-3B-09"
+        ],
+        "unresolved_risks": [
+          "The local audit records two selected lenses with no evidence.",
+          "The UN Secretary-General record is a metadata/index-level item, not substantive proof.",
+          "No case-level official or judicial evidence tests the reported abuses and government responses."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The Iran Data Portal item has an unknown publication date and should be temporally qualified.",
+        "The reform item is secondary and has an imprecise locator.",
+        "Repeated Freedom House and UN claims require global deduplication."
+      ],
+      "missing_themes": [
+        "Precise 2023 evidence on electoral competition, appointments, and institutional remedies.",
+        "Independent domestic or local-language evidence on reform, pardons, and corrective action.",
+        "More direct evidence connecting formal authority to specific implementation decisions."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Elections, formal oversight, pardons, releases, reform debate, and continuing activism provide favorable or contrary material, but balanced search execution is not documented.",
+        "closed_system_silence": "High risk because weak oversight, media restrictions, internet controls, and absent official disaggregated data can conceal both misconduct and corrective action.",
+        "open_system_complaint_volume": "Moderate risk from reliance on rights-monitoring and advocacy sources, mitigated by convergence across UN, State Department, and comparative monitoring families.",
+        "duplicate_reporting": "Substantial duplication exists across Freedom House, UN, Amnesty, State Department, and repeated chapter-specific records concerning the same crackdown and oversight structure.",
+        "allegations_vs_findings": "The record generally distinguishes UN and State Department findings from Amnesty allegations and constitutional or analytical interpretation. Reform claims and some institutional conclusions are more inferential than event-specific.",
+        "official_claim_independence": "UN and external monitors independently challenge official accounts; Iranian formal institutions and pardon claims are not independently verified in the record.",
+        "population_exposure_authority_baseline_shocks": "Exposure is addressed for protesters, women, journalists, students, and dissidents. Authority and inherited institutional structure are strong; external shocks and denominator/population breadth are less developed.",
+        "missing_source_type": "Missing independent election administration data, domestic judicial records, and local-language sources testing official accounts and institutional remedies.",
+        "supporting_evidence_ids": [
+          "WEB-4B-01",
+          "WEB-4B-02",
+          "WEB-4B-03",
+          "WEB-4B-04",
+          "WEB-4B-05",
+          "WEB-4B-06",
+          "WEB-4B-07",
+          "WEB-4B-08",
+          "WEB-4B-09",
+          "WEB-4B-10",
+          "WEB-4B-11"
+        ],
+        "unresolved_risks": [
+          "Several claims use generic report-text locators rather than precise passages.",
+          "Election competition and remedy are described structurally but lack fuller 2023 event evidence.",
+          "The chapter contains repeated copies of the same Freedom House findings under distinct IDs."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "World Bank portal and poverty-platform entries are repeated contextual observations, not separate claim units.",
+        "The chapter overstates what macro outlook evidence can establish about ruler responsibility.",
+        "Post-period records should not be used as direct target-year evidence."
+      ],
+      "missing_themes": [
+        "2023 household-level welfare and distributional outcomes.",
+        "Evidence linking specific economic decisions or appointments to observed outcomes.",
+        "Independent evaluation of successful policy correction or broad-based gains."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Growth, formal programs, and macro management are acknowledged, but systematic searching for successful policy outcomes and distributional improvements is not demonstrated.",
+        "closed_system_silence": "Moderate risk: restricted transparency may hide distributional failures and policy correction, but macroeconomic data are less closed than rights evidence.",
+        "open_system_complaint_volume": "Low-to-moderate risk; the evidence is mainly macroeconomic and governance reporting rather than complaint-volume sources.",
+        "duplicate_reporting": "World Bank economic monitor, data portal, poverty platform, and follow-up outlook overlap substantially; they should not be counted as independent claims when repeating the same indicators.",
+        "allegations_vs_findings": "Macroeconomic observations are separated from causal attribution, but several claims infer policy correction or prosperity from World Bank framing rather than direct findings. Positive growth is included as contrary evidence.",
+        "official_claim_independence": "World Bank provides an independent macroeconomic check, but the ledger lacks independent verification of domestic policy attribution and official performance claims.",
+        "population_exposure_authority_baseline_shocks": "External sanctions, inflation, structural constraints, inherited conditions, and broad welfare concerns are addressed. Population-specific exposure and separation of ruler authority from external shocks remain insufficient.",
+        "missing_source_type": "Missing household survey or independent distributional outcome data specifically covering 2023, plus sector-level evaluations linking policy to welfare outcomes.",
+        "supporting_evidence_ids": [
+          "WEB-5B-01",
+          "WEB-5B-02",
+          "WEB-5B-03",
+          "WEB-5B-04",
+          "WEB-5B-05",
+          "WEB-5B-06",
+          "WEB-5B-07",
+          "WEB-5B-08",
+          "WEB-5B-09",
+          "WEB-5B-10"
+        ],
+        "unresolved_risks": [
+          "Two selected lenses have explicit local evidence gaps.",
+          "Several 2026 portal records are post-period context and cannot establish 2023 outcomes without clearer historical extraction.",
+          "Causal attribution to Khamenei is weak for aggregate economic outcomes."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Macro-to-welfare inferences are too indirect for strong attribution.",
+        "Post-period World Bank records require careful temporal limitation.",
+        "Formal programs must not be treated as delivered outcomes."
+      ],
+      "missing_themes": [
+        "Independent 2023 welfare outcomes by population group.",
+        "Evidence on actual uptake, quality, and equity of social programs.",
+        "Specific implementation and remedy decisions attributable to the ruler’s authority.",
+        "Local-language or domestic administrative evidence testing external assessments."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Formal programs, planning, growth, and some procedural capacity are included, but systematic search for successful uptake, service delivery, and favorable outcomes is not demonstrated.",
+        "closed_system_silence": "High risk for vulnerable populations and social-policy failures because transparency and independent monitoring are weak; formal plans may conceal non-delivery.",
+        "open_system_complaint_volume": "Moderate risk for the rights-based material, which may overrepresent documented harms; the narrow UNHCR population is explicitly bounded and should not be generalized.",
+        "duplicate_reporting": "World Bank portal, poverty platform, follow-up outlook, and Freedom House context overlap. Program-framework claims also recur as existence rather than outcome evidence.",
+        "allegations_vs_findings": "The record distinguishes program existence, macro indicators, rights claims, and inferred welfare implications, but several welfare conclusions remain indirect. Amnesty material is appropriately labeled as context.",
+        "official_claim_independence": "UNDP and World Bank provide external institutional or statistical checks, but neither establishes actual delivery or ruler-specific responsibility; official program claims lack outcome verification.",
+        "population_exposure_authority_baseline_shocks": "Vulnerable groups and external shocks are partly addressed, but national population coverage, inherited welfare baseline, and the ruler’s specific authority over implementation are weakly established.",
+        "missing_source_type": "Missing independent household surveys, administrative service-delivery data, beneficiary evaluations, and local-language reporting on access and exclusion.",
+        "supporting_evidence_ids": [
+          "WEB-6B-01",
+          "WEB-6B-02",
+          "WEB-6B-03",
+          "WEB-6B-04",
+          "WEB-6B-05",
+          "WEB-6B-06",
+          "WEB-6B-07",
+          "WEB-6B-08",
+          "WEB-6B-09",
+          "WEB-6B-10"
+        ],
+        "unresolved_risks": [
+          "One selected lens has an explicit local evidence gap.",
+          "Most evidence is context or planning evidence rather than measured outcomes.",
+          "UNHCR evidence concerns a specific operational population and cannot support national conclusions."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter’s personal-integrity standard is not met uniformly by system-level evidence.",
+        "Treasury sanctions claims must remain allegations or institutional findings, not judicial findings.",
+        "The local audit shows broad evidence gaps despite the web ledger’s substantial volume."
+      ],
+      "missing_themes": [
+        "Adjudicated evidence of personal enrichment, corruption, or integrity violations.",
+        "Direct evidence of Khamenei’s knowledge, direction, benefit, tolerance, or obstruction in 2023 conduct.",
+        "Independent evidence of corrective action, investigation, or accountability.",
+        "Local-language and domestic-source coverage capable of testing both patronage allegations and official defenses."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Pardons, formal oversight, some independent reporting, and state cooperation with a domestic committee are included, but systematic favorable and adverse searching for personal integrity and correction is not demonstrated.",
+        "closed_system_silence": "Very high risk: censorship, intimidation, non-cooperation, opaque patronage, and missing official data can suppress evidence of misconduct and accountability.",
+        "open_system_complaint_volume": "High risk that rights-monitoring and sanctions materials emphasize adverse conduct, although information suppression also creates undercount risk. Both risks must remain explicit.",
+        "duplicate_reporting": "Major duplication surrounds the crackdown, censorship, oversight weakness, and patronage structures. Reuters mirroring by other outlets is explicitly not independent corroboration.",
+        "allegations_vs_findings": "The notebook usually labels Treasury sanctions and Reuters reporting as allegations or source-dependent claims, while UN findings describe reported abuses and non-cooperation. The personal-integrity nexus is nevertheless incomplete for several corruption and repression claims.",
+        "official_claim_independence": "UN and Freedom House provide external checks; Treasury sanctions are adversarial and not judicial findings. Iranian pardon and committee-cooperation claims are not independently verified.",
+        "population_exposure_authority_baseline_shocks": "Affected protesters, women, journalists, and families are identified. Institutional authority and inherited patronage are addressed, but population denominators, external shocks, and the distinction between system responsibility and personal integrity remain unresolved.",
+        "missing_source_type": "Missing judicial findings, audited financial records, domestic investigative reporting, and independent evidence directly establishing personal benefit, knowledge, direction, or tolerance by Khamenei.",
+        "supporting_evidence_ids": [
+          "WEB-7B-01",
+          "WEB-7B-02",
+          "WEB-7B-03",
+          "WEB-7B-04",
+          "WEB-7B-05",
+          "WEB-7B-06",
+          "WEB-7B-07",
+          "WEB-7B-08",
+          "WEB-7B-09",
+          "WEB-7B-10",
+          "WEB-7B-11"
+        ],
+        "unresolved_risks": [
+          "Seven selected lenses have explicit local evidence gaps.",
+          "Personal enrichment claims rely on an adversarial sanctions record rather than adjudicated evidence.",
+          "The 2019 Reuters report is inherited, unverified in the article, and source-dependent.",
+          "System-level repression cannot automatically establish personal integrity failure without a clearer nexus."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "System capacity is not equivalent to effective governance or positive outcomes.",
+        "Repeated claims from other chapters should not be counted as new evidence units.",
+        "Post-period or inherited evidence requires explicit limitation to avoid presenting it as a 2023 event."
+      ],
+      "missing_themes": [
+        "Independent evaluations of policy implementation and durable outcomes across the selected lenses.",
+        "Evidence of successful correction, learning, and service delivery, not only structural capacity.",
+        "Population-wide outcome data separating inherited conditions, sanctions, and ruler-controlled decisions.",
+        "More direct 2023 evidence linking authority to implementation results."
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Diplomatic rapprochement, moderate growth, formal cooperation, and state capacity are included alongside repression, nuclear escalation, and weak correction. Search balance is not documented across all effectiveness lenses.",
+        "closed_system_silence": "High risk because weak oversight, censorship, non-cooperation, and missing data can hide failed programs, corrective action, or contrary successes.",
+        "open_system_complaint_volume": "Moderate-to-high risk: adverse rights evidence may emphasize failure, while closed-system opacity may simultaneously undercount harms and overstate apparent administrative control.",
+        "duplicate_reporting": "Repeated UN, Freedom House, World Bank, Treasury, and Saudi/IAEA claims describe a limited number of underlying events. Chapter-specific IDs should be mapped to stable global facts.",
+        "allegations_vs_findings": "The record separates diplomatic success, macro outcomes, UN findings, and sanctions allegations, but several effectiveness conclusions are inferred from structural conditions rather than measured implementation outcomes.",
+        "official_claim_independence": "UN, IAEA, World Bank, and external monitors provide checks; official diplomatic and program claims are not sufficient to establish effectiveness.",
+        "population_exposure_authority_baseline_shocks": "Authority, external sanctions, inherited structures, and some population effects are addressed. Durability, counterfactual baseline, and population-wide exposure are incomplete.",
+        "missing_source_type": "Missing independent outcome evaluations of major programs, domestic implementation records, audited budgets, and evidence of durable correction or failure beyond macro and rights indicators.",
+        "supporting_evidence_ids": [
+          "WEB-8B-01",
+          "WEB-8B-02",
+          "WEB-8B-03",
+          "WEB-8B-04",
+          "WEB-8B-05",
+          "WEB-8B-06",
+          "WEB-8B-07",
+          "WEB-8B-08",
+          "WEB-8B-09",
+          "WEB-8B-10",
+          "WEB-8B-11",
+          "WEB-8B-12",
+          "WEB-8B-13"
+        ],
+        "unresolved_risks": [
+          "Two selected lenses have explicit local evidence gaps.",
+          "Several effectiveness claims are researcher inferences rather than directly measured outcomes.",
+          "The 2019 Reuters item cannot alone establish 2023 effectiveness or personal direction.",
+          "The chapter lacks a complete, independently tested account of favorable implementation outcomes."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The ledger contains substantial material but repeats many underlying facts under chapter-specific IDs; defensible estimates must exclude those duplicates and gateway/index-only records.",
+    "The notebook does not demonstrate that favorable and adverse searches were both systematically performed for every chapter.",
+    "Closed-system silence is a material cross-cutting risk, especially for Chapters 3B, 4B, 7B, and 8B.",
+    "Missing official data and unresolved attribution are evidence limitations, not negative ruler evidence.",
+    "Several claims rely on section-level or summary locators; identified sources remain recoverable extraction tasks rather than proof of absent evidence.",
+    "Chapter 7B has the strongest attribution defect because its methodology requires a personal-integrity nexus.",
+    "Economic and welfare chapters contain substantial external-shock and population-attribution uncertainty.",
+    "The malformed chapter-conclusion handoffs are deterministic cleanup issues, but they also leave chapter completeness and disposition reconciliation unreliable."
+  ],
+  "reviewer_summary": "Continuation is warranted for every selected chapter. The dossier has recoverable source material and promising candidate breadth, but no chapter is sufficiently balanced and attribution-complete to pass solely on the present handoff. The most material continuation targets are unresolved nuclear/UAV claims in 1B-2B, independent case-level and official-data checks in 3B-4B, outcome and distributional evidence in 5B-6B, a personal-integrity nexus and adjudicated corruption evidence in 7B, and independent implementation/outcome evidence in 8B."
+}

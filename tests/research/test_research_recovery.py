@@ -9,13 +9,17 @@ from leaders_db.research._codex_worker_artifacts import find_previous_candidate
 from leaders_db.research._codex_worker_setup import WorkerAttempt
 from leaders_db.research.codex_worker import (
     WorkerOutputError,
+    _embedded_ledger_manifest,
     _events_show_failed_turn,
     _has_indeterminate_formatter_call,
     _has_indeterminate_initial_research,
     _load_or_recover_research_ledger_manifest,
     _load_research_ledger_manifest,
     _recover_completed_initial_research,
+    _recover_explicit_markdown_evidence,
     _recover_markdown_ledger_entries,
+    _restore_explicit_cited_bullets,
+    _restore_formatter_ledger_evidence,
     _validate_formatter_ledger_accounting,
     _validate_recovered_candidate_references,
 )
@@ -307,6 +311,40 @@ def test_load_evidence_review_normalizes_descriptive_theme_suffix(
     assert report.selected_theme_ids == ("1B",)
 
 
+def test_load_evidence_review_recovers_newline_joined_question_ids(tmp_path: Path) -> None:
+    path = tmp_path / "review.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_evidence_review_v1",
+                "needs_continuation": True,
+                "selected_theme_ids": [
+                    "1B.1",
+                    "1B.72026-07-22 1B.8\\n2B.1\\n3B.4",
+                ],
+                "chapter_reviews": [
+                    {
+                        "chapter_id": chapter,
+                        "defensible_evidence_estimate": 5,
+                        "independent_source_family_estimate": 3,
+                        "attribution_risk": "medium",
+                        "substantive_issues": [],
+                        "missing_themes": [],
+                    }
+                    for chapter in ("1B", "2B", "3B")
+                ],
+                "global_findings": [],
+                "reviewer_summary": "Continue.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    report = _load_evidence_review(path)
+
+    assert report.selected_theme_ids == ("1B", "2B", "3B")
+
+
 @pytest.mark.parametrize("theme_id", ["1B-2B", "2B-primary-records"])
 def test_load_evidence_review_rejects_ambiguous_or_unreviewed_theme_prefix(
     tmp_path: Path, theme_id: str
@@ -528,6 +566,586 @@ def test_formatter_must_preserve_final_ledger_keys_and_chapter_routing() -> None
         preserved, notebook=notebook + "\nLater reviewer and continuation prose.\n"
     )
 
+    downgraded_but_preserved = SimpleNamespace(
+        evidence=(
+            SimpleNamespace(
+                evidence_id="E001",
+                canonical_fact_key="fact-1",
+                final_evidence_use="context",
+            ),
+            SimpleNamespace(
+                evidence_id="E002",
+                canonical_fact_key="fact-3",
+                final_evidence_use="final_evidence",
+            ),
+        ),
+        mappings=preserved.mappings,
+    )
+    _validate_formatter_ledger_accounting(
+        downgraded_but_preserved,
+        notebook=notebook,
+    )
+
+
+def test_previous_candidate_exposes_distinct_evidence_from_other_attempts(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    attempts = job_dir / "attempts"
+    trusted = job_dir / "trusted"
+    for attempt_name, evidence in (
+        (
+            "001-first",
+                [
+                    _candidate_evidence(1)
+                    | {
+                        "canonical_fact_key": "fact-from-first",
+                        "source_locator": "paragraph 1",
+                    }
+                ],
+        ),
+        (
+            "002-strong",
+            [
+                    _candidate_evidence(1)
+                    | {"canonical_fact_key": "fact-a", "source_locator": "paragraph 1"},
+                    _candidate_evidence(2)
+                    | {"canonical_fact_key": "fact-b", "source_locator": "paragraph 2"},
+            ],
+        ),
+    ):
+        attempt = attempts / attempt_name
+        attempt.mkdir(parents=True)
+        (trusted / attempt_name).mkdir(parents=True)
+        (trusted / attempt_name / "formatter-complete.marker").write_text("complete\n")
+        (attempt / "dossier.pending.json").write_text(
+            json.dumps(
+                {
+                    "evidence": evidence,
+                    "mappings": [],
+                    "coverage": [],
+                    "methodology_ids": ["2B.1"],
+                }
+            )
+        )
+
+    candidate = find_previous_candidate(job_dir, attempt_dir=attempts / "003-new")
+
+    assert candidate is not None
+    assert [item["canonical_fact_key"] for item in candidate["evidence"]] == [
+        "fact-a",
+        "fact-b",
+    ]
+    assert [
+        item["canonical_fact_key"]
+        for item in candidate["recovery_evidence_catalog"]
+    ] == ["fact-from-first"]
+
+
+def test_previous_candidate_tolerates_one_malformed_evidence_record(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    attempts = job_dir / "attempts"
+    trusted = job_dir / "trusted"
+    rich_attempt = attempts / "001-rich"
+    empty_attempt = attempts / "002-empty"
+    for attempt in (rich_attempt, empty_attempt):
+        attempt.mkdir(parents=True)
+        marker = trusted / attempt.name / "formatter-complete.marker"
+        marker.parent.mkdir(parents=True)
+        marker.write_text("complete\n")
+    evidence = _candidate_evidence(1) | {"canonical_fact_key": "fact-1"}
+    (rich_attempt / "dossier.pending.json").write_text(
+        json.dumps(
+            {
+                "evidence": [evidence, {"not": "valid evidence"}],
+                "mappings": [
+                    {
+                        "evidence_id": evidence["evidence_id"],
+                        "methodology_id": "1B.1",
+                        "relation": "context",
+                        "relevance": "Useful evidence survives a malformed sibling.",
+                    }
+                ],
+                "coverage": [
+                    {
+                        "methodology_id": "1B.1",
+                        "status": "partially_covered",
+                        "evidence_ids": [evidence["evidence_id"]],
+                        "reason": "One useful record is available.",
+                    }
+                ],
+                "methodology_ids": ["1B.1"],
+            }
+        )
+    )
+    (empty_attempt / "dossier.pending.json").write_text(
+        json.dumps(
+            {
+                "evidence": [],
+                "mappings": [],
+                "coverage": [],
+                "methodology_ids": ["1B.1"],
+            }
+        )
+    )
+
+    candidate = find_previous_candidate(job_dir, attempt_dir=attempts / "003-new")
+
+    assert candidate is not None
+    assert candidate["evidence"][0]["canonical_fact_key"] == "fact-1"
+
+
+def test_formatter_restores_exact_manifest_fact_from_recovery_catalog() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [
+            {
+                "methodology_id": "1B.2",
+                "status": "research_blocked",
+                "evidence_ids": [],
+                "reason": "Formatter omitted the reviewed fact.",
+            }
+        ],
+        "methodology_ids": ["1B.2"],
+        "normalization_warnings": [],
+    }
+    recovered_fact = _candidate_evidence(1) | {
+        "canonical_fact_key": "reviewed-fact",
+        "source_locator": "page 4",
+    }
+    notebook = """Notebook.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R001","canonical_fact_key":"reviewed-fact",
+   "chapter_ids":["1B"],"methodology_ids":["1B.2"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate={"evidence": [], "recovery_evidence_catalog": [recovered_fact]},
+        notebook=notebook,
+    )
+
+    assert restored["evidence"][0]["canonical_fact_key"] == "reviewed-fact"
+    assert restored["evidence"][0]["evidence_id"] == "E001"
+    assert restored["mappings"] == [
+        {
+            "evidence_id": "E001",
+            "methodology_id": "1B.2",
+            "relation": "context",
+            "relevance": "Restored exact reviewed ledger routing.",
+        }
+    ]
+    assert restored["coverage"][0]["status"] == "partially_covered"
+    assert restored["coverage"][0]["evidence_ids"] == ["E001"]
+    assert "1 canonical fact key(s)" in restored["normalization_warnings"][-1]
+
+
+def test_candidate_recovery_prefers_richer_earlier_agent_message(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    trusted = job_dir / "trusted" / "001-prior"
+    attempts = job_dir / "attempts"
+    trusted.mkdir(parents=True)
+    attempts.mkdir()
+    (trusted / "formatter-complete.marker").write_text("complete\n", encoding="utf-8")
+    rich = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [_candidate_evidence(1)],
+        "mappings": [
+            {
+                "evidence_id": "E001",
+                "methodology_id": "1B.1",
+                "relation": "context",
+                "relevance": "Relevant.",
+            }
+        ],
+        "coverage": [
+            {
+                "methodology_id": "1B.1",
+                "status": "covered",
+                "evidence_ids": ["E001"],
+                "reason": "Covered.",
+            }
+        ],
+    }
+    empty = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+    }
+    (trusted / "codex-events.jsonl").write_text(
+        "\n".join(
+            json.dumps(
+                {
+                    "type": "item.completed",
+                    "item": {"type": "agent_message", "text": json.dumps(payload)},
+                }
+            )
+            for payload in (rich, empty)
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    recovered = find_previous_candidate(
+        job_dir,
+        attempt_dir=attempts / "002-current",
+    )
+
+    assert recovered is not None
+    assert len(recovered["evidence"]) == 1
+
+
+def test_candidate_recovery_does_not_prefer_fake_environment_support(
+    tmp_path: Path,
+) -> None:
+    job_dir = tmp_path / "job"
+    trusted = job_dir / "trusted" / "001-prior"
+    attempts = job_dir / "attempts"
+    trusted.mkdir(parents=True)
+    attempts.mkdir()
+    (trusted / "formatter-complete.marker").write_text("complete\n", encoding="utf-8")
+    rich = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [_candidate_evidence(1)],
+        "mappings": [
+            {
+                "evidence_id": "E001",
+                "methodology_id": "1B.1",
+                "relation": "context",
+                "relevance": "Relevant.",
+            }
+        ],
+        "coverage": [
+            {
+                "methodology_id": "1B.1",
+                "status": "covered",
+                "evidence_ids": ["E001"],
+                "reason": "Covered.",
+            }
+        ],
+    }
+    malformed = {
+        "methodology_ids": ["1B.1"],
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "evidence_environment": {"supporting_evidence_ids": ["FAKE"]},
+    }
+    (trusted / "codex-events.jsonl").write_text(
+        "\n".join(
+            json.dumps(
+                {
+                    "type": "item.completed",
+                    "item": {"type": "agent_message", "text": json.dumps(payload)},
+                }
+            )
+            for payload in (rich, malformed)
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    recovered = find_previous_candidate(
+        job_dir,
+        attempt_dir=attempts / "002-current",
+    )
+
+    assert recovered is not None
+    assert len(recovered["evidence"]) == 1
+
+
+def test_formatter_restores_complete_evidence_directly_from_manifest() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.2"],
+        "normalization_warnings": [],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[{
+  "provisional_id":"WEB-1B-001","canonical_fact_key":"reviewed-fact",
+  "chapter_ids":["1B"],"methodology_ids":["1B.2"],
+  "disposition":"final_evidence","claim":"A retained claim.",
+  "url":"https://example.test/report","locator":"page 4",
+  "publisher":"Example Institute","publication_date":"2022-03-01",
+  "source_type":"report","source_confidence":"high",
+  "source_confidence_reason":"Primary record.","period_fit":"Target year.",
+  "ruler_attribution":"National policy.","contrary_evidence":["A limit."]}]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert restored["evidence"][0]["claim"] == "A retained claim."
+    assert restored["evidence"][0]["source_locator"] == "page 4"
+    assert restored["mappings"][0]["methodology_id"] == "1B.2"
+
+
+def test_formatter_restores_manifest_fact_with_hostname_as_publisher() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.2"],
+        "normalization_warnings": [],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[{
+  "provisional_id":"WEB-1B-001","canonical_fact_key":"reviewed-fact",
+  "chapter_ids":["1B"],"methodology_ids":["1B.2"],
+  "disposition":"final_evidence","claim":"A retained claim.",
+  "url":"https://example.test/report","locator":"page 4"}]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert restored["evidence"][0]["publisher"] == "example.test"
+
+
+def test_formatter_does_not_invent_exact_routes_from_chapter_hints() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["2B.1", "8B.1"],
+        "normalization_warnings": [],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[{
+  "provisional_id":"R001","canonical_fact_key":"authority-fact",
+  "chapter_ids":["2B","8B"],"methodology_ids":["8B.1"],
+  "disposition":"final_evidence","claim":"The ruler held executive authority.",
+  "url":"https://example.test/law","locator":"article 1",
+  "publisher":"Example Legislature","publication_date":"2022",
+  "source_type":"official_record","source_confidence":"high",
+  "source_confidence_reason":"Primary law.","period_fit":"Target year.",
+  "ruler_attribution":"Authority baseline."}]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert {
+        item["methodology_id"] for item in restored["mappings"]
+    } == {"8B.1"}
+
+
+def test_formatter_recovers_explicit_cited_bullets_as_context_without_manifest() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["3B.3", "3B.6"],
+        "normalization_warnings": [],
+    }
+    notebook = """Research handoff without a JSON manifest.
+
+- **EV057** — GAO found that review boards generally found incidents aligned
+  with policy, while federal standards were tightened. This supports safeguards,
+  not population outcomes. Lens: `3B.3`, `3B.6`.
+  [GAO-23-105927](https://www.gao.gov/products/gao-23-105927), lines 284–289.
+- **RB058** — No complete target-year denominator was found.
+"""
+
+    restored = _restore_explicit_cited_bullets(candidate, notebook=notebook)
+
+    assert len(restored["evidence"]) == 1
+    assert restored["evidence"][0]["evidence_id"] == "EV057"
+    assert restored["evidence"][0]["final_evidence_use"] == "context"
+    assert restored["evidence"][0]["publication_date"] == "unknown_not_recorded"
+    assert {
+        mapping["methodology_id"] for mapping in restored["mappings"]
+    } == {"3B.3", "3B.6"}
+
+
+def test_cited_bullet_recovery_repairs_unresolvable_environment_support() -> None:
+    candidate = {
+        "evidence": [],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["3B.3"],
+        "normalization_warnings": [],
+        "evidence_environment": {"supporting_evidence_ids": ["E001"]},
+    }
+    notebook = """- **EV057** — GAO found a federal safeguard.
+Lens: `3B.3`. [GAO](https://www.gao.gov/products/gao-23-105927), lines 284–289.
+"""
+
+    restored = _restore_explicit_cited_bullets(candidate, notebook=notebook)
+
+    assert restored["evidence_environment"]["supporting_evidence_ids"] == ["EV057"]
+
+
+def test_restored_manifest_fact_precedes_equivalent_rewritten_candidate() -> None:
+    rewritten = _candidate_evidence(1) | {
+        "canonical_fact_key": "formatter-rewritten-key",
+        "source_locator": "page 4",
+    }
+    reviewed = rewritten | {
+        "evidence_id": "E009",
+        "canonical_fact_key": "reviewed-key",
+    }
+    candidate = {
+        "evidence": [rewritten],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.1"],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R001","canonical_fact_key":"reviewed-key",
+   "chapter_ids":["1B"],"methodology_ids":["1B.1"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate={"evidence": [reviewed]},
+        notebook=notebook,
+    )
+
+    assert [item["canonical_fact_key"] for item in restored["evidence"]] == [
+        "reviewed-key",
+        "formatter-rewritten-key",
+    ]
+
+
+def test_formatter_restores_missing_exact_route_for_emitted_manifest_fact() -> None:
+    evidence = _candidate_evidence(1) | {
+        "canonical_fact_key": "reviewed-key",
+        "source_locator": "page 4",
+    }
+    candidate = {
+        "evidence": [evidence],
+        "mappings": [],
+        "coverage": [],
+        "methodology_ids": ["1B.4", "1B.10"],
+    }
+    notebook = """--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R001","canonical_fact_key":"reviewed-key",
+   "chapter_ids":["1B"],"methodology_ids":["1B.4","1B.10"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    restored = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=None,
+        notebook=notebook,
+    )
+
+    assert {
+        (item["evidence_id"], item["methodology_id"])
+        for item in restored["mappings"]
+    } == {("E001", "1B.4"), ("E001", "1B.10")}
+    assert {item["methodology_id"] for item in restored["coverage"]} == {
+        "1B.4",
+        "1B.10",
+    }
+
+
+def test_complete_markdown_evidence_block_can_be_recovered_exactly() -> None:
+    key = "https://example.test/report#L92-L150"
+    notebook = f"""### P027 — Independent reporting
+
+- Canonical fact key: `{key}`
+- Source: Example News, 26 July 2022.
+- Claim: Construction began after the safety-related concrete pour.
+- Locator: HTML lines 92–108 and 116–128.
+- Source type/confidence: independent reporting; medium for the event.
+- Attribution: national project under executive authority, with agency implementation.
+- Role: independent corroboration of project activity.
+"""
+
+    recovered = _recover_explicit_markdown_evidence(notebook, key)
+
+    assert recovered is not None
+    assert recovered["canonical_fact_key"] == key
+    assert recovered["url"] == key
+    assert recovered["source_locator"] == "HTML lines 92–108 and 116–128."
+    assert recovered["source_confidence"] == "medium"
+    assert recovered["publisher"] == "Example News"
+
+
+def test_incomplete_markdown_evidence_block_is_not_recovered() -> None:
+    key = "https://example.test/report#p4"
+    notebook = f"""### P027 — Incomplete item
+- Canonical fact key: `{key}`
+- Claim: A claim without a precise producer record.
+"""
+
+    assert _recover_explicit_markdown_evidence(notebook, key) is None
+
+
+def test_markdown_evidence_can_join_by_immutable_provisional_id() -> None:
+    key = "https://example.test/canonical#L92-L150"
+    notebook = """### P027 — Independent reporting
+- Canonical fact key: `https://example.test/stale-display`
+- Source: Example News, 26 July 2022.
+- Claim: Construction began after the safety-related concrete pour.
+- Locator: HTML lines 92–108 and 116–128.
+- Source type/confidence: independent reporting; medium for the event.
+- Attribution: national project under executive authority.
+- Role: independent corroboration.
+"""
+
+    recovered = _recover_explicit_markdown_evidence(
+        notebook,
+        key,
+        provisional_id="P027",
+    )
+
+    assert recovered is not None
+    assert recovered["canonical_fact_key"] == key
+
+
+def test_markdown_evidence_accepts_separate_title_publisher_and_date() -> None:
+    key = "https://example.test/report.pdf#P2|dual-use risk"
+    notebook = """### E034 — Dual-use biotechnology risk
+- Canonical URL: https://example.test/report.pdf
+- Title: National statement
+- Publisher: Example Ministry
+- Date: 2022
+- Claim: The statement recognizes dual-use biotechnology risk.
+- Locator: PDF p. 2
+- Profile: `source_confidence=high`; `source_type=official_statement`.
+- Attribution: State position; no direct ruler wording.
+- Role: final evidence for the stated position.
+"""
+
+    recovered = _recover_explicit_markdown_evidence(
+        notebook,
+        key,
+        provisional_id="E034",
+    )
+
+    assert recovered is not None
+    assert recovered["title"] == "National statement"
+    assert recovered["publisher"] == "Example Ministry"
+    assert recovered["publication_date"] == "2022"
+
 
 def test_markdown_manifest_recovery_accepts_bold_id_handoff_style() -> None:
     handoff = """## Chapter 2B
@@ -637,6 +1255,160 @@ def test_embedded_research_ledger_manifest_is_recovered(tmp_path: Path) -> None:
 
     assert recovered["entries"][0]["canonical_fact_key"] == "fact-1"
     assert json.loads(manifest_path.read_text(encoding="utf-8")) == recovered
+
+
+def test_markdown_manifest_recovery_preserves_discovery_status_and_section_boundary() -> None:
+    handoff = """### R027 — Inaccessible source
+
+- Canonical fact key: `https://example.org/inaccessible|candidate`
+- Status: `discovery_only`.
+- Reason: Retrieval failed; no precise locator or excerpt was verified.
+- Lens mappings suggested: `1B.1`, `1B.2`.
+
+## Later chapter
+
+This unrelated section discusses 2B.1 and must not expand R027 routing.
+"""
+
+    recovered = _recover_markdown_ledger_entries(handoff)
+
+    assert recovered == [
+        {
+            "provisional_id": "R027",
+            "canonical_fact_key": "https://example.org/inaccessible|candidate",
+            "disposition": "discovery_only",
+            "chapter_ids": ["1B"],
+            "methodology_ids": ["1B.1", "1B.2"],
+        }
+    ]
+
+
+def test_embedded_manifest_cannot_promote_explicit_discovery_only_item() -> None:
+    notebook = """### R027 — Inaccessible source
+
+- Canonical fact key: `https://example.org/inaccessible|candidate`
+- Status: `discovery_only`.
+- Reason: No precise locator or excerpt was verified.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"R027",
+   "canonical_fact_key":"https://example.org/inaccessible|candidate",
+   "chapter_ids":["1B"],"methodology_ids":["1B.1"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["disposition"] == "discovery_only"
+
+
+def test_embedded_manifest_discards_historical_heading_replay() -> None:
+    notebook = """### P027 — Historical display entry
+- Canonical fact key: `stale-display-url`
+- Role: final_evidence.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"canonical-url#L1-L3",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"},
+  {"provisional_id":"P027-2","canonical_fact_key":"stale-display-url",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert [item["canonical_fact_key"] for item in manifest["entries"]] == [
+        "canonical-url#L1-L3"
+    ]
+
+
+def test_embedded_manifest_preserves_first_canonical_key_for_existing_id() -> None:
+    notebook = """Initial research.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"canonical-url#L92-L150",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"context"}
+]}
+
+Later continuation.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"stale-display-url",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["canonical_fact_key"] == "canonical-url#L92-L150"
+    assert manifest["entries"][0]["methodology_ids"] == ["1B.3", "1B.7"]
+    assert manifest["entries"][0]["disposition"] == "context"
+
+
+def test_embedded_manifest_uses_earliest_fenced_handoff_before_separator() -> None:
+    notebook = """Researcher handoff:
+```json
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"canonical-url#L92-L150",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3"],
+   "disposition":"final_evidence"}
+]}
+```
+
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"P027","canonical_fact_key":"stale-display-url",
+   "chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["canonical_fact_key"] == "canonical-url#L92-L150"
+
+
+def test_embedded_manifest_preserves_first_explicit_update_for_later_id() -> None:
+    notebook = """Initial manifest.
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[]}
+
+## Manifest update
+```json
+[
+  {"provisional_id":"E032","canonical_fact_key":"precise-url#L15-L39|meeting",
+   "chapter_ids":["1B"],"methodology_ids":["1B.7"],"disposition":"context"}
+]
+```
+
+--- RESEARCH LEDGER MANIFEST ---
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[
+  {"provisional_id":"E032","canonical_fact_key":"recovered:display-url|E032",
+   "chapter_ids":["1B"],"methodology_ids":["1B.7"],
+   "disposition":"final_evidence"}
+]}
+"""
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["canonical_fact_key"] == (
+        "precise-url#L15-L39|meeting"
+    )
+    assert manifest["entries"][0]["disposition"] == "context"
 
 
 def test_invalid_embedded_research_ledger_manifest_is_ignored(tmp_path: Path) -> None:
@@ -926,6 +1698,245 @@ def test_continuation_manifest_merges_new_notebook_entries(tmp_path: Path) -> No
     assert '"provisional_id": "E101"' in notebook
 
 
+def test_continuation_keeps_only_latest_embedded_manifest(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    notebook = _append_current_ledger_manifest(
+        """## E101 — First fact
+- **Canonical fact key:** `first|p1|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+    updated = _append_current_ledger_manifest(
+        notebook
+        + """
+
+## E102 — Second fact
+- **Canonical fact key:** `second|p2|fact`
+- **Final use:** `final_evidence`.
+""",
+        current,
+    )
+
+    assert updated.count("--- RESEARCH LEDGER MANIFEST ---") == 1
+    assert "first|p1|fact" in updated
+    assert "second|p2|fact" in updated
+
+
+def test_continuation_manifest_disposition_is_monotonic(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    manifest_path = current.attempt_dir / "research-ledger-manifest.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "E100",
+                        "canonical_fact_key": "same|p1|fact",
+                        "chapter_ids": ["1B"],
+                        "methodology_ids": ["1B.1"],
+                        "disposition": "discovery_only",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    promoted = _append_current_ledger_manifest(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"E100","canonical_fact_key":'
+        '"same|p1|fact","chapter_ids":["2B"],"methodology_ids":["2B.1"],'
+        '"disposition":"final_evidence"}',
+        current,
+    )
+    promoted_manifest = json.loads(
+        promoted.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+    assert promoted_manifest["entries"][0]["disposition"] == "final_evidence"
+    assert promoted_manifest["entries"][0]["chapter_ids"] == ["1B", "2B"]
+
+    demoted = _append_current_ledger_manifest(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"E100","canonical_fact_key":'
+        '"same|p1|fact","chapter_ids":["3B"],"methodology_ids":["3B.1"],'
+        '"disposition":"rejected"}',
+        current,
+    )
+    demoted_manifest = json.loads(
+        demoted.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+    assert demoted_manifest["entries"][0]["disposition"] == "final_evidence"
+    assert demoted_manifest["entries"][0]["chapter_ids"] == ["1B", "2B", "3B"]
+
+
+def test_parent_snapshot_survives_model_manifest_fragment(tmp_path: Path) -> None:
+    current = _attempt(tmp_path)
+    parent_snapshot = current.trusted_dir / "before-2B.json"
+    parent_snapshot.write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "WEB-1B-001",
+                        "canonical_fact_key": "old-fact",
+                        "chapter_ids": ["1B"],
+                        "methodology_ids": ["1B.1"],
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "WEB-2B-001",
+                        "canonical_fact_key": "new-fact",
+                        "chapter_ids": ["2B"],
+                        "methodology_ids": ["2B.1"],
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    updated = _append_current_ledger_manifest(
+        "Chapter handoff without repeated claim lines.",
+        current,
+        base_manifest_path=parent_snapshot,
+    )
+    manifest = json.loads(
+        updated.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+
+    assert {entry["canonical_fact_key"] for entry in manifest["entries"]} == {
+        "old-fact",
+        "new-fact",
+    }
+
+
+def test_markdown_table_fallback_is_recovered_acceptingly() -> None:
+    recovered = _recover_markdown_ledger_entries(
+        """| ID | Material claim and locator | Limits | Period / methodology |
+|---|---|---|---|
+| AMLO22-R01 | Claim. [INE](https://example.test/ine), lines 1-4. | Limit. | 2022; 1B, 4B |
+"""
+    )
+
+    assert recovered == [
+        {
+            "provisional_id": "AMLO22-R01",
+            "canonical_fact_key": "recovered:https://example.test/ine|AMLO22-R01",
+            "disposition": "final_evidence",
+            "chapter_ids": ["1B", "4B"],
+        }
+    ]
+
+
+def test_initial_claim_lines_normalize_disposition_and_routing(
+    tmp_path: Path,
+) -> None:
+    handoff = tmp_path / "handoff.md"
+    manifest = tmp_path / "manifest.json"
+    handoff.write_text(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"R01","canonical_fact_key":"fact",'
+        '"disposition":"accepted","chapter_ids":["4B","bad"],'
+        '"methodology_ids":["authority_baseline","4B.2"],'
+        '"url":"https://example.test","claim":"Claim","locator":"lines 1-2"}\n',
+        encoding="utf-8",
+    )
+
+    recovered = _load_or_recover_research_ledger_manifest(
+        manifest, handoff_path=handoff
+    )
+
+    assert recovered is not None
+    assert recovered["entries"] == [
+        {
+            "provisional_id": "R01",
+            "canonical_fact_key": "fact",
+            "disposition": "final_evidence",
+            "chapter_ids": ["4B"],
+            "methodology_ids": ["4B.2"],
+            "url": "https://example.test",
+            "claim": "Claim",
+            "locator": "lines 1-2",
+        }
+    ]
+
+
+def test_initial_claim_lines_accept_researcher_lenses_alias(
+    tmp_path: Path,
+) -> None:
+    handoff = tmp_path / "handoff.md"
+    manifest = tmp_path / "manifest.json"
+    handoff.write_text(
+        'SOURCE_CLAIM_JSON: {"provisional_id":"R01","canonical_fact_key":"fact",'
+        '"disposition":"final_evidence","chapter_ids":["4B"],'
+        '"lenses":["4B.2","4B.6"],"url":"https://example.test",'
+        '"claim":"Claim","locator":"lines 1-2"}\n',
+        encoding="utf-8",
+    )
+
+    recovered = _load_or_recover_research_ledger_manifest(
+        manifest, handoff_path=handoff
+    )
+
+    assert recovered is not None
+    assert recovered["entries"][0]["methodology_ids"] == ["4B.2", "4B.6"]
+
+
+def test_embedded_manifest_recovers_lenses_from_claim_line() -> None:
+    notebook = (
+        'SOURCE_CLAIM_JSON: {"provisional_id":"R01",'
+        '"canonical_fact_key":"fact","disposition":"final_evidence",'
+        '"chapter_ids":["4B"],"lenses":["4B.2","4B.6"]}\n'
+        "--- RESEARCH LEDGER MANIFEST ---\n"
+        '{"schema_version":"ruler_research_ledger_manifest_v1","entries":['
+        '{"provisional_id":"R01","canonical_fact_key":"fact",'
+        '"disposition":"final_evidence","chapter_ids":["4B"],'
+        '"methodology_ids":[]}]}\n'
+    )
+
+    manifest = _embedded_ledger_manifest(notebook)
+
+    assert manifest is not None
+    assert manifest["entries"][0]["methodology_ids"] == ["4B.2", "4B.6"]
+
+
+def test_numbered_reconnaissance_record_is_recovered_without_invented_claim() -> None:
+    notebook = """### Record 1 — Military expansion
+
+- **Fact:** Mexico expanded the military role in civilian administration.
+- **Strongest source:** *Annual Report 2023*, IACHR, 2024. [Direct source](https://example.test/report.pdf)
+- **Locator:** PDF pp. 3–5.
+- **Period:** 2023.
+- **Ruler connection:** Strong for the federal policy.
+- **Complicating evidence:** The government reported improved coverage.
+- **Cautions:** The report does not measure every outcome.
+"""
+
+    evidence = _recover_explicit_markdown_evidence(
+        notebook,
+        "military-expansion",
+        provisional_id="AMLO23-001",
+    )
+
+    assert evidence is not None
+    assert evidence["claim"] == (
+        "Mexico expanded the military role in civilian administration."
+    )
+    assert evidence["publisher"] == "IACHR"
+    assert evidence["source_locator"] == "PDF pp. 3–5."
+
+
 def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> None:
     current = _attempt(tmp_path)
     (current.attempt_dir / "research-ledger-manifest.json").write_text(
@@ -954,6 +1965,49 @@ def test_continuation_manifest_renames_conflicting_id_reuse(tmp_path: Path) -> N
 
     assert '"provisional_id": "E101"' in notebook
     assert '"provisional_id": "E101-2"' in notebook
+
+
+def test_continuation_does_not_reparse_headings_before_authoritative_manifest(
+    tmp_path: Path,
+) -> None:
+    current = _attempt(tmp_path)
+    (current.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "ruler_research_ledger_manifest_v1",
+                "entries": [
+                    {
+                        "provisional_id": "P027",
+                        "canonical_fact_key": "canonical-url#L92-L150",
+                        "chapter_ids": ["1B"],
+                        "methodology_ids": ["1B.3"],
+                        "disposition": "final_evidence",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    notebook = """### P027 — Historical display heading
+- Canonical fact key: `stale-display-url`
+- Role: final_evidence.
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{"schema_version":"ruler_research_ledger_manifest_v1","entries":[]}
+
+## Evidence review
+No continuation was requested.
+"""
+
+    updated = _append_current_ledger_manifest(notebook, current)
+    final_manifest = json.loads(
+        updated.rsplit("--- RESEARCH LEDGER MANIFEST ---", maxsplit=1)[1]
+    )
+
+    assert [item["canonical_fact_key"] for item in final_manifest["entries"]] == [
+        "canonical-url#L92-L150"
+    ]
 
 
 def test_continuation_manifest_recovers_from_invalid_optional_manifest(
@@ -1165,6 +2219,29 @@ def test_operator_terminated_continuation_is_safe_to_retry(tmp_path: Path) -> No
                 "terminated_at": "2099-01-01T00:00:00+00:00",
             }
         ),
+        encoding="utf-8",
+    )
+
+    assert _has_indeterminate_continuation(current, 1) is False
+
+
+def test_explicit_failed_continuation_is_safe_to_retry(tmp_path: Path) -> None:
+    from leaders_db.research.notebook_continuation import (
+        _has_indeterminate_continuation,
+    )
+
+    current = _attempt(tmp_path)
+    prior = current.trusted_dir.parent / "001-prior"
+    prior.mkdir()
+    suffix = "round-01"
+    (prior / f"research-continuation-{suffix}.starting.json").write_text(
+        "{}", encoding="utf-8"
+    )
+    (prior / f"research-continuation-{suffix}.events.jsonl").write_text(
+        '{"type":"thread.started","thread_id":"thread-1"}\n'
+        '{"type":"turn.started"}\n'
+        '{"type":"error","message":"Selected model is at capacity."}\n'
+        '{"type":"turn.failed","error":{"message":"Selected model is at capacity."}}\n',
         encoding="utf-8",
     )
 

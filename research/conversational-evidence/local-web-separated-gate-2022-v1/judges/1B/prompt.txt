@@ -1,0 +1,2109 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited web evidence and
+its separately embedded `local_evidence` package. The parent has hash-bound each
+projection to its complete source dossier and local-evidence artifact. Web evidence
+uses E-IDs; structured local facts and signals use LF/LS IDs. Keep those provenance
+families separate. Do not browse, search the web, use the client matrix, add facts from
+memory, or rewrite a local fact as a web citation. Evidence IDs are local to each
+dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+An `available` local package is authoritative structured context. An `unavailable` or
+`invalid` local package lowers confidence when material but does not erase usable web
+evidence or automatically force a null.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If the record remains insufficient, return null with
+the full 1-10 range. Cite the qualifying ruler-attribution evidence by stable E-ID in
+a decisive web-evidence array. Local structured evidence is country-level context and
+cannot support a numeric ruler score by itself. Use `decisive_local_evidence` only
+alongside a decisive E-ID that establishes the ruler's relevant authority or nexus;
+use `contextual_local_evidence` for baselines or signals that frame interpretation
+without independently determining direction. Never
+attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
+
+Retry context: There is no prior candidate for this attempt.
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+This is a controlled ten-case integration gate, not a complete cohort promotion. Apply absolute rubric anchors. For Chapter 2B, also compare and order all three supplied rulers on one common meter. For singleton chapters, record that cohort-wide comparative ordering remains a later promotion gate.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:separated-gate-2022-v1:2022:1B",
+  "run_key": "separated-gate-2022-v1",
+  "chapter_id": "1B",
+  "target_year": 2022,
+  "calibration_batch_id": "chapter-judge:separated-gate-2022-v1:2022:1B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:separated-gate-2022-v1:2022:CHN:15832:1B",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15832,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "1B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "China",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E001",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E008",
+          "E009",
+          "E012",
+          "E015",
+          "E016",
+          "E025",
+          "E026"
+        ],
+        "methodology_id": "1B.1",
+        "reason": "Authority, formal restraint, force expansion, and crisis conduct are cited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E002",
+          "E005",
+          "E006",
+          "E008",
+          "E027"
+        ],
+        "methodology_id": "1B.2",
+        "reason": "Doctrine and direct 2022 rhetoric are cited, with implementation limits retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E012",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E022",
+          "E023",
+          "E024",
+          "E025",
+          "E026"
+        ],
+        "methodology_id": "1B.3",
+        "reason": "Command, readiness, safeguards, law, and treaty-status evidence are cited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E010",
+          "E013",
+          "E014"
+        ],
+        "methodology_id": "1B.4",
+        "reason": "Arms-control positions, expansion, safeguards, sanctions vote, and CTBT status are cited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E009",
+          "E012",
+          "E018",
+          "E027",
+          "E029"
+        ],
+        "methodology_id": "1B.5",
+        "reason": "Taiwan coercion and strategic-deterrence evidence are cited; nuclear-cover linkage remains unresolved.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E008",
+          "E010",
+          "E014",
+          "E020",
+          "E021",
+          "E030"
+        ],
+        "methodology_id": "1B.6",
+        "reason": "P5/NPT positions, DPRK vote, UN monitoring, and enforcement-context evidence are cited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E007",
+          "E011",
+          "E012",
+          "E014",
+          "E016",
+          "E017",
+          "E022",
+          "E023",
+          "E025",
+          "E026",
+          "E028"
+        ],
+        "methodology_id": "1B.7",
+        "reason": "Institutions, personnel, command centralization, and implementation limits are cited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E006",
+          "E008",
+          "E009",
+          "E010",
+          "E012",
+          "E017",
+          "E018",
+          "E019"
+        ],
+        "methodology_id": "1B.8",
+        "reason": "Risk-reduction commitments and Taiwan crisis-channel conduct are cited.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E006",
+          "E007",
+          "E011",
+          "E012",
+          "E021",
+          "E022",
+          "E023"
+        ],
+        "methodology_id": "1B.9",
+        "reason": "The completed web research supplied AI, forensics, and safeguard-implementation evidence despite the local prior's empty state.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E009",
+          "E012",
+          "E013",
+          "E015",
+          "E024",
+          "E025"
+        ],
+        "methodology_id": "1B.10",
+        "reason": "Inherited baseline, capability trajectory, crisis behavior, and treaty status are cited.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 20332,
+    "evidence": [
+      {
+        "canonical_fact_key": "china_2022_xi_nuclear_command_authority",
+        "claim": "China's Politburo Standing Committee and Central Military Commission must agree to alert or launch nuclear weapons; major modernization decisions likely required Xi's approval.",
+        "contrary_evidence": [
+          "Formal collective approval requirements limit sole attribution for every operational decision."
+        ],
+        "evidence_id": "E001",
+        "excerpt": "Specialist analysis of Chinese nuclear command and modernization authority.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "later_retrospective_about_inherited_and_target_period",
+        "publication_date": "2023-06-01",
+        "publisher": "Arms Control Association",
+        "ruler_attribution": "authority-based",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Specialist analysis; internal procedures remain opaque.",
+        "source_locator": "paragraphs/HTML lines 91-101; Xi report lines 199-205",
+        "source_type": "independent_expert_analysis",
+        "title": "The Unknowns About China's Nuclear Modernization Program",
+        "url": "https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program"
+      },
+      {
+        "canonical_fact_key": "china_inherited_nfu_low_readiness_custody_baseline",
+        "claim": "Before recent expansion, China maintained retaliatory NFU, roughly 200\u2013300 warheads, centralized civilian control, low readiness, and normally separated warheads from missiles.",
+        "contrary_evidence": [
+          "Possible NFU exceptions have been debated; political leaders could order first use."
+        ],
+        "evidence_id": "E002",
+        "excerpt": "Inherited posture baseline.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "inherited",
+        "publication_date": "2023-06-01",
+        "publisher": "Arms Control Association",
+        "ruler_attribution": "institutional",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Consistent with scholarship but operational secrecy prevents direct verification.",
+        "source_locator": "HTML lines 91-100",
+        "source_type": "independent_expert_analysis",
+        "title": "The Unknowns About China's Nuclear Modernization Program",
+        "url": "https://www.armscontrol.org/act/2023-06/features/unknowns-about-chinas-nuclear-modernization-program"
+      },
+      {
+        "canonical_fact_key": "china_2022_over_300_new_missile_silos",
+        "claim": "Satellite imagery indicated construction of more than 300 new Chinese missile silos amid substantial nuclear expansion.",
+        "contrary_evidence": [
+          "Construction does not prove every silo would contain a missile or warhead."
+        ],
+        "evidence_id": "E003",
+        "excerpt": "SIPRI assessment of silo construction.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-06-13",
+        "publisher": "Stockholm International Peace Research Institute",
+        "ruler_attribution": "authority-based",
+        "source_confidence": "high",
+        "source_confidence_reason": "Explicit, dated assessment based on observable construction.",
+        "source_locator": "HTML lines 69-80 and 98-112",
+        "source_type": "independent_technical_assessment",
+        "title": "Global nuclear arsenals are expected to grow as states continue to modernize\u2014New SIPRI Yearbook out now",
+        "url": "https://www.sipri.org/media/press-release/2022/global-nuclear-arsenals-are-expected-grow-states-continue-modernize-new-sipri-yearbook-out-now"
+      },
+      {
+        "canonical_fact_key": "dod_2022_china_over_400_operational_warheads",
+        "claim": "The Pentagon assessed China's operational nuclear stockpile as above 400 warheads and projected about 1,500 by 2035 if modernization continued.",
+        "contrary_evidence": [
+          "China does not publish a total; the projection depends on an assumed continuing pace."
+        ],
+        "evidence_id": "E004",
+        "excerpt": "Official U.S. estimate of force size.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-11-29",
+        "publisher": "United States Department of Defense",
+        "ruler_attribution": "authority-based",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Specific official assessment but partly based on undisclosed intelligence from a strategic competitor.",
+        "source_locator": "official summary lines 255-265",
+        "source_type": "external_government_intelligence_assessment",
+        "title": "China Military Power Report Examines Changes in Beijing's Strategy",
+        "url": "https://www.defense.gov/News/News-Stories/Article/Article/3230682/china-military-power-report-examines-changes-in-beijings-strategy/"
+      },
+      {
+        "canonical_fact_key": "p5_2022_nuclear_risk_joint_statement",
+        "claim": "Xi joined the P5 statement that nuclear war cannot be won and must never be fought, calling for prevention of proliferation and unauthorized or unintended use and for dialogue.",
+        "contrary_evidence": [
+          "The P5 continued modernization and did not pursue broad arsenal-limitation negotiations."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "Contemporaneous joint leaders' commitment.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-01-03",
+        "publisher": "Ministry of Foreign Affairs of the People's Republic of China",
+        "ruler_attribution": "direct",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary contemporaneous text proves commitment, not implementation.",
+        "source_locator": "HTML lines 61-70",
+        "source_type": "joint_official_statement",
+        "title": "Joint Statement of the Leaders of the Five Nuclear-Weapon States on Preventing Nuclear War and Avoiding Arms Races",
+        "url": "https://www.mfa.gov.cn/eng/wjb/zzjg_663340/xos_664404/xwlb_664406/202201/t20220103_10478505.html"
+      },
+      {
+        "canonical_fact_key": "china_2022_npt_nfu_risk_reduction_position",
+        "claim": "China reaffirmed NFU, urged prevention of accidental or unauthorized launches, and advocated strategic-stability dialogue including cyber, space, missile defense, and AI.",
+        "contrary_evidence": [
+          "China accepted no binding numerical limits, had not ratified the CTBT, and was expanding its arsenal."
+        ],
+        "evidence_id": "E006",
+        "excerpt": "China's NPT Review Conference position.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-08-05",
+        "publisher": "Permanent Mission of the People's Republic of China to the United Nations",
+        "ruler_attribution": "institutional",
+        "source_confidence": "high_for_declared_position_low_for_implementation",
+        "source_confidence_reason": "Authoritative for declared policy, not operational practice.",
+        "source_locator": "HTML lines 30-46",
+        "source_type": "official_diplomatic_statement",
+        "title": "Statement by H.E. Amb. Li Song on Nuclear Disarmament at the Tenth NPT Review Conference",
+        "url": "https://un.china-mission.gov.cn/eng/chinaandun/disarmament_armscontrol/npt/202208/t20220810_10738603.htm"
+      },
+      {
+        "canonical_fact_key": "china_nuclear_safety_law_framework",
+        "claim": "China's Nuclear Safety Law requires safety-first regulation, qualified experts, physical protection, emergency capacity, inspections, training, research, and cooperation against nuclear terrorism.",
+        "contrary_evidence": [
+          "The 2017 law mainly concerns civilian facilities and does not disclose weapons custody or incidents."
+        ],
+        "evidence_id": "E007",
+        "excerpt": "Legal nuclear-safety framework active in 2022.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "inherited_and_operational_in_target_period",
+        "publication_date": "2022-04-23",
+        "publisher": "China Atomic Energy Authority",
+        "ruler_attribution": "shared",
+        "source_confidence": "high_for_law_medium_low_for_enforcement",
+        "source_confidence_reason": "Primary legal text; consistent enforcement and military applicability are unverified.",
+        "source_locator": "HTML lines 42-70, 93-137 and 145-181",
+        "source_type": "statute",
+        "title": "Nuclear Safety Law of the People's Republic of China",
+        "url": "https://www.caea.gov.cn/n6760401/n6760402/c6827752/content.html"
+      },
+      {
+        "canonical_fact_key": "xi_november_2022_opposed_nuclear_use_and_threats",
+        "claim": "A later official report records that Xi told Olaf Scholz in November 2022 that the international community should oppose use or threats of nuclear weapons and that nuclear war must not be fought.",
+        "contrary_evidence": [
+          "Xi did not condemn Russia by name or produce a verifiable change in Russian posture."
+        ],
+        "evidence_id": "E008",
+        "excerpt": "Later official retrospective of a 2022 Xi statement.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "later_retrospective_about_target-period_event",
+        "publication_date": "2026-04-23",
+        "publisher": "Ministry of Foreign Affairs of the People's Republic of China",
+        "ruler_attribution": "direct",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Direct attribution, but later official compilation.",
+        "source_locator": "section discussing November 2022 Xi-Scholz meeting",
+        "source_type": "official_retrospective_record",
+        "title": "Implementation of the Treaty on the Non-Proliferation of Nuclear Weapons in the People's Republic of China",
+        "url": "https://www.mfa.gov.cn/eng/wjb/zzjg_663340/jks_665232/kjfywj_665252/202604/t20260423_11898080.html"
+      },
+      {
+        "canonical_fact_key": "china_august_2022_taiwan_drills_suspended_military_channels",
+        "claim": "During unprecedented PLA exercises around Taiwan, Beijing suspended senior-military dialogue and cancelled a maritime military-security meeting.",
+        "contrary_evidence": [
+          "China called Pelosi's visit exceptional provocation; the exercises included no public nuclear-use threat."
+        ],
+        "evidence_id": "E009",
+        "excerpt": "Taiwan-crisis dialogue suspension.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-08-05",
+        "publisher": "Reuters, republished by Investing.com",
+        "ruler_attribution": "authority-based",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporaneous reporting on announced measures.",
+        "source_locator": "article lines 401-424",
+        "source_type": "wire_reporting",
+        "title": "China halts high-level military dialogue with U.S., suspends other cooperation",
+        "url": "https://www.investing.com/news/economy/beijing-halts-highlevel-military-dialogue-with-us-suspends-other-cooperation-2864888"
+      },
+      {
+        "canonical_fact_key": "china_2022_veto_dprk_additional_sanctions",
+        "claim": "China and Russia vetoed strengthened DPRK sanctions after ballistic-missile launches; China said further sanctions were counterproductive, harmful to civilians, and adverse to diplomacy.",
+        "contrary_evidence": [
+          "The vote did not establish direct Chinese assistance to the DPRK nuclear program."
+        ],
+        "evidence_id": "E010",
+        "excerpt": "UN vote and competing explanations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-05-26",
+        "publisher": "United Nations",
+        "ruler_attribution": "institutional",
+        "source_confidence": "high",
+        "source_confidence_reason": "Authoritative meeting record.",
+        "source_locator": "meeting record SC/14911, vote and explanations of vote",
+        "source_type": "un_meeting_record",
+        "title": "Security Council Fails to Adopt Resolution Tightening Sanctions Regime in Democratic People's Republic of Korea, as Two Members Wield Veto",
+        "url": "https://press.un.org/en/2022/sc14911.doc.htm"
+      },
+      {
+        "canonical_fact_key": "china_military_ai_human_control_precaution_policy",
+        "claim": "China's military-AI policy called for prudence, human control and suspension, operator training, accountability, lifecycle safeguards, and multilateral risk governance.",
+        "contrary_evidence": [
+          "The policy created no inspectable verification mechanism while intelligent warfare advanced."
+        ],
+        "evidence_id": "E011",
+        "excerpt": "Official military-AI precaution principles.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "inherited_and_applicable_in_target_period",
+        "publication_date": "2021-12-14",
+        "publisher": "Ministry of Foreign Affairs of the People's Republic of China",
+        "ruler_attribution": "institutional",
+        "source_confidence": "high_for_position_low_for_implementation",
+        "source_confidence_reason": "Primary policy text; PLA compliance is not independently audited.",
+        "source_locator": "HTML lines 61-80",
+        "source_type": "official_policy_paper",
+        "title": "Position Paper of the People's Republic of China on Regulating Military Applications of Artificial Intelligence",
+        "url": "https://www.mfa.gov.cn/eng/wjb/zzjg_663340/jks_665232/kjlc_665236/AI/202112/t20211214_10469512.html"
+      },
+      {
+        "canonical_fact_key": "xi_2022_security_risk_systems_and_strategic_deterrence_directive",
+        "claim": "Xi ordered stronger national risk, warning, emergency, nuclear, cyber, data, biological and space systems while also accelerating strategic deterrence, intelligent and cyber forces, joint command, and weapons modernization.",
+        "contrary_evidence": [
+          "The report does not separate nuclear from conventional deterrence or demonstrate implementation."
+        ],
+        "evidence_id": "E012",
+        "excerpt": "Xi's 20th Party Congress directives.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-10-25",
+        "publisher": "Xinhua / State Council of the People's Republic of China",
+        "ruler_attribution": "direct",
+        "source_confidence": "high",
+        "source_confidence_reason": "Direct dated Xi report; implementation requires external evidence.",
+        "source_locator": "Chinese HTML lines 188-205, especially 193, 196 and 200-205",
+        "source_type": "leader_report_and_party_program",
+        "title": "Report to the 20th National Congress of the Communist Party of China",
+        "url": "https://app.www.gov.cn/govdata/gov/202210/25/493662/article.html"
+      },
+      {
+        "canonical_fact_key": "china_ctbt_monitoring_cooperation_without_ratification_2022",
+        "claim": "China hosted CTBTO monitoring stations and supported treaty-related work but remained an Annex 2 signatory that had not ratified the CTBT.",
+        "contrary_evidence": [
+          "China maintained a testing moratorium and monitoring cooperation; other Annex 2 states also remained unratified."
+        ],
+        "evidence_id": "E013",
+        "excerpt": "CTBT cooperation and uncompleted ratification.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "inherited_status_continuing_through_target_period",
+        "publication_date": "2016-12-12",
+        "publisher": "Comprehensive Nuclear-Test-Ban Treaty Organization",
+        "ruler_attribution": "institutional",
+        "source_confidence": "high",
+        "source_confidence_reason": "Authoritative treaty-body status record.",
+        "source_locator": "article sections on China's eleven planned stations and non-ratification; CTBTO member-status material",
+        "source_type": "treaty_organization_record",
+        "title": "First station certified in China",
+        "url": "https://www.ctbto.org/news-and-events/news/first-station-certified-china"
+      },
+      {
+        "canonical_fact_key": "china_2022_support_iaea_safeguards_and_technical_cooperation",
+        "claim": "China supported a stronger IAEA role, more effective safeguards, universal comprehensive safeguards agreements and additional protocols, and predictable technical-cooperation funding.",
+        "contrary_evidence": [
+          "Nuclear-weapon-state safeguards do not make China's military stockpile or command system transparent."
+        ],
+        "evidence_id": "E014",
+        "excerpt": "China's declared IAEA safeguards position.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-08-08",
+        "publisher": "Permanent Mission of the People's Republic of China to the United Nations",
+        "ruler_attribution": "institutional",
+        "source_confidence": "high_for_position_medium_for_practice",
+        "source_confidence_reason": "Authoritative position, with practice requiring separate records.",
+        "source_locator": "HTML lines 22-35",
+        "source_type": "official_diplomatic_statement",
+        "title": "Statement by H.E. Amb. Li Song on the Peaceful Uses of Nuclear Energy at the Tenth NPT Review Conference",
+        "url": "https://un.china-mission.gov.cn/eng/chinaandun/disarmament_armscontrol/npt/202208/t20220810_10738711.htm"
+      },
+      {
+        "canonical_fact_key": "xi-2022-nuclear-readiness-low-transition",
+        "claim": "The Pentagon assessed that China probably retained peacetime separation of launchers, missiles, and warheads but was implementing an early-warning counterstrike posture comparable to launch on warning, including reported standby rotation.",
+        "contrary_evidence": [
+          "This is an intelligence assessment, not a confirmed Chinese disclosure."
+        ],
+        "evidence_id": "E015",
+        "excerpt": "Nuclear-readiness transition assessment.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Published in 2022 and assesses developments through 2021/2022.",
+        "publication_date": "2022-11-29",
+        "publisher": "United States Department of Defense",
+        "ruler_attribution": "System-level posture under Xi's apex authority; no personal order is documented.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporary statutory assessment with explicit uncertainty, partly based on classified intelligence.",
+        "source_locator": "PDF pp. 96\u201397, subsection \"Nuclear Readiness\" and discussion of early-warning counterstrike/launch on warning",
+        "source_type": "official_intelligence_assessment",
+        "title": "Military and Security Developments Involving the People's Republic of China 2022",
+        "url": "https://media.defense.gov/2022/Nov/29/2003122279/-1/-1/1/2022-MILITARY-AND-SECURITY-DEVELOPMENTS-INVOLVING-THE-PEOPLES-REPUBLIC-OF-CHINA.PDF"
+      },
+      {
+        "canonical_fact_key": "xi-personalized-nuclear-command-2022",
+        "claim": "A congressional commission assessed highly centralized and personalized nuclear command under Xi; it treated a roughly ten-minute Xi decision in a possible launch-on-warning posture as contingent, not observed.",
+        "contrary_evidence": [
+          "The report stated China had not yet adopted such a posture."
+        ],
+        "evidence_id": "E016",
+        "excerpt": "Personalized-command and contingent launch-warning risk.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-11-15",
+        "publisher": "U.S.-China Economic and Security Review Commission",
+        "ruler_attribution": "direct structural attribution, with the scenario expressly contingent.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporary commission synthesis identifying its expert-testimony basis.",
+        "source_locator": "PDF pp. 92\u201393, \"Consequences for Security Decision-Making under Xi,\" especially p. 93 and launch-on-warning footnote",
+        "source_type": "legislative_commission_assessment",
+        "title": "2022 Annual Report to Congress",
+        "url": "https://www.uscc.gov/sites/default/files/2022-11/2022_Annual_Report_to_Congress.pdf"
+      },
+      {
+        "canonical_fact_key": "xi-crisis-channel-autonomy-constraints-2022",
+        "claim": "A congressional commission found Xi's concentration of final authority constrained lower-level crisis adaptation and could make defense-minister messaging unreliable during crises.",
+        "contrary_evidence": [
+          "This is an institutional risk assessment, not a demonstrated failed message in a specific event."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "Crisis-channel centralization assessment.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-11-15",
+        "publisher": "U.S.-China Economic and Security Review Commission",
+        "ruler_attribution": "direct structural attribution to personalized final authority.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Named-expert evidence synthesized in a contemporary commission report.",
+        "source_locator": "PDF p. 93, \"Consequences for Security Decision-Making under Xi,\" including footnote beginning \"Specifically, personalization of command under Xi\"",
+        "source_type": "legislative_commission_assessment",
+        "title": "2022 Annual Report to Congress",
+        "url": "https://www.uscc.gov/sites/default/files/2022-11/2022_Annual_Report_to_Congress.pdf"
+      },
+      {
+        "canonical_fact_key": "xi-july-2022-taiwan-deescalatory-message",
+        "claim": "Sources close to China's decision-making told the Wall Street Journal that Xi told Biden on 28 July that he did not intend war and that both sides should maintain peace and security.",
+        "contrary_evidence": [
+          "Anonymous sourcing does not prove that Xi restrained the subsequent exercises."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "Reported pre-crisis de-escalatory message.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-08-11",
+        "publisher": "The Wall Street Journal",
+        "ruler_attribution": "directly attributed to Xi, subject to anonymous-source limits.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Contemporaneous major-news reporting but exact call record is unavailable.",
+        "source_locator": "Opening paragraphs and section describing the July 28, 2022 Biden\u2013Xi call",
+        "source_type": "independent_investigative_reporting",
+        "title": "Xi Sought to Send Message to Biden on Taiwan: Now Is No Time for a Crisis",
+        "url": "https://www.wsj.com/articles/xi-sought-to-send-message-to-biden-on-taiwan-now-is-no-time-for-a-crisis-11660240698"
+      },
+      {
+        "canonical_fact_key": "china-cancelled-crisis-dialogues-august-2022",
+        "claim": "Analysis found Beijing treated crisis-management mechanisms as politically disposable and cancelled three defense dialogues after Pelosi's visit.",
+        "contrary_evidence": [
+          "The source does not document Xi's personal instruction."
+        ],
+        "evidence_id": "E019",
+        "excerpt": "Specialist assessment of dialogue cancellations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-11-14",
+        "publisher": "Center for Strategic and International Studies, Interpret: China",
+        "ruler_attribution": "state decision under Xi's centralized system, without a personal-order record.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Specialist analysis tied to publicly announced cancellations.",
+        "source_locator": "Introductory section, paragraph beginning \"These recommendations are well-intentioned,\" on cancellation of three defense dialogues",
+        "source_type": "independent_policy_analysis",
+        "title": "How Beijing Approaches Crisis Management",
+        "url": "https://interpret.csis.org/how-beijing-approaches-crisis-management/"
+      },
+      {
+        "canonical_fact_key": "dprk-truck-shipments-china-linked-may-2022",
+        "claim": "A UN Panel documented an allegation that China-flagged Peng Lu 9 and other vessels arrived at Nampo laden with trucks after activity in Chinese ports or waters; China denied truck deliveries or smuggling.",
+        "contrary_evidence": [
+          "The Panel did not find that Xi or the Chinese state supplied the vehicles."
+        ],
+        "evidence_id": "E020",
+        "excerpt": "UN investigation and Chinese denial concerning May 2022 deliveries.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "later report about May 2022 events",
+        "publication_date": "2023-03-07",
+        "publisher": "United Nations Security Council",
+        "ruler_attribution": "No personal Xi direction established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "UN investigation used imagery, maritime data, requests, and China's response.",
+        "source_locator": "Paragraphs 90\u201391 and annex 46, especially figure 46-1; Chinese response in paragraph 90",
+        "source_type": "un_sanctions_monitoring_report",
+        "title": "Final report of the Panel of Experts submitted pursuant to resolution 2627 (2022)",
+        "url": "https://documents.un.org/api/symbol/access?l=en&s=S%2F2023%2F171&t=pdf"
+      },
+      {
+        "canonical_fact_key": "china-military-ai-practice-policy-gap-2022",
+        "claim": "Peer-reviewed research found Chinese lethal-autonomy policy ambivalent and increasingly autonomous military practices capable of normalizing diminished human control despite diplomatic assurances.",
+        "contrary_evidence": [
+          "Technical parameters and individual deployment decisions remain opaque."
+        ],
+        "evidence_id": "E021",
+        "excerpt": "Practice-policy gap in military AI.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "accepted in 2022; evaluates practices operating through 2022",
+        "publication_date": "2023-01-09",
+        "publisher": "The Chinese Journal of International Politics, Oxford University Press",
+        "ruler_attribution": "Top-level Xi modernization direction; platform design and deployment remain institutional.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Peer-reviewed research using observable practice and Chinese materials.",
+        "source_locator": "Abstract and HTML paragraphs 65\u201374; \"Operational Practices\" paragraphs 175\u2013192",
+        "source_type": "peer_reviewed_scholarship",
+        "title": "Weaponised Artificial Intelligence and Chinese Practices of Human\u2013Machine Interaction",
+        "url": "https://academic.oup.com/cjip/article/16/1/106/6976053"
+      },
+      {
+        "canonical_fact_key": "pla-ai-safeguards-public-implementation-gap-2022",
+        "claim": "Peer-reviewed review found no publicly available official PLA military-AI ethics policy and an indirect, constrained, unresolved debate rather than evidence of implemented testing or oversight.",
+        "contrary_evidence": [
+          "The public record may not disclose all internal safeguards."
+        ],
+        "evidence_id": "E022",
+        "excerpt": "Public implementation gap for PLA AI safeguards.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-10-25",
+        "publisher": "Frontiers in Big Data",
+        "ruler_attribution": "Does not establish Xi's involvement in specific safeguards.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporary peer-reviewed synthesis of named PLA sources.",
+        "source_locator": "HTML paragraphs 253\u2013264; \"PLA and military AI ethics\" and \"Summary,\" paragraphs 294\u2013325 and 336\u2013344",
+        "source_type": "peer_reviewed_scholarship",
+        "title": "The PRC considers military AI ethics: Can autonomy be trusted?",
+        "url": "https://www.frontiersin.org/journals/big-data/articles/10.3389/fdata.2022.991392/full"
+      },
+      {
+        "canonical_fact_key": "china-nuclear-forensics-capability-gaps-2022",
+        "claim": "A Chinese IAEA-conference contribution reported nuclear-forensics institutions but acknowledged no single sufficiently authoritative professional body and no comprehensive radioactive-material database.",
+        "contrary_evidence": [
+          "It is a technical self-assessment, not an independent audit."
+        ],
+        "evidence_id": "E023",
+        "excerpt": "Nuclear-forensics capability and implementation gaps.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-06-20",
+        "publisher": "International Atomic Energy Agency Conference Portal",
+        "ruler_attribution": "Institutional gap; no personal Xi obstruction or personnel decision is shown.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Contemporaneous technical self-assessment hosted by the IAEA.",
+        "source_locator": "Sections 2.1\u20132.3 and 4.1\u20134.3, especially HTML lines/paragraphs 80\u201399",
+        "source_type": "technical_conference_record",
+        "title": "Nuclear Forensics Capability Development for Nuclear Security in China",
+        "url": "https://conferences.iaea.org/event/262/contributions/21130/"
+      },
+      {
+        "canonical_fact_key": "iaea-limited-voluntary-safeguards-china-2022",
+        "claim": "The IAEA implemented voluntary-offer safeguards in 2022 at selected facilities across the nuclear-weapon states, including China, but this did not cover China's military inventory or all civilian facilities.",
+        "contrary_evidence": [
+          "Limited voluntary safeguards cannot establish comprehensive transparency."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "IAEA safeguards scope in 2022.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "later report specifically covering 2022",
+        "publication_date": "2023-06-12",
+        "publisher": "International Atomic Energy Agency",
+        "ruler_attribution": "Institutional cooperation, not personal Xi action.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Authoritative annual safeguards record with explicit scope limit.",
+        "source_locator": "Part A safeguards statement covering five nuclear-weapon states and ten selected facilities; Part B China entry",
+        "source_type": "international_organization_audit_report",
+        "title": "Safeguards Statement for 2022",
+        "url": "https://www.iaea.org/sites/default/files/23/06/20230612_sir_2022_part_ab.pdf"
+      },
+      {
+        "canonical_fact_key": "china-ctbt-not-ratified-2022",
+        "claim": "A 2022 CTBT joint statement listed China among the eight Annex 2 states whose ratification remained necessary for entry into force.",
+        "contrary_evidence": [
+          "China nevertheless cooperated with monitoring and maintained a moratorium."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "Precise 2022 CTBT non-ratification status.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-09-21",
+        "publisher": "Comprehensive Nuclear-Test-Ban Treaty Organization",
+        "ruler_attribution": "No evidence Xi personally blocked ratification.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporaneous official treaty-status record.",
+        "source_locator": "Opening paragraph and footnote 2 listing remaining Annex 2 states",
+        "source_type": "international_organization_treaty_status_record",
+        "title": "2022 Joint Statement on the Comprehensive Nuclear-Test-Ban Treaty",
+        "url": "https://www.ctbto.org/sites/default/files/2022-09/2022_Joint_Statement_on_the_Comprehensive_Nuclear-Test-Ban_Treaty.pdf"
+      },
+      {
+        "canonical_fact_key": "xi-2022-cmc-chairman-responsibility-report",
+        "claim": "Xi called for fully implementing ultimate CMC-chairman responsibility while strengthening strategic deterrence and accelerating weapons modernization.",
+        "contrary_evidence": [
+          "The primary speech does not independently demonstrate implementation quality."
+        ],
+        "evidence_id": "E026",
+        "excerpt": "Separate primary source for CMC responsibility directive.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-10-25",
+        "publisher": "State Council of the People's Republic of China / Xinhua",
+        "ruler_attribution": "direct",
+        "source_confidence": "high",
+        "source_confidence_reason": "Authenticated primary Xi speech.",
+        "source_locator": "Section XII, paragraphs on CMC chairman responsibility system and strategic deterrence",
+        "source_type": "primary_official_speech",
+        "title": "Full text of the report to the 20th National Congress of the Communist Party of China",
+        "url": "https://english.www.gov.cn/2022special/20thcpccongress/"
+      },
+      {
+        "canonical_fact_key": "xi_scholz_2022_nuclear_nonuse_statement",
+        "claim": "A contemporaneous Chinese readout states Xi advocated opposing nuclear use or threats, said nuclear war must not be fought, and called to prevent a Eurasian nuclear crisis.",
+        "contrary_evidence": [
+          "It did not criticize Russia by name or establish restraint in Taiwan-related conduct."
+        ],
+        "evidence_id": "E027",
+        "excerpt": "Contemporaneous Xi\u2013Scholz nuclear-risk statement.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-11-04",
+        "publisher": "Ministry of Foreign Affairs of the People's Republic of China",
+        "ruler_attribution": "direct",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary dated readout, proving declared position rather than implementation.",
+        "source_locator": "Dated heading and paragraphs 69 and 91\u201392, especially paragraph 92",
+        "source_type": "contemporaneous_official_diplomatic_readout",
+        "title": "President Xi Jinping Meets with German Chancellor Olaf Scholz",
+        "url": "https://www.fmprc.gov.cn/eng/gjhdq_665435/3265_665445/3296_664550/3298_664554/202211/t20221104_10800546.html"
+      },
+      {
+        "canonical_fact_key": "xi_li_yuchao_rocket_force_promotion_2022",
+        "claim": "As CMC chairman, Xi signed and personally presented the promotion order for Rocket Force commander Li Yuchao to full general.",
+        "contrary_evidence": [
+          "The ceremonial record does not establish qualifications, autonomy, or performance."
+        ],
+        "evidence_id": "E028",
+        "excerpt": "Direct 2022 nuclear-command personnel action.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-01-21",
+        "publisher": "Cyberspace Administration of China, reproducing CCTV",
+        "ruler_attribution": "direct",
+        "source_confidence": "high",
+        "source_confidence_reason": "Contemporaneous official appointment record.",
+        "source_locator": "Headline and HTML lines 44\u201356, especially lines 50\u201354",
+        "source_type": "official_personnel_decision",
+        "title": "Central Military Commission holds ceremony for promotion to general; Xi Jinping presents promotion orders",
+        "url": "https://www.cac.gov.cn/2022-01/21/c_1644368249559053.htm"
+      },
+      {
+        "canonical_fact_key": "august_2022_taiwan_exercises_conventional_coercive_deterrence",
+        "claim": "Analysis characterized the 3\u201310 August exercises as conventional coercive diplomacy aimed at deterring and compelling Taiwan and the United States, with miscalculation risks but no identified nuclear cover.",
+        "contrary_evidence": [
+          "Conventional characterization does not exclude undisclosed nuclear considerations."
+        ],
+        "evidence_id": "E029",
+        "excerpt": "Cautious distinction between evidenced coercion and unproven nuclear cover.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-08",
+        "publisher": "Australian Department of Defence",
+        "ruler_attribution": "PLA conduct under Xi's ultimate authority; no personal exercise order is established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Named expert analysis clearly distinguishes observed coercion from nuclear inference.",
+        "source_locator": "Publication summary lines 9\u201314, especially lines 11\u201314",
+        "source_type": "independent_government_published_strategic_analysis",
+        "title": "The 'vicious diplomacy' of coercion: China's military exercises in the Taiwan Strait",
+        "url": "https://www.defence.gov.au/defence-activities/research-innovation/research-publications/vicious-diplomacy-coercion-chinas-military-exercises-taiwan-strait"
+      },
+      {
+        "canonical_fact_key": "dprk_wmd_procurement_representatives_in_china_january_2022",
+        "claim": "OFAC designated four DPRK nationals based in Dalian or Shenyang as WMD-procurement representatives who allegedly procured goods, in some cases from Chinese companies.",
+        "contrary_evidence": [
+          "The determination did not find Chinese-state sponsorship, Xi direction, or a Chinese enforcement decision."
+        ],
+        "evidence_id": "E030",
+        "excerpt": "DPRK procurement activity from Chinese territory.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "target-period",
+        "publication_date": "2022-01-12",
+        "publisher": "United States Department of the Treasury",
+        "ruler_attribution": "Not attributed to Xi or the Chinese state.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Formal unilateral enforcement determination, not a court finding against China.",
+        "source_locator": "Lines 601\u2013615, especially \"DPRK WMD Representatives\" lines 609\u2013614",
+        "source_type": "official_foreign_sanctions_enforcement_decision",
+        "title": "Treasury Targets Democratic People's Republic of Korea Individuals Supporting Weapons of Mass Destruction and Ballistic Missile Programs",
+        "url": "https://home.treasury.gov/news/press-releases/jy0555"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "Public doctrine and law are available, but nuclear command, alerting, incidents, fissile material, and detailed implementation are opaque; peer-reviewed PLA-AI research describes public debate as politically constrained (E22).",
+      "chapter_specific_biases": [
+        "Official Chinese sources are authoritative for declared policy and Xi's statements, not implementation (E05-E07, E11-E14, E26-E28).",
+        "U.S. intelligence and commission assessments provide operational detail but include competitor-source and classified-information limitations (E04, E15-E17).",
+        "No nuclear-cover inference is warranted from Taiwan coercion alone (E29).",
+        "DPRK-related evidence identifies enforcement context or allegations, not Xi-directed assistance (E20, E30)."
+      ],
+      "complaint_volume_interpretation": "No public nuclear-incident or complaint volume was supplied; silence cannot establish safety because reporting and operational records are not public.",
+      "criticism_possible": "Limited externally: independent scholarship, international organizations, satellite analysis, UN monitoring, and reporting can assess observable conduct, but cannot inspect the nuclear command system (E01-E04, E15-E24).",
+      "duplicate_event_risk": "The Xi\u2013Scholz non-use statement appears in later retrospective E08 and contemporaneous E27; both are retained as distinct source-claim units, with E27 the stronger contemporaneous locator.",
+      "inherited_conditions_shocks_and_authority": "China entered 2022 with NFU, centralized low-readiness custody, a civilian safety-law framework, CTBT cooperation without ratification, and an ongoing expansion; Ukraine, DPRK developments, deteriorating U.S. relations, and the Taiwan crisis were discriminating shocks. Xi held concentrated CMC authority (E01-E03, E07, E09-E18, E25-E29).",
+      "languages_and_archives_searched": [
+        "Supplied completed notebook: Chinese and English official records, English-language international-organization records, specialist analysis, reporting, and peer-reviewed research."
+      ],
+      "official_statistics_reliability": "China does not publish warhead totals, alert records, detailed command arrangements, or incident data. Stockpile/readiness estimates rely on external intelligence, satellite analysis, and specialist assessment (E03-E04, E15).",
+      "relevant_denominators": "No disclosed denominator exists for warheads, incidents, military-AI systems, inspections, advisers, or accident reports; IAEA safeguards covered selected voluntary-offer facilities, not the military inventory or all civilian facilities (E24).",
+      "safe_reporting_channels": "International organizations, treaty bodies, satellite imagery, and foreign reporting provide some channels; no safely verifiable internal channel for nuclear-command incidents or adviser dissent was supplied.",
+      "source_concentration": "Evidence combines Chinese primary records, UN/IAEA/CTBTO records, SIPRI/CSIS/academic analysis, Reuters/WSJ reporting, and U.S./Australian government assessments; official Chinese declarations remain concentrated for stated policy.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E003",
+        "E004",
+        "E007",
+        "E009",
+        "E015",
+        "E016",
+        "E020",
+        "E021",
+        "E022",
+        "E023",
+        "E024",
+        "E029",
+        "E030"
+      ]
+    },
+    "iso3": "CHN",
+    "job_key": "dossier:separated-gate-2022-v1:2022:CHN:15832:1B",
+    "local_evidence": {
+      "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+      "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+      "error": null,
+      "package": {
+        "attribution_policy": "Local facts and derived signals are country-level structured context. They establish ruler credit or blame only when separate cited evidence supports attribution.",
+        "chapter_id": "1B",
+        "fact_selection": "All target-year facts plus earliest/latest pre-accession and tenure facts per indicator; complete hashed source package remains parent-owned.",
+        "facts": [
+          {
+            "candidate_methodology_ids": [
+              "1B.1",
+              "1B.10",
+              "1B.2",
+              "1B.3",
+              "1B.4",
+              "1B.5",
+              "1B.6",
+              "1B.7",
+              "1B.8"
+            ],
+            "chapter_ids": [
+              "1B"
+            ],
+            "confidence": 80,
+            "fact_id": "LF001",
+            "field_key": "nuclear_military_stockpile",
+            "label": "Nuclear military stockpile",
+            "locator": "local-prior:1B.1",
+            "period_role": "tenure",
+            "scale": "warhead_count",
+            "source_observation_ids": [
+              "fas:China:2014:fas_military_stockpile"
+            ],
+            "source_slugs": [
+              "fas"
+            ],
+            "uncertainty": null,
+            "unit": "warheads",
+            "value": 250.0,
+            "value_type": "number",
+            "warnings": [],
+            "year": 2014
+          },
+          {
+            "candidate_methodology_ids": [
+              "1B.1",
+              "1B.10",
+              "1B.2",
+              "1B.4",
+              "1B.5",
+              "1B.6"
+            ],
+            "chapter_ids": [
+              "1B"
+            ],
+            "confidence": 80,
+            "fact_id": "LF002",
+            "field_key": "nuclear_total_inventory",
+            "label": "Nuclear warheads total inventory",
+            "locator": "local-prior:1B.1",
+            "period_role": "tenure",
+            "scale": "warhead_count",
+            "source_observation_ids": [
+              "fas:China:2014:fas_total_inventory"
+            ],
+            "source_slugs": [
+              "fas"
+            ],
+            "uncertainty": null,
+            "unit": "warheads",
+            "value": 250.0,
+            "value_type": "number",
+            "warnings": [],
+            "year": 2014
+          },
+          {
+            "candidate_methodology_ids": [
+              "1B.10",
+              "1B.3",
+              "1B.7",
+              "1B.8"
+            ],
+            "chapter_ids": [
+              "1B"
+            ],
+            "confidence": null,
+            "fact_id": "LF003",
+            "field_key": "nuclear_operational_nonstrategic",
+            "label": "Operational nonstrategic nuclear warheads",
+            "locator": "local-prior:1B.10",
+            "period_role": "tenure",
+            "scale": "warhead_count",
+            "source_observation_ids": [
+              "fas:China:2014:fas_operational_nonstrategic"
+            ],
+            "source_slugs": [
+              "fas"
+            ],
+            "uncertainty": null,
+            "unit": "warheads",
+            "value": {
+              "concept_key": "nuclear_operational_nonstrategic",
+              "input_observation_ids": [
+                "fas:China:2014:fas_operational_nonstrategic"
+              ],
+              "mapping_type": "direct",
+              "quality_flags": [],
+              "recipe_key": null,
+              "scale": "warhead_count",
+              "source_indicator_codes": [
+                "fas_operational_nonstrategic"
+              ],
+              "source_slug": "fas",
+              "source_version": "consolidated status table",
+              "unit": "warheads",
+              "value": null,
+              "value_type": "missing",
+              "warnings": [
+                {
+                  "code": "missing_value",
+                  "context": {
+                    "concept_key": "nuclear_operational_nonstrategic",
+                    "indicator_code": "fas_operational_nonstrategic",
+                    "observation_id": "fas:China:2014:fas_operational_nonstrategic"
+                  },
+                  "message": "Direct concept 'nuclear_operational_nonstrategic' observation 'fas:China:2014:fas_operational_nonstrategic' from source 'fas' has a missing or non-numeric value for indicator 'fas_operational_nonstrategic'; row is emitted with value=None and value_type='missing' so the analyst can see the upstream gap without losing the observation id / locator.",
+                  "severity": "info",
+                  "source_slug": "fas"
+                }
+              ]
+            },
+            "value_type": "missing",
+            "warnings": [
+              "{'code': 'missing_value', 'context': {'concept_key': 'nuclear_operational_nonstrategic', 'indicator_code': 'fas_operational_nonstrategic', 'observation_id': 'fas:China:2014:fas_operational_nonstrategic'}, 'message': \"Direct concept 'nuclear_operational_nonstrategic' observation 'fas:China:2014:fas_operational_nonstrategic' from source 'fas' has a missing or non-numeric value for indicator 'fas_operational_nonstrategic'; row is emitted with value=None and value_type='missing' so the analyst can see the upstream gap without losing the observation id / locator.\", 'severity': 'info', 'source_slug': 'fas'}"
+            ],
+            "year": 2014
+          },
+          {
+            "candidate_methodology_ids": [
+              "1B.10",
+              "1B.3",
+              "1B.7",
+              "1B.8"
+            ],
+            "chapter_ids": [
+              "1B"
+            ],
+            "confidence": 80,
+            "fact_id": "LF004",
+            "field_key": "nuclear_operational_strategic",
+            "label": "Operational strategic nuclear warheads",
+            "locator": "local-prior:1B.10",
+            "period_role": "tenure",
+            "scale": "warhead_count",
+            "source_observation_ids": [
+              "fas:China:2014:fas_operational_strategic"
+            ],
+            "source_slugs": [
+              "fas"
+            ],
+            "uncertainty": null,
+            "unit": "warheads",
+            "value": 0.0,
+            "value_type": "number",
+            "warnings": [],
+            "year": 2014
+          },
+          {
+            "candidate_methodology_ids": [
+              "1B.10",
+              "1B.3",
+              "1B.7",
+              "1B.8"
+            ],
+            "chapter_ids": [
+              "1B"
+            ],
+            "confidence": 80,
+            "fact_id": "LF005",
+            "field_key": "nuclear_reserve_nondeployed",
+            "label": "Reserve/nondeployed nuclear warheads",
+            "locator": "local-prior:1B.10",
+            "period_role": "tenure",
+            "scale": "warhead_count",
+            "source_observation_ids": [
+              "fas:China:2014:fas_reserve_nondeployed"
+            ],
+            "source_slugs": [
+              "fas"
+            ],
+            "uncertainty": null,
+            "unit": "warheads",
+            "value": 250.0,
+            "value_type": "number",
+            "warnings": [],
+            "year": 2014
+          }
+        ],
+        "facts_included": 5,
+        "facts_omitted": 0,
+        "longitudinal_signals": [],
+        "mapping_notes": [
+          "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.",
+          "The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.",
+          "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.",
+          "Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance."
+        ],
+        "methodology_ids": [
+          "1B.1",
+          "1B.2",
+          "1B.3",
+          "1B.4",
+          "1B.5",
+          "1B.6",
+          "1B.7",
+          "1B.8",
+          "1B.9",
+          "1B.10"
+        ],
+        "methodology_statuses": {
+          "1B.1": "evidence_found",
+          "1B.10": "evidence_found",
+          "1B.2": "evidence_found",
+          "1B.3": "evidence_found",
+          "1B.4": "evidence_found",
+          "1B.5": "evidence_found",
+          "1B.6": "evidence_found",
+          "1B.7": "evidence_found",
+          "1B.8": "evidence_found",
+          "1B.9": "no_evidence_found"
+        },
+        "schema_version": "ruler_local_judge_package_v1"
+      },
+      "status": "available"
+    },
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.1",
+        "status": "evidence_found",
+        "summary": "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.2",
+        "status": "evidence_found",
+        "summary": "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.3",
+        "status": "evidence_found",
+        "summary": "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.4",
+        "status": "evidence_found",
+        "summary": "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.5",
+        "status": "evidence_found",
+        "summary": "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.6",
+        "status": "evidence_found",
+        "summary": "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.7",
+        "status": "evidence_found",
+        "summary": "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.8",
+        "status": "evidence_found",
+        "summary": "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.9",
+        "status": "no_evidence_found",
+        "summary": "Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/CHN-local-priors.json",
+        "artifact_sha256": "3da51021103b26d4390dd852432b17af1d6d294354ceb90cb87a2a3c17d2d204",
+        "methodology_id": "1B.10",
+        "status": "evidence_found",
+        "summary": "The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution."
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.1",
+        "relation": "supports",
+        "relevance": "Authority attribution."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.1",
+        "relation": "contradicts",
+        "relevance": "Expansion."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "1B.1",
+        "relation": "contradicts",
+        "relevance": "Force growth."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.1",
+        "relation": "supports",
+        "relevance": "Risk commitment."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "1B.1",
+        "relation": "supports",
+        "relevance": "Risk reduction."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.1",
+        "relation": "supports",
+        "relevance": "Direct restraint rhetoric."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.1",
+        "relation": "contradicts",
+        "relevance": "Guardrail withdrawal."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Directive."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Personalized authority."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.1",
+        "relation": "context",
+        "relevance": "Direct authority directive."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.2",
+        "relation": "supports",
+        "relevance": "Inherited doctrine."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.2",
+        "relation": "supports",
+        "relevance": "Rhetoric."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "1B.2",
+        "relation": "supports",
+        "relevance": "NFU."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.2",
+        "relation": "supports",
+        "relevance": "Direct rhetoric."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.2",
+        "relation": "supports",
+        "relevance": "Direct rhetoric."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Command baseline."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "Custody baseline."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.3",
+        "relation": "contradicts",
+        "relevance": "Capability risk."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Scale."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "Unauthorized-use commitment."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "Accident prevention."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "1B.3",
+        "relation": "supports",
+        "relevance": "Safety framework."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Warning and command."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Monitoring."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Safeguards position."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Readiness transition."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Decision risk."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "1B.3",
+        "relation": "contradicts",
+        "relevance": "Forensics gaps."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Limited safeguards."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "CTBT status."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.3",
+        "relation": "context",
+        "relevance": "Command directive."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.4",
+        "relation": "contradicts",
+        "relevance": "Arms-control context."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "1B.4",
+        "relation": "contradicts",
+        "relevance": "Expansion."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.4",
+        "relation": "supports",
+        "relevance": "Diplomacy."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "1B.4",
+        "relation": "supports",
+        "relevance": "Arms control."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.4",
+        "relation": "contradicts",
+        "relevance": "DPRK sanctions."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "1B.4",
+        "relation": "context",
+        "relevance": "CTBT status."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "1B.4",
+        "relation": "supports",
+        "relevance": "IAEA position."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Deterrence capacity."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Taiwan coercion."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Deterrence."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.5",
+        "relation": "mitigates",
+        "relevance": "De-escalatory message."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "1B.5",
+        "relation": "mitigates",
+        "relevance": "Non-use position."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "1B.5",
+        "relation": "context",
+        "relevance": "Conventional coercion; no nuclear finding."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.6",
+        "relation": "supports",
+        "relevance": "Nonproliferation commitment."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Non-use position."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.6",
+        "relation": "contradicts",
+        "relevance": "Proliferation response."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "1B.6",
+        "relation": "supports",
+        "relevance": "Safeguards commitment."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Enforcement allegation and denial."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "1B.6",
+        "relation": "context",
+        "relevance": "Enforcement context only."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Authority context."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "1B.7",
+        "relation": "supports",
+        "relevance": "Expertise framework."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Institutional policy."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Risk systems."
+      },
+      {
+        "evidence_id": "E014",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Technical cooperation."
+      },
+      {
+        "evidence_id": "E016",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Centralization."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.7",
+        "relation": "contradicts",
+        "relevance": "Autonomy constraint."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "1B.7",
+        "relation": "contradicts",
+        "relevance": "Implementation gap."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "1B.7",
+        "relation": "contradicts",
+        "relevance": "Institutional gap."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "CMC responsibility."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "1B.7",
+        "relation": "context",
+        "relevance": "Personnel ownership."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "1B.8",
+        "relation": "supports",
+        "relevance": "Dialogue."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "1B.8",
+        "relation": "supports",
+        "relevance": "Stability dialogue."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "1B.8",
+        "relation": "supports",
+        "relevance": "Crisis rhetoric."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.8",
+        "relation": "contradicts",
+        "relevance": "Channels."
+      },
+      {
+        "evidence_id": "E010",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Diplomatic crisis conduct."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.8",
+        "relation": "context",
+        "relevance": "Crisis systems."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "1B.8",
+        "relation": "contradicts",
+        "relevance": "Crisis channels."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "1B.8",
+        "relation": "mitigates",
+        "relevance": "Pre-crisis signal."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "1B.8",
+        "relation": "contradicts",
+        "relevance": "Dialogue cancellation."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "AI-risk position."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "Civilian nuclear safeguards."
+      },
+      {
+        "evidence_id": "E011",
+        "methodology_id": "1B.9",
+        "relation": "supports",
+        "relevance": "Formal safeguards."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "Dual-use systems."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "1B.9",
+        "relation": "contradicts",
+        "relevance": "Practice-policy gap."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "1B.9",
+        "relation": "contradicts",
+        "relevance": "Safeguard gap."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "1B.9",
+        "relation": "context",
+        "relevance": "Materials-security gap."
+      },
+      {
+        "evidence_id": "E001",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Posture attribution."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Inherited baseline."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "1B.10",
+        "relation": "contradicts",
+        "relevance": "End posture."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "1B.10",
+        "relation": "contradicts",
+        "relevance": "End posture."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "1B.10",
+        "relation": "contradicts",
+        "relevance": "Crisis posture."
+      },
+      {
+        "evidence_id": "E012",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Posture."
+      },
+      {
+        "evidence_id": "E013",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Treaty posture."
+      },
+      {
+        "evidence_id": "E015",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "1B.10",
+        "relation": "context",
+        "relevance": "Treaty posture."
+      }
+    ],
+    "methodology_ids": [
+      "1B.1",
+      "1B.2",
+      "1B.3",
+      "1B.4",
+      "1B.5",
+      "1B.6",
+      "1B.7",
+      "1B.8",
+      "1B.9",
+      "1B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "1432",
+    "ruler_name": "Xi Jinping",
+    "ruler_year_id": 15832,
+    "run_key": "separated-gate-2022-v1",
+    "run_provenance": {
+      "formatter_model": null,
+      "formatter_provider": null,
+      "formatter_provider_profile": null,
+      "model": "gpt-5.6-sol",
+      "provider": "openai",
+      "provider_profile": "openai-sol-supervisor",
+      "research_notebook_sha256": null,
+      "source_mix_note": "No-search formatting pass. Retained sources include Chinese primary records, UN/IAEA/CTBTO records, independent research and reporting, and foreign-government assessments; official statements establish positions rather than implementation, while intelligence and competitor-government sources carry attribution and transparency limits.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/local-web-separated-gate-2022-v1/xi-1b/dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "bfc5fb013b82e652cb7edb6ea4d5b53f0a93a4d578eca720ef84168176a69c93",
+    "unresolved_gaps": [
+      "No independently audited evidence of 2022 military nuclear-custody or accident-prevention implementation.",
+      "No direct documentary evidence that Xi personally approved detailed Taiwan exercise plans or linked them to nuclear cover.",
+      "No verified evidence of nuclear-adviser professional autonomy, tested crisis-message performance, or appointment-quality safeguards.",
+      "No independent system-wide 2022 audit of military-AI, cyber, biological, or other catastrophic-risk safeguards."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 1B — Nuclear And Existential-Risk Responsibility
+
+Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
+
+## Chapter Identity
+
+- Chapter: `1B`
+- Rating: nuclear and global existential-risk responsibility
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_1b_v4`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter asks whether the ruler used the risk-bearing powers actually available
+to them responsibly, reduced catastrophic danger, and left a safer posture. A high
+score means prudent restraint, credible safeguards, good-faith risk reduction, and
+responsible crisis behavior. A low score means reckless escalation, proliferation,
+unsafe control, coercive nuclear shielding, or knowingly increased catastrophic risk.
+
+It does not rank rulers by arsenal size alone, reward non-nuclear rulers automatically,
+or penalize a ruler merely because they inherited a dangerous posture. Conventional
+military strength, generic environmental policy, prestige, and peaceful rhetoric are
+not substitutes for demonstrated existential-risk choices. Non-nuclear cyber,
+biological, or AI policy belongs here only where a credible catastrophic pathway and
+ruler-level choice are shown. The client matrix is never evidence.
+
+## Ten Evidence Lenses
+
+These are complementary prompts for evidence collection, not ten independent scores:
+
+1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
+2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
+3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
+4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
+5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
+6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
+7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
+8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
+9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
+10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
+
+Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
+confidence; they do not invalidate the dossier, mechanically produce zero, or require
+exact status vocabulary.
+
+## Researcher Guidance
+
+Follow the local-first researcher guide. Start with the resolved ruler-period and local
+D17/FAS facts, then check SIPRI and FAS narrative material. Search by themes rather
+than issuing ten repetitive searches: inherited capability and authority; arsenal and
+doctrine change; safeguards/command systems; treaties and inspections; threats and
+crises; proliferation relationships; expert appointments; catastrophic dual-use policy;
+and end-of-period posture.
+
+Prefer IAEA, UNODA/UN treaty records, CTBTO, treaty inspection bodies, declassified or
+contemporaneous official records, SIPRI/FAS technical assessments, legislative or
+inquiry records, serious scholarship, and reputable reporting. Official claims about
+restraint or safety need independent corroboration; official texts remain strong for
+formal doctrine, appointments, treaty acts, and dated statements. Preserve contrary
+evidence and uncertainty. Do not infer responsible rhetoric from silence or safety from
+the absence of reported accidents.
+
+Record reusable evidence once and point it to every materially relevant lens. Separate
+target-year evidence, broader ruler-period evidence, inherited baseline, and later
+retrospective evidence. The researcher describes evidence and attribution but does not
+assign the final chapter score.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+For non-nuclear rulers with no plausible authority or exposure, document that limited
+exposure; do not manufacture activity or award an automatic `10`. For older cases use
+archives, treaty records, memoirs cautiously, cabinet/command histories, and later
+scholarship, marking retrospective and contested claims. In closed regimes, missing
+reporting is weak evidence: triangulate external monitoring, satellite/technical
+assessments, defectors only with corroboration, and adversarial-source caveats. A thin
+record may still support a cautious chapter score when the known exposure and choices
+are clear; otherwise widen the confidence interval or flag review.
+
+Classify exposure before scoring as `material_exposure`,
+`limited_exposure_with_choices`, `no_discriminating_opportunity`, or
+`unknown_due_to_evidence_gap`. The last category normally produces a null and a
+targeted research continuation. `No_discriminating_opportunity` also produces a null:
+it documents why the ruler cannot be discriminatingly scored and must not be ranked
+against materially exposed rulers. Generic multilateralism,
+civil nuclear phase-out, or the absence of nuclear rhetoric is contextual unless tied
+to a ruler-attributed catastrophic-risk choice.
+
+## Attribution And Inherited Baseline
+
+Establish what authority the ruler personally held over doctrine, forces, diplomacy,
+appointments, and crisis decisions. Quarantine acts of predecessors, military bodies,
+coalition partners, or dominant patrons unless adoption, direction, knowing tolerance,
+or failure to use available corrective authority is evidenced. Judge change from the
+inherited posture alongside absolute risk: inheriting a huge arsenal is not itself
+culpability, while expanding or recklessly using it is; prudent reduction deserves
+credit even when the remaining stockpile is large.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | The ruler authorized or caused an actual nuclear detonation against people or a military target, or deliberately caused an equivalent realized nuclear catastrophe. Actual use establishes eligibility for the floor; context, target, scale, alternatives, and restraint still determine whether 1 is warranted. |
+| 2 | The ruler moved credibly toward nuclear use or created an acute near-use danger through operational preparation, direct brinkmanship, extremely unsafe command, or sustained nuclear coercion during war, without a realized nuclear detonation. |
+| 3 | Severe nuclear risk increase through doctrine expansion, deployment, proliferation, repeated threats, safeguard abandonment, or destabilizing exercises, but without demonstrated near-use. |
+| 4–5 | Mixed or weak responsibility: meaningful restraint in some areas but consequential escalation, obstruction, unsafe governance, or deterioration in others. |
+| 6–7 | Generally responsible risk management and some tangible risk reduction, with notable omissions, ambiguity, inherited constraints, or inconsistent conduct. |
+| 8–9 | Strong, sustained, and consequential restraint, safeguards, diplomacy, expert governance, and crisis prudence that materially improved the posture. |
+| 10 | Exceptional, durable, and well-evidenced leadership that substantially reduced catastrophic risk across the ruler's actual sphere of authority while resisting powerful contrary incentives. |
+
+The lenses are qualitatively and non-equally weighted. Crisis escalation, actual
+weapon use, proliferation, and command safety can dominate several weaker signals.
+No arithmetic average, equal ten-percent weighting, or minimum lens count is required.
+Exposure matters: the judge evaluates available choices, consequences, and authority.
+Scoring is opportunity-adjusted. Limited exposure or authority is not automatically a
+high or low score. A ruler may earn a high score when meaningful risk-bearing choices
+arose and the ruler consistently exercised responsible restraint within their actual
+authority. When no discriminating opportunity exists, return null with an explicit
+exposure assessment; do not manufacture excellence, blame, or a midpoint from mere
+non-exposure.
+
+Scores of 6 or above require a direct ruler-attributed risk-bearing choice. Scores of
+8 or above additionally require consequential improvement or restraint supported by
+multiple independent source types. Country posture or silence alone cannot support a
+score.
+
+### Absolute-scale guardrails
+
+The annual cohort does not define the endpoints. The worst ruler in a current batch
+must not receive 1 unless the realized-use floor is met. Nuclear threats, coercive
+shielding of conventional war, doctrine hardening, exercises, deployments, or arsenal
+growth can be profoundly irresponsible while remaining in bands 2 or 3. Classify each
+record before scoring as `realized_use_or_catastrophe`,
+`credible_near_use_or_operational_preparation`,
+`severe_escalation_without_near_use`, `mixed_risk_management`,
+`generally_responsible_management`, `strong_consequential_risk_reduction`, or
+`exceptional_durable_risk_reduction`.
+
+A rationale may not describe threats, exercises, deployments, or doctrine change as
+"maximally dangerous" merely because no worse case appears in the annual cohort. Since
+no nuclear weapon has been detonated in war after 1945, a modern annual batch can
+properly contain no score of 1.
+
+The general historical-extreme analogy (including references to Nazi-regime-level
+conduct) does not replace this chapter-specific test. Regime cruelty, repression, or
+aggression alone cannot establish the 1B floor: the ruler must meet the realized nuclear
+use or equivalent realized-catastrophe condition above.
+
+## Judge Workflow Across Rulers
+
+### V4 direct-evidence and absolute-floor gate
+
+A numeric score requires a target-period choice, action, restraint, remedy, or
+outcome within the ruler's actual nuclear or existential-risk authority. Generic
+nuclear posture, inherited arsenals, speeches, and pre- or post-period treaties are
+context only. If no such target-period fact exists, return null; do not manufacture
+a neutral or favorable score from low exposure.
+
+One Chapter 1B judge applies this rubric across all eligible rulers in the comparison
+batch. The judge first inventories exposure and inherited posture, reads every dossier,
+identifies common anchors and edge cases, provisionally orders rulers, then assigns one
+chapter score and confidence to each. It must explain the decisive evidence, meaningful
+counterevidence, attribution, change from baseline, and why adjacent higher/lower bands
+were rejected. Revisit the full ordering after scoring; use overlapping anchor cases if
+context limits require shards. Preserve citations and flag research gaps without
+turning formatting differences into substantive failures.
+
+## Minimum Evidence And Graceful Degradation
+
+A score needs at least one traceable, relevant source and a stated structured prior or
+`not_available`, plus an explicit exposure/authority and temporal-fit assessment.
+High-confidence extreme scores normally require multiple independent source types and
+evidence of consequential conduct. Sparse lenses, unknown appointments, or unavailable
+internal control details lower confidence rather than mechanically lower the score.
+If identity, core attribution, or citation authenticity is unresolved, withhold the
+score for review; ordinary incomplete coverage is not a publication blocker.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check visibility and secrecy, nuclear/non-nuclear exposure, great-power attention,
+survivorship and hindsight, adversarial intelligence claims, rhetoric-versus-capability,
+population/state-size irrelevance, inherited arsenals, crisis opportunity, source type,
+recency, and consistent cross-ruler calibration. Do not equate report volume with risk,
+treat a treaty signature as implementation, or reward a ruler for lacking capacity they
+never sought or controlled.
+
+## Chapter-Specific Calibration Fields
+
+Alongside common calibration metadata, record:
+
+- `chapter_rubric_version`: `chapter_1b_v4`
+- `calibration_batch_id` and `calibrated_against`
+- `exposure_profile`: nuclear authority, latent/dual-use exposure, crisis exposure
+- `inherited_risk_posture` and `end_posture`
+- `ruler_authority_and_attribution`
+- `decisive_risk_increasing_evidence`
+- `decisive_risk_reducing_evidence`
+- `crisis_and_command_safety_assessment`
+- `source_mix`, `information_environment`, and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+The generic abuse-oriented calibration enums may be `not_applicable` with explanation;
+chapter-specific fields carry the substantive calibration.
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Mikhail Gorbachev | Soviet Union | 1985–1991 | major inherited arsenal; arms-control improvement |
+| John F. Kennedy | United States | 1962 | severe crisis and de-escalation evidence |
+| Nikita Khrushchev | Soviet Union | 1962 | severe crisis, mixed escalation/de-escalation |
+| Ronald Reagan | United States | 1981–1989 | rhetoric-to-arms-control mixed trajectory |
+| Vladimir Putin | Russia | 2022 | nuclear shielding and threat rhetoric low anchor |
+| Kim Jong Un | North Korea | 2012–2023 | proliferation, testing, closed information environment |
+| F. W. de Klerk | South Africa | 1989–1994 | voluntary disarmament edge/high case |
+| Indira Gandhi | India | 1974 | nuclear-test decision and historical attribution case |
+| Jacinda Ardern | New Zealand | 2017–2023 | non-nuclear/limited-exposure edge case |
+| Boris Yeltsin | Russia | 1991–1999 | inherited-control and institutional-capacity edge |
+
+## Draft Acceptance Checklist
+
+- Exact texts for all ten registry lenses are present.
+- Research uses local priors and cited underlying sources.
+- Evidence is reusable across lenses and contrary evidence is preserved.
+- One judge calibrates one chapter score across a varied ruler batch.
+- Missing lenses affect confidence, not validity or a mechanical score.
+- Attribution, inherited posture, secrecy, and exposure are explicit.
+- Adjacent-anchor explanations are substantive.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays; that every
+LF/LS ID in `decisive_local_evidence` accompanies such a decisive E-ID; that
+`structured_prior_summary` accurately describes the embedded local package; and that
+every confidence score is on the required 0-100 scale.

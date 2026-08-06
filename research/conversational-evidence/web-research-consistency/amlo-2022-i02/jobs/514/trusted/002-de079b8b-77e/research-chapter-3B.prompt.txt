@@ -1,0 +1,68 @@
+Continue the same ruler-period research thread with Chapter 3B.
+Do not score and do not research another chapter during this turn.
+
+Ruler-period: Andrés Manuel López Obrador, Mexico,
+2022-2022.
+Selected lenses: ["3B.1", "3B.10", "3B.2", "3B.3", "3B.4", "3B.5", "3B.6", "3B.7", "3B.8", "3B.9"]
+
+Chapter questions and research note:
+## Ten Evidence Lenses
+
+1. **3B.1:** Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment?
+2. **3B.2:** Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes?
+3. **3B.3:** Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups?
+4. **3B.4:** Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors?
+5. **3B.5:** Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control?
+6. **3B.6:** Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate?
+7. **3B.7:** Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect?
+8. **3B.8:** Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment?
+9. **3B.9:** Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle?
+10. **3B.10:** Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them?
+
+Lens status names are advisory. Missing lenses lower confidence, not validity, and never
+mechanically zero the chapter. Natural-language coverage differences can be normalized
+later without rejecting useful evidence.
+
+Use the accumulated authority baseline, evidence environment, local-prior audit,
+candidate pool, and global evidence ledger. Reuse existing evidence when it genuinely
+applies, but do not count reused records as newly discovered documents.
+
+Run a complete chapter research wave:
+
+1. Use broad, event-specific, institution/archive, adverse or contrary, and
+   local-language discovery queries.
+2. Inspect about 30 plausible documents and
+   open at least 12 promising underlying pages,
+   reports, legal records, or PDFs when accessible.
+3. Retain 5-20 defensible source-claim units, normally about 10, from at least three
+   source organizations and two source types when the evidence permits.
+4. Include both favorable and adverse or limiting evidence, target-period fit,
+   inherited conditions, practical authority, and contrary interpretations.
+5. Do not stop at search snippets. Open the source and record a page, section,
+   paragraph, table, legal provision, transcript timestamp, or short exact excerpt.
+6. Check every selected lens. An empty lens requires its own source-landscape search
+   and recorded rejection or access-blocker reason.
+
+For every newly accepted unit, include one physical line outside code fences:
+SOURCE_CLAIM_JSON: {"title":"...","publisher":"...","publication_date":"...",
+"url":"https://...","claim":"one material claim","locator":"precise locator",
+"provisional_id":"E...","canonical_fact_key":"canonical URL|locator|claim",
+"disposition":"final_evidence|context|discovery_only",
+"chapter_ids":["3B"],"methodology_ids":["3B.1"],
+"source_type":"...","source_confidence":"...","source_confidence_reason":"...",
+"final_evidence_use":"final_evidence|context|discovery_only","period_fit":"...",
+"ruler_attribution":"...","contrary_evidence":["..."],
+"lenses":["3B.1"]}
+
+Before finishing, update the cumulative `research-ledger-manifest.json` in the writable
+attempt directory. It must retain every prior entry and add this turn's entries; never
+replace it with a chapter-only fragment. If file writing fails, include a cumulative
+manifest in the response. Finish with:
+
+- documents discovered, opened, accepted, rejected, and access-blocked;
+- new and reused evidence counts;
+- distinct organizations and source types;
+- lens coverage and exact residual gaps;
+- why another chapter-specific search wave would or would not have material value.
+
+Do the searches now. Do not return a plan for later research.

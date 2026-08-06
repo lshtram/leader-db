@@ -1,0 +1,116 @@
+Act as the independent final score-and-rationale reviewer for one
+Leaders Database chapter. Use high reasoning and no external discovery. Read the
+source judgment and every hash-bound ruler projection listed below in full.
+Do not edit, patch, move, or rewrite any file. Filesystem tools are available only
+to read the listed JSON inputs; your sole output is the structured final response.
+
+For every ruler, independently test evidence relevance, ruler attribution, inherited
+baseline, contrary evidence, source limitations, absolute chapter anchors, and cohort
+ordering. Do not reward evidence volume and do not compare against client scores.
+
+You may retain the score or correct it by at most 1 point upward or downward, using
+half-point increments. Never convert a null to a number or a number to null. Make a
+change only when the original judge was materially too generous or too severe. For
+every ruler, return a self-contained revised rationale and revised lower/higher-anchor
+explanations, even when retaining the score. Cite only evidence IDs in that ruler's
+projection. The revised prose must reflect the reviewed score and explicitly resolve
+the weakness identified in `review_explanation`.
+
+Immutable review identity:
+{
+  "schema_version": "chapter_judgment_review_v1",
+  "chapter_id": "1B",
+  "source_job_key": "chapter-judge:2023-production-19-judges-sol-reviewed-v1:2023:1B",
+  "source_sha256": "2ef6457bd5e43f1d47ea8929b3c18c8be528975219ad88d311e3af34d93d47f0",
+  "reviewer_model": "gpt-5.6-sol",
+  "reasoning_effort": "high"
+}
+
+Source judgment:
+{
+  "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-judgment.json",
+  "sha256": "2ef6457bd5e43f1d47ea8929b3c18c8be528975219ad88d311e3af34d93d47f0"
+}
+
+Ruler projections:
+[
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/BGD-17069.json",
+    "sha256": "839640e3f4e6225a100fc194cd0bc6840762316e26d28292b9166a4070de9923"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/BRA-16162.json",
+    "sha256": "a4d8211d423576390b644a062dc29682b90679d3205d4b3aa2dcd7d006a99468"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/CHN-15833.json",
+    "sha256": "9857e7c8c33f7ffcf05ddb3197a13825cbf8f1844e2c650d8a0639aadcad6d62"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/COD-16114.json",
+    "sha256": "bf910a1feae07d42d116206ffd0e87d1faf1e66e2caded228faa55df365d828c"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/DEU-16985.json",
+    "sha256": "2e6a57c28c4db9f2ecdd3ca0142f46bd2c5baf04355ba46d11228e8085b97046"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/EGY-16233.json",
+    "sha256": "e4eee85f8398bb7e63c12c0b1ed8c13aa06ff085e8be81988331594c24fb727c"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/ETH-16783.json",
+    "sha256": "7452edd0b7018cfe07d31ab07ea25769137a83acffea488f38eb28b3b376f694"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/IDN-16200.json",
+    "sha256": "5492b27e5c5e8e65e5b5147bc32c1dfdf738fcba01ff54a890c645de9e796385"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/IND-19639.json",
+    "sha256": "222dc14e13c25c8d0b8845469c4b200e3eafd3fe216d313a9ada6eb9d0adf5a5"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/IRN-19641.json",
+    "sha256": "1f08151275d200c5420a36e354d4129d86c32682b97783fb68807ddc5c31d756"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/JPN-16637.json",
+    "sha256": "536737050c2cd54d9c9a204cd17757f205648552c9009d806b4a58fdf05ae15f"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/MEX-15802.json",
+    "sha256": "3509d70b28b0b2b1d734e0a570e44d84136c619058d1c1fc51d1937f3a45e707"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/PAK-16683.json",
+    "sha256": "a78c697659319b8441a9c19cd35cbe4960e0b6b03fe824d5962517b7ce19c704"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/PHL-16195.json",
+    "sha256": "e97e767c1029fd6885d0d96615cf68edee0585839004662612d1124528fd2560"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/RUS-15707.json",
+    "sha256": "4fed186029790ffba99007ee90d84fcdd4bc3c27b7d4820d6720f9d57dd79930"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/THA-17130.json",
+    "sha256": "a046fa68546b4bd04dad3792d1dcb115ddf6c6e86cd9fb7a0dc47a5b172f04c6"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/TUR-15973.json",
+    "sha256": "fc6aa487e3887e0c70f9a491591f3e9e85ce91f358eeef7bc69e073646f93c0d"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/USA-15811.json",
+    "sha256": "06753d1aa6acf51f46a1362b34d808b7f6a38e0252a8904a4c62b1b0ff401c7a"
+  },
+  {
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-reviewed-v1/jobs/563/attempts/001-f1347b75-970/chapter-inputs/VNM-19640.json",
+    "sha256": "5f3b3f2804d5f62b25219a91dbca410d3d498e8435099611312577dcddb38d14"
+  }
+]
+
+Return only the requested JSON. Include exactly one decision for each of the
+19 source evaluations.

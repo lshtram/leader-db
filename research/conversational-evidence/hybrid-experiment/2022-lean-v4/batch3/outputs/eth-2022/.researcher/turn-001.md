@@ -1,0 +1,42 @@
+Abiy Ahmed in 2022 was Ethiopia’s prime minister: the constitution and PM office pages make clear that the office is the country’s chief executive, chair of the Council of Ministers, and commander-in-chief, but it is formally constrained by a federal parliamentary system in which the HPR holds the highest legislative authority and can question the executive. I did not re-fetch the structured country-year facts you already supplied; I used them as the baseline and only added narrative/attribution sources.
+
+**Retained Sources**
+| Source | What it contributes | Period fit | Ruler attribution / limits / contrary points |
+|---|---|---|---|
+| [Constitution of the Federal Democratic Republic of Ethiopia](https://www.wipo.int/wipolex/en/legislation/details/7438) - WIPO Lex, 1995 | De jure office: PM is appointed under the constitution, chairs the Council, is commander-in-chief, and is answerable to the HPR; state-of-emergency powers are constitutionally regulated. | Permanent legal baseline for 2022 | Strong for office and constraint structure, but not a 2022 event record. De jure rules can diverge from wartime practice. |
+| [The PM](https://www.pmo.gov.et/pm/) - FDRE Office of the Prime Minister, n.d. current official page | Confirms Abiy Ahmed as PM, fourth PM, sworn in April 2, 2018; official self-description of the premiership. | Confirms incumbency in 2022 | Direct official attribution to Abiy’s office, but it is favorable self-presentation and omits criticism. |
+| [Government](https://www.pmo.gov.et/government/) - FDRE Office of the Prime Minister, n.d. current official page | Federal parliamentary republic; HPR highest legislative authority; PM and Council hold highest federal executive power; PM is commander-in-chief. | Permanent institutional frame for 2022 | Best single source for executive/legislative constraints. It is descriptive rather than investigative. |
+| [Ethiopia PM Abiy vows ‘honest’ implementation of Tigray truce](https://www.aljazeera.com/news/2022/11/15/ethiopias-abiy-vows-honest-implementation-of-tigray-truce) - Reuters/Al Jazeera, Nov. 15, 2022 | Abiy told parliament the November 2 truce had to be implemented honestly; the article links aid, disarmament, and territorial disputes to implementation. | Late-2022 implementation phase | Direct ruler attribution, but it is a speech report, not independent verification. Useful for Abiy’s public stance and legislative setting. |
+| [Ethiopia: Peace deal signed to end conflict in Tigray region](https://www.euronews.com/2022/11/02/ethiopia-peace-deal-signed-to-end-conflict-in-tigray-region) - Euronews/AP, Nov. 2, 2022 | Reports the Pretoria agreement: permanent cessation of hostilities after two years of war. | Major turning point in 2022 | Independent confirmation of the peace deal, but not compliance. Good for the event map, not for performance assessment. |
+| [IGAD Appreciate Announcement of Ethiopian Gov’t Humanitarian Truce](https://www.ena.et/web/eng/w/en_34548) - ENA, Mar. 25, 2022 | Confirms the government’s indefinite humanitarian ceasefire and Tigray’s reciprocal commitment. | Early 2022 de-escalation | Primary official-friendly source. Useful because it shows the government’s chosen framing and timing of the truce. Later renewed fighting is the obvious contrary point. |
+| [Gov’t Declares Indefinite Humanitarian Truce](https://www.ena.et/web/eng/w/en_34511) - ENA, Mar. 24, 2022 | Government statement on an immediate humanitarian truce and steps to improve aid flows to Tigray. | Early 2022 crisis management | Strong for official action and sequence. Limitation: state media framing; should be checked against later conflict resumption and independent reporting. |
+| [Humanitarian Aid for Ethiopia Not Enough vis-a-vis Compounded Crises in Country: UNOCHA](https://www.ena.et/web/eng/w/en_34923) - ENA quoting UNOCHA, Apr. 9, 2022 | UNOCHA says Ethiopia’s needs are driven by overlapping violence, displacement, and drought; aid is not sufficient. | Inherited conditions and humanitarian baseline | Independent UN perspective, but via ENA interview format. Good for structural conditions; not ruler-specific blame. |
+| [Gov’t Reaffirms Commitment to Peaceful Settlement of Conflict in Northern Ethiopia](https://www.ena.et/web/eng/w/en_38052) - ENA, Aug. 20, 2022 | Government says it remains committed to peaceful settlement and references its prior truce / confidence-building steps. | Mid-2022, after fighting resumed | Useful for the state’s own account of constraints and choices. Contrary point: it sits alongside renewed fighting and contested implementation. |
+| [Update on humanitarian aid](https://www.ena.et/web/eng/w/en_40757) - ENA, Nov. 30, 2022 | Post-Pretoria aid corridors and restoration steps for Tigray; shows implementation mechanics after the truce. | Immediate post-agreement implementation | Good for whether the agreement translated into access and services. Still an official update, so pair with independent sources. |
+| [Report of the International Commission of Human Rights Experts on Ethiopia](https://digitallibrary.un.org/record/4002405?ln=es) - UN, Oct. 5, 2022 | Independent critical finding: reasonable grounds to believe federal forces and allies committed grave international crimes, including starvation-as-warfare allegations. | Core 2022 abuse record | Very strong critical source. Attribution is institutional and evidentiary, not a court judgment. Use for rights, accountability, and conflict chapters. |
+| [Crimes against Humanity and Ethnic Cleansing in Ethiopia’s Western Tigray Zone](https://www.hrw.org/news/2022/04/06/crimes-against-humanity-and-ethnic-cleansing-ethiopias-western-tigray-zone) - Human Rights Watch / Amnesty International, Apr. 6, 2022 | Documents mass expulsions, detention, sexual violence, and denial of aid in Western Tigray; says federal forces may have acquiesced or participated. | Early-2022 inherited abuse environment | Excellent for 3B/4B/8B context. Limitation: focused on Western Tigray, not the whole state. Contrary point: Ethiopian authorities disputed the characterization. |
+
+**Local-Language Family To Keep In Reserve**
+- ENA Amharic archive and Amharic mirrors of major rights reports are the best local-language family to keep on standby.
+- I did not retain one as a core citation here because the crawl surfaced current archive pages more cleanly than a 2022-specific permalink, but the family is useful if you want an Amharic citation set later.
+
+**Compact Event Map**
+- March 24-25, 2022: government declares an indefinite humanitarian truce.
+- April 2022: humanitarian access improves in places, but UNOCHA still describes a compound crisis of violence, displacement, and drought.
+- August 2022: fighting resumes; the government publicly reaffirms a peaceful settlement path and points to confidence-building steps.
+- October 5, 2022: UN experts issue a severe rights report on Ethiopia.
+- November 2, 2022: Pretoria cessation of hostilities agreement is signed.
+- November 15, 2022: Abiy tells parliament the truce must be implemented honestly.
+- November 30, 2022: the government reports aid corridor activity and service restoration steps.
+
+**Chapter Source Plan**
+- 1B: Constitution, PMO government page, and, if needed later, FAS/NTI. Don’t infer conduct from capability alone.
+- 2B: Reuters/Euronews ceasefire coverage, ENA truce and implementation updates, UN experts report, HRW/Amnesty Western Tigray.
+- 3B: UN experts report, HRW/Amnesty, ENA implementation updates, Reuters/AJ parliament speech.
+- 4B: Constitution, PMO structure, PMO profile, Reuters/AJ for the parliament/implementation context.
+- 5B: Your local prior is already enough for the core country-year economics; if you need narrative follow-up later, add World Bank/IMF/AfDB country notes.
+- 6B: Your local prior already covers the welfare baseline; if you need narrative follow-up later, add WHO/UNICEF/UNDP.
+- 7B: Constitution’s accountability clauses, UN experts, HRW/Amnesty, and the parliamentary implementation speech.
+- 8B: PMO government structure, ENA aid-update reporting, UN experts, and your local prior’s governance-capacity facts.
+
+If you want, I can turn this into a tighter evidence dossier format next, still without scoring.

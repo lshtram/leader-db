@@ -1,0 +1,119 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0012",
+          "reason": "Civil nuclear cooperation and reactor procurement are civilian-energy context, not a distinct existential-risk decision."
+        },
+        {
+          "evidence_id": "E0015",
+          "reason": "The Moscow remarks are rhetoric about civil reactors and peace, not evidence of a target-period nuclear-risk choice."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "The package fairly separates Brazil's limited nuclear exposure, inherited safeguards, and Bolsonaro-era institutional actions from merely civilian nuclear context. It does not overread reactor diplomacy as nuclear-risk stewardship."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly presents diplomatic conduct under limited direct military authority: Bolsonaro's neutral rhetoric is balanced against Brazil's condemnatory, humanitarian, and ceasefire-oriented UN positions."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0030",
+          "reason": "The police-killing figures are mostly state-level and partly pre-2022; treat them as national context and remedy gap, not direct Bolsonaro-ordered abuse."
+        },
+        {
+          "evidence_id": "E0036",
+          "reason": "This is an unadjudicated allegation reported through media; use only as context unless corroborated elsewhere."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct federal attribution for state-level police violence and Indigenous-harms response remains thinner than the adverse conduct record itself.",
+          "lenses": ["3B.1", "3B.2", "3B.4", "3B.10"],
+          "best_source_or_query_direction": "Federal directives, ministerial correspondence, congressional inquiries, or court findings tying Brasília-level policy/tolerance to state police and Indigenous-protection failures.",
+          "why_it_matters": "Would better separate national-ruler responsibility from state autonomy and non-state abuse."
+        }
+      ],
+      "reason": "The package is usable and mostly fair, but it must keep state-level police violence and the Yanomami allegation in the correct attribution bucket. It largely does that while still showing a clearly negative domestic-safety record."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly captures both institutional resilience and Bolsonaro-linked erosion: electoral turnover and TSE counterevidence remain visible, while disinformation, fraud claims, and legitimacy attacks are well supported."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly balances policy choices, macro outcomes, and countervailing shocks and independent monetary policy. Attribution is appropriately mixed rather than overstated."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package fairly combines welfare policy, delivery mechanisms, and adverse human-development outcomes without collapsing inherited baseline and pandemic drag into Bolsonaro alone."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0086",
+          "reason": "Flávio Bolsonaro's Receita maneuver is close-family conduct, not Jair Bolsonaro's personal act; it should inform network context only."
+        },
+        {
+          "evidence_id": "E0090",
+          "reason": "Family cash purchases span decades and do not by themselves show Jair Bolsonaro's personal benefit or order; use as context, not direct self-enrichment proof."
+        },
+        {
+          "evidence_id": "E0092",
+          "reason": "The court-ordered takedown was sought by Flávio Bolsonaro, not Jair; it is network context, not direct Jair conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "A direct Jair Bolsonaro asset-declaration, audit, or court-finding trail for 2022 self-dealing is still missing.",
+          "lenses": ["7B.3", "7B.4", "7B.6", "7B.7"],
+          "best_source_or_query_direction": "Official asset declarations, audit records, court rulings, and procurement or beneficial-ownership filings specifically tied to Jair Bolsonaro.",
+          "why_it_matters": "Would distinguish family-network suspicion from Jair-specific personal enrichment or concealment."
+        }
+      ],
+      "reason": "This is the least cleanly supported chapter. It has direct Bolsonaro quotes and some appointment evidence, but the self-dealing and concealment narrative still leans too heavily on family-network proxies and unadjudicated suspicions to finalize a clean Jair-specific integrity presentation."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "The original TSE-filed 2022 program is only indirectly represented here through a secondary summary.",
+          "lenses": ["8B.1"],
+          "best_source_or_query_direction": "Direct primary copy of Bolsonaro's TSE-filed 2022 manifesto or campaign program.",
+          "why_it_matters": "Would tighten the program-identification step and reduce dependence on a secondary summary source."
+        },
+        {
+          "gap": "Independent outcome audits for several flagship measures are still thinner than the implementation claims.",
+          "lenses": ["8B.6", "8B.7", "8B.8", "8B.10"],
+          "best_source_or_query_direction": "Third-party evaluations or audit-style assessments of Renda e Oportunidade, PPI, tariff cuts, and related execution/outcome claims.",
+          "why_it_matters": "Would better separate stated intent and official self-report from durable goal advancement."
+        }
+      ],
+      "reason": "The package fairly presents the program-to-execution chain: stated goals, enacted measures, some implementation evidence, and some outcomes. Confidence is bounded by official self-report and incomplete direct access to the filed plan, but the dossier is still presentable."
+    }
+  ]
+}

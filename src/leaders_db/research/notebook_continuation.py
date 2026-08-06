@@ -18,11 +18,13 @@ from .codex_worker_command import (
     build_codex_resume_command,
     read_codex_thread_id,
 )
+from .compact_handoff import build_compact_research_handoff
 from .evidence_review import (
     EvidenceReviewReport,
     assess_research_notebook,
     build_evidence_review_prompt,
     evidence_review_json_schema,
+    normalize_review_evidence_references,
     validate_review_scope,
 )
 from .job_ledger import checkpoint_job
@@ -94,6 +96,10 @@ def review_and_resume_notebook_if_needed(
             methodology_ids=tuple(job["input"]["question_ids"]),
             workflow=workflow,
         )
+        review_notebook = build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=current[1],
+        )
         report = _existing_review_report(attempt, round_number) or _run_evidence_review(
             engine,
             job=job,
@@ -101,7 +107,7 @@ def review_and_resume_notebook_if_needed(
             project_root=project_root,
             profile=reviewer_profile,
             attempt=attempt,
-            notebook=current[1],
+            notebook=review_notebook,
             qa=qa,
             round_number=round_number,
             lease_token=lease_token,
@@ -110,11 +116,13 @@ def review_and_resume_notebook_if_needed(
             timeout_seconds=timeout_seconds,
         )
         reviewed = True
+        report = normalize_review_evidence_references(report, notebook=review_notebook)
         try:
             validate_review_scope(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=review_notebook,
             )
         except ValueError:
             report = _repair_evidence_review_scope(
@@ -125,7 +133,7 @@ def review_and_resume_notebook_if_needed(
                 project_root=project_root,
                 profile=reviewer_profile,
                 attempt=attempt,
-                notebook=current[1],
+                notebook=review_notebook,
                 qa=qa,
                 round_number=round_number,
                 expected_chapter_ids=expected_review_ids,
@@ -134,10 +142,14 @@ def review_and_resume_notebook_if_needed(
                 heartbeat_seconds=heartbeat_seconds,
                 timeout_seconds=timeout_seconds,
             )
+            report = normalize_review_evidence_references(
+                report, notebook=review_notebook
+            )
             validate_review_scope(
                 report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=review_notebook,
             )
         if not report.needs_continuation:
             break
@@ -188,6 +200,10 @@ def review_and_resume_notebook_if_needed(
             workflow=workflow,
         )
         final_round = workflow.max_review_rounds + 1
+        review_notebook = build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=current[1],
+        )
         final_report = _existing_review_report(attempt, final_round) or _run_evidence_review(
             engine,
             job=job,
@@ -195,7 +211,7 @@ def review_and_resume_notebook_if_needed(
             project_root=project_root,
             profile=reviewer_profile,
             attempt=attempt,
-            notebook=current[1],
+            notebook=review_notebook,
             qa=qa,
             round_number=final_round,
             lease_token=lease_token,
@@ -203,11 +219,15 @@ def review_and_resume_notebook_if_needed(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
+        final_report = normalize_review_evidence_references(
+            final_report, notebook=review_notebook
+        )
         try:
             validate_review_scope(
                 final_report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=review_notebook,
             )
         except ValueError:
             final_report = _repair_evidence_review_scope(
@@ -218,7 +238,7 @@ def review_and_resume_notebook_if_needed(
                 project_root=project_root,
                 profile=reviewer_profile,
                 attempt=attempt,
-                notebook=current[1],
+                notebook=review_notebook,
                 qa=qa,
                 round_number=final_round,
                 expected_chapter_ids=expected_review_ids,
@@ -227,10 +247,14 @@ def review_and_resume_notebook_if_needed(
                 heartbeat_seconds=heartbeat_seconds,
                 timeout_seconds=timeout_seconds,
             )
+            final_report = normalize_review_evidence_references(
+                final_report, notebook=review_notebook
+            )
             validate_review_scope(
                 final_report,
                 selected_chapter_ids=qa.selected_chapter_ids,
                 expected_chapter_ids=expected_review_ids,
+                notebook=review_notebook,
             )
         _require_terminal_review(final_report)
     return NotebookContinuationResult(
@@ -315,7 +339,10 @@ def _run_evidence_review(
     )
     prompt = build_evidence_review_prompt(
         job=job,
-        notebook=notebook,
+        notebook=build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=notebook,
+        ),
         qa=qa,
         terminal=_is_terminal_review_round(job, round_number),
     )
@@ -394,7 +421,8 @@ def _repair_evidence_review_scope(
             qa=qa,
             terminal=_is_terminal_review_round(job, round_number),
         )
-        + "\n\nYour prior review omitted or expanded immutable chapter scope. "
+        + "\n\nYour prior review omitted or expanded immutable chapter scope, or cited "
+        + "an evidence ID absent from the notebook. "
         + "Return exactly one chapter_reviews row for every chapter in this list: "
         + ", ".join(expected_chapter_ids)
         + ". selected_theme_ids may remain a narrower subset. Preserve substantive "
@@ -935,15 +963,20 @@ def _load_evidence_review(path: Path) -> EvidenceReviewReport:
             if not isinstance(value, str):
                 normalized.append(value)
                 continue
-            match = re.fullmatch(
-                r"([1-8]B)(?:[.:].+|-(?![1-8]B(?:$|[.:-])).+)?", value
-            )
-            if match is None or match.group(1) not in reviewed_chapters:
+            parts = re.split(r"(?:\\n|[\r\n])+", value)
+            recovered = False
+            for part in parts:
+                match = re.fullmatch(
+                    r"([1-8]B)(?:[.:].+|-(?![1-8]B(?:$|[.:-])).+)?", part.strip()
+                )
+                if match is None or match.group(1) not in reviewed_chapters:
+                    continue
+                recovered = True
+                chapter_id = match.group(1)
+                if chapter_id not in normalized:
+                    normalized.append(chapter_id)
+            if not recovered:
                 normalized.append(value)
-                continue
-            chapter_id = match.group(1)
-            if chapter_id not in normalized:
-                normalized.append(chapter_id)
         payload["selected_theme_ids"] = normalized
     return EvidenceReviewReport.model_validate(payload)
 
@@ -960,9 +993,12 @@ def _has_indeterminate_continuation(
             continue
         events = directory / f"research-continuation-{suffix}.events.jsonl"
         output = job_dir / "attempts" / directory.name / f"research-continuation-{suffix}.md"
+        from .codex_worker import _events_show_completed_turn, _events_show_failed_turn
+
+        if _events_show_failed_turn(events):
+            continue
         if not events.is_file() or not output.is_file():
             return True
-        from .codex_worker import _events_show_completed_turn
 
         if not _events_show_completed_turn(events):
             return True
@@ -1009,18 +1045,21 @@ def _append_current_ledger_manifest(
     attempt: WorkerAttempt,
     *,
     source_attempt_dir: Path | None = None,
+    base_manifest_path: Path | None = None,
 ) -> str:
     """Append the current accounting index after a continuation changes the ledger."""
 
     from .codex_worker import (
         WorkerOutputError,
         _load_research_ledger_manifest,
+        _recover_json_manifest_update_entries,
         _recover_markdown_ledger_entries,
     )
 
-    manifest_path = (source_attempt_dir or attempt.attempt_dir) / (
+    producer_manifest_path = (source_attempt_dir or attempt.attempt_dir) / (
         "research-ledger-manifest.json"
     )
+    manifest_path = base_manifest_path or producer_manifest_path
     try:
         manifest = (
             _load_research_ledger_manifest(manifest_path)
@@ -1029,7 +1068,22 @@ def _append_current_ledger_manifest(
         )
     except WorkerOutputError:
         manifest = {"schema_version": "ruler_research_ledger_manifest_v1", "entries": []}
-    recovered_entries = _recover_markdown_ledger_entries(notebook)
+    marker = "--- RESEARCH LEDGER MANIFEST ---"
+    recovery_source = _content_after_latest_manifest(notebook, marker=marker)
+    notebook = _remove_embedded_manifests(notebook, marker=marker)
+    explicit_entries = _recover_json_manifest_update_entries(recovery_source)
+    explicit_ids = {str(entry["provisional_id"]) for entry in explicit_entries}
+    recovered_entries = explicit_entries + [
+        entry
+        for entry in _recover_markdown_ledger_entries(recovery_source)
+        if str(entry["provisional_id"]) not in explicit_ids
+    ]
+    if producer_manifest_path != manifest_path and producer_manifest_path.is_file():
+        try:
+            producer_manifest = _load_research_ledger_manifest(producer_manifest_path)
+        except WorkerOutputError:
+            producer_manifest = {"entries": []}
+        recovered_entries.extend(producer_manifest.get("entries", []))
     entries_by_id: dict[str, dict[str, Any]] = {
         str(entry["provisional_id"]): entry for entry in manifest.get("entries", [])
     }
@@ -1050,24 +1104,81 @@ def _append_current_ledger_manifest(
         existing_id = ids_by_key.get(canonical_key)
         if existing_id is not None and existing_id != provisional_id:
             continue
+        if prior is not None:
+            normalized_entry = _merge_manifest_entries(prior, normalized_entry)
         entries_by_id[provisional_id] = normalized_entry
         ids_by_key[canonical_key] = provisional_id
     if not entries_by_id:
         return notebook
     manifest["entries"] = list(entries_by_id.values())
-    manifest_path.write_text(
+    if base_manifest_path is None:
+        producer_manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    current_manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
+    current_manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    current_manifest_path = attempt.attempt_dir / "research-ledger-manifest.json"
-    if manifest_path != current_manifest_path:
-        current_manifest_path.write_text(
-            json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"
-        )
     return (
         notebook
         + "\n\n--- RESEARCH LEDGER MANIFEST ---\n\n"
         + json.dumps(manifest, indent=2, sort_keys=True)
     )
+
+
+def _remove_embedded_manifests(notebook: str, *, marker: str) -> str:
+    """Remove prior embedded manifest snapshots while preserving later prose."""
+
+    decoder = json.JSONDecoder()
+    remaining = notebook
+    pieces: list[str] = []
+    while marker in remaining:
+        before, after = remaining.split(marker, maxsplit=1)
+        pieces.append(before.rstrip())
+        stripped = after.lstrip()
+        try:
+            _, end = decoder.raw_decode(stripped)
+        except json.JSONDecodeError:
+            pieces.append(marker)
+            remaining = after
+            continue
+        remaining = stripped[end:].lstrip()
+    pieces.append(remaining)
+    return "\n\n".join(piece for piece in pieces if piece).strip()
+
+
+def _content_after_latest_manifest(notebook: str, *, marker: str) -> str:
+    """Return only material added after the most recent manifest snapshot."""
+
+    if marker not in notebook:
+        return notebook
+    tail = notebook.rsplit(marker, maxsplit=1)[1].lstrip()
+    try:
+        _, end = json.JSONDecoder().raw_decode(tail)
+    except json.JSONDecodeError:
+        return tail
+    return tail[end:].lstrip()
+
+
+def _merge_manifest_entries(
+    prior: dict[str, Any], update: dict[str, Any]
+) -> dict[str, Any]:
+    """Merge routing while making evidence disposition monotonically stronger."""
+
+    rank = {"rejected": 0, "discovery_only": 1, "context": 2, "final_evidence": 3}
+    prior_rank = rank.get(str(prior.get("disposition")), -1)
+    update_rank = rank.get(str(update.get("disposition")), -1)
+    merged = dict(update if update_rank >= prior_rank else prior)
+    for field in ("chapter_ids", "methodology_ids"):
+        merged[field] = sorted(
+            {
+                str(item)
+                for source in (prior.get(field, []), update.get(field, []))
+                for item in source
+            }
+        )
+    return merged
 
 
 def _next_available_provisional_id(

@@ -1,0 +1,59 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/cli.py", line 40, in <module>
+    main()
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/cli.py", line 25, in main
+    result = run_experiment(
+             ^^^^^^^^^^^^^^^
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/runner.py", line 64, in run_experiment
+    guides = _run_research(
+             ^^^^^^^^^^^^^^
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/runner.py", line 198, in _run_research
+    note = researcher.ask(
+           ^^^^^^^^^^^^^^^
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/researcher.py", line 51, in ask
+    result = subprocess.run(
+             ^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 2116, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 1253, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['codex', '--disable', 'apps', '--disable', 'plugins', '--disable', 'multi_agent', '--disable', 'goals', '--model', 'gpt-5.4-mini', '--cd', '/home/liorshtram/projects/leaders-db', '--sandbox', 'read-only', '--add-dir', 'research/conversational-evidence/hybrid-experiment/2022-pilot-addendum-2-v2/outputs/chn-2022/.researcher', 'exec', 'resume', '019f7f42-dc70-7852-9507-9baea24ac2f2', '-', '--json', '--ignore-rules', '--output-last-message', 'research/conversational-evidence/hybrid-experiment/2022-pilot-addendum-2-v2/outputs/chn-2022/.researcher/turn-007.md']' timed out after 900 seconds
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/cli.py", line 40, in <module>
+    main()
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/cli.py", line 25, in main
+    result = run_experiment(
+             ^^^^^^^^^^^^^^^
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/runner.py", line 64, in run_experiment
+    guides = _run_research(
+             ^^^^^^^^^^^^^^
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/hybrid_experiment/runner.py", line 198, in _run_research
+    note = researcher.ask(
+           ^^^^^^^^^^^^^^^
+  File "/home/liorshtram/projects/leaders-db/src/leaders_db/conversational_evidence/researcher.py", line 51, in ask
+    result = subprocess.run(
+             ^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 2115, in _communicate
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liorshtram/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+{"schema_version": "hybrid-experiment-profile-v1", "turns": 10, "duration_seconds": 4089.923, "tool_calls": 180, "usage": {"input_tokens": 1786728, "cached_input_tokens": 574976, "output_tokens": 181230, "reasoning_output_tokens": 143223}, "estimated_cost_usd": 1.767472, "evidence": {"accepted_claims": 116, "discovery_only_claims": 0, "distinct_urls": 89, "distinct_domains": 30, "chapters": {"1B": {"accepted_claims": 16, "distinct_urls": 15, "domains": 9, "mapped_lenses": ["1B.1", "1B.10", "1B.2", "1B.3", "1B.4", "1B.5", "1B.6", "1B.7", "1B.8", "1B.9"], "top_domains": [["investing.com", 4], ["english.www.gov.cn", 3], ["sipri.org", 2], ["press.un.org", 2], ["fmprc.gov.cn", 1]], "warnings": []}, "2B": {"accepted_claims": 16, "distinct_urls": 15, "domains": 6, "mapped_lenses": ["2B.1", "2B.10", "2B.2", "2B.3", "2B.4", "2B.6", "2B.7", "2B.8", "2B.9"], "top_domains": [["investing.com", 7], ["fmprc.gov.cn", 4], ["english.www.gov.cn", 2], ["defense.gov", 1], ["press.un.org", 1]], "warnings": ["top_domain_above_35_percent_of_claims", "not_all_lenses_explicitly_mapped"]}, "3B": {"accepted_claims": 17, "distinct_urls": 10, "domains": 8, "mapped_lenses": ["3B.1", "3B.10", "3B.2", "3B.3", "3B.4", "3B.5", "3B.6", "3B.7", "3B.8", "3B.9"], "top_domains": [["ecoi.net", 7], ["hrw.org", 2], ["investing.com", 2], ["2021-2025.state.gov", 2], ["digitallibrary.un.org", 1]], "warnings": ["top_domain_above_35_percent_of_claims"]}, "4B": {"accepted_claims": 21, "distinct_urls": 20, "domains": 9, "mapped_lenses": ["4B.1", "4B.10", "4B.2", "4B.3", "4B.5", "4B.6", "4B.7", "4B.8", "4B.9"], "top_domains": [["investing.com", 6], ["2021-2025.state.gov", 5], ["english.www.gov.cn", 3], ["freedomhouse.org", 2], ["ecoi.net", 1]], "warnings": ["not_all_lenses_explicitly_mapped"]}, "5B": {"accepted_claims": 20, "distinct_urls": 19, "domains": 6, "mapped_lenses": ["5B.1", "5B.10", "5B.2", "5B.3", "5B.4", "5B.6", "5B.7", "5B.8", "5B.9"], "top_domains": [["investing.com", 8], ["english.www.gov.cn", 4], ["stats.gov.cn", 4], ["worldbank.org", 2], ["imf.org", 1]], "warnings": ["top_domain_above_35_percent_of_claims", "not_all_lenses_explicitly_mapped"]}, "6B": {"accepted_claims": 15, "distinct_urls": 15, "domains": 8, "mapped_lenses": ["6B.1", "6B.10", "6B.2", "6B.3", "6B.4", "6B.5", "6B.6", "6B.7", "6B.8", "6B.9"], "top_domains": [["english.www.gov.cn", 5], ["stats.gov.cn", 4], ["nhc.gov.cn", 1], ["nhsa.gov.cn", 1], ["english.scio.gov.cn", 1]], "warnings": []}, "7B": {"accepted_claims": 13, "distinct_urls": 12, "domains": 6, "mapped_lenses": ["7B.10", "7B.2", "7B.3", "7B.4", "7B.5", "7B.6", "7B.7", "7B.9"], "top_domains": [["english.www.gov.cn", 4], ["investing.com", 3], ["en.moj.gov.cn", 2], ["english.scio.gov.cn", 2], ["marketscreener.com", 1]], "warnings": ["not_all_lenses_explicitly_mapped"]}, "8B": {"accepted_claims": 19, "distinct_urls": 19, "domains": 5, "mapped_lenses": ["8B.1", "8B.10", "8B.2", "8B.3", "8B.4", "8B.5", "8B.6", "8B.7", "8B.8", "8B.9"], "top_domains": [["english.www.gov.cn", 13], ["investing.com", 3], ["uk.investing.com", 1], ["marketscreener.com", 1], ["english.scio.gov.cn", 1]], "warnings": ["top_domain_above_35_percent_of_claims"]}}}, "quality_summary": {"accepted_claims": 116, "discovery_only_claims": 0, "distinct_urls": 89, "distinct_domains": 30, "chapters": {"1B": {"accepted_claims": 16, "distinct_urls": 15, "domains": 9, "mapped_lenses": ["1B.1", "1B.10", "1B.2", "1B.3", "1B.4", "1B.5", "1B.6", "1B.7", "1B.8", "1B.9"], "top_domains": [["investing.com", 4], ["english.www.gov.cn", 3], ["sipri.org", 2], ["press.un.org", 2], ["fmprc.gov.cn", 1]], "warnings": []}, "2B": {"accepted_claims": 16, "distinct_urls": 15, "domains": 6, "mapped_lenses": ["2B.1", "2B.10", "2B.2", "2B.3", "2B.4", "2B.6", "2B.7", "2B.8", "2B.9"], "top_domains": [["investing.com", 7], ["fmprc.gov.cn", 4], ["english.www.gov.cn", 2], ["defense.gov", 1], ["press.un.org", 1]], "warnings": ["top_domain_above_35_percent_of_claims", "not_all_lenses_explicitly_mapped"]}, "3B": {"accepted_claims": 17, "distinct_urls": 10, "domains": 8, "mapped_lenses": ["3B.1", "3B.10", "3B.2", "3B.3", "3B.4", "3B.5", "3B.6", "3B.7", "3B.8", "3B.9"], "top_domains": [["ecoi.net", 7], ["hrw.org", 2], ["investing.com", 2], ["2021-2025.state.gov", 2], ["digitallibrary.un.org", 1]], "warnings": ["top_domain_above_35_percent_of_claims"]}, "4B": {"accepted_claims": 21, "distinct_urls": 20, "domains": 9, "mapped_lenses": ["4B.1", "4B.10", "4B.2", "4B.3", "4B.5", "4B.6", "4B.7", "4B.8", "4B.9"], "top_domains": [["investing.com", 6], ["2021-2025.state.gov", 5], ["english.www.gov.cn", 3], ["freedomhouse.org", 2], ["ecoi.net", 1]], "warnings": ["not_all_lenses_explicitly_mapped"]}, "5B": {"accepted_claims": 20, "distinct_urls": 19, "domains": 6, "mapped_lenses": ["5B.1", "5B.10", "5B.2", "5B.3", "5B.4", "5B.6", "5B.7", "5B.8", "5B.9"], "top_domains": [["investing.com", 8], ["english.www.gov.cn", 4], ["stats.gov.cn", 4], ["worldbank.org", 2], ["imf.org", 1]], "warnings": ["top_domain_above_35_percent_of_claims", "not_all_lenses_explicitly_mapped"]}, "6B": {"accepted_claims": 15, "distinct_urls": 15, "domains": 8, "mapped_lenses": ["6B.1", "6B.10", "6B.2", "6B.3", "6B.4", "6B.5", "6B.6", "6B.7", "6B.8", "6B.9"], "top_domains": [["english.www.gov.cn", 5], ["stats.gov.cn", 4], ["nhc.gov.cn", 1], ["nhsa.gov.cn", 1], ["english.scio.gov.cn", 1]], "warnings": []}, "7B": {"accepted_claims": 13, "distinct_urls": 12, "domains": 6, "mapped_lenses": ["7B.10", "7B.2", "7B.3", "7B.4", "7B.5", "7B.6", "7B.7", "7B.9"], "top_domains": [["english.www.gov.cn", 4], ["investing.com", 3], ["en.moj.gov.cn", 2], ["english.scio.gov.cn", 2], ["marketscreener.com", 1]], "warnings": ["not_all_lenses_explicitly_mapped"]}, "8B": {"accepted_claims": 19, "distinct_urls": 19, "domains": 5, "mapped_lenses": ["8B.1", "8B.10", "8B.2", "8B.3", "8B.4", "8B.5", "8B.6", "8B.7", "8B.8", "8B.9"], "top_domains": [["english.www.gov.cn", 13], ["investing.com", 3], ["uk.investing.com", 1], ["marketscreener.com", 1], ["english.scio.gov.cn", 1]], "warnings": ["top_domain_above_35_percent_of_claims"]}}}}

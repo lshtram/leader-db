@@ -1,0 +1,506 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:MEX:15801",
+  "iso3": "MEX",
+  "country_name": "Mexico",
+  "ruler_name": "Andr\u00e9s Manuel L\u00f3pez Obrador",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 5,
+  "approximate_source_family_count": 4,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 5 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 4 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed. The requested files could not be written because the workspace is read-only; this response is the complete handoff.
+
+## Reconnaissance
+
+Ruler: Andrés Manuel López Obrador, President of Mexico, 2022.
+
+Authority baseline:
+
+- Mexico’s president is head of state and government; the president holds supreme command of the armed forces and appoints senior government and military officials. [Mexican constitutional Article 89 summary](https://museodelasconstituciones.unam.mx/articulo-89/)
+- During 2022, López Obrador directly promoted military control of the National Guard and expanded armed-forces responsibilities into policing, migration, infrastructure, social-program administration, and megaprojects. [HRW](https://www.hrw.org/world-report/2022/country-chapters/mexico), [Amnesty](https://www.ecoi.net/en/document/2089563.html)
+- Practical constraints included Congress, the Supreme Court, autonomous electoral and transparency institutions, state governments, organized crime, and pandemic/economic shocks.
+
+Evidence environment:
+
+- Mexico had an active press and civil-society environment, but journalists and human-rights defenders faced severe violence. CPJ recorded 13 journalists killed in 2022, Mexico’s highest annual figure in its records; only three cases were confirmed work-related and ten remained under investigation. [CPJ](https://cpj.org/reports/2023/01/deadly-year-for-journalists-as-killings-rose-sharply-in-2022/)
+- HRW reported that López Obrador used daily press conferences to harass and intimidate journalists, while official investigation and prosecution remained weak. [HRW](https://www.hrw.org/news/2022/05/03/mexico-address-persistent-violence-against-journalists)
+- This creates both visibility and attribution problems: Mexico is highly documented, but violence is often local, criminal, or state-level and cannot automatically be attributed to the president.
+- Official statistics and government reports are available, but official claims about restraint, transparency, and program success require independent corroboration.
+- Source families used: IAEA, UN, Mexican government, HRW, Amnesty, Freedom House, CPJ, AP, OECD, IMF, CONEVAL, and Reuters Institute.
+
+## Evidence ledger
+
+| ID | Claim and source locator | Profile / fit | Chapters and lenses |
+|---|---|---|---|
+| E001 | The president holds supreme command of Mexico’s armed forces and broad appointment/security powers. Article 89 summary. | Official legal record; high for formal authority; 2022-period authority baseline. | 1B, 2B, 3B, 4B, 8B |
+| E002 | Mexico maintained IAEA safeguards under the NPT/Tlatelolco framework and an Additional Protocol. IAEA country factsheet, “Safeguards Agreements,” lines 112–128. | IAEA/intergovernmental; high; formal nuclear status, not personal AMLO conduct. | 1B.3, 1B.4, 1B.6, 1B.10 |
+| E003 | Mexico’s government stated that it opposed invasion of Ukraine and favored dialogue and peaceful resolution. Presidential statement, 23 Feb. 2022. | Official; medium-low for self-serving policy framing; final only as evidence of stated position. | 2B.1, 2B.6, 2B.7, 2B.10, 8B.1 |
+| E004 | Mexico and France proposed a UN humanitarian resolution on Ukraine; Mexico urged civilian protection, humanitarian access, and diplomacy. UN Security Council record, 28 Feb. 2022. | UN official record; high for diplomatic action and statements. | 2B.1, 2B.4, 2B.7, 2B.10 |
+| E005 | Mexico supported Ukraine’s sovereignty and territorial integrity while emphasizing dialogue and diplomacy. UN Security Council record, 30 Sept. 2022. | UN official record; high; target-year diplomatic conduct. | 2B.1, 2B.6, 2B.7, 2B.10 |
+| E006 | Mexico’s nuclear posture was inherited and treaty-based; no ruler-specific nuclear escalation or weapon-use evidence was found. IAEA factsheet plus local prior absence. | High-confidence contextual conclusion; absence is not proof of responsible conduct. | 1B.1–1B.10 |
+| E007 | López Obrador proposed transferring National Guard control from the civilian security ministry to SEDENA and making military security participation effectively indefinite. HRW, lines 430–436. | HRW; medium-high; direct target-year ruler-attributed policy action. | 3B.1, 3B.2, 3B.4, 3B.5, 3B.6, 3B.8, 3B.9, 4B.4, 4B.10, 8B.2–8B.6 |
+| E008 | HRW characterized the militarized security strategy as failing to end cartel violence and associated it with executions, disappearances, torture, and impunity. HRW, lines 433–435. | HRW; medium-high; independent assessment, but causal attribution is partly institutional rather than personal. | 3B.1, 3B.2, 3B.4, 3B.6, 3B.10, 8B.7–8B.10 |
+| E009 | HRW reported continued torture, enforced disappearances, extrajudicial killings, gender violence, attacks on journalists, and impunity under López Obrador; military activity expanded substantially. World Report 2022, lines 68–85. | HRW; medium-high; target-period country/ruler context. | 3B.1, 3B.2, 3B.4, 3B.5, 3B.6, 3B.8, 3B.10 |
+| E010 | Amnesty reported more than 109,000 registered missing persons by end-2022, increased militarization, excessive force by the National Guard, and 476 complaints against the Guard plus 404 against SEDENA. Amnesty 2022/23 Mexico report, lines 33–43. | Amnesty; medium-high; target-year evidence; complaints are not equivalent to proven responsibility. | 3B.1, 3B.2, 3B.4, 3B.5, 3B.6, 3B.10 |
+| E011 | The UN Committee against Enforced Disappearances urged Mexico to abandon militarized public security and strengthen civilian forces. Amnesty’s contemporaneous summary, lines 78–86. | UN recommendation reported by Amnesty; medium-high; strong policy-context evidence. | 3B.4, 3B.5, 3B.6, 3B.10, 8B.8 |
+| E012 | Mexico’s official Ayotzinapa commission described the 2014 disappearance of 43 students as a state crime involving criminal and state agents, and stated that authorities had been negligent or complicit. Government report, lines 62–90. | Official inquiry; medium-high for existence and official findings; requires independent corroboration for disputed responsibility. | 3B.1, 3B.2, 3B.4, 3B.9, 3B.10, 7B.6–7B.7, 8B.6–8B.8 |
+| E013 | UN Human Rights Office welcomed the 2022 Ayotzinapa report but called for judicial independence, access to information, responsibility of civilian and military superiors, and removal of officials who obstructed investigation. UN Mexico, lines 62–69. | UN; high; target-period accountability and remedy evidence. | 3B.4, 3B.8, 3B.9, 4B.4, 7B.6–7B.7, 8B.8 |
+| E014 | Freedom House reported routine physical abuse in detention, near-universal impunity for security-force abuses, over 95,000 registered disappearances at end-2021, and limited convictions. 2022 country report, lines 230–236. | Freedom House; medium-high; target-period contextual evidence. | 3B.1, 3B.2, 3B.4, 3B.5, 3B.10 |
+| E015 | AP reported López Obrador-backed “Plan B” electoral reforms that would reduce the electoral institute’s size and supervisory/sanctioning powers; opponents and the institute said this threatened electoral equity and transparency. AP, lines 1781–1821. | AP; medium-high; direct 2022 policy proposal and attributed institutional conflict. | 4B.1, 4B.2, 4B.4, 4B.5, 4B.8, 4B.10, 8B.1–8B.6 |
+| E016 | Freedom House described Mexico as an electoral democracy with routine alternation, while recording institutional tensions around the 2022 recall referendum and executive criticism of institutions. 2022 report. | Freedom House; medium-high; country baseline and institutional context, not personal integrity proof. | 4B.1, 4B.4, 4B.8, 4B.10 |
+| E017 | CPJ recorded 13 journalists killed in Mexico in 2022, the country’s highest annual number in its records; three were confirmed work-related and ten had uncertain motives. CPJ, lines 524–529 and 555–556. | CPJ; medium-high; precise target-year safety/media evidence; attribution to AMLO is indirect. | 3B.3, 3B.8, 3B.9, 4B.3, 4B.6, 4B.10 |
+| E018 | HRW stated that López Obrador had failed to address media violence and used morning briefings to harass and intimidate journalists. HRW, lines 607–610. | HRW; medium-high; direct ruler rhetoric and protection failure. | 3B.3, 3B.8, 3B.9, 4B.3, 4B.6, 4B.9, 7B.7, 7B.10 |
+| E019 | OECD assessed Mexico’s macroeconomic framework as broadly stable, with cautious fiscal policy, but identified low growth, high inequality, informality, weak investment, productivity problems, strained health/education systems, and infrastructure gaps. OECD 2022 survey, lines 3753–3766 and 3912–3919. | OECD; high; independent country-level economic context, not automatic ruler credit. | 5B.3–5B.6, 5B.9–5B.10, 6B.2, 6B.5–6B.6, 8B.7 |
+| E020 | OECD projected 2022 GDP growth of 2.3%, inflation of 5.4%, a public deficit of 3.2% of GDP, and public debt near 50% of GDP. OECD table, lines 3788–3880. | OECD; high; target-year outcome context. | 5B.3, 5B.9, 5B.10, 8B.7 |
+| E021 | IMF reported that Mexico recovered more gradually than peers, with entrenched inflation, weakened growth prospects, low growth, and high inequality. IMF Article IV summary, lines 261–264. | IMF; high; target-year macro context. | 5B.3, 5B.9–5B.10, 8B.7 |
+| E022 | CONEVAL’s 2022 evaluation identified advances in social rights but also gaps, insufficiently integrated policy, pandemic effects, and widening inequalities affecting groups including Indigenous people. CONEVAL, lines 121–126. | Official evaluator; medium-high/high for evaluation findings; target-period social policy evidence. | 6B.1–6B.6, 6B.8–6B.10, 5B.8 |
+| E023 | The Mexican government reported programs including pensions, disability support, scholarships, Jóvenes Construyendo el Futuro, and Sembrando Vida; its 2022 government-report page records these as administration priorities. Official government reports, lines 343–385 and 687. | Official; medium-low for claimed success, medium-high for existence and stated program priorities. | 5B.1, 5B.6, 6B.1–6B.5, 6B.7–6B.10, 8B.1–8B.6 |
+| E024 | CONEVAL’s 2022 program-evaluation material documents social-policy challenges and the need for more integrated rights-based delivery. | Official evaluator; high/medium-high; implementation and correction context. | 6B.2, 6B.4–6B.5, 6B.8–6B.10, 8B.6–8B.8 |
+| E025 | Reuters reported that López Obrador publicly urged his son to explain finances concerning a Houston property rented from a former Baker Hughes executive whose company had business ties to Pemex; the president denied a conflict of interest. | Reuters report via syndicated copy; medium-high for chronology and attributed statements; allegation not a finding. | 7B.3–7B.4, 7B.6–7B.8 |
+| E026 | Baker Hughes stated after an internal investigation that it found no irregularity or conflict of interest in the property matter. | Company statement; medium-low for self-exculpatory claim; contrary evidence only, not sole final evidence. | 7B.3–7B.4, 7B.6 |
+| E027 | Mexican audit reporting identified possible irregularities in major projects and social programs, including payments requiring clarification and direct-award contracting. El Universal summary of ASF findings. | Media summary of official audit; medium-high for reported audit findings, but underlying audit should be retrieved before final use. | 5B.4–5B.7, 7B.4, 7B.6–7B.9, 8B.2–8B.8 |
+| E028 | López Obrador publicly defended the honesty of the government after ASF findings and stated that there were no thieves in his administration. El País, 21 Feb. 2022. | Reputable media; medium-high for attributed statement and response; statement is self-serving. | 7B.1–7B.2, 7B.6–7B.8, 8B.8 |
+| E029 | Local prior: UCDP records supplied zero state-based and internationalized conflict events/fatalities for 2008, 2017, 2018, 2021, and 2022. LF001–LF060, LS042–LS043, LS071–LS072. | Local structured dataset; high for measured fields; exposure/context only, not proof of peaceful ruler conduct. | 2B.1–2B.7, 2B.10 |
+| E030 | Local prior: military expenditure rose from $7.41bn in 2017 to $8.29bn in 2018, $11.46bn in 2021, and $12.22bn in 2022; 2022 spending was 0.686% of GDP and 2.405% of government expenditure. LF097–LF120, LS049–LS052. | SIPRI local structured prior; high for expenditure; no motive or responsibility inference. | 2B.3, 2B.8, 2B.10 |
+| E031 | Local prior: 2022 physical-integrity and repression indicators remained adverse: CIRIGHTS physical integrity 3/8, political imprisonment 2/2, repression 4/17; V-Dem physical integrity 0.512 and civil-society repression 0.638. LF254–LF260, LF348–LF355, LS006, LS008, LS058, LS063. | Local structured priors; high for measured country-year indicators; attribution limited. | 3B.1, 3B.4–3B.10 |
+| E032 | Local prior: 2022 political-freedom indicators declined relative to the inherited period: V-Dem electoral democracy 0.584, liberal democracy 0.330, freedom of expression 0.619, judicial constraints 0.498, legislative constraints 0.387; Freedom House civil liberties 4 and political rights 3; RSF rank 127 and score 47.57. LF488–LF495, LF700–LF714, LS021, LS027, LS044–LS046, LS061–LS062, LS070, LS075. | Local structured priors; high for measured country-year context; does not establish ruler intent alone. | 4B.1–4B.10 |
+| E033 | Local prior: 2022 GDP per capita was $11,405 nominal, $16,235 in constant-2011 PPP, GNI per capita $19,138 PPP, Gini 43.5, and total GDP $1.466tn nominal. LF807–LF813, LF982–LF988, LS029, LS031–LS034, LS076. | Local structured priors; high for outcomes; attribution and inflation/exchange-rate caveats retained. | 5B.1, 5B.3–5B.10 |
+| E034 | Local prior: 2022 HDI 0.781, life expectancy 74.832, mean schooling 9.221 years, expected schooling 14.505 years, under-five mortality 12.87/1,000, BCG 95%, DTP3/HepB3 83%, adult literacy 95.12%, secondary enrollment 98.36%. LF1045–LF1054, LS039–LS040, LS047–LS048, LS074, LS077–LS078. | Local structured priors; high for outcomes; no automatic ruler credit. | 6B.1–6B.10 |
+| E035 | Local prior: 2022 accountability 0.814, rule of law 0.441, WGI rule of law −0.867, government effectiveness −0.281, regulatory quality −0.148. LF700, LF712, LF714, LF1143–LF1144, LS001, LS036, LS069–LS070. | Local structured priors; high for measured governance context; not direct personal integrity evidence. | 4B.4, 4B.10, 7B.6–7B.7, 8B.2–8B.10 |
+
+## Chapter-by-chapter handoff
+
+### 1B — Nuclear and existential risk
+
+Local baseline:
+
+- No Mexico arsenal or nuclear-use facts were supplied.
+- IAEA confirms safeguards under NPT/Tlatelolco and an Additional Protocol (E002).
+- Exposure is best characterized as limited nuclear-weapons authority with treaty and dual-use responsibilities; this is not evidence of personal AMLO conduct.
+
+Internet evidence:
+
+- E002 is the only retained direct nuclear item.
+- No target-year AMLO nuclear rhetoric, command-safety decision, proliferation decision, or nuclear crisis was found in this pass.
+
+Gaps requiring continuation:
+
+- Mexican civil-nuclear safety and 2022 National Report.
+- AMLO-specific positions on nuclear disarmament, dual-use technology, cyber, biological, or AI risk.
+- Crisis communication and appointments of technical/security experts.
+
+No defensible ruler-attributed evidence was found for lenses 1B.1–1B.10 beyond formal treaty context.
+
+### 2B — International peace, restraint, and lawful security
+
+Local baseline:
+
+- UCDP records zero supplied state-based and internationalized conflict events/fatalities for 2022 and boundary years (E029).
+- SIPRI shows military expenditure increased substantially during the tenure, but this measures spending only (E030).
+
+Internet evidence:
+
+- E003–E005 document Mexico’s 2022 Ukraine diplomacy: opposition to invasion, support for sovereignty/humanitarian access, and proposals for dialogue.
+- These are attributable foreign-policy actions, but official rhetoric requires corroboration and does not establish effectiveness.
+- No evidence was found that AMLO initiated an external war, supplied weapons, or directed proxy conflict.
+
+Gaps:
+
+- More detailed UN voting records and implementation of Mexico’s proposed mediation initiative.
+- Migration/security cooperation with the United States and Central America.
+- Arms transfers, military deployments, and accountability for any cross-border operations.
+- Direct evidence on truthfulness of threat claims and military procurement motives.
+
+### 3B — Domestic safety, restraint, and protection
+
+Strongest chapter yield.
+
+Local baseline:
+
+- 2022 local indicators show continuing physical-integrity problems, political imprisonment, repression, civil-society pressure, and one-sided violence exposure (E031).
+- UCDP one-sided violence records show 51 events and 85 fatalities, but the package explicitly warns that event location does not establish perpetrator or ruler responsibility.
+- Local longitudinal signals show adverse civil-liberties/physical-integrity context and increased one-sided violence, with attribution limitations.
+
+Internet evidence:
+
+- E007–E011 directly address militarized public security, National Guard control, impunity, disappearances, torture, excessive force, and complaints.
+- E012–E014 provide Ayotzinapa accountability, disappearance, detention, and remedy evidence.
+- E017–E018 cover journalist killings and presidential harassment/intimidation of journalists.
+
+Important attribution caveat:
+
+- Cartel violence, state-level policing, and local abuses cannot automatically be attributed to AMLO. Attribution is stronger for the decision to expand military policing, the legal framework, executive rhetoric, and failure to remedy documented abuses.
+
+Unresolved gaps:
+
+- Women, Indigenous communities, migrants, and disability-specific protection.
+- Direct evidence on protest policing in 2022 and emergency powers.
+- Evidence distinguishing national policy from autonomous state/local conduct.
+
+### 4B — Political freedom versus authoritarian rule
+
+Local baseline:
+
+- E032 records deterioration in V-Dem electoral democracy, liberal democracy, expression, judicial constraints, legislative constraints, and WGI voice/rule-of-law measures.
+- Freedom House still describes Mexico as an electoral democracy with regular alternation (E016), an important contrary/baseline point.
+
+Internet evidence:
+
+- E015 documents AMLO-backed Plan B electoral reforms, intended reductions in INE size and supervisory/sanctioning powers, opposition objections, and executive attacks on institutional critics.
+- E017–E018 provide direct media-threat and journalist-safety evidence.
+- E012–E013 provide mixed institutional evidence: the executive created an Ayotzinapa truth commission and released a public report, while UN observers demanded stronger judicial independence and accountability.
+
+Gaps:
+
+- 2022 treatment of opposition parties, civic organizations, protest movements, and local governments.
+- Digital surveillance and administrative harassment.
+- Direct evidence on appointment/politicization of courts, audit bodies, and autonomous agencies during the target year.
+- Whether electoral reforms were ultimately implemented or blocked; later events should remain retrospective context only.
+
+### 5B — Economic well-being and prosperity
+
+Local baseline:
+
+- E033 supplies 2022 income, GDP, GNI, inequality, consumption, government consumption, capital formation, and longitudinal trajectory.
+- Local warnings correctly prevent treating nominal current-dollar increases as real growth.
+- Local trends show post-pandemic recovery but weak per-capita PPP trajectory and persistent inequality.
+
+Internet evidence:
+
+- E019–E021 provide independent OECD/IMF assessment: macroeconomic stability and fiscal prudence, but low growth, weak investment/productivity, informality, inequality, inflation, and strained systems.
+- E023–E024 document the administration’s stated social/infrastructure priorities and independent evaluation concerns.
+- E027–E028 provide audit irregularities and the president’s response to them.
+
+Gaps:
+
+- Specific 2022 appointments and independence of economic professionals.
+- Competition, property rights, regulatory changes, and private-investment effects.
+- Distribution by region, gender, and household group beyond Gini.
+- Detailed implementation and cost-benefit evidence for Tren Maya, Dos Bocas, and AIFA.
+
+### 6B — Social well-being and human development
+
+Local baseline:
+
+- E034 supplies HDI, education, life expectancy, mortality, immunization, literacy, and enrollment outcomes.
+- These indicate relatively strong aggregate human-development outcomes but cannot establish AMLO’s contribution or quality/equity.
+- E022 and E024 add independent evaluation evidence on social-policy advances, gaps, pandemic effects, and Indigenous/group inequality.
+
+Internet evidence:
+
+- E023 documents the administration’s stated programs and coverage claims.
+- E022 is the strongest independent source for social-policy implementation and distributional gaps.
+- E009–E011 provide crisis/security harms relevant to avoidable suffering, but should not be double-counted as ordinary social-welfare outcomes.
+
+Gaps:
+
+- Health-system access, affordability, medicine shortages, service quality, water/sanitation, housing, food security, and disability inclusion.
+- Political conditionality or benefit distribution by party loyalty.
+- Program-level evaluations for pensions, scholarships, Jóvenes Construyendo el Futuro, and Sembrando Vida within the 2022 window.
+- Durable institutionalization beyond AMLO’s personal rule.
+
+### 7B — Personal integrity and honesty
+
+Local baseline:
+
+- Country corruption and governance indicators (E035) are context only and cannot establish personal integrity.
+- No local fact directly measures AMLO’s truthfulness, personal benefit, family interests, appointments, or response to scrutiny.
+
+Internet evidence:
+
+- E025 documents the 2022 Baker Hughes/Houston-property controversy, AMLO’s request that his son explain finances, and his denial of a conflict.
+- E026 is contrary evidence: Baker Hughes reported no irregularity/conflict in its internal review.
+- E027–E028 document audit irregularities in flagship projects and AMLO’s public defense of government honesty.
+- E018 documents presidential harassment of journalists, potentially relevant to tolerance of scrutiny, but this must be separated from personal self-dealing.
+
+Gaps:
+
+- Asset declarations, procurement/beneficial-ownership records, appointments, campaign finance, and verified family/state-business nexus.
+- Independent findings rather than allegations or self-exculpatory statements.
+- Evidence of correction, retaliation, concealment, or acceptance of independent investigations.
+
+The personal-nexus record remains mixed and incomplete; generic militarization, corruption, or institutional weakness was not personalized.
+
+### 8B — Effectiveness and competence
+
+Program basis:
+
+- Explicit/reliably revealed themes include “Fourth Transformation,” austerity/anti-corruption, social transfers, energy sovereignty, military-led security, and flagship infrastructure. E023 and official government-report pages establish stated priorities.
+- E007 establishes implementation of military reorganization.
+- E023–E024 establish social-program implementation claims and independent evaluation concerns.
+- E019–E021 provide independent outcome/context evidence.
+- E027 documents implementation/audit irregularities in major projects.
+- E012–E013 show a mixed implementation/accountability chain in Ayotzinapa: presidential commission and public report, but continuing demands for judicial independence and obstruction remedies.
+
+Gaps:
+
+- Complete program portfolio and prioritization documents for 2022.
+- Budgets, appointments, milestones, delivery data, and adaptation/replacement decisions.
+- Independent outcomes across more than one major program.
+- Crisis management evidence beyond macroeconomic and security outcomes.
+- Durability and post-period evidence must be kept retrospective.
+
+## Local-data audit
+
+Retained and used as context:
+
+- Conflict: LF001–LF060; LS042–LS043 and LS071–LS072.
+- Military spending: LF097–LF120; LS049–LS052.
+- Domestic safety: LF254–LF263, LF348–LF355; LS006–LS011, LS024, LS054–LS058, LS063.
+- Political freedom: LF488–LF495, LF700–LF714; LS010, LS015–LS021, LS026–LS027, LS044–LS046, LS053, LS059–LS063, LS068–LS070, LS073, LS075, LS079.
+- Economy: LF807–LF813, LF982–LF988; LS029–LS038, LS041.
+- Social well-being: LF1045–LF1054; LS039–LS040, LS047–LS048, LS074, LS077–LS078.
+- Governance/effectiveness context: LF700, LF712, LF714, LF1111–LF1114, LF1143–LF1144; LS001, LS012–LS013, LS022, LS036, LS067, LS069–LS070.
+
+Left unused:
+
+- Supplied local facts without direct relevance to 2022 ruler-period attribution, including most omitted annual rows and indicators not connected to a researched narrative claim.
+- No `error_methodology_ids` were supplied.
+- No client-matrix evidence was used.
+
+## Source diversity and reuse
+
+- 1B: IAEA plus local nuclear priors; insufficient narrative diversity.
+- 2B: UN, Mexican government, Reuters-linked reporting, and UCDP/SIPRI local priors.
+- 3B: HRW, Amnesty, UN, Freedom House, CPJ, Mexican government, and local priors.
+- 4B: AP, Freedom House, HRW/CPJ, UN, and local priors.
+- 5B: OECD, IMF, CONEVAL, Mexican government, audit reporting, and local priors.
+- 6B: CONEVAL, OECD, Mexican government, HRW/Amnesty, and local priors.
+- 7B: Reuters-linked reporting, Baker Hughes statement, El País, audit reporting, and local governance context.
+- 8B: Mexican government, CONEVAL, OECD, IMF, audit reporting, HRW/UN, and local outcomes.
+
+Same-URL splits were avoided. Distinct claims from the same source were retained as separate provisional items only where the locator and material claim differed. Cross-chapter reuse is intentional, especially for E007–E018, E019–E024, and E027–E028.
+---

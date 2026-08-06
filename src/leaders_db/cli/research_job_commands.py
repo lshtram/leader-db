@@ -96,14 +96,21 @@ def plan_dossiers_cmd(
 def plan_chapter_judge_cmd(
     year: int = typer.Option(..., "--year"),
     run_key: str = typer.Option(..., "--run-key"),
-    dossier_run_key: str | None = typer.Option(
+    dossier_run_key: list[str] | None = typer.Option(
         None,
         "--dossier-run-key",
-        help="Reuse completed dossiers from another run key.",
+        help="Reuse dossiers from one or more run keys; repeat this option.",
+    ),
+    completed_dossiers_only: bool = typer.Option(
+        False,
+        "--completed-dossiers-only",
+        help="Compose the cohort only from completed dossier jobs.",
     ),
     chapter_id: str | None = typer.Option(None, "--chapter-id"),
     all_chapters: bool = typer.Option(False, "--all-chapters"),
-    provider_profile: str = typer.Option(..., "--provider-profile"),
+    provider_profile: str = typer.Option(
+        "openai-sol-supervisor", "--provider-profile"
+    ),
     output_root: Path = typer.Option(..., "--output-root"),
     max_attempts: int = typer.Option(3, "--max-attempts", min=1),
     db_url: str | None = typer.Option(None, "--db-url"),
@@ -145,6 +152,7 @@ def plan_chapter_judge_cmd(
             "year": year,
             "run_key": run_key,
             "dossier_run_key": dossier_run_key,
+            "completed_dossiers_only": completed_dossiers_only,
             "provider_profile": provider_profile,
             "model_profiles_path": profiles,
             "output_root": output_root,

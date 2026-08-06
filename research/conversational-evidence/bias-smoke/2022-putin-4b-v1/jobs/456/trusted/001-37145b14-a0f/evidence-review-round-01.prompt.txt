@@ -1,0 +1,192 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+The immutable selected lens scope is:
+[
+  "4B.1",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "4B.10"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-putin-4b-bias-smoke-v1:2022:RUS:15706",
+  "iso3": "RUS",
+  "country_name": "Russian Federation",
+  "ruler_name": "Vladimir Putin",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "4B"
+  ],
+  "observed_chapter_ids": [
+    "4B"
+  ],
+  "approximate_locator_count": 9,
+  "approximate_source_family_count": 6,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "missing_gap_audit",
+      "message": "Unresolved evidence gaps are not explicit."
+    },
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for 2022 Putin/Russia, Chapter 4B only. No score assigned.
+
+The supplied local package was audited first:
+
+- LF001–LF017 were all retained as 2022 structured country-year context.
+- V-Dem, Freedom House, RSF, and WGI facts measure national institutions and conditions, not necessarily Putin’s personal acts.
+- No warnings or extraction errors were present.
+- LF011–LF012 directly support press-environment context; LF016–LF017 support governance context. The remaining facts establish baseline conditions but require narrative evidence for attribution.
+- The client matrix was not used.
+
+Internet research produced 16 provisional evidence items, E001–E016. E001 is a formal-authority context item with a gateway-only locator; E002–E016 have precise legal or HTML locators. Files could not be written because the workspace is read-only, so the complete handoff is here.
+
+Key evidence:
+
+- Russia’s president formally determines domestic and foreign-policy guidelines and serves as supreme commander; Article 80 also makes the president guarantor of rights. This supports formal responsibility, not proof of personal orders. [Kremlin authority page](https://en.kremlin.ru/structure/president), [Russian Constitution, Article 80](https://www.constitution.ru/en/10003000-05.htm)
+- In March 2022, Putin signed laws criminalizing reporting that deviated from official military information and “discrediting” the armed forces, with penalties up to 15 years. Independent outlets closed, relocated, or were blocked. [Human Rights Watch](https://www.hrw.org/world-report/2023/country-chapters/russian-federation)
+- Authorities blocked major platforms and media, restricted VPNs, expanded biometric and facial-recognition surveillance, and adopted extrajudicial media-blocking powers. [Human Rights Watch](https://www.hrw.org/world-report/2023/country-chapters/russian-federation), [Freedom House Freedom on the Net](https://freedomhouse.org/country/russia/freedom-net/2022)
+- Roskomnadzor ordered media to use only official invasion information and threatened fines and blocking. [Amnesty International](https://www.amnesty.org/en/documents/eur46/5272/2022/en/)
+- Amnesty documented arrests, force, fines, searches, and outlet closures targeting journalists, monitors, and protest reporting; hundreds of journalists left Russia. [Amnesty International](https://www.amnesty.org/en/latest/news/2022/11/russia-journalists-and-independent-monitors-being-silenced-to-stifle-reporting-of-protests-new-report/)
+- After Putin’s September mobilization call, at least 1,386 peaceful protesters were detained, with reports of beatings and chokeholds. [Amnesty International](https://www.amnesty.org/en/latest/news/2022/09/russia-more-than-1300-protesters-detained-after-putins-partial-military-draft/)
+- Golos assessed 2022 regional and local competition as among the lowest in a decade, citing arbitrary candidate exclusion, politically motivated registration decisions, and intimidation through anti-extremism, foreign-agent, and army-discrediting laws. [Golos](https://golosinfo.org/en/articles/146223)
+- Freedom House described the party system as managed, opposition competition as superficial, judicial independence as weak, and the 2020 constitutional amendments as enabling Putin to remain president until 2036. [Freedom House Freedom in the World](https://freedomhouse.org/country/russia/freedom-world/2022)
+
+Lens coverage:
+
+- 4B.1–4B.2: Golos and Freedom House support constrained competition, candidate exclusion, and entrenchment; direct target-year national alternation evidence is absent.
+- 4B.3: Strong coverage of opposition, protests, journalists, monitors, and civic organizations.
+- 4B.4: Institutional weakness and executive influence are documented; no clear 2022 example of Putin accepting a binding constraint.
+- 4B.5: Evidence supports politicized institutions, repression, and managed party competition; direct personality-cult evidence is limited.
+- 4B.6: Strongest coverage: censorship, official-only narratives, outlet closures, journalist reprisals, and platform blocking.
+- 4B.7: Partial coverage only; protest equality is documented, but evidence on minorities, women, and excluded regions is thin.
+- 4B.8: Constitutional entrenchment is documented as inherited/operative context; no 2022 transfer event occurred.
+- 4B.9: Strong coverage of blocking, VPN restrictions, biometrics, facial recognition, and administrative harassment.
+- 4B.10: Strong evidence of 2022 deterioration, while separating inherited authoritarian conditions from wartime escalation.
+
+Source diversity and limitations:
+
+- Source families: Human Rights Watch, Amnesty International, Freedom House, Golos, Kremlin, and the constitutional text.
+- Source types: NGO reports, election-monitoring material, official/legal records.
+- Same-URL splits: HRW’s 2023 Russia report supports multiple distinct claims; Freedom House Freedom on the Net supports blocking, opacity, and VPN claims; Freedom House Freedom in the World supports party, media, assembly, NGO, and judicial claims.
+- Source concentration is material, so repeated HRW/Amnesty/Freedom House coverage of the same crackdown is corroborative but not fully independent.
+- Strong contrary evidence: VPN use and alternative platforms preserved some access; some smaller parties and candidates registered; independent reporting and protests continued despite repression.
+- Main bias risks: silence under repression, urban protest visibility, NGO selection effects, English-language access bias, wartime emergency framing, incomplete official statistics, and uncertain denominators.
+
+Rejected candidates included search-result snippets, Wikipedia orientation pages, post-2022 reporting, out-of-period OSCE reports, and official self-serving claims about fairness or restraint.
+---

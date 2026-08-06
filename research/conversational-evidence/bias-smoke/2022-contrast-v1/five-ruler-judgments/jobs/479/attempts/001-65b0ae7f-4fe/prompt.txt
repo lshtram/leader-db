@@ -1,0 +1,3544 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited evidence and
+local-prior summaries. The parent has hash-bound each projection to its complete
+source dossier. Do not browse, search the web, use the client matrix, or add facts from
+memory. Evidence IDs are local to each dossier.
+
+All scoring inputs are embedded below. Do not invoke shell commands, filesystem
+tools, MCP resources, or local file reads. A local-tool failure is not a reason to
+return null scores because the complete chapter projections are present in this prompt.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If the record remains insufficient, return null with
+the full 1-10 range. Cite the qualifying fact by stable E-ID in at least one of the
+decisive evidence arrays. Never attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
+
+Retry context: There is no prior candidate for this attempt.
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+None.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2022-bias-five-judge-v1:2022:3B",
+  "run_key": "2022-bias-five-judge-v1",
+  "chapter_id": "3B",
+  "target_year": 2022,
+  "calibration_batch_id": "chapter-judge:2022-bias-five-judge-v1:2022:3B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15810,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+    "iso3": "COD",
+    "ruler_id": "2830",
+    "ruler_year_id": 16113,
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:RUS:15706",
+    "iso3": "RUS",
+    "ruler_id": "2759",
+    "ruler_year_id": 15706,
+    "ruler_name": "Vladimir Putin",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:DEU:16984",
+    "iso3": "DEU",
+    "ruler_id": "2975",
+    "ruler_year_id": 16984,
+    "ruler_name": "Olaf Scholz",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  },
+  {
+    "dossier_job_key": "dossier:2022-bias-contrast-v1:2022:NOR:16795",
+    "iso3": "NOR",
+    "ruler_id": "2933",
+    "ruler_year_id": 16795,
+    "ruler_name": "Jonas Gahr St\u00f8re",
+    "period_start_year": 2022,
+    "period_end_year": 2022
+  }
+]
+
+Embedded chapter projections (authoritative judge inputs):
+[
+  {
+    "chapter_id": "3B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "United States",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E009",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.1",
+        "reason": "Evidence found on federal policing and public-safety actions; national outcomes are not established.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.2",
+        "reason": "Evidence found on accountability, investigations, and vulnerable-group protection mechanisms.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.3",
+        "reason": "The researcher explicitly recorded no usable evidence for this lens; local country indicators were insufficient for ruler attribution.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.4",
+        "reason": "Evidence found on federal reform and protest-response guidance, with state/local attribution limits.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.5",
+        "reason": "Evidence found on policing accountability and investigations; nationwide outcomes remain unavailable.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E009"
+        ],
+        "methodology_id": "3B.6",
+        "reason": "Evidence found on federal gun-safety policy; public-safety effects remain unresolved.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.7",
+        "reason": "The researcher explicitly recorded no usable evidence for this lens.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.8",
+        "reason": "Evidence found on protest, policing, and civil-society safeguards, with implementation caveats.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E009",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.9",
+        "reason": "Evidence found on federal restraint and accountability mechanisms; subgroup and local outcomes remain incomplete.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E007",
+          "E008",
+          "E021",
+          "E030",
+          "E044"
+        ],
+        "methodology_id": "3B.10",
+        "reason": "Evidence found on federal policing action and contrary implementation criticism.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 9833,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://public-inspection.federalregister.gov/2022-11810.pdf|pp. 1-5|EO 14074 federal policing reforms",
+        "claim": "Executive Order 14074 ordered federal policing reforms involving accountability, misconduct data, independent investigations of in-custody deaths, profiling safeguards, use-of-force standards, and public reporting, while acknowledging that comprehensive system-wide reform required Congress.",
+        "contrary_evidence": [
+          "E008",
+          "E022",
+          "E031",
+          "E045"
+        ],
+        "evidence_id": "E007",
+        "excerpt": "The order establishes federal accountability, data, investigation, and policing-reform measures.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, May 2022.",
+        "publication_date": "2022-05-25",
+        "publisher": "Executive Office of the President; Federal Register",
+        "ruler_attribution": "Strong ruler-attributed federal action; limited reach over state and local police.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary legal instrument with page locator.",
+        "source_locator": "PDF pp. 1-5.",
+        "source_type": "executive_order",
+        "title": "Executive Order 14074",
+        "url": "https://public-inspection.federalregister.gov/2022-11810.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.aclu.org/news/criminal-law-reform/the-biden-administrations-executive-order-on-policing-is-a-foundation-to-build-upon|June 1 2022|assessment of EO 14074",
+        "claim": "Civil-society organizations described EO 14074 as a substantial federal policing action but criticized it as insufficient and dependent on sustained implementation across government levels.",
+        "contrary_evidence": [],
+        "evidence_id": "E008",
+        "excerpt": "The assessment supports the order as a foundation while emphasizing insufficiency and implementation dependence.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, June 2022.",
+        "publication_date": "2022-06-01",
+        "publisher": "ACLU, Center for American Progress, Vera Institute of Justice",
+        "ruler_attribution": "Assessment of federal action; not a neutral nationwide outcome evaluation.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Named civil-society assessment with direct critique and clear limitations.",
+        "source_locator": "Article, June 1 2022.",
+        "source_type": "civil_society_assessment",
+        "title": "The Biden Administration's Executive Order on Policing Is a Foundation to Build Upon",
+        "url": "https://www.aclu.org/news/criminal-law-reform/the-biden-administrations-executive-order-on-policing-is-a-foundation-to-build-upon"
+      },
+      {
+        "canonical_fact_key": "https://www.whitehouse.gov/wp-content/uploads/2022/06/Bipartisan-Safer-Communities-Act-SAP-1.pdf|June 23 2022|gun-safety legislative policy",
+        "claim": "The administration supported federal gun-safety legislation addressing background checks, firearms trafficking, school safety, and behavioral-health programs.",
+        "contrary_evidence": [],
+        "evidence_id": "E009",
+        "excerpt": "The administration's policy record supported the Bipartisan Safer Communities Act.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, June 2022.",
+        "publication_date": "2022-06-23",
+        "publisher": "Executive Office of the President",
+        "ruler_attribution": "Administration policy and legislative support; public-safety effects unresolved.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official contemporaneous policy document.",
+        "source_locator": "PDF, June 23 2022 policy record.",
+        "source_type": "official_policy_record",
+        "title": "Bipartisan Safer Communities Act Administration Policy",
+        "url": "https://www.whitehouse.gov/wp-content/uploads/2022/06/Bipartisan-Safer-Communities-Act-SAP-1.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.ojp.gov/library/publications/national-law-enforcement-accountability-database-2018-2023|lines 109-118|NLEAD implementation and records",
+        "claim": "The later BJS report states that NLEAD was established under EO 14074 and launched in December 2023, containing federal misconduct records for 2018-2023, including 4,790 records and 63% involving sustained complaints or disciplinary findings.",
+        "contrary_evidence": [],
+        "evidence_id": "E021",
+        "excerpt": "Retrospective federal implementation context linked to EO 14074; not a 2022 nationwide outcome.",
+        "final_evidence_use": "context",
+        "period_fit": "Published after target period; covers 2018-2023.",
+        "publication_date": "2024-12",
+        "publisher": "Office of Justice Programs; Bureau of Justice Statistics",
+        "ruler_attribution": "Federal implementation context only.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official statistical implementation report, but retrospective and federal-only.",
+        "source_locator": "HTML lines 109-118.",
+        "source_type": "retrospective_official_report",
+        "title": "National Law Enforcement Accountability Database, 2018-2023",
+        "url": "https://www.ojp.gov/library/publications/national-law-enforcement-accountability-database-2018-2023"
+      },
+      {
+        "canonical_fact_key": "https://cops.usdoj.gov/pressrelease/department-justice-releases-recommendations-law-enforcement-response-to-mass-protests-and|lines 76-85|federal protest-response guidance",
+        "claim": "DOJ COPS issued 102 recommendations for state, local, tribal, and territorial responses to mass protests, covering planning, de-escalation, communications, officer safety, after-action review, peaceful assembly, and public safety.",
+        "contrary_evidence": [
+          "E008",
+          "E022",
+          "E045"
+        ],
+        "evidence_id": "E030",
+        "excerpt": "Federal guidance with limited coercive reach over local police.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period federal implementation activity.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of Justice, COPS Office",
+        "ruler_attribution": "Federal guidance; no nationwide outcome finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official federal implementation record with precise lines.",
+        "source_locator": "HTML lines 76-85.",
+        "source_type": "official_guidance",
+        "title": "Recommendations for Law Enforcement Response to Mass Protests",
+        "url": "https://cops.usdoj.gov/pressrelease/department-justice-releases-recommendations-law-enforcement-response-to-mass-protests-and"
+      },
+      {
+        "canonical_fact_key": "https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips|lines 149-154|administrative conversion of CHIPS law into program",
+        "claim": "CHIPS implementation strategy evidence shows rapid conversion of enacted legislation into an administrative program with stated goals and guardrails, without establishing durable economic performance during 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E038",
+        "excerpt": "Cross-domain implementation context derived from the NIST strategy.",
+        "final_evidence_use": "context",
+        "period_fit": "Target period, September 2022.",
+        "publication_date": "2022-09",
+        "publisher": "National Institute of Standards and Technology",
+        "ruler_attribution": "Administrative conversion; no durable outcome finding.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Same NIST source as E034 but distinct cross-domain implementation claim.",
+        "source_locator": "HTML lines 149-154.",
+        "source_type": "official_implementation_record",
+        "title": "Administrative Conversion of CHIPS Law into Program",
+        "url": "https://www.nist.gov/news-events/news/2022/09/biden-administration-releases-implementation-strategy-50-billion-chips"
+      },
+      {
+        "canonical_fact_key": "https://www.justice.gov/archives/opa/pr/justice-department-announces-investigation-new-york-city-police-department-s-special-victims|June 30 2022|NYPD Special Victims Division investigation",
+        "claim": "DOJ opened a June 2022 pattern-or-practice investigation into the NYPD Special Victims Division, examining gender-biased policing, treatment of sexual-assault survivors, investigative procedures, staffing, and support services.",
+        "contrary_evidence": [],
+        "evidence_id": "E044",
+        "excerpt": "Federal enforcement activity addressing vulnerable-group protection; investigation is not a completed outcome finding.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target period, June 30 2022.",
+        "publication_date": "2022-06-30",
+        "publisher": "U.S. Department of Justice",
+        "ruler_attribution": "Federal enforcement action concerning local conduct; no nationwide attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official DOJ announcement with precise date and scope.",
+        "source_locator": "DOJ announcement, June 30 2022.",
+        "source_type": "official_investigation_record",
+        "title": "Investigation into NYPD Special Victims Division",
+        "url": "https://www.justice.gov/archives/opa/pr/justice-department-announces-investigation-new-york-city-police-department-s-special-victims"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "The notebook cites surveillance safeguards and disinformation-policy controversy (E023, E032), while noting that classified nuclear, intelligence, cyber, and internal deliberation records may conceal failures. No cited evidence establishes comprehensive censorship or intimidation.",
+      "chapter_specific_biases": [
+        "1B: official policy records and expert assessments outweigh observable operational nuclear-safety evidence; inherited arsenal facts are not ruler evidence.",
+        "2B: Ukraine coverage is high-volume and allegation-rich; assistance, civilian exposure, partner agency, and U.S. responsibility must remain distinct.",
+        "3B: federal policing records do not establish state/local outcomes; advocacy criticism is not a neutral outcome evaluation.",
+        "4B: inherited January 6 events must not be attributed to Biden; surveillance and disinformation accounts have differing independence.",
+        "5B: projections, nominal macroeconomic outcomes, inflation, pandemic fiscal policy, and executive decisions have shared causation.",
+        "6B: veteran-service evidence cannot be generalized to the population; activity and claims volume are not health outcomes.",
+        "7B: disclosure and transparency records cannot substitute for personal-integrity findings; political-family allegations require independent personal nexus.",
+        "8B: formal actions and implementation architecture are more observable than durable cross-domain outcomes."
+      ],
+      "complaint_volume_interpretation": "Complaint and allegation volume is not a severity denominator. The notebook specifically notes high visibility for Ukraine, policing, media, and political-family allegations, while classified nuclear conduct and personal integrity may be underreported.",
+      "criticism_possible": "Criticism was possible through congressional analysis, CRS, CBO, GAO, inspectors general, courts and legal records, national media, CPJ, ACLU, Freedom House, FAS, ACA, and investigative reporting. The notebook records that criticism was uneven and incomplete by chapter.",
+      "duplicate_event_risk": "Moderate to high. E002-E003 overlap on DoD strategic reviews; E017-E019 share FAS; E026-E027 and E041 share GAO source families; E020/E029 share State OIG; E033/E038 share CBO; E034/E039 share NIST; E035/E040 share GAO; E014/E025 concern the same PACT implementation domain. These are retained as distinct claims only where materially distinct and must not be counted as independent source families.",
+      "inherited_conditions_shocks_and_authority": "Local structured priors are inherited country context only. The notebook identifies the January 6 baseline, pandemic fiscal conditions, Russia's invasion of Ukraine, congressional and state/local constraints, allied and Ukrainian agency, inherited agency capacity, and presidential authority over federal execution, appointments, diplomacy, executive orders, and armed forces.",
+      "languages_and_archives_searched": [
+        "English-language official federal records and legal materials",
+        "Congressional Research Service and Congressional Budget Office records",
+        "GAO and inspector-general reports",
+        "White House, DoD, State, DOJ, Commerce/NIST, VA, FBI, OGE, and EAC records",
+        "Civil-society and investigative sources including FAS, ACA, ACLU, Freedom House, CPJ, ProPublica, and Washington Post"
+      ],
+      "official_statistics_reliability": "Structured indicators are retained as country-year context with source-specific confidence and warnings. They do not establish ruler attribution. CBO, GAO, CRS, OIG, EAC, and agency records are treated according to their distinct roles; projections, administrative activity, and self-reports are not treated as realized outcomes.",
+      "relevant_denominators": "Where available, the notebook preserves denominators such as 455 VHA facilities, 79% meeting both requirements, 4,790 NLEAD records, 63% sustained/disciplinary records, approximately 200,000 U.S.-person queries, 93% decline, 82%-to-96% compliance, 213,000 PACT-related claims, 1.7 million VA claims processed, 102 protest-response recommendations, and 7 nuclear contractors reviewed. National and subgroup denominators remain incomplete for civilian harm, policing, mental-health access, political equality, and personal integrity.",
+      "safe_reporting_channels": "Cited records show access to CRS/CBO, GAO and inspector-general oversight, courts and legal processes, congressional testimony, federal administrative data, national media, and civil-society reporting. The notebook also notes that classified nuclear and intelligence systems limit visibility.",
+      "source_concentration": "Moderate. Official executive, congressional, CRS/CBO, GAO/OIG, and civil-society sources are represented. Policy and implementation claims remain concentrated in official records; independent outcome evidence is thinner, particularly for 1B, 3B, 6B, and 7B.",
+      "supporting_evidence_ids": [
+        "E002",
+        "E004",
+        "E007",
+        "E008",
+        "E010",
+        "E015",
+        "E016",
+        "E017",
+        "E019",
+        "E020",
+        "E022",
+        "E023",
+        "E025",
+        "E026",
+        "E028",
+        "E031",
+        "E032",
+        "E034",
+        "E036",
+        "E043",
+        "E045",
+        "E048",
+        "E049"
+      ]
+    },
+    "iso3": "USA",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:USA:15810",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=104; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=104; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=24; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=104; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=68; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=24; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=68; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/jobs/jobs/456/trusted/003-1aea3866-6ac/local-priors.json",
+        "artifact_sha256": "0036b854d6cc97d696ea910c86d89d5fc6b4a54cd8099fdf5ecc93badc629e42",
+        "methodology_id": "3B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=152; mapping_note=Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E009",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E008",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E044",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "3B.1",
+      "3B.2",
+      "3B.3",
+      "3B.4",
+      "3B.5",
+      "3B.6",
+      "3B.7",
+      "3B.8",
+      "3B.9",
+      "3B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2782",
+    "ruler_name": "Joe Biden",
+    "ruler_year_id": 15810,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "e6ec23e2d2e6266a5e705632638d888b4c362c27c60fc7a351f8c38b52f36e17",
+      "source_mix_note": "Evidence includes official executive, legislative, diplomatic, fiscal, audit, inspector-general, statistical, expert, civil-society, and investigative sources. Official records dominate formal policy and implementation claims; independent outcome and personal-attribution evidence remains thinner. Shared source families and retrospective context are explicitly caveated.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "2f0630f2aec997ca0e1f562f8dda2940abfd815017dcfacc86b37a6276a1172b",
+    "unresolved_gaps": [
+      "Classified nuclear command-and-control performance, crisis decisions, operational safety, and independently measured nuclear-risk reduction.",
+      "Direct civilian-harm, proportionality, partner-control, and downstream accountability attribution for U.S. Ukraine decisions.",
+      "Nationwide and state/local policing outcomes, protest treatment, vulnerable-group protection, and remedy findings.",
+      "Biden-specific surveillance, appointments, media pressure, retaliation, and practical political-equality evidence.",
+      "Causal attribution of inflation, fiscal outcomes, employment, productivity, distribution, and policy correction.",
+      "General-population service quality, affordability, regional equity, and durable health and welfare outcomes.",
+      "Personal-integrity nexus evidence concerning enrichment, deception, obstruction, nepotism, retaliation, and independently adjudicated findings.",
+      "Durable cross-domain effectiveness, adaptation after failure, and long-term program outcomes."
+    ]
+  },
+  {
+    "chapter_id": "3B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Congo, The Democratic Republic of the",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E003",
+          "E006",
+          "E007",
+          "E036",
+          "E037",
+          "E050"
+        ],
+        "methodology_id": "3B.1",
+        "reason": "Detention, expression, protest, and accountability evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E006",
+          "E036"
+        ],
+        "methodology_id": "3B.2",
+        "reason": "Critic, journalist, defender, and detention evidence documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E036"
+        ],
+        "methodology_id": "3B.3",
+        "reason": "Military-court and ANR detention evidence documented; geographic gaps remain.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E005",
+          "E006"
+        ],
+        "methodology_id": "3B.4",
+        "reason": "Security-force conduct documented with attribution limits.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E037",
+          "E050"
+        ],
+        "methodology_id": "3B.5",
+        "reason": "Accountability and convictions provide contrary evidence to total impunity.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E004",
+          "E005",
+          "E038"
+        ],
+        "methodology_id": "3B.6",
+        "reason": "Civilian harm and conflict exposure documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E005",
+          "E034"
+        ],
+        "methodology_id": "3B.7",
+        "reason": "Nonstate violence and mobilization risks documented; command attribution unresolved.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E006",
+          "E007",
+          "E036"
+        ],
+        "methodology_id": "3B.8",
+        "reason": "Civic-space and protest restrictions documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E004",
+          "E007",
+          "E036",
+          "E050"
+        ],
+        "methodology_id": "3B.9",
+        "reason": "Civilian and protester harm documented.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E003",
+          "E037",
+          "E050"
+        ],
+        "methodology_id": "3B.10",
+        "reason": "Rights harms and limited accountability documented.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 10351,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.presidence.cd/president/le-president|office-and-tenure|Tshisekedi president from 24 January 2019",
+        "claim": "The Presidency biography identifies F\u00e9lix Tshisekedi as president from 24 January 2019.",
+        "contrary_evidence": [],
+        "evidence_id": "E001",
+        "excerpt": "Tshisekedi president from 24 Jan 2019; political background and peaceful transfer context.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Office and tenure fit 2022.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Direct office and tenure evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official primary biography.",
+        "source_locator": "Office and tenure section",
+        "source_type": "official biography",
+        "title": "Le Pr\u00e9sident",
+        "url": "https://www.presidence.cd/president/le-president"
+      },
+      {
+        "canonical_fact_key": "https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf|presidential-powers|formal authority",
+        "claim": "The Constitution assigns the president head-of-state, Council of Ministers, and senior appointment responsibilities.",
+        "contrary_evidence": [],
+        "evidence_id": "E002",
+        "excerpt": "Presidential role as head of state, Council of Ministers, and senior military/state appointments.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Applicable constitutional baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Presidency of the Democratic Republic of the Congo",
+        "ruler_attribution": "Formal authority baseline.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary constitutional text.",
+        "source_locator": "Presidential powers provisions",
+        "source_type": "constitution",
+        "title": "Constitution de la RDC",
+        "url": "https://www.presidence.cd/uploads/files/Constitution%20de%20la%20RDC%202011.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/|state-of-siege|restrictions and harm",
+        "claim": "Amnesty documented state-of-siege use against critics, arbitrary detention, military trials of civilians, and security-force killings.",
+        "contrary_evidence": [
+          "Incident-level personal direction is unresolved."
+        ],
+        "evidence_id": "E003",
+        "excerpt": "State of siege used against critics; activists arbitrarily detained; military courts used against civilians; two activists killed.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 report.",
+        "publication_date": "2022-05",
+        "publisher": "Amnesty International",
+        "ruler_attribution": "Policy-level state attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Human-rights report with documented findings.",
+        "source_locator": "State-of-siege section",
+        "source_type": "human-rights report",
+        "title": "DRC: One year on, state of siege failing to protect civilians",
+        "url": "https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/"
+      },
+      {
+        "canonical_fact_key": "https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/|civilian-death-comparison|state-of-siege outcome",
+        "claim": "Civilian deaths increased from 559 to at least 1,261 across Amnesty's compared periods while the state of siege was justified as civilian protection.",
+        "contrary_evidence": [
+          "Outcome does not alone establish causation or personal responsibility."
+        ],
+        "evidence_id": "E004",
+        "excerpt": "Civilian deaths increased from 559 to at least 1,261 across the compared periods.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period outcome evidence.",
+        "publication_date": "2022-05",
+        "publisher": "Amnesty International",
+        "ruler_attribution": "State-policy context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Quantified human-rights comparison.",
+        "source_locator": "Civilian-death comparison section",
+        "source_type": "human-rights report",
+        "title": "DRC: One year on, state of siege failing to protect civilians",
+        "url": "https://www.amnesty.org/en/latest/news/2022/05/drc-one-year-on-state-of-siege/"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/de/dokument/2089109.html|armed-group-and-FARDC|actor-separated abuses",
+        "claim": "The U.S. State Department documented illegal taxation, resource exploitation, and abuses by armed groups and FARDC elements.",
+        "contrary_evidence": [
+          "Actor reporting does not establish presidential direction."
+        ],
+        "evidence_id": "E005",
+        "excerpt": "Armed groups and FARDC elements illegally taxed and exploited natural resources; abuses by both were documented.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 country report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Actor-separated conflict evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Country human-rights report.",
+        "source_locator": "Armed-group and FARDC conduct section",
+        "source_type": "human-rights report",
+        "title": "2022 Country Reports on Human Rights Practices: DRC",
+        "url": "https://www.ecoi.net/de/dokument/2089109.html"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/de/dokument/2089109.html|freedom-of-expression|journalists and defenders",
+        "claim": "Journalists and defenders were arrested or threatened, especially in state-of-siege provinces, and criticism could trigger detention.",
+        "contrary_evidence": [
+          "National denominator is unavailable."
+        ],
+        "evidence_id": "E006",
+        "excerpt": "Journalists and defenders were arrested or threatened; criticism could trigger detention.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "State-institution context.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Country human-rights report.",
+        "source_locator": "Freedom-of-expression section",
+        "source_type": "human-rights report",
+        "title": "2022 Country Reports on Human Rights Practices: DRC",
+        "url": "https://www.ecoi.net/de/dokument/2089109.html"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/de/dokument/2089109.html|peaceful-assembly|15 UNJHRO abuses",
+        "claim": "Peaceful assembly was restricted, security forces sometimes used deadly force, and UNJHRO documented 15 assembly abuses.",
+        "contrary_evidence": [
+          "Reported incidents are not a complete denominator."
+        ],
+        "evidence_id": "E007",
+        "excerpt": "Peaceful assembly was restricted; security forces sometimes used deadly force; 15 abuses documented.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Institutional security-force attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Report citing UNJHRO.",
+        "source_locator": "Peaceful-assembly section",
+        "source_type": "human-rights report",
+        "title": "2022 Country Reports on Human Rights Practices: DRC",
+        "url": "https://www.ecoi.net/de/dokument/2089109.html"
+      },
+      {
+        "canonical_fact_key": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf|paras6-7|presidential mobilization",
+        "claim": "Tshisekedi called on youth to enlist and encouraged vigilante groups while warning against xenophobia and hate speech.",
+        "contrary_evidence": [
+          "No operational results or command responsibility established."
+        ],
+        "evidence_id": "E034",
+        "excerpt": "Tshisekedi called on youth to enlist and encouraged vigilante groups; warned against hate speech.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022.",
+        "publication_date": "2022",
+        "publisher": "United Nations / MONUSCO",
+        "ruler_attribution": "Direct presidential statement.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary UN report.",
+        "source_locator": "S/2022/892, paragraphs 6\u20137, p. 2",
+        "source_type": "UN report",
+        "title": "Report of the Secretary-General on MONUSCO",
+        "url": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf"
+      },
+      {
+        "canonical_fact_key": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf|para30|democratic-space violations",
+        "claim": "UN reporting recorded a 49% rise in violations linked to restrictions on democratic space, including killings, mistreatment, arrests, and increased ANR detention allegations.",
+        "contrary_evidence": [
+          "Institutional violations do not prove personal direction."
+        ],
+        "evidence_id": "E036",
+        "excerpt": "Democratic-space violations rose 49%; protesters were killed, mistreated, or arrested.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022.",
+        "publication_date": "2022",
+        "publisher": "United Nations / MONUSCO",
+        "ruler_attribution": "Institutional state responsibility.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary UN report with quantified trend.",
+        "source_locator": "S/2022/892, paragraph 30, p. 6",
+        "source_type": "UN report",
+        "title": "Report of the Secretary-General on MONUSCO",
+        "url": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf"
+      },
+      {
+        "canonical_fact_key": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf|para31|convictions",
+        "claim": "MONUSCO support contributed to trials and convictions of FARDC soldiers, a police officer, and armed-group members for human-rights violations.",
+        "contrary_evidence": [
+          "Scope and independence remain limited."
+        ],
+        "evidence_id": "E037",
+        "excerpt": "Trials and convictions of state-force and armed-group members were documented.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "September\u2013October 2022.",
+        "publication_date": "2022",
+        "publisher": "United Nations / MONUSCO",
+        "ruler_attribution": "Institutional accountability evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary UN report with counts.",
+        "source_locator": "S/2022/892, paragraph 31, p. 6",
+        "source_type": "UN report",
+        "title": "Report of the Secretary-General on MONUSCO",
+        "url": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf"
+      },
+      {
+        "canonical_fact_key": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf|paras32-33|displacement",
+        "claim": "By November 2022 DRC had approximately 5.7 million internally displaced people, including 1.5 million displaced during 2022 and roughly 280,000 newly displaced in Rutshuru.",
+        "contrary_evidence": [
+          "Exposure does not establish single-ruler attribution."
+        ],
+        "evidence_id": "E038",
+        "excerpt": "5.7 million internally displaced; 1.5 million displaced during 2022; 280,000 newly displaced in Rutshuru.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "By November 2022.",
+        "publication_date": "2022",
+        "publisher": "United Nations / MONUSCO",
+        "ruler_attribution": "Population exposure and conflict outcome.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary UN report with denominators.",
+        "source_locator": "S/2022/892, paragraphs 32\u201333, pp. 6\u20137",
+        "source_type": "UN report",
+        "title": "Report of the Secretary-General on MONUSCO",
+        "url": "https://monusco.unmissions.org/sites/default/files/sg_report_-_english_s-2022-892.pdf"
+      },
+      {
+        "canonical_fact_key": "https://documents.un.org/api/symbol/access?l=en&s=S%2F2022%2F503&t=pdf|paras25-29|violations and convictions",
+        "claim": "The UN recorded 1,233 violations and abuses in March\u2013April 2022, with armed groups responsible for 57%, and documented convictions across state and nonstate actors.",
+        "contrary_evidence": [
+          "Personal direction or knowledge is not established."
+        ],
+        "evidence_id": "E050",
+        "excerpt": "1,233 violations and abuses; armed groups responsible for 57%; convictions documented.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "March\u2013April 2022.",
+        "publication_date": "2022",
+        "publisher": "United Nations",
+        "ruler_attribution": "Actor-separated evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary UN report.",
+        "source_locator": "S/2022/503, paragraphs 25\u201329",
+        "source_type": "UN report",
+        "title": "Report of the Secretary-General on MONUSCO",
+        "url": "https://documents.un.org/api/symbol/access?l=en&s=S%2F2022%2F503&t=pdf"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "State-of-siege enforcement, arbitrary detention, intimidation, restrictive laws, military courts, conflict-zone access limits, elite opacity, and classified records create underreporting risks. Supporting evidence: E003, E006, E007, E019, E032, E041.",
+      "chapter_specific_biases": [
+        "1B: treaty status may be mistaken for ruler conduct; classified and biological-weapons evidence is difficult to observe.",
+        "2B: conflict access and official attribution claims create visibility and attribution risk.",
+        "3B: repression may suppress complaints while monitors concentrate on accessible severe incidents.",
+        "4B: electoral observation is uneven and inherited CENI concerns may be overextended into 2022.",
+        "5B: mining, procurement, beneficial ownership, and budget execution are opaque.",
+        "6B: donor and crisis reporting may overrepresent visible programs or severe need; denominators differ.",
+        "7B: elite-opacity and adviser evidence do not establish a personal nexus.",
+        "8B: donor activity, country outcomes, inherited weaknesses, and shocks risk over-attribution."
+      ],
+      "complaint_volume_interpretation": "Complaint volume is not a national denominator. E050 records 1,200 first-week Allo Ecole complaints; repression, conflict, and opacity may suppress reporting, while crisis monitoring may overrepresent visible cases.",
+      "criticism_possible": "Journalists, civil society, church observers, opposition actors, international monitors, local media, grievance mechanisms, and courts provided criticism or scrutiny channels, though access was uneven. Supporting evidence: E006, E044, E050, E056, E057.",
+      "duplicate_event_risk": "High for eastern-security events across E004\u2013E005 and E010\u2013E013/E038\u2013E043; rights reporting across E003/E006/E007/E041/E055; IMF themes E014\u2013E015; education E016/E017/E048/E049/E059; adviser coverage E020/E051\u2013E053.",
+      "inherited_conditions_shocks_and_authority": "E001 and E002 establish tenure and formal authority. E009 and E018 record inherited institutional, coalition, administrative, and donor constraints. Conflict, displacement, insecurity, inflation, volcanic eruptions, and regional dynamics are documented shocks. Supporting evidence: E001, E002, E009, E018, E038, E043, E047, E059.",
+      "languages_and_archives_searched": [
+        "English institutional and specialist sources: UN, MONUSCO, AU, EAC, IMF, UNICEF, World Bank, IAEA, OPCW, EITI, Freedom House, BTI, OCCRP, Reuters.",
+        "French and local reporting: Actualit\u00e9.cd, Radio Okapi, 7sur7, CENCO/ECC coverage, and French-language IMF material.",
+        "Official archives: Presidency, Constitution, UNODA, IAEA, OPCW, MONUSCO, EITI, electoral, legal, and donor records."
+      ],
+      "official_statistics_reliability": "UN, UNICEF, World Bank, IMF, EITI, and rights figures are source-bounded and subject to denominator, timing, access, and attribution limits. Supporting evidence: E016, E017, E043, E047, E048, E049, E055, E059, E060.",
+      "relevant_denominators": "The notebook records 5.7 million internally displaced people, 1.5 million displaced during 2022, 280,000 newly displaced in Rutshuru, approximately 7 million and 3.2 million out-of-school children under differing denominators, over 800,000 displaced children, over 2,000 closed schools, 1,233 violations with armed groups responsible for 57%, 15 assembly abuses, 1,200 grievance complaints, 600 observers, and 36,000 teachers added to payroll. These figures are not interchangeable. Supporting evidence: E006, E007, E016, E017, E043, E049, E050, E055, E057, E059.",
+      "safe_reporting_channels": "UN and international monitoring, church observers, local media, parliamentary and electoral reporting, donor grievance mechanisms, and judicial processes existed, but safety and reach were uneven. Supporting evidence: E041, E044, E050, E051, E057.",
+      "source_concentration": "Source families span official, UN, regional, donor, financial, human-rights, comparative, investigative, treaty, safeguards, legal, and local sources. Concentration remains material within single-report and same-event clusters, and official sources dominate action claims.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E002",
+        "E003",
+        "E005",
+        "E006",
+        "E010",
+        "E014",
+        "E016",
+        "E019",
+        "E022",
+        "E024",
+        "E031",
+        "E033",
+        "E036",
+        "E038",
+        "E042",
+        "E045",
+        "E050",
+        "E054",
+        "E055"
+      ]
+    },
+    "iso3": "COD",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:COD:16113",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=135; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=135; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=56; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=135; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=122; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=56; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=122; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/tshisekedi-jobs/jobs/465/trusted/002-8cc4e014-a5a/local-priors.json",
+        "artifact_sha256": "c3fb18e3d847747919f7dba6e3daa60b7578137d9eb288d4ed482513b590858a",
+        "methodology_id": "3B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=221; mapping_note=Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E001",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E002",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Formatter omitted exact lens routing; retained at the chapter boundary for judge-side relevance review."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "3B.1",
+        "relation": "supports",
+        "relevance": "Rights violations."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "3B.3",
+        "relation": "supports",
+        "relevance": "ANR detention."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "3B.5",
+        "relation": "mitigates",
+        "relevance": "Accountability."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E038",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E034",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "3B.8",
+        "relation": "supports",
+        "relevance": "Protest repression."
+      },
+      {
+        "evidence_id": "E004",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E007",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E036",
+        "methodology_id": "3B.9",
+        "relation": "supports",
+        "relevance": "Protester harm."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E037",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E050",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "3B.1",
+      "3B.2",
+      "3B.3",
+      "3B.4",
+      "3B.5",
+      "3B.6",
+      "3B.7",
+      "3B.8",
+      "3B.9",
+      "3B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2830",
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "ruler_year_id": 16113,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "f8f472b2e799768917fa9cd68f076894c5c0b32a62bbca4b362fbd3aae892265",
+      "source_mix_note": "Source families include official, UN, regional, donor, financial, human-rights, comparative, investigative, treaty, safeguards, legal, and local-language sources. Limits include official-source dependence, same-event reuse, donor visibility, inherited baselines, and incomplete primary records.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "583afb239d505a464397c0c64c67a39cfe18642a15c419e1b6910fb7c912e789",
+    "unresolved_gaps": [
+      "No DRC-specific 2022 biological-weapons implementation, inspection, confidence-building, or adverse governance record was located.",
+      "Classified or offensive cyber governance remains unresolved.",
+      "FARDC command responsibility, M23/Rwanda attribution, durable ceasefire compliance, and comparative civilian-protection outcomes remain unresolved.",
+      "Primary detention, court, military, domestic, local-language, geographic, and denominator records remain incomplete.",
+      "CENI independence, opposition treatment, electoral remedies, judicial independence, media enforcement, and correction behavior remain incomplete.",
+      "Budget execution, procurement, household distribution, mining-contract and revenue tracing, and enforcement after governance problems remain incomplete.",
+      "Education attendance, learning quality, teacher payment reliability, provincial execution, national budget execution, and sustainability remain unresolved.",
+      "No direct evidence establishes Tshisekedi's personal enrichment, knowledge, tolerance, obstruction, correction, or benefit in the adviser or G\u00e9camines matters.",
+      "Dated administrative outcomes remain insufficient to separate presidential responsibility from donors, shared authority, inherited weakness, and shocks."
+    ]
+  },
+  {
+    "chapter_id": "3B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Russian Federation",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E002",
+          "E003",
+          "E005",
+          "E006",
+          "E026",
+          "E027",
+          "E028",
+          "E041"
+        ],
+        "methodology_id": "3B.1",
+        "reason": "Researcher-recorded physical-integrity evidence.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E026"
+        ],
+        "methodology_id": "3B.2",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E028"
+        ],
+        "methodology_id": "3B.3",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.4",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E005"
+        ],
+        "methodology_id": "3B.5",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.6",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E006",
+          "E027"
+        ],
+        "methodology_id": "3B.7",
+        "reason": "Coverage inferred from retained evidence mappings.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.8",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.9",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.10",
+        "reason": "Formatter supplied no explicit researcher coverage disposition.",
+        "status": "research_blocked"
+      }
+    ],
+    "estimated_input_tokens": 7521,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://ukraine.ohchr.org/en/175994-update-human-rights-situation-ukraine|2022|armed-attack-civilian-harm",
+        "claim": "UN human-rights documentation records Russia's armed attack and civilian harm in Ukraine.",
+        "contrary_evidence": [],
+        "evidence_id": "E002",
+        "excerpt": "UN documentation of Russia's armed attack and civilian harm.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022",
+        "publication_date": "2022",
+        "publisher": "UN Human Rights Monitoring Mission",
+        "ruler_attribution": "Russian state and forces; not every incident personally directed by Putin.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Intergovernmental monitoring source.",
+        "source_locator": "HTML report, target-year findings; exact paragraph not recorded",
+        "source_type": "intergovernmental report",
+        "title": "Update on the human rights situation in Ukraine",
+        "url": "https://ukraine.ohchr.org/en/175994-update-human-rights-situation-ukraine-EN"
+      },
+      {
+        "canonical_fact_key": "https://ukraine.ohchr.org/en/UN-report-details-summary-executions-of-civilians-by-Russian-troops-from-February-to-April|2022|summary-executions",
+        "claim": "UN reporting describes summary executions of civilians by Russian troops from February through April 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E003",
+        "excerpt": "UN report details summary executions of civilians by Russian troops.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "February-April 2022",
+        "publication_date": "2022",
+        "publisher": "UN Human Rights Monitoring Mission",
+        "ruler_attribution": "Russian troops; personal direction by Putin is not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Intergovernmental findings supplied by researcher.",
+        "source_locator": "HTML report, summary-execution findings; exact paragraph not recorded",
+        "source_type": "intergovernmental report",
+        "title": "UN report on summary executions",
+        "url": "https://ukraine.ohchr.org/en/UN-report-details-summary-executions-of-civilians-by-Russian-troops-from-February-to-April"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/news/2022/03/07/russia-criminalizes-independent-war-reporting-anti-war-protests|2022|censorship-law",
+        "claim": "Russia criminalized independent war reporting and anti-war protest through Putin-signed censorship measures.",
+        "contrary_evidence": [],
+        "evidence_id": "E005",
+        "excerpt": "Russia criminalizes independent war reporting and anti-war protests.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022",
+        "publication_date": "2022-03-07",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Direct formal responsibility for signed legal framework; enforcement outcomes are not all personally attributable.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent human-rights documentation with formal-law attribution.",
+        "source_locator": "HTML report, sections on criminalization of reporting and protest",
+        "source_type": "NGO report",
+        "title": "Russia criminalizes independent war reporting and anti-war protests",
+        "url": "https://www.hrw.org/news/2022/03/07/russia-criminalizes-independent-war-reporting-anti-war-protests"
+      },
+      {
+        "canonical_fact_key": "https://www.hrw.org/news/2022/02/26/russia-arbitrary-detentions-anti-war-protesters|2022|protest-detentions",
+        "claim": "Russian authorities arbitrarily detained anti-war protesters in 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E006",
+        "excerpt": "Russia: arbitrary detention of anti-war protesters.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022",
+        "publication_date": "2022-02-26",
+        "publisher": "Human Rights Watch",
+        "ruler_attribution": "Russian authorities; not proof of Putin's personal direction of each detention.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent human-rights reporting.",
+        "source_locator": "HTML report, detention findings",
+        "source_type": "NGO report",
+        "title": "Russia: Arbitrary detentions of anti-war protesters",
+        "url": "https://www.hrw.org/news/2022/02/26/russia-arbitrary-detentions-anti-war-protesters"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/en/document/2089062.html|43-50|russia-prison-torture",
+        "claim": "The U.S. State Department's 2022 Russia report records credible allegations of pervasive law-enforcement torture, harsh prison conditions, arbitrary detention, weak accountability, and discrimination affecting vulnerable groups.",
+        "contrary_evidence": [
+          "The report distinguishes allegations and reported conditions from adjudicated findings and does not establish uniformity across regions."
+        ],
+        "evidence_id": "E026",
+        "excerpt": "Domestic torture, prison conditions, and vulnerable-group harms.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022",
+        "publication_date": "2023",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Government-system and local-authority responsibility; personal orders not established.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Country human-rights report with explicit evidentiary qualifications.",
+        "source_locator": "HTML lines 43-50",
+        "source_type": "government human-rights report",
+        "title": "2022 Country Reports on Human Rights Practices: Russia",
+        "url": "https://www.ecoi.net/en/document/2089062.html"
+      },
+      {
+        "canonical_fact_key": "https://www.amnesty.org/en/latest/news/2022/09/russia-prison-administration-imposes-harsh-conditions-on-aleksei-navalny/|61-76|navalny-prison-treatment",
+        "claim": "Amnesty reported that Navalny was repeatedly placed in punishment cells, denied confidential lawyer communication, isolated, and subjected to conditions it characterized as cruel, inhuman, or degrading.",
+        "contrary_evidence": [
+          "The account relies partly on lawyers and human-rights sources and is not an adjudicated finding against Putin."
+        ],
+        "evidence_id": "E027",
+        "excerpt": "Political-prisoner treatment and limited remedy.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "June-September 2022",
+        "publication_date": "2022-09-16",
+        "publisher": "Amnesty International",
+        "ruler_attribution": "Directly attributed to prison administration; presidential framework responsibility is not personal direction.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Case documentation with stated source limitations.",
+        "source_locator": "HTML lines 61-76",
+        "source_type": "NGO report",
+        "title": "Russia: Prison administration imposes harsh conditions on Navalny",
+        "url": "https://www.amnesty.org/en/latest/news/2022/09/russia-prison-administration-imposes-harsh-conditions-on-aleksei-navalny/"
+      },
+      {
+        "canonical_fact_key": "https://www.amnesty.org/en/latest/news/2022/11/ukraine-russias-unlawful-transfer-of-civilians-a-war-crime-and-likely-a-crime-against-humanity-new-report/|97-115|occupied-civilians-torture",
+        "claim": "Amnesty documented forcible transfers, abusive filtration, and seven cases of torture or other ill-treatment of civilians detained by Russian forces.",
+        "contrary_evidence": [
+          "The case-based evidence does not establish a population-wide rate."
+        ],
+        "evidence_id": "E028",
+        "excerpt": "Vulnerable civilians and torture in occupied areas.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "March-November 2022",
+        "publication_date": "2022-11-07",
+        "publisher": "Amnesty International",
+        "ruler_attribution": "Russian forces and occupation structures; individual incidents not personally ordered by Putin.",
+        "source_confidence": "medium",
+        "source_confidence_reason": "Documented cases with bounded generalization.",
+        "source_locator": "HTML lines 97-115",
+        "source_type": "NGO report",
+        "title": "Russia's unlawful transfer of civilians",
+        "url": "https://www.amnesty.org/en/latest/news/2022/11/ukraine-russias-unlawful-transfer-of-civilians-a-war-crime-and-likely-a-crime-against-humanity-new-report/"
+      },
+      {
+        "canonical_fact_key": "https://odihr.osce.org/odihr/515868|2022|russian-force-violations",
+        "claim": "The OSCE Moscow Mechanism reported clear patterns of IHL violations by Russian forces, including attacks on civilians, unlawful detention, torture, deportation, and failures of distinction and proportionality.",
+        "contrary_evidence": [],
+        "evidence_id": "E041",
+        "excerpt": "Independent OSCE findings on Russian-force violations.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "February-June 2022",
+        "publication_date": "2022",
+        "publisher": "OSCE ODIHR",
+        "ruler_attribution": "Russian forces and state-level conduct; not every incident personally attributed to Putin.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent intergovernmental investigation.",
+        "source_locator": "OSCE report page and PDF; exact PDF pages not recorded",
+        "source_type": "intergovernmental investigation",
+        "title": "OSCE Moscow Mechanism report",
+        "url": "https://odihr.osce.org/odihr/515868"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "Putin-signed censorship laws, protest prosecutions, journalist flight, surveillance, and constrained domestic reporting are documented by E008, E010, and E039.",
+      "chapter_specific_biases": [
+        "International/adverse reporting dominates conflict, rights, and nuclear-risk material.",
+        "Aggregate and official evidence is insufficient for ruler attribution in economics, welfare, and effectiveness.",
+        "Network and sanctions evidence in 7B remains short of an adjudicated personal-integrity finding."
+      ],
+      "complaint_volume_interpretation": "International wartime attention increases visibility of adverse claims, while domestic censorship suppresses comparable complaints; volumes are not comparable.",
+      "criticism_possible": "Independent international organizations, NGOs, technical bodies, monitoring groups, foreign media, and institutional reports provided criticism channels, but domestic criticism was constrained.",
+      "duplicate_event_risk": "The notebook explicitly flags overlapping claim families: E002-E004, E008-E010, E020-E022, E023-E025, E026-E029, E035-E037, E011-E012, E015-E016/E044, and E017-E019.",
+      "inherited_conditions_shocks_and_authority": "The notebook separates inherited arsenal, political, economic, welfare, and governance conditions from war, sanctions, and mobilization shocks. Presidential authority is not treated as proof of every delegated or subordinate act.",
+      "languages_and_archives_searched": [
+        "English-language UN, IAEA, SIPRI, arms-control, NGO, OSCE, OSW, IMF, World Bank, WHO, Freedom House, Treasury, UK, OCCRP, Axios, EUAA, Guardian, and Chatham House sources.",
+        "Russian-language IAEA and Russian institutional records were included."
+      ],
+      "official_statistics_reliability": "Local structured indicators are contextual priors rather than automatic ruler evidence. E043 is measurement architecture, not performance evidence; official policy claims are not independent outcome checks.",
+      "relevant_denominators": "Population denominator supplied: 144236933. Most case reports lack population-wide denominators; country-year indicators have aggregate denominators but limited attribution.",
+      "safe_reporting_channels": "International organizations, technical agencies, treaty monitors, NGOs, foreign media, and institutional reports supplied visible criticism channels; domestic reporting faced censorship and intimidation.",
+      "source_concentration": "The pool is international and adverse-heavy, supplemented by technical, institutional, Russian-language, official, and local-prior context; favorable, domestic, corrective, and exculpatory evidence remains thinner.",
+      "supporting_evidence_ids": [
+        "E002",
+        "E005",
+        "E006",
+        "E011",
+        "E019",
+        "E026",
+        "E029",
+        "E030",
+        "E038",
+        "E041",
+        "E042",
+        "E044",
+        "E045",
+        "E046"
+      ]
+    },
+    "iso3": "RUS",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:RUS:15706",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=290; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=290; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=122; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=290; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=254; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=122; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=254; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/putin-jobs/jobs/474/trusted/003-7127e2bf-6a2/local-priors.json",
+        "artifact_sha256": "5d80df81688bc81297d4a6bca9e77e7f2ee89d50f5f47cfd6e38d848052eea23",
+        "methodology_id": "3B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=474; mapping_note=Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E002",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E003",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E041",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "3B.2",
+        "relation": "supports",
+        "relevance": "Torture and prison report."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "3B.3",
+        "relation": "supports",
+        "relevance": "Vulnerable civilians."
+      },
+      {
+        "evidence_id": "E005",
+        "methodology_id": "3B.5",
+        "relation": "supports",
+        "relevance": "Censorship law."
+      },
+      {
+        "evidence_id": "E006",
+        "methodology_id": "3B.7",
+        "relation": "supports",
+        "relevance": "Protest detention."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "3B.7",
+        "relation": "supports",
+        "relevance": "Prison treatment case."
+      }
+    ],
+    "methodology_ids": [
+      "3B.1",
+      "3B.2",
+      "3B.3",
+      "3B.4",
+      "3B.5",
+      "3B.6",
+      "3B.7",
+      "3B.8",
+      "3B.9",
+      "3B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2759",
+    "ruler_name": "Vladimir Putin",
+    "ruler_year_id": 15706,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "6878515c549d7c61356ea6d54a845e1fda8ceb5da54a397739bbc970e7c1bac5",
+      "source_mix_note": "Evidence mixes international organizations, technical agencies, arms-control specialists, NGOs, monitoring bodies, foreign media, official Russian institutions, and local structured priors. International and adverse reporting remains overrepresented.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "afdaf00cf99d50e12a7198bae64076dc3f5c2d485fbdc306a29cfc906048abac",
+    "unresolved_gaps": [
+      "Internal nuclear deliberation, launch authorization, independent command verification, and completed proliferation remain unresolved.",
+      "Biological, cyber, and AI dual-use governance is incomplete.",
+      "Proxy command, subordinate initiative, and battlefield accountability remain unresolved.",
+      "Domestic-language corroboration, prevalence, remedy, and corrective action evidence remain weak.",
+      "Courts, local autonomy, minority rights, institutional checks, and local-prior dispositions remain incomplete.",
+      "Appointments, procurement capture, market rules, distribution, implementation audits, and correction outcomes remain missing.",
+      "Independent 2022 health and education effectiveness audits, regional outcomes, equity, vulnerable-population, and durability evidence remain missing.",
+      "Verified personal-integrity nexus, adjudicated findings, and exculpatory records remain incomplete.",
+      "Portfolio breadth, personnel quality, independent outcomes, durable correction, and institutional durability remain undercovered."
+    ]
+  },
+  {
+    "chapter_id": "3B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Germany",
+    "coverage": [
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.1",
+        "reason": "Country-level protective context was retained.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E018"
+        ],
+        "methodology_id": "3B.2",
+        "reason": "Prison-condition evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.3",
+        "reason": "Research recorded no usable evidence for this specific lens.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [
+          "E017"
+        ],
+        "methodology_id": "3B.4",
+        "reason": "Police-treatment and complaint-mechanism evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E017"
+        ],
+        "methodology_id": "3B.5",
+        "reason": "Police accountability evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [
+          "E019"
+        ],
+        "methodology_id": "3B.6",
+        "reason": "Surveillance-constraint evidence was retained.",
+        "status": "covered"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.7",
+        "reason": "Research recorded no usable evidence for this specific lens.",
+        "status": "no_evidence_found"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.8",
+        "reason": "Humanitarian-protection evidence was retained.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [],
+        "methodology_id": "3B.9",
+        "reason": "Protest-rights and remedy evidence was retained.",
+        "status": "research_blocked"
+      },
+      {
+        "evidence_ids": [
+          "E018"
+        ],
+        "methodology_id": "3B.10",
+        "reason": "Prison oversight evidence was retained with attribution caveats.",
+        "status": "covered"
+      }
+    ],
+    "estimated_input_tokens": 6188,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.ecoi.net/en/document/2089483.html|\u00a7\u00a752\u201355|police mistreatment investigations and complaint mechanism",
+        "claim": "The U.S. human-rights report found no reported government torture by officials in 2022 but cited NGO criticism that some police-mistreatment allegations were not effectively investigated and that Germany lacked an independent nationwide mechanism.",
+        "contrary_evidence": [
+          "No direct Scholz-directed abuse or federal personal responsibility was established."
+        ],
+        "evidence_id": "E017",
+        "excerpt": "The report contrasts absence of reported torture with criticism of investigation and complaint mechanisms.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-year.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Country and institutional evidence; not personal Scholz attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Government human-rights report incorporating NGO criticism.",
+        "source_locator": "HTML \u00a7\u00a752\u201355.",
+        "source_type": "government human-rights report",
+        "title": "Germany 2022 human-rights report",
+        "url": "https://www.ecoi.net/en/document/2089483.html"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/en/document/2089483.html|\u00a7\u00a756\u201364|prison psychiatric-care concerns",
+        "claim": "The report found no major general prison-abuse concerns but recorded serious Council of Europe concern about psychiatric care in prisons in four L\u00e4nder.",
+        "contrary_evidence": [
+          "The evidence is subnational and does not establish Scholz-directed abuse."
+        ],
+        "evidence_id": "E018",
+        "excerpt": "Council of Europe concerns focused on psychiatric care in prisons in four L\u00e4nder.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-year report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "L\u00e4nder-level institutional evidence; no direct Scholz attribution.",
+        "source_confidence": "medium_high",
+        "source_confidence_reason": "Government report citing external oversight concerns.",
+        "source_locator": "HTML \u00a7\u00a756\u201364.",
+        "source_type": "government human-rights report",
+        "title": "Germany 2022 human-rights report",
+        "url": "https://www.ecoi.net/en/document/2089483.html"
+      },
+      {
+        "canonical_fact_key": "https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/EN/2022/04/rs20220426_1bvr161917en.html|judgment 26 April 2022|Bavaria surveillance-law limits",
+        "claim": "The Federal Constitutional Court held key provisions of Bavaria\u2019s constitutional-protection law incompatible with fundamental rights and void, requiring stronger limits on surveillance powers.",
+        "contrary_evidence": [
+          "The judgment concerns Bavaria and does not establish a Scholz personal intervention."
+        ],
+        "evidence_id": "E019",
+        "excerpt": "The Court invalidated key provisions and required stronger fundamental-rights limits.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Direct target-period judgment.",
+        "publication_date": "2022-04-26",
+        "publisher": "Federal Constitutional Court of Germany",
+        "ruler_attribution": "Judicial and L\u00e4nder institutional evidence.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary constitutional judgment.",
+        "source_locator": "Judgment of 26 April 2022.",
+        "source_type": "constitutional judgment",
+        "title": "Bavaria constitutional-protection law judgment",
+        "url": "https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/EN/2022/04/rs20220426_1bvr161917en.html"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "Germany had independent media, functioning courts, parliamentary opposition, active NGOs, and constitutional protections. No systematic censorship, nationwide intimidation, or closed-regime information suppression was found. Nuclear-sharing, intelligence, surveillance, and security matters remain institutionally opaque.",
+      "chapter_specific_biases": [
+        "Country-level indicators cannot establish Scholz-specific conduct.",
+        "Federal, L\u00e4nder, municipal, coalition, NATO, and EU actions cannot automatically be attributed to Scholz.",
+        "Official policy records are strong for commitments but weak for independent effectiveness, restraint, fairness, and personal integrity.",
+        "The Cum-Ex material is post-period and allegation-based, not a misconduct finding.",
+        "2022 outcomes are confounded by Russia\u2019s invasion, energy and inflation shocks, COVID recovery, coalition bargaining, and federalism."
+      ],
+      "complaint_volume_interpretation": "Open media, opposition, NGOs, and parliamentary scrutiny increase visible complaints and criticism; complaint volume is not normalized by exposure, affected population, reporting access, or disposition. Closed or classified domains may instead underreport complaints.",
+      "criticism_possible": "Criticism was possible through independent media, parliamentary opposition, courts, NGOs, democracy monitors, and investigative or oversight channels. The notebook included adverse reporting on weapons delays, protest restrictions, police investigations, prison care, inflation, implementation weaknesses, and Cum-Ex allegations.",
+      "duplicate_event_risk": "Repeated Ukraine-policy, relief-package, IMF, refugee-support, institutional-baseline, and Cum-Ex references were deduplicated by source-claim unit. Same-source entries remain separate only where claims, findings, outcomes, or locators are materially distinct.",
+      "inherited_conditions_shocks_and_authority": "Scholz inherited Germany\u2019s strong democratic institutions, NATO nuclear-sharing arrangements, energy dependence, federal and coalition constraints, and existing cyber policy. The 2022 Russia\u2013Ukraine war, energy shock, inflation, refugee arrivals, and COVID recovery materially affected observed outcomes. The chancellor operated under Bundestag approval, coalition bargaining, federalism, NATO/EU commitments, and judicial review.",
+      "languages_and_archives_searched": [
+        "English-language official German government, Bundestag, Federal Foreign Office, Federal Chancellor, Federal Constitutional Court, and Federal Audit Office records.",
+        "English-language NATO and United Nations technical documents.",
+        "English-language IMF, Freedom House, Amnesty, USDOS, BAMF/IAB/BiB/SOEP, specialist media, academic analysis, and policy-institute material.",
+        "German-language source pages were used where supplied by the researcher; no additional search was performed during formatting."
+      ],
+      "official_statistics_reliability": "Destatis, IMF, BAMF/IAB/BiB/SOEP, UCDP, SIPRI, WGI, V-Dem, CIRIGHTS, HDI, and Freedom House material were retained as measured country or population context. Official statistics are strong for recorded quantities and survey estimates but do not establish causal attribution, policy effectiveness, or ruler responsibility.",
+      "relevant_denominators": "Relevant denominators include Germany\u2019s national population and country-year outcomes; affected Ukrainian refugee arrivals and working-age respondents; German 2022 arms-export license totals; L\u00e4nder and municipal populations for subnational rights and service evidence; and NATO/alliance exposure for nuclear and security evidence. Many denominators needed for distributional, complaint, civilian-harm, and implementation claims were unavailable.",
+      "safe_reporting_channels": "Bundestag debates and votes, Federal Constitutional Court judgments, Federal Audit Office reports, official statistics, independent media, NGOs, international organizations, and academic or policy analysis provided reporting and scrutiny channels. Classified nuclear, intelligence, custody, and operational-safety matters remain less observable.",
+      "source_concentration": "The dossier uses approximately 50 retained source-claim units across official German government and parliamentary records, NATO, UN, IMF, courts, audit bodies, NGOs, democracy monitors, government human-rights reporting, survey institutions, academic analysis, specialist defense media, and reputable general media. Official and repeated source families remain concentrated for formal policy and implementation claims.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E003",
+        "E004",
+        "E012",
+        "E017",
+        "E019",
+        "E021",
+        "E025",
+        "E027",
+        "E028",
+        "E030"
+      ]
+    },
+    "iso3": "DEU",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:DEU:16984",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=110; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=110; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=48; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=110; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=98; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=48; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=98; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/scholz-jobs/jobs/475/trusted/001-b7740fb0-e10/local-priors.json",
+        "artifact_sha256": "ee4e4ab75c5443cfb6ed33a34263170ee7d8555e4b588fe33ee2a93b13dd295e",
+        "methodology_id": "3B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=182; mapping_note=Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E018",
+        "methodology_id": "3B.2",
+        "relation": "contradicts",
+        "relevance": "Prison psychiatric-care concern."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E017",
+        "methodology_id": "3B.5",
+        "relation": "contradicts",
+        "relevance": "Police-investigation gap."
+      },
+      {
+        "evidence_id": "E019",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E018",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "3B.1",
+      "3B.2",
+      "3B.3",
+      "3B.4",
+      "3B.5",
+      "3B.6",
+      "3B.7",
+      "3B.8",
+      "3B.9",
+      "3B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2975",
+    "ruler_name": "Olaf Scholz",
+    "ruler_year_id": 16984,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "0ed536d123ac8cdd30f70ea28b89fc65b73d5cc622876b489bb7ad9151277b6f",
+      "source_mix_note": "Retained official German and parliamentary records, courts, audit bodies, NATO, UN, IMF, NGOs, democracy monitors, human-rights reporting, survey institutions, academic analysis, specialist defense media, and reputable general media. Formal policy sources predominate for decisions; independent outcome and personal-attribution evidence remain limited.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "11bead24ecad741900700ed44addff7f88361f5d03a44803e5bd367a09254018",
+    "unresolved_gaps": [
+      "Practical nuclear command-and-control, custody, classified safeguards, exercise safety, AI catastrophic-risk policy, and independent end-period risk change remain unresolved.",
+      "Civilian-harm safeguards, recipient end-use monitoring, formal military accountability, and peacebuilding outcomes remain unresolved.",
+      "Federal police, detention, surveillance, minority-protection, and independent complaint-remedy evidence remains incomplete.",
+      "Direct executive conduct toward media, appointments, surveillance, coalition institutions, and electoral entrenchment remains underdocumented.",
+      "Distributional, regional, labor-market, implementation-audit, capture/lobbying, and policy-correction evidence remains incomplete.",
+      "Social-service quality, affordability, regional and group distribution, municipal delivery, and durability beyond the crisis year remain unresolved.",
+      "No independent finding establishes personal misconduct, self-dealing, deception, obstruction, personal benefit, or conflicts concerning Cum-Ex; testimony and scrutiny response are documented but unresolved.",
+      "Personnel quality, coordination, procurement, implementation bottlenecks, adaptation, durable outcomes, and comparative effectiveness remain underdocumented."
+    ]
+  },
+  {
+    "chapter_id": "3B",
+    "contextual_discovery_only_evidence_ids": [],
+    "country_name": "Norway",
+    "coverage": [
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023",
+          "E024",
+          "E025",
+          "E059",
+          "E060"
+        ],
+        "methodology_id": "3B.1",
+        "reason": "Institutional protection, vulnerable-group exposure, and custody findings are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023",
+          "E024",
+          "E025",
+          "E059",
+          "E060"
+        ],
+        "methodology_id": "3B.2",
+        "reason": "Adverse rights and human-security evidence is present but not personally attributed.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023",
+          "E059"
+        ],
+        "methodology_id": "3B.3",
+        "reason": "Population-specific and institutional harm evidence is documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E024",
+          "E027",
+          "E028",
+          "E029",
+          "E060"
+        ],
+        "methodology_id": "3B.4",
+        "reason": "Custody and oversight evidence is documented; broader coverage remains incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E025",
+          "E043",
+          "E059",
+          "E060"
+        ],
+        "methodology_id": "3B.5",
+        "reason": "Fosen rights/remedy chronology and follow-up are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023",
+          "E059"
+        ],
+        "methodology_id": "3B.6",
+        "reason": "Domestic violence, S\u00e1mi exposure, profiling, and vulnerability findings are documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E022",
+          "E023",
+          "E059"
+        ],
+        "methodology_id": "3B.7",
+        "reason": "Group-specific rights exposure is documented without direct ruler attribution.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E026",
+          "E027",
+          "E028",
+          "E029",
+          "E030",
+          "E031"
+        ],
+        "methodology_id": "3B.8",
+        "reason": "Police, intelligence, and data-governance oversight evidence is documented.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E025",
+          "E043",
+          "E059",
+          "E060"
+        ],
+        "methodology_id": "3B.9",
+        "reason": "Remedy chronology is documented, but independent outcome evidence remains limited.",
+        "status": "partially_covered"
+      },
+      {
+        "evidence_ids": [
+          "E020",
+          "E021",
+          "E022",
+          "E023",
+          "E024",
+          "E059",
+          "E060"
+        ],
+        "methodology_id": "3B.10",
+        "reason": "Adverse human-security evidence is present, with attribution and denominator gaps.",
+        "status": "partially_covered"
+      }
+    ],
+    "estimated_input_tokens": 13333,
+    "evidence": [
+      {
+        "canonical_fact_key": "https://www.riksrevisjonen.no/rapporter-mappe/no-2021-2022/undersokelse-av-myndighetenes-innsats-mot-vold-i-nare-relasjoner/#lines-19-40#Serious weaknesses in response to intimate-partner violence",
+        "claim": "The Auditor General found serious weaknesses in the state response to intimate-partner violence, including uncertain reporting duties, poor coordination, and inconsistent municipal follow-up.",
+        "contrary_evidence": [],
+        "evidence_id": "E020",
+        "excerpt": "The audit identifies coordination, reporting, and follow-up weaknesses.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Relevant institutional findings covering the target period.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Office of the Auditor General of Norway",
+        "ruler_attribution": "Institutional finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent audit with precise locator.",
+        "source_locator": "HTML lines 19-40",
+        "source_type": "independent audit",
+        "title": "Investigation of authorities\u2019 efforts against intimate-partner violence",
+        "url": "https://www.riksrevisjonen.no/rapporter-mappe/no-2021-2022/undersokelse-av-myndighetenes-innsats-mot-vold-i-nare-relasjoner/"
+      },
+      {
+        "canonical_fact_key": "https://www.riksrevisjonen.no/rapporter-mappe/no-2021-2022/undersokelse-av-myndighetenes-innsats-mot-vold-i-nare-relasjoner/#lines-46-52#Decline in police clearance rates for intimate-partner violence",
+        "claim": "Police clearance rates for intimate-partner violence fell from 39% in 2015 to 24% in 2021.",
+        "contrary_evidence": [],
+        "evidence_id": "E021",
+        "excerpt": "The audit reports the decline in clearance rates.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Pre-target trend relevant to 2022 institutional baseline.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Office of the Auditor General of Norway",
+        "ruler_attribution": "Institutional outcome; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent audit with quantitative figures and precise locator.",
+        "source_locator": "HTML lines 46-52 and 93-102",
+        "source_type": "independent audit",
+        "title": "Investigation of authorities\u2019 efforts against intimate-partner violence",
+        "url": "https://www.riksrevisjonen.no/rapporter-mappe/no-2021-2022/undersokelse-av-myndighetenes-innsats-mot-vold-i-nare-relasjoner/"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/en/document/2089707.html#lines-189-197#Sami women domestic-violence exposure and reporting barriers",
+        "claim": "The U.S. State Department reported higher domestic or partner-violence exposure among S\u00e1mi women, limited S\u00e1mi-language responders, and continuing reporting barriers.",
+        "contrary_evidence": [],
+        "evidence_id": "E022",
+        "excerpt": "The report identifies higher exposure and language and reporting barriers.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 country report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Country and population finding; no personal St\u00f8re attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Independent external country reporting with precise locator.",
+        "source_locator": "HTML lines 189-197",
+        "source_type": "international human-rights report",
+        "title": "2022 Country Reports on Human Rights Practices: Norway",
+        "url": "https://www.ecoi.net/en/document/2089707.html"
+      },
+      {
+        "canonical_fact_key": "https://www.ecoi.net/en/document/2089707.html#lines-180-187#Racial profiling and online hate-speech reports",
+        "claim": "NGOs reported racial profiling of minority young men and increased online hate speech; authorities lacked disaggregated stop-and-search data.",
+        "contrary_evidence": [],
+        "evidence_id": "E023",
+        "excerpt": "The report records NGO concerns and a data gap.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 country report.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "U.S. Department of State",
+        "ruler_attribution": "Institutional and NGO-reported finding; no personal St\u00f8re attribution.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "External country report with precise locator and attribution to NGOs.",
+        "source_locator": "HTML lines 180-187",
+        "source_type": "international human-rights report",
+        "title": "2022 Country Reports on Human Rights Practices: Norway",
+        "url": "https://www.ecoi.net/en/document/2089707.html"
+      },
+      {
+        "canonical_fact_key": "https://www.sivilombudet.no/en/besoksrapporter/new-visit-report-oslo-police-custody/#lines-37-53#Uncertainty in national data on minors held in police custody",
+        "claim": "The Parliamentary Ombud found national data on minors held in police custody uncertain and announced follow-up with central authorities.",
+        "contrary_evidence": [
+          "E081 records later improvements in custody records and procedures."
+        ],
+        "evidence_id": "E024",
+        "excerpt": "The Ombud identified uncertainty in custody data and planned follow-up.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period oversight finding.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Parliamentary Ombud of Norway",
+        "ruler_attribution": "Independent oversight finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent statutory oversight record with precise locator.",
+        "source_locator": "HTML lines 37-53",
+        "source_type": "parliamentary oversight report",
+        "title": "New visit report: Oslo police custody",
+        "url": "https://www.sivilombudet.no/en/besoksrapporter/new-visit-report-oslo-police-custody/"
+      },
+      {
+        "canonical_fact_key": "https://www.regjeringen.no/no/aktuelt/l/id2966316/#lines-314-321#Fosen consultations and S\u00e1mi objections",
+        "claim": "Government follow-up records show Fosen consultations and revised investigation programmes were active during 2022, while S\u00e1mi representatives considered the process too broad and potentially a relitigation of the Supreme Court judgment.",
+        "contrary_evidence": [
+          "The notebook states that no independent 2022 remedy outcome was recovered."
+        ],
+        "evidence_id": "E025",
+        "excerpt": "The follow-up records continuing consultations and S\u00e1mi concerns about process and remedy.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period remedy process.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Government of Norway",
+        "ruler_attribution": "Executive follow-up; responsibility shared and partly inherited, not personally established.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official record with precise lines; contrary stakeholder view preserved.",
+        "source_locator": "HTML lines 314-321",
+        "source_type": "official government follow-up",
+        "title": "Fosen follow-up statement",
+        "url": "https://www.regjeringen.no/no/aktuelt/l/id2966316/"
+      },
+      {
+        "canonical_fact_key": "https://www.domstol.no/en/supremecourt/rulings/rulings-2022/supreme-court-criminal-cases/HR-2022-981-A/#lines-0-6#Supreme Court ruling on traffic-blocking protest and assembly rights",
+        "claim": "The Supreme Court held that police intervention against an unannounced traffic-blocking protest did not breach freedom of assembly while emphasizing that authorities must tolerate some disturbance.",
+        "contrary_evidence": [],
+        "evidence_id": "E026",
+        "excerpt": "The ruling balances protest rights with lawful police intervention.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 Supreme Court ruling.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Supreme Court of Norway",
+        "ruler_attribution": "Judicial finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary judicial decision with precise locator.",
+        "source_locator": "HTML lines 0-6",
+        "source_type": "court ruling",
+        "title": "HR-2022-981-A",
+        "url": "https://www.domstol.no/en/supremecourt/rulings/rulings-2022/supreme-court-criminal-cases/HR-2022-981-A/"
+      },
+      {
+        "canonical_fact_key": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf#pp6-12#EOS oversight inspections of intelligence and security services",
+        "claim": "The EOS Committee conducted parliamentary oversight of intelligence, surveillance, and security services, including inspections across NIS, PST, NSM, and defence bodies.",
+        "contrary_evidence": [],
+        "evidence_id": "E027",
+        "excerpt": "The annual report describes inspections across the principal intelligence and security bodies.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 annual oversight.",
+        "publication_date": "2023-06-01",
+        "publisher": "EOS Committee",
+        "ruler_attribution": "Independent parliamentary oversight; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Statutory oversight report with precise PDF pages.",
+        "source_locator": "PDF pages 6 and 10-12",
+        "source_type": "parliamentary oversight report",
+        "title": "EOS Committee annual report 2022",
+        "url": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf"
+      },
+      {
+        "canonical_fact_key": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf#pp16-17#EOS mixed findings on NIS source handling and complaints",
+        "claim": "EOS reported that NIS failed to exercise due diligence in handling a source, while complaints concluded in 2022 produced no criticism of NIS.",
+        "contrary_evidence": [],
+        "evidence_id": "E028",
+        "excerpt": "The report records one due-diligence failure alongside no criticism in concluded complaints.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 oversight findings.",
+        "publication_date": "2023-06-01",
+        "publisher": "EOS Committee",
+        "ruler_attribution": "Institutional oversight finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary oversight report with precise pages.",
+        "source_locator": "PDF pages 16-17",
+        "source_type": "parliamentary oversight report",
+        "title": "EOS Committee annual report 2022",
+        "url": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf"
+      },
+      {
+        "canonical_fact_key": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf#pp19-20#EOS criticism of PST investigation and document provision",
+        "claim": "EOS criticised PST for inadequate investigation and failure to provide documents during a complaint review, later receiving the relevant documents.",
+        "contrary_evidence": [],
+        "evidence_id": "E029",
+        "excerpt": "The report records criticism of PST\u2019s investigation and document handling.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 oversight finding.",
+        "publication_date": "2023-06-01",
+        "publisher": "EOS Committee",
+        "ruler_attribution": "Institutional oversight finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary oversight report with precise pages.",
+        "source_locator": "PDF pages 19-20",
+        "source_type": "parliamentary oversight report",
+        "title": "EOS Committee annual report 2022",
+        "url": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/datatilsynets-arsrapporter/arsrapport-for-2022/?print=true#lines-502-503#Datatilsynet 2022 case volume",
+        "claim": "The Data Protection Authority recorded 3,519 new cases in 2022, the highest number then recorded.",
+        "contrary_evidence": [],
+        "evidence_id": "E030",
+        "excerpt": "The annual report gives the 2022 case count and historical comparison.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 regulatory activity.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Norwegian Data Protection Authority",
+        "ruler_attribution": "Independent regulator activity; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Official regulator annual report with precise locator.",
+        "source_locator": "HTML lines 502-503",
+        "source_type": "regulatory annual report",
+        "title": "Datatilsynet annual report 2022",
+        "url": "https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/datatilsynets-arsrapporter/arsrapport-for-2022/?print=true"
+      },
+      {
+        "canonical_fact_key": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf#pp6-11#EOS mandate and classification limits",
+        "claim": "The EOS framework exists to prevent rights violations and ensure intelligence services respect human rights, but classification rules limit public visibility into complaints and criticism.",
+        "contrary_evidence": [],
+        "evidence_id": "E031",
+        "excerpt": "The report explains the oversight mandate and confidentiality constraints.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 oversight environment.",
+        "publication_date": "2023-06-01",
+        "publisher": "EOS Committee",
+        "ruler_attribution": "Institutional oversight context; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Primary oversight report with precise pages.",
+        "source_locator": "PDF pages 6 and 11",
+        "source_type": "parliamentary oversight report",
+        "title": "EOS Committee annual report 2022",
+        "url": "https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf"
+      },
+      {
+        "canonical_fact_key": "https://www.regjeringen.no/no/aktuelt/l/id2966316/#lines-205-225#Fosen continuing consultations and unresolved implementation",
+        "claim": "Government follow-up documented continuing consultations, updated investigations, and unresolved S\u00e1mi-rights implementation concerning Fosen during the target period.",
+        "contrary_evidence": [],
+        "evidence_id": "E043",
+        "excerpt": "The follow-up records continuing process and unresolved implementation.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Target-period remedy process.",
+        "publication_date": "unknown_not_exposed_by_source",
+        "publisher": "Government of Norway",
+        "ruler_attribution": "Executive and institutional follow-up; shared and partly inherited responsibility.",
+        "source_confidence": "medium-high",
+        "source_confidence_reason": "Official follow-up record with precise locator.",
+        "source_locator": "HTML lines 205-225",
+        "source_type": "official government follow-up",
+        "title": "Fosen follow-up statement",
+        "url": "https://www.regjeringen.no/no/aktuelt/l/id2966316/"
+      },
+      {
+        "canonical_fact_key": "https://www.coe.int/en/web/istanbul-convention/-/grevio-publishes-its-report-on-norway#lines-193-203#GREVIO findings on vulnerable women and mediation",
+        "claim": "GREVIO credited Norwegian action plans and victim-service networks but identified insufficient recognition of S\u00e1mi, disabled, and addiction-affected women\u2019s vulnerability and concerns about mandatory mediation.",
+        "contrary_evidence": [],
+        "evidence_id": "E059",
+        "excerpt": "GREVIO records institutional strengths and vulnerable-group gaps.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "Published 25 November 2022; target-period assessment.",
+        "publication_date": "2022-11-25",
+        "publisher": "Council of Europe GREVIO",
+        "ruler_attribution": "Institutional finding; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent treaty-monitoring body with precise locator.",
+        "source_locator": "HTML lines 193-203",
+        "source_type": "international human-rights monitoring",
+        "title": "GREVIO publishes its report on Norway",
+        "url": "https://www.coe.int/en/web/istanbul-convention/-/grevio-publishes-its-report-on-norway"
+      },
+      {
+        "canonical_fact_key": "https://www.sivilombudet.no/wp-content/uploads/2023/03/Annual_Report_2022_Norwegian_Parliamentary_Ombud_web-1.pdf#pp57-58#Custody-record and minor-procedure improvements",
+        "claim": "Parliamentary Ombud follow-up found improved custody records, procedures for minors, staff training, and reduced potential detention duration; the case closed in August 2022.",
+        "contrary_evidence": [],
+        "evidence_id": "E060",
+        "excerpt": "The annual report records corrective measures and case closure.",
+        "final_evidence_use": "final_evidence",
+        "period_fit": "2022 remedy evidence.",
+        "publication_date": "2023-03-01",
+        "publisher": "Parliamentary Ombud of Norway",
+        "ruler_attribution": "Institutional remedy; no personal St\u00f8re attribution.",
+        "source_confidence": "high",
+        "source_confidence_reason": "Independent statutory oversight report with precise PDF pages.",
+        "source_locator": "PDF pages 57-58",
+        "source_type": "parliamentary oversight report",
+        "title": "Parliamentary Ombud annual report 2022",
+        "url": "https://www.sivilombudet.no/wp-content/uploads/2023/03/Annual_Report_2022_Norwegian_Parliamentary_Ombud_web-1.pdf"
+      }
+    ],
+    "evidence_environment": {
+      "censorship_and_self_censorship": "The notebook cites independent media, civil society, courts, regulators, parliamentary oversight, EOS, the Data Protection Authority, the Auditor General, GREVIO, and GRECO. It also records that classified intelligence, defence, cyber, procurement, and administrative systems may conceal failures or disagreement. No evidence of St\u00f8re-directed censorship, retaliation, or unlawful surveillance was found.",
+      "chapter_specific_biases": [
+        "1B: nuclear evidence may over-attribute cabinet or institutional conduct to St\u00f8re; alliance and classified systems constrain visibility.",
+        "2B: official Norwegian Ukraine-policy sources dominate; recipient-side civilian harm, end-use, intelligence correction, and peace alternatives remain gaps.",
+        "3B: open reporting may increase visible complaints; Fosen, violence, custody, and vulnerability findings are not personal evidence.",
+        "4B: country-level institutional protections and oversight do not establish executive self-binding; coalition authority is shared.",
+        "5B: macro, energy, and distributional outcomes are shock-sensitive and only partly attributable to a short-tenure prime minister.",
+        "6B: high inherited welfare baselines, municipal authority, and service-provider responsibility limit ruler credit.",
+        "7B: national integrity indicators and institutional controls cannot substitute for a personal benefit, direction, protection, or obstruction nexus.",
+        "8B: implementation breadth is high, but durable outcomes, recipient-side checks, and personal causal attribution remain incomplete."
+      ],
+      "complaint_volume_interpretation": "The notebook repeatedly notes that Norway\u2019s open environment may increase visible complaints, protests, scandals, and rights disputes, but supplies no complaint-volume denominator or cross-system normalization. Complaint volume is largely not applicable to the nuclear lenses.",
+      "criticism_possible": "Criticism was possible through parliamentary questions and debates, independent media and civil society, courts, the Parliamentary Ombud, EOS, Datatilsynet, the Auditor General, GREVIO, GRECO, SSB, OECD, and independent research. The notebook nevertheless records incomplete systematic adverse searches and classified-system limits.",
+      "duplicate_event_risk": "Material duplicate-event risk exists for Ukraine/export-policy materials, Fosen chronology, NAV findings, refugee-reception reports, electricity-support measures, audit and scandal reporting, and nuclear-policy statements. Related reports must remain separate only where the underlying source-claim unit differs.",
+      "inherited_conditions_shocks_and_authority": "St\u00f8re became prime minister on 14 October 2021 in a Labour\u2013Centre coalition. NATO and nuclear postures, safeguards institutions, welfare outcomes, and governance systems largely predated him. Coalition, municipal, agency, and alliance authority are shared. Omicron, Russia\u2019s invasion of Ukraine, energy prices, inflation, and cyber threats constrained 2022 outcomes.",
+      "languages_and_archives_searched": [
+        "Norwegian and English Government.no, Storting, DSA, Sivilombudet, Datatilsynet, Riksrevisjonen, Helsetilsynet, NSM, EOS, SSB, IMDi/NIBR, NIPH, GRECO-linked materials, Freedom House, USDOS/ECoi, OECD, Cambridge, AP, IAEA, NATO, NUPI, PRIO, GREVIO, Eurofound, and civil-society materials.",
+        "The notebook does not claim exhaustive archival, classified, or whistleblower-record access."
+      ],
+      "official_statistics_reliability": "The notebook treats SSB, OECD, Auditor General, Helsetilsynet, Datatilsynet, EOS, GREVIO, and related institutional data as useful but bounded. It notes missing denominators, non-representative detection data, incomplete subgroup outcomes, and administrative-system blind spots.",
+      "relevant_denominators": "Recorded denominators include 70 NAV offices, 49 open six hours or less, 153,000 people without a regular GP in Q1 2022, 66-day specialist-care waiting time, 3,519 Datatilsynet cases, 121 financial-irregularity cases with 44 requiring response and four corruption cases, and household distribution measures. Complaint, civilian-harm, affected-population, and many subgroup denominators remain missing.",
+      "safe_reporting_channels": "The notebook cites parliamentary scrutiny, courts, independent media and civil society, the Parliamentary Ombud, EOS, Datatilsynet, the Auditor General, GREVIO, GRECO, and anonymous or open Foreign Service irregularity reporting with external-audit and police-referral mechanisms. Classification limits public visibility in some security domains.",
+      "source_concentration": "The source mix includes government and parliamentary records, regulators, oversight bodies, courts, national statistics, international organizations, independent research, independent media, civil society, and advocacy. Target-period policy and implementation claims remain disproportionately official. E068-E070 derive from one source family.",
+      "supporting_evidence_ids": [
+        "E001",
+        "E002",
+        "E003",
+        "E004",
+        "E007",
+        "E008",
+        "E009",
+        "E010",
+        "E011",
+        "E012",
+        "E014",
+        "E017",
+        "E018",
+        "E019",
+        "E020",
+        "E021",
+        "E022",
+        "E024",
+        "E026",
+        "E027",
+        "E028",
+        "E029",
+        "E030",
+        "E031",
+        "E032",
+        "E033",
+        "E034",
+        "E035",
+        "E036",
+        "E037",
+        "E038",
+        "E039",
+        "E040",
+        "E041",
+        "E042",
+        "E044",
+        "E046",
+        "E047",
+        "E048",
+        "E049",
+        "E050",
+        "E051",
+        "E052",
+        "E053",
+        "E054",
+        "E055",
+        "E056",
+        "E057",
+        "E058",
+        "E059",
+        "E060",
+        "E061",
+        "E062",
+        "E063",
+        "E064"
+      ]
+    },
+    "iso3": "NOR",
+    "job_key": "dossier:2022-bias-contrast-v1:2022:NOR:16795",
+    "local_priors": [
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.1",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=106; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.2",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=106; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.3",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.4",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=48; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.5",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=106; mapping_note=Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.6",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=70; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.7",
+        "status": "no_evidence_found",
+        "summary": "status=no_evidence_found; local_fact_count=0; mapping_note=National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.; missing_reason=No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.8",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=48; mapping_note=Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.9",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=70; mapping_note=Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement.; missing_reason=None"
+      },
+      {
+        "artifact_path": "/home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/trusted/001-a09b36f8-de7/local-priors.json",
+        "artifact_sha256": "4ee949e1a47ab4f85c81faf64b54ad15dcdd1749217847756cfaa795c20c7b77",
+        "methodology_id": "3B.10",
+        "status": "evidence_found",
+        "summary": "status=evidence_found; local_fact_count=154; mapping_note=Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.; missing_reason=None"
+      }
+    ],
+    "mappings": [
+      {
+        "evidence_id": "E020",
+        "methodology_id": "3B.1",
+        "relation": "contradicts",
+        "relevance": "Audit finding on intimate-partner violence response."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E060",
+        "methodology_id": "3B.1",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.2",
+        "relation": "contradicts",
+        "relevance": "Clearance-rate outcome."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E060",
+        "methodology_id": "3B.2",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "3B.3",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.3",
+        "relation": "contradicts",
+        "relevance": "Vulnerable-group protection gaps."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "3B.4",
+        "relation": "contradicts",
+        "relevance": "Custody-data oversight finding."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "3B.4",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E060",
+        "methodology_id": "3B.4",
+        "relation": "mitigates",
+        "relevance": "Custody remedy improvements."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E060",
+        "methodology_id": "3B.5",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "3B.6",
+        "relation": "contradicts",
+        "relevance": "S\u00e1mi women\u2019s exposure and reporting barriers."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.6",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "3B.7",
+        "relation": "contradicts",
+        "relevance": "Profiling and hate-speech concerns."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.7",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E026",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E027",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E028",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E029",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E030",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E031",
+        "methodology_id": "3B.8",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E025",
+        "methodology_id": "3B.9",
+        "relation": "contradicts",
+        "relevance": "Unresolved Fosen remedy process."
+      },
+      {
+        "evidence_id": "E043",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E060",
+        "methodology_id": "3B.9",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E020",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E021",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E022",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E023",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E024",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E059",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      },
+      {
+        "evidence_id": "E060",
+        "methodology_id": "3B.10",
+        "relation": "context",
+        "relevance": "Mapping inferred from the formatter's explicit coverage reference."
+      }
+    ],
+    "methodology_ids": [
+      "3B.1",
+      "3B.2",
+      "3B.3",
+      "3B.4",
+      "3B.5",
+      "3B.6",
+      "3B.7",
+      "3B.8",
+      "3B.9",
+      "3B.10"
+    ],
+    "period_end_year": 2022,
+    "period_start_year": 2022,
+    "ruler_id": "2933",
+    "ruler_name": "Jonas Gahr St\u00f8re",
+    "ruler_year_id": 16795,
+    "run_key": "2022-bias-contrast-v1",
+    "run_provenance": {
+      "formatter_model": "gpt-5.6-luna",
+      "formatter_provider": "openai",
+      "formatter_provider_profile": "openai-luna-candidate",
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "provider_profile": "openai-luna-candidate",
+      "research_notebook_sha256": "fefc413b0c2e1980ce5aadc6ab658552d9c5886f42118beae9a8e0a26171053b",
+      "source_mix_note": "Evidence spans Norwegian government and parliamentary records, regulators and oversight bodies, courts, SSB, international organizations, independent research, independent media, civil society, and advocacy. Official target-period policy and implementation evidence remains concentrated in several chapters. E068-E070 are one source family; repeated claims require claim-level deduplication.",
+      "workflow_mode": "direct_search_chapter_loop_v1"
+    },
+    "schema_version": "ruler_chapter_projection_v1",
+    "source_dossier_path": "dossier.json",
+    "source_dossier_schema_version": "ruler_evidence_dossier_v2",
+    "source_dossier_sha256": "b6e137f0611940c9b239214bbf9661699dc13776dba206b5d0c0eac7191510dc",
+    "unresolved_gaps": [
+      "1B: personal St\u00f8re attribution for safeguards, arms-control, disarmament, and independent oversight.",
+      "2B: recipient-side civilian harm, weapon end-use, intelligence correction, peace alternatives, and accountability.",
+      "3B: independent Fosen remedy outcomes, broader police and custodial oversight, and population-specific exposure.",
+      "4B: direct executive self-binding, censorship, opposition retaliation, and coalition-versus-prime-minister attribution.",
+      "5B: productivity, competition, procurement and appointments, durable growth, and independent electricity-support evaluation.",
+      "6B: regional and beneficiary outcomes, child poverty, vulnerable-group causal evidence, and institutional durability.",
+      "7B: personal benefit, direction, protection, obstruction, lobbying, procurement, appointments, and whistleblower or judicial evidence tied to St\u00f8re.",
+      "8B: independent durable outcomes, recipient-side Ukraine checks, external cyber-impact assessment, subgroup effects, and sharper inherited, coalition, institutional, and personal attribution.",
+      "No error_methodology_ids were supplied; no blocking local-input failure was recorded."
+    ]
+  }
+]
+
+Active chapter guide:
+---
+# Chapter 3B — Domestic Safety, Restraint, And Protection
+
+Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
+
+## Chapter Identity
+
+- Chapter: `3B`
+- Rating: domestic safety versus violence, oppression, and incitement
+- Evidence strategy: local-first structured evidence plus cited manual research
+- Rubric version: `chapter_3b_v4`
+- Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
+
+## Purpose And Non-Goals
+
+This chapter asks whether people were protected from state and politically tolerated
+violence, whether coercive institutions were restrained and accountable, whether the
+ruler reduced fear without substituting state terror, and whether vulnerable groups and
+peaceful civic activity were protected. It does not score ordinary crime alone, political
+freedom wholesale, international battlefield conduct, or government popularity. Public
+safety gains do not excuse torture or collective punishment, while isolated misconduct
+with credible remedy is not equivalent to state policy. The client matrix is not evidence.
+
+## Ten Evidence Lenses
+
+1. **3B.1:** Did the ruler protect residents from state violence, torture, disappearances, political imprisonment, extrajudicial killing, and arbitrary or exemplary punishment?
+2. **3B.2:** Did the ruler prevent, punish, or tolerate abuse by police, military, intelligence services, prisons, militias, party enforcers, informal loyalists, or tolerated vigilantes?
+3. **3B.3:** Did the ruler personally incite hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or religious/ethnic/sectarian/caste/racial groups?
+4. **3B.4:** Did the ruler build systems for due process, complaint handling, civilian oversight, and independent investigation of abuse, including abuse by politically protected actors?
+5. **3B.5:** Did the ruler use emergency powers, security laws, surveillance, anti-terror measures, or administrative controls narrowly and lawfully, or as tools for intimidation, collective punishment, and control?
+6. **3B.6:** Did the ruler reduce domestic fear and insecurity without replacing criminal, communal, or insurgent violence with state terror or a broader political fear climate?
+7. **3B.7:** Did the ruler protect women, children, minorities, and vulnerable groups from targeted violence, intergroup/religious/ethnic/sectarian/caste/racial violence, displacement, and systematic neglect?
+8. **3B.8:** Did the ruler allow peaceful protest, dissent, and community organization without retaliation, chilling surveillance, arbitrary restrictions, or selective punishment?
+9. **3B.9:** Did the ruler respond to domestic crises and spontaneous flare-ups with protection, restraint, and suppression of violence rather than incitement, tolerance, collective punishment, censorship, or militarized spectacle?
+10. **3B.10:** Did the ruler leave citizens safer from political violence, intergroup violence, deaths/injuries/displacement, and preventable domestic insecurity than they inherited them?
+
+Lens status names are advisory. Missing lenses lower confidence, not validity, and never
+mechanically zero the chapter. Natural-language coverage differences can be normalized
+later without rejecting useful evidence.
+
+## Researcher Guidance
+
+Start with resolved ruler identity and local D12 facts: PTS, CIRIGHTS, V-Dem, and UCDP
+one-sided violence. Research integrated themes: physical-integrity abuse; security-force
+and aligned-actor conduct; ruler rhetoric; oversight/remedies; emergency and surveillance
+powers; state versus non-state fear; vulnerable-group protection; protest treatment;
+crisis response; and inherited-to-end safety. Collect evidence once and map it wherever
+materially relevant; do not inflate ten lenses with duplicate prose.
+
+Prefer UN mechanisms, courts and legal records, independent inquiries/ombuds institutions,
+PTS/CIRIGHTS/V-Dem/UCDP, reputable human-rights NGOs, credible local civil society,
+academic work, and high-quality reporting. Official sources can establish laws,
+appointments, prosecutions, and formal statistics but need corroboration for claims of
+restraint or legitimacy. Distinguish incident, recurring pattern, widespread practice,
+systematic policy, command/order, tolerated impunity, failure to prevent, and genuine
+remedy. Preserve positive and contrary evidence. Researchers do not finalize scores.
+
+Require a physical-safety nexus. Generic policy failure, economic or pandemic
+coordination, election controversy, and civil-liberties erosion belong elsewhere
+unless they directly expose people to state terror, political/identity violence,
+arbitrary detention, torture, killing, or preventable severe insecurity within this
+chapter. Classify adverse evidence by severity, scale, recurrence, state nexus,
+ruler attribution, and remedy before selecting an anchor.
+
+Apply a strict chapter-relevance gate before weighing evidence. Exclude foreign
+battlefield and overseas civilian-harm conduct from 3B unless the evidence establishes
+a direct domestic physical-safety consequence; Chapter 2B owns international conduct.
+Exclude inflation, growth, employment, and other macroeconomic conditions unless a
+specific causal chain establishes severe domestic physical insecurity; Chapters 5B
+and 6B own ordinary economic and social outcomes. Do not attribute municipal, state,
+provincial, campus, or otherwise decentralized policing to the national ruler merely
+because it occurred during the ruler's term. Such conduct may describe the national
+environment, but it affects the ruler score only in proportion to documented command,
+policy, funding conditions, encouragement, tolerance after notice, obstruction of
+remedy, or feasible failure to act.
+
+## Sparse, Historical, And Closed-Regime Evidence
+
+Use archives, truth commissions, court files, contemporaneous diplomatic/human-rights
+reports, demographic evidence, oral histories with corroboration, and later scholarship
+for older cases. In closed or highly repressive environments, few complaints or reports
+may reflect fear, censorship, inaccessible regions, or destroyed records. Triangulate
+victim, external monitor, administrative, event, and retrospective sources; never infer
+safety from silence. Conversely, open societies generate abundant reporting of lesser
+violations. Missing lens evidence lowers confidence. A defensible chapter score may rest
+on fewer strong lenses when they establish overall severity and responsibility.
+
+## Attribution And Inherited Baseline
+
+Resolve the ruler's formal and practical control over police, military, intelligence,
+prisons, governors, party forces, militias, and prosecutors. Attribute direct orders,
+public incitement, policy, appointments, systematic tolerance, obstruction of remedy,
+or failure to act where capacity and notice are evidenced. Do not transfer every local
+crime or autonomous abuse to the ruler. Compare inherited violence, institutional
+capacity, conflict and communal conditions with end-of-period outcomes, while judging
+the means used: reducing insurgent violence through state terror is not improvement.
+
+## Chapter-Level 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Systematic state terror or mass political/identity violence is directed, incited, protected, or deliberately enabled by the ruler, with pervasive fear and no remedy. |
+| 2–3 | Severe recurring killings, torture, disappearances, imprisonment, collective punishment, aligned-actor violence, or incitement with broad impunity and weak protection. |
+| 4–5 | Significant abuse, selective repression, emergency-power misuse, group vulnerability, or recurring impunity, but violence is not fully generalized and some safeguards operate. |
+| 6–7 | No systematic terror and meaningful protection/oversight, but serious recurring police, detention, protest, minority, crisis-response, or accountability failures remain. |
+| 8–9 | Strong protection and restraint, rare serious abuse, credible independent remedies, vulnerable-group protection, open reporting, and sustained improvement in safety. |
+| 10 | Exceptional, durable, and well-evidenced protection from both political violence and preventable insecurity, with robust restraint/accountability even under severe pressure. |
+
+Scores below 4 require ruler-attributed physical-integrity or severe domestic-safety
+evidence, not adjacent-chapter harms. Scores of 8 or above require direct
+target-period evidence of ruler-attributed protection, restraint, or effective remedy
+from multiple independent source types; inherited institutional quality or low
+reported abuse alone is insufficient. A 9 normally requires meaningful pressure or
+consequential improvement. When evidence establishes conditions but not ruler
+contribution, cap the attribution claim and widen the range rather than over-crediting
+the inherited baseline.
+
+### Absolute-scale guardrails
+
+The annual cohort does not define the endpoints. Do not stretch the worst current ruler
+to 1 or compress the best current ruler toward the midpoint merely to distribute scores.
+Use the following fixed cross-period anchors while applying the evidence actually
+embedded for the target year:
+
+- **1:** an historical floor such as Nazi extermination rule, Khmer Rouge mass killing,
+  Stalin's mass-terror periods, or Assad-era systematic killing, torture, disappearance,
+  and terror at national scale. A score of 1 requires target-period evidence of mass
+  political/identity violence or systematic state terror—not censorship, authoritarian
+  control, political imprisonment, or even systematic repression standing alone.
+- **2–3:** severe authoritarian coercion with recurring torture, disappearance,
+  political imprisonment, collective punishment, identity persecution, or broad
+  impunity, but without evidence meeting the mass-terror floor for 1 in the target
+  period. A centralized closed regime can fit here even when ordinary crime is low.
+- **4–5:** selective or materially recurring coercion and weak remedies coexist with
+  meaningful areas of ordinary protection; abuse is serious but neither a mass-terror
+  system nor merely rare misconduct.
+- **6–7:** a broadly protective constitutional or institutional environment without
+  systematic terror, alongside serious recurring or insufficiently remedied police,
+  detention, protest, minority-protection, or crisis-response failures. Open reporting
+  of local incidents must not by itself pull such a system toward the authoritarian
+  bands, especially where national-ruler attribution is weak.
+- **8–9:** strong national restraint and protection, rare serious abuse, independent
+  investigation and meaningful remedy, including evidence that institutions worked
+  under pressure. A high inherited baseline is insufficient without ruler-period
+  contribution or maintained restraint under a real test.
+- **10:** exceptional protection and accountability under severe pressure, with durable
+  improvement or costly restraint beyond an ordinary high-performing baseline.
+
+Before finalizing each score, state the severity class—isolated, recurring, widespread,
+systematic repression, systematic terror, or mass violence—and verify that the selected
+numeric band matches it. `Systematic repression` is not a synonym for `systematic state
+terror`. Also identify every potentially material item rejected by the chapter-relevance
+or ruler-attribution gates in the rationale or chapter-specific fields.
+
+The ten lenses are qualitatively unequal and need no arithmetic aggregation. Systematic
+killing or torture can dominate many institutional positives; robust accountability can
+distinguish isolated violations from policy. Outcomes, means, severity, prevalence,
+duration, ruler responsibility, vulnerability, and remedy determine the holistic score.
+
+## Judge Workflow Across Rulers
+
+### V3 release-review gate
+
+Ordinary source limits, plausible ranges, and attribution caveats belong in confidence
+and rationale. Flag manual review only when a specific unresolved issue could move the
+score by at least one point or materially reorder adjacent rulers.
+
+One Chapter 3B judge reads all ruler dossiers in the batch. Establish information
+environment, inherited safety conditions, conflict/crime context, authority, and source
+coverage; classify severity, scale, responsibility, and accountability; compare anchor
+and edge cases; provisionally order rulers; then issue one chapter score and confidence
+per ruler. Explain decisive harms and protections, counterevidence, attribution, baseline
+change, and rejected adjacent bands. Recheck the complete ordering for open-society
+visibility, closed-regime silence, population, and conflict bias. Shards require shared
+anchors and final cross-shard calibration.
+
+## Minimum Evidence And Graceful Degradation
+
+A score requires at least one traceable relevant citation, a structured prior or
+explained `not_available`, and explicit temporal fit, information environment, ruler
+authority, severity, and remedy assessment. Extreme or high-confidence scores normally
+require multiple independent source types. One credible grave event may be decisive but
+must not automatically establish a nationwide pattern. Unknown protest, prison, or group
+protection evidence lowers confidence. Withhold for unresolved identity, fake/untraceable
+citations, or attribution too uncertain to judge—not for harmless coverage terminology
+or incomplete lens mappings.
+
+## Common Evidence-Item Semantics
+
+Each material evidence item should carry a stable evidence ID; a concise factual claim;
+source URL, title, publisher, and publication/access date where available; source type
+and confidence with a short reason; a quotation or precise locator when available;
+target-year/ruler-period fit; ruler attribution and inherited-baseline relevance; its
+positive, negative, mixed, contextual, or contrary role; and the supported lens IDs.
+Fields may be normalized later and natural-language equivalents are acceptable. The
+substantive minimum is a traceable source, intelligible claim, temporal fit, attribution,
+and evidence role. One item may support multiple lenses without duplication.
+
+## Common Chapter-Judgment Output Envelope
+
+The judge returns one object per ruler with:
+
+- `chapter_id`
+- `rubric_version`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence`
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`
+- `lower_anchor_rejected` and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Exact field serialization can be repaired cheaply after judgment; missing harmless
+formatting must not erase a substantively usable assessment.
+
+## Bias And Comparability Checks
+
+Check visibility, silence under repression, population and geographic scale, conflict
+context, state-versus-non-state responsibility, protected-group underreporting, official
+crime statistics, source-type and advocacy blind spots, incident-versus-pattern inflation,
+remedy versus impunity, inherited baseline, recency, and shared cross-ruler anchors. Do
+not treat reporting volume as severity, lower crime as proof of lawful rule, or formal
+oversight bodies as effective without evidence of independence and remedy.
+
+## Chapter-Specific Calibration Fields
+
+- `chapter_rubric_version`: `chapter_3b_v4`
+- `calibration_batch_id` and `calibrated_against`
+- `severity_band`: none/isolated/recurring/widespread/systematic/mass
+- `state_responsibility`: direct/state-aligned/tolerated/failed-to-prevent/non-state/unclear
+- `accountability_and_remedy`
+- `information_environment`
+- `inherited_safety_baseline` and `end_state_change`
+- `ruler_authority_and_attribution`
+- `physical_integrity_and_detention_assessment`
+- `aligned_actor_and_security_force_assessment`
+- `incitement_and_crisis_response`
+- `vulnerable_group_and_protest_protection`
+- `source_mix` and `period_fit`
+- `lens_strengths`, `lens_gaps`, and `contrary_evidence`
+- `score_rationale`, `lower_anchor_rejected`, `higher_anchor_rejected`
+- `confidence_score` (`0`–`100`) and `confidence_rationale`
+
+## Smoke-Test Ruler Set
+
+| Ruler | Country | Year / period | Calibration role |
+|---|---|---:|---|
+| Bashar al-Assad | Syria | 2011–2020 | mass/systematic state-violence low anchor |
+| Augusto Pinochet | Chile | 1973–1989 | historical repression and later records |
+| Rodrigo Duterte | Philippines | 2016–2022 | crime reduction claims versus extrajudicial killing |
+| Paul Kagame | Rwanda | 2000–2023 | safety/order versus closed-regime repression |
+| Narendra Modi | India | 2002 / 2014–2023 | communal violence, attribution, scale edge |
+| Michelle Bachelet | Chile | 2006–2010 | open-reporting, policing, and accountability case |
+| Jacinda Ardern | New Zealand | 2019 | crisis response and minority protection high case |
+| Nelson Mandela | South Africa | 1994–1999 | inherited violence and reconciliation constraints |
+| Nayib Bukele | El Salvador | 2022–2023 | public safety versus mass detention/emergency powers |
+| Hissene Habre | Chad | 1982–1990 | historical closed-regime low anchor |
+
+## Draft Acceptance Checklist
+
+- All ten exact lens texts appear.
+- Evidence separates severity, scale, responsibility, remedy, and information access.
+- One comparative judge produces one holistic score and confidence per ruler.
+- Missing lenses lower confidence and do not invalidate or mechanically zero a case.
+- Attribution and inherited safety are explicit; lawful outcomes and means are distinct.
+- Contrary evidence and citations are preserved.
+- Smoke testing and independent review occur before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays and that
+every confidence score is on the required 0-100 scale.

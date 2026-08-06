@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from datetime import UTC, datetime, timedelta
+from hashlib import sha256
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -10,12 +11,16 @@ from sqlalchemy import create_engine, text
 
 from leaders_db.db.engine import init_database
 from leaders_db.research.chapter_judge_models import RulerChapterJudgment
+from leaders_db.research.chapter_judge_prompt import build_chapter_judge_prompt
 from leaders_db.research.chapter_judge_worker import (
+    _ensure_bias_assessment,
     _find_previous_chapter_candidate,
+    _normalize_calibration_references,
     _normalize_confidence_scale,
     _normalize_evidence_reference_lists,
     _normalize_judgment_envelope,
     _normalize_lens_lists,
+    _normalize_local_evidence_reference_lists,
     _prepare_batch,
     _write_null_recovery_queue,
     execute_claimed_chapter_judge_job,
@@ -29,6 +34,44 @@ from leaders_db.research.job_ledger import (
     complete_job,
     create_jobs,
 )
+
+
+def test_file_backed_prompt_rejects_outside_path_before_hashing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    projection = SimpleNamespace(
+        job_key="dossier:test:2023:AAA:1",
+        iso3="AAA",
+        ruler_id="1",
+        ruler_year_id=1,
+        ruler_name="Ruler",
+        period_start_year=2023,
+        period_end_year=2023,
+    )
+    hashed = False
+
+    def forbidden_hash(path: Path) -> str:
+        nonlocal hashed
+        hashed = True
+        return "0" * 64
+
+    monkeypatch.setattr(
+        "leaders_db.research.chapter_judge_prompt._file_sha256", forbidden_hash
+    )
+    with pytest.raises(ValueError, match="chapter-inputs"):
+        build_chapter_judge_prompt(
+            {
+                "job_key": "chapter-judge:test:2023:1B",
+                "run_key": "test",
+                "target_year": 2023,
+                "input": {"chapter_id": "1B", "unavailable_dossiers": []},
+            },
+            project_root=tmp_path / "project",
+            guide_text="guide",
+            projections=((tmp_path / "outside.json", projection),),
+            embed_projections=False,
+        )
+    assert not hashed
 
 
 def test_normalize_lens_lists_preserves_supported_weak_overlap_as_note() -> None:
@@ -54,6 +97,41 @@ def test_normalize_lens_lists_preserves_supported_weak_overlap_as_note() -> None
     ]
     assert evaluation["manual_review_reason"].count("4B.2") == 1
     assert "weak source diversity" in evaluation["manual_review_reason"]
+
+
+def test_null_judgment_is_normalized_to_release_blocking_review() -> None:
+    evaluation = {
+        "score_1_to_10": None,
+        "insufficient_evidence_reason": "Attribution remains insufficient.",
+        "manual_review_required": False,
+        "manual_review_reason_type": None,
+        "manual_review_reason": None,
+    }
+
+    _normalize_judgment_envelope(evaluation)
+
+    assert evaluation["manual_review_required"] is True
+    assert evaluation["manual_review_reason_type"] == "recoverable_null"
+    assert "Release is blocked" in evaluation["manual_review_reason"]
+    assert evaluation["plausible_score_range"] == {"lower": 1, "upper": 10}
+
+
+def test_normalize_lens_lists_recovers_descriptive_lens_prefixes() -> None:
+    evaluation = {
+        "supported_lenses": ["2B.1 defensive conduct"],
+        "missing_or_weak_lenses": [
+            "2B.4 civilian protection, proportionality, and attribution",
+            "2B.10: durable end-state change",
+        ],
+    }
+
+    _normalize_lens_lists(
+        evaluation, valid_methodology_ids={"2B.1", "2B.4", "2B.10"}
+    )
+
+    assert evaluation["supported_lenses"] == ["2B.1"]
+    assert evaluation["missing_or_weak_lenses"] == ["2B.4", "2B.10"]
+    assert "civilian protection" in evaluation["manual_review_reason"]
 
 
 def test_null_recovery_queue_reuses_existing_judgment_fields(tmp_path: Path) -> None:
@@ -153,7 +231,17 @@ def test_numeric_judgment_requires_traceable_decisive_evidence() -> None:
     evaluation["decisive_positive_evidence"] = []
     evaluation["decisive_negative_evidence"] = []
 
-    with pytest.raises(ValueError, match="requires decisive evidence"):
+    with pytest.raises(ValueError, match="requires decisive cited web evidence"):
+        RulerChapterJudgment.model_validate(evaluation)
+
+    evaluation["decisive_local_evidence"] = [
+        {
+            "local_evidence_id": "LF001",
+            "explanation": "Country-level structured context.",
+            "harmless_extra_field": "accepted by the tolerant receiver",
+        }
+    ]
+    with pytest.raises(ValueError, match="requires decisive cited web evidence"):
         RulerChapterJudgment.model_validate(evaluation)
 
     evaluation["score_1_to_10"] = None
@@ -162,6 +250,29 @@ def test_numeric_judgment_requires_traceable_decisive_evidence() -> None:
     judgment = RulerChapterJudgment.model_validate(evaluation)
 
     assert judgment.score_1_to_10 is None
+
+
+@pytest.mark.parametrize(
+    "malformed",
+    (None, "LF001", [None, "LF001", {"local_evidence_id": "LF999"}]),
+)
+def test_local_reference_normalization_tolerates_malformed_values(
+    malformed: object,
+) -> None:
+    evaluation = _evaluation(job_key="dossier", iso3="NZL", score=7.0)
+    evaluation["contextual_local_evidence"] = malformed
+
+    _normalize_local_evidence_reference_lists(
+        evaluation,
+        valid_local_evidence_ids={"LF001"},
+    )
+
+    assert evaluation["contextual_local_evidence"] == []
+    if malformed is None:
+        assert evaluation["manual_review_required"] is False
+    else:
+        assert evaluation["manual_review_required"] is True
+        assert evaluation["manual_review_reason_type"] == "projection_integrity"
 
 
 def test_null_judgment_requires_full_uncertainty_range() -> None:
@@ -177,6 +288,14 @@ def test_null_judgment_requires_full_uncertainty_range() -> None:
     judgment = RulerChapterJudgment.model_validate(evaluation)
 
     assert judgment.score_1_to_10 is None
+
+
+def test_judgment_requires_explicit_bias_safeguards() -> None:
+    evaluation = _evaluation(job_key="dossier", iso3="NZL", score=7.0)
+    del evaluation["bias_assessment"]["report_volume_not_used_as_severity"]
+
+    with pytest.raises(ValueError, match="report_volume_not_used_as_severity"):
+        RulerChapterJudgment.model_validate(evaluation)
 
 
 def test_normalize_judgment_envelope_repairs_only_explicit_contract_fields() -> None:
@@ -257,7 +376,32 @@ def test_normalize_confidence_scale_repairs_only_unambiguous_fraction_batch() ->
     assert all_zero_candidate == {}
 
 
-def test_chapter_judge_executes_two_dossiers_and_persists_scores_atomically(
+def test_normalize_calibration_references_repairs_only_unique_ruler_year_suffix() -> None:
+    available = {
+        "dossier:first:2023:USA:15811",
+        "dossier:second:2023:MEX:15802",
+    }
+    evaluation = {
+        "calibrated_against": [
+            "dossier:stale:2023:USA:15811",
+            "dossier:second:2023:MEX:15802",
+            "dossier:unknown:2023:XXX:99999",
+        ]
+    }
+
+    _normalize_calibration_references(
+        evaluation,
+        available_dossier_keys=available,
+    )
+
+    assert evaluation["calibrated_against"] == [
+        "dossier:first:2023:USA:15811",
+        "dossier:second:2023:MEX:15802",
+        "dossier:unknown:2023:XXX:99999",
+    ]
+
+
+def test_chapter_judge_executes_two_dossiers_and_persists_scores_atomically(  # noqa: PLR0915
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     database_url = f"sqlite:///{tmp_path / 'judge.sqlite'}"
@@ -290,17 +434,48 @@ profiles:
     )
     output_root = project / "outputs"
     methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
+    local_path = project / "local-priors.json"
+    local_payload = [
+        {
+            "methodology_id": methodology_id,
+            "status": "evidence_found",
+            "mapping_note": "Country-level structured context.",
+            "local_facts": [
+                {
+                    "field_key": "electoral_democracy",
+                    "label": "Electoral democracy",
+                    "value": 0.62,
+                    "value_type": "number",
+                    "year": 2020,
+                    "source_slugs": ["vdem"],
+                    "source_observation_ids": [
+                        "vdem:AAA:2020:electoral_democracy"
+                    ],
+                    "confidence": 88,
+                    "warnings": ["Ruler attribution requires cited evidence."],
+                    "period_role": "target",
+                    "unit": "index",
+                    "scale": "0-1",
+                }
+            ],
+        }
+        for methodology_id in methodology_ids
+    ]
+    local_encoded = json.dumps(local_payload, sort_keys=True).encode()
+    local_path.write_bytes(local_encoded)
+    local_digest = sha256(local_encoded).hexdigest()
     parent_ids: list[int] = []
     dossier_job_keys: list[str] = []
     for index, iso3 in enumerate(("AAA", "AAA"), start=1):
-        key = f"dossier:batch:2020:{iso3}:{index}"
+        parent_run_key = f"batch-{index}"
+        key = f"dossier:{parent_run_key}:2020:{iso3}:{index}"
         dossier_job_keys.append(key)
         create_jobs(
             engine,
             (
                 ResearchJobSpec(
                     job_key=key,
-                    run_key="batch",
+                    run_key=parent_run_key,
                     job_type="dossier_researcher",
                     target_year=2020,
                     period_start_year=2020,
@@ -325,14 +500,15 @@ profiles:
             worker_id=f"researcher-{index}",
             lease_seconds=900,
             job_type="dossier_researcher",
-            run_key="batch",
+            run_key=parent_run_key,
         )
         assert parent is not None
         dossier_path = project / f"dossier-{iso3}-{index}.json"
-        dossier_path.write_text(
-            json.dumps(_dossier_payload(parent, methodology_ids=methodology_ids)),
-            encoding="utf-8",
-        )
+        dossier_payload = _dossier_payload(parent, methodology_ids=methodology_ids)
+        for prior in dossier_payload["local_priors"]:
+            prior["artifact_path"] = str(local_path)
+            prior["artifact_sha256"] = local_digest
+        dossier_path.write_text(json.dumps(dossier_payload), encoding="utf-8")
         complete_job(
             engine,
             job_id=int(parent["id"]),
@@ -360,6 +536,8 @@ profiles:
                     "rubric_version": "chapter_4b_v1",
                     "methodology_ids": list(methodology_ids),
                     "dossier_job_keys": dossier_job_keys,
+                    "dossier_run_key": None,
+                    "dossier_run_keys": ["batch-1", "batch-2"],
                     "unavailable_dossiers": [],
                     "output_root": str(output_root),
                 },
@@ -375,25 +553,51 @@ profiles:
         run_key="batch",
     )
     assert judge is not None
+    monkeypatch.setattr(
+        "leaders_db.research.chapter_judge_worker.FILE_BACKED_PROMPT_THRESHOLD_BYTES",
+        0,
+    )
 
     def fake_run_codex(*args, **kwargs) -> None:
         prompt = kwargs["prompt"]
-        assert "Embedded chapter projections (authoritative judge inputs)" in prompt
-        assert "A cited political-freedom fact." in prompt
-        assert "Do not invoke shell commands" in prompt
+        assert "Chapter projections (authoritative judge inputs)" in prompt
+        assert "A cited political-freedom fact." not in prompt
+        assert '"sha256"' in prompt
+        assert "Read every listed file in full" in prompt
         assert all(
             text in prompt
             for text in (
                 "formal responsibility for national policy",
                 "Chapter 7B requires a personal-integrity nexus",
+                "structured local facts and signals use LF/LS IDs",
+                "rewrite a local fact as a web citation",
             )
         )
         command = kwargs["command"]
+        command_root = Path(command[command.index("--cd") + 1])
+        assert command_root.name.startswith("001-")
+        input_paths = tuple(command_root.glob("chapter-inputs/*.json"))
+        assert len(input_paths) == 2
+        assert all(str(path.resolve()) in prompt for path in input_paths)
+        assert all("LF001" in path.read_text(encoding="utf-8") for path in input_paths)
         result_path = Path(command[command.index("--output-last-message") + 1])
         candidate = _judge_candidate(
             dossier_job_keys=dossier_job_keys,
             iso3s=("AAA", "AAA"),
         )
+        for evaluation in candidate["evaluations"]:
+            evaluation["contextual_local_evidence"] = [
+                {
+                    "local_evidence_id": "LF001",
+                    "explanation": "Structured target-year country context.",
+                }
+            ]
+            evaluation["structured_prior_summary"] = (
+                "The available LF001 structured context is interpreted with cited "
+                "ruler-attribution evidence."
+            )
+        for evaluation in candidate["evaluations"]:
+            del evaluation["bias_assessment"]
         result_path.write_text(json.dumps(candidate), encoding="utf-8")
         kwargs["events_path"].write_text(
             json.dumps(
@@ -428,8 +632,7 @@ profiles:
         result_path=result_path,
     )
 
-    assert completed["status"] == "completed"
-    assert batch.run_profile.usage.total_tokens == 1500
+    _assert_tolerant_bias_persistence(completed, batch)
     with engine.connect() as conn:
         rows = conn.execute(
             text(
@@ -444,6 +647,13 @@ profiles:
     assert {row["method_version"] for row in rows} == {"chapter_4b_v1"}
     assert {row["job_key"] for row in rows} == {judge_key}
     assert all(json.loads(row["judgment_json"])["chapter_rationale"] for row in rows)
+    assert all(
+        json.loads(row["judgment_json"])["contextual_local_evidence"][0][
+            "local_evidence_id"
+        ]
+        == "LF001"
+        for row in rows
+    )
     assert json.loads(rows[0]["judgment_json"])["chapter_specific"] == [
         {"field": "trajectory", "value": "Stable fixture trajectory."}
     ]
@@ -587,6 +797,44 @@ def test_prepare_batch_rejects_self_only_calibration_and_discovery_only_evidence
         )
 
 
+def test_prepare_batch_accepts_singleton_no_peer_calibration_sentinel(
+    tmp_path: Path,
+) -> None:
+    methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
+    dossier_job = _fixture_dossier_job(
+        index=1, iso3="AAA", methodology_ids=methodology_ids
+    )
+    dossier = RulerEvidenceDossier.model_validate(
+        _dossier_payload(dossier_job, methodology_ids=methodology_ids)
+    )
+    candidate = {
+        "evaluations": [
+            _evaluation(job_key=str(dossier_job["job_key"]), iso3="AAA", score=5)
+        ],
+        "batch_notes": [],
+        "run_profile": {"usage": _unknown_usage()},
+    }
+    candidate["evaluations"][0]["calibrated_against"] = [
+        "no_other_available_dossier_in_manifest"
+    ]
+
+    batch = _prepare_batch(
+        candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(dossier_job["job_key"])],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=((tmp_path / "singleton.json", dossier),),
+        projections=_projections(
+            ((tmp_path / "singleton.json", dossier),), chapter_id="4B"
+        ),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert batch.evaluations[0].calibrated_against == ()
+
+
 def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) -> None:
     methodology_ids = tuple(f"4B.{index}" for index in range(1, 11))
     dossier_jobs = [
@@ -624,6 +872,35 @@ def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) 
 
     assert len(batch.evaluations) == 2
 
+    null_duplicate_candidate = _judge_candidate(
+        dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+        iso3s=("AAA", "BBB"),
+    )
+    first = null_duplicate_candidate["evaluations"][0]
+    first["score_1_to_10"] = None
+    first["insufficient_evidence_reason"] = "The admissible record is incomplete."
+    first["plausible_score_range"] = {"lower": 1, "upper": 10}
+    duplicate_null = json.loads(json.dumps(first))
+    duplicate_null["insufficient_evidence_reason"] = (
+        "The projection contains only contextual fragments."
+    )
+    null_duplicate_candidate["evaluations"].append(duplicate_null)
+
+    batch = _prepare_batch(
+        null_duplicate_candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=dossiers,
+        projections=_projections(dossiers, chapter_id="4B"),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert len(batch.evaluations) == 2
+    assert "contextual fragments" in batch.evaluations[0].insufficient_evidence_reason
+
     conflicting = _judge_candidate(
         dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
         iso3s=("AAA", "BBB"),
@@ -643,6 +920,67 @@ def test_prepare_batch_deduplicates_repeated_dossier_evaluation(tmp_path: Path) 
             rubric_version="chapter_4b_v1",
             events_path=tmp_path / "events.jsonl",
         )
+
+    placeholder_candidate = _judge_candidate(
+        dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+        iso3s=("AAA", "BBB"),
+    )
+    placeholder = json.loads(json.dumps(placeholder_candidate["evaluations"][0]))
+    placeholder["score_1_to_10"] = None
+    placeholder["insufficient_evidence_reason"] = (
+        "Duplicate placeholder not intended for processing."
+    )
+    placeholder_candidate["evaluations"].append(placeholder)
+
+    batch = _prepare_batch(
+        placeholder_candidate,
+        job=_fixture_judge_job(
+            dossier_job_keys=[str(job["job_key"]) for job in dossier_jobs],
+            methodology_ids=methodology_ids,
+        ),
+        dossiers=dossiers,
+        projections=_projections(dossiers, chapter_id="4B"),
+        rubric_version="chapter_4b_v1",
+        events_path=tmp_path / "events.jsonl",
+    )
+
+    assert len(batch.evaluations) == 2
+
+
+def test_bias_assessment_drops_out_of_projection_references() -> None:
+    evaluation = {
+        "bias_assessment": {
+            "material_biases": [
+                {
+                    "bias": "Reporting visibility",
+                    "supporting_evidence_ids": ["E001", "E999"],
+                    "likely_direction": "uncertain",
+                    "interpretation_effect": "Confidence only.",
+                }
+            ]
+        }
+    }
+
+    _ensure_bias_assessment(evaluation, valid_evidence_ids={"E001"})
+
+    assert evaluation["bias_assessment"]["material_biases"][0][
+        "supporting_evidence_ids"
+    ] == ["E001"]
+
+    missing_assessment: dict[str, object] = {}
+    _ensure_bias_assessment(missing_assessment, valid_evidence_ids={"E001"})
+    assert missing_assessment["bias_assessment"]["report_volume_not_used_as_severity"] is True
+    assert missing_assessment["bias_assessment"]["no_blanket_regime_correction"] is True
+
+
+def test_bias_assessment_remains_explicit_when_projection_has_no_evidence() -> None:
+    evaluation = {}
+
+    _ensure_bias_assessment(evaluation, valid_evidence_ids=set())
+
+    assert evaluation["bias_assessment"]["material_biases"] == []
+    assert evaluation["bias_assessment"]["report_volume_not_used_as_severity"] is True
+    assert evaluation["bias_assessment"]["no_blanket_regime_correction"] is True
 
 
 def test_prepare_batch_rejects_all_null_multi_ruler_result(tmp_path: Path) -> None:
@@ -774,6 +1112,7 @@ def _dossier_payload(
             }
             for methodology_id in methodology_ids
         ],
+        "evidence_environment": _evidence_environment(),
         "run_profile": {
             "provider_profile": "fixture",
             "provider": "openai",
@@ -868,6 +1207,8 @@ def _evaluation(*, job_key: str, iso3: str, score: float) -> dict[str, object]:
             {"evidence_id": "E001", "explanation": "Positive fixture evidence."}
         ],
         "decisive_negative_evidence": [],
+        "decisive_local_evidence": [],
+        "contextual_local_evidence": [],
         "inherited_baseline_and_constraints": "Inherited fixture conditions.",
         "ruler_attribution": "Attributable within the fixture period.",
         "supported_lenses": ["4B.1"],
@@ -875,6 +1216,7 @@ def _evaluation(*, job_key: str, iso3: str, score: float) -> dict[str, object]:
         "contrary_evidence": [],
         "source_mix": "One fixture primary source.",
         "structured_prior_summary": "Fixture prior summary.",
+        "bias_assessment": _bias_assessment(),
         "chapter_rationale": "Fits the selected comparative anchor.",
         "lower_anchor_rejected": "Too harsh for the documented record.",
         "higher_anchor_rejected": "Too generous given the evidence gap.",
@@ -920,4 +1262,48 @@ def _unknown_usage() -> dict[str, str]:
         "output_tokens": "unknown_not_exposed_by_tool",
         "total_tokens": "unknown_not_exposed_by_tool",
         "estimated_cost_usd": "unknown_not_exposed_by_tool",
+    }
+
+
+def _assert_tolerant_bias_persistence(completed: dict[str, object], batch: object) -> None:
+    assert completed["status"] == "completed"
+    assert batch.run_profile.usage.total_tokens == 1500
+    assert all(item.confidence_score == 50 for item in batch.evaluations)
+    assert all(
+        item.bias_assessment.report_volume_not_used_as_severity
+        for item in batch.evaluations
+    )
+
+
+def _evidence_environment() -> dict[str, object]:
+    return {
+        "criticism_possible": "Criticism was possible but the fixture record is thin.",
+        "censorship_and_self_censorship": "No censorship conclusion beyond E001.",
+        "safe_reporting_channels": "Formal reporting channels existed in the fixture.",
+        "official_statistics_reliability": "No statistics are used in this fixture.",
+        "languages_and_archives_searched": ["English fixture archive"],
+        "source_concentration": "The record is concentrated in one official source.",
+        "duplicate_event_risk": "Only one underlying fact is present.",
+        "complaint_volume_interpretation": "Volume is not treated as conduct severity.",
+        "relevant_denominators": "Population and exposure are not measured here.",
+        "inherited_conditions_shocks_and_authority": "Authority is direct in the fixture.",
+        "chapter_specific_biases": ["Official-source concentration"],
+        "supporting_evidence_ids": ["E001"],
+    }
+
+
+def _bias_assessment() -> dict[str, object]:
+    return {
+        "material_biases": [
+            {
+                "bias": "Official-source concentration",
+                "supporting_evidence_ids": ["E001"],
+                "likely_direction": "favors_ruler",
+                "interpretation_effect": "The official claim receives limited weight.",
+            }
+        ],
+        "confidence_and_range_effect": "Confidence is lower and the range is wider.",
+        "remaining_uncertainty": "Independent corroboration remains absent.",
+        "report_volume_not_used_as_severity": True,
+        "no_blanket_regime_correction": True,
     }

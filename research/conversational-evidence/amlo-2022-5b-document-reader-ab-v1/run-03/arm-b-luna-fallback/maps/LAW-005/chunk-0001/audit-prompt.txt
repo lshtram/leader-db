@@ -1,0 +1,81 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count supported and unsupported claims, test whether locators identify the cited passage, identify any material fact or qualification the map omitted, and decide whether the content is usable. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+## Source map — LAW-005
+
+**Document identity and legal status**
+
+- **Atomic claim:** This is an executive fiscal agreement, not a legislative agreement or standalone budget law. It is titled *Acuerdo 173/2022* and issued by Mexico’s Secretaría de Hacienda y Crédito Público (SHCP).  
+  **Locator:** Extracted HTML block 1, title and issuer line.
+- **Atomic claim:** The issuing official was Karina Ramírez Arras, Titular de la Unidad de Política de Ingresos no Tributarios, acting in substitution for the Subsecretario de Hacienda y Crédito Público.  
+  **Locator:** Block 1, authority/signature paragraphs.
+- **Atomic claim:** The agreement relies on the 27 December 2016 decree establishing IEPS fuel incentives and the 4 March 2022 decree establishing complementary incentives for automotive fuels.  
+  **Locator:** Block 1, legal-basis paragraph.
+- **Atomic claim:** It was signed in Mexico City on 8 December 2022 and entered into force the day after publication in the *Diario Oficial de la Federación* (DOF).  
+  **Locator:** Block 2, “Transitorio Único” and closing signature text.
+
+**Exact measure and time scope**
+
+- **Observed fact:** The agreement publishes percentages, peso amounts, reduced IEPS quotas, and complementary per-litre amounts for automotive fuels for **10–16 December 2022**.  
+  **Locator:** Block 1, operative paragraph; Block 2, Articles First–Fourth.
+- **Observed fact:** For gasoline below 91 octane, the fiscal stimulus was **26.96%**, equal to **$1.4803/litre**, with a reduced IEPS quota of **$4.0114/litre**.  
+  **Locator:** Block 2, Articles First–Third.
+- **Observed fact:** For gasoline at or above 91 octane and non-fossil fuels, the stimulus was **0.00%**, equal to **$0.0000/litre**; the listed quota was **$4.6375/litre**.  
+  **Locator:** Block 2, Articles First–Third.
+- **Observed fact:** For diesel, the stimulus was **59.77%**, equal to **$3.6071/litre**, with a reduced IEPS quota of **$2.4283/litre**.  
+  **Locator:** Block 2, Articles First–Third.
+- **Observed fact:** Complementary stimulus amounts were **zero for all listed fuel categories** during this period.  
+  **Locator:** Block 2, Article Fourth.
+
+**Implementation and affected actors**
+
+- **Atomic claim:** The measure operates through the IEPS tax system and applies to automotive fuels, rather than establishing a direct cash transfer or explicit household-eligibility program.  
+  **Locator:** Block 1, title/legal basis; Block 2, Articles First–Fourth.
+- **Observed fact:** The text specifies fuel categories, rates, amounts, quotas, period, legal authority, and commencement rule.  
+  **Locator:** Blocks 1–2.
+- **Not established by this extract:** It does not identify the executing tax authority in operational terms, prescribe reporting or audit requirements, state beneficiary counts, specify geographic or income targeting, disclose a total fiscal cost, or explain whether financing involved reallocation, borrowing, or foregone revenue.
+- **Not established by this extract:** It does not show actual pump-price pass-through, implementation compliance by fuel sellers, budget execution, macroeconomic effects, distributional incidence, or later revision/extension.
+
+**Interpretive and evidentiary notes**
+
+- **Official/legal assertion:** The agreement presents the measures as authorized fiscal incentives under prior federal decrees.  
+  **Locator:** Block 1, legal-basis paragraph.
+- **Interpretation:** The zero rate for higher-octane/non-fossil gasoline and larger diesel support indicates differentiated treatment by fuel type, but the extract alone cannot establish why the differentiation was chosen or who benefited most.
+- **Unresolved:** The extract does not state an explicit policy purpose such as inflation relief, stabilization, or social protection; those purposes should not be inferred from the title or rates alone.
+- **Source incentive/limitation:** This is an official SHCP legal publication. It is authoritative for the text of the announced tax treatment, but institutionally incentives readers to accept the legal measure as valid and does not independently evaluate results.
+- **Contrary material not present:** No opposition critique, audit finding, court action, budget record, implementation report, or evidence of adverse/regressive effects appears in the supplied units.
+
+**Reopen for stronger review**
+
+- Verify the final DOF publication and publication date.
+- Check the underlying 2016 and 2022 decrees, 2022 budget/fiscal records, and official execution data.
+- Reopen for evidence of extension, modification, pump-price effects, fiscal cost, incidence across households and transport sectors, and oversight findings.
+
+ORIGINAL EXTRACT:
+extracted HTML block 1
+ACUERDO por el que se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles que se indican, correspondien
+ACUERDO por el que se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles que se indican, correspondientes al periodo que se especifica.
+Al margen un sello con el Escudo Nacional, que dice: Estados Unidos Mexicanos.- HACIENDA.- Secretaría de Hacienda y Crédito Público.
+Acuerdo 173/2022 Acuerdo por el que se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles que se indican, correspondientes al periodo que se especifica. KARINA RAMÍREZ ARRAS, Titular de la Unidad de Política de Ingresos no Tributarios de la Secretaría de Hacienda y Crédito Público, con fundamento en lo dispuesto por el artículo Primero del Decreto por el que se est ablecen estímulos fiscales en materia del impuesto especial sobre producción y servicios aplicables a los combustibles que se indican, publicado en el Diario Oficial de la Federación el 27 de diciembre de 2016 y sus posteriores modificaciones, y el artículo Primero del Decreto por el que se establecen estímulos fiscales complementarios a los combustibles automotrices, publicado en el Diario Oficial de la Federación el 4 de marzo de 2022, se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles automotrices, respectivamente, correspondientes al periodo comprendido del 10 al 16 de diciembre de 2022, mediante el siguiente ACUERDO Artículo Primero. Los porcentajes del estímulo fiscal para el periodo comprendido del 10 al 16 de diciembre de 2022, aplicables a los combustibles automotrices son los siguientes:
+
+extracted HTML block 2
+Combustible Porcentaje de Estímulo
+Gasolina menor a 91 octanos 26.96%
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles 0.00%
+Diésel 59.77%
+Artículo Segundo. Los montos del estímulo fiscal para el periodo comprendido del 10 al 16 de diciembre de 2022, aplicables a los combustibles automotrices son los siguientes:
+Combustible Monto del estímulo fiscal (pesos/litro)
+Gasolina menor a 91 octanos $1.4803
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles $0.0000
+Diésel $3.6071
+Artículo Tercero. Las cuotas para el periodo comprendido del 10 al 16 de diciembre de 2022, aplicables a los combustibles automotrices son las siguientes:
+Combustible Cuota (pesos/litro)
+Gasolina menor a 91 octanos $4.0114
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles $4.6375
+Diésel $2.4283
+Artículo Cuarto. Las cantidades por litro de estímulos complementarios aplicables a los combustibles automotrices durante el periodo comprendido del 10 al 16 de diciembre de 2022, son las siguientes:
+Combustible Cantidad por litro (pesos)
+Gasolina menor a 91 octanos $0.0000
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles $0.0000
+Diésel $0.0000
+TRANSITORIO ÚNICO.- El presente Acuerdo entrará en vigor al día siguiente de su publicación en el Diario Oficial de la Federación. Ciudad de México, a 08 de diciembre de 2022 .- Con fundamento en el artículo Primero, último párrafo del Decreto por el que se establecen estímulos fiscales en materia del impuesto especial sobre producción y servicios aplicables a los combustibles que se indican, y el artículo Primero, último párrafo del Decreto por el que se establecen estímulos fiscales complementarios a los combustibles automotrices, en suplencia del C. Subsecretario de Hacienda y Crédito Público , la Titular de la Unidad de Política de Ingresos No Tributarios , Karina Ramírez Arras .- Rúbrica.

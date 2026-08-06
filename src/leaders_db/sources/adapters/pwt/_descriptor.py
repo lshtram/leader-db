@@ -49,21 +49,21 @@ PWT_SUPPORTED_FAMILIES: tuple[str, ...] = (PWT_OBSERVATION_FAMILY,)
 # observation locators in a single run.
 PWT_XLSX_ASSET_ID: str = f"{PWT_SOURCE_KEY}:{PWT_XLSX_NAME}"
 
-# Column-name -> unit label mapping for the canonical 11 catalog
-# numeric columns. Values are best-effort unit hints only;
-# downstream consumers must not treat them as authoritative
-# (Rule #8: no invented metadata).
+# Column-name -> exact source unit mapping for the canonical 11
+# catalog numeric columns. These follow the PWT 10.01 variable
+# definitions; downstream consumers may use them for compatibility
+# checks but must retain each indicator's source-native semantics.
 PWT_COLUMN_UNITS: dict[str, str] = {
-    "rgdpe": "2017_usd",
-    "rgdpo": "2017_usd",
-    "pop": "persons",
-    "emp": "persons",
-    "avh": "hours_per_worker_per_year",
-    "hc": "index_0_to_1",
-    "ccon": "2017_usd",
-    "cda": "2017_usd",
+    "rgdpe": "million_2017_usd_at_chained_ppps",
+    "rgdpo": "million_2017_usd_at_chained_ppps",
+    "pop": "million_persons",
+    "emp": "million_persons_engaged",
+    "avh": "annual_hours_per_person_engaged",
+    "hc": "human_capital_index",
+    "ccon": "million_2017_usd_at_chained_ppps",
+    "cda": "million_2017_usd_at_chained_ppps",
     "ctfp": "index_usa_2017_equals_1",
-    "rkna": "2017_usd",
+    "rkna": "index_2017_equals_1",
     "rtfpna": "index_2017_equals_1",
 }
 

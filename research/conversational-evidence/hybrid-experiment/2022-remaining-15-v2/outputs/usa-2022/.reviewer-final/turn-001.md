@@ -1,0 +1,143 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0013",
+          "reason": "Duplicate of E0004 from the same State Department briefing and same date; keep one item as the substantive citation."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 evidence on command-and-control or custody changes beyond declaratory policy and reactive crisis signaling.",
+          "lenses": ["1B.3", "1B.7", "1B.8"],
+          "best_source_or_query_direction": "Declassified DoD/NSC implementation records, treaty-implementation records, or IAEA/CTBTO technical reporting.",
+          "why_it_matters": "It would distinguish stated restraint from operational control and implementation."
+        }
+      ],
+      "reason": "Fairly balanced on declaratory restraint, arms-control posture, and crisis management, with contrary evidence preserved. The package is usable so long as the declaratory items are not read as implementation records."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Limited direct evidence on internal U.S.-Ukraine operational restrictions and private bargaining with Russia.",
+          "lenses": ["2B.5", "2B.7", "2B.9"],
+          "best_source_or_query_direction": "Primary documents or credible congressional/declassified records on weapons-use limits, peace-channel diplomacy, and civilian-protection review.",
+          "why_it_matters": "Those records would sharpen attribution for defensive assistance versus war-sustaining escalation."
+        }
+      ],
+      "reason": "Strongest chapter in the package: it separates Russia's aggression from Biden's diplomacy, sanctions, and defensive assistance, while also preserving contrary evidence on escalation and war prolongation."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0034",
+          "reason": "Newswire duplication of E0033; it repeats the same Bipartisan Safer Communities Act enactment and adds no independent fact."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Weak direct evidence on federal prison/detention conditions and on whether the listed reforms materially reduced abuse in 2022.",
+          "lenses": ["3B.1", "3B.2", "3B.4", "3B.5"],
+          "best_source_or_query_direction": "DOJ inspector-general material, prison-condition reporting, and implementation or audit records.",
+          "why_it_matters": "It would separate policy statements from observed domestic-safety outcomes."
+        }
+      ],
+      "reason": "The package fairly presents direct executive action plus contemporaneous threats and continuing hate-violence context. The main limitation is outcome attribution, not chapter fit."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0056",
+          "reason": "Synthetic summary of already cited 2022 White House materials; it is not an independent evidence item and should not count as standalone support."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Little direct evidence on electoral manipulation, subnational election protection outcomes, or media/platform pressure beyond speeches and DOJ initiatives.",
+          "lenses": ["4B.2", "4B.4", "4B.6", "4B.9"],
+          "best_source_or_query_direction": "Election-administration records, court findings, civil-society monitor reports, and state/local incident records.",
+          "why_it_matters": "Those sources would test whether the democratic-resilience claims were implemented rather than only proclaimed."
+        }
+      ],
+      "reason": "Usable but somewhat speech-heavy. It fairly shows public commitment, executive action, and counter-violence measures, but the synthetic summary item should not be treated as separate evidence."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct evidence on appointment quality and empowered economic professionals is thinner than the policy and macro-outcome record.",
+          "lenses": ["5B.2", "5B.7"],
+          "best_source_or_query_direction": "NEC/CEA staffing records, OMB guidance, and independent evaluations of IRA/CHIPS/IIJA implementation.",
+          "why_it_matters": "It would tighten the link between Biden's program, implementation, and attributable results."
+        }
+      ],
+      "reason": "Fairly constructed macro chapter: it includes policy design, implementation, independent statistics, and explicit attribution caveats on inflation and household outcomes."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Outcome evidence is strong on access and targeted relief, but weaker on durable, independent measurement of household welfare change within 2022.",
+          "lenses": ["6B.2", "6B.6", "6B.10"],
+          "best_source_or_query_direction": "Independent evaluations, subnational uptake records, and post-implementation household surveys.",
+          "why_it_matters": "It would distinguish announced coverage gains from realized welfare improvements."
+        }
+      ],
+      "reason": "Good welfare dossier: it ties health, housing, nutrition, and crisis-response actions to concrete 2022 implementation, while clearly labeling state-uptake and retrospective-outcome limits."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0089",
+          "reason": "Near-duplicate of E0086 from the same Reuters syndication URL; keep one disclosure/corroboration item and do not count both as separate evidence."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 forensic finding, ethics violation, or investigative record tying Joe Biden personally to self-dealing, concealment, or family benefit.",
+          "lenses": ["7B.3", "7B.4", "7B.6", "7B.7"],
+          "best_source_or_query_direction": "Independent investigative findings, judicial records, ethics waivers/recusal files, or audit findings about Biden-specific conduct.",
+          "why_it_matters": "This is the difference between a transparent disclosure record and a genuinely adjudicated integrity record."
+        },
+        {
+          "gap": "Appointment and patronage evidence around Biden's own circle remains thin.",
+          "lenses": ["7B.5", "7B.9"],
+          "best_source_or_query_direction": "Appointment records, staffing analyses, and scrutiny of any Biden-family nexus in procurement or access.",
+          "why_it_matters": "It would test whether the chapter is relying on absence of findings rather than affirmative ruler-specific conduct."
+        }
+      ],
+      "reason": "This is the weakest chapter in the package. It relies heavily on self-disclosures, a generic ethics-process source, and later indirect reporting, while the adverse-case material remains too thin and too retrospective for a fully confident personal-integrity presentation."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Much of the evidence is still program-design and rollout architecture rather than completed, award-level implementation output.",
+          "lenses": ["8B.2", "8B.6", "8B.7", "8B.8"],
+          "best_source_or_query_direction": "Agency audits, grant/award records, and independent implementation evaluations for CHIPS, IRA, and infrastructure programs.",
+          "why_it_matters": "It would show whether Biden's stated program translated into durable results rather than only planning and coordination."
+        }
+      ],
+      "reason": "The program-to-implementation chain is coherent and well supported, with independent macro context. The main limitation is that several outcome claims are still partly prospective or only partly attributable to Biden."
+    }
+  ]
+}

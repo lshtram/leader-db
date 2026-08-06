@@ -1,0 +1,99 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0006",
+          "reason": "Treat as treaty-architecture background only; it explains the NPT but does not show Jokowi-specific 2022 conduct."
+        },
+        {
+          "evidence_id": "E0008",
+          "reason": "Pre-2022 treaty ratification; keep as inherited state posture, not as a 2022 ruler action."
+        },
+        {
+          "evidence_id": "E0009",
+          "reason": "Pre-2022 regional nonproliferation commitment; useful context, not personal 2022 conduct."
+        },
+        {
+          "evidence_id": "E0013",
+          "reason": "State position via the foreign minister, not Jokowi personally; contextualize as diplomacy rather than ruler-level action."
+        },
+        {
+          "evidence_id": "E0014",
+          "reason": "UN mission statement reflects Indonesia's multilateral posture, not a direct Jokowi decision."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "The package fairly presents Indonesia as a low-exposure, non-nuclear case and preserves the distinction between state posture, institutional nuclear safety, and Jokowi's own conduct. The remaining nuclear-adjacent items are mostly contextual, which is appropriate for a ruler with no direct nuclear command role."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "Direct 2022 peace-diplomacy conduct is well attributed, the Ukraine-related evidence preserves contrary readings and limits on effect, and the package does not overstate Jokowi's role beyond what the sources support."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The dossier separates security-force abuse, partial accountability, and Jokowi's own remedial responses with enough clarity to present both adverse conduct and mitigating action without collapsing local abuses into unsupported personal blame."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The package distinguishes inherited democratic context from Jokowi-specific choices, and it balances direct term-limit restraint against the broader 2022 legal, digital, and media restrictions with appropriate attribution caveats."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "Economic evidence is reasonably balanced between policy choices, macro outcomes, shocks, and partial attribution. The package does not treat national indicators or external windfalls as if they were purely Jokowi's personal performance."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "Social-welfare evidence is assembled coherently across rollout, survey, and outcome sources, and it keeps implementation gains separate from diagnostic gaps and lingering losses."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0068",
+          "reason": "Self-justifying appointment explanation; it is Jokowi's stated rationale, but it is not independent proof of integrity or lack of patronage."
+        },
+        {
+          "evidence_id": "E0069",
+          "reason": "Analyst interpretation about coalition management is inferential and should not be treated as a factual finding of self-dealing."
+        },
+        {
+          "evidence_id": "E0070",
+          "reason": "This is another inferential reshuffle commentary item in the same event family; keep only as context, not as proof of nepotism or corruption."
+        },
+        {
+          "evidence_id": "E0085",
+          "reason": "Duplicate of the earlier public-asset disclosure item; it shows compliance, but not independent proof of honesty or conflict-free conduct."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "The integrity package is usable but still thin on direct Jokowi-specific findings of deception, self-enrichment, or concealed conflicts. Much of the evidence is self-reporting, compliance, or analyst inference, so it fairly describes the gap but is not clean enough for a final acceptance without human review."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "The evidence chain from program setting through implementation, year-end outcomes, and shock adjustment is coherent, and the package keeps non-ruler drivers and partial-attribution issues explicit rather than smuggling them into competence claims."
+    }
+  ]
+}

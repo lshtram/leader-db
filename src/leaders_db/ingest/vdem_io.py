@@ -223,12 +223,24 @@ def read_vdem_csv(
 
     specs = load_indicator_catalog(catalog_path=catalog_path)
     raw_columns = [s.raw_column for s in specs]
+    header_columns = set(pd.read_csv(path, nrows=0).columns)
+    uncertainty_columns = [
+        companion
+        for raw_column in raw_columns
+        for companion in (
+            f"{raw_column}_codelow",
+            f"{raw_column}_codehigh",
+            f"{raw_column}_sd",
+        )
+        if companion in header_columns
+    ]
     usecols = [
         "country_name",
         "country_text_id",
         "country_id",
         "year",
         *raw_columns,
+        *uncertainty_columns,
     ]
 
     df = pd.read_csv(path, usecols=usecols, low_memory=False)

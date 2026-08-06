@@ -1,0 +1,241 @@
+The exec_command route is blocked. I need to deliver the full JSON payload as a final message, since the dedicated runner will accept the validated citation ledger as the message content. Let me prepare the complete citation ledger based on the inspected segments.
+
+## Phase 2: Evidence Extraction
+
+Based on the inspected locator segments for pages 100-101 of MAC-010 (IMF 2022 Article IV full report), I'll extract atomic factual intents relevant to chapter 5B questions.
+
+Key observed facts from the inspected segments:
+- Data provision for surveillance is adequate (page 100, S00001)
+- National accounts follow 2008 SNA; data sources and statistical techniques are robust (page 100, S00002-S00003)
+- INEGI disseminates annual and quarterly GDP statistics; 2021 ROSC found national accounts high quality; Mexico has made significant improvements since 2015 (page 100, S00005-S00006)
+- Areas for improvement: chained GDP volume indices with previous-period annual weights, goods for processing abroad, illegal activities coverage, accrual basis for government transactions (page 100, S00007-S00008)
+- 2021 ROSC recommended reconciliation between Banxico and SHCP (page 100, S00009)
+- Three IMF technical assistance missions during past fiscal year (page 100, S00010-S00011)
+- CPI meets international standards; reference period second half of July 2018 (page 100, S00012)
+- PPI covers ~79.2 percent of Mexican production; excludes trade and some services (page 100, S00013-S00014)
+- Fiscal statistics are comprehensive and timely except subnational sector; compiled in alignment with GFSM2014 (page 100, S00015-S00016)
+- 2021 Data ROSC noted classification/coverage differences make reconciliation between national and GFSM2014 presentations difficult (page 100, S00017-S00018, page 101, S00001-S00002)
+- Pension liabilities partially reported; gov securities at face value; debt statistics exclude T-bonds to Banxico; federal and Banxico accounting differ (page 101, S00003-S00004)
+- Monetary statistics methodologically sound; FAS data reported including gender-disaggregated (page 101, S00005-S00008)
+- FSIs reporting temporarily interrupted for IFRS9 revisions (page 101, S00009-S00012)
+- ESS high quality; BOP/IIP migrated to BPM6 in 2017; EDS Guide not fully implemented; intercompany external debt and SDR allocations not yet included; some external debt at face value; public sector external debt interest not on accrual basis (page 101, S00013-S00016)
+
+---
+
+```json
+{
+  "responses": [
+    {
+      "locator": "page 100",
+      "disposition": "inspected"
+    },
+    {
+      "locator": "page 101",
+      "disposition": "inspected"
+    }
+  ],
+  "drafts": [
+    {
+      "draft_id": "D0001",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00001",
+      "end_segment_id": "S00001",
+      "claim": "IMF staff assessment found Mexico's data provision adequate for surveillance",
+      "actor": "IMF staff assessment",
+      "action": "assessed data adequacy for surveillance",
+      "question_ids": ["5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "favorable"
+    },
+    {
+      "draft_id": "D0002",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00002",
+      "end_segment_id": "S00004",
+      "claim": "Mexican national accounts follow 2008 SNA recommendations with robust data sources and statistical techniques, drawing on quinquennial economic censuses, monthly and annual surveys, administrative data, and a regularly updated business register",
+      "actor": "INEGI",
+      "action": "compiled national accounts following 2008 SNA recommendations with robust data sources",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "observed_fact",
+      "polarity": "favorable"
+    },
+    {
+      "draft_id": "D0003",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00005",
+      "end_segment_id": "S00006",
+      "claim": "2021 data ROSC update found Mexican national accounts of high quality; since 2015 Mexico has made significant improvements in methodological and dissemination aspects of data quality",
+      "actor": "IMF 2021 data ROSC mission",
+      "action": "found national accounts of high quality and documented significant improvements since 2015",
+      "question_ids": ["5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "favorable"
+    },
+    {
+      "draft_id": "D0004",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00006",
+      "end_segment_id": "S00009",
+      "claim": "Several data-quality areas remain for further improvement, including chained GDP volume indices with previous-period annual weights, treatment of goods for processing abroad, coverage of illegal activities, accrual recording of some quarterly government transactions, and reconciliation between Banxico and SHCP public-sector data",
+      "actor": "IMF staff",
+      "action": "identified outstanding data-quality improvement areas and reconciliation needs between Banxico and SHCP",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "adverse"
+    },
+    {
+      "draft_id": "D0005",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00010",
+      "end_segment_id": "S00011",
+      "claim": "Three IMF technical assistance missions took place over the past fiscal year, covering chain-linked volume measures in economic surveys and national accounts and harmonization of national accounts and government finance statistics with Banxico, SHCP, and INEGI",
+      "actor": "IMF",
+      "action": "delivered three technical assistance missions during the past fiscal year",
+      "question_ids": ["5B.2", "5B.7"],
+      "claim_type": "observed_fact",
+      "polarity": "favorable"
+    },
+    {
+      "draft_id": "D0006",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00011",
+      "end_segment_id": "S00013",
+      "claim": "Mexican CPI and PPI concepts and definitions meet international standards, with the CPI reference period the second half of July 2018 and basket based on the National Household Expenditure Survey and 1999 COICOP; PPI reference period July 2019",
+      "actor": "Mexican statistical authorities",
+      "action": "compiled CPI and PPI to meet international standards",
+      "question_ids": ["5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "favorable"
+    },
+    {
+      "draft_id": "D0007",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00013",
+      "end_segment_id": "S00014",
+      "claim": "Mexican PPI covers agricultural, manufacturing, construction, and services sectors, which account for 79.2 percent of Mexican production; the PPI excludes trade and some services",
+      "actor": "Mexican statistical authorities",
+      "action": "compiled PPI covering 79.2 percent of production while excluding trade and some services",
+      "question_ids": ["5B.7"],
+      "claim_type": "observed_fact",
+      "polarity": "mixed",
+      "source_limitations": ["PPI scope excludes trade and some services"]
+    },
+    {
+      "draft_id": "D0008",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00015",
+      "end_segment_id": "S00018",
+      "claim": "Mexican fiscal statistics are comprehensive and timely except for the subnational sector, and are compiled following national concepts and definitions and in alignment with the Government Finance Statistics Manual (GFSM2014)",
+      "actor": "Mexican authorities",
+      "action": "compiled comprehensive and timely fiscal statistics in alignment with GFSM2014",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "mixed",
+      "source_limitations": ["comprehensiveness and timeliness do not extend to the subnational sector"]
+    },
+    {
+      "draft_id": "D0009",
+      "source_id": "MAC-010",
+      "locator": "page 100",
+      "start_segment_id": "S00017",
+      "end_segment_id": "S00018",
+      "claim": "2021 Data ROSC mission found that differences in classification of transactions and coverage of institutional units between the national and GFSM2014 presentations make it difficult for users to reconcile the two presentations, even though the underlying source data are the same",
+      "actor": "IMF 2021 Data ROSC mission",
+      "action": "found classification and coverage differences make national and GFSM2014 presentations difficult to reconcile",
+      "question_ids": ["5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "adverse"
+    },
+    {
+      "draft_id": "D0010",
+      "source_id": "MAC-010",
+      "locator": "page 101",
+      "start_segment_id": "S00001",
+      "end_segment_id": "S00003",
+      "claim": "2021 Data ROSC mission recommended publishing a table of all institutional units in the public sector showing GFSM2014 subsectors and the coverage used in the national and international presentations; full adoption of uniform accounting standards at the subnational level would improve the measure of public fixed investment in the national accounts",
+      "actor": "IMF 2021 Data ROSC mission",
+      "action": "recommended publishing a full institutional-units table and adopting uniform subnational accounting standards",
+      "question_ids": ["5B.7"],
+      "claim_type": "recommendation",
+      "polarity": "adverse"
+    },
+    {
+      "draft_id": "D0011",
+      "source_id": "MAC-010",
+      "locator": "page 101",
+      "start_segment_id": "S00003",
+      "end_segment_id": "S00004",
+      "claim": "Pension liabilities are partially reported and government securities are reported at face value; official debt statistics do not include the stock of T-bonds issued to Banxico for liquidity management, and federal-government and Banxico accounting practices differ",
+      "actor": "Mexican authorities",
+      "action": "partially reported pension liabilities and reported government securities at face value while excluding T-bonds to Banxico",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "observed_fact",
+      "polarity": "adverse",
+      "source_limitations": ["pension liabilities only partially reported; securities at face value; T-bonds to Banxico excluded from official debt statistics"]
+    },
+    {
+      "draft_id": "D0012",
+      "source_id": "MAC-010",
+      "locator": "page 101",
+      "start_segment_id": "S00005",
+      "end_segment_id": "S00008",
+      "claim": "Mexican monetary statistics have generally sound methodological foundations and enable construction of a financial corporation's survey with full coverage of the Mexican financial system; Mexico reports Financial Access Survey data including gender-disaggregated data on basic financial services and the two UN SDG 8.10 indicators",
+      "actor": "Mexican authorities",
+      "action": "compiled monetary statistics with generally sound methodology and reported Financial Access Survey data including SDG 8.10 indicators and gender-disaggregated data",
+      "question_ids": ["5B.3", "5B.8", "5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "favorable"
+    },
+    {
+      "draft_id": "D0013",
+      "source_id": "MAC-010",
+      "locator": "page 101",
+      "start_segment_id": "S00008",
+      "end_segment_id": "S00012",
+      "claim": "Mexico regularly reports monthly Financial Soundness Indicators to the IMF covering 14 core and 9 encouraged deposit-taker indicators plus additional FSIs for OFCs, households, and real estate; FSIs on the non-financial corporate sector are not reported, and FSI reporting was temporarily interrupted after May 2021 to revise data to IFRS9, with updated FSIs provided in the interim under the old standard",
+      "actor": "Mexican authorities",
+      "action": "reported Financial Soundness Indicators while temporarily interrupting reporting for IFRS9 revisions",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "observed_fact",
+      "polarity": "mixed",
+      "source_limitations": ["FSI reporting paused to revise historical and current data to IFRS9; FSIs on the non-financial corporate sector not reported"]
+    },
+    {
+      "draft_id": "D0014",
+      "source_id": "MAC-010",
+      "locator": "page 101",
+      "start_segment_id": "S00012",
+      "end_segment_id": "S00014",
+      "claim": "2021 data ROSC update found Mexican external sector statistics of high quality; in 2017 Banxico migrated BOP and IIP statistics to BPM6 and publishes quarterly BPM6-based BOP and IIP data, but the External Debt Statistics Guide (2013) is yet to be fully implemented",
+      "actor": "Banxico",
+      "action": "migrated BOP and IIP statistics to BPM6 in 2017 while External Debt Statistics Guide (2013) is yet to be fully implemented",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "mixed",
+      "source_limitations": ["External Debt Statistics Guide (2013) not yet fully implemented"]
+    },
+    {
+      "draft_id": "D0015",
+      "source_id": "MAC-010",
+      "locator": "page 101",
+      "start_segment_id": "S00014",
+      "end_segment_id": "S00016",
+      "claim": "Outstanding external-debt-statistics issues include excluding intercompany external debt and SDR allocations from Banxico's external-debt statistics, presenting some external debt at face value rather than market value, and recording interest on public-sector external debt on a cash rather than accrual basis",
+      "actor": "Banxico",
+      "action": "omitted intercompany external debt and SDR allocations, presented some external debt at face value, and recorded public-sector external-debt interest on a cash basis",
+      "question_ids": ["5B.3", "5B.7"],
+      "claim_type": "source_assertion",
+      "polarity": "adverse",
+      "source_limitations": ["intercompany external debt and SDR allocations omitted; some external debt at face value; public-sector external-debt interest on cash basis"]
+    }
+  ]
+}
+```

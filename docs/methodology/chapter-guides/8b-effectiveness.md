@@ -1,6 +1,6 @@
 # 8B. Ruler Effectiveness and Competence
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v5 declared-goals questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,13 +8,15 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: `ruler_effectiveness_and_competence`
 - Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
 - Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
-- Rubric version: `chapter_8b_v3`
+- Rubric version: `chapter_8b_v5`
 
 ## Chapter Purpose
 
-Assess how effectively the ruler defines a governing program, converts it into
-state or ruling-network action, coordinates implementation, adapts, and advances
-their own stated or reliably revealed objectives. The ten questions are evidence
+Assess how effectively the ruler turns the principal officially declared governing
+goals into coordinated action and durable results. This measures capability, not
+moral worth; the goals’ morality and consequences are assessed elsewhere. Personal
+enrichment, prestige, family advantage, and remaining in power are not governing
+achievements. The ten questions are evidence
 lenses feeding one final 1-10 chapter score, not equal sub-scores.
 
 This chapter is ideology-neutral. Moral worth and execution competence are
@@ -22,23 +24,28 @@ separate. A ruler may execute a cruel, aggressive, corrupt, or authoritarian
 program competently and score highly in 8B while scoring very poorly in other
 chapters. Never smuggle moral approval or condemnation into the competence score.
 
+Before applying the lenses, identify only the three to five principal officially
+declared governing goals; the inherited position, authority, and main obstacles; the
+principal actions, resources, and implementers; observable progress and failure; and
+the durability of results. Remaining in power is excluded as a governing achievement.
+
 ## Ten Evidence Lenses
 
-The question text below is authoritative and must not be paraphrased in the
-research manifest.
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **8B.1 — Clear governing program** | Were the ruler’s principal officially declared governing goals sufficiently clear to evaluate? | Identify only the three to five most important officially declared governing goals in dated speeches, manifestos, strategies, directives, or formal acts. Do not infer hidden personal goals and then credit the ruler for achieving them. | **Rhetoric and representations**; **Formal acts and law** |
+| **8B.2 — Turning goals into machinery** | Did the ruler turn goals into concrete plans, rules, resources, people, and institutions? | Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
+| **8B.3 — Mobilizing the ruling system** | Did the ruler effectively mobilize the state and ruling network toward those goals? | Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program? | **Resources**; **Personnel**; **Implementation and operational conduct** |
+| **8B.4 — Capable implementers** | Did the ruler choose and manage people capable of carrying out the program? | Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.5 — Coordination and control** | Did the ruler maintain coordination and follow-through across the system? | Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies? | **Implementation and operational conduct**; **Outcomes** |
+| **8B.6 — From plans to practice** | Did the ruler turn plans and announcements into real government action? | Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.7 — Progress toward declared goals** | Did the ruler produce meaningful progress toward the principal officially declared governing goals? | Did outcome and distribution indicators move toward the principal officially declared governing goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives? | **Outcomes**; **Implementation and operational conduct** |
+| **8B.8 — Learning and correction** | Did the ruler adapt and correct course when methods failed? | Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.9 — Managing crises and resistance** | Did the ruler handle crises and resistance without losing the declared governing program? | Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the declared governing objectives and durable implementation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **8B.10 — Durable goal achievement** | By the end of the ruler’s tenure, had the principal officially declared governing goals been substantially and durably achieved? | Assess whether the principal officially declared governing goals became durable law, institutions, capacity, state practice, and achieved outcomes, accounting for failures and long-term fragility. Remaining in power does not count as achievement of a governing goal. | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
 
-| ID | Evidence lens |
-|---|---|
-| **8B.1** | Does the ruler articulate a clear governing ideology, strategic direction, or program, including explicit or revealed goals for power, policy, or regime control, that can be evaluated against later action? |
-| **8B.2** | Does the ruler translate that program into concrete priorities, plans, budgets, appointments, timelines, institutions, and enforcement mechanisms? |
-| **8B.3** | Does the ruler mobilize the state apparatus, party, military, bureaucracy, coalition, or ruling network effectively toward the chosen program and the ruler's own goals? |
-| **8B.4** | Does the ruler select and empower people who are capable of executing the program, whether professionals, loyal operators, technocrats, organizers, security officials, or coercive administrators? |
-| **8B.5** | Does the ruler maintain internal discipline, coordination, control, and follow-through across ministries, regions, territory, institutions, security forces, party structures, and implementing agencies? |
-| **8B.6** | Does the ruler convert declarations into observable implementation and state reach rather than leaving goals as slogans, speeches, symbolic gestures, or propaganda only? |
-| **8B.7** | Do outcome indicators move in the direction the ruler claimed or revealed they sought, after allowing for realistic lags, inherited conditions, and external constraints? |
-| **8B.8** | When tactics fail, does the ruler adapt methods, replace ineffective implementers, reallocate resources, or otherwise correct course to keep advancing the program and maintaining effective control? |
-| **8B.9** | Does the ruler manage crises, opposition, international relationships, and institutional resistance in a way that preserves or advances the regime's chosen objectives, durability, and influence, regardless of whether those objectives are morally good? |
-| **8B.10** | By the end of the relevant period, is the ruler closer to achieving the stated or revealed ideological, policy, power-consolidation, or international-influence program than at the start, accounting for short-term wins, long-term durability, inherited conditions, and external shocks? |
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Scope and Non-Goals
 
@@ -194,7 +201,7 @@ The judge returns one object per ruler using these exact semantic field names so
 all eight chapter outputs can be normalized by the same inexpensive formatter:
 
 - `chapter_id`: `8B`
-- `rubric_version`: `chapter_8b_v3`
+- `rubric_version`: `chapter_8b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`
@@ -218,7 +225,7 @@ moral worth did not affect the execution score.
 
 Use common calibration and bias checks where meaningful, plus:
 
-- `rubric_version`: `chapter_8b_v3`
+- `rubric_version`: `chapter_8b_v5`
 - `program_basis`: `explicit`, `mostly_explicit`, `mixed`, `mostly_revealed`,
   `speculative`, or `unclear`
 - `program_type`: list from `policy`, `state_building`, `regime_control`,

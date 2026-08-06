@@ -1,0 +1,769 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Before emitting each intent, verify that every named actor, action, date, quantity, attribution, qualifier, and outcome appears inside that exact inclusive segment range. Remove any detail supported only by adjacent or remembered text. Never combine non-contiguous support, and split compound facts into narrower intents. Prefer a short fully supported intent over a richer partly supported one. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "5B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "BOOK-013",
+  "title": "CIDOB political biography",
+  "url": "https://www.cidob.org/lider-politico/andres-manuel-lopez-obrador",
+  "publisher": "www.cidob.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "biography",
+  "source_role": "independent_reference",
+  "source_family": "www.cidob.org",
+  "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 30",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 178,
+        "text": "Asimismo, López Obrador echó en cara al PAN y al PRI que el FOBAPROA llegara a convertirse en un instrumento de \"privatización de las ganancias y socialización de las pérdidas\". "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 178,
+        "end_char": 412,
+        "text": "En el último tramo de la carrera presidencial, el aparato propagandístico del PAN perjudicó indudablemente las posibilidades de López Obrador con una serie de spots en los que se fomentaba el miedo a un hombre capaz poco menos que de "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 412,
+        "end_char": 585,
+        "text": "\"hundir\" al país con sus políticas económicas heterodoxas. El más difundido de estos anuncios sentenciaba con tono catastrofista: \"López Obrador es un peligro para México\".\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 585,
+        "end_char": 816,
+        "text": "El programa de la coalición Por el Bien de Todos, expresión que como lema de campaña incluyó el latiguillo primero los pobres , se situaba nítidamente en la izquierda, etiqueta ideológica que López Obrador reivindicó expresamente. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 816,
+        "end_char": 1052,
+        "text": "Varias eran las lacras observadas en México, diagnosticaba, y su eliminación marcaba las prioridades. En primer lugar, había que poner fin al estado de \"privilegios\", \"corrupción\" y \"saqueo\" patrocinado desde la Administración federal. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1052,
+        "end_char": 1248,
+        "text": "Puesto que se trataba de un andamiaje piramidal que empezaba en lo más alto, el Ejecutivo nacional, las corruptelas tendrían que ser barridas \"como se barren las escaleras, de arriba para abajo\". "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1248,
+        "end_char": 1448,
+        "text": "A la vez, urgía combatir el fraude y la evasión fiscal, así como recortar drásticamente los gastos corrientes, siendo el primer paso la reducción a la mitad del sueldo del presidente de la República. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1448,
+        "end_char": 1540,
+        "text": "En cuanto a las actividades del FOBAPROA, serían investigadas por una Comisión de la Verdad."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 31",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 195,
+        "text": "En segundo lugar, recurriendo a los fondos ahorrados gracias a la austeridad en el Gobierno y la función pública, que solo el primer año de ejercicio podrían sumar los 100.000 millones de pesos, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 195,
+        "end_char": 350,
+        "text": "y a los nuevos ingresos fiscales como resultado de una recaudación más eficaz, el Gobierno del PRD impulsaría una serie de programas de desarrollo social, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 350,
+        "end_char": 560,
+        "text": "extendiendo los servicios públicos a áreas degradadas y atendiendo las necesidades de colectivos vulnerables como los ancianos, los parados y las madres solteras, y otros de fomento de actividades productivas, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 560,
+        "end_char": 683,
+        "text": "especialmente en los sectores agropecuario, turístico y de construcción de obras públicas.\nEn cuanto al sector energético, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 683,
+        "end_char": 812,
+        "text": "solo experimentaría reformas en el sentido de mejorar la eficiencia de su organización empresarial y la prestación de servicios; "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 812,
+        "end_char": 1035,
+        "text": "cualquier proceso que condujera a la privatización, siquiera parcial, de Pemex quedaba completamente descartado. Además, el PRD defendía el derecho constitucional de todo trabajador a percibir un salario \"justo\" y \"digno\", "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1035,
+        "end_char": 1266,
+        "text": "aunque no especificó la cantidad.\nEn el ámbito exterior, AMLO reclamó la inclusión en el Tratado de Libre Comercio de América del Norte (TLCAN) de un capítulo de cooperación para el desarrollo y de correcciones para proteger a los "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1266,
+        "end_char": 1433,
+        "text": "productores agrícolas nacionales. También, concebía unas buenas relaciones con el imprescindible socio estadounidense, pero dando máxima prioridad al tema migratorio, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1433,
+        "end_char": 1507,
+        "text": "asunto que no se resolvía \"con muros ni con la militarización fronteriza\"."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 32",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 236,
+        "text": "Por otra parte, López Obrador no quiso hacer comentarios sobre política continental que pudieran dar pábulo a la sospecha de algún tipo de conexión con el presidente venezolano Hugo Chávez (quien por ejemplo llamaba a Fox \"cachorro del "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 236,
+        "end_char": 362,
+        "text": "imperio norteamericano\"), supuestos vínculos que los medios panistas no dejaron de aventar, aunque con muy escasa convicción. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 362,
+        "end_char": 545,
+        "text": "En realidad, López Obrador no tenía ninguna relación personal o institucional con Chávez, al que no conocía, aseguraban dirigentes de su partido, ni siquiera por contacto telefónico. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 545,
+        "end_char": 669,
+        "text": "Además, el PRD veía con distanciamiento la estrategia bolivariana para América Latina impulsada por el Gobierno de Caracas, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 669,
+        "end_char": 819,
+        "text": "aunque sí era cierto que sectores de la militancia simpatizaban abiertamente con el modelo chavista y sus acentos socialistas y de dirigismo estatal.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 819,
+        "end_char": 974,
+        "text": "El 23 de junio fue el último día habilitado por el Código Federal de Instituciones y Procedimientos Electorales (COFIPE) para la divulgación de encuestas. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 974,
+        "end_char": 1136,
+        "text": "De los cinco sondeos hechos públicos ese día por periódicos y televisiones, tres otorgaban a López Obrador una ventaja sobre Calderón de entre uno y tres puntos, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1136,
+        "end_char": 1293,
+        "text": "uno daba empate y el quinto concedía la victoria al candidato del Gobierno por dos puntos. Las cuotas de voto para cada uno se movían entre el 33% y el 36%. "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1293,
+        "end_char": 1529,
+        "text": "El tercero en discordia, Madrazo, desdibujado y sin gancho, no contaba con ninguna posibilidad.\nLa campaña ya había alcanzado unas altas cotas de aspereza y polarización en el sentido ideológico tradicional de izquierda contra derecha. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1529,
+        "end_char": 1700,
+        "text": "Pero la verdadera tormenta política estaba por venir. Ya en la misma noche electoral, tras cerrarse las urnas, los dos candidatos, primero López Obrador y luego Calderón, "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1700,
+        "end_char": 1918,
+        "text": "desoyeron el llamamiento hecho por el IFE de que se abstuvieran de proclamarse ganadores hasta que no hubiera resultados oficiales. Los primeros sondeos a pie de urna reflejaban un empate en torno al 36% de los votos. "
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 1918,
+        "end_char": 2158,
+        "text": "Al día siguiente, 3 de julio, el conteo del Programa de Resultados Electorales Preliminares (PREP), que no tenía validez legal pero que sí reflejaba con escaso margen de error el resultado de los comicios al ser sus fuentes copias de todas "
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2158,
+        "end_char": 2286,
+        "text": "las actas electorales de país, otorgó a Calderón una ventaja de algo más de 400.000 votos con el 98,4% de las urnas computadas. "
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2286,
+        "end_char": 2413,
+        "text": "En datos porcentuales, el panista habría sacado el 36,38% y su contrincante del PRD el 35,34%, una diferencia de solo el 1,04%."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 33",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 200,
+        "text": "Sin embargo, López Obrador insistió en que él manejaba otros datos que le concedían sin lugar a dudas la Presidencia y que el conteo preliminar estaba trufado de \"irregularidades\" y \"manipulaciones\". "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 200,
+        "end_char": 366,
+        "text": "La misión de observadores de la Unión Europea terció para descartar \"cualquier posibilidad de fraude\". Por segunda vez, los dos candidatos se proclamaron vencedores. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 366,
+        "end_char": 533,
+        "text": "El 4 de julio, después de que el IFE agregara a los resultados preliminares las actas que presentaban inconsistencias, el PREP redujo la ventaja de Calderón al 0,64%.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 533,
+        "end_char": 753,
+        "text": "El 5 de julio el IFE comenzó el conteo oficial en los 300 consejos distritales. Concluido el procedimiento al cabo de 30 emocionantes horas, el instituto dictaminó que Calderón era el ganador con el 35,89% de los votos, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 753,
+        "end_char": 943,
+        "text": "seguido por López Obrador con el 35,31% y por Madrazo con el 22,26%. Al final, la diferencia sacada por el panista al perredista se quedó en un muy exiguo 0,58%, esto es, 243.934 papeletas. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 943,
+        "end_char": 1138,
+        "text": "En realidad, se trataba de un vuelco espectacular, ya que los primeros resultados parciales del conteo oficial habían puesto a López Obrador en cabeza con hasta un millón de votos de diferencia. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1138,
+        "end_char": 1375,
+        "text": "Este drástico cambio de tendencia fue suficiente para que el aspirante del PRD reclamara un recuento voto a voto, ya que tenía constancia de que en alrededor de 50.000 de las 130.477 casillas o mesas electorales las papeletas computadas "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1375,
+        "end_char": 1512,
+        "text": "superaban el número de electores empadronados en cada una de ellas, algo que de ser verdad supondría un fraude de dimensiones colosales, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1512,
+        "end_char": 1642,
+        "text": "y anunciara su decisión de impugnar los resultados ante el Tribunal Electoral del Poder Judicial de la Federación (TRIFE o TEPJF)."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 34",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 193,
+        "text": "Ahora bien, todas las misiones de monitores electorales, entre ellas las de la OEA, la UE y la ONU, ratificaron la limpieza del proceso y la solidez de las instituciones electorales mexicanas. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 193,
+        "end_char": 406,
+        "text": "Algunos gobiernos extranjeros, como los de Estados Unidos y España, no aguardaron al fallo del TEPJF, que tenía de plazo para resolver los recursos hasta el 31 de agosto, y enviaron sus felicitaciones a Calderón. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 406,
+        "end_char": 617,
+        "text": "El PRD, empero, no extendió sus impugnaciones a las elecciones legislativas ni a las estatales, donde la formación izquierdista y sus socios de coalición, en adelante denominada Frente Amplio Progresista (FAP), "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 617,
+        "end_char": 828,
+        "text": "habían logrado unos resultados francamente buenos: en el Congreso de la Unión metieron a 157 diputados (34 más que la Alianza por México formada por el PRI y el PVEM, aunque 49 menos que el PAN) y 36 senadores. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 828,
+        "end_char": 977,
+        "text": "Éste fue uno de los argumentos esgrimidos por los demás partidos para descalificar las reclamaciones de \"fraude selectivo\" hechas por López Obrador.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 977,
+        "end_char": 1146,
+        "text": "El 8 de julio el pretendiente de la Presidencia mexicana principió una batalla total, en las instituciones y en la calle, para \"demostrar\" que el ganador había sido él. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1146,
+        "end_char": 1288,
+        "text": "El Zócalo capitalino, otra vez, dio aforo a gigantescos mítines, marchas y concentraciones en los que AMLO , con tono crecientemente radical, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1288,
+        "end_char": 1496,
+        "text": "arengó y enardeció a sus partidarios bramando contra el \"fraude a la antigüita\" y el \"retroceso democrático\", y arremetiendo contra el IFE, Fox y Calderón, a los que llamó \"ariete del partido de la derecha\", "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1496,
+        "end_char": 1640,
+        "text": "\"traidor a la democracia\" y \"pelele\", respectivamente. El 16 de julio, como en el año anterior cuando el movimiento de desafuero parlamentario, "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1640,
+        "end_char": 1791,
+        "text": "el perredista convocó a sus seguidores a una \"resistencia civil pacífica\" a escala nacional que incluía actos de desobediencia civil y bloqueos viales."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 35",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 232,
+        "text": "El 5 de agosto, el TEPJF, por voto unánime de sus siete magistrados, desestimó la demanda de Por el Bien de Todos de escrutar otra vez la totalidad de los votos y optó por ordenar un recuento parcial en 11.839 casillas electorales, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 232,
+        "end_char": 450,
+        "text": "esto es, el 9% del total, correspondientes a 149 distritos ubicados en 26 estados. López Obrador, desoyendo las recomendaciones de moderación y sosiego que le hacían algunos colegas del partido (Cárdenas, por ejemplo, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 450,
+        "end_char": 684,
+        "text": "mostró a las claras su desaprobación de la campaña de protestas) y sus aliados electorales, rechazó el fallo del tribunal y llamó a intensificar los actos de resistencia contra la proclamación presidencial del \"espurio\" e \"ilegítimo\" "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 684,
+        "end_char": 910,
+        "text": "Calderón, y para \"cambiar esta realidad de injusticias y opresión\".\n\"El triunfo de la derecha es moralmente imposible\", sentenció, parafraseando a Juárez, el opositor, que el 15 de agosto, subiendo otro peldaño en su desafío, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 910,
+        "end_char": 1070,
+        "text": "e invocando el artículo 39 de la Constitución, exhortó a \"todos los mexicanos, hombres y mujeres libres, conscientes y preocupados por el destino de la nación, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1070,
+        "end_char": 1250,
+        "text": "a poner fin a la República simulada y a construir las bases de un verdadero Estado social y democrático de derecho para llevar a cabo las reformas profundas que el país necesita\".\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1250,
+        "end_char": 1481,
+        "text": "El 28 de agosto el TEPJF, una vez resueltas las 375 impugnaciones presentadas por los partidos, anunció los resultados del recuento parcial: de los aproximadamente cuatro millones de papeletas afectadas, quedaban anuladas 237.000. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1481,
+        "end_char": 1674,
+        "text": "Las demás eran validadas por no presentar indicios de fraude. Como la supresión de votos afectaba proporcionalmente a Calderón y a López Obrador (el primero perdió 81.000 y el segundo 77.000), "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1674,
+        "end_char": 1825,
+        "text": "la condición de presidente in péctore del panista no fue alterada. Su ventaja porcentual sobre el perredista apenas se movió: pasó del 0,58% al 0,56%. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1825,
+        "end_char": 2064,
+        "text": "La reacción de López Obrador fue furibunda: \"Se abre el camino a un usurpador que pretende ocupar la Presidencia de la República mediante un golpe de Estado\", llegó a decir de Calderón, quien, impertérrito, continuó negociando con el PRI, "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2064,
+        "end_char": 2170,
+        "text": "el PVEM y el Partido Nueva Alianza (PANAL) el reparto de las mesas directivas de las cámaras del Congreso."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 36",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 214,
+        "text": "El 1 de septiembre los diputados del PRD tomaron la tribuna del Congreso para impedir que Fox leyera su informe anual, en el que tenía que haber sido el último discurso del presidente saliente ante el Legislativo. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 214,
+        "end_char": 415,
+        "text": "Sin embargo, el grupo parlamentario del PRD aceptó integrarse en las negociaciones legislativas con el PAN, lo que contradecía la amenaza de boicot institucional lanzada por el candidato presidencial. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 415,
+        "end_char": 615,
+        "text": "Llegado este punto, López Obrador solo aceptaba la victoria de su candidatura o la anulación de los comicios.\nEl 5 de septiembre el TEPJF validó las elecciones y declaró presidente electo a Calderón, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 615,
+        "end_char": 775,
+        "text": "que recibió la notificación correspondiente un día más tarde. La diferencia en favor del panista sumaba exactamente los 233.831 votos. El fallo era inapelable. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 775,
+        "end_char": 1013,
+        "text": "Lejos de arrojar la toalla, López Obrador continuó adelante con su escalada y advirtió: \"Ese atentado a la legalidad constitucional y a la vida democrática obliga a reasumir el ejercicio de la soberanía popular y abolir de una vez y para "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1013,
+        "end_char": 1167,
+        "text": "siempre el régimen de corrupción y privilegios que impera en el país. Por eso, aunque no les guste a mis adversarios, ¡al diablo con sus instituciones!\".\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1167,
+        "end_char": 1407,
+        "text": "Los siguientes —y, en opinión de un número creciente de responsables políticos y observadores, peligrosos— pasos de AMLO fueron la convocatoria por el llamado Consejo Ciudadano de la Resistencia Civil de una Convención Nacional Democrática "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1407,
+        "end_char": 1603,
+        "text": "(CND) y dotarse de un Gobierno \"itinerante\" o \"alterno\" integrado por 12 secretarios . A continuación, el 16 de septiembre, cientos de miles de ciudadanos, más de un millón según los convocantes, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1603,
+        "end_char": 1746,
+        "text": "congregados en el Zócalo del DF en calidad de miembros de la CND aclamaron a mano alzada a López Obrador como \"presidente legítimo de México\". "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1746,
+        "end_char": 1986,
+        "text": "La multitudinaria asamblea popular fijó la fecha del 20 de noviembre para la toma de protesta de López Obrador, quien aprovechó para insistir en la \"abolición del actual régimen de corrupción y privilegios\" y anunciar \"la construcción y el "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1986,
+        "end_char": 2026,
+        "text": "establecimiento de una nueva República\"."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 38",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 187,
+        "text": "6. Un arduo sexenio en la oposición al Gobierno del PAN: la \"Presidencia legítima\"\nEl 1 de diciembre de 2006 el PRD materializó su amenaza e intentó reventar la inauguración de Calderón. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 187,
+        "end_char": 316,
+        "text": "Precedida por tres días de gran tensión en el Palacio Legislativo, escenario de un zafarrancho de agresiones físicas y verbales, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 316,
+        "end_char": 555,
+        "text": "con los grupos parlamentario panista y perredista disputándose el control de la tribuna y el segundo bloqueando además los accesos al edificio para forzar una falta de quórum, tuvo lugar la fugaz ceremonia, en la que el mandatario electo, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 555,
+        "end_char": 716,
+        "text": "en medio de una fenomenal batahola de abucheos, silbidos, vítores y aplausos, estuvo el tiempo justo para tomar protesta y recibir la banda presidencial de Fox. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 716,
+        "end_char": 849,
+        "text": "A continuación, Calderón se dirigió al Auditorio Nacional para pronunciar su primer discurso presidencial ante un público no hostil.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 849,
+        "end_char": 1069,
+        "text": "A la vez que el tumulto en el Congreso, en su cuartel general callejero, el Zócalo, López Obrador enardecía a sus partidarios con un gran mitin seguido de una imponente manifestación pacífica por el centro de la ciudad. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1069,
+        "end_char": 1302,
+        "text": "Flanqueado por los miembros de su Gobierno paralelo, el presidente legítimo reiteró su firme voluntad de no dar tregua al Gobierno del \"traidor\" y \"espurio\" Calderón, mero \"pelele\" de la \"pandilla de rufianes\" que mandaba en México. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1302,
+        "end_char": 1510,
+        "text": "\"Nada de normalidad política hasta que no haya democracia en nuestro país\", manifestó el líder opositor, quien, continuando con su costumbre de dejar cumplido testimonio documental de sus batallas políticas, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1510,
+        "end_char": 1682,
+        "text": "ya estaba preparando su próximo libro, de título más que explícito: La mafia nos robó la Presidencia . La octava obra del autor apareció en las librerías en julio de 2007, "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1682,
+        "end_char": 1760,
+        "text": "con el comentario de portada \"Solo le han quitado una pluma a nuestro gallo\" ."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 39",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 226,
+        "text": "Durante 2007 y 2008 López Obrador, infatigable, continuó defendiendo la legitimidad de su causa política y arrastrando multitudes a sus mítines de masas en el DF y en sus giras maratonianas a lo largo y ancho de la República. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 226,
+        "end_char": 465,
+        "text": "Puesto que no tenía ningún mandato oficial ejecutivo o legislativo que le sirviera de altavoz institucional, el dirigente, para no perder protagonismo en el nuevo curso político, tenía que esforzarse al máximo en el activismo de exterior. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 465,
+        "end_char": 691,
+        "text": "En su ayuda salieron algunos intelectuales nacionales y el cineasta mexicano y hollywoodiense Luis Mandoki, quien el año anterior le había convertido en el actor principal de su película-documental ¿Quién es el señor López? . "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 691,
+        "end_char": 859,
+        "text": "Ahora, en noviembre de 2007, Mandoki estrenó Fraude: México 2006 , película que se apoyaba en un abundante material videográfico, aportado por ciudadanos y de archivo, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 859,
+        "end_char": 1044,
+        "text": "para pasar revista a los principales episodios de fraude electoral en el México contemporáneo, empezando por la caída del sistema de 1988, antes de concentrarse en los sucesos de 2006.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1044,
+        "end_char": 1271,
+        "text": "Sin embargo, la estrategia de confrontación adoptada por AMLO , no compartida por muchos en el PRD (por otro lado, todos los cargos electos, alcaldes, diputados o gobernadores, estuvieran públicamente posicionados con él o no, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1271,
+        "end_char": 1491,
+        "text": "desarrollaban sus funciones con normalidad), estaba condenada a perder fuelle por su propio carácter extenuante y porque la Administración calderonista quedó firmemente asentada, en lo institucional y en lo diplomático. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1491,
+        "end_char": 1660,
+        "text": "Ningún gobierno del mundo, ni siquiera los teóricamente más afines de la América Bolivariana que liderada Venezuela, reconoció a López Obrador como presidente de México."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 4",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 174,
+        "text": "No obstante, fue su adversario priísta, Enrique Peña Nieto , quien ganó la partida, trayendo así a su partido de vuelta al poder del que había sido desalojado 12 años atrás. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 174,
+        "end_char": 411,
+        "text": "Como en 2006, el líder perredista, candidato ahora de la alianza Movimiento Progresista y adjudicatario del 31,6% de los sufragios, casi siete puntos menos que EPN , proclamó fraude, concretamente la \"compra\" de cinco millones de votos, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 411,
+        "end_char": 616,
+        "text": "pero esta vez llevó su impugnación, aunque en vano, a los cauces legales y evitó convertir su rebeldía poselectoral en un nuevo episodio virulento de resistencia civil y confrontación con las autoridades.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 616,
+        "end_char": 773,
+        "text": "En septiembre de 2012, poniendo colofón a sus desavenencias con la cúpula del partido, que le achacaba exceso de personalismo e incapacidad para el diálogo, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 773,
+        "end_char": 994,
+        "text": "López Obrador dio portazo a un PRD que estaba perdiendo mordiente de izquierda para liderar su propio espacio político de oposición intransigente al próximo Gobierno del PRI: el Movimiento Regeneración Nacional (MORENA), "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 994,
+        "end_char": 1208,
+        "text": "cuyos objetivos eran \"derrocar con una revolución pacífica\" al duopolio de priístas y panistas, y conseguir la \"transformación democrática de México\". Con MORENA, AMLO redobló su batalla contra casi todo el mundo. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1208,
+        "end_char": 1447,
+        "text": "Así, rehusó sumarse al Pacto por México suscrito por el PRI, el PAN y el PRD; declaró su hostilidad a las grandes reformas estructurales de Peña Nieto, en particular, la energética, la educativa, la laboral y la de las telecomunicaciones; "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1447,
+        "end_char": 1660,
+        "text": "y reprobó sin cesar al Ejecutivo, tachado de corrupto, débil e incompetente a la hora de conseguir resultados en la lucha militar contra el narco, frenar el encarecimiento de la canasta básica y los combustibles, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1660,
+        "end_char": 1719,
+        "text": "y plantar cara soberanista a los desaires de Donald Trump ."
+      }
+    ]
+  }
+]

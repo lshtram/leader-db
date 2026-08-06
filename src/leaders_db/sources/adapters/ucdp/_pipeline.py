@@ -57,7 +57,9 @@ from leaders_db.sources.contracts import (
     SourceIngestRequest,
 )
 
+from ._actor_aware import emit_actor_aware_observations
 from ._catalog import DEFAULT_CATALOG_PATH, load_indicator_catalog
+from ._one_sided_actor import emit_one_sided_actor_observations
 from ._raw_read import _zip_path
 from ._transform import emit_ucdp_observations
 
@@ -104,8 +106,7 @@ def transform_ucdp_observations(
     wide_df = raw.payload.get("wide_df")
     if wide_df is None:
         raise ValueError(
-            "UCDPAdapter.transform: raw.payload has no "
-            "'wide_df' key; read_raw must populate it."
+            "UCDPAdapter.transform: raw.payload has no 'wide_df' key; read_raw must populate it."
         )
     metadata = raw.payload.get("metadata")
     if not isinstance(metadata, dict):
@@ -119,12 +120,10 @@ def transform_ucdp_observations(
     # ISO3.
     filtered_df = wide_df
     years_arg: tuple[int, ...] | None = (
-        tuple(int(y) for y in request.years)
-        if request.years else None
+        tuple(int(y) for y in request.years) if request.years else None
     )
     countries_arg: tuple[str, ...] | None = (
-        tuple(str(c) for c in request.countries)
-        if request.countries else None
+        tuple(str(c) for c in request.countries) if request.countries else None
     )
 
     if years_arg is not None:
@@ -136,9 +135,7 @@ def transform_ucdp_observations(
         # YEAR_ABSENT warning per offending year; the
         # filter then produces zero rows for them, matching
         # the readiness envelope's contract).
-        filtered_df = filtered_df.loc[
-            filtered_df["year"].astype(int).isin(years_set),
-        ]
+        filtered_df = filtered_df.loc[filtered_df["year"].astype(int).isin(years_set),]
     if countries_arg:
         # Match the UCDP ``country_id`` (integer) against
         # the request ``countries`` (string). Cast each
@@ -156,7 +153,9 @@ def transform_ucdp_observations(
                 continue
         if countries_int_set:
             filtered_df = filtered_df.loc[
-                filtered_df["country_id"].astype(int).isin(
+                filtered_df["country_id"]
+                .astype(int)
+                .isin(
                     countries_int_set,
                 ),
             ]
@@ -167,9 +166,7 @@ def transform_ucdp_observations(
             filtered_df = filtered_df.iloc[0:0]
 
     zip_path = raw.payload.get("zip_path")
-    zip_path_value = (
-        zip_path if isinstance(zip_path, Path) else None
-    )
+    zip_path_value = zip_path if isinstance(zip_path, Path) else None
     # The zip path is also derivable from the request
     # payload via the ``_zip_path`` helper -- prefer the
     # staged one if it carries through, fall back to the
@@ -185,13 +182,30 @@ def transform_ucdp_observations(
         catalog_path=catalog_path or DEFAULT_CATALOG_PATH,
     )
 
-    return emit_ucdp_observations(
-        filtered_df,
-        request,
-        zip_path_value,
-        metadata,
-        specs=specs,
+    legacy = tuple(
+        emit_ucdp_observations(
+            filtered_df,
+            request,
+            zip_path_value,
+            metadata,
+            specs=specs,
+        )
     )
+    current = tuple(
+        emit_actor_aware_observations(
+            raw.payload.get("actor_aware_df"),
+            request,
+            raw.payload.get("actor_aware_path"),
+        )
+    )
+    one_sided = tuple(
+        emit_one_sided_actor_observations(
+            raw.payload.get("one_sided_actor_df"),
+            request,
+            raw.payload.get("one_sided_actor_path"),
+        )
+    )
+    return iter((*legacy, *current, *one_sided))
 
 
 __all__ = ["transform_ucdp_observations"]

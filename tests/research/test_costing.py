@@ -5,7 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from leaders_db.research._codex_worker_artifacts import read_codex_usage
+from leaders_db.research._codex_worker_artifacts import (
+    read_codex_usage,
+    read_distinct_codex_usage,
+)
 from leaders_db.research.costing import (
     combine_priced_usage,
     load_research_pricing,
@@ -22,6 +25,33 @@ def _events(tmp_path: Path, usage: dict[str, int]) -> Path:
         encoding="utf-8",
     )
     return path
+
+
+def test_distinct_usage_counts_resumed_thread_only_once(tmp_path: Path) -> None:
+    first = tmp_path / "first.jsonl"
+    resumed = tmp_path / "resumed.jsonl"
+    separate = tmp_path / "separate.jsonl"
+    for path, thread_id, input_tokens in (
+        (first, "thread-a", 100),
+        (resumed, "thread-a", 180),
+        (separate, "thread-b", 40),
+    ):
+        path.write_text(
+            json.dumps({"type": "thread.started", "thread_id": thread_id})
+            + "\n"
+            + json.dumps(
+                {
+                    "type": "turn.completed",
+                    "usage": {"input_tokens": input_tokens, "output_tokens": 10},
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    usage = read_distinct_codex_usage((first, resumed, separate))
+
+    assert sorted(item.input_tokens for item in usage) == [40, 180]
 
 
 def test_reads_cached_and_reasoning_without_double_counting(tmp_path: Path) -> None:
@@ -81,8 +111,8 @@ def test_prices_exact_standard_tier_and_search(tmp_path: Path) -> None:
 
     assert priced.cost_certainty == "range"
     assert priced.parallel_search_cost_usd == 0.005
-    assert priced.payg_equivalent_cost_usd_lower == 0.0138
-    assert priced.payg_equivalent_cost_usd_upper == 0.0143
+    assert priced.payg_equivalent_cost_usd_lower == 0.00676
+    assert priced.payg_equivalent_cost_usd_upper == 0.00686
     assert priced.actual_billed_cost_usd == "unknown_not_exposed_by_tool"
 
 
@@ -108,9 +138,9 @@ def test_reports_range_when_aggregate_crosses_long_threshold(tmp_path: Path) -> 
     )
 
     assert priced.cost_certainty == "range"
-    assert priced.payg_equivalent_cost_usd_lower == 0.18
-    assert priced.payg_equivalent_cost_usd_upper == 0.38
-    assert priced.codex_equivalent_credits_lower == 4.5
+    assert priced.payg_equivalent_cost_usd_lower == 0.036
+    assert priced.payg_equivalent_cost_usd_upper == 0.076
+    assert priced.codex_equivalent_credits_lower == 0.9
 
 
 def test_unknown_model_does_not_invent_model_cost(tmp_path: Path) -> None:
@@ -225,13 +255,13 @@ def test_combines_separately_priced_mixed_model_passes(tmp_path: Path) -> None:
     assert priced_research.payg_equivalent_cost_usd_upper == 0.04099
     assert priced_research.parallel_search_cost_usd == 0.04
     assert priced_research.codex_equivalent_credits_lower == "unknown_not_exposed_by_tool"
-    assert priced_formatter.payg_equivalent_cost_usd_lower == 0.0016
-    assert priced_formatter.payg_equivalent_cost_usd_upper == 0.00185
+    assert priced_formatter.payg_equivalent_cost_usd_lower == 0.00032
+    assert priced_formatter.payg_equivalent_cost_usd_upper == 0.00037
     assert priced_formatter.parallel_search_cost_usd == 0.0
-    assert priced_formatter.codex_equivalent_credits_lower == 0.04
+    assert priced_formatter.codex_equivalent_credits_lower == 0.008
     assert combined.total_tokens == 3300
     assert combined.parallel_search_cost_usd == 0.04
-    assert combined.payg_equivalent_cost_usd_lower == 0.04244
-    assert combined.payg_equivalent_cost_usd_upper == 0.04284
+    assert combined.payg_equivalent_cost_usd_lower == 0.04116
+    assert combined.payg_equivalent_cost_usd_upper == 0.04136
     assert combined.pricing_sha256 == "a" * 64
     assert combined.pricing_effective_date == "2026-07-13"

@@ -27,6 +27,7 @@ def build_payload(batch_dir: Path) -> dict[str, Any]:
 
     shared = _shared()
     conversion = _object(batch_dir / "judge-inputs-v1" / "conversion-report.json")
+    target_year = int(conversion["year"])
     questions = shared._question_texts()
     projection_root = batch_dir / "judge-compact-v2" / "projections"
     judgment_paths = _judgment_paths(batch_dir, tuple(shared.CHAPTER_TITLES))
@@ -56,7 +57,7 @@ def build_payload(batch_dir: Path) -> dict[str, Any]:
                 "country_name": dossier["country_name"],
                 "ruler_name": dossier["ruler_name"],
                 "ruler_year_id": dossier["ruler_year_id"],
-                "source_run": "2024 conversational evidence",
+                "source_run": f"{target_year} conversational evidence",
                 "dossier_path": ruler["dossier_path"],
                 "automated_scores": scores,
                 "client_scores": {chapter: None for chapter in shared.CHAPTER_TITLES},
@@ -68,8 +69,8 @@ def build_payload(batch_dir: Path) -> dict[str, Any]:
     overall = [ruler["average_score"] for ruler in rulers]
     return {
         "schema_version": "leaders_db_annual_viewer_data_v1",
-        "release_id": "2024-top20-gpt54mini-v1",
-        "target_year": 2024,
+        "release_id": str(conversion["batch_id"]),
+        "target_year": target_year,
         "chapter_titles": shared.CHAPTER_TITLES,
         "overall_average": round(sum(overall) / len(overall), 3),
         "overall_scored_cells": sum(ruler["scored_chapters"] for ruler in rulers),
@@ -80,11 +81,9 @@ def build_payload(batch_dir: Path) -> dict[str, Any]:
             "the ruler average is descriptive and does not replace the chapter record."
         ),
         "methodology_update": (
-            "GPT-5.4 mini collected 2024 evidence ruler by ruler. Separate no-search "
+            f"GPT-5.4 mini collected {target_year} evidence ruler by ruler. Separate no-search "
             "chapter judges compared all twenty rulers and documented every score, "
-            "confidence assessment, plausible range, attribution limit, and anchor. "
-            "Chapters 1B, 3B, and 7B use v4 absolute-scale, scope-filtered judgments; "
-            "the other five chapters retain their original audited judgments."
+            "confidence assessment, plausible range, attribution limit, and anchor."
         ),
     }
 

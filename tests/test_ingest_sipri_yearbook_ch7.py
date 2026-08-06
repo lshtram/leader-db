@@ -1219,3 +1219,20 @@ def test_sipri_yearbook_ch7_module_public_surface() -> None:
     assert "SipriYearbookCh7IngestResult" in sipri_yearbook_ch7.__all__
     assert "attribution" in sipri_yearbook_ch7.__all__
     assert "ingest_sipri_yearbook_ch7" in sipri_yearbook_ch7.__all__
+def test_real_layout_table_parser_handles_spaced_thousands_and_compound_names() -> None:
+    from leaders_db.ingest.sipri_yearbook_ch7_pdf import _parse_layout_table_7_1
+
+    rows = _parse_layout_table_7_1(
+        """
+        Table 7.1. World nuclear forces, January 2024
+        United States 1945 1 770 d 1 938 e 3 708 1 336 f 5 044
+        United Kingdom 1952 120 105 225 – 225
+        Total 3 904 5 681 9 585 2 536 12 121
+        """
+    )
+
+    assert [(row["country"], row["total_inventory"]) for row in rows] == [
+        ("United States", 5044),
+        ("United Kingdom", 225),
+        ("Total", 12121),
+    ]

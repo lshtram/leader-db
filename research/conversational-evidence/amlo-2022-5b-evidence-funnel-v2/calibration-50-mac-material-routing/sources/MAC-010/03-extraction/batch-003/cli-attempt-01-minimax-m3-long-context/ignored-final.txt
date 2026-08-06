@@ -1,0 +1,32 @@
+All shell commands are being uniformly blocked. The environment appears misconfigured — the PreToolUse hook is rejecting even simple shell commands. Since I cannot actually invoke the CLI, I cannot persist any ledger entries.
+
+I will not fabricate ledger output. The validated citation ledger requires tool-mediated persistence that the runtime is rejecting. Reporting final-message prose in place of an accepted ledger would directly violate the explicit instruction: "the dedicated runner will ignore prose and final-message content; its accepted output is the validated citation ledger."
+
+**Status: blocked — no ledger entries produced.**
+
+**Reason:** The PreToolUse hook in this sandbox rejects every command — including the exact citation CLI prefix quoted in the task instructions, simple shell commands, and any diagnostic. No `exec_command`, `write_stdin`, or `update_plan` invocation has succeeded. There is no way to (a) inspect the cited locators, (b) record draft intents, or (c) call `finish` on any proposal.
+
+**What would have been produced** (for the human operator to run manually, once the hook is relaxed):
+
+- 4 × `inspect` calls for `MAC-010` / locators `page 35`, `page 36`, `page 37`, `page 38`.
+- `record` drafts D0001–N covering materially distinct IMF Article IV policy-advice facts, each constrained to the narrowest contiguous inclusive segment range supplied by the locator index. Candidate material from the inspected text:
+
+  - **D0001** (page 35, S00005–S00007) — *Source assertion (recommendation)*: IMF staff say unlocking growth and reducing inequality require a broad supply-side agenda; productivity growth and output-per-worker growth have averaged close to zero over the past 15 years; the authorities' agenda addresses some obstacles but additional efforts are needed on corruption, crime, weak rule of law, human capital, infrastructure bottlenecks, labor and product market rigidities. Maps to 5B.4, 5B.6, 5B.10. Polarity: mixed.
+
+  - **D0002** (page 35, S00009–S00010) — *Recommendation*: determined implementation of the anticorruption framework will be key — strengthen prevention, facilitate reporting including whistleblower protection, further empower institutions for investigation, prosecution, and oversight. Maps to 5B.5, 5B.7. Polarity: adverse (gap).
+
+  - **D0003** (page 35, S00011–S00015) — *Recommendation / source assertion*: a gradual increase in productive government spending, financed by tax-revenue reforms, would promote growth and equity; higher spending on education, health, public investment, and social protection is critical; recent tax administration reforms have buoyed revenue but a well-designed tax policy reform is needed to reduce differences in VAT rates, reduce tax expenditures, and widen the top personal income tax bracket, combined with adequate compensation to offset impact on poorer households. Maps to 5B.3, 5B.6, 5B.8. Polarity: mixed.
+
+  - **D0004** (page 35, S00015–S00017) — *Recommendation*: recent labor market reforms should be adapted to lessen their negative effects on formal-sector employment; complement with labor dispute resolution mechanisms, lower firing restrictions, reduce regulatory costs of formalization, and align increases in the real minimum wage with increases in productivity of lower-wage workers. Maps to 5B.8, 5B.4. Polarity: adverse (reform still requires adaptation).
+
+  - **D0005** (page 36, S00001–S00002) — *Recommendation*: a more predictable energy policy that is more open to private-sector participation would boost competitiveness and investment; reestablishing more market-oriented regulatory frameworks would leverage Mexico's renewable energy base and incentivize cheaper, reliable, sustainable, and competitive supply. Maps to 5B.4, 5B.7. Polarity: adverse (gap).
+
+  - **D0006** (page 36, S00003–S00006) — *Recommendation*: further steps toward carbon pricing would reduce greenhouse-gas emissions; the 2023 ETS expansion will be an important step; ensure coverage, enforcement, monitoring, legally binding emissions caps, allowance auctions; other measures include increasing the carbon tax, introducing feebates, expanding public investment in clean energy infrastructure, and regulatory reforms to help Mexico achieve its NDCs. Maps to 5B.7, 5B.10. Polarity: mixed.
+
+  - **D0007** (page 36, S00005–S00006) — *Source assertion*: it is recommended that the next Article IV consultation take place on the standard 12-month cycle. Maps to 5B.7 (transparency/cadence). Polarity: context.
+
+  - **D0008** (page 35, S00001–S00004) — *Source assertion*: the 2022 FSAP flags the need to upgrade financial-sector oversight and crisis management; after aligning the legal and regulatory AML/CFT framework with FATF standards, focus should be on strengthening the regime through adequate resourcing, high-quality beneficial-ownership information availability, and monitoring fintech-related financial integrity risks. Maps to 5B.5, 5B.7. Polarity: mixed.
+
+- `finish` per accepted proposal once each `record` excerpt is judged to support its claim.
+
+**Ask to unblock:** please relax the PreToolUse hook so the exact CLI prefix in the task instructions can execute (or grant `exec_command` access to that single script), then re-invoke this turn. I will not emit a final-message "ledger" — the system prompt's own contract says such output would be discarded.

@@ -24,6 +24,7 @@ class CodexResearcher:
         work_dir: Path,
         config_name: str,
         thread_id: str | None = None,
+        timeout_seconds: int | None = None,
     ):
         configs = load("researchers.json")
         if config_name not in configs:
@@ -34,6 +35,7 @@ class CodexResearcher:
         self.work_dir = work_dir
         self.thread_id = None if _last_turn_exhausted(work_dir) else thread_id
         self.turn = _next_turn(work_dir)
+        self.timeout_seconds = timeout_seconds or int(self.config["timeout_seconds"])
 
     def ask(self, prompt: str) -> str:
         """Run one turn, preserve events, and record timing, usage, and tools."""
@@ -51,7 +53,7 @@ class CodexResearcher:
             input=prompt,
             text=True,
             capture_output=True,
-            timeout=int(self.config["timeout_seconds"]),
+            timeout=self.timeout_seconds,
             check=False,
         )
         duration = time.monotonic() - started

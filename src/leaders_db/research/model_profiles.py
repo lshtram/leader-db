@@ -12,6 +12,7 @@ ResearchRole = Literal[
     "dossier_researcher",
     "dossier_evidence_reviewer",
     "dossier_formatter",
+    "document_reader",
     "chapter_judge",
 ]
 

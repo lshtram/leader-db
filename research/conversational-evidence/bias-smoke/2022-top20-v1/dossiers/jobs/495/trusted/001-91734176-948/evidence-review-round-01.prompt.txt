@@ -1,0 +1,324 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:JPN:16638",
+  "iso3": "JPN",
+  "country_name": "Japan",
+  "ruler_name": "Fumio Kishida",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 2,
+  "approximate_source_family_count": 1,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 2 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 1 approximate source families were observed; the soft review threshold is 24."
+    },
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research completed for Fumio Kishida, Japan, 2022. No score or score range assigned.
+
+The supplied workspace is read-only, so I could not write `research-materials.md` or `research-ledger-manifest.json`. The handoff below is the complete permissive ledger for parent persistence.
+
+## Reconnaissance
+
+Kishida was designated prime minister by both Diet chambers on 4 October 2021 and held formal responsibility for national policy, cabinet appointments, diplomacy, defense policy, and emergency administration. His official profile records prior foreign-affairs, defense, consumer-affairs, regulatory, and LDP leadership experience. Japan’s parliamentary system, coalition government, Diet constraints, independent judiciary, and strong civil-service role are material limits on unilateral action. [PM designation](https://japan.kantei.go.jp/100_kishida/actions/202110/_00001.html), [official profile](https://japan.kantei.go.jp/101_kishida/cabinetlist1/daijin/kishida_e.html)
+
+The evidence environment was relatively open: competitive national media, active NGOs, public criticism, parliamentary opposition, court review, and reporting by Human Rights Watch, Freedom House, Reuters, the U.S. State Department, OECD, and Japanese official institutions. Important caveats are the kisha-club access system, possible self-censorship, incomplete legal protection for minorities and LGBTQI people, closed detention settings, and official-source self-presentation. Reporting is concentrated around the Abe assassination/Unification Church scandal, security-policy shift, Ukraine, COVID, and cabinet resignations. Silence cannot establish safety or integrity.
+
+## Global evidence register
+
+| ID | Evidence claim and source | Confidence / role | Chapters and lenses |
+|---|---|---|---|
+| E001 | Kishida became PM through Diet designation; official profile documents cabinet and prior policy roles. | High; official formal record; final evidence | All chapters; authority baseline |
+| E002 | January 2022 policy speech set COVID recovery, “New Form of Capitalism,” fiscal support, children’s agency, fertility coverage, and crisis-preparedness objectives. | Medium-high; official program record; final evidence for stated goals, not outcomes | 5B.1, 5B.3, 5B.6, 5B.7, 5B.10; 6B.1–6B.6, 6B.9–6B.10; 8B.1–8B.2, 8B.6 |
+| E003 | Kishida’s August reshuffle explicitly responded to the upper-house election, emergencies, defense planning, and policy implementation. | Medium-high; official action record; final evidence | 4B.8, 5B.2, 8B.2–8B.5 |
+| E004 | August 2022 statement acknowledged public-trust damage from LDP–Unification Church links, ordered members to review ties, promised severance/compliance checks, and proposed victim relief. | Medium-high for actions; official self-report requires corroboration | 3B.4, 3B.7; 4B.5, 4B.10; 7B.2, 7B.6–7B.10; 8B.8 |
+| E005 | Kishida condemned Russia’s violation of Ukraine’s sovereignty and ordered sanctions, asset freezes, trade restrictions, and evacuation preparations in February 2022. | High for formal government action; official primary record | 1B.1, 1B.4, 1B.8; 2B.1–2B.3, 2B.6–2B.10; 8B.2–8B.6 |
+| E006 | Japan’s 2022 Diplomatic Bluebook framed Ukraine as an international-law crisis, supported coordinated G7 sanctions, and combined deterrence with diplomacy and nonproliferation commitments. | High for policy record; official diplomatic source | 1B.1, 1B.4, 1B.8; 2B.1, 2B.3, 2B.6, 2B.7, 2B.10; 8B.1–8B.3 |
+| E007 | The December 2022 National Security Strategy adopted counterstrike capability, expanded cross-domain/cyber capacity, and targeted defense spending of 2% of GDP by FY2027 while retaining a stated exclusively defensive doctrine. | High for formal policy; official strategy; interpretation remains contested | 1B.1–1B.4, 1B.7–1B.10; 2B.3, 2B.8, 2B.10; 8B.1–8B.7, 8B.10 |
+| E008 | Kishida’s December statement described 18 NSC meetings, defense reinforcement, counterstrike capability, and fiscal implementation. | Medium-high; official action/process record | 1B.3, 1B.7, 1B.8; 2B.3, 2B.8; 8B.2–8B.6 |
+| E009 | Freedom House reports that Japan’s 2022 upper-house elections were free and fair, with LDP–Komeito winning 76 of 125 contested seats; opposition parties remained viable. | Medium-high; independent democracy assessment | 4B.1–4B.4, 4B.7–4B.10 |
+| E010 | Freedom House records competitive media, active NGOs, peaceful assembly, independent courts, but persistent kisha-club access concerns, malapportionment, gender underrepresentation, and limited minority protections. | Medium-high; independent assessment | 3B.4, 3B.8; 4B.1–4B.10; 7B.6–7B.7 |
+| E011 | U.S. State Department reports generally respected assembly, association, internet access, and movement, but identifies detention, refugee-screening, minority, LGBTQI, reproductive-rights, death-penalty, and press-access problems. | Medium-high; government human-rights report; corroboration needed for disputed claims | 3B.1–3B.9; 4B.3, 4B.6–4B.9; 6B.2–6B.4, 6B.8 |
+| E012 | Human Rights Watch reports detention-related death of Wishma Sandamali, government withdrawal of a detention bill after criticism, same-day execution notices, childcare-leave reform, failure to enact national LGBTQI non-discrimination law, and continued transgender sterilization requirements. | Medium-high; NGO report with dated events; some claims need primary corroboration | 3B.1–3B.7; 4B.7; 6B.2–6B.4, 6B.8; 7B.7 |
+| E013 | Reuters reported Economic Revitalization Minister Yamagiwa resigned in October after failing to fully explain Unification Church ties; Kishida said he felt responsible for appointing him. | Medium-high; reputable media, directly attributed chronology | 7B.2–7B.7, 7B.9–7B.10; 8B.4, 8B.8 |
+| E014 | Reuters/Euronews reported three additional ministerial departures by December over funding, church ties, death-penalty remarks, and political-funds issues. | Medium-high; media chronology; distinguish minister conduct from Kishida attribution | 7B.5–7B.7, 7B.9–7B.10; 8B.4, 8B.8 |
+| E015 | OECD identified Ukraine/energy shocks, yen depreciation, inflation, COVID and supply-chain risks; it records vaccine/testing spending, low-income support, fuel subsidies, supportive monetary policy, rising debt, and remaining structural reform needs. | High; intergovernmental economic analysis | 5B.3, 5B.6, 5B.7, 5B.9–5B.10; 6B.1–6B.2, 6B.6, 6B.10; 8B.7–8B.10 |
+| E016 | Japan relaxed COVID border measures from 11 October 2022, including vaccine-certificate and testing changes. | Medium-high; official JETRO summary of government measure | 5B.9; 6B.2, 6B.6; 8B.6, 8B.8 |
+| E017 | December PM statement records passage of the second supplementary budget and Infectious Diseases Control Law amendments, including hospital capacity, public-health centers, screening, and vaccination preparation. | Medium-high; official legislative/action record | 6B.2, 6B.5–6B.6, 6B.9; 8B.2–8B.6, 8B.8 |
+| E018 | September PM statement described “New Form of Capitalism,” investment in people, childcare, reskilling, and use of budget, taxation, and regulatory reform. | Medium-low for effectiveness; official self-description; context unless corroborated | 5B.1, 5B.4, 5B.6–5B.10; 6B.1–6B.4; 8B.1–8B.2 |
+| E019 | Freedom House notes 2022 review of exploitative foreign-trainee labor conditions and continued gender/minority representation gaps. | Medium-high; independent country assessment | 3B.7; 4B.7; 5B.4, 5B.8; 6B.3, 6B.8 |
+| E020 | State Department reports no government internet shutdown or unlawful online censorship, while noting criminal defamation/insult-law expansion and press-club restrictions. | Medium-high; annual rights report | 4B.3, 4B.6, 4B.9; 3B.8 |
+| E021 | Official security strategy states counterstrikes are legally limited to self-defense after an armed attack and rejects preemptive strikes. | High for doctrine text; official self-description, requiring independent strategic interpretation | 1B.2–1B.4, 1B.8; 2B.3, 2B.6, 2B.8 |
+| E022 | OECD states policy reacted forcefully to sanitary and energy shocks but warns that debt, aging, productivity, fiscal sustainability, skills, and targeted inclusiveness remained unresolved. | High; independent intergovernmental assessment | 5B.3, 5B.6–5B.10; 6B.10; 8B.7–8B.10 |
+| E023 | Local 2022 military expenditure was approximately $39.77bn constant dollars, 0.97% of GDP, and $344 per capita; local trend signals show spending fell from 2021 while the 2022 strategy announced future expansion. | High structured local context; not direct ruler attribution | 2B.3, 2B.8, 2B.10; 1B.10; 8B.7 |
+| E024 | Local 2022 democratic indicators show Freedom House political rights 1/civil liberties 1, V-Dem electoral democracy .823, liberal democracy .738, rule of law .960, expression .862, association .925, and RSF press score 64.37/rank 71. | High structured local context; country-level, not automatic Kishida credit | 3B.4, 3B.8–3B.10; 4B.1–4B.10; 7B.6–7B.7; 8B.10 |
+| E025 | Local 2022 social indicators show HDI .920, life expectancy 84.82, expected schooling 15.456 years, mean schooling 12.669 years, under-5 mortality 2.36/1,000, BCG 98%, DTP3 99%, HepB3 96%, and secondary enrollment 101.38%. | High structured local context; outcomes do not establish Kishida attribution | 5B.1, 5B.6, 5B.10; 6B.1–6B.10; 8B.7 |
+| E026 | Local 2022 governance indicators show WGI control of corruption 1.540, government effectiveness 1.620, regulatory quality 1.439, rule of law 1.558, and voice/accountability 1.017. | High structured local context; not personal-integrity evidence | 4B.4, 4B.10; 5B.3–5B.5; 7B.10; 8B.2–8B.10 |
+
+Sources were profiled as high or medium-high where they were primary formal records, intergovernmental analyses, independent rights assessments, or reputable reporting. Official self-assessments were retained as final evidence only for the fact that Kishida or his cabinet adopted a policy, stated a goal, held a meeting, appointed a minister, or passed legislation; claims of fairness, restraint, success, or public trust remain context pending independent corroboration.
+
+## Chapter yield and gaps
+
+**1B:** Local arsenal and military-spending facts establish limited conventional/security exposure but no nuclear inventory or ruler-specific existential-risk conduct. Web evidence establishes nonproliferation rhetoric, Ukraine sanctions, alliance coordination, cyber/security expansion, and the counterstrike-policy shift. Missing: nuclear command details, crisis communications, safeguards, cyber/biological/AI governance, and evidence of implementation beyond policy adoption.
+
+**2B:** Local SIPRI facts provide military-burden context only. Web evidence covers Ukraine diplomacy/sanctions, Japan’s defensive framing, security-policy expansion, alliance strategy, and absence of evidence of Japanese war initiation in 2022. Missing: detailed civilian-protection, proxy/arms-recipient, intelligence-truthfulness, and accountability evidence.
+
+**3B:** Local CIRIGHTS, PTS, V-Dem, and civil-liberties facts provide country-level physical-integrity and rights context. Web evidence covers detention death, refugee restrictions, death-row treatment, LGBTQI discrimination, migrant-worker vulnerability, and crisis/legal responses. Missing: direct Kishida orders, police/intelligence command evidence, protest-specific incidents, and nationwide ruler-attributed physical-safety change.
+
+**4B:** Strongest chapter yield. Local democratic indicators and web assessments cover elections, opposition viability, media, NGOs, courts, assembly, online freedom, malapportionment, gender representation, minority exclusion, and institutional constraints. Missing: direct Kishida conduct toward investigative journalism, opposition criticism, surveillance, and succession/term-limit behavior beyond ordinary parliamentary operation.
+
+**5B:** Local macroeconomic, income, government-effectiveness, and regulatory facts are contextual. Web evidence identifies Kishida’s stated economic program, COVID/energy shock response, subsidies, fiscal risks, structural reform needs, and implementation architecture. Missing: independent evaluation of “New Form of Capitalism,” household distribution, wage/price outcomes attributable to Kishida, appointments of economic professionals, and corruption/capture in economic policy.
+
+**6B:** Local HDI, health, education, immunization, mortality, and schooling indicators provide strong baseline/outcome context. Web evidence covers COVID preparedness, vaccines/testing, border reopening, childcare leave, child-protection legislation, detention health, refugee access, LGBTQI and minority dignity. Missing: program delivery by region/class, affordability and quality, social conditionality, professional administration, and durability beyond the period.
+
+**7B:** Local corruption/governance indicators are explicitly context-only. Web evidence provides the required personal/governing-network nexus through minister appointments, church ties, delayed explanations, Kishida’s stated responsibility, cabinet reshuffles, compliance rules, victim relief, and political-funds controversies. Missing: Kishida’s personal assets, family/business conflicts, sworn statements, procurement, independent audit findings, and direct evidence of retaliation or concealment by Kishida personally.
+
+**8B:** Strong program/action evidence exists: COVID recovery, New Form of Capitalism, children, economic security, Ukraine diplomacy, security strategy, counterstrike capability, budgets, and legislative throughput. Independent implementation/outcome evidence is thinner; OECD provides useful external evaluation and constraints. Missing: full portfolio results, personnel performance, corrections after failure, subnational implementation, durability, and independent outcome attribution.
+
+## Local-data audit
+
+Used as contextual evidence:
+
+- Military: `LF045–LF048`, `LS047–LS050`.
+- Domestic safety: `LF152–LF161`, `LF206–LF209`, `LS004–LS011`, `LS052`, `LS057`, `LS058–LS060`.
+- Political freedom: `LF308–LF315`, `LF467–LF481`, `LS021`, `LS026–LS027`, `LS042–LS044`, `LS051`, `LS053`, `LS055–LS057`, `LS064–LS067`.
+- Economic: `LF553–LF694`, `LS025`, `LS028–LS038`, `LS041`, `LS063`.
+- Social wellbeing: `LF739–LF747`, `LS039–LS040`, `LS045–LS046`, `LS066`, `LS068`.
+- Integrity/governance context: `LF792–LF795`, `LS012–LS013`, `LS022`, `LS061`.
+- Effectiveness context: `LF818–LF819`, `LS036`, `LS063`, plus related governance trajectory signals.
+
+Local facts were not treated as direct ruler evidence unless paired with a ruler-attributed policy or response. The supplied omitted annual rows were not treated as missing; the parent retains their hashed provenance. No `error_methodology_ids` were present. Empty local priors for nuclear/existential risk and several ruler-specific lenses remain explicit gaps, not negative findings.
+
+Rejected or context-only candidates included search-result pages, Wikipedia, post-2022 retrospective reporting used for target-period claims, official self-serving claims of fairness or success without corroboration, and generic country indicators used as personal-integrity evidence.
+---

@@ -1,0 +1,1337 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:JPN:16638",
+  "iso3": "JPN",
+  "country_name": "Japan",
+  "ruler_name": "Fumio Kishida",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 91,
+  "approximate_source_family_count": 25,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research completed for Fumio Kishida, Japan, 2022. No score or score range assigned.
+
+The supplied workspace is read-only, so I could not write `research-materials.md` or `research-ledger-manifest.json`. The handoff below is the complete permissive ledger for parent persistence.
+
+## Reconnaissance
+
+Kishida was designated prime minister by both Diet chambers on 4 October 2021 and held formal responsibility for national policy, cabinet appointments, diplomacy, defense policy, and emergency administration. His official profile records prior foreign-affairs, defense, consumer-affairs, regulatory, and LDP leadership experience. Japan’s parliamentary system, coalition government, Diet constraints, independent judiciary, and strong civil-service role are material limits on unilateral action. [PM designation](https://japan.kantei.go.jp/100_kishida/actions/202110/_00001.html), [official profile](https://japan.kantei.go.jp/101_kishida/cabinetlist1/daijin/kishida_e.html)
+
+The evidence environment was relatively open: competitive national media, active NGOs, public criticism, parliamentary opposition, court review, and reporting by Human Rights Watch, Freedom House, Reuters, the U.S. State Department, OECD, and Japanese official institutions. Important caveats are the kisha-club access system, possible self-censorship, incomplete legal protection for minorities and LGBTQI people, closed detention settings, and official-source self-presentation. Reporting is concentrated around the Abe assassination/Unification Church scandal, security-policy shift, Ukraine, COVID, and cabinet resignations. Silence cannot establish safety or integrity.
+
+## Global evidence register
+
+| ID | Evidence claim and source | Confidence / role | Chapters and lenses |
+|---|---|---|---|
+| E001 | Kishida became PM through Diet designation; official profile documents cabinet and prior policy roles. | High; official formal record; final evidence | All chapters; authority baseline |
+| E002 | January 2022 policy speech set COVID recovery, “New Form of Capitalism,” fiscal support, children’s agency, fertility coverage, and crisis-preparedness objectives. | Medium-high; official program record; final evidence for stated goals, not outcomes | 5B.1, 5B.3, 5B.6, 5B.7, 5B.10; 6B.1–6B.6, 6B.9–6B.10; 8B.1–8B.2, 8B.6 |
+| E003 | Kishida’s August reshuffle explicitly responded to the upper-house election, emergencies, defense planning, and policy implementation. | Medium-high; official action record; final evidence | 4B.8, 5B.2, 8B.2–8B.5 |
+| E004 | August 2022 statement acknowledged public-trust damage from LDP–Unification Church links, ordered members to review ties, promised severance/compliance checks, and proposed victim relief. | Medium-high for actions; official self-report requires corroboration | 3B.4, 3B.7; 4B.5, 4B.10; 7B.2, 7B.6–7B.10; 8B.8 |
+| E005 | Kishida condemned Russia’s violation of Ukraine’s sovereignty and ordered sanctions, asset freezes, trade restrictions, and evacuation preparations in February 2022. | High for formal government action; official primary record | 1B.1, 1B.4, 1B.8; 2B.1–2B.3, 2B.6–2B.10; 8B.2–8B.6 |
+| E006 | Japan’s 2022 Diplomatic Bluebook framed Ukraine as an international-law crisis, supported coordinated G7 sanctions, and combined deterrence with diplomacy and nonproliferation commitments. | High for policy record; official diplomatic source | 1B.1, 1B.4, 1B.8; 2B.1, 2B.3, 2B.6, 2B.7, 2B.10; 8B.1–8B.3 |
+| E007 | The December 2022 National Security Strategy adopted counterstrike capability, expanded cross-domain/cyber capacity, and targeted defense spending of 2% of GDP by FY2027 while retaining a stated exclusively defensive doctrine. | High for formal policy; official strategy; interpretation remains contested | 1B.1–1B.4, 1B.7–1B.10; 2B.3, 2B.8, 2B.10; 8B.1–8B.7, 8B.10 |
+| E008 | Kishida’s December statement described 18 NSC meetings, defense reinforcement, counterstrike capability, and fiscal implementation. | Medium-high; official action/process record | 1B.3, 1B.7, 1B.8; 2B.3, 2B.8; 8B.2–8B.6 |
+| E009 | Freedom House reports that Japan’s 2022 upper-house elections were free and fair, with LDP–Komeito winning 76 of 125 contested seats; opposition parties remained viable. | Medium-high; independent democracy assessment | 4B.1–4B.4, 4B.7–4B.10 |
+| E010 | Freedom House records competitive media, active NGOs, peaceful assembly, independent courts, but persistent kisha-club access concerns, malapportionment, gender underrepresentation, and limited minority protections. | Medium-high; independent assessment | 3B.4, 3B.8; 4B.1–4B.10; 7B.6–7B.7 |
+| E011 | U.S. State Department reports generally respected assembly, association, internet access, and movement, but identifies detention, refugee-screening, minority, LGBTQI, reproductive-rights, death-penalty, and press-access problems. | Medium-high; government human-rights report; corroboration needed for disputed claims | 3B.1–3B.9; 4B.3, 4B.6–4B.9; 6B.2–6B.4, 6B.8 |
+| E012 | Human Rights Watch reports detention-related death of Wishma Sandamali, government withdrawal of a detention bill after criticism, same-day execution notices, childcare-leave reform, failure to enact national LGBTQI non-discrimination law, and continued transgender sterilization requirements. | Medium-high; NGO report with dated events; some claims need primary corroboration | 3B.1–3B.7; 4B.7; 6B.2–6B.4, 6B.8; 7B.7 |
+| E013 | Reuters reported Economic Revitalization Minister Yamagiwa resigned in October after failing to fully explain Unification Church ties; Kishida said he felt responsible for appointing him. | Medium-high; reputable media, directly attributed chronology | 7B.2–7B.7, 7B.9–7B.10; 8B.4, 8B.8 |
+| E014 | Reuters/Euronews reported three additional ministerial departures by December over funding, church ties, death-penalty remarks, and political-funds issues. | Medium-high; media chronology; distinguish minister conduct from Kishida attribution | 7B.5–7B.7, 7B.9–7B.10; 8B.4, 8B.8 |
+| E015 | OECD identified Ukraine/energy shocks, yen depreciation, inflation, COVID and supply-chain risks; it records vaccine/testing spending, low-income support, fuel subsidies, supportive monetary policy, rising debt, and remaining structural reform needs. | High; intergovernmental economic analysis | 5B.3, 5B.6, 5B.7, 5B.9–5B.10; 6B.1–6B.2, 6B.6, 6B.10; 8B.7–8B.10 |
+| E016 | Japan relaxed COVID border measures from 11 October 2022, including vaccine-certificate and testing changes. | Medium-high; official JETRO summary of government measure | 5B.9; 6B.2, 6B.6; 8B.6, 8B.8 |
+| E017 | December PM statement records passage of the second supplementary budget and Infectious Diseases Control Law amendments, including hospital capacity, public-health centers, screening, and vaccination preparation. | Medium-high; official legislative/action record | 6B.2, 6B.5–6B.6, 6B.9; 8B.2–8B.6, 8B.8 |
+| E018 | September PM statement described “New Form of Capitalism,” investment in people, childcare, reskilling, and use of budget, taxation, and regulatory reform. | Medium-low for effectiveness; official self-description; context unless corroborated | 5B.1, 5B.4, 5B.6–5B.10; 6B.1–6B.4; 8B.1–8B.2 |
+| E019 | Freedom House notes 2022 review of exploitative foreign-trainee labor conditions and continued gender/minority representation gaps. | Medium-high; independent country assessment | 3B.7; 4B.7; 5B.4, 5B.8; 6B.3, 6B.8 |
+| E020 | State Department reports no government internet shutdown or unlawful online censorship, while noting criminal defamation/insult-law expansion and press-club restrictions. | Medium-high; annual rights report | 4B.3, 4B.6, 4B.9; 3B.8 |
+| E021 | Official security strategy states counterstrikes are legally limited to self-defense after an armed attack and rejects preemptive strikes. | High for doctrine text; official self-description, requiring independent strategic interpretation | 1B.2–1B.4, 1B.8; 2B.3, 2B.6, 2B.8 |
+| E022 | OECD states policy reacted forcefully to sanitary and energy shocks but warns that debt, aging, productivity, fiscal sustainability, skills, and targeted inclusiveness remained unresolved. | High; independent intergovernmental assessment | 5B.3, 5B.6–5B.10; 6B.10; 8B.7–8B.10 |
+| E023 | Local 2022 military expenditure was approximately $39.77bn constant dollars, 0.97% of GDP, and $344 per capita; local trend signals show spending fell from 2021 while the 2022 strategy announced future expansion. | High structured local context; not direct ruler attribution | 2B.3, 2B.8, 2B.10; 1B.10; 8B.7 |
+| E024 | Local 2022 democratic indicators show Freedom House political rights 1/civil liberties 1, V-Dem electoral democracy .823, liberal democracy .738, rule of law .960, expression .862, association .925, and RSF press score 64.37/rank 71. | High structured local context; country-level, not automatic Kishida credit | 3B.4, 3B.8–3B.10; 4B.1–4B.10; 7B.6–7B.7; 8B.10 |
+| E025 | Local 2022 social indicators show HDI .920, life expectancy 84.82, expected schooling 15.456 years, mean schooling 12.669 years, under-5 mortality 2.36/1,000, BCG 98%, DTP3 99%, HepB3 96%, and secondary enrollment 101.38%. | High structured local context; outcomes do not establish Kishida attribution | 5B.1, 5B.6, 5B.10; 6B.1–6B.10; 8B.7 |
+| E026 | Local 2022 governance indicators show WGI control of corruption 1.540, government effectiveness 1.620, regulatory quality 1.439, rule of law 1.558, and voice/accountability 1.017. | High structured local context; not personal-integrity evidence | 4B.4, 4B.10; 5B.3–5B.5; 7B.10; 8B.2–8B.10 |
+
+Sources were profiled as high or medium-high where they were primary formal records, intergovernmental analyses, independent rights assessments, or reputable reporting. Official self-assessments were retained as final evidence only for the fact that Kishida or his cabinet adopted a policy, stated a goal, held a meeting, appointed a minister, or passed legislation; claims of fairness, restraint, success, or public trust remain context pending independent corroboration.
+
+## Chapter yield and gaps
+
+**1B:** Local arsenal and military-spending facts establish limited conventional/security exposure but no nuclear inventory or ruler-specific existential-risk conduct. Web evidence establishes nonproliferation rhetoric, Ukraine sanctions, alliance coordination, cyber/security expansion, and the counterstrike-policy shift. Missing: nuclear command details, crisis communications, safeguards, cyber/biological/AI governance, and evidence of implementation beyond policy adoption.
+
+**2B:** Local SIPRI facts provide military-burden context only. Web evidence covers Ukraine diplomacy/sanctions, Japan’s defensive framing, security-policy expansion, alliance strategy, and absence of evidence of Japanese war initiation in 2022. Missing: detailed civilian-protection, proxy/arms-recipient, intelligence-truthfulness, and accountability evidence.
+
+**3B:** Local CIRIGHTS, PTS, V-Dem, and civil-liberties facts provide country-level physical-integrity and rights context. Web evidence covers detention death, refugee restrictions, death-row treatment, LGBTQI discrimination, migrant-worker vulnerability, and crisis/legal responses. Missing: direct Kishida orders, police/intelligence command evidence, protest-specific incidents, and nationwide ruler-attributed physical-safety change.
+
+**4B:** Strongest chapter yield. Local democratic indicators and web assessments cover elections, opposition viability, media, NGOs, courts, assembly, online freedom, malapportionment, gender representation, minority exclusion, and institutional constraints. Missing: direct Kishida conduct toward investigative journalism, opposition criticism, surveillance, and succession/term-limit behavior beyond ordinary parliamentary operation.
+
+**5B:** Local macroeconomic, income, government-effectiveness, and regulatory facts are contextual. Web evidence identifies Kishida’s stated economic program, COVID/energy shock response, subsidies, fiscal risks, structural reform needs, and implementation architecture. Missing: independent evaluation of “New Form of Capitalism,” household distribution, wage/price outcomes attributable to Kishida, appointments of economic professionals, and corruption/capture in economic policy.
+
+**6B:** Local HDI, health, education, immunization, mortality, and schooling indicators provide strong baseline/outcome context. Web evidence covers COVID preparedness, vaccines/testing, border reopening, childcare leave, child-protection legislation, detention health, refugee access, LGBTQI and minority dignity. Missing: program delivery by region/class, affordability and quality, social conditionality, professional administration, and durability beyond the period.
+
+**7B:** Local corruption/governance indicators are explicitly context-only. Web evidence provides the required personal/governing-network nexus through minister appointments, church ties, delayed explanations, Kishida’s stated responsibility, cabinet reshuffles, compliance rules, victim relief, and political-funds controversies. Missing: Kishida’s personal assets, family/business conflicts, sworn statements, procurement, independent audit findings, and direct evidence of retaliation or concealment by Kishida personally.
+
+**8B:** Strong program/action evidence exists: COVID recovery, New Form of Capitalism, children, economic security, Ukraine diplomacy, security strategy, counterstrike capability, budgets, and legislative throughput. Independent implementation/outcome evidence is thinner; OECD provides useful external evaluation and constraints. Missing: full portfolio results, personnel performance, corrections after failure, subnational implementation, durability, and independent outcome attribution.
+
+## Local-data audit
+
+Used as contextual evidence:
+
+- Military: `LF045–LF048`, `LS047–LS050`.
+- Domestic safety: `LF152–LF161`, `LF206–LF209`, `LS004–LS011`, `LS052`, `LS057`, `LS058–LS060`.
+- Political freedom: `LF308–LF315`, `LF467–LF481`, `LS021`, `LS026–LS027`, `LS042–LS044`, `LS051`, `LS053`, `LS055–LS057`, `LS064–LS067`.
+- Economic: `LF553–LF694`, `LS025`, `LS028–LS038`, `LS041`, `LS063`.
+- Social wellbeing: `LF739–LF747`, `LS039–LS040`, `LS045–LS046`, `LS066`, `LS068`.
+- Integrity/governance context: `LF792–LF795`, `LS012–LS013`, `LS022`, `LS061`.
+- Effectiveness context: `LF818–LF819`, `LS036`, `LS063`, plus related governance trajectory signals.
+
+Local facts were not treated as direct ruler evidence unless paired with a ruler-attributed policy or response. The supplied omitted annual rows were not treated as missing; the parent retains their hashed provenance. No `error_methodology_ids` were present. Empty local priors for nuclear/existential risk and several ruler-specific lenses remain explicit gaps, not negative findings.
+
+Rejected or context-only candidates included search-result pages, Wikipedia, post-2022 retrospective reporting used for target-period claims, official self-serving claims of fairness or success without corroboration, and generic country indicators used as personal-integrity evidence.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Several evidence rows bundle multiple claims and sources.",
+        "Formal policy adoption is stronger than evidence of execution or personal responsibility.",
+        "A bounded continuation could recover specialist and implementation evidence."
+      ],
+      "missing_themes": [
+        "nuclear command details",
+        "crisis communications",
+        "safeguards",
+        "cyber, biological, and AI governance",
+        "implementation beyond policy adoption"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable policy evidence and adverse rights/security caveats are represented, but the adverse search is not sufficiently broad on classified, cyber, biological, AI, safeguards, and crisis-communication themes.",
+        "closed_system_silence": "Detention, intelligence, and security settings may conceal misconduct; reported absence of Japanese war initiation does not establish absence of covert or classified conduct.",
+        "open_system_complaint_volume": "Media and NGO visibility may increase apparent severity relative to less open systems; complaint volume is not adjusted for exposure or reporting intensity.",
+        "duplicate_reporting": "Ukraine policy, counterstrike policy, and official statements may represent the same underlying decisions; E005-E008 and E021 are not independently distinct for every claim.",
+        "allegations_vs_findings": "Official policy records establish adopted positions, not success or restraint; rights reports mix documented events with allegations requiring primary corroboration.",
+        "official_claim_independence": "Official records are suitable for what Kishida's government adopted or stated, but claims of defensive restraint, legality, and effectiveness lack sufficient independent checks.",
+        "population_exposure_authority_baseline_shocks": "Country-level military facts and strategy are present, but population exposure, operational authority, inherited security baseline, implementation, and Ukraine/external-shock effects are incompletely separated.",
+        "missing_source_type": "Independent specialist security, nuclear, cyber, and implementation sources are needed to assess execution and attribution beyond formal policy adoption.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E021",
+          "E023"
+        ],
+        "unresolved_risks": [
+          "No nuclear command or safeguards evidence.",
+          "No detailed implementation or crisis-communications evidence.",
+          "Country-level military context is not ruler-attributed without additional nexus evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Security evidence is concentrated in official policy records.",
+        "The notebook explicitly lacks contrary-event coverage and detailed operational evidence.",
+        "Further bounded conflict and oversight research could materially improve attribution."
+      ],
+      "missing_themes": [
+        "civilian protection",
+        "proxy and arms-recipient conduct",
+        "intelligence truthfulness",
+        "accountability",
+        "implementation of security commitments"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable diplomacy and defensive framing are present, as are some adverse caveats, but searches for civilian protection, proxy activity, arms recipients, intelligence truthfulness, and accountability are not explicit.",
+        "closed_system_silence": "Military, intelligence, proxy, and classified accountability failures could remain hidden despite an open media environment.",
+        "open_system_complaint_volume": "Japan's open reporting environment can make criticism more visible, while international security reporting may overrepresent salient Ukraine-related events.",
+        "duplicate_reporting": "E005, E006, E007, E008, and E021 substantially overlap on Ukraine, alliance, and security-policy facts and should not be counted as fully independent units.",
+        "allegations_vs_findings": "Formal records establish sanctions, doctrine, and diplomatic positions; they do not establish civilian-protection performance, intelligence accuracy, or accountability findings.",
+        "official_claim_independence": "Official diplomatic and strategy records independently establish government action only; defensive and nonproliferation claims require external interpretation.",
+        "population_exposure_authority_baseline_shocks": "The notebook identifies external Ukraine, energy, alliance, and inherited-defense shocks, but does not adequately separate Kishida's authority from coalition, Diet, bureaucratic, and alliance constraints or quantify population exposure.",
+        "missing_source_type": "Specialist conflict-monitoring, arms-transfer, civilian-harm, intelligence-accountability, and parliamentary oversight sources are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E015",
+          "E021",
+          "E023"
+        ],
+        "unresolved_risks": [
+          "No detailed civilian-protection evidence.",
+          "No proxy or arms-recipient analysis.",
+          "No intelligence-truthfulness or accountability evidence.",
+          "Absence of war initiation is not a finding of broader security conduct."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The strongest evidence concerns adverse conditions and cabinet/legal responses, not personal attribution.",
+        "Some rights claims require precise primary locators and finding status.",
+        "A continuation could recover Japanese-language and primary institutional evidence."
+      ],
+      "missing_themes": [
+        "direct Kishida orders",
+        "police and intelligence command",
+        "protest-specific incidents",
+        "nationwide ruler-attributed physical-safety change",
+        "primary findings for detention and refugee claims"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse rights reporting is substantial, but favorable searches for remedies, enforcement, police conduct, and successful protections are not shown with comparable breadth.",
+        "closed_system_silence": "Detention, police, intelligence, and migrant-processing settings are closed or access-limited and may suppress evidence of abuse.",
+        "open_system_complaint_volume": "Complaint and NGO reporting may exaggerate apparent severity through visibility and selection, while closed facilities may simultaneously underreport abuse; neither direction is quantified.",
+        "duplicate_reporting": "E011, E012, E019, and E020 overlap on rights conditions; repeated reporting should be reconciled to underlying incidents rather than counted as separate facts.",
+        "allegations_vs_findings": "The detention death and other rights matters are reported by HRW and the State Department, but the handoff does not consistently distinguish findings, official determinations, allegations, and unresolved claims.",
+        "official_claim_independence": "Official responses and legislation establish actions, but official assurances about rights, detention, and compliance are not independently verified.",
+        "population_exposure_authority_baseline_shocks": "The notebook provides country-level indicators and identifies detention/refugee/migrant exposure, but lacks subgroup, regional, institutional-authority, inherited-baseline, and COVID-related exposure analysis.",
+        "missing_source_type": "Primary court, detention-inspection, parliamentary, police-oversight, and Japanese-language civil-society sources are needed for incident findings and attribution.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E004",
+          "E010",
+          "E011",
+          "E012",
+          "E019",
+          "E020",
+          "E024"
+        ],
+        "unresolved_risks": [
+          "Direct Kishida orders or knowledge are generally absent.",
+          "Protest-specific and police/intelligence incidents are missing.",
+          "Rights indicators are contextual and cannot alone establish ruler responsibility."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "This is the strongest chapter but still lacks ruler-specific adverse and favorable conduct evidence.",
+        "Several indicators describe Japan rather than Kishida.",
+        "Continuation remains warranted for attribution and contrary-conduct coverage."
+      ],
+      "missing_themes": [
+        "direct conduct toward investigative journalism",
+        "direct conduct toward opposition criticism",
+        "surveillance",
+        "succession and term-limit behavior beyond ordinary parliamentary operation"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable evidence—competitive elections, opposition viability, assembly, courts, and internet access—and adverse evidence—malapportionment, press clubs, representation, and minority protections—are present, but direct Kishida conduct searches are incomplete.",
+        "closed_system_silence": "Surveillance, informal pressure, and access-controlled press or detention systems may hide restrictions not visible in election and media indicators.",
+        "open_system_complaint_volume": "Open media, NGOs, and opposition activity increase visible complaints and criticism; the notebook does not normalize volume for population, institutional access, or reporting intensity.",
+        "duplicate_reporting": "E009-E011, E020, and E024 repeat overlapping election, media, assembly, NGO, and institutional facts; they require source-claim deduplication.",
+        "allegations_vs_findings": "Freedom House and State Department assessments provide independent findings and observations, but official and country-level indicators should remain distinct from Kishida-specific conduct.",
+        "official_claim_independence": "Official election and policy records are not enough to establish fairness or restraint; independent assessments provide useful checks, though direct Kishida attribution remains thin.",
+        "population_exposure_authority_baseline_shocks": "National indicators and institutional constraints are present, but subgroup exposure, Kishida's authority versus coalition/Diet/civil-service baselines, and external shocks are not fully addressed.",
+        "missing_source_type": "Investigative-journalism, parliamentary-opposition, judicial, surveillance-oversight, and Japanese-language media sources are needed for ruler-specific conduct.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E009",
+          "E010",
+          "E011",
+          "E020",
+          "E024"
+        ],
+        "unresolved_risks": [
+          "Direct conduct toward investigative journalism and opposition criticism is missing.",
+          "Surveillance and succession/term-limit behavior are not covered.",
+          "Country-level democratic quality may reflect inherited institutions rather than Kishida's actions."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Goals and implementation architecture are better evidenced than results.",
+        "Macro indicators cannot establish Kishida attribution.",
+        "Bounded continuation could materially improve outcome and distribution evidence."
+      ],
+      "missing_themes": [
+        "independent evaluation of New Form of Capitalism",
+        "household distribution",
+        "wage and price outcomes attributable to Kishida",
+        "appointments of economic professionals",
+        "corruption or capture in economic policy"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The notebook includes stated programs and external concerns, but favorable and adverse searches for household distribution, wages, prices, capture, and professional appointments are incomplete.",
+        "closed_system_silence": "Economic capture, procurement influence, informal lobbying, and distributional harms may be poorly observed in official program records.",
+        "open_system_complaint_volume": "Visible criticism may reflect Japan's open media and civil society, but economic harms affecting less visible groups may be undercounted; complaint volume is not normalized.",
+        "duplicate_reporting": "E002, E015, E018, and E022 overlap on economic goals, shocks, subsidies, and unresolved reforms; they should not be counted as independent claim units without reconciliation.",
+        "allegations_vs_findings": "OECD analysis provides external findings on shocks, policy responses, debt, and structural weaknesses; official economic-program statements establish goals but not outcomes.",
+        "official_claim_independence": "Official sources support policy adoption and stated objectives only; independent outcome and distributional evidence is too thin.",
+        "population_exposure_authority_baseline_shocks": "OECD identifies population aging, inflation, yen depreciation, COVID, Ukraine, and energy shocks, but household/class/regional exposure, inherited conditions, coalition authority, and attribution of outcomes are incomplete.",
+        "missing_source_type": "Household microdata, labor and distributional evaluations, independent fiscal analysis, procurement records, business/lobbying investigations, and Japanese-language economic reporting are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E015",
+          "E018",
+          "E022",
+          "E025",
+          "E026"
+        ],
+        "unresolved_risks": [
+          "No independent evaluation of New Form of Capitalism.",
+          "No household distribution, wage, or price attribution.",
+          "No economic-policy capture or corruption evidence.",
+          "External shocks may dominate observed outcomes."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "National social indicators are baseline/context, not evidence of Kishida's performance.",
+        "The evidence supports actions more strongly than equitable implementation or outcomes.",
+        "Further bounded administrative and beneficiary evidence could materially improve the chapter."
+      ],
+      "missing_themes": [
+        "program delivery by region and class",
+        "affordability and quality",
+        "social conditionality",
+        "professional administration",
+        "durability beyond the target period"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both pandemic measures, vaccination, border reopening, childcare reform, and adverse detention, refugee, LGBTQI, minority, and migrant issues are represented; delivery, quality, affordability, and subgroup searches are incomplete.",
+        "closed_system_silence": "Detention, refugee processing, institutional care, and vulnerable-child settings can conceal harms and service failures.",
+        "open_system_complaint_volume": "NGO and media complaints may be more visible in Japan, while institutional and marginalized populations may remain underreported; volume is not exposure-adjusted.",
+        "duplicate_reporting": "E011, E012, E015-E017, E019, E022, and E025 overlap across COVID, health, detention, minority, and social outcomes; the notebook's bundled rows need claim-level reconciliation.",
+        "allegations_vs_findings": "Official legislation and measures establish government action; HRW and State Department reports provide adverse observations, but several rights claims need precise findings and primary corroboration.",
+        "official_claim_independence": "Official measures and legislation are independently useful for action chronology, but claims of preparedness, inclusion, and effectiveness are not sufficiently checked.",
+        "population_exposure_authority_baseline_shocks": "The notebook includes strong national baselines and COVID context, but lacks regional/class/subgroup exposure, service quality, administrative authority, inherited systems, and durability beyond 2022.",
+        "missing_source_type": "Administrative delivery data, regional audits, health-professional assessments, court findings, beneficiary/household evidence, and Japanese-language social-policy evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E011",
+          "E012",
+          "E015",
+          "E016",
+          "E017",
+          "E019",
+          "E022",
+          "E025"
+        ],
+        "unresolved_risks": [
+          "Program delivery and affordability are not shown.",
+          "Quality and regional variation are missing.",
+          "Detention and refugee claims need primary findings.",
+          "Outcome indicators are not ruler-attributed."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The required personal-integrity nexus is partly present but remains incomplete.",
+        "Official corrective claims require implementation checks.",
+        "Continuation could recover attribution and financial-record evidence."
+      ],
+      "missing_themes": [
+        "personal assets",
+        "family or business conflicts",
+        "sworn statements",
+        "procurement",
+        "independent audit findings",
+        "direct retaliation or concealment by Kishida personally"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse cabinet and church-ties reporting is present, alongside Kishida's compliance and victim-relief responses; searches for personal assets, family conflicts, procurement, audits, retaliation, and concealment are incomplete.",
+        "closed_system_silence": "Political finance, family/business interests, internal party pressure, and retaliation may be concealed despite public resignations and reporting.",
+        "open_system_complaint_volume": "Open media and opposition scrutiny can increase apparent scandal visibility, while undisclosed networks and unreported conflicts may remain unseen; complaint volume is not calibrated.",
+        "duplicate_reporting": "E004 and E013-E014 overlap on church ties, minister departures, responsibility, and reshuffle chronology; repeated media accounts may describe the same underlying events.",
+        "allegations_vs_findings": "Reuters chronology and official statements provide a governing-network and appointment nexus, but ministerial misconduct must not be converted into Kishida personal-integrity findings without evidence of knowledge, benefit, tolerance, or concealment.",
+        "official_claim_independence": "Kishida's stated responsibility and compliance actions are official self-reports; Reuters provides some independent chronology, but independent verification of implementation and personal knowledge is limited.",
+        "population_exposure_authority_baseline_shocks": "The notebook identifies governing-network exposure and cabinet authority, but does not distinguish inherited LDP conditions, coalition constraints, appointment discretion, public trust effects, or external shocks sufficiently.",
+        "missing_source_type": "Asset disclosures, political-finance filings, independent audit findings, procurement records, parliamentary testimony, court records, and investigative Japanese-language reporting are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E004",
+          "E010",
+          "E013",
+          "E014",
+          "E024",
+          "E026"
+        ],
+        "unresolved_risks": [
+          "Personal assets and family/business conflicts are absent.",
+          "No independent audit or procurement evidence.",
+          "No direct evidence of Kishida retaliation, concealment, or personal benefit.",
+          "Minister conduct is not automatically Kishida conduct."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Action and throughput evidence should not be treated as effectiveness evidence.",
+        "OECD provides useful constraints but does not cover the full portfolio.",
+        "Further bounded evaluation and implementation research could materially improve the chapter."
+      ],
+      "missing_themes": [
+        "full portfolio results",
+        "personnel performance",
+        "corrections after failure",
+        "subnational implementation",
+        "durability",
+        "independent outcome attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The portfolio includes favorable policy adoption and legislative throughput plus adverse OECD constraints and cabinet departures, but searches for failed programs, corrections, personnel performance, and subnational delivery are incomplete.",
+        "closed_system_silence": "Cabinet implementation failures, bureaucratic noncompliance, procurement problems, and internal performance information may be hidden by official reporting.",
+        "open_system_complaint_volume": "Open reporting may overrepresent salient scandals and visible policy disputes; implementation failures in less visible populations or regions may be underreported.",
+        "duplicate_reporting": "E002-E008, E015-E018, and E021-E022 bundle overlapping programs, decisions, and policy statements; formal records should be deduplicated into stable claim units.",
+        "allegations_vs_findings": "The notebook distinguishes stated goals and formal actions from OECD's external assessment, but independent results, corrections, and failure findings are sparse.",
+        "official_claim_independence": "Official records adequately establish goals, meetings, appointments, budgets, and legislation; claims of effectiveness, responsiveness, and correction lack enough external verification.",
+        "population_exposure_authority_baseline_shocks": "The notebook notes COVID, Ukraine, energy, inflation, aging, debt, and coalition/Diet constraints, but does not sufficiently separate inherited baseline, authority, exposure, implementation level, and shock effects.",
+        "missing_source_type": "Independent program evaluations, audit reports, implementation dashboards, personnel-performance records, subnational administrative data, and parliamentary oversight are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E015",
+          "E017",
+          "E018",
+          "E022",
+          "E026"
+        ],
+        "unresolved_risks": [
+          "Independent outcome evidence is thin.",
+          "Subnational implementation and personnel performance are missing.",
+          "Durability and corrections after failure are not established.",
+          "External shocks may confound effectiveness interpretation."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The notebook contains credible formal records, independent assessments, intergovernmental analysis, reputable reporting, and local contextual facts, but many evidence rows bundle multiple claims and sources.",
+    "The deterministic QA findings are substantive here: only approximately two unique locators and one source family are observed in the handoff, while precise underlying locators and source-family breadth are not recoverable from the notebook itself.",
+    "Local facts are appropriately marked as contextual, but they cannot independently establish Kishida attribution, performance, or integrity.",
+    "Official records are generally fit for adopted policy, stated goals, appointments, meetings, legislation, and formal responses; they are not sufficient for success, fairness, restraint, legality in practice, personal knowledge, or personal benefit.",
+    "Contrary evidence is not explicit enough across chapters. The notebook contains adverse material, but it does not demonstrate systematic favorable/adverse search coverage for the principal bias risks.",
+    "All chapters have at least one bounded, research-recoverable gap involving precise locators, independent source breadth, contrary evidence, attribution, implementation, or missing event themes.",
+    "Deduplication, splitting bundled claims, and locator reconciliation are deterministic cleanup issues, but the missing substantive source coverage and attribution facts warrant continuation."
+  ],
+  "reviewer_summary": "All eight selected chapters require continuation within the immutable full-chapter scope. The handoff is useful for reconnaissance and formal-action chronology, but it is not yet sufficient for fair presentation of governing conduct, contrary material, and attribution across the selected lenses. The principal blockers are low locator and source-family yield, bundled claims, incomplete favorable/adverse searches, thin implementation and outcome evidence, and chapter-specific attribution gaps. Chapter 7B has the clearest governing-network nexus but still lacks a complete personal-integrity nexus. Missing evidence is treated as unresolved uncertainty, not negative ruler evidence."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Review round 1 completed for selected theme `1B` only. No score or score range assigned.
+
+The workspace remained read-only, so I could not update the requested files. I preserved the continuation ledger below for parent persistence. New provisional IDs continue globally from `E026`.
+
+## New accepted evidence
+
+| ID | Traceable claim and locator | Source profile | Lens mappings |
+|---|---|---|---|
+| E027 | Japan–U.S. Extended Deterrence Dialogue met June 21–22, 2022; officials reviewed the U.S. nuclear triad, declaratory policy, arms control, nonproliferation, conventional forces, and missile defense. Locator: MOFA press release, paragraphs 1–5. | High; official bilateral record; establishes consultation, not effectiveness | 1B.1, 1B.3, 1B.4, 1B.7, 1B.8 |
+| E028 | Kishida attended the NPT Review Conference on August 1, 2022, the first Japanese prime minister to do so, and proposed the Hiroshima Action Plan. Locator: JapanGov article, paragraphs dated August 1 and lines describing the five pillars. | Medium-high; official publication of primary speech | 1B.1, 1B.2, 1B.4, 1B.7, 1B.8, 1B.10 |
+| E029 | Kishida called for preserving the record of nuclear non-use, rejecting nuclear threats and use, and ensuring Nagasaki remained the last atomic-bombing site. Locator: NPT speech PDF, pp. 1–2, “First action.” | High for statement; no proof of implementation | 1B.1, 1B.2, 1B.8 |
+| E030 | Kishida called for nuclear-force transparency, fissile-material disclosure, continued stockpile reductions, CTBT entry into force, and FMCT negotiations. Locator: NPT speech PDF, pp. 1–3, “Second” and “Third actions.” | High for formal proposal; implementation remains unverified | 1B.1, 1B.4, 1B.6, 1B.10 |
+| E031 | Kishida’s NPT plan paired nonproliferation with peaceful nuclear use and nuclear safety, cited Fukushima lessons, promised IAEA cooperation, and addressed decommissioning. Locator: NPT speech PDF, p. 3, “Fourth action.” | High for formal policy; independent execution evidence limited | 1B.3, 1B.4, 1B.6, 1B.7, 1B.9 |
+| E032 | Japan’s UN representative stated that Kishida’s Hiroshima Action Plan was being advanced through CTBT diplomacy and a new International Group of Eminent Persons. Locator: UN Mission statement, paragraphs 2–4. | Medium-high; official diplomatic follow-up; still government-reported | 1B.1, 1B.4, 1B.7, 1B.10 |
+| E033 | Hiroshima and Nagasaki mayors requested that Kishida join TPNW discussions and attend as an observer, while acknowledging his NPT attendance and Hiroshima Action Plan. Locator: Hiroshima City letter, paragraphs 1–4. | Medium-high; official local-government contrary evidence | 1B.1, 1B.4, 1B.10 |
+| E034 | Japan’s 2022 Diplomatic Bluebook described nuclear disarmament as a bridge-building effort between nuclear and non-nuclear states, while choosing NPT/US-alliance engagement over signing or ratifying the TPNW. Locator: Japanese Bluebook 2022, section “核軍縮,” paragraphs 1–3. | High for official position; contrary policy choice preserved | 1B.1, 1B.4, 1B.10 |
+| E035 | The same Bluebook describes IAEA safeguards as verification against diversion of nuclear material and records Japan’s support for IAEA capacity, additional protocols, export-control regimes, and nonproliferation institutions. Locator: Japanese Bluebook 2022, paragraphs 84–86 and 98–109. | High for institutional policy context; not Kishida-personal execution | 1B.3, 1B.4, 1B.6, 1B.7 |
+| E036 | Kishida’s June Shangri-La speech linked Ukraine, North Korean missile activity, and regional nuclear buildups to a decision to strengthen deterrence, consider counterstrike capability, and raise defense capacity, while promising constitutional, legal, and transparent implementation. Locator: PM speech, paragraphs 100–123. | Medium-high; official statement of decision and rationale | 1B.1, 1B.2, 1B.3, 1B.8, 1B.10 |
+| E037 | The same speech explicitly rejected nuclear threats and use, promoted nuclear transparency, CTBT/FMCT, NPT maintenance, and dialogue on US–China nuclear arms control. Locator: PM speech, paragraphs 125–146. | Medium-high; official statement, partly overlapping E028–E030 | 1B.1, 1B.2, 1B.4, 1B.6, 1B.8 |
+| E038 | During a March 24 North Korean ICBM launch into Japan’s EEZ, Kishida ordered public information, safety confirmation, NSC coordination, information collection, allied coordination, and G7 discussion. Locator: PM press conference, paragraphs 19–24. | High for crisis-response record; no independent assessment of adequacy | 1B.3, 1B.7, 1B.8 |
+| E039 | After a May North Korean missile launch, Kishida ordered public-safety information, coordination with the acting PM, information gathering, and careful avoidance of unsupported claims about North Korean intentions. Locator: PM press conference, paragraphs 19–25. | High for crisis communication; official self-report | 1B.2, 1B.7, 1B.8 |
+| E040 | After the October missile overflight, the government reported flight-path safety checks, timely public information, information analysis, alliance coordination, calm public messaging, and consideration of counterstrike capability. Locator: Chief Cabinet Secretary statement, paragraphs 20–37. | High for formal response; no external audit of execution | 1B.3, 1B.7, 1B.8 |
+| E041 | The National Security Strategy specifies that counterstrikes are permitted only after an armed attack, as a minimum necessary self-defense measure, and that preemptive strikes remain impermissible. Locator: NSS PDF, pp. 26–28, paragraphs on counterstrike capabilities. | High for formal doctrine; effectiveness and operational safeguards unresolved | 1B.2, 1B.3, 1B.5, 1B.8 |
+| E042 | Japan’s 2022 cybersecurity plan was formally adopted after public consultation by the National Center of Incident Readiness and Strategy for Cybersecurity. Locator: NCO page, paragraphs 29–42. | High for formal governance process; limited evidence of implementation | 1B.7, 1B.9 |
+| E043 | A 2022 Japanese specialist article argues that Japan’s cybersecurity policy documents were extensive but the institutional system remained fragmented and underdeveloped in crisis authority, deterrence, and cross-government coordination. Locator: J-STAGE article, abstract and conclusions, paragraphs 159–167. | Medium; academic specialist analysis; valuable adverse/contrary evidence | 1B.7, 1B.9 |
+| E044 | Japan’s October defense-ministerial call after the North Korean overflight reaffirmed U.S. nuclear extended deterrence and intensified Japan–U.S.–ROK coordination. Locator: Japanese MOD summary, paragraphs 92–96. | High for formal alliance communication; not proof of safer posture | 1B.3, 1B.7, 1B.8 |
+
+Sources: [Japan–U.S. Extended Deterrence Dialogue](https://www.mofa.go.jp/press/release/press4e_003139.html), [Kishida NPT speech](https://www.mofa.go.jp/files/100376850.pdf), [JapanGov Hiroshima Action Plan summary](https://www.japan.go.jp/kizuna/2022/09/future_without_nuclear_weapons.html), [Hiroshima City TPNW letter](https://www.city.hiroshima.lg.jp/english/peace/1029856/1029865/1009878.html), [Japanese Diplomatic Bluebook](https://www.mofa.go.jp/mofaj/gaiko/bluebook/2022/html/chapter3_01_04.html), [Shangri-La speech](https://japan.kantei.go.jp/101_kishida/statement/202206/_00002.html), [March missile response](https://japan.kantei.go.jp/101_kishida/statement/202203/_00027.html), [October missile response](https://japan.kantei.go.jp/101_kishida/decisions/2022/_00026.html), [National Security Strategy](https://www.cas.go.jp/jp/siryou/221216anzenhoshou/national_security_strategy_2022_pamphlet-e.pdf), [cybersecurity-plan process](https://www.cyber.go.jp/policy/group/kihon-s/res_cyber-security2022.html), [Japanese cybersecurity specialist analysis](https://www.jstage.jst.go.jp/article/jicp/5/2/5_73/_article/-char/ja/), [MOD extended-deterrence call](https://www.mod.go.jp/en/article/2022/10/964aabc3c2fae9c330a97658d31a49908c091ed7.html).
+
+## Candidate and rejection notes
+
+- The Nuclear Regulation Authority FY2022 report was discovered and appears promising for safeguards implementation, including an IAEA broader-conclusion reference, but the PDF was inaccessible through the retrieval tool (`403`). It remains `gateway_only` and is not counted as defensible evidence.
+- Wikipedia and search-result summaries concerning secret U.S. nuclear arrangements were rejected as discovery-only; they were not target-period, ruler-attributed findings.
+- Post-2022 reporting on later nuclear-energy policy was rejected for this immutable 2022 period.
+- Official NPT, NSS, cyber, and missile-response documents were split into distinct claims where locators and substantive meanings differed. Same-URL items remain non-independent for source-diversity purposes.
+- E028–E031 and E036–E037 overlap materially on Kishida’s disarmament rhetoric; they are retained for precise lens mapping but should not be counted as independent corroboration.
+- E038–E040 are separate crisis events, though all are official Japanese government records and therefore share official-source limitations.
+
+## Chapter 1B continuation assessment
+
+The continuation materially improved coverage of:
+
+- nuclear diplomacy and nonproliferation;
+- extended-deterrence consultation;
+- crisis communications during North Korean missile events;
+- formal counterstrike doctrine and preemption limits;
+- safeguards and IAEA institutional context;
+- cyber-governance process and an adverse specialist assessment;
+- contrary evidence concerning Japan’s refusal to join the TPNW.
+
+Remaining gaps:
+
+- no public evidence establishes Japan’s nuclear command-and-control architecture or Kishida’s personal role in operational nuclear decision-making;
+- no independent audit of the 2022 Extended Deterrence Dialogue or crisis communications;
+- safeguards evidence was located but not retrievable at precise PDF level;
+- biological-risk and AI-specific catastrophic-risk governance remained unverified for 2022;
+- cyber evidence establishes policy process but also contains a specialist critique of fragmented implementation;
+- no evidence was found of Japanese nuclear use, nuclear proliferation, nuclear brinkmanship, or nuclear shielding of a conventional war during the target year;
+- the December security-policy shift is attributable to Kishida’s cabinet as formal policy adoption, but implementation and consequences remain outside the available 2022 evidence.
+
+The chapter is improved but not fully saturated. The principal blocker is the public availability and retrieval of classified command, safeguards, and operational implementation evidence rather than a lack of additional broad policy statements.
+
+## Manifest continuation fragment
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id":"E027","canonical_fact_key":"https://www.mofa.go.jp/press/release/press4e_003139.html#paras-1-5","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.3","1B.4","1B.7","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E028","canonical_fact_key":"https://www.japan.go.jp/kizuna/2022/09/future_without_nuclear_weapons.html#npt-august-1","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.4","1B.7","1B.8","1B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E029","canonical_fact_key":"https://www.mofa.go.jp/files/100376850.pdf#p1-first-action","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E030","canonical_fact_key":"https://www.mofa.go.jp/files/100376850.pdf#p1-p3-transparency-stockpile","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.4","1B.6","1B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E031","canonical_fact_key":"https://www.mofa.go.jp/files/100376850.pdf#p3-nonproliferation-safety","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.4","1B.6","1B.7","1B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E032","canonical_fact_key":"https://www.un.emb-japan.go.jp/itpr_en/ishikane092622.html#paras-36-46","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.4","1B.7","1B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E033","canonical_fact_key":"https://www.city.hiroshima.lg.jp/english/peace/1029856/1029865/1009878.html#paras-200-207","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.4","1B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E034","canonical_fact_key":"https://www.mofa.go.jp/mofaj/gaiko/bluebook/2022/html/chapter3_01_04.html#paras-38-42","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.4","1B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E035","canonical_fact_key":"https://www.mofa.go.jp/mofaj/gaiko/bluebook/2022/html/chapter3_01_04.html#paras-84-111","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.4","1B.6","1B.7"],"disposition":"final_evidence"},
+    {"provisional_id":"E036","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202206/_00002.html#paras-100-123","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.3","1B.8","1B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"E037","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202206/_00002.html#paras-125-146","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.4","1B.6","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E038","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202203/_00027.html#paras-19-24","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E039","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202205/_00004.html#paras-19-25","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.7","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E040","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/decisions/2022/_00026.html#paras-20-37","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E041","canonical_fact_key":"https://www.cas.go.jp/jp/siryou/221216anzenhoshou/national_security_strategy_2022_pamphlet-e.pdf#p26-p28-counterstrike-limits","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.3","1B.5","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"E042","canonical_fact_key":"https://www.cyber.go.jp/policy/group/kihon-s/res_cyber-security2022.html#paras-29-42","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E043","canonical_fact_key":"https://www.jstage.jst.go.jp/article/jicp/5/2/5_73/_article/-char/ja/#paras-159-167","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9"],"disposition":"final_evidence"},
+    {"provisional_id":"E044","canonical_fact_key":"https://www.mod.go.jp/en/article/2022/10/964aabc3c2fae9c330a97658d31a49908c091ed7.html#paras-92-96","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.7","1B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"CAND-1B-NRA-2022","canonical_fact_key":"https://www.nra.go.jp/data/000472240.pdf","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.6","1B.7"],"disposition":"rejected","reason":"Promising FY2022 safeguards report, but retrieval returned 403 and no precise locator could be verified."}
+  ]
+}
+```
+
+
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 12,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Many accepted items are same-source policy statements and are not independent corroboration.",
+        "Implementation and operational attribution remain weaker than formal policy attribution.",
+        "The inaccessible Nuclear Regulation Authority report is a bounded, research-recoverable gap."
+      ],
+      "missing_themes": [
+        "recoverable safeguards implementation locator",
+        "independent assessment of crisis-communication adequacy",
+        "public evidence on biological-risk and AI-risk governance",
+        "operational nuclear command and control"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable restraint/nonproliferation evidence and adverse material—the TPNW criticism and cybersecurity fragmentation—were searched. Coverage remains incomplete for safeguards implementation, biological risk, AI governance, and classified operations.",
+        "closed_system_silence": "Classified nuclear command, intelligence, safeguards, biological-risk, and cyber operations could conceal misconduct or failure. Absence of reported nuclear use is not a finding of safe conduct.",
+        "open_system_complaint_volume": "Japan's open media and NGO environment increases visible criticism, but security-related complaint volume is not exposure-adjusted and may underrepresent classified or inaccessible harms.",
+        "duplicate_reporting": "E028-E031 and E036-E037 substantially repeat Kishida's nuclear-policy rhetoric; E038-E040 are distinct missile events but share official-source limitations. These should be reconciled to underlying claims.",
+        "allegations_vs_findings": "Formal policy, doctrine, and crisis-response records establish adopted government actions and statements. The specialist cybersecurity critique is an adverse analysis; effectiveness, safeguards execution, and operational restraint remain unverified.",
+        "official_claim_independence": "Official records independently support policy adoption, consultation, and crisis-response chronology. Claims of effectiveness, legality in practice, and restraint lack sufficient independent checks.",
+        "population_exposure_authority_baseline_shocks": "The notebook addresses Japan's non-nuclear baseline, alliance dependence, inherited security institutions, North Korean and Ukraine shocks, and Kishida's formal authority, but operational exposure and implementation effects remain unclear.",
+        "missing_source_type": "Independent safeguards findings, specialist nuclear-risk analysis, operational cyber assessments, and public evidence on biological and AI-risk governance are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E007",
+          "E021",
+          "E027",
+          "E033",
+          "E034",
+          "E038",
+          "E041",
+          "E043"
+        ],
+        "unresolved_risks": [
+          "NRA safeguards evidence is a promising but inaccessible candidate.",
+          "No public nuclear command-and-control evidence was recovered.",
+          "Biological- and AI-specific 2022 governance coverage remains absent."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Security evidence is concentrated in official records and overlapping claims.",
+        "Formal defensive doctrine is not evidence of consequences or operational restraint.",
+        "A bounded search for conflict, arms-transfer, and oversight evidence could materially improve the chapter."
+      ],
+      "missing_themes": [
+        "civilian protection",
+        "proxy and arms-recipient conduct",
+        "intelligence truthfulness",
+        "accountability findings",
+        "implementation of security commitments"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable diplomacy, sanctions, defensive framing, and de-escalatory claims were searched. Adverse searches for civilian protection, proxy activity, arms recipients, intelligence truthfulness, and accountability are not demonstrated.",
+        "closed_system_silence": "Military, intelligence, arms-transfer, and alliance decision-making can conceal civilian harm, proxy support, or inaccurate public claims.",
+        "open_system_complaint_volume": "Japan's open environment makes criticism visible, while international reporting may overemphasize salient Ukraine-related events. Complaint and event volume is not normalized for exposure.",
+        "duplicate_reporting": "E005-E008 and E021 overlap heavily on Ukraine, alliance policy, and counterstrike doctrine. They should not be counted as independent confirmation of the same fact.",
+        "allegations_vs_findings": "Official records establish sanctions, doctrine, alliance coordination, and stated defensive limits. They do not establish civilian-protection performance, intelligence accuracy, proxy conduct, or accountability findings.",
+        "official_claim_independence": "Official diplomatic and strategy documents establish government action, but defensive and nonproliferation claims lack adequate external checks.",
+        "population_exposure_authority_baseline_shocks": "Ukraine, energy, alliance, and inherited-defense shocks are identified, but civilian exposure, coalition/Diet/bureaucratic constraints, and Kishida-specific authority are incompletely separated.",
+        "missing_source_type": "Conflict-monitoring, arms-transfer, civilian-harm, intelligence-oversight, and parliamentary-accountability sources are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E005",
+          "E006",
+          "E007",
+          "E015",
+          "E021",
+          "E023"
+        ],
+        "unresolved_risks": [
+          "No civilian-protection or proxy/arms-recipient analysis.",
+          "No intelligence-truthfulness or accountability evidence.",
+          "Absence of Japanese war initiation does not establish broader peace performance."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The strongest evidence concerns adverse conditions and cabinet/legal responses rather than direct personal attribution.",
+        "Country-level rights indicators cannot alone establish Kishida responsibility.",
+        "Further bounded primary and Japanese-language research could recover attribution and event findings."
+      ],
+      "missing_themes": [
+        "primary findings for detention and refugee claims",
+        "police and intelligence command evidence",
+        "protest-specific incidents",
+        "remedy and enforcement outcomes",
+        "Japanese-language rights searches"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse rights reporting is substantial. Comparable favorable searches for enforcement, remedies, police conduct, and successful protections are not shown, and protest-specific searches are absent.",
+        "closed_system_silence": "Detention, police, intelligence, refugee-processing, and migrant-labor settings may suppress evidence of abuse or neglect.",
+        "open_system_complaint_volume": "Japan's open media and NGO environment may increase visible complaints, while closed facilities and marginalized groups may be underreported; neither direction is quantified.",
+        "duplicate_reporting": "E011, E012, E019, and E020 overlap on detention, minority, migrant, and civil-rights conditions. Repeated reporting must be reconciled to underlying incidents.",
+        "allegations_vs_findings": "The detention death and rights conditions are reported by HRW and the State Department, but the handoff does not consistently distinguish adjudicated findings, official determinations, allegations, and unresolved claims. Government measures establish responses, not successful remedy.",
+        "official_claim_independence": "Official legislation and responses establish government action. Official assurances concerning detention, refugee treatment, and compliance lack independent verification.",
+        "population_exposure_authority_baseline_shocks": "Country-level indicators and affected groups are identified, but subgroup, regional, institutional-authority, inherited-baseline, and COVID-exposure distinctions remain incomplete.",
+        "missing_source_type": "Primary court records, detention inspections, parliamentary inquiries, police oversight, and Japanese-language civil-society reporting are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E004",
+          "E010",
+          "E011",
+          "E012",
+          "E019",
+          "E020",
+          "E024"
+        ],
+        "unresolved_risks": [
+          "Direct Kishida orders, knowledge, or tolerance are generally absent.",
+          "Protest-specific and police/intelligence incidents are missing.",
+          "Several adverse claims need primary finding status and precise locators."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "This is the strongest chapter, but country-level evidence is not enough for a complete ruler-attributed account.",
+        "Both favorable and adverse institutional evidence exists, yet direct conduct searches remain incomplete.",
+        "Continuation could materially improve attribution and contrary-conduct coverage."
+      ],
+      "missing_themes": [
+        "direct conduct toward investigative journalism",
+        "direct conduct toward opposition criticism",
+        "surveillance and informal pressure",
+        "succession and term-limit behavior",
+        "Japanese-language contrary coverage"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable institutional evidence and adverse material on press clubs, malapportionment, representation, and minority protections were searched. Direct Kishida conduct toward journalism, opposition, surveillance, and succession was not searched comprehensively.",
+        "closed_system_silence": "Surveillance, informal pressure, access-controlled journalism, and opaque party or bureaucratic practices may conceal restrictions not visible in election indicators.",
+        "open_system_complaint_volume": "Open media, NGOs, and opposition activity increase visible criticism; complaint volume is not normalized for population, access, or reporting intensity.",
+        "duplicate_reporting": "E009-E011, E020, and E024 repeat overlapping election, media, assembly, and institutional facts. They require source-claim reconciliation before counting.",
+        "allegations_vs_findings": "Freedom House and State Department provide independent assessments of elections, media, assembly, and institutions. Country indicators and official records remain distinct from Kishida-specific conduct and should not be treated as personal findings.",
+        "official_claim_independence": "Independent assessments provide checks on official election and institutional claims, but direct Kishida attribution remains thin.",
+        "population_exposure_authority_baseline_shocks": "National indicators and coalition/Diet constraints are noted, but subgroup exposure, inherited institutional baseline, Kishida's specific authority, and external shocks are not fully separated.",
+        "missing_source_type": "Investigative journalism, parliamentary-opposition records, judicial decisions, surveillance oversight, and Japanese-language media are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E009",
+          "E010",
+          "E011",
+          "E020",
+          "E024"
+        ],
+        "unresolved_risks": [
+          "Direct conduct toward investigative journalism and opposition criticism is missing.",
+          "Surveillance and succession/term-limit behavior are not covered.",
+          "Democratic quality may largely reflect inherited institutions rather than 2022 Kishida conduct."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Goals and implementation architecture are better evidenced than results.",
+        "Macro indicators are contextual and do not establish Kishida attribution.",
+        "Bounded outcome, distributional, and capture research could materially improve the chapter."
+      ],
+      "missing_themes": [
+        "independent evaluation of New Form of Capitalism",
+        "household and regional distribution",
+        "wage and price outcomes",
+        "economic-professional appointments",
+        "economic-policy capture or corruption"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Stated programs and adverse macroeconomic constraints were searched. Favorable and adverse searches for household distribution, wages, prices, appointments, procurement, and capture are incomplete.",
+        "closed_system_silence": "Economic capture, procurement influence, informal lobbying, and distributional harms may be obscured by official program reporting.",
+        "open_system_complaint_volume": "Open criticism may increase visible complaints, while harms to less visible groups may be undercounted. Complaint volume is not normalized for exposure or affected population.",
+        "duplicate_reporting": "E002, E015, E018, and E022 overlap on goals, shocks, subsidies, and unresolved reforms. They should not be counted as independent corroboration without claim reconciliation.",
+        "allegations_vs_findings": "OECD analysis provides external findings on shocks, policy response, debt, and structural weaknesses. Official statements establish goals and measures, not New Form of Capitalism outcomes, distributional effects, or capture.",
+        "official_claim_independence": "Official sources support policy adoption and objectives only. Independent outcome and distributional evidence is too thin.",
+        "population_exposure_authority_baseline_shocks": "OECD identifies aging, inflation, yen depreciation, COVID, Ukraine, and energy shocks, but class, household, regional, inherited, coalition, and attribution distinctions remain incomplete.",
+        "missing_source_type": "Household and labor microdata, independent fiscal evaluation, procurement records, lobbying investigations, and Japanese-language economic reporting are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E015",
+          "E018",
+          "E022",
+          "E025",
+          "E026"
+        ],
+        "unresolved_risks": [
+          "No independent evaluation of New Form of Capitalism.",
+          "No household distribution, wage, or price attribution.",
+          "No economic-policy capture or corruption evidence.",
+          "External shocks may dominate observed outcomes."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "National social indicators are baseline and outcome context, not direct performance evidence.",
+        "Actions are better evidenced than equitable implementation or durable outcomes.",
+        "Bounded administrative, professional, and beneficiary research could materially improve the chapter."
+      ],
+      "missing_themes": [
+        "regional and class-based program delivery",
+        "affordability and quality",
+        "social conditionality",
+        "professional administration",
+        "durability beyond 2022",
+        "primary findings for detention and refugee treatment"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable pandemic, vaccination, border, childcare, and child-protection evidence and adverse detention, refugee, LGBTQI, minority, and migrant evidence were searched. Delivery, affordability, quality, and subgroup searches remain incomplete.",
+        "closed_system_silence": "Detention, refugee processing, institutional care, and vulnerable-child settings can conceal harms and service failures.",
+        "open_system_complaint_volume": "NGO and media complaints may be more visible in Japan, while institutionalized and marginalized populations may be underreported. Volume is not exposure-adjusted.",
+        "duplicate_reporting": "E011, E012, E015-E017, E019, E022, and E025 overlap across COVID, health, detention, minority, and social outcomes. Bundled rows require claim-level reconciliation.",
+        "allegations_vs_findings": "Official laws and measures establish action chronology. HRW and State Department reports provide adverse observations, but several detention, refugee, minority, and migrant claims need precise findings and primary corroboration.",
+        "official_claim_independence": "Official legislation and measures establish government action, but preparedness, inclusion, quality, and effectiveness claims lack sufficient independent checks.",
+        "population_exposure_authority_baseline_shocks": "National baselines and COVID context are strong, but regional/class/subgroup exposure, service quality, administrative authority, inherited systems, and durability beyond 2022 are incomplete.",
+        "missing_source_type": "Administrative delivery data, regional audits, health-professional assessments, court findings, beneficiary evidence, and Japanese-language social-policy evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E011",
+          "E012",
+          "E015",
+          "E016",
+          "E017",
+          "E019",
+          "E022",
+          "E025"
+        ],
+        "unresolved_risks": [
+          "Program delivery, affordability, and quality are not shown.",
+          "Regional and subgroup variation is missing.",
+          "Detention and refugee claims need primary findings.",
+          "Outcome indicators are not ruler-attributed."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The required governing-network nexus is present, but the personal-integrity nexus remains incomplete.",
+        "Official corrective claims require implementation checks.",
+        "Bounded financial-record and investigative research could materially improve attribution."
+      ],
+      "missing_themes": [
+        "personal assets and family/business conflicts",
+        "political-finance and procurement records",
+        "independent audit findings",
+        "parliamentary or court findings",
+        "direct retaliation, concealment, knowledge, or personal benefit"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse cabinet and church-ties reporting and favorable corrective responses were searched. Personal assets, family conflicts, procurement, audits, retaliation, and concealment were not searched comprehensively.",
+        "closed_system_silence": "Political finance, family and business interests, internal party pressure, and retaliation may remain concealed despite public resignations and reporting.",
+        "open_system_complaint_volume": "Open media and opposition scrutiny increase scandal visibility, while undisclosed networks and unreported conflicts may remain unseen. Complaint volume is not calibrated to exposure.",
+        "duplicate_reporting": "E004 and E013-E014 overlap on church ties, ministerial departures, responsibility, and reshuffle chronology. Repeated accounts may describe one underlying network event.",
+        "allegations_vs_findings": "Reuters provides chronology for ministerial departures and church ties, while official records establish Kishida's appointments, stated responsibility, and corrective actions. Ministerial misconduct must not become a personal-integrity finding without knowledge, benefit, tolerance, or concealment evidence.",
+        "official_claim_independence": "Kishida's responsibility statements and compliance actions are official self-reports. Reuters supplies independent chronology, but personal knowledge and implementation of corrective measures are not independently verified.",
+        "population_exposure_authority_baseline_shocks": "Governing-network exposure and cabinet appointment authority are identified, but inherited LDP conditions, coalition constraints, appointment discretion, public-trust effects, and external shocks are not sufficiently distinguished.",
+        "missing_source_type": "Asset disclosures, political-finance filings, independent audits, procurement records, parliamentary testimony, court records, and investigative Japanese-language reporting are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E004",
+          "E013",
+          "E014",
+          "E024",
+          "E026"
+        ],
+        "unresolved_risks": [
+          "Personal assets and family/business conflicts are absent.",
+          "No independent audit or procurement evidence.",
+          "No direct evidence of Kishida retaliation, concealment, or personal benefit.",
+          "Minister conduct is not automatically Kishida conduct."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 9,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Action and legislative throughput evidence should not be treated as effectiveness evidence.",
+        "OECD provides useful but partial external evaluation.",
+        "Bounded evaluation, audit, and implementation research could materially improve the chapter."
+      ],
+      "missing_themes": [
+        "full portfolio results",
+        "personnel performance",
+        "corrections after failure",
+        "subnational implementation",
+        "durability",
+        "independent outcome attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable policy adoption and legislative throughput and adverse OECD constraints and cabinet departures were searched. Failed programs, corrections, personnel performance, and subnational delivery searches are incomplete.",
+        "closed_system_silence": "Cabinet implementation failures, bureaucratic noncompliance, procurement problems, and internal performance information may be hidden by official reporting.",
+        "open_system_complaint_volume": "Open reporting may overrepresent salient scandals and visible disputes, while implementation failures affecting less visible groups or regions may be underreported.",
+        "duplicate_reporting": "E002-E008, E015-E018, and E021-E022 bundle overlapping programs, decisions, and policy statements. Formal records should be deduplicated into stable claim units.",
+        "allegations_vs_findings": "Official records establish goals, appointments, meetings, budgets, laws, and policy throughput. OECD provides external constraints and some assessment; independent portfolio results, corrections, and failure findings remain sparse.",
+        "official_claim_independence": "Official records are adequate for goals, actions, appointments, budgets, and legislation. Effectiveness, responsiveness, correction, and durability lack enough external verification.",
+        "population_exposure_authority_baseline_shocks": "The notebook identifies COVID, Ukraine, energy, inflation, aging, debt, coalition, and Diet constraints, but does not sufficiently separate inherited baseline, authority, exposure, implementation level, and shock effects.",
+        "missing_source_type": "Independent program evaluations, audit reports, implementation dashboards, personnel-performance records, subnational data, and parliamentary oversight are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E005",
+          "E007",
+          "E008",
+          "E015",
+          "E017",
+          "E022",
+          "E026"
+        ],
+        "unresolved_risks": [
+          "Independent outcome evidence is thin.",
+          "Subnational implementation and personnel performance are missing.",
+          "Durability and corrections after failure are not established.",
+          "External shocks may confound effectiveness interpretation."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The notebook supplies credible formal records, independent assessments, intergovernmental analysis, reputable reporting, specialist analysis, and local contextual facts, but many initial evidence rows bundle claims or repeat the same underlying event.",
+    "The continuation materially improved Chapter 1B with precise nuclear, crisis-communication, cyber, safeguards-context, and contrary-policy evidence; remaining gaps include an inaccessible safeguards report and public limits on operational information.",
+    "Local facts are appropriately treated as contextual and cannot independently establish Kishida attribution, performance, or integrity.",
+    "Official sources are fit for adopted policy, stated goals, appointments, meetings, legislation, and formal responses, but not by themselves for success, fairness, legality in practice, restraint, personal knowledge, or benefit.",
+    "Favorable and adverse coverage is materially incomplete in Chapters 2B-8B for the principal bias risks, especially implementation, contrary events, subgroup exposure, and ruler-specific attribution.",
+    "All selected chapters retain bounded, research-recoverable gaps. These are not negative ruler evidence; they reduce evidentiary confidence and leave interpretation unresolved.",
+    "The deterministic QA yield findings support review but are not themselves saturation evidence. Deduplication and claim splitting are cleanup tasks, while missing source types, locators, attribution facts, and event coverage warrant continuation."
+  ],
+  "reviewer_summary": "All eight selected chapters require continuation within the immutable full-chapter scope. Chapter 1B improved substantially after its bounded continuation, but a promising safeguards source remains inaccessible and operational implementation evidence is limited. Chapters 2B-8B still have material, research-recoverable gaps in contrary evidence, independent source types, attribution, implementation, outcomes, subgroup exposure, or personal-integrity records. Missing evidence is preserved as uncertainty rather than treated as adverse ruler evidence; no scores or score advice are assigned."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Research continuation completed for Chapters 2B–8B. No scores or score advice assigned.
+
+The repository remained read-only: I could not update `research-materials.md` or `research-ledger-manifest.json`. New IDs below continue from `E044`; the parent should append them to the manifest without renumbering.
+
+## 2B — International peace, aggression, and civilian protection
+
+- **E045** — Japan condemned Russia’s invasion as an unlawful use of force and imposed visa, asset-freeze, and export sanctions. Period fit: February 2022. Attribution: Kishida cabinet policy under formal prime-ministerial responsibility. Contrary: sanctions were nonmilitary and do not establish broader peace performance. Lenses: `2B.1`, `2B.3`, `2B.6`, `2B.7`, `2B.10`. [MOFA sanctions statement](https://www.mofa.go.jp/press/release/press6e_000371.html), lines 31–40.
+
+- **E046** — Japan provided humanitarian assistance focused on health, food, water, displaced people, children, and civilian resilience. Period fit: 2022. Attribution: government policy and Kishida’s public diplomatic direction. Contrary: official implementation reporting; no independent impact evaluation. Lenses: `2B.1`, `2B.6`, `2B.7`, `2B.10`. [MOFA Development Cooperation White Paper](https://www.mofa.go.jp/policy/oda/white/2022/html/honbun/b1/s1_1.html), lines 73–87.
+
+- **E047** — Japan transferred helmets, bulletproof vests, medical supplies, generators, food, and other non-lethal equipment to Ukraine under statutory controls requiring appropriate recipient control. Period fit: 2022. Attribution: formal cabinet/SDF policy; not a personal-order claim. Contrary: equipment supported Ukraine’s war effort, and recipient-use monitoring was not independently audited. Lenses: `2B.3`, `2B.6`, `2B.7`, `2B.8`, `2B.10`. [MOFA White Paper](https://www.mofa.go.jp/policy/oda/white/2022/html/honbun/b1/s1_1.html), lines 107–118.
+
+- **E048** — Japan’s assistance records included support for displaced persons, winterization, energy resilience, and reconstruction preparation. Period fit: 2022. Attribution: government program responsibility. Contrary: much implementation extended into 2023, limiting target-year outcome claims. Lenses: `2B.1`, `2B.6`, `2B.7`, `2B.10`. [MOFA White Paper](https://www.mofa.go.jp/policy/oda/white/2022/html/honbun/b1/s1_1.html), lines 83–96.
+
+- **E049** — SIPRI’s 2022 arms-transfer database was checked for Japanese transfers and recipient-risk evidence; no material 2022 Japanese major-arms transfer to a proxy or atrocity-implicated nonstate recipient was recovered. Disposition: bounded negative search, not evidence of absence. Lenses: `2B.4`, `2B.5`, `2B.7`, `2B.9`.
+
+- **E050** — Targeted searches for Japanese civilian-harm, proxy-war, intelligence-truthfulness, and parliamentary security-accountability findings did not recover a precise 2022 adverse finding attributable to Kishida. Disposition: unresolved gap, not negative ruler evidence. Lenses: `2B.4`, `2B.5`, `2B.8`, `2B.9`.
+
+Chapter result: materially improved civilian-protection and arms-transfer coverage, but proxy conduct, intelligence accuracy, operational restraint, and accountability remain sparse.
+
+## 3B — Domestic safety and physical integrity
+
+- **E051** — Freedom House records that Japan’s judiciary was independent, assembly and NGOs were generally free, and people were generally protected from illegitimate physical force. Period fit: 2022 country assessment. Attribution: institutional baseline, not personal Kishida performance. Contrary: lengthy pretrial detention, interrogation, death-row isolation, minority discrimination, and detention-care failures. Lenses: `3B.4`, `3B.8`, `3B.9`, `3B.10`. [Freedom House Japan 2022](https://freedomhouse.org/country/japan/freedom-world/2022), lines 179–227.
+
+- **E052** — The same assessment reports that asylum was granted to fewer than 1% of applicants and that the immigration agency admitted mistreatment after Wishma Sandamali’s death following inadequate medical care. Period fit: death in 2021, continuing institutional relevance in 2022. Attribution: national immigration administration under cabinet responsibility; no evidence of a Kishida personal order. Contrary: formal investigation and subsequent government responses existed. Lenses: `3B.1`, `3B.2`, `3B.4`, `3B.7`, `3B.9`. [Freedom House Japan 2022](https://freedomhouse.org/country/japan/freedom-world/2022), lines 218–227.
+
+- **E053** — The State Department reported credible human-rights concerns involving reproductive access and violence against minorities, while also recording government mechanisms to identify and punish abusive or corrupt officials. Period fit: 2022 report. Attribution: country-level administration; Kishida attribution limited to cabinet responsibility. Contrary: existence of complaint and accountability mechanisms. Lenses: `3B.1`, `3B.4`, `3B.7`, `3B.8`, `3B.10`. [2022 State Department report](https://www.ecoi.net/en/document/2089494.html), lines 38–40.
+
+- **E054** — The State Department found no national law prohibiting discrimination based on sexual orientation, gender identity, or sex characteristics and recorded a July 2022 LGBTQI protest outside LDP headquarters. Period fit: 2022. Attribution: legislative and governing responsibility, shared with the Diet and coalition. Contrary: protest activity remained legally possible and visible. Lenses: `3B.4`, `3B.7`, `3B.8`, `3B.9`. [State Department report](https://www.ecoi.net/en/document/2089494.html), lines 270–284.
+
+- **E055** — Amnesty’s 2022 review raised concerns about refugees, migrants, LGBTQI people, ethnic minorities, and detention conditions, while noting the government’s continuing absence of an independent national human-rights institution. Period fit: 2022 review. Attribution: national policy environment; personal attribution weak. Contrary: Japan maintained formal treaty and judicial institutions. Lenses: `3B.1`, `3B.2`, `3B.4`, `3B.7`, `3B.9`. [Amnesty Japan 2022 report](https://www.amnesty.org/en/documents/asa22/5760/2022/en/).
+
+- **E056** — Searches for protest-specific police violence, intelligence-command abuses, and primary detention findings recovered no additional 2022 ruler-attributed finding beyond the existing Wishma and refugee record. Disposition: unresolved gap, not adverse evidence. Lenses: `3B.1`, `3B.3`, `3B.5`, `3B.6`, `3B.10`.
+
+Chapter result: independent adverse evidence is stronger and better located, but direct Kishida knowledge, police command, protest incidents, and remedy outcomes remain unresolved.
+
+## 4B — Political freedom and democratic institutions
+
+- **E057** — Freedom House records constitutional protection for assembly, active NGOs, an independent judiciary, and generally upheld due process. Period fit: 2022 assessment. Attribution: institutional baseline with limited Kishida-specific attribution. Contrary: lengthy detention, forced-confession concerns, and broad conspiracy offenses. Lenses: `4B.1`, `4B.3`, `4B.4`, `4B.6`, `4B.9`.
+
+- **E058** — Freedom House’s 2022 internet report records continued concerns that the LDP-linked “Dappi” account attacked opposition figures, while explicitly stating that direct LDP involvement remained unclear. Period fit: 2022 reporting on an ongoing online network. Attribution: possible party-network nexus, not Kishida personally. Contrary: uncertainty about who commissioned or directed the activity. Lenses: `4B.3`, `4B.5`, `4B.6`, `4B.8`, `4B.10`. [Freedom House Freedom on the Net 2022](https://freedomhouse.org/country/japan/freedom-net/2022), lines 235–238.
+
+- **E059** — The same report records structural barriers from kisha clubs: access is concentrated among traditional media, and independent or online journalists may be excluded from official access. Period fit: continuing 2022 institutional condition. Attribution: government/media-system responsibility is indirect and shared. Contrary: constitutional press protections and active media remain. Lenses: `4B.3`, `4B.6`, `4B.9`, `4B.10`. [Freedom House](https://freedomhouse.org/country/japan/freedom-net/2022), lines 250–255.
+
+- **E060** — Targeted searches for Kishida retaliation against journalists, opposition censorship, surveillance orders, and succession manipulation did not recover a precise 2022 personal finding. Disposition: bounded negative search, not evidence of good conduct. Lenses: `4B.5`, `4B.6`, `4B.8`, `4B.10`.
+
+- **E061** — The 2022 election environment remained competitive, with viable opposition and peaceful assembly, but malapportionment, minority exclusion, and press-access barriers remained contrary institutional evidence. This reconciles favorable and adverse country-level material without converting either into a personal Kishida finding. Lenses: `4B.1`–`4B.10`. Existing sources: [Freedom House](https://freedomhouse.org/country/japan/freedom-world/2022), [Freedom on the Net](https://freedomhouse.org/country/japan/freedom-net/2022).
+
+Chapter result: the strongest chapter remains institutionally mixed; direct Kishida conduct toward journalism, surveillance, opposition, and succession was not recovered.
+
+## 5B — Economic well-being and prosperity
+
+- **E062** — The Kishida cabinet’s “New Form of Capitalism” program explicitly targeted wage growth, household income, investment, NISA expansion, and a growth–distribution cycle. Period fit: policy adopted and promoted during 2022. Attribution: direct cabinet program responsibility. Contrary: stated goals do not establish outcomes. Lenses: `5B.1`, `5B.3`, `5B.4`, `5B.6`, `5B.7`, `5B.10`. [Prime Minister’s Office policy page](https://japan.kantei.go.jp/ongoingtopics/policies_kishida/newcapitalism.html).
+
+- **E063** — IMF’s 2022 Article IV analysis describes Kishida’s agenda as sustainable and inclusive growth but recommends substantial structural reforms, deregulation, productivity improvements, and R&D investment. Period fit: 2022. Attribution: external evaluation of the government’s policy environment. Contrary: IMF projected potential gains from reforms; it did not find the agenda ineffective. [IMF Japan 2022 Article IV](https://www.elibrary.imf.org/view/journals/002/2022/099/article-A001-en.xml).
+
+- **E064** — OECD’s inclusive-capitalism work provides disaggregated indicators intended to assess the distributional effects of policies aligned with Kishida’s “New Form of Capitalism,” confirming that household and subgroup outcomes required separate measurement rather than macro averages. Period fit: published 2023 using relevant target-period data. Attribution: contextual evaluation, not a direct 2022 result. Lenses: `5B.4`, `5B.6`, `5B.8`, `5B.10`. [OECD inclusive-capitalism assessment](https://www.oecd.org/en/publications/measuring-progress-towards-inclusive-capitalism-in-japan_f81d79a7-en.html), lines 3724–3727.
+
+- **E065** — Japan’s 2022 household and social-security survey provides cross-tabulations by income, food insecurity, unpaid bills, public assistance, child benefits, education burden, health, disability, and employment. Period fit: 2022 survey. Attribution: outcome context; no causal Kishida attribution. Contrary: the data could support favorable or adverse subgroup findings but requires table-level extraction. Lenses: `5B.4`, `5B.6`, `5B.8`, `5B.9`, `5B.10`. [National Institute of Population and Social Security Research](https://www.ipss.go.jp/ss-seikatsu/e/2022/seikatsu2022_e.html), lines 44–79.
+
+- **E066** — Japanese economic policy reporting and official statistics continued to show inflation, yen depreciation, and real-income pressure during the target year, while the government used fuel and food-price measures. Period fit: 2022. Attribution: shared cabinet/central-bank responsibility, heavily confounded by external shocks. Contrary: subsidy policy provided short-term relief. Lenses: `5B.3`, `5B.6`, `5B.7`, `5B.9`, `5B.10`. [OECD 2022 Economic Outlook](https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2022/issue-1_62d0ca31-en/full-report/component-31.html).
+
+- **E067** — Searches for procurement capture, economic-policy bribery, Kishida family/business conflicts, and independent audits did not recover a target-period finding tying Kishida personally to economic corruption or benefit. Disposition: unresolved gap, not exculpatory evidence. Lenses: `5B.5`, `5B.8`, `5B.9`, `5B.10`.
+
+Chapter result: distributional and macro outcome sources improved the chapter, but causal attribution to Kishida and independent evaluation of the flagship program remain weak.
+
+## 6B — Social protection, health, and human development
+
+- **E068** — The 2022 national social-security survey includes household food insecurity, late bill payment, public assistance, child benefits, education costs, health, mental health, caregiving, disability, and employment cross-tabs. Period fit: 2022. Attribution: social-outcome context, not direct ruler evidence. Lenses: `6B.1`–`6B.10`. [IPSS survey tables](https://www.ipss.go.jp/ss-seikatsu/e/2022/seikatsu2022_e.html), lines 51–79.
+
+- **E069** — Japan relaxed COVID border measures on 11 October 2022, removing arrival testing and quarantine requirements for qualifying entrants. Period fit: October 2022. Attribution: cabinet public-health decision. Contrary: reopening created exposure and implementation risks; the source does not establish outcome quality. Lenses: `6B.1`, `6B.2`, `6B.5`, `6B.6`, `6B.9`. [JETRO summary](https://www.jetro.go.jp/en/invest/newsroom/2022/cc2e7bf8607c7272.html).
+
+- **E070** — WHO’s Japan health-system monitor identifies strengthened primary health centers as central to Japan’s COVID response and local implementation. Period fit: COVID-era system evidence relevant to 2022. Attribution: institutional and subnational implementation, not Kishida alone. Contrary: it does not assess regional equality or affordability. Lenses: `6B.1`, `6B.2`, `6B.5`, `6B.6`, `6B.10`. [WHO Japan response monitor](https://apo.who.int/publications/9789290228264).
+
+- **E071** — Kishida’s child-policy program included pregnancy and post-birth consultations, childcare quality, tuition support, and housing assistance proposals. Period fit: policy architecture during the Kishida period; some measures were prospective beyond 2022. Attribution: cabinet goals and design. Contrary: implementation and fiscal durability were not established. Lenses: `6B.1`, `6B.5`, `6B.6`, `6B.9`, `6B.10`. [Prime Minister’s Office child-support policy](https://japan.kantei.go.jp/ongoingtopics/policies_kishida/childsupport.html).
+
+- **E072** — State Department and Amnesty evidence continued to identify detention, refugee, migrant, LGBTQI, and minority vulnerabilities despite formal government programs. Period fit: 2022. Attribution: national administrative responsibility, with weak personal nexus. Contrary: visible protests, courts, and civil-society activity provided some corrective channels. Lenses: `6B.2`, `6B.3`, `6B.4`, `6B.8`, `6B.10`. [State Department](https://www.ecoi.net/en/document/2089494.html), [Amnesty](https://www.amnesty.org/en/documents/asa22/5760/2022/en/).
+
+- **E073** — Searches for regional delivery audits, beneficiary evaluations, affordability, service-quality variation, and durability beyond 2022 did not recover enough precise evidence for a new ruler-attributed unit. Disposition: unresolved gap. Lenses: `6B.5`, `6B.6`, `6B.7`, `6B.9`, `6B.10`.
+
+Chapter result: implementation and social-outcome coverage improved, but subgroup distribution, affordability, quality, and durability remain underdocumented.
+
+## 7B — Personal and governing-network integrity
+
+- **E074** — Kishida’s 31 August 2022 press conference acknowledged the need to respond to victims of “spiritual sales” and established interministerial and Consumer Affairs Agency mechanisms for relief and prevention. Period fit: August 2022. Attribution: direct Kishida response and formal government action. Contrary: response followed public scandal and does not establish prior knowledge or effective implementation. Lenses: `7B.2`, `7B.6`, `7B.7`, `7B.8`, `7B.10`. [Prime Minister’s Office press conference](https://japan.kantei.go.jp/101_kishida/statement/202208/_00031.html).
+
+- **E075** — Reuters reported Economic Revitalization Minister Yamagiwa’s resignation after criticism over incomplete disclosure of Unification Church ties; Kishida accepted the resignation and cited his responsibility as prime minister. Period fit: October 2022. Attribution: direct appointment and corrective-response nexus, not personal misconduct. Lenses: `7B.2`, `7B.5`, `7B.6`, `7B.9`, `7B.10`. [Reuters report](https://www.investing.com/news/economy/japan-econmin-yamagiwa-to-step-down--nhk-2919429).
+
+- **E076** — A fourth minister left Kishida’s August cabinet by December amid funding and church-ties controversies. Period fit: December 2022. Attribution: appointment and retention responsibility; ministerial conduct remains distinct from Kishida’s personal integrity. Contrary: the departures show corrective action but also screening or oversight weakness. Lenses: `7B.2`, `7B.5`, `7B.6`, `7B.9`, `7B.10`. [Euronews/Reuters chronology](https://www.euronews.com/2022/12/27/japan-politics-minister).
+
+- **E077** — Kishida’s cabinet reshuffle retained several senior ministers while responding to COVID, Ukraine, Taiwan, inflation, and public-trust concerns. Period fit: August 2022. Attribution: direct appointment discretion under coalition and factional constraints. Contrary: reshuffle decisions were criticized as factional or insufficiently corrective. Lenses: `7B.2`, `7B.5`, `7B.6`, `7B.9`. [Prime Minister’s Office press conference](https://japan.kantei.go.jp/101_kishida/statement/202208/_00007.html).
+
+- **E078** — Kishida’s Hiroshima election office acknowledged deficiencies in some attached receipts while asserting that reported expenditures were proper and directing the office to prevent recurrence. Period fit: November 2022. Attribution: personal campaign office and direct response. Contrary: this is a documentation deficiency, not evidence of personal benefit, concealment, or intentional fraud. Lenses: `7B.1`, `7B.3`, `7B.4`, `7B.6`, `7B.9`. [Kantei press conference](https://www.kantei.go.jp/jp/101_kishida/statement/2022/1124kaiken.html).
+
+- **E079** — OECD’s integrity assessment identifies Japanese political-finance and procurement safeguards but notes the absence of a central lobbying-monitoring or harmonized internal-audit body. Period fit: later assessment of institutional conditions relevant to the 2022 baseline. Attribution: institutional context, not a Kishida personal finding. Lenses: `7B.5`, `7B.7`, `7B.8`, `7B.10`. [OECD Japan integrity country note](https://www.oecd-ilibrary.org/content/dam/oecd/en/publications/reports/2024/03/anti-corruption-and-integrity-outlook-2024-country-notes_7f250aa9/japan_9263167e/d33d6aac-en.pdf).
+
+- **E080** — Searches for Kishida’s personal assets, family/business conflicts, procurement benefit, retaliation, concealment, and independent 2022 audit findings recovered no defensible personal-integrity unit. Disposition: unresolved gap; ministerial scandals are not converted into personal misconduct. Lenses: `7B.1`, `7B.3`, `7B.4`, `7B.7`, `7B.8`.
+
+Chapter result: the governing-network nexus is now stronger, including personal campaign-office accountability, but no evidence establishes Kishida’s personal benefit, concealment, retaliation, or family/business conflict.
+
+## 8B — Governing effectiveness and implementation
+
+- **E081** — The FY2022 supplementary budget included fuel-price measures, food-price stabilization, and ¥5.5 trillion in reserve funds for COVID, disasters, and price shocks. Period fit: May 2022. Attribution: direct cabinet fiscal action. Contrary: reserve funds and budget approval establish throughput, not outcome. Lenses: `8B.1`, `8B.2`, `8B.3`, `8B.6`, `8B.7`. [Kantei supplementary-budget conference](https://japan.kantei.go.jp/101_kishida/statement/202205/_00015.html).
+
+- **E082** — The OECD 2022 outlook records Japan’s price-support package at approximately 2.4% of GDP and projected continued growth, while warning that reopening and infection control had to be balanced. Period fit: 2022 forecast and policy evaluation. Attribution: external assessment of cabinet response, not proof of realized success. Lenses: `8B.2`, `8B.3`, `8B.6`, `8B.7`, `8B.10`. [OECD Economic Outlook](https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2022/issue-1_62d0ca31-en/full-report/component-31.html).
+
+- **E083** — Japan’s Board of Audit examined large COVID hospital-bed-support budgets, including approximately ¥5.98 trillion in comprehensive support grants across FY2020–21 and additional emergency support. Period fit: audit of the implementation architecture operating into 2022. Attribution: national and subnational administrative responsibility. Contrary: the opened page establishes scale, not yet a complete finding of waste or success. Lenses: `8B.2`, `8B.3`, `8B.5`, `8B.7`, `8B.9`. [Board of Audit report](https://report.jbaudit.go.jp/org/r04/ZUIJI1/2022-r04-Z1015-0.htm), lines 32–38.
+
+- **E084** — The Board of Audit material was specifically checked for evidence of unused beds, repayment, implementation deficiencies, and corrective findings; the accessible section did not provide a sufficiently precise extract for a new accepted adverse unit. Disposition: candidate reviewed, not accepted pending exact finding locator. Lenses: `8B.3`, `8B.5`, `8B.7`, `8B.9`.
+
+- **E085** — COVID vaccination coverage and health-system strengthening enabled Japan’s 2022 border reopening, according to OECD’s later synthesis. Period fit: target-year policy/outcome context, with later evaluation. Attribution: shared cabinet, health-system, and subnational responsibility. Contrary: no ruler-specific causal estimate. Lenses: `8B.2`, `8B.3`, `8B.6`, `8B.7`, `8B.10`. [OECD Japan survey](https://www.oecd.org/en/publications/oecd-economic-surveys-japan-2024_41e807f9-en/full-report/component-4.html).
+
+- **E086** — Three cabinet ministers resigned in rapid succession in late 2022 amid scandals, generating contemporaneous criticism of Kishida’s leadership and ability to manage appointments. Period fit: November–December 2022. Attribution: effectiveness and personnel-management evidence, not automatic personal corruption. Contrary: Kishida accepted resignations and reshuffled personnel. Lenses: `8B.4`, `8B.5`, `8B.8`, `8B.9`. [Japan Times chronology](https://www.japantimes.co.jp/news/2022/11/20/national/politics-diplomacy/kishida-loses-third-minister/).
+
+- **E087** — Searches for complete 2022 portfolio evaluations, subnational delivery dashboards, personnel-performance records, correction-after-failure findings, and durability evidence recovered no sufficiently specific independent unit beyond the audit and OECD material above. Disposition: unresolved gap. Lenses: `8B.3`, `8B.5`, `8B.7`, `8B.8`, `8B.9`, `8B.10`.
+
+Chapter result: implementation evidence improved through audit and OECD material, but full-portfolio results, personnel performance, correction, and durability remain incomplete.
+
+## Manifest continuation fragment
+
+The following entries should be appended to `research-ledger-manifest.json`:
+
+```json
+[
+  {"provisional_id":"E045","canonical_fact_key":"https://www.mofa.go.jp/press/release/press6e_000371.html#lines-31-40","chapter_ids":["2B"],"methodology_ids":["2B.1","2B.3","2B.6","2B.7","2B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E046","canonical_fact_key":"https://www.mofa.go.jp/policy/oda/white/2022/html/honbun/b1/s1_1.html#lines-73-87","chapter_ids":["2B"],"methodology_ids":["2B.1","2B.6","2B.7","2B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E047","canonical_fact_key":"https://www.mofa.go.jp/policy/oda/white/2022/html/honbun/b1/s1_1.html#lines-107-118","chapter_ids":["2B"],"methodology_ids":["2B.3","2B.6","2B.7","2B.8","2B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E048","canonical_fact_key":"https://www.mofa.go.jp/policy/oda/white/2022/html/honbun/b1/s1_1.html#lines-83-96","chapter_ids":["2B"],"methodology_ids":["2B.1","2B.6","2B.7","2B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E049","canonical_fact_key":"https://armstransfers.sipri.org/ArmsTransfer/","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.5","2B.7","2B.9"],"disposition":"rejected","reason":"Bounded search did not recover a precise qualifying Japanese proxy or atrocity-recipient transfer claim."},
+  {"provisional_id":"E050","canonical_fact_key":"search-set:2022-Japan-civilian-protection-intelligence-accountability","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.5","2B.8","2B.9"],"disposition":"gap","reason":"No precise ruler-attributed 2022 finding recovered."},
+
+  {"provisional_id":"E051","canonical_fact_key":"https://freedomhouse.org/country/japan/freedom-world/2022#lines-179-227","chapter_ids":["3B"],"methodology_ids":["3B.4","3B.8","3B.9","3B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E052","canonical_fact_key":"https://freedomhouse.org/country/japan/freedom-world/2022#lines-218-227","chapter_ids":["3B"],"methodology_ids":["3B.1","3B.2","3B.4","3B.7","3B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E053","canonical_fact_key":"https://www.ecoi.net/en/document/2089494.html#lines-38-40","chapter_ids":["3B"],"methodology_ids":["3B.1","3B.4","3B.7","3B.8","3B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E054","canonical_fact_key":"https://www.ecoi.net/en/document/2089494.html#lines-270-284","chapter_ids":["3B"],"methodology_ids":["3B.4","3B.7","3B.8","3B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E055","canonical_fact_key":"https://www.amnesty.org/en/documents/asa22/5760/2022/en/","chapter_ids":["3B"],"methodology_ids":["3B.1","3B.2","3B.4","3B.7","3B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E056","canonical_fact_key":"search-set:2022-Japan-protest-police-intelligence-primary-findings","chapter_ids":["3B"],"methodology_ids":["3B.1","3B.3","3B.5","3B.6","3B.10"],"disposition":"gap","reason":"No additional precise ruler-attributed finding recovered."},
+
+  {"provisional_id":"E057","canonical_fact_key":"https://freedomhouse.org/country/japan/freedom-world/2022#lines-179-227","chapter_ids":["4B"],"methodology_ids":["4B.1","4B.3","4B.4","4B.6","4B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E058","canonical_fact_key":"https://freedomhouse.org/country/japan/freedom-net/2022#lines-235-238","chapter_ids":["4B"],"methodology_ids":["4B.3","4B.5","4B.6","4B.8","4B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E059","canonical_fact_key":"https://freedomhouse.org/country/japan/freedom-net/2022#lines-250-255","chapter_ids":["4B"],"methodology_ids":["4B.3","4B.6","4B.9","4B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E060","canonical_fact_key":"search-set:2022-Japan-Kishida-journalism-opposition-surveillance-succession","chapter_ids":["4B"],"methodology_ids":["4B.5","4B.6","4B.8","4B.10"],"disposition":"gap","reason":"No precise personal finding recovered."},
+  {"provisional_id":"E061","canonical_fact_key":"reconciliation:Freedom-House-2022-democratic-institutions","chapter_ids":["4B"],"methodology_ids":["4B.1","4B.2","4B.3","4B.4","4B.5","4B.6","4B.7","4B.8","4B.9","4B.10"],"disposition":"final_evidence"},
+
+  {"provisional_id":"E062","canonical_fact_key":"https://japan.kantei.go.jp/ongoingtopics/policies_kishida/newcapitalism.html","chapter_ids":["5B"],"methodology_ids":["5B.1","5B.3","5B.4","5B.6","5B.7","5B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E063","canonical_fact_key":"https://www.elibrary.imf.org/view/journals/002/2022/099/article-A001-en.xml","chapter_ids":["5B"],"methodology_ids":["5B.1","5B.3","5B.6","5B.7","5B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E064","canonical_fact_key":"https://www.oecd.org/en/publications/measuring-progress-towards-inclusive-capitalism-in-japan_f81d79a7-en.html#lines-3724-3727","chapter_ids":["5B"],"methodology_ids":["5B.4","5B.6","5B.8","5B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E065","canonical_fact_key":"https://www.ipss.go.jp/ss-seikatsu/e/2022/seikatsu2022_e.html#lines-51-79","chapter_ids":["5B"],"methodology_ids":["5B.4","5B.6","5B.8","5B.9","5B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E066","canonical_fact_key":"https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2022/issue-1_62d0ca31-en/full-report/component-31.html","chapter_ids":["5B"],"methodology_ids":["5B.3","5B.6","5B.7","5B.9","5B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E067","canonical_fact_key":"search-set:2022-Japan-economic-capture-procurement-Kishida-assets","chapter_ids":["5B"],"methodology_ids":["5B.5","5B.8","5B.9","5B.10"],"disposition":"gap","reason":"No defensible personal or policy-capture finding recovered."},
+
+  {"provisional_id":"E068","canonical_fact_key":"https://www.ipss.go.jp/ss-seikatsu/e/2022/seikatsu2022_e.html#lines-51-79","chapter_ids":["6B"],"methodology_ids":["6B.1","6B.2","6B.3","6B.4","6B.5","6B.6","6B.7","6B.8","6B.9","6B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E069","canonical_fact_key":"https://www.jetro.go.jp/en/invest/newsroom/2022/cc2e7bf8607c7272.html","chapter_ids":["6B"],"methodology_ids":["6B.1","6B.2","6B.5","6B.6","6B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E070","canonical_fact_key":"https://apo.who.int/publications/9789290228264","chapter_ids":["6B"],"methodology_ids":["6B.1","6B.2","6B.5","6B.6","6B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E071","canonical_fact_key":"https://japan.kantei.go.jp/ongoingtopics/policies_kishida/childsupport.html","chapter_ids":["6B"],"methodology_ids":["6B.1","6B.5","6B.6","6B.9","6B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E072","canonical_fact_key":"reconciliation:State-Department-Amnesty-Japan-2022","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.3","6B.4","6B.8","6B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E073","canonical_fact_key":"search-set:2022-Japan-social-delivery-affordability-quality-regional","chapter_ids":["6B"],"methodology_ids":["6B.5","6B.6","6B.7","6B.9","6B.10"],"disposition":"gap","reason":"No sufficiently precise independent delivery unit recovered."},
+
+  {"provisional_id":"E074","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202208/_00031.html","chapter_ids":["7B"],"methodology_ids":["7B.2","7B.6","7B.7","7B.8","7B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E075","canonical_fact_key":"https://www.investing.com/news/economy/japan-econmin-yamagiwa-to-step-down--nhk-2919429","chapter_ids":["7B"],"methodology_ids":["7B.2","7B.5","7B.6","7B.9","7B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E076","canonical_fact_key":"https://www.euronews.com/2022/12/27/japan-politics-minister","chapter_ids":["7B"],"methodology_ids":["7B.2","7B.5","7B.6","7B.9","7B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E077","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202208/_00007.html","chapter_ids":["7B"],"methodology_ids":["7B.2","7B.5","7B.6","7B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E078","canonical_fact_key":"https://www.kantei.go.jp/jp/101_kishida/statement/2022/1124kaiken.html","chapter_ids":["7B"],"methodology_ids":["7B.1","7B.3","7B.4","7B.6","7B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E079","canonical_fact_key":"https://www.oecd-ilibrary.org/content/dam/oecd/en/publications/reports/2024/03/anti-corruption-and-integrity-outlook-2024-country-notes_7f250aa9/japan_9263167e/d33d6aac-en.pdf","chapter_ids":["7B"],"methodology_ids":["7B.5","7B.7","7B.8","7B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E080","canonical_fact_key":"search-set:2022-Japan-Kishida-assets-family-procurement-retaliation","chapter_ids":["7B"],"methodology_ids":["7B.1","7B.3","7B.4","7B.7","7B.8"],"disposition":"gap","reason":"No personal nexus recovered."},
+
+  {"provisional_id":"E081","canonical_fact_key":"https://japan.kantei.go.jp/101_kishida/statement/202205/_00015.html","chapter_ids":["8B"],"methodology_ids":["8B.1","8B.2","8B.3","8B.6","8B.7"],"disposition":"final_evidence"},
+  {"provisional_id":"E082","canonical_fact_key":"https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2022/issue-1_62d0ca31-en/full-report/component-31.html","chapter_ids":["8B"],"methodology_ids":["8B.2","8B.3","8B.6","8B.7","8B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E083","canonical_fact_key":"https://report.jbaudit.go.jp/org/r04/ZUIJI1/2022-r04-Z1015-0.htm#lines-32-38","chapter_ids":["8B"],"methodology_ids":["8B.2","8B.3","8B.5","8B.7","8B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E084","canonical_fact_key":"https://report.jbaudit.go.jp/org/r04/ZUIJI1/2022-r04-Z1015-0.htm","chapter_ids":["8B"],"methodology_ids":["8B.3","8B.5","8B.7","8B.9"],"disposition":"rejected","reason":"Audit page inspected, but no precise accessible finding locator was recovered in the reviewed section."},
+  {"provisional_id":"E085","canonical_fact_key":"https://www.oecd.org/en/publications/oecd-economic-surveys-japan-2024_41e807f9-en/full-report/component-4.html","chapter_ids":["8B"],"methodology_ids":["8B.2","8B.3","8B.6","8B.7","8B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E086","canonical_fact_key":"https://www.japantimes.co.jp/news/2022/11/20/national/politics-diplomacy/kishida-loses-third-minister/","chapter_ids":["8B"],"methodology_ids":["8B.4","8B.5","8B.8","8B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E087","canonical_fact_key":"search-set:2022-Japan-portfolio-evaluation-subnational-delivery-durability","chapter_ids":["8B"],"methodology_ids":["8B.3","8B.5","8B.7","8B.8","8B.9","8B.10"],"disposition":"gap","reason":"No additional sufficiently precise independent unit recovered."}
+]
+```
+
+Overall continuation outcome: Chapters 2B–8B received additional targeted and contrary searches. The main remaining limitations are not broad discovery gaps but weak ruler-specific attribution, incomplete implementation/outcome measurement, restricted-access security information, and missing personal-integrity records.
+---

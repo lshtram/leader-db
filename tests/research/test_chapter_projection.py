@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
+from hashlib import sha256
 from math import ceil
 from pathlib import Path
 
@@ -9,6 +10,7 @@ import pytest
 
 from leaders_db.research.chapter_projection import (
     CONSERVATIVE_BYTES_PER_TOKEN,
+    RulerChapterProjection,
     build_ruler_chapter_projection,
     estimate_chapter_projection_batch_context,
 )
@@ -37,6 +39,7 @@ def test_projection_is_compact_deterministic_and_preserves_provenance(tmp_path: 
     assert projection.source_dossier_path == str(source_path)
     assert projection.source_dossier_sha256 == "a" * 64
     assert projection.source_dossier_schema_version == "ruler_evidence_dossier_v2"
+    assert projection.evidence_environment.supporting_evidence_ids == ("E001",)
     assert projection.run_provenance.provider_profile == "researcher"
     assert projection.run_provenance.research_notebook_sha256 == "b" * 64
     estimated_payload = projection.model_dump(
@@ -93,6 +96,110 @@ def test_projection_includes_discovery_only_evidence_only_as_explicit_context(
             source_dossier_path=tmp_path / "dossier.json",
             source_dossier_sha256="c" * 64,
         )
+
+
+def test_projection_loads_local_evidence_directly_from_parent_artifact(
+    tmp_path: Path,
+) -> None:
+    local_path = tmp_path / "local-priors.json"
+    local_priors = [
+        {
+            "methodology_id": methodology_id,
+            "status": "evidence_found",
+            "mapping_note": "Structured political-freedom context.",
+            "local_facts": [
+                {
+                    "field_key": "electoral_democracy",
+                    "label": "Electoral democracy",
+                    "value": 0.62,
+                    "value_type": "number",
+                    "year": 2020,
+                    "source_slugs": ["vdem"],
+                    "source_observation_ids": [
+                        "vdem:AAA:2020:electoral_democracy"
+                    ],
+                    "confidence": 88,
+                    "warnings": ["Country-level context; attribution required."],
+                    "period_role": "target",
+                    "unit": "index",
+                    "scale": "0-1",
+                    "uncertainty": {"lower": 0.58, "upper": 0.66},
+                }
+            ],
+        }
+        for methodology_id in _chapter_ids("4B")
+    ]
+    encoded = json.dumps(local_priors, indent=2, sort_keys=True).encode()
+    local_path.write_bytes(encoded)
+    digest = sha256(encoded).hexdigest()
+    payload = _dossier().model_dump(mode="json")
+    for prior in payload["local_priors"]:
+        if prior["methodology_id"].startswith("4B."):
+            prior["artifact_path"] = str(local_path)
+            prior["artifact_sha256"] = digest
+    dossier = RulerEvidenceDossier.model_validate(payload)
+
+    projection = build_ruler_chapter_projection(
+        dossier,
+        chapter_id="4B",
+        source_dossier_path=tmp_path / "dossier.json",
+        source_dossier_sha256="e" * 64,
+    )
+
+    assert projection.local_evidence.status == "available"
+    assert projection.local_evidence.artifact_sha256 == digest
+    package = projection.local_evidence.package
+    assert package is not None
+    assert package.facts[0].fact_id == "LF001"
+    assert package.facts[0].value == 0.62
+    assert package.facts[0].locator == "local-prior:4B.1"
+    assert package.longitudinal_signals[0].signal_id == "LS001"
+    assert all(
+        not item.url.startswith("local-prior:")
+        for item in projection.evidence
+    )
+
+
+def test_projection_keeps_legacy_v1_readable_with_explicit_local_gap(
+    tmp_path: Path,
+) -> None:
+    projection = build_ruler_chapter_projection(
+        _dossier(),
+        chapter_id="4B",
+        source_dossier_path=tmp_path / "dossier.json",
+        source_dossier_sha256="e" * 64,
+    )
+    payload = projection.model_dump(mode="json")
+    payload.pop("local_evidence")
+
+    restored = RulerChapterProjection.model_validate(payload)
+
+    assert restored.local_evidence.status == "unavailable"
+    assert restored.local_evidence.package is None
+    assert "legacy projection" in restored.local_evidence.error
+
+
+def test_projection_exposes_hash_mismatch_without_dropping_web_evidence(
+    tmp_path: Path,
+) -> None:
+    local_path = tmp_path / "local-priors.json"
+    local_path.write_text("[]", encoding="utf-8")
+    payload = _dossier().model_dump(mode="json")
+    for prior in payload["local_priors"]:
+        if prior["methodology_id"].startswith("4B."):
+            prior["artifact_path"] = str(local_path)
+            prior["artifact_sha256"] = "f" * 64
+
+    projection = build_ruler_chapter_projection(
+        RulerEvidenceDossier.model_validate(payload),
+        chapter_id="4B",
+        source_dossier_path=tmp_path / "dossier.json",
+        source_dossier_sha256="e" * 64,
+    )
+
+    assert projection.local_evidence.status == "invalid"
+    assert "hash does not match" in projection.local_evidence.error
+    assert [item.evidence_id for item in projection.evidence] == ["E001", "E003"]
 
 
 def test_projection_requires_complete_chapter_and_valid_source_hash(tmp_path: Path) -> None:
@@ -226,6 +333,20 @@ def _dossier(*, job_key: str = "dossier:test") -> RulerEvidenceDossier:
                 }
                 for methodology_id in methodology_ids
             ],
+            "evidence_environment": {
+                "criticism_possible": "Criticism was possible in the fixture.",
+                "censorship_and_self_censorship": "E001 provides limited context.",
+                "safe_reporting_channels": "Channels existed but are incompletely documented.",
+                "official_statistics_reliability": "No statistics are used.",
+                "languages_and_archives_searched": ["English fixture archive"],
+                "source_concentration": "The evidence is source-concentrated.",
+                "duplicate_event_risk": "Repeated coverage was collapsed.",
+                "complaint_volume_interpretation": "Volume is not severity.",
+                "relevant_denominators": "Population and exposure remain contextual.",
+                "inherited_conditions_shocks_and_authority": "Authority was assessed separately.",
+                "chapter_specific_biases": ["Source concentration"],
+                "supporting_evidence_ids": ["E001"],
+            },
             "run_profile": {
                 "provider_profile": "researcher",
                 "provider": "openai",

@@ -1,0 +1,16 @@
+schema_version: controlled_evaluation_lock_v1
+evaluation_id: 2022-bias-local-v3-controlled
+status: ready_for_controlled_full_evaluation
+frozen_commit: 0a8fa9e9c025a2740a6c4c5ed17140b6683e364f
+frozen_tree: 49cf8bf94530a3354d2306d355cca61728234cad
+evaluation_config:
+  path: configs/evaluations/2022-bias-local-v3-controlled.yaml
+  sha256: 446a4d49774a56b4118ac6446e2b6fa0243c7b4a44ebd31ff934a675296fb058
+frozen_inputs:
+  path: configs/evaluations/2022-bias-local-v3-inputs.yaml
+  sha256: 148ebf253b7b103aaf04fccba38d242e07397863fa175fd3dd95f922a024dca0
+execution_rule: >-
+  Execute the controlled run from frozen_commit/frozen_tree and refuse execution
+  when either file hash differs. A descendant implementation requires a new audited
+  lock proving that no frozen prompt, rubric, methodology, identity, local snapshot,
+  baseline, model, workflow, or gate input changed.

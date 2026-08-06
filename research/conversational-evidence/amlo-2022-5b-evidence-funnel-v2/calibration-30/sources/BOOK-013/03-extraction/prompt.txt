@@ -1,0 +1,753 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "BOOK-013",
+  "title": "CIDOB political biography",
+  "url": "https://www.cidob.org/lider-politico/andres-manuel-lopez-obrador",
+  "publisher": "www.cidob.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "biography",
+  "source_role": "independent_reference",
+  "source_family": "www.cidob.org",
+  "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 62",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 225,
+        "text": "En estos momentos, mediados de marzo de 2018, López Obrador superaba holgadamente a sus principales competidores: por la coalición oficialista Todos por México (PRI, PVEM y PANAL), el capitalino José Antonio Meade Kuribreña, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 225,
+        "end_char": 422,
+        "text": "uno de los pesos pesados del equipo de Peña Nieto, del que había sido sucesivamente secretario de Relaciones Exteriores, secretario de Desarrollo Social y Secretario de Hacienda y Crédito Público; "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 422,
+        "end_char": 594,
+        "text": "y, por la coalición Por México al Frente (PAN, PRD y MC), el mexiquense Ricardo Anaya Cortés, ex diputado federal y dos veces presidente de los panistas entre 2014 y 2017. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 594,
+        "end_char": 782,
+        "text": "En los muestreos de intención de voto la delantera del morenista oscilaba entre los 20 y los 30 puntos. Para muchos comentaristas, esta abultada ventaja de López Obrador era irreversible, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 782,
+        "end_char": 956,
+        "text": "más al no existir en México el sistema de la doble vuelta.\n10. Victoria histórica en las presidenciales de 2008\nHasta las elecciones federales del 1 de julio, López Obrador, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 956,
+        "end_char": 1100,
+        "text": "Morena y Juntos Haremos Historia fueron desgranando las claves de su programa de Gobierno. El programa electoral incidía en una serie de temas.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1100,
+        "end_char": 1336,
+        "text": "En primer lugar, se abogaba por la \"austeridad republicana\", un ajuste fiscal ligado al ahorro de gastos corrientes del Estado y la reorientación de los recursos públicos a la inversión, sin subir ningún impuesto (y sí bajando algunos, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1336,
+        "end_char": 1551,
+        "text": "pero sólo en los estados fronterizos con Estados Unidos) y sin emitir deuda. Habría un aumento gradual del salario mínimo, hasta los 171 pesos al final del sexenio, y lo mismo para las pensiones de adultos mayores, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1551,
+        "end_char": 1748,
+        "text": "que cobrarían mensualidades de 1.500 pesos. Se incrementaría la oferta de gasolina autóctona para reducir las importaciones y rebajar los precios, lo que requería poner en servicio más refinerías. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1748,
+        "end_char": 1870,
+        "text": "La reforma energética de Peña Nieto sería sometida a una revisión a fondo, anulando y revirtiendo cuanto fuera necesario. "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1870,
+        "end_char": 2018,
+        "text": "Igualmente, se buscaría las autosuficiencias energética y alimentaria, en el caso del agro ofreciendo a los productores locales precios de garantía."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 6",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 217,
+        "text": "Al final, el líder opositor convenció con su promesa de \"ser como Benito Juárez, Francisco Madero y Lázaro Cárdenas, un hombre de nación\", y con su insistencia en \"no tener nada que ver con el Gobierno de Venezuela\", "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 217,
+        "end_char": 430,
+        "text": "pues su \"mexicanismo\" equivalía a decir \"ni chavismo, ni trumpismo\". Su plataforma para el período de gobierno 2018-2024 sugiere una socialdemocracia pragmática que asume las nociones ortodoxas del libre mercado, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 430,
+        "end_char": 634,
+        "text": "la estabilidad macroeconómica, la disciplina presupuestaria y la flotación del peso, conjugadas, eso sí, con el rechazo a las \"tendencias privatizadoras\" y la \"extranjerización\" de sectores estratégicos, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 634,
+        "end_char": 857,
+        "text": "y la prioridad para la \"producción nacional\".\nA los guiños tranquilizadores a empresarios e inversores el tabasqueño añade la promesa de, llegada la hora de acabar con la corrupción y los privilegios de los ex presidentes, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 857,
+        "end_char": 1095,
+        "text": "\"hacer justicia sin venganza ni odio\" (\"no voy a meter a Peña Nieto en la cárcel\", asegura). Finalmente, el progresismo político y social de López Obrador se combina con un enfoque algo más conservador de cuestiones que atañen a la moral "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1095,
+        "end_char": 1218,
+        "text": "religiosa o tradicional como el aborto y el matrimonio homosexual, sobre los que el político se muestra esquivo o ambiguo.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1218,
+        "end_char": 1451,
+        "text": "El 1 de diciembre de 2018 López Obrador, considerado el primer presidente mexicano nítidamente de izquierda, arranca su mandato de seis años recostado en la mayoría absoluta que su coalición disfruta en las dos cámaras del Congreso, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1451,
+        "end_char": 1624,
+        "text": "entre gestos de renuncia a algunos atributos dispendiosos del cargo presidencial y prometiendo \"no traicionar al pueblo\" al tiempo que respeta \"el orden legal establecido\". "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1624,
+        "end_char": 1792,
+        "text": "Días antes de la toma de protesta, el aún presidente electo convocó a la discusión de la Constitución Moral que deberá guiar la \"Cuarta Transformación\" (4T) de México, "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1792,
+        "end_char": 2032,
+        "text": "celebró los resultados de la Consulta Nacional Ciudadana sobre los Programas Prioritarios de la Administración entrante y presentó un Plan Nacional de Paz y Seguridad que incluye la creación de una Guardia Nacional para relevar al Ejército "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2032,
+        "end_char": 2183,
+        "text": "y aborda la \"amnistía condicionada\" de narcotraficantes. Además, el nuevo equipo de Gobierno estudia la despenalización del consumo de drogas blandas ."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 5",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 232,
+        "text": "La tercera apuesta presidencial del lopezobradorismo iba a ser la vencida. El Proyecto 2018 del candidato de Juntos Haremos Historia, la coalición formada por MORENA, el Partido del Trabajo (PT) y el Partido encuentro Social (PES), "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 232,
+        "end_char": 395,
+        "text": "presentaba en esencia los mismos lineamientos clave que en 2012, pues su autor consideraba que los lastres de entonces seguían intactos o bien se habían agravado.\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 395,
+        "end_char": 580,
+        "text": "El programa electoral incidía en una serie de temas: la \"austeridad republicana\", para reorientar los recursos públicos de los gastos corrientes a la inversión sin subir los impuestos; "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 580,
+        "end_char": 814,
+        "text": "la atención de las \"causas sociales\", combatiendo la pobreza y elevando el desarrollo humano de los colectivos vulnerables, de una violencia criminal desmedida y cuyas escalofriantes cifras son las propias de un país en guerra civil; "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 814,
+        "end_char": 976,
+        "text": "el principio de la retirada de las Fuerzas Armadas de las misiones de seguridad interna pero sin precipitaciones, con la meta de \"pacificar\" México en tres años; "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 976,
+        "end_char": 1197,
+        "text": "el aumento de la oferta de gasolina autóctona para reducir las importaciones y rebajar precios; las autosuficiencias energética y alimentaria, en el caso del agro ofreciendo a los productores locales precios de garantía; "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1197,
+        "end_char": 1402,
+        "text": "la \"erradicación\" de la corrupción política \"dando ejemplo\" desde Los Pinos; y la defensa firme de los migrantes mexicanos, más en tiempos de muro fronterizo de Trump y de renegociación forzada del TLCAN, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1402,
+        "end_char": 1508,
+        "text": "buscando con Estados Unidos unas relaciones de cooperación y buena vecindad basadas \"en el respeto mutuo\"."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 63",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 214,
+        "text": "En el angustioso capítulo de la inseguridad, el Estado prestaría atención a las \"causas sociales\" de la violencia, lo que pasaba por combatir la pobreza y elevar el desarrollo humano de los colectivos vulnerables. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 214,
+        "end_char": 419,
+        "text": "Se asumía el principio de la retirada de las Fuerzas Armadas de las misiones de seguridad interna pero sin precipitaciones, mientras se organizase y desplegase un nuevo cuerpo armado, la Guardia Nacional, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 419,
+        "end_char": 582,
+        "text": "con la meta de \"pacificar\" México en tres años. Por otro lado, MORENA hablaba de \"erradicar\" la corrupción política \"dando ejemplo\" institucional desde Los Pinos.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 582,
+        "end_char": 817,
+        "text": "El candidato entonó asimismo la defensa firme de los migrantes mexicanos, más en tiempos de muro fronterizo de Trump, aranceles unilaterales a las exportaciones mexicanas de metales al vecino norteño y renegociación forzada del TLCAN, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 817,
+        "end_char": 947,
+        "text": "para lo que buscaría establecer con Estados Unidos unas relaciones de cooperación y buena vecindad basadas \"en el respeto mutuo\". "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 947,
+        "end_char": 1182,
+        "text": "En marzo de 2018 López Obrador y Polevnsky repitieron que MORENA quería que México dispusiera del mejor equipo de negociadores para conseguir que el tratado que sucediera al TLCAN de 1992 fuera lo más favorable posible a los intereses "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1182,
+        "end_char": 1406,
+        "text": "nacionales. Por otro lado y de nuevo, el candidato salió a desacreditar los intentos de establecer una relación simpática entre su plataforma y el régimen de Caracas: él no tenía \"nada que ver con el Gobierno de Venezuela\", "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1406,
+        "end_char": 1643,
+        "text": "y su \"mexicanismo\" equivalía a decir \"ni chavismo, ni trumpismo\", recalcó.\nLa plataforma lopezobradorista para el período de gobierno 2018-2024 sugería una socialdemocracia pragmática que ni comulgaba con la teoría de la lucha de clases "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1643,
+        "end_char": 1883,
+        "text": "del socialismo ni aspiraba a volver a los esquemas proteccionistas o estatistas del viejo PRI. Al contrario, asumía los principios ortodoxos del libre mercado, el libre comercio, la estabilidad macroeconómica, la disciplina presupuestaria, "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1883,
+        "end_char": 2084,
+        "text": "la flotación del peso y la autonomía del Banco de México, pero conjugadas, eso sí, con el rechazo al \"neoliberalismo\", las \"tendencias privatizadoras\" y la \"extranjerización\" de sectores estratégicos, "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2084,
+        "end_char": 2294,
+        "text": "pues había que priorizar la \"producción nacional\", el consumo interno y el \"crecimiento horizontal\" en todo el país. A los guiños tranquilizadores a empresarios e inversores el tabasqueño añadía la promesa de, "
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2294,
+        "end_char": 2497,
+        "text": "llegada la hora de acabar con la corrupción y los privilegios de los ex presidentes, \"hacer justicia sin venganza ni odio\". \"No voy a meter a Peña Nieto en la cárcel\", aseguró también durante la campaña."
+      }
+    ]
+  }
+]

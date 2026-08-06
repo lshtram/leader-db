@@ -1,0 +1,428 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:THA:19649",
+  "iso3": "THA",
+  "country_name": "Thailand",
+  "ruler_name": "Prayut Chan-o-cha",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 0,
+  "approximate_source_family_count": 0,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 0 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 0 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed for Prayut Chan-o-cha, Thailand, 2022. No scores or score ranges assigned.
+
+File persistence was unavailable because the workspace is read-only; the complete handoff is below for parent persistence.
+
+## Reconnaissance and authority
+
+- Prayut was Thailand’s 29th prime minister during the target year, per the Royal Thai Government directory.
+- He had formal responsibility for national policy and appointments, with practical military/security influence, but operated under coalition, constitutional, royal, parliamentary, and court constraints.
+- The 2022 term-limit dispute, temporary suspension, military-origin constitution, and military-selected Senate are documented in Reuters reporting carried by Euronews.
+- The information environment combined active civil society and protest reporting with censorship, surveillance, prosecutions, restrictive bail, lèse-majesté enforcement, and emergency-law pressure. This creates both visibility and self-censorship bias.
+
+## Global evidence ledger
+
+| ID | Evidence | Main use |
+|---|---|---|
+| E001 | Official government directory confirms Prayut’s office and terms. | Authority baseline; all chapters |
+| E002 | Reuters/Euronews documents coup-origin authority, constitutional term-limit dispute, coalition, and military-selected Senate. | 4B, 8B, authority context |
+| E003 | HRW documents 2022 prosecution of protesters, emergency-decree cases, Article 112 charges, detention, surveillance, and Prayut’s prior order to use all laws against protesters. | 3B, 4B |
+| E004 | Amnesty documents monitoring and intimidation of child protesters, family/school pressure, and 283 minors charged. | 3B, 4B, 6B |
+| E005 | Freedom House documents electoral irregularities, unequal media access, unelected institutional advantages, NGO restrictions, detention, and security-force impunity. | 3B, 4B; country context |
+| E006 | HRW documents torture, disappearances, weak investigations, and historic impunity by police/military. | 3B; inherited context |
+| E007 | HRW records passage of Thailand’s 2022 torture and enforced-disappearance bill. | 3B, 4B, 8B; formal remedy only |
+| E008 | WHO’s 2022 review finds strong political commitment, cross-sector coordination, village-health networks, and rapid innovation, while noting migrant-access, data, urban-care, and waste-management gaps. | 3B, 5B, 6B, 8B |
+| E009 | WHO reports 2022 COVID outcomes: 79.6% fully vaccinated, 44.7% boosted, 4.7m cases, 32,721 reported deaths, and excess-mortality uncertainty. | 3B, 6B, 8B |
+| E010 | IMF describes policy-supported but weak and uneven recovery, rising energy inflation, and declining productivity growth. | 5B, 8B |
+| E011 | World Bank reports 4.5% Q3 growth, tourism recovery, COVID fiscal relief mitigating household harm, but projected poverty increase and continuing distributional/fiscal weaknesses. | 5B, 6B, 8B |
+| E012 | Official BOI announcement signed by Prayut creates large-investor retention/expansion tax incentives, announced December 2022 and effective January 2023. | 5B, 8B; direct policy act with lag |
+| E013 | IAEA records Thailand’s NPT safeguards, Additional Protocol, nuclear-safety, and physical-protection commitments. | 1B context |
+| E014 | SIPRI’s 2022 nuclear inventory lists nine nuclear-armed states and excludes Thailand. | 1B exposure boundary only |
+| E015 | International Crisis Group peace-dialogue report identified, but PDF fetch returned 403. | 2B discovery only; rejected |
+| E016 | Freedom House documents continuing insurgency and emergency rule in Thailand’s southern provinces. | 2B, 3B inherited-security context |
+| E017 | Prayut’s December 2022 anti-corruption speech promises transparency and punishment of wrongdoers. | 7B, 5B, 8B context only |
+| E018 | Reuters reports opposition allegations of graft, mismanagement, democratic erosion, and power retention, alongside government denial. | 7B/5B/4B contrary context; not an independent finding |
+| E019 | A later court ruling treated criticism of vaccine procurement as criticism of Prayut’s administration and found the challenged statements factual. | 7B/5B/6B contrary or retrospective context |
+| E020 | Thai MFA APEC statement candidate identified, but retrieval was incomplete and no precise locator was available. | Discovery only; rejected |
+
+Sources include official records, Reuters/media, HRW, Amnesty, Freedom House, WHO, IMF, World Bank, IAEA, SIPRI, and BOI. The strongest narrative sources were HRW, Amnesty, WHO, IMF, and World Bank.
+
+## Chapter yield
+
+### 1B — nuclear/existential risk
+
+Local package: no direct nuclear/existential facts; all ten lenses were explicit no-evidence states.
+
+Retained context:
+
+- Local absence is not evidence of safety or inapplicability.
+- E013 establishes safeguards and nuclear-safety treaty exposure.
+- E014 establishes that Thailand was not listed among nuclear-armed states.
+
+Remaining gaps: ruler-specific nuclear rhetoric, command authority, dual-use cyber/biological/AI policy, crisis decisions, proliferation choices, and target-period change from inherited posture. No web evidence repaired the local empty state.
+
+### 2B — international peace
+
+Local context retained:
+
+- LF073–LF076: 2022 state-based conflict events/fatalities and zero internationalized conflict events/fatalities.
+- LF149–LF152: military spending and burden measures.
+- Longitudinal signals LS042–LS043, LS049–LS055, LS069–LS070.
+
+These establish exposure and military burden, not initiation, civilian protection, proxy control, or intent.
+
+Narrative evidence:
+
+- E002: constitutional and authority context.
+- E016: inherited southern-insurgency exposure.
+- E015: blocked Crisis Group peace-dialogue source.
+
+Remaining gaps: 2022 peace talks, military operations, cross-border coercion, civilian-harm findings, proxy/arms-recipient conduct, and accountability.
+
+### 3B — domestic safety
+
+Local context retained:
+
+- LF322–LF331: 2022 CIRIGHTS, PTS, and physical-integrity measures.
+- LF440–LF445: civil-political rights, repression, civil-society repression, and one-sided violence.
+- LS003–LS011, LS024, LS054–LS056, LS061–LS064.
+
+Narrative evidence:
+
+- E003: protest prosecutions, surveillance, detention, emergency law, and coercive restrictions.
+- E004: child-protester monitoring and intimidation.
+- E005–E007: civil-society restrictions, security-force impunity, and the torture/disappearance bill.
+
+Gaps: ruler incitement, prison conditions, vulnerable-group protection, complaint outcomes, and effectiveness of the new legal remedy. E003–E005 are partly overlapping and must not be counted as independent events.
+
+### 4B — political freedom
+
+Local context retained:
+
+- LF616–LF623 and LF884–LF898: Freedom House, EIU, V-Dem, RSF, and WGI measures.
+- Relevant signals: low accountability and liberal-democracy measures, zero multiparty-institutions value, RSF 2022 rank 115/score 50.15, and rule-of-law value 0.38.
+- These are country-level priors, not automatically ruler conduct.
+
+Narrative evidence:
+
+- E002: constitutional design, term-limit dispute, coalition and Senate structure.
+- E003–E005: censorship, prosecution, media inequality, NGO pressure, detention, and restrictions on protest.
+
+Gaps: 2022 election-observer evidence, court/ECT decisions beyond the term-limit episode, appointments to independent bodies, digital-control records, and tolerance of opposition victories.
+
+### 5B — economic wellbeing
+
+Local context retained:
+
+- LF1019–LF1025 and LF1246–LF1251: GDP, consumption, government consumption, capital formation, population, Gini, and real/current-price warnings.
+- LS025, LS028–LS041, LS074–LS076.
+
+Narrative evidence:
+
+- E010: IMF assessment of uneven recovery, inflation, and productivity.
+- E011: World Bank assessment of fiscal relief, tourism recovery, poverty, and distribution.
+- E012: concrete BOI investment-retention policy signed by Prayut, with implementation beginning after the target year.
+- E017–E019: anti-corruption pledge, opposition allegations/denial, and retrospective vaccine-court evidence.
+
+Gaps: economic appointments, fiscal/monetary decisions, competition and capture, household distribution, policy correction, and independently evaluated implementation of E012.
+
+### 6B — social wellbeing
+
+Local context retained:
+
+- LF1325–LF1334: HDI, life expectancy, schooling, under-5 mortality, immunization, literacy, and secondary enrollment.
+- LS039–LS040, LS047–LS048, LS072, LS075–LS076.
+
+Narrative evidence:
+
+- E008: WHO review of pandemic coordination, innovation, migrant-access gaps, and institutional recommendations.
+- E009: vaccination and mortality outcomes.
+- E011: household-welfare and poverty effects of fiscal response.
+
+Gaps: regional/group distribution, affordability, service quality, education delivery, social-protection conditionality, and durability beyond the ruler.
+
+### 7B — personal integrity
+
+Local context retained only as non-personalized background:
+
+- LF1407–LF1410: WGI/V-Dem corruption indicators.
+- LS012–LS013, LS022, LS065.
+
+These cannot establish personal dishonesty or self-dealing.
+
+Narrative evidence:
+
+- E017: self-serving anti-corruption speech.
+- E018: opposition allegations and official denial, without independent finding.
+- E019: contrary court finding concerning vaccine criticism.
+
+No accepted target-period personal asset, contract, family-benefit, appointment, sworn statement, correction, obstruction, or independent personal-integrity finding was located. The 7B personal-nexus gap remains explicit.
+
+### 8B — effectiveness
+
+Local context retained:
+
+- LF1447–LF1448: government effectiveness and regulatory quality.
+- LF884, LF896, LF898 and LS036, LS067–LS068.
+
+Narrative evidence:
+
+- E008–E009: pandemic program, coordination, outcomes, and adaptation gaps.
+- E010–E011: macro recovery, fiscal response, constraints, and uneven outcomes.
+- E012: concrete investment-retention policy.
+- E020: APEC policy agenda candidate, rejected because retrieval was incomplete.
+
+Gaps: complete governing-program portfolio, budgets and appointments, implementation milestones, adaptation/replacement evidence, and durable progress across multiple major programs.
+
+## Local-data audit
+
+Retained and used as context: local fact IDs in the chapter notes above, especially LF073–LF076, LF149–LF152, LF322–LF331, LF440–LF445, LF616–LF623, LF884–LF898, LF1019–LF1025, LF1246–LF1251, LF1325–LF1334, LF1407–LF1410, and LF1447–LF1448, plus the referenced longitudinal signals.
+
+Used only as inherited/country context: all structured indicators measuring national conflict, military burden, repression, democracy, corruption, GDP, welfare, health, and administrative capacity.
+
+Left unused for direct ruler attribution: all local facts that lacked a ruler-specific act, decision, appointment, order, remedy, or attributable outcome. No omitted annual series were treated as missing; the supplied bounded time series and audited longitudinal signals were used as provided.
+
+No client-matrix material was used.
+
+## Rejected candidates and unresolved gaps
+
+- E015: Crisis Group PDF blocked by HTTP 403.
+- E020: Thai MFA page retrieval incomplete; no precise locator.
+- E018: allegations and denial retained only as contested context.
+- E017: official pledge retained only as self-serving context.
+- E019: later court ruling retained as retrospective/contrary context, not as a 2022 finding of corruption.
+
+Material unresolved gaps are Thai-language primary records, independent 2022 southern peace-dialogue evidence, procurement and asset records, direct appointment/command evidence, detailed election-institution records, group-level welfare distribution, and implementation/durability evidence.
+---

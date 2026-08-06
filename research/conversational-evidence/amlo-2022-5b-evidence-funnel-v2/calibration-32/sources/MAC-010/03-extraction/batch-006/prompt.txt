@@ -1,0 +1,1599 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "MAC-010",
+  "title": "IMF 2022 Article IV full report",
+  "url": "https://www.imf.org/-/media/files/publications/cr/2022/english/1mexea2022001.pdf",
+  "publisher": "www.imf.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "financial_report",
+  "source_role": "international_organization",
+  "source_family": "www.imf.org",
+  "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 52",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 184,
+        "text": "MEXICO\nTable 4b. Mexico: Summary Balance of Payments\n(In percent of GDP)\nProj.\n2019 2020 2021 2022 2023 2024 2025 2026 2027\nCurrent account -0.3 2.5 -0.4 -1.2 -1.2 -1.1 -1.0 -0.9 -0.9\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 184,
+        "end_char": 385,
+        "text": "Merchandise goods trade balance 0.4 3.1 -0.8 -1.9 -1.4 -0.7 -0.9 -0.8 -0.9\nExports, f.o.b. 2/ 36.3 38.3 38.2 39.1 38.3 38.4 38.5 38.9 39.2\no/w Manufactures 32.4 34.3 33.6 33.8 32.7 32.6 33.1 33.4 33.7\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 385,
+        "end_char": 587,
+        "text": "o/w Petroleum and derivatives 1/ 2.0 1.6 2.3 3.0 2.6 2.4 2.3 2.1 2.0\nImports, f.o.b. 2/ 35.9 35.1 39.0 41.0 39.6 39.0 39.4 39.7 40.1\no/w Petroleum and derivatives 1/ 3.7 2.9 4.2 5.3 4.6 4.1 3.9 3.7 3.6\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 587,
+        "end_char": 790,
+        "text": "Services, net -0.6 -1.0 -0.9 -0.9 -0.9 -0.9 -0.9 -0.9 -0.9\nPrimary income, net -2.9 -3.4 -2.6 -2.2 -2.6 -3.3 -3.1 -3.1 -3.0\nSecondary income (mostly remittances), net 2.9 3.8 4.0 3.8 3.7 3.8 3.8 3.9 3.9\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 790,
+        "end_char": 1021,
+        "text": "Capital Account, net 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0\nFinancial Account (Net lending (+)/Net borrowing (-)) -1.3 2.0 -0.1 -1.2 -1.2 -1.1 -1.0 -0.9 -0.9\nForeign direct investment, net -1.9 -2.4 -2.5 -2.1 -2.2 -2.3 -2.4 -2.5 -2.6\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1021,
+        "end_char": 1222,
+        "text": "Net acquisition of financial assets 0.5 0.5 0.0 0.4 0.4 0.4 0.4 0.5 0.5\nNet incurrence of liabilities 2.3 2.9 2.6 2.5 2.6 2.7 2.8 3.0 3.1\nPortfolio investment, net -0.6 0.9 3.2 1.1 0.3 0.4 0.3 0.2 0.2\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1222,
+        "end_char": 1412,
+        "text": "Net acquisition of financial assets 0.3 1.5 1.7 1.2 1.2 1.2 1.2 1.3 1.3\nNet incurrence of liabilities 0.8 0.6 -1.5 0.1 0.9 0.9 0.9 1.0 1.0\nPublic Sector 0.3 0.0 -1.2 0.1 0.8 0.8 0.9 1.0 1.0\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1412,
+        "end_char": 1649,
+        "text": "o/w Local currency domestic-issued bonds 0.1 -1.0 -1.0 -0.2 0.3 0.3 0.5 0.5 0.6\nPrivate sector 0.5 0.5 -0.2 0.0 0.0 0.0 0.0 0.0 0.0\nSecurities issued abroad 0.5 0.5 0.0 0.0 0.0 0.0 0.0 0.0 0.0\nEquity 0.0 0.0 -0.2 0.0 0.0 0.0 0.0 0.0 0.0\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1649,
+        "end_char": 1820,
+        "text": "Pidiregas 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0\nFinancial derivatives, net 0.1 -0.2 0.2 0.0 0.0 0.0 0.0 0.0 0.0\nOther investments, net 0.8 2.4 -1.7 -0.1 0.5 0.7 0.9 1.2 1.4\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1820,
+        "end_char": 2024,
+        "text": "Net acquisition of financial assets 1.1 2.1 -0.7 -0.1 0.5 0.7 1.0 1.2 1.4\nNet incurrence of liabilities 0.3 -0.3 1.0 0.0 0.0 0.0 0.0 0.0 0.0\nChange in Reserves Assets 0.2 1.1 0.8 -0.1 0.1 0.1 0.1 0.1 0.1\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2024,
+        "end_char": 2212,
+        "text": "Total change in gross reserves assets 0.5 1.5 0.7 -0.1 0.1 0.1 0.1 0.1 0.1\nValuation change 0.3 0.4 -0.1 0.0 0.0 0.0 0.0 0.0 0.0\nErrors and Omissions -1.0 -0.5 0.3 0.0 0.0 0.0 0.0 0.0 0.0\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2212,
+        "end_char": 2404,
+        "text": "International Investment Position, net -48.5 -48.7 -42.0 -38.9 -37.2 -37.2 -36.8 -36.3 -35.7\nSources: Bank of Mexico, National Institute of Statistics and Geography, and Fund staff estimates.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2404,
+        "end_char": 2543,
+        "text": "1/ Crude oil, derivatives, petrochemicals, and natural gas.\n2/ Excludes goods procured in ports by carriers.\n48 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 53",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 200,
+        "text": "MEXICO\nTable 5. Mexico: Financial Soundness Indicators\n(In percent)\n2016 2017 2018 2019 2020 2021 2022Q2\nCapital Adequacy\nRegulatory capital to risk-weighted assets 14.9 15.6 15.9 16.0 17.7 19.5 18.7\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 200,
+        "end_char": 429,
+        "text": "Regulatory Tier 1 capital to risk-weighted assets 13.2 14.2 14.2 14.4 16.1 18.1 17.3\nCapital to assets 9.9 10.4 10.7 11.0 10.7 11.8 10.8\nGross asset position in financial derivatives to capital 91.8 71.1 63.3 51.3 83.1 49.1 60.2\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 429,
+        "end_char": 608,
+        "text": "Gross liability position in financial derivatives to capital 96.5 76.0 63.9 52.6 85.1 49.7 59.7\nAsset Quality\nNonperforming loans to total gross loans 2.1 2.1 2.1 2.1 2.4 2.0 2.3\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 608,
+        "end_char": 808,
+        "text": "Provisions to Nonperforming loans 157.1 154.9 152.4 146.2 160.1 160.5 143.4\nEarnings and Profitability\nReturn on assets 1.7 2.0 2.2 2.2 1.2 2.1 1.9\nReturn on equity 16.3 19.6 20.9 20.5 11.7 18.6 17.4\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 808,
+        "end_char": 1019,
+        "text": "Interest margin to gross income 73.8 73.3 74.5 74.3 76.0 72.7 76.0\nTrading income to total income 4.4 5.0 4.5 5.8 5.5 6.7 9.4\nLiquidity\nLiquid assets to short-term liabilities 31.4 32.0 31.6 31.1 35.7 36.3 38.5\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1019,
+        "end_char": 1228,
+        "text": "Liquid assets to total assets 42.4 42.2 42.3 40.8 48.0 47.0 49.8\nCustomer deposits to total (noninterbank) loans 88.9 91.4 89.3 90.7 100.2 105.2 99.5\nTrading income to total income 0.8 1.1 1.2 2.9 1.8 0.1 2.2\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1228,
+        "end_char": 1328,
+        "text": "Sources: Mexican Authorities; and IMF Financial Soundness Indicators.\nINTERNATIONAL MONETARY FUND 49"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 54",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 231,
+        "text": "MEXICO\nTable 6. Mexico: Financial Indicators and Measures of External Vulnerabilities\nLatest data\n2019 2020 2021 2022\navailable\nFinancial market indicators\nExchange rate (per U.S. dollar, period average) 19.3 21.5 20.3 20.3 Jun-22\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 231,
+        "end_char": 464,
+        "text": "(year-to-date percent change, + appreciation) -0.1 -11.5 5.6 -0.6 Jun-22\n28-day treasury auction rate (percent; period average) 7.8 5.3 4.4 6.4 Jun-22\nEMBIG Mexico spread (basis points; period average) 318.2 474.4 354.2 380.9 Jun-22\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 464,
+        "end_char": 658,
+        "text": "Sovereign 10-year local currency bond yield (period average) 7.6 6.3 6.9 8.4 Jun-22\nStock exchange index (period average, year on year percent change) -8.8 -9.0 26.4 9.8 Jun-22\nFinancial system\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 658,
+        "end_char": 855,
+        "text": "Bank of Mexico net international reserves (US$ billion) 180.9 195.7 202.4 200.4 Proj.\nFinancial system credit on non-financial private sector (year on year percent change) 1 3.0 1.5 4.1 10.7 Proj.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 855,
+        "end_char": 1040,
+        "text": "Nonperforming loans to total gross loans (deposit takers) 2.1 2.4 2.0 2.3 Jun-22\nExternal vulnerability indicators\nGross financing needs (billions of US$) 2/ 102.2 76.4 94.3 81.2 Proj.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1040,
+        "end_char": 1243,
+        "text": "Gross international reserves (end-year, billions of US$) 3/ 183.0 199.1 207.7 203.6 Jun-22\nChange (billions of US$) 6.6 16.0 8.7 -2.9 Jun-22\nMonths of imports of goods and services 4.4 5.8 4.6 3.9 Proj.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1243,
+        "end_char": 1414,
+        "text": "Months of imports plus interest payments 4.2 5.5 4.4 3.7 Proj.\nPercent of broad money 37.3 37.9 37.3 32.9 Proj.\nPercent of portfolio liabilities 35.0 38.2 40.8 40.3 Proj.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1414,
+        "end_char": 1591,
+        "text": "Percent of short-term debt (by residual maturity) 209.3 242.8 315.2 284.2 Proj.\nPercent of ARA Metric 4/ 116.2 128.5 131.2 123.3 Proj.\nPercent of GDP 14.4 18.3 16.0 14.9 Mar-22\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1591,
+        "end_char": 1810,
+        "text": "Gross total external debt (in percent of GDP) 36.6 42.6 34.6 31.6 Proj.\nOf which: In local currency 9.0 8.7 6.2 5.3 Proj.\nOf which: Public debt 24.6 28.6 22.8 20.6 Proj.\nOf which: Private debt 12.0 14.0 11.8 11.1 Proj.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1810,
+        "end_char": 2002,
+        "text": "Financial sector 2.1 2.1 1.8\nNonfinancial sector 9.9 11.8 10.0\nGross total external debt (billions of US$) 464.8 463.8 447.8 456.6 Proj.\nOf which: In local currency 114.0 95.0 80.0 76.8 Proj.\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2002,
+        "end_char": 2242,
+        "text": "Of which: Public debt 312.4 311.7 295.2 297.0 Proj.\nOf which: Private debt 152.4 152.1 152.7 159.6 Proj.\nFinancial sector 26.8 23.0 22.9\nNonfinancial sector 125.5 129.1 129.8\nExternal debt service (in percent of GDP) 9.3 10.2 8.0 6.2 Proj.\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2242,
+        "end_char": 2424,
+        "text": "Sources: Bank of Mexico, National Banking and Securities Commission, National Institute of Statistics and Geography, Ministry of\nFinance and Public Credit, and Fund staff estimates.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2424,
+        "end_char": 2641,
+        "text": "1/ Includes domestic credit by banks, nonbank intermediaries, and social housing funds.\n2/ Corresponds to the sum of the current account deficit, amortization payments, and the change in gross international reserves.\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2641,
+        "end_char": 2875,
+        "text": "3/ Excludes balances under bilateral payments accounts. Includes SDR2.337 billion of the general SDR allocation and SDR 0.224 billion of\nthe special SDR allocation in 2009, and SDR 8.542 billion in the general SDR allocation in 2021.\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2875,
+        "end_char": 3111,
+        "text": "4/ The ARA metric was developed by the Strategy and Policy Review Department at the IMF to assess reserve adequacy. Weights to\nindividual components were revised in December 2014 for the whole time series.\n50 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 55",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 212,
+        "text": "MEXICO\nTable 7. Mexico: Baseline Medium-Term Projections\nProj.\n2019 2020 2021 2022 2023 2024 2025 2026 2027\nNational accounts (in real terms, contributions to growth) 1/\nGDP -0.2 -8.1 4.8 2.1 1.2 1.8 2.1 2.1 2.1\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 212,
+        "end_char": 443,
+        "text": "Consumption 0.0 -7.0 5.1 4.5 0.9 1.3 1.7 1.7 1.7\nPrivate 0.2 -7.0 4.9 4.3 0.6 1.0 1.4 1.4 1.4\nPublic -0.2 0.0 0.1 0.1 0.2 0.3 0.3 0.3 0.3\nInvestment -1.1 -3.8 1.9 1.0 0.4 0.3 0.4 0.4 0.4\nFixed -1.0 -3.4 1.6 1.1 0.3 0.3 0.4 0.4 0.4\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 443,
+        "end_char": 653,
+        "text": "Private -0.5 -3.2 1.5 1.0 0.3 0.3 0.3 0.3 0.3\nPublic -0.4 -0.2 0.1 0.1 0.0 0.0 0.1 0.1 0.1\nInventories -0.2 -0.4 0.2 -0.1 0.0 0.0 0.0 0.0 0.0\nExports of goods and services 0.5 -2.7 2.6 2.3 -0.2 0.7 1.1 1.2 1.1\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 653,
+        "end_char": 875,
+        "text": "Oil exports -0.2 0.1 -0.2 0.0 0.0 0.0 0.0 0.0 0.0\nNon-oil exports 0.7 -2.8 2.8 2.3 -0.3 0.7 1.1 1.2 1.1\nImports of goods and services -0.3 -5.1 4.7 3.3 0.4 0.8 1.2 1.3 1.2\nOil imports -0.1 -0.2 0.1 0.1 0.0 0.0 0.0 0.0 0.0\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 875,
+        "end_char": 1110,
+        "text": "Non-oil imports -0.1 -4.9 4.7 3.3 0.4 0.8 1.1 1.2 1.2\nNet exports 0.8 2.4 -2.2 -1.0 -0.7 -0.1 -0.1 -0.1 -0.1\nConsumer prices\nEnd of period 2.8 3.2 7.4 8.5 4.8 3.5 3.2 3.1 3.0\nAverage 3.6 3.4 5.7 8.0 6.3 3.9 3.3 3.1 3.0\nExternal sector\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1110,
+        "end_char": 1294,
+        "text": "Current account balance (in percent of GDP) -0.3 2.5 -0.4 -1.2 -1.2 -1.1 -1.0 -0.9 -0.9\nNon-hydrocarbon current account balance (in percent of GDP) 1.4 3.7 1.5 1.0 0.8 0.6 0.6 0.7 0.7\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1294,
+        "end_char": 1495,
+        "text": "Exports of goods, f.o.b. 2.2 -9.4 18.6 14.0 2.4 3.4 4.3 5.0 4.9\nImports of goods, f.o.b. -2.0 -15.9 32.0 17.0 1.1 1.5 4.8 4.8 5.0\nTerms of trade (improvement +) 2.2 -1.2 -2.9 0.5 3.0 1.9 -0.4 0.2 -0.1\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1495,
+        "end_char": 1728,
+        "text": "Crude oil export price, Mexican mix (US$/bbl) 56.0 35.8 64.8 91.4 79.6 74.6 70.9 68.2 67.0\nNon-financial public sector\nOverall balance -2.3 -4.4 -3.8 -3.8 -4.1 -2.7 -2.7 -2.7 -2.7\nPrimary balance 1.4 -0.5 0.0 0.7 0.3 1.8 1.8 1.8 1.6\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1728,
+        "end_char": 1929,
+        "text": "Saving and investment 2/\nGross domestic investment 21.2 19.2 20.2 21.0 21.3 21.4 21.4 21.4 21.4\nFixed investment 20.6 18.9 19.7 20.6 20.9 21.0 21.0 21.1 21.1\nPublic 2.5 2.7 2.9 2.8 2.9 2.9 2.9 2.9 2.9\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1929,
+        "end_char": 2166,
+        "text": "Private 18.1 16.2 16.8 17.8 18.1 18.2 18.2 18.2 18.2\nGross domestic saving 20.9 21.7 19.8 19.8 20.1 20.3 20.4 20.5 20.6\nPublic 0.2 -1.7 -0.9 -1.0 -1.3 0.2 0.2 0.2 0.2\nPrivate 20.7 23.4 20.8 20.8 21.4 20.1 20.2 20.3 20.4\nMemorandum items\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2166,
+        "end_char": 2365,
+        "text": "Financial system credit to non-financial private sector (nominal y/y growth 3.0 1.5 4.1 10.7 8.1 6.5 6.6 6.5 6.4\nOutput gap (in percent of potential GDP) -1.0 -4.7 -2.0 -0.6 -1.2 -1.1 -0.7 -0.3 -0.1\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2365,
+        "end_char": 2595,
+        "text": "Total population 3/ 1.0 1.0 0.9 0.9 0.9 0.8 0.8 0.8 0.8\nWorking-age population 3/ 1.3 1.2 1.1 1.1 1.0 0.9 0.9 0.8 0.8\nSources: Bank of Mexico, National Institute of Statistics and Geography, Ministry of Finance and Public Credit, "
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2595,
+        "end_char": 2833,
+        "text": "Bloomberg, and IMF staff projections.\n1/ Contribution to growth. Excludes statistical discrepancy.\n2/ Reported numbers may differ from authorities' due to rounding.\n3/ Based on CONAPO population projections.\nINTERNATIONAL MONETARY FUND 51"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 56",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 223,
+        "text": "MEXICO\nTable 8. Mexico: Monetary Indicators 1/\n(In billions of Pesos)\nProj.\n2018 2019 2020 2021 2022\nBanco de México\nNet foreign assets 3,408 3,397 3,876 3,941 3,866\nNet international reserves 3,471 3,457 3,966 4,254 4,173\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 223,
+        "end_char": 417,
+        "text": "Gross international reserves 2/ 3,472 3,457 3,966 4,254 4,173\nReserve liabilities 1 0 0 0 0\nOther net foreign assets -63 -60 -90 -312 -306\nNet domestic assets -1,734 -1,654 -1,758 -1,500 -1,156\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 417,
+        "end_char": 652,
+        "text": "Net domestic credit -1,622 -1,706 -1,640 -1,376 -1,558\nNet credit to non-financial public sector -1,525 -1,640 -1,778 -1,400 -1,558\nCredit to non-financial private sector 0 0 0 0 0\nNet credit to financial corporations -97 -66 138 24 0\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 652,
+        "end_char": 881,
+        "text": "Net claims on other depository corporations -97 -66 138 24 0\nNet claims on other financial corporations 0 0 0 0 0\nCapital account 54 -113 53 52 -466\nOther items net -59 -61 -64 -72 -64\nMonetary base 1,674 1,742 2,118 2,441 2,710\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 881,
+        "end_char": 1080,
+        "text": "Other Depository Corporations\nNet foreign assets -12 -60 142 340 378\nForeign assets 860 738 940 1,013 1,125\nForeign liabilities 873 798 798 672 747\nNet domestic assets 8,140 8,646 9,230 9,863 11,067\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1080,
+        "end_char": 1275,
+        "text": "Net credit to the public sector 3,190 3,750 4,197 4,398 4,891\nClaims on non-financial public sector 3,688 4,214 4,602 4,840 5,383\nin pesos 3,528 4,037 4,400 4,661 5,189\nin FX 160 178 202 178 194\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1275,
+        "end_char": 1482,
+        "text": "Liabilities to the nonfinancial public sector 499 464 405 442 492\nCredit to the private sector 6,304 6,976 6,708 7,011 7,759\nLocal Currency 5,538 6,198 5,984 6,238 6,924\nForeign Currency 766 778 724 773 835\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1482,
+        "end_char": 1694,
+        "text": "Net credit to the financial system 937 868 689 806 825\nOther -2,282 -2,948 -2,364 -2,351 -2,408\nLiabilities to the private sector 8,128 8,586 9,372 10,204 11,444\nLiquid liabilities 7,327 7,688 8,572 9,248 10,385\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1694,
+        "end_char": 1911,
+        "text": "Local currency 6,710 7,112 7,905 8,481 9,557\nForeign currency 617 575 667 766 828\nNon liquid liabilities 801 898 800 956 1,060\nLocal currency 765 861 762 915 1,016\nForeign currency 36 38 38 41 44\nTotal Banking System\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1911,
+        "end_char": 2124,
+        "text": "Net foreign assets 3,396 3,336 4,017 4,285 4,244\nNet domestic assets 6,406 6,992 7,472 8,363 9,911\nLiquid liabilities 9,001 9,430 10,691 11,688 13,095\nNon-liquid liabilities 801 898 800 956 1,060\nMemorandum items\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2124,
+        "end_char": 2293,
+        "text": "Monetary base (percent change) 8.3 4.1 21.6 15.2 11.0\nCurrency in circulation (percent change) 8.9 3.6 23.0 16.8 11.0\nBroad money (percent change) 4.5 4.7 13.4 9.5 11.0\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2293,
+        "end_char": 2471,
+        "text": "Bank credit to the non-financial private sector (growth rate) 6.9 10.7 -3.8 4.5 10.7\nBank credit to the non-financial private sector (as percent of GDP) 26.8 28.5 28.6 26.7 26.5\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2471,
+        "end_char": 2687,
+        "text": "Source: Bank of Mexico, National Institute of Statistics and Geography and Fund staff estimates.\n1/ Data of the monetary sector are prepared based on the IMF's methodological criteria and do not necessarily coincide\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2687,
+        "end_char": 2853,
+        "text": "with the definitions published by Bank of Mexico.\n2/ Excludes balances under bilateral payments accounts. Includes SDR2.337 billion of the general SDR allocation and\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2853,
+        "end_char": 3001,
+        "text": "SDR 0.224 billion of the special SDR allocation in 2009, and SDR 8.542 billion in the general SDR allocation in 2021.\n52 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 57",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 192,
+        "text": "MEXICO\nAnnex I. External Sector Assessment\nOverall Assessment: The external position in 2021 was broadly in line with the level implied by medium-term fundamentals and desirable policies. The\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 192,
+        "end_char": 339,
+        "text": "rebalancing of Mexico’s external position in 2021 was led by the economic reopening and recovery, domestically and elsewhere, and a smaller fiscal\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 339,
+        "end_char": 483,
+        "text": "policy gap. The latter reflected the narrowing of the wide cross-country differences in the magnitude of pandemic-related fiscal policy support\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 483,
+        "end_char": 613,
+        "text": "compared with the previous year. The current account deficit is expected to stabilize around 1 percent of GDP in the medium term.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 613,
+        "end_char": 757,
+        "text": "Potential Policy Responses: While Mexico’s external position at present is broadly in balance, further structural reforms to address investment\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 757,
+        "end_char": 905,
+        "text": "obstacles are critical to boost growth and exports in the medium and long terms and to maintain external sustainability. The reforms should include\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 905,
+        "end_char": 1052,
+        "text": "tackling economic informality and governance gaps, private sector participation in energy, and reforming Pemex’s business strategy and governance.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1052,
+        "end_char": 1202,
+        "text": "The floating exchange rate should continue to serve as a shock absorber, with FX interventions used only to prevent disorderly market conditions. The\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1202,
+        "end_char": 1427,
+        "text": "IMF’s Flexible Credit Line continues to provide an added buffer against global tail risks.\nForeign Asset Background. Mexico’s NIIP is projected to improve from –41 percent of GDP in 2021 to around –35 percent of GDP over the\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1427,
+        "end_char": 1575,
+        "text": "and Liability medium term, driven mainly by the decline in foreign liabilities. Foreign assets in 2021 were mostly direct investment (18 percent of\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1575,
+        "end_char": 1715,
+        "text": "Position and GDP) and international reserves (16 percent of GDP). Foreign liabilities were mostly direct investment (49 percent of GDP) and\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 1715,
+        "end_char": 1941,
+        "text": "Trajectory portfolio investment (39 percent of GDP). Gross public external debt was estimated at 23 percent of GDP at the end of 2021, of\nwhich roughly one-quarter was comprised of holdings of local currency government bonds.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 1941,
+        "end_char": 2076,
+        "text": "Assessment. While the NIIP is sustainable and a relatively high share of the local currency denomination of foreign public liabilities\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2076,
+        "end_char": 2215,
+        "text": "reduces FX risks, the large gross foreign portfolio liabilities could be a source of vulnerability in case of global financial volatility.\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2215,
+        "end_char": 2370,
+        "text": "Vulnerabilities from exchange rate volatility are moderate, as most Mexican firms with FX debt have natural hedges and actively\nmanage their FX exposures.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2370,
+        "end_char": 2597,
+        "text": "2021 (% GDP) NIIP: –41 Gross Assets: 58 Debt Assets: 19 Gross Liab.: 99 Debt Liab.: 38\nCurrent Background. In 2021, the CA balance moved to a deficit of 0.4 percent of GDP after posting a surplus of 2.5 percent of GDP in 2020,\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 2597,
+        "end_char": 2736,
+        "text": "Account reflecting the recovery of import demand, including from the restocking of intermediate goods, with economic recovery. An increase\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 2736,
+        "end_char": 2862,
+        "text": "in investment and a decline in saving contributed roughly equally to the change in the CA balance in 2021. The private sector\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 2862,
+        "end_char": 2988,
+        "text": "saving-investment balance declined by 3.1 percentage points of GDP, more than offsetting the improvement in the public sector\n"
+      },
+      {
+        "segment_id": "S00020",
+        "start_char": 2988,
+        "end_char": 3116,
+        "text": "balance of 0.7 percentage point. In 2022, the current account deficit is expected to widen with higher global commodity prices,\n"
+      },
+      {
+        "segment_id": "S00021",
+        "start_char": 3116,
+        "end_char": 3245,
+        "text": "given Mexico’s net commodity importer status. Other direct trade effects of the war in Ukraine are expected to be insignificant,\n"
+      },
+      {
+        "segment_id": "S00022",
+        "start_char": 3245,
+        "end_char": 3378,
+        "text": "given the limited trade linkages with Russia and other countries in eastern Europe. In addition, the domestic fuel price ceiling and\n"
+      },
+      {
+        "segment_id": "S00023",
+        "start_char": 3378,
+        "end_char": 3512,
+        "text": "the associated fuel subsidies will weaken the substitution and income effects of higher oil prices and amplify their impact on the CA\n"
+      },
+      {
+        "segment_id": "S00024",
+        "start_char": 3512,
+        "end_char": 3640,
+        "text": "balance. Taking these factors into consideration, the 2022 CA deficit is projected to increase to around 1 percent of GDP, with\n"
+      },
+      {
+        "segment_id": "S00025",
+        "start_char": 3640,
+        "end_char": 3846,
+        "text": "considerable forecast uncertainty, given risks from the COVID-19 pandemic and the war in Ukraine. Over the medium term, the CA\nbalance is projected to stabilize around a deficit of around 1 percent of GDP.\n"
+      },
+      {
+        "segment_id": "S00026",
+        "start_char": 3846,
+        "end_char": 3974,
+        "text": "Assessment. The EBA model estimates a cyclically adjusted CA norm of –1.2 percent of GDP in 2021. This implies a CA gap of –0.2\n"
+      },
+      {
+        "segment_id": "S00027",
+        "start_char": 3974,
+        "end_char": 4101,
+        "text": "percent of GDP, with a range from –1.2 to 0.8 percent of GDP. The contribution from the overall policy gap is estimated at 1.3\n"
+      },
+      {
+        "segment_id": "S00028",
+        "start_char": 4101,
+        "end_char": 4237,
+        "text": "percent of GDP, driven by the fiscal gap (1.2 percent). The latter reflects the relatively more accommodative fiscal stances of trading\n"
+      },
+      {
+        "segment_id": "S00029",
+        "start_char": 4237,
+        "end_char": 4365,
+        "text": "partners. IMF staff adjustments were made to account for the transitory impact of the COVID-19 pandemic on travel services (0.1\n"
+      },
+      {
+        "segment_id": "S00030",
+        "start_char": 4365,
+        "end_char": 4493,
+        "text": "percent of GDP), the transport balance (0.6 percent of GDP), the household consumption composition shift (–0.3 percent of GDP),\n"
+      },
+      {
+        "segment_id": "S00031",
+        "start_char": 4493,
+        "end_char": 4720,
+        "text": "trade in medical products (0.1 percent of GDP), and remittances (–0.3 percent of GDP). Including these adjustments, the IMF staff\nassesses the midpoint CA gap at –0.2 percent of GDP, with a range of –1.2 to 0.8 percent of GDP.\n"
+      },
+      {
+        "segment_id": "S00032",
+        "start_char": 4720,
+        "end_char": 4955,
+        "text": "2021 (% GDP) CA: –0.4 Cycl. Adj. CA: –1.5 EBA Norm: –1.2 EBA Gap: -0.2 COVID-19 Adj.: 0.1 Other Adj.: 0 Staff Gap: -0.2\nReal Exchange Background. In 2021, the peso fluctuated in a narrow range of around 20 to 21 pesos per U.S. dollar. "
+      },
+      {
+        "segment_id": "S00033",
+        "start_char": 4955,
+        "end_char": 5172,
+        "text": "The average REER in 2021\nRate appreciated by about 6 percent compared to the 2020 average, mostly driven by a nominal appreciation. As of July 2022, the REER\nhad appreciated by 3 percent compared to its 2021 average.\n"
+      },
+      {
+        "segment_id": "S00034",
+        "start_char": 5172,
+        "end_char": 5300,
+        "text": "Assessment. The IMF staff CA gap implies a REER gap of 0.5 percent (applying a semi-elasticity of 0.33). The EBA REER level and\n"
+      },
+      {
+        "segment_id": "S00035",
+        "start_char": 5300,
+        "end_char": 5435,
+        "text": "index models estimate an overvaluation of 7.7 percent and an undervaluation of 9.1 percent, respectively, in 2021. IMF staff’s overall\n"
+      },
+      {
+        "segment_id": "S00036",
+        "start_char": 5435,
+        "end_char": 5649,
+        "text": "assessment, based on the CA gap, is a REER gap in the range of –2.6 to 3.5 percent, with a midpoint of 0.5 percent.\nCapital and Background. In 2021, Mexico recorded a small amount of net financial account inflows. "
+      },
+      {
+        "segment_id": "S00037",
+        "start_char": 5649,
+        "end_char": 5827,
+        "text": "Net portfolio outflows increased compared\nFinancial to the previous year on account of both higher purchases of foreign assets by residents and larger sales of Mexican assets by\n"
+      },
+      {
+        "segment_id": "S00038",
+        "start_char": 5827,
+        "end_char": 5962,
+        "text": "Accounts: nonresidents. The outflows were offset by a turnaround in other investment flows and continued strong net FDI inflows.\nFlows\n"
+      },
+      {
+        "segment_id": "S00039",
+        "start_char": 5962,
+        "end_char": 6097,
+        "text": "Assessment. The long maturity of sovereign debt and the relatively high share of local-currency-denominated debt reduce the\nand Policy\n"
+      },
+      {
+        "segment_id": "S00040",
+        "start_char": 6097,
+        "end_char": 6229,
+        "text": "exposure of government finances to FX depreciation and refinancing risks. The banking sector is resilient, and FX risks of\nMeasures\n"
+      },
+      {
+        "segment_id": "S00041",
+        "start_char": 6229,
+        "end_char": 6438,
+        "text": "nonfinancial corporate debt are generally covered by natural and financial hedges. However, the strong presence of foreign\ninvestors leaves Mexico exposed to capital flow reversals and risk premium increases.\n"
+      },
+      {
+        "segment_id": "S00042",
+        "start_char": 6438,
+        "end_char": 6576,
+        "text": "FX Intervention Background. The central bank remains committed to a free-floating exchange rate and uses discretionary FX intervention to\n"
+      },
+      {
+        "segment_id": "S00043",
+        "start_char": 6576,
+        "end_char": 6721,
+        "text": "and Reserves prevent disorderly market conditions. At the end of 2021, gross international reserves were USD 208 billion (16 percent of GDP), up\n"
+      },
+      {
+        "segment_id": "S00044",
+        "start_char": 6721,
+        "end_char": 6862,
+        "text": "Level from USD 199 billion at the end of 2020, largely owing to the IMF’s general SDR allocation. In 2021, no FX intervention was\nconducted.\n"
+      },
+      {
+        "segment_id": "S00045",
+        "start_char": 6862,
+        "end_char": 6988,
+        "text": "Assessment. At 131 percent of the ARA metric and 254 percent of short-term debt (at remaining maturity), the level of foreign\n"
+      },
+      {
+        "segment_id": "S00046",
+        "start_char": 6988,
+        "end_char": 7228,
+        "text": "reserves at the end of 2021 remains adequate. IMF staff recommend that the authorities continue to maintain reserves at an\nadequate level over the medium term. The Flexible Credit Line arrangement continues to provide an additional buffer.\n"
+      },
+      {
+        "segment_id": "S00047",
+        "start_char": 7228,
+        "end_char": 7258,
+        "text": "INTERNATIONAL MONETARY FUND 53"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 58",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 155,
+        "text": "MEXICO\nAnnex II. Risk Assessment Matrix1\nRisks Likelihood Impact Policy Response\nCommodity price shocks. A Medium. Oil price shocks Monetary policy should\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 155,
+        "end_char": 343,
+        "text": "combination of continuing supply weigh on fiscal expenditure respond if shocks feed into to\ndisruptions (e.g., due to conflicts because of retail fuel price core inflation and ensure that\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 343,
+        "end_char": 566,
+        "text": "and export restrictions) and High smoothing. Oil and food price inflation expectations remain\nnegative demand shocks causes shocks feed through to anchored.\nrecurrent commodity price volatility headline and core inflation.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 566,
+        "end_char": 778,
+        "text": "and social and economic instability.\nSystemic social unrest. Rising Medium. A global wave of Tighten monetary policy to\ninflation, declining incomes, and social unrest is likely to fall address rising inflation.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 778,
+        "end_char": 964,
+        "text": "worsening inequality amplify social more lightly on Mexico in the Increase and better target\nunrest and political instability, current political alignment, social transfers to alleviate\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 964,
+        "end_char": 1200,
+        "text": "causing capital outflows from High but substantial pressure on stress on vulnerable\nEMDEs, slowing economic growth, basic goods prices could households. Accelerate\nand giving rise to economically cause tension. investment plans in low-\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1200,
+        "end_char": 1358,
+        "text": "damaging populist policies (e.g., income regions.\npreserving fossil fuel subsidies).\nDe-anchoring of inflation High. Additional upside Monetary policy should\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1358,
+        "end_char": 1534,
+        "text": "expectations and stagflation. surprises from global prices or respond decisively to ensure\nSupply shocks to food and energy domestic food markets could the policy rate remains\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1534,
+        "end_char": 1761,
+        "text": "prices sharply increase headline cause medium and even long- contractionary.\ninflation and pass through to core term inflation expectations to\ninflation, de-anchoring inflation rise substantially.\nexpectations and triggering a\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1761,
+        "end_char": 1991,
+        "text": "wage-price spiral in tight labor Medium\nmarkets. Central banks tighten\nmonetary policy more than\nenvisaged leading to weaker global\ndemand, currency depreciations in\nEMDEs, and sovereign defaults.\nTogether, this could lead to the\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1991,
+        "end_char": 2193,
+        "text": "onset of stagflation.\nAbrupt global slowdown or U.S. High. The Fed could tighten Tighten monetary policy if\nrecession: Amid persistently high more and faster in response inflation in Mexico is affected\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2193,
+        "end_char": 2371,
+        "text": "inflation driven by tight labor to persistently high inflation. by additional price pressures\nmarkets, supply disruptions and The resulting U.S. “hard but decouple from Fed when\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2371,
+        "end_char": 2557,
+        "text": "continued commodity price shocks, landing” would transmit to appropriate. Frontload fiscal\nMedium\nthe Fed tightens policies faster and Mexico through reduced expenditure plans and delay\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2557,
+        "end_char": 2731,
+        "text": "by more than anticipated, resulting external demand and revenue measures to provide\nin a “hard landing”, a housing remittances as well as tighter support during the downturn\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2731,
+        "end_char": 2865,
+        "text": "market correction, and a stronger financial conditions and without adding to domestic\nU.S. dollar. capital outflows. price pressures.\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2865,
+        "end_char": 3101,
+        "text": "1 The Risk Assessment Matrix (RAM) shows events that could materially alter the baseline path. The relative likelihood\nis the staff’s subjective assessment of the risks surrounding the baseline (“low” is meant to indicate a probability\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3101,
+        "end_char": 3333,
+        "text": "below 10 percent, “medium” a probability between 10 and 30 percent, and “high” a probability between 30 and 50\npercent). The RAM reflects staff views on the source of risks and overall level of concern as of the time of discussions\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3333,
+        "end_char": 3452,
+        "text": "with the authorities. Non-mutually exclusive risks may interact and materialize jointly.\n54 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 59",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 184,
+        "text": "MEXICO\nRisks Likelihood Impact Policy Response\nLocal COVID-19 outbreaks. Medium. A more Renew vaccination\nOutbreaks in slow-to-vaccinate contagious or deadly variant campaign and seek\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 184,
+        "end_char": 351,
+        "text": "countries or emergence of more could reverse declining boosters with variants if\ncontagious vaccine-resistant variants hospitalizations and death. available. Consider\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 351,
+        "end_char": 516,
+        "text": "force new lockdowns or inhibit Border restrictions and renewing pandemic-era\ncommerce. This results in extended nonpharmaceutical support for key industries.\nMedium\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 516,
+        "end_char": 754,
+        "text": "supply chain disruptions, slower interventions (NPIs) in trade Expand targeting transfer\ngrowth, capital outflows, and debt partners could cause programs to protect the\ndistress in some EMDEs. renewed supply constraints. most vulnerable.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 754,
+        "end_char": 956,
+        "text": "The tourism industry could\nsee another substantial\ndownturn.\nDeepening geo-economic Low. Reduced global Implement structural\nfragmentation and geopolitical productivity and demand reforms to ensure the\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 956,
+        "end_char": 1125,
+        "text": "tensions. Broadening of conflicts and and higher input costs will economy can adjust\nreduced international cooperation weigh on Mexican growth, flexibly to rotations in\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1125,
+        "end_char": 1311,
+        "text": "accelerate deglobalization, resulting but nearshoring elements of export demand, including\nin a reconfiguration of trade, supply the U.S. supply chain could labor market reforms to\nHigh\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1311,
+        "end_char": 1514,
+        "text": "disruptions, technological and have a net positive impact. reduce the informality\npayments systems fragmentation, and allow for smoother\nrising input costs, financial instability, sectoral reallocation.\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1514,
+        "end_char": 1633,
+        "text": "a fracturing of international monetary\nand financial system, and lower\npotential growth.\nINTERNATIONAL MONETARY FUND 55"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 60",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 204,
+        "text": "MEXICO\nAnnex III. Debt Sustainability Analysis\nA. Sovereign Risk and Debt Sustainability Analysis\nAnnex III. Figure 1. Mexico: Risk of Sovereign Stress\nMechanical Final\nHorizon Comments\nsignal assessment\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 204,
+        "end_char": 427,
+        "text": "The overall risk of sovereign stress is judged to be moderate. The\nOverall … Moderate post-pandemic recovery is expected to slow slightly in 2023 as global\nconditions deteriorate, resulting in elevated debt levels and non-\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 427,
+        "end_char": 628,
+        "text": "stabilization of debt by 2027. However, a return to trend growth and\na tight fiscal stance will help contain the debt path and more\nfavorable conditions will see debt decline over the extended 10-year\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 628,
+        "end_char": 817,
+        "text": "period. While the balanced budget rule in the fiscal framework plays\na role in containing debt, the impact on budget composition could\nbe a long-run issue as expenditures on investment and\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 817,
+        "end_char": 1003,
+        "text": "deveopmental objectives are often restrained to ensure compliance\nwith the rule.\nNear term 1/\nMedium term Moderate Moderate Medium-term risks are assessed as moderate. Fanchart analysis\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1003,
+        "end_char": 1239,
+        "text": "suggests that baseline projections are reasonable but risks remain\nFanchart Moderate …\naround the non-stabilization of debt by the end of the projection\nGFN Moderate … period. GFN analysis indicates that financing needs will be broadly\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1239,
+        "end_char": 1454,
+        "text": "stable. The standardized stress tests suggest that additional\nStress test ... … financing needs could reach close to 15 percent in a stress scenario\nbut the domestic banking and non-depository sectors could pick up\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1454,
+        "end_char": 1653,
+        "text": "slack. The balanced budget rule assists in containing debt but may\nhave implications for budget composition.\nThe persistence of medium-term factors may serve to affect the long-\nLong term … Moderate\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1653,
+        "end_char": 1871,
+        "text": "run outlook. The impact of a restrictive fiscal stance and the absence\nof structural reforms may pose a trade-off between long-run growth\nand budget balance, meaning that debt ratios may not achieve a\ndeclining trend.\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1871,
+        "end_char": 2095,
+        "text": "The projected debt path and GFN are expected to increase\nsomewhat over the main projection period but decline over the\nSustainable\nSustainability extended 10-year period. Debt is therefore judged to be sustainable\nwith high\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2095,
+        "end_char": 2313,
+        "text": "assessment 2/ but notable risks from further shocks remain, particularly given the\nprobability\nglobal macroeconomic context and the tight fiscal stance\nunderpinning debt dynamics.\nDebt stabilization in the baseline No\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2313,
+        "end_char": 2446,
+        "text": "DSA Summary Assessment\nStaff Commentary: The risk of Mexico experiencing sovereign stress is moderate overall and its public debt is\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2446,
+        "end_char": 2666,
+        "text": "assessed to be sustainable with high probability over the extended time horizon. While still manageable under\nmost downside scenarios, fan chart analysis suggests that public debt ratios could increase materially in the\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2666,
+        "end_char": 2838,
+        "text": "medium-term, possibly constraining policy options and leading to moderate risks of sovereign stress compared\nto low risks in the near term.\nSource: IMF staff calculations.\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2838,
+        "end_char": 3060,
+        "text": "Note: The risk of sovereign stress is a broader concept than debt sustainability. Unsustainable debt can only be\nresolved through exceptional measures (such as debt restructuring). In contrast, a sovereign can face stress\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 3060,
+        "end_char": 3258,
+        "text": "without its debt necessarily being unsustainable, and there can be various measures—that do not involve a debt\nrestructuring—to remedy such a situation, such as fiscal adjustment and new financing.\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3258,
+        "end_char": 3491,
+        "text": "1/ The near-term assessment is not applicable in cases where there is a disbursing IMF arrangement. In\nsurveillance-only cases or in cases with precautionary IMF arrangements, the near-term assessment is performed\nbut not published.\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3491,
+        "end_char": 3716,
+        "text": "2/ A debt sustainability assessment is optional for surveillance-only cases and mandatory in cases where there is\na Fund arrangement. The mechanical signal of the debt sustainability assessment is deleted before publication.\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3716,
+        "end_char": 3943,
+        "text": "In surveillance-only cases or cases with IMF arrangements with normal access, the qualifier indicating probability\nof sustainable debt (\"with high probability\" or \"but not with high probability\") is deleted before publication.\n"
+      },
+      {
+        "segment_id": "S00020",
+        "start_char": 3943,
+        "end_char": 3973,
+        "text": "56 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 61",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 202,
+        "text": "MEXICO\nAnnex III. Figure 2. Mexico: Debt Coverage and Disclosures\n1. Debt coverage in the DSA: 1/ CG GG NFPS CPS Other\n1a. If central government, are non-central government entities insignificant? n.a.\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 202,
+        "end_char": 436,
+        "text": "2. Subsectors included in the chosen coverage in (1) above:\nSubsectors captured in the baseline Inclusion\n1 Budgetary central government Yes\n2 Extra budgetary funds (EBFs) Yes\n3 Social security funds (SSFs) Yes\n4 State governments No\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 436,
+        "end_char": 646,
+        "text": "5 Local governments No\n6 Public nonfinancial corporations Yes\n7 Central bank No\n8 Other public financial corporations Yes\n3. Instrument coverage:\n4. Accounting principles:\n5. Debt consolidation across sectors:\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 646,
+        "end_char": 883,
+        "text": "Color code: █ chosen coverage █ Missing from recommended coverage █ Not applicable\nReporting on Intra-Government Debt Holdings\nExtra- Social\nHolder Budget.\nbudget. security Nonfin. Central Oth. pub.\ncentral State govt. Local govt. Total\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 883,
+        "end_char": 1123,
+        "text": "funds funds pub. corp. bank fin corp\nIssuer govt\n(EBFs) (SSFs)\n1 Budget. central govt 0 0 0 0 0 0 0 0\n2 Extra-budget. funds 0 0 0 0 0 0 0 0\n3 Social security funds 0 0 0 0 0 0 0 0\n4 State govt. 0 0 0 0 0 0 0 0\n5 Local govt. 0 0 0 0 0 0 0 0\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1123,
+        "end_char": 1252,
+        "text": "6 Nonfin pub. corp. 0 0 0 0 0 0 0 0\n7 Central bank 0 0 0 0 0 0 0 0\n8 Oth. pub. fin. corp 0 0 0 0 0 0 0 0\nTotal 0 0 0 0 0 0 0 0 0\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1252,
+        "end_char": 1394,
+        "text": "Staff Commentary: The classification of Mexico’s fiscal accounts in this SRDSA matches that used in the IMF’s Fiscal Monitor. State and Local\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1394,
+        "end_char": 1538,
+        "text": "governments are excluded from debt coverage given limits on their debt carrying capacity and the absence of the legal obligation on the part of\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1538,
+        "end_char": 1680,
+        "text": "the Federal government to guarantee or assume their debt. Staff are not aware of data on accounts payables, although the relevant information\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1680,
+        "end_char": 1818,
+        "text": "is assumed to be included in other data used in this assessment. Debt is not consolidated across the Federal government and Non-Financial\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1818,
+        "end_char": 1973,
+        "text": "Public Sector and the aggregate debt data represents the gross amount of all individual debt liabilities.\nINTERNATIONAL MONETARY FUND 57\nSPFN\ndetcepxe\n:GG\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 1973,
+        "end_char": 2176,
+        "text": "1/ CG=Central government; GG=General government; NFPS=Nonfinancial public sector; PS=Public sector.\n2/ Stock of arrears could be used as a proxy in the absence of accrual data on other accounts payable.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2176,
+        "end_char": 2367,
+        "text": "3/ Insurance, Pension, and Standardized Guarantee Schemes, typically including government employee pension liabilities.\n4/ Includes accrual recording, commitment basis, due for payment, etc.\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2367,
+        "end_char": 2509,
+        "text": "5/ Nominal value at any moment in time is the amount the debtor owes to the creditor. It reflects the value of the instrument at creation and\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2509,
+        "end_char": 2661,
+        "text": "subsequent economic flows (such as transactions, exchange rate, and other valuation changes other than market price changes, and other\nvolume changes).\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2661,
+        "end_char": 2894,
+        "text": "6/ The face value of a debt instrument is the undiscounted amount of principal to be paid at (or before) maturity.\n7/ Market value of debt instruments is the value as if they were acquired in market transactions on the balance sheet "
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 2894,
+        "end_char": 3108,
+        "text": "reporting date (reference\ndate). Only traded debt securities have observed market values.\nSPC\nGC\nComments\nSee commentary below.\nSee commentary below.\nCurrency & Debt Oth acct.\nLoans IPSGSs 3/ See commentary below.\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3108,
+        "end_char": 3312,
+        "text": "deposits securities payable 2/\nBasis of recording Valuation of debt stock\nNon-consolidated\nSPC\nSPFN\ndetcepxe\n:GG\nGC\nNon-cash Nominal Face value Market\nCash basis\nbasis 4/ value 5/ 6/ value 7/\nConsolidated"
+      }
+    ]
+  }
+]

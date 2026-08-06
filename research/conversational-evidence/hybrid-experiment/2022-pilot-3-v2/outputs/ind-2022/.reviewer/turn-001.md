@@ -1,0 +1,221 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "No direct 2022 evidence shows Modi personally tightened command-and-control, custody discipline, or nuclear safety oversight beyond declaratory policy and the accidental missile response.",
+          "lenses": ["1B.3", "1B.7", "1B.8"],
+          "best_source_or_query_direction": "Official Indian command-and-control or cabinet/security committee records; corroborated reporting on any 2022 nuclear-safety reforms.",
+          "why_it_matters": "It would separate institutional posture from ruler-attributed risk reduction."
+        }
+      ],
+      "reason": "The package fairly presents both restraint and risk: the Samarkand diplomacy, CTBT posture, and de-alerting language are paired with the accidental missile firing and opaque modernization baseline. Attribution limits are stated, and the year is not overclaimed as a major risk-reduction breakthrough."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "The package does not show a consequential ceasefire, settlement, or ruler-directed de-escalation result beyond repeated diplomatic calls and abstentions.",
+          "lenses": ["2B.1", "2B.7", "2B.10"],
+          "best_source_or_query_direction": "Contemporaneous UN, PMO, and foreign-ministry records on concrete India-mediated diplomatic follow-through in 2022.",
+          "why_it_matters": "It would distinguish posture from actual conflict-shaping effect."
+        }
+      ],
+      "reason": "The evidence is balanced and period-correct: it shows restraint, diplomatic language, humanitarian evacuation, and border management, while also making clear that India was not the belligerent and that the record is about posture more than war termination."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0032",
+          "reason": "Evaluative commission commentary about religious-freedom conditions; useful context, but not a direct finding of Modi-specific conduct."
+        },
+        {
+          "evidence_id": "E0033",
+          "reason": "Judicial restraint on sedition is counterweight context, not ruler conduct."
+        },
+        {
+          "evidence_id": "E0035",
+          "reason": "Retrospective treaty-body observation; context for 2022, not a contemporaneous 2022 finding."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct central-command evidence linking Modi to specific police, demolition, or detention actions is thin.",
+          "lenses": ["3B.1", "3B.2", "3B.9"],
+          "best_source_or_query_direction": "Central-home-ministry directives, state orders, court records, or official post-incident accountability actions tied to the 2022 episodes.",
+          "why_it_matters": "It would tighten attribution and separate national environment from ruler-directed abuse."
+        },
+        {
+          "gap": "Several sources describe the broader BJP-led environment or state/local conduct rather than a personally attributable PM decision.",
+          "lenses": ["3B.3", "3B.5", "3B.10"],
+          "best_source_or_query_direction": "Primary records on Modi, cabinet, or Home Ministry responses to the communal violence and demolition episodes.",
+          "why_it_matters": "The chapter needs ruler-specific responsibility, not only country-level repression."
+        }
+      ],
+      "reason": "The package does surface serious domestic-safety harms and some partial restraint, but it leans heavily on broad country reports, advocacy material, and state/local incidents with indirect central attribution. That is enough for a cautious dossier, not enough to treat the record as fully pinned to Modi personally."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0042",
+          "reason": "Court constraint on sedition is important context, but it is not a Modi self-binding action."
+        },
+        {
+          "evidence_id": "E0044",
+          "reason": "Aggregate shutdown reporting is useful pattern context, but attribution is shared and not personally traced to Modi."
+        },
+        {
+          "evidence_id": "E0051",
+          "reason": "Multi-year investigative pattern; context for central agency politicization, not a clean 2022-only ruler finding."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "4B.4 is thin: there is little direct evidence that Modi strengthened independent courts, legislatures, audit bodies, or oversight institutions when they constrained him.",
+          "lenses": ["4B.4", "4B.8"],
+          "best_source_or_query_direction": "Court cases, parliamentary records, audit-body actions, and executive responses showing self-binding or resistance to capture in 2022.",
+          "why_it_matters": "This is central to contestability and institutional restraint."
+        },
+        {
+          "gap": "Much of the negative evidence is indirect: repression, shutdowns, and press pressure are documented, but personal direction by Modi is rarely shown.",
+          "lenses": ["4B.2", "4B.5", "4B.6", "4B.9"],
+          "best_source_or_query_direction": "Direct PMO, cabinet, or Home Ministry records on rule changes, content orders, and enforcement decisions.",
+          "why_it_matters": "The chapter should separate ruler attribution from broad regime character."
+        }
+      ],
+      "reason": "The package fairly captures the competitive-election baseline, but it does not fully resolve whether the democratic-limiting mechanisms are personally attributable to Modi or are better described as broader BJP-state and bureaucratic practice."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0068",
+          "reason": "Country-level human-capital context; useful baseline, not ruler-specific performance evidence."
+        },
+        {
+          "evidence_id": "E0069",
+          "reason": "Indirect patronage/capture context; informative, but not a direct 2022 Modi finding."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Household-level distribution, regional disparity, and anti-capture evidence remain incomplete.",
+          "lenses": ["5B.5", "5B.8"],
+          "best_source_or_query_direction": "India household surveys, state budget execution data, and procurement/capture investigations for 2022.",
+          "why_it_matters": "The chapter should not over-credit macro or programmatic success without checking who benefited."
+        }
+      ],
+      "reason": "The dossier presents both gains and limits well: fiscal support, capital spending, welfare extensions, and resilience are balanced against inflation, informality, selective allocations, and the fact that some favorable claims remain plan- or framework-level rather than full outcome proof."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0074",
+          "reason": "FY 2021-22 school-census release is useful context, but it is not a direct 2022 ruler-period outcome document."
+        },
+        {
+          "evidence_id": "E0083",
+          "reason": "Baseline context only; national poverty and inequality indicators are not ruler-specific action evidence."
+        },
+        {
+          "evidence_id": "E0084",
+          "reason": "Secondary reporting on survey outcomes; useful context, but not direct attribution to Modi."
+        },
+        {
+          "evidence_id": "E0085",
+          "reason": "Country dashboard context; it shows persistent deprivation, but not ruler-specific causal contribution."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent outcome evaluation is thin for whether the large welfare programs materially improved poor households' lives versus mainly expanding nominal coverage.",
+          "lenses": ["6B.2", "6B.6", "6B.10"],
+          "best_source_or_query_direction": "Third-party program evaluations, household survey microdata, and district-level outcome studies for 2022.",
+          "why_it_matters": "Coverage counts alone can overstate welfare gains."
+        },
+        {
+          "gap": "Distribution by caste, tribe, region, and gender is not fully established from the package.",
+          "lenses": ["6B.3", "6B.8"],
+          "best_source_or_query_direction": "Disaggregated ministry, survey, and academic evaluation data.",
+          "why_it_matters": "The chapter asks about equitable human development, not just aggregate provision."
+        }
+      ],
+      "reason": "The package strongly shows delivery capacity and program scale, but much of the evidence is official self-report and output counts. It needs sharper independent outcome corroboration before the dossier can be treated as fully fair on welfare impact."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0088",
+          "reason": "Repository index shows availability of filings, not the truth or completeness of the underlying declaration."
+        },
+        {
+          "evidence_id": "E0089",
+          "reason": "Institutional transparency dispute about PM CARES, not a direct finding that Modi personally concealed assets or gained illicitly."
+        },
+        {
+          "evidence_id": "E0096",
+          "reason": "Indirect and contested favoritism context; useful, but not a direct personal finding against Modi."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct 2022 evidence of deliberate falsehood, self-enrichment, or personal obstruction is thin.",
+          "lenses": ["7B.1", "7B.2", "7B.4", "7B.7"],
+          "best_source_or_query_direction": "Court findings, audit records, procurement documents, and verified corrections or false statements by Modi himself in 2022.",
+          "why_it_matters": "Personal integrity requires personal nexus, not just country-level corruption context."
+        },
+        {
+          "gap": "The negative side of the package is mostly indirect and inferential.",
+          "lenses": ["7B.3", "7B.5", "7B.6", "7B.9"],
+          "best_source_or_query_direction": "Evidence on Modi-specific conflicts, appointments, and accountability responses with direct documentary support.",
+          "why_it_matters": "Without that, the dossier risks overstating the case against him."
+        }
+      ],
+      "reason": "The package does include direct self-disclosure and some scrutiny, but its adverse material is mostly contextual or inferential. That makes it useful, but not yet fully saturated on the personal-nexus standard this chapter requires."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0068",
+          "reason": "Current country human-capital page is context, not ruler-execution evidence."
+        },
+        {
+          "evidence_id": "E0104",
+          "reason": "Useful outcome context, but the causal chain is shared with RBI and ecosystem partners rather than Modi alone."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Independent evaluation of GatiShakti and other major programs' causal effects is still thin.",
+          "lenses": ["8B.5", "8B.7", "8B.8", "8B.10"],
+          "best_source_or_query_direction": "External audits, implementation evaluations, and post-program outcome studies.",
+          "why_it_matters": "The chapter should not confuse declared plans or output counts with demonstrated competence."
+        },
+        {
+          "gap": "Attribution between Modi, ministries, the RBI, and states remains partly blended.",
+          "lenses": ["8B.2", "8B.3", "8B.9"],
+          "best_source_or_query_direction": "Program-specific implementation records that distinguish central, subnational, and independent-institution roles.",
+          "why_it_matters": "Competence scoring depends on who actually controlled each step."
+        }
+      ],
+      "reason": "The dossier is solidly constructed: it shows program articulation, implementation mechanisms, appointments, and some outcome movement, while also keeping the contrary labor-market and learning outcomes visible. The remaining weakness is causal precision, not basic fairness."
+    }
+  ]
+}

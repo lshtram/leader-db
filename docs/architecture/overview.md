@@ -31,6 +31,109 @@ The customer/client matrix is a **validation/test reference only**. It is not
 ground truth, not an evidence source, and never contributes to source agreement,
 source authority, factual claims, leader identity, or category scoring.
 
+Controlled cohort evaluations are frozen separately from production releases. The
+evaluation manifest binds the ruler cohort, preserved baselines, model/workflow
+configuration, artifact hashes, batch order, token checkpoints, and stop gates.
+Changed-ruler diagnostics may reuse compact immutable score/rationale anchors for
+unchanged rulers, but a production release still requires complete common-meter and
+score/order audits plus the operational, source, attribution, and publication gates in
+[`../process/2022-controlled-evaluation-and-production-promotion.md`](../process/2022-controlled-evaluation-and-production-promotion.md).
+
+### Question-driven evidence funnel
+
+`src/leaders_db/evidence_funnel/` is an experimental upstream producer for
+long-document ruler evidence. It converts a frozen, access-audited source pack into
+atomic verified evidence, duplicate-aware factual clusters, and one evidence brief per
+methodology question. Document maps and routing decisions are navigation artifacts.
+One candidate is stored once and linked to every applicable methodology ID.
+
+Citation text is code-owned. A model receives an exact segment index for a frozen
+locator and returns an `EvidenceIntent` containing semantic fields plus the selected
+segment range, but no quotation. `FrozenCitationIndex` resolves that range against the
+source hash; `CitationLedger` copies and immutably stores the exact substring and
+character offsets, then returns the bound draft to the agent. The agent may confirm,
+discard, or submit a corrected span for at most the configured three attempts.
+Confirmation creates an `EvidenceCandidate` v2 with pending semantic-verification
+status. It does not itself prove that the claim follows from the passage.
+
+Non-contiguous support is represented by separate records or separately retained
+spans. Code never deletes intervening source text or concatenates passages. Optional
+machine translation is a secondary artifact linked by the original-text hash; it never
+replaces the authoritative source-language excerpt.
+
+Versioned configuration selects stage roles, model/fallback profiles, routing policy,
+verification escalation, prompts, and the gap-round limit. Model adapters consume and
+return validated stage contracts. Deterministic code owns stable IDs, immutable JSON
+persistence, hashes, resumption, source-dependency clustering, question briefs, and
+dossier v2 conversion.
+
+Each phase records its input and configuration hashes and immutable output hashes.
+Completed work is reused only when those hashes still match. The run manifest records
+actual token counts at acquisition, routing, close reading, evidence, clustering,
+briefing, premium verification, and judgment transitions; no fixed compression ratio
+is an optimization target.
+
+The first configured case is AMLO, Mexico, 2022, Chapter 5B. Its calibration gate is
+`BOOK-013`, `MAC-010`, and `LAW-005`, followed by the frozen sixteen-document pack.
+The companion judge packet and matched closed-book/reference judgments are explicitly
+experimental and non-publication. They cannot update a production ruler score.
+The earlier model-quotation runners were retired after failed calibration diagnostics.
+The active prototype surfaces are the thin `run_citation_writer.py` CLI and the
+bounded, non-publication `run_evidence_funnel_calibration.py` three-source gate.
+The calibration runner stops after semantic verification when its mechanical gate
+fails; no live sixteen-document, clustering, dossier, or judgment runner is enabled
+until the trio passes and the remaining stages are recomposed through reviewed
+package modules.
+
+The corpus-scale reader under `src/leaders_db/research/corpus_*` is a separate
+experimental implementation. It gives every discovered URL an acquisition
+disposition, content-deduplicates acquired text, packs complete source units into
+context-bounded calls, and lets the model emit simple fact intents. Code binds each
+intent to the exact frozen passage and a fresh model verifies the resulting claim.
+Question remapping and corpus-wide duplicate adjudication are later no-search passes;
+both require code-checked evidence IDs and digests. Multi-record identity failures
+fall back to isolated one-record calls rather than weakening the integrity gate.
+Batch document counts and token ceilings shape calls only; they are not corpus,
+chapter, evidence, or stopping caps.
+
+The chapter reading-list experiment is a compact consumer of that ledger. One Luna
+call drafts a chapter-specific list from the complete candidate index; a fresh call
+tries to falsify the selection by naming omissions, misreadings, duplication, period
+errors, attribution problems, and imbalance; and a revision call receives the exact
+code-bound passages for every draft item plus actionable challenges. Code validates
+all evidence IDs and chapter lenses and resolves the final citations. The artifact
+preserves the critique, omitted-candidate IDs, unresolved gaps, and explicit reasons
+for a future judge to reopen the full ledger. It is an experimental reading aid, not
+a score or a substitute for judge skepticism.
+
+The question-complete chapter-analysis experiment tests a less lossy alternative.
+Luna answers all ten chapter questions from the complete compact ruler evidence index,
+including records previously routed to other chapters so it can challenge routing
+mistakes; a fresh Luna critiques those answers against the same index; and ten bounded correction
+calls reopen exact code-bound passages question by question. Code rejects invented
+IDs and prevents a correction from citing evidence that was not reopened. After three
+identity failures, code removes only invalid references, records the removal, and
+leaves the prose as a hypothesis for exact-passage correction. A separate Sol quality
+evaluator reviews consecutive question groups sized only by transport, while every
+group retains the complete compact chapter index and the exact passages cited by its
+answers. These artifacts are non-scoring experiments and do not enter judge inputs
+without an explicit quality pass.
+
+### Clean-room simple evidence extractor
+
+`prototypes/simple-evidence-extractor/` is a standalone experimental replacement
+candidate, not a production dependency. It does not import the evidence funnel.
+MiniMax reads numbered source sentences and persists facts only through four local
+commands: show, add, correct, and confirm. Deterministic code copies the exact
+source-language span and returns the stored JSON entity for model inspection. A fresh
+reviewer must confirm the entity before it enters the accepted JSONL ledger. The
+runner issues a short-lived capability for each model call; the broker binds that
+capability to an immutable role, source range, window, and fact allowlist. Resume
+markers bind the source inputs and final registry states.
+prototype intentionally omits routing, model-authored output schemas, dialect
+normalizers, acquisition, scoring, and dossier compatibility until its small,
+three-source, chapter-package, and full-ruler quality gates pass.
+
 ## Scope
 
 **In scope (§2):** one target year at a time, initially 2023; countries above the
@@ -192,7 +295,7 @@ disagreement into the rationale and confidence components.
 | Run config | `src/leaders_db/config.py`, `configs/*.yaml` | — | Target year, source selection, scoring categories, LLM mode. |
 | Path layer | `src/leaders_db/paths.py` | — | Data-lake path helpers (`raw_dir`, `processed_dir`, `outputs_dir`, ...). |
 | Database | `src/leaders_db/db/` | — | SQLAlchemy engine/session/models and migrations. |
-| Source availability | `src/leaders_db/ingest/source_availability.py` | 0 | Probe/source availability reports. |
+| Source readiness | `src/leaders_db/ingest/source_availability.py` | 0 | Offline authoritative audit across registry descriptors, raw metadata/files, immutable processed manifests/parquet, the read-only normalized-observation catalog, published country-year facts, concept mappings, and executable local-prior routes. Country matching is credited at the published-fact boundary when name/native-code resolution already succeeded there. Emits JSON/CSV/Markdown with the ordered readiness states and never labels a merely staged or normalized source “available.” |
 | Client reference loader | `src/leaders_db/ingest/client_matrix.py` | 1 | Load customer matrix as validation reference only. Must not create independent source evidence. |
 | Legacy Stage 2 source adapters | `src/leaders_db/ingest/<source>*.py` | 2 | Read one external source, normalize raw rows to `source_observations`, write processed parquet/manifest through the original ingest stack. |
 | Unified source subsystem | `src/leaders_db/sources/` | 2+ | Registry-backed clean source interface. `SourceIngestRunner(registry)` remains side-effect free for validation/inspection; `SourceIngestRunner(registry, engine=...)` executes `check_ready -> read_raw -> transform -> validate -> persist -> manifest`, writes processed observations under `processed_root/<source>/observations-<run_id>.<format>`, upserts SQL evidence rows idempotently, and writes immutable manifests at `processed_root/<source>/manifest-<run_id>.json`. |
@@ -211,6 +314,11 @@ disagreement into the rationale and confidence components.
 | Stage 9 batch CSV writer | `src/leaders_db/score/_stage9_csv.py` (`write_score_results_csv`, `SCORE_RESULTS_CSV_COLUMNS`; re-exported through `src/leaders_db/score/stage9.py`) | 9 | Pandas-free atomic-rename CSV writer. One row per `ScoreResult`. Insufficient-data rows write the literal `"NA"` sentinel for the score pair and pipe-separated `review_flags`. Header columns cover the missingness-investigation contract (`observed_count`, `expected_count`, `missing_count`, `missing_primary_count`, `observation_ref_count`, `rationale_short`). Per AGENTS.md rule #15 the file opens with a `# Attribution: <text>` comment block (one line per contributing source) before the stable `SCORE_RESULTS_CSV_COLUMNS` header; consumers parse with `csv.reader` and skip rows whose first cell starts with `#`, or use `pandas.read_csv(..., comment="#")`. The module is split out of `stage9.py` so the per-country / per-batch seam stays under the 400-line convention; the public import path `from leaders_db.score.stage9 import write_score_results_csv` is stable across the split. |
 | Stage 9 CSV attribution mapping | `src/leaders_db/score/_attributions.py` | 9 | Single source of truth for which external sources a Stage 9 public-output CSV must declare in its `# Attribution: <text>` comment block. `CATEGORY_SOURCE_ATTRIBUTIONS` maps `category_key` → tuple of `(source_key, attribution_text)`; `build_attribution_comment_lines(category_key)` returns the comment lines. Texts are byte-for-byte equal to the "Attribution text in reports" strings in `docs/sources/attributions.md` §1 (drift-guarded by `tests/test_score_stage9_attribution.py`). `client_existing` is never included (AGENTS.md rule #6). |
 | Confidence engine | `src/leaders_db/score/confidence.py` | 11 | Fixed formula and component score calculation. |
+| Concept country-year facts | `src/leaders_db/facts/concept_country_year_facts.py` | 5 | Publishes unit-specific concepts, selected and alternative provenance, fixed confidence components, and source-specific interpretation warnings. |
+| Source uncertainty transport | `src/leaders_db/ingest/{vdem_io,wgi_xlsx}.py`, `src/leaders_db/sources/adapters/{vdem,world_bank_wgi}/_transform.py` | 2/5 | Retains V-Dem coding bounds/standard deviations and WGI estimate standard errors/percentile-rank bounds in observation extensions that fact provenance carries forward. |
+| Local Evidence Package v3 | `src/leaders_db/research/{local_prior_schema,local_prior_query,local_structured_prior,local_prior_package}.py` | research handoff | Retrieves a bounded pre-accession/tenure/target series, labels each fact's period role, excludes future observations, deduplicates across lenses, and accepts legacy target-year facts. |
+| Longitudinal signal derivation | `src/leaders_db/research/local_longitudinal.py` | research handoff | Computes reconstructable level/change/trend/acceleration/average/cumulative/volatility/coverage summaries with exact formulas, source lineage, uncertainty, lag, causal-distance, and attribution warnings; never scores automatically. |
+| Controlled peer comparison | `src/leaders_db/research/local_peers.py` | research handoff | Compares country change with explicitly supplied accession-dated peer memberships across five supported definitions, reports coverage and sensitivity, and rejects future-defined peers. Automatic membership construction remains disabled until authoritative dimensions are persisted. |
 | LLM adapter | `src/leaders_db/llm/{caller,schemas}.py` | 10/11 escalation | Strict JSON adjudication; optional gated external research later. |
 | Comparison | `src/leaders_db/validate/comparison.py` | 12 | Client-vs-system deltas; client remains validation reference only. |
 | Manual review queue | `src/leaders_db/validate/manual_review_queue.py` | 14 | Prioritized low-confidence/conflict/missingness/high-delta cases. |
@@ -260,7 +368,7 @@ produced a number.
 | `pts` | implemented | `data/raw/political_terror_scale/PTS-2025.xlsx` | `src/leaders_db/ingest/catalogs/pts.csv` | `STAGE2_ADAPTERS["pts"]` | Row country/COW/World Bank code; columns `PTS_A/H/S` and `NA_Status_A/H/S`. |
 | `ucdp` | implemented in code, raw not staged in current checkout | `data/raw/ucdp/<ged zip>` when available | `src/leaders_db/ingest/catalogs/ucdp.csv` | `STAGE2_ADAPTERS["ucdp"]` | Event rows filtered by catalog `filter_logic`; aggregate by country-year. |
 | `sipri_milex` | implemented (legacy; clean source adapter 2026-06-26) | `data/raw/sipri_milex/SIPRI-Milex-data-1949-2025_v1.2.xlsx` with local `metadata.json` required at runtime | `src/leaders_db/ingest/catalogs/sipri_milex.csv` | Legacy: `STAGE2_ADAPTERS["sipri_milex"]`; clean: `leaders_db.sources.adapters.sipri_milex.register_sipri_milex(registry)` | Workbook sheet = catalog `raw_column`; source-native country display row; year column. The clean adapter emits `international_peace_country_year` records for non-missing country-year indicator cells, leaves `country_code` / leader fields unset, carries `source_row_reference = "sipri_milex:<display_name>"`, and does not fabricate ISO3 or missing values. |
-| `sipri_yearbook_ch7` | implemented (legacy; clean source adapter 2026-06-26), raw metadata/PDF are runtime-local | `data/raw/sipri_yearbook_ch7/YB24 07 WNF.pdf` with local `metadata.json` required at runtime | `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` | Legacy: `STAGE2_ADAPTERS["sipri_yearbook_ch7"]`; clean: `leaders_db.sources.adapters.sipri_yearbook_ch7.register_sipri_yearbook_ch7(registry)` | PDF Table 7.1 country row; raw column from catalog. The clean adapter emits `nuclear_country_year` records for snapshot-year nuclear warhead facts, leaves `country_code` / leader fields unset, carries `source_row_reference = "sipri_yearbook_ch7:<display_name>"`, `pdf_pages_total`, `snapshot_year`, raw PDF cell text, and does not fabricate ISO3 or missing values. |
+| `sipri_yearbook_ch7` | implemented and live-validated (legacy + clean adapter) | staged official 2024 chapter (space or underscore filename accepted locally) with validated metadata | `src/leaders_db/ingest/catalogs/sipri_yearbook_ch7.csv` | Legacy: `STAGE2_ADAPTERS["sipri_yearbook_ch7"]`; clean: `leaders_db.sources.adapters.sipri_yearbook_ch7.register_sipri_yearbook_ch7(registry)` | Locates and parses PDF Table 7.1 from the real InDesign layout; emits and routes total-inventory, deployed, and retired snapshot facts for nine states with raw cells, missingness, source year, and no fabricated ISO3 or favorable non-exposure inference. |
 | `archigos` | implemented (legacy 2026-06-19; clean source adapter 2026-06-26) | `data/raw/archigos/Archigos_4.1_stata14.dta` | `src/leaders_db/ingest/catalogs/archigos.csv` | Legacy: `STAGE2_ADAPTERS["archigos"]`; clean: `leaders_db.sources.adapters.archigos.register_archigos(registry)` | Stata 14 `.dta` row `obsid=<obsid>`; one observation per (leader-spell, catalog `raw_column`) pair, `source_row_reference` = `archigos:<obsid>:<year>:<raw_column>`. The clean adapter emits `leader_identity_spell` records keyed by spell start year, leaves `country_code` / `leader_id` unset, carries source-native `idacr` / `ccode`, and does not fabricate 2023 rows because Archigos ends 2015. |
 | `reign` | implemented (legacy 2026-06-19; clean source adapter 2026-06-26) | `data/raw/reign/REIGN_2021_8.csv` | `src/leaders_db/ingest/catalogs/reign.csv` | Legacy: `STAGE2_ADAPTERS["reign"]`; clean: `leaders_db.sources.adapters.reign.register_reign(registry)` | GitHub raw CSV row keyed by ``(country, year, month)``; one observation per (leader-month-row, catalog ``raw_column``) pair, ``source_row_reference`` = ``reign:<country_token>:<leader>:<year>:<month>:<raw_column>``. The clean adapter emits `leader_identity_month` records, leaves `country_code` / `leader_id` unset, carries source-native `country` / `ccode` / `month`, and does not fabricate 2023 rows because REIGN ends 2021-08. |
 | `leader_survival` | vetted, **adapter blocked on Demscore email gate** (2026-06-19) | `data/raw/leader_survival/` exists but contains only a placeholder ``.gitkeep``; H-DATA v5 (March 2025) has a manual form/email/gender gate, not yet staged. | not yet created | currently `None` | Once data lands: row leader-spell; raw columns from the future catalog (`leader`, `startdate`, `enddate`, `gender`, `biographical background`, ...). Per AGENTS.md Always-On Rule #6 the adapter is not implemented until the data is placed. |
@@ -285,14 +393,29 @@ Each rating category has an expected source set. The scorer can run with partial
 coverage, but missing expected sources must be represented in the evidence
 bundle and penalize confidence.
 
+Local-prior routing is lens-specific for chapters 5B and 6B. Structured national
+outcomes are supplied only where they can inform the question's baseline, outcome,
+distribution, access, productivity, crisis, or trajectory context. Lenses requiring
+appointments, decision process, or political conditionality may intentionally have
+no local fields; that is an actionable narrative-research gap, not pipeline failure.
+The same boundary applies to 7B/8B: country corruption and capacity indicators are
+available only as institutional/scrutiny/implementation context and never substitute
+for personal nexus, program identification, ruler ownership, or causal execution.
+Chapter 4B similarly separates election, opposition, constraint, media, equality,
+succession, and trajectory fields so each lens receives only semantically relevant
+country context; specific ruler conduct remains a narrative attribution question.
+Chapters 1B-3B separate inventory/operational exposure, conflict/fatality/military
+burden, and physical-integrity/oversight/fear contexts. Intentionally unmapped lenses
+produce a valid narrative-research gap instead of inheriting a misleading aggregate.
+
 | Category | Primary structured sources | Current implementation state | Notes |
 |---|---|---|---|
 | `nuclear` | SIPRI Yearbook Ch.7, FAS | Both adapters implemented (Phase C.6, Phase C.10); deterministic scorer implemented (Phase D.9) | Per-source plan at `src/leaders_db/score/category_plans/nuclear.py`; deterministic scorer at `src/leaders_db/score/nuclear.py` (facade) + private `_nuclear_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 2-group weighted average (FAS nuclear forces 0.60, SIPRI Yearbook Ch.7 nuclear forces 0.40); `minimum_viable_sources=1` with `SparseDataPolicy.PROVISIONAL_SCORE` — but per requirement §6 "most countries are non-nuclear" the scorer treats every below-threshold bundle as `is_insufficient_data=True` regardless of the plan's `sparse_data_policy` so a non-nuclear state never receives an invented numeric score. The rationale explicitly says "non-nuclear state or no FAS / SIPRI Yearbook Ch.7 row" on the insufficient-data path. The :attr:`ReviewFlag.NUCLEAR_CASE` population-split flag fires on the **scored** path iff the bundle carries any usable FAS / SIPRI Yearbook Ch.7 observation (the §14 manual-review-queue hook per REQ-REV-002); the flag is deliberately not added on the insufficient-data path. Same client-source boundary-exclusion and usable-observation gate as the 7 prior scorers. |
-| `international_peace` | UCDP state/internationalized conflict, SIPRI milex | Both adapters implemented (Phase C.4, Phase C.5); deterministic scorer implemented (Phase D.8) | Per-source plan at `src/leaders_db/score/category_plans/international_peace.py`; deterministic scorer at `src/leaders_db/score/international_peace.py` (facade) + private `_international_peace_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 2-group weighted average (UCDP conflict involvement 0.65, SIPRI Military Expenditure 0.35); `minimum_viable_sources=2` with `SparseDataPolicy.INSUFFICIENT_DATA` so a below-threshold bundle returns a clean `is_insufficient_data=True` result with the full derived flag set. Same client-source boundary-exclusion and usable-observation gate as `social_wellbeing` / `integrity` / `effectiveness` / `economic_wellbeing` / `political_freedom` / `domestic_violence`. |
-| `domestic_violence` | PTS, UCDP one-sided violence, V-Dem repression, CIRIGHTS | All four sources wired (Phase C.7 PTS, C.4 UCDP, C.1 V-Dem, C.10 CIRIGHTS); deterministic scorer implemented | Per-source plan at `src/leaders_db/score/category_plans/domestic_violence.py`; deterministic scorer at `src/leaders_db/score/domestic_violence.py` (facade) + private `_domestic_violence_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 4-group weighted average (PTS state-terror 0.30, CIRIGHTS physical-integrity / repression 0.35, UCDP one-sided violence 0.20, V-Dem civil-liberties / repression 0.15); `minimum_viable_sources=2` with `SparseDataPolicy.INSUFFICIENT_DATA` so a below-threshold bundle returns a clean `is_insufficient_data=True` result with the full derived flag set. Same client-source boundary-exclusion and usable-observation gate as `social_wellbeing` / `integrity` / `effectiveness` / `economic_wellbeing` / `political_freedom`. |
-| `political_freedom` | V-Dem, Polity V, RSF, Freedom House if provided | V-Dem, RSF, BTI, Wikidata HoS/HoG, Polity V all implemented (Phase C.1, C.10, C.11, Polity V clean adapter 2026-06-27); deterministic scorer implemented | Must compare democracy indices, press freedom, civil liberties; client matrix not evidence. Wikidata provides the 2023+ leader reference. The Polity V clean adapter at `src/leaders_db/sources/adapters/polity_v/` covers historical regime / democracy / autocracy country-year evidence through 2018 (out-of-coverage year 2023 emits zero observations + structured `YEAR_ABSENT` warning per SRC-COV-002 / SRC-COV-003; no stale-proxy fill). Per-source plan at `src/leaders_db/score/category_plans/political_freedom.py`; deterministic scorer at `src/leaders_db/score/political_freedom.py` (facade) + private `_political_freedom_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 3-group weighted average (V-Dem democratic / liberal / civil-liberties 0.50, BTI political transformation 0.30, RSF press freedom 0.20); `minimum_viable_sources=2` with `SparseDataPolicy.INSUFFICIENT_DATA` so a below-threshold bundle returns a clean `is_insufficient_data=True` result with the full derived flag set. Same client-source boundary-exclusion and usable-observation gate as `social_wellbeing` / `integrity` / `effectiveness` / `economic_wellbeing`. |
-| `economic_wellbeing` | WDI, Maddison Project, PWT, IMF if user-managed | WDI implemented (Phase C.2); Maddison Project implemented (Phase C.11) for historical real-economy coverage through 2022; PWT implemented (Phase B Increment B + second-pass reviewer follow-up; `STAGE2_ADAPTERS["pwt"]` wired to `ingest_pwt`) | Requires cross-country scaling and careful outlier handling. Maddison total real GDP is derived from `gdppc * pop * 1000` and must not be treated as WDI current-USD GDP. PWT covers 1950-2019 and must contribute only direct observed source years; no 2019→2023 stale/proxy fill is allowed. |
-| `social_wellbeing` | UNDP HDI, WDI social, WHO GHO | All three sources implemented (Phase C.2, C.8, C.9); deterministic scorer implemented (Phase D.1) | Per-source plan at `src/leaders_db/score/category_plans/social_wellbeing.py`; deterministic scorer at `src/leaders_db/score/social_wellbeing.py` (facade) + private `_social_wellbeing_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 5-group weighted average (HDI anchor 0.40, health 0.20, education 0.15, income 0.15, inequality 0.10). The scorer is review-safe: client-matrix sources are stripped at the boundary as defence-in-depth; the minimum-viable gate counts distinct sources of **usable** observations (normalized_value not None, in-plan variable, non-client source) so a source whose row arrived but did not normalize cannot by itself clear the threshold. |
+| `international_peace` | UCDP state/internationalized conflict, SIPRI milex | Both adapters implemented (Phase C.4, Phase C.5); UCDP Organized Violence and One-sided Violence 26.1 actor-aware supplements implemented; deterministic scorer implemented (Phase D.8) | The UCDP clean adapter retains intrastate, interstate, non-state, dyad, named government-actor, non-state-perpetrator, location, and uncertainty semantics as separate facts. Location is exposure rather than responsibility, and government-actor identification is not personal ruler direction. These supplementary facts are research context and do not mechanically alter the legacy deterministic rubric. Per-source plan at `src/leaders_db/score/category_plans/international_peace.py`; deterministic scorer at `src/leaders_db/score/international_peace.py` (facade) + private `_international_peace_{rubric,components,flags}.py` modules. |
+| `domestic_violence` | PTS, UCDP one-sided violence, V-Dem repression, CIRIGHTS | All four sources wired (Phase C.7 PTS, C.4 UCDP, C.1 V-Dem, C.10 CIRIGHTS); UCDP 26.1 actor-year facts are routed by lens; deterministic scorer implemented | Chapter 3 research receives named government-actor killings only in physical-integrity lenses, while non-state and location totals are fear/exposure context. The distinction changes interpretation, not scores automatically. Per-source plan at `src/leaders_db/score/category_plans/domestic_violence.py`; deterministic scorer at `src/leaders_db/score/domestic_violence.py` (facade) + private `_domestic_violence_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 4-group weighted average (PTS state-terror 0.30, CIRIGHTS physical-integrity / repression 0.35, UCDP one-sided violence 0.20, V-Dem civil-liberties / repression 0.15); `minimum_viable_sources=2` with `SparseDataPolicy.INSUFFICIENT_DATA`. |
+| `political_freedom` | V-Dem, Polity V, EIU Democracy Index, RSF, Freedom House if provided | V-Dem, RSF, BTI, Wikidata HoS/HoG, Polity V, and EIU all implemented; deterministic scorer implemented | Must compare democracy indices, press freedom, civil liberties; client matrix not evidence. Wikidata provides the 2023+ leader reference. Polity provides source-native historical context through 2018 with no stale-proxy fill. EIU overall and five component scores are routed as source-native local evidence with PDF observation provenance, but remain one correlated source family and do not mechanically alter the deterministic rubric. Rank and categorical regime labels remain outside the numeric fact layer. Per-source plan at `src/leaders_db/score/category_plans/political_freedom.py`; deterministic scorer at `src/leaders_db/score/political_freedom.py` (facade) + private `_political_freedom_{rubric,components,flags}.py` modules (all ≤ 400 lines). Rubric is a 3-group weighted average (V-Dem democratic / liberal / civil-liberties 0.50, BTI political transformation 0.30, RSF press freedom 0.20); `minimum_viable_sources=2` with `SparseDataPolicy.INSUFFICIENT_DATA`. |
+| `economic_wellbeing` | WDI, Maddison Project, PWT, UNSD SNAAMA, IMF if user-managed | WDI, Maddison, PWT, and the staged UNSD SNAAMA export are researcher-routed | Requires cross-country scaling and careful outlier handling. Maddison total real GDP is derived from `gdppc * pop * 1000` and must not be treated as current-USD GDP. SNAAMA current-dollar GDP and five expenditure aggregates are routed by 5B lens; they mix real, price, and exchange-rate changes and cannot establish real growth. PWT covers 1950-2019 and contributes only direct observed source years; no stale/proxy fill is allowed. Exact scale semantics and prohibited interpretations are retained; these facts do not automatically alter scoring. |
+| `social_wellbeing` | UNDP HDI, WDI social, WHO GHO | All three sources implemented (Phase C.2, C.8, C.9); deterministic scorer implemented (Phase D.1) | Local evidence includes WDI Gini (source-native 0-100), adult literacy, and gross secondary enrollment alongside UNDP and WHO facts. Gross enrollment is access/participation context, not a quality measure, and missing survey years remain absent. Any 0-1 scoring normalization is a separate transformation. The scorer strips client-matrix sources at the boundary and counts only usable non-client observations toward minimum coverage. |
 | `integrity` | TI CPI, WGI Control of Corruption, V-Dem corruption | WGI, V-Dem, and TI CPI all implemented (Phase C.3, C.1, C.10) | Must handle direction inversion: V-Dem corruption higher = worse; WGI higher = better. |
 | `effectiveness` | WGI governance indicators, BTI, V-Dem constraints/accountability | WGI, V-Dem, and BTI all implemented (Phase C.3, C.1, C.10) | Requires distinguishing democratic constraints from technocratic/governance capacity. |
 
@@ -503,25 +626,143 @@ resumable without stale-worker writes. Eight chapter-judge jobs and their
 eligible ruler-dossier dependencies are created atomically. Judges cannot be
 claimed until usable dependencies finish; terminal unavailable dossiers are
 reconciled into the judge's missing-case manifest instead of blocking forever.
-The executable judge reads those completed dossier artifacts and its versioned
-chapter guide without performing new discovery. Parent-side validation requires
-one evaluation per available dossier and checks every decisive evidence ID
-against that dossier. The immutable batch artifact records model and token usage;
+The planner may bind one judge cohort to an explicit ordered list of completed
+dossier run keys. It rejects duplicate canonical ruler-year identities across
+those runs and persists both the source-run list and exact dossier job keys, so
+an append-only production cohort can be judged without copying or rerunning its
+dossiers.
+The executable judge reads those completed web-dossier artifacts, an independently
+built and hash-verified chapter-local evidence package, and its versioned chapter
+guide without performing new discovery. Parent-side validation requires one
+evaluation per available dossier and checks every decisive web (`E*`) and local
+(`LF*`/`LS*`) evidence ID against its own provenance family. The immutable batch
+artifact records model and token usage. Local country facts can establish level,
+trajectory, baseline, or uncertainty, but a numeric ruler score still requires a
+decisive cited `E*` record establishing the relevant ruler authority or nexus;
 all `chapter_scores` rows and ledger completion commit atomically under the active
 lease token, preventing stale or partial publication.
 
+Usage accounting reads provider counters from the trusted event logs. Fresh
+execution threads are additive, including failed and retried calls. Resumed
+chapter calls can expose cumulative counters for one persistent Codex thread;
+the aggregator groups those logs by exact thread ID and retains the largest
+complete snapshot so earlier turns are not counted repeatedly.
+
+Each validated dossier also carries a cited twelve-part evidence-environment
+assessment. Chapter projection preserves that assessment verbatim, and the judge
+must return a structured bias assessment whose supporting IDs resolve within the
+same projection. Current producers use strict schemas. Consumer-side normalization
+keeps usable incomplete or legacy artifacts judgeable by marking omitted assessments
+unresolved, capping confidence, and widening ranges; cross-dossier references and
+genuinely unusable inputs remain validation errors.
+
+If a formatter retains valid evidence but omits exact lens routing, normalization first
+recovers explicit local-prior and coverage mappings, then exposes any remaining item as
+advisory context at each selected chapter boundary. This preserves the source record
+without claiming lens relevance; the chapter judge applies the guide's scope gates.
+
 Dossier research uses the versioned controls in `configs/research-workflow.yaml`.
-Before research, parent-side `local_structured_prior_v2` extraction covers every
-selected lens across all eight chapters and persists the complete hashed artifact.
-The researcher and formatter receive a deduplicated `ruler_local_prior_package_v1`,
-so identical facts are represented once with source-observation provenance and
-candidate lens links rather than repeated across question payloads. Missing facts
-remain explicit gaps and country-level indicators are not automatically attributed
-to the ruler.
-For the complete eight-chapter scope, one persistent evidence researcher works
-through chapters 1B–8B and their lenses in order. It begins with one broad
-ruler-period reconnaissance, then builds a lightweight candidate URL pool for each
-chapter using broad, archive/source-specific, adverse, and local-language searches.
+Local and web evidence follow independent paths:
+
+```text
+structured sources -> local evidence builder -> hashed full artifact
+                                      |       -> bounded LF/LS chapter package -> judge
+web search -> researcher -> reviewer -> formatter -> cited web dossier ----------^
+```
+
+Web research now has an explicit discovery/extraction boundary. One ruler-level
+overview pass builds book, biography, scholarship, archive, long-form, and
+retrospective candidates. Eight chapter discovery passes add topic-, institution-,
+event-, local-language-, favorable-, and adverse-specific candidates. Deterministic
+code canonicalizes their URLs and persists `source-candidate-catalog.json` before
+the reconnaissance or chapter evidence turns begin. Extraction receives bounded
+chapter projections of that catalogue; accepted evidence counts cannot terminate
+or substitute for source discovery.
+
+Before web research, the separate parent-side `local_structured_prior_v2` builder
+covers every selected lens across all eight chapters and persists the complete
+hashed artifact. It retains the deduplicated fact payload, original observation
+IDs, source locators, units, warnings, routing, longitudinal calculations, and
+attribution limits. At projection time, parent code independently verifies that
+artifact and derives the bounded chapter package that the judge receives. This
+delivery path does not depend on the researcher mentioning a local fact or the
+formatter copying it into the web dossier. An unavailable, malformed, or
+hash-mismatched package stays explicitly unavailable or invalid; it can lower
+confidence but does not discard otherwise usable web evidence.
+
+Reconnaissance receives only a short orientation: chapter-level counts, at most
+two representative facts per chapter, material warnings and gaps, and a
+source-family index. This is context for directing web searches, not a local
+evidence-building assignment. It does not receive the complete fact payload, full
+methodology, or all eight chapter guides. Its prompt is self-contained natural language and the
+execution role cannot read project files or rules, invoke a shell, or use apps, plugins,
+subagents, or goals. It searches until informational saturation rather than stopping at
+an evidence-count ceiling, preserves useful sources by source state, and emits one
+machine-recoverable record per source-claim; corroborating records share an
+`underlying_fact_key` so repeated coverage does not become false independence. Each resumed
+chapter turn receives only that chapter's
+ten questions and researcher note. The formatter receives a compact disposition index,
+but never owns, reconstructs, or web-cites local facts. Missing facts remain
+explicit gaps and country-level indicators are not automatically attributed to the
+ruler.
+
+The ten chapter questions organize collection through six observable evidence
+channels where relevant: formal acts and law, resources, personnel, implementation
+and operational conduct, public communications and representations, and outcomes.
+These channels describe what can be observed; they are neither quotas nor component
+scores. A source type is kept separate from the fact it verifies—for example, an
+audit or court record may establish a resource decision, personnel action,
+implementation failure, or outcome. Authority, inherited baseline, constraints,
+distribution and exposure, causation, durability, and information-environment bias
+are interpretive dimensions applied during review and judgment rather than additional
+evidence categories.
+
+The channels do not privilege official or nominally “objective” sources. Research
+begins with strong books, academic work, NGO and international-organization reports,
+investigative and specialist journalism, histories, expert analysis, and other
+syntheses that identify consequential conduct and interpret the record. Primary laws,
+budgets, appointments, transcripts, audits, judgments, and datasets are then inspected
+selectively for material claims, disputes, attribution, and implementation. The
+researcher samples consequential and contrary evidence rather than attempting an
+exhaustive census of every observable act in the period.
+
+The researcher-facing lens catalogue is a separate, versioned presentation layer over
+the versioned detailed questions. Each lens is rendered in this order: short title,
+plain-language question, detailed research question from the same catalogue version,
+and a compact list of
+priority evidence categories. The priorities are advisory and non-exclusive. The
+validated `question_lens_presentation.json` catalogue must cover the same eighty IDs as
+the detailed question registry, and its version is embedded in every chapter-research
+prompt. Previous prompt designs are retained by immutable commit and file hashes so
+controlled runs can compare or restore them without reconstructing prompt state.
+The active chapter-research instructions are stored in
+`chapter_research_prompt.json`; Python owns and validates only the interpolation
+contract. The hybrid experiment's production fingerprint list is likewise stored in
+`hybrid_baseline_manifest.json`, rather than duplicated in implementation and tests.
+
+All research-changing language follows a single-source configuration boundary.
+Versioned JSON owns question text, lens presentation, prompt templates, category/source
+catalogues, and other scientific workflow values. Python validates, selects,
+interpolates, and executes those configurations; it must not retain a second
+handwritten copy. Tests consume the same configuration and exercise behavior,
+malformed-input rejection, selection, isolation, serialization, and version/hash
+propagation rather than pinning mutable prose. Legacy Python prompt literals are being
+migrated in the staged order recorded in the workplan and configuration audit.
+`questions.json` owns the chapter registry metadata and required chapter/lens grid as
+well as the versioned text; runtime validation enforces the exact stable question-ID set and
+unique derived registry keys before the research registry is built.
+
+The feature-gated segmented research mode works through
+chapters 1B–8B and their lenses in order. It begins with one broad ruler-period
+reconnaissance. Each chapter then starts a fresh compact session containing only its
+questions, researcher note, and a bounded parent-built index of relevant resources
+already found. The parent owns and monotonically merges the cumulative ledger, so raw
+search/tool history is not replayed through every later chapter. Each chapter builds a
+lightweight candidate URL pool using broad, archive/source-specific, adverse, and
+local-language searches.
+It remains a research-only quality/token experiment until compact reviewer
+continuations and formatter handoff pass their own end-to-end gate; the checked-in
+score-bearing workflow retains its compatible persistent mode meanwhile.
 Historical searches do not use recent-news filters. Candidate discovery precedes
 source admissibility: promising underlying pages and documents are opened, claims and
 locators are extracted, and only then are accepted items added to the growing ledger.
@@ -553,15 +794,38 @@ gateway-only and missing-locator candidates remain non-final but identified sour
 with missing locators are recoverable extraction tasks rather than proof of absence.
 The reviewer excludes duplicates and bundled claims, requires continuation for named
 unfetched sources or incomplete discovery patterns, and does not use predicted marginal
-value or workflow exhaustion as a saturation finding.
+value or workflow exhaustion as a saturation finding. Every current chapter review also
+records whether favorable and adverse searches were balanced; how closed-system silence
+and open-system complaint visibility affect interpretation; whether repeated coverage
+describes one event; whether allegations and findings remain distinct; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and shocks are addressed; and which material source type remains missing.
+Reviewer evidence IDs must occur in the notebook. Legacy reviews remain usable with an
+explicit unassessed-bias marker instead of being discarded.
 An honestly sparse chapter remains valid when the researcher records the searches,
 rejections, and remaining gaps. After formatting,
 one no-search judge per chapter/year batch applies the common meter across rulers,
-and a score/order auditor checks the resulting comparative ordering and rubric drift.
+and a score/order reviewer checks the resulting comparative ordering and rubric drift.
+The production reviewer runs separately from the judge, uses high-reasoning Sol, and
+returns a complete chapter review. It may correct a numeric judgment only within ±1
+point and must revise the rationale and adjacent-anchor explanations. Deterministic
+application code preserves null status, verifies every cited evidence ID and source
+hash, and rejects partial cohorts or larger score changes.
+When a complete chapter projection batch fits the configured model but exceeds the
+Codex single-turn character transport limit, the judge receives an attempt-local
+path-and-digest manifest instead of duplicated inline JSON. The judge starts in that
+attempt directory, may read only the listed chapter inputs, and cannot browse. The
+worker validates project-local `chapter-inputs` paths before reading them and re-hashes
+every input after the model turn; any drift rejects the attempt. This transport mode
+does not compact, omit, or re-rank evidence.
 Every judge attempt also writes a null-recovery queue from the judgment's existing
 reason, weak-lens, and review fields. Recoverable nulls are marked for continuation in
 the same ruler-research workflow for no more than two targeted rounds; the queue does
 not launch that continuation and no additional worker role is introduced.
+All null judgments are canonically normalized to a full 1–10 plausible range and a
+release-blocking `recoverable_null` manual-review state before publication. Immutable
+judge outputs remain unchanged; any release-package normalization records the exact
+fields changed and retains source-artifact hashes.
 
 Trusted parent event logs also supply cached-input and reasoning-output counters.
 The checked-in `configs/research-pricing.yaml` snapshot converts them to
@@ -572,6 +836,17 @@ total above a long-context threshold produces lower and upper bounds.
 
 Search activity is driven by chapter evidence needs, not a fixed call allowance.
 Every researcher, reviewer, formatter, and judge turn remains separately auditable.
+
+An experimental long-document branch may sit between discovery and dossier acceptance.
+It deterministically acquires and chunks lawfully machine-readable sources, then routes
+each chunk through versioned document-type guidance to a low-cost reader. The resulting
+source map preserves atomic claims, locators, limitations, source incentives, and reopen
+requests, but is not evidence by itself. A content-neutral normalization pass may repair
+serialization from the map and original extract. The dossier compiler reopens every
+consequential claim against the hash-bound extract before acceptance. Reader fallback is
+based on supported content, material omissions, and locator fidelity rather than JSON
+polish. Access states and usage for acquisition, reading, normalization, compilation,
+retry, and evaluation remain separate.
 
 ---
 
@@ -773,6 +1048,53 @@ URLs and question IDs, deduplicates claim-level evidence, and writes separate ev
 and evidence-to-lens mapping files with an atomic resume checkpoint. Context exhaustion
 starts a new researcher thread from the accumulated evidence index, and per-turn plus
 aggregate profiles preserve runtime, usage, tool, failure, coverage, and cost data.
+
+The additive `hybrid_experiment/` runner is a controlled alternative, not a replacement
+for that collector. It builds a client-excluding local-prior package, keeps one persistent
+research thread for reconnaissance plus eight chapter-wide turns, assigns stable IDs to
+canonical URLs, reports mechanical quality warnings, permits one reviewer-directed grouped
+follow-up, and uses separate no-search review and formatting turns. It fingerprints the
+production collector before each run and stores all state beneath a separate experiment
+run key, so accepting or removing the experiment does not alter historical results.
+Its v2 ledger contract accepts only machine-parseable source-claim units carrying the
+direct URL, precise claim and locator, source confidence, period fit, ruler attribution,
+final-evidence use, contrary evidence, and exact lens mappings. Stable evidence IDs are
+derived in guide
+order; exact reuse is explicit; canonical URLs and claim keys are deduplicated in parent
+code. Final dossier serialization is deterministic and preserves reviewer dispositions,
+so formatting cannot add evidence or silently infer mappings. A sibling batch supervisor
+requires hash-locked, reviewed identities and successful 80-lens local-prior preflight,
+then reserves both per-ruler and batch-wide cost ceilings before launching resumable,
+staged-concurrency jobs.
+
+The experimental chapter-analysis consumer reads the completed code-bound evidence
+package without scoring. If a chapter's complete exact packet fits the active Codex
+input boundary, one Luna turn drafts, audits, and corrects all ten lens answers. If it
+does not fit, deterministic code partitions evidence records into non-overlapping
+shards below the boundary. Each record is read in exactly one shard; a final Luna turn
+receives every cited shard finding and performs the same ten-lens audit and correction.
+Code owns shard membership and evidence-ID normalization. A separate Luna quality pass
+checks the complete compact candidate index and exact cited passages, and its verdict
+and requested corrections travel with the analysis. This is an evidence-organization
+experiment, not a chapter score or a substitute for the chapter judge.
+
+Direct GPT-5.6 Luna experiments first prove Responses API explicit cache breakpoints
+independently rather than assuming Codex CLI cache behavior. For full-corpus organization,
+the preferred path reads each deterministic evidence shard once against all eighty lenses;
+this avoids eight near-duplicate calls and their cache-write charge. Code resolves compact
+model mappings back to the exact registry records before each chapter synthesis. It removes
+unknown or chapter-unsupplied IDs without guessing replacements and preserves the removal
+ledger. Strict bounded JSON schemas keep each ten-question brief complete. Provider-reported
+`cache_write_tokens`, `cached_tokens`, fresh input, output, model identity, and elapsed
+time are persisted after every request. A shared local cost ledger applies current
+Luna fresh, cached, cache-write, output, and long-context rates and blocks any request
+whose conservative preflight exposure could reach the configured experiment budget.
+The parser tolerates only conventional Markdown list and inline-code wrappers around an
+otherwise strict record. Valid sibling records are retained when one line is malformed;
+the rejected line's number, validation reason, and SHA-256 are persisted outside the
+ledger. Resume can promote a completed, valid model turn left unfiled by an earlier
+validator failure. Retry limits count consecutive no-progress failures, while any new
+durable stage artifact resets the counter.
 The optional batch supervisor runs a data-defined ruler roster with bounded staged
 concurrency. It stores an immutable manifest snapshot, per-job status and retry counts,
 append-only process logs, and periodic aggregate profiles. Re-running the same command
@@ -780,20 +1102,48 @@ resumes each dossier from its atomic session checkpoint; `--retry-failed` explic
 reopens only terminal jobs after a generic repair. Resource profiles include both the
 worker-process CPU/RSS footprint and whole-machine CPU/memory so provider latency can be
 distinguished from local saturation.
+A candidate-heavy mode adds a stricter, resumable research topology without replacing
+the canonical collector. One persistent researcher performs ruler reconnaissance and
+then processes chapters in order. Parent code counts canonical URLs, continues discovery
+until the configured target or round ceiling, partitions candidate IDs into bounded
+inspection waves, and rejects a final ledger unless its parsed source rows satisfy the
+configured count and unique-URL constraints. If a model returns an oversized ledger,
+that raw artifact remains intact and a separately named selection artifact becomes
+authoritative only after deterministic validation. Scientific controls live in
+`data/deep-workflow.json`; prompt text remains in `data/deep-prompts.json`.
 A deterministic conversion gate bridges this experimental format to the canonical
 `ruler_evidence_dossier_v2` and `ruler_chapter_projection_v1` contracts. It requires an
 exact catalog ruler-year identity, validates all 80 mappings, preserves uncaptured
 source metadata as explicit missingness, and writes one cohort manifest per chapter.
+For hybrid-v2 dossiers, the same gate preserves precise locators, canonical fact keys,
+source confidence, period fit, ruler attribution, contrary evidence, and rich usage
+telemetry. Chapter-specific reviewer exclusions are removed from judge mappings while
+uncovered lenses become explicit `no_evidence_found` coverage rather than fabricated
+midpoints. The target year is carried through compaction, judge keys, prompts, and output
+validation; it is never hard-coded to the year of an earlier experiment.
 Partial projections remain recoverable, but a cohort with an identity blocker is marked
 non-runnable. Each cohort also records the same conservative three-bytes-per-token input
 estimate used by the judge worker so context overflow is discovered before any LLM call.
-The conversational judging seam adds a reversible compact projection: it selects the
-latest domain-diverse evidence per lens, preserves every omitted evidence ID and source
-projection in an omission ledger, enforces both token and Codex character limits, and
-never mutates the full dossier. Saved judge candidates can be deterministically repaired
+The conversational judging seam adds a reversible compact projection. Within each lens,
+it selects by evidence relation and final-use status before confidence and source-domain
+diversity, and prefers an unused equal-quality record across broadly mapped lenses. It
+then retains up to one distinct final-evidence record per chapter lens as a bounded
+chapter-context fallback for usable evidence whose producer supplied only chapter-level
+routing; discovery-only records cannot fill that fallback. It preserves every omitted
+evidence ID and source projection in an omission ledger, enforces both token and Codex
+character limits, and never mutates the full dossier. Saved judge candidates can be deterministically repaired
 for harmless lens-list overlap, batch-wide confidence scaling, and unknown reference
-removal; material projection-reference cases remain flagged until a separate no-search
+removal. A stale dossier key may be rebound before citation filtering only when exactly
+one trusted cohort projection matches all immutable ruler-period identity fields;
+ambiguous or conflicting identities remain blocked. Material projection-reference cases remain flagged until a separate no-search
 review clears or returns them for rejudgment.
+For pre-judgment analysis, a validated ruler dossier can also be converted into the
+code-bound corpus contract without changing its claim, URL, locator, or many-to-many
+question routing. Each chapter then receives its complete routed packet in one Luna
+turn that drafts ten lens answers, audits them against that packet, and returns corrected
+answers. The readable Markdown view resolves every cited ID back to its source and keeps
+the full draft, critique, cited evidence, and omitted-candidate ledger in JSON. This
+stage prepares evidence for a judge and does not assign a score.
 Chapter subsets can be rerun under distinct run keys without replacing the original
 eight-chapter batch. A release-owned judgment-selection manifest chooses explicit
 chapter artifacts for the viewer. Run-scoped audit instructions may exclude identified

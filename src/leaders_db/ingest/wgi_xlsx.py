@@ -211,12 +211,18 @@ def read_wgi(
                 if col_idx is None or col_idx >= len(row_values):
                     continue
                 cell = row_values[col_idx]
+                standard_error = _cell_at(row_values, col_idx + 1)
+                percentile_rank_lower_bound = _cell_at(row_values, col_idx + 4)
+                percentile_rank_upper_bound = _cell_at(row_values, col_idx + 5)
                 records.append(
                     {
                         "iso3": iso3,
                         "year": one_year,
                         "variable_name": spec.variable_name,
                         "value": cell,
+                        "standard_error": standard_error,
+                        "percentile_rank_lower_bound": percentile_rank_lower_bound,
+                        "percentile_rank_upper_bound": percentile_rank_upper_bound,
                     }
                 )
         if records:
@@ -264,3 +270,7 @@ def read_wgi(
     wide.attrs["_wgi_raw_long"] = long_df.copy()
 
     return wide
+
+
+def _cell_at(row_values: list[object], index: int) -> object | None:
+    return row_values[index] if index < len(row_values) else None

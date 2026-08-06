@@ -1,0 +1,24 @@
+**Reused Evidence**
+REUSE_JSON: {"evidence_ids":["E0084"],"lenses":["7B.3","7B.4","7B.6","7B.8","7B.10"]}
+REUSE_JSON: {"evidence_ids":["E0085"],"lenses":["7B.3","7B.4","7B.6","7B.8","7B.10"]}
+REUSE_JSON: {"evidence_ids":["E0086"],"lenses":["7B.3","7B.4","7B.5","7B.6","7B.9","7B.10"]}
+REUSE_JSON: {"evidence_ids":["E0088"],"lenses":["7B.1","7B.8","7B.10"]}
+
+**New Evidence**
+SOURCE_CLAIM_JSON: {"title":"The Annual Public Financial Disclosure System: The Ongoing Work of Preventing Conflicts of Interest","publisher":"U.S. Office of Government Ethics","publication_date":"2022-05-16","url":"https://www.oge.gov/web/oge.nsf/Resources/The%2BAnnual%2BPublic%2BFinancial%2BDisclosure%2BSystem%3A%2BThe%2BOngoing%2BWork%2Bof%2BPreventing%2BConflicts%2Bof%2BInterest","claim":"OGE said annual public financial disclosure reports are an ongoing ethics checkup, with ethics officials reviewing reports, identifying potential conflicts, and helping resolve them; the system also covers the President, Vice President, and other senior officials.","locator":"lines 137-146","source_type":"official","source_confidence":"high","source_confidence_reason":"Primary OGE guidance from 2022 describing the actual government ethics review process and timing.","final_evidence_use":"context","period_fit":"Directly within 2022 and relevant to how scrutiny worked that year.","ruler_attribution":"Not Biden-specific; it supports the institutional scrutiny around Biden and his appointees rather than proving or disproving his own conduct.","contrary_evidence":["Generic process evidence does not identify any Biden-specific conflict or clearance outcome."],"lenses":["7B.6","7B.7","7B.9","7B.10"]}
+SOURCE_CLAIM_JSON: {"title":"James Biden says president had no involvement in family business | AP News","publisher":"Associated Press","publication_date":"2024-02-21","url":"https://apnews.com/article/joe-biden-impeachment-james-biden-fbi-informant-b5116eb6d686750b75b944a12eed5a9e","claim":"AP reported that James Biden told House Republicans Joe Biden had no involvement in the family’s business dealings, and that multiple witnesses said they had seen no evidence Joe Biden was directly involved in his son or brother’s ventures.","locator":"lines 2332-2334 and 2325-2334","source_type":"media","source_confidence":"medium_high","source_confidence_reason":"Independent AP reporting on a later congressional interview, but the relevant conclusion is still indirect and retrospective rather than a 2022 finding.","final_evidence_use":"context","period_fit":"Retrospective to 2022-related family-business allegations; not a direct 2022 event record.","ruler_attribution":"This is about Biden-family allegations and later testimony; it does not establish a 2022 presidential act or formal exoneration.","contrary_evidence":["Republicans continued the inquiry and maintained contrary allegations; the AP story itself notes no direct evidence had emerged, not a definitive finding of innocence."],"lenses":["7B.3","7B.4","7B.5","7B.6","7B.7","7B.9"]}
+
+**Gap Status**
+- Direct adverse-case evidence on personal or family conflicts, favoritism, or self-dealing attributable to Biden in 2022: **partly resolved**. The public disclosure record and later AP testimony still leave no direct 2022 finding of misconduct.
+- Independent evidence on how Biden handled appointments and scrutiny around his own circle, beyond self-disclosure: **partly resolved**. OGE’s 2022 ethics system evidence shows the review mechanism, but Biden-specific appointment/recusal records remain thin.
+
+**Search and Rejection Summary**
+- I checked OGE disclosure and ethics-process material, AP reporting on Biden’s financial disclosures, and later AP reporting on the Biden family inquiry.
+- Kept only two new items because they were the only sources that materially advanced the two stated gaps.
+- Rejected broader 2023–2024 congressional and partisan coverage that repeated the same allegations without adding direct 2022 personal-nexus proof.
+- Rejected generic ethics pages that described the system but did not add anything materially beyond the OGE 2022 disclosure-process article.
+
+**Remaining Gaps**
+- There is still no 2022 primary record showing a Biden-specific conflict finding, ethics violation, waiver, or improper family benefit attributable to him personally.
+- I did not find a 2022 appointment/recusal trail that meaningfully tests whether Biden controlled patronage or protected close associates.
+- More search would help only if you want to chase agency-level ethics waivers, recusals, or appointment files for specific Biden appointees; it is unlikely to produce a strong direct adverse-case record on Joe Biden himself.

@@ -10,6 +10,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from .codex_worker_command import read_codex_thread_id
 from .costing import load_research_pricing, price_usage
 from .dossier_models import (
     DossierEvidence,
@@ -56,6 +57,37 @@ def read_codex_usage(events_path: Path) -> DossierUsage | None:
     )
 
 
+def read_distinct_codex_usage(
+    event_paths: tuple[Path, ...],
+) -> tuple[DossierUsage, ...]:
+    """Count cumulative Codex counters once per execution thread.
+
+    Resumed calls emit cumulative snapshots for their shared thread. The largest
+    snapshot represents that thread; adding all snapshots repeats earlier turns.
+    A historical log without one valid thread identifier remains independent.
+    """
+
+    by_thread: dict[str, DossierUsage] = {}
+    independent: list[DossierUsage] = []
+    for events_path in event_paths:
+        usage = read_codex_usage(events_path)
+        if usage is None:
+            continue
+        try:
+            thread_key = read_codex_thread_id(events_path)
+        except (OSError, UnicodeError, ValueError):
+            independent.append(usage)
+            continue
+        current = by_thread.get(thread_key)
+        if current is None or _known_total(usage) > _known_total(current):
+            by_thread[thread_key] = usage
+    return (*by_thread.values(), *independent)
+
+
+def _known_total(usage: DossierUsage) -> int:
+    return int(usage.total_tokens) if isinstance(usage.total_tokens, int) else -1
+
+
 def price_codex_usage(
     usage: DossierUsage, *, provider: str, model: str
 ) -> DossierUsage:
@@ -84,7 +116,7 @@ def find_previous_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, An
     paths = tuple((job_dir / "attempts").glob("*/dossier.pending.json")) + tuple(
         (job_dir / "attempts").glob("*/dossier.json")
     )
-    candidates: list[tuple[int, int, int, str, dict[str, Any]]] = []
+    candidates: list[tuple[int, int, int, int, str, dict[str, Any]]] = []
     for path in sorted(paths, reverse=True):
         if path.parent == attempt_dir:
             continue
@@ -102,12 +134,79 @@ def find_previous_candidate(job_dir: Path, *, attempt_dir: Path) -> dict[str, An
             candidates.append(
                 (*score, str(path), payload)
             )
+    candidates.extend(_event_candidates(job_dir))
     if not candidates:
         return None
-    return max(candidates, key=lambda item: item[:4])[4]
+    selected = max(candidates, key=lambda item: item[:5])[5]
+    selected_keys = {
+        str(item.get("canonical_fact_key", ""))
+        for item in selected.get("evidence", [])
+        if isinstance(item, dict)
+    }
+    recovery_catalog: list[dict[str, Any]] = []
+    catalog_keys: set[str] = set()
+    for *_, payload in candidates:
+        for item in payload.get("evidence", []):
+            if not isinstance(item, dict):
+                continue
+            key = str(item.get("canonical_fact_key", "")).strip()
+            if not key or key in selected_keys or key in catalog_keys:
+                continue
+            recovery_catalog.append(item)
+            catalog_keys.add(key)
+    if not recovery_catalog:
+        return selected
+    return selected | {"recovery_evidence_catalog": recovery_catalog}
 
 
-def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] | None:
+def _json_agent_messages(events_path: Path) -> tuple[dict[str, Any], ...]:
+    """Recover every parseable structured formatter response, not only the last."""
+
+    recovered = []
+    try:
+        lines = events_path.read_text(encoding="utf-8").splitlines()
+    except (OSError, UnicodeError):
+        return ()
+    for line in lines:
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        item = event.get("item")
+        if (
+            event.get("type") != "item.completed"
+            or not isinstance(item, dict)
+            or item.get("type") != "agent_message"
+        ):
+            continue
+        try:
+            payload = json.loads(str(item.get("text", "")))
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            recovered.append(payload)
+    return tuple(recovered)
+
+
+def _event_candidates(
+    job_dir: Path,
+) -> list[tuple[int, int, int, int, str, dict[str, Any]]]:
+    candidates = []
+    for events_path in sorted((job_dir / "trusted").glob("*/codex-events.jsonl")):
+        if not (events_path.parent / "formatter-complete.marker").is_file():
+            continue
+        for index, payload in enumerate(_json_agent_messages(events_path)):
+            score = _candidate_integrity_score(payload)
+            if score is not None:
+                candidates.append(
+                    (*score, f"{events_path}#agent-message-{index}", payload)
+                )
+    return candidates
+
+
+def _candidate_integrity_score(
+    payload: dict[str, Any],
+) -> tuple[int, int, int, int] | None:
     """Score parseable candidates, retaining broken links for targeted repair."""
 
     raw_evidence = payload.get("evidence")
@@ -120,12 +219,21 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
     )
     if not has_list_contract:
         return None
-    try:
-        evidence = tuple(DossierEvidence.model_validate(item) for item in raw_evidence)
-        mappings = tuple(EvidenceQuestionMapping.model_validate(item) for item in raw_mappings)
-        coverage = tuple(QuestionCoverage.model_validate(item) for item in raw_coverage)
-    except (ValidationError, TypeError):
-        return None
+    evidence = tuple(
+        parsed
+        for item in raw_evidence
+        if (parsed := _best_effort_validate(DossierEvidence, item)) is not None
+    )
+    mappings = tuple(
+        parsed
+        for item in raw_mappings
+        if (parsed := _best_effort_validate(EvidenceQuestionMapping, item)) is not None
+    )
+    coverage = tuple(
+        parsed
+        for item in raw_coverage
+        if (parsed := _best_effort_validate(QuestionCoverage, item)) is not None
+    )
     declared_ids = {item.evidence_id for item in evidence}
     selected = {str(item) for item in raw_methodology_ids}
     coverage_ids = [item.methodology_id for item in coverage]
@@ -137,7 +245,26 @@ def _candidate_integrity_score(payload: dict[str, Any]) -> tuple[int, int, int] 
         if item.evidence_id in declared_ids and item.methodology_id in selected
     }
     covered_selected = {item for item in coverage_ids if item in selected}
-    return len(linked_ids), len(covered_selected), len(evidence)
+    environment = payload.get("evidence_environment")
+    raw_support_ids = (
+        environment.get("supporting_evidence_ids")
+        if isinstance(environment, dict)
+        else None
+    )
+    environment_supported = int(
+        isinstance(raw_support_ids, list)
+        and any(str(item) in declared_ids for item in raw_support_ids)
+    )
+    return len(linked_ids), len(covered_selected), len(evidence), environment_supported
+
+
+def _best_effort_validate(model: Any, item: Any) -> Any | None:
+    """Validate one receiver input without rejecting its useful siblings."""
+
+    try:
+        return model.model_validate(item)
+    except (ValidationError, TypeError):
+        return None
 
 
 def write_local_priors(
@@ -173,5 +300,6 @@ __all__ = [
     "find_previous_candidate",
     "price_codex_usage",
     "read_codex_usage",
+    "read_distinct_codex_usage",
     "write_local_priors",
 ]

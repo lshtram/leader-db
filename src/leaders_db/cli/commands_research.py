@@ -18,6 +18,7 @@ from .research_cited_commands import (
     research_persist_cited_evaluations_cmd,
 )
 from .research_job_commands import jobs_app, register_job_commands
+from .research_judgment_review_commands import register_judgment_review_commands
 from .research_local_prior_commands import (
     register_local_prior_commands,
     research_build_local_prior_cmd,
@@ -52,6 +53,7 @@ register_watchdog_commands(research_app)
 register_readiness_commands(research_app)
 register_job_commands(research_app)
 register_worker_commands(jobs_app)
+register_judgment_review_commands(jobs_app)
 
 __all__ = [
     "research_app",

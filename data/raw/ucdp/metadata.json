@@ -1,0 +1,23 @@
+{
+  "source_name": "Uppsala Conflict Data Program Georeferenced Event Dataset",
+  "source_key": "ucdp",
+  "source_version": "GED 23.1",
+  "download_date": null,
+  "coverage": "event-level organized violence aggregated by the Stage 2 adapter to country-year",
+  "years_available": "1989-2022 for the ingested GED 23.1 bundle; current Organized Violence 26.1 and One-sided Violence 26.1 archives are staged but not yet normalized by this adapter",
+  "license_note": "Free academic use; cite UCDP GED 23.1 (Davies et al. 2023).",
+  "local_files": [
+    "ged231-csv.zip",
+    "organizedviolencecy-261-csv.zip",
+    "ucdp-onesided-261-csv.zip"
+  ],
+  "expected_local_files": [
+    "ged231-csv.zip"
+  ],
+  "ingestion_status": "ingested",
+  "source_url": "https://ucdp.uu.se/downloads/ged/ged231-csv.zip",
+  "checksum_sha256": "9aa082f9e1f62da5ea3245c39b1cee45daab6dc8b3a17fb0f0cdae9ba13ce6f7",
+  "adapter": "leaders_db.ingest.ucdp.ingest_ucdp",
+  "attribution": "UCDP GED 23.1 (Davies et al. 2023).",
+  "blocker_note": "GED 23.1 is normalized and persisted. The staged 26.1 yearly and one-sided-violence archives require separate current-schema adapter work before they can replace or extend GED 23.1 facts."
+}

@@ -231,7 +231,6 @@ def test_judge_run_can_reuse_dossiers_from_another_run_key(
         provider_profile="researcher",
         model_profiles_path=profiles,
     )
-
     result = plan_chapter_judge_job(
         engine,
         year=2020,
@@ -245,7 +244,119 @@ def test_judge_run_can_reuse_dossiers_from_another_run_key(
     assert result.dossier_dependency_count == 1
     judge = next(job for job in list_jobs(engine) if job["run_key"] == "judge-v3")
     assert judge["input"]["dossier_run_key"] == "dossier-v2"
+    assert judge["input"]["dossier_run_keys"] == ["dossier-v2"]
     assert judge["input"]["dossier_job_keys"] == ["dossier:dossier-v2:2020:USA:10"]
+
+
+def test_judge_run_can_combine_distinct_dossier_run_keys(
+    database_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    profiles = _profiles(tmp_path)
+    cases = (
+        _cases()[0],
+        _cases()[0].model_copy(
+            update={
+                "iso3": "CAN",
+                "country_name": "Canada",
+                "leader_name": "Justin Trudeau",
+                "leader_id": 2,
+                "ruler_year_id": 20,
+            }
+        ),
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: cases[:1],
+    )
+    plan_dossier_jobs(
+        engine,
+        year=2020,
+        run_key="first-dossiers",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+    )
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: cases[1:],
+    )
+    plan_dossier_jobs(
+        engine,
+        year=2020,
+        run_key="second-dossiers",
+        methodology_ids=_chapter_ids("4B"),
+        provider_profile="researcher",
+        model_profiles_path=profiles,
+    )
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                "UPDATE research_jobs SET status = 'completed' "
+                "WHERE run_key IN ('first-dossiers', 'second-dossiers')"
+            )
+        )
+
+    result = plan_chapter_judge_job(
+        engine,
+        year=2020,
+        run_key="combined-judge",
+        dossier_run_key=("first-dossiers", "second-dossiers"),
+        completed_dossiers_only=True,
+        chapter_id="4B",
+        provider_profile="judge",
+        model_profiles_path=profiles,
+    )
+
+    assert result.dossier_dependency_count == 2
+    judge = next(job for job in list_jobs(engine) if job["run_key"] == "combined-judge")
+    assert judge["input"]["dossier_run_key"] is None
+    assert judge["input"]["dossier_run_keys"] == [
+        "first-dossiers",
+        "second-dossiers",
+    ]
+    assert judge["input"]["completed_dossiers_only"] is True
+    assert judge["input"]["dossier_job_keys"] == [
+        "dossier:first-dossiers:2020:USA:10",
+        "dossier:second-dossiers:2020:CAN:20",
+    ]
+
+
+def test_judge_run_rejects_duplicate_ruler_across_dossier_runs(
+    database_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    profiles = _profiles(tmp_path)
+    monkeypatch.setattr(
+        "leaders_db.research.job_planner.list_local_prior_slice_cases",
+        lambda engine, *, year: _cases()[:1],
+    )
+    for run_key in ("first-dossiers", "duplicate-dossiers"):
+        plan_dossier_jobs(
+            engine,
+            year=2020,
+            run_key=run_key,
+            methodology_ids=_chapter_ids("4B"),
+            provider_profile="researcher",
+            model_profiles_path=profiles,
+        )
+
+    with pytest.raises(ValueError, match="duplicate ruler identity"):
+        plan_chapter_judge_job(
+            engine,
+            year=2020,
+            run_key="invalid-judge",
+            dossier_run_key=("first-dossiers", "duplicate-dossiers"),
+            chapter_id="4B",
+            provider_profile="judge",
+            model_profiles_path=profiles,
+        )
 
 
 def test_judge_claim_waits_until_planned_dossier_completes(

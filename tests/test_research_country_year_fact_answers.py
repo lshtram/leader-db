@@ -29,7 +29,7 @@ def test_build_country_year_fact_answers_emits_direct_numeric_and_missing_rows(
         country_id=1,
         country_year_id=1,
         year=2023,
-        field_key="gdp_per_capita",
+        field_key="gdp_per_capita_nominal_current_usd",
         value_type="number",
         selected_value_number=76399.0,
         source_slugs=("world_bank_wdi",),
@@ -674,7 +674,7 @@ def test_country_year_fact_answers_persist_through_generic_contract(
         country_id=1,
         country_year_id=1,
         year=2023,
-        field_key="gdp_per_capita",
+        field_key="gdp_per_capita_nominal_current_usd",
         value_type="number",
         selected_value_number=76399.0,
         source_slugs=("world_bank_wdi",),
@@ -707,7 +707,9 @@ def test_country_year_fact_answers_persist_through_generic_contract(
 
     assert answer["question_id"] == "5.1"
     assert answer["answer_numeric"] == 76399.0
-    assert json.loads(answer["answer_json"])["facts"][0]["field_key"] == "gdp_per_capita"
+    assert json.loads(answer["answer_json"])["facts"][0]["field_key"] == (
+        "gdp_per_capita_nominal_current_usd"
+    )
     assert link["source_slug"] == "world_bank_wdi"
 
 

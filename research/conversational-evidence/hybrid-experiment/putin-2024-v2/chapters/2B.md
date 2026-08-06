@@ -1,0 +1,163 @@
+**Reused evidence**
+- `E0008` [Chapter 4. The President of the Russian Federation](https://www.constitution.ru/en/10003000-05.htm) -> `2B.10` for formal authority/baseline only.
+- `E0003` [President of Russia](https://en.kremlin.ru/structure/president) -> `2B.10` for office/authority baseline only.
+- `E0011` [Putin warns West of risk of nuclear war, says Moscow can strike Western targets](https://www.investing.com/news/world-news/putin-warns-west-of-risk-of-nuclear-war-says-moscow-can-strike-western-targets-3319714) -> `2B.2`, `2B.3`, `2B.6`, `2B.8`, `2B.10`.
+
+**New evidence**
+- [Putin, in rare US interview, says Russia has no interest in wider war](https://www.investing.com/news/world-news/putin-in-rare-us-interview-says-russia-has-no-interest-in-attacking-poland-or-latvia-3298168) | Reuters | `2024-02-08/09`
+  - Precise claim: Putin denied interest in expanding the war to Poland or Latvia and said Russia was willing to talk.
+  - Locator: opening paragraphs on the Tucker Carlson interview.
+  - Source type / credibility: Reuters wire republication; high for attribution, low for sincerity.
+  - Temporal fit: early-2024 pre-election posture.
+  - Ruler attribution and limits: direct Putin statement, but self-serving and strategic.
+  - Contrary points: the same interview also reaffirmed war aims and did not signal meaningful compromise.
+  - Lenses: `2B.1`, `2B.3`, `2B.6`, `2B.7`, `2B.10`
+
+- [Putin warns the West: Russia is ready for nuclear war](https://www.investing.com/news/world-news/putin-says-russia-ready-for-nuclear-war-but-not-everything-rushing-to-it-3335225) | Reuters | `2024-03-12`
+  - Precise claim: Putin said Russia was technically ready for nuclear war and warned that NATO troops in Ukraine would be a major escalation.
+  - Locator: lead and early paragraphs.
+  - Source type / credibility: Reuters wire republication; high.
+  - Temporal fit: immediate pre-election wartime signaling.
+  - Ruler attribution and limits: direct Putin rhetoric, but framed as deterrence.
+  - Contrary points: he also said he saw no need to use nuclear weapons in Ukraine, which slightly moderates the rhetoric but not the coercive message.
+  - Lenses: `2B.2`, `2B.3`, `2B.6`, `2B.8`, `2B.10`
+
+- [Putin wants Ukraine ceasefire on current frontlines, sources say](https://www.investing.com/news/world-news/putin-wants-ukraine-ceasefire-on-current-frontlines-sources-say-3455927) | Reuters | `2024-05-24`
+  - Precise claim: Reuters reported Putin was prepared to freeze the war along current lines if Kyiv and the West responded; Putin later said peace talks should resume.
+  - Locator: main body and quoted response to Reuters report.
+  - Source type / credibility: Reuters report based on anonymous senior sources; moderately strong, but less direct than a transcript.
+  - Temporal fit: key mid-2024 peace-window evidence.
+  - Ruler attribution and limits: suggests possible willingness to halt fighting, but the sources are anonymous and the reported deal still preserved Russian gains.
+  - Contrary points: the same posture can be read as tactical freezing rather than good-faith settlement.
+  - Lenses: `2B.1`, `2B.7`, `2B.10`
+
+- [Путин: Россия выступает не за перемирие, а за прекращение конфликта на Украине](https://rg.ru/2024/06/14/putin-rossiia-vystupaet-ne-za-peremirie-a-za-prekrashchenie-konflikta-na-ukraine.html) | Российская газета | `2024-06-14`
+  - Precise claim: Putin said Russia was not seeking a temporary truce; he demanded Ukrainian withdrawal from occupied regions, NATO renunciation, neutrality, and sanctions relief.
+  - Locator: summary bullets and opening paragraphs.
+  - Source type / credibility: Russian state-linked print outlet summarizing Putin’s remarks; high for date and stated position, lower for independence.
+  - Temporal fit: central 2024 peace-conditions statement.
+  - Ruler attribution and limits: direct Putin policy position.
+  - Contrary points: the terms were maximalist and functioned as an ultimatum, not a mutually acceptable compromise.
+  - Lenses: `2B.1`, `2B.2`, `2B.3`, `2B.6`, `2B.7`, `2B.10`
+
+- [Russian forces attack Ukraine's Kharkiv region, striking on new front](https://www.investing.com/news/world-news/russian-forces-attack-ukraines-kharkiv-region-opening-new-front-3434783) | Reuters | `2024-05-10`
+  - Precise claim: Russian forces launched an armored ground attack near Kharkiv, opening a new front and using guided bombs and artillery.
+  - Locator: lead paragraphs.
+  - Source type / credibility: Reuters wire republication; high.
+  - Temporal fit: major 2024 escalation in the war.
+  - Ruler attribution and limits: attributable to Putin’s war policy and command environment, though not a single-person battlefield order.
+  - Contrary points: Russia framed the move as creating a buffer zone; Ukraine described it as an attack on a new front.
+  - Lenses: `2B.2`, `2B.3`, `2B.4`, `2B.10`
+
+- [In Ukraine, Civilian Casualties Soar Amid Russian Attacks, Reversing a Downward Trend the UN Says](https://ukraine.un.org/en/257916-ukraine-civilian-casualties-soar-amid-russian-attacks-reversing-downward-trend-un-says) | UN Human Rights Monitoring Mission in Ukraine | `2024-01-16`
+  - Precise claim: the UN said Russian missile and drone attacks caused a sharp rise in civilian casualties in late 2023 and early January 2024.
+  - Locator: press release summary and casualty figures.
+  - Source type / credibility: UN human-rights monitoring; very high.
+  - Temporal fit: establishes the 2024 inherited civilian-harm baseline.
+  - Ruler attribution and limits: speaks to Russian armed forces under Putin, but not to a specific battlefield decision.
+  - Contrary points: Russia routinely argues it targets military sites and that civilian losses are incidental.
+  - Lenses: `2B.4`, `2B.9`, `2B.10`
+
+- [Civilian casualties mount in Ukraine amid intensifying missile and drone attacks](https://ukraine.un.org/en/259955-civilian-casualties-mount-ukraine-amid-intensifying-missile-and-drone-attacks) | UN Human Rights Monitoring Mission in Ukraine | `2024-02-07`
+  - Precise claim: the UN said intensifying Russian missile and drone attacks were causing mounting civilian harm, including deaths in a Kyiv apartment building.
+  - Locator: opening paragraphs and casualty summary.
+  - Source type / credibility: UN human-rights monitoring; very high.
+  - Temporal fit: early-2024 escalation.
+  - Ruler attribution and limits: Russian armed forces conduct under Putin, not proof of his direct strike order.
+  - Contrary points: Russia often claims targets are military-related or that debris from intercepts caused some damage.
+  - Lenses: `2B.4`, `2B.9`, `2B.10`
+
+- [Extensive Civilian Harm from Russian Attacks This Spring](https://ukraine.un.org/en/273037-extensive-civilian-harm-russian-attacks-spring) | UN Human Rights Monitoring Mission in Ukraine | `2024-07-03`
+  - Precise claim: the UN said renewed Russian attacks from March to May caused extensive civilian casualties and damage, including the renewed energy-infrastructure campaign and the Kharkiv ground offensive.
+  - Locator: summary section.
+  - Source type / credibility: UN human-rights monitoring; very high.
+  - Temporal fit: captures spring 2024 conduct and its humanitarian effect.
+  - Ruler attribution and limits: attributable to Russia’s war policy under Putin, though not every strike in the period is individually linked here.
+  - Contrary points: Russian officials argue the energy attacks target military logistics and war-supporting infrastructure.
+  - Lenses: `2B.4`, `2B.8`, `2B.9`, `2B.10`
+
+- [Protection of Civilians in Armed Conflict - July 2024](https://ukraine.ohchr.org/en/Protection-of-Civilians-in-Armed-Conflict-July-2024) | UN Human Rights Monitoring Mission in Ukraine | `2024-08-09`
+  - Precise claim: July 2024 was the deadliest month for Ukrainian civilians since October 2022; the 8 July attack killed at least 43 people, including children, and hit a children’s hospital.
+  - Locator: summary bullets.
+  - Source type / credibility: UN/OHCHR; very high.
+  - Temporal fit: direct 2024 civilian-harm evidence.
+  - Ruler attribution and limits: reflects Russian armed forces conduct under Putin, not the identity of every firing unit.
+  - Contrary points: Russia says such strikes hit military or dual-use targets.
+  - Lenses: `2B.4`, `2B.8`, `2B.9`, `2B.10`
+
+- [UN Human Rights Monitors Report Extensive Civilian Harm from Recent Attacks](https://ukraine.un.org/en/278124-un-human-rights-monitors-report-extensive-civilian-harm-recent-attacks) | UN Human Rights Monitoring Mission in Ukraine | `2024-09-06`
+  - Precise claim: the UN said Russian attacks since 26 August killed 64 civilians and injured 392, with strikes on energy, schools, hospitals, and supermarkets.
+  - Locator: first several paragraphs and casualty summary.
+  - Source type / credibility: UN human-rights monitoring; very high.
+  - Temporal fit: late-summer 2024 conduct.
+  - Ruler attribution and limits: Russian armed forces conduct under Putin; immediate strike decisions still sit at lower command levels.
+  - Contrary points: Russia continues to deny civilian targeting and argues military necessity.
+  - Lenses: `2B.4`, `2B.8`, `2B.9`, `2B.10`
+
+- [Ukraine | International Criminal Court](https://www.icc-cpi.int/situations/ukraine) | International Criminal Court | `2024`
+  - Precise claim: the ICC page records arrest warrants for Putin, Lvova-Belova, Kobylash, Sokolov, Shoigu, and Gerasimov tied to unlawful deportation of children and attacks on civilian objects.
+  - Locator: Ukraine situation page, suspects section.
+  - Source type / credibility: primary international legal record; very high.
+  - Temporal fit: directly relevant to 2024 accountability and command responsibility.
+  - Ruler attribution and limits: the Putin warrant is for conduct from 2022 onward, but the page documents the continuing legal assessment in 2024.
+  - Contrary points: warrants are allegations under the Rome Statute, not convictions.
+  - Lenses: `2B.4`, `2B.5`, `2B.9`, `2B.10`
+
+- [Russia's Putin and North Korea's Kim sign mutual defence pact](https://www.investing.com/news/world-news/putin-and-kim-embrace-in-north-korea-vow-new-multipolar-world-3488813) | Reuters | `2024-06-18/19`
+  - Precise claim: Putin and Kim signed a mutual-defense pledge, marking a major pivot toward a nuclear-armed pariah state.
+  - Locator: lead and middle paragraphs.
+  - Source type / credibility: Reuters wire republication; high.
+  - Temporal fit: major mid-2024 alignment decision.
+  - Ruler attribution and limits: direct Putin foreign-policy choice; the treaty itself is not proof of immediate military transfer.
+  - Contrary points: the Kremlin called it a stabilizing partnership, but the pact deepened militarized alignment.
+  - Lenses: `2B.5`, `2B.8`, `2B.10`
+
+- [Putin says Russia may deliver weapons to North Korea](https://www.investing.com/news/world-news/putin-says-russia-is-considering-changing-its-nuclear-doctrine-3490550) | Reuters | `2024-06-20`
+  - Precise claim: Putin said Russia might supply weapons to North Korea as a mirror response to Western arming of Ukraine.
+  - Locator: opening paragraphs.
+  - Source type / credibility: Reuters wire republication; high.
+  - Temporal fit: immediate follow-on to the DPRK visit.
+  - Ruler attribution and limits: direct Putin statement; still conditional and not itself a shipment record.
+  - Contrary points: the statement was framed as reciprocity, but it normalizes wider proliferation risk.
+  - Lenses: `2B.5`, `2B.8`, `2B.10`
+
+- [Путин заявил, что Россия не исключает военно-технического сотрудничества с КНДР](https://rg.ru/2024/06/19/putin-zaiavil-chto-rossiia-ne-iskliuchaet-voenno-tehnicheskogo-sotrudnichestva-s-kndr.html) | Российская газета | `2024-06-19`
+  - Precise claim: Putin did not rule out military-technical cooperation with North Korea after signing the new partnership treaty.
+  - Locator: opening paragraphs and quoted remarks.
+  - Source type / credibility: Russian-language state outlet; high for stated position, lower for independence.
+  - Temporal fit: same treaty episode, local-language confirmation.
+  - Ruler attribution and limits: direct Putin position.
+  - Contrary points: officials described the pact as defensive, but the wording explicitly leaves military cooperation open.
+  - Lenses: `2B.5`, `2B.8`, `2B.10`
+
+- [Russian Federation’s War against Ukraine ‘Upending Lives of Children’, United Nations Agency Head Tells Security Council](https://press.un.org/en/2024/sc15922.doc.htm) | UN Security Council / UN press | `2024-12-04`
+  - Precise claim: UN officials described Russia’s war as upending children’s lives and discussed coerced transfer/adoption programs linked to Russian authorities.
+  - Locator: Security Council meeting summary.
+  - Source type / credibility: primary UN record; very high.
+  - Temporal fit: late-2024 accountability and harm record.
+  - Ruler attribution and limits: not a battlefield log, but it documents the ongoing international condemnation of Russian conduct under Putin.
+  - Contrary points: the reporting relies on UN and research findings, not direct courtroom adjudication.
+  - Lenses: `2B.4`, `2B.5`, `2B.9`, `2B.10`
+
+- [Russia fires drone barrage at Ukraine's energy sector, kills one, Kyiv says](https://www.investing.com/news/world-news/russia-launches-overnight-drone-strike-on-kyiv-3633244) | Reuters | `2024-09-26`
+  - Precise claim: Russia launched a drone-and-missile barrage targeting Ukraine’s energy sector, killing at least one civilian.
+  - Locator: lead and casualty summary.
+  - Source type / credibility: Reuters wire republication; high.
+  - Temporal fit: late-2024 continuation of coercive strikes.
+  - Ruler attribution and limits: attributable to Russia’s war policy under Putin.
+  - Contrary points: Russia says such strikes hit infrastructure supporting the war effort.
+  - Lenses: `2B.4`, `2B.8`, `2B.10`
+
+**Search and rejection summary**
+- I reviewed roughly 30 documents across Reuters wires, Kremlin pages, TASS, Russian Gazette, UN/OHCHR, ICC, AP, ICRC, SIPRI, and FAS.
+- I kept one source per materially distinct claim and dropped republications that repeated the same event without adding new evidence.
+- I rejected generic context-only items that did not answer Chapter 2B directly, including broad economy coverage, the election-result pages, domestic repression pieces, and general nuclear-risk sources that belong primarily to `1B`.
+- I also rejected older-background or out-of-period material unless it was necessary for inherited baseline, and I did not use the client matrix or any source derived from it.
+- Some Kremlin transcript pages were hard to open directly, so I relied on accessible Kremlin index pages, TASS/RG republications of the same dated remarks, and Reuters coverage of the same events.
+- I did not keep ICRC generic IHL guidance because it states the law in general terms but does not add ruler-specific conduct beyond what the UN/ICC records already provide.
+
+**Remaining gaps**
+- The biggest gap is direct evidence of Putin’s private decision-making: internal deliberations on ceasefire, targeting, and escalation remain opaque.
+- The Belarus/North Korea angle is strong on political alignment, but open-source confirmation of actual weapons transfers is still incomplete.
+- Some civilian-harm incidents remain contested in attribution at the tactical level, even though the broader Russian campaign pattern is well documented.
+- More search could still help on proxy/arms-transfer mechanics, but the return would likely be marginal unless you want a narrower lens-by-lens dossier for `2B.4`, `2B.5`, or `2B.7`.

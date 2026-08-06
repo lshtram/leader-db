@@ -1,6 +1,6 @@
 # 6B Social Well-Being and Human Development
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v5 baseline-and-trend questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,23 +8,33 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: ruler intention and action for social well-being and human development
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_6b_v3`
+- Rubric version: `chapter_6b_v5`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
 
+Before applying the lenses, establish the inherited level and prior trend in essential
+services and life chances; the ruler’s principal social policies and executed resources;
+material changes across affected groups and regions; major crises and external support;
+and the ruler’s attributable contribution.
+
 ## Ten Evidence Lenses
 
-1. **6B.1** — Did the ruler treat human welfare as a core purpose of rule rather than as propaganda, patronage, or secondary concern?
-2. **6B.2** — Did the ruler improve access to basic health, education, water, sanitation, housing, food security, and social protection?
-3. **6B.3** — Did the ruler prioritize vulnerable groups, poor regions, children, elderly people, women, minorities, disabled people, and marginalized communities?
-4. **6B.4** — Did the ruler fund and manage social services with competent professionals rather than patronage networks?
-5. **6B.5** — Did the ruler use evidence, measurement, and transparent correction to improve service delivery?
-6. **6B.6** — Did the ruler reduce avoidable suffering during crises such as pandemics, disasters, conflict displacement, famine, or economic shocks?
-7. **6B.7** — Did the ruler avoid using welfare, permits, jobs, food, housing, or benefits as tools of political loyalty and punishment?
-8. **6B.8** — Did the ruler protect dignity and equal opportunity, not only aggregate welfare numbers?
-9. **6B.9** — Did the ruler build durable social institutions that would survive beyond their personal rule?
-10. **6B.10** — Did the ruler leave ordinary people with better life chances than they inherited, accounting for baseline and constraints?
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **6B.1 — Welfare as a governing purpose** | Did the ruler make people's wellbeing a real priority? | Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **6B.2 — Access to essential services** | Did people gain effective access to essential services and social protection? | Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.3 — Priority for vulnerable groups** | Did vulnerable people and poor regions receive real protection and support? | Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.4 — Professional service delivery** | Were social services run by capable people with adequate resources? | Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.5 — Measurement and correction** | Did the ruler measure social programs honestly and fix what did not work? | Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.6 — Protection during crises** | Did the ruler reduce avoidable suffering during major crises? | Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.7 — No political allocation of welfare** | Were benefits and basic needs protected from political favoritism and punishment? | Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.8 — Dignity and equal opportunity** | Did the ruler protect equal dignity and opportunity in everyday life? | Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.9 — Durable social institutions** | Did the ruler build social institutions that could last beyond personal rule? | Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **6B.10 — Lasting life chances** | Did ordinary people finish the period with better life chances? | Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Evidence Plan
 
@@ -71,7 +81,7 @@ Question redundancy is a feature: several lenses may corroborate the same welfar
 The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
 
 - `chapter_id`: `6B`
-- `rubric_version`: `chapter_6b_v3`
+- `rubric_version`: `chapter_6b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`

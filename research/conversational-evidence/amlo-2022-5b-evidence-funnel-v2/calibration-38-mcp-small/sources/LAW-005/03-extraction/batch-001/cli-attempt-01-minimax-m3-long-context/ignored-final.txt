@@ -1,0 +1,12 @@
+The evidence-citation MCP server tools (`evidence_inspect`, `evidence_record`, `evidence_revise`, `evidence_finish`) are declared in my tool surface but are not actually reachable from this environment — no MCP resources or resource templates are registered, and direct calls return `unsupported call`. I cannot perform the inspect → record → revise → finish cycle required to produce a validated citation ledger.
+
+Per the task framing, the dedicated runner ignores prose and final-message content and accepts only the validated ledger produced through the evidence tool surface. Without working `evidence_inspect`/`evidence_record`/`evidence_revise`/`evidence_finish` calls, I have no way to:
+
+- retrieve code-indexed source segments for a locator,
+- bind an inclusive segment range to a draft intent and receive a hash-bound excerpt,
+- revise that binding (up to three attempts), or
+- persist a hash-bound candidate via `evidence_finish`.
+
+Refusing to fabricate intent JSON is the only defensible behavior here. The instructions are explicit that I must not author quotation text, must select segments supplied by the citation index, and must verify every actor/action/date/quantity against the exact inclusive range returned by `evidence_inspect`. None of those guarantees are available in this session, so any intent I emitted would be invented rather than evidence-bound, and any `evidence_finish` call I issued would either be rejected or persist an unverified hash-bound candidate.
+
+Please re-run this calibration turn in an environment where the evidence-citation MCP server is actually attached, or surface the underlying connection error so the runner can be reconfigured. Once `evidence_inspect` returns the indexed segments for the two LAW-005 locators, I will proceed with the draft sequence (D0001, D0002, …) using only the inclusive ranges returned by the citation index, comparing each `evidence_record`/`evidence_revise` excerpt against the intent claim before any `evidence_finish`, as specified.

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -36,6 +37,7 @@ def prepare_compact_inputs(
     conversion = _object(conversion_dir / "conversion-report.json")
     if not conversion["ready_for_judging"]:
         raise ValueError("conversion report is not ready for judging")
+    target_year = int(conversion["year"])
     chapters = []
     for chapter_id in CHAPTERS:
         source_paths = sorted((conversion_dir / "projections" / chapter_id).glob("*.json"))
@@ -62,6 +64,7 @@ def prepare_compact_inputs(
         manifest = {
             "schema_version": "conversational_compact_chapter_v1",
             "chapter_id": chapter_id,
+            "target_year": target_year,
             "rubric_version": rubric,
             "projection_paths": written,
             "evidence_per_lens": evidence_per_lens,
@@ -81,6 +84,7 @@ def prepare_compact_inputs(
     report = {
         "schema_version": "conversational_compaction_report_v1",
         "source_conversion": str(conversion_dir / "conversion-report.json"),
+        "target_year": target_year,
         "evidence_per_lens": evidence_per_lens,
         "chapters": chapters,
     }
@@ -96,7 +100,7 @@ def run_judges(
     workers: int = 3,
     timeout_seconds: int = 1800,
     chapter_ids: tuple[str, ...] = CHAPTERS,
-    run_key: str = "2024-top20-gpt54mini-judges-v1",
+    run_key: str | None = None,
     instruction_path: Path | None = None,
 ) -> dict[str, Any]:
     """Run incomplete chapter jobs concurrently and preserve every artifact."""
@@ -109,6 +113,9 @@ def run_judges(
     supplemental_instructions = (
         instruction_path.read_text(encoding="utf-8") if instruction_path else ""
     )
+    compaction = _object(compact_dir / "compaction-report.json")
+    target_year = int(compaction["target_year"])
+    effective_run_key = run_key or f"{target_year}-gpt54mini-judges-v1"
     pending = [
         chapter
         for chapter in chapter_ids
@@ -124,7 +131,8 @@ def run_judges(
                 chapter,
                 model,
                 timeout_seconds,
-                run_key,
+                effective_run_key,
+                target_year,
                 supplemental_instructions,
             ): chapter
             for chapter in pending
@@ -155,8 +163,15 @@ def repair_saved_judgments(compact_dir: Path, output_dir: Path) -> dict[str, Any
     """Revalidate saved successful candidates after deterministic normalizations."""
 
     repaired = []
+    manifests = {
+        path.stem: path for path in (compact_dir / "chapters").glob("*.json")
+    }
     for chapter_id in CHAPTERS:
-        manifest = _object(compact_dir / "chapters" / f"{chapter_id}.json")
+        manifest_path = manifests.get(chapter_id)
+        pending_path = output_dir / chapter_id / "judgment.pending.json"
+        if manifest_path is None or not pending_path.is_file():
+            continue
+        manifest = _object(manifest_path)
         projections = tuple(
             (Path(path), RulerChapterProjection.model_validate(_object(Path(path))))
             for path in manifest["projection_paths"]
@@ -166,7 +181,12 @@ def repair_saved_judgments(compact_dir: Path, output_dir: Path) -> dict[str, Any
             _object(work / "judgment.pending.json"), chapter_id, projections
         )
         batch = ChapterJudgmentBatch.model_validate(candidate)
-        _validate_batch(batch, chapter_id=chapter_id, projections=projections)
+        _validate_batch(
+            batch,
+            chapter_id=chapter_id,
+            target_year=int(manifest["target_year"]),
+            projections=projections,
+        )
         _write_json(work / "judgment.json", batch.model_dump(mode="json"))
         repaired.append(chapter_id)
     return {"repaired_chapters": repaired, "llm_calls": 0}
@@ -212,29 +232,13 @@ def _compact_projection(
     source: RulerChapterProjection, limit: int
 ) -> tuple[RulerChapterProjection, list[str]]:
     evidence = {item.evidence_id: item for item in source.evidence}
-    keep: set[str] = set()
-    for methodology_id in source.methodology_ids:
-        ids = [
-            item.evidence_id for item in source.mappings if item.methodology_id == methodology_id
-        ]
-        selected: list[str] = []
-        domains: set[str] = set()
-        for evidence_id in reversed(ids):
-            domain = urlparse(evidence[evidence_id].url).netloc.lower().removeprefix("www.")
-            if domain and domain not in domains:
-                selected.append(evidence_id)
-                domains.add(domain)
-            if len(selected) == limit:
-                break
-        for evidence_id in reversed(ids):
-            if len(selected) == limit:
-                break
-            if evidence_id not in selected:
-                selected.append(evidence_id)
-        keep.update(selected)
+    keep = _select_compact_evidence_ids(source, limit)
     payload = source.model_dump(mode="json")
     payload["evidence"] = [item for item in payload["evidence"] if item["evidence_id"] in keep]
     payload["mappings"] = [item for item in payload["mappings"] if item["evidence_id"] in keep]
+    payload["contextual_discovery_only_evidence_ids"] = [
+        value for value in payload["contextual_discovery_only_evidence_ids"] if value in keep
+    ]
     for item in payload["coverage"]:
         item["evidence_ids"] = [value for value in item["evidence_ids"] if value in keep]
     payload["estimated_input_tokens"] = _tokens(
@@ -245,6 +249,99 @@ def _compact_projection(
     return compact, removed
 
 
+def _select_compact_evidence_ids(
+    source: RulerChapterProjection, limit: int
+) -> set[str]:
+    """Prefer substantive evidence and add distinct records across broad lens mappings."""
+
+    evidence = {item.evidence_id: item for item in source.evidence}
+    mappings = {(item.methodology_id, item.evidence_id): item for item in source.mappings}
+    keep: set[str] = set()
+    for methodology_id in source.methodology_ids:
+        candidates = [
+            item.evidence_id for item in source.mappings if item.methodology_id == methodology_id
+        ]
+        selected: list[str] = []
+        domains: set[str] = set()
+        while len(selected) < limit and candidates:
+            semantic_best = max(
+                _semantic_evidence_rank(
+                    mappings[(methodology_id, evidence_id)].relation,
+                    evidence[evidence_id].final_evidence_use,
+                )
+                for evidence_id in candidates
+            )
+            tier = [
+                evidence_id
+                for evidence_id in candidates
+                if _semantic_evidence_rank(
+                    mappings[(methodology_id, evidence_id)].relation,
+                    evidence[evidence_id].final_evidence_use,
+                )
+                == semantic_best
+            ]
+            unused = [evidence_id for evidence_id in tier if evidence_id not in keep]
+            pool = unused or tier
+            evidence_id = max(
+                pool,
+                key=lambda value: _quality_evidence_rank(evidence[value], domains),
+            )
+            selected.append(evidence_id)
+            candidates.remove(evidence_id)
+            domain = _source_domain(evidence[evidence_id].url)
+            if domain:
+                domains.add(domain)
+        keep.update(selected)
+    target = min(
+        len(source.methodology_ids),
+        sum(item.final_evidence_use == "final_evidence" for item in source.evidence),
+    )
+    chapter_domains = {_source_domain(evidence[evidence_id].url) for evidence_id in keep}
+    candidates = [
+        item.evidence_id
+        for item in source.evidence
+        if item.final_evidence_use == "final_evidence" and item.evidence_id not in keep
+    ]
+    while len(keep) < target and candidates:
+        evidence_id = max(
+            candidates,
+            key=lambda value: _quality_evidence_rank(evidence[value], chapter_domains),
+        )
+        keep.add(evidence_id)
+        candidates.remove(evidence_id)
+        domain = _source_domain(evidence[evidence_id].url)
+        if domain:
+            chapter_domains.add(domain)
+    return keep
+
+
+def _semantic_evidence_rank(relation: str, final_use: str) -> tuple[int, int]:
+    relation_rank = {"supports": 3, "contradicts": 3, "mitigates": 2, "context": 1}
+    use_rank = {"final_evidence": 3, "context": 2, "discovery_only": 1}
+    return relation_rank.get(relation, 0), use_rank.get(final_use, 0)
+
+
+def _quality_evidence_rank(evidence: Any, used_domains: set[str]) -> tuple[int, int, str]:
+    confidence_rank = {
+        "high": 5,
+        "medium_high": 4,
+        "medium": 3,
+        "medium_low": 2,
+        "low": 1,
+        "not_assessed": 0,
+    }
+    domain = _source_domain(evidence.url)
+    return (
+        int(bool(domain and domain not in used_domains)),
+        confidence_rank.get(evidence.source_confidence, 0),
+        evidence.evidence_id,
+    )
+
+
+def _source_domain(url: str) -> str:
+    return urlparse(url).netloc.lower().removeprefix("www.")
+
+
 def _run_chapter(
     compact_dir: Path,
     output_dir: Path,
@@ -252,6 +349,7 @@ def _run_chapter(
     model: str,
     timeout_seconds: int,
     run_key: str,
+    target_year: int,
     supplemental_instructions: str,
 ) -> dict[str, Any]:
     work = output_dir / chapter_id
@@ -268,14 +366,19 @@ def _run_chapter(
         if profile.get("return_code") == 0:
             candidate = _normalize_candidate(_object(pending_path), chapter_id, projections)
             batch = ChapterJudgmentBatch.model_validate(candidate)
-            _validate_batch(batch, chapter_id=chapter_id, projections=projections)
+            _validate_batch(
+                batch,
+                chapter_id=chapter_id,
+                target_year=target_year,
+                projections=projections,
+            )
             _write_json(work / "judgment.json", batch.model_dump(mode="json"))
             return {"chapter_id": chapter_id, "status": "completed", **profile}
     guide, rubric = load_chapter_guide(chapter_id)
     job = {
-        "job_key": f"chapter-judge:{run_key}:2024:{chapter_id}",
+        "job_key": f"chapter-judge:{run_key}:{target_year}:{chapter_id}",
         "run_key": run_key,
-        "target_year": 2024,
+        "target_year": target_year,
         "input": {
             "chapter_id": chapter_id,
             "rubric_version": rubric,
@@ -347,7 +450,12 @@ def _run_chapter(
         raise RuntimeError(result.stderr.strip() or f"judge exited {result.returncode}")
     candidate = _normalize_candidate(_object(pending_path), chapter_id, projections)
     batch = ChapterJudgmentBatch.model_validate(candidate)
-    _validate_batch(batch, chapter_id=chapter_id, projections=projections)
+    _validate_batch(
+        batch,
+        chapter_id=chapter_id,
+        target_year=target_year,
+        projections=projections,
+    )
     _write_json(work / "judgment.json", batch.model_dump(mode="json"))
     return {"chapter_id": chapter_id, "status": "completed", **profile}
 
@@ -367,6 +475,8 @@ def _normalize_candidate(
         projection.job_key: {item.evidence_id for item in projection.evidence}
         for _, projection in projections
     }
+    projection_by_key = {projection.job_key: projection for _, projection in projections}
+    normalized_identity_keys: list[str] = []
     confidence_values = [
         float(item["confidence_score"])
         for item in evaluations
@@ -382,20 +492,18 @@ def _normalize_candidate(
             continue
         if normalize_confidence:
             evaluation["confidence_score"] = round(float(evaluation["confidence_score"]) * 100, 6)
-        supported = list(
-            dict.fromkeys(
-                str(value)
-                for value in evaluation.get("supported_lenses", [])
-                if str(value) in valid
+        projection = _resolve_trusted_projection(evaluation, projection_by_key)
+        if projection is not None and _restore_trusted_identity(evaluation, projection):
+            normalized_identity_keys.append(projection.job_key)
+        _normalize_scored_review_reason(evaluation)
+        supported = _normalize_lens_values(evaluation.get("supported_lenses"), valid)
+        missing = [
+            value
+            for value in _normalize_lens_values(
+                evaluation.get("missing_or_weak_lenses"), valid
             )
-        )
-        missing = list(
-            dict.fromkeys(
-                str(value)
-                for value in evaluation.get("missing_or_weak_lenses", [])
-                if str(value) in valid and str(value) not in supported
-            )
-        )
+            if value not in supported
+        ]
         evaluation["supported_lenses"] = supported
         evaluation["missing_or_weak_lenses"] = missing
         known = known_by_key.get(str(evaluation.get("dossier_job_key")), set())
@@ -426,16 +534,104 @@ def _normalize_candidate(
             evaluation["manual_review_required"] = True
             evaluation["manual_review_reason_type"] = "projection_integrity"
             evaluation["manual_review_reason"] = f"{existing} {note}".strip()
+    _append_identity_normalization_note(candidate, normalized_identity_keys)
     return candidate
+
+
+def _restore_trusted_identity(
+    evaluation: dict[str, Any], projection: RulerChapterProjection
+) -> bool:
+    """Restore immutable identity fields when the exact dossier key is already trusted."""
+
+    immutable = {
+        "dossier_job_key": projection.job_key,
+        "iso3": projection.iso3,
+        "ruler_id": projection.ruler_id,
+        "ruler_year_id": projection.ruler_year_id,
+        "ruler_name": projection.ruler_name,
+        "period_start_year": projection.period_start_year,
+        "period_end_year": projection.period_end_year,
+        "chapter_id": projection.chapter_id,
+    }
+    changed = any(evaluation.get(field) != value for field, value in immutable.items())
+    evaluation.update(immutable)
+    return changed
+
+
+def _resolve_trusted_projection(
+    evaluation: dict[str, Any],
+    projection_by_key: dict[str, RulerChapterProjection],
+) -> RulerChapterProjection | None:
+    """Resolve stale keys only through one exact immutable ruler-period identity."""
+
+    keyed = projection_by_key.get(str(evaluation.get("dossier_job_key")))
+    if keyed is not None:
+        return keyed
+    identity_fields = (
+        "iso3",
+        "ruler_id",
+        "ruler_year_id",
+        "ruler_name",
+        "period_start_year",
+        "period_end_year",
+        "chapter_id",
+    )
+    matches = [
+        projection
+        for projection in projection_by_key.values()
+        if all(evaluation.get(field) == getattr(projection, field) for field in identity_fields)
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
+def _normalize_scored_review_reason(evaluation: dict[str, Any]) -> None:
+    """Replace a null-only review label without dropping the requested review."""
+
+    if (
+        evaluation.get("score_1_to_10") is not None
+        and evaluation.get("manual_review_reason_type") == "recoverable_null"
+    ):
+        evaluation["manual_review_reason_type"] = "projection_integrity"
+
+
+def _append_identity_normalization_note(
+    candidate: dict[str, Any], normalized_identity_keys: list[str]
+) -> None:
+    """Expose deterministic identity recovery in the persisted batch notes."""
+
+    if not normalized_identity_keys:
+        return
+    notes = candidate.setdefault("batch_notes", [])
+    if isinstance(notes, list):
+        notes.append(
+            "Deterministically restored immutable identity fields from trusted "
+            "projections for: " + ", ".join(dict.fromkeys(normalized_identity_keys))
+        )
+
+
+def _normalize_lens_values(values: object, valid: set[str]) -> list[str]:
+    """Recover a leading methodology ID from otherwise useful free-form lens text."""
+
+    if not isinstance(values, list):
+        return []
+    normalized: list[str] = []
+    for value in values:
+        text = str(value).strip()
+        match = re.match(r"^(\d+B\.\d{1,2})(?:\b|\s|[:\-—])", text, re.IGNORECASE)
+        candidate = match.group(1).upper() if match else text.upper()
+        if candidate in valid and candidate not in normalized:
+            normalized.append(candidate)
+    return normalized
 
 
 def _validate_batch(
     batch: ChapterJudgmentBatch,
     *,
     chapter_id: str,
+    target_year: int,
     projections: tuple[tuple[Path, RulerChapterProjection], ...],
 ) -> None:
-    if batch.chapter_id != chapter_id or batch.target_year != 2024:
+    if batch.chapter_id != chapter_id or batch.target_year != target_year:
         raise ValueError("judge returned the wrong chapter or year")
     by_key = {item.job_key: item for _, item in projections}
     evaluations = {item.dossier_job_key: item for item in batch.evaluations}
@@ -555,7 +751,7 @@ def main() -> None:
     run.add_argument("--workers", type=int, default=3)
     run.add_argument("--timeout", type=int, default=1800)
     run.add_argument("--chapters", nargs="+", choices=CHAPTERS, default=list(CHAPTERS))
-    run.add_argument("--run-key", default="2024-top20-gpt54mini-judges-v1")
+    run.add_argument("--run-key")
     run.add_argument("--instructions", type=Path)
     repair = subparsers.add_parser("repair")
     repair.add_argument("compact_dir", type=Path)

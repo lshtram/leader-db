@@ -153,7 +153,7 @@ def test_indicator_spec_from_csv_row() -> None:
             "variable_name": "wdi_gini_index",
             "raw_column": "SI.POV.GINI",
             "rating_category": "social_wellbeing",
-            "raw_scale": "index_0_1",
+            "raw_scale": "index_0_100",
             "normalized_scale_target": "0-1",
             "higher_is_better": "0",
             "unit": "0-1",

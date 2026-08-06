@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
+from leaders_db.conversational_evidence.data import questions
 from leaders_db.research.registry import get_concept_spec, list_question_specs
 
 
@@ -57,6 +59,21 @@ def test_ruler_quality_concept_spec_is_registry_only_manual_evidence() -> None:
     assert concept.expected_scope_keys == ("country", "leader", "period")
     assert concept.evidence_shape == "qualitative_cited"
     assert concept.acquisition_allowed is True
+
+
+def test_ruler_question_catalog_matches_runtime_registry() -> None:
+    matching_specs = [
+        spec
+        for spec in list_question_specs()
+        if re.fullmatch(r"[1-8]B\.(?:10|[1-9])", spec.methodology_id)
+    ]
+    collector_items = questions()
+
+    expected_questions = {spec.methodology_id: spec.text for spec in matching_specs}
+    collector_questions = {item["id"]: item["text"] for item in collector_items}
+    assert len(expected_questions) == len(matching_specs)
+    assert len(collector_questions) == len(collector_items)
+    assert collector_questions == expected_questions
 
 
 def _methodology_text(project_root: Path) -> str:

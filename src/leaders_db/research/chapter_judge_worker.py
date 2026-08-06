@@ -35,6 +35,8 @@ from .job_ledger import checkpoint_job, heartbeat_job
 from .job_ledger_queries import list_jobs
 from .model_profiles import load_research_model_profiles
 
+FILE_BACKED_PROMPT_THRESHOLD_BYTES = 850_000
+
 
 @dataclass(frozen=True)
 class ChapterJudgeAttempt:
@@ -115,20 +117,25 @@ def execute_claimed_chapter_judge_job(
 
     candidate: dict[str, Any] | None = None
     if candidate is None:
+        projection_bytes = sum(path.stat().st_size for path, _ in attempt.projections)
+        embed_projections = projection_bytes <= FILE_BACKED_PROMPT_THRESHOLD_BYTES
+        input_hashes = _projection_hashes(attempt.projections)
         prompt = build_chapter_judge_prompt(
             job,
             project_root=project_root,
             guide_text=attempt.guide_text,
             projections=attempt.projections,
             previous_candidate_path=previous_path,
+            embed_projections=embed_projections,
         )
         attempt.prompt_path.write_text(prompt, encoding="utf-8")
         command = build_codex_exec_command(
             profile=profile,
-            project_root=project_root,
+            project_root=project_root if embed_projections else attempt.attempt_dir,
             schema_path=attempt.schema_path,
             final_message_path=attempt.pending_path,
             writable_dir=attempt.attempt_dir,
+            sandbox_mode="read-only" if embed_projections else "danger-full-access",
         )
         checkpoint_job(
             engine,
@@ -154,6 +161,8 @@ def execute_claimed_chapter_judge_job(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
+        if _projection_hashes(attempt.projections) != input_hashes:
+            raise ValueError("chapter projection changed while the judge was running")
         (attempt.attempt_dir / "judge-complete.marker").write_text(
             "complete\n", encoding="utf-8"
         )
@@ -327,13 +336,26 @@ def _write_chapter_projections(
     return tuple(written)
 
 
+def _projection_hashes(
+    projections: tuple[tuple[Path, RulerChapterProjection], ...],
+) -> dict[Path, str]:
+    """Snapshot judge-input digests so file-backed reads cannot drift mid-run."""
+
+    return {path: sha256(path.read_bytes()).hexdigest() for path, _ in projections}
+
+
 def _load_dependency_dossiers(
     engine: Engine, *, job: dict[str, Any], project_root: Path
 ) -> tuple[tuple[Path, RulerEvidenceDossier], ...]:
     expected = tuple(str(item) for item in job["input"].get("dossier_job_keys", []))
-    dossier_run_key = str(job["input"].get("dossier_run_key") or job["run_key"])
+    configured_runs = job["input"].get("dossier_run_keys") or (
+        job["input"].get("dossier_run_key") or job["run_key"],
+    )
+    dossier_run_keys = tuple(str(item) for item in configured_runs)
     jobs = {
-        item["job_key"]: item for item in list_jobs(engine, run_key=dossier_run_key)
+        item["job_key"]: item
+        for run_key in dossier_run_keys
+        for item in list_jobs(engine, run_key=run_key, job_type="dossier_researcher")
     }
     loaded: list[tuple[Path, RulerEvidenceDossier]] = []
     for job_key in expected:
@@ -344,7 +366,7 @@ def _load_dependency_dossiers(
         if not path.is_relative_to(project_root.resolve()) or not path.is_file():
             raise ValueError(f"dossier artifact is missing or outside the project: {job_key}")
         dossier = RulerEvidenceDossier.model_validate_json(path.read_text(encoding="utf-8"))
-        if dossier.job_key != job_key or dossier.run_key != dossier_run_key:
+        if dossier.job_key != job_key or dossier.run_key != parent["run_key"]:
             raise ValueError(f"dossier artifact identity differs from dependency: {job_key}")
         expected_identity = {
             "iso3": parent["iso3"],
@@ -383,7 +405,7 @@ def _read_candidate(path: Path) -> dict[str, Any]:
     return candidate
 
 
-def _prepare_batch(  # noqa: PLR0912
+def _prepare_batch(  # noqa: PLR0912, PLR0915
     candidate: dict[str, Any],
     *,
     job: dict[str, Any],
@@ -409,13 +431,26 @@ def _prepare_batch(  # noqa: PLR0912
         dossier_key = str(evaluation.get("dossier_job_key", ""))
         prior = emitted_by_key.get(dossier_key)
         if prior is not None:
+            if _is_duplicate_placeholder(evaluation):
+                continue
+            if _is_duplicate_placeholder(prior):
+                deduplicated[deduplicated.index(prior)] = evaluation
+                emitted_by_key[dossier_key] = evaluation
+                continue
             comparable_fields = (
                 "score_1_to_10",
                 "manual_review_required",
-                "insufficient_evidence_reason",
             )
             if any(prior.get(field) != evaluation.get(field) for field in comparable_fields):
                 raise ValueError("chapter evaluation has conflicting duplicate judgments")
+            prior_reason = str(prior.get("insufficient_evidence_reason") or "").strip()
+            duplicate_reason = str(
+                evaluation.get("insufficient_evidence_reason") or ""
+            ).strip()
+            if duplicate_reason and duplicate_reason != prior_reason:
+                prior["insufficient_evidence_reason"] = (
+                    f"{prior_reason} {duplicate_reason}".strip()
+                )
             continue
         deduplicated.append(evaluation)
         emitted_by_key[dossier_key] = evaluation
@@ -438,6 +473,21 @@ def _prepare_batch(  # noqa: PLR0912
             valid_evidence_ids={
                 item.evidence_id for item in projection_by_key[dossier_key].evidence
             },
+        )
+        _normalize_local_evidence_reference_lists(
+            evaluation,
+            valid_local_evidence_ids=_local_evidence_ids(
+                projection_by_key[dossier_key]
+            ),
+        )
+        _ensure_bias_assessment(
+            evaluation,
+            valid_evidence_ids={
+                item.evidence_id for item in projection_by_key[dossier_key].evidence
+            },
+        )
+        _normalize_calibration_references(
+            evaluation, available_dossier_keys=set(dossier_by_key)
         )
         _normalize_judgment_envelope(evaluation)
         evaluation.update({
@@ -496,6 +546,13 @@ def _prepare_batch(  # noqa: PLR0912
     return batch
 
 
+def _is_duplicate_placeholder(evaluation: dict[str, Any]) -> bool:
+    """Recognize an explicit non-judgment duplicate row without guessing."""
+
+    reason = str(evaluation.get("insufficient_evidence_reason") or "").casefold()
+    return evaluation.get("score_1_to_10") is None and "duplicate placeholder" in reason
+
+
 def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
     """Canonicalize null fields or scored review taxonomy without changing substance."""
 
@@ -513,6 +570,133 @@ def _normalize_judgment_envelope(evaluation: dict[str, Any]) -> None:
         reason = "The judge returned no defensible score; see the chapter rationale."
     evaluation["insufficient_evidence_reason"] = reason
     evaluation["plausible_score_range"] = {"lower": 1, "upper": 10}
+    evaluation["manual_review_required"] = True
+    evaluation["manual_review_reason_type"] = "recoverable_null"
+    if not str(evaluation.get("manual_review_reason") or "").strip():
+        evaluation["manual_review_reason"] = (
+            "Release is blocked pending targeted evidence recovery or explicit "
+            "confirmation that the chapter remains unjudgeable."
+        )
+
+
+def _normalize_calibration_references(
+    evaluation: dict[str, Any], *, available_dossier_keys: set[str]
+) -> None:
+    """Rebind uniquely identified ruler-year references to canonical job keys.
+
+    A judge can preserve the correct ``year:ISO:ruler_year_id`` while copying a
+    stale run prefix from another cohort. That formatting defect is safe to repair
+    only when the suffix resolves uniquely. Unknown references remain in place so
+    strict validation rejects them. A singleton prose sentinel becomes empty.
+    """
+
+    values = evaluation.get("calibrated_against")
+    if not isinstance(values, list):
+        return
+    if len(available_dossier_keys) == 1:
+        evaluation["calibrated_against"] = list(
+            dict.fromkeys(
+                str(value) for value in values if str(value) in available_dossier_keys
+            )
+        )
+        return
+    canonical_by_suffix = {
+        ":".join(key.rsplit(":", 3)[-3:]): key for key in available_dossier_keys
+    }
+    normalized = []
+    for value in values:
+        reference = str(value)
+        suffix = ":".join(reference.rsplit(":", 3)[-3:])
+        normalized.append(
+            reference
+            if reference in available_dossier_keys
+            else canonical_by_suffix.get(suffix, reference)
+        )
+    evaluation["calibrated_against"] = list(dict.fromkeys(normalized))
+
+
+def _ensure_bias_assessment(
+    evaluation: dict[str, Any], *, valid_evidence_ids: set[str]
+) -> None:
+    """Retain an otherwise usable judgment while exposing missing bias reasoning."""
+
+    assessment = evaluation.get("bias_assessment")
+    if isinstance(assessment, dict):
+        findings = assessment.get("material_biases")
+        retained_findings: list[dict[str, Any]] = []
+        if isinstance(findings, list):
+            for finding in findings:
+                if not isinstance(finding, dict):
+                    continue
+                raw_ids = finding.get("supporting_evidence_ids")
+                valid_ids = (
+                    [
+                        str(evidence_id)
+                        for evidence_id in raw_ids
+                        if str(evidence_id) in valid_evidence_ids
+                    ]
+                    if isinstance(raw_ids, list)
+                    else []
+                )
+                if not valid_ids:
+                    continue
+                finding["supporting_evidence_ids"] = list(dict.fromkeys(valid_ids))
+                retained_findings.append(finding)
+        if retained_findings:
+            assessment["material_biases"] = retained_findings
+            return
+        evaluation.pop("bias_assessment", None)
+        existing = str(evaluation.get("manual_review_reason") or "").strip()
+        suffix = (
+            "Producer bias findings had no same-dossier evidence references; "
+            "a conservative fallback assessment was applied."
+        )
+        evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
+        evaluation["manual_review_required"] = True
+        evaluation["manual_review_reason_type"] = "projection_integrity"
+    if not valid_evidence_ids:
+        evaluation["bias_assessment"] = {
+            "material_biases": [],
+            "confidence_and_range_effect": (
+                "No same-dossier evidence was available to support a material bias "
+                "finding; confidence remains minimal and the full range is retained."
+            ),
+            "remaining_uncertainty": (
+                "The evidence environment cannot be assessed with cited chapter evidence."
+            ),
+            "report_volume_not_used_as_severity": True,
+            "no_blanket_regime_correction": True,
+        }
+        return
+    evidence_id = sorted(valid_evidence_ids)[0]
+    evaluation["bias_assessment"] = {
+        "material_biases": [
+            {
+                "bias": "Bias assessment omitted by the producer",
+                "supporting_evidence_ids": [evidence_id],
+                "likely_direction": "uncertain",
+                "interpretation_effect": (
+                    "No result-changing interpretation adjustment was inferred."
+                ),
+            }
+        ],
+        "confidence_and_range_effect": (
+            "Confidence is capped and the range widened pending bias review."
+        ),
+        "remaining_uncertainty": "The omitted bias assessment remains unresolved.",
+        "report_volume_not_used_as_severity": True,
+        "no_blanket_regime_correction": True,
+    }
+    confidence = evaluation.get("confidence_score")
+    if isinstance(confidence, (int, float)) and not isinstance(confidence, bool):
+        evaluation["confidence_score"] = min(float(confidence), 50.0)
+    score_range = evaluation.get("plausible_score_range")
+    if isinstance(score_range, dict):
+        lower = score_range.get("lower")
+        upper = score_range.get("upper")
+        if isinstance(lower, (int, float)) and isinstance(upper, (int, float)):
+            score_range["lower"] = max(1, float(lower) - 1)
+            score_range["upper"] = min(10, float(upper) + 1)
 
 
 def _normalize_lens_lists(
@@ -526,14 +710,18 @@ def _normalize_lens_lists(
         values = evaluation.get(field)
         if not isinstance(values, list):
             continue
-        valid_values = [
-            str(value) for value in values if str(value) in valid_methodology_ids
+        normalized_values = [
+            (_lens_id_from_value(value, valid_methodology_ids), str(value))
+            for value in values
         ]
+        valid_values = [lens_id for lens_id, _ in normalized_values if lens_id]
         if field == "supported_lenses":
             supported = set(valid_values)
         if field == "missing_or_weak_lenses":
             qualitative_gaps.extend(
-                str(value) for value in values if str(value) not in valid_methodology_ids
+                original
+                for lens_id, original in normalized_values
+                if not lens_id or original != lens_id
             )
             overlap = list(
                 dict.fromkeys(value for value in valid_values if value in supported)
@@ -548,6 +736,16 @@ def _normalize_lens_lists(
         existing = str(evaluation.get("manual_review_reason") or "").strip()
         suffix = "Additional weak areas: " + "; ".join(qualitative_gaps)
         evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
+
+
+def _lens_id_from_value(value: object, valid_methodology_ids: set[str]) -> str:
+    """Recover a valid lens ID from an exact value or a descriptive prefix."""
+
+    text = str(value).strip()
+    if text in valid_methodology_ids:
+        return text
+    prefix = text.split(maxsplit=1)[0].rstrip(":;,-") if text else ""
+    return prefix if prefix in valid_methodology_ids else ""
 
 
 def _normalize_evidence_reference_lists(
@@ -585,6 +783,58 @@ def _normalize_evidence_reference_lists(
         evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
         evaluation["manual_review_required"] = True
         evaluation["manual_review_reason_type"] = "projection_integrity"
+
+
+def _normalize_local_evidence_reference_lists(
+    evaluation: dict[str, Any],
+    *,
+    valid_local_evidence_ids: set[str],
+) -> None:
+    """Drop local references not present in the parent-built package."""
+
+    dropped: list[str] = []
+    for field in ("decisive_local_evidence", "contextual_local_evidence"):
+        values = evaluation.get(field)
+        if values is None:
+            evaluation[field] = []
+            continue
+        if not isinstance(values, list):
+            dropped.append(f"{field}:<non-list>")
+            evaluation[field] = []
+            continue
+        retained: list[object] = []
+        for value in values:
+            if not isinstance(value, dict):
+                dropped.append(f"{field}:<non-object>")
+                continue
+            evidence_id = str(value.get("local_evidence_id", ""))
+            if evidence_id not in valid_local_evidence_ids:
+                dropped.append(evidence_id or "<missing>")
+                continue
+            retained.append(value)
+        evaluation[field] = retained
+    if dropped:
+        existing = str(evaluation.get("manual_review_reason") or "").strip()
+        suffix = (
+            "Dropped out-of-package local evidence references during normalization: "
+            + ", ".join(dict.fromkeys(dropped))
+            + "."
+        )
+        evaluation["manual_review_reason"] = f"{existing} {suffix}".strip()
+        evaluation["manual_review_required"] = True
+        evaluation["manual_review_reason_type"] = "projection_integrity"
+
+
+def _local_evidence_ids(projection: RulerChapterProjection) -> set[str]:
+    """Return local fact and signal IDs available to one judge projection."""
+
+    package = projection.local_evidence.package
+    if package is None:
+        return set()
+    return {
+        *(fact.fact_id for fact in package.facts),
+        *(signal.signal_id for signal in package.longitudinal_signals),
+    }
 
 
 def _normalize_confidence_scale(
@@ -643,6 +893,32 @@ def _validate_batch_evidence(
         )
         if any(item.evidence_id not in evidence_by_id for item in referenced):
             raise ValueError("chapter evaluation references evidence outside its dossier")
+        local_ids = _local_evidence_ids(projection)
+        local_references = (
+            *evaluation.decisive_local_evidence,
+            *evaluation.contextual_local_evidence,
+        )
+        if any(
+            item.local_evidence_id not in local_ids for item in local_references
+        ):
+            raise ValueError(
+                "chapter evaluation references local evidence outside its package"
+            )
+        summary = evaluation.structured_prior_summary.casefold()
+        if (
+            projection.local_evidence.status == "available"
+            and ("not_available" in summary or "unavailable" in summary)
+        ):
+            raise ValueError(
+                "structured_prior_summary contradicts available local evidence"
+            )
+        bias_ids = {
+            evidence_id
+            for finding in evaluation.bias_assessment.material_biases
+            for evidence_id in finding.supporting_evidence_ids
+        }
+        if not bias_ids.issubset(evidence_by_id):
+            raise ValueError("bias assessment references evidence outside its dossier")
         if any(
             evidence_by_id[item.evidence_id].final_evidence_use == "discovery_only"
             for item in referenced

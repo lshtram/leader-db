@@ -67,6 +67,11 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "gdp_per_capita",
     "population",
     "gdp_total",
+    "final_consumption_current_usd",
+    "household_consumption_current_usd",
+    "government_consumption_current_usd",
+    "gross_capital_formation_current_usd",
+    "gross_fixed_capital_formation_current_usd",
     "hdi",
     "life_expectancy",
     "gni_per_capita",
@@ -106,6 +111,9 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "internationalized_conflict_fatalities",
     "one_sided_violence_events",
     "one_sided_violence_fatalities",
+    "one_sided_government_actor_killings",
+    "one_sided_nonstate_actor_killings",
+    "one_sided_location_killings",
     "corruption_index",
     "cpi_score",
     "control_of_corruption",
@@ -128,6 +136,8 @@ CONCEPT_TEST_STABLE_KEYS: tuple[str, ...] = (
     "nuclear_operational_strategic",
     "nuclear_operational_nonstrategic",
     "nuclear_reserve_nondeployed",
+    "nuclear_deployed_warheads",
+    "nuclear_retired_warheads",
     "military_spend_constant_usd",
     "military_spend_per_capita",
     "military_spend_share_gdp",
@@ -232,18 +242,29 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_CORRUPTION_INDEX,
         CONCEPT_CPI_SCORE,
         CONCEPT_DTP3_IMMUNIZATION,
+        CONCEPT_EIU_CIVIL_LIBERTIES,
+        CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+        CONCEPT_EIU_ELECTORAL_PROCESS,
+        CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+        CONCEPT_EIU_POLITICAL_CULTURE,
+        CONCEPT_EIU_POLITICAL_PARTICIPATION,
         CONCEPT_ELECTORAL_DEMOCRACY,
         CONCEPT_EXECUTIVE_CORRUPTION,
         CONCEPT_EXPECTED_YEARS_SCHOOLING,
         CONCEPT_EXTRAJUDICIAL_KILLINGS,
+        CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
         CONCEPT_FREEDOM_ASSOCIATION,
         CONCEPT_FREEDOM_EXPRESSION,
         CONCEPT_GDP_PER_CAPITA,
         CONCEPT_GDP_TOTAL,
         CONCEPT_GNI_PER_CAPITA,
+        CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
         CONCEPT_GOVERNMENT_EFFECTIVENESS,
+        CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+        CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
         CONCEPT_HDI,
         CONCEPT_HEPB3_IMMUNIZATION,
+        CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
         CONCEPT_INTERNATIONALIZED_CONFLICT_EVENTS,
         CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
         CONCEPT_JUDICIAL_CONSTRAINTS,
@@ -256,15 +277,25 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_MILITARY_SPEND_SHARE_GDP,
         CONCEPT_MILITARY_SPEND_SHARE_GOVT,
         CONCEPT_MULTIPARTY_INSTITUTIONS,
+        CONCEPT_NUCLEAR_DEPLOYED,
         CONCEPT_NUCLEAR_MILITARY_STOCKPILE,
         CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
         CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
         CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+        CONCEPT_NUCLEAR_RETIRED,
         CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+        CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+        CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
+        CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
         CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
         CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
         CONCEPT_PHYSICAL_INTEGRITY,
         CONCEPT_POLITICAL_LIBERTIES,
+        CONCEPT_POLITY_AUTOCRACY_SCORE,
+        CONCEPT_POLITY_COMPOSITE_SCORE,
+        CONCEPT_POLITY_DEMOCRACY_SCORE,
+        CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+        CONCEPT_POLITY_REGIME_DURABILITY,
         CONCEPT_POPULATION,
         CONCEPT_PRESS_FREEDOM_RANK,
         CONCEPT_PRESS_FREEDOM_SCORE,
@@ -273,6 +304,13 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_PTS_HUMAN_RIGHTS_WATCH_SCORE,
         CONCEPT_PTS_STATE_DEPT_SCORE,
         CONCEPT_PUBLIC_CORRUPTION,
+        CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+        CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+        CONCEPT_PWT_EMPLOYMENT,
+        CONCEPT_PWT_HUMAN_CAPITAL,
+        CONCEPT_PWT_REAL_CONSUMPTION,
+        CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+        CONCEPT_PWT_TFP_CONSTANT_PRICES,
         CONCEPT_REGIME_TYPE,
         CONCEPT_REGULATORY_QUALITY,
         CONCEPT_RULE_OF_LAW,
@@ -281,6 +319,9 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_SUFFRAGE,
         CONCEPT_UNDER5_MORTALITY,
         CONCEPT_VOICE_AND_ACCOUNTABILITY,
+        CONCEPT_WDI_ADULT_LITERACY,
+        CONCEPT_WDI_GINI_INDEX,
+        CONCEPT_WDI_SECONDARY_ENROLLMENT,
         CONCEPT_WGI_RULE_OF_LAW,
         KNOWN_CONCEPT_KEYS,
         list_concepts,
@@ -292,6 +333,32 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_GDP_PER_CAPITA,
         CONCEPT_POPULATION,
         CONCEPT_GDP_TOTAL,
+        CONCEPT_FINAL_CONSUMPTION_CURRENT_USD,
+        CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
+        CONCEPT_GOVERNMENT_CONSUMPTION_CURRENT_USD,
+        CONCEPT_GROSS_CAPITAL_FORMATION_CURRENT_USD,
+        CONCEPT_GROSS_FIXED_CAPITAL_FORMATION_CURRENT_USD,
+        CONCEPT_POLITY_COMPOSITE_SCORE,
+        CONCEPT_POLITY_DEMOCRACY_SCORE,
+        CONCEPT_POLITY_AUTOCRACY_SCORE,
+        CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+        CONCEPT_POLITY_REGIME_DURABILITY,
+        CONCEPT_EIU_DEMOCRACY_OVERALL_SCORE,
+        CONCEPT_EIU_ELECTORAL_PROCESS,
+        CONCEPT_EIU_FUNCTIONING_GOVERNMENT,
+        CONCEPT_EIU_POLITICAL_PARTICIPATION,
+        CONCEPT_EIU_POLITICAL_CULTURE,
+        CONCEPT_EIU_CIVIL_LIBERTIES,
+        CONCEPT_PWT_EMPLOYMENT,
+        CONCEPT_PWT_AVERAGE_ANNUAL_HOURS,
+        CONCEPT_PWT_HUMAN_CAPITAL,
+        CONCEPT_PWT_REAL_CONSUMPTION,
+        CONCEPT_PWT_REAL_DOMESTIC_ABSORPTION,
+        CONCEPT_PWT_CAPITAL_STOCK_INDEX,
+        CONCEPT_PWT_TFP_CONSTANT_PRICES,
+        CONCEPT_WDI_GINI_INDEX,
+        CONCEPT_WDI_ADULT_LITERACY,
+        CONCEPT_WDI_SECONDARY_ENROLLMENT,
         CONCEPT_HDI,
         CONCEPT_LIFE_EXPECTANCY,
         CONCEPT_GNI_PER_CAPITA,
@@ -331,6 +398,9 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_INTERNATIONALIZED_CONFLICT_FATALITIES,
         CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
         CONCEPT_ONE_SIDED_VIOLENCE_FATALITIES,
+        CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
+        CONCEPT_ONE_SIDED_NONSTATE_ACTOR_KILLINGS,
+        CONCEPT_ONE_SIDED_LOCATION_KILLINGS,
         CONCEPT_CORRUPTION_INDEX,
         CONCEPT_CPI_SCORE,
         CONCEPT_CONTROL_OF_CORRUPTION,
@@ -353,6 +423,8 @@ def test_list_concepts_exposes_stable_keys() -> None:
         CONCEPT_NUCLEAR_OPERATIONAL_STRATEGIC,
         CONCEPT_NUCLEAR_OPERATIONAL_NONSTRATEGIC,
         CONCEPT_NUCLEAR_RESERVE_NONDEPLOYED,
+        CONCEPT_NUCLEAR_DEPLOYED,
+        CONCEPT_NUCLEAR_RETIRED,
         CONCEPT_MILITARY_SPEND_CONSTANT_USD,
         CONCEPT_MILITARY_SPEND_PER_CAPITA,
         CONCEPT_MILITARY_SPEND_SHARE_GDP,
@@ -403,6 +475,98 @@ def test_concepts_package_import_does_not_import_legacy_ingest() -> None:
 
     # Sanity: the package object is importable on its own.
     assert concepts_pkg.__name__ == CONCEPT_TEST_PACKAGE
+
+
+def test_polity_executive_constraints_keeps_source_native_semantics() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS,
+        POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    source = _make_observation(
+        source_slug="polity_v",
+        indicator_code=POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE,
+        value=4,
+        year=2018,
+        country_code="RUS",
+        unit="ordinal_score",
+    )
+    rows = extract_concept((source,), CONCEPT_POLITY_EXECUTIVE_CONSTRAINTS)
+
+    assert len(rows) == 1
+    assert rows[0].concept_key == "polity_executive_constraints"
+    assert rows[0].source_indicator_codes == (POLITY_V_EXECUTIVE_CONSTRAINTS_INDICATOR_CODE,)
+    assert rows[0].value == 4
+
+
+def test_eiu_component_is_a_direct_source_native_concept() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_EIU_CIVIL_LIBERTIES,
+        EIU_CIVIL_LIBERTIES_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    source = _make_observation(
+        source_slug="eiu_democracy_index",
+        indicator_code=EIU_CIVIL_LIBERTIES_INDICATOR_CODE,
+        value=2.35,
+        year=2022,
+        country_code=None,
+        country_name="Russia",
+        unit="index_score",
+    )
+    rows = extract_concept((source,), CONCEPT_EIU_CIVIL_LIBERTIES)
+
+    assert len(rows) == 1
+    assert rows[0].mapping_type == "direct"
+    assert rows[0].source_indicator_codes == (EIU_CIVIL_LIBERTIES_INDICATOR_CODE,)
+    assert rows[0].value == 2.35
+
+
+def test_pwt_employment_keeps_count_semantics() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_PWT_EMPLOYMENT,
+        PWT_EMPLOYMENT_INDICATOR_CODE,
+        extract_concept,
+        resolve_concept,
+    )
+
+    source = _make_observation(
+        source_slug="pwt",
+        indicator_code=PWT_EMPLOYMENT_INDICATOR_CODE,
+        value=71.67,
+        year=2019,
+        country_code="RUS",
+        unit="million_persons_engaged",
+    )
+    rows = extract_concept((source,), CONCEPT_PWT_EMPLOYMENT)
+
+    assert len(rows) == 1
+    assert rows[0].unit == "million_persons_engaged"
+    assert "unemployment-rate proxy" in (resolve_concept(CONCEPT_PWT_EMPLOYMENT)[0].notes or "")
+
+
+def test_wdi_gini_concept_keeps_source_native_scale() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_WDI_GINI_INDEX,
+        WDI_GINI_INDEX_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    source = _make_observation(
+        source_slug="world_bank_wdi",
+        indicator_code=WDI_GINI_INDEX_INDICATOR_CODE,
+        value=33.9,
+        year=2022,
+        country_code="RUS",
+        unit="index points (0-100)",
+    )
+    rows = extract_concept((source,), CONCEPT_WDI_GINI_INDEX)
+
+    assert len(rows) == 1
+    assert rows[0].value == 33.9
+    assert rows[0].unit == "index points (0-100)"
 
 
 def _purge_source_boundary_modules(modules: dict[str, object]) -> None:
@@ -553,9 +717,7 @@ def test_resolve_concept_includes_freedom_house_political_rights() -> None:
 
     assert len(mappings) == 1
     assert mappings[0].mapping_type == "direct"
-    assert mappings[0].indicator_codes == (
-        FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
-    )
+    assert mappings[0].indicator_codes == (FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,)
 
 
 def test_resolve_concept_unknown_concept_key_raises_actionable_error() -> None:
@@ -923,9 +1085,7 @@ def test_extract_concept_domestic_safety_direct_mappings() -> None:
     assert physical_rows[0].value == 0.71
     assert fatality_rows[0].source_indicator_codes == (UCDP_ONE_SIDED_FATALITIES_INDICATOR_CODE,)
     assert fatality_rows[0].value == 4
-    assert cirights_rows[0].source_indicator_codes == (
-        CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,
-    )
+    assert cirights_rows[0].source_indicator_codes == (CIRIGHTS_PHYSICAL_INTEGRITY_INDICATOR_CODE,)
     assert cirights_rows[0].value == 6
     assert pts_rows[0].source_indicator_codes == (PTS_AMNESTY_SCORE_INDICATOR_CODE,)
     assert pts_rows[0].value == 2
@@ -1110,19 +1270,13 @@ def test_extract_concept_corruption_and_governance_direct_mappings() -> None:
         WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
     )
     assert wgi_effectiveness_rows[0].value == 1.31
-    assert wgi_regulatory_rows[0].source_indicator_codes == (
-        WGI_REGULATORY_QUALITY_INDICATOR_CODE,
-    )
+    assert wgi_regulatory_rows[0].source_indicator_codes == (WGI_REGULATORY_QUALITY_INDICATOR_CODE,)
     assert wgi_regulatory_rows[0].value == 1.48
-    assert bti_governance_rows[0].source_indicator_codes == (
-        BTI_GOVERNANCE_INDEX_INDICATOR_CODE,
-    )
+    assert bti_governance_rows[0].source_indicator_codes == (BTI_GOVERNANCE_INDEX_INDICATOR_CODE,)
     assert bti_governance_rows[0].value == 7.2
     assert bti_status_rows[0].source_indicator_codes == (BTI_STATUS_INDEX_INDICATOR_CODE,)
     assert bti_status_rows[0].value == 8.1
-    assert bti_democracy_rows[0].source_indicator_codes == (
-        BTI_DEMOCRACY_STATUS_INDICATOR_CODE,
-    )
+    assert bti_democracy_rows[0].source_indicator_codes == (BTI_DEMOCRACY_STATUS_INDICATOR_CODE,)
     assert bti_democracy_rows[0].value == 9.0
 
 
@@ -1153,6 +1307,40 @@ def test_extract_concept_nuclear_risk_direct_mappings() -> None:
     assert rows[0].country_name == "United States"
     assert rows[0].source_indicator_codes == (FAS_TOTAL_INVENTORY_INDICATOR_CODE,)
     assert rows[0].value == 5244
+
+
+def test_extract_concept_sipri_yearbook_nuclear_mappings() -> None:
+    from leaders_db.sources.concepts import (
+        CONCEPT_NUCLEAR_DEPLOYED,
+        CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+        SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE,
+        SIPRI_YEARBOOK_CH7_SOURCE_KEY,
+        SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE,
+        extract_concept,
+    )
+
+    observations = [
+        _make_observation(
+            source_slug=SIPRI_YEARBOOK_CH7_SOURCE_KEY,
+            indicator_code=indicator,
+            value=value,
+            year=2024,
+            country_code=None,
+            country_name="Russia",
+        )
+        for indicator, value in (
+            (SIPRI_YEARBOOK_CH7_TOTAL_INVENTORY_INDICATOR_CODE, 5580),
+            (SIPRI_YEARBOOK_CH7_DEPLOYED_INDICATOR_CODE, 1710),
+        )
+    ]
+
+    total = extract_concept(observations, CONCEPT_NUCLEAR_TOTAL_INVENTORY)
+    deployed = extract_concept(observations, CONCEPT_NUCLEAR_DEPLOYED)
+
+    assert [(row.value, row.source_id.slug) for row in total] == [
+        (5580, SIPRI_YEARBOOK_CH7_SOURCE_KEY)
+    ]
+    assert [row.value for row in deployed] == [1710]
 
 
 def test_extract_concept_maddison_direct_gdp_per_capita_preserves_indicator() -> None:

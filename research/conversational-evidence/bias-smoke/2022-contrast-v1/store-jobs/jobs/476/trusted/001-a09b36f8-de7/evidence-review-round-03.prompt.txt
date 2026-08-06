@@ -1,0 +1,1185 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-contrast-v1:2022:NOR:16795",
+  "iso3": "NOR",
+  "country_name": "Norway",
+  "ruler_name": "Jonas Gahr St\u00f8re",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 56,
+  "approximate_source_family_count": 25,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Evidence collection completed for Jonas Gahr Støre, Norway, 2022. The supplied output paths were not writable under the read-only sandbox, so the ledger and manifest are included here for parent persistence. No scores or score ranges were assigned.
+
+## Authority and evidence environment
+
+- Støre served as prime minister from 14 October 2021, leading a Labour–Centre coalition after the 2021 election. [Government chronology](https://www.regjeringen.no/en/the-government/previous-governments/regjeringer-siden-1814/historiske-regjeringer/governments-since-1945/jonas-gahr-stores-government/id2877906/)
+- His platform prioritized welfare access, equality, climate, digitalization, international law, civilian protection, and UN peace operations. [Government platform](https://www.regjeringen.no/en/documents/government_platform/id2877512/)
+- Norway was an open, high-visibility information environment: Freedom House rated it Free, with independent media and civil society; the U.S. State Department likewise reported protected expression, an effective judiciary, and generally unrestricted NGOs. [Freedom House](https://freedomhouse.org/country/norway/freedom-world/2022), [U.S. State Department report](https://www.ecoi.net/en/document/2089707.html)
+- Major 2022 shocks were Omicron, Russia’s invasion of Ukraine, electricity prices, inflation, and coalition scandals. [Cambridge Political Data Yearbook](https://www.cambridge.org/core/journals/political-data-yearbook/article/norway-political-developments-and-data-in-2022/54979FD612A83034F6284F1E50D91338)
+
+## Evidence ledger
+
+| ID | Evidence claim | Source profile | Mapped chapters |
+|---|---|---|---|
+| E001 | Cabinet appointed 14 Oct. 2021; Labour–Centre coalition. | Official record, high, final | 2B, 3B, 4B, 5B, 6B, 8B |
+| E002 | Støre’s office, party leadership, and prior ministerial experience. | Official biography, high, final | 1B, 2B, 3B, 4B, 5B, 6B, 8B |
+| E003 | Hurdal platform: welfare, equality, climate, international law, civilian protection, UN peace operations. | Official platform, high for stated goals, final | 1B, 2B, 4B, 5B, 6B, 8B |
+| E004 | 2022 budget prioritized fiscal normalization, crisis support, jobs, green transition, and skills. | Official budget, high for formal policy, final | 5B, 6B, 8B |
+| E005 | NOK 10bn Ukraine package for humanitarian aid, reconstruction, budget support, and weapons; funds routed through recognized organizations. | Official PM release, medium-high, final | 1B, 2B, 6B, 8B |
+| E006 | Støre addressed the Storting on Ukraine, security, food markets, and energy. | Official parliamentary speech, medium-high, final | 1B, 2B, 4B, 8B |
+| E007 | March decision to abandon Norway’s restrictive arms-export posture temporarily and send equipment/M72 weapons to Ukraine. | Armed Forces record, medium-high, final | 1B, 2B, 8B |
+| E008 | September increase of NOK 3bn; shift toward needs-based international procurement, training, and rebuilding Norwegian stocks. | Defence Ministry, medium-high, final | 1B, 2B, 8B |
+| E009 | Støre supported Swedish/Finnish NATO applications, Nordic coordination, interim security assurances, and Storting dialogue. | Official PM statement, medium-high, final | 1B, 2B, 8B |
+| E010 | OECD independently described distributional, regional, climate, progressive-tax, fiscal, labor, and productivity priorities and constraints. | OECD, high, final | 5B, 6B, 8B |
+| E011 | OECD documented electricity compensation: 55% above threshold in Dec. 2021, 80% Jan–Mar 2022, capped at 5,000 kWh. | OECD, high, final | 5B, 6B, 8B |
+| E012 | Government reported roughly NOK 30bn in household electricity support during 2022. | Official ministry, medium-high, final | 5B, 6B, 8B |
+| E013 | Norway retained free elections, regular alternation, independent media, civil society, and 100/100 Freedom House rating; minority discrimination remained a concern. | Freedom House, medium-high, final | 3B, 4B, 7B |
+| E014 | Expression, judiciary, press, and NGO activity generally protected; NGO-government funding proximity noted. | U.S. State Department, medium-high, final | 3B, 4B, 7B |
+| E015 | Fosen/Sámi rights violation continued after the Supreme Court’s 2021 judgment; Støre acknowledged an ongoing violation, but turbines remained operational. | AP, medium-high, context/final for chronology | 3B, 4B, 6B, 8B |
+| E016 | Independent 2022 chronology: Omicron restrictions eased, Ukraine support had broad consensus, electricity prices and scandals damaged coalition support; ministers Tajik and Enoksen resigned. | Cambridge, high, final | 2B, 3B, 4B, 5B, 6B, 7B, 8B |
+| E017 | Legal Department reviewed Støre’s impartiality regarding Norges Bank and close friend Jens Stoltenberg; Støre had recused himself from the appointment process. | Official legal record, high, final | 4B, 5B, 7B, 8B |
+| E018 | Auditor General found generally good state accounts but four material errors, seven criticized areas, and weaknesses in procurement and health-refund controls. | Independent audit, high, final | 3B, 4B, 5B, 6B, 7B, 8B |
+
+Discovery-only, not defensible evidence:
+
+- E019: proposed NOK 200m cyber-security increase; exact source locator not recovered.
+- E020: December 2022 cyber-resilience white paper; substantive section locator not recovered.
+- E021: January 2022 Omicron response statement; exact page locator not recovered.
+
+## Chapter yield and unresolved gaps
+
+- **1B:** No direct nuclear-specific Støre evidence. Military-spending priors LF045–LF048 and LS046–LS049 remain country context only. Ukraine/NATO/cyber material does not establish nuclear safeguards, rhetoric, arms control, or existential-risk posture.
+- **2B:** Strong evidence of Ukraine support, defensive rationale, Nordic diplomacy, and adaptive coordination. Missing independent evidence on civilian-harm outcomes, arms end-use, intelligence truthfulness, peace alternatives, and accountability.
+- **3B:** Strong protective national baseline from LF146–LF154/LF199–LF202 and external monitors. Fosen is a specific rights/remedy failure, largely inherited and retrospectively documented. No evidence of systematic domestic violence, torture, detention abuse, or ruler incitement.
+- **4B:** Strong evidence of free institutions and civic space from LF301–LF308/LF460–LF474 plus Freedom House/USDOS. Direct Støre-attributed self-binding, censorship, surveillance, opposition retaliation, and term-limit evidence remain sparse.
+- **5B:** Local LF546–LF552 and LS028–LS040 show high-income and macro context only. Budget, OECD, and electricity-support evidence establish policy action; household distribution, productivity, competition, appointments, and durable outcomes remain underdeveloped.
+- **6B:** Local LF733–LF740 show high human-development outcomes but not ruler credit. Platform, budget, energy support, COVID, and Fosen evidence exist; service quality, regional equity, child poverty, vulnerable groups, and institutional durability remain gaps.
+- **7B:** Country corruption indicators LF785–LF788 are not personal evidence. E017 is the strongest personal-nexus item. Ministerial scandals, audit findings, and low national corruption cannot be personalized without evidence of direction, benefit, protection, or obstruction.
+- **8B:** Broadest evidence base: explicit platform, budget operationalization, Ukraine implementation/adaptation, energy support, cyber planning, and audit/rights failures. Short tenure and 2022 shocks limit independent outcome and durability attribution.
+
+## Local-data audit
+
+Retained as context:
+
+- 2B: LF045–LF048; LS046–LS049.
+- 3B: LF146–LF154, LF199–LF202; LS023, LS038, LS051, LS056, LS062.
+- 4B: LF301–LF308, LF460–LF474; LS020, LS043, LS050, LS054–LS056.
+- 5B: LF546–LF552, LF682–LF688; LS028–LS040.
+- 6B: LF733–LF740; LS038, LS044–LS045, LS064–LS067.
+- 7B: LF785–LF788; LS011–LS012, LS021, LS059.
+- 8B: LF811–LF812; LS035, LS061.
+
+No structured dataset was re-fetched. Missing local evidence was treated as a gap, never as proof of safety, peace, integrity, or effectiveness.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 0,
+      "independent_source_family_estimate": 0,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The mapped evidence concerns Ukraine, NATO, general platform commitments, or country context and does not establish nuclear-specific conduct."
+      ],
+      "missing_themes": [
+        "Nuclear safeguards and nonproliferation conduct",
+        "Arms-control and disarmament posture",
+        "Nuclear rhetoric, doctrine, or existential-risk policy",
+        "Personal attribution for any nuclear-related decision"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Not demonstrated for the selected nuclear lenses. The notebook identifies missing nuclear-specific evidence but does not document favorable and adverse nuclear searches.",
+        "closed_system_silence": "Not materially assessed for nuclear safeguards, classified policy, arms-control compliance, or internal risk reporting; absence of public evidence cannot establish absence of misconduct.",
+        "open_system_complaint_volume": "Not applicable or not assessed; no complaint or incident-volume evidence is presented.",
+        "duplicate_reporting": "The ledger appears to use stable global IDs, but official Ukraine/NATO items may represent overlapping policy facts rather than independent nuclear evidence.",
+        "allegations_vs_findings": "No material allegation/finding separation issue is visible in the nuclear evidence because there is no direct nuclear-specific Støre evidence. The notebook appropriately states that country priors do not establish personal posture.",
+        "official_claim_independence": "Official platform, speeches, and defence records are not independently checked for nuclear-specific claims; they are also not probative of the selected nuclear lenses.",
+        "population_exposure_authority_baseline_shocks": "Population and exposure are not addressed. Country military-spending priors are correctly retained as context only; authority, inherited baseline, and 2022 external shocks are not translated into nuclear attribution.",
+        "missing_source_type": "Nuclear-policy, arms-control, safeguards, military-doctrine, and independent expert or legislative oversight sources are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009"
+        ],
+        "unresolved_risks": [
+          "No direct target-period nuclear evidence.",
+          "Country context could be over-attributed to Støre.",
+          "No contrary nuclear evidence or personal-integrity/decision nexus is presented."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The core evidence is adequate for formal policy direction and adaptation but not for fair presentation of adverse consequences or effectiveness across the selected lenses."
+      ],
+      "missing_themes": [
+        "Independent civilian-harm and end-use assessment",
+        "Intelligence accuracy or correction evidence",
+        "Peace or de-escalation alternatives",
+        "Accountability and remedy for adverse external-policy effects"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable policy and implementation evidence is documented. Adverse and contrary searches are not explicit, especially for civilian harm, arms end-use, intelligence accuracy, peace alternatives, and accountability.",
+        "closed_system_silence": "Defence, intelligence, and arms-transfer systems may conceal errors, civilian harm, end-use violations, or dissent; no independent classified-sector or oversight check is documented.",
+        "open_system_complaint_volume": "Complaint or harm volume is not presented, so severity cannot be assessed against reporting volume or possible amplification.",
+        "duplicate_reporting": "E005-E009 are materially distinct but several official releases may repeat the same Ukraine/NATO policy narrative. Their source-locator independence and underlying document precision should be checked.",
+        "allegations_vs_findings": "The notebook generally distinguishes documented decisions and outcomes from unresolved questions, but civilian-harm, end-use, intelligence, and accountability issues are listed as missing rather than assessed as allegations or findings.",
+        "official_claim_independence": "OECD and Cambridge provide some independent context, but the core Ukraine and NATO claims rely mainly on official Norwegian sources and an Armed Forces record.",
+        "population_exposure_authority_baseline_shocks": "Ukraine’s population exposure and civilian consequences are not documented. Formal government authority is clear, but inherited security commitments, pre-existing export posture, and the invasion shock are only partly separated from Støre-specific effects.",
+        "missing_source_type": "Independent arms-transfer monitoring, civilian-harm documentation, parliamentary oversight, investigative reporting, and Ukrainian or recipient-side end-use evidence are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E016"
+        ],
+        "unresolved_risks": [
+          "Civilian-harm and end-use outcomes are unresolved.",
+          "Official policy claims may be repeated across dependent sources.",
+          "Attribution of implementation outcomes is stronger than attribution of ultimate consequences."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence supports a strong baseline plus one specific adverse rights/remedy case, but not a complete selected-lens assessment of adverse conduct or population exposure."
+      ],
+      "missing_themes": [
+        "Vulnerable-group and population-specific exposure",
+        "Custodial, police, torture, and detention oversight",
+        "Domestic-violence prevalence and state response",
+        "Independent remedy implementation evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Protective institutional baseline and Fosen adverse evidence are both represented. A systematic adverse search across vulnerable groups, detention, police, and domestic violence is not demonstrated.",
+        "closed_system_silence": "Domestic-violence, detention, torture, and abuse systems may underreport harms, but no victim, ombuds, court, or investigative evidence audit is described beyond Fosen.",
+        "open_system_complaint_volume": "Norway’s open civic environment may increase visible complaints and reporting, but no complaint-volume denominator or comparative reporting analysis is supplied.",
+        "duplicate_reporting": "Fosen chronology may be repeated across AP, official acknowledgments, court records, and local facts; the underlying ruling, operational status, and remedy facts should remain separate claim units.",
+        "allegations_vs_findings": "Fosen is presented as a documented rights violation and continuing remedy failure, while the notebook avoids converting it into proof of systematic abuse or personal wrongdoing. Other adverse categories are explicitly described as lacking evidence.",
+        "official_claim_independence": "Freedom House, USDOS, AP, and the Supreme Court-related chronology provide independent checks, although official acknowledgments should not be treated as independent confirmation of remedy performance.",
+        "population_exposure_authority_baseline_shocks": "Population and vulnerable-group exposure are only partly addressed. Fosen is largely inherited, while continuing executive authority and remedy responsibility require sharper separation; Omicron and Ukraine shocks are contextual but not directly explanatory for all rights outcomes.",
+        "missing_source_type": "Victim or Sámi representative sources, ombudsman or equality-body records, police/custodial oversight, and broader rights-monitoring evidence are missing for the principal coverage gaps.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Fosen attribution remains partly shared and inherited.",
+          "No broad adverse-event search is evidenced.",
+          "Open-system visibility may make Norway appear more problematic relative to less transparent systems."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The baseline is well supported, but the selected lenses require a more balanced search for adverse executive conduct and clearer attribution within shared authority."
+      ],
+      "missing_themes": [
+        "Direct executive self-binding and rule-of-law conduct",
+        "Censorship, surveillance, and opposition-retaliation checks",
+        "Independent institutional accountability evidence",
+        "Coalition versus prime-minister attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable evidence on elections, media, judiciary, NGOs, and civic space is present. Adverse searches for censorship, surveillance, opposition retaliation, self-binding, and term limits are explicitly sparse rather than demonstrated as completed.",
+        "closed_system_silence": "Independent media and civil society reduce but do not eliminate the risk that surveillance, retaliation, conflicts, or administrative obstruction remain hidden; no dedicated closed-system check is documented.",
+        "open_system_complaint_volume": "Norway’s open system may generate more visible complaints, protest, and scandal coverage; no volume-normalized comparison is provided.",
+        "duplicate_reporting": "Freedom House and USDOS overlap on civic-space and institutional protections, and Cambridge may repeat scandal chronology. These should count as separate families only where underlying claims and locators differ.",
+        "allegations_vs_findings": "The notebook distinguishes free-institution findings from sparse or absent direct Støre-attributed misconduct. The Fosen and coalition-scandal material is not automatically treated as proof of institutional capture or retaliation.",
+        "official_claim_independence": "The external monitors provide meaningful checks on official claims, but direct claims about Støre’s self-binding and executive practice lack comparable independent evidence.",
+        "population_exposure_authority_baseline_shocks": "Population exposure and institutional baseline are partly addressed through country-level ratings. Shared coalition authority, inherited institutions, and 2022 scandals/shocks are not fully separated from Støre’s personal responsibility.",
+        "missing_source_type": "Parliamentary opposition sources, investigative journalism, court or ombudsman records, surveillance oversight, and civil-society reporting are missing for the principal adverse attribution risks.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Direct ruler-attributed institutional conduct remains underdeveloped.",
+          "Coalition and inherited-system evidence may be over-personalized.",
+          "Contrary evidence on institutional weaknesses is not systematically audited."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Policy formulation and immediate implementation are documented, but selected economic lenses requiring outcomes, distribution, and attribution remain materially under-evidenced."
+      ],
+      "missing_themes": [
+        "Household and subgroup distributional outcomes",
+        "Productivity, competition, and durable growth outcomes",
+        "Procurement and appointment integrity beyond sampled audit findings",
+        "Independent evaluation of electricity-support effectiveness"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable policy and independent OECD evidence are present. Distributional harms, competition, appointments, productivity, and durable outcomes are identified as missing, with no explicit adverse-search audit.",
+        "closed_system_silence": "Procurement, appointments, regulatory, and distributional failures may be hidden within administrative systems; audit evidence exposes some weaknesses but no full adverse search is documented.",
+        "open_system_complaint_volume": "Visible electricity and inflation complaints may exaggerate apparent policy severity in an open media environment, but the notebook provides no complaint-volume or affected-population denominator.",
+        "duplicate_reporting": "Official budget, ministry electricity-support figures, and OECD analysis may describe the same fiscal measures. The ledger should preserve distinct underlying claims and avoid counting repeated official figures as independent confirmation.",
+        "allegations_vs_findings": "The notebook separates official policy actions, OECD constraints, audit findings, and coalition scandals from claims about personal economic success. It does not present scandals or audit weaknesses as personal wrongdoing without nexus.",
+        "official_claim_independence": "OECD independently checks priorities and constraints; official household-support totals and budget implementation remain primarily government-sourced. Auditor General evidence independently checks controls but not all policy outcomes.",
+        "population_exposure_authority_baseline_shocks": "Population distribution and subgroup exposure are underdeveloped. Fiscal and macro conditions are partly constrained by inherited baseline and inflation/energy shocks; coalition authority and external shocks limit direct attribution of outcomes to Støre.",
+        "missing_source_type": "Household-distribution data, business and labor perspectives, procurement investigations, competition/regulatory records, parliamentary scrutiny, and outcome evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E010",
+          "E011",
+          "E012",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Outcome and durability evidence is weak for 2022.",
+          "Distributional effects are not established.",
+          "Official implementation claims may be insufficiently independently verified.",
+          "Audit weaknesses need attribution to responsible authority rather than generic government failure."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence supports formal policy intent and some action, but not fair assessment of outcomes, subgroup exposure, or durable implementation across the selected lenses."
+      ],
+      "missing_themes": [
+        "Service-quality and beneficiary outcomes",
+        "Regional equity and vulnerable-group exposure",
+        "Child poverty and distributional welfare effects",
+        "Institutional durability and remedy implementation"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable platform, budget, support, and baseline evidence is present. Adverse searches for service quality, regional equity, child poverty, vulnerable groups, and durability are explicitly incomplete.",
+        "closed_system_silence": "Administrative and service-delivery systems may conceal failures affecting vulnerable groups; no dedicated beneficiary, ombudsman, or frontline-provider search is shown.",
+        "open_system_complaint_volume": "Visible complaints about services or energy could overstate prevalence in an open system, but complaint volume and population exposure are not measured.",
+        "duplicate_reporting": "Budget, OECD, ministry support, Cambridge chronology, and Fosen reporting may overlap on the same policies or events. The evidence IDs are globally stable, but source independence for repeated implementation claims needs verification.",
+        "allegations_vs_findings": "The notebook treats high human-development indicators as context rather than ruler credit, and Fosen as a documented rights/remedy failure without broad personalization. It distinguishes policy action from service-quality and durability outcomes.",
+        "official_claim_independence": "OECD and Auditor General provide independent checks; official platform and support figures remain central. No independent outcome evaluation is cited for the main welfare or energy interventions.",
+        "population_exposure_authority_baseline_shocks": "Population and vulnerable-group exposure are not sufficiently addressed. High baseline outcomes predate Støre; COVID, energy prices, inflation, and Ukraine constrain 2022 outcomes, while coalition and municipal authority complicate attribution.",
+        "missing_source_type": "Beneficiary-level outcomes, regional administrative data, child-poverty and vulnerable-group monitors, service audits, and independent programme evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E010",
+          "E011",
+          "E012",
+          "E015",
+          "E016",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "High national outcomes may be wrongly credited to a short-tenure ruler.",
+          "Fosen remedy responsibility is shared with inherited and continuing institutional authority.",
+          "No robust subgroup or service-quality outcome evidence is presented."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "This chapter requires a personal-integrity nexus. The notebook correctly identifies that most available country and institutional evidence does not meet that attribution requirement, so continuation is warranted."
+      ],
+      "missing_themes": [
+        "Personal benefit, direction, protection, or obstruction evidence",
+        "Procurement and appointment-level integrity records",
+        "Independent ethics, lobbying, and conflict-of-interest checks",
+        "Whistleblower, investigative, or judicial evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Some adverse material is present through scandals, audits, and the impartiality review; favorable integrity evidence is mainly a low-corruption country baseline. A systematic personal adverse search is not demonstrated.",
+        "closed_system_silence": "Corruption and favoritism can be concealed in procurement, appointments, party, and government networks; national indicators and public records cannot rule out hidden misconduct.",
+        "open_system_complaint_volume": "Open reporting may increase visible scandal and complaint volume, potentially exaggerating apparent severity relative to closed systems; no normalization is supplied.",
+        "duplicate_reporting": "Ministerial scandals and audit findings may be repeated by Cambridge, official records, and media. The underlying event, finding, and personal attribution must remain distinct rather than counted as multiple facts.",
+        "allegations_vs_findings": "The notebook appropriately states that ministerial scandals, audit findings, and low national corruption cannot be personalized without evidence of direction, benefit, protection, or obstruction. E017 is identified as a personal-nexus item rather than proof of misconduct.",
+        "official_claim_independence": "E017 is an official legal review and E018 an independent audit, but neither alone establishes absence of favoritism or personal benefit. Country-level corruption indicators are not personal checks.",
+        "population_exposure_authority_baseline_shocks": "Population exposure is not central to personal integrity, but affected parties and institutional access are not identified. Coalition authority, inherited controls, and 2022 scandals/shocks are not fully separated from Støre’s personal nexus.",
+        "missing_source_type": "Investigative journalism, procurement and lobbying records, parliamentary ethics oversight, whistleblower or ombudsman material, and judicial findings are missing for the principal personal-integrity risk.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E013",
+          "E014",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Personal-integrity nexus is insufficient for most adverse items.",
+          "Official legal clearance is not an independent proof of integrity.",
+          "No source establishes direction, benefit, protection, or obstruction by Støre.",
+          "Country-level low corruption must not substitute for personal evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 18,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Breadth is strongest here, but the notebook still lacks an explicit contrary audit and sufficient independent outcome evidence for a fair selected-lens assessment."
+      ],
+      "missing_themes": [
+        "Independent outcome and durability evidence",
+        "Contrary evidence across implementation and remedy",
+        "Population and subgroup effects",
+        "External or recipient-side checks on Ukraine and cyber policy",
+        "Sharper attribution within coalition and inherited institutional constraints"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable policy and implementation evidence is broad. Adverse material exists through Fosen, audits, scandals, and constraints, but the notebook explicitly says contrary evidence is not audited and outcome gaps remain.",
+        "closed_system_silence": "Government implementation, defence, cyber, procurement, and remedy systems may conceal failures or dissent; audit and external monitoring expose only part of the system.",
+        "open_system_complaint_volume": "Norway’s open information environment may increase visibility of scandals, complaints, and rights disputes; no complaint-volume or exposure normalization is provided.",
+        "duplicate_reporting": "The broad evidence base includes multiple official policy documents and likely overlapping Ukraine, energy, audit, and Fosen accounts. Stable IDs help, but repeated source-locator-claim units must be deduplicated and split where bundled.",
+        "allegations_vs_findings": "The notebook separates stated goals, formal decisions, implementation evidence, independent OECD analysis, audit findings, and Fosen rights failure. It does not convert adverse findings into a score or unsupported personal blame.",
+        "official_claim_independence": "OECD, Cambridge, AP, Freedom House, USDOS, and the Auditor General provide meaningful checks, but the broadest implementation claims remain predominantly official.",
+        "population_exposure_authority_baseline_shocks": "Population and subgroup exposure are incompletely addressed. Short tenure, inherited baselines, coalition authority, Omicron, Ukraine, energy prices, inflation, and cyber threats materially constrain attribution and durability assessment.",
+        "missing_source_type": "Independent outcome evaluations, beneficiary and affected-group evidence, investigative reporting, parliamentary opposition scrutiny, and recipient-side or external assessments of Ukraine and cyber implementation are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Contrary evidence is not explicit or systematically searched.",
+          "Outcome, durability, and subgroup effects remain underdeveloped.",
+          "Official evidence dominates several policy domains.",
+          "Fosen, audit, and scandal attribution requires careful separation of inherited, coalition, institutional, and personal responsibility.",
+          "Discovery-only candidates E019-E021 are not defensible until precise locators are recovered."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The notebook contains no researcher-written scores, ranges, anchors, rankings, or scoring advice.",
+    "Evidence IDs E001-E018 are present and usable; E019-E021 are correctly classified as discovery-only and excluded from defensible counts.",
+    "The ledger uses stable global IDs with chapter mappings, but several official items may bundle or repeat materially related claims and require deterministic splitting or deduplication.",
+    "The observed source base is approximately four families, below the configured three-family minimum only when considering per-chapter coverage; several chapters do not have three genuinely independent families for their principal claims.",
+    "Contrary evidence is not explicit. This is a material cross-chapter continuation trigger where a bounded search could recover adverse findings, attribution facts, or outcome evidence.",
+    "Local facts are used as context and are explicitly not treated as ruler evidence; this is methodologically appropriate.",
+    "Missing evidence is treated as a gap rather than negative ruler evidence, but the notebook does not document sufficiently broad favorable and adverse searches for the selected lenses.",
+    "No chapter has a credible saturation or access-blocker explanation showing that another bounded search is unlikely to improve the dossier."
+  ],
+  "reviewer_summary": "All eight selected chapters require continuation. The notebook is careful about not scoring, not treating local context as ruler evidence, and not personalizing country-level or subordinate conduct without an attribution nexus. However, every chapter has at least one research-recoverable gap involving contrary evidence, precise source recovery, independent checks, attribution, event coverage, population exposure, or outcomes. Chapters 1B and 7B have the highest attribution and evidence-yield risks; 2B-6B and 8B have meaningful policy evidence but incomplete adverse and outcome coverage. Continuation must remain within the selected ten lenses per chapter and should prioritize bounded recovery of precise locators, independent contrary sources, and attribution facts."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Review round 1 completed for the selected scope: Chapter 1B only, Norway, Jonas Gahr Støre, 2022. No score or ranking was assigned.
+
+The filesystem is read-only, so I could not update the supplied ledger files. The following manifest delta and evidence register should be persisted by the parent:
+
+- [research-materials.md]( /home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/attempts/001-a09b36f8-de7/research-materials.md )
+- [research-ledger-manifest.json]( /home/liorshtram/projects/leaders-db/research/conversational-evidence/bias-smoke/2022-contrast-v1/store-jobs/jobs/476/attempts/001-a09b36f8-de7/research-ledger-manifest.json )
+
+New evidence units:
+
+- **E022 — Direct Støre nuclear-risk statement.** In his 3 March 2022 address to the Storting, Prime Minister Støre described Russia’s nuclear high-alert move as “an unacceptable escalation,” noted the nuclear concentration on the Kola Peninsula, and said Norway was monitoring the activity for itself and its allies. This is direct ruler attribution for target-period nuclear-risk rhetoric and situational awareness, but it concerns Russian escalation and Norwegian preparedness rather than a Norwegian nuclear-weapons decision. [Government.no, “Prime Minister’s address to the Storting on the war in Ukraine,” 3 March 2022](https://www.regjeringen.no/en/whats-new/prime-ministers-address-to-the-storting-on-the-war-in-ukraine/id2902946/) (lines 287–295).
+
+- **E023 — Norwegian safeguards implementation.** Norway’s Radiation and Nuclear Safety Authority reported that, 13–21 June 2022, it and the IAEA conducted annual safeguards inspections at IFE facilities in Halden and Kjeller and two industrial radiography firms. The stated purpose was to control nuclear material and detect diversion or undeclared weapons-related activity. This is strong target-year safeguards evidence, but attribution is institutional rather than personal; no Støre direction is shown. [DSA, “Safeguardsinspeksjon 2022,” updated 22 June 2022](https://www.dsa.no/nyheter/safeguardsinspeksjon-2022) (lines 79–86).
+
+- **E024 — Nuclear-risk, CTBT, arms-control, and NATO posture.** State Secretary Eivind Vad Petersson stated on 8 June 2022 that the CTBT was central to disarmament and non-proliferation; Russia’s nuclear rhetoric was reckless; Norway remained committed to NATO deterrence; and Norway pursued mutual, verifiable, irreversible arms control, disarmament verification, and humanitarian-consequence work. This is target-period government-policy evidence, not a personal Støre statement. [Government.no, “The Modern-Day Nuclear Threat and How to Respond,” 8 June 2022](https://www.regjeringen.no/no/whats-new/nuclear_threat/id2918066/) (lines 176–210).
+
+- **E025 — NPT and TPNW parliamentary scrutiny.** In a written question submitted 11 October 2022, Ingrid Fiskaa cited criticism from the Norwegian Red Cross that Norway had not been clear enough in supporting the humanitarian consequences agenda and asked about new disarmament negotiations. Foreign Minister Huitfeldt replied that the government would increase nuclear-disarmament efforts, emphasize humanitarian consequences, and work inside and outside NATO while retaining the NPT as the foundation. This supplies adverse scrutiny plus the government response, but attribution is to the cabinet/foreign minister, not specifically Støre. [Storting, Document 15:71 (2022–2023)](https://www.stortinget.no/no/Saker-og-publikasjoner/Sporsmal/Skriftlige-sporsmal-og-svar/Skriftlig-sporsmal/?qnid=76644) (lines 296–324).
+
+- **E026 — 2022 disarmament-verification implementation.** The government’s later report records that the NPT Review Conference occurred in August 2022, that Norway led the second UN intergovernmental expert group on nuclear-disarmament verification beginning in 2022, and that Norway promoted humanitarian-consequence work in UN and NPT forums. It also records Norway’s attendance as an observer at the first TPNW meeting while declining signature because of NATO commitments. This is retrospective official evidence of target-year implementation, with cabinet-level rather than personal attribution. [Norwegian Government, Prop. 1 S (2023–2024), “Report 2022”](https://www.regjeringen.no/no/dokumenter/prop.-1-s-20232024/id2997797/?ch=2) (lines 1801–1806).
+
+- **E027 — Arms-control and security-policy balance.** Foreign Minister Huitfeldt’s 22 March 2022 address stated that Norway’s nuclear policy and restrictions on foreign military activity remained unchanged, while Norway maintained close Allied cooperation and self-imposed limits intended to reduce provocation. This is current-government posture and inherited baseline evidence, not a Støre-specific nuclear decision. [Government.no, “Foreign policy address to the Storting 2022,” 22 March 2022](https://www.regjeringen.no/en/whats-new/utenrikspolitisk-redegjorelse-22.-mars/id2904996/) (lines 155, 420–432).
+
+- **E028 — Independent contrary analysis.** The Norwegian Academy of International Law’s 2020 report records the competing argument that TPNW accession could reduce Norway’s NATO influence and protection, while also describing longstanding criticism of NATO nuclear deterrence and Norway’s limited leverage over nuclear-armed states. This is inherited/constraint context and a contrary interpretation, not target-year evidence. [Norwegian Academy of International Law, “NATO, Norway and nuclear weapons,” posted 23 November 2020](https://intlaw.no/en/issues/nato-norway-and-nuclear-weapons/) (lines 13–19).
+
+- **E029 — Independent policy analysis.** NUPI’s analysis of NATO’s 2022 Strategic Concept describes a balance between recognizing nuclear deterrence and pursuing arms control, disarmament, and non-proliferation. It provides independent alliance-context support for the constraint structure surrounding Norwegian policy, not personal attribution to Støre. [NUPI, “NATO’s 2022 Strategic Concept – Change, Continuity and Implications”](https://www.nupi.no/publikasjoner/cristin-pub/nato-s-2022-strategic-concept-change-continuity-and-implications) (lines 105–107).
+
+- **E030 — Civil-society adverse evidence.** ICAN Norway criticized the 2022 budget as insufficiently ambitious for nuclear disarmament and called for a stronger diplomatic priority, humanitarian initiative, and civil-society support. The item concerns the incoming government’s inherited budget framework and advocacy demands; it does not establish misconduct or personal responsibility by Støre. [ICAN Norway, “Statsbudsjettet for 2022,” 12 October 2021](https://www.icannorway.no/statsbudsjettet_for_2022_arbeiderpartiet_og_senterpartiet_ma_rydde_opp) (lines 34–52).
+
+- **E031 — Civil-society contrary interpretation.** A December 2022 joint submission by the Norwegian Academy of International Law and ICAN argued that relying on allied nuclear weapons as necessary for security reinforced nuclear weapons’ role and weakened the TPNW norm. This is a clearly identified advocacy position, useful as contrary evidence about policy alternatives but not as an independent finding of wrongdoing. [NLA/ICAN, “2022 input to the Defence Commission,” 15 December 2022](https://files.nettsteder.regjeringen.no/wpuploads01/sites/495/ninja-forms/2/2022-NLA-og-ICAN-innspill-forsvarskommisjonen.pdf) (PDF p. 1, lines 35–46).
+
+- **E032 — Safeguards treaty context.** The IAEA country record lists Norway’s NPT safeguards agreement in force from 1972 and its Additional Protocol in force from 2000. This confirms the formal safeguards baseline but is not evidence of a Støre-period decision or performance. [IAEA Office of Legal Affairs, Norway country record](https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=NO) (lines 112–124).
+
+- **E033 — NATO nuclear-governance context.** NATO describes the Nuclear Planning Group as the body for nuclear deterrence policy, doctrine, planning, force posture, safety, security, and political control, with decisions taken by consensus and all Allies except France participating. This establishes the multilateral constraint and shared-authority environment; it does not prove Norway’s individual conduct. [NATO, “Nuclear Planning Group”](https://www.nato.int/en/about-us/organization/nato-structure/nuclear-planning-group-npg) (lines 805–815).
+
+- **E034 — ICAN global-spending/context claim.** ICAN Norway reported that the nine nuclear-weapon states spent an estimated NOK 893.5 billion on nuclear weapons in 2022 and characterized nuclear-complicit states as helping legitimize nuclear weapons. The figures concern nuclear-armed states, not Norwegian expenditure; the complicit-state characterization is advocacy and does not establish Støre attribution. [ICAN Norway, “1 688 000 norske kroner brukt på atomvåpen i minuttet i 2022!”](https://www.icannorway.no/1688000_kroner_brukt_pa_atomvapen_i_minuttet_i_2022) (lines 32–44).
+
+Suggested manifest dispositions:
+
+```json
+[
+  {"provisional_id":"E022","canonical_fact_key":"https://www.regjeringen.no/en/whats-new/prime-ministers-address-to-the-storting-on-the-war-in-ukraine/id2902946/#lines-287-295#Støre described Russian nuclear high alert as unacceptable escalation and reported monitoring","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E023","canonical_fact_key":"https://www.dsa.no/nyheter/safeguardsinspeksjon-2022#lines-79-86#IAEA-DSA safeguards inspection in Norway June 2022","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E024","canonical_fact_key":"https://www.regjeringen.no/no/whats-new/nuclear_threat/id2918066/#lines-190-210#Norwegian 2022 nuclear-risk and disarmament policy statement","chapter_ids":["1B"],"methodology_ids":["1B.1","1B.2","1B.4","1B.5","1B.7","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E025","canonical_fact_key":"https://www.stortinget.no/no/Saker-og-publikasjoner/Sporsmal/Skriftlige-sporsmal-og-svar/Skriftlig-sporsmal/?qnid=76644#lines-296-324#Parliamentary criticism and government response on nuclear disarmament","chapter_ids":["1B"],"methodology_ids":["1B.4","1B.5","1B.7","1B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"E026","canonical_fact_key":"https://www.regjeringen.no/no/dokumenter/prop.-1-s-20232024/id2997797/?ch=2#lines-1801-1806#2022 verification-group leadership and TPNW observer posture","chapter_ids":["1B"],"methodology_ids":["1B.3","1B.4","1B.5","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"E027","canonical_fact_key":"https://www.regjeringen.no/en/whats-new/utenrikspolitisk-redegjorelse-22.-mars/id2904996/#lines-420-432#Norwegian nuclear-policy continuity and self-imposed restrictions","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.6","1B.10"],"disposition":"context"},
+  {"provisional_id":"E028","canonical_fact_key":"https://intlaw.no/en/issues/nato-norway-and-nuclear-weapons/#lines-13-19#Independent NATO-TPNW constraint analysis","chapter_ids":["1B"],"methodology_ids":["1B.4","1B.6","1B.9"],"disposition":"context"},
+  {"provisional_id":"E029","canonical_fact_key":"https://www.nupi.no/publikasjoner/cristin-pub/nato-s-2022-strategic-concept-change-continuity-and-implications#lines-105-107#Independent analysis of NATO nuclear-deterrence and disarmament balance","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.4","1B.6"],"disposition":"context"},
+  {"provisional_id":"E030","canonical_fact_key":"https://www.icannorway.no/statsbudsjettet_for_2022_arbeiderpartiet_og_senterpartiet_ma_rydde_opp#lines-34-52#ICAN criticism of Norwegian nuclear-disarmament priorities","chapter_ids":["1B"],"methodology_ids":["1B.4","1B.5","1B.9"],"disposition":"context"},
+  {"provisional_id":"E031","canonical_fact_key":"https://files.nettsteder.regjeringen.no/wpuploads01/sites/495/ninja-forms/2/2022-NLA-og-ICAN-innspill-forsvarskommisjonen.pdf#p1-lines-35-46#NLA-ICAN contrary argument against nuclear deterrence reliance","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.4","1B.6"],"disposition":"context"},
+  {"provisional_id":"E032","canonical_fact_key":"https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=NO#lines-112-124#Norway safeguards agreement and Additional Protocol","chapter_ids":["1B"],"methodology_ids":["1B.3"],"disposition":"context"},
+  {"provisional_id":"E033","canonical_fact_key":"https://www.nato.int/en/about-us/organization/nato-structure/nuclear-planning-group-npg#lines-805-815#NATO nuclear governance and consensus authority","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.6"],"disposition":"context"},
+  {"provisional_id":"E034","canonical_fact_key":"https://www.icannorway.no/1688000_kroner_brukt_pa_atomvapen_i_minuttet_i_2022#lines-32-44#ICAN 2022 nuclear-spending and complicity claim","chapter_ids":["1B"],"methodology_ids":["1B.4","1B.6"],"disposition":"context"}
+]
+```
+
+The exact lens IDs should be checked against the parent’s authoritative 1B lens text before final normalization; the mappings above are deliberately conservative and do not map generic Ukraine/NATO facts to nuclear conduct.
+
+Chapter 1B now has a materially improved source base: official Prime Minister, Foreign Ministry, parliamentary, safeguards, IAEA, NATO, NUPI, Norwegian Academy, and civil-society sources. The main unresolved limitation is personal attribution. Direct Støre evidence now exists for nuclear-risk rhetoric and monitoring (E022), but the detailed safeguards, arms-control, NPT, TPNW, and disarmament-verification record remains cabinet- or agency-level. No evidence was found of Norwegian nuclear proliferation, undeclared nuclear activity, nuclear-weapons acquisition, or a Støre-directed breach of safeguards. That absence is not treated as proof of innocence; it reflects the bounded search and available public record.
+
+Existing E001–E009 remain context-only for Chapter 1B. E019–E021 remain discovery-only and should not be promoted without precise underlying locators.
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 8,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The continuation materially improved nuclear-specific coverage, but most evidence remains formal government or institutional conduct rather than personal Støre conduct.",
+        "Precise locators are present for E022-E034, but source independence and personal attribution are not sufficient for all selected lenses."
+      ],
+      "missing_themes": [
+        "Personal Støre attribution for safeguards, arms-control, and disarmament decisions",
+        "Independent oversight of nuclear-policy implementation",
+        "Target-period evidence resolving competing nuclear-policy interpretations"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The continuation added favorable policy and safeguards evidence plus adverse parliamentary and civil-society scrutiny. Search breadth and saturation are not credibly documented, and personal attribution remains unresolved.",
+        "closed_system_silence": "Classified nuclear, intelligence, and alliance systems could conceal relevant policy or risk information; the notebook provides no dedicated oversight or whistleblower check.",
+        "open_system_complaint_volume": "Complaint volume is not materially applicable to most selected nuclear lenses and is not assessed for nuclear-policy criticism.",
+        "duplicate_reporting": "E022-E034 are distinct ledger units, but official nuclear-policy statements and later government reporting may overlap. Repeated policy facts should remain one stable claim unit.",
+        "allegations_vs_findings": "Direct Støre evidence exists for nuclear-risk rhetoric and monitoring (E022). Safeguards, arms-control, and disarmament items are cabinet-, agency-, or institutional-level findings, not personal Støre findings. Advocacy items are identified as contrary interpretations, not findings of wrongdoing.",
+        "official_claim_independence": "Independent NUPI, Norwegian Academy, IAEA, and civil-society material provide contextual checks, but most target-period conduct evidence remains official and does not independently establish personal attribution.",
+        "population_exposure_authority_baseline_shocks": "Alliance consensus rules, inherited NATO posture, Russian escalation, and shared cabinet authority are addressed contextually. Population exposure and personal authority over several nuclear domains remain insufficiently specified.",
+        "missing_source_type": "Independent parliamentary or expert review of Støre's personal responsibility for nuclear policy, classified-policy oversight, and source-specific records of safeguards or arms-control decisions are missing.",
+        "supporting_evidence_ids": [
+          "E022",
+          "E023",
+          "E024",
+          "E025",
+          "E026",
+          "E028",
+          "E029",
+          "E030",
+          "E031",
+          "E032",
+          "E033"
+        ],
+        "unresolved_risks": [
+          "Detailed nuclear conduct remains mostly cabinet- or agency-attributed rather than personally attributed to Støre.",
+          "No personal nexus is shown for safeguards performance, TPNW posture, or disarmament implementation.",
+          "The bounded search does not establish that another search could not recover further attribution or contrary evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence supports formal direction and adaptation but not fair coverage of adverse consequences or accountability.",
+        "Several official items may repeat one underlying policy narrative."
+      ],
+      "missing_themes": [
+        "Civilian-harm and recipient-side outcome evidence",
+        "Arms end-use and accountability evidence",
+        "Independent intelligence-quality or correction evidence",
+        "Peace and de-escalation alternatives"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable policy and implementation evidence is present, but adverse searches for civilian harm, end use, intelligence accuracy, peace alternatives, and accountability are not demonstrated.",
+        "closed_system_silence": "Defence, intelligence, and arms-transfer systems may conceal errors, civilian harm, end-use violations, or dissent; no independent classified-sector or oversight check is documented.",
+        "open_system_complaint_volume": "No complaint or harm volume is presented, so apparent severity cannot be assessed against reporting intensity or amplification.",
+        "duplicate_reporting": "E005-E009 and E016 may overlap in describing Ukraine support, NATO coordination, and adaptation. Official releases should not be counted as independent confirmation without distinct underlying claims.",
+        "allegations_vs_findings": "Documented policy decisions and government actions are separated from unresolved civilian-harm, end-use, intelligence, and accountability questions. No unsupported allegation is converted into a finding.",
+        "official_claim_independence": "OECD and Cambridge provide independent context, but the principal Ukraine and NATO evidence is mainly official Norwegian material.",
+        "population_exposure_authority_baseline_shocks": "Formal authority is clear, but Ukrainian civilian exposure, inherited export posture, alliance constraints, and the invasion shock are not sufficiently separated from Støre-specific effects.",
+        "missing_source_type": "Independent arms-transfer monitoring, civilian-harm documentation, parliamentary oversight, investigative reporting, and recipient-side end-use evidence are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E016"
+        ],
+        "unresolved_risks": [
+          "Civilian-harm and end-use outcomes remain unresolved.",
+          "Attribution of implementation is stronger than attribution of ultimate consequences.",
+          "A bounded search could materially recover contrary and recipient-side evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence supports a strong national baseline plus one adverse rights case, but not complete selected-lens coverage.",
+        "Another bounded search could recover population-specific and oversight evidence."
+      ],
+      "missing_themes": [
+        "Vulnerable-group and population-specific exposure",
+        "Police, custodial, torture, and detention oversight",
+        "Domestic-violence prevalence and state response",
+        "Independent evidence of remedy implementation"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "A protective baseline and Fosen adverse evidence are present, but systematic adverse searches covering vulnerable groups, detention, police, and domestic violence are not demonstrated.",
+        "closed_system_silence": "Domestic violence, detention, torture, policing, and custodial systems may underreport harm; no broad victim, ombuds, court, or investigative search is documented.",
+        "open_system_complaint_volume": "Norway's open civic environment may increase visible complaints and reporting; no complaint denominator or cross-system reporting comparison is supplied.",
+        "duplicate_reporting": "Fosen chronology may be repeated across AP, official acknowledgments, court material, and local facts. The ruling, operational status, and remedy claims should remain separate stable units.",
+        "allegations_vs_findings": "Fosen is presented as a documented rights violation and continuing remedy problem, while the notebook avoids treating it as proof of systematic abuse or personal wrongdoing. Other adverse categories are identified as lacking evidence.",
+        "official_claim_independence": "Freedom House, USDOS, AP, and court-related material provide checks, but official acknowledgment does not independently establish remedy performance.",
+        "population_exposure_authority_baseline_shocks": "Population-specific exposure is only partly addressed. Fosen is largely inherited, while continuing executive remedy authority requires sharper attribution; 2022 shocks are contextual but not sufficient explanations.",
+        "missing_source_type": "Victim or Sámi representative evidence, ombudsman and equality-body records, police and custodial oversight, and broader rights-monitoring sources are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Fosen responsibility remains shared, inherited, and continuing rather than clearly personal.",
+          "No broad adverse-event search is evidenced.",
+          "Open-system visibility may bias comparisons with less transparent countries."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The baseline is well supported, but selected adverse lenses require a broader search and sharper authority attribution.",
+        "Another bounded search could materially improve adverse coverage."
+      ],
+      "missing_themes": [
+        "Direct executive self-binding and rule-of-law conduct",
+        "Censorship, surveillance, and opposition-retaliation checks",
+        "Independent accountability evidence",
+        "Coalition-versus-prime-minister attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable institutional evidence is strong, but adverse searches for censorship, surveillance, opposition retaliation, self-binding, and term limits are explicitly sparse rather than completed.",
+        "closed_system_silence": "Independent media and civil society reduce but do not eliminate concealment risks involving surveillance, retaliation, conflicts, or administrative obstruction; no dedicated oversight search is documented.",
+        "open_system_complaint_volume": "Open reporting may increase visible complaints, protests, and scandals; no volume-normalized comparison is provided.",
+        "duplicate_reporting": "Freedom House and USDOS overlap on institutional protections, while Cambridge may repeat scandal chronology. Independence depends on distinct underlying locators and claims.",
+        "allegations_vs_findings": "Institutional protections are documented findings. Sparse direct Støre-attributed misconduct, coalition scandals, and Fosen are not converted into findings of capture, retaliation, or personal wrongdoing without a nexus.",
+        "official_claim_independence": "External monitors check the general baseline, but direct claims about Støre's executive self-binding and institutional conduct lack comparable independent checks.",
+        "population_exposure_authority_baseline_shocks": "Institutional baseline is addressed, but shared coalition authority, inherited institutions, and 2022 shocks are not fully separated from Støre's responsibility.",
+        "missing_source_type": "Opposition and investigative reporting, court or ombudsman records, surveillance oversight, and civil-society reporting are missing for principal adverse attribution risks.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Direct ruler-attributed institutional conduct remains underdeveloped.",
+          "Coalition and inherited-system evidence may be over-personalized.",
+          "Contrary evidence is not systematically audited."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Policy formulation and immediate implementation are documented, but outcomes, distribution, and durability remain materially under-evidenced.",
+        "A bounded search could recover outcome and subgroup evidence."
+      ],
+      "missing_themes": [
+        "Household and subgroup distributional outcomes",
+        "Productivity, competition, and durable growth outcomes",
+        "Procurement and appointment integrity",
+        "Independent evaluation of electricity-support effectiveness"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable policy and OECD evidence are present, but adverse searches for distribution, competition, appointments, productivity, and durable outcomes are not explicitly demonstrated.",
+        "closed_system_silence": "Procurement, appointments, regulatory, and distributional failures may be hidden administratively; audit evidence exposes only selected weaknesses.",
+        "open_system_complaint_volume": "Electricity and inflation complaints may be highly visible in an open media environment, but complaint volume and affected-population denominators are absent.",
+        "duplicate_reporting": "Budget, ministry electricity figures, OECD analysis, and Cambridge may describe overlapping fiscal measures. Repeated official figures should not count as independent confirmation.",
+        "allegations_vs_findings": "Official policy actions, OECD analysis, audit findings, and coalition scandals are distinguished from claims of personal economic success or wrongdoing. Audit weaknesses are not automatically attributed to Støre.",
+        "official_claim_independence": "OECD and the Auditor General provide independent checks, but household-support totals and implementation claims remain primarily government-sourced.",
+        "population_exposure_authority_baseline_shocks": "Distributional exposure is underdeveloped. Inherited fiscal conditions, inflation, energy shocks, coalition authority, and external constraints limit direct attribution of outcomes to Støre.",
+        "missing_source_type": "Household and subgroup distribution data, business and labor perspectives, procurement investigations, competition records, parliamentary scrutiny, and outcome evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E010",
+          "E011",
+          "E012",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Distributional and durable outcomes are not established.",
+          "Official implementation claims lack sufficient independent verification.",
+          "Audit weaknesses require authority-specific attribution."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 10,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Formal policy intent and some action are documented, but selected outcome and exposure lenses remain materially incomplete.",
+        "A bounded search could materially improve beneficiary and subgroup evidence."
+      ],
+      "missing_themes": [
+        "Service-quality and beneficiary outcomes",
+        "Regional equity and vulnerable-group exposure",
+        "Child poverty and welfare distribution",
+        "Institutional durability and remedy implementation"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable platform, budget, support, and baseline evidence is present, but adverse searches for service quality, regional equity, child poverty, vulnerable groups, and durability are incomplete.",
+        "closed_system_silence": "Administrative and service-delivery systems may conceal failures affecting vulnerable groups; no dedicated beneficiary, ombudsman, or frontline-provider search is shown.",
+        "open_system_complaint_volume": "Visible service and energy complaints may overstate prevalence in an open system; complaint volume and population exposure are not measured.",
+        "duplicate_reporting": "Budget, OECD, ministry support, Cambridge, and Fosen reporting may overlap. Stable IDs are present, but repeated implementation claims require source-level deduplication.",
+        "allegations_vs_findings": "High human-development indicators are treated as context, not ruler credit. Fosen is treated as a documented rights/remedy failure without broad personalization; policy action is separated from service outcomes.",
+        "official_claim_independence": "OECD and Auditor General checks exist, but no independent outcome evaluation is cited for the main welfare or energy interventions.",
+        "population_exposure_authority_baseline_shocks": "Population and vulnerable-group exposure are insufficiently addressed. High pre-existing outcomes, COVID, energy prices, inflation, Ukraine, coalition authority, and municipal responsibility complicate attribution.",
+        "missing_source_type": "Beneficiary-level outcomes, regional administrative data, child-poverty and vulnerable-group monitors, service audits, and programme evaluations are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E010",
+          "E011",
+          "E012",
+          "E015",
+          "E016",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "High baseline outcomes may be wrongly credited to a short-tenure ruler.",
+          "Fosen remedy responsibility is shared and partly inherited.",
+          "No robust subgroup or service-quality outcomes are presented."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter correctly rejects personalization of country and subordinate evidence, but the principal personal-integrity nexus remains a research-recoverable gap.",
+        "Another bounded search could materially improve personal attribution and contrary evidence."
+      ],
+      "missing_themes": [
+        "Personal benefit, direction, protection, or obstruction evidence",
+        "Procurement and appointment-level integrity records",
+        "Independent ethics, lobbying, and conflict-of-interest checks",
+        "Whistleblower, investigative, or judicial evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Some adverse material and E017 are present, but a systematic personal-integrity search for benefit, direction, protection, obstruction, lobbying, procurement, and appointments is not demonstrated.",
+        "closed_system_silence": "Procurement, appointments, lobbying, party, and government networks can conceal favoritism or corruption; public indicators and official clearance cannot rule this out.",
+        "open_system_complaint_volume": "Open reporting may increase visible scandal and complaint volume relative to closed systems; no normalization or affected-party denominator is supplied.",
+        "duplicate_reporting": "Scandals and audit findings may be repeated across Cambridge, official records, and media. Events, findings, and personal attribution must remain separate units.",
+        "allegations_vs_findings": "The notebook correctly separates ministerial scandals, audit findings, country corruption indicators, and the E017 impartiality review from personal misconduct. No evidence establishes Støre's direction, benefit, protection, or obstruction.",
+        "official_claim_independence": "E018 is an independent audit and E017 an official legal review, but neither proves absence of personal benefit or favoritism. Country-level indicators are not personal checks.",
+        "population_exposure_authority_baseline_shocks": "Personal integrity is not primarily population-based, but affected parties and access pathways are not identified. Coalition authority, inherited controls, and 2022 shocks are not separated from personal nexus.",
+        "missing_source_type": "Investigative journalism, procurement and lobbying records, parliamentary ethics oversight, whistleblower or ombudsman material, and judicial findings are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E013",
+          "E014",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Personal-integrity nexus is insufficient for most adverse items.",
+          "Official legal clearance is not independent proof of integrity.",
+          "No source establishes direction, benefit, protection, or obstruction by Støre."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 18,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Breadth is strongest here, but fair selected-lens assessment still lacks explicit contrary auditing and independent outcome evidence.",
+        "A bounded search could materially improve outcome, subgroup, and external-check coverage."
+      ],
+      "missing_themes": [
+        "Independent outcome and durability evidence",
+        "Contrary evidence across implementation and remedy",
+        "Population and subgroup effects",
+        "Recipient-side or external checks on Ukraine and cyber implementation",
+        "Sharper coalition and inherited-institution attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable implementation evidence is broad and adverse material is present, but contrary evidence is not systematically audited and outcome gaps remain.",
+        "closed_system_silence": "Government, defence, cyber, procurement, and remedy systems may conceal failures or dissent; audits and external monitors expose only part of the system.",
+        "open_system_complaint_volume": "Norway's open environment may increase visibility of scandals, complaints, and rights disputes; no complaint-volume or exposure normalization is provided.",
+        "duplicate_reporting": "The broad base contains overlapping official policy documents and likely repeated Ukraine, energy, audit, and Fosen accounts. Stable IDs help, but bundled or repeated claims require cleanup.",
+        "allegations_vs_findings": "Stated goals, formal decisions, implementation evidence, OECD analysis, audit findings, and Fosen rights failure are distinguished. Adverse findings are not converted into unsupported personal blame or scores.",
+        "official_claim_independence": "OECD, Cambridge, AP, Freedom House, USDOS, and the Auditor General provide meaningful checks, but implementation evidence in several domains remains predominantly official.",
+        "population_exposure_authority_baseline_shocks": "Population and subgroup effects are incompletely addressed. Short tenure, inherited baselines, coalition authority, Omicron, Ukraine, energy prices, inflation, and cyber threats constrain attribution and durability.",
+        "missing_source_type": "Independent outcome evaluations, affected-group evidence, investigative reporting, parliamentary opposition scrutiny, and recipient-side or external assessments of Ukraine and cyber implementation are missing.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018"
+        ],
+        "unresolved_risks": [
+          "Contrary evidence is not explicit or systematically searched.",
+          "Outcome, durability, and subgroup effects remain underdeveloped.",
+          "Official evidence dominates several policy domains.",
+          "Fosen, audit, and scandal attribution requires separation of inherited, coalition, institutional, and personal responsibility.",
+          "Discovery-only candidates E019-E021 are not defensible until precise locators are recovered."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The notebook contains no researcher-written scores, score ranges, anchors, rankings, or scoring advice.",
+    "E001-E034 are present as notebook evidence IDs; E019-E021 are explicitly discovery-only and excluded from defensible evidence estimates.",
+    "The ledger uses stable global IDs with chapter mappings, but several official items may bundle or repeat materially related claims and require deterministic splitting or deduplication.",
+    "Local facts are used as context and are explicitly not treated as ruler evidence, which is methodologically appropriate.",
+    "The continuation materially improved Chapter 1B's nuclear-specific evidence, but personal attribution remains weaker than institutional or cabinet-level attribution.",
+    "All selected chapters retain research-recoverable gaps involving contrary evidence, precise source recovery, attribution, population exposure, event coverage, or outcomes. No credible saturation or access-blocker explanation establishes that another bounded search is unlikely to improve any selected chapter.",
+    "Missing evidence is treated as a gap rather than negative ruler evidence.",
+    "The soft QA findings of low locator yield and low source-family yield support review but are not themselves saturation findings or negative evidence."
+  ],
+  "reviewer_summary": "All eight selected chapters require continuation within their selected ten-lens scopes. Chapter 1B improved substantially but still lacks personal attribution for most nuclear-policy conduct. Chapters 2B-6B and 8B have meaningful formal-policy or institutional evidence but incomplete adverse, outcome, subgroup, or independent-check coverage. Chapter 7B requires a personal-integrity nexus that is not established. No chapter has a credible saturation or blocker explanation, and each has a bounded research path that could materially improve attribution, contrary evidence, or event coverage."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Completed a bounded continuation across Chapters 2B–8B. Chapter 1B’s prior continuation (E022–E034) was preserved; no new nuclear unit was promoted.
+
+The workspace remained read-only, so I could not physically update `research-ledger-manifest.json`. The following provisional units should be appended with globally unique IDs E035–E079. Exact existing `methodology_ids` must be copied from the authoritative manifest; I have not invented lens IDs.
+
+### 2B — external security and peace
+
+- **E035** — Storting scrutiny identified that Ukrainian defence donations were governed by executive foreign/security policy rather than ordinary export controls; attribution is cabinet-level, not personal. Contrary oversight requested disclosure of third-country resale controls. [Storting lines 523–551](https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Innstillinger/Stortinget/2022-2023/inns-202223-024s/?all=true)
+- **E036** — Parliamentary debate recorded broad support for Ukraine donations while acknowledging the decision as an exceptional change in Norwegian policy. [Storting lines 561–562](https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Referater/Stortinget/2022-2023/refs-202223-10-20/?all=true)
+- **E037** — Opposition MPs alleged that a Russian-vessel port exception could benefit Putin-linked oligarchs and weaken sanctions; this is parliamentary allegation, not an adjudicated finding against Støre. [Storting lines 526–530](https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Innstillinger/Stortinget/2022-2023/inns-202223-024s/?all=true)
+- **E038** — Government export-control framework required human-rights, humanitarian-law, and recipient-country assessments, but target-year evidence does not establish how each Ukrainian transfer was monitored after delivery. [Government report lines 197–229](https://www.regjeringen.no/globalassets/departementene/ud/dokumenter/rapporter/meldst14_20212022_eng.pdf)
+- **E039** — Government reported ongoing assessment of Ukrainian military donations, security-based limits on publication, and continued Storting briefing. This supports formal process but leaves transparency and outcome questions unresolved. [Government report lines 244–277](https://www.regjeringen.no/globalassets/departementene/ud/dokumenter/rapporter/meldst14_20212022_eng.pdf)
+- **E040** — Storting later required a government explanation of how Norwegian export rules and binding agreements would apply to re-exported matériel, directly documenting an accountability gap. [Storting lines 545–551](https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Innstillinger/Stortinget/2022-2023/inns-202223-024s/?all=true)
+
+Shortfall: no recipient-side civilian-harm assessment, weapon end-use audit, or reliable intelligence-correction record was recovered.
+
+### 3B — protection, rights, and human security
+
+- **E041** — Auditor General found serious weaknesses in the state response to intimate-partner violence, including uncertainty over reporting duties, poor coordination, and inconsistent municipal follow-up. [Riksrevisjonen lines 19–40](https://www.riksrevisjonen.no/rapporter-mappe/no-2021-2022/undersokelse-av-myndighetenes-innsats-mot-vold-i-nare-relasjoner/)
+- **E042** — Police clearance rates for intimate-partner violence fell from 39% in 2015 to 24% in 2021; this is adverse institutional outcome evidence, not personal Støre evidence. [Riksrevisjonen lines 46–52, 93–102](https://www.riksrevisjonen.no/rapporter-mappe/no-2021-2022/undersokelse-av-myndighetenes-innsats-mot-vold-i-nare-relasjoner/)
+- **E043** — U.S. State Department reported Sami women’s higher domestic/partner-violence exposure, limited Sami-language responders, and continuing barriers to reporting. [USDOS lines 189–197](https://www.ecoi.net/en/document/2089707.html)
+- **E044** — NGOs reported racial profiling of minority young men and increased online hate speech; authorities lacked disaggregated stop-and-search data. [USDOS lines 180–187](https://www.ecoi.net/en/document/2089707.html)
+- **E045** — Parliamentary Ombud found national data on minors held in police custody uncertain and announced follow-up with central authorities. [Sivilombudet lines 37–53](https://www.sivilombudet.no/en/besoksrapporter/new-visit-report-oslo-police-custody/)
+- **E046** — Government follow-up records show that Fosen consultations and revised investigation programmes were active during 2022, while Sámi representatives considered the process too broad and potentially a relitigation of the Supreme Court judgment. [Government speech lines 314–321](https://www.regjeringen.no/no/aktuelt/l/id2966316/)
+
+Shortfall: no direct Støre order, police-abuse finding, torture finding, or independent 2022 remedy outcome was recovered.
+
+### 4B — institutions and rule of law
+
+- **E047** — Supreme Court held that police intervention against an unannounced traffic-blocking protest did not breach freedom of assembly, while emphasizing that authorities must tolerate some disturbance. [Supreme Court lines 0–6](https://www.domstol.no/en/supremecourt/rulings/rulings-2022/supreme-court-criminal-cases/HR-2022-981-A/)
+- **E048** — EOS Committee conducted parliamentary oversight of intelligence, surveillance, and security services, including inspections across NIS, PST, NSM, and defence bodies. [EOS report PDF pp. 6, 10–12](https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf)
+- **E049** — EOS reported that NIS had failed to exercise due diligence in handling a source, while complaints concluded in 2022 produced no criticism of NIS. This is mixed oversight evidence. [EOS report PDF pp. 16–17](https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf)
+- **E050** — EOS criticised PST for inadequate investigation and failure to provide documents during a complaint review, later receiving the relevant documents. [EOS report PDF pp. 19–20](https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf)
+- **E051** — Data Protection Authority recorded 3,519 new cases in 2022, the highest number then recorded, showing active regulatory scrutiny but not censorship or executive retaliation. [Datatilsynet lines 502–503](https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/datatilsynets-arsrapporter/arsrapport-for-2022/?print=true)
+- **E052** — The EOS framework explicitly exists to prevent rights violations and ensure intelligence services respect human rights, but classification rules limit public visibility into complaints and criticism. [EOS report PDF pp. 6, 11](https://eos-utvalget.no/wp-content/uploads/2023/06/EOS-Committee-annual-report-2022.pdf)
+
+Shortfall: no evidence of Støre-directed censorship, opposition retaliation, unlawful surveillance, or term-limit manipulation was found.
+
+### 5B — economic stewardship
+
+- **E053** — Statistics Norway estimated average household net expenses rose NOK 18,000 in 2022, with somewhat higher burdens at the low end of the income distribution. [SSB lines 75–87](https://www.ssb.no/en/inntekt-og-forbruk/inntekt-og-formue/artikler/increased-expenditures-for-the-households--who-bears-the-largest-burden)
+- **E054** — SSB found electricity subsidies reduced southern households’ costs but that vulnerable households devoted a larger budget share to electricity and had fewer substitution options. [SSB lines 78–101](https://www.ssb.no/en/energi-og-industri/energi/artikler/economic-consequences-of-high-electricity-prices-and-electricity-subsidy-scheme)
+- **E055** — SSB found low-income households in apartment blocks reduced electricity use earlier but experienced welfare losses from constrained consumption. [SSB lines 94–101](https://www.ssb.no/en/energi-og-industri/energi/artikler/economic-consequences-of-high-electricity-prices-and-electricity-subsidy-scheme)
+- **E056** — OECD identified falling labour-force participation, weak productivity growth, high housing costs, and future fiscal pressure as unresolved structural constraints. [OECD lines 3681–3689](https://www.oecd.org/en/about/news/press-releases/2022/02/norway-boosting-productivity-and-workforce-participation-while-improving-housing-affordability-will-help-maintain-high-living-standards.html)
+- **E057** — Government electricity-support evaluation stated that universal support was administratively fair but that low-income households should receive more targeted assistance through housing benefits. [Government lines 195–201](https://www.regjeringen.no/no/aktuelt/okonomiske-konsekvenser-av-hoye-kraftpriser-og-stromstonad/id2927810/)
+- **E058** — Consultation responses warned that proposed hourly electricity support would weaken saving incentives and favour higher-consumption households. [Government bill lines 295–305](https://www.regjeringen.no/no/dokumenter/prop.-116-l-20222023/id2976279/?ch=3)
+- **E059** — SSB and other respondents warned that the design could reduce incentives for energy efficiency and weaken future energy-policy goals. [Government bill lines 298–303](https://www.regjeringen.no/no/dokumenter/prop.-116-l-20222023/id2976279/?ch=3)
+
+Shortfall: no robust 2022 productivity outcome, competition investigation, procurement-attribution finding, or durable-growth evaluation was recovered.
+
+### 6B — welfare and public services
+
+- **E060** — SSB reported persistent low-income and material-deprivation burdens among single parents, disability-benefit recipients, immigrants, and low-income families with children. [SSB lines 75–92](https://www.ssb.no/en/inntekt-og-forbruk/inntekt-og-formue/artikler/the-economic-welfare-of-low-income-households-2022)
+- **E061** — Helsetilsynet found 49 of 70 NAV offices open six hours or less per week, with delays particularly affecting users unable to use digital channels. [Helsetilsynet lines 169–182](https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319)
+- **E062** — Helsetilsynet reported 153,000 people lacked a regular general practitioner in Q1 2022, with risks concentrated among older and medically complex patients. [Helsetilsynet lines 183–189](https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319)
+- **E063** — Specialist-healthcare waiting time rose to 66 days in 2022, five days above 2021, with particularly high concern around mental-health services. [Government lines 178–193](https://www.regjeringen.no/no/aktuelt/okte-ventetider-i-spesialisthelsetjenesten-i-2022/id2966979/)
+- **E064** — Government follow-up of Fosen documented continuing consultations, updated investigations, and unresolved Sámi-rights implementation during the target period. [Government lines 205–225](https://www.regjeringen.no/no/aktuelt/l/id2966316/)
+- **E065** — Independent refugee interviews found generally positive reception by police, NAV, UDI, and municipalities, but uneven access to medicines and other services. [IMDi/NIBR lines 36–54](https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/)
+- **E066** — Refugee interviews recommended more coordinated information-sharing, more equal services across municipalities, and better information flow. [IMDi/NIBR lines 83–85](https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/)
+
+Shortfall: no comprehensive regional welfare evaluation, child-poverty causal estimate, or durable programme-outcome study was recovered.
+
+### 7B — personal integrity
+
+- **E067** — Supreme Court clarified that corruption requires a sufficiently strong connection between an improper benefit and the recipient’s public position; the ruling concerned a municipal official, not Støre. [Supreme Court lines 0–6](https://www.domstol.no/no/hoyesterett/avgjorelser/2022/hoyesterett---straff/HR-2022-1278-A/)
+- **E068** — Foreign Service Control Unit recorded 121 new financial-irregularity cases in 2022; 44 required a response, including four corruption cases. These concern grant administration, not personal Støre conduct. [MFA report lines 199–200, 264–268](https://www.regjeringen.no/en/documents/report-on-cases-of-financial-irregularities-in-2022/id2971508/)
+- **E069** — The same report states that detected cases are not necessarily representative because some irregularities are easier to uncover than others. This is a contrary closed-system limitation. [MFA report lines 264–268](https://www.regjeringen.no/en/documents/report-on-cases-of-financial-irregularities-in-2022/id2971508/)
+- **E070** — Norwegian anti-corruption procedures allowed anonymous or open reporting, suspension of disbursements, external experts, forensic audits, repayment, and possible police referral. [MFA report lines 181–189](https://www.regjeringen.no/en/documents/report-on-cases-of-financial-irregularities-in-2022/id2971508/)
+- **E071** — GRECO found regular ethics training for the incoming government was not demonstrated, and several disclosure, review, lobbying, and sanction recommendations remained unimplemented. [GRECO PDF pp. 2, 6–7](https://rm.coe.int/fifth-evaluation-round-preventing-corruption-and-promoting-integrity-i/1680a9b330)
+- **E072** — GRECO found the conflict-of-interest procedure partly implemented: self-assessment and legal advice existed, but concrete revolving-door guidance remained incomplete. [GRECO PDF pp. 4–6](https://rm.coe.int/fifth-evaluation-round-preventing-corruption-and-promoting-integrity-i/1680a9b330)
+
+Shortfall: no source established Støre’s personal benefit, direction, protection, obstruction, procurement favoritism, or corrupt financial conduct.
+
+### 8B — effectiveness and implementation
+
+- **E073** — Independent refugee interviews found high satisfaction with initial reception but unequal access to some services, providing positive implementation evidence with subgroup limitations. [IMDi/NIBR lines 47–54](https://arkiv.imdi.no/arkiv/arkiverte-publikasjoner/rapport-om-ukrainske-flyktningers-mote-med-norge/)
+- **E074** — Public-health research found Ukrainian refugees arriving in 2022 had poorer self-rated health, more psychological distress, and unmet healthcare needs, especially among newer arrivals. [NIPH lines 18–25, 51–63](https://www.fhi.no/en/publ/2023/Healthcare-needs-among-refugees-from-ukraine-arriving-in-norway-during-2022/)
+- **E075** — Eurofound later found that refugee integration measures still faced unstable housing, childcare capacity, mental-health access, unstable employment, and fragmented support. [Eurofound lines 39–45, 60–75](https://www.eurofound.europa.eu/en/publications/all/social-impact-migration-addressing-challenges-receiving-and-integrating-ukrainian)
+- **E076** — Norway’s December 2022 cyber-resilience white paper formally identified national-control and coordination measures, but the associated implementation record remained policy-level. [Government white-paper record lines 152–167](https://www.regjeringen.no/en/documents/meld.-st.-9-20222023/id2950130/)
+- **E077** — NSM reported increased compromise attempts against Norwegian organisations in the first half of 2022 and identified technology, research, public administration, energy, and communications as exposed sectors. [NSM lines 256–269](https://nsm.no/aktuelt/digitalt-risikobilde-2022-cyberangrep-har-blitt-hverdagskost)
+- **E078** — NSM specifically stated that many incidents could have been avoided through basic security measures, providing adverse implementation evidence against any claim of complete cyber effectiveness. [NSM lines 259–265](https://nsm.no/aktuelt/digitalt-risikobilde-2022-cyberangrep-har-blitt-hverdagskost)
+- **E079** — Helsetilsynet documented service-access failures and subsequent NAV improvement work, showing both adverse outcomes and partial institutional response. [Helsetilsynet lines 174–182](https://www.helsetilsynet.no/publikasjoner/arsrapporter/arsrapport-helsetilsynet-2022/3.-arets-aktiviteter-og-resultater?b=toc_749319)
+
+Shortfall: durable outcomes, causal attribution to Støre personally, and independent recipient-side assessment of Ukraine and cyber policy remain unresolved.
+
+All units above are evidence or explicitly limited contrary/context claims; none assigns a score, range, ranking, or scoring advice.
+---

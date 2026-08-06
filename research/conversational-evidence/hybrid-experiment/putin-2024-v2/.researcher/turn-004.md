@@ -1,0 +1,106 @@
+**Reused Evidence**
+- `E0001` [AP: Navalny death / prison abuse context](https://apnews.com/article/0722708e19e51b10699b2cc73ece0bae) -> `3B.1`, `3B.2`, `3B.4`, `3B.6`, `3B.8`, `3B.10`
+- `E0002` [AP: Crocus attack / immediate security shock](https://apnews.com/article/ce45e104781c108ff3b7f8a9d45fcef7) -> `3B.9`, `3B.10`
+- `E0009` [HRW: Russia repressive laws used to crush civic freedoms](https://www.hrw.org/news/2024/08/07/russia-repressive-laws-used-crush-civic-freedoms) -> `3B.5`, `3B.8`, `3B.10`
+
+**New Evidence**
+- [Repressions Report. January 2024](https://ovd.info/en/repressions-report-january-2024) | `OVD-Info` | `2024-05-14`
+  - Precise claim and locator: Baymak protests followed the sentencing of Fail Alsynov; OVD says thousands gathered, at least 40 were injured, police beat detainees, one man died after detention, anti-war prosecutions kept expanding, and a new law quickly stripped convicted critics of property and honors. See lines `67-89`.
+  - Source type and credibility: independent Russian rights monitor; high credibility for protest-detention pattern and local casualty reporting.
+  - Temporal fit: direct 2024 evidence.
+  - Ruler attribution and limits: the violence was carried out by regional police and security bodies, but the repression environment reflects Kremlin-backed legal and political control; some triggers were regional, not personally Putin’s.
+  - Contrary points: the initial spark was a regional court sentence and local protest; this is not a single nationally ordered killing event.
+  - Exact lenses: `3B.1`, `3B.2`, `3B.5`, `3B.6`, `3B.8`, `3B.9`, `3B.10`
+
+- [Information on protests in memory of Alexei Navalny 16-19th February](https://ovd.info/en/advocacy/information-protests-memory-alexei-navalny) | `OVD-Info` | `2024-02-22`
+  - Precise claim and locator: OVD documented at least `397` arrests in `39` cities during Navalny memorial protests; the report says some detainees were children and that police used administrative charges to suppress mourning and dissent.
+  - Source type and credibility: independent rights monitoring with case-level reporting; high credibility.
+  - Temporal fit: direct February 2024 repression.
+  - Ruler attribution and limits: arrests were made by police and courts, but the protest suppression is attributable to Putin’s political order and security apparatus; this source does not prove a direct personal order for each arrest.
+  - Contrary points: the protests were spontaneous and peaceful; the state response was coercive, not protective.
+  - Exact lenses: `3B.1`, `3B.2`, `3B.5`, `3B.6`, `3B.8`, `3B.10`
+
+- [Russia: Repressive Laws Used to Crush Civic Freedoms](https://www.hrw.org/news/2024/08/07/russia-repressive-laws-used-crush-civic-freedoms) | `Human Rights Watch` | `2024-08-07`
+  - Precise claim and locator: HRW says hundreds were jailed or imprisoned under new repressive laws and that discussion of many topics cannot take place openly; lines `612-614` make the key point.
+  - Source type and credibility: major international human-rights NGO; high credibility for the legal/repression pattern.
+  - Temporal fit: 2024 report focused on the post-2022 and 2024 civic space.
+  - Ruler attribution and limits: HRW attributes the legislative and enforcement architecture to the Russian government under Putin; it does not resolve every individual case.
+  - Contrary points: HRW notes the repression is long-running and accelerated after 2022, so 2024 is a continuation as well as an intensification.
+  - Exact lenses: `3B.2`, `3B.4`, `3B.5`, `3B.6`, `3B.8`, `3B.10`
+
+- [Russia: “I would love to hug her, but it is impossible.” Imprisoned dissenters deprived of family contact](https://www.amnesty.org/en/documents/eur46/8193/2024/en/) | `Amnesty International` | `2024-06-26`
+  - Precise claim and locator: Amnesty says Russian authorities are systematically denying arbitrarily imprisoned critics contact with family and using legal loopholes and fabricated pretexts to isolate them; lines `67-69`.
+  - Source type and credibility: major human-rights NGO research briefing; high credibility for abuse pattern.
+  - Temporal fit: direct 2024 evidence.
+  - Ruler attribution and limits: the isolation policy sits inside Putin’s prison and security system, though the briefing focuses on the authorities as an institution.
+  - Contrary points: none material beyond the fact that it is a briefing focused on emblematic cases rather than a full census.
+  - Exact lenses: `3B.1`, `3B.2`, `3B.4`, `3B.5`, `3B.6`, `3B.8`, `3B.10`
+
+- [Russia: Officials target drag show in first-ever LGBTI-related ‘extremism’ case](https://www.amnesty.org/en/latest/news/2024/03/russia-officials-target-drag-show-in-first-ever-lgbti-related-extremism-case/) | `Amnesty International` | `2024-03-19`
+  - Precise claim and locator: Amnesty says Russian authorities launched the first criminal investigation targeting LGBTI people under anti-extremism laws after the Orenburg drag-show raid; lines `63-64`.
+  - Source type and credibility: rights NGO press release on a specific 2024 case; high credibility for the existence and significance of the prosecution.
+  - Temporal fit: direct 2024 vulnerable-group repression.
+  - Ruler attribution and limits: the raid and prosecution were carried out by law enforcement under a national legal regime created and sustained under Putin.
+  - Contrary points: this is a single city case, but Amnesty treats it as a national escalation, not an isolated incident.
+  - Exact lenses: `3B.3`, `3B.5`, `3B.7`, `3B.8`, `3B.10`
+
+- [Update on Human Rights in the Russian Federation and the Continuing Need for a Special Rapporteur on Russia](https://www.hrw.org/news/2024/08/28/update-human-rights-russian-federation-and-continuing-need-special-rapporteur) | `Human Rights Watch` | `2024-08-28`
+  - Precise claim and locator: HRW says Russia eliminated genuine political competition, barred independent candidates, used anti-extremism laws against Navalny’s organizations, and kept many people imprisoned on anti-war charges; lines `603-620`.
+  - Source type and credibility: major international human-rights NGO synthesis; high credibility.
+  - Temporal fit: direct 2024 summary.
+  - Ruler attribution and limits: this is clearly a national-level Putin-era repression pattern, though some cited incidents were executed by courts, police, or prison authorities.
+  - Contrary points: HRW also notes a prisoner swap freed some people on August 1, but stresses many more remained imprisoned.
+  - Exact lenses: `3B.1`, `3B.2`, `3B.4`, `3B.5`, `3B.6`, `3B.8`, `3B.10`
+
+- [Repression in Russia in 2024: OVD-Info Overview](https://ovd.info/en/repression-russia-2024-ovd-info-overview?m-message-click-id=9edb42c6-7176-4d56-bc72-32b032dce699&m-message-key-id=-9223372032496631808) | `OVD-Info` | `2025-01-12`
+  - Precise claim and locator: the overview says 2024 had `1199` arrests at public rallies, `672` detentions tied to Navalny events, more foreign-agent designations, and intensified persecution of LGBTQ+ people.
+  - Source type and credibility: retrospective rights-monitoring overview using case data; high credibility.
+  - Temporal fit: retrospective but directly about 2024.
+  - Ruler attribution and limits: summarizes the national repression environment under Putin; it is not a single-event report.
+  - Contrary points: the overview also notes an August prisoner exchange that released some political prisoners, which is meaningful but limited remedy.
+  - Exact lenses: `3B.4`, `3B.5`, `3B.6`, `3B.7`, `3B.8`, `3B.10`
+
+- [Putin says concert attackers were fleeing to Ukraine when detained](https://www.investing.com/news/world-news/putin-vows-punishment-for-all-those-responsible-for-concert-attack-3350557) | `Reuters` | `2024-03-23`
+  - Precise claim and locator: Putin said the Crocus attackers were moving toward Ukraine and that some people on the Ukrainian side prepared a crossing point; he also promised to punish everyone behind the attack. See lines `405-412`.
+  - Source type and credibility: Reuters wire reporting of a direct Putin address; high credibility for attribution.
+  - Temporal fit: immediate crisis response in 2024.
+  - Ruler attribution and limits: this is direct Putin crisis messaging; it does not prove the attackers’ route or ultimate culpability, and it risks inflaming public suspicion against Ukrainians and related groups.
+  - Contrary points: Putin also framed the attack as “international terrorism” and said he was ready to work with any state that wanted to defeat it, which is the restrained part of the message.
+  - Exact lenses: `3B.3`, `3B.6`, `3B.9`, `3B.10`
+
+- [Russia’s antiwar candidate Nadezhdin barred from election](https://finance.yahoo.com/news/russian-anti-war-putin-rival-091459257.html) | `Reuters` | `2024-02-08`
+  - Precise claim and locator: Reuters reported that the Central Election Commission refused to register Boris Nadezhdin, the only notable anti-war challenger, for the March election.
+  - Source type and credibility: Reuters wire text; high credibility.
+  - Temporal fit: direct 2024 election-repression evidence.
+  - Ruler attribution and limits: this is institutional exclusion inside Putin’s political order; it is not a proof of a single order from Putin personally, but it is squarely part of his control environment.
+  - Contrary points: Nadezhdin had a legal appeal route, but the process did not restore meaningful competition.
+  - Exact lenses: `3B.4`, `3B.5`, `3B.8`, `3B.10`
+
+- [Factbox: Prisoners freed under major international exchange](https://www.investing.com/news/world-news/factboxprisoners-freed-under-major-international-exchange-3549787) | `Reuters` | `2024-08-01`
+  - Precise claim and locator: the factbox lists `Ilya Yashin`, `Liliya Chanysheva`, `Kseniya Fadeyeva`, `Oleg Orlov`, `Sasha Skochilenko`, and others among those freed from Russian custody.
+  - Source type and credibility: Reuters wire factbox; high credibility for the swap roster.
+  - Temporal fit: late-2024 partial remedy.
+  - Ruler attribution and limits: this is the one meaningful contrary/remedial point in the record, but it also underscores that these people had been in Russian custody as political captives.
+  - Contrary points: the swap is not evidence of a rights-restoring system; it was an exceptional deal, not normal accountability.
+  - Exact lenses: `3B.1`, `3B.4`, `3B.6`, `3B.8`, `3B.10`
+
+- [Tajikistan says migrants fleeing Russia after concert hall attack](https://www.investing.com/news/economy/tajikistan-says-migrants-fleeing-russia-after-concert-hall-attack-3358534) | `Reuters` | `2024-03-30`
+  - Precise claim and locator: after Crocus, Tajikistan said migrant workers were leaving Russia in a surge because of the attack.
+  - Source type and credibility: Reuters wire reporting on a neighboring government’s account; moderate-to-high credibility.
+  - Temporal fit: direct 2024 crisis aftermath.
+  - Ruler attribution and limits: the exodus itself is not Putin’s order, but the backlash reflects a domestic fear climate that the Kremlin did not prevent.
+  - Contrary points: this article alone does not prove state-directed xenophobic violence; it shows the vulnerability of migrants after the attack.
+  - Exact lenses: `3B.7`, `3B.9`, `3B.10`
+
+**Search and Rejection Summary**
+- I considered roughly 30 documents, including Reuters wires and syndications, OVD-Info reports, HRW and Amnesty briefings, UN/OHCHR material, AP coverage, and a few secondary summaries and photo wires.
+- I kept sources that directly addressed domestic physical safety, detention, protest repression, vulnerable-group protection, prison abuse, crisis response, or accountability.
+- I rejected out-of-period material unless it was necessary to summarize 2024 as a retrospective annual report. I also rejected 2026 follow-up stories and older archival rights reports that only repeated the same repression pattern without adding 2024-specific value.
+- I dropped repeated Reuters photo pages and other near-duplicates when they only reproduced the same event without additional factual content.
+- I excluded broad civil-liberties or election pieces when they did not add to the domestic-safety nexus, and I did not use the client matrix or re-fetch structured datasets.
+
+**Remaining Gaps**
+- Direct evidence of Putin personally ordering specific torture, beatings, or prison deaths is thin; the record is strong on systemic responsibility and tolerated impunity, weaker on command-chain proof for each incident.
+- The legal and factual cause of Navalny’s death remained disputed in 2024; the repression pattern is clear, but the exact death mechanism was not publicly adjudicated in the sources used here.
+- The August prisoner swap is a real mitigating event, but it is an exceptional exchange, not evidence of durable accountability or a changed domestic protection system.
+- More search would mainly help on the personal-incitement question in `3B.3` and on whether any meaningful independent complaint/oversight remedies operated in practice in 2024.

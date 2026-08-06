@@ -1,13 +1,13 @@
 # Chapter 1B — Nuclear And Existential-Risk Responsibility
 
-Status: **draft; revised after the 2024 absolute-scale audit; requires v4 rejudgment**
+Status: **draft; v6 trajectory-focused questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `1B`
 - Rating: nuclear and global existential-risk responsibility
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_1b_v4`
+- Rubric version: `chapter_1b_v6`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -27,22 +27,21 @@ ruler-level choice are shown. The client matrix is never evidence.
 
 ## Ten Evidence Lenses
 
-These are complementary prompts for evidence collection, not ten independent scores:
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **1B.1 — Nuclear investment and capability trajectory** | Did nuclear investment and capability increase or decrease during the ruler’s tenure? | Compare the inherited position and prior trend with changes in spending, research, facilities, fissile-material production, arsenal size, delivery systems, destructive capability, modernization, testing, deployment, and readiness; identify what the ruler caused, continued, or could not reasonably reverse. Any increase in weapons capability is adverse unless modernization has the sole and undisputed motivation of improved safety. | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.2 — Nuclear rhetoric, doctrine, and normalization** | Did the ruler’s words and doctrine reduce or increase the perceived legitimacy and likelihood of nuclear acquisition, threat, or use? | Examine threats, acquisition advocacy, first-use and retaliation doctrine, reassurance or de-escalation, and whether actions and operational posture matched the rhetoric. Include influential non-nuclear rulers where their conduct materially affected nuclear norms. | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
+| **1B.3 — Safe nuclear control** | Did the ruler keep nuclear weapons and decisions safe and controlled? | Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures? | **Resources**; **Personnel**; **Implementation and operational conduct** |
+| **1B.4 — Arms control, inspections, and international leadership** | Did the ruler preserve, strengthen, comply with, or weaken systems intended to reduce nuclear danger? | Examine treaties, inspections, disarmament, test restrictions, negotiations, confidence-building measures, sanctions enforcement, and international leadership, including by non-nuclear countries. | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.5 — Nuclear cover for aggression** | Did the ruler avoid using nuclear power to protect aggression or repression? | Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression? | **Formal acts and law**; **Rhetoric and representations**; **Implementation and operational conduct** |
+| **1B.6 — Preventing proliferation** | Did the ruler stop allies, clients, and domestic actors from spreading nuclear weapons? | Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.7 — Independent risk expertise** | Did the ruler empower qualified experts who could warn about catastrophic risks? | Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology? | **Personnel**; **Resources**; **Implementation and operational conduct** |
+| **1B.8 — Crisis de-escalation** | During crises, did the ruler act to prevent catastrophic escalation? | In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous? | **Implementation and operational conduct**; **Rhetoric and representations**; **Formal acts and law** |
+| **1B.9 — Other existential weapons and technologies** | Did the ruler responsibly control biological, chemical, environmental, and emerging technological risks capable of catastrophic cross-border or global harm? | Include only matters with a credible catastrophic or existential dimension, such as biological or chemical weapons and catastrophic environmental, AI, cyber, or space risks—not ordinary technological, environmental, military, or public-health policy. | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **1B.10 — Lasting risk posture** | Did the ruler leave the country and the wider world safer or more endangered than before? | Synthesize the inherited baseline and previous trend, measurable changes, ruler attribution, crises avoided or aggravated, external pressures, unresolved dangers, and durability. | **Outcomes**; **Implementation and operational conduct** |
 
-1. **1B.1:** Did the ruler seek to reduce nuclear or other existential risk, rather than increase prestige, leverage, or personal power through escalation?
-2. **1B.2:** Did the ruler use nuclear rhetoric responsibly, avoiding reckless threats, brinkmanship, apocalyptic language, or normalization of nuclear use?
-3. **1B.3:** Did the ruler strengthen command-and-control discipline, custody, safety, and accident-prevention safeguards?
-4. **1B.4:** Did the ruler support arms-control, inspection, nonproliferation, disarmament, or de-escalation agreements in good faith?
-5. **1B.5:** Did the ruler avoid using nuclear capability to shield conventional aggression, territorial coercion, or domestic repression?
-6. **1B.6:** Did the ruler resist proliferation by allies, proxies, clients, or domestic factions when proliferation served short-term political interests?
-7. **1B.7:** Did the ruler invest in risk-reducing expertise and institutions rather than surrounding nuclear/security decisions with loyalists or ideologues?
-8. **1B.8:** In crisis moments, did the ruler de-escalate, communicate clearly, and preserve channels that reduce accidental war?
-9. **1B.9:** Did the ruler handle dual-use technology, cyber, biological, AI, or other catastrophic-risk domains with precaution and transparency?
-10. **1B.10:** Did the ruler leave the country's existential-risk posture safer or more dangerous than they inherited it?
-
-Lens labels and coverage wording are advisory LLM-to-LLM aids. Missing lenses lower
-confidence; they do not invalidate the dossier, mechanically produce zero, or require
-exact status vocabulary.
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Guidance
 
@@ -141,6 +140,11 @@ A rationale may not describe threats, exercises, deployments, or doctrine change
 no nuclear weapon has been detonated in war after 1945, a modern annual batch can
 properly contain no score of 1.
 
+The general historical-extreme analogy (including references to Nazi-regime-level
+conduct) does not replace this chapter-specific test. Regime cruelty, repression, or
+aggression alone cannot establish the 1B floor: the ruler must meet the realized nuclear
+use or equivalent realized-catastrophe condition above.
+
 ## Judge Workflow Across Rulers
 
 ### V4 direct-evidence and absolute-floor gate
@@ -215,7 +219,7 @@ never sought or controlled.
 
 Alongside common calibration metadata, record:
 
-- `chapter_rubric_version`: `chapter_1b_v4`
+- `chapter_rubric_version`: `chapter_1b_v6`
 - `calibration_batch_id` and `calibrated_against`
 - `exposure_profile`: nuclear authority, latent/dual-use exposure, crisis exposure
 - `inherited_risk_posture` and `end_posture`

@@ -1,0 +1,343 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:IRN:19648",
+  "iso3": "IRN",
+  "country_name": "Iran",
+  "ruler_name": "Ali Khamenei",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 7,
+  "approximate_source_family_count": 6,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 7 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 6 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Writing was unavailable because this worker is read-only; the complete handoff is below. No scores or score ranges were assigned.
+
+## Reconnaissance and authority baseline
+
+- **R001 — Authority baseline.** Encyclopaedia Iranica summarizes constitutional Article 110 powers: Khamenei held supreme command of the armed forces and IRGC, could appoint the highest judicial authority and Guardian Council clerics, and held authority over war and peace. [Source](https://www.iranicaonline.org/articles/constitution-of-the-islamic-republic/)
+- **R002 — Information environment.** RSF describes regime-controlled media, arbitrary journalist detention, legal restrictions against criticism of the Supreme Leader, and severe self-censorship. [Source](https://rsf.org/en/analyse_regionale/700)
+- **R003 — 2022 trigger and early response.** OHCHR documented Mahsa Amini’s detention and death, reports of violent treatment of women, lethal force against protesters, and arrests. [Source](https://www.ohchr.org/en/press-releases/2022/09/mahsa-amini-acting-un-human-rights-chief-urges-impartial-probe-death-iran)
+- **R004 — Security-force directives.** Amnesty reported leaked September 2022 armed-forces orders to “severely confront” protesters, deployment of IRGC/Basij/police forces, unlawful killings, torture, sexual violence, and intimidation of victims’ families. [Source](https://www.amnesty.org/en/latest/news/2022/09/iran-leaked-documents-reveal-top-level-orders-to-armed-forces-to-mercilessly-confront-protesters/)
+- **R005 — Broader 2022 rights pattern.** HRW documented executions, discriminatory laws, minority repression, and the use of digital surveillance to enforce dress codes. [Source](https://www.hrw.org/world-report/2023/country-chapters/iran)
+- **R006 — International accountability response.** The UN Human Rights Council created an independent fact-finding mission on 24 November 2022; Iran was urged to cooperate and provide access. [Source](https://digitallibrary.un.org/record/3996587)
+- **R007 — Media repression during protests.** RSF recorded journalist arrests, threats, restrictions on Instagram and WhatsApp, and internet shutdowns beginning in September 2022. [Source](https://rsf.org/en/journalists-arrested-social-media-censored-iran-response-protests)
+- **R008 — Press-freedom environment.** RSF’s 2022 country profile records Iran’s highly restricted media environment and attributes extensive authority over political, military, and judicial institutions to Khamenei. [Source](https://rsf.org/en/analyse_regionale/700)
+
+The evidence environment is therefore high-risk for underreporting: censorship, surveillance, journalist detention, internet disruption, unsafe complaint channels, and official control over statistics and narratives. Evidence is concentrated around the September–December protests, with less reliable visibility into routine detention, prison conditions, elite decision-making, personal finances, and internal command deliberations. Population-scale context is available locally: 89.5 million people in 2022 (LF2381).
+
+## Global ledger
+
+| ID | Claim and use | Profile | Chapters/lenses |
+|---|---|---|---|
+| R001 | Constitutional authority over armed forces, judiciary, Guardian Council, war/peace | academic reference; medium-high; final evidence for formal authority | 1B, 2B, 3B, 4B, 7B, 8B |
+| R002 | Controlled media, legal restrictions, journalist risk, self-censorship | NGO; medium-high; final evidence | 3B, 4B, 7B |
+| R003 | Amini detention/death and early lethal response | intergovernmental; high; final evidence | 3B.1, .3, .5, .7, .8, .9; 4B.3, .6, .7, .9 |
+| R004 | Armed-forces directives, lethal force, torture, sexual violence, family intimidation | NGO with document/evidence review; medium-high; final evidence, contested attribution noted | 3B.1-.5, .8-.9; 4B.3, .6, .9 |
+| R005 | Executions, minority repression, dress-code surveillance | NGO; medium-high; final evidence | 3B.1, .5, .7; 4B.6, .7, .9; 6B.3, .8 |
+| R006 | UN fact-finding mission established in 2022 | intergovernmental legal record; high; final evidence for institutional response | 3B.4, .9; 4B.4, .10; 7B.6-.7 |
+| R007 | Journalist arrests and internet/social-media restrictions | NGO; medium-high; final evidence | 3B.5, .8-.9; 4B.3, .6, .9; 7B.6-.7 |
+| R008 | Political/media authority and press environment | NGO country profile; medium-high; final evidence/context depending claim | 4B, 7B, 8B |
+| R009 | Iran continued enriching uranium up to 60% and expanded enrichment activity in 2022 | IAEA technical report; high; final evidence, but PDF opening failed and exact page locator is unavailable | 1B.1-.4, .10; **locator_missing—exclude from defensible count until page is restored** |
+| R010 | Khamenei’s March 2022 “knowledge-based and job-creating production” program | reproduced official speech; medium-low/context; useful for declared program, not independent implementation evidence | 5B, 8B |
+| R011 | 2022 economy: recovery driven by oil/services, water and energy shortages, budget deficit, inflation, sanctions, weakly targeted social protection | World Bank; high; final evidence for country outcomes/constraints | 5B, 6B, 8B |
+| R012 | Inflation driven by money growth, currency depreciation, fiscal deficits, and sanctions; policy recommendations | IMF working paper; high; final evidence for macro context, not personal attribution | 5B, 8B |
+| R013 | Iran acknowledged supplying drones to Russia before the invasion; conflicting timing and scope claims remain | Reuters-republished media report; medium-high; final evidence for reported acknowledgment, attribution caveat | 1B.5-.6, 2B.2, .5, .8-.10 |
+| R014 | US/European officials attributed Iranian technical support and drones to Russian attacks on Ukraine | reputable media/officially attributed reporting; medium-high; final evidence with adversarial-source caveat | 2B.2, .4-.6, .8-.10 |
+| R015 | OHCHR communication recorded alleged excessive force, arbitrary detention, torture, executions, gender violence, and internet disruption | UN special-procedures communication; high as recorded allegation, not final finding | 3B.1-.9; 4B.3, .6, .9 |
+| R016 | US State Department 2022 report records serious abuses, proxy-related conduct, corruption, expression restrictions, and lack of peaceful political change | official country report; medium-high for documented formal assessment, corroboration needed for contested claims | 2B, 3B, 4B, 7B, 8B |
+
+## Chapter-by-chapter yield
+
+### 1B
+
+Local package: no nuclear/existential-risk facts; all ten lenses are `no_evidence_found`. No local arsenal or command facts should be treated as present.
+
+Web yield: R001, R009, R013–R014. The main gaps are ruler-attributed nuclear doctrine, rhetoric, command-and-control safeguards, inspections, crisis decisions, proliferation policy, and dual-use governance. R009 remains gateway/locator-missing until the IAEA PDF page is recoverable.
+
+### 2B
+
+Local facts provide strong country context: 2022 state-based conflict events = 2 and fatalities = 39 (LF135–LF136); military spending = $8.36bn, $83.86 per capita, 2.24% of GDP, and 14.04% of government spending (LF289–LF292). These do not establish initiation, necessity, civilian protection, proxy control, or ruler motive.
+
+Web evidence adds R013–R016 on drone transfers, proxy-related conduct, and international-security responsibility. Missing or weak themes are internal deliberation, peace alternatives, civilian-harm accountability, and direct Khamenei attribution for specific external operations.
+
+### 3B
+
+Local target-year facts are substantial: UCDP records 45 one-sided-violence events and 343 fatalities, including 211 government-actor killings with an explicit warning against personal-direction inference (LF919–LF921); V-Dem physical integrity = 0.17 and extrajudicial-killing index = -1.054 (LF678, LF680); PTS Amnesty = 5, HRW = 4, State Department = 5 (LF681–LF683); civil-society repression = -2.346 and private civil liberties = 0.287 (LF918, LF922).
+
+Web evidence R003–R007 and R015 covers physical integrity, protest repression, torture, sexual violence, detention, internet disruption, journalists, minorities, and accountability gaps. The main unresolved issue is precise personal attribution from Khamenei to individual incidents; formal authority is strong, but operational chains remain partly indirect.
+
+### 4B
+
+Local target-year evidence is broad: Freedom House political rights = 7 and civil liberties = 6 (LF1319, LF1324); EIU democracy overall = 1.96 and electoral pluralism = 0 (LF1320–LF1321); V-Dem polyarchy = 0.148, multiparty institutions = 0.001, accountability = -0.773, expression = 0.112, association = 0.064, liberal democracy = 0.078, and rule of law = 0.196 (LF1322–LF1323, LF1828, LF1833–LF1840); RSF score = 23.22 and rank 178/180 (LF1838–LF1839).
+
+R002–R008 and R015 provide direct narrative evidence on media control, protest suppression, internet shutdowns, journalist arrests, and limited contestability. Missing themes include detailed 2022 election/selection events, succession/transfer conduct, and independent institutional resistance.
+
+### 5B
+
+Local facts show 2022 GDP per capita of $4,721 nominal, $18,473 in constant-2011 PPP, $16,378 in constant-2017 PPP, GNI per capita $14,770 PPP, Gini 34.8, and total nominal GDP about $422.7bn (LF2041–LF2045, LF2378–LF2380). These are outcome/context facts only.
+
+R010 supplies a declared economic program; R011 and R012 document sanctions, water/energy shortages, fiscal deficits, inflation, weak targeting, and policy constraints. The evidence gap is independent ruler-specific implementation, professional appointments, corruption/favoritism nexus, correction of mistakes, and household-level distribution.
+
+### 6B
+
+Local target-year facts cover HDI 0.780, life expectancy 74.556, expected schooling 14.117 years, mean schooling 10.746 years, under-five mortality 12.18/1,000, 99% BCG/DTP3/HepB3 coverage, adult literacy 88.59%, and secondary enrollment 85.61% (LF2510–LF2519). These establish welfare outcomes, not Khamenei’s contribution.
+
+R011 provides narrative context on social protection, inflation indexation, and shock constraints. No strong web evidence was found for Khamenei-attributed service delivery, equity, professional management, political conditionality, or crisis correction. R003/R005 provide contrary dignity and vulnerable-group evidence relevant to women and minorities but primarily belongs in 3B/4B.
+
+### 7B
+
+Local national corruption facts exist: WGI control of corruption = -1.126 (LF2672), V-Dem political corruption = 0.769, executive corruption = 0.655, public corruption = 0.659 (LF2673–LF2675). These are explicitly context-only and cannot establish personal integrity.
+
+R001 and R008 support authority and scrutiny context; R007 documents pressure on journalists; R016 reports official corruption concerns. However, a defensible personal-nexus record remains thin: no verified 2022 asset, procurement, personal-benefit, direct deception, correction, or obstruction finding concerning Khamenei himself was established. Associate/IRGC corruption cannot be personalized without stronger evidence.
+
+### 8B
+
+Local capacity context: government effectiveness = -0.882 and regulatory quality = -1.593 (LF2722–LF2723), alongside the broad 2022 economic, political, and welfare indicators above. These do not identify Khamenei’s program or execution.
+
+R001 documents central authority; R010 identifies a declared production/job program; R011–R012 document implementation constraints and outcomes; R004 demonstrates effective mobilization of coercive state networks toward regime-control objectives. Remaining gaps are portfolio definition, budgets, appointments, implementation milestones, adaptation, and durable progress across multiple material programs. Moral effects of the regime-control program must remain separate from effectiveness.
+
+## Source diversity and ledger accounting
+
+- Source families retained: Iranica, OHCHR/UN, Amnesty, HRW, RSF, World Bank, IMF, IAEA, Reuters/AP-reported media, and official/reproduced Iranian statements.
+- At least two source types are available for Chapters 2B–4B and 5B; Chapter 1B remains thin because the IAEA locator failed.
+- Chapter 7B has insufficient personal-nexus diversity and should remain explicitly unresolved.
+- Same-URL splits: R003, R004, R005, R007, R008, R011, and R012 each contain multiple distinct claims with separate locators; they should not be counted as multiple independent source families.
+- Cross-chapter reuse is substantive, not duplication: authority (R001), information environment (R002/R007/R008), protest repression (R003–R007), and economic constraints (R011/R012) recur across relevant lenses.
+
+## Local-data audit
+
+Retained as context: LF133–LF136 and LF289–LF292 for 2B; LF673–LF683 and LF916–LF922 for 3B; LF1319–LF1326 and LF1828–LF1842 for 4B; LF2041–LF2045 and LF2378–LF2381 for 5B; LF2510–LF2519 for 6B; LF2672–LF2675 for 7B; LF2722–LF2723 for 8B.
+
+Boundary and longitudinal facts were used only for inherited-versus-target context. The 2,396 omitted annual rows were not treated as missing; the parent package retains their hashed provenance. Chapter 1B’s empty local state is an explicit absence of mapped structured evidence, not evidence of non-exposure or responsible conduct.
+---

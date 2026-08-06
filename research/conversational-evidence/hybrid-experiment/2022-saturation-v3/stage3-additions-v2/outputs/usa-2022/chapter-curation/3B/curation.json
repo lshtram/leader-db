@@ -1,0 +1,162 @@
+{
+  "chapter_id": "3B",
+  "records": [
+    {
+      "evidence_id": "E0044",
+      "disposition": "retain",
+      "source_family": "White House",
+      "duplicate_of": null,
+      "reason": "Core 2022 presidential policing order with direct policy language on accountability, transparency, and anti-profiling."
+    },
+    {
+      "evidence_id": "E0045",
+      "disposition": "context",
+      "source_family": "White House",
+      "duplicate_of": null,
+      "reason": "Same order, but the protected-group and anti-pretext-stop clause adds a useful sub-detail on scope and limits."
+    },
+    {
+      "evidence_id": "E0046",
+      "disposition": "context",
+      "source_family": "White House",
+      "duplicate_of": null,
+      "reason": "Good implementation corroboration, but it is retrospective and still mainly reflects federal policing rather than local reform."
+    },
+    {
+      "evidence_id": "E0047",
+      "disposition": "retain",
+      "source_family": "BJS",
+      "duplicate_of": null,
+      "reason": "Direct institutional follow-through showing a new misconduct repository tied to EO 14074."
+    },
+    {
+      "evidence_id": "E0048",
+      "disposition": "drop",
+      "source_family": "DOJ",
+      "duplicate_of": "E0047",
+      "reason": "Same NLEAD mechanism as E0047; the DOJ fact sheet adds no material fact beyond the BJS overview."
+    },
+    {
+      "evidence_id": "E0049",
+      "disposition": "retain",
+      "source_family": "GovInfo",
+      "duplicate_of": null,
+      "reason": "Best direct record of BSCA enactment and the 2022 domestic-safety law Biden signed."
+    },
+    {
+      "evidence_id": "E0050",
+      "disposition": "context",
+      "source_family": "CRS",
+      "duplicate_of": null,
+      "reason": "Adds legislative scope and rationale for BSCA, but the statute itself is the stronger source."
+    },
+    {
+      "evidence_id": "E0051",
+      "disposition": "drop",
+      "source_family": "White House",
+      "duplicate_of": "E0049",
+      "reason": "Signing remarks repeat the enacted law already captured by E0049 with less detail."
+    },
+    {
+      "evidence_id": "E0052",
+      "disposition": "drop",
+      "source_family": "White House",
+      "duplicate_of": null,
+      "reason": "Rhetorical post-shooting statement; useful framing, but it is weaker than the later policy and implementation evidence."
+    },
+    {
+      "evidence_id": "E0053",
+      "disposition": "context",
+      "source_family": "White House",
+      "duplicate_of": null,
+      "reason": "Useful White House-level coordination context for hate-motivated violence, though it is mostly messaging and convening."
+    },
+    {
+      "evidence_id": "E0054",
+      "disposition": "retain",
+      "source_family": "DOJ",
+      "duplicate_of": null,
+      "reason": "Concrete DOJ hate-crime initiatives with specific guidance, reporting, and grant actions."
+    },
+    {
+      "evidence_id": "E0055",
+      "disposition": "context",
+      "source_family": "DOJ",
+      "duplicate_of": null,
+      "reason": "Nationwide outreach rollout that corroborates the hate-crime effort, but it overlaps heavily with E0054."
+    },
+    {
+      "evidence_id": "E0056",
+      "disposition": "context",
+      "source_family": "DOJ",
+      "duplicate_of": null,
+      "reason": "Early priority/funding context for hate-crime enforcement and prevention, but not a distinct 2022 mechanism."
+    },
+    {
+      "evidence_id": "E0057",
+      "disposition": "drop",
+      "source_family": "White House",
+      "duplicate_of": null,
+      "reason": "Norm-setting rhetoric on January 6 is less informative than the DOJ/FBI operational evidence."
+    },
+    {
+      "evidence_id": "E0058",
+      "disposition": "retain",
+      "source_family": "FBI",
+      "duplicate_of": null,
+      "reason": "Concrete federal threat assessment and accountability figures on domestic extremism and the Capitol assault."
+    },
+    {
+      "evidence_id": "E0059",
+      "disposition": "retain",
+      "source_family": "Human Rights Watch",
+      "duplicate_of": null,
+      "reason": "Independent year-end synthesis of asylum and border treatment concerns, useful for adverse balance."
+    },
+    {
+      "evidence_id": "E0060",
+      "disposition": "context",
+      "source_family": "Human Rights Watch",
+      "duplicate_of": null,
+      "reason": "Contemporaneous critique of asylum reopening plans, useful as a limitation on the border record."
+    },
+    {
+      "evidence_id": "E0061",
+      "disposition": "retain",
+      "source_family": "Amnesty International",
+      "duplicate_of": null,
+      "reason": "Direct rights-monitor evidence of severe ill-treatment of Haitian asylum seekers and linked border violence."
+    },
+    {
+      "evidence_id": "E0062",
+      "disposition": "drop",
+      "source_family": "ACLU",
+      "duplicate_of": null,
+      "reason": "Advocacy summary of Title 42 largely overlaps with the stronger HRW and Amnesty border evidence."
+    },
+    {
+      "evidence_id": "E0063",
+      "disposition": "retain",
+      "source_family": "ACLU",
+      "duplicate_of": null,
+      "reason": "Contemporary ACLU critique that EO 14074 was a starting point but stopped short of deeper local-police reform."
+    },
+    {
+      "evidence_id": "E0064",
+      "disposition": "context",
+      "source_family": "The Guardian",
+      "duplicate_of": null,
+      "reason": "Broad year-end synthesis that reinforces the claim that the policing order had limited practical reach."
+    }
+  ],
+  "summary": {
+    "retained": 8,
+    "context": 8,
+    "dropped": 5,
+    "remaining_concerns": [
+      "Most affirmative evidence is federal-level policy or implementation rather than measurable local-outcome change.",
+      "Border-policy evidence is largely retrospective and critical rather than a direct operational record.",
+      "The policing-reform record shows stronger federal action than local enforcement impact."
+    ]
+  }
+}

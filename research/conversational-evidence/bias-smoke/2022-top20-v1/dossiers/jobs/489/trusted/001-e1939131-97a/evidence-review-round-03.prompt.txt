@@ -1,0 +1,1373 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:DEU:16984",
+  "iso3": "DEU",
+  "country_name": "Germany",
+  "ruler_name": "Olaf Scholz",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 75,
+  "approximate_source_family_count": 24,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "missing_local_audit",
+      "message": "The required local-data disposition audit is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed. The supplied local package was used first; no local files were read. The workspace is read-only, so I could not write the requested ledger files. The following is the append-ready handoff.
+
+## Reconnaissance and authority baseline
+
+Olaf Scholz was elected chancellor by the Bundestag in December 2021 after a free federal election and led the SPD–Green–FDP coalition. The chancellor is head of government but operates under Bundestag election/removal rules and coalition constraints. [Freedom House, Germany 2022](https://freedomhouse.org/country/germany/freedom-world/2022)
+
+Key ruler-period authority evidence:
+
+- **R001** — Scholz’s 24 February address formally attributed Russia’s invasion decision to Putin, described prior diplomatic warnings, announced coordinated EU/NATO/G7 sanctions, and suspended Nord Stream 2 certification. Target fit: exact 2022. Source: official government transcript, high confidence for statement/action chronology; official self-assessment requires corroboration. Supports 2B.1, 2B.2, 2B.3, 2B.6, 2B.7, 2B.10, 4B.10, 8B.1–8B.3. [Transcript](https://www.bundesregierung.de/breg-en/service/archive/televised-address-by-federal-chancellor-olaf-scholz-on-the-russian-attack-against-ukraine-2007846), lines 133–218.
+
+- **R002** — Scholz’s 27 February policy statement announced the €100 billion Bundeswehr special fund, commitment to exceed 2% of GDP for defence, cyber/disinformation resilience, replacement aircraft for NATO nuclear sharing, LNG terminals, energy diversification, relief measures, and continued diplomatic channels with Russia. Target fit: exact 2022. Official source, high confidence for declared policy; implementation and consequences require independent evidence. Supports 1B.1, 1B.2, 1B.3, 1B.7–1B.10; 2B.1, 2B.3, 2B.8, 2B.10; 5B.1, 5B.3, 5B.6, 5B.9, 5B.10; 8B.1–8B.10. [Policy statement](https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378), lines 306–438.
+
+- **R003** — Germany reversed its longstanding arms-export restriction and supplied Ukraine with defensive weapons beginning immediately after the invasion. Target fit: exact 2022. Official record, high confidence for the government’s decision; the government’s characterization as defensive is partly self-serving and should be paired with independent reporting. Supports 2B.1–2B.5, 2B.7–2B.10, 8B.2–8B.6. [Policy statement](https://www.bundesregierung.de/breg-en/service/archive/policy-statement-by-olaf-scholz-chancellor-of-the-federal-republic-of-germany-and-member-of-the-german-bundestag-27-february-2022-in-berlin-2008378).
+
+- **R004** — Scholz government pledged €425 million humanitarian/development assistance and €70 million medical supplies for Ukraine in spring 2022. Target fit: exact 2022. Official source, medium-high confidence for announced allocation; implementation requires independent confirmation. Supports 2B.4, 2B.7, 6B.2, 6B.6, 8B.2–8B.6. [Government speech](https://www.bundesregierung.de/breg-en/service/archive/speech-by-chancellor-olaf-scholz-at-the-ukraine-donors-conference-2037298).
+
+## Evidence-environment assessment
+
+- Germany had high criticism and civil-society visibility: Freedom House described a vibrant political culture and civil society; Amnesty and Human Rights Watch documented protest, privacy, discrimination and refugee issues.
+- Reporting channels were comparatively open, but source visibility was uneven: open reporting of local incidents should not be equated with national-ruler responsibility.
+- The information environment included legal privacy disputes, surveillance powers, press-freedom concerns and attacks on journalists. [Human Rights Watch](https://www.hrw.org/world-report/2022/country-chapters/germany), [Amnesty Germany 2022](https://www.amnesty.de/informieren/amnesty-report/deutschland-2022).
+- Official statistics and structured indicators are available and relatively reliable, but national averages do not establish ruler attribution.
+- Main languages searched: English and German. Source families were concentrated among German government, Bundestag, EU/Council of Europe, IMF/OECD, Amnesty, HRW and Freedom House.
+- Major shocks were Russia’s invasion, energy-price disruption, inflation, refugee inflows and the continuing pandemic tail.
+- The main bias risks are visibility bias in an open democracy, attribution of coalition or ministerial decisions to the chancellor, and confusing inherited country quality with Scholz-specific conduct.
+
+## Chapter 1B — Nuclear and existential risk
+
+Local baseline: no ruler-specific nuclear evidence. Local SIPRI military expenditure facts are contextual only. Relevant local military-spending facts include **LF049–LF052 (2011)**, **LF085–LF088 (2020)**, **LF089–LF092 (2021)** and **LF093–LF096 (2022)**; all are country-level and carry no nuclear attribution.
+
+Retained narrative evidence:
+
+- **R002** — Scholz explicitly tied the Bundeswehr fund to defence modernization and stated that Germany would replace Tornado aircraft used in NATO nuclear sharing. This is a direct target-period policy choice, but it does not establish nuclear rhetoric, command safety, arms-control conduct or proliferation restraint.
+- **R005** — NATO’s 2022 Strategic Concept retained nuclear deterrence as part of collective defence. This is institutional context, not Scholz-specific evidence. [NATO Strategic Concept](https://www.nato.int/en/about-us/official-texts-and-resources/strategic-concepts/nato-2022-strategic-concept)
+- **R006** — Scholz stated that Germany would maintain diplomatic channels even during the Ukraine crisis. This is relevant to crisis communication but not specifically nuclear de-escalation. **R002**, lines 414–428.
+
+Gaps requiring further research: nuclear rhetoric during 2022; German participation in nuclear consultation and safeguards; command-and-control or safety decisions; arms-control/nonproliferation actions; cyber/biological/AI catastrophic-risk governance; and evidence of actual implementation of nuclear-sharing aircraft decisions.
+
+## Chapter 2B — International peace and lawful security
+
+Local baseline: UCDP records zero German state-based or internationalized conflict events and fatalities in 2011, 2020, 2021 and 2022 (**LF001–LF048**). These establish Germany’s exposure/location only, not Scholz’s conduct. SIPRI spending facts (**LF049–LF096**) establish military burden, not motive or aggression.
+
+Retained evidence:
+
+- **R001** — diplomatic warnings to Putin, sanctions, and Nord Stream 2 suspension.
+- **R003** — defensive arms deliveries to Ukraine after invasion.
+- **R004** — humanitarian and medical support.
+- **R007** — Scholz publicly stated that the government would not refuse talks with Russia and that diplomacy should keep communication channels open. Official statement; positive but partly self-presentational. **R002**, lines 414–428.
+- **R008** — Scholz’s May 2022 donor-conference statement described continued sanctions, defence support, humanitarian aid and €425 million plus €70 million commitments. Official source; target-period fit exact, implementation partly unresolved. [Government speech](https://www.bundesregierung.de/breg-en/service/archive/speech-by-chancellor-olaf-scholz-at-the-ukraine-donors-conference-2037298)
+- **R009** — Scholz’s policy later described German military and humanitarian support as coordinated with allies. This supports coalition/alliances context, but official claims require independent corroboration. [Government policy/interview](https://www.bundesregierung.de/breg-de/aktuelles/interview-bild-2167794)
+
+Main unresolved issues: whether German pre-invasion energy dependence and delayed defence adaptation created foreseeable security risks; the extent of Scholz’s personal responsibility for arms-delivery timing; civilian-protection and end-use controls; and the government’s conduct toward peace negotiations beyond public statements.
+
+## Chapter 3B — Domestic safety and protection
+
+Local baseline: target-year physical-integrity and repression indicators are available but country-level:
+
+- **LF197–LF206**: 2022 CIRIGHTS physical-integrity, killings, disappearances, political imprisonment and torture fields, plus PTS scores.
+- **LF202–LF203**: V-Dem extrajudicial-killing and physical-integrity measures.
+- **LF273–LF278**: 2022 civil/political rights, repression, civil-society repression and one-sided violence.
+- These facts are context and do not establish Scholz’s personal direction or tolerance.
+
+Retained evidence:
+
+- **R010** — Amnesty reported that a May 2022 administrative-court ruling protected protest camps under constitutional assembly rights. This is a formal legal protection relevant to protest space, though it reflects judicial action rather than necessarily Scholz’s initiative. [Amnesty Germany 2022](https://www.amnesty.de/informieren/amnesty-report/deutschland-2022)
+- **R011** — Amnesty reported a constitutional/privacy ruling against part of telecommunications surveillance and the repeal of the criminal prohibition on advertising abortion services. These are institutional rights developments, not direct chancellor attribution. [Amnesty Germany 2022](https://www.amnesty.de/informieren/amnesty-report/deutschland-2022)
+- **R012** — Human Rights Watch documented surveillance powers, privacy concerns, discrimination affecting Roma, migrant access problems and attacks on journalists in the inherited 2021 environment. Contextual baseline; not direct Scholz attribution. [HRW Germany 2022](https://www.hrw.org/world-report/2022/country-chapters/germany)
+- **R013** — Freedom House reported violent anti-COVID protests and journalist attacks, while noting that assembly rights had also been criticized as unfairly restricted during the pandemic. This provides mixed evidence about safety and protest management. [Freedom House Germany 2022](https://freedomhouse.org/country/germany/freedom-world/2022)
+
+Gaps: direct Scholz rhetoric or orders concerning police abuse, emergency powers, minority protection, surveillance, prison conditions, hate crime prevention and crisis response during 2022.
+
+## Chapter 4B — Political freedom
+
+Local baseline:
+
+- **LF377–LF384**: 2022 Freedom House civil/political liberties, V-Dem electoral democracy, multiparty institutions, regime type and suffrage.
+- **LF536–LF550**: 2022 accountability, expression, association, judicial and legislative constraints, liberal democracy, press freedom, rule of law and WGI voice/rule-of-law.
+- These show a strong inherited democratic-institutional environment with some downward movement in several V-Dem and RSF measures, but they do not by themselves establish Scholz’s contribution.
+
+Retained evidence:
+
+- **R014** — Freedom House recorded free and fair federal elections, Bundestag election of Scholz, largely free media and constitutional protections. Country/institutional context with formal office attribution. [Freedom House Germany 2022](https://freedomhouse.org/country/germany/freedom-world/2022)
+- **R015** — The Federal Constitutional Court ruled in 2022 that domestic-intelligence data-sharing powers violated informational self-determination. This is strong evidence that judicial constraints operated, but not evidence that Scholz personally strengthened them. [Federal Constitutional Court](https://www.bundesverfassungsgericht.de/SharedDocs/Pressemitteilungen/EN/2022/bvg22-085.html)
+- **R016** — Amnesty documented judicial protection of protest camps and privacy-related judicial limits. Institutional-protection evidence; ruler attribution indirect. [Amnesty Germany 2022](https://www.amnesty.de/informieren/amnesty-report/deutschland-2022)
+- **R017** — HRW and Freedom House documented surveillance-law and media-freedom concerns, including spyware powers and pressure on expression. These are adverse institutional-context items; direct Scholz attribution is unresolved. [HRW](https://www.hrw.org/world-report/2022/country-chapters/germany), [Freedom House](https://freedomhouse.org/country/germany/freedom-world/2022)
+
+Gaps: Scholz-specific treatment of opposition, journalists, civil-society monitors, coalition self-binding, appointments to oversight bodies, digital controls, and constitutional-transfer decisions during the target year.
+
+## Chapter 5B — Economic well-being
+
+Local baseline:
+
+- **LF622–LF628**: 2022 consumption, nominal GDP per capita, PPP GDP, GNI, household consumption and Gini.
+- **LF758–LF764**: 2022 nominal GDP, PPP GDP, real GDP, government consumption, capital formation and population.
+- Current-dollar fields carry explicit warnings against interpreting nominal changes as real growth.
+- Longitudinal signals show positive PPP/GNI development but weaker recent consumption, capital-formation and government-effectiveness trends; all remain country-level and causally distant.
+
+Retained evidence:
+
+- **R018** — IMF’s July 2022 Article IV identified the Russian-gas shutdown and energy-price shock as major risks; it recorded government income support for vulnerable households, fuel-tax cuts and firm liquidity support. Independent intergovernmental assessment, high confidence for policy description and macro context. [IMF Germany 2022](https://www.imf.org/en/publications/cr/issues/2022/07/19/germany-2022-article-iv-consultation-press-release-staff-report-and-statement-by-the-521018)
+- **R019** — OECD identified persistent inflation, energy-security needs, weak domestic demand and weak business dynamism, while recommending faster green-transition investment. Independent assessment; 2023 publication used retrospectively for 2022 conditions. [OECD Germany Survey](https://www.oecd.org/en/publications/oecd-economic-surveys-germany-2023_9642a3f5-en.html)
+- **R020** — The government’s 27 February statement described energy diversification, LNG terminals, renewable expansion and relief for low earners, families and businesses. Official declared action; implementation needs corroboration. **R002**, lines 364–395.
+- **R021** — The government announced a €65 billion third relief package in September 2022 aimed at energy-price relief and support for citizens. Official source; target fit exact, independent distributional evaluation absent. [Federal government](https://www.bundesregierung.de/breg-fr/service/archives/troisi%C3%A8me-paquet-allegements-2123134)
+- **R022** — Government records show a statutory minimum-wage increase to €10.45 in July 2022, with the broader €12 increase announced for October. Formal policy record; distributional effects require independent evidence. [Federal government](https://www.bundesregierung.de/breg-en/service/archive/mindestlohn-faq-1765550)
+
+Gaps: appointments and empowerment of economic professionals; implementation quality; evidence-based correction; regional/household distribution; inflation-management tradeoffs; and responsibility for pre-2022 Russian-energy dependence.
+
+## Chapter 6B — Social well-being
+
+Local baseline:
+
+- **LF809–LF816**: 2022 expected schooling, HDI, life expectancy, mean schooling, under-five mortality, DTP3/HepB3 vaccination and secondary enrollment.
+- **LF626**: 2022 GNI per capita.
+- These show high human-development outcomes and service coverage, but not Scholz-specific action. Local package has no usable target-year fact for political conditionality of welfare (**6B.7**).
+
+Retained evidence:
+
+- **R023** — Destatis reported approximately 1.01 million Ukrainians seeking protection in Germany at the end of 2022. Formal statistical record, high confidence for scale and exposure; does not by itself establish policy quality. [Destatis](https://www.destatis.de/EN/Press/2023/03/PE23_125_125.html)
+- **R024** — The Bundestag reported approximately €2.144 billion in federal support to Länder and municipalities for Ukrainian refugees in 2022. Formal budget/support record; implementation and adequacy require further evaluation. [Bundestag](https://www.bundestag.de/presse/hib/kurzmeldungen-933372)
+- **R025** — Amnesty recorded a humanitarian admission programme for vulnerable Afghans and the repeal of the abortion-advertising prohibition. Institutional/social-rights evidence, with indirect attribution. [Amnesty Germany 2022](https://www.amnesty.de/informieren/amnesty-report/deutschland-2022)
+- **R026** — The government’s 2022 relief measures included heating subsidies, family support and tax relief. Official policy evidence; distributional effects unresolved. **R002**, lines 389–395.
+- **R027** — IMF documented income support for vulnerable households and liquidity support for firms during the energy shock. Independent corroboration of crisis policy. [IMF](https://www.imf.org/en/publications/cr/issues/2022/07/19/germany-2022-article-iv-consultation-press-release-staff-report-and-statement-by-the-521018)
+
+Gaps: service quality and affordability, regional/group distribution, professional management, evidence-based correction, political conditionality, pandemic response attribution and long-run durability.
+
+## Chapter 7B — Personal integrity and honesty
+
+Local baseline: only country-level corruption/context facts are supplied:
+
+- **LF861–LF864**: 2022 WGI control of corruption and V-Dem political, executive and public-corruption indices.
+- These cannot establish Scholz’s personal honesty, benefit, favoritism or obstruction.
+
+Retained evidence:
+
+- **R028** — Bundestag debate in October 2022 recorded continuing scrutiny of Cum-Ex dealings involving Hamburg’s Warburg Bank and the fact that Hamburg under then-mayor Scholz had not pursued certain tax recoveries. This is a direct personal-political nexus but remains a contested allegation/accountability issue, not a finding of dishonesty. [Bundestag](https://www.bundestag.de/dokumente/textarchiv/2022/kw41-de-aktuelle-stunde-warburg-915258)
+- **R029** — Bundestag materials described a proposed inquiry into whether Hamburg allowed Cum-Ex tax-recovery claims to expire and the role of Scholz. This supports scrutiny and unresolved attribution, not a settled conclusion. [Bundestag](https://www.bundestag.de/presse/hib/kurzmeldungen-954232)
+- **R030** — GRECO’s 2022 compliance process assessed Germany’s anti-corruption and integrity framework for top executive functions and law enforcement. It is institutional context; it does not establish Scholz’s personal conduct. [GRECO Germany](https://www.coe.int/en/web/greco/evaluations/germany)
+
+Important limitation: no accepted item currently establishes a final judicial finding that Scholz personally lied, profited, concealed evidence or obstructed scrutiny during 2022. Country corruption indicators and institutional weaknesses remain context-only.
+
+## Chapter 8B — Effectiveness and competence
+
+Local baseline:
+
+- **LF887–LF888**: 2022 WGI government effectiveness and regulatory quality.
+- **LF536, LF548–LF550**: accountability, rule of law and voice indicators.
+- These establish inherited administrative capacity and institutional context, not Scholz’s effectiveness.
+
+Retained evidence:
+
+- **R031** — Scholz converted the Ukraine shock into explicit priorities: defence fund, NATO spending, energy diversification, LNG infrastructure, cyber resilience and continued diplomacy. Direct program evidence. **R002**.
+- **R032** — The IMF independently documented the government’s energy-relief and liquidity-support response, providing implementation corroboration for part of the crisis programme. [IMF](https://www.imf.org/en/publications/cr/issues/2022/07/19/germany-2022-article-iv-consultation-press-release-staff-report-and-statement-by-the-521018)
+- **R033** — OECD identified both policy response and continuing structural weaknesses in investment, business dynamism and energy transition. This provides contrary evidence against treating declared programmes as fully successful. [OECD](https://www.oecd.org/en/publications/oecd-economic-surveys-germany-2023_9642a3f5-en.html)
+- **R034** — Federal and Bundestag records document refugee-support funding and administrative reception at large scale. These are implementation facts, though attribution is coalition/federal rather than exclusively personal. [Destatis](https://www.destatis.de/EN/Press/2023/03/PE23_125_125.html), [Bundestag](https://www.bundestag.de/presse/hib/kurzmeldungen-933372)
+- **R035** — The 2022 coalition operated under significant coalition and shock constraints; the source record shows policy areas involving finance, economy, defence, social policy and foreign affairs, but does not isolate Scholz’s personal coordination effectiveness. This remains a research gap requiring contemporaneous reporting or parliamentary records.
+
+Gaps: appointments, implementation timelines, replacement of ineffective implementers, adaptation after failed measures, programme outcomes across more than one portfolio, and coalition-management evidence within 2022.
+
+## Source diversity and reuse
+
+Source families retained:
+
+- German federal government and Bundestag: formal policy, speeches, budgets and scrutiny.
+- Federal Constitutional Court: judicial constraints and privacy.
+- Freedom House, Amnesty, HRW: civil liberties, protest, discrimination and surveillance.
+- IMF and OECD: independent macroeconomic assessment.
+- NATO: nuclear/alliance context.
+- GRECO/Council of Europe: integrity-framework context.
+- Destatis/BAMF/Bundestag: refugee scale and funding.
+
+Same-URL splits were used for materially distinct claims from Scholz’s 24 February and 27 February statements; they should remain separate ledger items because the locators and claims differ. Cross-chapter reuse is concentrated in **R001–R004**, **R002**, **R010–R017**, **R018–R022**, and **R023–R027**.
+
+## Rejected or context-only candidate classes
+
+- Client matrix: excluded entirely.
+- Local country indicators: retained as structured context, not ruler-attributed evidence.
+- Local zeros in UCDP: interpreted as recorded country exposure, never as proof of peace or Scholz restraint.
+- Official claims of defensive intent, decisive action or fairness: retained for declared policy and chronology, but not sole support for effects or integrity.
+- Post-period sources: used only for retrospective context or omitted from target-period claims.
+- Search-result snippets without opened underlying pages: not counted as defensible evidence.
+
+No scores, score ranges or ranking recommendations were assigned.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 3,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The principal allegations are not findings and require careful separation.",
+        "R028-R029 may duplicate one underlying controversy.",
+        "The supplied evidence is insufficient for a fair personal-integrity assessment and targeted research could materially improve attribution and contrary evidence."
+      ],
+      "missing_themes": [
+        "Personal statements and responses to Cum-Ex scrutiny",
+        "Evidence of personal benefit, concealment, obstruction, correction, or recusal",
+        "Independent judicial or investigative findings",
+        "Contemporaneous financial, appointment, and oversight records"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable institutional evidence and adverse integrity scrutiny were included, but the notebook does not document a sufficiently broad search for personal statements, benefit, concealment, correction, or contrary exculpatory records.",
+        "closed_system_silence": "Germany has comparatively open reporting, but absence of a finding or reported misconduct does not establish integrity; confidential communications and undisclosed influence remain possible gaps.",
+        "open_system_complaint_volume": "Parliamentary scrutiny and public controversy may reflect visibility and political contestation rather than proven misconduct; volume must not be treated as severity.",
+        "duplicate_reporting": "R028 and R029 concern the same Cum-Ex/Warburg controversy and are not independent facts. R030 is institutional context. Deduplication is required before counting.",
+        "allegations_vs_findings": "R028-R029 are explicitly unresolved scrutiny and proposed inquiry, not findings of dishonesty. R010-R017 and R030 describe institutional actions or frameworks rather than personal conduct.",
+        "official_claim_independence": "Official and parliamentary materials are useful for chronology and scrutiny but do not independently establish Scholz's honesty or intent. GRECO independently assesses institutional safeguards, not his personal conduct.",
+        "population_exposure_authority_baseline_shocks": "Country corruption indicators are inherited context. The notebook does not establish Scholz's 2022 authority over the earlier Hamburg matter, nor address exposure, opportunity, or political incentives in a sufficiently specific way.",
+        "missing_source_type": "Primary judicial or investigative findings, contemporaneous financial/recusal records, and direct Scholz statements or documented responses are missing for the principal personal-integrity risk.",
+        "supporting_evidence_ids": [
+          "R028",
+          "R029",
+          "R030"
+        ],
+        "unresolved_risks": [
+          "Personal-integrity nexus is contested and temporally connected to conduct before the target year.",
+          "No final finding, direct benefit, lie, concealment, obstruction, or corrective action is established.",
+          "The adverse record is concentrated in one controversy and one source family.",
+          "Reviewer references absent from the notebook were removed: LF861-LF864"
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Official sources dominate the ruler-attributed record.",
+        "Several retained items overlap materially and should be deduplicated or split by locator and claim.",
+        "A bounded continuation could materially recover contrary and independent evidence."
+      ],
+      "missing_themes": [
+        "Independent assessment of arms-delivery timing and end-use controls",
+        "Civilian-protection and international-law consequences",
+        "Pre-2022 energy/security decisions and inherited responsibility",
+        "Peace-negotiation and de-escalation conduct beyond official statements",
+        "Proxy, sanctions, and recipient-conduct checks"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable decisions and diplomatic support are documented, and unresolved risks are named, but adverse searches on energy dependence, arms-delivery timing, civilian protection, end-use controls, and negotiations were not completed.",
+        "closed_system_silence": "Open German institutions reduce but do not eliminate concealment risk around security decisions, end-use controls, intelligence, and diplomatic negotiations.",
+        "open_system_complaint_volume": "Public criticism in an open system could overrepresent visible policy disputes; complaint or media volume should not be equated with aggression or failure.",
+        "duplicate_reporting": "R001/R007 overlap on diplomacy and R004/R008 overlap on aid commitments. R009 appears to restate coordinated-support claims. These should not be counted as independent corroboration.",
+        "allegations_vs_findings": "R001-R004 and R007-R009 are official declarations or policy records; they establish stated decisions and commitments, not all effects or legal/moral conclusions. Local UCDP and SIPRI facts are country context only.",
+        "official_claim_independence": "The main evidence is German government material. Its chronology is useful, but claims of defensive intent, coordination, and diplomatic responsibility require independent checks.",
+        "population_exposure_authority_baseline_shocks": "Ukraine's invasion, alliance obligations, energy dependence, coalition constraints, and Germany's exposure are identified. The notebook does not fully separate inherited energy/security baselines from Scholz-era responsibility.",
+        "missing_source_type": "Independent contemporaneous reporting, parliamentary oversight, arms-export/end-use records, and humanitarian-law or civilian-impact assessments are missing for the principal attribution and harm risks.",
+        "supporting_evidence_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R007",
+          "R008",
+          "R009"
+        ],
+        "unresolved_risks": [
+          "No independent assessment of arms timing, civilian-protection effects, or end-use controls.",
+          "Pre-invasion energy dependence and delayed defence adaptation remain unattributed.",
+          "Institutional and coalition responsibility is not isolated from personal chancellor responsibility.",
+          "Reviewer references absent from the notebook were removed: LF001-LF048, LF049-LF096"
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Country indicators and judicial rulings cannot by themselves establish ruler conduct.",
+        "The evidence is balanced in direction but thin on governing action and remedy.",
+        "Further bounded research could materially improve attribution and event coverage."
+      ],
+      "missing_themes": [
+        "Direct Scholz rhetoric, orders, or oversight concerning police abuse",
+        "Emergency powers and pandemic-response accountability",
+        "Prison conditions and detention safeguards",
+        "Minority protection and hate-crime prevention",
+        "Remedies, implementation, and federal/state responsibility"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both protective rulings and adverse surveillance, discrimination, journalist-attack, and protest-management material were included, but direct searches for Scholz-specific orders, rhetoric, remedies, and police accountability are absent.",
+        "closed_system_silence": "Germany's open reporting environment supports visibility, but police abuse, detention conditions, surveillance operations, and minority harms may remain underreported or institutionally obscured.",
+        "open_system_complaint_volume": "Visible protests and journalist attacks may increase reported complaint volume in Germany relative to less open systems; volume cannot be treated as ruler-caused severity.",
+        "duplicate_reporting": "R010-R011 and R016 overlap on protest/privacy judicial protections; R012 and R017-type concerns are partly recurring institutional reporting. Deduplication is required.",
+        "allegations_vs_findings": "R010-R013 report court rulings, rights conditions, protest violence, and institutional concerns; they do not establish Scholz personally ordered, tolerated, or remedied abuse.",
+        "official_claim_independence": "The core adverse material comes from Amnesty, HRW, and Freedom House; the courts provide independent checks. There is little direct official evidence of executive response or implementation.",
+        "population_exposure_authority_baseline_shocks": "Pandemic-tail restrictions, refugee inflows, minority exposure, and federal/state policing structures matter. The notebook does not quantify affected populations or establish Scholz's authority over subordinate implementation.",
+        "missing_source_type": "Police and prison administrative records, parliamentary oversight, court records tied to executive action, and independent investigations of 2022 incidents are missing.",
+        "supporting_evidence_ids": [
+          "R010",
+          "R011",
+          "R012",
+          "R013"
+        ],
+        "unresolved_risks": [
+          "Attribution is largely institutional or state-level rather than chancellor-specific.",
+          "No systematic incident-level review of police abuse, prisons, hate crime, or emergency powers is supplied.",
+          "Federal/state shared authority and pandemic inheritance remain unresolved.",
+          "Reviewer references absent from the notebook were removed: LF197-LF206, LF202-LF203, LF273-LF278"
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Institutional safeguards are not equivalent to chancellor-led political freedom.",
+        "The notebook lacks sufficient ruler-specific adverse and favorable governing conduct for a fair holistic assessment.",
+        "Further research could materially improve attribution and contrary evidence."
+      ],
+      "missing_themes": [
+        "Opposition and civil-society treatment",
+        "Journalist and media-pressure incidents tied to executive conduct",
+        "Appointments to oversight and judicial bodies",
+        "Digital controls and intelligence oversight",
+        "Constitutional-transfer and coalition self-binding decisions"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both democratic protections and adverse surveillance/media concerns were sought, but the notebook lacks a documented systematic search for opposition treatment, appointments, coalition self-binding, and digital-control decisions.",
+        "closed_system_silence": "Open media, courts, and civil society improve visibility, but intelligence activity, informal pressure, and coalition oversight practices may remain opaque.",
+        "open_system_complaint_volume": "Germany's strong reporting channels can generate more visible rights complaints than closed systems; complaint volume is not a direct measure of executive repression.",
+        "duplicate_reporting": "R015-R016 overlap on privacy/protest judicial constraints, while R017 combines HRW and Freedom House concerns and multiple claims. Bundling and duplicate counting require cleanup.",
+        "allegations_vs_findings": "R014-R017 distinguish free elections and judicial protections from surveillance and media-freedom concerns; adverse institutional concerns are not findings of Scholz-specific suppression.",
+        "official_claim_independence": "The Federal Constitutional Court and civil-society organizations provide independent checks. Freedom House is useful contextual synthesis; official election claims should still be cross-checked.",
+        "population_exposure_authority_baseline_shocks": "The inherited democratic baseline, pandemic tail, federal structure, and coalition constraints are identified. Effects on opposition groups, journalists, and minorities are not adequately denominated.",
+        "missing_source_type": "Contemporaneous parliamentary records, executive appointment/oversight records, regulator findings, and direct reporting on Scholz's treatment of opposition and journalists are missing.",
+        "supporting_evidence_ids": [
+          "R014",
+          "R015",
+          "R016",
+          "R017"
+        ],
+        "unresolved_risks": [
+          "R017 bundles multiple adverse claims and source families.",
+          "Most evidence describes institutions rather than Scholz's choices, appointments, or tolerance.",
+          "Downward indicator movement is not causally attributed to the ruler.",
+          "Reviewer references absent from the notebook were removed: LF377-LF384, LF536-LF550"
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The record supports policy chronology and macro context but not a balanced outcome assessment.",
+        "Official policy claims are overrepresented relative to independent distributional evidence.",
+        "Further research could materially improve interpretation and attribution."
+      ],
+      "missing_themes": [
+        "Regional and household distribution of relief and inflation",
+        "Implementation and ex-post evaluation",
+        "Inflation-management tradeoffs",
+        "Appointments and empowerment of economic professionals",
+        "Responsibility for inherited Russian-energy dependence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Positive relief and diversification measures are documented alongside IMF/OECD risks and weaknesses, but independent distributional and implementation searches are incomplete.",
+        "closed_system_silence": "Economic statistics are comparatively observable, but household hardship, informal coping, regional disparities, and politically inconvenient implementation failures may be incompletely captured.",
+        "open_system_complaint_volume": "Visible inflation and relief complaints can exaggerate apparent policy failure relative to less open systems; complaint volume requires denominator and outcome data.",
+        "duplicate_reporting": "R018, R020, and R021 overlap on energy relief; R020 and R002 repeat policy declarations. Distinct policy measures should be split by precise locator and repeated claims deduplicated.",
+        "allegations_vs_findings": "R018-R022 establish macro conditions, announced policies, and formal wage changes; they do not establish implementation quality, distributional outcomes, or exclusive Scholz responsibility.",
+        "official_claim_independence": "IMF and OECD independently assess macro conditions and parts of the response. Government records are authoritative for announcements but self-serving on success and fairness.",
+        "population_exposure_authority_baseline_shocks": "Russia's invasion, gas dependence, inflation, pandemic tail, household exposure, and coalition/federal constraints are addressed qualitatively. The notebook does not quantify distribution or separate inherited dependence from 2022 decisions.",
+        "missing_source_type": "Household-distribution data, labor and regional outcomes, ex-post budget/implementation audits, and contemporaneous independent economic reporting are missing for the principal welfare and competence risks.",
+        "supporting_evidence_ids": [
+          "R018",
+          "R019",
+          "R020",
+          "R021",
+          "R022"
+        ],
+        "unresolved_risks": [
+          "Declared policies are not consistently linked to implementation or outcomes.",
+          "The 2023 OECD publication is retrospective and requires careful target-year framing.",
+          "Attribution to Scholz is shared across coalition ministries and institutions.",
+          "Reviewer references absent from the notebook were removed: LF622-LF628, LF758-LF764"
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "High human-development indicators are inherited country outcomes, not ruler-specific evidence.",
+        "Formal support evidence is favorable but lacks independent outcome evaluation.",
+        "A bounded continuation could materially improve event coverage, attribution, and adverse evidence."
+      ],
+      "missing_themes": [
+        "Refugee service access, quality, and affordability",
+        "Regional and group distribution",
+        "Health, education, housing, and municipal capacity outcomes",
+        "Evidence-based correction and durability",
+        "Political conditionality and pandemic-response attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The notebook includes humanitarian admissions, funding, and relief, but lacks a broad adverse search on access, quality, affordability, regional disparities, discrimination, and implementation failures.",
+        "closed_system_silence": "Administrative and welfare failures can be hidden by aggregate reporting, especially for vulnerable refugees, migrants, and regional service users despite generally open reporting.",
+        "open_system_complaint_volume": "Germany's open complaint and civil-society environment may make refugee and welfare failures more visible; reported volume cannot be read as population-adjusted severity.",
+        "duplicate_reporting": "R023/R024 and R026/R027 concern related response themes but are materially distinct when locator and claim are separated. Government relief claims may recur across R002 and R026.",
+        "allegations_vs_findings": "R023-R027 establish refugee scale, funding, admissions, and announced relief; they do not establish service adequacy, quality, durability, or personal Scholz responsibility.",
+        "official_claim_independence": "Destatis provides independent demographic measurement; IMF corroborates crisis-support policy. Bundestag and government records establish formal funding but not adequacy or outcomes. Amnesty provides rights context.",
+        "population_exposure_authority_baseline_shocks": "The unusually large Ukrainian refugee inflow, pandemic tail, federal/Länder implementation, and high baseline service capacity are acknowledged. Denominators, regional exposure, and service capacity are not adequately assessed.",
+        "missing_source_type": "Independent service-user surveys, municipal/provider capacity records, health and education access data, and audits or evaluations of refugee and social-policy implementation are missing.",
+        "supporting_evidence_ids": [
+          "R023",
+          "R024",
+          "R025",
+          "R026",
+          "R027",
+          "LF626"
+        ],
+        "unresolved_risks": [
+          "Funding and admission records do not show lived outcomes or service quality.",
+          "Responsibility is distributed across federal, Länder, municipal, and coalition actors.",
+          "Political conditionality and pandemic-response attribution are unaddressed.",
+          "Reviewer references absent from the notebook were removed: LF809-LF816"
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter cannot presently support a fair personal-integrity conclusion.",
+        "The principal gap is recoverable through targeted source and attribution research.",
+        "Allegations must not be treated as adverse findings."
+      ],
+      "missing_themes": [
+        "Direct personal statements and testimony",
+        "Evidence of benefit, concealment, obstruction, correction, or recusal",
+        "Independent judicial/prosecutorial findings",
+        "Target-period nexus to Scholz's authority and conduct",
+        "Contrary or exculpatory evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse scrutiny was located, but favorable searches for direct exculpatory records, responses, corrections, recusal, and independent findings were not documented as complete.",
+        "closed_system_silence": "Open scrutiny reduces silence risk, but absence of a final finding cannot exclude undisclosed influence, private benefit, or incomplete disclosure.",
+        "open_system_complaint_volume": "High public and parliamentary visibility can magnify controversy; allegations and inquiry volume must not be converted into severity.",
+        "duplicate_reporting": "R028 and R029 likely describe one underlying Cum-Ex/Warburg controversy and should not be counted as independent source-claim units.",
+        "allegations_vs_findings": "R028-R029 are allegations, parliamentary scrutiny, and proposed inquiry material, explicitly not findings of personal dishonesty. R030 concerns institutional integrity controls, not Scholz's personal conduct.",
+        "official_claim_independence": "Bundestag debate and inquiry materials establish public scrutiny but are politically situated. GRECO independently evaluates the framework, not personal honesty. No independent source verifies or falsifies the allegations.",
+        "population_exposure_authority_baseline_shocks": "The notebook does not adequately establish the target-period nexus between Scholz as chancellor and earlier Hamburg administrative decisions, nor his actual authority, knowledge, benefit, or opportunity to obstruct or correct.",
+        "missing_source_type": "Court or prosecutor findings, investigative records, financial/recusal documents, direct Scholz testimony, and independent contemporaneous reporting are missing.",
+        "supporting_evidence_ids": [
+          "R028",
+          "R029",
+          "R030"
+        ],
+        "unresolved_risks": [
+          "The personal-integrity nexus remains unresolved.",
+          "The two main items may be duplicate reporting of one controversy.",
+          "No accepted evidence establishes a final personal finding or exculpatory resolution.",
+          "Reviewer references absent from the notebook were removed: LF861-LF864"
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Declared priorities are not sufficient evidence of effectiveness.",
+        "Independent evidence is limited to selected macro and administrative responses.",
+        "Further bounded research could materially improve attribution, contrary evidence, and event coverage."
+      ],
+      "missing_themes": [
+        "Implementation timelines and measurable outcomes",
+        "Adaptation after failed or delayed measures",
+        "Appointments and replacement of ineffective implementers",
+        "Cross-portfolio programme performance",
+        "Coalition-management and coordination evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The notebook includes favorable policy response and OECD contrary evidence, but searches for implementation timelines, failed measures, replacement decisions, adaptation, and coalition-management evidence are incomplete.",
+        "closed_system_silence": "Germany's administrative statistics and oversight provide visibility, but delays, failed implementation, and internal coordination problems may be obscured by aggregate success reporting.",
+        "open_system_complaint_volume": "Visible criticism of energy, refugee, and coalition management may overstate severity without outcome denominators; report volume is not an effectiveness metric.",
+        "duplicate_reporting": "R031 restates R002; R032 overlaps R018/R027; R034 combines federal and Bundestag/Destatis records. These should be mapped globally and deduplicated by claim and locator.",
+        "allegations_vs_findings": "R031-R034 establish declared priorities, some independently documented support measures, and refugee-administration facts. R033 supplies contrary structural weakness. None proves personal coordination effectiveness across government.",
+        "official_claim_independence": "IMF and OECD provide independent checks on macro policy and structural weaknesses. Federal, Bundestag, and Destatis records are authoritative for actions and scale but not personal competence or success.",
+        "population_exposure_authority_baseline_shocks": "The notebook identifies war, energy shock, refugee inflow, coalition constraints, and inherited administrative capacity. It does not sufficiently separate shock difficulty from execution quality or Scholz's personal coordinating authority.",
+        "missing_source_type": "Contemporaneous implementation audits, parliamentary committee records, portfolio-level outcomes, appointment/removal records, and independent reporting on coalition coordination are missing.",
+        "supporting_evidence_ids": [
+          "R031",
+          "R032",
+          "R033",
+          "R034",
+          "R035",
+          "LF536"
+        ],
+        "unresolved_risks": [
+          "R035 is a research-gap statement, not independent evidence.",
+          "Cross-chapter reuse and same-source repetition inflate apparent breadth.",
+          "Implementation and coalition-management evidence is too thin for a confident holistic assessment.",
+          "Reviewer references absent from the notebook were removed: LF887-LF888, LF548-LF550"
+        ]
+      }
+    },
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The record is materially incomplete across the selected nuclear lenses.",
+        "Local military-spending facts are contextual only and cannot support nuclear attribution.",
+        "Promising specialist and official source classes are named but not fetched, so continuation is required."
+      ],
+      "missing_themes": [
+        "Nuclear rhetoric and threats",
+        "Nuclear consultation and safeguards",
+        "Command-and-control and safety decisions",
+        "Arms-control and nonproliferation actions",
+        "Implementation of nuclear-sharing aircraft decisions",
+        "Cyber, biological, AI, and other catastrophic-risk governance"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "A limited favorable diplomatic signal and institutional context are present, but the notebook explicitly identifies missing nuclear rhetoric, safeguards, command safety, arms control, proliferation, and catastrophic-risk searches.",
+        "closed_system_silence": "Nuclear consultation, intelligence, command-and-control, safety, and safeguards information is intrinsically closed; public silence cannot be treated as restraint or absence of misconduct.",
+        "open_system_complaint_volume": "Complaint volume is likely low because relevant nuclear decisions are secretive and technocratic; low visibility must not be interpreted as low risk.",
+        "duplicate_reporting": "R002 and R006 overlap on diplomatic channels and policy declarations; R005 is institutional NATO context. R002 should not supply multiple independent claims without precise locators.",
+        "allegations_vs_findings": "R002, R005, and R006 establish declared defence/nuclear-sharing and alliance context, not nuclear threats, safety failures, proliferation, or command decisions by Scholz.",
+        "official_claim_independence": "The official chancellor statements establish declared policy. NATO independently establishes alliance doctrine, but neither verifies nuclear safety, restraint, or implementation. No independent source checks the ruler-specific claims.",
+        "population_exposure_authority_baseline_shocks": "NATO alliance obligations, Russia's invasion, Germany's non-nuclear status, inherited nuclear-sharing arrangements, and defence constraints are acknowledged. Exposure and Scholz's authority over operational nuclear decisions are not established.",
+        "missing_source_type": "IAEA/UN treaty and safeguards records, Bundestag nuclear-policy records, NATO nuclear-consultation documentation, arms-control reporting, and specialist independent nuclear analysis are missing.",
+        "supporting_evidence_ids": [
+          "R002",
+          "R005",
+          "R006"
+        ],
+        "unresolved_risks": [
+          "No direct target-period evidence on most selected nuclear lenses.",
+          "Institutional alliance policy is not ruler-specific nuclear conduct.",
+          "Secret-domain opacity makes absence of evidence especially non-diagnostic.",
+          "Reviewer references absent from the notebook were removed: LF049-LF052, LF085-LF088, LF089-LF092, LF093-LF096"
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence is sufficient for a preliminary policy-response chronology but not a fair, high-confidence effectiveness assessment.",
+        "Several claims require deterministic deduplication and precise locator reconciliation.",
+        "Continuation could materially improve the dossier."
+      ],
+      "missing_themes": [
+        "Ex-post implementation and outcome audits",
+        "Cross-portfolio coordination evidence",
+        "Adaptation and corrective action",
+        "Appointments and implementer management",
+        "Counterfactual and shock-adjusted performance assessment"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The notebook includes favorable crisis response and adverse macro/structural assessments, but does not document systematic searches for failed implementation, correction, appointments, or coalition-management evidence.",
+        "closed_system_silence": "Administrative success may be more visible than internal failures, unmet targets, or policy dissent; low reporting of hidden implementation problems is not favorable evidence.",
+        "open_system_complaint_volume": "Open criticism of coalition management and relief measures can exaggerate apparent failure without denominator or counterfactual analysis; complaints should not substitute for outcomes.",
+        "duplicate_reporting": "R020/R031 duplicate R002 themes; R018 overlaps R032 and R027; R023/R024 overlap R034. Global evidence IDs are reused appropriately, but several chapter entries still bundle or repeat underlying claims.",
+        "allegations_vs_findings": "R018-R022 and R031-R034 contain policy announcements, macro assessments, and implementation facts; they do not establish complete effectiveness or personal causation. R033 supplies contrary structural evidence rather than a finding of failure.",
+        "official_claim_independence": "IMF/OECD provide independent macro checks; government and Bundestag/Destatis records establish formal actions and scale. Independent evidence of cross-portfolio coordination is absent.",
+        "population_exposure_authority_baseline_shocks": "War, energy shock, refugee inflow, pandemic tail, coalition constraints, population exposure, and inherited capacity are acknowledged but not quantified sufficiently to distinguish shock effects from ruler performance.",
+        "missing_source_type": "Independent audits, parliamentary implementation reviews, ministry performance records, and contemporaneous investigative reporting are missing for the principal effectiveness risks.",
+        "supporting_evidence_ids": [
+          "R018",
+          "R019",
+          "R020",
+          "R021",
+          "R022",
+          "R023",
+          "R024",
+          "R025",
+          "R026",
+          "R027",
+          "R031",
+          "R032",
+          "R033",
+          "R034"
+        ],
+        "unresolved_risks": [
+          "Multiple reported items are not independent source families.",
+          "Implementation and outcome evidence remains uneven across portfolios.",
+          "The local-data disposition audit is not explicit.",
+          "Reviewer references absent from the notebook were removed: LF622-LF628, LF758-LF764, LF809-LF816, LF887-LF888"
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The notebook contains no researcher-written scores, ranges, anchors, ranking recommendations, or judge advice.",
+    "All local facts are appropriately treated as country-level or inherited context rather than automatic ruler evidence.",
+    "All chapters have material recoverable gaps; the deterministic low-yield findings are corroborated by substantive deficiencies, not used alone as saturation evidence.",
+    "The notebook states that English and German were searched, but it does not provide a chapter-level favorable/adverse search audit or complete query/source-candidate record.",
+    "Official government and parliamentary material is concentrated across several chapters; repeated coverage does not equal independent corroboration.",
+    "Approximate locator count and source-family count are insufficient to pass the dossier, especially for Chapters 1B and 7B.",
+    "The required local-data disposition audit is not explicit, so unused, contextual, and potentially blocking local facts are not fully reconciled.",
+    "No chapter is selected because missing evidence is negative ruler evidence; chapters are selected only where bounded research could materially recover attribution, contrary evidence, source quality, or event coverage."
+  ],
+  "reviewer_summary": "Continuation is required for all eight selected chapters. The handoff has useful target-period policy and institutional records, but evidence is concentrated, several items overlap or bundle claims, official claims are not consistently independently checked, and most chapters lack sufficient governing-conduct, implementation, contrary, or attribution evidence. Chapters 1B and 7B are the most acute gaps, while Chapters 2B-6B and 8B also contain recoverable material gaps. Continue only within the immutable selected lens scope, using bounded searches for the exact missing themes recorded above; do not convert country baselines, allegations, silence, complaint volume, or external shocks into ruler evidence or scores."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Completed the review-round continuation for all eight chapter reviews (1B–8B), without scoring. The filesystem was read-only, so the supplied ledger and manifest paths could not be updated; append-ready material is below.
+
+### New evidence items: R036–R052
+
+- **R036 — 7B:** Tagesschau reported Scholz’s 19 August 2022 Cum-Ex testimony: he denied influencing Hamburg tax decisions, acknowledged three meetings with Warburg representatives, said he could not recall their contents, and faced criticism over “memory gaps.” [Tagesschau, lines 151–168](https://www.tagesschau.de/inland/scholz-cum-ex-105.html). Maps: `7B.1, 7B.2, 7B.6, 7B.7, 7B.10`. Direct statement and scrutiny; not proof of dishonesty.
+
+- **R037 — 7B:** Tagesschau’s evidence review records unresolved diary allegations, the absence of an investigation against Scholz, disputed political influence, and reports of potentially deleted emails. [Tagesschau FAQ, lines 178–194](https://www.tagesschau.de/inland/innenpolitik/faq-cum-ex-warburg-100.html). Maps: `7B.3, 7B.4, 7B.6, 7B.7`. Adverse but unresolved; no finding of personal benefit or obstruction.
+
+- **R038 — 7B:** Scholz stated in a September 2022 FAZ interview that investigations, witnesses, and documents had produced the same conclusion: no political influence. [SPD-hosted FAZ interview, lines 126–127](https://olaf-scholz.spd.de/aktuelles/detail/news/olaf-scholz-im-interview-mit-der-faz-1/06/09/2022). Maps: `7B.1, 7B.2, 7B.6, 7B.10`. Direct exculpatory statement; self-serving and requiring corroboration.
+
+- **R039 — 7B:** NDR Panorama documented the Cum-Ex controversy, Scholz’s transparency commitment, meetings with Warburg officials, and diary-based questions. [NDR Panorama](https://www.ndr.de/fernsehen/sendungen/panorama/archiv/2022/Cum-Ex-Olaf-Scholz-und-die-Wahrheit%2Ccumex512.html). Maps: `7B.1, 7B.3, 7B.6, 7B.7`. Independent investigative reporting; allegations remain allegations.
+
+- **R040 — 2B/8B:** Bundestag Scientific Services explains that German arms exports require Federal Government approval under Article 26 of the Basic Law; licenses are decided through the Economy Ministry using Foreign Office and Defence assessments, while contentious cases go to the secret Federal Security Council. [Bundestag Scientific Services PDF, pp. 1–3](https://www.bundestag.de/resource/blob/938170/12bc979cb7133464ad633f20565578ff/WD-2-016-23_EN-pdf-data.pdf). Maps: `2B.3, 2B.4, 2B.5, 2B.8, 2B.9, 8B.2, 8B.3`. Establishes formal authority and institutional constraints, not personal orders.
+
+- **R041 — 2B/8B:** Foreign Minister Baerbock described allied coordination, support for Ukrainian self-defence, sanctions, humanitarian aid, weapons assistance, and secrecy intended to protect deliveries. [German Foreign Office, 27 April 2022](https://www.auswaertiges-amt.de/en/newsroom/news/2524258-2524258). Maps: `2B.1–2B.6, 2B.8, 2B.9, 8B.2–8B.6`. Official chronology and stated rationale; independent effects remain unresolved.
+
+- **R042 — 2B/8B:** The Guardian reported contemporaneous criticism that the Chancellery reduced Ukraine’s requested heavy-weapons list and that Berlin delayed or ignored follow-up requests. [The Guardian, 21 April 2022](https://www.theguardian.com/world/2022/apr/21/german-report-casts-doubt-on-scale-of-its-weapons-support-for-ukraine). Maps: `2B.1, 2B.3, 2B.6, 2B.8, 2B.9, 8B.5, 8B.6, 8B.8`. Contrary evidence; reported claims require cautious attribution.
+
+- **R043 — 2B:** Germany’s UN statement characterized Russian attacks on civilian infrastructure as deliberate violations of international humanitarian law. [German Mission to the UN, 6 December 2022](https://new-york-un.diplo.de/un-en/2567978-2567978). Maps: `2B.4, 2B.6, 2B.9`. Establishes government legal/diplomatic position, not independent adjudication.
+
+- **R044 — 1B/8B:** The Federal Government’s cyber-security strategy specifies critical-infrastructure protection, state responsibilities, NATO/EU cooperation, monitoring, and adaptation mechanisms. [Federal Government cyber-security strategy](https://www.bundesregierung.de/breg-en/service/archive/new-cyber-security-strategy-1958688). Maps: `1B.7, 1B.9, 8B.2–8B.6`. Pre-Scholz inherited-capacity context; not target-year ruler evidence.
+
+- **R045 — 1B:** A search candidate for Baerbock’s August 2022 NPT statement indicated nuclear restraint and Germany’s TPNW observer decision, but the page could not be fetched with a precise locator. [Foreign Office search candidate](https://www.auswaertiges-amt.de/2545450). Maps provisionally: `1B.2, 1B.4, 1B.5, 1B.6, 1B.8`. `discovery_only`; not part of defensible evidence until retrieved.
+
+- **R047 — 5B/6B:** The BMAS research report documents unusually high inflation from spring 2022 and explicitly examines household distributional effects. [BMAS research report](https://www.bmas.de/DE/Service/Publikationen/Forschungsberichte/fb-667-verteilungswirkungen-der-aktuellen-preisniveausteigerungen.html). Maps: `5B.8, 5B.9, 6B.1, 6B.3`. Context; does not establish Scholz attribution.
+
+- **R048 — 5B/6B:** DIW estimated that energy prices caused a 3.4% average real-income loss, nearly 7% for the poorest decile, and found relief packages only partly offset the regressive burden. [DIW Berlin, 2022](https://www.diw.de/de/diw_01.c.840044.de/publikationen/wochenberichte/2022_17_1/hohe_energiepreise__aermere_haushalte_werden_trotz_entlastungspaketen_staerker_belastet_als_reichere_haushalte.html?pic=overview-figure1). Maps: `5B.1, 5B.3, 5B.8, 5B.9, 6B.1, 6B.3, 6B.6, 6B.8`. Independent contrary distributional evidence.
+
+- **R049 — 6B/8B:** Eurofound records Germany’s €2bn federal support package for Ukrainian refugees, including housing, living expenses, childcare, schooling, health, and care, while noting Länder and municipal implementation responsibilities. [Eurofound PolicyWatch](https://static.eurofound.europa.eu/covid19db/cases/DE-2022-1_2232.html). Maps: `6B.2, 6B.3, 6B.4, 6B.6, 6B.8, 6B.9, 8B.2, 8B.3, 8B.6`. Formal implementation and distributed-authority evidence.
+
+- **R050 — 6B/8B:** OECD documented refugee access to integration measures and work, while identifying housing constraints, dispersal rules, and social-assistance conditions. [OECD International Migration Outlook 2022](https://www.oecd.org/en/publications/international-migration-outlook-2022_30fe16d2-en/full-report/component-8.html). Maps: `6B.2, 6B.3, 6B.6, 6B.8, 8B.2, 8B.6`. Independent contextual and implementation evidence.
+
+- **R051 — 6B/8B:** A joint BAMF/IAB/BiB/SOEP study based on approximately 11,200 interviews found that 17% of working-age Ukrainian refugees were employed, 92% of families with school-age children had at least one child in German school, and major needs remained language, employment, healthcare, and housing. [BAMF/IAB/BiB/SOEP, December 2022](https://www.bamf.de/SharedDocs/Anlagen/DE/Forschung/Kurzanalysen/kurzanalyse4-2022-ukr-gefluechtete.html?nn=282022). Maps: `6B.2, 6B.3, 6B.6, 6B.8, 6B.10, 8B.6`. Independent outcome evidence; attribution remains shared across federal, Länder, and municipal actors.
+
+- **R052 — 3B/4B/6B:** Amnesty’s 2022 Germany report records inadequate investigations into racial profiling, lack of independent police complaint mechanisms, disproportionate protest restrictions, surveillance-law rulings, hate-crime increases, and refugee admissions. [Amnesty Germany 2022, lines 115–143](https://www.amnesty.de/informieren/amnesty-report/deutschland-2022). Maps: `3B.1, 3B.2, 3B.4, 3B.5, 3B.7, 3B.8, 3B.9, 4B.3, 4B.6, 4B.7, 4B.9, 6B.2, 6B.3, 6B.8`. Independent target-year evidence, but mostly institutional or subnational rather than Scholz-specific.
+
+### Chapter disposition
+
+- **1B:** Nuclear-specific evidence remains materially incomplete. The cyber strategy is inherited context; the NPT statement remains unverified. No usable evidence was found for command-and-control, nuclear safeguards, or catastrophic-risk governance.
+- **2B:** Improved through independent legal-authority material, ministerial chronology, contrary reporting on heavy-weapons timing, and humanitarian-law framing. Arms end-use controls, civilian-impact assessment, energy dependence, and negotiation conduct remain open.
+- **3B:** Amnesty adds target-year evidence on policing, protest restrictions, surveillance, hate crime, and complaint mechanisms. Federal/state responsibility and direct Scholz oversight remain unresolved.
+- **4B:** Amnesty strengthens evidence on privacy, protest, and media/civic constraints, but no direct Scholz-specific opposition treatment, appointments, coalition self-binding, or digital-control decision was recovered. The EU Rule of Law page was discovery-only because retrieval returned HTTP 429.
+- **5B:** Independent distributional evidence materially improves the inflation/relief record. Implementation audits, regional household outcomes, appointments, and responsibility for inherited energy dependence remain gaps.
+- **6B:** Refugee-support implementation and service-user outcome evidence are substantially improved. Quality, affordability, regional variation, municipal capacity, and durability remain incomplete.
+- **7B:** Direct statements and independent investigative reporting improve the personal-integrity record. The Cum-Ex controversy remains unresolved: no accepted source establishes personal benefit, concealment, obstruction, or a final judicial finding.
+- **8B:** Refugee-support implementation and independent outcome data improve execution evidence. Coalition coordination, appointment/replacement decisions, adaptation after failures, and cross-portfolio outcomes remain weak.
+
+### Append-ready manifest delta
+
+```json
+{
+  "schema_version": "ruler_research_ledger_manifest_v1",
+  "entries": [
+    {"provisional_id":"R036","canonical_fact_key":"https://www.tagesschau.de/inland/scholz-cum-ex-105.html#L151-L168|Scholz denied political influence and said he could not recall meeting contents","chapter_ids":["7B"],"methodology_ids":["7B.1","7B.2","7B.6","7B.7","7B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"R037","canonical_fact_key":"https://www.tagesschau.de/inland/innenpolitik/faq-cum-ex-warburg-100.html#L178-L194|Cum-Ex allegations remained unresolved and no investigation against Scholz was reported","chapter_ids":["7B"],"methodology_ids":["7B.3","7B.4","7B.6","7B.7"],"disposition":"final_evidence"},
+    {"provisional_id":"R038","canonical_fact_key":"https://olaf-scholz.spd.de/aktuelles/detail/news/olaf-scholz-im-interview-mit-der-faz-1/06/09/2022#L126-L127|Scholz publicly asserted investigations found no political influence","chapter_ids":["7B"],"methodology_ids":["7B.1","7B.2","7B.6","7B.10"],"disposition":"final_evidence"},
+    {"provisional_id":"R039","canonical_fact_key":"https://www.ndr.de/fernsehen/sendungen/panorama/archiv/2022/Cum-Ex-Olaf-Scholz-und-die-Wahrheit%2Ccumex512.html#reported-meetings-and-transparency|Investigative reporting documented meetings and unresolved diary-based questions","chapter_ids":["7B"],"methodology_ids":["7B.1","7B.3","7B.6","7B.7"],"disposition":"final_evidence"},
+    {"provisional_id":"R040","canonical_fact_key":"https://www.bundestag.de/resource/blob/938170/12bc979cb7133464ad633f20565578ff/WD-2-016-23_EN-pdf-data.pdf#pp1-3|German executive and Federal Security Council authority over arms-export licensing","chapter_ids":["2B","8B"],"methodology_ids":["2B.3","2B.4","2B.5","2B.8","2B.9","8B.2","8B.3"],"disposition":"final_evidence"},
+    {"provisional_id":"R041","canonical_fact_key":"https://www.auswaertiges-amt.de/en/newsroom/news/2524258-2524258#L97-L117|German allied coordination and stated rationale for Ukraine support","chapter_ids":["2B","8B"],"methodology_ids":["2B.1","2B.2","2B.3","2B.4","2B.5","2B.6","2B.8","2B.9","8B.2","8B.3","8B.4","8B.5","8B.6"],"disposition":"final_evidence"},
+    {"provisional_id":"R042","canonical_fact_key":"https://www.theguardian.com/world/2022/apr/21/german-report-casts-doubt-on-scale-of-its-weapons-support-for-ukraine#L157-L169|Contemporaneous reporting alleged German delay and reductions in heavy-weapons support","chapter_ids":["2B","8B"],"methodology_ids":["2B.1","2B.3","2B.6","2B.8","2B.9","8B.5","8B.6","8B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"R043","canonical_fact_key":"https://new-york-un.diplo.de/un-en/2567978-2567978#L69-L78|Germany characterized attacks on Ukrainian civilian infrastructure as IHL breaches","chapter_ids":["2B"],"methodology_ids":["2B.4","2B.6","2B.9"],"disposition":"context"},
+    {"provisional_id":"R044","canonical_fact_key":"https://www.bundesregierung.de/breg-en/service/archive/new-cyber-security-strategy-1958688#L121-L172|Inherited German cyber-security strategy established resilience and monitoring architecture","chapter_ids":["1B","8B"],"methodology_ids":["1B.7","1B.9","8B.2","8B.3","8B.4","8B.5","8B.6"],"disposition":"context"},
+    {"provisional_id":"R045","canonical_fact_key":"https://www.auswaertiges-amt.de/2545450|Baerbock NPT statement candidate could not be retrieved with precise locator","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.4","1B.5","1B.6","1B.8"],"disposition":"discovery_only"},
+    {"provisional_id":"R047","canonical_fact_key":"https://www.bmas.de/DE/Service/Publikationen/Forschungsberichte/fb-667-verteilungswirkungen-der-aktuellen-preisniveausteigerungen.html#2022-inflation-distribution|BMAS report examined household distributional effects of 2022 inflation","chapter_ids":["5B","6B"],"methodology_ids":["5B.8","5B.9","6B.1","6B.3"],"disposition":"context"},
+    {"provisional_id":"R048","canonical_fact_key":"https://www.diw.de/de/diw_01.c.840044.de/publikationen/wochenberichte/2022_17_1/hohe_energiepreise__aermere_haushalte_werden_trotz_entlastungspaketen_staerker_belastet_als_reichere_haushalte.html?pic=overview-figure1#distributional-effects|Energy-price shock disproportionately reduced poorer households’ real incomes","chapter_ids":["5B","6B"],"methodology_ids":["5B.1","5B.3","5B.8","5B.9","6B.1","6B.3","6B.6","6B.8"],"disposition":"final_evidence"},
+    {"provisional_id":"R049","canonical_fact_key":"https://static.eurofound.europa.eu/covid19db/cases/DE-2022-1_2232.html#L127-L159|Germany provided federal refugee support while Länder and municipalities implemented services","chapter_ids":["6B","8B"],"methodology_ids":["6B.2","6B.3","6B.4","6B.6","6B.8","6B.9","8B.2","8B.3","8B.6"],"disposition":"final_evidence"},
+    {"provisional_id":"R050","canonical_fact_key":"https://www.oecd.org/en/publications/international-migration-outlook-2022_30fe16d2-en/full-report/component-8.html#L4546-L4559|OECD documented German refugee integration access and housing constraints","chapter_ids":["6B","8B"],"methodology_ids":["6B.2","6B.3","6B.6","6B.8","8B.2","8B.6"],"disposition":"context"},
+    {"provisional_id":"R051","canonical_fact_key":"https://www.bamf.de/SharedDocs/Anlagen/DE/Forschung/Kurzanalysen/kurzanalyse4-2022-ukr-gefluechtete.html?nn=282022#L58-L83|Joint survey documented refugee employment, schooling, health, housing, and support needs","chapter_ids":["6B","8B"],"methodology_ids":["6B.2","6B.3","6B.6","6B.8","6B.10","8B.6"],"disposition":"final_evidence"},
+    {"provisional_id":"R052","canonical_fact_key":"https://www.amnesty.de/informieren/amnesty-report/deutschland-2022#L115-L143|Amnesty documented police accountability, protest, surveillance, hate-crime, and refugee-rights conditions in 2022","chapter_ids":["3B","4B","6B"],"methodology_ids":["3B.1","3B.2","3B.4","3B.5","3B.7","3B.8","3B.9","4B.3","4B.6","4B.7","4B.9","6B.2","6B.3","6B.8"],"disposition":"final_evidence"}
+  ]
+}
+```
+
+The main unresolved limitation is attribution: most newly recovered material establishes government action, institutional authority, or target-year conditions, while direct personal conduct remains especially thin for 7B and nuclear decision-making remains opaque for 1B.
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "R028-R029 may be duplicate reporting of one underlying controversy.",
+        "The evidence now includes direct statements and investigative reporting, but the central allegations remain unresolved.",
+        "A fair personal-integrity assessment still requires attribution and finding-level evidence."
+      ],
+      "missing_themes": [
+        "Independent judicial, prosecutorial, or inquiry findings",
+        "Documentary evidence concerning meetings, records, deletion, recusal, or correction",
+        "Evidence of personal benefit, concealment, obstruction, or lack thereof",
+        "Clear target-period nexus to Scholz's authority and conduct",
+        "Contrary or exculpatory documentary evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both adverse scrutiny and favorable direct statements were found, but searches for independent exculpatory findings, financial records, recusal, correction, and obstruction remain incomplete.",
+        "closed_system_silence": "Open scrutiny reduces but does not eliminate risks from private communications, incomplete disclosure, deleted records, or undisclosed influence.",
+        "open_system_complaint_volume": "Parliamentary and media attention may magnify a visible political controversy; scrutiny volume is not evidence of misconduct severity.",
+        "duplicate_reporting": "R028-R029 concern the same Cum-Ex/Warburg controversy; R036-R039 add distinct testimony, responses, and reporting but remain partly overlapping.",
+        "allegations_vs_findings": "R036-R039 and R028-R029 document testimony, scrutiny, allegations, and unresolved investigative reporting; none establishes personal dishonesty, benefit, concealment, obstruction, or a final finding.",
+        "official_claim_independence": "R036 and R038 report Scholz's own explanations and are self-serving; R037 and R039 provide independent reporting but do not resolve the allegations. R030 assesses institutional safeguards only.",
+        "population_exposure_authority_baseline_shocks": "The controversy largely concerns Scholz's earlier Hamburg tenure. The notebook does not establish target-period authority, knowledge, benefit, opportunity, or corrective responsibility as chancellor.",
+        "missing_source_type": "Independent judicial or prosecutorial findings, financial/recusal records, complete inquiry records, and corroborated documentary evidence are missing.",
+        "supporting_evidence_ids": [
+          "R028",
+          "R029",
+          "R030",
+          "R036",
+          "R037",
+          "R038",
+          "R039"
+        ],
+        "unresolved_risks": [
+          "The personal-integrity nexus remains contested and partly pre-period.",
+          "No accepted evidence establishes a final personal finding or exculpatory resolution.",
+          "Further bounded research could recover inquiry, court, financial, or documentary attribution evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Official evidence remains overrepresented.",
+        "Several items overlap or bundle claims and require deterministic cleanup.",
+        "The dossier is not yet sufficient to present governing conduct and contrary consequences fairly."
+      ],
+      "missing_themes": [
+        "Independent arms-delivery timing and end-use assessment",
+        "Civilian-protection and international-law consequences",
+        "Inherited energy and security responsibility",
+        "Peace-negotiation and de-escalation conduct",
+        "Independent checks on recipient conduct and sanctions effects"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable support and diplomacy evidence and adverse weapons-timing reporting were both found, but end-use controls, civilian protection, energy dependence, and negotiation conduct remain incompletely searched.",
+        "closed_system_silence": "Security decisions, intelligence, end-use controls, and negotiations may remain partly inaccessible despite Germany's open institutions.",
+        "open_system_complaint_volume": "Visible criticism of weapons policy may reflect open political contestation and should not be equated with aggression or policy failure.",
+        "duplicate_reporting": "R001/R007 overlap on diplomacy; R004/R008 overlap on aid; R041 repeats official support claims; R042 is distinct contrary reporting. Deduplication and claim splitting remain necessary.",
+        "allegations_vs_findings": "R001-R004, R007-R009, R041, and R043 establish official decisions, commitments, and legal positions; R042 reports contrary claims about weapons timing. These do not by themselves establish civilian effects, unlawful conduct, or personal responsibility.",
+        "official_claim_independence": "The record remains government-heavy. R040 clarifies institutional authority, and R042 provides independent contrary reporting, but official defensive-intent and coordination claims are not fully independently checked.",
+        "population_exposure_authority_baseline_shocks": "The invasion, alliance obligations, energy dependence, coalition constraints, and German exposure are identified, but inherited security choices are not separated from Scholz-era responsibility.",
+        "missing_source_type": "Arms-export and end-use records, parliamentary oversight, independent civilian-impact or humanitarian-law assessments, and contemporaneous reporting on negotiations are missing.",
+        "supporting_evidence_ids": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R007",
+          "R008",
+          "R009",
+          "R040",
+          "R041",
+          "R042",
+          "R043"
+        ],
+        "unresolved_risks": [
+          "Arms-delivery timing, end-use controls, and civilian-protection consequences remain unresolved.",
+          "Personal chancellor responsibility is not isolated from coalition and ministerial responsibility.",
+          "Further bounded research could materially recover contrary and attribution evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Country indicators and rights reports do not establish chancellor conduct.",
+        "The evidence is directionally mixed but thin on governing action, tolerance, and remedy.",
+        "Federal/state responsibility remains unresolved."
+      ],
+      "missing_themes": [
+        "Direct Scholz rhetoric, orders, or oversight",
+        "Police abuse and complaint-mechanism records",
+        "Emergency powers and pandemic accountability",
+        "Prison and detention safeguards",
+        "Minority protection, hate-crime prevention, and remedies"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Protective rulings and adverse rights evidence were both searched, but direct searches for Scholz-specific oversight, rhetoric, police accountability, remedies, and emergency powers remain incomplete.",
+        "closed_system_silence": "Open reporting improves visibility, but police, detention, surveillance, and minority harms can remain underreported or obscured institutionally.",
+        "open_system_complaint_volume": "Germany's open complaint and media environment may make harms more visible than in closed systems; volume is not population-adjusted severity.",
+        "duplicate_reporting": "R010/R011 overlap with R016; R012 and R052 repeat some institutional concerns. Claims should be split and globally deduplicated.",
+        "allegations_vs_findings": "R010-R013 and R052 document rulings, rights conditions, police-accountability gaps, protest restrictions, surveillance, hate crime, and refugee issues; they do not establish Scholz ordered, tolerated, or remedied abuse.",
+        "official_claim_independence": "Amnesty, HRW, Freedom House, and courts provide independent checks; direct evidence of executive response and implementation is limited.",
+        "population_exposure_authority_baseline_shocks": "Pandemic-tail restrictions, refugee inflows, minority exposure, and federal/state policing are noted, but affected populations and Scholz's authority over implementation are not adequately established.",
+        "missing_source_type": "Police and prison records, parliamentary oversight, executive-response records, and independent investigations tied to 2022 incidents are missing.",
+        "supporting_evidence_ids": [
+          "R010",
+          "R011",
+          "R012",
+          "R013",
+          "R016",
+          "R052"
+        ],
+        "unresolved_risks": [
+          "Attribution remains mainly institutional or subnational.",
+          "Police, prison, hate-crime, and emergency-power coverage is not systematic.",
+          "Further bounded research could recover executive oversight and remedy evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Institutional safeguards are not equivalent to chancellor-led political freedom.",
+        "Direct favorable and adverse governing conduct remains insufficiently documented.",
+        "The discovery-only EU Rule of Law candidate and missing oversight records leave recoverable gaps."
+      ],
+      "missing_themes": [
+        "Opposition and civil-society treatment",
+        "Journalist and media-pressure incidents tied to executive conduct",
+        "Appointments to oversight bodies",
+        "Digital controls and intelligence oversight",
+        "Constitutional-transfer and coalition self-binding decisions"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Democratic protections and adverse surveillance, protest, and civic-freedom material were both found, but systematic searches for opposition treatment, appointments, journalists, and digital-control decisions remain incomplete.",
+        "closed_system_silence": "Courts and media improve visibility, but intelligence operations, informal pressure, and coalition oversight may remain opaque.",
+        "open_system_complaint_volume": "Open media and civil society increase visible rights complaints; complaint volume is not a direct measure of executive repression.",
+        "duplicate_reporting": "R015/R016 overlap on privacy and protest protections; R017 bundles multiple sources and claims; R052 overlaps surveillance and protest themes.",
+        "allegations_vs_findings": "R014-R017 and R052 document elections, judicial constraints, surveillance, protest, and media/civic concerns; adverse institutional concerns are not findings of Scholz-specific suppression.",
+        "official_claim_independence": "The Constitutional Court and civil-society sources provide independent checks; election and institutional claims are not equivalent to evidence of Scholz-led protection.",
+        "population_exposure_authority_baseline_shocks": "Inherited democratic quality, pandemic-tail constraints, federal structure, and coalition limits are acknowledged, but affected groups and ruler-specific authority are insufficiently mapped.",
+        "missing_source_type": "Contemporaneous parliamentary and regulator records, appointment/oversight records, and direct reporting on executive treatment of opposition and journalists are missing.",
+        "supporting_evidence_ids": [
+          "R014",
+          "R015",
+          "R016",
+          "R017",
+          "R052"
+        ],
+        "unresolved_risks": [
+          "Most evidence concerns institutions rather than Scholz's choices or tolerance.",
+          "R017 contains bundled adverse claims.",
+          "Further bounded research could materially recover ruler-specific conduct and contrary evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence supports policy chronology and some contrary distributional analysis but not balanced outcome assessment.",
+        "Several claims require locator reconciliation and deduplication.",
+        "The 2023 OECD source must remain clearly retrospective for 2022 conditions."
+      ],
+      "missing_themes": [
+        "Ex-post implementation and outcome audits",
+        "Regional and household distribution beyond existing analyses",
+        "Inflation-management tradeoffs",
+        "Appointments and empowerment of economic professionals",
+        "Responsibility for inherited Russian-energy dependence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Relief, diversification, and wage measures were balanced with IMF/OECD and DIW distributional concerns, but audits, regional outcomes, inflation tradeoffs, and inherited energy responsibility remain incompletely searched.",
+        "closed_system_silence": "Macro statistics are visible, but household hardship, regional disparities, informal coping, and implementation failures may be undercaptured.",
+        "open_system_complaint_volume": "Visible inflation and relief complaints may exaggerate apparent failure without denominator, outcome, and counterfactual evidence.",
+        "duplicate_reporting": "R002/R020/R021 overlap on relief and diversification; R018 overlaps R032; R047/R048 concern related distributional themes but are distinct source-claim units.",
+        "allegations_vs_findings": "R018-R022, R047-R048 establish macro conditions, announced relief, wage policy, and distributional effects; they do not establish implementation quality or exclusive Scholz responsibility.",
+        "official_claim_independence": "IMF, OECD, DIW, and BMAS provide independent or analytical checks on macro and distributional conditions; government records remain authoritative mainly for announcements.",
+        "population_exposure_authority_baseline_shocks": "War, gas dependence, inflation, pandemic tail, household exposure, coalition constraints, and inherited baselines are identified, but not sufficiently quantified or separated from 2022 decisions.",
+        "missing_source_type": "Ex-post implementation audits, regional and household outcome data, labor evidence, and independent reporting on appointments and policy tradeoffs are missing.",
+        "supporting_evidence_ids": [
+          "R018",
+          "R019",
+          "R020",
+          "R021",
+          "R022",
+          "R047",
+          "R048"
+        ],
+        "unresolved_risks": [
+          "Declared policies are not consistently linked to implementation and outcomes.",
+          "Attribution is shared across coalition ministries and institutions.",
+          "Further bounded research could recover audits, distributional outcomes, and inherited-responsibility evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The evidence improved materially but remains uneven across the selected social-welfare lenses.",
+        "Formal funding and early outcomes do not establish service adequacy or durable effects.",
+        "Attribution to Scholz remains shared and indirect."
+      ],
+      "missing_themes": [
+        "Regional and municipal service capacity",
+        "Affordability and access for vulnerable groups",
+        "Longitudinal health, education, housing, and welfare outcomes",
+        "Implementation correction and durability",
+        "Political conditionality and pandemic-response attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Humanitarian admissions, funding, integration, and service outcomes were combined with housing, discrimination, access, and needs evidence, but affordability, regional capacity, durability, and implementation failures remain incompletely searched.",
+        "closed_system_silence": "Aggregate administrative reporting may hide failures affecting vulnerable refugees, migrants, municipalities, and regional service users.",
+        "open_system_complaint_volume": "Open civil-society reporting may make refugee and welfare problems more visible; complaint volume cannot substitute for population-adjusted service outcomes.",
+        "duplicate_reporting": "R023/R024 overlap partly with R049 and R034; R002/R026 repeat relief claims. R050/R051 add distinct implementation and outcome evidence.",
+        "allegations_vs_findings": "R023-R027 and R049-R052 establish refugee scale, funding, admissions, relief, rights conditions, and some service outcomes; they do not establish adequacy, durability, or personal Scholz responsibility.",
+        "official_claim_independence": "Destatis, OECD, Eurofound, BAMF/IAB/BiB/SOEP, IMF, and Amnesty provide independent checks; government and Bundestag records establish formal action and funding, not adequacy.",
+        "population_exposure_authority_baseline_shocks": "The large Ukrainian inflow, pandemic tail, federal/Länder/municipal implementation, and baseline capacity are addressed, but regional denominators, affordability, and durability remain incomplete.",
+        "missing_source_type": "Independent service-user surveys beyond the cited study, municipal/provider capacity records, audits, and longitudinal health, education, housing, and welfare outcomes are missing.",
+        "supporting_evidence_ids": [
+          "R023",
+          "R024",
+          "R025",
+          "R026",
+          "R027",
+          "R049",
+          "R050",
+          "R051",
+          "R052"
+        ],
+        "unresolved_risks": [
+          "Funding and admissions do not establish lived service quality.",
+          "Responsibility is distributed across federal, Länder, municipal, and coalition actors.",
+          "Further bounded research could materially recover regional capacity, affordability, and durability evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The evidence is materially incomplete across the selected nuclear lenses.",
+        "R044 is inherited context and R045 is not defensible evidence.",
+        "Promising specialist and official source classes remain unfetched, so continuation is required."
+      ],
+      "missing_themes": [
+        "Nuclear rhetoric and threats",
+        "Nuclear consultation and safeguards",
+        "Command-and-control and safety decisions",
+        "Arms-control and nonproliferation actions",
+        "Implementation of nuclear-sharing aircraft decisions",
+        "Cyber, biological, AI, and other catastrophic-risk governance"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Only limited favorable diplomatic and alliance context was found. The notebook explicitly leaves nuclear rhetoric, safeguards, command safety, arms control, proliferation, and catastrophic-risk searches incomplete.",
+        "closed_system_silence": "Nuclear consultation, safeguards, intelligence, command-and-control, and catastrophic-risk decisions are intrinsically opaque; public silence is non-diagnostic.",
+        "open_system_complaint_volume": "Low public complaint volume is expected in secretive nuclear domains and cannot indicate low risk or good conduct.",
+        "duplicate_reporting": "R002 and R006 overlap on diplomacy and declared policy; R005 and R044 are institutional context, not independent ruler-specific nuclear evidence.",
+        "allegations_vs_findings": "R001-R004, R005-R006, and R044 establish declared defence, alliance, cyber, and diplomatic context; they do not establish nuclear threats, safety failures, proliferation, or operational command decisions by Scholz.",
+        "official_claim_independence": "R002 and R006 are official self-descriptions; R005 independently states NATO doctrine, but no source independently checks Scholz-specific nuclear restraint, safety, or implementation.",
+        "population_exposure_authority_baseline_shocks": "Germany's non-nuclear status, NATO nuclear sharing, Russian invasion, alliance obligations, inherited arrangements, and cyber-security context are identified, but Scholz's operational authority and population exposure are not established.",
+        "missing_source_type": "IAEA/UN safeguards and treaty records, Bundestag nuclear-policy records, NATO nuclear-consultation material, arms-control reporting, and specialist nuclear-risk analysis are missing.",
+        "supporting_evidence_ids": [
+          "R002",
+          "R005",
+          "R006",
+          "R044"
+        ],
+        "unresolved_risks": [
+          "Most selected nuclear lenses lack target-period evidence.",
+          "R045 is discovery-only and cannot support the estimate.",
+          "The secret domain makes additional bounded specialist and official searching materially valuable."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 7,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Declared priorities are not sufficient evidence of effectiveness.",
+        "The evidence now includes some independent implementation and outcome checks but remains incomplete.",
+        "Shared authority and external shocks materially limit personal attribution."
+      ],
+      "missing_themes": [
+        "Implementation timelines and measurable outcomes across portfolios",
+        "Adaptation after failed or delayed measures",
+        "Appointments and replacement of ineffective implementers",
+        "Coalition-management and coordination evidence",
+        "Cross-portfolio outcome comparison and shock-adjusted attribution"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable crisis response and implementation evidence and adverse weapons-timing, structural, and distributional material were found, but appointments, failures, adaptation, coalition management, and cross-portfolio outcomes remain incompletely searched.",
+        "closed_system_silence": "Administrative statistics and oversight improve visibility, but internal delays, failed implementation, and coordination problems may be obscured by aggregate reporting.",
+        "open_system_complaint_volume": "Visible criticism of energy, refugee, and coalition management may overstate severity without denominator and outcome data.",
+        "duplicate_reporting": "R031 restates R002; R032 overlaps R018/R027; R034 combines multiple records; R041 overlaps official support claims. These require global deduplication and claim splitting.",
+        "allegations_vs_findings": "R031-R034 and R040-R044 establish declared priorities, institutional authority, support measures, refugee administration, and some contrary weapons-timing and structural evidence; they do not prove personal coordination effectiveness.",
+        "official_claim_independence": "IMF, OECD, Eurofound, BAMF/IAB/BiB/SOEP, and Guardian reporting provide checks; federal, Bundestag, and ministerial records establish actions and scale but not personal competence.",
+        "population_exposure_authority_baseline_shocks": "War, energy shock, refugee inflow, coalition constraints, inherited administrative capacity, and distributed federal authority are identified, but shock difficulty is not sufficiently separated from execution quality.",
+        "missing_source_type": "Contemporaneous implementation audits, parliamentary committee records, portfolio outcomes, appointment/removal records, and independent reporting on coalition coordination are missing.",
+        "supporting_evidence_ids": [
+          "R031",
+          "R032",
+          "R033",
+          "R034",
+          "R040",
+          "R041",
+          "R042",
+          "R044",
+          "R049",
+          "R050",
+          "R051"
+        ],
+        "unresolved_risks": [
+          "R035 is a research-gap statement, not evidence.",
+          "Implementation, adaptation, and coalition-management evidence remains thin.",
+          "Further bounded research could materially recover portfolio outcomes and attribution."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "All eight selected chapters retain material, research-recoverable gaps within the immutable lens scope.",
+    "The continuation improved Chapters 2B, 5B, 6B, 7B, and 8B, but did not resolve principal attribution, contrary-evidence, or outcome gaps.",
+    "Chapter 1B remains the most severe evidence-yield gap: R045 is discovery-only and most nuclear lenses lack target-period evidence.",
+    "Chapter 7B now has direct statements and independent investigative reporting, but allegations remain allegations and no final personal finding is established.",
+    "Official claims are generally useful for chronology and formal responsibility, but independent checks remain uneven, especially for 1B, 2B, 7B, and executive attribution in 3B-4B.",
+    "Country indicators and local facts are appropriately treated as context; they are not negative ruler evidence and do not independently establish Scholz-specific conduct.",
+    "Repeated coverage, same-source reuse, and bundled claims still require deterministic cleanup before counting, but these are not reasons alone for continuation.",
+    "The required local-data disposition audit remains non-explicit and should be resolved as a workflow/ledger issue rather than treated as missing negative evidence.",
+    "Open-system visibility and closed-domain opacity create opposing risks: complaint volume may exaggerate apparent severity in open domains, while silence is non-diagnostic in secretive domains.",
+    "No researcher-written scores, score ranges, anchors, rankings, or judge advice were found."
+  ],
+  "reviewer_summary": "Continuation remains required for all eight selected chapters. The notebook now contains more independent and contrary material, but every chapter retains a concrete, bounded gap in attribution, temporal responsibility, source quality, event coverage, contrary evidence, or outcome assessment. Continue only within the immutable selected scope. Preserve allegations as unresolved, treat country baselines and external shocks as context, deduplicate globally, and do not infer favorable conduct from silence or adverse conduct from complaint volume."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Continuation research completed across all eight selected chapters. No scores were assigned.
+
+The workspace remained read-only and the shell failed to initialize, so `research-ledger-manifest.json` could not be updated directly. The following append-ready units continue numbering from R052.
+
+### New evidence units
+
+- **R053 — 1B:** Germany’s 2022 disarmament report records participation in the NPT Review Conference, TPNW observer meeting, Stockholm Initiative, and NPDI. It also records German–IAEA efforts to secure Ukrainian nuclear plants. Target-period policy evidence; formal government attribution, but not personally Scholz-directed. Contrary limitation: the report does not establish nuclear restraint rhetoric or operational command decisions. Supports `1B.2`, `1B.4`, `1B.5`, `1B.6`, `1B.8`. [Federal Foreign Office report](https://www.auswaertiges-amt.de/en/aussenpolitik/themen/disarmament-report-2022-2594380#content_1)
+
+- **R054 — 1B:** The same 2022 report documents German biosecurity work, cyber-policy initiatives, controls on lethal autonomous weapons, and a pledge not to conduct destructive anti-satellite tests. These are distinct catastrophic-risk governance actions, mostly Foreign Office-led and institutionally attributed rather than personal Scholz conduct. Supports `1B.7`, `1B.9`, `1B.10`. [Federal Foreign Office report](https://www.auswaertiges-amt.de/en/aussenpolitik/themen/disarmament-report-2022-2594380#content_1)
+
+- **R055 — 2B/8B:** In the April 2022 Bundestag debate, opposition leader Friedrich Merz accused Scholz of delaying and avoiding decisions on heavy weapons; other speakers warned both of escalation and of insufficient diplomacy. This is contemporaneous contrary political evidence, not an independent finding of improper conduct or policy failure. Supports `2B.1`, `2B.3`, `2B.6`, `2B.8`, `2B.9`, `8B.5`, `8B.8`. [Bundestag debate](https://www.bundestag.de/dokumente/textarchiv/2022/kw17-de-selbstverteidigung-ukraine-891272#604470)
+
+- **R056 — 2B:** The Bundestag recorded the weapons already delivered by April 27, 2022, including anti-tank and air-defence systems, ammunition, and the planned Gepard ring exchange. This independently documents implementation chronology, while the minister’s legal characterization and effectiveness claims remain official. Supports `2B.3`, `2B.4`, `2B.5`, `2B.8`, `8B.2`, `8B.5`. [Bundestag government questioning](https://www.bundestag.de/dokumente/textarchiv/2022/kw17-de-regierungsbefragung-889556#604371)
+
+- **R057 — 2B/8B:** The 2022 arms-export report states that Ukraine received 26.9% of German export-approval value and that 92% of approvals went to EU, NATO, or NATO-equivalent states. It also cautions that aggregate approval values are not a sufficient measure of restrictiveness. This provides formal scale and an important methodological limitation, not proof of civilian effects or end-use compliance. Supports `2B.3`, `2B.4`, `2B.5`, `2B.8`, `2B.9`, `8B.2`, `8B.3`. [Bundestag summary of the 2022 export report](https://www.bundestag.de/presse/hib/kurzmeldungen-995934)
+
+- **R058 — 3B:** Saxony’s independent police complaints body received 261 complaints in 2022; 28 were substantiated and 74 partly substantiated, while 19 complaints triggered criminal investigations and two triggered disciplinary investigations. This is target-year incident-level evidence of a functioning complaint channel and substantiated police concerns, but it is subnational and cannot be attributed to Scholz personally. Supports `3B.1`, `3B.4`, `3B.7`, `3B.8`. [Saxony police complaints report](https://www.polizei.sachsen.de/de/96990.htm)
+
+- **R059 — 3B/4B:** A Bundestag government response recorded continuing threats and violence against journalists, including 22 new cases by February 2022 and a substantial pandemic-protest connection. This establishes adverse press-safety conditions and public reporting, not executive direction or tolerance by Scholz. Supports `3B.5`, `3B.8`, `4B.6`, `4B.7`, `4B.9`. [Bundestag response on threats against journalists](https://www.bundestag.de/presse/hib/kurzmeldungen-901644)
+
+- **R060 — 4B/3B:** A December 2022 Bundestag record states that the federal government regarded disinformation as a potential threat to public security, social cohesion, and radicalization control. This documents an official governance concern and response frame, but not the effectiveness of countermeasures or any suppression of opposition speech. Supports `4B.3`, `4B.6`, `4B.7`, `4B.9`, `8B.4`. [Bundestag response on disinformation](https://www.bundestag.de/presse/hib/kurzmeldungen-927772)
+
+- **R061 — 5B/6B:** The Bundestag recorded that the third relief package had a 2022 volume of €13.3 billion, including a €6.3 billion pensioner energy payment and a €3 billion energy-cost programme for firms. This provides implementation and fiscal-scale evidence; it does not establish adequacy or distributional success. Supports `5B.3`, `5B.8`, `5B.9`, `6B.1`, `6B.3`, `8B.2`, `8B.6`. [Bundestag relief-package assessment](https://www.bundestag.de/presse/hib/kurzmeldungen-923970)
+
+- **R062 — 5B/8B:** In July 2022 Scholz initiated a “Concerted Action” involving unions, employers, government, the Bundesbank, and the economic advisory council to address inflation and energy scarcity. He acknowledged that existing relief was insufficient. This is direct evidence of attempted coordination plus an explicit limitation; outcomes remain unresolved. Supports `5B.3`, `5B.6`, `5B.8`, `5B.9`, `8B.1`, `8B.4`, `8B.8`. [Bundestag government questioning](https://www.bundestag.de/dokumente/textarchiv/2022/kw27-de-regierungsbefragung-900498)
+
+- **R063 — 6B:** A 2022 peer-reviewed German study found underuse of mental-health services among asylum-seeking and refugee adolescents relative to reported needs, with language, legal, administrative, and economic barriers. The data were collected in 2019–2020, so this is persistent pre-period service-access context, not a 2022 event. It provides contrary evidence against inferring adequate welfare access from aggregate admissions or funding. Supports `6B.2`, `6B.3`, `6B.6`, `6B.8`. [npj Mental Health Research](https://www.nature.com/articles/s44184-022-00019-2)
+
+- **R064 — 7B:** In August 2022, Cologne prosecutors searched the mailbox of Scholz’s chief-of-staff and identified an email they described as potentially relevant to deletion of calendar and email data. Scholz’s office denied his involvement in the calendar inquiry, and the report stated that evidence of his political influence had not been established. This is documentary scrutiny and contrary evidence, not proof of concealment or obstruction. Supports `7B.3`, `7B.4`, `7B.6`, `7B.7`, `7B.10`. [NDR report](https://www.ndr.de/der_ndr/presse/mitteilungen/Cum-Ex-Affaere-Postfach-von-Scholz-Bueroleiterin-durchsucht%2Cpressemeldungndr23360.html)
+
+- **R065 — 8B/5B:** The Bundestag’s June 2022 budget record documents passage of the federal budget and supplementary budget after a lengthy debate, with 391 votes in favour and 297 against. It establishes formal legislative implementation under coalition and parliamentary constraint, but does not isolate Scholz’s coordination effectiveness. Supports `5B.6`, `8B.2`, `8B.3`, `8B.4`, `8B.8`. [Bundestag budget debate](https://www.bundestag.de/dokumente/textarchiv/2022/kw22-de-generalaussprache-896288)
+
+- **R066 — 8B/5B:** The June 2022 federal cabinet adopted precautionary measures for possible gas shortages, including reserve-power capacity and authority to reduce gas-fired generation. The page returned a rate-limit error after discovery, so this remains **discovery-only** unless independently retrieved with a precise locator. [Federal Ministry search candidate](https://www.bundeswirtschaftsministerium.de/Redaktion/EN/Pressemitteilungen/2022/06/20220608-further-steps-on-the-path-to-creating-independence-from-russian-gas-imports-federal-cabinet-adopts-precautionary-measures-for-the-event-of-an-impending-gas-shortage.html)
+
+### Search and disposition result
+
+- **1B:** Materially improved through target-year nuclear-risk, arms-control, biosecurity, cyber, and autonomous-weapons governance evidence. Nuclear command-and-control and direct Scholz attribution remain unavailable.
+- **2B:** Improved through parliamentary delivery chronology, contrary timing criticism, and 2022 export-scale data. Civilian effects, end-use compliance, and negotiation conduct remain unresolved.
+- **3B:** Recovered subnational police-complaint findings and contemporaneous journalist-threat records. Federal oversight and Scholz-specific responsibility remain unresolved.
+- **4B:** Recovered official disinformation-governance evidence and journalist-safety material. Opposition treatment, appointments, and executive pressure remain unresolved.
+- **5B:** Recovered fiscal implementation and coordination evidence. Distributional outcomes and inherited energy responsibility remain incomplete.
+- **6B:** Recovered contrary service-access evidence, but its pre-period data require explicit persistence framing. 2022 regional capacity and affordability remain incomplete.
+- **7B:** Recovered prosecutor-linked documentary scrutiny and an explicit denial of Scholz involvement. No personal benefit, concealment, obstruction, or final finding is established.
+- **8B:** Recovered coalition/parliamentary implementation and crisis-coordination evidence. Cross-portfolio outcomes, adaptation, and personnel management remain thin.
+
+### Append-ready manifest entries
+
+```json
+[
+  {"provisional_id":"R053","canonical_fact_key":"https://www.auswaertiges-amt.de/en/aussenpolitik/themen/disarmament-report-2022-2594380#content_1|Germany participated in 2022 NPT, TPNW, Stockholm Initiative, NPDI and nuclear-plant security efforts","chapter_ids":["1B"],"methodology_ids":["1B.2","1B.4","1B.5","1B.6","1B.8"],"disposition":"final_evidence"},
+  {"provisional_id":"R054","canonical_fact_key":"https://www.auswaertiges-amt.de/en/aussenpolitik/themen/disarmament-report-2022-2594380#content_1|Germany pursued biosecurity, cyber-policy, autonomous-weapons controls and anti-satellite-test restraint in 2022","chapter_ids":["1B"],"methodology_ids":["1B.7","1B.9","1B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"R055","canonical_fact_key":"https://www.bundestag.de/dokumente/textarchiv/2022/kw17-de-selbstverteidigung-ukraine-891272#604470|Opposition accused Scholz of delaying heavy-weapons decisions while other speakers warned of escalation","chapter_ids":["2B","8B"],"methodology_ids":["2B.1","2B.3","2B.6","2B.8","2B.9","8B.5","8B.8"],"disposition":"final_evidence"},
+  {"provisional_id":"R056","canonical_fact_key":"https://www.bundestag.de/dokumente/textarchiv/2022/kw17-de-regierungsbefragung-889556#604371|Bundestag record listed German weapons delivered and planned in April 2022","chapter_ids":["2B","8B"],"methodology_ids":["2B.3","2B.4","2B.5","2B.8","8B.2","8B.5"],"disposition":"final_evidence"},
+  {"provisional_id":"R057","canonical_fact_key":"https://www.bundestag.de/presse/hib/kurzmeldungen-995934|Ukraine received 26.9 percent of German arms-export approval value in 2022 and aggregate value is not a sufficient restrictiveness measure","chapter_ids":["2B","8B"],"methodology_ids":["2B.3","2B.4","2B.5","2B.8","2B.9","8B.2","8B.3"],"disposition":"final_evidence"},
+  {"provisional_id":"R058","canonical_fact_key":"https://www.polizei.sachsen.de/de/96990.htm#L136-L147|Saxony police complaints body recorded 261 complaints and substantiated or partly substantiated 102 in 2022","chapter_ids":["3B"],"methodology_ids":["3B.1","3B.4","3B.7","3B.8"],"disposition":"final_evidence"},
+  {"provisional_id":"R059","canonical_fact_key":"https://www.bundestag.de/presse/hib/kurzmeldungen-901644#L733-L740|Government response documented continuing journalist threats and 22 new cases by February 2022","chapter_ids":["3B","4B"],"methodology_ids":["3B.5","3B.8","4B.6","4B.7","4B.9"],"disposition":"final_evidence"},
+  {"provisional_id":"R060","canonical_fact_key":"https://www.bundestag.de/presse/hib/kurzmeldungen-927772#L369-L372|Federal government identified disinformation as a security, cohesion and radicalization risk","chapter_ids":["3B","4B"],"methodology_ids":["3B.8","4B.3","4B.6","4B.7","4B.9","8B.4"],"disposition":"final_evidence"},
+  {"provisional_id":"R061","canonical_fact_key":"https://www.bundestag.de/presse/hib/kurzmeldungen-923970#L733-L737|Third relief package had 13.3 billion euros of 2022 fiscal impact","chapter_ids":["5B","6B","8B"],"methodology_ids":["5B.3","5B.8","5B.9","6B.1","6B.3","8B.2","8B.6"],"disposition":"final_evidence"},
+  {"provisional_id":"R062","canonical_fact_key":"https://www.bundestag.de/dokumente/textarchiv/2022/kw27-de-regierungsbefragung-900498#L734-L740|Scholz launched a Concerted Action and acknowledged relief was insufficient","chapter_ids":["5B","8B"],"methodology_ids":["5B.3","5B.6","5B.8","5B.9","8B.1","8B.4","8B.8"],"disposition":"final_evidence"},
+  {"provisional_id":"R063","canonical_fact_key":"https://www.nature.com/articles/s44184-022-00019-2#L60-L63|Study found refugee adolescents underused mental-health services relative to needs","chapter_ids":["6B"],"methodology_ids":["6B.2","6B.3","6B.6","6B.8"],"disposition":"context"},
+  {"provisional_id":"R064","canonical_fact_key":"https://www.ndr.de/der_ndr/presse/mitteilungen/Cum-Ex-Affaere-Postfach-von-Scholz-Bueroleiterin-durchsucht%2Cpressemeldungndr23360.html#L24-L38|Prosecutors searched a Scholz aide’s mailbox and identified potentially relevant deletion-related material while evidence of Scholz influence remained unestablished","chapter_ids":["7B"],"methodology_ids":["7B.3","7B.4","7B.6","7B.7","7B.10"],"disposition":"final_evidence"},
+  {"provisional_id":"R065","canonical_fact_key":"https://www.bundestag.de/dokumente/textarchiv/2022/kw22-de-generalaussprache-896288#L878-L881|Bundestag passed the 2022 federal and supplementary budgets after extended debate","chapter_ids":["5B","8B"],"methodology_ids":["5B.6","8B.2","8B.3","8B.4","8B.8"],"disposition":"final_evidence"},
+  {"provisional_id":"R066","canonical_fact_key":"https://www.bundeswirtschaftsministerium.de/Redaktion/EN/Pressemitteilungen/2022/06/20220608-further-steps-on-the-path-to-creating-independence-from-russian-gas-imports-federal-cabinet-adopts-precautionary-measures-for-the-event-of-an-impending-gas-shortage.html|Federal cabinet gas-shortage precautionary measures candidate could not be opened precisely","chapter_ids":["8B","5B"],"methodology_ids":["8B.2","8B.3","8B.5","8B.6","5B.6"],"disposition":"discovery_only"}
+]
+```
+
+The dossier still requires continuation because all chapters retain bounded attribution or outcome gaps, especially 1B and 7B.
+---

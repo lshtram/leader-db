@@ -1,5 +1,1757 @@
 # Workplan
 
+## 2026-08-06 — Revised eighty-question methodology synchronized
+
+- Promoted the reviewed Word revision to `ruler-quality-questions-v2` and
+  `layered_lenses_v2` while preserving all eighty methodology IDs and the shared six
+  evidence categories.
+- Corrected 1B.1 so capability growth is adverse **unless** modernization has the sole
+  and undisputed motivation of improved safety. Arsenal size remains evidence under
+  the existing categories rather than becoming a separate category.
+- Synchronized the machine-readable catalogues, eight chapter guides, consolidated
+  methodology, pipeline prompt guide, and customer Word document. Runtime pipeline
+  code remains unchanged.
+- Added a hash-bound methodology freeze and tests that compare every Word question
+  against the runtime catalogues and published Markdown tables. Existing scores retain
+  their original rubric versions and require controlled rejudgment under this release.
+
+## 2026-08-06 — Sol-only judgments and bounded high-reasoning review
+
+- Replaced the remaining Luna chapter judgment (1B) with a complete nineteen-ruler
+  Sol judgment. All eight accepted chapter judgments are now produced by
+  `gpt-5.6-sol`.
+- Added a first-class, file-backed judgment-review runner. It uses Sol with explicit
+  `high` reasoning, reads the source chapter judgment and all nineteen hash-bound
+  projections, and deterministically rejects altered inputs, foreign evidence IDs,
+  missing rulers, null-to-numeric conversion, or numeric movement beyond ±1.
+- Every accepted review returns a revised reader-facing rationale plus revised lower-
+  and higher-anchor explanations. The eight live reviews completed and made 26 bounded
+  score corrections across 152 evaluations.
+- The consolidated reviewed package is
+  `research/runs/2023-production-19-sol-high-review-v2/reviewed-judge-package.json`.
+  Accepted reviews used 8,253,696 input tokens (7,365,888 cached) and 130,399 output
+  tokens, including 36,482 reasoning-output tokens. One earlier sandbox-blocked review
+  is retained as a failed diagnostic and was not applied.
+
+## 2026-08-05 — Nineteen-ruler 2023 comparative judgment completed
+
+- Completed nineteen distinct 2023 production-series ruler dossiers across the
+  original eleven-ruler run and two four-ruler Luna expansions. Nigeria remains
+  outside this requested judge cohort.
+- Extended chapter-judge planning to accept an explicit ordered list of dossier
+  run keys. The planner preserves exact dependencies and rejects duplicate
+  canonical ruler-year identities, allowing the nineteen approved dossiers to
+  form one comparative cohort without copying or rerunning research.
+- Completed all eight chapter judgments over the exact nineteen-ruler cohort: 1B
+  used Luna; 2B–8B exceeded Luna's safe context ceiling and used the configured Sol
+  supervisor with hash-bound file-backed chapter inputs. The file-backed runner starts
+  inside the attempt directory, verifies every input digest after execution, and
+  retains the original source judgments.
+- Produced 152 ruler-chapter evaluations: 145 numeric half-point scores and seven
+  recoverable nulls. The final package checked 517 decisive web-evidence references
+  against ruler-specific projections with zero unresolved IDs.
+- The independent Luna score/order audit found one missing null-review flag. Canonical
+  null normalization was fixed and tested; an immutable corrected package records five
+  normalization-only changes. The second audit passed and recommends release subject
+  to its documented nonblocking judgment-call warnings.
+- Final artifacts and profiling are under
+  `research/runs/2023-production-19-final-audit-v1/`.
+
+## 2026-08-02 — Production pipeline frozen for cross-ruler comparability
+
+- Audited the thirteen expanded-discovery jobs. Every job has an 80-record
+  `local-priors.json` input and overview plus all eight chapter discovery artifacts.
+  Different attempt counts reflect retries; all thirteen contain the required stage
+  artifacts. This establishes artifact presence, not identical substantive depth.
+- A fairness review found that Lula, Xi, Tshisekedi, and Scholz were produced while
+  the continuation implementation was still improving. Their quality-passed outputs
+  remain useful diagnostics but are not yet a methodologically uniform production set.
+- Fixed the final observed interface defect: a corrected chapter answer now receives
+  up to three constrained retries when it cites evidence not reopened for passage
+  review. After three failures, code removes only unauthorized structured IDs and
+  records the exact removal for independent quality review.
+- Froze `production-2023-v1` in
+  `configs/evidence-funnel/production-2023-v1.freeze.yaml`, binding pipeline code,
+  methodology, configuration, operating directives, question catalogue, model
+  profile, gates, and change control. Hash mismatch stops the batch; a necessary fix
+  creates a new release and triggers a cross-ruler rerun decision.
+- Next: finish Sisi review under the frozen release, audit earlier stage equivalence,
+  and rerun every non-equivalent earlier stage before treating ruler packages as a
+  comparable 20-ruler production cohort.
+
+## 2026-08-02 — Full-catalogue continuation passes Tshisekedi and Scholz judge-prep gates
+
+- Completed the Tshisekedi 2023 package from 338 acquired unique documents. The
+  resulting ledger contains 436 verified evidence records. All eight chapter-answer
+  packages are independently safe for judge use; 3B required one targeted revision
+  and 4B required two. Revision attempts are immutable and receive fresh reviews.
+- Completed Scholz 2023 from the preserved 478-URL catalogue. Acquisition produced
+  399 readable responses and 389 unique queued documents (2.13 million estimated
+  source tokens). Two oversized/failed batches were split into 18 repair slices with
+  zero repair failures. The final ledger contains 621 accepted or corrected records
+  from 243 source documents, 603 conservative clusters, and coverage on 79 of 80
+  methodology questions.
+- All eight Scholz chapter packages are independently safe for judge use. Chapters
+  1B-7B passed the first review; 8B passed after one targeted revision and fresh
+  review. These are evidence answers for a future judge, not ruler scores.
+- Added first-class multi-directory judge-package assembly so main and repair reading
+  outputs reconcile without an ad hoc merge. Duplicate-cluster review now keeps only
+  exact ID-and-digest, non-overlapping groups; malformed groups remain singleton
+  evidence and their count is recorded. Chapter draft and critique identity failures
+  receive bounded deterministic filtering with an audit note after model retries.
+- Scholz completed-call profiling records 17,103,193 model tokens: 16,685,597 input
+  (634,368 cached) and 417,596 output. The checked-in Luna rate-card equivalent is
+  $3.724, excluding one overwritten failed clustering call and representing an
+  estimate rather than provider billing.
+- Next: preserve the passed packages in the eventual score-bearing handoff and resume
+  the remaining acquired ruler catalogues one ruler at a time with the same quality
+  gate and profiling.
+
+## 2026-08-01 — Top-20 catalogue continuation corrected and paused before paid reading
+
+- Stopped the active top-20 dossier workers after identifying that the research
+  prompt's twelve-documents-per-chapter target had become a de facto inspection
+  ceiling. Existing catalogues remain intact: the first thirteen rulers have
+  between 382 and 502 deduplicated candidate URLs each.
+- The continuation path now begins from those catalogues. Acquisition assigns a
+  disposition to every URL; the corpus planner content-deduplicates successful
+  downloads and queues every representative. Its documents-per-batch setting is
+  transport shaping only and does not limit corpus coverage.
+- Removed a hard-coded AMLO 2023 identity from the corpus reader. Reading plans now
+  persist the ruler name and period, and the CLI requires them. Focused regression
+  tests prove that forty acquired documents remain queued when batches contain at
+  most twelve documents and that the reader receives the persisted ruler-period.
+- Next: run resumable, no-model acquisition for each preserved catalogue; audit
+  acquired, blocked, duplicate, and failed counts; then start profiled corpus reading
+  only after the full catalogue reconciles.
+
+## 2026-08-01 — Preserved catalogues continued through full-corpus judge preparation
+
+- Acquired and dispositioned all 5,963 candidate URLs already present across thirteen
+  ruler catalogues. Lawful acquisition produced 3,920 readable sources; exact-content
+  deduplication queued 3,768 unique documents in 335 context batches containing an
+  estimated 16.93 million source tokens. Every blocked, missing, empty, duplicate, and
+  transient record remains explicit. A bounded three-attempt retry recovered temporary
+  failures without refetching successful sources.
+- Removed the corpus reader's hard-coded AMLO identity and persisted ruler-period
+  context in each reading plan. Tightened the reader's semantic instruction to one
+  event, policy, quantitative result, or institutional finding per record. Brazil's
+  mapping density fell from the earlier Hasina diagnostic's 10.1 average / 27 maximum
+  to 5.3 average / 13 maximum while retaining 259 accepted or corrected records.
+- Fixed mapping identity recovery. Two bad verdicts in 289 records had previously
+  caused eighty isolated Luna retries because code discarded two otherwise valid
+  forty-record batches. Recovery now retains exact ID+digest verdicts and retries only
+  the two invalid records.
+- Changed chapter preparation to expose the complete compact verified ruler ledger to
+  every chapter draft and critique, including records routed elsewhere. Exact passages
+  are reopened for question-level correction. This prevents earlier routing from
+  becoming a hidden evidence ceiling.
+- Brazil 2023 completed full-corpus reading and all eight chapter preparations. The
+  corpus reader processed 233 unique documents and retained 259 verified records from
+  117 sources. All eight independent chapter reviews returned `pass_with_corrections`
+  and `safe_for_judge_use`; each chapter produced ten detailed answers and cited 47 to
+  83 exact evidence records. Reading used 2.34 million tokens, chapter analysis 4.88
+  million, and quality review 1.42 million, for 8.64 million continuation tokens.
+- Next: retain the chapter quality reports and their concrete corrections in the judge
+  handoff, run the corrected flow over the other acquired ruler corpora, and profile
+  each ruler separately before score-bearing judgment.
+
+## 2026-08-01 — Direct Luna explicit-cache proof passed
+
+- Added a two-request Responses API probe hard-coded to `gpt-5.6-luna`, with an
+  explicit breakpoint after a 28-record, 352,597-character evidence prefix and a
+  stable cache key. The first request wrote 72,475 tokens; the second request read
+  all 72,475 from cache while changing the chapter suffix.
+- Provider usage produced an estimated $0.09088575 first-call cost and $0.00753950
+  second-call cost at the current official Luna rates, for $0.09842525 total. The
+  probe stayed below the 272k long-context tier and capped each output at 200 tokens.
+- A persistent API-cost ledger now records every completed probe call and blocks a
+  new run when prior recorded spend plus conservative preflight exposure could reach
+  the $5 boundary. The API key is read from `.env` and is never written to artifacts.
+- Next: generalize the proven shard-major schedule so every chapter receives every
+  evidence shard, preserving identical cache prefixes and measuring write, read,
+  fresh-input, output, elapsed-time, and cumulative cost before expansion.
+
+
+## 2026-07-31 — Luna-only exact-evidence chapter analysis experiment
+
+- Replaced the costly question-at-a-time experiment with one chapter-level Luna
+  analysis whenever the exact evidence packet fits the Codex 1,048,576-character
+  input boundary. Larger chapters partition exact records into non-overlapping
+  sub-megabyte shards; Luna reads each record once and a final compact Luna turn
+  performs draft, skeptical audit, and correction across all ten lenses.
+- AMLO 2023 calibration completed for `1B`, the prior-failing `7B`, and the largest
+  `8B` package. They respectively processed 52, 145, and 374 exact evidence records
+  using 172,284, 572,830, and 1,366,934 input tokens. Output usage was 6,495,
+  19,914, and 32,278 tokens. No Sol call was used.
+- A separate Luna quality review marked all three `pass_with_corrections` and safe
+  for judge use. The remaining issues are targeted citation-to-claim corrections,
+  incomplete use of the candidate index, and clearer separation of formal measures
+  from observed implementation. These reviews remain attached to the judge input;
+  they are not ruler scores.
+- Codex prompt caching was measured rather than assumed. Repeated question calls
+  cached only the stable 8,960-token execution prefix, and a developer-context
+  experiment caused repeated invalid turns despite larger cache hits. The accepted
+  design obtains the larger saving by never resubmitting an exact evidence shard.
+
+
+## 2026-07-31 — AMLO discovery separated from evidence extraction
+
+- Re-audited the thin AMLO 2023 dossier against prior work. The earlier AMLO 2022
+  all-chapter run had 102 ledger units from 83 URLs and 51 domains, while the older
+  Chapter 5B discovery-only catalogue contained 208 candidates across books,
+  scholarship, audits, government records, programme reports, journalism, and hubs.
+  The 2023 dossier's 43 URLs were therefore a retained-citation count, not a
+  sufficient source-universe measure.
+- Added a discovery-only stage before evidence extraction. One ruler-level pass
+  targets biographies, books, scholarship, long-form investigations, archives, and
+  full-period syntheses; eight chapter passes target at least thirty candidates each.
+  Models emit simple candidate records rather than evidence claims. Parent code
+  canonicalizes URLs, merges chapter routing, preserves blocked and unopened leads,
+  and writes a durable candidate catalogue for bounded extraction projections.
+- The live AMLO 2023 discovery gate found 401 deduplicated candidate URLs from 191
+  named publishers: 20 book/biography-like records, 35 academic records, 184
+  report/audit-like records, and 67 journalism/investigation-like records. Chapter
+  routing ranges from 57 candidates for 1B to 127 for 8B. Of these, 345 remain
+  unopened, 41 were opened during discovery, and 15 are access-blocked; those are
+  inspection dispositions, not evidence-quality judgments.
+- Added explicit prior-catalogue seeding to the planner and worker. Recovered AMLO
+  catalogues and accepted dossier sources from earlier runs add 321 URLs not present
+  in the new search after deterministic URL normalization, producing an expanded
+  722-URL, 310-publisher inspection universe. This includes 24 book/biography-like
+  and 46 academic records. Seed paths are persisted in the job input; discovery
+  merges them before new overview and chapter searches rather than silently starting
+  from zero.
+- The nine Luna discovery calls used 1,540,243 input tokens (1,102,848 cached) and
+  62,543 output tokens. No fact extraction or scoring was performed. Next: audit
+  catalogue validity, deduplicate equivalent document URLs and catalogue mirrors,
+  prioritize an inspection package by source family and chapter gap, then benchmark
+  whole-document extraction against this larger source universe.
+
+## 2026-07-31 — AMLO 2023 all-chapter evidence dossier completed
+
+- The updated evidence researcher completed all eighty lenses for Andrés Manuel
+  López Obrador, Mexico, 2023. The validated dossier retains 61 final evidence
+  records from 43 URLs and 32 publishers, with 277 evidence-to-lens mappings.
+  Seventy-seven lenses are partially covered and three are explicitly
+  research-blocked (`6B.7`, `7B.3`, and `7B.8`).
+- The research notebook reached 467,452 bytes and 68 source-claim records before
+  deterministic deduplication and final-use filtering. The local-prior resource
+  package was 2,803,959 bytes across all eighty lenses.
+- Corrected profiling counts cumulative usage snapshots once per persistent Codex
+  thread. The complete run used 6,901,475 input tokens (5,692,416 cached),
+  92,639 output tokens, and 6,994,114 total tokens. The checked-in Luna rate card
+  gives a $0.466827–$0.862433 PAYG-equivalent range; actual billed cost is not
+  exposed.
+- Two formatter calls failed structural/accounting validation. Deterministic
+  recovery preserved the reviewed ledger and produced the complete mapping and
+  coverage contract without another model call. Evidence quality still requires
+  chapter judging and score/order audit before this becomes a scored ruler result.
+
+## 2026-07-31 — Whole-context reader scaled to the researcher resource set
+
+- Expanded the Chapter 5B diagnostic from the 16-source frozen gate to the
+  evidence researcher's round-3 set of 35 evidence records, 33 distinct URLs,
+  and 17 publishers.
+- Lawful direct acquisition yielded 14 usable full-text sources totaling about
+  2.8 MB; duplicate URLs make these the underlying sources for 18 ledger entries.
+  The remaining sources were preserved as blocked, timed out, challenge-shell,
+  or otherwise unusable states rather than bypassed.
+- Five GPT-5.4-mini source-role readers completed in about 143 seconds wall time
+  and used 531,901 provider tokens. Four packages ran concurrently after the
+  initial IMF pass.
+- A fresh direct audit found 14 of 18 full-text-supplied ledger entries preserved
+  accurately, four partially preserved, none absent, and none materially
+  distorted. Semantic recall was 100%; exact preservation was 77.8%. Precision
+  losses were concentrated in exact rates, counts, and comparison values.
+- A generative merge is rejected for this topology. Its first version collapsed
+  the evidence to ten thematic accounts; a stricter retry stalled for 225 seconds.
+  Preserve the five detailed memos and create only a deterministic index. Keep
+  the verified researcher ledger for access-limited sources.
+- Detailed diagnostic:
+  [`docs/reviews/2026-07-30-whole-context-evidence-reader.md`](reviews/2026-07-30-whole-context-evidence-reader.md).
+
+## 2026-07-30 — Whole-context reader replaces windowed expansion candidate
+
+- Put the clean-room windowed CLI-agent experiment on hold after live profiling
+  showed that a 5,835-sentence source required 21 sequential windows and roughly
+  two model sessions per window. Seven windows completed, but the projected
+  three-source runtime was three to four hours.
+- Retained the secure Docker runner and code-owned citation work as diagnostics;
+  no windowed result was promoted. All live extractor, relay, container, and
+  network processes were terminated.
+- Ran two one-call GPT-5.4-mini diagnostics over the complete roughly 60,000-word
+  frozen trio plus all ten Chapter 5B lenses. Each completed in about two minutes.
+  The broad prompt used 120,090 provider tokens and over-selected 100 facts,
+  including 59 historical biography items. A target-period/source-role prompt used
+  117,527 tokens and produced a 2,895-word memo with 70 facts: 7 biography-context,
+  61 IMF, and 4 legal references, with source-count overlap on mixed-source facts.
+- Preliminary manual matching places the selective memo around 34–36 of the 47
+  benchmark facts, near the 75 percent recall target. The remaining issue is
+  materiality pruning and locator/support verification, not corpus throughput.
+- Next experiment: whole-context reader → deterministic locator resolution →
+  one compact package-level selection/review. Do not restore per-window or
+  per-fact model sessions unless a source exceeds the active model context.
+- Detailed diagnostic:
+  [`docs/reviews/2026-07-30-whole-context-evidence-reader.md`](reviews/2026-07-30-whole-context-evidence-reader.md).
+- Expanded to all 16 frozen sources. A single 250,846-source-token call exhausted
+  GPT-5.4-mini's context during output, so the successful bounded topology used
+  two source-role packages plus one memo-only merge. The three successful calls
+  completed in about 115 seconds and used 294,144 provider tokens. The merged
+  package has 14 consolidated accounts and covers all ten Chapter 5B questions.
+  This passes the throughput/architecture experiment but remains non-publication
+  until page/block references are deterministically resolved to exact supporting
+  spans and multi-clause accounts are checked against those passages.
+
+## 2026-07-30 — Clean-room simple evidence extractor implemented; live sandbox blocked
+
+- Added a standalone project under `prototypes/simple-evidence-extractor/`. It has
+  its own package, configuration, CLI, tests, and artifacts and imports nothing from
+  `leaders_db` or the earlier evidence funnel.
+- The model-facing surface is four short commands: `show`, `add`, `correct`, and
+  `confirm`. Code resolves allowlisted sources, copies exact sentence spans, records
+  offsets and hashes in an append-only JSONL registry, returns the stored entity to
+  the model, and requires separate extractor and reviewer confirmation. Model prose
+  and final responses are ignored.
+- A runner-owned Unix-socket broker issues a short-lived random capability for each
+  model call. The server binds it to the role, source range, window, and fact
+  allowlist; model requests cannot self-assign reviewer authority. Completion
+  markers bind both source hashes and the canonical final registry states.
+- The implementation is 2,399 lines across focused files, with no source or test
+  file over 400 lines. Twenty-one synthetic source, exact-span, registry, broker
+  confinement, resume, rejection, attempt-limit, and clean-room tests pass; Ruff is
+  clean.
+- LAW-005 loads independently as 31 stable sentences and preserves both original
+  and extracted-file hashes. The first live M3/M2.7 boundary could not call the CLI:
+  this host's Codex `workspace-write` sandbox fails before every shell command because
+  `bwrap` cannot create its loopback interface (`RTM_NEWADDR: Operation not
+  permitted`). No evidence was written, and the implementation did not weaken the
+  agreed filesystem confinement or return to MCP/hard command guards.
+- The next live gate is blocked on a functioning filesystem sandbox. Once available,
+  rerun the single LAW-005 window, manually compare all records with the four-fact
+  benchmark, and expand only after 100% citation integrity and the configured quality
+  gates pass.
+
+## 2026-07-28 — Hardened guarded-CLI LAW-005 small gate passed
+
+- Replaced the unreliable MCP tool-name route with a four-action citation CLI:
+  `inspect`, `record`, `revise`, and `finish`. A Codex `PreToolUse` guard denies
+  every other shell action and rejects shell chaining, redirection, substitution,
+  unsupported actions, and incorrect action arity.
+- The model supplies semantic intent and exact locator/segment identifiers. Code
+  reads the frozen source, derives its hash and verbatim excerpt, writes the ledger,
+  and returns the stored proposal for confirmation or revision. Model prose is not
+  an accepted extraction channel.
+- An initial passing run exposed a suffix-injection weakness in the shell guard
+  during independent code review. The run trace contained only legitimate commands,
+  but the implementation was hardened before acceptance: shell chaining,
+  redirection, and substitution are rejected; the writer and hook are bound into
+  resume hashes; and both input dialects require prior inspection.
+- Fresh calibration 44 processed LAW-005 through M3 extraction and fresh M3 review.
+  It mapped and routed both source units, extracted and confirmed four evidence
+  records, accepted all four, rejected none, and required no premium escalation.
+  The four records cover all four facts in the human benchmark. The mechanical gate
+  passed with 100% candidate precision against the configured 90% threshold. Total
+  provider-reported usage was 206,795 model tokens.
+- A manual comparison of all four claims with their code-bound excerpts found no
+  unsupported claim, date, quantity, attribution, or legal-status wording. The
+  completed run resumed without model calls in 1.7 seconds while revalidating its
+  input, implementation, hook, event, stderr, and ledger hashes. The result remains
+  an experimental, non-publication calibration; broader expansion is a separate
+  gate.
+- Immutable artifacts are under
+  `research/conversational-evidence/amlo-2022-5b-evidence-funnel-v2/calibration-44-cli-guard-hardened-small/`.
+
+## 2026-07-28 — Four-action citation-tool small gate failed; expansion blocked
+
+- Replaced the extraction final-response contract with a dedicated ledger boundary.
+  The accepted extraction output is now code-owned inspection, binding, correction,
+  and confirmation state; model prose and final-message JSON are ignored.
+- The direct CLI could not run under the Codex read-only sandbox because this host's
+  `bwrap` process cannot create its loopback namespace (`RTM_NEWADDR: Operation not
+  permitted`). Running without the sandbox was rejected because it would not enforce
+  the requested CLI-only boundary.
+- Added a local stdio MCP adapter exposing only `inspect`, `record`, `revise`, and
+  `finish`. After pre-approving those bounded tools, calibration 40 proved that M3
+  could inspect both LAW-005 locators through the server. The ledger stored both
+  immutable inspections, but M3 produced no valid record: the first MCP contract hid
+  the evidence schema inside one JSON string and M3 exhausted the turn learning it
+  through validation errors.
+- Simplified `record` to typed factual fields with code-owned source hashes and
+  defaults, and made `revise` span-only. Subsequent MiniMax M3 and M2.7 calls emitted
+  flattened provider tool names (`evidence_inspect` / `evidence_v2_inspect`) that the
+  Codex router rejected instead of the canonical MCP identifiers. No candidate was
+  confirmed in calibrations 36–42, and no prose fallback was accepted.
+- Calibration 40 used 237,922 input and 8,725 output tokens (214,912 input tokens
+  reported as cached). The earlier aggregate of 461,559 double-counted cached tokens;
+  the runner now reports input plus output unless the provider supplies a total.
+- The LAW-005 small gate therefore failed with zero confirmed evidence. The
+  three-source medium run and sixteen-source expansion remain blocked. The next gate
+  is a provider/Codex tool-name interoperability test; corpus execution must not
+  resume until M3 or M2.7 can complete inspect → record → finish on one locator.
+
+## 2026-07-27 — Three-source code-owned-citation calibration 30 failed
+
+- Added a separate, bounded calibration runner for `BOOK-013`, `MAC-010`, and
+  `LAW-005`. It executes deterministic frozen-unit mapping, M3-first/M2.7 routing,
+  semantic intent extraction, code-owned exact citation binding, and a fresh
+  M3-first/M2.7 semantic review. It is experimental and cannot publish a score.
+- M3 remained unavailable at its configured local endpoint. M2.7 read all three
+  sources but consistently ignored the requested JSON schemas. Deterministic
+  normalizers preserved explicit routing tables, semantic fields, segment selections,
+  and review verdicts; they never supplied quotation text. Unsupported elements
+  identified by the reviewer were rejected even when its prose label said “accept.”
+- The runner's initial mechanical report produced 41 exact, locator-bound candidates
+  and provisionally classified 32 accepted / 9 rejected, using 695,657
+  provider-reported model tokens. The 22.0% semantic rejection rate exceeded the
+  configured 10% ceiling. Provisionally accepted evidence did not cover `5B.2`,
+  `5B.6`, `5B.7`, or `5B.10`, so the calibration failed and stopped before
+  clustering, dossier construction, or judgment.
+- Independent code/result review invalidated that provisional 32-accepted count. At
+  least three “accepted” records contained a date, quantity, or attribution that the
+  review prose itself said was absent from the bound passage. The review also found
+  latest-attempt-wins disagreement handling, semantic invention in the Markdown
+  normalizer, and unbound normalized-stage resumption. Calibration 30 is therefore
+  an integration failure as well as an evidence-quality failure; its provisional
+  accepted set must not be used downstream.
+- The code-owned citation control passed its purpose: no model-authored excerpt
+  entered the ledger, and all 41 candidates resolved against frozen source hashes,
+  locators, segments, and character offsets. The remaining failures are semantic
+  extraction precision and coverage, M2.7 contract compliance, strict review
+  reconciliation, and normalized-stage binding.
+- Calibration artifacts are under
+  `research/conversational-evidence/amlo-2022-5b-evidence-funnel-v2/calibration-30/`.
+  Before the next run, remove semantic fabrication from format normalization, bind
+  normalized artifacts to source/config/prompt/raw-output hashes, reconcile all
+  reviewer attempts with disagreement escalation, and split dense extraction into
+  configured bounded batches. Only then should the trio be repeated and the four
+  missing lenses targeted.
+
+## 2026-07-27 — Evidence-funnel recovery: code-owned citations and runner retirement
+
+- Stopped calibration 27 and terminated its orphaned provider child. Calibration 25
+  and 26 remain failed diagnostics; calibration 27 is incomplete. No diagnostic
+  result has been promoted and no further live model run is authorized by this work.
+- Reviewed the complete experimental funnel surface. The review found cancellation
+  leakage, unsafe/stale legacy resume paths, a post-verification correction bypass,
+  wrong-account risk in question briefs, misleading default cluster relations and
+  official concentration, non-atomic aggregate writes, duplicate orchestration, and
+  files far beyond the repository's 400-line limit.
+- Retired the 1,883-line low-cost runner, the obsolete 418-line quote-authoring runner,
+  the stale diagnostic runner, and their two oversized test files. Historical research
+  artifacts remain unchanged. The 700-line compression-frontier runner and 420-line
+  reader-pack preparation script are frozen historical diagnostics: no active entry
+  point or test imports them, and they must be split below 400 lines before any
+  reactivation or substantive edit.
+- Added code-owned citation binding. Models now emit semantic `EvidenceIntent` records
+  with hash-bound locator/segment selections and no quotation text. Deterministic code
+  copies the exact contiguous source substring and offsets, writes immutable attempts,
+  returns the stored draft, and supports confirm/discard/correct for at most three
+  configured attempts. Confirmed records remain pending semantic verification.
+- Replaced the quote-authoring AMLO funnel configuration with
+  `configs/evidence-funnel/amlo-2022-5b-v2.json`; its phase order now records intent
+  extraction, citation binding, citation confirmation, and semantic verification as
+  separate lifecycle stages.
+- Added a thin citation-writer CLI and focused module-level tests, including a real
+  frozen-source CLI boundary and interruption cleanup for a descendant process group.
+  Split execution/resume/schema/process artifacts into focused modules; all active
+  evidence-funnel production, script, and test files are below 400 lines.
+- Fixed question briefs to use an evidence account applicable to the requested
+  methodology ID. Cluster construction now requires explicit typed relations and
+  calculates official concentration over deduplicated source/dependency units rather
+  than evidence-row volume.
+- The active prototype is not yet a live end-to-end funnel. Next implementation gate:
+  compose reviewed mapping, routing, intent extraction, citation confirmation,
+  semantic verification, aggregation, and typed manifest stages without restoring
+  model-authored quotations or the retired runners.
+
+## 2026-07-26 — AMLO 2022 Chapter 5B exploratory funnel diagnostic failed
+
+- Completed the three-source calibration after three bounded rounds. The final
+  calibration retained eleven manually audited claims across `BOOK-013`, `MAC-010`,
+  and `LAW-005`; four non-contiguous or altered excerpts were rejected. The remaining
+  5B.2 personnel gap stayed explicit.
+- Completed extraction and fresh verification for all sixteen frozen documents. The
+  resulting compact package contained 34 accepted candidates and covered all ten
+  lenses, with seven unresolved gaps.
+- This was not a valid full funnel gate: the experimental runner bypassed document
+  mapping and high-recall routing, and M3 service unavailability caused GPT-5.6 Sol
+  to process the complete extraction and verification inputs.
+- Ran matched GPT-5.6 Sol judgments. The closed-book funnel package scored 5.0 and the
+  complete-extract reference arm scored 5.5 under the experimental v4 guide.
+- After removing rejected candidates from the closed-book input and supplying the
+  auditor with the evidence-ID-to-passage map, the independent passage audit still
+  failed the diagnostic despite the small score difference. It found material
+  omissions in labor-income, institutional-resilience, energy-policy, Segalmex, fuel
+  support, and Sembrando Vida evidence, plus attribution compression in both arms.
+- The full-source 5.5 result matches the modal earlier AMLO 2022 v3 judgment. Earlier
+  compression-frontier papers retained several of the dense-source facts lost by the
+  atomic funnel, so compression and record counts remain diagnostic rather than
+  acceptance criteria.
+- Stopped at the requested four-step boundary. No further gap round, expanded
+  catalogue, production promotion, or additional chapter work has started.
+
+## 2026-07-26 — Question-driven Chapter 5B evidence funnel infrastructure added
+
+- Added validated, versioned contracts for document maps, routing decisions, atomic
+  evidence candidates, factual clusters, question evidence briefs, run manifests,
+  telemetry, experimental judge packets, and matched diagnostic judgments.
+- Added immutable hash-bound artifact persistence and resumption checks. Completed
+  phases are reusable only while their input, configuration, and output hashes match.
+- Added deterministic stable evidence/cluster IDs, short-record forwarding, adjacent
+  context selection, format-only JSON normalization, source-dependency and
+  official-concentration clustering, ten-question brief generation, and conversion to
+  the existing `RulerEvidenceDossier` v2 many-to-many contract.
+- Added the first authoritative funnel configuration for AMLO 2022 Chapter 5B. It
+  freezes the `BOOK-013` / `MAC-010` / `LAW-005` calibration trio, the sixteen-document
+  gate, M3-first stage roles, fallback profiles, verification escalation, and the
+  three-round gap limit. Expanded-catalogue execution remains disabled.
+- The previous document-summary/compression runs remain diagnostic history and are not
+  inputs to this funnel. The new diagnostic score contract is explicitly
+  non-publication.
+- Focused tests exercise the real frozen extracts and access audit plus schema,
+  many-to-many, short-record, adjacency, normalization, clustering, resumption,
+  dossier-conversion, and matched-judgment behavior.
+- Next gate: connect model adapters to the provider-neutral stage contracts and run a
+  human audit of the three-document calibration ledger before enabling the complete
+  sixteen-document execution.
+
+## 2026-07-25 — Biography compression acceptance criterion corrected
+
+- Rejected the 632-token `BOOK-013` synthesis as an orientation note, not a
+  decision-useful evidence paper. Preserving headings and high-level conclusions is
+  insufficient when the downstream judge needs the underlying facts.
+- Replaced the compression prompt and reviewer contract with a factual-payload test:
+  retain concrete episodes, actors, actions, dates or periods, mechanisms, outcomes,
+  material figures, competing accounts, evidentiary status, and locators. A back-cover
+  or table-of-contents-style summary now fails even when its themes are accurate.
+- The first corrected M3 biography pass produced 5,425 words / 7,804 output tokens
+  from a 31,212-token extract (about 4:1 by provider tokens). It is a materially richer
+  evidence paper. No further compression is authorized until a manual, question-aware
+  payload audit distinguishes consequential omissions from irrelevant biography.
+- The reviewer must assess only useful content the source can support. It must not
+  treat the source's lack of 2022 coverage as a compression failure or require family,
+  health, campaign-venue, and party-history detail without a material Chapter 5B link.
+- Next: manually audit the corrected paper's concrete claims and locators, then test
+  one redundancy-removal pass. Add a closed-book downstream-judge comparison before
+  selecting a compression frontier.
+
+## 2026-07-25 — AMLO long-document reader fidelity experiment opened
+
+- Opened a frozen, content-first A/B design for AMLO 2022 Chapter 5B using a
+  stratified sixteen-document pack. GPT-5.6 Sol is the baseline reader and common
+  compiler; the candidate ladder starts with MiniMax M2.7 and falls back to GPT-5.6
+  Luna when content, rather than formatting, fails.
+- Serialization defects do not count as reader-quality failures. A separate
+  high-quality normalization pass may restore JSON from the reader summary and the
+  original hash-bound extract without adding or strengthening substantive claims.
+- Added explicit access states for machine-readable text, metadata, paywall/login,
+  bot or JavaScript challenge, robots denial, transient failure, and unavailability.
+  Restricted sources remain catalogued but are never bypassed or silently treated as
+  readable.
+- The expanded AMLO universe is heavily weighted toward executive, administrative,
+  audit, court, regulator, and state-enterprise records. Future selection, source maps,
+  review, and judgment must not treat official volume or formal status as truth.
+  Consequential official claims require independent corroboration or an explicit
+  unresolved warning, with deliberate use of scholarship, civil society, critical
+  local journalism, affected parties, courts, autonomous oversight, and credible
+  opposing accounts.
+- Next: complete the longer access retry, freeze and acquire the matched pack, run the
+  three-document M2.7 calibration with format-neutral normalization, then execute the
+  matched arms and order-reversed blind evaluation.
+
+## 2026-07-25 — Mini researcher profile restored; source-ecology v3 rejected
+
+- Confirmed that the production evidence researcher is `gpt-5.4-mini` with its
+  configured default reasoning profile. Marked the earlier `gpt-5.6-sol` AMLO pairs
+  as wrong-model diagnostics with no prompt-promotion authority.
+- Changed both experiment generators to freeze `gpt-5.4-mini`; larger-model runs can
+  diagnose workflow behavior but cannot select a production researcher prompt.
+- Ran a fresh mini v1/v2 pair. v2 broadened publisher labels from 6 to 14 and unique
+  URLs from 9 to 15 at nearly equal input-token cost, while v1 sometimes retained
+  better line-level locators. Neither passed the methodology-ID handoff.
+- Ran a fresh mini v2/v3 pair. The source-ecology paragraph did not increase searches,
+  unique URLs, publisher diversity, or record yield; v3 also failed the methodology-ID
+  contract. Do not promote v3.
+- Next: optimize for the mini model with explicit bounded phases—coverage discovery,
+  targeted underlying-document opening, and separate deterministic/no-search handoff
+  repair—then test locator precision and unique supported facts before adding more
+  prompt prose.
+
+## 2026-07-25 — Fresh AMLO 5B prompt v1/v2 gate inconclusive
+
+- Superseded for production-prompt selection: the pair was mistakenly executed with
+  `gpt-5.6-sol` rather than the agreed affordable `gpt-5.4-mini` researcher. Its
+  artifacts remain diagnostic history but cannot promote or reject a prompt intended
+  for the production researcher.
+- Removed the v1/v2 measurement table and comparative commentary from the human
+  prompt-review document; comparisons now live only in prompt versioning and the
+  experiment report.
+- Froze the progressive quality protocol and a dedicated AMLO 2022 5B package with
+  hashed v1/v2 prompt sources, emitted prompts, case inputs, questions, layered lens
+  presentation, guide, workflow, researcher skill, evaluator rubric, execution
+  controls, label maps, and repository state.
+- Ran one fresh isolated diagnostic `gpt-5.6-sol` pair. v1 produced 12 valid machine records and
+  v2 produced 16; both covered all ten lenses with no parse or required-field failure.
+  Counts and token use remain diagnostic only.
+- The order-reversed blind evaluations disagreed: each preferred the artifact shown
+  first. No prompt advances. The result is recorded as evaluator order sensitivity,
+  not averaged into a winner.
+- Next gate: complete record-by-record source and locator verification, tighten
+  deterministic field semantics, and rerun blind evaluation with independently
+  randomized per-record or per-dimension presentation before another prompt mutation.
+
+## 2026-07-25 — Deep chapter-research prompt simplified
+
+- Replaced the 859-word chapter researcher instructions with a 568-word, seven-step
+  workplan: orient, plan coverage, find the main record, verify claims, test the
+  account, deepen iteratively, and prepare the handoff.
+- Removed repeated negative framing and retained only the score boundary and strict
+  machine-contract constraints tied to demonstrated failure modes.
+- Preserved selected-lens scope, local/web separation, authority and baseline analysis,
+  contrary research, source opening, atomic source-claim records, deduplication,
+  saturation, locators, and the cumulative-ledger handoff.
+- Promoted the editable configuration to `chapter_research_prompt_v2` and synchronized
+  the human review guide. Controlled preserved-case quality comparison remains required
+  before treating the shorter wording as superior in evidence quality.
+
+## 2026-07-25 — Configuration and test-purpose audit opened
+
+- Inventoried all 230 test files (3,405 tests, 11,875 assertions) and all Python prompt
+  builders. The repository is only partly configuration-driven.
+- Adopted the no-shadow-configuration rule for production and tests. Tests load the
+  authoritative configuration and exercise behavior; they do not contain a second copy
+  of questions, prompts, lists, counts, or editorial prose.
+- Removed the newly added production-guide prose test and replaced it with a synthetic
+  regression test of the actual guide-section extraction bug. Reduced adjacent prompt
+  tests to selection, isolation, interpolation, machine-contract, and size behavior.
+- Recorded remaining hard-coded prompt and question families in
+  [`docs/reviews/configuration-and-test-purpose-audit-2026-07-25.md`](reviews/configuration-and-test-purpose-audit-2026-07-25.md).
+- Completed the first executable migration: all 1B–8B registry question prose and
+  identity metadata now come from validated `questions.json`; its configured
+  exact chapter/lens grid is enforced at load time. The active chapter-research
+  prompt and hybrid baseline file
+  manifest now come from versioned JSON; newly touched tests derive mutable
+  expectations from those same files.
+- Research and conversational-evidence boundary verification passes in full.
+- Next migration order: reviewer and continuation prompts; formatter; chapter judge;
+  remaining hybrid-experiment prompts.
+  Each lands separately with schema validation, hashes, behavioral tests, and rollback
+  metadata.
+
+## 2026-07-25 — Layered eighty-lens presentation implemented
+
+- Reorganized all eighty chapter lenses into a reviewable four-column form: short
+  title, plain-language question, unchanged detailed research question, and priority
+  evidence categories.
+- Defined the six evidence categories and typical source families once. Per-lens
+  priorities are advisory and non-exclusive; they do not create quotas or suppress
+  sources outside the highlighted categories.
+- Added the validated `layered_lenses_v1` catalogue and wired the executable chapter
+  researcher to render it before the chapter-specific research plan. The presentation
+  version is embedded in every emitted prompt.
+- Preserved the detailed-only implementation at immutable commit
+  `143a0757d7a4d5ca2e819f243eb02af09d3e229b`, recorded hashes for every material
+  prompt/question/guide file, and documented the run metadata required for controlled
+  comparison and rollback.
+- Existing detailed questions, stable IDs, guide rubrics, source breadth,
+  proportional-search safeguards, and tolerant downstream contracts remain unchanged.
+- Next gate: compare `layered_lenses_v1` against the frozen detailed baseline on a
+  controlled multi-chapter matrix before treating the presentation as production
+  superior.
+
+## 2026-07-24 — Previous-lens and source-ecology continuity audit
+
+- Compared the current eighty questions ID by ID with the immediately preceding
+  question bank. All previous conceptual lenses remain represented.
+- Restored eight sets of concrete examples that had become less explicit, including
+  reckless nuclear threats, manufactured conflict motives, named incitement targets,
+  displacement, crisis censorship, electoral misuse of public resources, economic
+  scapegoating, and opaque personal enrichment.
+- Clarified across the guide, executable researcher prompt, role skill, architecture,
+  and requirements that the six observable channels classify facts rather than
+  privilege “objective” or official sources. Books, academic work, NGO and
+  international-organization reports, journalism, histories, biographies, and expert
+  analysis remain essential.
+- Added a proportional collection rule: begin with high-quality overviews, inspect
+  primary records selectively for consequential claims or disputes, seek material
+  contrary cases, and never attempt an exhaustive review of every law, budget line,
+  appointment, statement, program, or outcome.
+- The detailed comparison is
+  [`docs/methodology/chapter-question-continuity-audit.md`](methodology/chapter-question-continuity-audit.md).
+
+## 2026-07-24 — Chapter questions grounded in observable evidence
+
+- Rewrote all eighty ruler-quality questions while preserving exactly ten lenses in
+  each chapter and retaining the stable `1B.1`–`8B.10` identifiers.
+- The questions now direct collection toward six observable evidence channels:
+  formal acts and law; resources; personnel; implementation and operational conduct;
+  public communications and representations; and outcomes. These are complementary
+  routes to evidence, not quotas, component scores, or a mechanical checklist.
+- Authority, inherited baseline, external constraints, distribution and exposure,
+  causation, durability, and source bias remain required interpretive dimensions.
+  They are applied to the observable record rather than catalogued as evidence types.
+- Synchronized the authoritative question bank, eight chapter guides, runtime
+  registry, collector catalogue, pipeline prompt review, and executable compact
+  chapter-research prompt. Added a deterministic test that prevents those copies from
+  drifting.
+- Bumped every active chapter-guide rubric version. Existing judgments remain valid
+  historical artifacts under their recorded versions; they are not silently
+  relabelled under the new questions. The next gate is a controlled remapping and
+  selected fresh-research comparison before any full-cohort rejudgment.
+
+## 2026-07-24 — Local/web-separated ten-case gate passed
+
+The local evidence builder and compact web-research architecture passed the complete
+ten-case, all-chapter integration gate. See
+[`docs/reviews/local-web-separated-2022-ten-case-gate.md`](reviews/local-web-separated-2022-ten-case-gate.md).
+The run produced 318 accepted web evidence records, 1,167 mappings, 518 direct local
+facts, 99 direct longitudinal signals, and ten validated judgments. Chapter 2B was
+judged as a three-ruler common-meter batch; the other chapters remain singleton
+integration gates. Before the full cohort, repair and repeat the formatter handoff
+gate: tolerant normalization inferred 45 lens-level mappings across eight dossiers
+and restored one manifest-required Scholz fact. The next controlled stages are that
+producer repair, a sampled source/locator audit, and then the full 20-ruler ×
+8-chapter 2022 comparative rerun. Production promotion remains blocked on the complete
+cohort, drift/order/manual score-change audits, cost controls, and release/viewer
+review.
+
+## 2026-07-24 — AMLO 5B separated local/web smoke gate passed
+
+- Passed AMLO 2022 chapter 5B through the complete separated workflow: frozen
+  client-excluding local package, preserved D-quality web notebook, three no-search
+  evidence reviews, two compact reviewer-directed web continuations, no-search
+  formatting, direct local/web recombination, and no-search judging.
+- The final web dossier contains 35 evidence records, 120 mappings, all ten coverage
+  rows, and a cited evidence environment. The terminal reviewer estimates 31
+  defensible source-claims across 13 source families and preserves unresolved causal,
+  final-audit, delegation, correction, and durability gaps.
+- The judge independently received 98 selected local facts and 14 longitudinal
+  signals from the hash-verified artifact. It cited `LS029`, `LS032`, and `LF813`
+  as structured context without rewriting them as web citations; nine decisive web
+  references supplied the ruler-attribution boundary. The validated singleton smoke
+  score is 5.5, confidence 82, range 4.5–6.5; cohort ordering remains intentionally
+  unpromoted.
+- The smoke gate exposed and fixed a real local-builder defect: complete frozen
+  chapters sorted lexically (`5B.1`, `5B.10`, `5B.2`...) were rejected. Completeness
+  now accepts any order while still rejecting missing or duplicated lenses.
+- The continuation also exposed source bundling in audit reports. The production
+  researcher prompt now explicitly requires separate source-claim records and precise
+  locators for materially distinct audit rows, programs, events, decisions, findings,
+  and remedies.
+- Next: scale the same gated workflow to the frozen ten-case matrix, then compare
+  evidence quality, coverage, local use, bias treatment, scores, and phase-level
+  token consumption.
+
+## 2026-07-24 — Separate local-evidence builder and direct judge handoff completed
+
+- Audited the local-evidence path and found a material architectural gap: the parent
+  preserved the full hashed local package, but chapter judges received mainly
+  provenance summaries unless the web researcher and formatter happened to restate
+  the underlying facts.
+- Implemented two independent evidence tracks. A deterministic local-evidence builder
+  now derives bounded chapter packages with `LF*` facts and `LS*` longitudinal signals
+  from the verified full artifact and sends them directly to the judge. Web research
+  remains responsible only for external discovery and the cited `E*` dossier.
+- The judge prompt and output contract keep local and web provenance separate. Missing,
+  malformed, or hash-invalid local packages are explicit and may lower confidence, but
+  do not erase usable web evidence or force a null unless the combined record is truly
+  insufficient.
+- Promoted the validated natural-language D chapter-research prompt: blank-slate
+  researchers receive a self-contained chapter assignment, a compact orientation, and
+  a bounded index of prior web resources; they receive neither the full local package
+  nor an arbitrary evidence quota.
+- Focused boundary, hash/provenance, direct-handoff, legacy-compatibility,
+  attribution, and tolerant-receiver tests pass. An independent review found and
+  closed the legacy-projection, local-only attribution, machine-contract, and malformed
+  local-reference risks. The complete repository suite reaches 100%; its only eight
+  failures are confined to an unrelated Wikidata adapter fixture group that returns
+  zero observations; none of the changed research/judge modules occur in those traces.
+- Next: run AMLO 5B through compact review, formatting, direct local/web
+  recombination, and judging with per-phase token profiling.
+
+## 2026-07-24 — Ten-case deep-chapter D/E efficiency gate rejected E
+
+- Tested hybrid prompt E against the preserved D baseline on the same ten cases, with
+  ten fresh isolated web researchers and two order-reversed blind evaluations. Every E
+  output completed, covered all ten question IDs, and emitted valid machine records.
+- D remained stronger in both evaluator orders and averaged 8.675 versus E's 8.510.
+  E improved Nguyễn and Xi and tied Putin, but materially lost evidence for AMLO,
+  Bolsonaro, Hasina, Scholz, and Tshisekedi.
+- E reduced output tokens by only 5.9% and records by 14.1%, while raising total input
+  16.8%, non-cached input 4.4%, and searches 10.3%. Median input fell 4.9%, but the
+  maximum rose from 1.117M to 2.671M. Compactness sometimes came from omitted material
+  evidence rather than deduplication.
+- Do not promote E. Retain D as the web-research quality baseline. Move E's useful
+  `inspection_state`, `new_fact_contribution`, `source_dependencies`, and
+  `evidence_status` concepts into tolerant compact reviewer/formatter validation, where
+  they cannot discourage complete collection.
+- Full outputs and metrics are in
+  `research/conversational-evidence/chapter-prompt-de-2022-v1/`. Next: test one
+  D-quality notebook through compact no-search review, targeted continuation, formatting,
+  and recombination with the parent-held local package; explicitly preserve the
+  local-evidence/web-research boundary.
+
+## 2026-07-24 — Ten-case deep-chapter A/D gate completed
+
+- Completed twenty isolated `gpt-5.6-sol` web-research cells covering every scored
+  chapter: Xi 1B; Putin, Scholz, and Tshisekedi 2B; Sisi 3B; Hasina 4B; AMLO 5B;
+  Biden 6B; Bolsonaro 7B; and Nguyễn 8B. Every cell has live-search events, all ten
+  question IDs, a terminal usage record, and a nonempty output.
+- Two no-search blinded evaluations reversed the X/Y presentation order. Refined prompt
+  D averaged 8.71 versus 8.59 for current prompt A, led in eight cases, and remained
+  ahead under both label assignments. D improved coverage, authority/baseline framing,
+  contrary research, direct-ruler evidence, and source-state reporting.
+- D is not ready for unchanged promotion. It consumed 6.117M input and 108.6K output
+  tokens versus A's 4.175M and 71.1K, produced 163 records versus 107, sometimes split
+  one report excessively, overstated inspection status, and overused later or synthetic
+  records. One A machine line was malformed; all 163 D lines parsed.
+- The complete paired outputs, token metrics, blinded evaluations, and decision are in
+  `research/conversational-evidence/chapter-prompt-ad-2022-v1/`. Next gate: build prompt
+  E combining D's breadth with A's atomicity, locator discipline, contemporaneous-source
+  preference, and efficiency; compare E with D on the same ten frozen cases before
+  compact reviewer-continuation and formatter testing.
+
+## 2026-07-23 — Controlled 2022 evaluation safeguards complete
+
+- Added a reviewed, bounded local-data disposition audit to compact reviewer and
+  formatter handoffs. It reports parent-owned retained-context, explicit-gap, and
+  invalid/unresolved decisions without replaying fact values or prose; malformed or
+  excessive packages are safely omitted.
+- Audited AMLO's two-point 2B movement. The original 5.5 improperly used domestic
+  National Guard evidence in the international-peace chapter and is rejected. A corrected
+  no-search judgment excludes domestic policing and scores 6.0 with 78 confidence and a
+  5.5–6.5 range. The four other attribution flags were reviewed and classified as
+  ordinary uncertainty for controlled-evaluation purposes.
+- Froze the 20-ruler cohort, baseline hashes, model/workflow hashes, four five-ruler
+  batches, automatic stop gates, stability thresholds, and client-score prohibition in
+  `configs/evaluations/2022-bias-local-v3-controlled.yaml`. The companion
+  `.lock.yaml` binds the exact executable Git commit/tree and configuration/input hashes.
+  All 20 local packages are preserved in a tracked 2.9 MB content-addressed archive,
+  rather than depending on ignored research artifacts.
+- The complete distinction between controlled evaluation and production promotion is now
+  explicit in `docs/process/2022-controlled-evaluation-and-production-promotion.md`.
+  All pre-run safeguards pass; production Gates B–G remain open and are the authoritative
+  checklist for evidence, methodology, source, operational, release, and human-approval
+  maturity.
+- The repository is ready to begin the controlled full evaluation. Results remain
+  provisional until every open promotion gate passes.
+
+## 2026-07-23 — AMLO compact end-to-end profile completed
+
+- Passed AMLO 2022 through local structured evidence, segmented web research, one fresh
+  no-search bias review, compact formatting, and all eight chapter judges. The accepted
+  dossier has 105 evidence records, 405 mappings, all 80 coverage rows, all 80
+  local-prior provenance rows, and a cited evidence environment.
+- Reused the preserved other 19 rulers as compact score/rationale anchors instead of
+  replaying their full projections. The eight AMLO judge prompts were 71–102 KB rather
+  than 589 KB–1.249 MB, and all chapters produced validated numeric judgments.
+- Accepted-path usage was 5.589M input tokens, including 4.474M cached tokens, and
+  129.2K output tokens. Research remains the dominant cost: explicit research prompts
+  are short, while provider tool/session context produced 5.062M input tokens.
+- The preflight-selected scores are 1B 5.0, 2B 6.0, 3B 4.5, 4B 5.0, 5B 5.5, 6B 5.5,
+  7B 4.5, and 8B 6.0. The corrected 1.5-point 2B movement remains in the full-cohort
+  score/order audit; the four initial attribution flags were dispositioned as ordinary
+  uncertainty for evaluation.
+- The full profile and optimization order are in
+  `docs/reviews/2026-07-23-amlo-end-to-end-profile.md`. Next: add the compact
+  local-disposition audit, productionize anchor-reuse rejudgment, and audit AMLO 2B plus
+  the four manual-review chapters.
+
+## 2026-07-23 — Full 2022 bias-aware cohort completed; remediation gate opened
+
+- Completed 20 validated bias-aware dossiers and all eight 20-ruler common-meter judge
+  batches: 1,092 evidence records, 5,377 mappings, all 1,600 coverage rows, all 1,600
+  local-prior provenance rows, and 160 chapter judgments. Every evidence and bias
+  reference resolves, and all judgments affirm the report-volume and no-blanket-regime
+  safeguards.
+- Compared with lean-v4, median absolute movement among jointly numeric cells is 0.5,
+  but 33 cells move by more than one point and nulls increase from four to 22. Lower
+  confidence and more 7B nulls often reflect the intended personal-nexus and
+  missing-evidence boundaries, but those movements require an explicit score/order audit.
+- The cohort exposed two producer-completeness regressions that tolerant receiver
+  behavior correctly contained but could not cure: Biden has 25 context-only recovered
+  records and no final evidence; AMLO has only 13 evidence records. The result is
+  auditable and non-failing, but not yet a defensible replacement for the preserved
+  release.
+- The complete audit and gate decision are in
+  `docs/reviews/2022-bias-aware-top20-gate.md`. Next: migrate or recollect Biden,
+  supplement AMLO, rerun the eight common-meter chapters, audit all greater-than-one
+  movements, then rebuild the viewer. Production promotion remains disabled.
+
+## 2026-07-23 — Five-ruler comparative judge gate passed
+
+- Completed all eight common-meter chapter jobs across Biden, Tshisekedi, Putin, Scholz,
+  and Støre. The run produced 40 validated evaluations: 37 scores and three reasoned nulls.
+  All bias assessments are cited and confirm both report-volume and blanket-regime controls.
+- Unchanged Biden/Tshisekedi cases have median absolute drift 0.5 and maximum drift 1.0
+  versus the prior two-ruler run. Personal-integrity and inherited-baseline boundaries held;
+  no client-score fields entered any judge prompt.
+- Chapter 4B needed one bounded semantic repair; every other judge passed on its first
+  attempt. The full score, confidence, null, attribution, and stability audit is preserved
+  in `docs/reviews/2022-five-ruler-bias-pilot.md`.
+- The next controlled gate is the complete preserved 20-ruler 2022 cohort, not production
+  promotion. It must include source-family, duplication, score-order, local-evidence, cost,
+  and contrasting-case manual audits.
+
+## 2026-07-23 — Støre 2022 high-baseline dossier gate completed
+
+- Completed the high-data/high-inherited-baseline case on its first worker attempt. The
+  validated dossier contains 64 evidence records (56 final, eight context), 522 mappings,
+  all 80 coverage rows, 80 restored local-prior provenance records, nine explicit gaps,
+  and an evidence-environment assessment whose 55 support IDs all resolve.
+- The first review requested only a 1B continuation. Two bounded all-chapter supervisor
+  passes followed, then the terminal fourth review stopped collection. The notebook grew
+  from 8 KB to 126 KB and the compact formatter prompt remained 159 KB; no provider-limit,
+  output-truncation, or semantic-retry failure occurred.
+- Every lens is conservatively marked partially covered. This avoids converting Norway's
+  strong inherited institutions or administrative-data visibility into automatic ruler
+  credit, while retaining enough mapped evidence and local time-series context for the
+  comparative judge to attempt a score with calibrated confidence and range.
+- All five pilot dossiers are now validated. The next gate is one common-meter judge per
+  chapter across Biden, Tshisekedi, Putin, Scholz, and Støre, followed by drift, bias,
+  local-prior, attribution, and score-order audits before any wider cohort run.
+
+## 2026-07-23 — Scholz 2022 constrained-authority dossier gate completed
+
+- Completed the coalition/federal-authority case on its first worker attempt. The
+  validated dossier contains 30 precisely located final-evidence records, 58 mappings,
+  all 80 coverage rows, 80 restored local-prior provenance records, eight explicit gaps,
+  and an evidence-environment assessment whose 11 support IDs all resolve.
+- The initial review requested a targeted 1B continuation; the second review invoked the
+  configured all-chapter supervisor, and the third review terminated collection. The
+  notebook expanded from 21 KB to 98 KB while the compact formatter input remained 131 KB,
+  demonstrating that the size controls work on a clean end-to-end run.
+- Coverage is explicit rather than mechanically optimistic: 37 lenses are covered, nine
+  partially covered, 15 report no evidence found, and 19 preserve a research blocker.
+  Every evidence, coverage, and environment reference validates. The next ruler gate is
+  Støre, which tests high-quality administrative data and a high inherited baseline.
+
+## 2026-07-23 — Putin 2022 closed-regime dossier gate completed
+
+- Completed the five-ruler cohort's closed-regime/war/nuclear dossier after exercising
+  both large-input and malformed-output recovery. The validated artifact has 47 evidence
+  records, 113 mappings, all 80 coverage rows, 80 parent-restored local-prior provenance
+  records, nine explicit gaps, and a cited evidence environment whose 14 support IDs all
+  resolve.
+- The initial 2.16-million-character research prompt was reduced to 456 thousand
+  characters without dropping target-year facts or longitudinal signals. The successful
+  final attempt reused the preserved research and formatter candidate through a 142 KB
+  repair prompt; it did not repeat web collection.
+- Seventeen candidate claims lacked a precise page, section, paragraph, or record locator.
+  The receiver now retains this useful material as non-directional context, records an
+  audit warning, and refuses to treat it as final evidence. The repaired dossier contains
+  38 final-evidence and nine context records; every mapping and coverage reference resolves.
+- The formatter omitted explicit dispositions for 43 lenses. Those remain visibly marked
+  `research_blocked` rather than being silently upgraded; judges can still use the complete
+  local-prior provenance and mapped evidence. The comparative five-ruler judge gate will
+  determine whether that incompleteness principally widens confidence/ranges or makes a
+  chapter genuinely unjudgeable.
+
+## 2026-07-23 — Five-ruler gate cohort identities locked
+
+- Selected Vladimir Putin, Olaf Scholz, and Jonas Gahr Støre to extend the validated
+  Biden/Tshisekedi pair. Putin preserves the original closed-regime/war/nuclear anchor;
+  Scholz tests coalition and federal constraints; Støre tests high-quality administrative
+  data and a high inherited baseline without relying only on a globally dominant case.
+- Added reviewed 2022 canonical locks for Russia, Germany, and Norway. The records use
+  official or already-vetted identity sources and explicitly select the formal governing
+  office rather than inferring hidden power. Applying the expanded manifest updated no
+  duplicate ruler-years and locked all nine listed cases idempotently.
+- The next gate is three full reusable dossiers in the existing contrast run, followed by
+  all eight five-ruler comparative chapters and a score-drift/local-prior/bias audit.
+
+## 2026-07-23 — Biden/Tshisekedi comparative judge gate completed
+
+- Ran all eight chapters as true two-ruler comparative batches. Every job completed with
+  two validated evaluations, an actual peer calibration reference, structured-prior
+  summaries, supported bias findings, and explicit confirmations against report-volume
+  severity and blanket regime correction.
+- The comparison primarily expressed visibility differences through confidence and range:
+  Tshisekedi 1B received 48 confidence and a 4.5–7.5 range versus Biden's 72 and 5.5–7.5;
+  the attribution-sensitive 7B results were 38 and 48 confidence respectively. DRC
+  institutional corruption and associate conduct were not converted into personal ruler
+  misconduct.
+- All chapters remained judgeable under the user's tolerant-consumer directive. The prior
+  singleton Biden 7B null became a cautious 6.0 in common-meter comparison, based on the
+  direct 2022 disclosure-and-review record, while preserving low confidence, a 5.0–7.5
+  range, and explicit unresolved personal-conduct gaps. This is a calibration/stability
+  signal for the five-ruler gate, not evidence that a peer created new facts.
+- Scores are provisional pilot outputs, not promoted rankings. A two-case meter is too
+  narrow to establish ordering stability; the next gate must add constrained-authority and
+  high-data/high-baseline cases and audit whether unchanged dossier interpretations remain
+  within the one-point promotion threshold.
+
+## 2026-07-23 — Tshisekedi 2022 sparse/conflict evidence gate completed
+
+- Completed the full 80-lens DRC dossier from the preserved research notebook after the
+  first formatter attempt exposed a real output-limit failure. The validated dossier has
+  55 evidence records, 346 mappings, all 80 coverage rows (55 covered, 25 partially
+  covered), 80 restored local-prior records, nine explicit gaps, and a cited evidence
+  environment whose 20 support IDs all resolve.
+- Review yield increased materially rather than cycling. Round 1 found only 2 defensible
+  1B units; targeted continuation raised that to 8. Supervisor recovery then increased
+  2B–8B evidence and independent source families. The terminal fourth review requested
+  no more research and preserved remaining limits instead of treating them as misconduct.
+- The first no-search formatter received a 992 KB prompt and emitted a 591 KB truncated
+  response before hitting its output-token ceiling. The complete local time series is now
+  used by research but is not redundantly repeated to formatting: the formatter receives
+  statuses, dispositions, chapter counts, mapping notes, and the accepted notebook, while
+  the parent restores the complete hashed local provenance deterministically. This reduced
+  the same prompt to 50 KB (95%) and the retry produced a valid 131 KB candidate without
+  repeating web research.
+- Deterministic tolerant normalization restored all coverage and mapping relationships,
+  recording each repair explicitly. The next gate is two-ruler comparative judging with
+  Biden and Tshisekedi; it must interpret different evidence visibility primarily through
+  confidence and ranges, not as an automatic substantive advantage or penalty.
+
+## 2026-07-23 — Tshisekedi 2022 identity quarantine resolved canonically
+
+- The DRC contrast case was correctly blocked because the generic Wikidata role fallback
+  labels a head of government as actual and a head of state as formal-only. That fallback
+  cannot distinguish a ceremonial presidency from the DRC presidency and had selected
+  Prime Minister Jean-Michel Sama Lukonde instead of President Félix Tshisekedi.
+- Added Tshisekedi to the reviewed 2022 canonical identity addendum, using the same
+  explicit lock mechanism and Wikidata person record already used for the 2023 and 2024
+  population cohorts. The lock identifies him as President and publicly recognized
+  national ruler throughout 2022; it does not change the generic role heuristic or infer
+  hidden power.
+- Applying the manifest locked `COD/2022` to existing `ruler_year_id=16113` without
+  creating a duplicate. All canonical-lock and ruler-identity tests pass. The contrast
+  dossier may now be planned through normal readiness checks rather than bypassing the
+  identity gate.
+
+## 2026-07-23 — Biden 2022 all-chapter judge acceptance gate completed
+
+- Ran one full no-search judge for each chapter against the validated Biden dossier.
+  All eight jobs completed and persisted validated results. Chapters 1B–6B and 8B
+  produced scores with explicit plausible ranges; 7B returned an intentional null,
+  24 confidence, the full 1–10 range, and recoverable manual review because institutional
+  disclosure records could not establish Biden's personal integrity.
+- Every judgment includes a supported bias assessment, confirms that report volume was
+  not used as severity, confirms that no blanket regime correction was used, and carries
+  the actual structured-prior summary. Chapters 5B and 6B accepted six weak lenses each
+  while still making cautious 5.5 judgments; sparse evidence changed confidence and
+  ranges rather than mechanically lowering or invalidating the score.
+- The gate exposed two tolerant-receiver defects. A singleton judge's unambiguous
+  `no_other_available_dossier` sentinel is now normalized to an empty peer list, while
+  multi-ruler batches still reject unknown or self-only calibration references. Descriptive
+  lens strings such as `2B.4 civilian protection...` now retain the machine-readable
+  `2B.4` ID and preserve their explanation as a review note.
+- This is an end-to-end contract and judgeability test, not final comparative calibration:
+  a one-ruler batch cannot establish score ordering. The full suite excluding the already
+  isolated Wikidata fixture defect passes; the next contrast gate requires a safely
+  resolved sparse/complex-authority ruler before comparative promotion.
+
+## 2026-07-23 — Biden 2022 open-system full-evidence gate completed
+
+- Ran the complete reusable-dossier workflow for Joe Biden / United States / 2022 after
+  the two no-cost preflight defects were repaired. The third attempt completed research,
+  four bounded no-search review passes, supervisor recovery, strict formatting, and final
+  semantic validation.
+- The final dossier contains 51 curated evidence records, explicit status for all 80
+  chapter lenses (67 covered and 13 honest `no_evidence_found` results), 535 evidence
+  mappings, and 80 local-prior summaries. Its evidence-environment assessment cites 23
+  evidence IDs and every reference resolves to the ledger.
+- Review escalation behaved as designed rather than cycling: independent source-family
+  estimates and defensible evidence increased on every pass, then the terminal fourth
+  review requested no continuation. Remaining gaps are preserved as uncertainty, not
+  adverse ruler evidence. This establishes that the expanded producer contract remains
+  feasible for a high-visibility open-system case.
+- The next proportional gate is a full chapter judge using this validated dossier and
+  preserved cohort anchors. It must accept all 13 sparse lenses, lower confidence where
+  appropriate, and avoid treating complaint volume or disclosure as misconduct severity.
+- The planned Tshisekedi contrast remains safely blocked at identity resolution: the live
+  resolver selects the DRC prime minister while retaining Tshisekedi as a competing formal
+  president. The identity quarantine was not bypassed and requires a tested resolver fix.
+
+## 2026-07-23 — Longitudinal derivation tolerates honest target-year gaps
+
+- Biden's second contrast preflight exposed a series with valid historical observations
+  but no exact 2022 target row. The derivation called `max()` on an empty target set and
+  stopped the entire dossier before model execution.
+- Longitudinal summaries now skip only that derived series when no exact target exists;
+  the underlying historical facts remain in the package with their real years. The code
+  does not relabel the latest old value as the target year or invent a proxy.
+- Regression coverage proves an all-tenure series produces no derived signal while normal
+  exact-target series remain reconstructable. The failed Biden job can be retried without
+  repeating any paid research.
+
+## 2026-07-23 — Contrast-pilot preflight fixed optional-confidence rejection
+
+- The first Biden 2022 full-dossier attempt stopped before model execution because a
+  valid local fact with unknown confidence was serialized without the optional field,
+  while the compact receiver treated nullable confidence as required.
+- The compact receiver now defaults omitted confidence to `null`, preserving the fact and
+  its provenance for research. A focused regression uses the exact missing-field shape;
+  local-prior and recovery tests pass. Producers remain responsible for calculating
+  confidence whenever its inputs exist.
+- The Biden job is safely retryable with no model cost spent. Tshisekedi planning remains
+  identity-quarantined because the live resolver selects the DRC prime minister while
+  preserving Tshisekedi as a competing formal-president candidate; that gate was not
+  bypassed.
+
+## 2026-07-23 — Source-readiness audit follows the real researcher handoff
+
+- Corrected Stage 0's false-negative country-matching rule. It previously inspected only
+  `normalized_observations.country_code`, so sources resolved from source-native names or
+  codes into published facts were incorrectly called unavailable even when ruler packages
+  received them.
+- The audit now reads published fact provenance and intersects its field keys with the
+  executable local-prior mappings. A fixture proves that a normalized row with no canonical
+  code becomes country-matched and researcher-routed only after its fact is published.
+- The live 2023 audit now reports 20 of 35 sources researcher-available rather than three.
+  It correctly recognizes UCDP (196 matched countries), V-Dem (202), EIU (164), WDI (217),
+  WGI (214), and UNSD SNAAMA (187), while still exposing concrete blockers for the other 15.
+
+## 2026-07-23 — UNSD SNAAMA concepts and 5B routing increment
+
+- Ingested the complete 1970–2024 local archive (66,632 validated observations) and
+  published nominal GDP plus five expenditure concepts. Publication produced 54,131 new
+  country-year facts; unresolved aggregate/territory labels remain explicit skips rather
+  than guessed country mappings.
+- Current-price dollar semantics survive into every fact warning. GDP joins only the
+  nominal-current-USD GDP variant; consumption and capital-formation fields remain
+  separate. The latter reach only relevant 5B prosperity, stability, productivity, and
+  trajectory lenses and never political-freedom packages.
+- A Putin 2022 `5B.10` end-to-end package contains 160 expenditure-component facts:
+  five target values, 110 tenure observations, and 45 pre-accession observations spanning
+  1991–2022. The package remains usable rather than becoming a target-only snapshot.
+
+## 2026-07-23 — UNSD SNAAMA adapter and persistence increment
+
+- Registered the locally staged UN National Accounts Main Aggregates export and added
+  checksum-gated, offline ingestion for nominal GDP plus final, household, government,
+  gross-capital, and fixed-capital expenditure at current US-dollar prices.
+- A live 2022 run emitted and persisted 1,268 validated observations. Russia's source
+  rows include GDP of about USD 2.292 trillion, final consumption of USD 1.486 trillion,
+  and gross capital formation of USD 531.7 billion; each carries a warning that nominal
+  dollar changes combine real activity, inflation, and exchange-rate movements.
+- This increment intentionally stops at normalized persistence. The registry labels the
+  source as not yet researcher-available until the next concept-publication and 5B lens
+  routing increment is complete.
+
+## 2026-07-23 — Nuclear, peace, and domestic-safety lens routing
+
+- Completed lens-specific local-evidence routing across all eight chapters. Chapter 1B
+  now separates inventory from operational/deployed exposure and leaves the non-nuclear
+  catastrophic-risk lens as an explicit narrative gap. Chapter 2B separates conflict
+  location/exposure, fatalities, military burden, and full trajectory context. Chapter
+  3B separates physical-integrity abuse, oversight/protest context, domestic fear/crisis
+  context, and full trajectory evidence.
+- Every mapping note prohibits the principal shortcut failure: arsenal possession is not
+  responsible or reckless conduct; conflict location is not initiation/perpetration;
+  military expenditure is not aggression; national repression is not ruler incitement or
+  proof of group-targeted violence.
+- Live Putin 2022 checks show differentiated packages: 1B ranges from 2 inventory facts
+  to 5 trajectory facts while 1B.9 is a valid narrative gap; 2B ranges from 62 fatality
+  facts and 117 military-burden facts to 241 trajectory facts; 3B ranges from 122
+  oversight/protest facts and 289 physical-abuse facts to 473 trajectory facts, while
+  incitement remains a valid zero-local-fact narrative task.
+
+## 2026-07-22 — Political-freedom lens routing
+
+- Split 4B structured priors by question: election/regime facts for contestability,
+  opposition and civil-society facts for tolerance, constraint/rule-of-law facts for
+  institutional independence, press/expression facts for media and information
+  controls, participation/liberty facts for political equality, and regime trajectory
+  facts for succession. Only 4B.10 receives the full longitudinal bundle.
+- Mapping notes prohibit national indexes from proving specific manipulation,
+  censorship, surveillance, personality cult, succession violation, or ruler intent.
+- Live Putin 2022 packages demonstrate focused volumes: 293 facts for 4B.1, 184 for
+  4B.4, 133 for 4B.6, 150 for 4B.8, and 699 for the full 4B.10 trajectory lens.
+
+## 2026-07-22 — Personal-nexus and effectiveness lens routing
+
+- Restricted chapter 7B national corruption/governance facts to scrutiny,
+  concealment, and ethical-environment lenses (7B.6/7B.7/7B.10), with an explicit
+  zero-scoring-weight personal-nexus boundary. Truthfulness, private benefit,
+  appointments, promises, and favoritism lenses now request ruler-specific evidence.
+- Restricted generic capacity facts in 8B to implementation/outcome context. Program
+  identification (8B.1) and adaptation (8B.8) receive no structured shortcut because
+  those facts cannot identify goals or correction.
+- Live Putin 2022 packages demonstrate the boundary: 7B.3 and 8B.1 are valid narrative
+  gaps with zero local facts; 7B.6 carries 208 institutional-context facts and 8B.6
+  carries 146 capacity-context facts, each with a warning that attribution is required.
+
+## 2026-07-22 — Lens-specific 5B/6B local-evidence routing
+
+- Replaced identical all-lens routing for economic and social chapters with explicit
+  mappings grounded in the ten chapter-guide questions. Productivity facts now reach
+  5B.6, distribution facts reach 5B.8, access/coverage facts reach 6B.2, and the full
+  longitudinal bundle is reserved for the 5B.10/6B.10 trajectory syntheses.
+- Lenses that cannot be answered by country outcomes (economic appointments and
+  evidence-based policy; welfare politicization) intentionally receive no structured
+  facts. They return a non-fatal explanation requesting ruler-specific narrative
+  evidence, not a validation error or adverse inference.
+- Live Putin 2022 counts demonstrate the distinction: 5B.1 has 154 facts, 5B.6 has
+  109, 5B.8 has 35, and 5B.10 has 426; 6B.1 has 161, 6B.2 has 101, and 6B.10 has
+  166. 5B.2 and 6B.7 remain valid explicit narrative gaps with zero local facts.
+
+## 2026-07-22 — WDI distribution and education routing
+
+- Added source-native concepts for WDI Gini inequality, adult literacy, and gross
+  secondary enrollment. Gini reaches chapters 5B and 6B as distributional context;
+  literacy and enrollment reach 6B. The descriptions preserve that gross enrollment
+  may exceed 100, is not education quality, and missing survey rows are not zeros.
+- Published 480 facts: 130 Gini, 78 adult-literacy, and 272 secondary-enrollment
+  country-years. A live Putin 2022 package carries Gini `33.9 index points (0-100)`
+  in 5B/6B and secondary enrollment `92.772944... % gross` in 6B. Russia has no
+  staged 2022 adult-literacy observation, so the package correctly omits it.
+
+## 2026-07-22 — WDI Gini scale repair
+
+- Corrected the WDI catalog and clean-adapter fallback from a false `0-1` Gini unit
+  to the World Bank's source-native `index points (0-100)` scale. The raw value is
+  unchanged; any later 0-1 normalization must remain a separate audited transform.
+- Reingested the staged WDI bundle. Russia 2022 now persists as `33.9 index points
+  (0-100)` under the same stable observation ID, rather than the misleading
+  `33.9 0-1` combination. Adapter and legacy-ingest regression suites pass.
+
+## 2026-07-22 — PWT longitudinal economic-context routing
+
+- Added seven direct, source-native PWT concepts for persons engaged, annual hours,
+  human capital, aggregate real consumption, real domestic absorption, capital-stock
+  index, and constant-national-price TFP. Mappings prohibit treating employment count
+  as unemployment or aggregate consumption as household income/distribution.
+- Published 52,206 country-year facts across the seven fields, covering available
+  source years through 2019. They are routed only to chapter 5B local evidence and do
+  not mechanically alter a score.
+- Fixed the standalone local-prior CLI to resolve accession from a supplied leader ID,
+  matching the production worker path. A live Putin 2022 package now resolves accession
+  to 2000 and carries 196 PWT facts: 56 pre-accession baselines and 140 tenure facts.
+  The latest 2019 rows retain their stale-distance naturally; no 2022 proxy is created.
+
+## 2026-07-22 — PWT unit and variable-semantics repair
+
+- Corrected the clean PWT adapter's units: GDP, consumption, and domestic absorption
+  are millions of 2017 USD at chained PPPs; population and employment are millions
+  (not raw persons or thousands); human capital retains its source-native unbounded
+  index label; and `rkna` is a 2017=1 index rather than a USD capital-stock level.
+- Corrected two catalog semantic errors: `cda` is real domestic absorption, not
+  capital depreciation, and `rkna` is a capital-stock index. Employment is explicitly
+  documented as persons engaged and cannot stand in for an unemployment rate.
+- Reingested the full local PWT bundle. Live Russia 2019 observations now report
+  population `145.872256 million_persons`, employment `71.670639 million_persons_engaged`,
+  domestic absorption `3847660.75 million_2017_usd_at_chained_ppps`, and capital-stock
+  index `1.0219125747680664 index_2017_equals_1`, all with stable raw-row IDs.
+
+## 2026-07-22 — EIU political-freedom evidence routing
+
+- Added six source-native EIU Democracy Index concepts: overall score, electoral
+  process and pluralism, functioning of government, political participation,
+  political culture, and civil liberties. The overall score and five components
+  remain one correlated source family and cannot be counted as six independent
+  corroborating sources.
+- Published 6,834 country-year facts (1,139 per concept), all country-resolved, while
+  preserving each PDF observation ID and report-year attribution. Rank, rank change,
+  and regime label remain source observations rather than being coerced into numeric
+  concepts with ambiguous direction or distance.
+- Routed the six measures to political-freedom local evidence. A live Putin 2022
+  package contains all six EIU facts, including overall `2.28`, electoral process
+  `0.92`, and civil liberties `2.35`, each linked to its original observation ID.
+  These are research context and do not automatically change a score.
+
+## 2026-07-22 — EIU observation-attribution repair
+
+- Live inspection of Russia's nine EIU Democracy Index 2022 observations found that
+  the producer persisted the attribution template with a literal `{year}` placeholder.
+  The PDF page, source row, raw value, and component values were otherwise intact.
+- The transform now renders the template from the source page year. A regression test
+  rejects literal placeholders, and the 2022 EIU slice was reingested: 1,559 observations
+  validated with attribution text ending in `report year 2022`.
+- EIU values were deliberately left unrouted by this repair and were mapped only in
+  the subsequent political-freedom evidence-routing increment above.
+
+## 2026-07-22 — Polity historical evidence routing
+
+- Added five source-native Polity concepts: revised composite regime score, democracy
+  component, autocracy component, composite executive constraints, and regime
+  durability. The executive-constraints descriptor and mapping explicitly prohibit
+  relabelling it as a specifically judicial or legislative measure.
+- Published 62,210 country-year facts per concept across the included historical scope;
+  59,931 auto-resolved and 2,279 missing/special-code facts remain reviewable rather
+  than being coerced to numbers. Russia examples retain 1999, 2000, 2012, and 2018
+  source values, with no rows after Polity's 2018 endpoint.
+- Added all five fields to political-freedom local evidence routing, so accession-aware
+  v3 packages can use them as inherited/tenure history while current V-Dem, Freedom
+  House, RSF, and EIU observations cover later years. No Polity value automatically
+  changes a score.
+
+## 2026-07-22 — Polity/PTS runtime readiness repair and Polity ingestion
+
+- Reconstructed runtime-local Polity V metadata from the staged `p5v2018.sav`,
+  canonical adapter contract, official source URL, and verified SHA-256. Added the
+  missing `local_files` entry to staged PTS metadata. Both sources now pass their clean
+  readiness gates; raw data bytes were not modified.
+- Ran the Polity V clean adapter with persistence and overwrite protection: 193,028
+  observations across 11 indicators validated and persisted, covering 1800–2018. A
+  2022 readiness request remains valid but emits `year_absent`; no stale proxy is made.
+- PTS was already persisted with 16,353 observations, so it was not redundantly
+  reingested. CTBTO, IAEA, SIPRI arms transfers, and PIP remain blocked locally because
+  their required raw/cache files are absent; they were not relabelled available.
+- Next integration need: concept-map and researcher-route selected Polity indicators as
+  historical context without conflating the composite executive-constraints variable
+  with judicial or legislative constraints.
+
+## 2026-07-22 — Live semantic GDP migration
+
+- Concept publication now removes obsolete v1 `gdp_per_capita` and `gdp_total`
+  rows when those concepts are republished. Cleanup is limited to the concept-fact
+  producer and requested year scope; facts from other producers and preserved release
+  artifacts are not touched.
+- The production catalog was republished through the v2 semantic split: 54,420 facts
+  now use nine explicit nominal, real, PPP, base-year, and output/expenditure-side keys;
+  26,785 obsolete mixed-unit rows were removed and none remain.
+- A Putin/Russia 2022 5B local-prior smoke now carries eight compatible facts. For
+  example, nominal GDP per capita (15,619.61 current USD), constant-2017 PPP GDP per
+  capita (38,214.50 international dollars), and Maddison constant-2011 PPP GDP per
+  capita (25,437.11 international dollars) remain separate facts with separate source
+  observations. This closes the live-data migration gap left after the earlier code-only
+  semantic repair.
+
+## 2026-07-23 — UCDP one-sided actor-responsibility increment
+
+- The clean UCDP adapter now reads the staged detailed One-sided Violence 26.1
+  actor-year archive and emits three deliberately non-interchangeable facts: named
+  government-actor killings, non-state-actor killings at a location, and all-actor
+  location exposure. Actor, conflict, and dyad IDs/names plus low/high estimates remain
+  attached to the original observation.
+- Source-native GWNO codes are carried into normalization so lifecycle-aware country
+  resolution does not discard historical labels. A live 2022 ingest emitted 2,180 UCDP
+  observations; publication produced 17 government-actor, 10 non-state, and 19 location
+  facts. Russia's 1,132 government-actor deaths now reach Putin's `3B.1` local prior,
+  while Ukraine's separate 1,132 location deaths do not become Ukrainian-ruler conduct.
+- A three-row fixture proves the semantic boundary end to end: 10 government-actor plus
+  20 non-state deaths produce 30 location deaths, without any fact replacing another.
+  Chapter 3 routes government-actor facts to physical-integrity lenses and non-state /
+  location facts to fear and exposure lenses. None automatically changes a score, and
+  government-actor identification still does not prove personal ruler direction.
+
+## 2026-07-22 — UCDP actor-aware current country-year increment
+
+- The clean UCDP adapter now optionally reads the locally staged Organized Violence
+  26.1 country-year archive alongside GED 23.1. It emits seven distinct facts for
+  intrastate, interstate, non-state conflict, host-government killings,
+  any-government involvement, non-state-group killings, and location totals.
+- Each fact retains dyad names, source row/column, low/high uncertainty bounds, and an
+  explicit semantic role. Every fact warns that event location does not establish ruler
+  initiation, perpetration, or support. The legacy one-sided catalog descriptions were
+  corrected so they no longer call mixed government/non-state totals state-perpetrated.
+- A live 2022 clean-run emitted 1,372 current actor-aware observations and passed shared
+  validation. Russia/Ukraine inspection demonstrated the formerly collapsed case:
+  Ukraine's 1,132 location deaths are separate from zero host-government killings and
+  1,132 killings involving any government actor. Focused UCDP tests pass. The staged
+  one-sided actor archive, peace agreements, termination, external support, arms
+  transfers, and sanctions remain future increments; this is not claimed as completion
+  of the international-conflict source plan.
+
+## 2026-07-22 — SIPRI Yearbook nuclear facts ingested and routed
+
+- Repaired the clean Yearbook adapter against the staged official 97-page 2024 chapter.
+  The prior parser only inspected the first extracted table row and failed on the real
+  InDesign page; it now locates Table 7.1 in layout text and correctly parses spaced
+  thousands, footnotes, compound country names, sentinels, and the aggregate row.
+- Live ingestion validates and persists 27 observations for nine nuclear-armed states.
+  Added concepts for total inventory, deployed warheads, and retired warheads; live
+  publication creates 27 country-year facts (22 numeric, 5 explicit missing reviews).
+- Chapter 1B local mappings now include deployed and retired estimates. Post-target
+  snapshots remain excluded: the 2024 facts do not enter a 2022 dossier. FAS 2014 facts
+  remain available with their temporal-fit limitation; official 2022 Yearbook/treaty
+  history and IAEA/CTBTO/UNODA raw acquisition remain outstanding.
+- The complete SIPRI legacy/clean/concept/fact test slice passes, including a regression
+  for the live layout. No non-exposure fact is converted into favorable conduct or score.
+
+## 2026-07-22 — Controlled peer-comparison engine implemented; routing pending
+
+- Added an explicit five-kind peer contract (geographic region, income group, regime
+  type, conflict exposure, and state-capacity band) and a comparison engine that emits
+  country change, peer median, country-minus-peer difference, eligible/observed peer
+  counts, coverage, definition year/basis, and cross-definition sensitivity.
+- Peer definitions dated after the target year are rejected deterministically. Missing
+  peer observations remain visible through coverage, and sign disagreement across peer
+  definitions is surfaced rather than averaged away.
+- The live country table currently has zero populated region values and no authoritative
+  accession-dated income-group dimension, so automatic peer construction is deliberately
+  not enabled yet. The engine is tested and committed as a safe prerequisite; researcher
+  routing remains blocked until source-backed peer memberships are persisted.
+
+## 2026-07-22 — Audited longitudinal signals implemented
+
+- Local Evidence Package v3 now derives target level; exact 1/3/5/10-year changes;
+  pre-accession, tenure, and recent three-year OLS trends; tenure-minus-inherited trend;
+  acceleration; tenure average; volatility; coverage; and cumulative values only for
+  meaningful annual flow/count fields.
+- Every signal retains its input observation IDs, observed years, unit/scale, available
+  source uncertainty, exact formula, transform version, expected-lag guidance, causal
+  distance warning, and ruler-attribution limitation. Missing exact comparison years
+  remain null; no interpolation occurs; signals never alter scores automatically.
+- A live Putin 2022 Chapter 2B package produces eight signals over 241 raw yearly facts.
+  The target year is 2022 for every signal, and all source lineage remains recoverable.
+  Focused longitudinal, package, prompt, and local-prior tests pass.
+
+## 2026-07-22 — Local Evidence Package v3 longitudinal window implemented
+
+- Upgraded local structured priors to v3 with explicit `pre_accession`, `tenure`, and
+  `target` roles. With a resolved accession year, the producer requests up to ten
+  pre-accession years, every available tenure year, and the target year; its bounded
+  range structurally excludes post-target observations.
+- Added conservative accession resolution across an exact leader record and a unique
+  surname-only historical identity in the same country. This repaired the live Putin
+  split between `Vladimir Putin` (Wikidata, 2012) and `Putin` (Archigos/REIGN, 2000)
+  without broadly fuzzy-merging names.
+- The compact researcher handoff is now versioned as
+  `ruler_local_evidence_package_v3`. Legacy facts without a period role remain accepted
+  as target-year facts, following the tolerant-consumer rule.
+- A live Putin 2022 Chapter 2B extraction resolves accession to 2000 and returns 241
+  facts spanning 1992–2022: 57 pre-accession, 176 tenure, and 8 target facts, with zero
+  post-target leakage. Focused and broad research tests pass.
+
+## 2026-07-22 — V-Dem and WGI uncertainty preserved end to end
+
+- V-Dem ingestion now discovers each selected indicator's available `codelow`,
+  `codehigh`, and standard-deviation columns and carries them as a typed uncertainty
+  extension on normalized observations.
+- WGI ingestion now retains estimate standard errors and labels its published lower
+  and upper values accurately as percentile-rank bounds rather than estimate bounds.
+- Concept country-year fact candidates and selected provenance retain source extensions,
+  so these uncertainty measures remain available to local evidence consumers.
+- Adapter, legacy-ingestion, and fact-publication regression suites pass (140 tests),
+  and Ruff passes. The next development stage is the v3 longitudinal evidence package.
+
+## 2026-07-22 — Country-year fact semantics and confidence corrected
+
+- Split nominal, real constant-price, and PPP GDP observations into explicit
+  unit/base-year fact keys before grouping or source selection. Incompatible GDP
+  series therefore cannot replace or corroborate one another.
+- Fact payloads now distinguish the selected observation from alternatives, preserve
+  unit and scale, and compute all four confidence components with the fixed formula.
+  Duplicate observations from one source and observations with incompatible units do
+  not create independent agreement.
+- Added machine-readable interpretation warnings: SIPRI constant expenditure is
+  millions of constant 2024 USD and is not mechanically aggression; UCDP country-year
+  events do not establish perpetrator, initiator, side, or ruler responsibility; and a
+  favorable CIRIGHTS code may mean either no reported abuse or no abuse.
+- Focused publication tests and Ruff pass. V-Dem bounds and WGI standard errors remain
+  the next adapter-level semantic increment and will be validated separately.
+
+## 2026-07-22 — Authoritative source-readiness audit implemented
+
+- Replaced the Stage 0 stub with an offline audit of all clean-registry sources, every
+  staged raw folder, and every source persisted in the normalized-observation catalog.
+  The report follows the complete ordered readiness chain and includes actual local
+  files, observation counts, country/year coverage, indicators, researcher routing, and
+  the first concrete blocker. JSON, CSV, and Markdown views share one row model.
+- The live 2023 audit finds 35 identified sources, 21 with normalized observations, 16
+  with concept mappings, but only three currently routed end to end to the ruler local
+  evidence summary: Maddison, PWT, and WDI. This intentionally contradicts broad claims
+  that every implemented or processed source is researcher-available.
+- Corrected stale UCDP metadata: GED 23.1 is locally staged and persisted with 25,296
+  observations; the additional 26.1 yearly and one-sided archives are staged but await
+  separate normalization. Focused and CLI tests pass; the live command writes the three
+  reports under `data/outputs/` without network access.
+
+## 2026-07-22 — Putin v2 promotion gate passed
+
+- Rejudged all eight chapters with the relation-aware compact cohort. All judgments now
+  validate and all local evidence/bias references resolve. Scores versus lean-v4 are
+  unchanged in five chapters, move -0.5 in 3B and 6B, and move -1.5 in 8B.
+- A full no-search score/order audit accepted seven chapters and found 8B=4.5 more
+  rubric-faithful than the old 6.0 but requested a focused review. The focused 8B review
+  explicitly returned `APPROVE_4_5` after inspecting cohort order, full dossier, compact
+  evidence, and omitted favorable official records. The one-ruler promotion gate passes.
+- Comparative judging cost $2.498662 for 1.53M input and 355k output tokens; chapters
+  took about 9.9–16.6 minutes. Preserve an explicit cost/runtime gate in the next
+  three-ruler contrast pilot before scaling further. Full results are in
+  `research/conversational-evidence/bias-smoke/2022-putin-full-v1/pilot-report-v2.md`.
+
+## 2026-07-22 — Relation-aware compaction repair validated
+
+- The eight-chapter rerun exposed a tolerant-consumer defect in 3B, 4B, and 7B: the
+  judge copied Putin's stale baseline dossier key while returning the exact ruler-period
+  identity and valid new-projection evidence IDs. Normalization now rebinds a stale key
+  only when exactly one trusted projection matches every immutable identity field, then
+  filters citations against that projection. Conflicting or ambiguous identities remain
+  unrecoverable. Focused regression coverage passes; saved paid candidates can be
+  revalidated without another model call.
+- Replaced recency-only per-lens selection with deterministic semantic selection:
+  supporting or contradicting final evidence outranks mitigating and contextual records,
+  with confidence and source-domain diversity used inside each semantic tier.
+- Equal broadly mapped records are distributed across lenses instead of repeatedly
+  selecting one record. After lens selection, the compact package retains up to one
+  distinct final-evidence record per chapter lens so imperfect chapter-boundary routing
+  cannot erase the substantive chapter record; discovery-only material never pads this
+  quota. Every omitted ID remains in the existing omission ledger.
+- Focused tests cover decisive-over-context selection, cross-lens diversity, and final
+  chapter context without discovery padding. A preserved-artifact Putin run now retains
+  10 of 18–30 source records in each chapter, versus 4–14 under the failed compaction,
+  while every 20-ruler prompt remains below the Codex character ceiling. Comparative
+  rejudgment and independent score/order re-audit are the next promotion gate.
+
+## 2026-07-22 — Full Putin bias-aware pilot completed; promotion blocked
+
+- Completed all 80 evidence lenses, three bounded research continuations, terminal
+  no-search review, strict formatting, eight 20-ruler comparative judgments, and an
+  independent no-search score/order audit. The dossier has 60 evidence records, 335
+  mappings, and a cited twelve-part environment assessment; equivalent evidence cost is
+  $1.62-$3.04 and comparative judging cost $1.97.
+- Bias assessments were specific and cited, all judgment E-IDs resolved, report volume
+  was not used mechanically as severity, no blanket regime adjustment appeared, and
+  local priors remained context rather than ruler conduct.
+- Promotion failed for the correct methodological reason: two-per-lens compaction kept
+  the same broadly mapped context records repeatedly and omitted decisive evidence.
+  Large score changes in 1B, 3B, 5B, and 8B were therefore not accepted. The preserved
+  release remains authoritative.
+- Full artifacts, score comparison, failures, and next action are documented under
+  `research/conversational-evidence/bias-smoke/2022-putin-full-v1/`. Next increment:
+  make compaction relation/quality-aware and diversity-seeking across lenses, add
+  metamorphic tests, and rerun only affected chapters before re-audit.
+
+## 2026-07-22 — Comparative judge output recovery
+
+- The full eight-chapter comparative run produced valid substantive judgments but two
+  harmless contract inconsistencies: 5B copied the ruler ID into Tshisekedi's immutable
+  ruler-year field, and scored Putin 8B used the null-only `recoverable_null` review
+  label while still requesting review.
+- When an exact trusted dossier key resolves, normalization now restores immutable
+  identity fields from that projection and records the recovery in batch notes. A
+  numeric score's incompatible null-only label becomes `projection_integrity` without
+  clearing the model's review request or changing its score, evidence, or rationale.
+- All eight paid candidates revalidated without model reruns. Focused tests and Ruff
+  pass. The promotion gate remains closed pending score/order audit because four Putin
+  chapter changes exceed one point.
+
+## 2026-07-22 — Legacy empty-projection evidence environment
+
+- The full comparative-input build found one preserved China 7B projection with zero
+  evidence. Requiring its newly added legacy environment marker to cite an E-ID would
+  force fabricated evidence.
+- The shared environment value type can now represent an explicitly unassessed legacy
+  projection with no support IDs, while current dossier validation still rejects every
+  environment without cited support. This keeps the producer contract strict without
+  making honest historical missingness unrepresentable.
+- Dossier/projection tests and Ruff pass. All eight controlled comparative batches now
+  validate at 0.61-0.81 million input characters, below the configured Codex limit, and
+  the eight-chapter judge run is in progress.
+
+## 2026-07-22 — Full-review tolerant recovery
+
+- The first all-eight-chapter Putin review produced eight substantive bias assessments
+  but serialized its continuation chapters as lens IDs plus one newline-joined blob; the
+  consumer rejected the complete paid review. Review loading now recovers chapter IDs
+  from newline-joined lens output while retaining genuinely ambiguous single values as
+  invalid.
+- The same review expanded the notebook's composite `ENV-01/02` label into an unsupported
+  `ENV-02` citation. Current producers still must cite exact notebook IDs. Consumer
+  normalization now removes only the unverifiable reference and appends an explicit
+  unresolved-risk warning, preserving the rest of the assessment.
+- Sixty-seven focused review/recovery tests and Ruff pass. The rejected real artifact now
+  validates as eight selected chapters with 43 retained notebook citations and one
+  normalized citation-risk warning. The isolated full Putin job is resuming its paid
+  research checkpoint rather than repeating collection.
+
+## 2026-07-22 — Bias-aware no-search evidence review
+
+- Every current chapter review now reports eight explicit bias checks covering search
+  balance, closed-system silence, open-system complaint visibility, duplicate reporting,
+  allegations versus findings, official-claim independence, denominators/authority/
+  baseline/shocks, and the source type still missing. Supporting IDs must occur in the
+  reviewed notebook; residual risks remain visible instead of becoming conduct.
+- Preserved legacy reviews remain loadable with an explicit unassessed-bias marker. This
+  follows the strict-producer/tolerant-consumer rule while the current strict output
+  schema requires all bias fields from new reviewers.
+- A real no-search Luna review of the preserved Putin 2022 4B notebook passed schema and
+  evidence-ID validation: 24 defensible units, 15 source families, 20 cited IDs, five
+  unresolved bias risks, and a bounded 4B.7 continuation recommendation. Sixty-four
+  focused review/recovery tests and Ruff pass. The full suite reaches completion with
+  only the same eight unrelated Wikidata offline-fixture failures recorded before this
+  increment.
+- Next increment: run the complete eight-chapter Putin research and review path with the
+  new reviewer contract, then proceed to full judging only if dossier production remains
+  valid and review continuations stay bounded.
+
+## 2026-07-22 — Live Putin 2022 Chapter 4B bias-contract gate
+
+- Completed a real local-first research, iterative no-search review, formatter, chapter
+  projection, and 20-ruler comparative-judge run for Putin 2022 Chapter 4B. The new
+  dossier has 55 evidence records, all ten lens coverage records, and a fully cited
+  twelve-part evidence-environment assessment.
+- The new judgment includes cited material-bias findings and both mandatory safeguards.
+  Putin remained at 1.0 with a 1.0-1.5 range; confidence moved only 95 -> 94, so the
+  preserved-score stability gate passed. Research and review exposed genuine 4B.8
+  non-applicability instead of converting missing event evidence into conduct.
+- The live run found and fixed two tolerant-consumer defects: descriptive lens IDs were
+  silently discarded, and saved-output repair assumed an eight-chapter run. Focused
+  regressions and Ruff pass. Full artifacts and a defect demonstration are preserved in
+  `research/conversational-evidence/bias-smoke/2022-putin-4b-v1/`.
+- Next increment: make the no-search reviewer explicitly audit balanced search,
+  reporting opportunity, duplication, allegations/findings, official claims,
+  denominators, attribution conditions, and missing source types before scaling Putin
+  to all eight chapters.
+
+## 2026-07-22 — Tolerant recovery for formatter-omitted evidence routing
+
+- The live Putin 2022 Chapter 4B smoke test produced a usable 55-item formatter
+  candidate but exposed eight context records without exact lens mappings. Recovery
+  rejected the whole dossier despite complete cited research.
+- Consumer normalization now retains such evidence as advisory context at each selected
+  chapter boundary. It does not invent lens relevance; chapter judges still apply the
+  guide's scope gates themselves. Exact local-prior and coverage-derived mappings keep
+  precedence over this fallback.
+- Focused normalization, recovery, and projection tests pass. The paid research and
+  review artifacts remain checkpointed for formatter-only recovery without new search.
+
+## 2026-07-22 — Strict-producer, tolerant-consumer integration gate
+
+- Added the project-wide development rule that producers pursue complete current
+  contracts while consumers preserve usable imperfect inputs through explicit
+  uncertainty rather than propagating avoidable failures.
+- Missing dossier evidence-environment metadata is now normalized to a visible
+  unassessed state when cited evidence exists. Missing judge bias metadata is retained
+  with unresolved safeguards, confidence capped at 50, and the plausible range widened.
+- Added boundary and end-to-end worker coverage proving an imperfect judgment can pass
+  through projection, normalization, validated persistence, and score storage. The
+  focused producer/consumer suite passes 44 tests.
+
+## 2026-07-22 — Mandatory evidence-environment and judgment-bias contracts
+
+- Added a cited twelve-part evidence-environment assessment to every new ruler dossier
+  and carried it unchanged into chapter projections. Missing assessments and unknown
+  supporting E-IDs now fail validation.
+- Added a required structured bias assessment to every chapter judgment, including
+  material bias direction, interpretation effect, confidence/range effect, residual
+  uncertainty, and explicit report-volume and blanket-regime-correction safeguards.
+- Updated researcher, formatter, and judge prompts and preserved legacy conversational
+  conversion by marking its uncollected environment fields explicitly unassessed.
+  Focused bias-contract tests pass; the full suite retains eight unrelated pre-existing
+  Wikidata adapter fixture failures.
+
+## 2026-07-22 — Improved lean-v4 2022 top-20 run complete
+
+- Completed the gated 1, 3, 5, and final 20-ruler progression while preserving the old
+  top-20 v2 release and every failed or superseded artifact. The accepted cohort has
+  2,386 claims and 1,947 ruler-level distinct URLs at $48.48 total / $2.42 mean evidence
+  cost, versus 2,062 claims, 1,686 URLs, and $41.59 / $2.08 in the prior release.
+- Hardened review recovery across batches: whole-ruler review dispositions are derived
+  from chapter decisions, a saved follow-up can no longer skip terminal review, and a
+  forbidden second follow-up becomes a credible gap. Conversational conversion now
+  deduplicates canonical source-locator-claim facts before judge projection.
+- Completed all eight common-meter GPT-5.4-mini chapter judgments for $1.73. Dense 3B,
+  6B, and 8B context failures were preserved and retried symmetrically with two diverse
+  items per lens. The final auditor found no scale break or replacement score.
+- Final output has 160 evaluations, 156 numeric scores, four defensible nulls, and zero
+  uncleared manual-review flags. Chapter 1B has no score 1 and a numeric minimum of 2.
+  Full comparison and readiness findings are under
+  `research/conversational-evidence/hybrid-experiment/2022-lean-v4/`.
+
+## 2026-07-22 — 2022 saturation-v3 three-ruler gate
+
+- Extended the preserved Putin pilot with complete Biden and Tshisekedi runs. Biden
+  finished with 229 raw / 162 curated records, 155 distinct curated URLs, and 61
+  domains at $4.94. Tshisekedi finished with 196 raw / 121 curated records, 93
+  distinct curated URLs, and 43 domains at $4.56. The completed top-20 v2 artifacts
+  remain unchanged for exact comparison.
+- Breadth improved strongly for Biden (82 -> 155 URLs) and source diversity improved
+  for Tshisekedi (38 -> 43 domains), but Tshisekedi's usable URL total was essentially
+  flat (94 -> 93). The latter is an important negative result: broader discovery does
+  not manufacture evidence where ruler attribution or credible source availability is
+  genuinely sparse.
+- Controlled 20-ruler re-judging recovered numeric Tshisekedi judgments for sparse 1B
+  and 5B, but unchanged rulers showed mean absolute rerun drift of 0.21-0.62 points by
+  chapter. Biden's changes of at most one point are therefore not cleanly attributable
+  to added evidence. No audited ruler received a 1B score of 1.
+- The promotion gate is paused before five rulers while two observed reliability
+  defects are corrected: verbose judge output caused context failure, and curation
+  retries were wasted on avoidable contract errors. Judge and curator prompts now cap
+  prose, require a final decisive-E-ID/confidence check, and enumerate the exact
+  curation IDs and count checks. Focused tests and Ruff pass. Next action: rerun these
+  controls on two contrasting rulers, then promote only if first-pass validity and
+  cost remain acceptable.
+
+## 2026-07-22 — 2022 saturation-v3 one-ruler promotion gate
+
+- Preserved the completed 2022 top-20 v2 release and ran a controlled Putin 2022
+  saturation-v3 pilot without modifying any old artifact. The new flow collected 243
+  raw evidence records and independently curated them to 157 records / 133 distinct
+  URLs across 57 domains; the old Putin dossier had 102 records / 91 URLs.
+- The pilot added chapter-specific no-search curation, material-gap-only top-ups, full
+  research-plus-curation cost profiling, structured-local-prior preservation into judge
+  projections, stable evidence IDs across appended top-ups, exact-ledger curation
+  versioning, and consistent compaction of discovery-only context.
+- Controlled comparative judgment reused the exact old compact projections for the
+  other 19 rulers. Chapters 1B-7B used the old three-record-per-lens cap; dense 8B
+  required a symmetric two-record cap for all 20 rulers after larger attempts exhausted
+  context. Final Putin scores old -> new: 1B 2->2, 2B 1->1, 3B 2->2, 4B 1->1,
+  5B 1.5->3, 6B 3->4.5, 7B 2->1, 8B 3->4. A separate no-search audit accepted every
+  chapter and approved promotion to the three-ruler gate.
+- Measured research/review/curation cost was $4.97 for this defect-finding pilot. Valid
+  comparative judging cost $2.14 for the full 20-ruler cohort ($0.11 allocated per
+  ruler). Steady-state research cost should be lower because the stable-ID fix avoids
+  the pilot's unnecessary six-chapter recuration. Next action: run two contrasting
+  rulers to reach three total, then repeat the evidence, cost, and judgment gate before
+  promotion to five.
+
+## 2026-07-21 — Automated 2022 chapter-saturation pilot
+
+- Added an isolated, resumable GPT-5.4-mini chapter pilot with persisted breadth
+  controls, client-excluding local priors, canonical source-claim deduplication,
+  composition-triggered search waves, and strict no-search source-family curation. The
+  production collector and completed 2022 release remain unchanged.
+- Re-ran the three manual saturation cases without case-specific prompts. Final curated
+  evidence increased from the original 16/12/13 URLs to 34/30/26 for Putin 2B, Biden
+  5B, and Tshisekedi 4B, across 14/18/13 source families.
+- The process automatically corrected a 75% official-source Biden packet and an
+  incident-heavy CPJ concentration in the DRC packet. Total measured cost was $2.15;
+  per-chapter elapsed time was 18.9–33.9 minutes.
+- Findings and preserved artifacts are under
+  `research/conversational-evidence/saturation-tests/2022-automated-v2/`. A full-ruler
+  or stratified five-ruler gate is still required before changing the main flow.
+
+## 2026-07-21 — 2022 top-20 review portal published
+
+- Built the 2022 static review release from the completed hybrid evidence run: 20
+  rulers, 155 numeric chapter scores, five explicit evidence-insufficient nulls, full
+  chapter rationales, cited evidence lenses, and the normative attribution record.
+- Added 2022 to the shared year registry so reviewers can move among the 2022, 2023,
+  and 2024 releases with the same selector. Extended the local and public health checks
+  to cover the new page, payload, and attribution route.
+- Removed the annual viewer builder's hard-coded 2024 release metadata so future annual
+  releases inherit their year and release ID from the validated conversion report.
+
+## 2026-07-20 — 2022 top-20 hybrid evidence and judgment run complete
+
+- Completed reviewed evidence dossiers for all 20 rulers with a $2.08 mean research
+  cost, 103.1 mean claims, 84.3 mean distinct URLs, 34.6 mean domains, and 78.0%
+  reviewer retention. No ruler job failed terminally.
+- Added deterministic conversion of the rich hybrid dossier contract into canonical
+  dossiers and chapter projections, preserving source locators, canonical fact keys,
+  source confidence, attribution, reviewer exclusions, and explicit missing lenses.
+- Ran eight GPT-5.4 mini comparative chapter judges. The judges cost $1.86 total and
+  produced 155 numeric scores plus five defensible nulls. The context-exhausted 8B
+  attempt was retried with three diverse records per lens and a complete omission ledger.
+- Chapter 1B assigned no score of 1; Putin received 2.0. Four genuinely sparse 1B cases
+  remained null. Targeted no-search review cleared all projection-reference flags and
+  accepted Buhari's 2B null as nonrecoverable without changing any score.
+- The run profile and readiness report are stored under
+  `research/conversational-evidence/hybrid-experiment/2022-top20-v2/`.
+
+## 2026-07-19 — Candidate-heavy chapter research experiment
+
+- Added a tentative, resumable GPT-5.4 mini workflow for one complete ruler-year. It
+  separates broad reconnaissance, parent-counted discovery, 20-candidate inspection
+  waves, and final evidence selection across chapters 1B–8B.
+- The versioned test configuration targets 100 unique candidate documents and enforces
+  a final ledger of 20–30 unique-URL sources per chapter. Raw oversized model output is
+  retained, while a corrective selection turn is required when the ledger violates the
+  numeric or URL-deduplication contract.
+- Added atomic phase/session checkpoints, exact persistent-thread reuse, per-turn raw
+  events, cumulative usage/cost profiling, and focused fake-researcher tests.
+- Completed the Putin 2023 all-chapter trial in 7h36m wall time. It recorded 992 web
+  searches, at least $10.22 in model cost, 741 chapter-level candidate URL instances,
+  and 208 accepted URL instances. Five chapters reached 100 candidates; 3B/4B/5B ended
+  at 99/74/57. The quality review rejects count alone as a readiness signal, especially
+  because 8B remained thematically contaminated and several ledgers were concentrated.
+
 ## 2026-07-19 — Multi-year Leaders Database portal
 
 - Replaced the single hard-coded 2023 visualization mount with one read-only mount of
@@ -2781,6 +4533,61 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
 
 ## Done History
 
+- **Compact researcher briefing and per-action token profiling (2026-07-23).**
+  The AMLO 2022 regression audit found that the current reconnaissance prompt was
+  462,278 bytes because it embedded local facts and all chapter guides. The replacement
+  prompt keeps the complete local package parent-owned and supplies only a capped
+  chapter briefing and source-family index; the real AMLO prompt falls by more than
+  97% before execution. Persistent research now resumes once per selected chapter with
+  only that chapter's questions and research note. Each researcher, continuation,
+  reviewer, and formatter action is profiled separately from trusted events, including
+  prompt characters and exposed input/cached/output/reasoning tokens; chapter-turn
+  events are included in aggregate research usage. Focused and full research tests are
+  green. Next gate: run AMLO against the lean-v4 evidence-quality baseline and iterate
+  at most ten times.
+
+- **AMLO web-research iteration 1 stopped at the ledger gate (2026-07-23).**
+  The 6,422-character reconnaissance produced ten useful claims from seven strong
+  organizations using 553,450 input and 4,807 output tokens, a substantial improvement
+  over the prior 1.57M-input-token initial turn. Sandbox file writing failed, however,
+  and the model used a Markdown table rather than the recoverable claim-line contract.
+  The run was stopped before eight chapter turns. The prompt now requires physical
+  `SOURCE_CLAIM_JSON` fallback lines, while the tolerant parent can also recover labeled
+  Markdown evidence tables; all ten real iteration-1 rows are recovered in regression
+  testing. Full comparison is in `docs/reviews/amlo-web-research-consistency.md`.
+
+- **AMLO web-research iteration 2 stopped at receiver normalization (2026-07-23).**
+  The researcher emitted eleven physical claim lines and reduced reconnaissance input
+  to 369,671 tokens, but used the disposition alias `accepted` and noncanonical semantic
+  routing labels. The initial receiver had not yet invoked the new line parser. Initial
+  and continuation recovery now share it; common disposition aliases normalize to
+  `final_evidence`, valid chapter/lens IDs survive, and malformed routing labels are
+  dropped without discarding the claim. All eleven real lines recover successfully.
+
+- **AMLO web-research iteration 3 exceeded the lean-v4 quality baseline (2026-07-23).**
+  A targeted fresh session for weak chapters 5B, 6B, and 8B retained 44 records. Its
+  deterministic canonical-key union with the complete iteration-2 research has 131
+  claim records, 95 URLs, 51 domains, and 449 exact-lens mappings, versus lean-v4's
+  111, 98, 39, and 377 respectively. The fresh session achieved useful chapter depth
+  at substantially lower turn inputs than the late chapters of the eight-chapter raw
+  thread. The workflow now starts every chapter as a fresh compact session with a
+  bounded relevant-resource index while the parent owns and merges the cumulative
+  ledger. Next gate: one full AMLO iteration using that segmented topology.
+
+- **AMLO web-research iteration 4 validated a full compact segmented run
+  (2026-07-23).** All eight research chapters completed before the diagnostic was
+  intentionally stopped ahead of formatting. The standalone ledger contains 102
+  evidence units, 83 URLs, 51 domains, 371 exact-lens mappings, and locators on every
+  unit, versus lean-v4's 111, 98, 39, and 377. Explicit prompts stayed at 6.8–14.7 KB
+  and never embedded the 2.7 MB local-prior package or accumulated raw evidence.
+  Provider usage nevertheless totaled 5.06M input tokens including reconnaissance,
+  mostly cached; fresh chapter inputs remained bounded at 359K–732K instead of rising
+  to 5.46M for a late persistent-thread turn. Compact segmentation restores comparable
+  research quality and fixes compounding context, but cached agent/tool context remains
+  a major token cost outside the explicit prompt. Next gate: compact and profile the
+  reviewer and formatter, then run a genuinely end-to-end AMLO dossier without
+  expanding the researcher prompt.
+
 - **Phase C.20 — Wikipedia Action API (search + extract) clean-source adapter landed (2026-06-27).** Twenty-first source rebuilt under the unified `leaders_db.sources` interface (priority 20, §7.1, SRC-MIG-006), after PWT 10.01, Maddison Project Database 2023, World Bank WDI, World Bank WGI, V-Dem, UCDP, Transparency International CPI, Political Terror Scale, RSF, BTI, Freedom House, Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, WHO GHO API, FAS, and Wikidata WikiProject heads-of-state-and-government. Wikipedia Action API (search + extract) is the **always-on narrative-context helper** for the prototype (per `docs/requirements/top-level-requirements.md` §3 + §9 + §12); the canonical Stage 2 access path is the public Wikipedia Action API (`https://en.wikipedia.org/w/api.php`, CC BY-SA 4.0). The new package lives at `src/leaders_db/sources/adapters/wikipedia_search_extract/`, is cache-only (`requires_network=False`, `source_type="api"`), and reuses the legacy parsers (`leaders_db.ingest.wikipedia_search_extract_parse.parse_extracts_response` / `parse_search_response`) and the legacy cache-key builder (`leaders_db.ingest.wikipedia_search_extract_http.build_cache_key`) via lazy imports so the package boundary at `docs/architecture/sources.md` §10.1 is preserved; the new runner path never consults `STAGE2_ADAPTERS`. The clean-slice request-input contract maps the canonical Action API query list to `request.leaders=` (this source is a cached web/knowledge snippet helper, `leaders=` here means query strings, NOT resolved leader IDs); missing or empty `leaders=` fails readiness with a structured `wikipedia_search_extract_missing_queries` error BEFORE the reader opens the cache -- the helper does NOT browse / discover. `years=` and `countries=` are unsupported filters for this source -- the readiness envelope surfaces a structured `unsupported_filter` warning per request filter when set (the runner ignores the filters and still emits the cached rows; the unified adapter never invents year / country / leader values). Runtime readiness accepts BOTH the canonical primary `source_version="Action API"` metadata shape AND the legacy alias `version="Action API (no version)"`; the staged metadata is OPTIONAL for a cache-only bundle (the cache files are the source of truth; when the staged metadata is absent the gate accepts the bundle without validating the version). The unified adapter emits `leader_identity_context` observations for the two legacy catalog variables (`wikipedia_extract_lead` for the `extracts` Action API action; `wikipedia_search_results` for the `search` Action API action) with `value` carrying the verbatim extract text (or snippet text for search hits), `value_type="text"`, `year=None`, `country_code=None`, `leader_id=None`, `leader_name=None` (the Action API responses are not temporally scoped, not country-coded, and not leader-resolved; Stage 3 / Stage 4 resolve from the verbatim per-row `raw_value` audit trail). The canonical legacy cache-key convention `wikipedia_<action>_<query_hash>_<params_hash>.json` is preserved verbatim -- the canonical fixture filenames are `wikipedia_extracts_62f100bfa4_default.json` (Joe Biden extracts), `wikipedia_search_62f100bfa4_7d0587b5ac.json` (Joe Biden search), and `wikipedia_extracts_6f47c90e93_default.json` (AMLO extracts). The unified adapter never invokes the network -- the legacy `leaders_db.ingest.wikipedia_search_extract_http.fetch_wikipedia_action_api_payload` HTTP layer is intentionally NEVER invoked by the unified read path (verified by `test_runner_does_not_invoke_http_layer` which monkeypatches the legacy HTTP helper to raise `AssertionError` if invoked). The unified adapter rejects `cache_policy="refresh"` / `"no_cache"` with a structured `unsupported_cache_policy` error BEFORE the reader opens the cache. The legacy `STAGE2_ADAPTERS["wikipedia_search_extract"]` slot remains unchanged -- the new package exposes explicit `create_wikipedia_search_extract_adapter()` and `register_wikipedia_search_extract(registry)` factories and does NOT auto-register on import (per `docs/architecture/sources.md` §10.1). The legacy `WIKIPEDIA_SEARCH_EXTRACT_ATTRIBUTION` constant in `src/leaders_db/ingest/wikipedia_search_extract_io.py` is byte-identical to the new `WIKIPEDIA_SEARCH_EXTRACT_ATTRIBUTION_TEXT` and to the `wikipedia_search_extract` row in `docs/sources/attributions.md` (`test_attribution_text_matches_doc_and_legacy` drift guard). **With this landing, every legacy-implemented source in the 20-row `STAGE2_ADAPTERS` table now has a corresponding clean `leaders_db.sources.adapters.<slug>/` package**, and the project has true source-for-source parity with the original legacy list. Per-observation `extension` carries the canonical Wikipedia attribution text (Rule #15), the legacy DB-writer `source_row_reference` (`wikipedia:<variable_name>:<hint>` where `<hint>` is the parser-emitted per-row `wikipedia:<pageid>:<title>` for extracts or `wikipedia:search:<pageid>:<title>` for search), the verbatim per-row payload JSON (`raw_row_payload`), the verbatim query string, the action name, the title, the pageid, the verbatim extract text, the cache key, and the `value_type="text"` / `raw_scale="text"` / `normalized_scale_target="text"` / `higher_is_better=True` direction hints. `RawLocator` carries the Action API URL (`url=WIKIPEDIA_SEARCH_EXTRACT_HOMEPAGE_URL`) + the canonical `api_params_hash` (the legacy `build_cache_key` output) + the `api_endpoint` template so audit code can resolve the canonical Wikipedia URL for each emitted observation. 29 focused tests in `tests/sources/test_wikipedia_search_extract_adapter.py` cover the full slice acceptance criteria (descriptor / factory / registry / runner / request-scoping / out-of-coverage / readiness-failure / cache-policy / missing-leaders / cache-shape / canonical-version-propagation / legacy-version-alias / no-network / no-legacy-dispatch / legacy-slot-unchanged / import-boundary / attribution-drift-guard / cache-key-shape). Module sizes are kept under the 400-line convention (`__init__.py` ~120 lines, `_constants.py` ~225 lines, `_descriptor.py` ~140 lines, `_readiness.py` ~395 lines, `_paths.py` ~110 lines, `_raw_read.py` ~190 lines, `_transform.py` ~310 lines, `adapter.py` ~395 lines); no carve-out is needed. Docs updated in `docs/architecture/sources.md` (new §7.17 entry + inventory row status from `pending` to `migrated`), `docs/architecture/overview.md` (legacy-only row → legacy+clean status), `docs/testing-guide-sources.md` (new dedicated section), and `docs/workplan.md` (tally + clean-adapter note + done history). No persistence, manifest, or DB writes landed; the runner still returns `manifest=None`.
 
 - **Phase C.19 — Wikidata WikiProject heads-of-state-and-government clean-source adapter landed (2026-06-27).** Twentieth source rebuilt under the unified `leaders_db.sources` interface (priority 19, §7.1, SRC-MIG-006), after PWT 10.01, Maddison Project Database 2023, World Bank WDI, World Bank WGI, V-Dem, UCDP, Transparency International CPI, Political Terror Scale, RSF, BTI, Freedom House, Archigos, REIGN, SIPRI Milex, SIPRI Yearbook Ch.7, CIRIGHTS, UNDP HDI, WHO GHO API, and FAS. Wikidata WikiProject heads-of-state-and-government is the **always-on leader-identity helper** for the prototype (per `docs/requirements/top-level-requirements.md` §3 + §9 + §12); the canonical Stage 2 access path is the public Wikidata SPARQL endpoint (`https://query.wikidata.org/sparql`, CC0 1.0). The new package lives at `src/leaders_db/sources/adapters/wikidata_heads_of_state_government/`, is cache-only (`requires_network=False`, `source_type="knowledge_base"`), and reuses the legacy parser `leaders_db.ingest.wikidata_heads_of_state_government_parse.parse_sparql_bindings` via lazy imports so the package boundary at `docs/architecture/sources.md` §10.1 is preserved; the new runner path never consults `STAGE2_ADAPTERS`. **Year semantics:** `years=(YYYY,)` reads the matching single-year cache file (`wd_ALL_<year>_<country_hash>_<template_hash>.json`) and emits one observation per matching binding with `year=YYYY` plus the original `start_date` / `end_date` qualifiers on the audit-trail extension payload; multi-year requests are rejected with `wikidata_multi_year_request_unsupported` before read/transform so no requested year is silently dropped; `years=None` reads the canonical current-holders cache file (`wd_ALL_current_all_<template_hash>.json`) and emits one observation per binding with `year` taken from the parsed row's `start_date` year (or `None` only when the start date is absent). The template hash is the 10-character SHA-256 prefix of the sorted office QIDs CSV (`6a945a3130` for the 2-indicator catalog), computed lazily from the legacy catalog so the readiness gate does NOT pull in legacy ingest at import time. **Country filter:** `countries=` matches the source-native Wikidata QIDs against the `country_qid` column; non-QID inputs (e.g. `"USA"`) surface a structured `wikidata_non_qid_country_filter` warning AND silently emit zero rows (the unified adapter never invents ISO3 codes). `wd:Q30` prefixed QIDs match the same as bare `Q30` (the legacy parser's defensive `wd:` prefix stripping is preserved). **Leader filter:** `leaders=` is unsupported and surfaces a structured `UNSUPPORTED_FILTER` warning per SRC-REQ-005 (Stage 4 is the resolver; the Stage 2 layer does not filter by leader). **Cache policy:** `cache_policy="refresh"` / `"no_cache"` is NOT supported by the unified adapter in this slice -- readiness surfaces a structured `unsupported_cache_policy` error BEFORE `read_raw` / `transform` are called. The unified adapter is cache-only; `WikidataHeadsOfStateGovernmentAdapter.read_raw` never invokes the network. **Readiness gate accepts BOTH the canonical primary metadata shape (`source_version="SPARQL"`) AND the existing gitignored raw-local legacy metadata shape (`version="SPARQL endpoint (no version)"` / `source_url` / `ingestion_status`)** so the existing staged bundle metadata does not need to be rewritten as part of the migration. The per-`(year, country_qids)` JSON cache is validated for file presence AND SPARQL JSON shape (object with list `results.bindings` slot) BEFORE `read_raw` is called; malformed cache files fail readiness with a structured `MISSING_RAW` blocker. **Per-observation contract:** the unified adapter emits `leader_identity_country_year` observations for the two legacy catalog variables (`wikidata_head_of_state_held` for office Q30461, `wikidata_head_of_government_held` for office Q22857062). `value` is the Wikidata person QID (text); `value_type="categorical"`; `country_code=None` (Wikidata QIDs are source-native, not ISO3; Stage 3 resolves QIDs via the canonical country mapping); `country_name` carries the Wikidata English country label verbatim; `leader_id=None`; `leader_name` carries the Wikidata person English label verbatim. `RawLocator` carries the cache file path + the SPARQL endpoint URL + the cache asset id (`wikidata_heads_of_state_government:cache:<cache_key>`) + the catalog `column_name` (the office QID); `row_number` is intentionally `None` because the legacy parser does not expose the SPARQL binding index. Per-observation `extension` carries the canonical Wikidata attribution text `"Wikidata (CC0 1.0)."` (Rule #15; byte-identical to the legacy `WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION` constant in `src/leaders_db/ingest/wikidata_heads_of_state_government_io.py` and to the `wikidata_heads_of_state_government` section in `docs/sources/attributions.md`; `test_attribution_text_matches_doc_and_legacy_constant` enforces byte-identity AND substring match against the doc AND byte-identity against the legacy constant), the `source_row_reference="wikidata:<country_qid>:<office_qid>:<person_qid>:<statement_hash>"` pattern (matching the legacy Stage 2 DB writer; the 10-character SHA-256 prefix of the statement URI is the `statement_hash` audit field), the verbatim SPARQL binding JSON as `raw_binding` (audit-trail copy of the API response row), the Wikidata QIDs (`person_qid` / `country_qid` / `office_qid`) and English labels (`person_label` / `country_label` / `office_label`), the verbatim `start_date` / `end_date` qualifiers, the statement URI, the `requested_year` audit field, and the `raw_scale="qid_list"` / `normalized_scale_target="qid_list"` / `higher_is_better=True` direction hints. The unified adapter does not invent ISO3 country codes, leader identifiers, missing values, or proxy years; `country_code` / `leader_id` remain `None` until Stage 3 / Stage 4 fill them via the canonical mapping tables. The new `WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION_TEXT` constant is byte-identical to the legacy `WIKIDATA_HEADS_OF_STATE_GOVERNMENT_ATTRIBUTION` constant in `src/leaders_db/ingest/wikidata_heads_of_state_government_io.py` (drift-guard test asserts both). 27 new tests in `tests/sources/test_wikidata_heads_of_state_government_adapter.py` covering: descriptor / factory / protocol / register / public surface (3 tests); indicator constants match the canonical 2-indicator catalog (1 test); constants match documented values (1 test); attribution drift guard against the doc + the legacy constant (1 test); runner end-to-end against the staged fixture cache (7 tests: focused year-2023 USA row spot-check, all-fixture current-holders run, country filter (Q30 / Q235 / unknown QID / wd:-prefixed QID / non-QID warn-and-zero), leader filter warn-and-ignored); cache-file availability + readiness failures (8 tests: missing metadata, missing cache directory, missing cache file for explicit year, malformed cache file, missing `results.bindings` slot, metadata version mismatch, legacy version alias accepted, correct metadata passes); cache policy (1 test: `refresh` / `no_cache` blocked); version gate (1 test: unsupported request version); no-network contract (2 tests: HTTP sentinels installed + never invoked under `offline_only` / `prefer_cache`); legacy-dispatch contract (1 test: `STAGE2_ADAPTERS["wikidata_heads_of_state_government"]` tracker never invoked); import-boundary (1 test: importing the new adapter does NOT pull in legacy ingest); legacy slot unchanged (1 test: the legacy `STAGE2_ADAPTERS["wikidata_heads_of_state_government"]` slot still resolves to the legacy orchestrator); path-helper + cache-root layout (1 test). New clean package `src/leaders_db/sources/adapters/wikidata_heads_of_state_government/` following the documented `leaders_db.sources.adapters.<slug>/` layout (verify module line counts via `wc -l src/leaders_db/sources/adapters/wikidata_heads_of_state_government/*.py` -- the focused production-module split stays under the documented 400-line convention). The package contains the lifecycle class + registration helpers + protocol conformance guard (`adapter.py`); the static core constants (`_constants.py`); the canonical `build_wikidata_heads_of_state_government_descriptor` factory (`_descriptor.py`); the readiness-gate orchestrator + metadata + cache-policy + cache-availability + version gates + request-scoping warnings (`_readiness.py`); the lazy legacy reader + per-cache raw asset + payload + raw-payload cache (`_raw_read.py`); the per-row emission loop + QID country filter + leader filter warning + audit-trail extension payload builder (`_transform.py`); the public surface re-exports + `__all__` (`__init__.py`). Legacy `tests/test_ingest_wikidata_heads_of_state_government.py` (41 tests) still passes; `tests/sources/test_import_boundary.py` updated to include the new `wikidata_heads_of_state_government` submodule in the canonical boundary-check list. Focused proof: `pytest -q tests/sources/test_wikidata_heads_of_state_government_adapter.py tests/sources/test_import_boundary.py tests/test_ingest_wikidata_heads_of_state_government.py` passes (focused Wikidata adapter + import-boundary + legacy regression coverage). `wc -l src/leaders_db/sources/adapters/wikidata_heads_of_state_government/*.py` confirms the focused production-module split is under the documented 400-line convention after extracting `_transform_helpers.py`; `ruff check src/leaders_db/sources/adapters/wikidata_heads_of_state_government/ tests/sources/test_wikidata_heads_of_state_government_adapter.py tests/sources/test_import_boundary.py` is clean. **No production wiring changes to `STAGE2_ADAPTERS`** (the clean adapter does not consume the legacy dispatch table; the legacy dispatch entry remains for backward compatibility). **With Wikidata HoS/HoG landed, the unified source interface now covers per-binding leader-identity evidence** (the always-on leader-identity helper for 2023+) so Stage 4's leader resolver can consume the migrated source pipeline without touching legacy dispatch. The `leader_identity_country_year` observation family is shared across all three leader-identity sources (Archigos = historical leader-spell identity; REIGN = historical leader-month identity; Wikidata = per-binding leader-identity) so downstream research code can treat leader-identity evidence as a single filterable family. **Awaiting reviewer sign-off before starting the next migration slice.**
@@ -3510,6 +5317,51 @@ Scope is defined by [`requirements/top-level-requirements.md`](requirements/top-
 
 - **Phase D.9 — `nuclear` per-category scorer landed (2026-06-20).** The eighth and final per-category deterministic scorer follows the same facade + private-modules split as the 7 prior scorers. The legacy `NotImplementedError` stub at `src/leaders_db/score/nuclear.py` is replaced with the deterministic 2-group rubric (FAS nuclear forces 0.60, SIPRI Yearbook Ch.7 nuclear forces 0.40); `NUCLEAR_PLAN` ships with 8 indicators (5 FAS consolidated-status-page indicators, 3 SIPRI Yearbook Ch.7 Table-7.1 indicators) and `minimum_viable_sources=1` + `SparseDataPolicy.PROVISIONAL_SCORE`. The nuclear specialization (per requirement §6 "most countries are non-nuclear") is **non-nuclear states must never receive an invented numeric score**: the scorer treats every below-threshold bundle as insufficient-data, and the rationale explicitly says "non-nuclear state or no FAS / SIPRI Yearbook Ch.7 row" so a manual-review reader can distinguish a non-nuclear country (~190 of ~200 prototype countries) from a sparse-bundle pathology. The :attr:`ReviewFlag.NUCLEAR_CASE` population-split flag fires on the **scored** path iff the bundle carries any usable FAS / SIPRI Yearbook Ch.7 observation (the §14 manual-review-queue hook per REQ-REV-002); the flag is deliberately **not** added on the insufficient-data path. New modules: `src/leaders_db/score/nuclear.py` 399 lines (facade + `score_nuclear`), `src/leaders_db/score/_nuclear_rubric.py` 199 lines (2 group weights, 8-row variable→group map), `src/leaders_db/score/_nuclear_components.py` 251 lines (per-group bookkeeping, scale mapping, leader fallback, client re-filter, nuclear-source-evidence helper), `src/leaders_db/score/_nuclear_flags.py` 365 lines (flag detection + rationale with nuclear-specific "non-nuclear / no nuclear-source evidence" wording). All four files ≤ 400 lines. Dispatcher `_SCORERS` adds the `nuclear` entry; `supported_score_categories()` returns the lexicographically-sorted 8-tuple. Attribution mapping adds `nuclear` with the 2 expected sources (`fas`, `sipri_yearbook_ch7`); `client_existing` is excluded per AGENTS.md rule #6. New focused test count: 56 tests across `test_score_nuclear.py` (11), `test_score_nuclear_components.py` (10), `test_score_nuclear_flags.py` (11), `test_score_nuclear_insufficient_flags.py` (9), `test_score_nuclear_remediation.py` (3), `test_score_stage9_nuclear.py` (8), `test_score_stage9_nuclear_batch.py` (2), plus updated `test_score_dispatch.py` + `test_score_dispatch_per_category.py` + `test_score_stage9_attribution.py`. Full suite: **1495 passing** (was 1439 before; +56). Ruff clean on all new files; `git diff --check` clean. **All 8 categories from requirement §4 now have a deterministic scorer wired into the Stage 9 dispatcher.**
 
+- **Controlled chapter-wide GPT-5.4-mini experiment runner landed (2026-07-20).**
+  Added an isolated, resumable `hybrid_experiment` flow without changing the existing
+  conversational collector. The runner fingerprints production inputs, generates all 80
+  client-excluding local priors, uses one reconnaissance plus one web-enabled turn per
+  chapter, globally canonicalizes and deduplicates URLs, performs a combined no-search
+  review with at most one grouped follow-up, formats in a separate no-search turn, and
+  profiles time, tools, tokens, estimated cost, source diversity, and lens warnings.
+  Focused tests cover stable deduplication, warning calculation, and baseline hashing.
+  The first controlled full-ruler trial is Vladimir Putin / Russia / 2024.
+
+- **2022 twenty-ruler hybrid batch preparation (2026-07-20).** The v2 experiment now
+  parses strict accepted source-claim records instead of treating every note URL as
+  evidence, derives exact claim/lens mappings and stable IDs, validates all eight
+  no-search chapter reviews, and deterministically serializes reviewer-aware dossiers.
+  Reviewed and rationale-bearing manifests define both the 20-ruler 2022 cohort and a
+  three-ruler Putin/Modi/Bolsonaro gate. The batch supervisor hash-locks the manifest,
+  performs all 80 local-prior checks per ruler, reserves per-ruler and aggregate cost
+  ceilings, checkpoints every case, and scales concurrency only after completed gates.
+  Real-data preflight found 1,600/1,600 local-prior dispositions ready with no extraction
+  errors. The three-ruler Putin/Modi/Bolsonaro pilot then completed for $6.58 total:
+  318 accepted claim units, 276 distinct URLs, and 262 claims retained after final
+  reviewer dispositions. Mean cost was $2.19 and mean model time 74.8 minutes per
+  ruler. The pilot exposed and fixed recoverable Markdown-wrapper parsing, unfiled-turn
+  recovery, progress-aware retry accounting, reviewer-schema clarity, and partial-line
+  rejection with an auditable SHA-256 log. The 20-ruler projection is about $43.88,
+  but post-review yield ranged from 64% to 94%; run two more contrasting rulers as a
+  five-ruler gate before releasing the remaining 15. Full findings are preserved in
+  `research/conversational-evidence/hybrid-experiment/2022-pilot-3-v2/comparison-and-readiness.md`.
+
+- **Natural-language reconnaissance prompt validated and promoted (2026-07-24).**
+  A controlled prompt experiment ran fresh current-versus-natural and
+  current-versus-hybrid reconnaissance for Putin 2022 and Tshisekedi 2022 using the
+  same `gpt-5.6-sol` model, compact local briefings, web access, and isolated
+  no-filesystem execution. Order-reversed blinded review preferred the hybrid for both
+  rulers: mean quality was 8.50 versus 8.15 for Putin and 8.65 versus 8.10 for
+  Tshisekedi. The hybrid cut cumulative input use by 70.6% and 53.2% relative to the
+  unconstrained natural variant while retaining its coverage advantage. Production
+  reconnaissance now uses a self-contained plain-language prompt, informational
+  saturation rather than an evidence-count ceiling, one underlying fact per record,
+  separate extracted/corroborating/lead source states, retrospective segregation, and
+  a compact machine-recovery appendix. The reconnaissance Codex role cannot load
+  project rules or use shell, filesystem, app, plugin, subagent, or goal tools.
+  Artifacts and both blinded assessments are preserved under
+  `research/conversational-evidence/recon-prompt-ac-2022-v1/`.
+
 ## Phase C approach (data acquisition)
 
 Phase C builds one Stage 2 ingest adapter per ✅ vetted_ok source. The pattern is set by V-Dem (the first and biggest) and reused by all the others. **One source lands → self-reviewed → tested → user sign-off → next source.** This avoids stacking unreviewed code (Rule #14) and lets the user steer the indicator catalog before we get too far.
@@ -3560,3 +5412,116 @@ Per [`docs/sources/vetting/report.md`](sources/vetting/report.md) §8, the build
 - [ ] No raw files modified, no `TODO(debug)`, no scratch scripts in the project root (Rule #13).
 - [ ] No unreviewed code lands (Rule #14).
 - [ ] Workplan Done History updated as each source lands.
+## 2026-07-25 — Low-cost long-document reader calibration
+
+- Froze a 16-document, approximately 250,846-token AMLO 2022 Chapter 5B pack and
+  audited the 208-URL discovery catalog for machine access, bot challenges,
+  transient failures, robots denial, and unavailability.
+- Preserved reader prose in a deterministic lossless JSON envelope so malformed
+  organization is never treated as a content failure.
+- Calibrated M2.7, M2.7 with a fresh M2.7 factual reviewer, M3, M3 with M2.7
+  verification, M3 with fresh M3 verification, Luna, Terra, and GPT-5.4-mini.
+- M3 was activated by restarting the existing local Responses compatibility bridge.
+  The best M3→M3 run achieved 41 supported claims out of 42 with 41 usable locators,
+  but fresh runs exposed legal-inference and coverage variability. No low-cost arm
+  was promoted to the 16-document A/B.
+- The next experiment will separate locator-indexed coverage inventory, factual
+  verification, and compression. Official-source volume remains a bias risk:
+  government assertions require explicit source-role labeling and independent or
+  opposing checks.
+- Results package:
+  `research/conversational-evidence/amlo-2022-5b-document-reader-ab-v1/low-cost-reader-calibration-results.md`.
+
+## 2026-07-25 — Full AMLO 5B M3/M3 document-reader run completed
+
+- Completed the frozen sixteen-document AMLO 2022 Chapter 5B pack with one fresh
+  MiniMax M3 reader and a separate fresh MiniMax M3 factual-verification pass per
+  chunk. The 250,846-source-token pack produced 25 chunks and 870 audited claims.
+- The content audit classified 858 claims as supported and 12 as unsupported or
+  materially misstated. A targeted manual check reopened all twelve flagged claims
+  against the frozen extracts and at least one representative accepted claim from
+  every document.
+- The M3 reader used 555,472 input and 43,451 output tokens; the M3 verifier used
+  565,321 input and 85,659 output tokens. The complete artifact span was 63.36
+  minutes. GPT-5.4-mini reading briefs and GPT-5.6 Sol experimental audits are
+  reported separately and are not part of the proposed production reader cost.
+- Complete dossier:
+  `research/conversational-evidence/amlo-2022-5b-document-reader-ab-v1/full-m3-evidence-dossier.md`.
+- Next: correct or exclude the twelve flagged claims, restore decisive omissions,
+  and perform a separate external/general-knowledge contradiction and gap check
+  before any downstream chapter judgment.
+- **AMLO 2023 722-URL corpus evidence run (2026-07-31).** Removed the former
+  40-candidate/chapter and 12-inspected-document stopping semantics. All 722
+  discovered URLs received an acquisition disposition: 457 acquired, 120 access
+  blocked, 28 robots disallowed, 29 not found, 81 transient failures, and 7 over the
+  configured 30 MB safety limit. After six exact-content duplicates and two empty
+  extractions, 449 documents (5,946,680 estimated source tokens) entered 62
+  whole-context Luna reading calls. Code-bound extraction produced 679 verified or
+  corrected evidence records from 313 sources with zero excerpt-hash failures.
+  A first mapping arm was discarded after an identity shift. The replacement
+  digest-bound review reduced question links from 7,456 to 4,186; seven noncompliant
+  batches required isolated one-record retries. Corpus-wide conservative review
+  identified four high-confidence duplicate groups (24 records); the assembled
+  experimental package contains 657 clusters and covers 79/80 lenses. It is held
+  from judging because 61 records are now context-only/unmapped, one lens is empty,
+  mapping remains broad, verifier rejection behavior needs calibration, and transient
+  acquisition failures require a controlled retry round. Artifacts are under
+  `research/runs/amlo-2023-corpus-pipeline-v1/`.
+- **Self-correcting chapter reading-list experiment (2026-07-31).** Added a simple
+  three-turn Luna consumer over the AMLO 2023 verified ledger: draft a small
+  chapter reading list, independently attack it against the complete compact
+  candidate index, then revise after reopening exact code-bound passages for every
+  draft selection and actionable challenge. Code rejects unknown evidence IDs,
+  duplicate selections, cross-chapter lenses, and wrong chapter identities; final
+  artifacts preserve the full critique and omitted-candidate index. Trials on 1B,
+  4B, and 8B reduced 52, 229, and 374 candidates to 15, 18, and 24 records. The
+  critic materially repaired initially underinclusive drafts of 5, 5, and 8 records.
+  A fresh 8B repeat selected 33 records and shared 15 with the first final list
+  (Jaccard 0.357), establishing a stable core but unacceptable peripheral selection
+  variance. The repeat also exposed and repaired a transport failure: exact passages
+  are reopened for draft items and only challenges marked add, correct, or reconsider,
+  avoiding redundant payload from retain/remove objections. No reading-list output
+  is promoted to a judge input until disagreement handling is tested explicitly.
+- **AMLO 2023 question-complete chapter-analysis experiment (2026-07-31).** Ran
+  all eight chapters through Luna using the complete compact chapter candidate
+  index: ten evidence answers, a fresh full-index critique, and one exact-passage
+  correction per question. Final analyses cite 48/52, 22/25, 84/273, 92/229,
+  91/247, 99/210, 52/145, and 91/374 chapter candidates respectively; omitted IDs
+  remain explicit. Bounded feedback corrected invalid evidence IDs in several
+  drafts; 5B exhausted three attempts, after which code removed only the invalid
+  references and required final answers to cite reopened exact passages. A separate
+  GPT-5.6 Sol audit reviewed all eighty answers against each complete compact index
+  and exact cited passages. Result: 1B passed with corrections and was considered
+  safe for judge use; 2B-6B and 8B passed with corrections but were not safe without
+  repair; 7B failed. The principal weakness was incomplete use of the candidate
+  universe, followed by question-scope leakage, evidence-list/prose mismatch, and
+  over-credit to formal architecture or institutional resistance. The approach is
+  promising as a readable analyst layer but is not promoted as a judge input.
+- **AMLO 2023 one-pass Luna full-corpus test (2026-08-01).** Read all 679 verified
+  evidence records once across all eighty lenses in 24 deterministic shards, producing
+  683 compact routing findings. All eight strict-JSON chapter briefs answer all ten
+  questions. Routed chapter coverage ranges from 32 to 505 evidence records and 22 to
+  229 unique source IDs; final briefs cite 28 to 63 registry-backed records. Deterministic
+  validation removed one invented ID and three real but chapter-unsupplied IDs without
+  guessing replacements. The successful design replaced eight calls per shard with one
+  all-chapter routing call, then resolved selected IDs back to compact exact registry
+  records for synthesis. The persistent API ledger, including cache proof and failed
+  diagnostics, totals $4.9410303. The final run artifacts report 2,590,713 input tokens,
+  2,590,611 cache-write tokens, 46,406 output tokens, and 34 persisted request artifacts;
+  the run remains an experimental no-score organizer pending independent content audit.
+  The provider-side observed charge was approximately $6; the $4.9410303 figure is the
+  pipeline's token-derived estimate and must not be presented as the billed amount.
+  Artifacts: `research/runs/amlo-2023-corpus-pipeline-v1/luna-full-corpus-all-chapters-v3/`.
+- **Xi Jinping 2023 full evidence-to-answers run (2026-08-01).** Resolved Xi's
+  2023 ruler-year record, ran one overview and eight chapter discovery passes, and
+  retained a 469-URL candidate catalogue. Segmented GPT-5.4-mini research plus bounded
+  Luna review first produced a validated dossier, but the content audit rejected its
+  eight-record Chapter 5B slice as too thin. A targeted 5B discovery, research, review,
+  formatting, and resynthesis repair yielded a combined 108-record, 396-mapping dossier.
+  A deterministic adapter preserved dossier claims, locators, excerpts, and mappings in
+  the code-bound analysis contract. Final one-pass Luna chapter analyses produced draft,
+  critique, and corrected answers for all 80 questions without scoring. Total
+  completed-call usage, including retries and the superseded 5B analysis, was 18,958,607
+  input tokens (11,761,536 cached) and 1,225,688 output tokens. Artifacts,
+  per-call profiling, failure accounting, and readable chapter packages are under
+  `research/runs/xi-jinping-2023-full-pipeline-v1/`.

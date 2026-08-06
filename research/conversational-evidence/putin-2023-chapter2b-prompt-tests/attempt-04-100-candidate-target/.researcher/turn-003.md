@@ -1,0 +1,107 @@
+**Continuation Discovery**
+I found enough new unique underlying documents to move the combined deduplicated pool past 100 canonical URLs. I did not open any of these pages in this continuation, so discovery status remains `search-hit only`.
+
+**New query families attempted**
+- Direct Kremlin title and date searches for 2023 transcripts, speeches, articles, and year-end material.
+- Official Russian legal and budget text searches via `pravo.gov.ru` and `government.ru`.
+- OHCHR / HRMMU 2023 periodic, thematic, and civilian-protection report searches.
+- OSCE ODIHR interim-report, press-release, and Moscow Mechanism searches.
+- ICRC humanitarian and missing-person searches.
+- UN Black Sea Grain Initiative / Security Council / GA / SG searches.
+- China MFA and Türkiye MFA mediation/settlement/grain-deal searches.
+- Policy-analysis searches from IISS and Chatham House.
+
+**New candidates**
+| ID | Title | Publisher | Date | Canonical URL | Source type | Lang | Likely 2B lenses | Relevance | Discovery status | Duplicate-family notes |
+|---|---|---|---|---|---|---|---|---|---|---|
+| C065 | Human rights situation of older persons in Ukraine in the context of the armed attack by the Russian Federation | OHCHR / HRMMU | 2023-05-24 | https://ukraine.ohchr.org/en/hrmmu-update-human-rights-situation-older-persons-ukraine-context-armed-EN | briefing paper | EN | L4, L9, L10 | Civilian vulnerability and wartime harm to older persons | search-hit only | New OHCHR thematic family |
+| C066 | Report on the human rights situation in Ukraine, 1 February to 31 July 2023 | OHCHR / HRMMU | 2023-10-04 | https://ukraine.ohchr.org/en/36-periodic-report-EN | periodic report | EN | L4, L5, L9, L10 | Broad mid-2023 rights and IHL/IHRL baseline | search-hit only | New periodic report |
+| C067 | Attack on Funeral Reception in Hroza, 5 October 2023 | OHCHR / HRMMU | 2023-10-05 | https://ukraine.ohchr.org/en/attack-funeral-reception-hroza-EN | incident report | EN | L4, L5, L9, L10 | Strong civilian-harm and IHL compliance evidence | search-hit only | New incident-specific report |
+| C068 | Human rights situation during the Russian occupation of territory of Ukraine and its aftermath, 24 February 2022 to 31 December 2023 | OHCHR / HRMMU | 2024-03-20 | https://ukraine.ohchr.org/en/human-rights-situation-during-russian-occupation-territory-ukraine-and-its-aftermath-EN | thematic report | EN | L2, L4, L5, L9, L10 | Occupation administration, repression, and legal imposition | search-hit only | New occupation-focused report |
+| C069 | Detention of civilians in the context of the armed attack by the Russian Federation against Ukraine, 24 February 2022 – 23 May 2023 | OHCHR / HRMMU | 2023-06-?? | https://ukraine.ohchr.org/en/reports/detention | report landing page | EN | L4, L5, L9, L10 | Civilian detention, arbitrariness, and humane-treatment issues | search-hit only | New detention family |
+| C070 | Situation of human rights in the temporarily occupied Autonomous Republic of Crimea and the city of Sevastopol, Ukraine: report of the Secretary-General | UN Secretary-General | 2023-09-01 | https://digitallibrary.un.org/record/4023206?ln=en&v=%5B%22%5B%27pdf%27%5D%22%5D | UN report record | EN | L2, L5, L9, L10 | Occupation and annexation legality, long-term control | search-hit only | New SG Crimea report |
+| C071 | Protection of Civilians in Armed Conflict - November 2023 | OHCHR / HRMMU | 2023-12-11 | https://ukraine.ohchr.org/en/protection-civilians-armed-conflict-november-2023-EN | monthly protection report | EN | L4, L9, L10 | Late-2023 civilian harm trend and targeting pattern | search-hit only | New monthly civilian-protection report |
+| C072 | Protection of Civilians in Armed Conflict - October 2023 | OHCHR / HRMMU | 2023-11-14 | https://ukraine.ohchr.org/en/protection-civilians-armed-conflict-october-2023-EN | monthly protection report | EN | L4, L9, L10 | October casualty spike and Hroza context | search-hit only | New monthly civilian-protection report |
+| C073 | Protection of Civilians in Armed Conflict - December 2023 | OHCHR / HRMMU | 2024-01-15 | https://ukraine.ohchr.org/en/protection-civilians-armed-conflict-december-2023-EN | monthly protection report | EN | L4, L9, L10 | End-of-2023 escalation in missile and drone attacks | search-hit only | New monthly civilian-protection report |
+| C074 | Protection of Civilians in Armed Conflict - January 2024 | OHCHR / HRMMU | 2024-02-06 | https://ukraine.ohchr.org/en/protection-civilians-armed-conflict-january-2024-EN | monthly protection report | EN | L4, L9, L10 | Directly establishes the late-2023 civilian-harm reversal | search-hit only | 2024 publication, 2023 fact |
+| C075 | Russia - Ukraine international armed conflict: ICRC continues to help people in need | ICRC | 2023-06-14 | https://www.icrc.org/en/document/russia-ukraine-international-armed-conflict-icrc-continues-to-help-people-in-need | operational update | EN | L4, L5, L7, L9 | Humanitarian consequences and aid response in 2023 | search-hit only | New ICRC operational family |
+| C076 | Russia-Ukraine international armed conflict: 23,000 people reported missing | ICRC | 2024-02-19 | https://www.icrc.org/en/document/russia-ukraine-international-armed-conflict-23000-people-reported-missing | news release | EN | L4, L5, L9 | Missing persons, detention, and family separation | search-hit only | 2024 publication, 2023/2024 fact |
+| C077 | Third Interim Report on reported violations of international humanitarian law and international human rights law in Ukraine | OSCE ODIHR | 2023-07-17 | https://odihr.osce.org/odihr/548629 | interim report | EN/RU/UK | L4, L5, L9, L10 | Independent institutional monitoring of wartime violations | search-hit only | New OSCE interim report |
+| C078 | OSCE human rights office monitoring finds evidence of torture and sexual violence in Ukraine as violations continue | OSCE ODIHR | 2023-07-17 | https://odihr.osce.org/odihr/548662 | press release | EN/RU | L4, L5, L9, L10 | Direct summary of torture, disappearances, abuse | search-hit only | New OSCE summary release |
+| C079 | Human rights violations must end and humanitarian law be respected, says OSCE human rights head on anniversary of military attack in Ukraine | OSCE ODIHR | 2023-02-24 | https://odihr.osce.org/odihr/537933 | press release | EN/RU | L4, L9, L10 | Early-2023 baseline on civilian suffering and IHL | search-hit only | New OSCE anniversary statement |
+| C080 | People of Ukraine must come first, Russia must end this war, say OSCE leaders | OSCE | 2023-02-24 | https://www.osce.org/chairpersonship/537999 | institutional statement | EN | L1, L2, L9, L10 | OSCE-wide condemnation and peace framing | search-hit only | New OSCE leadership statement |
+| C081 | Moscow Mechanism: "Report on Violations and Abuses of International Humanitarian and Human Rights Law, War Crimes and Crimes Against Humanity, related to the Forcible Transfer and/or Deportation of Ukrainian Children to the Russian Federation" | OSCE / ODIHR | 2023-05-04 | https://www.osce.org/resources/documents?activities=All&field_item_type_value=464&fields=All&institutions=All&page=287&pager_element=0&view_args=&view_base_path=resources%2Fdocuments&view_display_id=panel_pane_3&view_dom_id=0bfa60027d97cfafbe2fe78a5e8f81af&view_name=resources&view_path=resources%2Fdocuments&whoweare=All | report library entry | EN/RU/UK | L4, L5, L9, L10 | Child deportation and war-crimes allegations | search-hit only | New OSCE Moscow Mechanism report family |
+| C082 | Note to Correspondents - on the extension of the Black Sea Grain Initiative | UN | 2023-03-18 | https://ukraine.un.org/en/223807-note-correspondents-extension-black-sea-grain-initiative | note to correspondents | EN | L1, L4, L7, L10 | Mediation, food security, and de-escalatory diplomacy | search-hit only | New UN grain-initiative record |
+| C083 | Black Sea Grain Initiative | FAQ | UN | 2023 | https://www.un.org/en/black-sea-grain-initiative/faq | explainer | EN | L1, L4, L7, L10 | Useful for mediation mechanics and ceasefire-like diplomacy | search-hit only | New UN explanatory page |
+| C084 | Update from the Office of the UN Coordinator for the Black Sea Grain Initiative | UN | 2023-07-17 | https://www.un.org/en/node/207702 | update | EN | L1, L4, L7, L10 | Tracks deal breakdown and shipping slowdown | search-hit only | New coordinator update |
+| C085 | Black Sea Grain Initiative | UN JCC | 2023 | https://www.un.org/black-sea-grain-initiative | initiative page | EN | L1, L4, L7, L10 | Core institutional record on the grain corridor | search-hit only | New initiative page |
+| C086 | Renewed Efforts Critical to Ending Humanitarian Catastrophe in Ukraine, Emergency Relief Coordinator Calls Tells Security Council | UN Meetings Coverage | 2023-02-06 | https://press.un.org/en/2023/sc15192.doc.htm | meeting record | EN | L1, L4, L7, L10 | Peace, humanitarian relief, and war impact framing | search-hit only | New UN Security Council record |
+| C087 | One year of the Black Sea Initiative | UN / Türkiye | 2023-07-13 | https://turkiye.un.org/en/239465-one-year-black-sea-initiative | story / explainer | EN | L1, L4, L7, L10 | Quantifies grain-export effects and diplomacy value | search-hit only | New mediation-party explainer |
+| C088 | Note to Correspondents: Talks in Istanbul on the Black Sea Initiative | UN Secretary-General | 2023-05-11 | https://www.un.org/sg/en/content/sg/note-correspondents/2023-05-11/note-correspondents-talks-istanbul-the-black-sea-initiative | note to correspondents | EN | L1, L4, L7, L10 | Direct mediation record involving Russia, Ukraine, Türkiye, UN | search-hit only | New UN mediation record |
+| C089 | UN chief regrets Russia’s decision to withdraw from grain deal | UN SDG / news | 2023-07-17 | https://unsdg.un.org/latest/stories/un-chief-regrets-russia%E2%80%99s-decision-withdraw-grain-deal | news story | EN | L1, L4, L7, L10 | Shows adverse humanitarian consequences of Russian withdrawal | search-hit only | New UN response story |
+| C090 | President Xi Jinping and Russian President Vladimir Putin Sign Joint Statement ... and Stress Settling the Ukraine Crisis Through Dialogue | China MFA | 2023-03-22 | https://www.mfa.gov.cn/eng/wjb/zzjg_663340/dozys_664276/xwlb_664278/202303/t20230322_11046088.html | joint statement | EN | L1, L3, L6, L7, L10 | Key diplomatic/mitigating evidence for dialogue framing | search-hit only | New China MFA statement |
+| C091 | China’s Position on the Political Settlement of the Ukraine Crisis | China MFA | 2023-02-24 | https://www.mfa.gov.cn/eng/zy/gb/202405/t20240531_11367485.html | position paper | EN | L1, L3, L6, L7, L10 | Structured Chinese peace framework and de-escalation language | search-hit only | New China position paper |
+| C092 | Press Release Regarding the First Year of the War in Ukraine | Republic of Türkiye MFA | 2023-02-24 | https://www.mfa.gov.tr/no_-56_-ukrayna-savasinin-birinci-yili-hk.en.mfa | press release | EN | L1, L3, L7, L10 | Türkiye’s pro-negotiation and territorial-integrity stance | search-hit only | New Turkish official statement |
+| C093 | Meeting of Foreign Minister Mevlüt Çavuşoğlu with Sergey Lavrov, Minister of Foreign Affairs of the Russian Federation, 7 April 2023, Ankara | Republic of Türkiye MFA | 2023-04-07 | https://www.mfa.gov.tr/sayin-bakanimizin-rusya-federasyonu-disisleri-bakani-sergey-lavrov-ile-gorusmesi--7-nisan-2023--ankara.en.mfa | bilateral meeting readout | EN | L1, L7, L10 | Direct diplomacy and grain-deal continuation | search-hit only | New Turkish-Russian mediation record |
+| C094 | Minister Çavuşoğlu and Secretary Blinken underlined support for Ukraine sovereignty and grain initiative | Türkiye MFA / Embassy London | 2023-01-17 | https://london-emb.mfa.gov.tr/Mission/ShowAnnouncement/399937 | readout | EN | L1, L7, L10 | Confirms support for peace, sovereignty, and grain corridor | search-hit only | New Turkish-U.S. readout |
+| C095 | Joint Press Conference by Foreign Minister Çavuşoğlu and Sergey Lavrov | Republic of Türkiye MFA | 2023-04-07 | https://www.mfa.gov.tr/disisleri-bakani-sayin-mevlut-cavusoglu-nun-rusya-disisleri-bakani-sergey-lavrov-ile-yaptigi-ortak-basin-toplantisi-7-4-2023.tr.mfa | press conference transcript | TR | L1, L3, L7, L10 | Turkish mediation, sanctions, grain, and negotiation language | search-hit only | New Turkish transcript family |
+| C096 | 2023 Ukraine Recovery Conference participation readout | Türkiye MFA / Embassy Nairobi | 2023-06-20 | https://nairobi-emb.mfa.gov.tr/Mission/ShowAnnouncement/403756 | announcement | EN | L1, L7, L10 | Diplomatic reconstruction and postwar settlement context | search-hit only | New Turkish conference notice |
+| C097 | Hours Before Ukraine Conflict Enters Second Year, General Assembly Adopts Resolution Demanding Russian Federation Withdraw Military Forces, Adjourning Emergency Session | UN General Assembly | 2023-02-23 | https://press.un.org/en/2023/ga12492.doc.htm | resolution coverage | EN | L1, L2, L4, L7, L9, L10 | Strong legal and peace baseline | search-hit only | New GA resolution coverage |
+| C098 | Political Solution Founded on International Law, Restoring Ukraine’s Territorial Integrity, Only Way to End War, General Assembly President Tells Delegates | UN General Assembly | 2023-07-18 | https://press.un.org/en/2023/ga12516.doc.htm | debate coverage | EN | L1, L2, L7, L9, L10 | Peace settlement, territorial integrity, accountability | search-hit only | New GA debate coverage |
+| C099 | General Assembly Adopts Work Programme for Seventy-Eighth Session, Including Agenda Items on ... Temporarily Occupied Ukrainian Territories | UN General Assembly | 2023-09-08 | https://press.un.org/en/2023/ga12527.doc.htm | meeting coverage | EN | L2, L5, L9, L10 | Keeps occupied-territory issue alive in UN agenda | search-hit only | New GA agenda coverage |
+| C100 | So-Called Elections in Occupied Areas of Ukraine ‘Have No Legal Grounds’, Undermine Peace Prospects, United Nations Official Tells Security Council | UN Security Council | 2023-09-08 | https://press.un.org/en/2023/sc15405.doc.htm | meeting coverage | EN | L1, L2, L5, L7, L10 | Direct legality and peace-impact evidence | search-hit only | New SC record |
+| C101 | Russia’s war on Ukraine: one year on | IISS | 2023-02-24 | https://www.iiss.org/online-analysis/military-balance/2023/02/russias-war-on-ukraine-one-year-on/ | analysis | EN | L2, L3, L8, L10 | Useful for war aims, operational failure, and endurance | search-hit only | New IISS analysis |
+| C102 | How to end Russia’s war on Ukraine | Chatham House | 2023-06-27 | https://www.chathamhouse.org/2023/06/how-end-russias-war-ukraine | policy report | EN | L1, L2, L7, L10 | Strong peace/settlement and anti-appeasement framing | search-hit only | New Chatham House report |
+| C103 | What has the war revealed about Russia’s non-strategic missiles? | IISS | 2023-03-06 | https://www.iiss.org/online-analysis/online-analysis/2023/03/what-has-the-war-revealed-about-russias-non-strategic-missiles/ | analysis | EN | L2, L6, L8, L10 | Missile use, arms-control damage, escalation relevance | search-hit only | New IISS analysis |
+| C104 | The Russo-Ukrainian War and the Durability of Deterrence | IISS / Survival Online | 2023-12-11 | https://www.iiss.org/online-analysis/survival-online/2023/12/the-russo-ukrainian-war-and-the-durability-of-deterrence/ | analysis | EN | L1, L2, L6, L10 | Nuclear restraint, escalation, and deterrence framing | search-hit only | New IISS analysis |
+| C105 | Russia’s War in Ukraine: What are the emerging military lessons? | IISS | 2023-01-23 | https://www.iiss.org/online-analysis/online-analysis/2023/01/strategic-survey-2022-russias-war-in-ukraine/ | analysis | EN | L2, L3, L8, L10 | Early military lessons and conflict duration | search-hit only | New IISS analysis |
+| C106 | Russia’s new foreign-policy concept: the impact of war | IISS | 2023-04-06 | https://www.iiss.org/ja-JP/online-analysis/online-analysis/2023/04/russia-new-foreign-policy-concept-the-impact-of-war/ | analysis | EN | L1, L2, L3, L6, L10 | Official doctrine, revisionism, and international-order impact | search-hit only | New IISS analysis |
+| C107 | Presidential Address to Federal Assembly | President of Russia | 2023-02-21 | http://en.kremlin.ru/events/president/news/70565 | official speech | EN/RU | L1, L2, L3, L6, L7, L8, L10 | Core war-aim and justification statement | search-hit only | New Kremlin primary source |
+| C108 | Meeting with top graduates of higher military schools | President of Russia | 2023-06-21 | http://en.kremlin.ru/events/president/news/71472 | official speech/meeting | EN/RU | L2, L3, L5, L8, L10 | Wartime military narrative and responsibility framing | search-hit only | New Kremlin primary source |
+| C109 | Address to citizens of Russia | President of Russia | 2023-06-24 | http://en.kremlin.ru/events/president/news/71496 | official address | EN/RU | L2, L3, L5, L6, L10 | Mutiny, regime survival, and coercive consolidation | search-hit only | New Kremlin primary source |
+| C110 | Address to citizens of Russia | President of Russia | 2023-06-26 | http://en.kremlin.ru/events/president/news/71528 | official address | EN/RU | L2, L3, L5, L6, L10 | Post-mutiny normalization, restraint, and control | search-hit only | New Kremlin primary source |
+| C111 | Russia and Africa: Joining Efforts for Peace, Progress and a Successful Future | President of Russia | 2023-07-24 | http://en.kremlin.ru/events/president/news/71719 | official article | EN/RU | L1, L3, L6, L7, L10 | Favorable diplomatic framing, peace claims, global-south outreach | search-hit only | New Kremlin primary source |
+| C112 | International Parliamentary Conference Russia - Africa in a Multipolar World | President of Russia | 2023-03-20 | http://en.kremlin.ru/events/president/news/70745 | official speech | EN/RU | L1, L3, L6, L7, L10 | Africa diplomacy, anti-West framing, war-context messaging | search-hit only | New Kremlin primary source |
+| C113 | Results of the Year with Vladimir Putin | President of Russia | 2023-12-14 | http://en.kremlin.ru/events/president/news/72994 | official year-end Q&A | EN/RU | L1, L2, L3, L6, L7, L8, L10 | Best late-2023 synthesis of war, peace, and regime posture | search-hit only | New Kremlin primary source |
+| C114 | Valdai Discussion Club meeting | President of Russia | 2023-10-05 | http://en.kremlin.ru/events/president/news/72444 | official speech | EN/RU | L1, L2, L3, L6, L7, L10 | Major public justification and order/peace narrative | search-hit only | New Kremlin primary source |
+| C115 | Speech to the World Russian Peoples Council | President of Russia | 2023-11-28 | http://en.kremlin.ru/events/president/news/72863 | official speech | EN/RU | L2, L3, L6, L10 | War aims, civilizational framing, and legitimacy claims | search-hit only | New Kremlin primary source |
+
+**New duplicates and irrelevant results rejected in this continuation**
+- Rejected translated mirrors of the same China MFA statement in French, Spanish, and Chinese.
+- Rejected duplicate Kremlin archive pages and category pages that were not single underlying documents.
+- Rejected OSCE document-library and report-index pages when they did not add a new underlying document.
+- Rejected non-2023 background results that did not directly establish a 2023 fact.
+- Rejected generic search/list pages that were not recoverable documents.
+
+**Reconciled combined count**
+- Previous deduplicated pool: `63` unique canonical URLs.
+- New unique canonical URLs added in this continuation: `51`.
+- Combined deduplicated pool: `114` unique canonical URLs.
+
+**Updated prioritized inspection queue**
+1. C107 Presidential Address to Federal Assembly.
+2. C109 Address to citizens of Russia, 24 June 2023.
+3. C110 Address to citizens of Russia, 26 June 2023.
+4. C114 Valdai Discussion Club meeting.
+5. C113 Results of the Year with Vladimir Putin.
+6. C115 Speech to the World Russian Peoples Council.
+7. C068 Human rights situation during the Russian occupation of territory of Ukraine and its aftermath.
+8. C069 Detention of civilians in the context of the armed attack.
+9. C067 Hroza attack report.
+10. C070 Crimea Secretary-General report.
+11. C097 UN General Assembly resolution on withdrawal.
+12. C100 UN Security Council record on occupied-area elections.
+13. C090 China MFA joint statement.
+14. C091 China political-settlement position paper.
+15. C082-089 Black Sea Grain Initiative cluster.
+16. C112 Russia-Africa parliamentary conference.
+17. C111 Russia and Africa article.
+18. C102 Chatham House peace/settlement report.
+19. C104 IISS deterrence analysis.
+20. C103 IISS missile / arms-control analysis.
+
+**Remaining discovery gaps**
+- I still do not have a direct 2023 Kremlin page for the June 27 mutiny-related address in a recoverable form.
+- I did not fully saturate Russian domestic legal texts on occupation, passportization, annexation, and mobilization beyond the strongest citizenship and budget items.
+- I did not exhaust all scholarship/policy-analysis families on regime survival, proxy control, and the net peace/stability effect.
+- I did not search every possible Russian-language mirror of the Kremlin documents, but the pool is now over the requested threshold.

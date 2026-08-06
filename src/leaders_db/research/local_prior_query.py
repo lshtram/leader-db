@@ -24,6 +24,50 @@ def load_country_name(bind: Engine | Session, iso3: str) -> str | None:
     return str(rows[0]["country_name"])
 
 
+def load_leader_accession_year(
+    bind: Engine | Session,
+    *,
+    leader_id: int,
+    iso3: str,
+    target_year: int,
+    leader_name: str | None = None,
+) -> int | None:
+    statement = text(
+        """
+        SELECT rs.leader_id, rs.start_date, l.normalized_name
+        FROM ruler_spells rs
+        JOIN leaders l ON l.id = rs.leader_id
+        JOIN countries c ON c.id = rs.country_id
+        WHERE c.iso3 = :iso3
+        ORDER BY rs.start_date
+        """
+    )
+    rows = execute_mappings(
+        bind,
+        statement,
+        {"iso3": iso3},
+    )
+    eligible_leader_ids = {leader_id}
+    normalized_name = " ".join((leader_name or "").casefold().split())
+    name_tokens = normalized_name.split()
+    if len(name_tokens) >= 2:
+        surname_only_ids = {
+            int(row["leader_id"])
+            for row in rows
+            if str(row["normalized_name"]).casefold() == name_tokens[-1]
+        }
+        if len(surname_only_ids) == 1:
+            eligible_leader_ids.update(surname_only_ids)
+    for row in rows:
+        if int(row["leader_id"]) not in eligible_leader_ids:
+            continue
+        value = row["start_date"]
+        year = int(str(value)[:4])
+        if year <= target_year:
+            return year
+    return None
+
+
 def load_included_scope_years(
     bind: Engine | Session,
     *,
@@ -97,6 +141,7 @@ def load_local_prior_facts(
         source_slugs = _loads_list(row["source_slugs_json"])
         if any(slug in CLIENT_MATRIX_SOURCE_SLUGS for slug in source_slugs):
             continue
+        selected_metadata = _selected_metadata(row["selected_value_json"])
         facts.append(
             LocalPriorFact(
                 year=int(row["year"]),
@@ -108,9 +153,25 @@ def load_local_prior_facts(
                 source_observation_ids=_loads_list(row["source_observation_ids_json"]),
                 confidence=row["confidence_score"],
                 warnings=_loads_list(row["warnings_json"]),
+                period_role=_period_role(
+                    year=int(row["year"]),
+                    target_year=max(request.period.years()),
+                    accession_year=request.leader.accession_year,
+                ),
+                unit=_optional_text(selected_metadata.get("unit")),
+                scale=_optional_text(selected_metadata.get("scale")),
+                uncertainty=_uncertainty(selected_metadata),
             )
         )
     return facts
+
+
+def _period_role(*, year: int, target_year: int, accession_year: int | None) -> str:
+    if year == target_year:
+        return "target"
+    if accession_year is not None and year < accession_year:
+        return "pre_accession"
+    return "tenure"
 
 
 def execute_mappings(
@@ -146,9 +207,29 @@ def _selected_value(row: Any) -> Any:
     return None
 
 
+def _selected_metadata(value: Any) -> dict[str, Any]:
+    if value is None:
+        return {}
+    parsed = json.loads(value)
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def _optional_text(value: Any) -> str | None:
+    return str(value) if value is not None else None
+
+
+def _uncertainty(selected_metadata: dict[str, Any]) -> dict[str, Any] | None:
+    extension = selected_metadata.get("extension")
+    if not isinstance(extension, dict):
+        return None
+    uncertainty = extension.get("uncertainty")
+    return uncertainty if isinstance(uncertainty, dict) else None
+
+
 __all__ = [
     "execute_mappings",
     "load_country_name",
     "load_included_scope_years",
+    "load_leader_accession_year",
     "load_local_prior_facts",
 ]

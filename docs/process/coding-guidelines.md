@@ -9,7 +9,32 @@ These apply to the Python package under `src/leaders_db/`. The goal is a reprodu
 - Favor deterministic behavior and reproducible outputs.
 - Avoid hidden global state; pass dependencies through parameters or constructors.
 - Design for extension through typed config, Pydantic schemas, registries, and composition — not through editing core execution code for each new run.
-- Keep every source and test file focused; split before files grow unwieldy (mirror the AGENTS.md 400-line convention used by other projects).
+- Keep every production, experiment, script, and test file focused. Split a file
+  before it exceeds 400 lines. A temporary exception requires a documented reason,
+  an owner, and a removal milestone in `docs/workplan.md`; calling code a prototype
+  is not an exception. Frozen historical diagnostics are archival artifacts rather
+  than active code: they may remain over the limit only when the workplan identifies
+  them as frozen, no active entry point or test imports them, and any reactivation or
+  substantive edit begins by splitting them below the limit.
+
+## Strict Producers, Tolerant Consumers
+
+- Every producer of files, observations, evidence, dossiers, projections, or judgments
+  must attempt to emit the complete and accurate current contract.
+- Every consumer must preserve and use as much valid input as possible. Missing optional
+  detail, older schema omissions, harmless formatting defects, and incomplete bias
+  metadata should become explicit warnings, uncertainty, wider ranges, or lower
+  confidence rather than terminal failures.
+- Reject input only when it is genuinely unusable, unsafe, identity-ambiguous, internally
+  contradictory in a result-changing way, or when bounded iteration can still recover a
+  materially better artifact. Never silently invent missing facts while normalizing.
+- Test each development increment at its actual producer/consumer boundary. Add an
+  end-to-end or preserved-artifact smoke test whenever a stricter producer contract could
+  make an existing downstream flow impractical. Do not defer all integration testing to
+  the final cohort run.
+- Unknown confidence is valid uncertainty, not malformed evidence. Compact receivers
+  must accept an omitted optional confidence value and preserve it as unknown; producers
+  should still emit a calculated value whenever the required components exist.
 
 ## Configuration-Driven Runs
 
@@ -55,6 +80,12 @@ The fixed weights are normative. See [`src/leaders_db/score/confidence.py`](../.
 - Persist the LLM prompt, response, and resolved Pydantic output to `data/outputs/llm_calls/<run-id>/` for audit.
 - Validate the LLM response against the schema before persisting. Reject and log if validation fails.
 - The `llm` extra is **not** installed by default. The package must remain importable and runnable without it.
+- Models identify, interpret, and map documentary evidence; they do not author
+  authoritative quotation text. For frozen-document evidence, a model selects a
+  hash-bound locator and exact segment range. Deterministic code copies the source
+  substring, persists its character offsets, and returns the stored record for
+  confirmation. Non-contiguous support remains separate spans or separate evidence
+  records and is never concatenated into a synthetic quotation.
 
 ## Python Standards
 
@@ -85,6 +116,26 @@ The fixed weights are normative. See [`src/leaders_db/score/confidence.py`](../.
 - For config-driven behavior, test that changing config changes runtime behavior without changing production code.
 - Mark expensive real-bundle / all-country artifact writes with `@pytest.mark.slow`; normal `pytest` skips slow tests, while `pytest --runslow` includes them and `pytest -m slow --runslow` runs only that tier.
 - Always run the affected test file before committing (`pytest tests/test_<file>.py -q`). Use `pytest --runslow` only when the changed behavior touches slow real-data smoke paths.
+
+### No shadow configuration in tests
+
+- Tests must not contain a second handwritten copy of prompts, questions, source
+  lists, category lists, expected record counts, model names, thresholds, or other
+  research-changing configuration.
+- Load expected values from the same versioned configuration artifact used by
+  production. Test selection, interpolation, ordering, validation, deduplication,
+  malformed-input rejection, persistence, and round trips.
+- To test duplicate rejection, copy the loaded fixture in memory and introduce a
+  duplicate. Do not reproduce the full expected catalogue in test code.
+- Literal assertions are appropriate only for stable machine syntax, public serialized
+  contracts, security boundaries, legally/normatively exact attribution text, or a
+  minimal synthetic value created inside that test.
+- Do not test that mutable documentation contains current prose, that a prompt uses a
+  favored sentence, that a production file currently has a particular editorial
+  layout, or that code and docs contain matching handwritten copies. Such duplication
+  must be removed through a single configuration source, not protected by more tests.
+- Every regression test should name the behavior or failure mode it protects. A test
+  that merely restates current content or increases coverage count is not acceptable.
 
 ## Safety And Security
 

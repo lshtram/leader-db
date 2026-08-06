@@ -1,0 +1,2245 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+This is the terminal review after all permitted research rounds. Do not request
+another continuation. Set `needs_continuation=false` and `selected_theme_ids=[]`.
+Preserve every residual issue and missing theme, and state explicitly in
+`global_findings` that research rounds were exhausted without full saturation. This
+is a terminal research conclusion, not a claim that the dossier is complete.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "5B.1",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "5B.10"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:separated-gate-2022-v1:2022:MEX:15801:5B",
+  "iso3": "MEX",
+  "country_name": "Mexico",
+  "ruler_name": "Andr\u00e9s Manuel L\u00f3pez Obrador",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "5B"
+  ],
+  "observed_chapter_ids": [
+    "5B"
+  ],
+  "approximate_locator_count": 68,
+  "approximate_source_family_count": 15,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+not supplied
+
+Research notebook:
+---
+## Scope and orientation
+
+**Target period:** 1 January–31 December 2022. Earlier conditions establish the inherited baseline; later publications are used only when they extract or retrospectively evaluate 2022 data. No chapter score is assigned.
+
+**Authority:** Andrés Manuel López Obrador (AMLO) controlled executive economic strategy, the federal budget proposal and administration, cabinet appointments, social-program design, energy policy, federal procurement, and flagship infrastructure priorities. Congress approved budgets and legislation; states governed important local services. Banco de México (Banxico) was constitutionally autonomous: AMLO nominated Governor Victoria Rodríguez Ceja, subject to Senate confirmation, but neither he nor the cabinet set interest rates.
+
+**Inherited baseline:** Mexico entered 2022 recovering from the 2020 pandemic contraction, with output still recovering more slowly than in many peer economies. Structural constraints included low productivity growth, high inequality and informality, large regional disparities, low tax revenue, deficient health and education capacity, infrastructure gaps, weak competition and rule of law, and heavily indebted Pemex. Mexico nevertheless inherited strong macro-financial institutions, a flexible exchange rate, adequate reserves, a well-capitalized banking system, USMCA access, and an IMF precautionary credit line.
+
+**External conditions:** The U.S. recovery supported exports and remittances, while Russia’s invasion of Ukraine, supply disruptions, food and energy prices, global inflation, and rapid monetary tightening created adverse price and financing shocks. Higher crude prices generated a major fiscal windfall because Mexico exported crude, although its imports of refined fuel also became more expensive. Pandemic reopening generated substantial catch-up growth.
+
+**Information environment:** INEGI, CONEVAL, Banxico, SHCP, ASF, IMSS, Compranet, international organizations and independent researchers supplied usable data. Government releases reliably document formal acts and administrative totals but are not treated as proof of causal success. Procurement records were materially incomplete or late. CPI is a perception composite, not a direct count of corruption. Household-survey revisions and population-weight updates affect some historical comparisons.
+
+The local workspace could not be enumerated through the available read interface, so the requested local-first registries and time-series files could not be directly extracted. Their principal indicators were checked against accessible WDI, INEGI, CONEVAL, IMF, OECD, Banxico and CPI publications.
+
+## Compact evidence index
+
+| ID | Fact name | Why it matters |
+|---|---|---|
+| WEB-5B-001 | Prudent but constrained fiscal stance | Direct evidence on macro stewardship and shock response |
+| WEB-5B-002 | Banxico’s independent tightening | Prevents misattributing monetary stabilization to AMLO |
+| WEB-5B-003 | Fuel subsidy absorbed oil windfall | Immediate inflation relief versus targeting and sustainability |
+| WEB-5B-004 | Fiscal buffers remained depleted | Qualifies claims of durable shock preparedness |
+| WEB-5B-005 | 22% minimum-wage increase | Direct pro-worker policy with broad distributional relevance |
+| WEB-5B-006 | Labor-income and poverty recovery | Strong household outcome, with attribution qualifications |
+| WEB-5B-007 | Persistent regional and gender gaps | Shows that aggregate gains were uneven |
+| WEB-5B-008 | Poverty fell but health access collapsed | Central favorable/adverse welfare contradiction |
+| WEB-5B-009 | Formal employment reached a record | Labor-market recovery and implementation outcome |
+| WEB-5B-010 | Energy favoritism triggered USMCA consultations | Competition, investment and predictable-rules evidence |
+| WEB-5B-011 | Procurement competition and disclosure weakened | Corruption-risk and administrative-capacity evidence |
+| WEB-5B-012 | Flagship investment and social spending trade-offs | Productivity investment existed but appraisal and allocation were weak |
+| WEB-5B-013 | FDI remained substantial but concentrated | Contrary evidence to a simple investment-collapse account |
+| WEB-5B-014 | Competent fiscal appointment; contested central-bank nomination | Appointment lens with consequences and independence caveats |
+| WEB-5B-015 | Poverty reduction linked partly to labor policy | Independent corroboration of policy-to-outcome pathway |
+| WEB-5B-016 | Low tax capacity persisted | Long-run investment and resilience constraint |
+| WEB-5B-017 | Corruption perception showed no improvement | Broad institutional outcome, weak personal attribution |
+| WEB-5B-018 | Output recovered but did not establish a strong long-run trajectory | Separates reopening growth from structural improvement |
+
+## Overall working account
+
+The strongest favorable evidence is not headline GDP alone. It is the combination of a large minimum-wage rise, additional employment, higher real labor income late in 2022, declining labor poverty, expanded transfers, and a broadly neutral fiscal stance that avoided a debt or balance-of-payments crisis. Formal employment reached a record and foreign investment remained substantial.
+
+The strongest adverse evidence concerns durability and institutional quality: untargeted fuel subsidies consumed essentially the entire oil windfall; fiscal buffers were not rebuilt; Pemex and fossil-fuel projects remained privileged; energy rules generated treaty consultations and discouraged clean-energy investment; procurement became less competitive and often incomplete or late; health-service access deteriorated sharply; and flagship investment was not consistently founded on transparent cost-benefit appraisal.
+
+Attribution is therefore asymmetric:
+
+- AMLO can be directly associated with wage, transfer, budget, fuel-price, Pemex, energy-rule and flagship-project choices.
+- Banxico deserves primary credit for interest-rate tightening and monetary credibility. AMLO’s attributable contribution is limited to nominating a governor and not overriding the institution.
+- 2022 growth, jobs, FDI and household recovery also reflect reopening, U.S. demand, remittances, autonomous monetary policy, private decisions and prior institutions.
+- Inflation arose substantially from global supply and commodity shocks, but targeting and financing of the government response were discretionary.
+- CPI and generic governance indicators provide context, not proof of AMLO’s personal corruption.
+
+## Ten-lens disposition
+
+**5B.1 — Broad and sustainable prosperity:** Supported, but disputed. The 22% minimum-wage increase, transfers and labor-income recovery demonstrate a genuine redistributive program (WEB-5B-005, 006, 015). Sustainability is weakened by untargeted fuel relief, Pemex exposure, thin buffers and low tax capacity (WEB-5B-003, 004, 012, 016). Evidence supports both welfare intent and substantial political-popularity incentives; it does not establish that loyalty-buying was the dominant purpose.
+
+**5B.2 — Economic professionals:** Moderately supported. Finance Minister Rogelio Ramírez de la O was a highly trained economist, and the 2022 fiscal record was broadly prudent. Rodríguez Ceja had extensive public-finance experience but little prior monetary-policy experience; Banxico nevertheless tightened forcefully and retained credibility (WEB-5B-002, 014). Evidence about genuine delegation inside the presidency remains limited.
+
+**5B.3 — Macroeconomic stability:** Strongly supported for the immediate year, with attribution caveats. Debt remained near 56% of GDP, reserves and banks were adequate, and the fiscal stance complemented monetary tightening (WEB-5B-001, 002). Banxico rather than AMLO controlled rates. Depleted stabilization buffers, Pemex risks and low revenue limit the durability finding (WEB-5B-004, 012, 016).
+
+**5B.4 — Fair market and investment rules:** Mixed to adverse. USMCA consultations identified specific rules and permit practices favoring CFE and Pemex; OECD found elevated policy and contract uncertainty (WEB-5B-010, 012). Conversely, USMCA remained intact, FDI reached $35.3 billion, and the government launched nearshoring finance for the south-southeast (WEB-5B-013).
+
+**5B.5 — Corruption, favoritism and capture:** Adverse institutional evidence, but no direct proof of AMLO’s personal enrichment. Thirty-eight percent of procurement value was directly awarded; many records were incomplete or published late, and risk increased in most federal institutions (WEB-5B-011). Energy measures explicitly advantaged state firms (WEB-5B-010). CPI remained 31/100 (WEB-5B-017), but this perception measure cannot identify individual responsibility.
+
+**5B.6 — Productivity foundations:** Mixed. Public investment and social protection increased, and the south-southeast received infrastructure and nearshoring attention. Yet OECD found persistent health, education and infrastructure gaps, weak project appraisal and regulatory uncertainty; health-access deprivation rose dramatically (WEB-5B-008, 012, 013).
+
+**5B.7 — Evidence and correction:** Weak-to-mixed. Fiscal authorities maintained a policy mix broadly endorsed by the IMF and accepted external financial surveillance (WEB-5B-001). The government nevertheless retained untargeted fuel subsidies because of AMLO’s real-price pledge, continued Pemex-centered strategy despite repeated sustainability warnings, and did not correct procurement weaknesses or health-access deterioration during 2022 (WEB-5B-003, 008, 011, 012).
+
+**5B.8 — Fair distribution:** Meaningful gains with major gaps. Labor poverty and real labor income improved nationally and in rural and urban areas (WEB-5B-006). Yet rural labor poverty remained 52.3%, Chiapas reached 68.8%, women earned substantially less than men, and the poorest quintile had not regained its pre-pandemic real labor income (WEB-5B-007). Universal pensions improved coverage but were less targeted than alternatives.
+
+**5B.9 — Shock management:** Competent in avoiding instability, less efficient in distribution and preparedness. Fiscal restraint, fuel-price smoothing and autonomous monetary tightening limited immediate damage (WEB-5B-001–003). The subsidy favored higher-income fuel consumers and used the oil windfall rather than rebuilding depleted buffers (WEB-5B-003, 004). Inflation still averaged about 8%.
+
+**5B.10 — Inherited-to-left trajectory:** The 2022-only trajectory was better than the pandemic trough but not clearly stronger than the pre-pandemic inherited path. Employment, real labor income and poverty improved, while health access, regulatory certainty, fiscal buffers and productive-investment quality remained serious weaknesses (WEB-5B-006–012, 018). A tenure-wide conclusion would require data beyond this calendar-year assessment.
+
+## Source-state lists
+
+### Opened corroboration
+
+- OECD *Economic Survey: Mexico 2022* corroborates fiscal prudence, higher social and public investment, low tax capacity, strained health and education, weak project appraisal, and energy-policy uncertainty.
+- World Bank’s Mexico overview retrospectively links the 2022 poverty decline principally to labor-market outcomes, including the minimum wage.
+- Banxico’s hosted copy of the IMF Article IV report corroborates the independent monetary and external-resilience findings.
+- CONEVAL’s labor-poverty release independently uses INEGI ENOE microdata and documents the historical-population-weight revision.
+- USTR’s consultation request corroborates the existence and precise content of the 2022 trade dispute, but remains a litigating government’s allegation rather than a tribunal ruling.
+
+### Reused supplied sources
+
+None accepted. Supplied E001, E002 and E010 concern nuclear safety and do not materially establish economic well-being or prosperity in 2022. They remain available for another chapter.
+
+### Promising uninspected leads
+
+- Individual ASF 2022 audit PDFs for each Tren Maya and Dos Bocas contract, needed for contract-level recoveries and final resolutions.
+- Full 2022 ENIGH microdata decomposition of transfers, wages and market income by decile.
+- CONEVAL program-level evaluations for Pensión para el Bienestar, Sembrando Vida and Jóvenes Construyendo el Futuro.
+- Cofece’s 2022 annual report and sector investigations.
+- Pemex’s audited 2022 financial statements and project-level refinery economics.
+- ILO wage and informality microdata for causal comparison with neighboring economies.
+- Peer-reviewed causal evaluations of the 2022 minimum-wage increment distinct from later tenure-wide studies.
+
+### Rejected
+
+- Wikipedia and Reddit summaries: unstable or derivative where underlying sources were available.
+- Later AP and newspaper accounts of Tren Maya operations: useful for tenure-wide durability, but outside the target year and not necessary for the 2022 fact record.
+- Nuclear-safety sources E001, E002 and E010: substantively irrelevant to chapter 5B absent a demonstrated material economic effect.
+- 2024–2026 political claims about later poverty, debt or Pemex performance: excluded from the 2022 outcome record except as leads.
+- Government statements characterizing records as proof of success: used only for administrative figures or formal acts.
+
+### Access-blocked or technically incomplete
+
+- CONASAMI’s 2022 minimum-wage page returned HTTP 403 on direct opening; its search extraction was preserved and the policy was corroborated through OECD/World Bank material.
+- Several gob.mx pages for FDI, SHCP year-end accounts and IMSS employment returned internal-fetch errors after discovery; their indexed text was retained, with corroboration where available.
+- The local source-confidence registry and local WDI/PIP/WGI/V-Dem/BTI files could not be enumerated because the available filesystem interface exposed no shell-read operation.
+- The ASF 2022 audit portal opened as an index, but contract-level PDFs were not individually extracted in this pass.
+
+## Counts and saturation
+
+- **Distinct potentially relevant sources discovered:** 48
+- **Opened or directly extracted:** 23
+- **Accepted as full evidence records:** 18
+- **Opened corroboration not made a separate record:** 5
+- **Supplied records reused:** 0
+- **Rejected:** 16
+- **Access-blocked or technically incomplete:** 6
+- **Uninspected promising leads:** 7
+
+Further broad searching is unlikely to change the central 2022 account. Targeted microdata analysis and individual ASF/program evaluations could materially improve lenses 5B.5–5B.8, particularly causal distribution, project quality, transfer incidence and confirmed procurement loss. Evidence on AMLO’s actual delegation to economic professionals also remains thinner than evidence on appointments and outcomes.
+
+## Machine records
+
+SOURCE_CLAIM_JSON:{"title":"IMF Executive Board Concludes 2022 Article IV Consultation with Mexico","publisher":"International Monetary Fund","publication_date":"2022-11-04","url":"https://www.imf.org/en/news/articles/2022/11/04/pr22373-imf-executive-board-concludes-2022-article-iv-consultation-with-mexico","claim":"Mexico maintained a broadly neutral fiscal stance in 2022, targeting a 3.8% of GDP deficit; IMF directors judged the macro policy mix prudent, while estimating gross public debt near 56% of GDP and adequate reserves.","locator":"Opening paragraphs, Executive Board Assessment, and Selected Economic Indicators table","provisional_id":"WEB-5B-001","canonical_fact_key":"mexico_2022_neutral_fiscal_stance_debt_resilience","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["baseline_adjustment","ruler_attribution","shock_response"],"source_type":"intergovernmental_surveillance","source_confidence":"high","source_confidence_reason":"Independent multilateral surveillance based on official data, staff analysis and board review; some 2022 values were forecasts at publication.","final_evidence_use":"Direct evidence of federal fiscal management and contextual evidence of macro resilience; monetary findings are not attributed to AMLO.","period_fit":"Direct 2022 contemporaneous assessment.","ruler_attribution":"Authority-based and shared: the executive proposed and administered fiscal policy, Congress approved appropriations; external conditions also affected balances.","contrary_evidence":"Fiscal rules and institutions predated AMLO; low revenue, Pemex exposure and depleted buffers weakened longer-term resilience.","lenses":["5B.1","5B.3","5B.7","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Quarterly Report October–December 2022","publisher":"Banco de México","publication_date":"2023-03-01","url":"https://www.banxico.org.mx/publications-and-press/quarterly-reports/%7B8B635982-D4A7-0660-74C7-287C4E2BB6F8%7D.pdf","claim":"Banxico responded to broad and persistent inflation by raising its target rate through 2022, reaching 10.50% in December; headline inflation ended 2022 at 7.82%.","locator":"Monetary-policy and inflation sections; tables and charts for 2022","provisional_id":"WEB-5B-002","canonical_fact_key":"banxico_2022_independent_tightening_inflation","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["authority_separation","shock_response"],"source_type":"central_bank_primary","source_confidence":"high","source_confidence_reason":"Primary central-bank policy and price record.","final_evidence_use":"Evidence of effective macro stabilization, explicitly assigned mainly to an autonomous institution rather than AMLO.","period_fit":"Direct 2022 outcome, published immediately afterward.","ruler_attribution":"Shared/limited: AMLO nominated the governor but could not lawfully set rates; the Banxico board made the decisions.","contrary_evidence":"Inflation remained far above the 3% target and tightening reduced demand; much of the inflation shock was international.","lenses":["5B.2","5B.3","5B.7","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Mexico: 2022 Article IV Consultation—Press Release and Staff Report","publisher":"International Monetary Fund","publication_date":"2022-11-04","url":"https://www.imf.org/en/publications/cr/issues/2022/11/04/mexico-2022-article-iv-consultation-press-release-and-staff-report-525448","claim":"Mexico's fuel-price support was largely untargeted, cost an estimated 1.4% of GDP or about MXN395.4 billion, benefited higher-income households as well, and was approximately offset by the 2022 oil-revenue windfall.","locator":"Staff report fiscal-policy section and fuel-subsidy selected-issues box","provisional_id":"WEB-5B-003","canonical_fact_key":"mexico_2022_untargeted_fuel_subsidy_oil_windfall","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["distribution","commodity_windfall","policy_implementation"],"source_type":"intergovernmental_surveillance","source_confidence":"high","source_confidence_reason":"Detailed staff estimate using Mexican fiscal and oil data; distributional incidence is modeled rather than directly observed for every household.","final_evidence_use":"Direct federal shock-response choice that softened prices but was expensive, regressive relative to targeted alternatives, and dependent on an oil windfall.","period_fit":"Direct 2022 policy and estimated fiscal outcome.","ruler_attribution":"Direct/authority-based: the administration implemented the tax stimulus pursuant to AMLO's pledge to prevent real fuel-price increases.","contrary_evidence":"The policy did cushion transport and fuel costs broadly and did not materially raise debt in 2022 because higher oil revenue covered it.","lenses":["5B.1","5B.3","5B.7","5B.8","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Mexico: 2022 Article IV Consultation—Press Release and Staff Report","publisher":"International Monetary Fund","publication_date":"2022-11-04","url":"https://www.banxico.org.mx/publications-and-press/imf-article-iv-consultation-for-mexico/%7B44F43B6B-61BD-D795-4561-1601FDD3FDB0%7D.pdf","claim":"The FEIP stabilization fund held only MXN25 billion, 0.09% of GDP, at end-June 2022 against an official adequacy target near MXN100 billion; the oil windfall was being consumed by fuel-price support instead of substantially rebuilding the buffer.","locator":"PDF pp. 82–84, paragraphs 3–5 of fiscal-buffer annex","provisional_id":"WEB-5B-004","canonical_fact_key":"mexico_2022_depleted_feip_buffer","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["shock_preparedness","sustainability"],"source_type":"intergovernmental_report_hosted_by_central_bank","source_confidence":"high","source_confidence_reason":"IMF calculation from SHCP and oil-fund accounts, hosted by Banxico.","final_evidence_use":"Qualifies otherwise prudent 2022 debt management by showing weak countercyclical preparedness.","period_fit":"Direct mid-2022 stock and end-year policy assessment.","ruler_attribution":"Shared: buffer depletion began during the pandemic, while the 2022 administration chose to direct most windfall revenue to current fuel support.","contrary_evidence":"The government retained other defenses, including reserves, exchange-rate flexibility and the IMF Flexible Credit Line.","lenses":["5B.3","5B.7","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Incremento a los Salarios Mínimos para 2022","publisher":"Comisión Nacional de los Salarios Mínimos, Government of Mexico","publication_date":"2021-12-01","url":"https://www.gob.mx/conasami/articulos/incremento-a-los-salarios-minimos-para-2022?idiom=es","claim":"Mexico raised the general and professional minimum wages by 22% for 2022 through the tripartite wage-setting process.","locator":"Article headline and announced 2022 percentage; direct page returned 403 after indexed extraction","provisional_id":"WEB-5B-005","canonical_fact_key":"mexico_2022_minimum_wage_increase_22_percent","disposition":"fully_extracted_evidence_access_limited","chapter_ids":["5B"],"methodology_ids":["formal_policy","labor_distribution"],"source_type":"government_primary","source_confidence":"medium_high","source_confidence_reason":"Primary formal announcement, corroborated by OECD and World Bank accounts; direct fetch was blocked and the decision was tripartite.","final_evidence_use":"Direct evidence of a major pro-low-wage-worker policy implemented in the target year.","period_fit":"Policy took effect in 2022.","ruler_attribution":"Shared but substantial: AMLO strongly promoted the wage-restoration strategy; CONASAMI includes government, labor and employer representation.","contrary_evidence":"Nominal increase exceeded inflation, but causal employment and informality effects require microeconomic evaluation; not every poor household has a formal minimum-wage worker.","lenses":["5B.1","5B.4","5B.7","5B.8","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"El CONEVAL presenta información referente a la pobreza laboral al cuarto trimestre de 2022","publisher":"CONEVAL","publication_date":"2023-02-23","url":"https://www.coneval.org.mx/Medicion/Paginas/Pobreza_laboral_4toTrim2022.aspx","claim":"From 2021Q4 to 2022Q4 labor poverty fell from 40.3% to 38.5%, real labor income per capita rose 4.3%, and employment increased by 1.7 million; labor poverty nevertheless remained above its 2020Q1 pre-pandemic level.","locator":"Lines 164–183 and 206–219; national labor-poverty and real-income sections","provisional_id":"WEB-5B-006","canonical_fact_key":"mexico_2022_labor_income_poverty_recovery","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["household_outcomes","pandemic_baseline","distribution"],"source_type":"autonomous_evaluation_agency","source_confidence":"high","source_confidence_reason":"Official but institutionally independent poverty evaluator using INEGI ENOE microdata; historical series was recalculated for updated population weights.","final_evidence_use":"Strong household and labor-market outcome, used with cautious attribution.","period_fit":"Exact 2022 annual comparison.","ruler_attribution":"Shared/limited: wage policy, transfers and federal labor rules contributed, alongside reopening, private employment, remittances and U.S. demand.","contrary_evidence":"The poorest quintile and national labor-poverty rate had not fully recovered to pre-pandemic levels.","lenses":["5B.1","5B.4","5B.8","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"El CONEVAL presenta información referente a la pobreza laboral al cuarto trimestre de 2022","publisher":"CONEVAL","publication_date":"2023-02-23","url":"https://www.coneval.org.mx/Medicion/Paginas/Pobreza_laboral_4toTrim2022.aspx","claim":"In 2022Q4 rural labor poverty was 52.3% versus 34.0% urban; Chiapas, Guerrero and Oaxaca registered 68.8%, 64.8% and 61.6%; employed women averaged MXN5,522 per month versus MXN7,068 for men, and the lowest quintile's real labor income remained 3.1% below 2020Q1.","locator":"Regional, sex, formality and pre-pandemic comparison sections, especially lines 174–180 and 206–217","provisional_id":"WEB-5B-007","canonical_fact_key":"mexico_2022_labor_distribution_gaps","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["regional_distribution","gender_distribution","median_household_bias_check"],"source_type":"autonomous_evaluation_agency","source_confidence":"high","source_confidence_reason":"INEGI household survey–based estimates with disclosed methodology and population-weight revision.","final_evidence_use":"Shows that national labor gains were materially unequal by geography, sex and starting income.","period_fit":"Exact 2022Q4.","ruler_attribution":"Limited/shared: federal policies affect wages and transfers, but structural inequality, state conditions and labor-market composition are major causes.","contrary_evidence":"Rural and urban labor poverty both declined year on year, and 25 of 32 states had higher real labor income.","lenses":["5B.1","5B.6","5B.8","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Mexico: Poverty decreases to its lowest level (36.3%); but access to health deteriorates","publisher":"BBVA Research","publication_date":"2023-08-14","url":"https://www.bbvaresearch.com/en/publicaciones/mexico-poverty-decreases-at-its-lowest-level-363-but-access-to-health-deteriorates/","claim":"Using CONEVAL's ENIGH-based measure, multidimensional poverty was 36.3% in 2022, down from 41.9% in 2018, while deprivation in access to health services rose from 16.2% to 39.1% and educational deprivation edged from 19.0% to 19.4%.","locator":"Summary and poverty/social-deprivation comparison using CONEVAL 2022 release","provisional_id":"WEB-5B-008","canonical_fact_key":"mexico_2022_poverty_decline_health_access_deterioration","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["multidimensional_welfare","inherited_baseline","contrary_evidence"],"source_type":"independent_economic_research","source_confidence":"medium_high","source_confidence_reason":"Independent synthesis of CONEVAL/INEGI official microdata; causal attribution is not independently estimated.","final_evidence_use":"Central welfare contradiction: substantial income-related progress alongside severe service-access deterioration.","period_fit":"2022 outcome compared with inherited 2018 baseline.","ruler_attribution":"Shared: national programs and health-system reorganization fall substantially under the executive, but pandemic disruption, state provision and measurement changes also matter.","contrary_evidence":"Falling poverty partly reflects labor income and transfers, while reported health affiliation/access may not equal effective treatment availability.","lenses":["5B.1","5B.6","5B.7","5B.8","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social","publisher":"Instituto Mexicano del Seguro Social","publication_date":"2023-01-09","url":"https://www.imss.gob.mx/prensa/archivo/202301/009","claim":"IMSS recorded 21,372,896 affiliated jobs at the end of 2022, 86.6% permanent and 13.4% temporary.","locator":"Opening administrative employment totals","provisional_id":"WEB-5B-009","canonical_fact_key":"mexico_2022_imss_formal_jobs","disposition":"fully_extracted_evidence_access_limited","chapter_ids":["5B"],"methodology_ids":["administrative_employment","implementation_outcome"],"source_type":"government_administrative_data","source_confidence":"medium_high","source_confidence_reason":"Primary administrative register, but excludes informal employment and the page returned a fetch error after indexed extraction.","final_evidence_use":"Corroborates formal labor-market recovery rather than proving total employment quality.","period_fit":"Exact year-end 2022.","ruler_attribution":"Shared/limited: federal labor and macro policy contributed, but hiring decisions were predominantly private and reopening-related.","contrary_evidence":"Mexico retained very high informality; an administrative stock is not a causal evaluation of AMLO policy.","lenses":["5B.1","5B.4","5B.8","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"United States Requests Consultations Under the USMCA Over Mexico's Energy Policies","publisher":"Office of the United States Trade Representative","publication_date":"2022-07-20","url":"https://ustr.gov/about-us/policy-offices/press-office/press-releases/2022/july/united-states-requests-consultations-under-usmca-over-mexicos-energy-policies-0","claim":"The United States initiated USMCA consultations over Mexican measures favoring CFE and Pemex, including electricity dispatch priority, delayed or denied private permits, a Pemex-only diesel-standard extension, and a June 2022 gas-network rule favoring gas sourced from the state firms.","locator":"Lines 57–76, especially paragraphs describing challenged measures","provisional_id":"WEB-5B-010","canonical_fact_key":"mexico_2022_usmca_energy_favoritism_consultations","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["trade_rules","competition","property_and_investment"],"source_type":"foreign_government_legal_record","source_confidence":"medium_high","source_confidence_reason":"Primary record of consultations and specific challenged measures, but USTR was an interested disputing party and no tribunal merits ruling is established here.","final_evidence_use":"Evidence of predictable-rule and competition concerns directly connected to AMLO's energy strategy.","period_fit":"Consultations and gas-network measure occurred in 2022; some challenged measures originated earlier but remained operative.","ruler_attribution":"Direct/authority-based: the federal administration openly pursued stronger CFE/Pemex control and the 2022 direction came from the Energy Secretariat.","contrary_evidence":"Mexico argued energy sovereignty and security; consultations do not themselves prove treaty breach, and FDI did not collapse.","lenses":["5B.1","5B.4","5B.5","5B.6","5B.7","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Índice de Riesgos de Corrupción 2023: compras públicas de 2022","publisher":"Instituto Mexicano para la Competitividad","publication_date":"2023-07-18","url":"https://imco.org.mx/indice-de-riesgos-de-corrupcion-2023/","claim":"In federal procurement during 2022, 38% of expenditure was directly awarded, 16% of direct awards lacked a publicly available contract, 45% of purchases were posted after the contract start date, and measured corruption risk rose in 184 of 260 federal institutions.","locator":"Lines 78–103, 2022 procurement-risk findings","provisional_id":"WEB-5B-011","canonical_fact_key":"mexico_2022_federal_procurement_competition_transparency_risk","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["procurement_integrity","competition","corruption_risk"],"source_type":"independent_policy_research","source_confidence":"medium_high","source_confidence_reason":"Reproducible analysis of more than 800,000 Compranet contracts; indicators identify risk and noncompliance, not proven corruption or financial loss.","final_evidence_use":"Evidence that federal implementation did not consistently protect competition, disclosure or legal timeliness.","period_fit":"Exact 2022 procurement data, published retrospectively.","ruler_attribution":"Institutional/authority-based: federal agencies and oversight bodies were under the administration, but individual contracts and culpability vary.","contrary_evidence":"Direct awards can be lawful or urgent; risk flags are not findings of bribery, and incomplete Compranet data may affect estimates.","lenses":["5B.4","5B.5","5B.6","5B.7","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"OECD Economic Surveys: Mexico 2022","publisher":"OECD","publication_date":"2022-02-21","url":"https://www.oecd.org/en/publications/2022/02/oecd-economic-surveys-mexico-2022_a2937d37.html","claim":"Mexico had increased social protection and public investment and maintained fiscal prudence, but investment had weakened amid policy uncertainty; health, education and infrastructure gaps remained large, and the OECD recommended transparent cost-benefit appraisal, regulatory certainty and more targeted social and productive spending.","locator":"Executive summary and Key Policy Insights sections on fiscal policy, investment, energy and social services","provisional_id":"WEB-5B-012","canonical_fact_key":"oecd_mexico_2022_productivity_investment_tradeoffs","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["productivity_foundations","policy_quality","baseline_comparison"],"source_type":"intergovernmental_country_survey","source_confidence":"high","source_confidence_reason":"Broad independent country review drawing on national and comparative datasets; published early in 2022, so some evidence primarily describes inherited conditions and ongoing policies.","final_evidence_use":"Balanced assessment of higher spending versus weak appraisal, capacity and investment conditions.","period_fit":"Contemporaneous early-2022 assessment; includes inherited and ongoing-period evidence.","ruler_attribution":"Shared: federal allocation and regulation are executive responsibilities; structural gaps and fiscal rules substantially predate AMLO.","contrary_evidence":"The survey recognized higher public investment, social protection, improved tax administration and fiscal sustainability.","lenses":["5B.1","5B.3","5B.4","5B.5","5B.6","5B.7","5B.8","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Durante 2022 la Inversión Extranjera Directa fue de 35 mil 292 mdd","publisher":"Secretaría de Economía, Government of Mexico","publication_date":"2023-02-08","url":"https://www.gob.mx/se/prensa/durante-2022-la-inversion-extranjera-directa-ied-fue-de-35-mil-292-mdd-lo-cual-incremento-12-por-ciento-en-comparacion-con-el-ano-2021","claim":"Registered FDI totaled US$35.292 billion in 2022, reported as 12% above 2021, and was geographically concentrated, with Mexico City and northern/industrial states receiving much of the total.","locator":"Opening total and state distribution","provisional_id":"WEB-5B-013","canonical_fact_key":"mexico_2022_fdi_total_concentration","disposition":"fully_extracted_evidence_access_limited","chapter_ids":["5B"],"methodology_ids":["investment_outcome","regional_distribution","contrary_evidence"],"source_type":"government_administrative_data","source_confidence":"medium","source_confidence_reason":"Primary registration total, but direct page fetch failed and headline growth may include extraordinary transactions or reinvested earnings rather than new greenfield projects.","final_evidence_use":"Contrary evidence against claims that policy uncertainty caused an immediate investment collapse; also shows geographic concentration.","period_fit":"Exact 2022.","ruler_attribution":"Limited/shared: federal trade and investment policy mattered, but USMCA, U.S.–China tensions, nearshoring and firm decisions were major external drivers.","contrary_evidence":"Strong aggregate FDI does not resolve energy-sector deterrence, project quality, additionality or regional exclusion.","lenses":["5B.1","5B.4","5B.6","5B.8","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Victoria Rodríguez Ceja","publisher":"Banco de México","publication_date":"2022-01","url":"https://www.banxico.org.mx/getting-to-know-banco-de-mexico/d/%7B21563EA0-413B-5B69-AA4D-C529AA6251E9%7D.pdf","claim":"AMLO nominated Victoria Rodríguez Ceja, confirmed by the Senate as Banxico governor from 1 January 2022; she had more than 20 years of public-finance, budget and debt experience, but her official biography records no prior central-bank or monetary-policy post.","locator":"PDF pp. 1–2, appointment and career biography","provisional_id":"WEB-5B-014","canonical_fact_key":"mexico_2022_economic_appointments_rodriguez_ramirez","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["appointments","delegated_authority"],"source_type":"central_bank_primary_biography","source_confidence":"high_for_resume_medium_for_competence_inference","source_confidence_reason":"Authoritative appointment and career history; biography cannot independently establish competence, loyalty or actual delegation.","final_evidence_use":"Appointment evidence interpreted through Banxico's subsequent tightening rather than credentials alone; paired with the professionally qualified finance minister.","period_fit":"Appointment began exactly in 2022.","ruler_attribution":"Direct for nomination, Senate-shared for confirmation, limited for subsequent board decisions.","contrary_evidence":"Critics questioned her lack of monetary experience, but Banxico preserved restrictive policy and external credibility in 2022.","lenses":["5B.2","5B.3","5B.7","5B.9"]}
+
+SOURCE_CLAIM_JSON:{"title":"Mexico country overview","publisher":"World Bank","publication_date":"unknown; page updated after 2022","url":"https://www.worldbank.org/ext/en/country/mexico","claim":"The World Bank reports that Mexico's multidimensional poverty rate fell to 36.3% in 2022 and identifies labor-market outcomes, including minimum-wage increases, as a principal driver.","locator":"Country results section discussing 2016–2022 poverty","provisional_id":"WEB-5B-015","canonical_fact_key":"world_bank_mexico_2022_poverty_labor_policy_link","disposition":"fully_extracted_evidence_later_retrospective","chapter_ids":["5B"],"methodology_ids":["independent_corroboration","policy_outcome_attribution"],"source_type":"international_development_institution","source_confidence":"medium_high","source_confidence_reason":"Independent retrospective synthesis of official poverty data; wording supports contribution, not exclusive causation.","final_evidence_use":"Corroborates that labor policy plausibly contributed materially to poverty reduction.","period_fit":"Later retrospective statement specifically about the 2022 result.","ruler_attribution":"Shared/substantial for minimum-wage strategy, limited for total poverty change because reopening, employment, transfers and external income also mattered.","contrary_evidence":"Multidimensional poverty improvement coexisted with health-access deterioration and nearly unchanged extreme poverty versus 2018.","lenses":["5B.1","5B.7","5B.8","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"OECD Economic Surveys: Mexico 2022—Key Policy Insights","publisher":"OECD","publication_date":"2022-02-21","url":"https://www.oecd.org/en/publications/oecd-economic-surveys-mexico-2022_2e1de26c-en/full-report/component-4.html","claim":"Mexico collected less tax revenue relative to GDP than every OECD member and most regional peers, despite recent administrative collection gains; the OECD judged broader revenue reform necessary to finance health, education, social protection and infrastructure sustainably.","locator":"Fiscal policy and tax-reform sections","provisional_id":"WEB-5B-016","canonical_fact_key":"mexico_2022_low_tax_capacity","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["fiscal_capacity","sustainability","inherited_constraint"],"source_type":"intergovernmental_country_survey","source_confidence":"high","source_confidence_reason":"Comparable OECD revenue statistics and policy review.","final_evidence_use":"Long-run constraint on productive investment and resilience; also recognizes improved enforcement without tax-rate increases.","period_fit":"Inherited and contemporaneous 2022 policy landscape.","ruler_attribution":"Shared: weak tax capacity long predates AMLO; his government improved enforcement but declined comprehensive reform in 2022.","contrary_evidence":"Avoiding tax increases supported recovery and compliance efforts raised non-oil revenue.","lenses":["5B.1","5B.3","5B.6","5B.7","5B.9","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Corruption Perceptions Index 2022: Mexico","publisher":"Transparency International","publication_date":"2023-01-31","url":"https://www.transparency.org/en/cpi/2022/index/mex","claim":"Mexico scored 31 out of 100 in the 2022 Corruption Perceptions Index, unchanged for a third year and ranking 126th of 180 countries.","locator":"Mexico country result in CPI 2022 index","provisional_id":"WEB-5B-017","canonical_fact_key":"mexico_2022_cpi_31","disposition":"fully_extracted_contextual_evidence","chapter_ids":["5B"],"methodology_ids":["corruption_context","perception_indicator_caveat"],"source_type":"composite_independent_indicator","source_confidence":"medium","source_confidence_reason":"Established multi-source perception composite, but not a prevalence measure, event count or ruler-specific causal estimate.","final_evidence_use":"Contextual evidence that the administration had not produced a perceived national corruption improvement by 2022.","period_fit":"Exact 2022 index, with inputs that may lag.","ruler_attribution":"Limited/unknown: AMLO controlled much of the federal executive but the index covers broader public-sector perceptions and inherited institutions.","contrary_evidence":"A flat perception score cannot show that corruption worsened, identify personal enrichment or capture specific federal reforms.","lenses":["5B.5","5B.7","5B.10"]}
+
+SOURCE_CLAIM_JSON:{"title":"Mexico's growth slows to 0.4% in 4Q, 3.6% in 2022","publisher":"Associated Press","publication_date":"2023-01-31","url":"https://apnews.com/article/ad4a49582253b7d7174289b65bf8f2f9","claim":"Based on INEGI's preliminary release, real GDP grew 3.6% in 2022, while quarterly growth slowed to 0.4% in the fourth quarter amid high inflation and interest rates.","locator":"Opening three paragraphs","provisional_id":"WEB-5B-018","canonical_fact_key":"mexico_2022_gdp_recovery_slowing","disposition":"fully_extracted_evidence","chapter_ids":["5B"],"methodology_ids":["aggregate_outcome","reopening_adjustment","trajectory"],"source_type":"reputable_news_synthesis_of_official_data","source_confidence":"medium_high","source_confidence_reason":"Straight reporting of INEGI's then-current estimate; national accounts were subsequently revised, and GDP does not establish ruler causation.","final_evidence_use":"Context for recovery and late-year slowing, not a directional ruler judgment by itself.","period_fit":"Exact 2022 preliminary annual outcome.","ruler_attribution":"Limited/shared: reopening, U.S. demand, exports and private consumption were important; federal fiscal and labor policies contributed.","contrary_evidence":"Catch-up growth followed the deep pandemic loss and does not demonstrate improved potential growth or full per-capita recovery.","lenses":["5B.1","5B.3","5B.9","5B.10"]}
+
+--- LOCAL-DATA AUDIT: PARENT DISPOSITION SUMMARY ---
+
+{
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "mapping_notes": [
+        "Arsenal inventory establishes nuclear exposure and scale only; rhetoric, restraint, agreements, aggression shielding, and proliferation require ruler-specific evidence.",
+        "The full arsenal series supports inherited-versus-left posture context; safer or more dangerous conduct still requires ruler attribution.",
+        "Operational/deployed capability provides command-and-crisis exposure; it does not establish safeguards, expertise, discipline, or de-escalation.",
+        "Nuclear inventory facts do not answer cyber, biological, AI, or other non-nuclear catastrophic-risk governance."
+      ],
+      "methodology_ids": [
+        "1B.1",
+        "1B.10",
+        "1B.2",
+        "1B.3",
+        "1B.4",
+        "1B.5",
+        "1B.6",
+        "1B.7",
+        "1B.8",
+        "1B.9"
+      ],
+      "status_counts": {
+        "no_evidence_found": 10
+      },
+      "unique_fact_count": 0
+    },
+    {
+      "chapter_id": "2B",
+      "mapping_notes": [
+        "Conflict events and fatalities establish country exposure/location, not initiation, perpetration, proxy support, truthfulness, or peace effort.",
+        "Full conflict and military-burden series supports inherited-versus-left trajectory context without assigning ruler responsibility.",
+        "Conflict exposure and military burden contextualize claimed security needs; they cannot distinguish defense from prestige or manufactured threats.",
+        "Fatalities establish harm/exposure only; civilian protection, legality, proportionality, responsibility, and accountability require actor evidence.",
+        "Military expenditure establishes level and burden, not aggression, defensive necessity, enrichment, intimidation, or ruler motive."
+      ],
+      "methodology_ids": [
+        "2B.1",
+        "2B.10",
+        "2B.2",
+        "2B.3",
+        "2B.4",
+        "2B.5",
+        "2B.6",
+        "2B.7",
+        "2B.8",
+        "2B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 120
+    },
+    {
+      "chapter_id": "3B",
+      "mapping_notes": [
+        "Physical-integrity and terror measures contextualize abuse; ruler direction, tolerance, protected actors, and legal misuse require narrative evidence.",
+        "Full domestic-safety series supports inherited-versus-left trajectory context; attribution and non-state/public-safety gaps remain explicit.",
+        "National repression aggregates cannot establish ruler incitement or violence against a specific vulnerable group.",
+        "Rights and civil-society measures contextualize oversight/protest conditions; specific complaint, investigation, surveillance, or retaliation needs evidence.",
+        "Terror, one-sided violence, liberty, and repression trends contextualize fear or crises without proving ruler protection, restraint, or incitement."
+      ],
+      "methodology_ids": [
+        "3B.1",
+        "3B.10",
+        "3B.2",
+        "3B.3",
+        "3B.4",
+        "3B.5",
+        "3B.6",
+        "3B.7",
+        "3B.8",
+        "3B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 235
+    },
+    {
+      "chapter_id": "4B",
+      "mapping_notes": [
+        "Election and regime measures contextualize contestability; they do not establish ruler intent or a specific manipulation.",
+        "The full longitudinal political-freedom bundle supports inherited-versus-left trajectory analysis without automatic ruler attribution.",
+        "D11 civil-liberties, expression, association, press/media, voice, accountability, and rule-of-law facts usable as structured priors for opposition/media/protest/civil-society tolerance.",
+        "Constraint and rule-of-law measures contextualize institutional independence; ruler-specific strengthening or interference still needs narrative evidence.",
+        "Regime and party-system measures are context, not direct proof of personality cult, loyalty tests, intimidation, or state politicization.",
+        "Media, expression, and voice measures contextualize information controls; specific censorship, propaganda, surveillance, or harassment needs evidence.",
+        "National participation and liberty averages require group-specific evidence before supporting political-equality claims.",
+        "Regime trajectory contextualizes succession but cannot establish compliance with term limits, coalition promises, or constitutional transfer."
+      ],
+      "methodology_ids": [
+        "4B.1",
+        "4B.10",
+        "4B.2",
+        "4B.3",
+        "4B.4",
+        "4B.5",
+        "4B.6",
+        "4B.7",
+        "4B.8",
+        "4B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 10
+      },
+      "unique_fact_count": 359
+    },
+    {
+      "chapter_id": "5B",
+      "mapping_notes": [
+        "Broad prosperity outcomes are context; intent and ruler action need narrative evidence.",
+        "Full longitudinal context supports inherited-versus-left trajectory analysis without automatic ruler credit.",
+        "No structured country outcome establishes the competence or independence of appointees.",
+        "Real-output and productivity trajectories contextualize stability or shocks but do not prove policy competence.",
+        "Employment count and absorption are outcome context, not direct evidence of fair market rules.",
+        "National inequality is context only and cannot establish corruption, capture, or personal nexus.",
+        "Human-capital, capital-stock, hours, and TFP trends contextualize productivity foundations.",
+        "Country outcomes cannot establish evidence-based decision-making or correction of mistakes.",
+        "Average income and Gini provide distribution context but do not identify favored groups or ruler intent."
+      ],
+      "methodology_ids": [
+        "5B.1",
+        "5B.10",
+        "5B.2",
+        "5B.3",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 281
+    },
+    {
+      "chapter_id": "6B",
+      "mapping_notes": [
+        "Aggregate welfare outcomes contextualize priority but cannot establish purpose or propaganda intent.",
+        "Full longitudinal welfare context supports inherited-versus-left life-chance analysis without automatic attribution.",
+        "Health and education coverage/outcomes inform access; they do not alone establish affordability or quality.",
+        "National distribution and participation measures require group and regional evidence for equity claims.",
+        "Service outcomes are implementation context; professional management and correction require narrative evidence.",
+        "Outcome changes contextualize crises but require shock-specific timing and ruler-attributed response evidence.",
+        "Aggregate service data cannot establish political conditionality, loyalty rewards, or punishment.",
+        "Sustained service series contextualize durability but do not establish institutional survival beyond the ruler."
+      ],
+      "methodology_ids": [
+        "6B.1",
+        "6B.10",
+        "6B.2",
+        "6B.3",
+        "6B.4",
+        "6B.5",
+        "6B.6",
+        "6B.7",
+        "6B.8",
+        "6B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 9,
+        "no_evidence_found": 1
+      },
+      "unique_fact_count": 82
+    },
+    {
+      "chapter_id": "7B",
+      "mapping_notes": [
+        "National corruption or governance indicators cannot establish ruler-specific truthfulness, interests, benefit, appointments, promises, or favoritism.",
+        "Institutional corruption, accountability, and rule-of-law facts are context for scrutiny or concealment only; scoring requires a direct personal nexus."
+      ],
+      "methodology_ids": [
+        "7B.1",
+        "7B.10",
+        "7B.2",
+        "7B.3",
+        "7B.4",
+        "7B.5",
+        "7B.6",
+        "7B.7",
+        "7B.8",
+        "7B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 3,
+        "no_evidence_found": 7
+      },
+      "unique_fact_count": 105
+    },
+    {
+      "chapter_id": "8B",
+      "mapping_notes": [
+        "Generic capacity indicators cannot identify the ruler's program or establish adaptation and correction.",
+        "Governance-capacity facts provide inherited implementation context only; program ownership, action, goal fit, and ruler attribution remain required."
+      ],
+      "methodology_ids": [
+        "8B.1",
+        "8B.10",
+        "8B.2",
+        "8B.3",
+        "8B.4",
+        "8B.5",
+        "8B.6",
+        "8B.7",
+        "8B.8",
+        "8B.9"
+      ],
+      "status_counts": {
+        "evidence_found": 8,
+        "no_evidence_found": 2
+      },
+      "unique_fact_count": 82
+    }
+  ],
+  "disposition_instruction_sets": {
+    "I001": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations.",
+      "The empty state is explicit; if narrative research proceeds, explain that no local structured prior was available for this scope."
+    ],
+    "I002": [
+      "Use this local structured prior before starting internet/manual research.",
+      "Do not re-fetch local structured datasets (including Freedom House, V-Dem, WGI, BTI, RSF, or Polity) when this artifact contains relevant non-contradictory facts.",
+      "Fetch web/narrative sources only when the local prior is absent, contradictory, needs ruler-specific attribution, or needs narrative detail beyond structured country-year facts.",
+      "Never use the client matrix as evidence; it is excluded from this artifact and from research citations."
+    ]
+  },
+  "disposition_reasons": {
+    "R001": "No selected non-client country_year_facts matched the configured local-prior field keys for this country and year/period.",
+    "R002": "No structured country-year field is semantically sufficient for this lens; collect ruler-specific narrative evidence."
+  },
+  "error_methodology_ids": [],
+  "fact_payload": "omitted_after_research_use_parent_restores_hashed_provenance",
+  "methodology_dispositions": {
+    "1B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.10": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.6": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R001",
+      "status": "no_evidence_found"
+    },
+    "1B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "2B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "2B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "3B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "3B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "3B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "4B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "5B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "5B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "5B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.1": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.7": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "6B.8": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "6B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.2": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.3": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.4": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.5": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "7B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "7B.9": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.1": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.10": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.2": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.3": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.4": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.5": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.6": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.7": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    },
+    "8B.8": {
+      "instruction_set_id": "I001",
+      "reason_id": "R002",
+      "status": "no_evidence_found"
+    },
+    "8B.9": {
+      "instruction_set_id": "I002",
+      "reason_id": null,
+      "status": "evidence_found"
+    }
+  },
+  "methodology_statuses": {
+    "1B.1": "no_evidence_found",
+    "1B.10": "no_evidence_found",
+    "1B.2": "no_evidence_found",
+    "1B.3": "no_evidence_found",
+    "1B.4": "no_evidence_found",
+    "1B.5": "no_evidence_found",
+    "1B.6": "no_evidence_found",
+    "1B.7": "no_evidence_found",
+    "1B.8": "no_evidence_found",
+    "1B.9": "no_evidence_found",
+    "2B.1": "evidence_found",
+    "2B.10": "evidence_found",
+    "2B.2": "evidence_found",
+    "2B.3": "evidence_found",
+    "2B.4": "evidence_found",
+    "2B.5": "evidence_found",
+    "2B.6": "evidence_found",
+    "2B.7": "evidence_found",
+    "2B.8": "evidence_found",
+    "2B.9": "evidence_found",
+    "3B.1": "evidence_found",
+    "3B.10": "evidence_found",
+    "3B.2": "evidence_found",
+    "3B.3": "no_evidence_found",
+    "3B.4": "evidence_found",
+    "3B.5": "evidence_found",
+    "3B.6": "evidence_found",
+    "3B.7": "no_evidence_found",
+    "3B.8": "evidence_found",
+    "3B.9": "evidence_found",
+    "4B.1": "evidence_found",
+    "4B.10": "evidence_found",
+    "4B.2": "evidence_found",
+    "4B.3": "evidence_found",
+    "4B.4": "evidence_found",
+    "4B.5": "evidence_found",
+    "4B.6": "evidence_found",
+    "4B.7": "evidence_found",
+    "4B.8": "evidence_found",
+    "4B.9": "evidence_found",
+    "5B.1": "evidence_found",
+    "5B.10": "evidence_found",
+    "5B.2": "no_evidence_found",
+    "5B.3": "evidence_found",
+    "5B.4": "evidence_found",
+    "5B.5": "evidence_found",
+    "5B.6": "evidence_found",
+    "5B.7": "no_evidence_found",
+    "5B.8": "evidence_found",
+    "5B.9": "evidence_found",
+    "6B.1": "evidence_found",
+    "6B.10": "evidence_found",
+    "6B.2": "evidence_found",
+    "6B.3": "evidence_found",
+    "6B.4": "evidence_found",
+    "6B.5": "evidence_found",
+    "6B.6": "evidence_found",
+    "6B.7": "no_evidence_found",
+    "6B.8": "evidence_found",
+    "6B.9": "evidence_found",
+    "7B.1": "no_evidence_found",
+    "7B.10": "evidence_found",
+    "7B.2": "no_evidence_found",
+    "7B.3": "no_evidence_found",
+    "7B.4": "no_evidence_found",
+    "7B.5": "no_evidence_found",
+    "7B.6": "evidence_found",
+    "7B.7": "evidence_found",
+    "7B.8": "no_evidence_found",
+    "7B.9": "no_evidence_found",
+    "8B.1": "no_evidence_found",
+    "8B.10": "evidence_found",
+    "8B.2": "evidence_found",
+    "8B.3": "evidence_found",
+    "8B.4": "evidence_found",
+    "8B.5": "evidence_found",
+    "8B.6": "evidence_found",
+    "8B.7": "evidence_found",
+    "8B.8": "no_evidence_found",
+    "8B.9": "evidence_found"
+  },
+  "no_evidence_methodology_ids": [
+    "1B.1",
+    "1B.10",
+    "1B.2",
+    "1B.3",
+    "1B.4",
+    "1B.5",
+    "1B.6",
+    "1B.7",
+    "1B.8",
+    "1B.9",
+    "3B.3",
+    "3B.7",
+    "5B.2",
+    "5B.7",
+    "6B.7",
+    "7B.1",
+    "7B.2",
+    "7B.3",
+    "7B.4",
+    "7B.5",
+    "7B.8",
+    "7B.9",
+    "8B.1",
+    "8B.8"
+  ],
+  "not_applicable_methodology_ids": [],
+  "schema_version": "ruler_local_evidence_package_v3",
+  "source_prior_count": 80,
+  "status_counts": {
+    "evidence_found": 56,
+    "no_evidence_found": 24
+  },
+  "unique_fact_count": 1144
+}
+
+--- REVIEWER-DIRECTED WEB CONTINUATION ---
+
+I searched official Mexican government, ASF, CONEVAL, OECD, and World Bank materials. The strongest additions concern Ramírez de la O’s qualifications and assigned portfolio, ENIGH-based distributional incidence, and the limited reach of minimum-wage gains among the extremely poor and informal workers. The World Bank homepage problem is resolved with a precise “Mexico Overview” locator, although the source remains retrospective.
+
+The main unresolved gap is adjudication. ASF’s 2022 audit index and search-accessible extracts identified relevant Tren Maya and Dos Bocas audits, including contract observations, but repeated attempts to open the underlying audit PDFs and consolidated recovery matrix timed out. I therefore did not convert those extracts into evidence records or treat proposed recoveries as final loss, misconduct, or resolved liability. Searches also did not recover reliable event-level proof that AMLO granted Ramírez de la O professional autonomy beyond an assigned portfolio, or dated 2022 decisions responding to procurement, health-access, Pemex, or project-appraisal warnings.
+
+SOURCE_CLAIM_JSON:{"title":"Comunicado No. 044: Rogelio Ramírez de la O asume cargo como secretario de Hacienda y Crédito Público","publisher":"Secretaría de Hacienda y Crédito Público, Government of Mexico","publication_date":"2021-07-16","url":"https://www.gob.mx/shcp/prensa/comunicado-no-044-rogelio-ramirez-de-la-o-asume-cargo-como-secretario-de-hacienda-y-credito-publico?idiom=es-MX","claim":"Ramírez de la O entered office with a Cambridge economics doctorate, a UNAM economics degree, research on economic policy, debt, trade and monetary policy, and extensive private-sector advisory and independent-director experience. The presidency assigned Hacienda greater involvement in energy-sector accounts, development banking, the 2022 economic package and a multiyear financial plan. This establishes strong qualifications and a substantive delegated portfolio, but does not independently establish freedom to overrule AMLO or professional autonomy in contested decisions.","locator":"Paragraphs 53-71, especially 58-68","provisional_id":"WEB-5B-019","canonical_fact_key":"amlo_2022_finance_minister_qualifications_and_assigned_portfolio","disposition":"context","chapter_ids":["5B"],"methodology_ids":["5B.2"],"source_type":"official_government_appointment_statement","source_confidence":"medium_high","source_confidence_reason":"Primary official statement precisely identifies credentials and assigned responsibilities, but it is self-descriptive and supplies no evidence of independence from the president in actual 2022 disputes.","final_evidence_use":"context","period_fit":"Appointment predates 2022 but defines the minister and portfolio in force during 2022.","ruler_attribution":"AMLO appointed Ramírez de la O and the official statement expressly links the expanded Hacienda portfolio to the president's policy commitments; actual discretionary autonomy remains unproven.","contrary_evidence":"The statement emphasizes continuity with AMLO's transformation, austerity and fiscal commitments, which cautions against inferring independent authority merely from technical qualifications.","underlying_fact_key":"amlo_2022_finance_minister_qualifications_and_assigned_portfolio","lenses":["5B.2"]}
+
+SOURCE_CLAIM_JSON:{"title":"The World Bank in Mexico: Mexico Overview","publisher":"World Bank","publication_date":"2025-10-07","url":"https://www.worldbank.org/en/country/mexico/overview","claim":"The World Bank states that Mexico's official multidimensional-poverty rate fell from 43.2% in 2016 to 36.3% in 2022, lifting 5.4 million people out of poverty, and attributes the change mainly to labor-market outcomes, including minimum-wage increases. This upgrades WEB-5B-015 with a precise underlying locator, but the wording does not isolate the minimum wage from reopening, labor demand, transfers or remittances.","locator":"Mexico Overview, Context section, lines 29-34, especially paragraph beginning 'Yet, the official multidimensional poverty rate'","provisional_id":"WEB-5B-020","canonical_fact_key":"mexico_2022_poverty_decline_world_bank_labor_market_attribution","disposition":"context","chapter_ids":["5B"],"methodology_ids":["5B.8"],"source_type":"international_organization_country_overview","source_confidence":"medium","source_confidence_reason":"Authoritative and precisely opened, but published retrospectively and provides a broad attribution rather than a documented causal decomposition.","final_evidence_use":"context","period_fit":"Later source specifically reporting the 2016-2022 poverty change and a 2022 endpoint.","ruler_attribution":"Minimum-wage policy was an administration choice, but the national poverty outcome is shared and contextual; this source does not estimate AMLO's marginal causal contribution.","contrary_evidence":"The source does not separate policy effects from post-pandemic reopening, employment growth, remittances, transfers or other labor-market changes.","underlying_fact_key":"mexico_2022_poverty_decline_world_bank_labor_market_attribution","lenses":["5B.8"]}
+
+SOURCE_CLAIM_JSON:{"title":"Informe de la pobreza multidimensional en México, 2022","publisher":"CONEVAL","publication_date":"2025-01","url":"https://www.coneval.org.mx/InformesPublicaciones/Documents/Pobreza_Multidimensional_2022.pdf","claim":"ENIGH estimates show that 13.6 million households received income from at least one social program in 2022, 3.2 million more than in 2018. Nevertheless, program income fell from 34.4% to 27.3% of total current per-capita income for recipient households in the first decile, rose from 4.9% to 5.4% in the tenth, and gained relative weight in middle and upper-middle deciles. Average program-income growth from 2018 to 2022 was only 3.5% in the first decile but 97.0% in the eighth.","locator":"PDF pp. 147-149, Graphs 20-22 and accompanying text; extracted lines 5871-5945","provisional_id":"WEB-5B-021","canonical_fact_key":"enigh_2022_social_program_incidence_by_income_decile","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.8"],"source_type":"official_household_survey_incidence_analysis","source_confidence":"high","source_confidence_reason":"Official CONEVAL analysis based directly on ENIGH microdata with explicit decile definitions, program keys, tables and stable page locators.","final_evidence_use":"final_evidence","period_fit":"Retrospective publication analyzing specifically measured 2022 household income and program receipt.","ruler_attribution":"The administration owned the federal transfer architecture, but incidence reflects program rules, household composition and survey reporting; national income changes should not be assigned solely to AMLO.","contrary_evidence":"Coverage expanded in aggregate and program income remained proportionally much more important to the first decile than the tenth, even though targeting shifted away from the poorest relative to 2018.","underlying_fact_key":"enigh_2022_social_program_incidence_by_income_decile","lenses":["5B.8"]}
+
+SOURCE_CLAIM_JSON:{"title":"Informe de la pobreza multidimensional en México, 2022","publisher":"CONEVAL","publication_date":"2025-01","url":"https://www.coneval.org.mx/InformesPublicaciones/Documents/Pobreza_Multidimensional_2022.pdf","claim":"CONEVAL's accounting counterfactual estimates that, without reported social-program transfers, Mexico's 2022 multidimensional-poverty rate would have been 39.0% rather than 36.3% and extreme poverty 8.9% rather than 7.1%; the corresponding population differences were 3.5 million and 2.4 million. Including program income reduced the 2022 Gini from 0.449 to 0.431. These are static income-removal estimates, not causal estimates accounting for eligibility, behavior or general-equilibrium effects.","locator":"PDF pp. 154-156, Graphs 28-29 and inequality discussion; extracted lines 6160-6232","provisional_id":"WEB-5B-022","canonical_fact_key":"enigh_2022_social_transfer_accounting_counterfactual_poverty_inequality","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.8"],"source_type":"official_household_survey_counterfactual_analysis","source_confidence":"high","source_confidence_reason":"Official ENIGH-based calculations with precise numerical locators and a transparent remove-transfer comparison; confidence concerns interpretation as causal, not the reported arithmetic.","final_evidence_use":"final_evidence","period_fit":"Later analysis specifically estimates the incidence of transfers recorded in calendar-year 2022 ENIGH data.","ruler_attribution":"Federal programs were a central administration policy and their recorded transfers contributed mechanically to household income; the counterfactual does not identify AMLO's causal effect or separate program design from implementation and take-up.","contrary_evidence":"The favorable aggregate poverty effect coexisted with weaker relative incidence in the poorest decile and substantial noncoverage among people in extreme poverty.","underlying_fact_key":"enigh_2022_social_transfer_accounting_counterfactual_poverty_inequality","lenses":["5B.8"]}
+
+SOURCE_CLAIM_JSON:{"title":"Análisis de la población en situación de pobreza extrema","publisher":"CONEVAL","publication_date":"2024-08","url":"https://www.coneval.org.mx/Medicion/MP/Documents/contribucion_estrategias_pobreza/Pobreza_extrema_Mexico.pdf","claim":"For people in extreme poverty in 2022, subordinate-work remuneration supplied 47.6% of per-capita current income, but practically all employed people in this group worked informally, so the statutory minimum-wage increase did not directly determine their income. Transfers supplied 22.2% of income and social programs accounted for 58% of those transfers, yet 4.1 million people in extreme poverty—45.1% of that population—reported that their household received no monetary social program.","locator":"PDF pp. 109-113, especially 'Principales hallazgos' on p. 111; extracted lines 2876-2917","provisional_id":"WEB-5B-023","canonical_fact_key":"mexico_2022_extreme_poverty_income_informality_transfer_coverage","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.8"],"source_type":"official_household_survey_group_incidence_analysis","source_confidence":"high","source_confidence_reason":"Official CONEVAL analysis of ENIGH 2022 with explicit income shares, informality limitation and uncovered population counts.","final_evidence_use":"final_evidence","period_fit":"Later publication specifically establishing conditions measured in 2022.","ruler_attribution":"Minimum-wage increases and federal transfers were administration policies, but this evidence sharply limits attribution because extreme-poverty workers were overwhelmingly informal and nearly half of the group reported no monetary-program receipt.","contrary_evidence":"Transfers were still a major income component and recipients had lower food and health deprivation than otherwise comparable descriptive groups, so the evidence is not wholly adverse.","underlying_fact_key":"mexico_2022_extreme_poverty_income_informality_transfer_coverage","lenses":["5B.8"]}
+
+SOURCE_CLAIM_JSON:{"title":"Sistema de Indicadores sobre pobreza y género, 2016-2022","publisher":"CONEVAL","publication_date":"2024-03-06","url":"https://www.coneval.org.mx/Medicion/Paginas/Pobreza-y-genero-en-Mexico-2016-2022.aspx","claim":"CONEVAL found that, outside the elderly population, reported monetary-transfer coverage in 2022 was lower than in earlier periods, with women in poverty experiencing a 12.8-percentage-point decline from 2018. Among older adults, coverage exceeded 75%, but the 2018-2022 expansion was larger for men without poverty (+44.8 points) and women without poverty (+33.5) than for men in poverty (+21.3) and women in poverty (+10.6).","locator":"Results summary, paragraphs/bullets at lines 227-233; linked press release dated 6 March 2024","provisional_id":"WEB-5B-024","canonical_fact_key":"mexico_2022_monetary_transfer_coverage_gender_poverty_status","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.8"],"source_type":"official_gender_disaggregated_poverty_indicator_system","source_confidence":"high","source_confidence_reason":"Official CONEVAL indicator system with opened page, explicit gender-poverty disaggregation and a dated supporting release.","final_evidence_use":"final_evidence","period_fit":"Later release specifically reporting the 2016-2022 series and 2022 coverage.","ruler_attribution":"The administration controlled federal transfer-program design, but differential receipt also reflects age structure, eligibility and reporting; evidence supports implementation-level incidence, not personal intent.","contrary_evidence":"Universal old-age benefits substantially expanded coverage for women and men, including those in poverty, even though gains were larger among nonpoor groups.","underlying_fact_key":"mexico_2022_monetary_transfer_coverage_gender_poverty_status","lenses":["5B.8"]}
+
+SOURCE_CLAIM_JSON:{"title":"OECD Economic Surveys: Mexico 2022","publisher":"OECD","publication_date":"2022-02","url":"https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/02/oecd-economic-surveys-mexico-2022_a2937d37/2e1de26c-en.pdf","claim":"The OECD contemporaneously recorded that the shift toward nearly universal pensions and scholarships expanded program receipt overall, but the share of households receiving monetary transfers had fallen in the three lowest deciles while rising in the others. It recommended stronger means testing and greater coverage by programs reaching low-income households. Its implementation table also recorded no action on extending preschool hours, while noting 2022 VAT relief for menstrual products, scholarship programs and formalization measures. This supplies dated evidence of selective policy uptake, but not a documented presidential response to the targeting warning itself.","locator":"PDF pp. 54-57, especially paragraphs preceding Figure 1.36, Box 1.10, and Table 1.11; extracted lines 3168-3289","provisional_id":"WEB-5B-025","canonical_fact_key":"oecd_2022_mexico_social_policy_targeting_warning_and_recorded_actions","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.7","5B.8"],"source_type":"international_organization_policy_review","source_confidence":"high","source_confidence_reason":"Contemporaneous OECD review with household-data incidence, explicit recommendations, and a structured record of actions taken or not taken; it does not establish AMLO's personal deliberations.","final_evidence_use":"final_evidence","period_fit":"Published in 2022 and directly assesses policies and actions in force entering that year.","ruler_attribution":"The administration owned the redesign toward broad nonconditional programs and the cited reforms, but the source does not show a dated AMLO decision accepting or rejecting the OECD targeting recommendation.","contrary_evidence":"The broader model increased total coverage, lowered administrative constraints and expanded support for older people and disabled people; the adverse finding concerns distribution toward the poorest deciles, not absence of benefits.","underlying_fact_key":"oecd_2022_mexico_social_policy_targeting_warning_and_recorded_actions","lenses":["5B.7","5B.8"]}
+
+--- REVIEWER-DIRECTED WEB CONTINUATION ---
+
+I searched ASF’s 2022 consolidated matrix, individual and framework audits, CONEVAL program-monitoring records, the formal USTR consultation request, Mexico’s official response, Banxico records, and official replacements for the three imprecisely extracted sources. The strongest additions concern: actual central-bank independence under pressure; exact energy measures and treaty provisions alleged; Mexico’s December corrective work plan; contract/project-level Tren Maya observations; health-program design and procurement implementation; and Pemex’s documented response to debt warnings.
+
+Important unresolved gaps remain. ASF’s public reports distinguish observations, amounts recovered during audit, and amounts pending clarification, but its searchable recovery annexes did not expose reliable audit-action-level final status for the cited Tren Maya and INSABI matters. Consequently, none of the outstanding amounts below is characterized as a final loss or proven misconduct. I also found no strong evidence that Ramírez de la O personally overruled AMLO in a contested 2022 decision; Banxico provides the clearest actual intervention-limit case, while Economy Ministry turnover and coordination problems provide adverse context but not proof about the finance minister’s autonomy. The December energy work plan establishes a response and attempted correction, not final resolution or a finding that Mexico breached USMCA.
+
+SOURCE_CLAIM_JSON:{"title":"Analysis: Mexican central bank answers López Obrador pressure with defiant autonomy","publisher":"Reuters, republished by Euronews","publication_date":"2022-07-06","url":"https://es.euronews.com/next/2022/07/06/mexico-bancocentral","claim":"During 2022 Banxico continued tightening monetary policy notwithstanding presidential pressure for lower rates. Concern over intervention intensified after López Obrador disclosed the March 24 rate increase before Banxico announced it. The episode supplies contemporaneous evidence that the governor and board retained operational decision-making independence, although the premature disclosure shows an intervention risk and does not establish autonomy for cabinet ministers.","locator":"Opening paragraphs and sections describing the March 24 premature disclosure, subsequent rate decisions, and board members’ defense of autonomy","provisional_id":"WEB-5B-026","canonical_fact_key":"amlo_2022_banxico_operational_autonomy_under_pressure","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.2"],"source_type":"independent_news_analysis","source_confidence":"high","source_confidence_reason":"Contemporaneous Reuters analysis identifies the contested episode and observable monetary-policy response; Banxico’s published decisions independently establish the rate actions.","final_evidence_use":"final_evidence","period_fit":"Directly concerns decisions and presidential conduct in calendar 2022.","ruler_attribution":"AMLO personally disclosed the pending rate decision and had publicly pressed the bank; the board’s subsequent conduct belongs to the autonomous institution, not to AMLO.","contrary_evidence":"AMLO’s nominee Victoria Rodríguez Ceja led the bank, and the premature disclosure raised legitimate concerns; this is evidence of effective operational limits, not absence of presidential pressure.","underlying_fact_key":"amlo_2022_banxico_operational_autonomy_under_pressure","lenses":["5B.2"]}  
+SOURCE_CLAIM_JSON:{"title":"Autonomía","publisher":"Banco de México","publication_date":"2022","url":"https://www.banxico.org.mx/contactobanxico/autonomia.html","claim":"Banxico’s institutional framework gives its board management, budgetary, and operational autonomy; staggered fixed terms, removal only for serious cause, and constitutional authority to choose monetary-policy instruments limit presidential intervention. This explains the legal mechanism through which AMLO’s appointees could act independently in 2022, but does not by itself prove how they acted.","locator":"Sections headed “Autonomía” and “Autonomía de gestión,” including the quotation from Constitution article 28 and the paragraphs on staggered appointments, tenure, and removal","provisional_id":"WEB-5B-027","canonical_fact_key":"amlo_2022_banxico_legal_intervention_limits","disposition":"context","chapter_ids":["5B"],"methodology_ids":["5B.2"],"source_type":"primary_institutional_legal_explanation","source_confidence":"high","source_confidence_reason":"Official central-bank explanation tied directly to Constitution article 28 and the Banco de México Law.","final_evidence_use":"context","period_fit":"The cited institutional rules governed throughout 2022.","ruler_attribution":"The constraints legally limited AMLO’s authority over the board after appointment; they are inherited constitutional safeguards rather than reforms attributable to him.","contrary_evidence":"Formal protection cannot alone exclude informal political pressure, information leakage, or influence through appointments.","underlying_fact_key":"amlo_2022_banxico_legal_intervention_limits","lenses":["5B.2"]}  
+SOURCE_CLAIM_JSON:{"title":"Request for Consultations Pursuant to Articles 31.2 and 31.4 of the USMCA","publisher":"Office of the United States Trade Representative","publication_date":"2022-07-20","url":"https://ustr.gov/sites/default/files/US%20Cons%20Req%20Mexico%20energy_072022_0.pdf","claim":"The formal request precisely identifies four challenged groups of measures: 2021 Electricity Industry Law articles 26, 4(VI), 101 and 108(V); permit delays, denials, suspensions and revocations; Pemex’s exclusive extension under CRE resolution RES/1817/2019 to meet diesel sulfur rules; and SENER official letter SENER.100/195/2022 directing preferential gas-supply arrangements. USTR alleged apparent inconsistency with specified USMCA provisions, including articles 2.3, 2.11, 14.4, 22.5.2 and 29.3. These are formal allegations initiating consultations, not an adjudicated treaty breach.","locator":"PDF pp. 1–5: §I ¶¶1–2; §II ¶¶3–9; §III ¶¶10–11; §IV ¶¶12–13, especially pp. 1 lines 7–25 and p. 4 lines 123–165 in extracted text","provisional_id":"WEB-5B-028","canonical_fact_key":"mexico_2022_usmca_energy_consultation_measures","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.4"],"source_type":"primary_intergovernmental_legal_filing","source_confidence":"high","source_confidence_reason":"The underlying formal consultation request provides exact measures, instruments, dates, and treaty provisions while clearly using allegation language.","final_evidence_use":"final_evidence","period_fit":"Filed July 20, 2022 and includes the June 2022 gas directive and the legal status of other measures in 2022.","ruler_attribution":"The electricity-law amendment originated as AMLO’s preferred initiative and the challenged energy orientation was an executive priority; particular permit actions and regulatory instruments belong to SENER, CRE, CENAGAS, CFE and Pemex unless separately traced to him.","contrary_evidence":"No panel ruling established breach, and Mexico disputed the characterization and pursued consultations.","underlying_fact_key":"mexico_2022_usmca_energy_consultation_measures","lenses":["5B.4"]}  
+SOURCE_CLAIM_JSON:{"title":"La Secretaría de Economía explica Plan de Trabajo con Estados Unidos y Canadá para resolver consultas de T-MEC","publisher":"Secretaría de Economía, Government of Mexico","publication_date":"2022-12-12","url":"https://www.gob.mx/se/prensa/la-secretaria-de-economia-explica-plan-de-trabajo-con-estados-unidos-y-canada-para-resolver-consultas-de-t-mec?idiom=es","claim":"By December 2022 Mexico had established interagency working groups with the United States and Canada, was reviewing the status of permits to advance responses, and coordinated Economy and Energy officials in pursuit of an amicable settlement. This is dated evidence of an administrative response and willingness to examine implementation issues, but it records neither withdrawal of the challenged rules nor final settlement.","locator":"Opening description and final paragraphs, particularly the work-plan item “Revisión de permisos para conocer el estatus y avanzar en su respuesta” and the statement on close SE–SENER coordination","provisional_id":"WEB-5B-029","canonical_fact_key":"mexico_2022_energy_consultation_corrective_response","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.4","5B.7"],"source_type":"primary_government_response","source_confidence":"high","source_confidence_reason":"Official, dated Mexican account of concrete response steps; its self-reporting and lack of final outcomes require restrained use.","final_evidence_use":"final_evidence","period_fit":"Published and describes actions underway in December 2022.","ruler_attribution":"The response was undertaken by AMLO’s Economy and Energy ministries; the source does not say AMLO personally ordered particular corrections.","contrary_evidence":"The consultations remained unresolved, and reviewing permits is not proof that delayed or denied permits were granted or that challenged rules were corrected.","underlying_fact_key":"mexico_2022_energy_consultation_corrective_response","lenses":["5B.4","5B.7"]}  
+SOURCE_CLAIM_JSON:{"title":"Matriz de Datos Básicos del Informe del Resultado de la Fiscalización Superior de la Cuenta Pública 2022, Tercera Entrega","publisher":"Auditoría Superior de la Federación","publication_date":"2024-02-20","url":"https://www.asf.gob.mx/Trans/Informes/IR2022c/Documentos/Matriz/IR2022_Entrega_a.pdf","claim":"ASF’s project-level matrix reports mixed Tren Maya findings. Audit 115 for Tramo 5 Norte recorded one result cured during audit, no outstanding action, and no quantified amount. Audit 116 for Tramo 5 Sur recorded four results with actions and MXN2.1538 million pending clarification. Audits 111–113 for Tramos 1–3 recorded respectively MXN57.5688 million, MXN28.8349 million, and MXN65.4666 million pending clarification, with no recoveries recorded at report issuance. Audit 118 on project financing and expenditures recorded MXN10.0193 million pending clarification. These are audit observations or unresolved clarification amounts, not final proven losses.","locator":"Tourism-sector rows for audits 111, 112, 113, 115, 116 and 118 in the third-delivery basic-data matrix; columns “Resultados,” “Acciones,” “Recuperaciones Totales,” and “Montos por Aclarar”","provisional_id":"WEB-5B-030","canonical_fact_key":"asf_2022_tren_maya_project_audit_status_at_issuance","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.5","5B.6","5B.7"],"source_type":"primary_supreme_audit_matrix","source_confidence":"high","source_confidence_reason":"Official ASF matrix supplies audit-specific status and monetary categories, but not later action-level final resolution.","final_evidence_use":"final_evidence","period_fit":"Audits fiscal-year 2022 expenditure; report issued later as required by the audit cycle.","ruler_attribution":"The Tren Maya was AMLO’s flagship executive project, supporting attribution for project selection and tolerance of its implementation structure; individual payments and control failures belong to implementing entities unless evidence traces them personally to him.","contrary_evidence":"The matrix records favorable outcomes as well: Tramo 5 Norte had no outstanding action or quantified amount, and some findings elsewhere were cured during audit. Pending clarification is not a finding of loss or corruption.","underlying_fact_key":"asf_2022_tren_maya_project_audit_status_at_issuance","lenses":["5B.5","5B.6","5B.7"]}  
+SOURCE_CLAIM_JSON:{"title":"Marco de Referencia: Programa de Atención a la Salud, Cuenta Pública 2022","publisher":"Auditoría Superior de la Federación","publication_date":"2024-02-20","url":"https://www.asf.gob.mx/Trans/Informes/IR2022c/Documentos/Auditorias/MR-E023_a.pdf","claim":"Across 2022 E023 health-program audits, 265 of 309 observations were resolved during audit and 44 retained actions. States initially had MXN586.2 million observed, then clarified MXN331.3 million and reimbursed MXN18.8 million during audit, leaving MXN236.1 million pending clarification. For INSABI, ASF reported MXN321.0 million pending clarification, principally involving unauthorized payments to temporary workers and payments to contractors for maintenance services ASF said were not performed. The remaining sums were unresolved audit amounts, not final adjudicated losses or proof of corruption.","locator":"Section “Montos por aclarar y recuperaciones operadas,” including the observation-status graphic and paragraphs immediately following the MXN557.1 million aggregate; approximately report pp. 25–27","provisional_id":"WEB-5B-031","canonical_fact_key":"asf_2022_e023_health_contract_audit_status","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.5","5B.6","5B.7"],"source_type":"primary_supreme_audit_framework_report","source_confidence":"high","source_confidence_reason":"Official ASF synthesis separates resolved observations, reimbursements, and pending clarification while identifying the principal INSABI implementation problems.","final_evidence_use":"final_evidence","period_fit":"Directly audits fiscal-year 2022 health-program implementation; later publication specifically establishes 2022 facts.","ruler_attribution":"INSABI and the free-health program were central administration choices under AMLO, supporting administration-level implementation attribution; the source does not show that AMLO selected contractors or authorized questioned payments.","contrary_evidence":"Most observations were resolved during audit, states clarified or reimbursed substantial amounts, and the report does not establish final loss or personal misconduct.","underlying_fact_key":"asf_2022_e023_health_contract_audit_status","lenses":["5B.5","5B.6","5B.7"]}  
+SOURCE_CLAIM_JSON:{"title":"Informe de monitoreo de programas prioritarios 2022","publisher":"CONEVAL","publication_date":"2022","url":"https://www.coneval.org.mx/InformesPublicaciones/Documents/Informe_Programas_prioritarios_2022.pdf","claim":"CONEVAL found a specific implementation-design regression in the administration’s priority health program U013: its central purpose had shifted from effective, full and equitable health and medicine access to transferring resources to states; it lacked a clear target population and was one of only two priority programs whose deliverables did not clearly connect to durable improvements in beneficiaries’ lives. At the same time, U013’s real budget had increased by MXN61.5232 billion, or 1,336.3%, from 2019 to 2022. This links health-access implementation quality to choices in program design and monitoring rather than inherited conditions alone.","locator":"PDF pp. 16–17, lines 292–330 for budget growth; p. 25, lines 588–602 for the change in purpose; pp. 27–28, lines 628–660 for target-population weakness; p. 32, lines 775–790 for unclear deliverables and results linkage","provisional_id":"WEB-5B-032","canonical_fact_key":"coneval_2022_u013_health_program_design_implementation","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.6","5B.7"],"source_type":"independent_statutory_program_evaluation","source_confidence":"high","source_confidence_reason":"CONEVAL is the statutory independent evaluator and provides precise program, comparison-year, and page-level findings.","final_evidence_use":"final_evidence","period_fit":"The evaluation specifically compares the administration’s program design through 2022.","ruler_attribution":"U013 was designated and funded as an administration priority, allowing administration-level ownership of its design trajectory; the record does not establish AMLO personally drafted its indicators.","contrary_evidence":"The administration greatly increased the program’s real budget, and CONEVAL found improvements among several other priority programs; weak design and measurement do not alone prove poor clinical outcomes.","underlying_fact_key":"coneval_2022_u013_health_program_design_implementation","lenses":["5B.6","5B.7"]}  
+SOURCE_CLAIM_JSON:{"title":"Deuda, Pemex Corporativo, Cuenta Pública 2022, Auditoría 209","publisher":"Auditoría Superior de la Federación","publication_date":"2023-10-31","url":"https://www.asf.gob.mx/Trans/Informes/IR2022b/Documentos/Auditorias/2022_0209_a.pdf","claim":"ASF found no irregularity in 12 of 14 reviewed results and issued two recommendations concerning Pemex debt management. Pemex responded with evidence that its business plan contained the objective of strengthening internal finances and meeting financing needs, a strategy of zero real net indebtedness during the administration, and alignment with its global financing proposal. The audit also recorded adverse liquidity and refinancing conditions following rating downgrades. This is dated evidence that the administration and Pemex formally responded to debt-management warnings, though it does not prove that the response corrected Pemex’s structural financial weakness.","locator":"PDF p. 26, final paragraphs of Result 14 and “Resumen de Resultados, Observaciones y Acciones”; quoted response dated 26 April 2023 concerning the 2022 business plan and debt strategy","provisional_id":"WEB-5B-033","canonical_fact_key":"asf_2022_pemex_debt_warning_and_response","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.6","5B.7"],"source_type":"primary_supreme_audit_report","source_confidence":"high","source_confidence_reason":"Official audit gives both adverse financial context and the entity’s documented response, while clearly reporting the limited number and type of actions.","final_evidence_use":"final_evidence","period_fit":"Audits Pemex’s 2022 debt management; the 2023 response specifically documents the plan and strategy governing 2022.","ruler_attribution":"AMLO’s administration set Pemex’s state-centered strategy and supplied fiscal support, but operational debt controls and the formal audit response belong to Pemex management and Hacienda.","contrary_evidence":"Most reviewed results showed no irregularity, and Pemex documented planning and debt objectives; two recommendations do not establish loss or misconduct.","underlying_fact_key":"asf_2022_pemex_debt_warning_and_response","lenses":["5B.6","5B.7"]}  
+SOURCE_CLAIM_JSON:{"title":"Resolución del Consejo de Representantes que fija los salarios mínimos vigentes a partir del 1 de enero de 2022","publisher":"Diario Oficial de la Federación / Comisión Nacional de los Salarios Mínimos","publication_date":"2021-12-08","url":"https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5637615","claim":"The legally operative resolution confirms that the tripartite CONASAMI Council fixed 2022 minimum wages after considering worker, employer and government positions. The general wage became MXN172.87 per day in most of Mexico and MXN260.34 in the northern border zone; professional minimum wages also rose 22%. This upgrades WEB-5B-005 with a directly accessible primary legal locator.","locator":"Resolution heading and operative provisions PRIMERO through TERCERO; tables of general and professional minimum wages effective January 1, 2022","provisional_id":"WEB-5B-034","canonical_fact_key":"mexico_2022_minimum_wage_tripartite_resolution","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.1","5B.2","5B.3"],"source_type":"primary_legal_resolution","source_confidence":"high","source_confidence_reason":"Official Gazette text is the binding underlying instrument and removes the prior access-limited locator problem.","final_evidence_use":"final_evidence","period_fit":"The resolution took effect throughout calendar 2022.","ruler_attribution":"The increase aligned with AMLO’s wage policy, but the legal decision was made by the tripartite CONASAMI Council and should not be represented as a unilateral presidential act.","contrary_evidence":"The resolution establishes the wage rule, not its causal contribution to national income or poverty outcomes, especially among informal workers.","underlying_fact_key":"mexico_2022_minimum_wage_tripartite_resolution","lenses":["5B.1","5B.2","5B.3"]}  
+SOURCE_CLAIM_JSON:{"title":"Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social","publisher":"Instituto Mexicano del Seguro Social","publication_date":"2023-01-09","url":"https://www.imss.gob.mx/sites/all/statics/i2f_news/PR%20009_0.pdf","claim":"IMSS’s original downloadable bulletin reports 21,372,896 affiliated jobs at the end of December 2022, of which 86.6% were permanent and 13.4% temporary. It also records a December decline of 345,705 jobs. This upgrades WEB-5B-009 with a stable primary PDF and preserves both the year-end level and seasonal monthly contraction.","locator":"PDF p. 1, heading and first three bullets under “Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social”","provisional_id":"WEB-5B-035","canonical_fact_key":"imss_2022_year_end_affiliated_jobs","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":["5B.3","5B.8"],"source_type":"primary_administrative_statistical_release","source_confidence":"high","source_confidence_reason":"Original IMSS PDF provides an exact, stable locator and administrative totals.","final_evidence_use":"final_evidence","period_fit":"Reports the closing administrative count for calendar 2022, published nine days later.","ruler_attribution":"The employment total is a shared national outcome affected by reopening, labor demand, formalization policy and external conditions; it should not be assigned as AMLO’s personal causal achievement.","contrary_evidence":"The bulletin also reports a 345,705-job December decline, and IMSS affiliation does not measure all employment or job quality.","underlying_fact_key":"imss_2022_year_end_affiliated_jobs","lenses":["5B.3","5B.8"]}
+
+--- RESEARCH LEDGER MANIFEST ---
+
+{
+  "entries": [
+    {
+      "canonical_fact_key": "mexico_2022_neutral_fiscal_stance_debt_resilience",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Mexico maintained a broadly neutral fiscal stance in 2022, targeting a 3.8% of GDP deficit; IMF directors judged the macro policy mix prudent, while estimating gross public debt near 56% of GDP and adequate reserves.",
+      "contrary_evidence": "Fiscal rules and institutions predated AMLO; low revenue, Pemex exposure and depleted buffers weakened longer-term resilience.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Opening paragraphs, Executive Board Assessment, and Selected Economic Indicators table",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Direct 2022 contemporaneous assessment.",
+      "provisional_id": "WEB-5B-001",
+      "publication_date": "2022-11-04",
+      "publisher": "International Monetary Fund",
+      "ruler_attribution": "Authority-based and shared: the executive proposed and administered fiscal policy, Congress approved appropriations; external conditions also affected balances.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Independent multilateral surveillance based on official data, staff analysis and board review; some 2022 values were forecasts at publication.",
+      "source_type": "intergovernmental_surveillance",
+      "title": "IMF Executive Board Concludes 2022 Article IV Consultation with Mexico",
+      "underlying_fact_key": "mexico_2022_neutral_fiscal_stance_debt_resilience",
+      "url": "https://www.imf.org/en/news/articles/2022/11/04/pr22373-imf-executive-board-concludes-2022-article-iv-consultation-with-mexico"
+    },
+    {
+      "canonical_fact_key": "banxico_2022_independent_tightening_inflation",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Banxico responded to broad and persistent inflation by raising its target rate through 2022, reaching 10.50% in December; headline inflation ended 2022 at 7.82%.",
+      "contrary_evidence": "Inflation remained far above the 3% target and tightening reduced demand; much of the inflation shock was international.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.2",
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Monetary-policy and inflation sections; tables and charts for 2022",
+      "methodology_ids": [
+        "5B.2",
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Direct 2022 outcome, published immediately afterward.",
+      "provisional_id": "WEB-5B-002",
+      "publication_date": "2023-03-01",
+      "publisher": "Banco de M\u00e9xico",
+      "ruler_attribution": "Shared/limited: AMLO nominated the governor but could not lawfully set rates; the Banxico board made the decisions.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Primary central-bank policy and price record.",
+      "source_type": "central_bank_primary",
+      "title": "Quarterly Report October\u2013December 2022",
+      "underlying_fact_key": "banxico_2022_independent_tightening_inflation",
+      "url": "https://www.banxico.org.mx/publications-and-press/quarterly-reports/%7B8B635982-D4A7-0660-74C7-287C4E2BB6F8%7D.pdf"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_untargeted_fuel_subsidy_oil_windfall",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Mexico's fuel-price support was largely untargeted, cost an estimated 1.4% of GDP or about MXN395.4 billion, benefited higher-income households as well, and was approximately offset by the 2022 oil-revenue windfall.",
+      "contrary_evidence": "The policy did cushion transport and fuel costs broadly and did not materially raise debt in 2022 because higher oil revenue covered it.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.3",
+        "5B.7",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Staff report fiscal-policy section and fuel-subsidy selected-issues box",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.7",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Direct 2022 policy and estimated fiscal outcome.",
+      "provisional_id": "WEB-5B-003",
+      "publication_date": "2022-11-04",
+      "publisher": "International Monetary Fund",
+      "ruler_attribution": "Direct/authority-based: the administration implemented the tax stimulus pursuant to AMLO's pledge to prevent real fuel-price increases.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Detailed staff estimate using Mexican fiscal and oil data; distributional incidence is modeled rather than directly observed for every household.",
+      "source_type": "intergovernmental_surveillance",
+      "title": "Mexico: 2022 Article IV Consultation\u2014Press Release and Staff Report",
+      "underlying_fact_key": "mexico_2022_untargeted_fuel_subsidy_oil_windfall",
+      "url": "https://www.imf.org/en/publications/cr/issues/2022/11/04/mexico-2022-article-iv-consultation-press-release-and-staff-report-525448"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_depleted_feip_buffer",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The FEIP stabilization fund held only MXN25 billion, 0.09% of GDP, at end-June 2022 against an official adequacy target near MXN100 billion; the oil windfall was being consumed by fuel-price support instead of substantially rebuilding the buffer.",
+      "contrary_evidence": "The government retained other defenses, including reserves, exchange-rate flexibility and the IMF Flexible Credit Line.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "PDF pp. 82\u201384, paragraphs 3\u20135 of fiscal-buffer annex",
+      "methodology_ids": [
+        "5B.3",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Direct mid-2022 stock and end-year policy assessment.",
+      "provisional_id": "WEB-5B-004",
+      "publication_date": "2022-11-04",
+      "publisher": "International Monetary Fund",
+      "ruler_attribution": "Shared: buffer depletion began during the pandemic, while the 2022 administration chose to direct most windfall revenue to current fuel support.",
+      "source_confidence": "high",
+      "source_confidence_reason": "IMF calculation from SHCP and oil-fund accounts, hosted by Banxico.",
+      "source_type": "intergovernmental_report_hosted_by_central_bank",
+      "title": "Mexico: 2022 Article IV Consultation\u2014Press Release and Staff Report",
+      "underlying_fact_key": "mexico_2022_depleted_feip_buffer",
+      "url": "https://www.banxico.org.mx/publications-and-press/imf-article-iv-consultation-for-mexico/%7B44F43B6B-61BD-D795-4561-1601FDD3FDB0%7D.pdf"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_minimum_wage_increase_22_percent",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Mexico raised the general and professional minimum wages by 22% for 2022 through the tripartite wage-setting process.",
+      "contrary_evidence": "Nominal increase exceeded inflation, but causal employment and informality effects require microeconomic evaluation; not every poor household has a formal minimum-wage worker.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.4",
+        "5B.7",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Article headline and announced 2022 percentage; direct page returned 403 after indexed extraction",
+      "methodology_ids": [
+        "5B.1",
+        "5B.4",
+        "5B.7",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Policy took effect in 2022.",
+      "provisional_id": "WEB-5B-005",
+      "publication_date": "2021-12-01",
+      "publisher": "Comisi\u00f3n Nacional de los Salarios M\u00ednimos, Government of Mexico",
+      "ruler_attribution": "Shared but substantial: AMLO strongly promoted the wage-restoration strategy; CONASAMI includes government, labor and employer representation.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Primary formal announcement, corroborated by OECD and World Bank accounts; direct fetch was blocked and the decision was tripartite.",
+      "source_type": "government_primary",
+      "title": "Incremento a los Salarios M\u00ednimos para 2022",
+      "underlying_fact_key": "mexico_2022_minimum_wage_increase_22_percent",
+      "url": "https://www.gob.mx/conasami/articulos/incremento-a-los-salarios-minimos-para-2022?idiom=es"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_labor_income_poverty_recovery",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "From 2021Q4 to 2022Q4 labor poverty fell from 40.3% to 38.5%, real labor income per capita rose 4.3%, and employment increased by 1.7 million; labor poverty nevertheless remained above its 2020Q1 pre-pandemic level.",
+      "contrary_evidence": "The poorest quintile and national labor-poverty rate had not fully recovered to pre-pandemic levels.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.4",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Lines 164\u2013183 and 206\u2013219; national labor-poverty and real-income sections",
+      "methodology_ids": [
+        "5B.1",
+        "5B.4",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Exact 2022 annual comparison.",
+      "provisional_id": "WEB-5B-006",
+      "publication_date": "2023-02-23",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "Shared/limited: wage policy, transfers and federal labor rules contributed, alongside reopening, private employment, remittances and U.S. demand.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official but institutionally independent poverty evaluator using INEGI ENOE microdata; historical series was recalculated for updated population weights.",
+      "source_type": "autonomous_evaluation_agency",
+      "title": "El CONEVAL presenta informaci\u00f3n referente a la pobreza laboral al cuarto trimestre de 2022",
+      "underlying_fact_key": "mexico_2022_labor_income_poverty_recovery",
+      "url": "https://www.coneval.org.mx/Medicion/Paginas/Pobreza_laboral_4toTrim2022.aspx"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_labor_distribution_gaps",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "In 2022Q4 rural labor poverty was 52.3% versus 34.0% urban; Chiapas, Guerrero and Oaxaca registered 68.8%, 64.8% and 61.6%; employed women averaged MXN5,522 per month versus MXN7,068 for men, and the lowest quintile's real labor income remained 3.1% below 2020Q1.",
+      "contrary_evidence": "Rural and urban labor poverty both declined year on year, and 25 of 32 states had higher real labor income.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.6",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Regional, sex, formality and pre-pandemic comparison sections, especially lines 174\u2013180 and 206\u2013217",
+      "methodology_ids": [
+        "5B.1",
+        "5B.6",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Exact 2022Q4.",
+      "provisional_id": "WEB-5B-007",
+      "publication_date": "2023-02-23",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "Limited/shared: federal policies affect wages and transfers, but structural inequality, state conditions and labor-market composition are major causes.",
+      "source_confidence": "high",
+      "source_confidence_reason": "INEGI household survey\u2013based estimates with disclosed methodology and population-weight revision.",
+      "source_type": "autonomous_evaluation_agency",
+      "title": "El CONEVAL presenta informaci\u00f3n referente a la pobreza laboral al cuarto trimestre de 2022",
+      "underlying_fact_key": "mexico_2022_labor_distribution_gaps",
+      "url": "https://www.coneval.org.mx/Medicion/Paginas/Pobreza_laboral_4toTrim2022.aspx"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_poverty_decline_health_access_deterioration",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Using CONEVAL's ENIGH-based measure, multidimensional poverty was 36.3% in 2022, down from 41.9% in 2018, while deprivation in access to health services rose from 16.2% to 39.1% and educational deprivation edged from 19.0% to 19.4%.",
+      "contrary_evidence": "Falling poverty partly reflects labor income and transfers, while reported health affiliation/access may not equal effective treatment availability.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Summary and poverty/social-deprivation comparison using CONEVAL 2022 release",
+      "methodology_ids": [
+        "5B.1",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "2022 outcome compared with inherited 2018 baseline.",
+      "provisional_id": "WEB-5B-008",
+      "publication_date": "2023-08-14",
+      "publisher": "BBVA Research",
+      "ruler_attribution": "Shared: national programs and health-system reorganization fall substantially under the executive, but pandemic disruption, state provision and measurement changes also matter.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Independent synthesis of CONEVAL/INEGI official microdata; causal attribution is not independently estimated.",
+      "source_type": "independent_economic_research",
+      "title": "Mexico: Poverty decreases to its lowest level (36.3%); but access to health deteriorates",
+      "underlying_fact_key": "mexico_2022_poverty_decline_health_access_deterioration",
+      "url": "https://www.bbvaresearch.com/en/publicaciones/mexico-poverty-decreases-at-its-lowest-level-363-but-access-to-health-deteriorates/"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_imss_formal_jobs",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "IMSS recorded 21,372,896 affiliated jobs at the end of 2022, 86.6% permanent and 13.4% temporary.",
+      "contrary_evidence": "Mexico retained very high informality; an administrative stock is not a causal evaluation of AMLO policy.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.4",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Opening administrative employment totals",
+      "methodology_ids": [
+        "5B.1",
+        "5B.4",
+        "5B.8",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Exact year-end 2022.",
+      "provisional_id": "WEB-5B-009",
+      "publication_date": "2023-01-09",
+      "publisher": "Instituto Mexicano del Seguro Social",
+      "ruler_attribution": "Shared/limited: federal labor and macro policy contributed, but hiring decisions were predominantly private and reopening-related.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Primary administrative register, but excludes informal employment and the page returned a fetch error after indexed extraction.",
+      "source_type": "government_administrative_data",
+      "title": "Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social",
+      "underlying_fact_key": "mexico_2022_imss_formal_jobs",
+      "url": "https://www.imss.gob.mx/prensa/archivo/202301/009"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_usmca_energy_favoritism_consultations",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The United States initiated USMCA consultations over Mexican measures favoring CFE and Pemex, including electricity dispatch priority, delayed or denied private permits, a Pemex-only diesel-standard extension, and a June 2022 gas-network rule favoring gas sourced from the state firms.",
+      "contrary_evidence": "Mexico argued energy sovereignty and security; consultations do not themselves prove treaty breach, and FDI did not collapse.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.10"
+      ],
+      "locator": "Lines 57\u201376, especially paragraphs describing challenged measures",
+      "methodology_ids": [
+        "5B.1",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.10"
+      ],
+      "period_fit": "Consultations and gas-network measure occurred in 2022; some challenged measures originated earlier but remained operative.",
+      "provisional_id": "WEB-5B-010",
+      "publication_date": "2022-07-20",
+      "publisher": "Office of the United States Trade Representative",
+      "ruler_attribution": "Direct/authority-based: the federal administration openly pursued stronger CFE/Pemex control and the 2022 direction came from the Energy Secretariat.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Primary record of consultations and specific challenged measures, but USTR was an interested disputing party and no tribunal merits ruling is established here.",
+      "source_type": "foreign_government_legal_record",
+      "title": "United States Requests Consultations Under the USMCA Over Mexico's Energy Policies",
+      "underlying_fact_key": "mexico_2022_usmca_energy_favoritism_consultations",
+      "url": "https://ustr.gov/about-us/policy-offices/press-office/press-releases/2022/july/united-states-requests-consultations-under-usmca-over-mexicos-energy-policies-0"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_federal_procurement_competition_transparency_risk",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "In federal procurement during 2022, 38% of expenditure was directly awarded, 16% of direct awards lacked a publicly available contract, 45% of purchases were posted after the contract start date, and measured corruption risk rose in 184 of 260 federal institutions.",
+      "contrary_evidence": "Direct awards can be lawful or urgent; risk flags are not findings of bribery, and incomplete Compranet data may affect estimates.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.10"
+      ],
+      "locator": "Lines 78\u2013103, 2022 procurement-risk findings",
+      "methodology_ids": [
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.10"
+      ],
+      "period_fit": "Exact 2022 procurement data, published retrospectively.",
+      "provisional_id": "WEB-5B-011",
+      "publication_date": "2023-07-18",
+      "publisher": "Instituto Mexicano para la Competitividad",
+      "ruler_attribution": "Institutional/authority-based: federal agencies and oversight bodies were under the administration, but individual contracts and culpability vary.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Reproducible analysis of more than 800,000 Compranet contracts; indicators identify risk and noncompliance, not proven corruption or financial loss.",
+      "source_type": "independent_policy_research",
+      "title": "\u00cdndice de Riesgos de Corrupci\u00f3n 2023: compras p\u00fablicas de 2022",
+      "underlying_fact_key": "mexico_2022_federal_procurement_competition_transparency_risk",
+      "url": "https://imco.org.mx/indice-de-riesgos-de-corrupcion-2023/"
+    },
+    {
+      "canonical_fact_key": "oecd_mexico_2022_productivity_investment_tradeoffs",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Mexico had increased social protection and public investment and maintained fiscal prudence, but investment had weakened amid policy uncertainty; health, education and infrastructure gaps remained large, and the OECD recommended transparent cost-benefit appraisal, regulatory certainty and more targeted social and productive spending.",
+      "contrary_evidence": "The survey recognized higher public investment, social protection, improved tax administration and fiscal sustainability.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.3",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.10"
+      ],
+      "locator": "Executive summary and Key Policy Insights sections on fiscal policy, investment, energy and social services",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.4",
+        "5B.5",
+        "5B.6",
+        "5B.7",
+        "5B.8",
+        "5B.10"
+      ],
+      "period_fit": "Contemporaneous early-2022 assessment; includes inherited and ongoing-period evidence.",
+      "provisional_id": "WEB-5B-012",
+      "publication_date": "2022-02-21",
+      "publisher": "OECD",
+      "ruler_attribution": "Shared: federal allocation and regulation are executive responsibilities; structural gaps and fiscal rules substantially predate AMLO.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Broad independent country review drawing on national and comparative datasets; published early in 2022, so some evidence primarily describes inherited conditions and ongoing policies.",
+      "source_type": "intergovernmental_country_survey",
+      "title": "OECD Economic Surveys: Mexico 2022",
+      "underlying_fact_key": "oecd_mexico_2022_productivity_investment_tradeoffs",
+      "url": "https://www.oecd.org/en/publications/2022/02/oecd-economic-surveys-mexico-2022_a2937d37.html"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_fdi_total_concentration",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Registered FDI totaled US$35.292 billion in 2022, reported as 12% above 2021, and was geographically concentrated, with Mexico City and northern/industrial states receiving much of the total.",
+      "contrary_evidence": "Strong aggregate FDI does not resolve energy-sector deterrence, project quality, additionality or regional exclusion.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.4",
+        "5B.6",
+        "5B.8",
+        "5B.10"
+      ],
+      "locator": "Opening total and state distribution",
+      "methodology_ids": [
+        "5B.1",
+        "5B.4",
+        "5B.6",
+        "5B.8",
+        "5B.10"
+      ],
+      "period_fit": "Exact 2022.",
+      "provisional_id": "WEB-5B-013",
+      "publication_date": "2023-02-08",
+      "publisher": "Secretar\u00eda de Econom\u00eda, Government of Mexico",
+      "ruler_attribution": "Limited/shared: federal trade and investment policy mattered, but USMCA, U.S.\u2013China tensions, nearshoring and firm decisions were major external drivers.",
+      "source_confidence": "medium",
+      "source_confidence_reason": "Primary registration total, but direct page fetch failed and headline growth may include extraordinary transactions or reinvested earnings rather than new greenfield projects.",
+      "source_type": "government_administrative_data",
+      "title": "Durante 2022 la Inversi\u00f3n Extranjera Directa fue de 35 mil 292 mdd",
+      "underlying_fact_key": "mexico_2022_fdi_total_concentration",
+      "url": "https://www.gob.mx/se/prensa/durante-2022-la-inversion-extranjera-directa-ied-fue-de-35-mil-292-mdd-lo-cual-incremento-12-por-ciento-en-comparacion-con-el-ano-2021"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_economic_appointments_rodriguez_ramirez",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "AMLO nominated Victoria Rodr\u00edguez Ceja, confirmed by the Senate as Banxico governor from 1 January 2022; she had more than 20 years of public-finance, budget and debt experience, but her official biography records no prior central-bank or monetary-policy post.",
+      "contrary_evidence": "Critics questioned her lack of monetary experience, but Banxico preserved restrictive policy and external credibility in 2022.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.2",
+        "5B.3",
+        "5B.7",
+        "5B.9"
+      ],
+      "locator": "PDF pp. 1\u20132, appointment and career biography",
+      "methodology_ids": [
+        "5B.2",
+        "5B.3",
+        "5B.7",
+        "5B.9"
+      ],
+      "period_fit": "Appointment began exactly in 2022.",
+      "provisional_id": "WEB-5B-014",
+      "publication_date": "2022-01",
+      "publisher": "Banco de M\u00e9xico",
+      "ruler_attribution": "Direct for nomination, Senate-shared for confirmation, limited for subsequent board decisions.",
+      "source_confidence": "high_for_resume_medium_for_competence_inference",
+      "source_confidence_reason": "Authoritative appointment and career history; biography cannot independently establish competence, loyalty or actual delegation.",
+      "source_type": "central_bank_primary_biography",
+      "title": "Victoria Rodr\u00edguez Ceja",
+      "underlying_fact_key": "mexico_2022_economic_appointments_rodriguez_ramirez",
+      "url": "https://www.banxico.org.mx/getting-to-know-banco-de-mexico/d/%7B21563EA0-413B-5B69-AA4D-C529AA6251E9%7D.pdf"
+    },
+    {
+      "canonical_fact_key": "world_bank_mexico_2022_poverty_labor_policy_link",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The World Bank reports that Mexico's multidimensional poverty rate fell to 36.3% in 2022 and identifies labor-market outcomes, including minimum-wage increases, as a principal driver.",
+      "contrary_evidence": "Multidimensional poverty improvement coexisted with health-access deterioration and nearly unchanged extreme poverty versus 2018.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.7",
+        "5B.8",
+        "5B.10"
+      ],
+      "locator": "Country results section discussing 2016\u20132022 poverty",
+      "methodology_ids": [
+        "5B.1",
+        "5B.7",
+        "5B.8",
+        "5B.10"
+      ],
+      "period_fit": "Later retrospective statement specifically about the 2022 result.",
+      "provisional_id": "WEB-5B-015",
+      "publication_date": "unknown; page updated after 2022",
+      "publisher": "World Bank",
+      "ruler_attribution": "Shared/substantial for minimum-wage strategy, limited for total poverty change because reopening, employment, transfers and external income also mattered.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Independent retrospective synthesis of official poverty data; wording supports contribution, not exclusive causation.",
+      "source_type": "international_development_institution",
+      "title": "Mexico country overview",
+      "underlying_fact_key": "world_bank_mexico_2022_poverty_labor_policy_link",
+      "url": "https://www.worldbank.org/ext/en/country/mexico"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_low_tax_capacity",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Mexico collected less tax revenue relative to GDP than every OECD member and most regional peers, despite recent administrative collection gains; the OECD judged broader revenue reform necessary to finance health, education, social protection and infrastructure sustainably.",
+      "contrary_evidence": "Avoiding tax increases supported recovery and compliance efforts raised non-oil revenue.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.3",
+        "5B.6",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Fiscal policy and tax-reform sections",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.6",
+        "5B.7",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Inherited and contemporaneous 2022 policy landscape.",
+      "provisional_id": "WEB-5B-016",
+      "publication_date": "2022-02-21",
+      "publisher": "OECD",
+      "ruler_attribution": "Shared: weak tax capacity long predates AMLO; his government improved enforcement but declined comprehensive reform in 2022.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Comparable OECD revenue statistics and policy review.",
+      "source_type": "intergovernmental_country_survey",
+      "title": "OECD Economic Surveys: Mexico 2022\u2014Key Policy Insights",
+      "underlying_fact_key": "mexico_2022_low_tax_capacity",
+      "url": "https://www.oecd.org/en/publications/oecd-economic-surveys-mexico-2022_2e1de26c-en/full-report/component-4.html"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_cpi_31",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Mexico scored 31 out of 100 in the 2022 Corruption Perceptions Index, unchanged for a third year and ranking 126th of 180 countries.",
+      "contrary_evidence": "A flat perception score cannot show that corruption worsened, identify personal enrichment or capture specific federal reforms.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "5B.5",
+        "5B.7",
+        "5B.10"
+      ],
+      "locator": "Mexico country result in CPI 2022 index",
+      "methodology_ids": [
+        "5B.5",
+        "5B.7",
+        "5B.10"
+      ],
+      "period_fit": "Exact 2022 index, with inputs that may lag.",
+      "provisional_id": "WEB-5B-017",
+      "publication_date": "2023-01-31",
+      "publisher": "Transparency International",
+      "ruler_attribution": "Limited/unknown: AMLO controlled much of the federal executive but the index covers broader public-sector perceptions and inherited institutions.",
+      "source_confidence": "medium",
+      "source_confidence_reason": "Established multi-source perception composite, but not a prevalence measure, event count or ruler-specific causal estimate.",
+      "source_type": "composite_independent_indicator",
+      "title": "Corruption Perceptions Index 2022: Mexico",
+      "underlying_fact_key": "mexico_2022_cpi_31",
+      "url": "https://www.transparency.org/en/cpi/2022/index/mex"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_gdp_recovery_slowing",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Based on INEGI's preliminary release, real GDP grew 3.6% in 2022, while quarterly growth slowed to 0.4% in the fourth quarter amid high inflation and interest rates.",
+      "contrary_evidence": "Catch-up growth followed the deep pandemic loss and does not demonstrate improved potential growth or full per-capita recovery.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.3",
+        "5B.9",
+        "5B.10"
+      ],
+      "locator": "Opening three paragraphs",
+      "methodology_ids": [
+        "5B.1",
+        "5B.3",
+        "5B.9",
+        "5B.10"
+      ],
+      "period_fit": "Exact 2022 preliminary annual outcome.",
+      "provisional_id": "WEB-5B-018",
+      "publication_date": "2023-01-31",
+      "publisher": "Associated Press",
+      "ruler_attribution": "Limited/shared: reopening, U.S. demand, exports and private consumption were important; federal fiscal and labor policies contributed.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Straight reporting of INEGI's then-current estimate; national accounts were subsequently revised, and GDP does not establish ruler causation.",
+      "source_type": "reputable_news_synthesis_of_official_data",
+      "title": "Mexico's growth slows to 0.4% in 4Q, 3.6% in 2022",
+      "underlying_fact_key": "mexico_2022_gdp_recovery_slowing",
+      "url": "https://apnews.com/article/ad4a49582253b7d7174289b65bf8f2f9"
+    },
+    {
+      "canonical_fact_key": "amlo_2022_finance_minister_qualifications_and_assigned_portfolio",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Ram\u00edrez de la O entered office with a Cambridge economics doctorate, a UNAM economics degree, research on economic policy, debt, trade and monetary policy, and extensive private-sector advisory and independent-director experience. The presidency assigned Hacienda greater involvement in energy-sector accounts, development banking, the 2022 economic package and a multiyear financial plan. This establishes strong qualifications and a substantive delegated portfolio, but does not independently establish freedom to overrule AMLO or professional autonomy in contested decisions.",
+      "contrary_evidence": "The statement emphasizes continuity with AMLO's transformation, austerity and fiscal commitments, which cautions against inferring independent authority merely from technical qualifications.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "5B.2"
+      ],
+      "locator": "Paragraphs 53-71, especially 58-68",
+      "methodology_ids": [
+        "5B.2"
+      ],
+      "period_fit": "Appointment predates 2022 but defines the minister and portfolio in force during 2022.",
+      "provisional_id": "WEB-5B-019",
+      "publication_date": "2021-07-16",
+      "publisher": "Secretar\u00eda de Hacienda y Cr\u00e9dito P\u00fablico, Government of Mexico",
+      "ruler_attribution": "AMLO appointed Ram\u00edrez de la O and the official statement expressly links the expanded Hacienda portfolio to the president's policy commitments; actual discretionary autonomy remains unproven.",
+      "source_confidence": "medium_high",
+      "source_confidence_reason": "Primary official statement precisely identifies credentials and assigned responsibilities, but it is self-descriptive and supplies no evidence of independence from the president in actual 2022 disputes.",
+      "source_type": "official_government_appointment_statement",
+      "title": "Comunicado No. 044: Rogelio Ram\u00edrez de la O asume cargo como secretario de Hacienda y Cr\u00e9dito P\u00fablico",
+      "underlying_fact_key": "amlo_2022_finance_minister_qualifications_and_assigned_portfolio",
+      "url": "https://www.gob.mx/shcp/prensa/comunicado-no-044-rogelio-ramirez-de-la-o-asume-cargo-como-secretario-de-hacienda-y-credito-publico?idiom=es-MX"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_poverty_decline_world_bank_labor_market_attribution",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The World Bank states that Mexico's official multidimensional-poverty rate fell from 43.2% in 2016 to 36.3% in 2022, lifting 5.4 million people out of poverty, and attributes the change mainly to labor-market outcomes, including minimum-wage increases. This upgrades WEB-5B-015 with a precise underlying locator, but the wording does not isolate the minimum wage from reopening, labor demand, transfers or remittances.",
+      "contrary_evidence": "The source does not separate policy effects from post-pandemic reopening, employment growth, remittances, transfers or other labor-market changes.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "5B.8"
+      ],
+      "locator": "Mexico Overview, Context section, lines 29-34, especially paragraph beginning 'Yet, the official multidimensional poverty rate'",
+      "methodology_ids": [
+        "5B.8"
+      ],
+      "period_fit": "Later source specifically reporting the 2016-2022 poverty change and a 2022 endpoint.",
+      "provisional_id": "WEB-5B-020",
+      "publication_date": "2025-10-07",
+      "publisher": "World Bank",
+      "ruler_attribution": "Minimum-wage policy was an administration choice, but the national poverty outcome is shared and contextual; this source does not estimate AMLO's marginal causal contribution.",
+      "source_confidence": "medium",
+      "source_confidence_reason": "Authoritative and precisely opened, but published retrospectively and provides a broad attribution rather than a documented causal decomposition.",
+      "source_type": "international_organization_country_overview",
+      "title": "The World Bank in Mexico: Mexico Overview",
+      "underlying_fact_key": "mexico_2022_poverty_decline_world_bank_labor_market_attribution",
+      "url": "https://www.worldbank.org/en/country/mexico/overview"
+    },
+    {
+      "canonical_fact_key": "enigh_2022_social_program_incidence_by_income_decile",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "ENIGH estimates show that 13.6 million households received income from at least one social program in 2022, 3.2 million more than in 2018. Nevertheless, program income fell from 34.4% to 27.3% of total current per-capita income for recipient households in the first decile, rose from 4.9% to 5.4% in the tenth, and gained relative weight in middle and upper-middle deciles. Average program-income growth from 2018 to 2022 was only 3.5% in the first decile but 97.0% in the eighth.",
+      "contrary_evidence": "Coverage expanded in aggregate and program income remained proportionally much more important to the first decile than the tenth, even though targeting shifted away from the poorest relative to 2018.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.8"
+      ],
+      "locator": "PDF pp. 147-149, Graphs 20-22 and accompanying text; extracted lines 5871-5945",
+      "methodology_ids": [
+        "5B.8"
+      ],
+      "period_fit": "Retrospective publication analyzing specifically measured 2022 household income and program receipt.",
+      "provisional_id": "WEB-5B-021",
+      "publication_date": "2025-01",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "The administration owned the federal transfer architecture, but incidence reflects program rules, household composition and survey reporting; national income changes should not be assigned solely to AMLO.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official CONEVAL analysis based directly on ENIGH microdata with explicit decile definitions, program keys, tables and stable page locators.",
+      "source_type": "official_household_survey_incidence_analysis",
+      "title": "Informe de la pobreza multidimensional en M\u00e9xico, 2022",
+      "underlying_fact_key": "enigh_2022_social_program_incidence_by_income_decile",
+      "url": "https://www.coneval.org.mx/InformesPublicaciones/Documents/Pobreza_Multidimensional_2022.pdf"
+    },
+    {
+      "canonical_fact_key": "enigh_2022_social_transfer_accounting_counterfactual_poverty_inequality",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "CONEVAL's accounting counterfactual estimates that, without reported social-program transfers, Mexico's 2022 multidimensional-poverty rate would have been 39.0% rather than 36.3% and extreme poverty 8.9% rather than 7.1%; the corresponding population differences were 3.5 million and 2.4 million. Including program income reduced the 2022 Gini from 0.449 to 0.431. These are static income-removal estimates, not causal estimates accounting for eligibility, behavior or general-equilibrium effects.",
+      "contrary_evidence": "The favorable aggregate poverty effect coexisted with weaker relative incidence in the poorest decile and substantial noncoverage among people in extreme poverty.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.8"
+      ],
+      "locator": "PDF pp. 154-156, Graphs 28-29 and inequality discussion; extracted lines 6160-6232",
+      "methodology_ids": [
+        "5B.8"
+      ],
+      "period_fit": "Later analysis specifically estimates the incidence of transfers recorded in calendar-year 2022 ENIGH data.",
+      "provisional_id": "WEB-5B-022",
+      "publication_date": "2025-01",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "Federal programs were a central administration policy and their recorded transfers contributed mechanically to household income; the counterfactual does not identify AMLO's causal effect or separate program design from implementation and take-up.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official ENIGH-based calculations with precise numerical locators and a transparent remove-transfer comparison; confidence concerns interpretation as causal, not the reported arithmetic.",
+      "source_type": "official_household_survey_counterfactual_analysis",
+      "title": "Informe de la pobreza multidimensional en M\u00e9xico, 2022",
+      "underlying_fact_key": "enigh_2022_social_transfer_accounting_counterfactual_poverty_inequality",
+      "url": "https://www.coneval.org.mx/InformesPublicaciones/Documents/Pobreza_Multidimensional_2022.pdf"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_extreme_poverty_income_informality_transfer_coverage",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "For people in extreme poverty in 2022, subordinate-work remuneration supplied 47.6% of per-capita current income, but practically all employed people in this group worked informally, so the statutory minimum-wage increase did not directly determine their income. Transfers supplied 22.2% of income and social programs accounted for 58% of those transfers, yet 4.1 million people in extreme poverty\u201445.1% of that population\u2014reported that their household received no monetary social program.",
+      "contrary_evidence": "Transfers were still a major income component and recipients had lower food and health deprivation than otherwise comparable descriptive groups, so the evidence is not wholly adverse.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.8"
+      ],
+      "locator": "PDF pp. 109-113, especially 'Principales hallazgos' on p. 111; extracted lines 2876-2917",
+      "methodology_ids": [
+        "5B.8"
+      ],
+      "period_fit": "Later publication specifically establishing conditions measured in 2022.",
+      "provisional_id": "WEB-5B-023",
+      "publication_date": "2024-08",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "Minimum-wage increases and federal transfers were administration policies, but this evidence sharply limits attribution because extreme-poverty workers were overwhelmingly informal and nearly half of the group reported no monetary-program receipt.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official CONEVAL analysis of ENIGH 2022 with explicit income shares, informality limitation and uncovered population counts.",
+      "source_type": "official_household_survey_group_incidence_analysis",
+      "title": "An\u00e1lisis de la poblaci\u00f3n en situaci\u00f3n de pobreza extrema",
+      "underlying_fact_key": "mexico_2022_extreme_poverty_income_informality_transfer_coverage",
+      "url": "https://www.coneval.org.mx/Medicion/MP/Documents/contribucion_estrategias_pobreza/Pobreza_extrema_Mexico.pdf"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_monetary_transfer_coverage_gender_poverty_status",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "CONEVAL found that, outside the elderly population, reported monetary-transfer coverage in 2022 was lower than in earlier periods, with women in poverty experiencing a 12.8-percentage-point decline from 2018. Among older adults, coverage exceeded 75%, but the 2018-2022 expansion was larger for men without poverty (+44.8 points) and women without poverty (+33.5) than for men in poverty (+21.3) and women in poverty (+10.6).",
+      "contrary_evidence": "Universal old-age benefits substantially expanded coverage for women and men, including those in poverty, even though gains were larger among nonpoor groups.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.8"
+      ],
+      "locator": "Results summary, paragraphs/bullets at lines 227-233; linked press release dated 6 March 2024",
+      "methodology_ids": [
+        "5B.8"
+      ],
+      "period_fit": "Later release specifically reporting the 2016-2022 series and 2022 coverage.",
+      "provisional_id": "WEB-5B-024",
+      "publication_date": "2024-03-06",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "The administration controlled federal transfer-program design, but differential receipt also reflects age structure, eligibility and reporting; evidence supports implementation-level incidence, not personal intent.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official CONEVAL indicator system with opened page, explicit gender-poverty disaggregation and a dated supporting release.",
+      "source_type": "official_gender_disaggregated_poverty_indicator_system",
+      "title": "Sistema de Indicadores sobre pobreza y g\u00e9nero, 2016-2022",
+      "underlying_fact_key": "mexico_2022_monetary_transfer_coverage_gender_poverty_status",
+      "url": "https://www.coneval.org.mx/Medicion/Paginas/Pobreza-y-genero-en-Mexico-2016-2022.aspx"
+    },
+    {
+      "canonical_fact_key": "oecd_2022_mexico_social_policy_targeting_warning_and_recorded_actions",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The OECD contemporaneously recorded that the shift toward nearly universal pensions and scholarships expanded program receipt overall, but the share of households receiving monetary transfers had fallen in the three lowest deciles while rising in the others. It recommended stronger means testing and greater coverage by programs reaching low-income households. Its implementation table also recorded no action on extending preschool hours, while noting 2022 VAT relief for menstrual products, scholarship programs and formalization measures. This supplies dated evidence of selective policy uptake, but not a documented presidential response to the targeting warning itself.",
+      "contrary_evidence": "The broader model increased total coverage, lowered administrative constraints and expanded support for older people and disabled people; the adverse finding concerns distribution toward the poorest deciles, not absence of benefits.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.7",
+        "5B.8"
+      ],
+      "locator": "PDF pp. 54-57, especially paragraphs preceding Figure 1.36, Box 1.10, and Table 1.11; extracted lines 3168-3289",
+      "methodology_ids": [
+        "5B.7",
+        "5B.8"
+      ],
+      "period_fit": "Published in 2022 and directly assesses policies and actions in force entering that year.",
+      "provisional_id": "WEB-5B-025",
+      "publication_date": "2022-02",
+      "publisher": "OECD",
+      "ruler_attribution": "The administration owned the redesign toward broad nonconditional programs and the cited reforms, but the source does not show a dated AMLO decision accepting or rejecting the OECD targeting recommendation.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous OECD review with household-data incidence, explicit recommendations, and a structured record of actions taken or not taken; it does not establish AMLO's personal deliberations.",
+      "source_type": "international_organization_policy_review",
+      "title": "OECD Economic Surveys: Mexico 2022",
+      "underlying_fact_key": "oecd_2022_mexico_social_policy_targeting_warning_and_recorded_actions",
+      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/02/oecd-economic-surveys-mexico-2022_a2937d37/2e1de26c-en.pdf"
+    },
+    {
+      "canonical_fact_key": "amlo_2022_banxico_operational_autonomy_under_pressure",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "During 2022 Banxico continued tightening monetary policy notwithstanding presidential pressure for lower rates. Concern over intervention intensified after L\u00f3pez Obrador disclosed the March 24 rate increase before Banxico announced it. The episode supplies contemporaneous evidence that the governor and board retained operational decision-making independence, although the premature disclosure shows an intervention risk and does not establish autonomy for cabinet ministers.",
+      "contrary_evidence": "AMLO\u2019s nominee Victoria Rodr\u00edguez Ceja led the bank, and the premature disclosure raised legitimate concerns; this is evidence of effective operational limits, not absence of presidential pressure.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.2"
+      ],
+      "locator": "Opening paragraphs and sections describing the March 24 premature disclosure, subsequent rate decisions, and board members\u2019 defense of autonomy",
+      "methodology_ids": [
+        "5B.2"
+      ],
+      "period_fit": "Directly concerns decisions and presidential conduct in calendar 2022.",
+      "provisional_id": "WEB-5B-026",
+      "publication_date": "2022-07-06",
+      "publisher": "Reuters, republished by Euronews",
+      "ruler_attribution": "AMLO personally disclosed the pending rate decision and had publicly pressed the bank; the board\u2019s subsequent conduct belongs to the autonomous institution, not to AMLO.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Contemporaneous Reuters analysis identifies the contested episode and observable monetary-policy response; Banxico\u2019s published decisions independently establish the rate actions.",
+      "source_type": "independent_news_analysis",
+      "title": "Analysis: Mexican central bank answers L\u00f3pez Obrador pressure with defiant autonomy",
+      "underlying_fact_key": "amlo_2022_banxico_operational_autonomy_under_pressure",
+      "url": "https://es.euronews.com/next/2022/07/06/mexico-bancocentral"
+    },
+    {
+      "canonical_fact_key": "amlo_2022_banxico_legal_intervention_limits",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Banxico\u2019s institutional framework gives its board management, budgetary, and operational autonomy; staggered fixed terms, removal only for serious cause, and constitutional authority to choose monetary-policy instruments limit presidential intervention. This explains the legal mechanism through which AMLO\u2019s appointees could act independently in 2022, but does not by itself prove how they acted.",
+      "contrary_evidence": "Formal protection cannot alone exclude informal political pressure, information leakage, or influence through appointments.",
+      "disposition": "context",
+      "final_evidence_use": "context",
+      "lenses": [
+        "5B.2"
+      ],
+      "locator": "Sections headed \u201cAutonom\u00eda\u201d and \u201cAutonom\u00eda de gesti\u00f3n,\u201d including the quotation from Constitution article 28 and the paragraphs on staggered appointments, tenure, and removal",
+      "methodology_ids": [
+        "5B.2"
+      ],
+      "period_fit": "The cited institutional rules governed throughout 2022.",
+      "provisional_id": "WEB-5B-027",
+      "publication_date": "2022",
+      "publisher": "Banco de M\u00e9xico",
+      "ruler_attribution": "The constraints legally limited AMLO\u2019s authority over the board after appointment; they are inherited constitutional safeguards rather than reforms attributable to him.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official central-bank explanation tied directly to Constitution article 28 and the Banco de M\u00e9xico Law.",
+      "source_type": "primary_institutional_legal_explanation",
+      "title": "Autonom\u00eda",
+      "underlying_fact_key": "amlo_2022_banxico_legal_intervention_limits",
+      "url": "https://www.banxico.org.mx/contactobanxico/autonomia.html"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_usmca_energy_consultation_measures",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The formal request precisely identifies four challenged groups of measures: 2021 Electricity Industry Law articles 26, 4(VI), 101 and 108(V); permit delays, denials, suspensions and revocations; Pemex\u2019s exclusive extension under CRE resolution RES/1817/2019 to meet diesel sulfur rules; and SENER official letter SENER.100/195/2022 directing preferential gas-supply arrangements. USTR alleged apparent inconsistency with specified USMCA provisions, including articles 2.3, 2.11, 14.4, 22.5.2 and 29.3. These are formal allegations initiating consultations, not an adjudicated treaty breach.",
+      "contrary_evidence": "No panel ruling established breach, and Mexico disputed the characterization and pursued consultations.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.4"
+      ],
+      "locator": "PDF pp. 1\u20135: \u00a7I \u00b6\u00b61\u20132; \u00a7II \u00b6\u00b63\u20139; \u00a7III \u00b6\u00b610\u201311; \u00a7IV \u00b6\u00b612\u201313, especially pp. 1 lines 7\u201325 and p. 4 lines 123\u2013165 in extracted text",
+      "methodology_ids": [
+        "5B.4"
+      ],
+      "period_fit": "Filed July 20, 2022 and includes the June 2022 gas directive and the legal status of other measures in 2022.",
+      "provisional_id": "WEB-5B-028",
+      "publication_date": "2022-07-20",
+      "publisher": "Office of the United States Trade Representative",
+      "ruler_attribution": "The electricity-law amendment originated as AMLO\u2019s preferred initiative and the challenged energy orientation was an executive priority; particular permit actions and regulatory instruments belong to SENER, CRE, CENAGAS, CFE and Pemex unless separately traced to him.",
+      "source_confidence": "high",
+      "source_confidence_reason": "The underlying formal consultation request provides exact measures, instruments, dates, and treaty provisions while clearly using allegation language.",
+      "source_type": "primary_intergovernmental_legal_filing",
+      "title": "Request for Consultations Pursuant to Articles 31.2 and 31.4 of the USMCA",
+      "underlying_fact_key": "mexico_2022_usmca_energy_consultation_measures",
+      "url": "https://ustr.gov/sites/default/files/US%20Cons%20Req%20Mexico%20energy_072022_0.pdf"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_energy_consultation_corrective_response",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "By December 2022 Mexico had established interagency working groups with the United States and Canada, was reviewing the status of permits to advance responses, and coordinated Economy and Energy officials in pursuit of an amicable settlement. This is dated evidence of an administrative response and willingness to examine implementation issues, but it records neither withdrawal of the challenged rules nor final settlement.",
+      "contrary_evidence": "The consultations remained unresolved, and reviewing permits is not proof that delayed or denied permits were granted or that challenged rules were corrected.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.4",
+        "5B.7"
+      ],
+      "locator": "Opening description and final paragraphs, particularly the work-plan item \u201cRevisi\u00f3n de permisos para conocer el estatus y avanzar en su respuesta\u201d and the statement on close SE\u2013SENER coordination",
+      "methodology_ids": [
+        "5B.4",
+        "5B.7"
+      ],
+      "period_fit": "Published and describes actions underway in December 2022.",
+      "provisional_id": "WEB-5B-029",
+      "publication_date": "2022-12-12",
+      "publisher": "Secretar\u00eda de Econom\u00eda, Government of Mexico",
+      "ruler_attribution": "The response was undertaken by AMLO\u2019s Economy and Energy ministries; the source does not say AMLO personally ordered particular corrections.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official, dated Mexican account of concrete response steps; its self-reporting and lack of final outcomes require restrained use.",
+      "source_type": "primary_government_response",
+      "title": "La Secretar\u00eda de Econom\u00eda explica Plan de Trabajo con Estados Unidos y Canad\u00e1 para resolver consultas de T-MEC",
+      "underlying_fact_key": "mexico_2022_energy_consultation_corrective_response",
+      "url": "https://www.gob.mx/se/prensa/la-secretaria-de-economia-explica-plan-de-trabajo-con-estados-unidos-y-canada-para-resolver-consultas-de-t-mec?idiom=es"
+    },
+    {
+      "canonical_fact_key": "asf_2022_tren_maya_project_audit_status_at_issuance",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "ASF\u2019s project-level matrix reports mixed Tren Maya findings. Audit 115 for Tramo 5 Norte recorded one result cured during audit, no outstanding action, and no quantified amount. Audit 116 for Tramo 5 Sur recorded four results with actions and MXN2.1538 million pending clarification. Audits 111\u2013113 for Tramos 1\u20133 recorded respectively MXN57.5688 million, MXN28.8349 million, and MXN65.4666 million pending clarification, with no recoveries recorded at report issuance. Audit 118 on project financing and expenditures recorded MXN10.0193 million pending clarification. These are audit observations or unresolved clarification amounts, not final proven losses.",
+      "contrary_evidence": "The matrix records favorable outcomes as well: Tramo 5 Norte had no outstanding action or quantified amount, and some findings elsewhere were cured during audit. Pending clarification is not a finding of loss or corruption.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.5",
+        "5B.6",
+        "5B.7"
+      ],
+      "locator": "Tourism-sector rows for audits 111, 112, 113, 115, 116 and 118 in the third-delivery basic-data matrix; columns \u201cResultados,\u201d \u201cAcciones,\u201d \u201cRecuperaciones Totales,\u201d and \u201cMontos por Aclarar\u201d",
+      "methodology_ids": [
+        "5B.5",
+        "5B.6",
+        "5B.7"
+      ],
+      "period_fit": "Audits fiscal-year 2022 expenditure; report issued later as required by the audit cycle.",
+      "provisional_id": "WEB-5B-030",
+      "publication_date": "2024-02-20",
+      "publisher": "Auditor\u00eda Superior de la Federaci\u00f3n",
+      "ruler_attribution": "The Tren Maya was AMLO\u2019s flagship executive project, supporting attribution for project selection and tolerance of its implementation structure; individual payments and control failures belong to implementing entities unless evidence traces them personally to him.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official ASF matrix supplies audit-specific status and monetary categories, but not later action-level final resolution.",
+      "source_type": "primary_supreme_audit_matrix",
+      "title": "Matriz de Datos B\u00e1sicos del Informe del Resultado de la Fiscalizaci\u00f3n Superior de la Cuenta P\u00fablica 2022, Tercera Entrega",
+      "underlying_fact_key": "asf_2022_tren_maya_project_audit_status_at_issuance",
+      "url": "https://www.asf.gob.mx/Trans/Informes/IR2022c/Documentos/Matriz/IR2022_Entrega_a.pdf"
+    },
+    {
+      "canonical_fact_key": "asf_2022_e023_health_contract_audit_status",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "Across 2022 E023 health-program audits, 265 of 309 observations were resolved during audit and 44 retained actions. States initially had MXN586.2 million observed, then clarified MXN331.3 million and reimbursed MXN18.8 million during audit, leaving MXN236.1 million pending clarification. For INSABI, ASF reported MXN321.0 million pending clarification, principally involving unauthorized payments to temporary workers and payments to contractors for maintenance services ASF said were not performed. The remaining sums were unresolved audit amounts, not final adjudicated losses or proof of corruption.",
+      "contrary_evidence": "Most observations were resolved during audit, states clarified or reimbursed substantial amounts, and the report does not establish final loss or personal misconduct.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.5",
+        "5B.6",
+        "5B.7"
+      ],
+      "locator": "Section \u201cMontos por aclarar y recuperaciones operadas,\u201d including the observation-status graphic and paragraphs immediately following the MXN557.1 million aggregate; approximately report pp. 25\u201327",
+      "methodology_ids": [
+        "5B.5",
+        "5B.6",
+        "5B.7"
+      ],
+      "period_fit": "Directly audits fiscal-year 2022 health-program implementation; later publication specifically establishes 2022 facts.",
+      "provisional_id": "WEB-5B-031",
+      "publication_date": "2024-02-20",
+      "publisher": "Auditor\u00eda Superior de la Federaci\u00f3n",
+      "ruler_attribution": "INSABI and the free-health program were central administration choices under AMLO, supporting administration-level implementation attribution; the source does not show that AMLO selected contractors or authorized questioned payments.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official ASF synthesis separates resolved observations, reimbursements, and pending clarification while identifying the principal INSABI implementation problems.",
+      "source_type": "primary_supreme_audit_framework_report",
+      "title": "Marco de Referencia: Programa de Atenci\u00f3n a la Salud, Cuenta P\u00fablica 2022",
+      "underlying_fact_key": "asf_2022_e023_health_contract_audit_status",
+      "url": "https://www.asf.gob.mx/Trans/Informes/IR2022c/Documentos/Auditorias/MR-E023_a.pdf"
+    },
+    {
+      "canonical_fact_key": "coneval_2022_u013_health_program_design_implementation",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "CONEVAL found a specific implementation-design regression in the administration\u2019s priority health program U013: its central purpose had shifted from effective, full and equitable health and medicine access to transferring resources to states; it lacked a clear target population and was one of only two priority programs whose deliverables did not clearly connect to durable improvements in beneficiaries\u2019 lives. At the same time, U013\u2019s real budget had increased by MXN61.5232 billion, or 1,336.3%, from 2019 to 2022. This links health-access implementation quality to choices in program design and monitoring rather than inherited conditions alone.",
+      "contrary_evidence": "The administration greatly increased the program\u2019s real budget, and CONEVAL found improvements among several other priority programs; weak design and measurement do not alone prove poor clinical outcomes.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.6",
+        "5B.7"
+      ],
+      "locator": "PDF pp. 16\u201317, lines 292\u2013330 for budget growth; p. 25, lines 588\u2013602 for the change in purpose; pp. 27\u201328, lines 628\u2013660 for target-population weakness; p. 32, lines 775\u2013790 for unclear deliverables and results linkage",
+      "methodology_ids": [
+        "5B.6",
+        "5B.7"
+      ],
+      "period_fit": "The evaluation specifically compares the administration\u2019s program design through 2022.",
+      "provisional_id": "WEB-5B-032",
+      "publication_date": "2022",
+      "publisher": "CONEVAL",
+      "ruler_attribution": "U013 was designated and funded as an administration priority, allowing administration-level ownership of its design trajectory; the record does not establish AMLO personally drafted its indicators.",
+      "source_confidence": "high",
+      "source_confidence_reason": "CONEVAL is the statutory independent evaluator and provides precise program, comparison-year, and page-level findings.",
+      "source_type": "independent_statutory_program_evaluation",
+      "title": "Informe de monitoreo de programas prioritarios 2022",
+      "underlying_fact_key": "coneval_2022_u013_health_program_design_implementation",
+      "url": "https://www.coneval.org.mx/InformesPublicaciones/Documents/Informe_Programas_prioritarios_2022.pdf"
+    },
+    {
+      "canonical_fact_key": "asf_2022_pemex_debt_warning_and_response",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "ASF found no irregularity in 12 of 14 reviewed results and issued two recommendations concerning Pemex debt management. Pemex responded with evidence that its business plan contained the objective of strengthening internal finances and meeting financing needs, a strategy of zero real net indebtedness during the administration, and alignment with its global financing proposal. The audit also recorded adverse liquidity and refinancing conditions following rating downgrades. This is dated evidence that the administration and Pemex formally responded to debt-management warnings, though it does not prove that the response corrected Pemex\u2019s structural financial weakness.",
+      "contrary_evidence": "Most reviewed results showed no irregularity, and Pemex documented planning and debt objectives; two recommendations do not establish loss or misconduct.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.6",
+        "5B.7"
+      ],
+      "locator": "PDF p. 26, final paragraphs of Result 14 and \u201cResumen de Resultados, Observaciones y Acciones\u201d; quoted response dated 26 April 2023 concerning the 2022 business plan and debt strategy",
+      "methodology_ids": [
+        "5B.6",
+        "5B.7"
+      ],
+      "period_fit": "Audits Pemex\u2019s 2022 debt management; the 2023 response specifically documents the plan and strategy governing 2022.",
+      "provisional_id": "WEB-5B-033",
+      "publication_date": "2023-10-31",
+      "publisher": "Auditor\u00eda Superior de la Federaci\u00f3n",
+      "ruler_attribution": "AMLO\u2019s administration set Pemex\u2019s state-centered strategy and supplied fiscal support, but operational debt controls and the formal audit response belong to Pemex management and Hacienda.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official audit gives both adverse financial context and the entity\u2019s documented response, while clearly reporting the limited number and type of actions.",
+      "source_type": "primary_supreme_audit_report",
+      "title": "Deuda, Pemex Corporativo, Cuenta P\u00fablica 2022, Auditor\u00eda 209",
+      "underlying_fact_key": "asf_2022_pemex_debt_warning_and_response",
+      "url": "https://www.asf.gob.mx/Trans/Informes/IR2022b/Documentos/Auditorias/2022_0209_a.pdf"
+    },
+    {
+      "canonical_fact_key": "mexico_2022_minimum_wage_tripartite_resolution",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "The legally operative resolution confirms that the tripartite CONASAMI Council fixed 2022 minimum wages after considering worker, employer and government positions. The general wage became MXN172.87 per day in most of Mexico and MXN260.34 in the northern border zone; professional minimum wages also rose 22%. This upgrades WEB-5B-005 with a directly accessible primary legal locator.",
+      "contrary_evidence": "The resolution establishes the wage rule, not its causal contribution to national income or poverty outcomes, especially among informal workers.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.1",
+        "5B.2",
+        "5B.3"
+      ],
+      "locator": "Resolution heading and operative provisions PRIMERO through TERCERO; tables of general and professional minimum wages effective January 1, 2022",
+      "methodology_ids": [
+        "5B.1",
+        "5B.2",
+        "5B.3"
+      ],
+      "period_fit": "The resolution took effect throughout calendar 2022.",
+      "provisional_id": "WEB-5B-034",
+      "publication_date": "2021-12-08",
+      "publisher": "Diario Oficial de la Federaci\u00f3n / Comisi\u00f3n Nacional de los Salarios M\u00ednimos",
+      "ruler_attribution": "The increase aligned with AMLO\u2019s wage policy, but the legal decision was made by the tripartite CONASAMI Council and should not be represented as a unilateral presidential act.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Official Gazette text is the binding underlying instrument and removes the prior access-limited locator problem.",
+      "source_type": "primary_legal_resolution",
+      "title": "Resoluci\u00f3n del Consejo de Representantes que fija los salarios m\u00ednimos vigentes a partir del 1 de enero de 2022",
+      "underlying_fact_key": "mexico_2022_minimum_wage_tripartite_resolution",
+      "url": "https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5637615"
+    },
+    {
+      "canonical_fact_key": "imss_2022_year_end_affiliated_jobs",
+      "chapter_ids": [
+        "5B"
+      ],
+      "claim": "IMSS\u2019s original downloadable bulletin reports 21,372,896 affiliated jobs at the end of December 2022, of which 86.6% were permanent and 13.4% temporary. It also records a December decline of 345,705 jobs. This upgrades WEB-5B-009 with a stable primary PDF and preserves both the year-end level and seasonal monthly contraction.",
+      "contrary_evidence": "The bulletin also reports a 345,705-job December decline, and IMSS affiliation does not measure all employment or job quality.",
+      "disposition": "final_evidence",
+      "final_evidence_use": "final_evidence",
+      "lenses": [
+        "5B.3",
+        "5B.8"
+      ],
+      "locator": "PDF p. 1, heading and first three bullets under \u201cPuestos de trabajo afiliados al Instituto Mexicano del Seguro Social\u201d",
+      "methodology_ids": [
+        "5B.3",
+        "5B.8"
+      ],
+      "period_fit": "Reports the closing administrative count for calendar 2022, published nine days later.",
+      "provisional_id": "WEB-5B-035",
+      "publication_date": "2023-01-09",
+      "publisher": "Instituto Mexicano del Seguro Social",
+      "ruler_attribution": "The employment total is a shared national outcome affected by reopening, labor demand, formalization policy and external conditions; it should not be assigned as AMLO\u2019s personal causal achievement.",
+      "source_confidence": "high",
+      "source_confidence_reason": "Original IMSS PDF provides an exact, stable locator and administrative totals.",
+      "source_type": "primary_administrative_statistical_release",
+      "title": "Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social",
+      "underlying_fact_key": "imss_2022_year_end_affiliated_jobs",
+      "url": "https://www.imss.gob.mx/sites/all/statics/i2f_news/PR%20009_0.pdf"
+    }
+  ],
+  "schema_version": "ruler_research_ledger_manifest_v1"
+}
+---

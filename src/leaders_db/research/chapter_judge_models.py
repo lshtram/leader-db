@@ -27,6 +27,15 @@ class ChapterEvidenceReference(BaseModel):
     explanation: str = Field(min_length=1)
 
 
+class ChapterLocalEvidenceReference(BaseModel):
+    """Reference to parent-built local evidence embedded in the projection."""
+
+    model_config = ConfigDict(extra="ignore")
+
+    local_evidence_id: str = Field(pattern=r"^L[FS][0-9]{3,}$")
+    explanation: str = Field(min_length=1)
+
+
 class ChapterSpecificFinding(BaseModel):
     """Guide-specific value preserved without changing the common envelope."""
 
@@ -51,6 +60,39 @@ class PlausibleScoreRange(BaseModel):
         return self
 
 
+class MaterialBiasFinding(BaseModel):
+    """One material evidence distortion considered by the chapter judge."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    bias: str = Field(min_length=1)
+    supporting_evidence_ids: tuple[str, ...] = Field(min_length=1)
+    likely_direction: Literal[
+        "favors_ruler", "harms_ruler", "mixed", "uncertain"
+    ]
+    interpretation_effect: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _validate_support_ids(self) -> MaterialBiasFinding:
+        if len(self.supporting_evidence_ids) != len(set(self.supporting_evidence_ids)):
+            raise ValueError("bias support IDs must be unique")
+        if any(not item.startswith("E") for item in self.supporting_evidence_ids):
+            raise ValueError("bias findings must cite dossier evidence IDs")
+        return self
+
+
+class BiasAssessment(BaseModel):
+    """Auditable interpretation of reporting and comparison bias."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    material_biases: tuple[MaterialBiasFinding, ...]
+    confidence_and_range_effect: str = Field(min_length=1)
+    remaining_uncertainty: str = Field(min_length=1)
+    report_volume_not_used_as_severity: bool
+    no_blanket_regime_correction: bool
+
+
 class RulerChapterJudgment(BaseModel):
     """One holistic chapter score for one ruler-period dossier."""
 
@@ -73,6 +115,8 @@ class RulerChapterJudgment(BaseModel):
     plausible_score_range: PlausibleScoreRange
     decisive_positive_evidence: tuple[ChapterEvidenceReference, ...] = ()
     decisive_negative_evidence: tuple[ChapterEvidenceReference, ...] = ()
+    decisive_local_evidence: tuple[ChapterLocalEvidenceReference, ...] = ()
+    contextual_local_evidence: tuple[ChapterLocalEvidenceReference, ...] = ()
     inherited_baseline_and_constraints: str = Field(min_length=1)
     ruler_attribution: str = Field(min_length=1)
     supported_lenses: tuple[str, ...] = ()
@@ -80,6 +124,7 @@ class RulerChapterJudgment(BaseModel):
     contrary_evidence: tuple[ChapterEvidenceReference, ...] = ()
     source_mix: str = Field(min_length=1)
     structured_prior_summary: str = Field(min_length=1)
+    bias_assessment: BiasAssessment
     chapter_rationale: str = Field(min_length=1)
     lower_anchor_rejected: str = Field(min_length=1)
     higher_anchor_rejected: str = Field(min_length=1)
@@ -102,7 +147,9 @@ class RulerChapterJudgment(BaseModel):
         if self.score_1_to_10 is not None and not (
             self.decisive_positive_evidence or self.decisive_negative_evidence
         ):
-            raise ValueError("a scored judgment requires decisive evidence")
+            raise ValueError(
+                "a scored ruler judgment requires decisive cited web evidence"
+            )
         if (
             self.score_1_to_10 is not None
             and self.manual_review_reason_type == "recoverable_null"

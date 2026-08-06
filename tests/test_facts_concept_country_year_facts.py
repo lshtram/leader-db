@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import Session
 
 from leaders_db.db.engine import init_database
@@ -19,9 +19,11 @@ from leaders_db.sources.concepts import (
     CONCEPT_CPI_SCORE,
     CONCEPT_GDP_PER_CAPITA,
     CONCEPT_GOVERNMENT_EFFECTIVENESS,
+    CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,
     CONCEPT_MILITARY_SPEND_CONSTANT_USD,
     CONCEPT_MILITARY_SPEND_SHARE_GDP,
     CONCEPT_NUCLEAR_TOTAL_INVENTORY,
+    CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,
     CONCEPT_ONE_SIDED_VIOLENCE_EVENTS,
     CONCEPT_POLITICAL_LIBERTIES,
     CONCEPT_POPULATION,
@@ -35,8 +37,11 @@ from leaders_db.sources.concepts import (
     SIPRI_MILEX_SHARE_GDP_INDICATOR_CODE,
     TRANSPARENCY_CPI_SCORE_INDICATOR_CODE,
     UCDP_ONE_SIDED_EVENTS_INDICATOR_CODE,
+    UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,
     UCDP_STATE_BASED_EVENTS_INDICATOR_CODE,
+    UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE,
     WDI_GDP_PER_CAPITA_INDICATOR_CODE,
+    WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE,
     WDI_POPULATION_INDICATOR_CODE,
     WGI_GOVERNMENT_EFFECTIVENESS_INDICATOR_CODE,
 )
@@ -87,7 +92,11 @@ def test_publish_concept_country_year_facts_selects_preferred_numeric_source(
         assert fact.selected_value_number == 331_000_000
         assert fact.selected_value_text == "331000000"
         assert fact.adjudication_status == "auto_resolved"
-        assert fact.confidence_score == 80
+        assert fact.confidence_score == 60
+        assert fact.agreement_score == 0
+        assert fact.authority_score == 100
+        assert fact.specificity_score == 80
+        assert fact.temporal_fit_score == 100
         assert fact.source_slugs_json == '["world_bank_wdi","pwt"]'
         assert fact.source_observation_ids_json == ('["wdi-usa-2020-pop","pwt-usa-2020-pop"]')
         selected = json.loads(fact.selected_value_json or "{}")
@@ -97,6 +106,17 @@ def test_publish_concept_country_year_facts_selects_preferred_numeric_source(
             "world_bank_wdi",
             "pwt",
         ]
+        assert [candidate["selection_role"] for candidate in candidates] == [
+            "selected",
+            "alternative",
+        ]
+        quality = json.loads(fact.quality_signals_json)
+        assert quality["confidence_components"] == {
+            "agreement": 0,
+            "authority": 100,
+            "specificity": 80,
+            "temporal_fit": 100,
+        }
 
 
 def test_publish_concept_country_year_facts_is_idempotent(database_url: str) -> None:
@@ -133,6 +153,146 @@ def test_publish_concept_country_year_facts_is_idempotent(database_url: str) -> 
     with Session(engine) as session:
         facts = session.scalars(select(CountryYearFact)).all()
     assert len(facts) == 1
+
+
+def test_gdp_nominal_and_ppp_observations_publish_as_distinct_facts(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine)
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_GDP_PER_CAPITA_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-gdppc-nominal",
+                value=65_000.0,
+                unit="current_usd_per_person",
+            ),
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_GDP_PER_CAPITA_PPP_CONSTANT_2017_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-gdppc-ppp",
+                value=60_000.0,
+                unit="constant_2017_international_dollars_per_person",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_GDP_PER_CAPITA,),
+    )
+
+    assert result.rows_created == 2
+    assert result.field_counts == {
+        "gdp_per_capita_nominal_current_usd": 1,
+        "gdp_per_capita_ppp_constant_2017_intl": 1,
+    }
+    with Session(engine) as session:
+        facts = session.scalars(select(CountryYearFact)).all()
+    by_key = {fact.field_key: fact for fact in facts}
+    assert set(by_key) == {
+        "gdp_per_capita_nominal_current_usd",
+        "gdp_per_capita_ppp_constant_2017_intl",
+    }
+    assert json.loads(by_key["gdp_per_capita_nominal_current_usd"].candidate_values_json)[0][
+        "input_observation_ids"
+    ] == ["wdi-usa-2020-gdppc-nominal"]
+    assert json.loads(by_key["gdp_per_capita_ppp_constant_2017_intl"].candidate_values_json)[0][
+        "input_observation_ids"
+    ] == ["wdi-usa-2020-gdppc-ppp"]
+
+
+def test_gdp_republish_removes_obsolete_mixed_unit_fact(database_url: str) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine)
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                """INSERT INTO country_year_facts (
+                country_year_id, country_id, year, field_key, field_label,
+                value_type, selected_value_number, candidate_values_json,
+                selection_rule, adjudication_status, confidence_score,
+                agreement_score, authority_score, specificity_score,
+                temporal_fit_score, quality_signals_json, warnings_json,
+                rationale, recommended_next_action,
+                source_slugs_json, source_observation_ids_json, producer,
+                method_version, created_at, updated_at
+                ) VALUES (
+                1, 1, 2020, 'gdp_per_capita', 'obsolete mixed GDP', 'number',
+                65000, '[]', 'legacy', 'selected', 80, 80, 80, 80, 80,
+                '[]', '[]', 'legacy mixed-unit row', 'replace', '[]', '[]',
+                'concept_country_year_facts',
+                'concept-country-year-facts-v1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+                )"""
+            )
+        )
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_GDP_PER_CAPITA_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-gdppc-current",
+                value=65_000.0,
+                unit="current_usd_per_person",
+            ),
+        ),
+    )
+
+    publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_GDP_PER_CAPITA,),
+    )
+
+    with Session(engine) as session:
+        keys = session.scalars(select(CountryYearFact.field_key)).all()
+    assert keys == ["gdp_per_capita_nominal_current_usd"]
+
+
+def test_duplicate_observations_from_one_source_do_not_increase_agreement(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine)
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_POPULATION_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-pop-a",
+                value=331_000_000,
+                unit="persons",
+            ),
+            _observation(
+                source_slug="world_bank_wdi",
+                indicator_code=WDI_POPULATION_INDICATOR_CODE,
+                observation_id="wdi-usa-2020-pop-b",
+                value=331_000_000,
+                unit="persons",
+            ),
+        ),
+    )
+
+    publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_POPULATION,),
+    )
+
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+    assert fact is not None
+    assert fact.agreement_score == 0
+    assert fact.confidence_score == 60
 
 
 def test_publish_concept_country_year_facts_skips_rows_outside_scope(
@@ -439,7 +599,7 @@ def test_publish_concept_country_year_facts_resolves_lifecycle_source_name(
                 indicator_code=SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,
                 observation_id="sipri_milex:USSR:1990:sipri_milex_constant_usd",
                 value=250_000.0,
-                unit="usd_millions",
+                unit="usd_millions_2024",
                 year=1990,
                 country_code=None,
                 country_name="USSR",
@@ -463,6 +623,12 @@ def test_publish_concept_country_year_facts_resolves_lifecycle_source_name(
         assert fact.field_key == CONCEPT_MILITARY_SPEND_CONSTANT_USD
         assert fact.selected_value_number == 250_000.0
         assert fact.source_slugs_json == '["sipri_milex"]'
+        assert json.loads(fact.selected_value_json or "{}")["unit"] == ("usd_millions_2024")
+        warning_codes = {item["code"] for item in json.loads(fact.warnings_json)}
+        assert warning_codes == {
+            "military_spending_not_aggression",
+            "sipri_exact_unit",
+        }
 
 
 def test_publish_concept_country_year_facts_resolves_sipri_east_germany(
@@ -483,8 +649,7 @@ def test_publish_concept_country_year_facts_resolves_sipri_east_germany(
                 source_slug="sipri_milex",
                 indicator_code=SIPRI_MILEX_CONSTANT_USD_INDICATOR_CODE,
                 observation_id=(
-                    "sipri_milex:German Democratic Republic:1989:"
-                    "sipri_milex_constant_usd"
+                    "sipri_milex:German Democratic Republic:1989:sipri_milex_constant_usd"
                 ),
                 value=12_345.0,
                 unit="usd_millions",
@@ -566,8 +731,7 @@ def test_publish_concept_country_year_facts_publishes_freedom_house(
                 source_slug="freedom_house",
                 indicator_code=FREEDOM_HOUSE_POLITICAL_RIGHTS_INDICATOR_CODE,
                 observation_id=(
-                    "freedom_house:country:United States:2023:"
-                    "freedom_house_political_rights"
+                    "freedom_house:country:United States:2023:freedom_house_political_rights"
                 ),
                 value=1,
                 unit="rating",
@@ -674,6 +838,88 @@ def test_publish_concept_country_year_facts_resolves_ucdp_country_id(
         assert fact.field_label == "State-based conflict events"
         assert fact.selected_value_number == 3
         assert fact.source_slugs_json == '["ucdp"]'
+        assert {item["code"] for item in json.loads(fact.warnings_json)} == {
+            "ucdp_location_not_responsibility"
+        }
+
+
+def test_publish_ucdp_government_actor_fact_preserves_attribution_boundary(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="RUS", country_name="Russia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="ucdp",
+                indicator_code=UCDP_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS_INDICATOR_CODE,
+                observation_id="ucdp:onesided:2022:actor:57",
+                value=1132,
+                unit="deaths",
+                year=2022,
+                country_code="365",
+                country_name="Russia (Soviet Union)",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.field_counts == {CONCEPT_ONE_SIDED_GOVERNMENT_ACTOR_KILLINGS: 1}
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert fact.selected_value_number == 1132
+        assert {item["code"] for item in json.loads(fact.warnings_json)} == {
+            "ucdp_government_actor_not_personal_direction"
+        }
+
+
+def test_publish_snaama_fact_warns_nominal_dollars_are_not_real_growth(
+    database_url: str,
+) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url)
+    _seed_country_year(engine, year=2022, iso3="RUS", country_name="Russia")
+    write_observations(
+        engine,
+        (
+            _observation(
+                source_slug="un_snaama",
+                indicator_code=UN_SNAAMA_HOUSEHOLD_CONSUMPTION_INDICATOR_CODE,
+                observation_id="un_snaama:Russia:2022:household",
+                value=1_100_000_000_000,
+                unit="current_usd",
+                year=2022,
+                country_code=None,
+                country_name="Russia",
+            ),
+        ),
+    )
+
+    result = publish_concept_country_year_facts(
+        engine,
+        SqlEvidenceRepository(engine),
+        concept_keys=(CONCEPT_HOUSEHOLD_CONSUMPTION_CURRENT_USD,),
+        start_year=2022,
+        end_year=2022,
+    )
+
+    assert result.rows_created == 1
+    with Session(engine) as session:
+        fact = session.scalar(select(CountryYearFact))
+        assert fact is not None
+        assert {item["code"] for item in json.loads(fact.warnings_json)} == {
+            "nominal_current_usd_not_real_growth"
+        }
 
 
 def test_publish_concept_country_year_facts_resolves_ucdp_country_id_by_year(
@@ -853,6 +1099,13 @@ def test_publish_concept_country_year_facts_publishes_wgi_government_effectivene
                 year=2022,
                 country_code="USA",
                 country_name=None,
+                extension={
+                    "uncertainty": {
+                        "standard_error": 0.12,
+                        "percentile_rank_lower_bound": 70.0,
+                        "percentile_rank_upper_bound": 82.0,
+                    }
+                },
             ),
         ),
     )
@@ -875,6 +1128,8 @@ def test_publish_concept_country_year_facts_publishes_wgi_government_effectivene
         assert fact.field_label == "Government effectiveness"
         assert fact.selected_value_number == 1.31
         assert fact.source_slugs_json == '["world_bank_wgi"]'
+        selected = json.loads(fact.selected_value_json or "{}")
+        assert selected["extension"]["uncertainty"]["standard_error"] == 0.12
 
 
 def test_publish_concept_country_year_facts_resolves_wgi_source_code(
@@ -1123,6 +1378,9 @@ def test_publish_concept_country_year_facts_publishes_cirights_name_only_country
         assert fact.field_label == "CIRIGHTS physical integrity"
         assert fact.selected_value_number == 5
         assert fact.source_slugs_json == '["cirights"]'
+        assert {item["code"] for item in json.loads(fact.warnings_json)} == {
+            "cirights_favorable_code_ambiguity"
+        }
 
 
 def test_publish_concept_country_year_facts_publishes_cirights_yugoslavia(
@@ -1287,6 +1545,7 @@ def _observation(
     year: int = 2020,
     country_code: str | None = "USA",
     country_name: str = "United States",
+    extension: dict[str, Any] | None = None,
 ) -> NormalizedObservation:
     return NormalizedObservation(
         source_id=SourceId(slug=source_slug),
@@ -1305,4 +1564,5 @@ def _observation(
         source_version="fixture",
         raw_locator=RawLocator(asset_id=f"{source_slug}-fixture", json_pointer="/0"),
         transform_locator=TransformLocator(transform_name="fixture_transform"),
+        extension=extension or {},
     )

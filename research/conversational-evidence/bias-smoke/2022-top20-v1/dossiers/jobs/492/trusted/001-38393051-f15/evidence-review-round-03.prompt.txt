@@ -1,0 +1,1332 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:IDN:16199",
+  "iso3": "IDN",
+  "country_name": "Indonesia",
+  "ruler_name": "Joko Widodo",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 40,
+  "approximate_source_family_count": 26,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed; no scores or score ranges assigned. The workspace is read-only, so I could not persist the requested files. The handoff below is the authoritative notebook substitute.
+
+## Reconnaissance and authority baseline
+
+Joko Widodo was Indonesia’s president in 2022, serving his second and constitutionally final term. The presidency had practical authority over national policy, cabinet appointments, foreign affairs, and security institutions. The June 2022 reshuffle was formally made under Presidential Decree 64/P of 2022. [Cabinet reshuffle record](https://setkab.go.id/en/president-jokowi-reshuffles-indonesia-onward-cabinet/)
+
+The evidence environment was comparatively open but uneven:
+
+- National media and civil-society organizations operated openly, but journalists, activists, and researchers faced defamation, surveillance, digital harassment, and pressure.
+- Papua was a major information blind spot: RSF described it as an “information black hole” where journalists could not work. [RSF Indonesia 2022](https://rsf.org/en/analyse_regionale/670)
+- Freedom House documented online surveillance, government-aligned “buzzer” networks, and possible automated amplification during 2022 student protests. [Freedom on the Net 2022](https://freedomhouse.org/country/indonesia/freedom-net/2022)
+- Official statistics and World Bank macroeconomic analysis were usable for country outcomes, but not sufficient for ruler attribution.
+- Source-family concentration is strongest around international NGOs, World Bank reports, and official government statements; independent Indonesian reporting and local-language monitoring remain important gaps.
+- The main shocks were COVID-19 recovery, food and energy price pressures from the Ukraine war, and continuing armed conflict in Papua.
+
+Stable reconnaissance IDs: `RC001`–`RC015`.
+
+## Global evidence ledger
+
+| ID | Source and claim | Profile / role | Period and attribution | Lens mapping |
+|---|---|---|---|---|
+| RC001 | SIPRI recorded nine nuclear-armed states at the start of 2022; Indonesia was not among them. | SIPRI; high; technical research; final evidence for exposure context | 2022; country exposure, not ruler conduct | 1B.1–1B.10 context |
+| RC002 | IAEA country records show Indonesia’s safeguards and Additional Protocol framework. | IAEA; high; intergovernmental/legal record; final evidence | Longstanding framework, relevant to 2022 posture | 1B.3, 1B.4, 1B.6, 1B.7, 1B.9 |
+| RC003 | In March 2022, Widodo affirmed UN Charter principles and territorial integrity in discussion with Japan’s prime minister. | Japanese government; medium-high for formal diplomatic record; final evidence for statement | 8 Mar 2022; direct presidential statement | 1B.2, 2B.1, 2B.6, 2B.7 |
+| RC004 | An expert assessment characterized Indonesia’s Ukraine policy as economically oriented and strategically ambiguous, while noting support for the UN resolution condemning Russia’s invasion. | East Asia Forum; medium; analytical scholarship/commentary; context and contrary evidence | 2022; direct policy attribution | 1B.2, 2B.1, 2B.3, 2B.6, 8B.1 |
+| RC005 | As G20 chair, Widodo planned visits to Kyiv and Moscow to advocate peace and address food-security effects of the war. | Reuters via Euronews; medium-high; reputable media; final evidence | June 2022; direct presidential diplomacy | 2B.1, 2B.7, 2B.10, 8B.9 |
+| RC006 | Widodo urged implementation of ASEAN’s Five-Point Consensus on Myanmar, cessation of violence, humanitarian access, and needs assessment. | Indonesian Cabinet Secretariat; medium-low for self-presented policy, medium-high for formal statement; final evidence for act, context for efficacy | 11 Nov 2022; direct presidential/ASEAN conduct | 2B.1, 2B.5, 2B.7, 2B.10, 8B.6 |
+| RC007 | Human Rights Monitor reported worsening Papua conflict in 2022, attacks by both TPNPB and security forces, 43 civilian deaths, and no meaningful rapprochement or implemented ceasefire. | Human Rights Monitor; medium; NGO monitoring; final evidence with attribution caveats | 2022; central government responsibility is partial/contested | 2B.4, 2B.5, 2B.7, 2B.9, 2B.10, 3B.1, 3B.2, 3B.9, 3B.10 |
+| RC008 | The U.S. State Department documented credible reports of unlawful killings, torture, arbitrary detention, abuses in Papua, restrictions on expression and assembly, and weak accountability. | State Department report; medium-high; official human-rights reporting; final evidence with official-source limitations | 2022; national government/security nexus, not necessarily personal orders | 3B.1–3B.10, 4B.3, 4B.6, 4B.9 |
+| RC009 | Amnesty reported shrinking civil-society space, threats and attacks against activists, restrictions on expression, assembly, association, personal security, and arbitrary detention. | Amnesty; medium-high; NGO; final evidence | Published Oct 2022; target-period fit | 3B.4, 3B.5, 3B.8, 3B.9, 4B.3, 4B.6, 4B.9 |
+| RC010 | Human Rights Watch reported weakening of the Corruption Eradication Commission and firing of 57 staff, including investigators. | HRW; medium-high; NGO; final evidence | 2021–2022 context; direct government institutional responsibility | 3B.4, 4B.4, 7B.6, 7B.7, 8B.4 |
+| RC011 | Freedom House rated Indonesia “Partly Free,” with 30/40 political-rights and 29/60 civil-liberties points; it documented journalist attacks, ministerial pressure on universities, online surveillance, and defamation complaints by senior officials. | Freedom House; medium-high; comparative NGO; final evidence/context | 2022 report, with some 2021 incidents; attribution varies | 3B.4, 3B.8, 4B.3–4B.9, 7B.6, 7B.7 |
+| RC012 | RSF reported that Widodo failed to keep press-freedom promises; military restrictions and the ITE law constrained journalism, while independent media institutions still operated. | RSF; medium-high; press-freedom NGO; final evidence | 2022; direct policy attribution plus institutional context | 4B.3, 4B.6, 4B.9, 7B.7 |
+| RC013 | Parliament passed the new Criminal Code on 6 Dec 2022. HRW identified provisions affecting privacy, women, minorities, LGBT people, expression, and association; it also recorded Widodo’s 2019 decision to delay an earlier version after mass protests. | HRW; medium-high; NGO/legal analysis; final evidence | 2019 and 2022; direct presidential and government legislative involvement | 3B.5, 3B.7, 3B.8, 4B.2, 4B.3, 4B.6, 4B.7, 4B.10 |
+| RC014 | World Bank projected 5.2% growth in 2022, supported by reopening and commodity prices, while warning of inflation, subsidy pressures, tax limitations, and incomplete social-protection coverage. | World Bank; high; intergovernmental economic analysis; final evidence for outcomes/context | Dec 2022; ruler attribution partial because external conditions were decisive | 5B.1, 5B.3, 5B.4, 5B.9, 5B.10, 6B.1, 6B.6, 6B.10 |
+| RC015 | World Bank identified persistent infrastructure-governance weaknesses, low tax-to-GDP capacity, inefficient public investment, fragmented contracts, and reliance on state-owned enterprises with soft budget constraints. | World Bank; high; technical evaluation; final evidence | 2022 report using earlier evidence; policy implementation context | 5B.3–5B.7, 5B.10, 8B.2–8B.7 |
+| RC016 | World Bank approved a $350m 2022 human-capital loan supporting income protection, healthcare access, nutrition, stunting reduction, TB delivery, telemedicine, and government-spending effectiveness. | World Bank; high; project record; final evidence for policy action, not independent outcome proof | 29 Jun / 5 Jul 2022; government policy alignment | 5B.6, 6B.1–6B.6, 6B.9, 8B.2, 8B.6 |
+| RC017 | World Bank reported progress since 2010 in stunting reduction, social protection, universal-health coverage, and enrollment, but continuing weaknesses in education, social insurance, and stunting. | World Bank; high; technical analysis; final evidence for outcomes/context | 2022; attribution shared with prior governments, donors, and subnational actors | 5B.6, 5B.8, 5B.10, 6B.2–6B.10 |
+| RC018 | World Bank documented COVID-related learning losses of approximately 0.9–1.2 years and reduced reading performance, with school closures continuing into early 2022. | World Bank; high; technical study; final evidence | 2020–2022; crisis outcome, attribution requiring response evidence | 6B.2, 6B.5, 6B.6, 6B.10 |
+| RC019 | Widodo chaired a June 2022 cabinet reshuffle under Presidential Decree 64/P of 2022, establishing direct appointment and replacement authority. | Indonesian Cabinet Secretariat; medium-high for formal record; final evidence | June 2022; direct ruler authority | 5B.2, 6B.4, 8B.2–8B.5 |
+| RC020 | Indonesia’s official position on Myanmar emphasized violence cessation, humanitarian access, ASEAN implementation, and engagement with stakeholders. | Indonesian Cabinet Secretariat; medium-low for efficacy, final evidence for stated action | 2022; direct policy attribution | 2B.1, 2B.7, 8B.1–8B.3, 8B.6, 8B.9 |
+
+## Chapter yields and local baseline
+
+### 1B
+
+Local prior: no relevant nuclear/existential-risk facts were supplied (`no_evidence_found` for all ten lenses). This is an explicit local gap, not evidence of safety.
+
+Retained context:
+
+- `LF001`–`LF004`, `LF037`–`LF044`, `LF069`–`LF076`: UCDP conflict observations; country exposure only.
+- `LF077`–`LF152`: SIPRI military-spending series; 2022 spending was approximately $10.05bn, 0.768% of GDP, and 4.45% of government spending. These establish military burden, not nuclear conduct.
+- `LS049`–`LS052`: audited military-spending trajectories; contextual only.
+
+Internet yield: `RC001`–`RC005`. Indonesia’s non-nuclear status and safeguards framework are documented, but ruler-specific command safety, dual-use governance, nuclear rhetoric, and consequential risk reduction remain largely unresolved.
+
+### 2B
+
+Local prior is substantial but country-level:
+
+- `LF073`–`LF076`: 20 state-based conflict events and 46 fatalities in 2022; no internationalized conflict events or fatalities.
+- `LF149`–`LF152`: 2022 military spending and burden.
+- `LS042`–`LS043`, `LS054`–`LS055`, `LS069`–`LS070`: longitudinal conflict and one-sided-violence signals, explicitly warning that attribution is not automatic.
+
+Internet yield: `RC003`–`RC007`, `RC020`.
+
+Main narrative evidence concerns Ukraine/G20 diplomacy, Myanmar peace efforts, and Papua. The Papua evidence is mixed: both state forces and TPNPB are implicated, while peace-dialogue attribution remains contested.
+
+### 3B
+
+Local prior:
+
+- `LF322`–`LF331`: 2022 CIRIGHTS, V-Dem, and PTS observations.
+- `LF440`–`LF445`: civil-political rights, repression, civil-society repression, and one-sided violence.
+- `LS003`–`LS011`, `LS024`, `LS054`–`LS061`, `LS062`–`LS064`: longitudinal signals showing mixed but materially concerning rights and violence trends.
+
+Internet yield: `RC007`–`RC013`.
+
+The strongest target-period material concerns Papua, security-force abuses, protest and civil-society restrictions, digital surveillance, journalist safety, and the December Criminal Code. Local and national attribution must remain distinct; Papua cannot be treated as automatic personal direction by Widodo.
+
+### 4B
+
+Local prior:
+
+- `LF616`–`LF623`: 2022 Freedom House/V-Dem/EIU regime and civil-liberty indicators.
+- `LF884`–`LF898`: accountability, expression, association, judicial and legislative constraints, liberal democracy, press freedom, voice, and rule-of-law measures.
+- `LS010`, `LS015`–`LS021`, `LS026`–`LS027`, `LS044`–`LS046`, `LS053`, `LS057`, `LS059`–`LS061`, `LS068`, `LS073`, `LS076`: audited trajectory signals.
+
+Internet yield: `RC011`–`RC013`.
+
+Key positive/contextual evidence is continued competitive political space and independent media. Key negative evidence concerns government-aligned online manipulation, pressure on universities and journalists, defamation complaints, restrictions in Papua, and the Criminal Code. The 2022 postponement/term-extension controversy was located through Freedom on the Net and Reuters imagery, but a strong primary source for Widodo’s own position should be added before relying on it heavily.
+
+### 5B
+
+Local prior:
+
+- `LF1019`–`LF1025`, `LF1246`–`LF1251`: 2022 current-price consumption/GDP, real GDP, PPP income, GNI, Gini, capital formation, and government consumption.
+- `LF1020`: nominal GDP per capita approximately $4,731.
+- `LF1025`: Gini index 35.5.
+- `LS029`, `LS031`–`LS038`, `LS034`, `LS041`: income, GDP, consumption, investment, and government-effectiveness trajectories.
+- Current-dollar series carry explicit warnings against interpreting nominal changes as real growth.
+
+Internet yield: `RC014`–`RC019`.
+
+The evidence supports a recovery aided by reopening and commodity prices, alongside persistent infrastructure-governance, tax-capacity, subnational-capacity, distribution, and social-protection gaps. Ruler-specific appointment and implementation evidence is still thinner than outcome evidence.
+
+### 6B
+
+Local prior:
+
+- `LF1325`–`LF1333`: 2022 HDI 0.713, life expectancy 68.25, expected schooling 13.98 years, mean schooling 8.56 years, under-five mortality 22.49/1,000, immunization around 91–93%, and secondary enrollment approximately 97.8%.
+- `LS039`, `LS047`–`LS048`, `LS072`, `LS075`: HDI, life expectancy, schooling, mortality, and enrollment signals.
+- `LF1023`, `LF1025`: GNI per capita and inequality context.
+
+Internet yield: `RC016`–`RC018`.
+
+Evidence shows broad human-capital and social-protection policy activity, but also significant learning loss, uneven quality, regional inequality, and incomplete coverage. Donor and subnational attribution remain material.
+
+### 7B
+
+Local prior is explicitly weak for personal integrity:
+
+- `LF1406`–`LF1409`: WGI/V-Dem country corruption context.
+- `LS012`–`LS013`, `LS022`, `LS065`: country corruption trajectories.
+- These cannot establish Widodo’s personal honesty, benefit, conflicts, favoritism, or obstruction.
+
+Internet yield: `RC010`–`RC013`, `RC019`.
+
+The strongest admissible personal/network nexus concerns the weakening of KPK, government-linked complaints against corruption monitors, and pressure affecting independent scrutiny. Evidence of personal enrichment, family benefit, deliberate deception, or direct obstruction by Widodo remains unresolved and should not be inferred from country-level corruption indicators.
+
+### 8B
+
+Local prior:
+
+- `LF1410`–`LF1447`: government effectiveness and regulatory-quality series.
+- `LF638`, `LF748`, `LF776`, `LF868`: BTI governance indices.
+- `LS036`, `LS067`, `LS076`: effectiveness, regulatory-quality, and rule-of-law trajectories.
+- These establish implementation context but not program ownership or success.
+
+Internet yield: `RC005`, `RC006`, `RC014`–`RC020`.
+
+The clearest attributable programs are infrastructure/public-investment expansion, human-capital/social-protection reforms, G20 diplomacy, and ASEAN Myanmar engagement. Evidence supports real implementation, but also shows coordination and governance weaknesses, external-shock dependence, and mixed diplomatic effectiveness. Moral consequences are deliberately separated from execution evidence.
+
+## Source diversity and reuse
+
+- Independent source families: World Bank, SIPRI, IAEA, Japanese government, Indonesian Cabinet Secretariat, U.S. State Department, Amnesty International, Human Rights Watch, Freedom House, RSF, Human Rights Monitor, Reuters/Euronews, East Asia Forum.
+- Source types: intergovernmental technical reports, official records, NGO monitoring, press-freedom assessments, reputable media, and analytical scholarship.
+- Same-URL splits: World Bank 2022 Economic Prospects supports multiple distinct locators and claims; it should remain split by page/box rather than duplicated by chapter.
+- Cross-chapter reuse: `RC007`, `RC008`, `RC009`, `RC011`, `RC013`, `RC014`, `RC016`, and `RC019` are legitimately reusable across multiple chapters.
+- No client-matrix material was used.
+
+## Rejected or downgraded candidates
+
+- Wikipedia pages: orientation only; not retained as final evidence.
+- Search-result pages and homepage-level results: discovery only.
+- Official statements about restraint, legitimacy, or policy success: retained only for the fact of the statement/action, not as independent proof of efficacy.
+- Post-period reporting, including later corruption arrests or later policy outcomes: excluded from target-year evidentiary claims unless directly retrospective.
+- Country-level local priors: retained as structured context, not personalized evidence.
+- Papua incident counts: retained with state/non-state attribution caveats; not treated as automatic presidential responsibility.
+- East Asia Forum analysis: retained as contrary/contextual analytical evidence, not as a definitive finding.
+
+## Main unresolved gaps
+
+- 1B: no direct ruler-attributed existential-risk decision, dual-use governance evidence, or nuclear command/safety episode.
+- 2B: limited evidence on civilian-protection orders, military rules of engagement, arms recipients, and accountability for Papua conduct.
+- 3B: incomplete evidence on direct presidential rhetoric/incitement, remedy effectiveness, prison conditions, and vulnerable-group protection.
+- 4B: primary evidence on the 2022 election-delay controversy, executive influence over election institutions, and implementation of the Criminal Code is incomplete.
+- 5B: limited ruler-specific evidence linking appointments and infrastructure decisions to independently measured implementation and distributional outcomes.
+- 6B: limited target-year evidence on affordability, quality, regional distribution, and political conditionality of services.
+- 7B: personal integrity nexus remains the thinnest chapter; no verified direct evidence of personal enrichment or deliberate deception was established.
+- 8B: program portfolio and implementation evidence is adequate for continued research, but adaptation, correction, and durable multi-program results need more direct documentation.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "National exposure and safeguards are not equivalent to ruler conduct.",
+        "Further bounded research could recover attribution and precise locators."
+      ],
+      "missing_themes": [
+        "Ruler-attributed nuclear or dual-use governance decision",
+        "Command, safety, or escalation episode",
+        "Direct evidence of consequential risk reduction",
+        "Specific adverse and contrary evidence beyond national exposure"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable posture evidence and adverse or unresolved-risk themes were identified, but the search breadth for nuclear rhetoric, dual-use governance, command safety, and consequential-risk episodes is incomplete.",
+        "closed_system_silence": "Papua and security restrictions indicate that closed or constrained information environments could conceal relevant conduct; no nuclear-specific transparency audit is supplied.",
+        "open_system_complaint_volume": "Not a major demonstrated risk for this chapter; however, absence of complaints cannot establish safety in a specialized domain.",
+        "duplicate_reporting": "The chapter has very few distinct locators; repeated contextual indicators and reused diplomatic material must not be counted as independent claim units.",
+        "allegations_vs_findings": "RC001-RC005 distinguish country exposure, formal statements, and analytical assessment; no personal command, safety decision, or ruler-attributed risk-reduction finding is established.",
+        "official_claim_independence": "Japanese and Indonesian official records establish statements or formal frameworks, not independent verification of efficacy or safety.",
+        "population_exposure_authority_baseline_shocks": "SIPRI and IAEA establish national exposure and longstanding baseline; ruler authority, inherited posture, and external 2022 shocks are not sufficiently linked to a specific decision.",
+        "missing_source_type": "Missing primary nuclear-policy, dual-use governance, command-and-control, safety, and local-language reporting sources.",
+        "supporting_evidence_ids": [
+          "RC001",
+          "RC002",
+          "RC003",
+          "RC004",
+          "RC005",
+          "LF077",
+          "LF152"
+        ],
+        "unresolved_risks": [
+          "No direct ruler-attributed existential-risk decision or dual-use governance episode.",
+          "Country non-nuclear status may be mistaken for personal conduct.",
+          "Precise locator yield is insufficient for several mapped claims."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Do not convert contested state/non-state conflict reporting into automatic presidential responsibility.",
+        "Another bounded search could materially improve attribution and contrary evidence."
+      ],
+      "missing_themes": [
+        "Civilian-protection orders and rules of engagement",
+        "Arms recipients and end-use accountability",
+        "Independent evidence on Papua accountability and remedy",
+        "Contrary evidence on diplomatic or peace-effort effectiveness"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable diplomacy and peace-effort evidence was collected alongside adverse Papua conflict and civilian-protection evidence, but searches for orders, rules of engagement, arms recipients, and accountability remain incomplete.",
+        "closed_system_silence": "Papua is identified as an information black spot, so official casualty and conduct accounts may omit abuses or civilian-protection failures.",
+        "open_system_complaint_volume": "Complaint and conflict reporting may overrepresent accessible or media-visible incidents, while Papua restrictions may suppress volume; neither direction is quantified.",
+        "duplicate_reporting": "Ukraine, Myanmar, and Papua claims appear in reused IDs; the low locator count makes underlying-fact duplication a material risk.",
+        "allegations_vs_findings": "RC003-RC006 and RC020 document presidential or official diplomatic actions; RC007 reports contested Papua findings and separates state and non-state responsibility.",
+        "official_claim_independence": "RC006 and RC020 support the fact of Indonesian policy statements but do not independently establish implementation or efficacy; RC003 is an official diplomatic record with similar limits.",
+        "population_exposure_authority_baseline_shocks": "Local conflict counts and military spending establish exposure and baseline; attribution is shared or contested, and Ukraine, COVID recovery, and regional conflict shocks are not fully separated from presidential responsibility.",
+        "missing_source_type": "Missing primary military directives, civilian-protection orders, recipient/end-use records, independent Papua field reporting, and accountability-case documentation.",
+        "supporting_evidence_ids": [
+          "RC003",
+          "RC004",
+          "RC005",
+          "RC006",
+          "RC007",
+          "RC020",
+          "LF073",
+          "LF076",
+          "LS042",
+          "LS043"
+        ],
+        "unresolved_risks": [
+          "Papua attribution and civilian-protection responsibility remain incomplete.",
+          "Diplomatic action is better evidenced than outcome or correction.",
+          "Potentially important local-language and primary security sources are absent."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Country-level rights indicators cannot alone establish personal attribution.",
+        "Continuation could materially improve event-level findings and contrary evidence."
+      ],
+      "missing_themes": [
+        "Direct presidential rhetoric or incitement",
+        "Remedy and accountability effectiveness",
+        "Prison conditions",
+        "Vulnerable-group protection",
+        "Independent primary corroboration of key allegations"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse rights evidence and some favorable evidence of civil-society and media operation were both identified; searches for presidential rhetoric, remedy effectiveness, prison conditions, and vulnerable-group protection remain incomplete.",
+        "closed_system_silence": "Papua restrictions, surveillance, harassment, and constrained journalism could hide abuses, prison conditions, and remedy failures.",
+        "open_system_complaint_volume": "Open reporting and NGO complaint activity can increase apparent severity relative to closed systems, while Papua and surveillance can suppress reporting; prevalence cannot be inferred from report volume.",
+        "duplicate_reporting": "Several NGO and press-freedom reports may describe the same incidents; IDs are reusable, but precise locators and claim splitting remain necessary.",
+        "allegations_vs_findings": "RC008-RC013 generally identify reports, documented restrictions, institutional actions, and legal provisions; allegations and official human-rights reporting require continued separation from adjudicated findings.",
+        "official_claim_independence": "RC008 is official external reporting and RC011-RC013 are NGO assessments; no systematic independent verification of government denials or remedy claims is supplied.",
+        "population_exposure_authority_baseline_shocks": "Local indicators establish national and longitudinal context; attribution varies by institution and locality, and COVID recovery, Papua conflict, and inherited legal structures are not fully disentangled.",
+        "missing_source_type": "Missing primary court, prison, complaint, remedy, police/military disciplinary, and vulnerable-group/local-language documentation.",
+        "supporting_evidence_ids": [
+          "RC007",
+          "RC008",
+          "RC009",
+          "RC010",
+          "RC011",
+          "RC012",
+          "RC013",
+          "LF322",
+          "LF331",
+          "LF440",
+          "LF445",
+          "LS003",
+          "LS011"
+        ],
+        "unresolved_risks": [
+          "Direct presidential direction, knowledge, tolerance, correction, and remedy effectiveness are unevenly evidenced.",
+          "The Criminal Code evidence spans 2019 and 2022 and needs strict period separation.",
+          "Important vulnerable-group and prison evidence is missing."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Comparative indices and NGO reports need precise locators and event-level attribution.",
+        "Further bounded research is likely to improve the dossier."
+      ],
+      "missing_themes": [
+        "Primary evidence on election-delay controversy",
+        "Executive influence over election institutions",
+        "Criminal Code implementation and enforcement",
+        "Independent evidence of institutional correction or remedy"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The notebook includes competitive political space and independent media as favorable context and restrictions/manipulation as adverse evidence, but primary searches for the election-delay controversy and election-institution influence are incomplete.",
+        "closed_system_silence": "Papua, surveillance, defamation pressure, and constrained journalism can conceal executive influence, electoral manipulation, and institutional noncompliance.",
+        "open_system_complaint_volume": "Open complaints and media reporting may make deterioration more visible, whereas pressure and surveillance may suppress complaints; no denominator or complaint-volume audit is supplied.",
+        "duplicate_reporting": "Freedom House, RSF, HRW, and reused local indicators may overlap on common incidents; only distinct source-locator-claim units should count.",
+        "allegations_vs_findings": "RC011-RC013 and RC012 distinguish comparative assessments, reported pressure, legal provisions, and institutional context; allegations, assessments, and established formal acts should remain separate.",
+        "official_claim_independence": "Official records establish formal acts but do not independently validate institutional independence or implementation; NGO assessments provide external checks but may share reporting ecosystems.",
+        "population_exposure_authority_baseline_shocks": "Local indicators address institutional baseline and exposure; executive, legislative, judicial, and subnational authority are not fully separated, and COVID-era conditions may affect 2022 comparisons.",
+        "missing_source_type": "Missing primary election-administration records, court or parliamentary records, direct presidential statements, implementation guidance, and independent local monitoring.",
+        "supporting_evidence_ids": [
+          "RC011",
+          "RC012",
+          "RC013",
+          "LF616",
+          "LF623",
+          "LF884",
+          "LF898",
+          "LS010",
+          "LS015",
+          "LS021",
+          "LS044",
+          "LS046"
+        ],
+        "unresolved_risks": [
+          "Primary evidence for the election-delay controversy is explicitly incomplete.",
+          "Criminal Code implementation and executive influence need event-level documentation.",
+          "The positive institutional context is not balanced by enough precise contrary or corrective evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Growth and macro indicators cannot be attributed to Widodo without stronger policy and counterfactual context.",
+        "Further bounded research could recover implementation and distribution evidence."
+      ],
+      "missing_themes": [
+        "Appointment-to-outcome linkage",
+        "Project-level implementation and procurement evidence",
+        "Distributional and subnational outcomes",
+        "Independent evaluation of correction and delivery quality"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Recovery, appointments, and policy activity were documented alongside inflation, tax, infrastructure, distribution, and social-protection weaknesses; ruler-specific implementation and distribution searches remain incomplete.",
+        "closed_system_silence": "Institutional and subnational implementation weaknesses may conceal procurement, distribution, and service-delivery failures not visible in macroeconomic reporting.",
+        "open_system_complaint_volume": "Not directly assessed; beneficiary and service complaints may be more visible in open areas and less visible in marginalized or poorly monitored regions, so volume cannot measure severity.",
+        "duplicate_reporting": "World Bank material is reused across lenses and chapters; page- or box-level locators and distinct claims are needed to avoid inflated counts.",
+        "allegations_vs_findings": "RC014-RC019 separate macroeconomic outcomes, World Bank assessments, project approvals, and formal appointments; positive growth is not a finding of ruler effectiveness and governance weaknesses are not all personal failures.",
+        "official_claim_independence": "RC019 supports appointment authority; RC016 supports a project record, but neither independently proves outcomes. World Bank analysis is an external technical check, though much of it relies on official data.",
+        "population_exposure_authority_baseline_shocks": "World Bank and local indicators address outcomes, inequality, baseline governance, and exposure; reopening, commodity prices, Ukraine-related pressures, inherited infrastructure gaps, and subnational authority are material confounders.",
+        "missing_source_type": "Missing procurement and audit records, project-level completion and distribution data, subnational reporting, beneficiary evidence, and independent evaluation of appointments.",
+        "supporting_evidence_ids": [
+          "RC014",
+          "RC015",
+          "RC016",
+          "RC017",
+          "RC019",
+          "LF1019",
+          "LF1025",
+          "LS029",
+          "LS031",
+          "LS041"
+        ],
+        "unresolved_risks": [
+          "Outcome evidence is stronger than ruler-specific ownership and implementation evidence.",
+          "Distributional and subnational effects are underdocumented.",
+          "External shocks and inherited baselines limit attribution of 2022 macro outcomes."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "National human-development indicators are insufficient to establish ruler-specific delivery quality.",
+        "Continuation could materially improve population-level and implementation evidence."
+      ],
+      "missing_themes": [
+        "Affordability and coverage by population",
+        "Service quality and regional distribution",
+        "Independent evaluation of human-capital programs",
+        "Political conditionality or exclusion",
+        "Post-shock recovery response within the target period"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Policy activity and long-term gains were considered alongside learning loss, uneven quality, incomplete coverage, and inequality; affordability, quality, regional distribution, and political conditionality remain insufficiently searched.",
+        "closed_system_silence": "Regional inequality, incomplete coverage, and weak monitoring may hide service failures and exclusion, especially where access or reporting is limited.",
+        "open_system_complaint_volume": "Service complaints may exaggerate visible severity in open systems while underserved regions and vulnerable groups may be underreported; no complaint denominator or coverage audit is provided.",
+        "duplicate_reporting": "World Bank project, human-capital, and COVID materials support multiple distinct claims but require precise locators; local indicators should not be counted as independent narrative sources without source-family review.",
+        "allegations_vs_findings": "RC016-RC018 distinguish policy/project actions from measured outcomes and crisis-related losses; learning loss is an outcome, not by itself a personal finding.",
+        "official_claim_independence": "World Bank project and analytical records provide external checks but may rely on government data; project approval establishes action and intended design, not realized impact.",
+        "population_exposure_authority_baseline_shocks": "HDI and health/education indicators address population outcomes and baseline; donor, subnational, inherited, and COVID-shock contributions remain material and authority over delivery is shared.",
+        "missing_source_type": "Missing household/beneficiary surveys, school and health administrative records, independent program evaluations, local-language reporting, and regional affordability/distribution data.",
+        "supporting_evidence_ids": [
+          "RC016",
+          "RC017",
+          "RC018",
+          "LF1325",
+          "LF1333",
+          "LF1023",
+          "LF1025",
+          "LS039",
+          "LS047",
+          "LS048"
+        ],
+        "unresolved_risks": [
+          "Target-year affordability, quality, and regional distribution evidence is thin.",
+          "Donor and subnational contributions complicate attribution.",
+          "Project approval and policy alignment are not outcome evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "This chapter requires a personal-integrity nexus; country corruption indicators and institutional decline are insufficient.",
+        "A bounded search for primary integrity and investigative sources could materially improve attribution."
+      ],
+      "missing_themes": [
+        "Personal enrichment or family benefit",
+        "Conflict-of-interest and beneficial-ownership evidence",
+        "Direct presidential obstruction or knowledge",
+        "Integrity disclosures and audit findings",
+        "Contrary evidence of personal safeguards or corrective action"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse institutional-integrity evidence was searched, but favorable evidence about personal conduct, disclosure, conflicts, enforcement, and corrective action is not comparably developed; direct personal-nexus searches remain incomplete.",
+        "closed_system_silence": "Corruption, favoritism, conflicts, and obstruction are especially vulnerable to concealment; weakened oversight and pressure on monitors increase this risk.",
+        "open_system_complaint_volume": "Complaints against monitors may inflate apparent institutional hostility if repeated reporting reflects one campaign; conversely, intimidation and weakened oversight can suppress corruption complaints, so volume is unreliable.",
+        "duplicate_reporting": "KPK, civil-society, and legal-reporting claims may overlap; the notebook has few locators and must not count repeated descriptions as independent facts.",
+        "allegations_vs_findings": "RC010-RC013 document institutional weakening, reported pressure, formal legal developments, and assessments; they do not establish Widodo's personal enrichment, benefit, deliberate deception, or direct obstruction.",
+        "official_claim_independence": "RC019 establishes appointment authority, but official institutional records do not independently establish integrity. NGO reporting provides external scrutiny without resolving the personal nexus.",
+        "population_exposure_authority_baseline_shocks": "Country corruption indicators establish baseline and institutional exposure, not personal conduct; shared authority, inherited KPK conditions, and political/institutional shocks are not fully separated.",
+        "missing_source_type": "Missing asset declarations, procurement and beneficial-ownership records, conflict-of-interest disclosures, court findings, audit reports, investigative local journalism, and direct evidence of presidential knowledge or intervention.",
+        "supporting_evidence_ids": [
+          "RC010",
+          "RC011",
+          "RC012",
+          "RC013",
+          "RC019",
+          "LF1406",
+          "LF1409",
+          "LS012",
+          "LS013",
+          "LS022",
+          "LS065"
+        ],
+        "unresolved_risks": [
+          "Personal-integrity nexus remains unresolved.",
+          "No verified evidence of personal enrichment, family benefit, deliberate deception, or direct obstruction.",
+          "Institutional weakening cannot be converted into personal dishonesty without additional attribution evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Formal action and project approval should not be presented as proven effectiveness.",
+        "Further bounded research could materially improve implementation, correction, and contrary-evidence coverage."
+      ],
+      "missing_themes": [
+        "Independent implementation and outcome evaluation",
+        "Adaptation and corrective action",
+        "Durable multi-program results",
+        "Distributional and beneficiary evidence",
+        "Independent assessment of diplomatic effectiveness"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "The notebook includes attributable programs, implementation weaknesses, external-shock dependence, and mixed diplomatic effectiveness; adaptation, correction, durable results, and contrary outcome evidence remain incomplete.",
+        "closed_system_silence": "Papua and weak subnational or institutional monitoring may hide implementation failures, exclusion, and uncorrected harms.",
+        "open_system_complaint_volume": "Visible complaints and NGO reporting may overstate severity in open settings, while Papua and weak monitoring may suppress complaints; neither complaint volume nor official silence is a reliable effectiveness measure.",
+        "duplicate_reporting": "World Bank and official records are reused across lenses; distinct locators and claim units are required, especially for the same program or diplomatic action.",
+        "allegations_vs_findings": "RC005-RC006 and RC014-RC020 separate formal actions, program records, technical assessments, outcomes, and efficacy limitations; official success claims are not treated as independent findings.",
+        "official_claim_independence": "Cabinet statements and project records establish action or intent; World Bank analysis supplies some independent checking, but official data dependence and lack of outcome evaluation remain risks.",
+        "population_exposure_authority_baseline_shocks": "World Bank and local facts address national outcomes and governance baseline; attribution is shared with donors, subnational bodies, prior administrations, and external shocks including COVID recovery and the Ukraine war.",
+        "missing_source_type": "Missing independent project evaluations, audit/procurement records, beneficiary and subnational evidence, implementation tracking, diplomatic outcome assessments, and local-language reporting.",
+        "supporting_evidence_ids": [
+          "RC005",
+          "RC006",
+          "RC014",
+          "RC015",
+          "RC016",
+          "RC017",
+          "RC018",
+          "RC019",
+          "RC020",
+          "LF1410",
+          "LF1447",
+          "LS036",
+          "LS067",
+          "LS076"
+        ],
+        "unresolved_risks": [
+          "Program ownership is clearer than durable, equitable, independently measured success.",
+          "Adaptation and correction evidence is missing.",
+          "Diplomatic activity lacks sufficiently independent efficacy assessment.",
+          "External shocks and inherited baselines complicate causal interpretation."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "All eight selected chapters have material research-recoverable gaps; the notebook reports only approximately three unique locators and three approximate source families against substantially higher review thresholds.",
+    "The notebook provides useful stable IDs and explicit local-fact dispositions, but the required local-data audit is not explicit and precise locator coverage is inadequate for many mapped claims.",
+    "Missing evidence is treated as unresolved rather than negative evidence. National indicators, official statements, gateway material, and contested reports require proportional attribution and independence controls.",
+    "No scores, score ranges, anchors, rankings, or judge-directed recommendations were used in this review."
+  ],
+  "reviewer_summary": "Every selected chapter requires bounded continuation because the handoff identifies concrete recoverable gaps in precise locators, source breadth, attribution, contrary evidence, event coverage, or outcome verification. The most acute risk is Chapter 7B's unresolved personal-integrity nexus, followed by 1B's lack of ruler-attributed nuclear-risk evidence and 2B-6B/8B's incomplete primary, local, subnational, implementation, and remedy evidence. Chapters should remain unresolved for confidence and interpretation until those gaps are addressed; no missing evidence is treated as adverse ruler evidence."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Review round 1 completed for the selected scope: Chapter 1B only. No score or score guidance was assigned.
+
+The targeted pass added seven defensible source-claim units and expanded coverage from national exposure toward safeguards, physical protection, cyber-risk governance, and adverse audit evidence. Direct personal attribution to Widodo remains limited.
+
+### New evidence register
+
+| ID | Source and precise locator | Claim and limits | Lens mapping |
+|---|---|---|---|
+| RC021 | [BAPETEN, APSN meeting](https://bapeten.go.id/berita/12th-asia-pasific-safeguards-network-apsn-plenary-meeting-114154), 24 Feb. 2022, article body | Indonesia supported transparency, Additional Protocol implementation, State Declaration Portal reporting, IAEA inspections, and short-notice verification. Formal regulator evidence; not proof of presidential direction or efficacy. | 1B.3, 1B.4, 1B.6, 1B.7 |
+| RC022 | [BAPETEN, IAEA safeguards review](https://bapeten.go.id/berita/inspeksi-safeguards-dan-annual-safeguards-review-meeting-dengan-inspektur-iaea-141723), 20–24 Jun. 2022, sections on inspections and annual review | IAEA activities included complementary access, verification of material-balance areas, and review of Indonesia’s safeguards implementation. BAPETEN reported no indication of misuse of declared material or undeclared nuclear material/activities in the referenced 2021 report. Official relay; not independent proof of national efficacy or ruler conduct. | 1B.3, 1B.4, 1B.6, 1B.7, 1B.10 |
+| RC023 | [BAPETEN, U.S. physical-protection assessment](https://bapeten.go.id/berita/penilaian-sistem-proteksi-fisik-tim-us-123417), 21–23 Sep. 2022, sections on assessment scope and findings | U.S. interagency assessors reviewed Indonesian regulations, oversight, facilities, personnel, procedures, alarms, reactor, fuel-production, and spent-fuel sites; BAPETEN reported alignment with IAEA INFCIRC/225 Rev. 5 plus recommendations. Strong evidence that an assessment occurred; outcome is reported through BAPETEN. | 1B.3, 1B.7, 1B.10 |
+| RC024 | [BAPETEN, ASEANTOM technical visit](https://www.bapeten.go.id/berita/kerja-sama-bapeten-dengan-iaea-dalam-technical-visit-on-security-inspections-of-radioactive-material-and-associated-facilities-183306), 21–25 Nov. 2022, article body | Indonesia and regional partners worked on licensing, inspection, enforcement, and prevention of criminal use of radioactive material; BAPETEN recorded a commitment to nuclear safety and security. Institutional action, not direct presidential attribution. | 1B.3, 1B.6, 1B.7, 1B.9 |
+| RC025 | [Cabinet Secretariat, Perpres 82/2022](https://setkab.go.id/presiden-terbitkan-perpres-82-2022-tentang-pelindungan-infrastruktur-informasi-vital/), 24 May 2022, sections describing purpose and incident-response structure | Widodo issued a regulation protecting vital information infrastructure from electronic misuse and requiring national, sectoral, and organizational incident-response teams coordinated by BSSN. Direct formal presidential action; effectiveness is unverified. | 1B.8, 1B.9 |
+| RC026 | [BAPETEN JDIH, PP 52/2022](https://jdih.bapeten.go.id/id/dokumen/peraturan/peraturan-pemerintah-nomor-52-tahun-2022-tentang-keselamatan-dan-keamanan-pertambangan-bahan-galian-nuklir), record fields 43–61, dated 12 Dec. 2022 | Indonesia promulgated a new regulation on safety and security across nuclear-mineral mining. Primary legal record; establishes formal governance and expanded dual-use oversight, not implementation or personal motivation. | 1B.3, 1B.6, 1B.7, 1B.9 |
+| RC027 | [BPK audit report notice](https://www.bpk.go.id/news/anggota-iii-bpk-berharap-temuan-hasil-pemeriksaan-pada-bapeten-segera-diselesaikan), 18 Mar. 2022, paragraphs 53–64 | BPK reported that BAPETEN oversight of nuclear material entering Indonesia was not optimal, legacy waste and unused radiation sources were inadequately handled, and inspection sanctions were insufficient; recommendations included radiation portal monitoring and stronger procedures. High-value adverse institutional evidence, but no direct Widodo nexus. | 1B.3, 1B.7, 1B.10 |
+
+### Discovery-only or rejected candidates
+
+- BAPETEN FINAS incident-reporting article: promising for safety culture and learning, but the underlying page returned a cache miss; retained as `discovery_only`, not defensible evidence.
+- BAPETEN G20 nuclear-security evaluation: promising command and lessons-learned episode, but underlying page returned a cache miss; `discovery_only`.
+- BAPETEN national nuclear-security architecture meeting: promising threat-assessment and interagency coordination record, but underlying page returned a cache miss; `discovery_only`.
+- DPR cybersecurity discussion paper: useful adverse context on malware, uneven monitoring, CSIRT integration, and BSSN budget pressure, but the repository page/download was not fetchable; `discovery_only`.
+- Kominfo SIM-data-leak response: page opened only to a footer and did not expose the claim text; rejected from defensible evidence as `locator_missing`.
+
+### Local-data audit
+
+- No supplied local fact directly measured 1B conduct; all ten 1B local statuses were `no_evidence_found`.
+- Used as context: `LF077` (2004 military-spending baseline), `LF149` (2022 military expenditure, constant USD), and `LF152` (2022 military expenditure share of government spending).
+- Reviewed but not retained as distinct 1B evidence: intervening SIPRI facts `LF078–LF148`; they establish inherited burden and trajectory, not nuclear governance, safety, rhetoric, or command conduct.
+- No local extraction error was present for 1B.
+
+### Chapter handoff
+
+The continuation materially improved the previously identified gaps for:
+
+- formal safeguards and inspection architecture;
+- physical protection and external assessment;
+- radioactive-material and nuclear-mineral governance;
+- cyber critical-infrastructure governance;
+- adverse audit findings and institutional safety weaknesses.
+
+Still unresolved are ruler-attributed nuclear rhetoric, a personally directed command or escalation episode, independently verified consequential risk reduction, and direct evidence connecting Widodo to implementation, correction, or concealment. The accessible 2022 primary-source trail is now reasonably bounded, but attribution remains the central limitation.
+
+The filesystem is read-only in this worker run, so I could not update the supplied `research-materials.md` or `research-ledger-manifest.json`. The seven IDs above are the continuation entries; they should be appended with `disposition: "final_evidence"` and the five candidates marked `discovery_only` or `rejected` with their specific reasons.
+
+--- EVIDENCE REVIEW ROUND 2 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 12,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "National non-nuclear status and institutional safeguards are not personal ruler conduct.",
+        "The continuation supplied precise locators, adverse audit evidence, and broader governance coverage.",
+        "The remaining gap is principally attribution and independent efficacy, with no clearly bounded search target likely to resolve it."
+      ],
+      "missing_themes": [
+        "Personal command or escalation episode",
+        "Independently verified consequential risk reduction",
+        "Direct evidence of presidential implementation, correction, or concealment"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Both favorable safeguards, protection, and cyber-governance material and adverse audit evidence were searched. The remaining attribution gap is not clearly recoverable through a broad additional search, given the bounded 2022 primary-source trail.",
+        "closed_system_silence": "Papua and broader information constraints show that silence can conceal misconduct, but no nuclear-specific transparency audit or evidence of concealed nuclear conduct is supplied.",
+        "open_system_complaint_volume": "Complaint volume is not a meaningful safety measure here; specialized nuclear risks may generate few public complaints even in an open information environment.",
+        "duplicate_reporting": "RC021-RC024 are distinct institutional events but share BAPETEN as a reporting gateway; RC002, RC021, and RC022 may overlap on safeguards. Counts must remain locator- and claim-specific.",
+        "allegations_vs_findings": "RC001-RC005 establish national exposure, safeguards, diplomatic statements, and analysis; RC021-RC026 document institutional or formal governance actions. RC027 is an adverse audit finding. None establishes a personal command, escalation, concealment, or independently verified presidential risk reduction.",
+        "official_claim_independence": "IAEA and U.S. assessment involvement provide some external checking, but RC021-RC026 are largely official or official-relay accounts and do not independently verify efficacy or presidential ownership.",
+        "population_exposure_authority_baseline_shocks": "SIPRI and IAEA establish exposure and inherited baseline; RC025-RC026 establish formal authority. Personal implementation, correction, and 2022 shock effects remain unresolved.",
+        "missing_source_type": "No directly attributable presidential nuclear-policy, command-and-control, escalation, or independently verified safety-outcome source is available. The missing type is material but appears access- and domain-constrained.",
+        "supporting_evidence_ids": [
+          "RC001",
+          "RC002",
+          "RC021",
+          "RC022",
+          "RC023",
+          "RC025",
+          "RC026",
+          "RC027",
+          "LF077",
+          "LF149",
+          "LF152"
+        ],
+        "unresolved_risks": [
+          "Country safeguards and formal regulation may be over-attributed to Widodo.",
+          "No personal command, escalation, concealment, or consequential risk-reduction episode is established.",
+          "BAPETEN relay evidence may overstate independent verification."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Contested state/non-state conduct cannot be attributed automatically to Widodo.",
+        "The notebook explicitly identifies recoverable event-level and contrary-evidence gaps.",
+        "The selected chapter should continue within the existing 2B lens scope."
+      ],
+      "missing_themes": [
+        "Civilian-protection orders and rules of engagement",
+        "Arms recipients and end-use accountability",
+        "Independent Papua accountability and remedy evidence",
+        "Contrary evidence on diplomatic effectiveness"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Favorable diplomatic and peace-effort evidence and adverse Papua/conflict material were both searched. Orders, rules of engagement, arms end-use, and accountability searches remain concrete research-recoverable gaps.",
+        "closed_system_silence": "Papua's information restrictions can suppress reporting on civilian harm, security conduct, and accountability; official silence cannot be read as absence of misconduct.",
+        "open_system_complaint_volume": "Open reporting can make accessible incidents appear more prevalent, while Papua restrictions suppress incident visibility. Complaint and conflict-reporting volume therefore cannot establish severity or prevalence.",
+        "duplicate_reporting": "Ukraine, Myanmar, and Papua reporting may describe overlapping underlying events. Reused IDs are appropriate, but repeated coverage must not inflate source-claim counts.",
+        "allegations_vs_findings": "RC003-RC006 and RC020 document diplomatic acts or official positions. RC007 reports contested Papua violence involving state and non-state actors. These should not be converted into findings of presidential responsibility without orders, knowledge, tolerance, or remedy evidence.",
+        "official_claim_independence": "RC003 is an external official diplomatic record, while RC006 and RC020 are Indonesian official accounts. They establish actions or statements, not independent efficacy. RC004 and RC005 provide external analytical or media checks.",
+        "population_exposure_authority_baseline_shocks": "LF073-LF076 and military-spending records establish exposure and baseline; state/non-state responsibility, subnational authority, inherited conflict, COVID recovery, and Ukraine-related shocks remain insufficiently separated.",
+        "missing_source_type": "Primary civilian-protection directives, rules of engagement, arms-recipient/end-use records, field reporting, and accountability or remedy records are missing.",
+        "supporting_evidence_ids": [
+          "RC003",
+          "RC004",
+          "RC005",
+          "RC006",
+          "RC007",
+          "RC020",
+          "LF073",
+          "LF076",
+          "LS042",
+          "LS043"
+        ],
+        "unresolved_risks": [
+          "Papua civilian-protection and remedy attribution remains incomplete.",
+          "Diplomatic activity is better evidenced than outcomes, correction, or accountability.",
+          "Local-language and primary security documentation is absent."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 6,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Country-level rights indicators cannot establish personal attribution.",
+        "The notebook contains substantial adverse coverage but lacks several event-level and remedy sources needed for fair interpretation.",
+        "Continuation could materially improve the selected lenses."
+      ],
+      "missing_themes": [
+        "Direct presidential rhetoric or incitement",
+        "Remedy and accountability effectiveness",
+        "Prison conditions",
+        "Vulnerable-group protection",
+        "Independent primary corroboration"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse rights evidence and favorable evidence of continuing media and civil-society operation were both sought. Presidential rhetoric, remedy effectiveness, prison conditions, vulnerable-group protection, and primary corroboration remain research-recoverable gaps.",
+        "closed_system_silence": "Papua restrictions, surveillance, harassment, and constrained journalism could conceal abuse, prison conditions, vulnerable-group harms, and failed remedies.",
+        "open_system_complaint_volume": "Open NGO and media reporting can increase visible complaint volume, while Papua restrictions and surveillance suppress reporting. Volume cannot be used as a prevalence denominator.",
+        "duplicate_reporting": "HRW, Amnesty, Freedom House, RSF, and local indicators may repeat common incidents or trends. Stable IDs help, but precise locator and underlying-fact reconciliation remain necessary.",
+        "allegations_vs_findings": "RC008-RC013 distinguish official human-rights reporting, NGO assessments, documented institutional actions, and legal provisions. Allegations and reported abuses remain distinct from adjudicated findings; country indicators are contextual only.",
+        "official_claim_independence": "RC008 is external official reporting; RC009-RC013 provide NGO and press-freedom checks. No systematic independent verification of government denials, remedy implementation, or institutional correction is supplied.",
+        "population_exposure_authority_baseline_shocks": "Local and longitudinal indicators establish population exposure and baseline; executive, security, judicial, legislative, and subnational authority, plus COVID and Papua shocks, are not fully disentangled.",
+        "missing_source_type": "Primary court, prison, police/military disciplinary, remedy, complaint, vulnerable-group, and local-language records are missing.",
+        "supporting_evidence_ids": [
+          "RC007",
+          "RC008",
+          "RC009",
+          "RC010",
+          "RC011",
+          "RC012",
+          "RC013",
+          "LF322",
+          "LF331",
+          "LF440",
+          "LF445",
+          "LS003",
+          "LS011"
+        ],
+        "unresolved_risks": [
+          "Direct presidential knowledge, tolerance, correction, and remedy effectiveness are unevenly evidenced.",
+          "The Criminal Code evidence spans 2019 and 2022 and requires strict temporal separation.",
+          "Prison and vulnerable-group evidence is materially incomplete."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Comparative indices and NGO assessments require precise locator and attribution controls.",
+        "Further bounded research is likely to recover primary and contrary evidence.",
+        "The selected 4B lenses should continue."
+      ],
+      "missing_themes": [
+        "Primary evidence on the election-delay controversy",
+        "Executive influence over election institutions",
+        "Criminal Code implementation and enforcement",
+        "Independent evidence of institutional correction or remedy"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Competitive political space and independent media were considered alongside restrictions and manipulation. Primary searches for the election-delay controversy, election-institution influence, Criminal Code implementation, and corrective evidence remain incomplete.",
+        "closed_system_silence": "Papua, surveillance, defamation pressure, and constrained journalism could conceal executive influence, electoral manipulation, or institutional noncompliance.",
+        "open_system_complaint_volume": "Open complaints and media coverage may increase visible deterioration, while surveillance and pressure suppress complaints. No denominator or complaint-volume audit is supplied.",
+        "duplicate_reporting": "Freedom House, RSF, HRW, and local indicators may overlap on the same incidents or trends. Only distinct source-locator-claim units should count.",
+        "allegations_vs_findings": "RC011-RC013 distinguish comparative assessments, reported pressure, formal legislative acts, and legal analysis. The election-delay controversy and institutional influence remain incompletely sourced and should not be presented as established personal conduct.",
+        "official_claim_independence": "Formal official records establish acts but do not validate institutional independence or implementation. NGO assessments offer external checks but may share reporting ecosystems.",
+        "population_exposure_authority_baseline_shocks": "Local indicators address institutional baseline and exposure, but executive, legislative, judicial, electoral, and subnational authority are not fully separated; COVID-era conditions affect comparisons.",
+        "missing_source_type": "Primary election-administration, parliamentary, court, presidential-statement, implementation-guidance, and local-monitoring sources are missing.",
+        "supporting_evidence_ids": [
+          "RC011",
+          "RC012",
+          "RC013",
+          "LF616",
+          "LF623",
+          "LF884",
+          "LF898",
+          "LS010",
+          "LS015",
+          "LS021",
+          "LS044",
+          "LS046"
+        ],
+        "unresolved_risks": [
+          "Primary evidence for the election-delay controversy is explicitly incomplete.",
+          "Criminal Code implementation and executive influence lack sufficient event-level documentation.",
+          "Positive institutional context and corrective evidence are underdeveloped."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 7,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Macro outcomes cannot be attributed to Widodo without stronger policy and counterfactual context.",
+        "The notebook identifies concrete recoverable implementation and distribution gaps.",
+        "Continuation is warranted for the selected 5B lenses."
+      ],
+      "missing_themes": [
+        "Appointment-to-outcome linkage",
+        "Project-level implementation and procurement evidence",
+        "Distributional and subnational outcomes",
+        "Independent evaluation of correction and delivery quality"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Recovery, appointments, and policy activity were searched alongside inflation, tax, infrastructure, distribution, and social-protection weaknesses. Appointment-to-outcome linkage, project implementation, and subnational evidence remain incomplete.",
+        "closed_system_silence": "Subnational and institutional weaknesses may conceal procurement, distribution, and service-delivery failures not visible in macroeconomic reporting.",
+        "open_system_complaint_volume": "Beneficiary and service complaints may be more visible in open or monitored regions and less visible in marginalized regions; complaint volume is not a severity measure.",
+        "duplicate_reporting": "World Bank material is reused across chapters and lenses. Page- or box-level locators and distinct underlying claims are necessary to avoid inflated counts.",
+        "allegations_vs_findings": "RC014-RC019 separate macroeconomic outcomes, technical assessments, project approval, and formal appointment authority. Growth is not a finding of ruler effectiveness, and governance weaknesses are not automatically personal failures.",
+        "official_claim_independence": "RC019 establishes appointment authority; RC016 establishes a project record. Neither proves outcomes. World Bank analysis offers a technical check but relies partly on official data.",
+        "population_exposure_authority_baseline_shocks": "World Bank and local indicators address outcomes, inequality, baseline governance, and exposure. Reopening, commodity prices, Ukraine pressures, inherited gaps, and subnational authority materially confound attribution.",
+        "missing_source_type": "Procurement and audit records, project completion and distribution data, subnational reporting, beneficiary evidence, and independent appointment evaluations are missing.",
+        "supporting_evidence_ids": [
+          "RC014",
+          "RC015",
+          "RC016",
+          "RC017",
+          "RC019",
+          "LF1019",
+          "LF1025",
+          "LS029",
+          "LS031",
+          "LS041"
+        ],
+        "unresolved_risks": [
+          "Outcome evidence is stronger than ruler-specific ownership and implementation evidence.",
+          "Distributional and subnational effects are underdocumented.",
+          "External shocks and inherited baselines limit attribution of 2022 macro outcomes."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 6,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "National human-development indicators are insufficient to establish ruler-specific delivery quality.",
+        "The notebook contains concrete population-level and implementation gaps that further bounded research could improve.",
+        "Continuation is warranted for the selected 6B lenses."
+      ],
+      "missing_themes": [
+        "Affordability and coverage by population",
+        "Service quality and regional distribution",
+        "Independent evaluation of human-capital programs",
+        "Political conditionality or exclusion",
+        "Target-period post-shock recovery response"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Policy activity and long-term gains were considered alongside learning loss, uneven quality, incomplete coverage, and inequality. Affordability, quality, regional distribution, political conditionality, and target-year recovery response remain incomplete.",
+        "closed_system_silence": "Regional inequality, incomplete coverage, and weak monitoring may conceal service failures and exclusion, especially for populations with limited access or reporting capacity.",
+        "open_system_complaint_volume": "Service complaints may be more visible in open systems while underserved regions and vulnerable groups are underreported. Complaint volume lacks a denominator and cannot measure severity.",
+        "duplicate_reporting": "World Bank project, human-capital, and COVID materials support distinct claims but need precise locator reconciliation. Local indicators are structured context, not automatically independent narrative sources.",
+        "allegations_vs_findings": "RC016-RC018 distinguish policy and project actions from measured outcomes and COVID-related losses. Learning loss and human-development indicators are outcomes, not personal findings.",
+        "official_claim_independence": "World Bank records provide external analysis but may rely on government data. Project approval establishes intended action and design, not realized impact or equitable delivery.",
+        "population_exposure_authority_baseline_shocks": "HDI and health/education indicators address population outcomes and baseline; donor, subnational, inherited, and COVID-shock contributions remain material, with shared delivery authority.",
+        "missing_source_type": "Household and beneficiary surveys, school and health administrative records, independent program evaluations, local-language reporting, and regional affordability/distribution data are missing.",
+        "supporting_evidence_ids": [
+          "RC016",
+          "RC017",
+          "RC018",
+          "LF1325",
+          "LF1333",
+          "LF1023",
+          "LF1025",
+          "LS039",
+          "LS047",
+          "LS048"
+        ],
+        "unresolved_risks": [
+          "Target-year affordability, quality, and regional distribution evidence is thin.",
+          "Donor and subnational contributions complicate attribution.",
+          "Policy alignment and project approval are not outcome evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "This chapter requires a personal-integrity nexus, which the notebook does not establish.",
+        "A bounded search for primary integrity records and investigative reporting could materially improve attribution and contrary evidence.",
+        "Continuation is required for the selected 7B lenses."
+      ],
+      "missing_themes": [
+        "Personal enrichment or family benefit",
+        "Conflict-of-interest and beneficial-ownership evidence",
+        "Direct presidential obstruction or knowledge",
+        "Integrity disclosures and audit findings",
+        "Contrary evidence of personal safeguards or corrective action"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Adverse institutional-integrity evidence was searched, but favorable personal-integrity evidence, disclosures, safeguards, conflicts, enforcement, and corrective action were not comparably developed. Direct nexus searches remain incomplete.",
+        "closed_system_silence": "Weakening oversight, pressure on monitors, and intimidation can conceal corruption, favoritism, conflicts, and obstruction; silence is especially non-probative in this chapter.",
+        "open_system_complaint_volume": "Repeated complaints against monitors may exaggerate apparent hostility if they reflect one campaign; intimidation and weakened oversight may simultaneously suppress corruption complaints. Volume is unreliable in either direction.",
+        "duplicate_reporting": "KPK, civil-society, legal, and press reports may repeat one institutional episode or campaign. The low locator yield makes duplicate underlying facts a material risk.",
+        "allegations_vs_findings": "RC010-RC013 document institutional weakening, reported pressure, formal legal developments, and assessments. They do not establish Widodo's personal enrichment, family benefit, deliberate deception, knowledge, or direct obstruction.",
+        "official_claim_independence": "RC019 establishes appointment authority but not integrity. NGO and press-freedom sources provide external scrutiny, yet no source resolves the personal-integrity nexus.",
+        "population_exposure_authority_baseline_shocks": "Country corruption indicators establish institutional baseline, not personal conduct. Shared authority, inherited KPK conditions, and political or institutional shocks are not fully separated.",
+        "missing_source_type": "Asset declarations, beneficial-ownership and conflict-of-interest records, audits, court findings, investigative local journalism, and direct evidence of presidential knowledge or intervention are missing.",
+        "supporting_evidence_ids": [
+          "RC010",
+          "RC011",
+          "RC012",
+          "RC013",
+          "RC019",
+          "LF1406",
+          "LF1409",
+          "LS012",
+          "LS013",
+          "LS022",
+          "LS065"
+        ],
+        "unresolved_risks": [
+          "Personal-integrity nexus remains unresolved.",
+          "No verified evidence of personal enrichment, family benefit, deliberate deception, or direct obstruction is established.",
+          "Institutional weakening cannot be converted into personal dishonesty without additional attribution evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 8,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "Formal action and project approval should not be presented as proven effectiveness.",
+        "The notebook identifies multiple bounded, recoverable implementation and outcome gaps.",
+        "Continuation is warranted for the selected 8B lenses."
+      ],
+      "missing_themes": [
+        "Independent implementation and outcome evaluation",
+        "Adaptation and corrective action",
+        "Durable multi-program results",
+        "Distributional and beneficiary evidence",
+        "Independent assessment of diplomatic effectiveness"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Attributable programs, implementation weaknesses, external-shock dependence, and mixed diplomatic effectiveness were all identified. Adaptation, correction, durable results, distributional effects, and independent diplomatic assessment remain incompletely searched.",
+        "closed_system_silence": "Papua and weak subnational or institutional monitoring may conceal implementation failure, exclusion, uncorrected harms, and failed diplomatic or security feedback.",
+        "open_system_complaint_volume": "Visible complaints and NGO reporting may overstate severity in open settings, while Papua and weak monitoring suppress complaints. Neither complaint volume nor official silence reliably measures effectiveness.",
+        "duplicate_reporting": "World Bank and official records are reused across lenses. Distinct locators and source-claim units are required, especially when several IDs concern one program or diplomatic action.",
+        "allegations_vs_findings": "RC005-RC006 and RC014-RC020 distinguish formal actions, project records, technical assessments, outcomes, and efficacy limitations. Official success claims are not treated as independent findings.",
+        "official_claim_independence": "Cabinet statements and project records establish action or intent. World Bank analysis supplies some external checking, but official-data dependence and lack of independent outcome evaluation remain material.",
+        "population_exposure_authority_baseline_shocks": "World Bank and local facts address national outcomes and governance baseline. Attribution is shared with donors, subnational bodies, prior administrations, and COVID-recovery and Ukraine-war shocks.",
+        "missing_source_type": "Independent project evaluations, audit and procurement records, beneficiary and subnational evidence, implementation tracking, diplomatic outcome assessments, and local-language reporting are missing.",
+        "supporting_evidence_ids": [
+          "RC005",
+          "RC006",
+          "RC014",
+          "RC015",
+          "RC016",
+          "RC017",
+          "RC018",
+          "RC019",
+          "RC020",
+          "LF1410",
+          "LF1447",
+          "LS036",
+          "LS067",
+          "LS076"
+        ],
+        "unresolved_risks": [
+          "Program ownership is clearer than durable, equitable, independently measured success.",
+          "Adaptation and correction evidence is missing.",
+          "Diplomatic activity lacks sufficiently independent efficacy assessment.",
+          "External shocks and inherited baselines complicate causal interpretation."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "The Chapter 1B continuation materially improved locator precision, safeguards, physical protection, cyber-governance, and adverse audit coverage; its remaining limitation is attribution and independent efficacy, with a credible bounded-source explanation.",
+    "Chapters 2B-8B retain concrete research-recoverable gaps in attribution, contrary evidence, primary or local-language coverage, implementation, remedy, distribution, or outcome verification.",
+    "The notebook distinguishes local facts from ruler-attributed evidence and treats missing evidence as unresolved rather than negative evidence.",
+    "Potential source-family reuse and gateway reporting require deterministic deduplication and locator reconciliation before judging.",
+    "No scores, score ranges, rankings, anchors, or judge-directed recommendations were assigned."
+  ],
+  "reviewer_summary": "Continuation is warranted for Chapters 2B-8B because each has concrete, bounded gaps that another research round could materially improve. Chapter 1B is not selected: its continuation added precise primary-source and adverse-audit material, and the remaining personal-attribution and independent-efficacy gap appears constrained by the accessible 2022 source trail rather than by unperformed broad searching. No chapter is treated as adverse merely because evidence is missing; unresolved attribution and bias risks should reduce confidence and constrain interpretation downstream."
+}
+
+--- SUPERVISOR RESEARCH TAKEOVER ROUND 2 ---
+
+Continuation completed for Chapters 2B–8B. No scores were assigned. New IDs are provisional because the read-only workspace prevented manifest persistence; numbering continues from RC027.
+
+### 2B — Conflict, peace, and protection
+
+- **RC028** — Indonesia’s presidential statement on Myanmar required implementation of the ASEAN Five-Point Consensus, access for the special envoy, inclusive dialogue, and nondiscriminatory aid (21 Jan. 2022, Cabinet Secretariat, paras. 46–57). Direct presidential attribution; efficacy unverified. **Lenses:** 2B.1, 2B.5, 2B.7, 2B.10. [Source](https://setkab.go.id/presiden-jokowi-kembali-tegaskan-pentingnya-implementasi-lima-butir-konsensus-asean-untuk-masalah-myanmar/)
+
+- **RC029** — Indonesian Foreign Ministry reported no significant Myanmar 5PC progress after one year and urged prompt access for the envoy (1 Feb. 2022, ANTARA, paras. 63–69). Contrary efficacy evidence. **Lenses:** 2B.1, 2B.7, 2B.10. [Source](https://en.antaranews.com/news/212769/indonesia-urges-myanmar-military-to-promptly-implement-aseans-5pc)
+
+- **RC030** — RSIS assessed ASEAN’s 2022 Myanmar approach as under pressure from continuing brutality and executions, arguing that barring junta participation remained insufficient without stronger consequences (22 Sept. 2022, executive summary). Independent analytical contrary evidence. **Lenses:** 2B.1, 2B.7, 2B.10. [Source](https://rsis.edu.sg/staff-publication/asean-and-the-five-point-consensus-on-myanmar-a-futile-exercise/)
+
+- **RC031** — Komnas HAM stated that Papua special autonomy had not fully delivered human rights, public services, or welfare, and called for measurable oversight of special-autonomy funds and institutional conflict handling (15 Feb. 2022, paras. 80–89). National institutional evidence; not personal blame. **Lenses:** 2B.4, 2B.5, 2B.9, 2B.10. [Source](https://www.komnasham.go.id/index.php/news/2022/2/15/2081/komnas-ham-otsus-untuk-kesejahteraan-orang-asli-papua.html)
+
+- **RC032** — Indonesia’s 2022 UN response documented police/ICRC training on international use-of-force standards and stated that ICRC had helped draft military SOPs and rules of engagement; it also defended access restrictions as security-based (UN document, pp. 7–10). Official contrary account, not independent efficacy proof. **Lenses:** 2B.4, 2B.5, 2B.9. [Source](https://spcommreports.ohchr.org/TMResultsBase/DownLoadFile?gId=36826)
+
+### 3B — Human rights
+
+- **RC033** — The U.S. 2022 report recorded abuses by security forces, harsh prison conditions, arbitrary detention, Papua abuses, restrictions on expression and assembly, and weak accountability (sections 1–2). External official finding with attribution limits. **Lenses:** 3B.1–3B.10. [Source](https://www.ecoi.net/en/document/2089237.html)
+
+- **RC034** — The same report stated that civilian authorities retained control over police and armed forces, while investigations and prosecutions occurred in some cases but impunity remained significant (paras. 37–41). Contrary/contextual attribution evidence. **Lenses:** 3B.1, 3B.9, 3B.10.
+
+- **RC035** — Human Rights Monitor reported that Papua police and military violations were rarely processed and that internal accountability mechanisms lacked transparency and independence (2022 annual report, paras. 43–49). Adverse remedy evidence. **Lenses:** 3B.1, 3B.4, 3B.9, 3B.10. [Source](https://humanrightsmonitor.org/reports/west-papua-2022/)
+
+- **RC036** — Human Rights Monitor recorded 43 civilian deaths in Papua conflict in 2022, including deaths attributed to both security forces and TPNPB, preserving contested responsibility rather than assigning it automatically to Widodo (paras. 61–83). Event-level contrary evidence. **Lenses:** 3B.1, 3B.2, 3B.9.
+
+- **RC037** — The 2022 Paniai human-rights trial acquitted the sole defendant; judges found insufficient proof of command responsibility, while dissenting judges and observers argued that higher command responsibility required further investigation (paras. 124–133). Adverse accountability evidence with explicit legal uncertainty. **Lenses:** 3B.1, 3B.9, 3B.10.
+
+- **RC038** — Widodo issued Presidential Decree 17/2022 creating a team for non-judicial settlement of twelve historic abuses, including restitution recommendations; victims and monitors criticized the process as rushed and potentially substituting for judicial accountability (22 Dec. 2022, paras. 45–68). Direct formal action plus contrary evidence. **Lenses:** 3B.9, 3B.10. [Source](https://humanrightsmonitor.org/news/victims-and-relatives-disappointed-over-settlement-of-serious-human-rights-violations-in-indonesia/)
+
+- **RC039** — Komnas Perempuan maintained a 2022 decision documenting discriminatory policy based on sexual orientation; the page was discoverable but not retrievable in full, so it remains **discovery_only**, not final evidence. **Lenses:** 3B.5, 3B.7.
+
+### 4B — Democratic institutions
+
+- **RC040** — Widodo chaired a limited meeting on the Criminal Code bill; the government described civil-society participation and changes to provisions on death penalty, defamation, and the ITE law (28 Nov. 2022, paras. 37–48). Direct executive legislative involvement. **Lenses:** 4B.2, 4B.3, 4B.6, 4B.7. [Source](https://setkab.go.id/en/president-jokowi-chairs-limited-meeting-on-criminal-code-bill/)
+
+- **RC041** — The Library of Congress reported that the Criminal Code would require implementation regulations and guidelines before taking effect, limiting the evidence to enactment and intended implementation rather than 2022 enforcement (11 Dec. 2022, paras. 40–67). Precise temporal and implementation constraint. **Lenses:** 4B.2, 4B.6, 4B.7, 4B.10. [Source](https://www.loc.gov/item/global-legal-monitor/2022-12-11/indonesia-new-criminal-code-passed-by-parliament/)
+
+- **RC042** — The same analysis recorded criticism that the Code threatened women, minorities, LGBT people, speech, and association, while noting that judicial review remained available but trust in the Constitutional Court had weakened. Contrary institutional evidence. **Lenses:** 4B.3, 4B.7, 4B.9.
+
+- **RC043** — The Presidential Staff Office characterized the Criminal Code as a presidential legacy and promised a three-year public and law-enforcement education period while stating that criticism would remain permissible (14 Dec. 2022, paras. 76–87). Official favorable claim; efficacy unverified. **Lenses:** 4B.2, 4B.3, 4B.6. [Source](https://www.ksp.go.id/moeldoko-kuhp-bukan-untuk-kepentingan-pemerintah-saat-ini.html)
+
+- **RC044** — Freedom House recorded a largely democratic electoral framework and mostly impartial election authorities, but noted that mandatory KPU/Bawaslu consultation with parliament and government could reduce electoral independence (2022 report, paras. 92–107). Balanced favorable/adverse institutional evidence. **Lenses:** 4B.1, 4B.4, 4B.8. [Source](https://freedomhouse.org/country/indonesia/freedom-world/2022)
+
+- **RC045** — Freedom House reported continued political pluralism and peaceful transfers of power, alongside military influence, online propaganda, corruption, and government pressure on universities and media (paras. 112–164, 179). Contrary and balancing context; some incidents predate 2022. **Lenses:** 4B.1, 4B.3, 4B.4, 4B.9.
+
+### 5B — Economic management
+
+- **RC046** — The World Bank approved a $750 million fiscal-reform loan to raise revenue, improve tax equity, strengthen subnational fiscal transfers, and improve budget execution (24 June 2022, paras. 143–151). Formal policy action; outcomes unverified. **Lenses:** 5B.3, 5B.4, 5B.5, 5B.6, 5B.7. [Source](https://www.worldbank.org/en/news/press-release/2022/06/24/new-support-will-help-strengthen-indonesia-tax-system-improve-development-spending)
+
+- **RC047** — The World Bank identified low tax revenue, weak public-investment spending, and post-COVID fiscal constraints as barriers to inclusive growth (same source, paras. 143–150). Independent adverse implementation context. **Lenses:** 5B.3, 5B.4, 5B.9, 5B.10.
+
+- **RC048** — BPK reported that its 2022 review covered 137 central-government financial audits, 41 performance audits, and 48 special-purpose audits, including poverty reduction, subsidies, and public-service obligations (1 Nov. 2022, paras. 53–58). Independent audit-system evidence. **Lenses:** 5B.5, 5B.7, 5B.10. [Source](https://www.bpk.go.id/news/bpk-serahkan-ikhtisar-hasil-pemeriksaan-semester-i-tahun-2022-kepada-presiden)
+
+- **RC049** — World Bank’s 2022 poverty brief reported poverty falling to 9.5% in March 2022 and social-assistance coverage reaching 97.2%, but identified high inclusion and exclusion errors and stagnant inequality (pp. 1–2). Outcome plus distributional shortfall. **Lenses:** 5B.6, 5B.8, 5B.9, 5B.10. [Source](https://databankfiles.worldbank.org/public/ddpext_download/poverty/987B9C90-CB9F-4D93-AE8C-750588BF00QA/current/Global_POVEQ_IDN.pdf)
+
+- **RC050** — The World Bank recorded 98% distribution of designated basic-needs transfers in Q1 2022, but warned that targeting errors persisted and that fuel-price increases could worsen inflation and poverty (p. 1). Balanced delivery evidence. **Lenses:** 5B.6, 5B.9, 5B.10.
+
+- **RC051** — The December 2022 Economic Prospects report projected 5.2% growth but attributed recovery materially to reopening and exceptionally favorable terms of trade, limiting ruler-specific attribution (pp. 40–41). Contrary attribution evidence. **Lenses:** 5B.1, 5B.9, 5B.10. [Source](https://documents1.worldbank.org/curated/en/099440012142242417/pdf/P1795560cfe1930180bb46080253f7faa21.pdf)
+
+### 6B — Human development
+
+- **RC052** — World Bank technical discussions with Indonesia supported learning-recovery frameworks, hybrid learning, and psychosocial support as schools reopened for the 2022 academic year. **Lenses:** 6B.2, 6B.5, 6B.6, 6B.9. [Source](https://blogs.worldbank.org/en/eastasiapacific/recovering-impacts-covid-19-school-closures-indonesia)
+
+- **RC053** — The World Bank estimated 0.9–1.2 years of learning loss and continued school closures into early 2022, establishing a major target-period shock rather than a standalone ruler finding. **Lenses:** 6B.2, 6B.5, 6B.6, 6B.10. [Source](https://blogs.worldbank.org/en/eastasiapacific/recovering-impacts-covid-19-school-closures-indonesia)
+
+- **RC054** — World Bank analysis documented government mitigation through emergency curricula, educational television, and subsidized internet quotas. Favorable response evidence; effectiveness not independently established. **Lenses:** 6B.2, 6B.5, 6B.6. [Source](https://www.worldbank.org/en/country/indonesia/publication/estimates-of-covid-19-impacts-on-learning-and-earning-in-indonesia-how-to-turn-the-tide)
+
+- **RC055** — A 2022 Indonesian study of social protection and stunting warned that cross-sectional data could not establish causality and called for evaluation of benefit continuity, adequacy, targeting, and coordination. Independent methodological limitation. **Lenses:** 6B.1, 6B.3, 6B.6, 6B.10. [Source](https://e-journal.unair.ac.id/JAKI/article/view/77680)
+
+- **RC056** — A study of pandemic-era stunting prevention identified limited health personnel, weak measurement calibration, and monitoring constraints as implementation problems. **Lenses:** 6B.3, 6B.5, 6B.6, 6B.9. [Source](https://ejournal.undip.ac.id/index.php/jmki/article/view/42792)
+
+- **RC057** — World Bank project documentation identifies equitable health-service utilization and quality improvement as a continuing reform objective, confirming policy alignment but not realized regional quality or affordability. **Lenses:** 6B.1, 6B.3, 6B.4, 6B.9.
+
+### 7B — Integrity
+
+- **RC058** — Jokowi’s LHKPN for the 2022 period reported assets of Rp82.37 billion, up approximately Rp10.90 billion from the prior report, with no reported debt. This is a disclosure record, not proof of honesty or concealment. **Lenses:** 7B.1, 7B.2, 7B.3. [Source](https://www.kompas.com/tren/read/2023/04/11/090000065/harta-kekayaan-jokowi-naik-rp-10-miliar-selama-2022-ini-rinciannya)
+
+- **RC059** — The disclosure listed land/buildings, vehicles, movable assets, and cash, providing a recoverable primary-data target for later beneficial-ownership comparison. **Lenses:** 7B.1, 7B.2, 7B.4.
+
+- **RC060** — Widodo publicly called for legal reform and asked parties to follow the KPK process (26 Sept. 2022). Direct favorable safeguard evidence; no independent test of implementation. **Lenses:** 7B.6, 7B.7. [Source](https://setkab.go.id/presiden-tegaskan-urgensi-reformasi-hukum-di-indonesia/)
+
+- **RC061** — BPK reported a performance audit concerning governance, action-setting, and monitoring of Indonesia’s national anti-corruption strategy for 2019–2022. Institutional accountability evidence; not personal integrity evidence. **Lenses:** 7B.6, 7B.7, 7B.10. [Source](https://www.bpk.go.id/news/selesaikan-pemeriksaan-bpk-serahkan-lhp-atas-lk-kpk-tahun-2022)
+
+- **RC062** — Indonesia Corruption Watch was reported as holding Widodo and parliament responsible for declining public trust in KPK after institutional weakening. This is an attributed civil-society allegation, not an adjudicated personal finding. **Lenses:** 7B.6, 7B.7. [Source](https://www.thejakartapost.com/paper/2022/04/06/president-house-responsible-for-waning-trust-in-kpk.html)
+
+- **RC063** — Searches found no target-period verified evidence of Widodo’s personal enrichment, family benefit, beneficial-ownership concealment, or direct obstruction. This remains `unresolved`, not adverse evidence.
+
+### 8B — Effectiveness
+
+- **RC064** — Indonesia’s PEN program had disbursed Rp29.3 trillion, or 6.4% of its 2022 allocation, by 1 April under a meeting chaired by Widodo. Direct implementation evidence with limited early-year coverage. **Lenses:** 8B.2, 8B.3, 8B.5. [Source](https://setkab.go.id/hingga-1-april-realisasi-program-pemulihan-ekonomi-nasional-2022-capai-rp293-triliun/)
+
+- **RC065** — World Bank’s village-service implementation record provides a 30 June 2022 monitoring point for institutional strengthening and village service delivery, but does not establish national-scale effectiveness or presidential ownership. **Lenses:** 8B.2, 8B.4, 8B.7. [Source](https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099715106302221571)
+
+- **RC066** — The World Bank’s independent evaluation later identified capacity gains in local governments and water utilities but lagging urban and subnational infrastructure projects because of weak local capacity. Retrospective evaluation of programs active during the period; contrary implementation evidence. **Lenses:** 8B.2, 8B.4, 8B.7. [Source](https://ieg.worldbankgroup.org/evaluations/world-bank-group-indonesia)
+
+- **RC067** — The G20 communiqué was achieved despite deep disagreement over Ukraine; most members condemned the invasion, while “different assessments” remained. This supports a diplomatic process outcome, not conflict resolution. **Lenses:** 8B.1, 8B.9. [Source](https://www.axios.com/2022/11/16/g20-communique-condemn-russia-invasion)
+
+- **RC068** — Contemporary reporting described Widodo’s G20 priorities as global health, inclusive digital transformation, and sustainable energy, while noting that geopolitical divisions dominated the summit. Balanced portfolio evidence. **Lenses:** 8B.1, 8B.6, 8B.9. [Source](https://time.com/6232748/g20-summit-bali-geopolitical-showdown/)
+
+- **RC069** — External analysis characterized Indonesia/ASEAN quiet diplomacy toward Myanmar as producing only limited success, while the Five-Point Consensus remained weak and violence continued. Contrary diplomatic-efficacy evidence. **Lenses:** 8B.1, 8B.6, 8B.9. [Source](https://time.com/6326274/asean-myanmar-junta-trade/)
+
+### Disposition and handoff
+
+- New units RC028–RC068 are proposed as `final_evidence`, subject to ledger reconciliation.
+- RC039 remains `discovery_only` because the underlying page was not retrievable.
+- RC063 is `unresolved`, not negative evidence.
+- No evidence established personal enrichment, direct human-rights orders, command responsibility, or independently verified durable program success.
+- The main remaining gaps are local-language primary records, project-level audits, regional service-quality data, direct presidential election-delay evidence, and personal/network integrity documentation.
+- The workspace was read-only and shell access was blocked by the execution sandbox, so `research-materials.md` and `research-ledger-manifest.json` could not be updated.
+---

@@ -1,0 +1,56 @@
+The supplied local prior already covers the structured 2022 country-year evidence for Chapters 2B-8B, so I did not re-fetch those facts. I used only ruler-specific narrative sources to confirm office, authority, constraints, and the main 2022 events around Shehbaz Sharif.
+
+**Office and Constraints**
+- Shehbaz Sharif was Prime Minister of Pakistan from 11 April 2022 to 14 August 2023, and the National Assembly’s official list records that tenure directly. The formal office is the Federation’s chief executive, with the cabinet collectively responsible to the National Assembly, and the PM removable by no-confidence if he loses parliamentary confidence. That is the right legal frame for 2022, but the actual room to maneuver was narrower because he led a coalition with a slim majority and inherited severe economic and political pressure. [National Assembly PM list](https://na.gov.pk/en/priminister_list.php) | [Constitution, Chapter 3](https://www.pakistani.org/pakistan/constitution/part3.ch3.html) | [IMF country report](https://www.elibrary.imf.org/view/journals/002/2022/288/article-A001-en.xml)
+
+**Retained Sources**
+1. **Chapter 3: "The Federal Government" of Part III: "The Federation of Pakistan"** — Pakistani.org, consolidated constitutional text. **URL:** [link](https://www.pakistani.org/pakistan/constitution/part3.ch3.html). **Precise fact:** Article 90 makes the PM chief executive; Article 91 makes the cabinet answerable to the National Assembly; Article 95 allows a no-confidence vote; Article 92 requires ministers to come from Parliament. **Period fit:** exact formal rules governing 2022. **Ruler attribution:** direct for office powers and constraints, not personal conduct. **Limitations:** constitutional text only; it does not capture coalition bargaining, military influence, or informal power. **Contrary points:** real-world authority was more constrained than the text alone suggests.
+
+2. **Prime Ministers** — National Assembly of Pakistan. **URL:** [link](https://na.gov.pk/en/priminister_list.php). **Precise fact:** records Mian Muhammad Shehbaz Sharif’s term as 11-04-2022 to 14-08-2023. **Period fit:** exact office-tenure anchor. **Ruler attribution:** direct. **Limitations:** no policy detail. **Contrary points:** none on tenure itself.
+
+3. **NA passes No Confidence resolution against Imran Khan with 174 votes** — Radio Pakistan, 10 April 2022. **URL:** [link](https://www.radio.gov.pk/10-04-2022/na-adopts-no-confidence-resolution-against-imran-khan-with-174-votes). **Precise fact:** the National Assembly passed the no-confidence motion with 174 votes and Khan ceased to hold office. **Period fit:** direct transition moment immediately before Shehbaz’s accession. **Ruler attribution:** indirect, but it explains the entry conditions for Shehbaz’s government. **Limitations:** state media framing; it gives the procedural result, not the full constitutional dispute. **Contrary points:** the broader legal/political contest around dissolution is not covered here.
+
+4. **Shehbaz Sharif takes oath as 23rd Prime Minister** — Radio Pakistan, 11 April 2022. **URL:** [link](https://www.radio.gov.pk/11-04-2022/shehbaz-sharif-takes-oath-as-23rd-prime-minister). **Precise fact:** Shehbaz Sharif took the oath as Pakistan’s 23rd prime minister; Acting President and Senate Chairman Sadiq Sanjrani administered it. **Period fit:** exact accession record. **Ruler attribution:** direct. **Limitations:** no policy or coalition detail. **Contrary points:** the article does not reflect later instability or coalition frictions.
+
+5. **33-member Federal Cabinet takes oath** — Radio Pakistan, 19 April 2022. **URL:** [link](https://radio.gov.pk/19-04-2022/34-member-federal-cabinet-takes-oath). **Precise fact:** a 33-member cabinet took oath, including 30 federal ministers and 3 ministers of state. **Period fit:** shows the coalition government becoming operational in the first week. **Ruler attribution:** direct to the Shehbaz-led cabinet. **Limitations:** snapshot only; it does not show later reshuffles or alliance tensions. **Contrary points:** the source does not discuss the bargaining delay behind cabinet formation.
+
+6. **Pakistani lawmakers elect Shahbaz Sharif as new premier** — PBS News / AP, 11 April 2022. **URL:** [link](https://www.pbs.org/newshour/world/pakistani-lawmakers-elect-shahbaz-sharif-as-new-premier). **Precise fact:** parliament elected Sharif with 174 votes after PTI lawmakers walked out; the piece frames his government as coalition-backed and notes the economic and political instability he inherited. **Period fit:** direct independent confirmation of accession. **Ruler attribution:** direct. **Limitations:** short wire-style summary. **Contrary points:** it does not capture later cabinet disputes or the longer fiscal deterioration.
+
+7. **Pakistan: Seventh, and Eighth Reviews of the Extended Arrangement under the Extended Fund Facility** — IMF Staff Country Reports, 1 September 2022. **URL:** [link](https://www.elibrary.imf.org/view/journals/002/2022/288/article-A001-en.xml). **Precise fact:** says Shehbaz led a coalition with PPP and smaller parties, that the coalition had a slim majority, and that Pakistan faced fiscal slippage, high inflation, depreciation, and reserve pressure in FY22. **Period fit:** excellent mid-year inherited-conditions source. **Ruler attribution:** strong for policy constraints and the macro environment, but not a personal-performance verdict. **Limitations:** IMF lens is macro-stabilization oriented. **Contrary points:** it is less useful for civil-liberties and media-repression detail.
+
+8. **Media Update: United Nations Pakistan, 30 August 2022** — United Nations in Pakistan. **URL:** [link](https://pakistan.un.org/en/197087-media-update-united-nations-pakistan-30-august-2022). **Precise fact:** joint UN/government launch of the 2022 Pakistan Floods Response Plan; more than 33 million affected, over 1,100 deaths, and a $160.3 million initial response plan. **Period fit:** exact disaster-response source for 2022. **Ruler attribution:** direct to the Sharif government’s crisis-management context. **Limitations:** humanitarian framing, not an accountability report. **Contrary points:** casualty and displacement counts were later revised upward in subsequent UN materials.
+
+9. **UN appeals for $160 million to help Pakistan amid 'epochal' floods** — Reuters via Euronews, 31 August 2022. **URL:** [link](https://www.euronews.com/2022/08/31/pakistan-weather-floods). **Precise fact:** independent Reuters reporting on the same flood emergency, with 33 million affected and more than 1,100 dead, plus the international appeal for funds. **Period fit:** direct independent cross-check on the flood shock. **Ruler attribution:** direct to the inherited disaster burden on Sharif’s government. **Limitations:** news snapshot. **Contrary points:** its figures may differ slightly from later UN updates because the disaster was still unfolding.
+
+10. **Pakistan: Freedom in the World 2023 Country Report** — Freedom House. **URL:** [link](https://freedomhouse.org/country/pakistan/freedom-world/2023). **Precise fact:** summarizes 2022 as a year of intense political upheaval, military influence over policy, media intimidation, the April change of government, major flooding, and the November attack on Imran Khan. **Period fit:** strong annual synthesis of 2022 conditions. **Ruler attribution:** medium-to-strong for the political environment around Sharif’s year in office. **Limitations:** broad country assessment, not ruler-specific and not granular on policy causality. **Contrary points:** government allies would likely contest the military-dominance framing.
+
+11. **World Report 2023: Pakistan** — Human Rights Watch, January 2023. **URL:** [link](https://www.hrw.org/world-report/2023/country-chapters/pakistan). **Precise fact:** says the government continued to control media and curtail dissent, journalists were harassed and detained, and law enforcement accountability remained weak. **Period fit:** covers events during 2022. **Ruler attribution:** direct for repression and human-rights environment, but not a full causal explanation of all abuses. **Limitations:** rights-focused and selective by design. **Contrary points:** does not address the government’s policy defenses or emergency-response claims in depth.
+
+12. **10. World nuclear forces** — SIPRI Yearbook 2022. **URL:** [link](https://www.sipri.org/yearbook/2022/10). **Precise fact:** includes the Pakistan nuclear-forces section and notes that Pakistan’s arsenal was estimated at about 165 warheads at the start of 2022, with limited transparency and continued modernization. **Period fit:** best retained 1B family for the 2022 year. **Ruler attribution:** weak-to-moderate, because this is institutional nuclear posture rather than personal rulership. **Limitations:** estimates are approximate and deliberately conservative. **Contrary points:** Pakistan does not publicly confirm most force details.
+
+**Source Families**
+- **Primary / official:** Constitution of Pakistan, National Assembly, Radio Pakistan, IMF, United Nations in Pakistan.
+- **Independent / cross-check:** AP/PBS, Reuters via Euronews, Freedom House, Human Rights Watch, SIPRI.
+- **Local-language:** Radio Pakistan and APP bilingual pages; UN Pakistan pages with Urdu sections; if you need more domestic texture, Urdu editions from Dawn/Express/Geo are the next most useful family.
+- **Favorable:** official Pakistani government and UN releases.
+- **Critical:** Freedom House, Human Rights Watch, and RSF-style press-freedom reporting.
+
+**Event Map**
+- **10 April 2022:** no-confidence motion passes; Imran Khan loses office.
+- **11 April 2022:** Shehbaz Sharif is elected and sworn in as prime minister.
+- **19 April 2022:** the coalition cabinet is sworn in.
+- **July-September 2022:** IMF stabilization program tightens; subsidies are rolled back under fiscal and external strain.
+- **June-September 2022:** catastrophic floods hit, producing a massive humanitarian crisis and a joint UN-government response.
+- **Late 2022:** media pressure, protest volatility, and political violence intensify, including the attack on Imran Khan.
+
+**Chapter Source Plan**
+- **1B:** SIPRI Yearbook 2022, plus FAS Pakistan Nuclear Notebook or NTI Pakistan profile if you need more weapon-system detail.
+- **2B:** keep the local prior as the main country-year base; use HRW or Reuters only for event narratives around militant attacks or border violence.
+- **3B:** Freedom House, HRW, and Radio Pakistan/APP for repression, protest, and media-crackdown events.
+- **4B:** Constitution, National Assembly, Freedom House, and AP/Reuters for transition, electoral, and institutional constraints.
+- **5B:** IMF first, then World Bank/WDI/WGI if you need broader macro context.
+- **6B:** UN flood-response materials, UNICEF, WHO, and UNDP for welfare and human-development shocks.
+- **7B:** IMF plus HRW/Freedom House for corruption, accountability, and rule-of-law context.
+- **8B:** IMF plus World Bank governance material, with the constitutional text for formal executive limits.
+
+If you want, I can turn this into a shorter evidence dossier with only the top 6 sources, or expand it into chapter-by-chapter evidence notes without scoring.

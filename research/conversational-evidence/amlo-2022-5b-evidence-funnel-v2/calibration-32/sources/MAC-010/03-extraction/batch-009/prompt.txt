@@ -1,0 +1,1359 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "1B",
+      "questions": [
+        {
+          "id": "1B.1",
+          "text": "Did the ruler use formal authority, strategy, directives, and resource choices to reduce nuclear or other existential risk rather than increase prestige, leverage, or personal power through escalation?"
+        },
+        {
+          "id": "1B.2",
+          "text": "Did the ruler avoid reckless threats, brinkmanship, apocalyptic language, and normalization of nuclear use, and did formal doctrine, orders, and operational posture corroborate rather than contradict responsible rhetoric?"
+        },
+        {
+          "id": "1B.3",
+          "text": "Did the ruler enact, fund, staff, implement, and enforce effective command-and-control, custody, safety, inspection, and accident-prevention safeguards, and correct identified failures?"
+        },
+        {
+          "id": "1B.4",
+          "text": "Did the ruler support, ratify, implement, fund, and comply with arms-control, inspection, nonproliferation, disarmament, and de-escalation agreements, or obstruct and weaken them?"
+        },
+        {
+          "id": "1B.5",
+          "text": "Did the ruler avoid formally or operationally using nuclear capability to authorize, shield, or intensify conventional aggression, territorial coercion, or domestic repression?"
+        },
+        {
+          "id": "1B.6",
+          "text": "Did the ruler establish and enforce proliferation controls against allies, proxies, clients, firms, and domestic factions, and respond when monitoring exposed evasion or assistance?"
+        },
+        {
+          "id": "1B.7",
+          "text": "Did the ruler appoint qualified, independent experts, protect their access and dissent, and resource risk-reducing institutions rather than replace expertise with loyalty or ideology?"
+        },
+        {
+          "id": "1B.8",
+          "text": "In crises, did the ruler issue and implement de-escalatory decisions, preserve communication and decision safeguards, and correct procedures exposed as dangerous?"
+        },
+        {
+          "id": "1B.9",
+          "text": "Did the ruler establish, fund, enforce, and transparently review precautionary legal and institutional safeguards for AI, cyber, biological, and other catastrophic dual-use risks?"
+        },
+        {
+          "id": "1B.10",
+          "text": "Did the ruler leave a demonstrably safer and more durable existential-risk posture than inherited, accounting for authority, implementation, external shocks, and unresolved exposure?"
+        }
+      ],
+      "registry": {
+        "category": "nuclear_risk",
+        "question_code_prefix": "nuclear_global_risk",
+        "question_key_prefix": "nuclear_global_risk",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "2B",
+      "questions": [
+        {
+          "id": "2B.1",
+          "text": "When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force?"
+        },
+        {
+          "id": "2B.2",
+          "text": "Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity?"
+        },
+        {
+          "id": "2B.3",
+          "text": "Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims?"
+        },
+        {
+          "id": "2B.4",
+          "text": "Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy?"
+        },
+        {
+          "id": "2B.5",
+          "text": "Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged?"
+        },
+        {
+          "id": "2B.6",
+          "text": "Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts?"
+        },
+        {
+          "id": "2B.7",
+          "text": "Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable?"
+        },
+        {
+          "id": "2B.8",
+          "text": "Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors?"
+        },
+        {
+          "id": "2B.9",
+          "text": "Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy?"
+        },
+        {
+          "id": "2B.10",
+          "text": "Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints?"
+        }
+      ],
+      "registry": {
+        "category": "international_peace",
+        "question_code_prefix": "peace_aggression",
+        "question_key_prefix": "peace_aggression",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "3B",
+      "questions": [
+        {
+          "id": "3B.1",
+          "text": "Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse?"
+        },
+        {
+          "id": "3B.2",
+          "text": "Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it?"
+        },
+        {
+          "id": "3B.3",
+          "text": "Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm?"
+        },
+        {
+          "id": "3B.4",
+          "text": "Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy?"
+        },
+        {
+          "id": "3B.5",
+          "text": "Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control?"
+        },
+        {
+          "id": "3B.6",
+          "text": "Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate?"
+        },
+        {
+          "id": "3B.7",
+          "text": "Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations?"
+        },
+        {
+          "id": "3B.8",
+          "text": "Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force?"
+        },
+        {
+          "id": "3B.9",
+          "text": "During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle?"
+        },
+        {
+          "id": "3B.10",
+          "text": "Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "domestic_safety",
+        "question_code_prefix": "domestic_safety",
+        "question_key_prefix": "domestic_safety",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "4B",
+      "questions": [
+        {
+          "id": "4B.1",
+          "text": "Did the ruler support and implement electoral and constitutional laws, funding, and administration that made power genuinely contestable, and accept verified opposition victories?"
+        },
+        {
+          "id": "4B.2",
+          "text": "Did the ruler refrain from proposing, signing, decreeing, manipulating, or obstructing laws, courts, election administration, security forces, media, or public resources to entrench personal or party power?"
+        },
+        {
+          "id": "4B.3",
+          "text": "Did the ruler protect in law and practice opposition, criticism, satire, investigative journalism, protest, association, and civil-society monitoring, and remedy violations?"
+        },
+        {
+          "id": "4B.4",
+          "text": "Did the ruler protect the jurisdiction, appointment independence, tenure, funding, and decisions of courts, legislatures, election bodies, auditors, and local governments even when they constrained the ruler?"
+        },
+        {
+          "id": "4B.5",
+          "text": "Did appointments, dismissals, civil-service rules, and administrative practice preserve politically neutral institutions rather than impose loyalty tests, party capture, intimidation, or a personality cult?"
+        },
+        {
+          "id": "4B.6",
+          "text": "Did the ruler support and enforce media, information-access, ownership, and licensing rules that enabled independent information rather than censorship, propaganda, disinformation, or pressure?"
+        },
+        {
+          "id": "4B.7",
+          "text": "Did the ruler enact and enforce equal political rights and access for minorities, women, excluded groups, opposition regions, and unpopular viewpoints?"
+        },
+        {
+          "id": "4B.8",
+          "text": "Did the ruler preserve and comply with term limits, succession rules, coalition commitments, and constitutional transfer rather than amend, evade, or obstruct them for continued power?"
+        },
+        {
+          "id": "4B.9",
+          "text": "Did the ruler narrowly authorize, transparently procure, and lawfully oversee surveillance and digital controls, or use law, shutdowns, and administrative harassment to suppress political freedom?"
+        },
+        {
+          "id": "4B.10",
+          "text": "Did the ruler leave political freedom and democratic resilience durably stronger than inherited through enacted, implemented, and independently reviewable institutions, accounting for correction and constraints?"
+        }
+      ],
+      "registry": {
+        "category": "political_freedom",
+        "question_code_prefix": "political_freedom",
+        "question_key_prefix": "political_freedom",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "6B",
+      "questions": [
+        {
+          "id": "6B.1",
+          "text": "Did the ruler enact and fund enforceable social commitments that made human welfare a core purpose of government rather than propaganda, patronage, or a secondary concern?"
+        },
+        {
+          "id": "6B.2",
+          "text": "Did laws, eligibility rules, executed budgets, and service administration improve affordable, effective access and uptake across health, education, water, sanitation, housing, food security, and social protection?"
+        },
+        {
+          "id": "6B.3",
+          "text": "Did the ruler enact, target, fund, and enforce protection for poor regions, children, older people, women, minorities, disabled people, and marginalized groups, with evidence of actual incidence and exclusion?"
+        },
+        {
+          "id": "6B.4",
+          "text": "Did the ruler appoint and retain qualified administrators, provide adequate staffing and resources, and use transparent procurement to deliver social services rather than patronage?"
+        },
+        {
+          "id": "6B.5",
+          "text": "Did the ruler publish credible welfare and service data, permit audit and independent evaluation, and correct program design, implementation, or personnel when evidence showed failure?"
+        },
+        {
+          "id": "6B.6",
+          "text": "Did preparedness laws, emergency decisions, funding, and implementation reduce avoidable and unequally distributed suffering during pandemics, disasters, displacement, famine, or economic shocks?"
+        },
+        {
+          "id": "6B.7",
+          "text": "Did formal eligibility rules, administrative practice, and appeal systems prevent welfare, permits, jobs, food, and housing from becoming instruments of political loyalty or punishment?"
+        },
+        {
+          "id": "6B.8",
+          "text": "Did the ruler enact and enforce equal-rights, anti-discrimination, accessibility, and dignity protections, with practical remedy rather than relying on national averages alone?"
+        },
+        {
+          "id": "6B.9",
+          "text": "Did the ruler create durable social institutions with statutory authority, reliable funding, professional staffing, transparent standards, and resilience beyond personal rule?"
+        },
+        {
+          "id": "6B.10",
+          "text": "Did ordinary people, including disadvantaged groups, finish the period with durably better life chances than inherited, accounting for policy lag, baseline, donor or subnational roles, and external shocks?"
+        }
+      ],
+      "registry": {
+        "category": "social_wellbeing",
+        "question_code_prefix": "social_wellbeing",
+        "question_key_prefix": "social_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "7B",
+      "questions": [
+        {
+          "id": "7B.1",
+          "text": "Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation?"
+        },
+        {
+          "id": "7B.2",
+          "text": "When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim?"
+        },
+        {
+          "id": "7B.3",
+          "text": "Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions?"
+        },
+        {
+          "id": "7B.4",
+          "text": "Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability?"
+        },
+        {
+          "id": "7B.5",
+          "text": "Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing?"
+        },
+        {
+          "id": "7B.6",
+          "text": "Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions?"
+        },
+        {
+          "id": "7B.7",
+          "text": "Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability?"
+        },
+        {
+          "id": "7B.8",
+          "text": "Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage?"
+        },
+        {
+          "id": "7B.9",
+          "text": "Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access?"
+        },
+        {
+          "id": "7B.10",
+          "text": "Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism?"
+        }
+      ],
+      "registry": {
+        "category": "integrity",
+        "question_code_prefix": "integrity",
+        "question_key_prefix": "integrity",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    },
+    {
+      "id": "8B",
+      "questions": [
+        {
+          "id": "8B.1",
+          "text": "Did the ruler state or reliably reveal a sufficiently clear program in dated speeches, manifestos, strategies, directives, or formal acts to freeze and test its policy, ideological, power, and international goals?",
+          "registry_key": "ruler_effectiveness_program"
+        },
+        {
+          "id": "8B.2",
+          "text": "Did the ruler translate that program into enacted laws, budgets, appointments, timelines, institutions, regulations, and enforcement mechanisms within actual authority?",
+          "registry_key": "ruler_effectiveness_priorities"
+        },
+        {
+          "id": "8B.3",
+          "text": "Did executed resources and administrative records show effective mobilization of the state, party, military, coalition, or ruling network toward the ruler's chosen program?",
+          "registry_key": "ruler_effectiveness_mobilization"
+        },
+        {
+          "id": "8B.4",
+          "text": "Did the ruler appoint, empower, retain, and when necessary replace people capable of executing the program, whether professionals, technocrats, organizers, loyal operators, or coercive administrators?",
+          "registry_key": "ruler_effectiveness_appointments"
+        },
+        {
+          "id": "8B.5",
+          "text": "Did the ruler maintain documented coordination, territorial reach, milestone completion, and compliance across ministries, regions, institutions, security forces, and implementing agencies?",
+          "registry_key": "ruler_effectiveness_coordination"
+        },
+        {
+          "id": "8B.6",
+          "text": "Did legislation, budgets, and directives become observable enforcement, services, projects, and institutional practice rather than remain slogans, plans, or symbolic acts?",
+          "registry_key": "ruler_effectiveness_implementation"
+        },
+        {
+          "id": "8B.7",
+          "text": "Did outcome and distribution indicators move toward the ruler's frozen goals after accounting for baseline, realistic lag, authority, external shocks, and plausible causal alternatives?",
+          "registry_key": "ruler_effectiveness_outcomes"
+        },
+        {
+          "id": "8B.8",
+          "text": "Did audits, evaluations, and implementation failures lead the ruler to adapt methods, replace implementers, reallocate resources, and correct course?",
+          "registry_key": "ruler_effectiveness_adaptation"
+        },
+        {
+          "id": "8B.9",
+          "text": "Did formal decisions and implemented responses to crises, opposition, international relations, and institutional resistance preserve or advance the ruler's chosen objectives and durable control?",
+          "registry_key": "ruler_effectiveness_crisis_management"
+        },
+        {
+          "id": "8B.10",
+          "text": "By the end of the period, had the ruler converted more of the frozen program into durable law, institutions, capacity, state practice, and achieved outcomes than at the start, accounting for failures and long-term fragility?",
+          "registry_key": "ruler_effectiveness_period_end"
+        }
+      ],
+      "registry": {
+        "category": "effectiveness",
+        "question_code_prefix": "effectiveness",
+        "question_key_prefix": "effectiveness",
+        "concept_key": "ruler_effectiveness_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "MAC-010",
+  "title": "IMF 2022 Article IV full report",
+  "url": "https://www.imf.org/-/media/files/publications/cr/2022/english/1mexea2022001.pdf",
+  "publisher": "www.imf.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "financial_report",
+  "source_role": "international_organization",
+  "source_family": "www.imf.org",
+  "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 81",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 183,
+        "text": "MEXICO\ncomparatively less macroeconomic policy stimulus in 2020–21. The unemployment gap as a\nsource of inflationary pressures has thus been less of a concern than elsewhere. But the\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 183,
+        "end_char": 359,
+        "text": "economic recovery from the pandemic has been uneven, and some sectors, especially in\nmanufacturing, have experienced increases in capacity utilization to unprecedented levels,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 359,
+        "end_char": 570,
+        "text": "consistent with some shift in household demand toward goods. Producer prices for final goods\nhave indeed risen ahead of headline CPI inflation, although much of this increase reflects prices\nfor processed food.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 570,
+        "end_char": 715,
+        "text": "3. Empirical analysis confirms that rising\nContributing Factors to Changes in Headline\nenergy and food prices resulted in the increase Inflation\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 715,
+        "end_char": 925,
+        "text": "in headline inflation. A Philips curve approach to (Contributions in percentage points by variable)\n3 3\nanalyze the inflation surge in 2021-22 suggests that\n2 2\nthe factors identified above explain much of the\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 925,
+        "end_char": 1136,
+        "text": "surge in headline inflation through the third quarter 1 1\nof 2021, notably rising energy and then food\n0 0\nprices.1 While these factors continue to explain\n-1 -1\nmuch of the above-target inflation subsequently,\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1136,
+        "end_char": 1321,
+        "text": "residual cost push factors also contributed upward -2 -2\n2021Q1 2021Q2 2021Q3 2021Q4 2022Q1 2022Q2\ninflationary pressures, especially in the first quarter\nInf Lag Inf Expectations REER\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1321,
+        "end_char": 1509,
+        "text": "of 2022. In this respect, the current episode differs Energy Slack Food\nShock Inf (Dep Var)\nfrom that in 2017–18, which involved smaller Source:IMF staff calculations\nresidual pressures.2\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1509,
+        "end_char": 1688,
+        "text": "4. The estimated Philips curve suggests that both expected and lagged inflation\ncontribute to current headline inflation. The results presented in the table suggest roughly equal\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1688,
+        "end_char": 1894,
+        "text": "weights in the case of headline inflation (0.52 versus. 0.48).3 This result is broadly in line with the\nconventional view of a relatively greater role of past inflation in contributing to current inflation\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1894,
+        "end_char": 2087,
+        "text": "dynamics in Mexico and other emerging market economies compared to advanced economies. The\nimpact of past price surprises on inflation, including due to food and other supply shocks, will thus\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2087,
+        "end_char": 2265,
+        "text": "last relatively longer and can contribute to relatively higher inflation volatility.\n5. Standard determinants seem to explain relatively less of the variation in core inflation.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2265,
+        "end_char": 2484,
+        "text": "In particular, raw food prices, which correlates significantly with headline inflation, appear less\n1 A so-called hybrid Philips curve equation was estimated for the period of 2003–19, the period of inflation targeting\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2484,
+        "end_char": 2717,
+        "text": "by Banxico with a 3 percent inflation target, omitting the pandemic period, given exceptional volatility. Both expected\nand lagged inflation are among the explanatory variables in this kind of specification. The estimated curve also\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2717,
+        "end_char": 2945,
+        "text": "includes a measure of labor market slack and several relative prices (real effective exchange rate, energy, and food\nprices). The estimated equation was then used for a dynamic, in-sample forecast for 2021Q1 to 2022Q2, assuming\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2945,
+        "end_char": 3170,
+        "text": "that the explanatory variables other than past inflation were known to the forecaster at the end of 2020.\n2 The conclusions are broadly robust with respect to different specifications or different methodologies. For example,\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3170,
+        "end_char": 3366,
+        "text": "allowing for time-varying coefficients in the Philips curve estimation during the pandemic period leads to broadly\nsimilar contributions about the contributing factors, including residual shocks.\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3366,
+        "end_char": 3579,
+        "text": "3 The table presents least square estimates of a reduced-form hybrid Philips curve that accounts for relative price\nshocks:\nπ =α+βπe +(1−β)π +δX +ε\nwh\nt\nere π denote\nt,\ns\nt+\ni\n4\nnflation, and w\nt−\nh\n1\nere\nπet\ns\nt\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3579,
+        "end_char": 3789,
+        "text": "tands for (survey-based) expectations of inflation at time t+4 at time t,\nt,t+4\nand the vector X includes other controls, including the unemployment gap and relative price shocks.\nINTERNATIONAL MONETARY FUND 77"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 82",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 214,
+        "text": "MEXICO\nrelevant as a determinant for core inflation. This is surprising since these items are important inputs\nfor the processed foods industry, the prices of which are included in Mexico’s core inflation measure.\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 214,
+        "end_char": 423,
+        "text": "Similarly, the coefficient on U.S. core inflation seems small, relative to the overall import share in the\neconomy. These results highlight that core inflation has fluctuated much less than headline inflation\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 423,
+        "end_char": 617,
+        "text": "before the pandemic, suggesting that relative price shocks had a small pass-through to core. This\nexperience seems less relevant in the current inflation episode.\nHybrid Philips Curve Estimates\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 617,
+        "end_char": 840,
+        "text": "Dependent variable Headline inlfation (quarterly) Core inflation (quarterly)\nSample period 2003Q1 2003Q1 2003Q1 2003Q1\n2019Q4 2020Q4 2019Q4 2020Q4\nConstant 0.18 0.04 0.35 0.09\n1\nInflation expectations 0.52 0.52 0.58 0.53\n2\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 840,
+        "end_char": 1070,
+        "text": "Unemployment gap -0.06 -0.03 -0.06 -0.01\n3\nREER -0.03 -0.02\n3\nEnergy prices 0.16 0.16\n3\nRaw food prices 0.20 0.20 0.02 0.02\n3\nUS Core CPI 0.13 0.15\nR2\n0.75 0.77 0.34 0.33\nD.W. 2.03 2.01 1.96 1.92\nSource: IMF staff calculations.\n1\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1070,
+        "end_char": 1252,
+        "text": "Mean of 12-month-ahead inflation expectations (scaled to match quarterly frequency). Source: Banxico.\n2\nQuarterly change in relative price (scaled by lagged headline or core CPI).\n3\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1252,
+        "end_char": 1380,
+        "text": "Geometric average of un-and underemployment (ex. agriculture) rates, gap relative to sample mean.\n78 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 83",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 205,
+        "text": "MEXICO\nAnnex X. Reforming the Fiscal Framework in Mexico: Freeing\nFiscal Policy to Respond to Shocks\nWith fiscal contingencies all but depleted following the authorities’ response to the pandemic in 2020,\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 205,
+        "end_char": 402,
+        "text": "limited space in the 2022 and 2023 budgets, and mounting downside risks for 2023, the Mexican\nauthorities have proposed reforms to the fiscal framework to enable the replenishment of their buffers\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 402,
+        "end_char": 613,
+        "text": "for 2023. The proposals represent a quick and efficient repurposing of resources in light of immediate\nrisks but increase complexity while doing little to improve reliability and tackle the pro-cyclical bias in\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 613,
+        "end_char": 788,
+        "text": "fiscal policy. Comprehensive reforms aimed at addressing issues with the current framework will\ninevitably take time but could build on staff advice.\nA. Background and Issues\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 788,
+        "end_char": 972,
+        "text": "1. Mexico’s fiscal contingencies are low as downside risks to the global economy are\nrising. In responding to the COVID-19 pandemic in 2020, Mexico used its fiscal buffers as revenues\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 972,
+        "end_char": 1165,
+        "text": "fell short of budget projections, transferring 0.9 percent of GDP from stabilization funds to the\nbudget. This transfer and the previous one of 0.5 percent of GDP in 2019 almost depleted these\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1165,
+        "end_char": 1366,
+        "text": "funds, leaving a remaining balance of 0.2 percent of GDP. While recourse to fiscal contingencies has\nnot been necessary since, increased spending pressures relative to the budget mean that oil revenue\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1366,
+        "end_char": 1561,
+        "text": "surprises in 2022 are unlikely to be large enough to allow for replenishing the stabilization funds.\nWith downside risks to the global and Mexican economies rising, a key issue is how Mexico can\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1561,
+        "end_char": 1797,
+        "text": "rebuild its capacity to respond to future shocks.\n2. Two funds form the basis of the Federal government’s fiscal contingencies in the fiscal\nframework and are a source of both general and extraordinary revenues in the budget. They\nare:\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1797,
+        "end_char": 1973,
+        "text": "• Fondo Mexicano de Petróleo para la Estabilización y el Desarrollo (FMP): This is Mexico’s\nsovereign wealth fund. It manages the (non-tax) oil revenues from PEMEX and private\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1973,
+        "end_char": 2165,
+        "text": "companies in the sector, collecting them and transferring them to the Federal government. The\nfund also executes financial transactions related to exploration and extraction contracts granted\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2165,
+        "end_char": 2346,
+        "text": "by the government. FMP is required to transfer a share of oil revenues to the Federal\ngovernment for budgetary financing, with the size of the transfer equal to the amount included\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2346,
+        "end_char": 2531,
+        "text": "in the government’s budget. Thereafter, as stipulated in the Federal Budget and Fiscal\nResponsibility Law (FBFRL), it must invest in Federal- and state-level stabilization funds (up to\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2531,
+        "end_char": 2723,
+        "text": "2.22 and 0.64 percent of projected oil revenues, respectively) before it can accumulate reserves\nin a long-run savings account, the Long-Term Reserves. When oil revenues exceed 4.7 percent of\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2723,
+        "end_char": 2912,
+        "text": "GDP, the excess amount goes directedly to the Long-Term Reserves. Since 2018, reserves have\nbeen roughly equal to USD 1 billion (0.07 percent of GDP in 2022).1 FMP transfers to the Federal\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2912,
+        "end_char": 3078,
+        "text": "government, representing non-tax oil revenues, are expected to be MEX$673 billion (2.3 percent\nof GDP) in 2022, up from MEX$364 billion (1.4 percent of GDP) in 2021.\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3078,
+        "end_char": 3267,
+        "text": "• Fondo de Estabilización de los Ingresos Presupuestarios (FEIP): FEIP is a source of in-year\nfinancing for the budget when revenues fall short of budget projections. The primary source of\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3267,
+        "end_char": 3352,
+        "text": "1 https://www.fmped.org.mx/administracion-reserva.html\nINTERNATIONAL MONETARY FUND 79"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 84",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 192,
+        "text": "MEXICO\nfinancing for FEIP comes from oil hedging operations, with a technical committee at Mexico’s\nMinistry of Finance (SHCP) determining the volume of oil exports to be covered and a strike\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 192,
+        "end_char": 379,
+        "text": "price for put options. Strike prices are generally consistent with the assumed oil price in the\nbudget and 210–215 million barrels were hedged in this way between 2010 and 2017. However,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 379,
+        "end_char": 563,
+        "text": "a secondary source of financing for FEIP comes from transfers from FMP. In 2020, the FEIP\nreceived MEX$47 billion (0.2 percent of GDP) from oil hedging operations, MEX$9 billion (0.04\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 563,
+        "end_char": 754,
+        "text": "percent of GDP) from FMP transfers, and another MEX$9 billion (0.04 percent of GDP) from\nreturns on its financial assets. Conversely, FEIP transferred a total of MEX$157 billion (0.7 percent\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 754,
+        "end_char": 939,
+        "text": "of GDP) to the budget due to revenue shortfalls relative to budget projections. The balance of\nthe fund marked MEX$9.5 billion (0.04 percent of GDP) by the end-2020 compared to MEX$158\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 939,
+        "end_char": 1137,
+        "text": "billion (0.6 percent of GDP) in the previous year. Transfers to the fund equaled MEX$7.5 billion\n(0.01 percent of GDP) in 2021 and are expected to equal MEX$8 billion (0.03 percent of GDP) in\n2022.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1137,
+        "end_char": 1323,
+        "text": "3. Given prospects and recent patterns, existing financing mechanisms might not allow\nFEIP to be replenished. The windfall oil revenue gains collected by FMP are increasingly being used\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1323,
+        "end_char": 1522,
+        "text": "by the budget as fuel-based spending pressures have risen, leaving little or no funds to rebuild the\nFEIP balance or build up FMP reserves. Moreover, while the authorities estimate that a balance of\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1522,
+        "end_char": 1713,
+        "text": "around MEX$100 billion in FEIP (0.35 percent of 2022 GDP and 0.33 percent of 2023 GDP) would\nprovide for an adequate fiscal contingency for 2023, the balance in the fund was MEX$25.0 billion\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1713,
+        "end_char": 1911,
+        "text": "(0.09 percent of 2022 GDP) as of end-June 2022 and the aforementioned expected transfers to the\nfund in 2022 will only provide an additional 0.03 percent of GDP. The starting balance of the fund in\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1911,
+        "end_char": 2144,
+        "text": "2023 could thus fall short of the MEX$100 billion target.\n4. A long-run consideration is whether the oil revenues and the hedging mechanism can\nprovide sufficient resources for counter-cyclical policy in the future. Recent PEMEX oil\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2144,
+        "end_char": 2341,
+        "text": "production has provided for a smaller oil revenue base, regardless of the oil price, increasing the\nlikelihood of residual funds being too small for replenishing contingencies after they have been\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2341,
+        "end_char": 2557,
+        "text": "used. Moreover, as the oil hedge is not directly linked to Mexico’s economic cycle, it need not\nfunction as an automatic fiscal stabilizer.\nBudget Support and Oil Revenues, 2018–22\nSources: SHCP, staff calculations.\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2557,
+        "end_char": 2739,
+        "text": "Note: ‘Total Oil Revenues’ covers revenues accruing to the consolidated budget and so includes both Pemex\nrevenues and Federal government oil revenues.\n80 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 85",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 213,
+        "text": "MEXICO\nB. Reforms Proposed in the 2023 Budget Package\n5. Reforms to the fiscal framework proposed by the Mexican government seek to\nintroduce new mechanisms for financing FEIP. Reforms to the FRBL proposed in the\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 213,
+        "end_char": 407,
+        "text": "government’s 2023 budget package would create a new funding mechanism for FEIP based on debt\nissuance. Under the proposals, where actual debt issuance falls short of that budgeted for the year,\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 407,
+        "end_char": 601,
+        "text": "the government would create an IOU equivalent to the shortfall between actual debt issuance and\nthe debt ceiling in the budget and deposit this in FEIP. In the next fiscal year, FEIP could then\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 601,
+        "end_char": 809,
+        "text": "dispose of, or exchange, this asset at will to increase its liquidity. Liquidity in this instance need not\nbe cash and the reforms enable FEIP to hold financial assets, though it still cannot incur financial\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 809,
+        "end_char": 1015,
+        "text": "liabilities.2 In the first instance, assets relate to government paper. However, in principle, FEIP could\nalso hold other instruments. Given that FEIP holds and contracts put options as per the oil hedging\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1015,
+        "end_char": 1201,
+        "text": "program, some precedent exists regarding FEIP’s ability to conduct and manage financial\ntransactions.\n6. Under the reforms, the trade-off between financing FEIP and addressing immediate\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1201,
+        "end_char": 1380,
+        "text": "spending concerns is mitigated while diversifying the financing mechanism away from oil\nreduces vulnerability to trends in oil prices and production. Under the current framework,\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1380,
+        "end_char": 1581,
+        "text": "increasing financing for FEIP would likely entail greater transfers from FMP – meaning lower levels of\nfinancing to support the Federal government budget, state-level funds, and FMP’s reserves as well\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1581,
+        "end_char": 1778,
+        "text": "as alterations to the apportionment methodology – or the exercising of put options on oil.3 On the\nlatter, as these put options can only be exercised when oil prices fall below that assumed in the\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1778,
+        "end_char": 1968,
+        "text": "government budget, this mechanism does not contribute to building contingencies prior to any\nshock as resources flowing into FEIP in this scenario are already earmarked for budget financing\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1968,
+        "end_char": 2167,
+        "text": "given an oil revenue shortfall. Additionally, the size of the funds available to FEIP, and therefore\navailable for a counter-cyclical policy response, is limited by the amount of oil placed into the\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2167,
+        "end_char": 2361,
+        "text": "hedging mechanism. This places constraints on the financing base available for FEIP in the context\nof the importance of oil revenues in supporting the budget and a downward trend in production.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2361,
+        "end_char": 2536,
+        "text": "Adding additional mechanisms for financing FEIP, including debt issuance, creates a broader\nfinancing base and one that can be tapped in advance of the realization of shocks.\n"
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2536,
+        "end_char": 2717,
+        "text": "7. The reforms represent a pragmatic step forward in enabling fiscal policy to respond to\nimmediate downside risks, but comprehensive reform is necessary to improve flexibility and\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2717,
+        "end_char": 2912,
+        "text": "reliability while ensuring transparency and fiscal responsibility. The ratification of the proposed\nreforms before the end of 2022 are expected to free up MEX$20–30 billion for FEIP. The reforms\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2912,
+        "end_char": 3098,
+        "text": "could therefore provide large support to the contingencies required should the downside risks\nfacing the domestic and global economy in 2023 materialize. By seeking to leave many of the\n"
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3098,
+        "end_char": 3310,
+        "text": "parameters of the existing fiscal framework untouched, the reforms enable quick implementation at\n2 The type of financial asset that FEIP would be allowed to hold includes government securities or other types of\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3310,
+        "end_char": 3486,
+        "text": "liquid asset that could be sold, securitized, or collateralized.\n3 A transfer from FMP’s reserves to FEIP is another possibility and would leave budgetary resources untouched.\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3486,
+        "end_char": 3707,
+        "text": "However, this requires that the Chamber of Deputies approve such a transfer. Existing legislation expedites this\ndecision-making process where FMP reserves exceed 3 percent of GDP by the end of the previous year—a remote\n"
+      },
+      {
+        "segment_id": "S00020",
+        "start_char": 3707,
+        "end_char": 3929,
+        "text": "possibility with reserves standing at 0.07 percent of GDP in July 2022. FMP reserves can be used directly for\nbudgetary needs even when they are below 3 percent of GDP but FEIP resources must be completely exhausted first\n"
+      },
+      {
+        "segment_id": "S00021",
+        "start_char": 3929,
+        "end_char": 4030,
+        "text": "and a two-thirds majority vote by the Chamber of Deputies is required.\nINTERNATIONAL MONETARY FUND 81"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 86",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 203,
+        "text": "MEXICO\na time when risks are concentrated in the near-term. But this approach also entails trade-offs, with\ncomplexity increasing as a result and knock-on consequences for transparency. Moreover, as the\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 203,
+        "end_char": 401,
+        "text": "additional funding for FEIP is predicated on whatever headroom against the debt ceiling is left at\nyear-end, the extent of financing is subject to uncertainty and therefore unreliable. Finally, the\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 401,
+        "end_char": 565,
+        "text": "reforms do not address the pro-cyclical bias in the current fiscal framework resulting from both the\nPSBR and the Balanced Budget Rule (BBR) (see Annex X Table 1).\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 565,
+        "end_char": 751,
+        "text": "8. Longer-run options entail more comprehensive reforms to Mexico’s fiscal framework.\nReforms such as the establishment of a debt anchor, clarification and tightening of definitions and\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 751,
+        "end_char": 942,
+        "text": "procedures, expanded expenditure rule coverage, and a focus on medium-term sustainability\nstrategies would enhance the flexibility of fiscal policy while maintaining and strengthening fiscal\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 942,
+        "end_char": 1142,
+        "text": "responsibility. The table in this annex compares the features of the current fiscal framework with\nstaff proposals along the lines discussed. As these proposals represent a notable departure from the\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1142,
+        "end_char": 1296,
+        "text": "existing framework, a medium-term sustainability strategy (itself a recommendation) could be used\nto anchor the transition.\n82 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 87",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 138,
+        "text": "MEXICO\nAnnex X. Table 1. Mexico: Fiscal Framework—Key Design Features and Reform Proposals\nCurrent Framework Staff Proposals\nRevenues - -\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 138,
+        "end_char": 376,
+        "text": "The Structural Current Spending Rule (SCR) requires that the A reformed expenditure rule with greater coverage of public\nreal growth rate of structural current spending does not exceed expenditure, including of some capital expenditures.\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 376,
+        "end_char": 614,
+        "text": "potential output growth. Structural current spending is Additionally, clearer and more transparent rules on the growth\nprogrammable spending excluding interest payments, fuel for of structural expenditures that is linked to macroeconomic\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 614,
+        "end_char": 814,
+        "text": "electricity generation, CFE and PEMEX expenditures, and Federal aggregates that are less prone to measurement volatility.\ngovernment investment. It accounts for 36 percent of total public\nExpenditure\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 814,
+        "end_char": 1024,
+        "text": "expenditures. Under Article 18 of the FBFRL any proposed increase\nof expenditures in the budget beyond the permitted growth must\nbe accompanied by a revenue or spending cut initiative to\nneutralize its effect.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1024,
+        "end_char": 1227,
+        "text": "The Balanced-Budget Rule (BBR) requires that the budget must Removal of the Balanced-Budget Rule to reduce\nbe balanced on a cash basis, excluding investments by PEMEX and procylicality of fiscal policy.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1227,
+        "end_char": 1404,
+        "text": "its subsidiaries. The coverage of this rule includes the Federal\nDeficit government, PEMEX and CFE, and IMSS and ISTE, and various trust\nfunds. The rule is broadly procyclical.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1404,
+        "end_char": 1642,
+        "text": "The Public Sector Borrowing Requirement Rule (PSBR) requires The introduction of a debt anchor would enable the removal\nthat the budget documentation sets a target for the public sector of the debt issuance requirements as there is a cap "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1642,
+        "end_char": 1781,
+        "text": "on overall\nborrowing requirement for the current year and indicative targets debt at the safe level. Debt issuance here could then be used\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1781,
+        "end_char": 1954,
+        "text": "are set for the medium-term, all with the aim of ensuring that for directly managing shocks, capital spending, and more\nborrowing requirements are non-increasing over time. "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1954,
+        "end_char": 2147,
+        "text": "Coverage of transformational current spending (which would have to be\nthe rule includes all entities except for subnational governments balanced by revenue mobilization over medium-term as per\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2147,
+        "end_char": 2293,
+        "text": "Debt and the central bank. Staff's fiscal policy advice). Establishing a debt ceiling could\nalso help rationalize debt-financed capital spending.\n"
+      },
+      {
+        "segment_id": "S00013",
+        "start_char": 2293,
+        "end_char": 2525,
+        "text": "Restrictions on debt issuance by purpose. Article 73 of the Specifying medium-/longer-term debt targets would ensure\nConstitution and the FBFRL restricts the issuance of debt to that debt isn’t permanently elevated at, or close to, "
+      },
+      {
+        "segment_id": "S00014",
+        "start_char": 2525,
+        "end_char": 2750,
+        "text": "the anchor\nproductive investment. and this could be supported by a 4- or 5-year Sustainability\nFramework.\nEscape clauses can be enacted based on five specified triggers: Reformed escape clauses would simplify and tighten the\n"
+      },
+      {
+        "segment_id": "S00015",
+        "start_char": 2750,
+        "end_char": 2878,
+        "text": "(i) financial cost of debt exceeding more than 25 percent of its definitions of triggers, thereby increasing transparency. This\n"
+      },
+      {
+        "segment_id": "S00016",
+        "start_char": 2878,
+        "end_char": 3092,
+        "text": "level approved in the previous year due to interest increases; would be enabled by more flexibility in other framework\n(ii) natural disaster costs exceeding more than 2 percent of parameters along the lines above. "
+      },
+      {
+        "segment_id": "S00017",
+        "start_char": 3092,
+        "end_char": 3233,
+        "text": "The requirement to set out\nprogrammable expenditure in the previous year; a plan to return to the fiscal rules should also be built into the\n"
+      },
+      {
+        "segment_id": "S00018",
+        "start_char": 3233,
+        "end_char": 3437,
+        "text": "(iii) floating debt higher than 2 percent of programmable reformed clauses and the role of Congress in the process of\nexpenditure in the previous year; activating clauses should be made more transparent.\n"
+      },
+      {
+        "segment_id": "S00019",
+        "start_char": 3437,
+        "end_char": 3616,
+        "text": "(iv) a greater than 2.5 percent reduction in tax revenues compared\nto the previous year;\n(v) a reduction of more than 10 percent in the oil price or shocks to\noil production; and\n"
+      },
+      {
+        "segment_id": "S00020",
+        "start_char": 3616,
+        "end_char": 3791,
+        "text": "(vi) a cost higher than 2 percent of previous year programmable\nEscape\nexpenditure, when it implies\nClauses\nthe implementation of legal changes or fiscal policy measures that\n"
+      },
+      {
+        "segment_id": "S00021",
+        "start_char": 3791,
+        "end_char": 4003,
+        "text": "will benefit public by increasing costs or reducing revenues in a\npermanent way.\nJustification must include the reasons justifying the deficit and the\nprecise size of financing as well as the number of years and\n"
+      },
+      {
+        "segment_id": "S00022",
+        "start_char": 4003,
+        "end_char": 4184,
+        "text": "measures expected to return budget equilibrium. Escape clauses\nwere used in 2010-12 and 2014-16, meaning that the framework\nwas only respected in 7 out of the 13 years to 2020. The\n"
+      },
+      {
+        "segment_id": "S00023",
+        "start_char": 4184,
+        "end_char": 4302,
+        "text": "inflexibility of the current framework is deemed to be a key factor\nin this (IMF 2020).\nINTERNATIONAL MONETARY FUND 83"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 88",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 189,
+        "text": "MEXICO\nAnnex XI. FSAP Key Recommendations\nKey Recommendations Time1\nCross-Cutting Themes\nEnhance the autonomy of regulatory government agencies and legal protection of\nNT\nsupervisors (¶31)\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 189,
+        "end_char": 408,
+        "text": "Assess and enhance the organizational structure and resource needs of individual agencies (¶32) NT\nEnhance the oversight of the Interbank Electronic Payment System (SPEI) relative to the PFMI\nNT\nand cybersecurity (¶34)\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 408,
+        "end_char": 591,
+        "text": "Systemic Risk Analysis\nMonitor the dynamics of contingent credit lines and portfolio concentration closely and use\nNT\nPillar 2 requirements to address relevant risks, as needed (¶27)\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 591,
+        "end_char": 822,
+        "text": "Expand the liquidity stress test framework; incorporate in the Supervisory Review Process to\nMT\ninform Pillar 2 requirements for banks (¶27)\nFinancial Sector Oversight\nDevelop and publish a macroprudential policy strategy (¶35) NT\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 822,
+        "end_char": 1024,
+        "text": "Consider expanding the macroprudential toolkit with limits on loan-to-value and debt-\nMT\nservice-to-income ratios (¶37)\nEnsure effective consolidated supervision of financial holding companies (¶40) MT\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1024,
+        "end_char": 1248,
+        "text": "Refine the risk-based supervisory methodology (CEFER) to effectively assess banks’\nNT\nadherence to adequate risk management practices (¶42)\nContinue developing the cybersecurity strategy for the financial system; improve\nNT\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1248,
+        "end_char": 1418,
+        "text": "cybersecurity regulatory and supervisory practices (¶44)\nImprove cyber response and recovery capabilities; conduct market-wide cyber crisis\nMT\nsimulation exercises (¶44)\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1418,
+        "end_char": 1615,
+        "text": "Issue supervisory guidance on climate-related risk management, governance, and business\nNT\nstrategies; introduce disclosure requirements of climate and ESG information (¶46–47)\nFinancial Integrity\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1615,
+        "end_char": 1816,
+        "text": "Implement the remaining 2018 Mutual Evaluation Report recommendations (¶50–51) NT\nSystemic Liquidity and Crisis Management\nReview the liquidity risk mitigation framework for development banks (¶52) NT\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1816,
+        "end_char": 1964,
+        "text": "Explore options to enhance the ELA framework (¶55) NT\nFurther strengthen mechanisms to ensure the credibility and feasibility of banks’ financial\nC\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1964,
+        "end_char": 2178,
+        "text": "contingency arrangements while preserving resolvability and cost-effective resolutions (¶57)\nIntroduce statutory bail-in powers and eliminate barriers to the effective use of the P&A and\nMT\nbridge bank tools (¶57)\n"
+      },
+      {
+        "segment_id": "S00012",
+        "start_char": 2178,
+        "end_char": 2334,
+        "text": "Shorten the resolution planning cycle for D-SIBs and midsize banks, and eliminate impediments to\nC\nbanks’ resolvability (¶58)\n84 INTERNATIONAL MONETARY FUND"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 89",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 169,
+        "text": "MEXICO\nKey Recommendations Time1\nFinancial Development Issues\nBroaden the scope of regulated fintech activities; finalize the implementation of open finance\nNT\n(¶61-62)\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 169,
+        "end_char": 302,
+        "text": "Establish a national climate finance strategy; set ambitious climate finance targets for\nMT\ndevelopment financial institutions (¶64)\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 302,
+        "end_char": 446,
+        "text": "1/ C: continuous, I: immediate (less than one year), NT: short term (1–2 years), and MT: medium term (3–5 years).\nINTERNATIONAL MONETARY FUND 85"
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "MAC-010",
+    "source_sha256": "8fac4146590dbe2ed458f7356748f5880d021e03cc4982b1e7efe083d33f622a",
+    "locator": "page 9",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 227,
+        "text": "MEXICO\nexternal position in 2021 was broadly in line with the level implied by medium-term fundamentals\nand desirable policies (Annex I).\n4. The recovery and slack continued to be uneven across sectors. Labor market conditions\n"
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 227,
+        "end_char": 412,
+        "text": "improved ahead of output in the past year, with steady increases in employment and decreases in\nun- and under-employment. Across sectors, many goods producing and some services sectors\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 412,
+        "end_char": 608,
+        "text": "recently produced above pre-pandemic levels, while construction and some other sectors remained\nbelow. Overall, staff estimates that the output gap, which was about -2½ percent in early 2021, was\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 608,
+        "end_char": 812,
+        "text": "nearly closed in mid-2022, reflecting both the recovery and potential output growth temporarily\nbelow pre-pandemic rates.\n5. After accelerating in 2021, inflation has\nRetail and Counterfacual Fuel Prices\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 812,
+        "end_char": 1035,
+        "text": "increased further in 2022, as elsewhere, despite (Index, current MXN)\n30\nan increase in fuel subsidies. Headline inflation\nHigh Octane\nrose from about 3 percent at the end of 2020 to High Octane - Counterfactual\nLow Octane\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1035,
+        "end_char": 1240,
+        "text": "7.4 percent by end-2021 and to 8.7 percent by\n25 Low Octane - Counterfactual\nAugust this year. After an initial surge in 2021, Diesel\nDiesel - Counterfactual\nenergy price inflation has moderated due to an\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1240,
+        "end_char": 1480,
+        "text": "increase in fuel subsidies (see below). Food 20\ninflation, which has consistently exceeded the 3-\npercent target over the past decade, has risen\n15\nsteadily to 14.1 percent in August and has\naccounted for over 50 percent of the increase in\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1480,
+        "end_char": 1719,
+        "text": "Sources:EIA, Banxico; and Haver Analytics.\nheadline inflation above target. Nevertheless, core Note: Chart presents counterfactual fuel prices with no fuel subsidies\nbut full reduction of fuel excise taxes, and assuming a full passthrough\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1719,
+        "end_char": 1893,
+        "text": "inflation has also risen to 8.1 percent as price from subsidies to prices.\npressures have broadened. Near-term inflation expectations have increased above the upper limit of\n"
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1893,
+        "end_char": 2120,
+        "text": "the target range, medium-term expectations are rising notably, but longer-term expectations remain\nbroadly stable.\nHeadline Inflation Contributions to Excess Inflation\n(Percent, y/y) (Deviation from target, h/h nsaar)\n12\nMEX 5\n"
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 2120,
+        "end_char": 2356,
+        "text": "MEX excl. Fuel Subsidy\n10 USA Noncore\nLA-5 (excl. MEX) 4 Energy/Admin\n8 Services\n3\nMerchandise\n6\n2\nNoncore Food\n4\n1\nCore Food\n2\n0\n0\n-1\n2020H2 2021H1 2021H2 2022H1\nSources: Haver Analytics, Banxico; and EIA.\nINTERNATIONAL MONETARY FUND 5"
+      }
+    ]
+  }
+]

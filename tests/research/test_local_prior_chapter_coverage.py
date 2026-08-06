@@ -6,11 +6,17 @@ from pathlib import Path
 import pytest
 from sqlalchemy import create_engine, text
 
+from leaders_db.conversational_evidence.data import questions
 from leaders_db.db.engine import init_database
 from leaders_db.research._codex_worker_setup import collect_local_priors
 from leaders_db.research.dossier_notebook_prompt import build_research_notebook_prompt
 from leaders_db.research.dossier_prompt import build_dossier_prompt
-from leaders_db.research.local_prior_package import compact_local_priors
+from leaders_db.research.local_prior_package import (
+    build_local_judge_package,
+    compact_local_priors,
+    summarize_local_priors_for_formatter,
+    summarize_local_priors_for_research,
+)
 from leaders_db.research.local_prior_schema import (
     LOCAL_PRIOR_MAPPINGS,
     LocalPriorPeriod,
@@ -22,26 +28,26 @@ from leaders_db.research.research_workflow import ResearchWorkflow
 
 CHAPTER_FACTS = (
     ("1B.1", "nuclear_total_inventory", "fas"),
-    ("2B.1", "military_spend_share_gdp", "sipri_milex"),
+    ("2B.1", "state_based_conflict_events", "ucdp"),
     ("3B.1", "pts_state_dept_score", "pts"),
     ("4B.1", "electoral_democracy", "vdem"),
     ("5B.1", "gdp_per_capita", "maddison_project"),
     ("6B.1", "hdi", "undp_hdi"),
-    ("7B.1", "control_of_corruption", "world_bank_wgi"),
-    ("8B.1", "government_effectiveness", "world_bank_wgi"),
+    ("7B.6", "control_of_corruption", "world_bank_wgi"),
+    ("8B.2", "government_effectiveness", "world_bank_wgi"),
 )
 
 
-def test_local_prior_mappings_cover_all_eighty_ruler_lenses_once() -> None:
+def test_local_prior_mappings_cover_every_configured_ruler_lens_once() -> None:
     mapped = [
         methodology_id
         for mapping in LOCAL_PRIOR_MAPPINGS
         for methodology_id in mapping.methodology_ids
     ]
-    expected = {f"{chapter}B.{question}" for chapter in range(1, 9) for question in range(1, 11)}
+    expected = {question["id"] for question in questions()}
 
     assert set(mapped) == expected
-    assert len(mapped) == len(set(mapped)) == 80
+    assert len(mapped) == len(set(mapped)) == len(expected)
 
 
 @pytest.mark.parametrize(("methodology_id", "field_key", "source_slug"), CHAPTER_FACTS)
@@ -81,8 +87,10 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
 
     package = compact_local_priors(priors)
 
+    assert package.schema_version == "ruler_local_evidence_package_v3"
     assert package.source_prior_count == 20
     assert package.unique_fact_count == 1
+    assert len(package.longitudinal_signals) == 1
     assert package.facts[0].fact_id == "LF001"
     assert package.facts[0].locator == "local-prior:5B.1"
     assert len(package.facts[0].candidate_methodology_ids) == 20
@@ -91,6 +99,118 @@ def test_compact_local_priors_deduplicates_repeated_facts_across_lenses() -> Non
         ("LF001",),
         ("LF001",),
     ]
+
+
+def test_local_judge_package_is_complete_and_independent_of_web_research() -> None:
+    fact = _fact_payload("gni_per_capita", "undp_hdi")
+    priors = tuple(
+        _prior_payload(f"5B.{question}", fact) for question in range(1, 11)
+    )
+
+    package = build_local_judge_package(priors, chapter_id="5b")
+
+    assert package.schema_version == "ruler_local_judge_package_v1"
+    assert package.chapter_id == "5B"
+    assert package.methodology_ids == tuple(
+        f"5B.{question}" for question in range(1, 11)
+    )
+    assert set(package.methodology_statuses) == set(package.methodology_ids)
+    assert package.facts[0].fact_id == "LF001"
+    assert package.facts[0].locator == "local-prior:5B.1"
+    assert package.longitudinal_signals[0].signal_id == "LS001"
+    assert "country-level structured context" in package.attribution_policy
+
+
+def test_local_judge_package_accepts_lexically_ordered_complete_chapter() -> None:
+    priors = tuple(
+        _prior_payload(methodology_id, _fact_payload("gni_per_capita", "undp_hdi"))
+        for methodology_id in sorted(f"5B.{question}" for question in range(1, 11))
+    )
+
+    package = build_local_judge_package(priors, chapter_id="5B")
+
+    assert package.methodology_ids == tuple(
+        f"5B.{question}" for question in range(1, 11)
+    )
+
+
+def test_local_judge_package_rejects_duplicate_complete_chapter() -> None:
+    priors = [
+        _prior_payload(
+            f"5B.{question}", _fact_payload("gni_per_capita", "undp_hdi")
+        )
+        for question in range(1, 11)
+    ]
+    priors.append(
+        _prior_payload(
+            "5B.10",
+            _fact_payload("conflicting_duplicate", "world_bank_wdi"),
+            status="error",
+            reason="Conflicting duplicate package.",
+        )
+    )
+
+    with pytest.raises(ValueError, match="does not cover the complete 5B chapter"):
+        build_local_judge_package(tuple(priors), chapter_id="5B")
+
+
+def test_formatter_prior_summary_omits_repeated_fact_payload() -> None:
+    fact = _fact_payload("shared_fact", "fixture_source")
+    priors = (
+        _prior_payload("4B.1", fact),
+        _prior_payload("4B.2", fact),
+    )
+
+    summary = summarize_local_priors_for_formatter(priors)
+
+    assert summary["methodology_statuses"] == {
+        "4B.1": "evidence_found",
+        "4B.2": "evidence_found",
+    }
+    assert summary["unique_fact_count"] == 1
+    assert "facts" not in summary
+    assert "longitudinal_signals" not in summary
+    assert summary["fact_payload"].startswith("omitted_after_research")
+
+
+def test_research_prior_summary_keeps_target_and_period_boundaries() -> None:
+    facts = []
+    for year, period_role in (
+        (2018, "pre_accession"),
+        (2019, "pre_accession"),
+        (2020, "tenure"),
+        (2021, "tenure"),
+        (2022, "target"),
+    ):
+        fact = _fact_payload("hdi", "undp_hdi")
+        fact["year"] = year
+        fact["period_role"] = period_role
+        fact["source_observation_ids"] = [f"undp_hdi:NZL:{year}:hdi"]
+        facts.append(fact)
+    prior = _prior_payload("6B.10", None)
+    prior["local_facts"] = facts
+
+    summary = summarize_local_priors_for_research((prior,))
+
+    assert [fact["year"] for fact in summary["facts"]] == [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+    ]
+    assert summary["facts_omitted"] == 0
+    assert summary["longitudinal_signals"][0]["observed_year_range"] == [2018, 2022]
+    assert "observed_years" not in summary["longitudinal_signals"][0]
+
+
+def test_compact_local_prior_accepts_missing_optional_confidence() -> None:
+    fact = _fact_payload("electoral_democracy", "vdem")
+    fact.pop("confidence")
+
+    package = compact_local_priors((_prior_payload("4B.1", fact),))
+
+    assert package.facts[0].confidence is None
 
 
 def test_compact_local_priors_preserves_explicit_empty_and_error_states() -> None:
@@ -167,6 +287,97 @@ def test_every_chapter_mapping_contains_its_anchor_fact() -> None:
         assert field_key in mapping.field_keys
 
 
+def test_economic_and_social_lenses_use_question_specific_fields() -> None:
+    economic_appointments = mapping_for_methodology_id("5B.2")
+    economic_productivity = mapping_for_methodology_id("5B.6")
+    social_access = mapping_for_methodology_id("6B.2")
+    social_politicization = mapping_for_methodology_id("6B.7")
+    economic_trajectory = mapping_for_methodology_id("5B.10")
+    political_trajectory = mapping_for_methodology_id("4B.10")
+
+    assert economic_appointments is not None
+    assert economic_productivity is not None
+    assert social_access is not None
+    assert social_politicization is not None
+    assert economic_appointments.field_keys == ()
+    assert "pwt_human_capital_index" in economic_productivity.field_keys
+    assert "under5_mortality" in social_access.field_keys
+    assert social_politicization.field_keys == ()
+    assert economic_trajectory is not None
+    assert "household_consumption_current_usd" in economic_trajectory.field_keys
+    assert "gross_fixed_capital_formation_current_usd" in economic_trajectory.field_keys
+    assert political_trajectory is not None
+    assert "household_consumption_current_usd" not in political_trajectory.field_keys
+
+
+def test_empty_lens_mapping_requests_narrative_evidence(database_url: str) -> None:
+    init_database(database_url)
+    engine = create_engine(database_url, future=True)
+    _insert_scope(engine)
+
+    artifact = build_local_structured_prior(
+        engine,
+        LocalStructuredPriorRequest(
+            methodology_id="5B.2",
+            iso3="NZL",
+            period=LocalPriorPeriod(year=2020),
+        ),
+    )
+
+    assert artifact.status == "no_evidence_found"
+    assert artifact.local_facts == []
+    assert "semantically sufficient" in (artifact.missing_or_empty_reason or "")
+    assert "ruler-specific narrative evidence" in (artifact.missing_or_empty_reason or "")
+
+
+def test_integrity_and_effectiveness_preserve_personal_attribution_boundaries() -> None:
+    personal_integrity = mapping_for_methodology_id("7B.3")
+    scrutiny_context = mapping_for_methodology_id("7B.6")
+    program_identity = mapping_for_methodology_id("8B.1")
+    implementation_context = mapping_for_methodology_id("8B.6")
+
+    assert personal_integrity is not None and personal_integrity.field_keys == ()
+    assert scrutiny_context is not None
+    assert "control_of_corruption" in scrutiny_context.field_keys
+    assert program_identity is not None and program_identity.field_keys == ()
+    assert implementation_context is not None
+    assert "government_effectiveness" in implementation_context.field_keys
+
+
+def test_political_freedom_lenses_do_not_receive_identical_bundles() -> None:
+    elections = mapping_for_methodology_id("4B.1")
+    institutions = mapping_for_methodology_id("4B.4")
+    media = mapping_for_methodology_id("4B.6")
+    trajectory = mapping_for_methodology_id("4B.10")
+
+    assert elections is not None and "eiu_electoral_process_pluralism" in elections.field_keys
+    assert institutions is not None and "judicial_constraints" in institutions.field_keys
+    assert media is not None and "press_freedom_score" in media.field_keys
+    assert trajectory is not None
+    assert len(trajectory.field_keys) > len(elections.field_keys)
+
+
+def test_nuclear_peace_and_safety_lenses_use_semantic_subsets() -> None:
+    nuclear_crisis = mapping_for_methodology_id("1B.8")
+    nonnuclear_risk = mapping_for_methodology_id("1B.9")
+    conflict_choice = mapping_for_methodology_id("2B.2")
+    military_burden = mapping_for_methodology_id("2B.8")
+    incitement = mapping_for_methodology_id("3B.3")
+    physical_abuse = mapping_for_methodology_id("3B.1")
+
+    assert nuclear_crisis is not None
+    assert "nuclear_operational_strategic" in nuclear_crisis.field_keys
+    assert nonnuclear_risk is not None and nonnuclear_risk.field_keys == ()
+    assert conflict_choice is not None
+    assert "state_based_conflict_events" in conflict_choice.field_keys
+    assert "military_spend_share_gdp" not in conflict_choice.field_keys
+    assert military_burden is not None
+    assert "military_spend_share_gdp" in military_burden.field_keys
+    assert incitement is not None and incitement.field_keys == ()
+    assert physical_abuse is not None
+    assert "cirights_torture" in physical_abuse.field_keys
+
+
 def test_worker_local_priors_carry_resolved_ruler_metadata(database_url: str) -> None:
     init_database(database_url)
     engine = create_engine(database_url, future=True)
@@ -230,33 +441,28 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         ),
     )
 
-    assert prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
-    assert '"unique_fact_count": 1' in prompt
-    assert '"candidate_methodology_ids"' in prompt
-    assert "local-prior:5B.1" in prompt
-    assert "Do not read\nadditional local files during this worker run" in prompt
-    assert "Do not call image or image-inspection tools" in prompt
-    assert "request elevated permissions" in prompt
-    assert "put the complete handoff in the final response" in prompt
-    assert "Required methodology (fully inlined" in prompt
+    # Reconnaissance receives a capped orientation, not raw observation provenance.
+    assert "undp_hdi:NZL:2020:gni_per_capita" not in prompt
+    assert '"unique_local_fact_count":1' in prompt
+    assert '"complete_local_package_retained_by_parent":true' in prompt
+    assert '"source_family_index":["undp_hdi"]' in prompt
     assert (
-        "## Required methodology: .agents/skills/ruler-evidence-researcher/SKILL.md"
-        not in prompt
-    )
-    assert "## Required methodology: docs/methodology/local-first-researcher-guide.md" not in prompt
-    assert "## Required methodology: docs/methodology/ranking-evaluation-criteria.md" not in prompt
-    assert "## Required methodology: docs/methodology/source-confidence-registry.json" in (prompt)
-    assert '"final_evidence_use_values"' in prompt
-    assert "build a lightweight\ncandidate pool" in prompt
-    assert "not a search-results ceiling" in prompt
-    assert "Never request a recency or recent-news filter" in prompt
-    assert "establish one cited authority baseline" in prompt
-    assert "Chapter 7B still requires a personal" in prompt
-    assert "Do not declare a chapter ready merely because it reached a count" in prompt
-    assert "work through only the selected chapters and methodology IDs" in prompt
-    assert "must not silently expand to its other nine chapter" in prompt
-    assert "substantive\nselected-scope handoff" in prompt
-    assert "a rejected or malformed Parallel call is\n  a tool failure" in prompt
+        "complete package, observation provenance, and\n"
+        "chapter routing remain parent-owned"
+    ) in prompt
+    assert "local\nevidence preparation and re-fetching are outside" in prompt
+    assert "Chapter guides" not in prompt
+    assert "Required methodology" not in prompt
+    assert "A separate source-discovery stage has already created" in prompt
+    assert "This pass is orientation and evidence inspection" in prompt
+    assert "Preserve every credible source" in prompt
+    assert "one underlying fact per record" in prompt
+    assert "sources opened and useful mainly for corroboration" in prompt
+    assert "promising leads that still need to be opened or examined" in prompt
+    assert "7B: the ruler's personal integrity" in prompt
+    assert "SOURCE_CLAIM_JSON:" in prompt
+    assert "an empty\n`methodology_ids` list" in prompt
+    assert len(prompt) < 10_000
 
     formatter_prompt = build_dossier_prompt(
         job,
@@ -265,8 +471,16 @@ def test_research_prompt_inlines_one_copy_of_cross_chapter_local_fact(
         local_priors=priors,
         research_notebook="Research handoff.",
     )
-    assert formatter_prompt.count("undp_hdi:NZL:2020:gni_per_capita") == 1
+    assert "undp_hdi:NZL:2020:gni_per_capita" not in formatter_prompt
+    assert "omitted_after_research_use_parent_restores_hashed_provenance" in (
+        formatter_prompt
+    )
+    assert '"5B.1": "evidence_found"' in formatter_prompt
+    assert '"6B.1": "evidence_found"' in formatter_prompt
     assert '"methodology_statuses"' in formatter_prompt
+    assert "Parent-owned compact local structured evidence" in formatter_prompt
+    assert "Separately collected permissive web-research notebook" in formatter_prompt
+    assert "do not convert a local fact into a web citation" in formatter_prompt
     assert "Every retained evidence item must appear in at least one `mappings` row" in (
         formatter_prompt
     )

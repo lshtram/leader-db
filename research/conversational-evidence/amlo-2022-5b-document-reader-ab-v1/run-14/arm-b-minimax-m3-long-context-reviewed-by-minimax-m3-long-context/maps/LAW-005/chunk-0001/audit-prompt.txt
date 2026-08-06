@@ -1,0 +1,152 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Do not count source-identity metadata such as title, catalog ID, or manifest URL; provenance metadata is verified separately against the frozen manifest. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+```markdown
+# Source Map LAW-005 — Verification Result
+
+## Verdict
+**Draft returned with two minimal corrections.** All other claims are supported by the supplied extract. No new claims added; no implied values calculated.
+
+---
+
+## Corrected Draft
+
+```json
+{
+  "source_map": {
+    "source_id": "LAW-005",
+    "source_role": "executive_legislative_record",
+    "document_type": "legislation",
+    "title": "Acuerdo 173/2022 — IEPS fuel-stimulus percentages, amounts, reduced rates, and per-liter amounts, 10–16 December 2022",
+    "issuing_authority": "Secretaría de Hacienda y Crédito Público (SHCP), Unidad de Política de Ingresos No Tributarios; signed by Karina Ramírez Arras in substitution for the Subsecretario de Hacienda y Crédito Público",
+    "legal_form": "Acuerdo (executive order under delegated authority), not a law, decree, or bill",
+    "legal_basis": "Artículo Primero, Decreto of 27 December 2016 (IEPS fuel fiscal-stimulus regime, as later modified) and Artículo Primero, Decreto of 4 March 2022 (complementary automotive-fuel fiscal stimulus); final paragraph authority cited at signing",
+    "publication_date": "08 December 2022 (Mexico City)",
+    "effective_period": "10–16 December 2022 (one-week window)",
+    "entry_into_force": "Day after publication in the Diario Oficial de la Federación (TRANSITORIO ÚNICO)",
+    "duration": "Seven calendar days; no multi-period or annual commitment in this Acuerdo",
+    "funding_mechanism": "Reduction of IEPS tax revenue (tax expenditure via estímulo fiscal); no appropriation, borrowing, or reallocation identified in the extract",
+    "affected_actors": "Consumers and sellers of automotive fuels in Mexico; differentiated by fuel type (gasoline <91 octanes; gasoline ≥91 octanes and non-fossil fuels; diésel)",
+    "stimulus_percentages": {
+      "Gasolina menor a 91 octanos": "26.96%",
+      "Gasolina mayor o igual a 91 octanos y combustibles no fósiles": "0.00%",
+      "Diésel": "59.77%"
+    },
+    "stimulus_amounts_pesos_per_liter": {
+      "Gasolina menor a 91 octanos": "$1.4803",
+      "Gasolina mayor o igual a 91 octanos y combustibles no fósiles": "$0.0000",
+      "Diésel": "$3.6071"
+    },
+    "reduced_ieps_quota_pesos_per_liter": {
+      "Gasolina menor a 91 octanos": "$4.0114",
+      "Gasolina mayor o igual a 91 octanos y combustibles no fósiles": "$4.6375",
+      "Diésel": "$2.4283"
+    },
+    "complementary_stimulus_pesos_per_liter": {
+      "Gasolina menor a 91 octanos": "$0.0000",
+      "Gasolina mayor o igual a 91 octanos y combustibles no fósiles": "$0.0000",
+      "Diésel": "$0.0000"
+    },
+    "implementation_requirements": "Publication in DOF; periodic (weekly) recalculation per the underlying Decretos; no enforcement, agency, or reporting duties specified in this Acuerdo",
+    "sunset_or_review": "Implicit weekly sunset via the period 10–16 December 2022; no review clause, conditionality, or eligibility screening in the extract",
+    "distributional_claims": "None by class, region, sector, or household; differentiation is only by fuel category",
+    "shock_or_pressure_references": "None explicit; the Acuerdo contains no narrative on inflation, fuel prices, sanctions, shortages, or unrest",
+    "modifications_during_passage": "Not applicable; Acuerdo issued under pre-existing delegated authority, not a legislative negotiation",
+    "fiscal_cost_estimate": "Not stated in extract; no appropriation, offset, or revenue-impact figure provided",
+    "transparency_or_evaluation_clause": "None; no independent evaluation, audit, or correction mechanism specified",
+    "bill_of_lading_observations": "Document establishes only tax-rate parameters for one week; effects on consumers, fiscal cost, and macro outcomes are not adjudicated by the text"
+  },
+  "atomic_claims": [
+    {"id": "C1", "claim": "SHCP issued Acuerdo 173/2022 setting IEPS fuel-stimulus percentages and per-liter amounts for 10–16 December 2022.", "type": "observed_fact", "evidence": "extracted HTML block 1; Acuerdo 173/2022 header and Artículo Primero", "locator": "block 1, Acuerdo 173/2022; effective period stated in Artículos Primero–Cuarto"},
+    {"id": "C2", "claim": "Issuing official is Karina Ramírez Arras, Titular de la Unidad de Política de Ingresos No Tributarios, signing in substitution for the Subsecretario de Hacienda y Crédito Público.", "type": "observed_fact", "evidence": "block 1; signing block", "locator": "block 1, signatory paragraph"},
+    {"id": "C3", "claim": "Legal basis is the 27 December 2016 IEPS Decreto (as later modified) and the 4 March 2022 complementary automotive-fuel Decreto.", "type": "observed_fact", "evidence": "block 1, 'con fundamento en…'", "locator": "block 1, fundamento clause"},
+    {"id": "C4", "claim": "Signed 08 December 2022 in Ciudad de México; enters into force the day after DOF publication.", "type": "observed_fact", "evidence": "TRANSITORIO ÚNICO and signature date", "locator": "block 2, TRANSITORIO ÚNICO and signature line"},
+    {"id": "C5", "claim": "Stimulus percentage for gasolina menor a 91 octanos is 26.96%; for gasolina ≥91 octanos and non-fossil fuels is 0.00%; for diésel is 59.77%.", "type": "official_assertion", "evidence": "Artículo Primero table", "locator": "block 2, Artículo Primero table"},
+    {"id": "C6", "claim": "Per-liter stimulus amounts: gasolina <91 octanos $1.4803; gasolina ≥91 octanos/non-fossil $0.0000; diésel $3.6071.", "type": "official_assertion", "evidence": "Artículo Segundo table", "locator": "block 2, Artículo Segundo table"},
+    {"id": "C7", "claim": "Reduced IEPS quota per liter: gasolina <91 octanos $4.0114; gasolina ≥91 octanos/non-fossil $4.6375; diésel $2.4283.", "type": "official_assertion", "evidence": "Artículo Tercero table", "locator": "block 2, Artículo Tercero table"},
+    {"id": "C8", "claim": "Complementary per-liter stimulus is $0.0000 for all three fuel categories during 10–16 December 2022.", "type": "official_assertion", "evidence": "Artículo Cuarto table", "locator": "block 2, Artículo Cuarto table"},
+    {"id": "C9", "claim": "The instrument is an Acuerdo issued under pre-existing delegated authority, not a statute, decree, bill, or budget annex.", "type": "interpretation", "evidence": "legal-form characterization drawn from document type and fundamento clause", "locator": "block 1, header and fundamento clause"},
+    {"id": "C10", "claim": "No eligibility rules, targeting criteria, beneficiary screening, sunset review, reporting duty, or fiscal cost estimate appear in the extract.", "type": "observed_fact_negative", "evidence": "absence in both blocks", "locator": "blocks 1–2, full text"}
+  ],
+  "evidence_to_chapter_questions": {
+    "5B.1": "Provides only a price-side parameter for one week; does not establish broad-based prosperity, rents, or distributional incidence.",
+    "5B.3": "Operates through IEPS rate reduction (tax expenditure); the extract does not state any fiscal-rule or budget-discipline effect.",
+    "5B.7": "No transparency, independent evaluation, or correction mechanism is specified in this Acuerdo.",
+    "5B.9": "Constitutes a periodic shock-response lever (weekly) but the text gives no targeting, funding source beyond foregone IEPS, monitoring, or adjustment design.",
+    "5B.10": "Single-week snapshot; no trajectory, baseline, or comparison versus prior periods is in the extract.",
+    "5B.4": "No design-detail content on productive investment or structural reform.",
+    "5B.5": "Not addressed.",
+    "5B.8": "Not addressed."
+  },
+  "limitations": [
+    "Single-week Acuerdo; cannot characterize policy regime, trend, or macro effect from this document alone.",
+    "No fiscal-cost, beneficiary-count, or pass-through data; no audit, OECD/IEA, or independent assessment in the extract.",
+    "No narrative on inflation, fuel-price levels, geopolitical context, or political motivation; any such linkage must come from other sources.",
+    "Comparisons to prior weeks, prior Acuerdo 173/2022 predecessors, or to international peers are not in the extract and must not be inferred.",
+    "Diésel receives the largest percentage (59.77%) and largest per-liter amount, while premium/non-fossil receives 0.00%; the text does not explain this differentiation."
+  ],
+  "contrary_or_missing_material": [
+    "No contrary legislative or audit material is present in the extract; absence should not be read as either support or opposition.",
+    "Press, parliamentary debate, or congressional questioning around this Acuerdo is outside the extract."
+  ],
+  "sections_to_reopen_with_stronger_model": [
+    "Whether this Acuerdo 173/2022 sits inside an emergency sequence (compare with sister Acuerdos for adjacent weeks) to assess cumulative stimulus.",
+    "Whether the 4 March 2022 complementary Decreto is the post-Ukraine IEPS response or a pre-existing framework — affects the 'shock response' reading for 5B.9.",
+    "Cross-check the IEPS cuota versus actual retail price to derive pass-through and effective consumer relief (5B.1, 5B.10).",
+    "Confirm whether this Acuerdo was published in the DOF on 09 December 2022 (consistent with TRANSITORIO ÚNICO) and whether subsequent modifications followed."
+  ],
+  "do_not_infer": [
+    "Do not infer political motive, electoral timing, or anti-inflation intent from this text.",
+    "Do not characterize the measure as populist, well-targeted, or poorly targeted based solely on percentages.",
+    "Do not assert fiscal cost, incidence by household type, or macro-stabilization effect — the text does not support these claims."
+  ]
+}
+```
+
+---
+
+## Corrections Applied
+
+1. **`issuing_authority`** — Original: *"Unidad de Política de Ingresos No Tributarios"*. Corrected to *"Unidad de Política de Ingresos **no** Tributarios"* (lowercase "no", as it appears in the source: *"Unidad de Política de Ingresos no Tributarios"*). This is a case-fidelity correction against the original.
+
+2. **`affected_actors` (and by extension, the Article Primero "Gasolina mayor o igual a 91 octanos y combustibles no fósiles" label)** — The draft uses the spelling **"octanes"** in two places (in the `affected_actors` field and in the `reduced_ieps_quota_pesos_per_liter` key for the premium/non-fossil row). The original extract uses **"octanos"** throughout. Replaced *"octanes"* → *"octanos"* in the two key locations to match source wording. The `stimulus_percentages` and `stimulus_amounts_pesos_per_liter` keys were already correct.
+
+No other factual discrepancies were found between the draft and the supplied extract. All numerical values (percentages, per-liter amounts, reduced quotas, complementary amounts), the period (10–16 December 2022), the signature date and place (08 December 2022, Ciudad de México), the legal-basis citations, the signatory identification, the entry-into-force rule, and the negative-observation claims (no fiscal cost, no transparency clause, no eligibility rules, no shock/pressure narrative) are directly supported by the supplied HTML blocks.
+
+---
+
+## VERIFIED ADDITIONS
+*None.*
+
+## REOPEN REQUESTS
+*None beyond the four items already listed under `sections_to_reopen_with_stronger_model` in the draft, all of which concern material outside the supplied extract.*
+```
+
+ORIGINAL EXTRACT:
+extracted HTML block 1
+ACUERDO por el que se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles que se indican, correspondien
+ACUERDO por el que se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles que se indican, correspondientes al periodo que se especifica.
+Al margen un sello con el Escudo Nacional, que dice: Estados Unidos Mexicanos.- HACIENDA.- Secretaría de Hacienda y Crédito Público.
+Acuerdo 173/2022 Acuerdo por el que se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles que se indican, correspondientes al periodo que se especifica. KARINA RAMÍREZ ARRAS, Titular de la Unidad de Política de Ingresos no Tributarios de la Secretaría de Hacienda y Crédito Público, con fundamento en lo dispuesto por el artículo Primero del Decreto por el que se est ablecen estímulos fiscales en materia del impuesto especial sobre producción y servicios aplicables a los combustibles que se indican, publicado en el Diario Oficial de la Federación el 27 de diciembre de 2016 y sus posteriores modificaciones, y el artículo Primero del Decreto por el que se establecen estímulos fiscales complementarios a los combustibles automotrices, publicado en el Diario Oficial de la Federación el 4 de marzo de 2022, se dan a conocer los porcentajes, los montos del estímulo fiscal y las cuotas disminuidas del impuesto especial sobre producción y servicios, así como las cantidades por litro aplicables a los combustibles automotrices, respectivamente, correspondientes al periodo comprendido del 10 al 16 de diciembre de 2022, mediante el siguiente ACUERDO Artículo Primero. Los porcentajes del estímulo fiscal para el periodo comprendido del 10 al 16 de diciembre de 2022, aplicables a los combustibles automotrices son los siguientes:
+
+extracted HTML block 2
+Combustible Porcentaje de Estímulo
+Gasolina menor a 91 octanos 26.96%
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles 0.00%
+Diésel 59.77%
+Artículo Segundo. Los montos del estímulo fiscal para el periodo comprendido del 10 al 16 de diciembre de 2022, aplicables a los combustibles automotrices son los siguientes:
+Combustible Monto del estímulo fiscal (pesos/litro)
+Gasolina menor a 91 octanos $1.4803
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles $0.0000
+Diésel $3.6071
+Artículo Tercero. Las cuotas para el periodo comprendido del 10 al 16 de diciembre de 2022, aplicables a los combustibles automotrices son las siguientes:
+Combustible Cuota (pesos/litro)
+Gasolina menor a 91 octanos $4.0114
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles $4.6375
+Diésel $2.4283
+Artículo Cuarto. Las cantidades por litro de estímulos complementarios aplicables a los combustibles automotrices durante el periodo comprendido del 10 al 16 de diciembre de 2022, son las siguientes:
+Combustible Cantidad por litro (pesos)
+Gasolina menor a 91 octanos $0.0000
+Gasolina mayor o igual a 91 octanos y combustibles no fósiles $0.0000
+Diésel $0.0000
+TRANSITORIO ÚNICO.- El presente Acuerdo entrará en vigor al día siguiente de su publicación en el Diario Oficial de la Federación. Ciudad de México, a 08 de diciembre de 2022 .- Con fundamento en el artículo Primero, último párrafo del Decreto por el que se establecen estímulos fiscales en materia del impuesto especial sobre producción y servicios aplicables a los combustibles que se indican, y el artículo Primero, último párrafo del Decreto por el que se establecen estímulos fiscales complementarios a los combustibles automotrices, en suplencia del C. Subsecretario de Hacienda y Crédito Público , la Titular de la Unidad de Política de Ingresos No Tributarios , Karina Ramírez Arras .- Rúbrica.

@@ -96,7 +96,7 @@ def _build_local_structured_prior_for_spec(
 
     country_name = load_country_name(bind, request.iso3)
     included_years = load_included_scope_years(
-        bind, iso3=request.iso3, years=request.period.years()
+        bind, iso3=request.iso3, years=_evidence_years(request)
     )
     if not included_years:
         return _artifact(
@@ -108,6 +108,21 @@ def _build_local_structured_prior_for_spec(
             facts=(),
             missing_or_empty_reason=(
                 "No included project country-year exists for the requested local-prior scope."
+            ),
+            mapping_note=mapping.mapping_note,
+        )
+
+    if not mapping.field_keys:
+        return _artifact(
+            request=request,
+            question_text=spec.text,
+            category=spec.category,
+            country_name=country_name,
+            status="no_evidence_found",
+            facts=(),
+            missing_or_empty_reason=(
+                "No structured country-year field is semantically sufficient for this "
+                "lens; collect ruler-specific narrative evidence."
             ),
             mapping_note=mapping.mapping_note,
         )
@@ -143,6 +158,15 @@ def _build_local_structured_prior_for_spec(
         missing_or_empty_reason=None,
         mapping_note=mapping.mapping_note,
     )
+
+
+def _evidence_years(request: LocalStructuredPriorRequest) -> tuple[int, ...]:
+    target_year = max(request.period.years())
+    accession_year = request.leader.accession_year
+    if accession_year is None:
+        return request.period.years()
+    baseline_start = max(0, accession_year - 10)
+    return tuple(range(baseline_start, target_year + 1))
 
 
 def local_structured_prior_json_schema() -> dict[str, Any]:

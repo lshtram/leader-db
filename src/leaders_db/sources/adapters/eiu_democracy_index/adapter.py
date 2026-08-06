@@ -232,7 +232,9 @@ class EiuDemocracyIndexAdapter:
                             "source_row_reference": (
                                 f"{EIU_DEMOCRACY_INDEX_SOURCE_KEY}:{page.year}:{row.country_name}"
                             ),
-                            "attribution": EIU_DEMOCRACY_INDEX_ATTRIBUTION_TEXT,
+                            "attribution": EIU_DEMOCRACY_INDEX_ATTRIBUTION_TEXT.format(
+                                year=page.year,
+                            ),
                         },
                     )
 

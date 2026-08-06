@@ -1,0 +1,309 @@
+{
+  "overall_decision": "manual_review",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "Office and coalition biography is baseline context, not direct 2022 existential-risk conduct."
+        },
+        {
+          "evidence_id": "E0002",
+          "reason": "Formal chancellor authority is structural context, not performance evidence."
+        },
+        {
+          "evidence_id": "E0003",
+          "reason": "Constitutional scope of office is baseline context, not ruler conduct."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Coalition election/removal mechanics are office constraints, not 2022 conduct."
+        },
+        {
+          "evidence_id": "E0010",
+          "reason": "This is a G7/Russian-risk context statement; it does not show a Scholz-led risk-reduction choice by itself."
+        },
+        {
+          "evidence_id": "E0013",
+          "reason": "Retrospective government reporting is useful context, but it is not direct 2022 ruler action."
+        },
+        {
+          "evidence_id": "E0014",
+          "reason": "Pre-2022 NATO baseline should be treated as inherited posture, not Scholz-period conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No primary record of a Scholz-led command-and-control, custody, or safety reform in 2022.",
+          "lenses": [
+            "1B.3",
+            "1B.7"
+          ],
+          "best_source_or_query_direction": "Archival Chancellery, BMVg, or NATO consultation records for 2022 nuclear-risk governance and safety decisions.",
+          "why_it_matters": "It would separate rhetorical restraint and procurement follow-through from actual safety improvement."
+        },
+        {
+          "gap": "The strongest direct evidence is signaling and procurement, not measured risk-reduction outcomes.",
+          "lenses": [
+            "1B.1",
+            "1B.4",
+            "1B.9"
+          ],
+          "best_source_or_query_direction": "Contemporaneous treaty, IAEA, CTBTO, or German parliamentary oversight records on implementation effects.",
+          "why_it_matters": "It would show whether the choices materially reduced catastrophe risk rather than only expressing caution."
+        }
+      ],
+      "reason": "The package fairly shows Scholz's limited but real 2022 existential-risk choices: the February security pivot, refusal of direct NATO entry, nuclear-sharing procurement, allied anti-nuclear messaging, and multilateral risk-reduction signaling. The main limitation is that the evidence is stronger on public stance and procurement than on direct command-and-control reform, so the chapter is usable but not high-confidence."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "Office biography is baseline context, not international-conduct evidence."
+        },
+        {
+          "evidence_id": "E0002",
+          "reason": "Formal authority description is context for attribution, not conduct."
+        },
+        {
+          "evidence_id": "E0003",
+          "reason": "Legal office scope is structural context, not ruler behavior."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Chancellor election/removal mechanics are institutional context, not 2022 conduct."
+        },
+        {
+          "evidence_id": "E0013",
+          "reason": "Retrospective disarmament reporting is contextual, not direct target-year conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No private cabinet, NATO, or Russian-channel records showing the full decision chain behind caution, escalation limits, and ceasefire efforts.",
+          "lenses": [
+            "2B.1",
+            "2B.7",
+            "2B.10"
+          ],
+          "best_source_or_query_direction": "Primary chancery or foreign-ministry records, or authoritative transcripts of Scholz-Putin / Scholz-allies calls.",
+          "why_it_matters": "It would sharpen whether the public diplomacy reflects deeper restraint or mainly alliance-bound messaging."
+        }
+      ],
+      "reason": "The chapter is adequately supported. It shows invasion-day condemnation, ceasefire diplomacy, escalation restraint, legal framing, continued support for Ukraine, and contrary evidence about caution and delay. The package can fairly present both the protective and the limiting interpretations."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "credible_gap",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0001",
+          "reason": "Office biography is baseline context, not direct domestic-safety evidence."
+        },
+        {
+          "evidence_id": "E0002",
+          "reason": "Formal authority description is context for attribution, not a safety outcome."
+        },
+        {
+          "evidence_id": "E0003",
+          "reason": "Constitutional office scope is baseline context only."
+        },
+        {
+          "evidence_id": "E0004",
+          "reason": "Removal mechanics are institutional context, not domestic-safety conduct."
+        },
+        {
+          "evidence_id": "E0033",
+          "reason": "This is a year-summary of security context, not direct Scholz conduct or remedy."
+        },
+        {
+          "evidence_id": "E0105",
+          "reason": "This is only a preparatory budget step for a future police commissioner, not a completed 2022 reform."
+        },
+        {
+          "evidence_id": "E0106",
+          "reason": "This is issue-context about racial profiling, not a Scholz-led enacted reform."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No enacted 2022 Scholz-led federal police-oversight, complaint, or anti-racism reform was recovered.",
+          "lenses": [
+            "3B.2",
+            "3B.4",
+            "3B.5",
+            "3B.9"
+          ],
+          "best_source_or_query_direction": "2022 cabinet protocol, BMI/BMJ legislative records, or final federal police commissioner law materials.",
+          "why_it_matters": "It would distinguish preparatory staging and issue recognition from completed ruler-level remedy."
+        }
+      ],
+      "reason": "The package can show mixed domestic-safety conduct, anti-hate rhetoric, refugee protection, and some oversight failures, but it does not recover a direct 2022 Scholz-led federal reform. What exists is useful context and preparation, not a completed remedial package, so the chapter has a real but bounded gap."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "The record is stronger on baseline freedoms, court protection, and limited reforms than on direct Scholz-led 2022 expansion of contestability.",
+          "lenses": [
+            "4B.3",
+            "4B.4",
+            "4B.6",
+            "4B.8",
+            "4B.10"
+          ],
+          "best_source_or_query_direction": "2022 Chancellery and Bundestag records on media, party-finance, and oversight reforms, plus implementation follow-up.",
+          "why_it_matters": "It would separate inherited German democratic strength from any additional ruler contribution in 2022."
+        }
+      ],
+      "reason": "Pass. The package covers lawful transfer, competitive elections, press freedom, whistleblower protection, protest protections, and some adverse policing/accountability issues. Several items are environment or court context rather than direct Scholz action, but the dossier distinguishes that sufficiently to present the chapter fairly."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Household-level distribution and long-run productivity effects remain thinner than the policy and macro response record.",
+          "lenses": [
+            "5B.4",
+            "5B.8",
+            "5B.10"
+          ],
+          "best_source_or_query_direction": "Household survey data, distributional analysis, and later evaluation of 2022 relief measures and budget actions.",
+          "why_it_matters": "It would separate broad crisis stabilization from whether the response improved durable prosperity for typical households."
+        }
+      ],
+      "reason": "Pass. The package has enough cabinet, parliamentary, and macro-outcome evidence to present Scholz's 2022 crisis response, the temporary relief packages, and the adverse inflation/purchasing-power shock with appropriate attribution caveats. The evidence is mostly policy-plus-outcome rather than pure rhetoric."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Independent 2022 outcome data on take-up, distribution, and durability of the social measures is limited.",
+          "lenses": [
+            "6B.2",
+            "6B.3",
+            "6B.6",
+            "6B.9",
+            "6B.10"
+          ],
+          "best_source_or_query_direction": "Household survey series, administrative take-up figures, and later evaluation of the relief and housing-benefit reforms.",
+          "why_it_matters": "It would distinguish announced social protection from realized welfare gains."
+        }
+      ],
+      "reason": "Pass. The dossier fairly shows a substantial social-protection response, minimum-wage change, refugee support, and crisis relief, alongside inflation drag and the fact that much of the stronger evidence is announcement-plus-implementation rather than fully observed outcome."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "manual_review",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0081",
+          "reason": "This is a report of accusations and Scholz's denials; it is not an independent finding of dishonesty or personal gain."
+        },
+        {
+          "evidence_id": "E0082",
+          "reason": "This is contemporaneous testimony reporting, not proof that the denial was false."
+        },
+        {
+          "evidence_id": "E0083",
+          "reason": "A disclosure fight about the chancellery is not the same as a merits finding on Scholz's truthfulness."
+        },
+        {
+          "evidence_id": "E0084",
+          "reason": "This is an information-access ruling, not a finding that Scholz lied or concealed assets."
+        },
+        {
+          "evidence_id": "E0085",
+          "reason": "This records parliamentary accusation and procedure, not a factual adjudication of deception."
+        },
+        {
+          "evidence_id": "E0086",
+          "reason": "This is a procedural hearing notice, not a merits finding."
+        },
+        {
+          "evidence_id": "E0087",
+          "reason": "No initial suspicion is a prosecutorial threshold, not proof of truthfulness or integrity."
+        },
+        {
+          "evidence_id": "E0088",
+          "reason": "An anti-corruption policy announcement is context, not direct evidence of personal integrity."
+        },
+        {
+          "evidence_id": "E0101",
+          "reason": "This is a journalistic reconstruction of a file, not the original primary record."
+        },
+        {
+          "evidence_id": "E0103",
+          "reason": "This is the opposition's allegation timeline, not an adjudicated contradiction."
+        },
+        {
+          "evidence_id": "E0104",
+          "reason": "This repeats a prosecutorial threshold report, not a direct finding about honesty."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "No direct, independently verified evidence of personal enrichment, family/business conflict, or nepotism was recovered.",
+          "lenses": [
+            "7B.3",
+            "7B.4",
+            "7B.5",
+            "7B.9"
+          ],
+          "best_source_or_query_direction": "Primary asset, procurement, campaign-finance, and appointment records, plus any binding investigative findings.",
+          "why_it_matters": "Without a personal-benefit nexus, the chapter cannot fairly convert generalized scandal or institutional criticism into a final integrity judgment."
+        },
+        {
+          "gap": "The central Cum-Ex dispute still lacks the original transcript or decision PDF needed to resolve the truthfulness question cleanly.",
+          "lenses": [
+            "7B.1",
+            "7B.2",
+            "7B.6",
+            "7B.7",
+            "7B.8"
+          ],
+          "best_source_or_query_direction": "Hamburg parliamentary-inquiry transcript and the original prosecutor decision text.",
+          "why_it_matters": "It would distinguish contested memory lapses from a demonstrable pattern of deliberate deception or concealment."
+        }
+      ],
+      "reason": "Manual review is still required. The dossier documents the Cum-Ex controversy and later disclosure fights, but most items are allegations, denials, or procedural rulings rather than findings. It does not supply direct, independently verified evidence of personal enrichment, nepotism, or deliberate false testimony sufficient for a final personal-integrity call."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [
+        {
+          "gap": "Direct personnel, delegation, and implementation-discipline evidence is thinner than program, budget, procurement, and outcome evidence.",
+          "lenses": [
+            "8B.4",
+            "8B.5"
+          ],
+          "best_source_or_query_direction": "Chancellery staffing, ministerial delegation, procurement oversight, and internal implementation-tracking records from 2022.",
+          "why_it_matters": "It would show whether Scholz personally improved execution capacity rather than only announcing the right program."
+        },
+        {
+          "gap": "Some outcome indicators are partly inherited or shock-driven, so causal attribution for 2022 success remains mixed.",
+          "lenses": [
+            "8B.7",
+            "8B.9",
+            "8B.10"
+          ],
+          "best_source_or_query_direction": "Later evaluation of the energy crisis response, labour-market resilience, and procurement speed with explicit counterfactual analysis.",
+          "why_it_matters": "It would separate genuine ruler effectiveness from post-shock rebound and inherited capacity."
+        }
+      ],
+      "reason": "Pass. The package is strong enough to show the 2022 program, the defense and energy pivots, the cabinet and parliamentary implementation steps, and the mixed but real outcome trajectory. The main caveat is that some evidence is self-report or retrospective, so attribution and causality stay moderate rather than absolute."
+    }
+  ]
+}

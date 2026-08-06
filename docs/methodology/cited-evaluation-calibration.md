@@ -86,6 +86,7 @@ discarded over harmless formatting differences.
 | `contrary_evidence` | Material evidence against the selected interpretation. |
 | `source_mix` | Source types and material concentration limitations. |
 | `structured_prior_summary` | Relevant local structured context or `not_available`. |
+| `bias_assessment` | Cited material biases, distortion direction, interpretation effect, confidence/range effect, residual uncertainty, and explicit report-volume/regime-correction safeguards. |
 | `chapter_rationale` | Why the evidence fits the chosen chapter anchor. |
 | `lower_anchor_rejected` | Why the next lower anchor is too harsh. |
 | `higher_anchor_rejected` | Why the next higher anchor is too generous. |
@@ -119,6 +120,13 @@ not identify finer distinctions reliably. A numeric judgment may never use
 `recoverable_null`; that reason type is reserved for a null whose targeted research
 could plausibly recover a score.
 
+Score `1` is an exceptional absolute floor, not the lowest relative position in the
+current annual cohort. It is reserved for conduct at the chapter's historically
+extreme worst anchor (for example, Nazi-regime-level conduct where that comparison is
+substantively relevant). Severe contemporary misconduct does not by itself justify a
+`1`; the active chapter guide's floor conditions must be met. A cohort may correctly
+contain no score of `1`.
+
 Chapter guides may add domain-specific fields but may not remove this common
 semantic envelope.
 
@@ -146,7 +154,13 @@ records non-identification and is not a substantive score estimate.
 
 ## Bias checks
 
-Every judgment addresses, in prose or normalized fields:
+Every dossier must first carry a cited evidence-environment assessment covering
+criticism opportunity, censorship and self-censorship, safe reporting channels,
+official-statistics reliability, searched languages/archives, source concentration,
+duplicate-event risk, complaint-volume interpretation, relevant denominators,
+inherited conditions/shocks/authority, and chapter-specific risks.
+
+Every judgment then carries a structured `bias_assessment` that addresses:
 
 - visibility and English-language search bias;
 - silence under repression or secrecy;
@@ -156,6 +170,18 @@ Every judgment addresses, in prose or normalized fields:
 - inherited conditions and external shocks;
 - ruler authority, coalition, ceremonial office, and shared decision-making;
 - comparison with adjacent rulers in the same chapter batch.
+
+Each material bias cites dossier evidence IDs, states its likely direction and effect
+on interpretation, and records its effect on confidence and the plausible range. The
+judge must explicitly confirm that report volume was not used as severity and that no
+blanket democracy/autocracy correction was applied.
+
+The producer contract is strict, but downstream judgment is failure-tolerant. If an
+otherwise usable legacy or imperfect artifact omits this assessment, the consumer
+records the omission explicitly, lowers confidence, widens the plausible range, and
+continues. It does not invent a favorable or adverse correction. Rejection is reserved
+for evidence that is genuinely insufficient, unsafe, materially contradictory, or
+still recoverable through the bounded researcher-review iteration.
 
 ## Integrity boundary
 

@@ -10,13 +10,17 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
+from leaders_db.normalize.leader_names import normalize_leader_name
 from leaders_db.research.chapter_guides import load_chapter_guide
 from leaders_db.research.chapter_projection import (
     RulerChapterProjection,
     build_ruler_chapter_projection,
     estimate_chapter_projection_batch_context,
 )
-from leaders_db.research.dossier_models import RulerEvidenceDossier
+from leaders_db.research.dossier_models import (
+    RulerEvidenceDossier,
+    normalize_dossier_candidate,
+)
 
 from .data import load, questions
 
@@ -147,37 +151,71 @@ def _convert_case(
     ruler = str(case["ruler"])
     country = str(case["country"])
     source_dir = batch_dir / "outputs" / f"{iso3.lower()}-{year}"
-    errors = _validate_source(source_dir, ruler=ruler, country=country, year=year)
+    hybrid = (source_dir / "dossier.json").is_file()
+    errors = (
+        _validate_hybrid_source(source_dir, ruler=ruler, country=country, year=year)
+        if hybrid
+        else _validate_source(source_dir, ruler=ruler, country=country, year=year)
+    )
     identity = _resolve_identity(connection, iso3=iso3, ruler=ruler, year=year)
     if identity is None:
         errors.append("No exact local ruler_year identity matches this ruler, ISO3, and year.")
     if errors:
         return {"iso3": iso3, "ruler": ruler, "status": "blocked", "errors": errors}
     assert identity is not None
-    evidence_payload = _object(source_dir / "evidence.json")
-    mappings_payload = _object(source_dir / "mappings.json")
     profile = _object(source_dir / "profile.json")
-    missing_titles = sum(
-        not str(item.get("title", "")).strip() for item in evidence_payload["evidence"]
-    )
-    missing_dates = sum(
-        not str(item.get("date", "")).strip() for item in evidence_payload["evidence"]
-    )
-    dossier = _build_dossier(
-        iso3=iso3,
-        ruler=ruler,
-        country=country,
-        year=year,
-        batch_id=batch_id,
-        researcher_name=researcher_name,
-        researcher=researcher,
-        identity=identity,
-        evidence_payload=evidence_payload,
-        mappings_payload=mappings_payload,
-        profile=profile,
-        prior_path=prior_path,
-        prior_hash=prior_hash,
-    )
+    if hybrid:
+        source_dossier = _object(source_dir / "dossier.json")
+        hybrid_prior_path = source_dir / "inputs" / "local-prior-package.json"
+        if hybrid_prior_path.is_file():
+            case_prior_path = hybrid_prior_path
+            case_prior_hash = _file_hash(hybrid_prior_path)
+            local_priors = _hybrid_local_priors(hybrid_prior_path)
+        else:
+            case_prior_path = prior_path
+            case_prior_hash = prior_hash
+            local_priors = None
+        missing_titles = 0
+        missing_dates = 0
+        dossier = _build_hybrid_dossier(
+            iso3=iso3,
+            ruler=ruler,
+            country=country,
+            year=year,
+            batch_id=batch_id,
+            researcher_name=researcher_name,
+            researcher=researcher,
+            identity=identity,
+            source=source_dossier,
+            profile=profile,
+            prior_path=case_prior_path,
+            prior_hash=case_prior_hash,
+            local_priors=local_priors,
+        )
+    else:
+        evidence_payload = _object(source_dir / "evidence.json")
+        mappings_payload = _object(source_dir / "mappings.json")
+        missing_titles = sum(
+            not str(item.get("title", "")).strip() for item in evidence_payload["evidence"]
+        )
+        missing_dates = sum(
+            not str(item.get("date", "")).strip() for item in evidence_payload["evidence"]
+        )
+        dossier = _build_dossier(
+            iso3=iso3,
+            ruler=ruler,
+            country=country,
+            year=year,
+            batch_id=batch_id,
+            researcher_name=researcher_name,
+            researcher=researcher,
+            identity=identity,
+            evidence_payload=evidence_payload,
+            mappings_payload=mappings_payload,
+            profile=profile,
+            prior_path=prior_path,
+            prior_hash=prior_hash,
+        )
     dossier_path = output_dir / "dossiers" / f"{iso3}-{identity['ruler_year_id']}.json"
     _write_json(dossier_path, dossier.model_dump(mode="json"))
     dossier_hash = _file_hash(dossier_path)
@@ -201,18 +239,58 @@ def _convert_case(
         "evidence_records": len(dossier.evidence),
         "mappings": len(dossier.mappings),
         "warnings": [
-            (
+            *([] if hybrid else [
                 "Evidence polarity, source type/confidence, precise locator, and ruler "
                 "attribution were not captured; deterministic placeholders preserve "
                 "that missingness."
+            ]),
+            *(
+                []
+                if hybrid and local_priors is not None
+                else ["Structured local priors were not collected and are explicitly unavailable."]
             ),
-            "Structured local priors were not collected and are explicitly unavailable.",
             f"{missing_titles} evidence records use title_not_recorded.",
             f"{missing_dates} evidence records use date_not_recorded.",
         ],
         "dossier_path": str(dossier_path),
         "projections": projection_paths,
     }
+
+
+def _validate_hybrid_source(
+    source_dir: Path, *, ruler: str, country: str, year: int
+) -> list[str]:
+    errors: list[str] = []
+    for name in ("dossier.json", "session.json", "profile.json"):
+        if not (source_dir / name).is_file():
+            errors.append(f"Missing {name}.")
+    if errors:
+        return errors
+    source = _object(source_dir / "dossier.json")
+    identity = source.get("identity")
+    if not isinstance(identity, dict) or any(
+        identity.get(key) != value
+        for key, value in (("ruler", ruler), ("country", country), ("year", year))
+    ):
+        errors.append("dossier.json identity does not match the manifest.")
+    raw_evidence = source.get("evidence")
+    raw_mappings = source.get("mappings")
+    if not isinstance(raw_evidence, list) or not isinstance(raw_mappings, list):
+        errors.append("Hybrid dossier evidence or mappings have the wrong shape.")
+        return errors
+    ids = [item.get("evidence_id") for item in raw_evidence if isinstance(item, dict)]
+    if len(ids) != len(raw_evidence) or len(ids) != len(set(ids)):
+        errors.append("Evidence IDs are missing or duplicated.")
+    known = set(ids)
+    configured = {item["id"] for item in questions()}
+    for mapping in raw_mappings:
+        if not isinstance(mapping, dict) or mapping.get("evidence_id") not in known:
+            errors.append("Hybrid mapping references unknown evidence.")
+            continue
+        lenses = mapping.get("lenses")
+        if not isinstance(lenses, list) or not set(lenses).issubset(configured):
+            errors.append("Hybrid mapping contains an unknown evidence lens.")
+    return errors
 
 
 def _validate_source(source_dir: Path, *, ruler: str, country: str, year: int) -> list[str]:
@@ -263,14 +341,16 @@ def _resolve_identity(
 ) -> dict[str, int] | None:
     rows = connection.execute(
         """
-        SELECT ry.id, l.id
+        SELECT ry.id, l.id, l.full_name
         FROM ruler_years AS ry
         JOIN leaders AS l ON l.id = ry.leader_id
         JOIN countries AS c ON c.id = ry.country_id
-        WHERE c.iso3 = ? AND ry.year = ? AND lower(l.full_name) = lower(?)
+        WHERE c.iso3 = ? AND ry.year = ?
         """,
-        (iso3, year, ruler),
+        (iso3, year),
     ).fetchall()
+    expected_name = normalize_leader_name(ruler)
+    rows = [row for row in rows if normalize_leader_name(str(row[2])) == expected_name]
     if len(rows) != 1:
         return None
     return {"ruler_year_id": int(rows[0][0]), "ruler_id": int(rows[0][1])}
@@ -343,8 +423,7 @@ def _build_dossier(
     formatter_usage = profile["formatter"]["usage"]
     total_input = int(research_usage["input_tokens"]) + int(formatter_usage["input_tokens"])
     total_output = int(research_usage["output_tokens"]) + int(formatter_usage["output_tokens"])
-    return RulerEvidenceDossier.model_validate(
-        {
+    candidate = {
             "schema_version": "ruler_evidence_dossier_v2",
             "job_key": f"dossier:{batch_id}:{year}:{iso3}:{identity['ruler_year_id']}",
             "run_key": batch_id,
@@ -365,7 +444,7 @@ def _build_dossier(
             ],
             "completed_queries": [],
             "normalization_warnings": [],
-            "local_priors": [
+                "local_priors": [
                 {
                     "methodology_id": methodology_id,
                     "status": "not_available",
@@ -375,8 +454,9 @@ def _build_dossier(
                     "artifact_path": str(prior_path),
                     "artifact_sha256": prior_hash,
                 }
-                for methodology_id in methodology_ids
-            ],
+                    for methodology_id in methodology_ids
+                ],
+                "evidence_environment": _legacy_evidence_environment(evidence),
             "run_profile": {
                 "provider_profile": researcher_name,
                 "provider": str(researcher["provider"]),
@@ -401,7 +481,217 @@ def _build_dossier(
                 },
             },
         }
+    return RulerEvidenceDossier.model_validate(
+        normalize_dossier_candidate(candidate, methodology_ids=methodology_ids)
     )
+
+
+def _build_hybrid_dossier(
+    *,
+    iso3: str,
+    ruler: str,
+    country: str,
+    year: int,
+    batch_id: str,
+    researcher_name: str,
+    researcher: dict[str, Any],
+    identity: dict[str, int],
+    source: dict[str, Any],
+    profile: dict[str, Any],
+    prior_path: Path,
+    prior_hash: str,
+    local_priors: list[dict[str, str]] | None,
+) -> RulerEvidenceDossier:
+    methodology_ids = tuple(item["id"] for item in questions())
+    excluded = {
+        (str(item["evidence_id"]), str(chapter["chapter_id"]))
+        for chapter in source["review"]["chapters"]
+        for item in chapter.get("remove_or_contextualize", [])
+    }
+    evidence = [
+        {
+            "evidence_id": item["evidence_id"],
+            "claim": item["claim"],
+            "url": item["url"],
+            "title": item["title"],
+            "publisher": item["publisher"],
+            "publication_date": item["publication_date"],
+            "excerpt": item["claim"],
+            "source_locator": item["locator"],
+            "canonical_fact_key": item["canonical_fact_key"],
+            "source_type": item["source_type"],
+            "source_confidence": item["source_confidence"],
+            "source_confidence_reason": item["source_confidence_reason"],
+            "final_evidence_use": item["final_evidence_use"],
+            "period_fit": item["period_fit"],
+            "ruler_attribution": item["ruler_attribution"],
+            "contrary_evidence": item.get("contrary_evidence", []),
+        }
+        for item in source["evidence"]
+    ]
+    by_lens: dict[str, list[str]] = {methodology_id: [] for methodology_id in methodology_ids}
+    mappings = []
+    for item in source["mappings"]:
+        evidence_id = str(item["evidence_id"])
+        for methodology_id in item["lenses"]:
+            chapter_id = methodology_id.split(".", maxsplit=1)[0]
+            if (evidence_id, chapter_id) in excluded:
+                continue
+            by_lens[methodology_id].append(evidence_id)
+            mappings.append(
+                {
+                    "evidence_id": evidence_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": (
+                        "The hybrid researcher mapped this reviewed claim to this lens; "
+                        "polarity is left for the comparative judge."
+                    ),
+                }
+            )
+    coverage = [
+        {
+            "methodology_id": methodology_id,
+            "status": "covered" if by_lens[methodology_id] else "no_evidence_found",
+            "evidence_ids": tuple(dict.fromkeys(by_lens[methodology_id])),
+            "reason": (
+                "Reviewed cited evidence is mapped to this lens."
+                if by_lens[methodology_id]
+                else "No admissible ruler-attributed evidence remained after review."
+            ),
+        }
+        for methodology_id in methodology_ids
+    ]
+    usage = profile["usage"]
+    total_input = int(usage["input_tokens"])
+    total_output = int(usage["output_tokens"])
+    gaps = [
+        str(gap["gap"])
+        for chapter in source["review"]["chapters"]
+        for gap in chapter.get("material_gaps", [])
+    ]
+    candidate = {
+            "schema_version": "ruler_evidence_dossier_v2",
+            "job_key": f"dossier:{batch_id}:{year}:{iso3}:{identity['ruler_year_id']}",
+            "run_key": batch_id,
+            "iso3": iso3,
+            "country_name": country,
+            "ruler_id": str(identity["ruler_id"]),
+            "ruler_year_id": identity["ruler_year_id"],
+            "ruler_name": ruler,
+            "period_start_year": year,
+            "period_end_year": year,
+            "methodology_ids": methodology_ids,
+            "evidence": evidence,
+            "mappings": mappings,
+            "coverage": coverage,
+            "unresolved_gaps": list(dict.fromkeys(gaps)),
+            "completed_queries": [],
+            "normalization_warnings": [],
+                "local_priors": local_priors or [
+                {
+                    "methodology_id": methodology_id,
+                    "status": "not_available",
+                    "summary": "Structured local priors were not collected in this experiment.",
+                    "artifact_path": str(prior_path),
+                    "artifact_sha256": prior_hash,
+                }
+                    for methodology_id in methodology_ids
+                ],
+                "evidence_environment": _legacy_evidence_environment(evidence),
+            "run_profile": {
+                "provider_profile": researcher_name,
+                "provider": str(researcher["provider"]),
+                "model": str(researcher["model"]),
+                "workflow_mode": "hybrid_conversational_evidence_v2",
+                "formatter_provider_profile": "deterministic_validated_parser",
+                "formatter_provider": "local",
+                "formatter_model": "none",
+                "source_mix_note": (
+                    "Rich source metadata and chapter-specific reviewer exclusions "
+                    "were preserved during deterministic conversion."
+                ),
+                "usage": {
+                    "input_tokens": total_input,
+                    "cached_input_tokens": int(usage["cached_input_tokens"]),
+                    "output_tokens": total_output,
+                    "reasoning_output_tokens": int(usage["reasoning_output_tokens"]),
+                    "total_tokens": total_input + total_output,
+                    "estimated_cost_usd": float(profile["estimated_cost_usd"]),
+                },
+            },
+        }
+    return RulerEvidenceDossier.model_validate(
+        normalize_dossier_candidate(candidate, methodology_ids=methodology_ids)
+    )
+
+
+def _legacy_evidence_environment(
+    evidence: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Expose unassessed bias fields when converting preserved legacy collections."""
+
+    if not evidence:
+        raise ValueError("legacy conversion cannot assess evidence environment without evidence")
+    support_id = str(evidence[0]["evidence_id"])
+    unassessed = (
+        "Not assessed by the legacy collector; the cited record only proves that the "
+        "conversion retained evidence, not that this bias risk was resolved."
+    )
+    return {
+        "criticism_possible": unassessed,
+        "censorship_and_self_censorship": unassessed,
+        "safe_reporting_channels": unassessed,
+        "official_statistics_reliability": unassessed,
+        "languages_and_archives_searched": ["not_recorded_by_legacy_collector"],
+        "source_concentration": unassessed,
+        "duplicate_event_risk": unassessed,
+        "complaint_volume_interpretation": unassessed,
+        "relevant_denominators": unassessed,
+        "inherited_conditions_shocks_and_authority": unassessed,
+        "chapter_specific_biases": ["Legacy evidence-environment assessment unavailable"],
+        "supporting_evidence_ids": [support_id],
+    }
+
+
+def _hybrid_local_priors(path: Path) -> list[dict[str, str]]:
+    """Project the saved compact local-prior package into judge provenance."""
+
+    package = _object(path)
+    statuses = package.get("methodology_statuses")
+    facts = package.get("facts")
+    if not isinstance(statuses, dict) or not isinstance(facts, list):
+        raise ValueError(f"{path} has an invalid local-prior package shape")
+    artifact_hash = _file_hash(path)
+    result = []
+    for methodology_id in (item["id"] for item in questions()):
+        relevant = [
+            fact
+            for fact in facts
+            if isinstance(fact, dict)
+            and methodology_id in fact.get("candidate_methodology_ids", [])
+        ]
+        summaries = [
+            f"{fact.get('label', fact.get('field_key', 'fact'))}: {fact.get('value')} "
+            f"({', '.join(str(item) for item in fact.get('source_slugs', []))})"
+            for fact in relevant
+        ]
+        status = str(statuses.get(methodology_id, "not_available"))
+        summary = (
+            "; ".join(summaries)
+            if summaries
+            else "The local structured data package found no applicable evidence."
+        )
+        result.append(
+            {
+                "methodology_id": methodology_id,
+                "status": status,
+                "summary": summary,
+                "artifact_path": str(path),
+                "artifact_sha256": artifact_hash,
+            }
+        )
+    return result
 
 
 def _object(path: Path) -> dict[str, Any]:

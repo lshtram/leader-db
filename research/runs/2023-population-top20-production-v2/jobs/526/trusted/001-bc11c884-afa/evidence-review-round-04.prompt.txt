@@ -1,0 +1,549 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+This is the terminal review after all permitted research rounds. Do not request
+another continuation. Set `needs_continuation=false` and `selected_theme_ids=[]`.
+Preserve every residual issue and missing theme, and state explicitly in
+`global_findings` that research rounds were exhausted without full saturation. This
+is a terminal research conclusion, not a claim that the dossier is complete.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2023-population-top20-production-v2:2023:ETH:16783",
+  "iso3": "ETH",
+  "country_name": "Ethiopia",
+  "ruler_name": "Abiy Ahmed",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 103,
+  "approximate_source_family_count": 33,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "missing_contrary_audit",
+      "message": "Contrary evidence is not explicit."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "chapter_session_mode": "persistent_thread",
+  "researcher_receives_compact_briefing": true,
+  "complete_local_package_stays_parent_owned": true,
+  "researcher_direct_iterative_search": true,
+  "source_discovery_stage_enabled": true,
+  "chapter_research_turns_enabled": true,
+  "overview_candidate_document_target": 50,
+  "chapter_candidate_document_target": 30,
+  "chapter_opened_document_target": 12,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Compact research handoff. The parent preserves the complete raw notebook separately; this consumer receives the authoritative evidence ledger and chapter accounting conclusions.
+
+
+--- RESEARCH LEDGER MANIFEST ---
+{"entries":[{"canonical_fact_key":"ethiopia_pm_executive_power_2023","chapter_ids":["7B","8B"],"claim":"Abiy Ahmed was Ethiopia's prime minister in 2023, and the constitution vested the highest federal executive power in the prime minister and council of ministers, including command of the armed forces.","disposition":"final_evidence","locator":"FDRE Office of the Prime Minister, 'Our Government,' lines 21-25","methodology_ids":[],"provisional_id":"abh-2023-01","url":"https://www.pmo.gov.et/government/"},{"canonical_fact_key":"tigray_coha_progress_2023","chapter_ids":["2B","8B"],"claim":"The 2022 cessation-of-hostilities process remained a central 2023 achievement, with the AU saying the agreement was intended to restore humanitarian access, services, and reconciliation and later describing implementation as steady and continuous.","disposition":"final_evidence","locator":"AU agreement summary lines 81-81 and AU anniversary statement line 50","methodology_ids":[],"provisional_id":"abh-2023-02","url":"https://www.aupaps.org/en/article/cessation-of-hostilities-agreement-between-the-government-of-the-federal-democratic-republic-of-ethiopia-and-the-tigray-peoples-liberation-front-tplf"},{"canonical_fact_key":"amhara_emergency_fano_clashes_2023","chapter_ids":["3B","8B"],"claim":"In August 2023, clashes between the Ethiopian military and Fano in Amhara escalated into a six-month state of emergency with broad arrest, curfew, gathering, and search powers.","disposition":"final_evidence","locator":"Reuters lines 421-426 and 452-457 in the opened article","methodology_ids":[],"provisional_id":"abh-2023-03","url":"https://www.investing.com/news/world-news/ethiopia-declares-state-of-emergency-following-militia-clashes-3144776"},{"canonical_fact_key":"social_media_blackout_and_journalist_repression_2023","chapter_ids":["3B","4B"],"claim":"The Ethiopian authorities blocked access to major social media platforms in February 2023, and reporting by Freedom House and Amnesty indicates journalists and activists were also detained, abducted, or driven into exile.","disposition":"final_evidence","locator":"Amnesty lines 57-63 and 70-72; Freedom House lines 39-41 and 298-300, 363-365, 441-443","methodology_ids":[],"provisional_id":"abh-2023-04","url":"https://www.amnesty.org/en/latest/news/2023/03/ethiopians-in-social-media-blackout-for-second-month/"},{"canonical_fact_key":"economic_default_inflation_food_aid_2023","chapter_ids":["5B","6B"],"claim":"Ethiopia entered debt default in 2023, experienced double-digit inflation, and still had about 15 million people reliant on food aid.","disposition":"final_evidence","locator":"World Bank overview lines 153-156","methodology_ids":[],"provisional_id":"abh-2023-05","url":"https://www.worldbank.org/ext/en/country/ethiopia"},{"canonical_fact_key":"cholera_spread_and_health_response_2023","chapter_ids":["6B","8B"],"claim":"Cholera spread widely in 2023, reaching multiple regions; WHO reported over 4,000 cases in SNNP and later said the outbreak had spread to 10 of Ethiopia's 13 regions, with a government-led response supported by partners.","disposition":"final_evidence","locator":"WHO lines 65-67 and 181-181 on the opened pages","methodology_ids":[],"provisional_id":"abh-2023-06","url":"https://www.afro.who.int/countries/ethiopia/news/who-ethiopia-rapidly-scales-response-contain-cholera-outbreak-snpp-region"},{"canonical_fact_key":"anti_corruption_drive_and_sensitivity_2023","chapter_ids":["7B","8B"],"claim":"Transparency International's Ethiopia profile says Abiy moved to curb corruption after the Tigray ceasefire and that a newly established National Anti-Corruption Committee launched a crackdown on alleged official corruption, while warning such campaigns can be politically sensitive and selectively used.","disposition":"final_evidence","locator":"Transparency International lines 31-33","methodology_ids":[],"provisional_id":"abh-2023-07","url":"https://knowledgehub.transparency.org/country/ethiopia"},{"canonical_fact_key":"tigray_ceasefire_framework_2023","chapter_ids":["2B"],"disposition":"final_evidence","methodology_ids":["2B.1","2B.10","2B.2","2B.4","2B.5","2B.6","2B.7","2B.8","2B.9"],"provisional_id":"2B.9"},{"canonical_fact_key":"amhara_state_of_emergency_2023","chapter_ids":["3B"],"disposition":"final_evidence","methodology_ids":["3B.1","3B.10","3B.2","3B.4","3B.5","3B.6","3B.7","3B.8","3B.9"],"provisional_id":"3B.9"},{"canonical_fact_key":"ethiopia_not_free_baseline_2023","chapter_ids":["4B"],"disposition":"final_evidence","methodology_ids":["4B.1","4B.10","4B.2","4B.3","4B.4","4B.5","4B.6","4B.7","4B.8","4B.9"],"provisional_id":"4B.9"},{"canonical_fact_key":"ethiopia_inflation_fx_stress_2023","chapter_ids":["5B"],"disposition":"final_evidence","methodology_ids":["5B.1","5B.10","5B.2","5B.3","5B.4","5B.5","5B.6","5B.7","5B.8","5B.9"],"provisional_id":"5B.9"},{"canonical_fact_key":"ethiopia_humanitarian_need_baseline_2023","chapter_ids":["6B"],"disposition":"final_evidence","methodology_ids":["6B.1","6B.10","6B.2","6B.3","6B.4","6B.6","6B.7","6B.8","6B.9"],"provisional_id":"6B.9"},{"canonical_fact_key":"abiy_anti_corruption_drive_2023","chapter_ids":["7B"],"disposition":"final_evidence","methodology_ids":["7B.1","7B.10","7B.2","7B.4","7B.5","7B.6","7B.7","7B.8","7B.9"],"provisional_id":"7B.9"},{"canonical_fact_key":"abiy_executive_authority_2023","chapter_ids":["8B"],"disposition":"context","methodology_ids":["8B.1","8B.10","8B.2","8B.3","8B.4","8B.5","8B.6","8B.7","8B.8","8B.9"],"provisional_id":"8B.9"}],"schema_version":"ruler_research_ledger_manifest_v1"}
+
+--- LOCAL DATA DISPOSITION AUDIT ---
+{"chapters":{"1B":{"fact_instances":0,"lens_count":10,"status_counts":{"no_evidence_found":10},"unique_observation_count":0},"2B":{"fact_instances":672,"lens_count":10,"status_counts":{"evidence_found":10},"unique_observation_count":124},"3B":{"fact_instances":1084,"lens_count":10,"status_counts":{"evidence_found":8,"no_evidence_found":2},"unique_observation_count":243},"4B":{"fact_instances":1418,"lens_count":10,"status_counts":{"evidence_found":10},"unique_observation_count":383},"5B":{"fact_instances":622,"lens_count":10,"status_counts":{"evidence_found":7,"no_evidence_found":3},"unique_observation_count":256},"6B":{"fact_instances":419,"lens_count":10,"status_counts":{"evidence_found":9,"no_evidence_found":1},"unique_observation_count":80},"7B":{"fact_instances":333,"lens_count":10,"status_counts":{"evidence_found":3,"no_evidence_found":7},"unique_observation_count":111},"8B":{"fact_instances":680,"lens_count":10,"status_counts":{"evidence_found":8,"no_evidence_found":2},"unique_observation_count":85}},"disposition_counts":{"explicit_local_evidence_gap":25,"retained_as_structured_context":55},"disposition_policy":{"evidence_found":"Retained as structured context for formatter and judge consumers; not directional ruler evidence without supported attribution.","invalid_or_unresolved":"Excluded from use and retained only as an unresolved producer defect.","no_evidence_found":"Retained as an explicit local-evidence gap; absence is not favorable or adverse ruler evidence.","research_handoff":"The complete local package is not replayed in research prompts. This bounded local-data audit records parent routing decisions."},"fact_instances":5228,"lens_package_count":80,"schema_version":"compact_local_disposition_v1","source_slugs":["bti","cirights","eiu_democracy_index","freedom_house","maddison_project","polity_v","pts","pwt","rsf_press_freedom","sipri_milex","transparency_cpi","ucdp","un_snaama","undp_hdi","vdem","who_gho_api","world_bank_wdi","world_bank_wgi"],"status_counts":{"evidence_found":55,"no_evidence_found":25},"unique_observation_count":1157,"warning_count":266,"year_coverage":{"maximum":2023,"minimum":2008}}
+
+CHAPTER_CONCLUSION research-chapter-1B:
+a access in the country","url":"https://www.amnesty.org/en/latest/news/2023/03/ethiopians-in-social-media-blackout-for-second-month/","chapter_id":"4B","note":"Opened and used for communications restrictions and media environment."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country report","publisher":"Freedom House","title":"Ethiopia: Freedom on the Net 2023","url":"https://freedomhouse.org/country/ethiopia/freedom-net/2023","chapter_id":"4B","note":"Opened and used for media repression and internet restrictions."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country overview","publisher":"World Bank","title":"Ethiopia","url":"https://www.worldbank.org/ext/en/country/ethiopia","chapter_id":"5B","note":"Opened and used for 2023 debt default, inflation, and food-aid dependence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country chapter","publisher":"Human Rights Watch","title":"World Report 2024: Ethiopia","url":"https://www.hrw.org/world-report/2024/country-chapters/ethiopia","chapter_id":"3B","note":"Opened and used for Amhara security crisis and arrests."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country factsheet","publisher":"IAEA Office of Legal Affairs","title":"Country List: Ethiopia, Federal Democratic Republic of","url":"https://ola.iaea.org/Applications/FactSheets/Country/Detail?code=ET","chapter_id":"1B","note":"Opened and used for safeguards, treaty status, and civilian nuclear baseline."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press release","publisher":"CTBTO","title":"Ethiopia ratifies Comprehensive Nuclear-Test-Ban Treaty","url":"https://www.ctbto.org/resources/for-the-media/press-releases/ethiopia-ratifies-comprehensive-nuclear-test-ban-treaty","chapter_id":"1B","note":"Opened and used for CTBT ratification and monitoring-station baseline."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"treaty record","publisher":"United Nations Treaty Collection","title":"Treaty on the Non-Proliferation of Nuclear Weapons","url":"https://treaties.un.org/Pages/showActionDetails.aspx?clang=_en&objid=0800000280120c21","chapter_id":"1B","note":"Opened and used for NPT ratification baseline."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country profile","publisher":"Transparency International Knowledge Hub","title":"Ethiopia","url":"https://knowledgehub.transparency.org/country/ethiopia","chapter_id":"7B","note":"Opened and used for anti-corruption campaign context and cautions."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"WHO news release","publisher":"WHO Regional Office for Africa","title":"WHO Ethiopia rapidly scales up response to contain cholera outbreak in SNNP Region","url":"https://www.afro.who.int/countries/ethiopia/news/who-ethiopia-rapidly-scales-response-contain-cholera-outbreak-snpp-region","chapter_id":"6B","note":"Opened and used for 2023 health-system strain."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"Reuters report","publisher":"Reuters via Investing.com","title":"Ethiopia declares six-month state of emergency in Amhara after clashes","url":"https://www.investing.com/news/world-news/ethiopia-declares-state-of-emergency-following-militia-clashes-3144776","chapter_id":"3B","note":"Opened and used for emergency powers and security escalation."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"UN briefing summary","publisher":"UN Geneva Multimedia Newsroom","title":"UN Human Rights Briefing by Liz Throssell on Ethiopia report","url":"https://www.unognewsroom.org/story/en/2217/un-human-rights-briefing-by-liz-throssell-on-ethiopia-report/6697","chapter_id":"3B","note":"Opened as summary evidence for 2023 civilian casualties and UAV use."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"Reuters report","publisher":"Reuters via Yahoo","title":"Ethiopia talks with rebel group OLA end without deal","url":"https://www.yahoo.com/news/ethiopia-says-talks-rebel-group-183509182.html","chapter_id":"1B","note":"Inspected as corroboration for unresolved conflict posture."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"Reuters report","publisher":"Reuters via Yahoo","title":"First round of peace talks between Ethiopia and Oromo rebels ends without deal","url":"https://www.yahoo.com/news/first-round-peace-talks-between-143906076.html","chapter_id":"1B","note":"Inspected as corroboration for unresolved Oromia conflict."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"WHO news release","publisher":"WHO Regional Office for Africa","title":"WHO expresses concern for escalating public health needs in Ethiopia","url":"https://www.afro.who.int/countries/ethiopia/news/who-expresses-concern-escalating-public-health-needs-ethiopia","chapter_id":"6B","note":"Inspected as corroboration for humanitarian strain."}
+
+CHAPTER_CONCLUSION research-chapter-2B:
+he Tigray Peoples' Liberation Front (TPLF)","url":"https://www.aupaps.org/en/article/cessation-of-hostilities-agreement-between-the-government-of-the-federal-democratic-republic-of-ethiopia-and-the-tigray-peoples-liberation-front-tplf","chapter_id":"2B","note":"Opened and used for formal peace framework and implementation baseline."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters via ThePrint","title":"Protesters in Ethiopia’s Tigray demand withdrawal of outside forces","url":"https://theprint.in/world/protesters-in-ethiopias-tigray-demand-withdrawal-of-outside-forces/1589828/","chapter_id":"2B","note":"Opened and used for implementation, disarmament, and outside-force presence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters via Euronews","title":"Eritrea troops still on Ethiopian soil - U.S","url":"https://www.euronews.com/2023/01/29/ethiopia-conflict","chapter_id":"2B","note":"Opened and used for Eritrean force presence and implementation blockage."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters via ThePrint","title":"First round of peace talks between Ethiopia and Oromo rebels ends without deal","url":"https://theprint.in/world/first-round-of-peace-talks-between-ethiopia-and-oromo-rebels-ends-without-deal/1553933/","chapter_id":"2B","note":"Opened and used for failed negotiation of a peaceful alternative."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters via Investing.com","title":"Ethiopia declares six-month state of emergency in Amhara after clashes","url":"https://www.investing.com/news/world-news/ethiopia-declares-state-of-emergency-following-militia-clashes-3144776","chapter_id":"2B","note":"Opened and used for emergency escalation and security powers."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press release","publisher":"Amnesty International","title":"Ethiopia: Authorities must grant independent investigators, media unfettered access to Amhara region to probe violations under state of emergency","url":"https://www.amnesty.org/en/latest/news/2023/08/ethiopia-authorities-must-grant-independent-investigators-media-unfettered-access-to-amhara-region-to-probe-violations-under-state-of-emergency/","chapter_id":"2B","note":"Opened and used for scrutiny/access restrictions."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news release","publisher":"International Committee of the Red Cross","title":"Ethiopia: Healthcare crisis in Oromia exacerbated by massive displacement","url":"https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-massive-displacement","chapter_id":"2B","note":"Opened and used for civilian-harm and infrastructure damage in conflict areas."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"operational overview","publisher":"UNHCR Global Focus","title":"Ethiopia situation","url":"https://reporting.unhcr.org/operational/situations/ethiopia-situation","chapter_id":"2B","note":"Opened and used for displacement and post-ceasefire return constraints."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"country chapter","publisher":"Human Rights Watch","title":"World Report 2024: Ethiopia","url":"https://www.hrw.org/world-report/2024/country-chapters/ethiopia","chapter_id":"2B","note":"Opened for corroboration of Amhara and Tigray findings."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"UN briefing summary","publisher":"UN Geneva Multimedia Newsroom","title":"UN Human Rights Briefing by Liz Throssell on Ethiopia report","url":"https://www.unognewsroom.org/story/en/2217/un-human-rights-briefing-by-liz-throssell-on-ethiopia-report/6697","chapter_id":"2B","note":"Opened for later-retrospective civilian casualty corroboration; partial access only."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"humanitarian report","publisher":"ICRC","title":"Ethiopia: Health facilities lack supplies amid ongoing violence. Civilians struggle to rebuild livelihoods","url":"https://www.icrc.org/en/document/ethiopia-health-facilities-lack-supplies-amid-ongoing-violence-civilians-struggle-rebuild","chapter_id":"2B","note":"Opened as corroboration for conflict damage and recovery constraints."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"news report","publisher":"Reuters via Investing.com","title":"Tigray forces begin handing over heavy weapons to Ethiopian army","url":"https://www.investing.com/news/world-news/tigray-forces-begin-handing-over-heavy-weapons-to-ethiopian-army-2977683","chapter_id":"2B","note":"Opened as corroboration for disarmament progress in the peace process."}
+
+If you want, I can next turn this into a tighter chapter-ready dossier format with one fact per paragraph and an explicit lens-to-evidence matrix.
+
+CHAPTER_CONCLUSION research-chapter-3B:
+s://digitallibrary.un.org/record/4041317?ln=en)
+
+**Corroboration only**
+- [HRW: Ethiopia World Report 2023](https://www.hrw.org/world-report/2023/country-chapters/ethiopia)
+- [HRW: Ethiopia World Report 2024](https://www.hrw.org/world-report/2024/country-chapters/ethiopia)
+- [UN Geneva summary of Ethiopia report](https://www.unognewsroom.org/story/en/2217/un-human-rights-briefing-by-liz-throssell-on-ethiopia-report/6697)
+- [Amnesty: Meta and Ethiopia report](https://www.amnesty.org/en/documents/afr25/7292/2023/en/)
+- [ICRC: Oromia healthcare crisis](https://www.icrc.org/en/document/ethiopia-healthcare-crisis-oromia-exacerbated-by-massive-displacement)
+
+**Uninspected leads**
+- Full EHRC annual PDF.
+- Full UN expert-commission PDF text.
+- Ethiopian state-of-emergency proclamation and parliamentary approval text.
+- Additional CPJ alerts on later 2023 arrests.
+- Any court records for the named journalists and detainees.
+- Field reporting on non-state violence against vulnerable groups in Oromia and Amhara.
+
+**Source Counts**
+- Inspected candidates in this pass: 8 developed sources plus corroboration/context sources.
+- Developed evidence records: 8.
+- Strongly adverse 3B records: 6.
+- Mixed or contextual 3B records: 2.
+- Clear gap: detailed, publicly documented accountability and remedy actions are scarce.
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters via Investing.com","title":"Ethiopia declares six-month state of emergency in Amhara after clashes","url":"https://www.investing.com/news/world-news/ethiopia-declares-state-of-emergency-following-militia-clashes-3144776","chapter_id":"3B","note":"Opened and used for emergency powers and coercive escalation."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press release","publisher":"Amnesty International","title":"Ethiopia: Authorities must grant independent investigators, media unfettered access to Amhara region to probe violations under state of emergency","url":"https://www.amnesty.org/en/latest/news/2023/08/ethiopia-authorities-must-grant-independent-investigators-media-unfettered-access-to-amhara-region-to-probe-violations-under-state-of-emergency/","chapter_id":"3B","note":"Opened and used for access restrictions and emergency powers."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"report","publisher":"Amnesty International","title":"Ethiopia: “Today or tomorrow, they should be brought before justice”: Rape, sexual slavery, extrajudicial executions, and pillage by Eritrean Defense Forces","url":"https://www.amnesty.org/en/documents/afr25/7152/2023/en/","chapter_id":"3B","note":"Opened and used for post-ceasefire abuses in Tigray."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press release","publisher":"Ethiopian Human Rights Commission","title":"Amhara Region: Concerning human rights violations in the context of the armed conflict","url":"https://ehrc.org/amhara-region-concerning-human-rights-violations-in-the-context-of-the-armed-conflict/","chapter_id":"3B","note":"Opened and used for state abuse, arbitrary detention, and civilian killings."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"alert","publisher":"Committee to Protect Journalists","title":"Three more journalists arrested under Ethiopia’s state of emergency","url":"https://cpj.org/2023/09/three-more-journalists-arrested-under-ethiopias-state-of-emergency/","chapter_id":"3B","note":"Opened and used for press suppression and due-process concerns."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"alert","publisher":"Committee to Protect Journalists","title":"Ethiopian authorities detain journalists Getenet Ashagre and Aragaw Sisay","url":"https://cpj.org/2023/04/ethiopian-authorities-detain-journalists-getenet-ashagre-and-aragaw-sisay/","chapter_id":"3B","note":"Opened and used for pre-emergency press arrests."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"annual human-rights summary","publisher":"Ethiopian Human Rights Commission","title":"Executive Summary: Ethiopia Annual Human Rights Situation Report (June 2022 – June 2023)","url":"https://ehrc.org/download/executive-summary-ethiopia-annual-human-rights-situation-report-june-2022-june-2023/","chapter_id":"3B","note":"Search result inspected and used as baseline context; full PDF not extracted in this turn."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"UN expert commission record","publisher":"United Nations","title":"Report of the International Commission of Human Rights Experts on Ethiopia","url":"https://digitallibrary.un.org/record/4041317?ln=en","chapter_id":"3B","note":"Opened as authoritative accountability context; full report text not extracted in this turn."}
+
+If you want, I can next tighten this into a chapter-ready memo with a compact chronology and a lens-by-lens matrix in the exact format the downstream judge can ingest.
+
+CHAPTER_CONCLUSION research-chapter-4B:
+g on party office closures and candidate intimidation.
+
+**Source Counts**
+- Inspected candidates in this pass: 10+.
+- Developed evidence records: 8.
+- Strongly adverse 4B records: 6.
+- Mixed/context records: 2.
+- Main gap: precise court-by-court and appointment-level tracing of how institutions were pressured or overridden in 2023.
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country report","publisher":"Freedom House","title":"Ethiopia: Freedom in the World 2023 Country Report","url":"https://freedomhouse.org/country/ethiopia/freedom-world/2023","chapter_id":"4B","note":"Opened and used for baseline political-freedom findings and opposition constraints."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country report","publisher":"Freedom House","title":"Ethiopia: Freedom on the Net 2023 Country Report","url":"https://freedomhouse.org/country/ethiopia/freedom-net/2023","chapter_id":"4B","note":"Opened and used for digital restrictions and online mobilization controls."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"election-body announcement","publisher":"National Election Board of Ethiopia","title":"The National Electoral Board of Ethiopia (NEBE) presented a report on the problems it encountered during voter registration and general operations to competing parties.","url":"https://nebe.org.et/en/node/411","chapter_id":"4B","note":"Opened and used for election-administration problems and candidate complaints."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press freedom country profile","publisher":"Reporters Without Borders","title":"Ethiopia","url":"https://rsf.org/en/country/ethiopia","chapter_id":"4B","note":"Opened and used for media-law and journalist-arrest context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press-freedom alert","publisher":"Committee to Protect Journalists","title":"Three more journalists arrested under Ethiopia’s state of emergency","url":"https://cpj.org/2023/09/three-more-journalists-arrested-under-ethiopias-state-of-emergency/amp/","chapter_id":"4B","note":"Opened and used for emergency-rule press suppression."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press-freedom alert","publisher":"Committee to Protect Journalists","title":"Ethiopian authorities detain journalist Bekalu Alamrew","url":"https://cpj.org/2023/08/ethiopian-authorities-detain-alpha-media-founder-bekalu-alamrew/","chapter_id":"4B","note":"Opened and used for targeted journalist detention."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press-freedom alert","publisher":"Committee to Protect Journalists","title":"At least 8 journalists detained amid renewed unrest in Ethiopia","url":"https://cpj.org/2023/04/at-least-8-journalists-detained-amid-renewed-unrest-in-ethiopia/","chapter_id":"4B","note":"Opened and used for April 2023 journalist arrests."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press-freedom alert","publisher":"Committee to Protect Journalists","title":"Ethiopian authorities detain journalists Getenet Ashagre and Aragaw Sisay","url":"https://cpj.org/2023/04/ethiopian-authorities-detain-journalists-getenet-ashagre-and-aragaw-sisay/","chapter_id":"4B","note":"Opened and used for due-process and press-freedom violations."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"press-freedom alert","publisher":"Committee to Protect Journalists","title":"Ethiopian authorities detain 2 Ethio Selam journalists, media worker for coverage of church rift","url":"https://cpj.org/2023/02/ethiopian-authorities-detain-2-ethio-selam-journalists-media-worker-for-coverage-of-church-rift/amp/","chapter_id":"4B","note":"Opened and used for early-2023 press arrests."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"news article","publisher":"Addis Standard","title":"Media Association calls for immediate release of detained journalists, end to harassment, intimidation by security forces","url":"https://www.addisstandard.com/news-media-association-calls-for-immediate-release-of-detained-journalists-end-to-harassment-intimidation-by-security-forces","chapter_id":"4B","note":"Opened but page render failed; used only as corroboration lead, not final evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"opened","document_type":"news article","publisher":"Addis Standard","title":"Media Association calls for immediate release of detained journalists, end to harassment, intimidation by security forces","url":"https://www.addisstandard.com/news/media-association-calls-for-immediate-release-of-detained-journalists-end-to-harassment-intimidation-by-security-forces","chapter_id":"4B","note":"Duplicate route of the same article; page render failed."}
+
+If you want, I can next convert this into a tighter chapter memo with one paragraph per underlying fact and a cleaner lens-to-evidence matrix for downstream use.
+
+CHAPTER_CONCLUSION research-chapter-5B:
+becomes Africa’s latest sovereign default](https://www.investing.com/news/economy/ethiopia-becomes-africas-latest-sovereign-default-3263325)
+- [Addis Standard: domestic debt skyrockets](https://addisstandard.com/analysis-ethiopias-domestic-debt-skyrockets-raising-concerns-over-government-borrowing-practices/)
+- [Addis Standard: birr plunges and FX crisis worsens](https://addisstandard.com/news-analysis-ethiopias-birr-plunges-as-currency-crisis-worsens-posing-serious-challenges-for-economy/)
+
+**Corroboration only**
+- [World Bank poverty assessment](https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099122324120026973)
+- [World Bank Macro Poverty Outlook](https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099431210162414186)
+- [World Bank public-expenditure review](https://documents.worldbank.org/en/publication/documents-reports/documentdetail/176471468178145744/ethiopia-public-expenditure-review)
+- [NBE annual report page](https://nbe.gov.et/publications-statistics/statistics/annual-report/)
+- [IMF 2024 ECF approval / retrospective](https://www.imf.org/en/news/articles/2024/07/29/pr24291-ethiopia-imf-exec-board-approves-4yr-us3b-ecf-arr)
+
+**Uninspected leads**
+- Full FY2023 budget execution and audit materials.
+- Ministry of Finance debt bulletin and 2023 public debt report.
+- The full IMF staff report and any 2023 Article IV materials if accessible.
+- PIP/WDI downloads for poverty, consumption, and inequality trend work.
+- Any 2023 National Bank policy directive text on FX, credit, or reserve requirements.
+
+**Source Counts**
+- Inspected candidates in this pass: 8 developed sources plus supporting multilateral pages.
+- Developed evidence records: 8.
+- Strongly adverse macro/stability records: 5.
+- Mixed/context records: 3.
+- Main gap: distributional detail and budget-execution quality.
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"central bank annual report","publisher":"National Bank of Ethiopia","title":"Annual Report 2022-2023","url":"https://nbe.gov.et/wp-content/uploads/2025/02/Annual-Report-2022-2023.pdf","chapter_id":"5B","note":"Opened and used for inflation, FX, and macro trend evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"country overview","publisher":"World Bank","title":"Ethiopia","url":"https://www.worldbank.org/ext/en/country/ethiopia","chapter_id":"5B","note":"Opened and used for default, living standards, and food-aid dependence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"mission statement","publisher":"IMF","title":"IMF Staff Concludes Visit to Ethiopia","url":"https://www.imf.org/en/news/articles/2023/04/07/pr23111-ethiopia-imf-staff-concludes-visit","chapter_id":"5B","note":"Opened and used for reform-program and IMF engagement evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters","title":"Ethiopia edges towards default as bondholder talks falter","url":"https://theprint.in/economy/ethiopia-edges-towards-default-as-bondholder-talks-falter/1878650/","chapter_id":"5B","note":"Opened and used for late-2023 debt default pressure."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Reuters","title":"Ethiopia becomes Africa’s latest sovereign default","url":"https://www.investing.com/news/economy/ethiopia-becomes-africas-latest-sovereign-default-3263325","chapter_id":"5B","note":"Opened and used for the formal default outcome."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news analysis","publisher":"Addis Standard","title":"Analysis: Ethiopia’s domestic debt skyrockets, raising concerns over government borrowing practices","url":"https://addisstandard.com/analysis-ethiopias-domestic-debt-skyrockets-raising-concerns-over-government-borrowing-practices/","chapter_id":"5B","note":"Opened and used for domestic borrowing and crowding-out analysis."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news analysis","publisher":"Addis Standard","title":"Analysis: Ethiopia’s birr plunges as currency crisis worsens, posing serious challenges for economy","url":"https://addisstandard.com/news-analysis-ethiopias-birr-plunges-as-currency-crisis-worsens-posing-serious-challenges-for-economy/","chapter_id":"5B","note":"Opened and used for FX-crisis evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"poverty assessment","publisher":"World Bank","title":"Ethiopia Poverty and Equity Assessment: Welfare at a Crossroads - Turning Tides","url":"https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099122324120026973","chapter_id":"5B","note":"Inspected as retrospective distributional context; not extracted into final evidence here."}
+
+If you want, I can next turn this into a lens-by-lens chapter memo with a tighter set of reusable claims and a cleaner 2023-only chronology.
+
+CHAPTER_CONCLUSION research-chapter-6B:
+n.
+- Local reporting on school closures and district-level humanitarian access.
+
+**Source Counts**
+- Inspected candidates in this pass: 12+.
+- Developed evidence records: 12.
+- Strongly adverse or mixed 6B records: 8.
+- Context / longer-run baseline records: 4.
+- Main gap: precise household-level distribution and budget-execution evidence for 2023.
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"humanitarian appeal","publisher":"UNICEF Ethiopia","title":"Humanitarian Action for Children 2023","url":"https://www.unicef.org/ethiopia/reports/humanitarian-action-children-2023","chapter_id":"6B","note":"Opened and used for crisis-scale need estimates."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"food security alert","publisher":"FEWS NET","title":"The emergency in Ethiopia is far from over, as food aid remains vital to saving lives","url":"https://fews.net/east-africa/ethiopia/alert/may-2023","chapter_id":"6B","note":"Opened and used for acute food insecurity and malnutrition evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"health report / web summary","publisher":"WHO Regional Office for Africa","title":"Saving lives and building resilience: what we learn from nutrition in emergencies response in Ethiopia during 2023","url":"https://www.afro.who.int/countries/ethiopia/news/saving-lives-and-building-resilience-what-we-learn-nutrition-emergencies-response-ethiopia-during?form=FUNKUKTZPCK","chapter_id":"6B","note":"Opened and used for malnutrition and response-capacity evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"displacement report","publisher":"IOM DTM","title":"Ethiopia — National Displacement Report 18 (November- December 2023)","url":"https://dtm.iom.int/reports/ethiopia-national-displacement-report-18-november-december-2023","chapter_id":"6B","note":"Opened and used for end-2023 displacement and returns."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"displacement profile","publisher":"IOM DTM","title":"Ethiopia - National Displacement Profile 2023","url":"https://dtm.iom.int/reports/ethiopia-national-displacement-profile-2023","chapter_id":"6B","note":"Opened and used for end-year displacement context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"operational overview","publisher":"UNHCR","title":"Ethiopia situation","url":"https://reporting.unhcr.org/operational/situations/ethiopia-situation","chapter_id":"6B","note":"Opened and used for humanitarian and protection context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"program page","publisher":"UNICEF Ethiopia","title":"Learning and development!","url":"https://www.unicef.org/ethiopia/learning-and-development","chapter_id":"6B","note":"Opened and used for education access and out-of-school figures."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"program page","publisher":"UNICEF Ethiopia","title":"Survival and health","url":"https://www.unicef.org/ethiopia/survival-and-health","chapter_id":"6B","note":"Opened and used for health-system weakness and maternal/child service access."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"policy framework","publisher":"UNICEF Ethiopia","title":"National Early Childhood Development and Education Policy Framework","url":"https://www.unicef.org/ethiopia/reports/national-early-childhood-development-and-education-policy-framework","chapter_id":"6B","note":"Opened and used for durable social-institution context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"poverty assessment","publisher":"World Bank","title":"Ethiopia Poverty and Equity Assessment: Welfare at a Crossroads - Turning Tides","url":"https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099122324120026973","chapter_id":"6B","note":"Inspected as retrospective baseline context; not extracted into final evidence here."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"social protection report","publisher":"International Labour Organization","title":"Social Protection Coverage in Ethiopia: A Fact-Finding Report Based on the ILO-Social Security Inquiry (SSI) Data Collection Tool","url":"https://www.ilo.org/publications/social-protection-coverage-ethiopia-fact-finding-report-based-ilo-social","chapter_id":"6B","note":"Used as broader context and later-retrospective benchmark."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"education case-study page","publisher":"UNESCO","title":"Ethiopia | Global Education Monitoring Report","url":"https://www.unesco.org/gem-report/en/2026-gem-report-country-case-studies/ethiopia?hub=1074","chapter_id":"6B","note":"Inspected as later retrospective educational context."}
+
+If you want, I can next convert this into a chapter-ready memo with only the strongest 6–8 facts and a tighter evidence ladder for downstream use.
+
+CHAPTER_CONCLUSION research-chapter-7B:
+dom-net/2023)
+
+**Corroboration only**
+- [Addis Standard: Auditor General uncovering unclaimed revenues](https://addisstandard.com/news-auditor-general-uncovers-15-billion-birr-in-unclaimed-revenues/)
+- [Addis Standard: campaign for sovereign access to port analysis](https://addisstandard.com/analysis-ethiopias-campaign-for-sovereign-access-to-port-start-off-on-the-wrong-foot/)
+- [World Bank / governance context sources from prior chapters]
+- [UN treaty-body and corruption-context records, where they touch broader accountability]
+
+**Uninspected leads**
+- Asset-declaration and beneficial-ownership records, if any are public.
+- Procuring entity and contract records for major infrastructure and “mega project” claims.
+- Full parliamentary transcripts for March, July, and October 2023 sessions.
+- Any 2023 audit reports directly referencing the PM Office, PM-linked entities, or family members.
+- Any court, investigator, or ethics-body records on close associates.
+
+**Source Counts**
+- Inspected candidates in this pass: 10+.
+- Developed evidence records: 10.
+- Strong direct personal-integrity proof of wrongdoing: not found in the open 2023 record.
+- Strong direct proof of anti-corruption signaling and some scrutiny: yes.
+- Main gap: hard documentary evidence on assets, family benefit, and personal enrichment.
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"anti-corruption country profile","publisher":"Transparency International Knowledge Hub","title":"Ethiopia","url":"https://knowledgehub.transparency.org/country/ethiopia","chapter_id":"7B","note":"Opened and used for anti-corruption drive and politicization context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"PM Abiy Ahmed endures tough questions from MPs including on whether he would consider to resign","url":"https://addisstandard.com/news-pm-abiy-endures-tough-questions-from-mps-including-on-whether-he-would-consider-to-resign/","chapter_id":"7B","note":"Opened and used for parliamentary scrutiny evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"PM Abiy Ahmed pledges thorough audit of non-government-funded mega projects amid transparency concerns","url":"https://addisstandard.com/news-pm-abiy-ahmed-pledges-thorough-audit-of-non-government-funded-mega-projects-amid-transparency-concerns/","chapter_id":"7B","note":"Opened and used for transparency pledge evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"Ethiopia Central Bank gets new governor in Premier’s major reshuffle; departing ministers replaced","url":"https://addisstandard.com/news-ethiopia-central-bank-gets-new-governor-in-premiers-major-reshuffle-departing-ministers-replaced/","chapter_id":"7B","note":"Opened and used for technocratic appointment and reshuffle evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"Melatework Hailu voted in as the new chairperson of National Election Board","url":"https://addisstandard.com/news-melatework-hailu-voted-in-as-the-new-chairperson-of-national-election-board/","chapter_id":"7B","note":"Opened and used for NEBE appointment process evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"Ethiopia passes new bill on protection of government classified information","url":"https://addisstandard.com/news-ethiopia-passes-new-bill-on-protection-of-government-classified-information/","chapter_id":"7B","note":"Opened and used for secrecy-rule evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"speech report","publisher":"Addis Standard","title":"Feature: “A population of 150 million can’t live in a geographic prison” - PM Abiy Ahmed","url":"https://addisstandard.com/feature-a-population-of-150-million-cant-live-in-a-geographic-prison-pm-abiy-ahmed/","chapter_id":"7B","note":"Opened and used for Red Sea rhetoric and partial correction evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"country report","publisher":"Freedom House","title":"Ethiopia: Freedom in the World 2023 Country Report","url":"https://freedomhouse.org/country/ethiopia/freedom-world/2023","chapter_id":"7B","note":"Used as broader corruption/context and governance background."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"country report","publisher":"Freedom House","title":"Ethiopia: Freedom on the Net 2023 Country Report","url":"https://freedomhouse.org/country/ethiopia/freedom-net/2023","chapter_id":"7B","note":"Used as information-environment and manipulation context."}
+
+If you want, I can next turn this into a concise judge-ready appendix with only the strongest 6–8 integrity facts and a cleaner evidence-to-lens map.
+
+CHAPTER_CONCLUSION research-chapter-8B:
+ounts**
+- Inspected candidates in this pass: 12+.
+- Developed evidence records: 12.
+- Strong direct evidence of coherent goals and some machinery: yes.
+- Strong direct evidence of durable program achievement by end-2023: no.
+- Main gap: complete budget-execution and implementation-measure data.
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"official government page","publisher":"FDRE Office of the Prime Minister","title":"Our Government","url":"https://www.pmo.gov.et/government/","chapter_id":"8B","note":"Opened and used for authority baseline and program machinery context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"Ethiopia Central Bank gets new governor in Premier’s major reshuffle; departing ministers replaced","url":"https://addisstandard.com/news-ethiopia-central-bank-gets-new-governor-in-premiers-major-reshuffle-departing-ministers-replaced/","chapter_id":"8B","note":"Opened and used for personnel and reform-team evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"IMF statement","publisher":"IMF","title":"IMF Staff Concludes Visit to Ethiopia","url":"https://www.imf.org/en/news/articles/2023/04/07/pr23111-ethiopia-imf-staff-concludes-visit","chapter_id":"8B","note":"Opened and used for macro reform-program evidence."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"peace agreement","publisher":"African Union Peace and Security Department","title":"Cessation of Hostilities Agreement between the Government of the Federal Democratic Republic of Ethiopia and the Tigray Peoples’ Liberation Front","url":"https://www.aupaps.org/en/article/cessation-of-hostilities-agreement-between-the-government-of-the-federal-democratic-republic-of-ethiopia-and-the-tigray-peoples-liberation-front-tplf","chapter_id":"8B","note":"Opened and used for peace-program machinery context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"News: Addis Abeba City terminates lease worth 90 ha land fenced off, idle for long time","url":"https://addisstandard.com/news-addis-abeba-city-terminates-lease-worth-90-ha-land-fenced-off-idle-for-long-time/","chapter_id":"8B","note":"Opened and used for administrative enforcement/correction."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"News: Ethiopia passes new bill on protection of government classified information","url":"https://addisstandard.com/news-ethiopia-passes-new-bill-on-protection-of-government-classified-information/","chapter_id":"8B","note":"Opened and used for secrecy/governance machinery."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"News: PM Abiy Ahmed pledges thorough audit of non-government-funded mega projects amid transparency concerns","url":"https://addisstandard.com/news-pm-abiy-ahmed-pledges-thorough-audit-of-non-government-funded-mega-projects-amid-transparency-concerns/","chapter_id":"8B","note":"Opened and used for correction and transparency response."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news analysis","publisher":"Addis Standard","title":"News: Ethiopia’s central bank governor foresees promising results in tackling inflation, despite reservations from legislators","url":"https://addisstandard.com/news-analysis-central-bank-governor-foresees-promising-results-in-tackling-inflation-despite-reservations-from-legislators/","chapter_id":"8B","note":"Opened and used for policy correction and legislative friction."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"accepted","document_type":"news report","publisher":"Addis Standard","title":"News: Amidst rejection from opposition groups, Tigray concludes establishment of IRA, awaiting negotiated deal with federal gov’t","url":"https://addisstandard.com/news-amidst-rejection-from-opposition-groups-tigray-concludes-establishment-of-ira-awaiting-negotiated-deal-with-federal-gov’t/","chapter_id":"8B","note":"Opened and used for peace-program implementation milestone."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"country overview","publisher":"World Bank","title":"Ethiopia","url":"https://www.worldbank.org/ext/en/country/ethiopia","chapter_id":"8B","note":"Used as broad outcome and trajectory context."}
+
+SOURCE_CANDIDATE_JSON: {"access_status":"context","document_type":"analysis","publisher":"Al Jazeera","title":"Analysis: Can Ethiopia’s truce end its devastating civil war?","url":"https://www.aljazeera.com/features/2022/3/28/analysis-can-ethiopias-truce-end-its-devastating-civil-war","chapter_id":"8B","note":"Used as context on implementation burden and fragility."}
+
+If you want, I can next condense this into a short final chapter memo with the strongest 6–8 records and a tighter program-to-outcome chronology.
+---

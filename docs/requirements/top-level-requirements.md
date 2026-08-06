@@ -669,6 +669,17 @@ selection is forbidden under concurrent execution. Broad runs must bind exact re
 ruler-year identities in a versioned canonical-hash manifest and use bounded concurrency
 with a failure circuit breaker.
 
+An optional long-document reader may be tested between source discovery and evidence
+acceptance. It must first distinguish lawfully machine-readable full text from metadata,
+paywall/login, bot or JavaScript challenge, robots denial, transient failure, and
+unavailability without bypassing restrictions. Raw and extracted documents retain
+checksums and page/section boundaries. Versioned document-type prompts produce compact
+source maps as leads; harmless serialization defects are normalized separately and do
+not count as content failures. A stronger compiler must reopen consequential claims
+against the underlying extract before dossier acceptance. Reader evaluation measures
+claim support, material omissions, locator fidelity, contrary evidence, source
+incentives, official-source concentration, and phase-level token cost.
+
 Every such ruler session starts from local structured evidence, not web discovery.
 The parent queries the harmonized country-year fact layer for all selected chapters,
 excludes client-matrix sources, preserves exact source-observation provenance, and

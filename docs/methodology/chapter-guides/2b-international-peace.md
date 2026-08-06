@@ -1,13 +1,13 @@
 # Chapter 2B — International Peace, Restraint, And Lawful Security
 
-Status: **draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment**
+Status: **draft; v5 conduct-first questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `2B`
 - Rating: international peace versus aggression and war
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_2b_v3`
+- Rubric version: `chapter_2b_v5`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -20,21 +20,29 @@ or blame a ruler automatically for an inherited war. Domestic repression belongs
 primarily in Chapter 3B; economic opportunity cost is contextual here. The client
 matrix is never evidence.
 
+Before applying the lenses, establish the ruler’s authority and security context;
+inherited wars, deployments, and support; a complete inventory of material overseas
+force; scale and consequences; and ruler attribution based on independent evidence.
+Record conduct before judging justification. Ruler explanations are claims and receive
+no presumption of credibility.
+
 ## Ten Evidence Lenses
 
-1. **2B.1:** Did the ruler choose diplomacy, compromise, and de-escalation when credible peaceful alternatives existed, rather than treating force as the preferred first option?
-2. **2B.2:** Did the ruler initiate, expand, prolong, or justify wars of choice, cross-border coercion, annexation, covert destabilization, or proxy conflict beyond defensive necessity?
-3. **2B.3:** Did the ruler distinguish genuine defensive security needs from prestige, revenge, nationalism, manufactured threats, diversionary politics, or regime-survival motives?
-4. **2B.4:** Did the ruler respect civilian protection, humanitarian law, prisoner treatment, necessity, and proportionality in military operations?
-5. **2B.5:** Did the ruler restrain security forces, militias, allies, proxies, clients, and arms recipients from atrocities or destabilization, and accept responsibility for foreseeable proxy conduct?
-6. **2B.6:** Did the ruler truthfully explain security threats to the public, or manipulate intelligence, fear, historical grievance, and misinformation to build support for conflict?
-7. **2B.7:** Did the ruler pursue credible ceasefires, peace talks, confidence-building measures, lawful settlements, or post-conflict reconciliation when possible?
-8. **2B.8:** Did the ruler use military spending and mobilization to meet real security needs, or to enrich networks, reward security elites, intimidate neighbors, or project personal strength?
-9. **2B.9:** Did the ruler accept accountability for military failures, civilian harm, illegal conduct, and later evidence that contradicted the stated justification for conflict?
-10. **2B.10:** Did the ruler leave regional/international relations more peaceful, stable, and lawful than they inherited them, accounting for inherited conflicts and external constraints?
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **2B.1 — Peaceful alternatives** | Did the ruler seriously try peaceful options before using force? | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? | **Formal acts and law**; **Implementation and operational conduct** |
+| **2B.2 — Actual overseas force, war, and escalation** | Did the ruler initiate, order, authorize, support, knowingly allow, expand, or prolong material military or violent action abroad, and what were its scale and consequences? | First record every material action without excluding conduct described as defensive, lawful, necessary, retaliatory, or humanitarian. Include force outside the state’s broadly internationally recognized territory, destructive cyber operations causing physical harm or material escalation, and material enabling support. Identify the ruler’s role, direct and supported actors, scale, casualties, displacement, destruction, territorial effects, escalation, and whether the ruler inherited, expanded, reduced, or ended the action. ‘Knowingly allowed’ requires knowledge, practical authority or leverage, and failure to take reasonable corrective action. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.3 — Honest justification for force** | Was the ruler’s stated justification for force supported by independent evidence? | Treat the ruler’s explanation only as a claim or evidence of intent. Assess contemporaneous evidence, actual conduct, independent findings, peaceful alternatives, legality, necessity, proportionality, and consequences from outside in, with no presumption that claims of defense, necessity, retaliation, humanitarian purpose, or national interest are true. | **Rhetoric and representations**; **Formal acts and law** |
+| **2B.4 — Civilian and prisoner protection** | Did the ruler protect civilians and prisoners during conflict? | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.5 — Control of proxies, arms, and enabling support** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce controls over arms, intelligence, targeting, financing, logistics, bases, proxies, and allied forces; monitor foreseeable abuse; and suspend support or correct policy when harm emerged? Enabling support ordinarily receives less weight than direct action, but more where it was indispensable, large, knowing, controlled, or readily stoppable. | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.6 — Scrutiny of war claims** | Did the ruler allow independent checks of claims made about conflict? | Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **2B.7 — Ceasefires and settlements** | Did the ruler seriously pursue and uphold peace agreements? | Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.8 — Responsible military resources** | Were military resources used for real security rather than power, profit, or intimidation? | Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.9 — Accountability and remedy** | Did the ruler accept responsibility and remedy unlawful harm from conflict? | Did the ruler cooperate with courts, inquiries, audits, and casualty disclosure; accept responsibility; correct unlawful policy; discipline responsible actors; and provide meaningful remedy? | **Implementation and operational conduct**; **Rhetoric and representations**; **Outcomes** |
+| **2B.10 — Lasting international peace** | Did the ruler leave international relations more peaceful and lawful? | Did the ruler leave relations more peaceful, stable, and lawful through durable institutions and settlements, accounting for inherited conflicts, actual authority, and external constraints? | **Outcomes**; **Formal acts and law**; **Implementation and operational conduct** |
 
-The lens statuses and wording are advisory. Missing lenses reduce confidence; they do
-not invalidate the dossier, force zero, or require a rigid status vocabulary.
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Guidance
 
@@ -179,7 +187,7 @@ without credible alternatives and conduct evidence.
 
 ## Chapter-Specific Calibration Fields
 
-- `chapter_rubric_version`: `chapter_2b_v3`
+- `chapter_rubric_version`: `chapter_2b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `conflict_exposure_and_inherited_baseline`
 - `ruler_command_authority_and_attribution`

@@ -201,7 +201,7 @@ def test_structured_country_year_question_runs_through_fact_builder(
         country_id=1,
         country_year_id=1,
         year=2023,
-        field_key="gdp_per_capita",
+        field_key="gdp_per_capita_nominal_current_usd",
         selected_value_number=76399.0,
     )
 
@@ -339,7 +339,9 @@ def _insert_country_year_fact(
                     (_fact_candidate_payload(selected_value_number),)
                 ),
                 "source_slugs_json": json.dumps(("world_bank_wdi",)),
-                "source_observation_ids_json": json.dumps(("wdi:USA:2023:gdp_per_capita",)),
+                "source_observation_ids_json": json.dumps(
+                    ("wdi:USA:2023:gdp_per_capita_nominal_current_usd",)
+                ),
             },
         )
 
@@ -354,7 +356,7 @@ def _fact_candidate_payload(value: float) -> dict[str, object]:
         "scale": None,
         "source_version": "fixture",
         "source_indicator_codes": ["fixture_indicator"],
-        "input_observation_ids": ["wdi:USA:2023:gdp_per_capita"],
+        "input_observation_ids": ["wdi:USA:2023:gdp_per_capita_nominal_current_usd"],
         "mapping_type": "direct",
         "quality_flags": [],
         "warnings": [],

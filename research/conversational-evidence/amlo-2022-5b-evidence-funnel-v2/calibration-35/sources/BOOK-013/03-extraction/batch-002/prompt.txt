@@ -1,0 +1,757 @@
+You are the evidence-intent extractor in a non-scoring calibration.
+Extract atomic factual intents from the routed passage. Preserve actor, action, mechanism, outcome, dates, quantities, attribution, period fit, limitations, polarity, and every applicable methodology ID. Do not reproduce or author quotation text. Select the frozen source hash, exact locator, and inclusive start/end segment IDs supplied by the citation index. Before emitting each intent, verify that every named actor, action, date, quantity, attribution, qualifier, and outcome appears inside that exact inclusive segment range. Remove any detail supported only by adjacent or remembered text. Never combine non-contiguous support, and split compound facts into narrower intents. Prefer a short fully supported intent over a richer partly supported one. Use separate intents when support is non-contiguous. Do not score.
+Draft IDs must be sequential D0001, D0002, ... within this response. Each locator disposition must name an inspected locator exactly once. The code will copy every quote from the inclusive segment range. Select the narrowest contiguous range that fully supports the claim. Do not put quotation text in any semantic field.
+
+QUESTIONS
+{
+  "schema_version": "ruler-quality-questions-v1",
+  "chapter_ids": [
+    "5B"
+  ],
+  "lens_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "chapters": [
+    {
+      "id": "5B",
+      "questions": [
+        {
+          "id": "5B.1",
+          "text": "Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity?"
+        },
+        {
+          "id": "5B.2",
+          "text": "Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty?"
+        },
+        {
+          "id": "5B.3",
+          "text": "Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment?"
+        },
+        {
+          "id": "5B.4",
+          "text": "Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation?"
+        },
+        {
+          "id": "5B.5",
+          "text": "Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture?"
+        },
+        {
+          "id": "5B.6",
+          "text": "Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects?"
+        },
+        {
+          "id": "5B.7",
+          "text": "Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating?"
+        },
+        {
+          "id": "5B.8",
+          "text": "Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups?"
+        },
+        {
+          "id": "5B.9",
+          "text": "During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes?"
+        },
+        {
+          "id": "5B.10",
+          "text": "Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone?"
+        }
+      ],
+      "registry": {
+        "category": "economic_wellbeing",
+        "question_code_prefix": "economic_wellbeing",
+        "question_key_prefix": "economic_wellbeing",
+        "concept_key": "ruler_quality_qualitative_evidence"
+      }
+    }
+  ]
+}
+
+SOURCE
+{
+  "source_id": "BOOK-013",
+  "title": "CIDOB political biography",
+  "url": "https://www.cidob.org/lider-politico/andres-manuel-lopez-obrador",
+  "publisher": "www.cidob.org",
+  "publication_date": "unknown_not_recorded",
+  "document_type": "biography",
+  "source_role": "independent_reference",
+  "source_family": "www.cidob.org",
+  "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+  "access_state": "open_machine_readable",
+  "dependencies": []
+}
+
+LOCATOR INDEXES
+[
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 21",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 135,
+        "text": "Los resultados de la gestión municipal del dirigente fueron el reflejo de esta valoración tan profundamente ambivalente de su persona. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 135,
+        "end_char": 271,
+        "text": "Por un lado, el DF conoció una vigorosa campaña de obras públicas para la mejora y ampliación de una serie de infraestructuras urbanas. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 271,
+        "end_char": 449,
+        "text": "Por otro lado, los mexiqueños se beneficiaron de varios programas de protección social, el más destacado de los cuales fue la Pensión Universal Alimenticia para Adultos Mayores. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 449,
+        "end_char": 635,
+        "text": "El Gobierno municipal se resistió a implementar el Seguro Popular, aprobado por el Instituto Mexicano del Seguro Social (IMSS) y basado en la aportación de cuotas por los beneficiarios, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 635,
+        "end_char": 813,
+        "text": "aduciendo que los defeños ya recibían de sus instituciones municipales la necesaria cobertura social y además gratuita.\nSegún la oposición, ejercida fundamentalmente por el PAN, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 813,
+        "end_char": 1046,
+        "text": "el Ejecutivo encabezado de López Obrador se dedicaba a derrochar el presupuesto del DF con mano populista sin preocuparse de las deudas, que ciertamente crecieron, aunque a un ritmo sensiblemente menor que bajo anteriores gobiernos. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1046,
+        "end_char": 1181,
+        "text": "Los efectos de la lucha contra la criminalidad, uno de los más graves problemas de la urbe, merecieron asimismo valoraciones dispares.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1181,
+        "end_char": 1407,
+        "text": "4. La carrera de obstáculos de las presidenciales de 2006: el videoescándalo y el desafuero en la Ciudad de México A principios de 2004 López Obrador mantenía, a la luz de las encuestas efectuadas entre los residentes del DF, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1407,
+        "end_char": 1583,
+        "text": "un índice de popularidad muy elevado. La gran mayoría de los mexiqueños le tenía por un regidor competente y trabajador, y aceptaba su reputación de abanderado de la decencia. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1583,
+        "end_char": 1815,
+        "text": "La opinión pública daba por hecho que el alcalde acariciaba la candidatura perredista para las elecciones presidenciales de 2006, pero él se limitaba a repetir que su único interés residía en el buen gobierno de la Ciudad de México."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 22",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 234,
+        "text": "En marzo de 2004, en un momento que a muchos no les pareció casual, estalló el llamado videoescándalo , la emisión por la cadena Televisa de unas grabaciones de vídeo clandestinas que mostraban a prominentes políticos y funcionarios, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 234,
+        "end_char": 473,
+        "text": "la mayoría miembros del PRD y colaboradores estrechos de López Obrador, en situaciones altamente comprometedoras. La serie de filmaciones comenzó como una filtración hecha a los medios por el diputado federal panista Federico Döring Casar "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 473,
+        "end_char": 618,
+        "text": "y tenía como principal protagonista al empresario argentino-mexicano Carlos Ahumada Kurtz, en cuyas oficinas sucedían casi todas de las escenas. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 618,
+        "end_char": 748,
+        "text": "Ahumada se apresuró a presentar contra los implicados una denuncia por extorsión antes de darse él mismo a la fuga; poco después, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 748,
+        "end_char": 907,
+        "text": "el empresario sería capturado en Cuba y deportado en respuesta a un pedido de extradición de las autoridades mexicanas.\nEl videoescándalo convulsionó al país. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 907,
+        "end_char": 1136,
+        "text": "Ante las cámaras desfilaban el secretario de Finanzas del Gobierno del DF, Gustavo Ponce Meléndez, René Bejarano Martínez, hasta 2002 secretario particular de López Obrador y luego coordinador del PRD en la Asamblea Legislativa, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1136,
+        "end_char": 1373,
+        "text": "y Carlos Ímaz Gispert, jefe de la delegación capitalina de Tlalpan. Los tres habían sido grabados mientras se dedicaban a actividades lúdicas como jugarse a la ruleta miles de dólares en un lujoso casino de Las Vegas y a otras mucho más "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1373,
+        "end_char": 1584,
+        "text": "alarmantes, como negociar con Ahumada la compra de favores políticos o recoger de sus manos ingentes sumas de dinero, efectuando un pasmoso trasiego de fajos de billetes que terminaban en el tradicional maletín."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 23",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 207,
+        "text": "La divulgación mediática en formato sensacionalista de estos presuntos actos de corrupción que incluían detalles del más puro estilo mafioso golpeó con la fuerza de un terremoto al Gobierno del DF y al PRD, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 207,
+        "end_char": 415,
+        "text": "que tuvo que romper amarras con los involucrados, contra los que la justicia no tardó en abrir cargos por fraude y lavado de dinero, y en cursar las correspondientes órdenes de arresto y prisión provisional. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 415,
+        "end_char": 644,
+        "text": "Rosario Robles, presidenta del CEN entre 2002 y 2003, salió muy malparada tras escucharse el reguero de conversaciones y testimonios que la situaban como uno de los cerebros de la trama, viéndose obligada a abandonar el partido. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 644,
+        "end_char": 773,
+        "text": "El actual presidente, Leonel Godoy Rangel, tuvo que salir a pedir públicas disculpas a la estupefacta ciudadanía. Objetivamente, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 773,
+        "end_char": 935,
+        "text": "costaba imaginar que López Obrador no estuviera al corriente de los chanchullos de una persona tan allegada a él como Bejarano, quien había sido su mano derecha.\n"
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 935,
+        "end_char": 1068,
+        "text": "Pese a la fea turbiedad de los hechos y a la identidad de los implicados, que eran algunos de sus lugartenientes de mayor confianza, "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1068,
+        "end_char": 1288,
+        "text": "López Obrador no fue salpicado por este escándalo hasta el punto de ver peligrar su posición institucional. El regidor defeño manifestó su rechazo a las corruptelas sacadas a la luz, pero su reacción fue tardía y tibia. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1288,
+        "end_char": 1426,
+        "text": "El énfasis lo reservó para un contraataque de tipo político, ya que puramente políticas le parecían las motivaciones del videoescándalo . "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1426,
+        "end_char": 1641,
+        "text": "En su opinión, lo que allí había era una \"conspiración\" para minar la popularidad de su partido y su gobierno del DF, y como supuestos conjurados señaló al ex presidente Salinas (al que calificó de \"jefe de jefes\", "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1641,
+        "end_char": 1878,
+        "text": "con mando tanto en el PRI como en el PAN), al ex candidato presidencial del PAN Fernández de Cevallos (el altivo Jefe Diego , con el que venía sosteniendo un tenso pique personal condenado a endurecerse) y al entorno del presidente Fox. "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1878,
+        "end_char": 2023,
+        "text": "Hasta el Gobierno de Estados Unidos, a través del Departamento del Tesoro y la Agencia Antidrogas, la DEA, estaba confabulado contra él, aseguró."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 24",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 197,
+        "text": "La razón, el victimismo o la manía persecutoria, que todo ello le era adjudicado, de López Obrador se cargaron de fuerza a partir del 18 de mayo de 2004, en plena polvareda por el videoescándalo , "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 197,
+        "end_char": 431,
+        "text": "cuando la PGR dio el paso de solicitar a la Cámara de Diputados el desafuero del gobernante por presuntos abuso de autoridad y desacato judicial en relación con un hecho de trascendencia menor y que venía coleteando desde hacía años, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 431,
+        "end_char": 644,
+        "text": "un pleito sobre la expropiación de un terreno en el DF, concretamente en la delegación de Cuajimalpa. El asunto se remontaba a noviembre de 2000, cuando el Gobierno defeño, entonces encabezado por Rosario Robles, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 644,
+        "end_char": 854,
+        "text": "expropió la parcela para construir en parte de ella una vía de acceso a un hospital privado.\nQuienes aseguraban ser los dueños del terreno en cuestión, la empresa inmobiliaria Promotora Internacional Santa Fe, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 854,
+        "end_char": 1092,
+        "text": "habían demandado al Gobierno ante los tribunales, iniciándose un litigio por desamparo que en marzo de 2001 había dado lugar a la orden de la suspensión definitiva de las obras por el Juzgado Noveno de Distrito en Materia Administrativa. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1092,
+        "end_char": 1302,
+        "text": "Luego, la empresa propietaria había vuelto a denunciar al Gobierno del DF por continuar adelante con las obras, logrando de los tribunales un rosario de autos favorables y finalmente la intervención de la PGR.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1302,
+        "end_char": 1479,
+        "text": "La reactivación de este caso, precisamente ahora, cuando no parecía que los coletazos del videoescándalo fueran a dañar seriamente a López Obrador, llenó de indignación al PRD. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1479,
+        "end_char": 1649,
+        "text": "Su presidente, Leonel Godoy, acusó a la PGR de \"poner en riesgo la transición democrática y la estabilidad de México\", y denunció una \"embestida\" que buscaba \"desaforar, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1649,
+        "end_char": 1831,
+        "text": "destituir y meter en la cárcel\" al Peje con el único fin de \"inhabilitarlo como eventual candidato presidencial en las elecciones de 2006 e impedir que la izquierda llegue al poder\"."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 25",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 211,
+        "text": "En agosto, 200.000 perredistas se manifestaron en el Zócalo de la capital federal en apoyo de López Obrador. Si con la iniciativa de desafuero del Ministerio Público Federal el oficialismo pretendía, en verdad, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 211,
+        "end_char": 450,
+        "text": "torpedear la posible aspiración presidencial de López Obrador (la ley establecía que una persona con causas judiciales abiertas no podía registrar su candidatura a la jefatura del Estado), tal artimaña podía tornarse un peligroso bumerán, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 450,
+        "end_char": 677,
+        "text": "ya que los sondeos de opinión perfilaron al imputado como el presidenciable con más posibilidades de ganar en las urnas. En octubre López Obrador presentó el libro Un proyecto alternativo de nación: hacia un cambio verdadero , "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 677,
+        "end_char": 911,
+        "text": "que recogía y ampliaba los veinte puntos programáticos presentados en una marcha realizada el 29 de agosto.\n2004 no terminó sin un nuevo sobresalto, la destitución en noviembre por el presidente Fox, de acuerdo con sus prerrogativas, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 911,
+        "end_char": 1125,
+        "text": "del secretario de Seguridad Pública del DF, el antiguo líder del PCD Marcelo Ebrard, como responsable de un fallo de omisión de autoridad en un violento incidente registrado en la delegación capitalina de Tláhuac, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1125,
+        "end_char": 1266,
+        "text": "en el que una turba de paisanos linchó hasta la muerte a tres agentes de la Policía Federal Preventiva (PFP) que confundió con delincuentes. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1266,
+        "end_char": 1457,
+        "text": "López Obrador protestó por la decisión presidencial, que costó el puesto también al comisionado de la PFP, pero repescó a Ebrard para su Gobierno nombrándole secretario de Desarrollo Social.\n"
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1457,
+        "end_char": 1666,
+        "text": "La batalla político-judicial por la defensa de su inmunidad penal, otorgada por el artículo 111 de la Constitución a las altas magistraturas del Estado, y, por ende, de su ya oficial postulación presidencial, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1666,
+        "end_char": 1870,
+        "text": "la libró López Obrador en la primavera de 2005, al cabo de varias semanas de movilizaciones populares en las que el dirigente se comparó con Martin Luther King y dirigió su dedo acusador a Fox y Salinas. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1870,
+        "end_char": 2021,
+        "text": "El 7 de abril AMLO encajó un primer desenlace adverso. Se trató, en realidad, de una derrota temporal, de la que a la postre emergería como triunfador."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 26",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 148,
+        "text": "Aquel día, el pleno de la Cámara de Diputados del Congreso, por 360 votos contra 127 más dos abstenciones, dio luz verde al suplicatorio de la PGR. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 148,
+        "end_char": 355,
+        "text": "Votaron a favor del desafuero las bancadas del PAN y el PRI (que desde las elecciones legislativas de julio de 2003 gozaba de una mayoría simple reforzada), y en contra las del PRD, el PT y la Convergencia. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 355,
+        "end_char": 504,
+        "text": "La mitad de los diputados del Partido Ecologista Verde de México (PVEM, aliado del PRI) y un puñado de diputados priístas también votaron en contra. "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 504,
+        "end_char": 641,
+        "text": "La PGR ya podía requerir a un magistrado el arresto y el procesamiento penal del regidor del DF por presunto desacato de orden judicial.\n"
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 641,
+        "end_char": 880,
+        "text": "Tal como había anunciado anticipándose a la decisión de los parlamentarios, López Obrador convocó un \"movimiento de resistencia civil pacífica\" que tuvo su epicentro en el Zócalo y que en los días siguientes movilizó a cientos de miles de "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 880,
+        "end_char": 1113,
+        "text": "personas. Mientras el protagonista de la fenomenal polémica nacional encabezaba las protestas contra el \"atropello a las libertades ciudadanas\" y reiteraba su disposición a ir a la cárcel sin admisión de fianza pero no a renunciar a "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1113,
+        "end_char": 1352,
+        "text": "inscribir su candidatura presidencial, la Asamblea Legislativa del DF, controlada por su partido, abrió un conflicto constitucional al reclamar a la Suprema Corte de Justicia de la Nación (SCJN) que se garantizara el cumplimiento estricto "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1352,
+        "end_char": 1492,
+        "text": "de la Carta Magna en el sentido de que un servidor público no podía ser separado de su cargo hasta que un juez no le abriera proceso penal.\n"
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1492,
+        "end_char": 1682,
+        "text": "Para reclamar el cese inmediato del alcalde por estar ya desaforado, los diputados federales del PAN y el PRI se amparaban en la Ley Federal de Responsabilidades de los Servidores Públicos. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1682,
+        "end_char": 1901,
+        "text": "Los alegatos jurídicos presentados a la Sección Instructora de la Cámara de Diputados para defenderse de la acusación de que era objeto los transcribió López Obrador en el que era su séptimo libro, Contra el desafuero; "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1901,
+        "end_char": 1949,
+        "text": "mi defensa jurídica , publicado este mismo 2005."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 27",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 231,
+        "text": "La incapacidad de la PGR para lograr que un juez incoara diligencias procesales envalentonó a López Obrador, que el 25 de abril, horas después de saborear una impresionante demostración de fuerza popular en el centro de la ciudad, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 231,
+        "end_char": 449,
+        "text": "regresó a su despacho oficial. El gesto de desafío irritó a la Presidencia de la República, pero Fox, temeroso del coste político de la empecinada postura de su partido, se avino a dar una salida política a la crisis. "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 449,
+        "end_char": 664,
+        "text": "El 27 de abril el presidente aceptaba la dimisión del procurador general, Rafael Macedo de la Concha, y un día más tarde comunicó personalmente a la nación que el líder perredista podría concurrir a las elecciones; "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 664,
+        "end_char": 891,
+        "text": "en otras palabras, López Obrador tenía asegurados sus derechos políticos.\nEl 4 de mayo, el nuevo fiscal general, Daniel Cabeza de Vaca, informó que el Ministerio Público, pese a considerarle \"probable responsable\" de desacato, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 891,
+        "end_char": 1105,
+        "text": "retiraba los cargos contra el regidor capitalino y archivaba la causa. El conflicto quedó definitivamente zanjado con una reunión de 20 minutos entre Fox y López Obrador en la residencia presidencial de Los Pinos. "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1105,
+        "end_char": 1344,
+        "text": "Tras el encuentro, los dirigentes hicieron votos porque las próximas elecciones fueran \"limpias, libres y en paz\".\nEl 29 de julio de 2005 López Obrador pidió licencia de descargo como jefe de Gobierno del DF para consagrarse a la elección "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1344,
+        "end_char": 1475,
+        "text": "primaria del PRD. Alejandro de Jesús Encinas Rodríguez, el secretario del Gobierno, le sustituyó al frente de la entidad federada. "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1475,
+        "end_char": 1714,
+        "text": "En el cenit de su popularidad, AMLO se encontró sin rivales internos luego de la retirada del veterano Cárdenas, que aunque conservaba intacta su aureola de probidad se sentía incapaz de contender con el beligerante conmilitón tabasqueño. "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1714,
+        "end_char": 1952,
+        "text": "Las relaciones personales entre los dos dirigentes no habían hecho más que empeorar en los últimos tiempos, más a raíz del videoescándalo de 2004, cuando Cárdenas cerró filas junto con la cúpula del partido pero sin esconder su malestar. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1952,
+        "end_char": 2170,
+        "text": "En su carta de autodescalificación dirigida al CEN, cuyo nuevo presidente era el sudcaliforniano Leonel Cota Montaño, el líder histórico del PRD censuraba la \"ausencia de debate\" en la precampaña electoral del partido."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 28",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 207,
+        "text": "El 19 de septiembre, con el PRD rendido a sus pies, por convicción o —los sectores más moderados— en asunción del que este era el deseo prácticamente unánime de las bases, López Obrador, único precandidato, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 207,
+        "end_char": 446,
+        "text": "fue designado candidato presidencial por el Servicio Electoral y Membresía del partido. El 10 de diciembre tuvo lugar en el Zócalo el acto de su toma de protesta, o proclamación jurada, como candidato de la coalición Por el Bien de Todos, "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 446,
+        "end_char": 675,
+        "text": "formada por el PRD, el PT y la Convergencia. Sus máximos adversarios en la liza del 2 de julio de 2006 iban a ser Felipe Calderón Hinojosa , ex secretario de Energía con Fox, por el PAN y su detestado Roberto Madrazo por el PRI.\n"
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 675,
+        "end_char": 841,
+        "text": "En su discurso de protesta, López Obrador puntualizó que sus diferencias no eran con los empresarios generadores de empleo, los cuales merecían \"protección y apoyo\", "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 841,
+        "end_char": 1068,
+        "text": "sino con \"los saqueadores y los corruptos que aprovechan los cargos públicos para hacerse ricos\". Por último, el 8 de enero de 2006, el candidato cumplimentó el trámite de registrarse ante el Instituto Federal Electoral (IFE). "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1068,
+        "end_char": 1308,
+        "text": "El 19 de enero el postulante perredista arrancó su campaña en Metlatónoc, municipio de Guerrero poblado por indígenas mixtecas y considerado el más pobre del país.\n5. Reñida liza en las urnas con el panista Calderón y rebeldía poselectoral\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1308,
+        "end_char": 1548,
+        "text": "Tras salir airoso de la peripecia del desafuero, López Obrador no estaba dispuesto a dejar de librar en 2006 una campaña presidencial dura y áspera, en la que Calderón vendría a encarnar todos los abusos y trapacerías del poder panista, y, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1548,
+        "end_char": 1782,
+        "text": "pese a sus gestos de distanciamiento del foxismo, a representar una opción completamente continuista de la línea \"neoliberal\" que el principal partido de la izquierda mexicana hacía remontar a los años de la Administración priísta de "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1782,
+        "end_char": 1802,
+        "text": "Miguel de la Madrid."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 29",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 175,
+        "text": "La militancia del PRD endilgó a Calderón el mote insultante de FeCal , que justificaba por tratarse de un acrónimo construido con las primeras letras de su nombre y apellido. "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 175,
+        "end_char": 349,
+        "text": "Definitivamente, a la izquierda mexicana no le gustaba un aspirante del oficialismo que destilaba elitismo social y económico, y que se expresaba con articulada suficiencia.\n"
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 349,
+        "end_char": 491,
+        "text": "Ahora bien, aunque Calderón no era un candidato especialmente seductor y millones de mexicanos, en particular los de las clases más humildes, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 491,
+        "end_char": 723,
+        "text": "no encontraban motivos para votar al representante de un partido gobernante con un balance de resultados que les parecía negativo, sus posibilidades electorales cobraron ímpetu porque el radicalismo de que hacía gala López Obrador, "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 723,
+        "end_char": 960,
+        "text": "tachado sistemáticamente de populista (el historiador Enrique Krauze fue más allá y le llamó \"mesías tropical\"), suscitaba aprensión y rechazo entre las clases medias y acomodadas de las grandes urbes —con la clamorosa excepción del DF, "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 960,
+        "end_char": 1129,
+        "text": "donde El Peje gozaba de un respaldo masivo— y en los estados más desarrollados del norte. Para estos electores, Calderón proyectaba seguridad, preparación y fiabilidad.\n"
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1129,
+        "end_char": 1298,
+        "text": "A finales de abril, después de que López Obrador rehusara participar en el primero de los dos debates televisados a los que estaban convocados los candidatos cabeceros, "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1298,
+        "end_char": 1461,
+        "text": "el panista tomó la delantera al perredista en los sondeos para luego retroceder levemente. A principios de junio, iniciada la campaña electoral propiamente dicha, "
+      },
+      {
+        "segment_id": "S00009",
+        "start_char": 1461,
+        "end_char": 1659,
+        "text": "los dos líderes se encontraban prácticamente empatados en las intenciones de voto, con oscilaciones en un sentido u otro que prometían la experiencia de unas elecciones extraordinariamente reñidas. "
+      },
+      {
+        "segment_id": "S00010",
+        "start_char": 1659,
+        "end_char": 1822,
+        "text": "El aspirante del PRD desató mucha polémica al esgrimir contra su adversario del PAN unos documentos que supuestamente implicaban a Calderón en actos de nepotismo, "
+      },
+      {
+        "segment_id": "S00011",
+        "start_char": 1822,
+        "end_char": 1944,
+        "text": "abuso de funciones y tráfico de influencias cuando fue director del BANOBRAS y secretario de Energía del Gobierno Federal."
+      }
+    ]
+  },
+  {
+    "schema_version": "locator_index_v1",
+    "source_id": "BOOK-013",
+    "source_sha256": "8278f6eaaceb659d4fd8928072c46884f894d0c9826a1752e6ddbef53739da80",
+    "locator": "extracted HTML block 3",
+    "segments": [
+      {
+        "segment_id": "S00001",
+        "start_char": 0,
+        "end_char": 124,
+        "text": "En 2006 López Obrador, en el cenit de su popularidad a despecho de las acusaciones de extremista, populista y filochavista, "
+      },
+      {
+        "segment_id": "S00002",
+        "start_char": 124,
+        "end_char": 357,
+        "text": "puso en vilo a México y adquirió estrellato internacional con su furibunda denuncia de las elecciones presidenciales que, por los pelos, dieron el triunfo a su contrincante conservador del entonces oficialista PAN, Felipe Calderón , "
+      },
+      {
+        "segment_id": "S00003",
+        "start_char": 357,
+        "end_char": 570,
+        "text": "el sucesor de Vicente Fox . Según los datos oficiales, AMLO perdió por tan solo el 0,56% de los votos. Entonces, el aspirante de la Coalición por el Bien de Todos, desoyendo los llamamientos a la responsabilidad, "
+      },
+      {
+        "segment_id": "S00004",
+        "start_char": 570,
+        "end_char": 806,
+        "text": "clamó contra el \"robo\" que le habían perpetrado, lanzó una multitudinaria campaña de desobediencia civil no violenta y se autoproclamó \"presidente legítimo\", al frente del \"Gobierno alterno\" de México y en lugar del \"espurio\" Calderón. "
+      },
+      {
+        "segment_id": "S00005",
+        "start_char": 806,
+        "end_char": 1040,
+        "text": "Sin embargo, la victoria del panista fue reconocida por toda la comunidad internacional.\nEn 2012, al cabo de seis años de estériles movilizaciones callejeras y de desencuentros con el ala moderada del PRD que vinieron a erosionar sus "
+      },
+      {
+        "segment_id": "S00006",
+        "start_char": 1040,
+        "end_char": 1172,
+        "text": "opciones electorales, López Obrador, empleando un tono algo más sosegado y conciliador, intentó por segunda vez llegar a Los Pinos. "
+      },
+      {
+        "segment_id": "S00007",
+        "start_char": 1172,
+        "end_char": 1360,
+        "text": "Propugnaba un profundo saneamiento democrático para poner fin al \"régimen neoporfirista de corrupción, impunidad y privilegios\", prometía parar el \"neoliberalismo creador de inequidades\", "
+      },
+      {
+        "segment_id": "S00008",
+        "start_char": 1360,
+        "end_char": 1526,
+        "text": "garantizaba el blindaje del gigante petrolero estatal Pemex frente a cualquier proceso de privatización y ponía en solfa la \"falsa alternancia\" entre el PRI y el PAN."
+      }
+    ]
+  }
+]

@@ -38,7 +38,9 @@ def metadata_path(request: SourceIngestRequest) -> Path:
 
 
 def pdf_path(request: SourceIngestRequest) -> Path:
-    return bundle_dir(request) / SIPRI_YEARBOOK_CH7_PDF_NAME
+    canonical = bundle_dir(request) / SIPRI_YEARBOOK_CH7_PDF_NAME
+    staged_name = bundle_dir(request) / "YB24_07_WNF.pdf"
+    return canonical if canonical.is_file() or not staged_name.is_file() else staged_name
 
 
 def read_metadata(path: Path) -> dict[str, Any]:

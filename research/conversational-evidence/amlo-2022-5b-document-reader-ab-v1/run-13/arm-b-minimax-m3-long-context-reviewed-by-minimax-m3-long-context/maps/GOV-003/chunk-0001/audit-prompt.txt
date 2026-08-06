@@ -1,0 +1,170 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+# Verified source map — GOV-003, AMLO / Mexico / 2022 / Chapter 5B
+
+## Document identification
+- Type: official executive press release (financial_report, executive_official_report).
+- Publisher: Secretaría de Hacienda y Crédito Público (SHCP) — B#1 header ("Secretaría de Hacienda y Crédito Público | 30 de enero de 2023 | Comunicado").
+- Release date: 30 de enero de 2023 — B#1 dateline.
+- Reporting period: cierre de 2022 / cuarto trimestre de 2022 — B#1 ("Al cierre del cuarto año de la administración…"), B#5 ("En 2022…"), B#6 (2022 operations).
+- URL: https://www.gob.mx/shcp/prensa/comunicado-no-9-informes-sobre-la-situacion-economica-las-finanzas-publicas-y-la-deuda-publica-al-cuarto-trimestre-de-2022 (B#1 header).
+- Provisional/audited status: not stated in extract; no independent audit reference appears in B#1–B#7.
+
+## 5B.3 — Fiscal aggregates (observed)
+- Ingresos públicos 2022 = 6 billones 595 mil millones de pesos; 422 mil millones de pesos por encima del programa; +2.5% vs 2021; "ligaron dos años de crecimientos consecutivos" — B#4.
+- Gobierno Federal: ingresos adicionales al programa = 632 mil millones de pesos, of which 397 mil millones correspondieron a "la menor recaudación por el estímulo al IEPS de combustibles" — B#4.
+- Ingresos petroleros = 1 billón 482 mil millones de pesos = 5.2% del PIB; "el nivel más alto observado desde 2014"; +18.7% real anual vs 2021 — B#4.
+- ISR = 2 billones 270 mil millones de pesos = 8.0% del PIB; "máximo histórico"; "mayor crecimiento desde 2016, con una tasa anual de 11%" — B#4.
+- IVA = 1 billón 222 mil millones de pesos = 4.3% del PIB; "nivel superior a su promedio histórico de 3.9%" — B#4.
+- Tributarios sin IEPS de combustibles = 13.6% del PIB, "el mayor nivel desde que se tiene registro"; +7.8% real anual vs 2021, "la mayor tasa desde 2016" — B#4. (Draft note: the same paragraph also states +2.5% vs 2021 for total ingresos públicos; the figure is real-nominal as stated, with no reconciliation in the extract — both retained as observed.)
+- Gasto público 2022 = 7 billones 569 mil millones de pesos = 26.5% del PIB; +4.1% real anual; "tres años de crecimientos consecutivos" — B#5.
+- Gasto en protección social +8.7% real; 5.3% del PIB, "nuevo máximo histórico" — B#5.
+- Inversión física +25.2% ("el crecimiento más alto desde el 2009"); 3.3% del PIB ("su nivel más alto desde 2016") — B#5.
+- Participaciones a estados y municipios: "monto más grande desde que se tiene registro"; +7.3% real anual — B#5.
+- Balance primario: déficit 0.5% del PIB — B#5.
+- Déficit público: 3.4% del PIB — B#5.
+- RFSP (Requerimientos Financieros del Sector Público): 4.4% — B#5 (presented as a % of PIB per "Como porcentaje del PIB" lead-in).
+
+## 5B.3 — Official-claim flags (no methodology in extract)
+- "manejo responsable de los recursos públicos", "ejercicio eficiente del gasto" — B#1 narrative; not supported by tables in the extract.
+- "resultados favorables" of agregados fiscales — B#5 narrative; underlying figures listed above.
+
+## 5B.7 — Debt metrics (observed)
+- Deuda pública = 49.4% del PIB — B#1.
+- 1.6 pp del PIB menor vs presupuestado 2022; 1.4 pp menor vs 2021 — B#1.
+- Stated cause: "el buen desempeño de los ingresos presupuestarios, que aún después del subsidio al IEPS, fueron mayores a lo presupuestado en 1.5% del PIB" — B#1.
+- Debt described as "nivel estable" (B#1) and "sostenible y menor al observado en 2021" (B#5).
+- Composition / gross-vs-net / domestic-vs-external / FX exposure / maturity profile: not stated in extract beyond the issuance/repurchase operations noted in 5B.9. Flagged gap.
+
+## 5B.7 — Qualifications / gaps
+- Scope of government covered: not explicit; extract uses "deuda pública" (B#1) and "sector público" (B#5, B#6) labels. No statement of consolidated central-government vs general-government vs broader public-sector perimeter.
+- Net debt, FX composition, debt service, interest costs: not stated in extract.
+- "menor exposición a distorsiones provenientes del tipo de cambio o las tasas de interés" (B#5) — narrative, no figures.
+
+## 5B.9 — Financing / market operations (observed)
+- 7 oct 2022: subasta de compra por 68 mil 17 millones de pesos (vencimientos 2023–2046) + subasta de venta de 48 mil 596 millones de pesos de Bonos y Udibonos — B#6.
+- 30 nov 2022: "tercera colocación de Bondes G" — 1 año 7 mil 90 millones; 2 años 2 mil 660 millones; 3 años 250 millones — B#6.
+- 7 dic 2022: nuevo Bono M, vto mayo 2033, 12 mil 500 millones de pesos, cupón 7.5% — B#6.
+- 8 dic 2022: colocación Bonos M vto 2033 y 2053, 50 mil 863 millones de pesos + recompra Bonos M vto 2029–2047 — B#6.
+- Forward claim: "Para 2023, y los subsecuentes dos años, las presiones de deuda se redujeron en promedio 73%, debido a distintas operaciones de recompra. De esta manera se liberaron recursos por 3 mil millones de dólares para la siguiente administración" — B#6. Flag: 73% / USD 3 mil millones figure is not reconciled to specific tables in the extract; treat as official claim.
+- "21 reconocimientos internacionales" por estrategia de manejo de deuda; "grado de inversión y una perspectiva estable de parte de las 8 calificadoras" — B#6. No list or agency names provided.
+
+## Macro context supporting 5B.1 / 5B.6 (observed)
+- Crecimiento acumulado a noviembre 2022: 2.9% — B#2.
+- Tasas de desempleo 2022: 2.8% total; 2.5% mujeres; "las tasas de desempleo más bajas en 17 años" — B#2.
+- Tasa de desempleo promedio del año: 3.3% — B#3.
+- 2.4 millones de plazas creadas en 2022, "en su mayoría formales" — B#2 (mirrored in B#3).
+- Consumo privado +7.1% a octubre 2022 vs promedio histórico 2.7% — B#2, B#3.
+- Inversión fija bruta +5.5% anual a octubre (vs histórico 1.6%); maquinaria y equipo +12.2% anual (vs histórico 5.0%) — B#3.
+- 753 mil nuevas plazas IMSS; "la tercera más alta desde 1997"; salario promedio real +2.7% anual — B#3.
+- Sexenio dic 2018–dic 2022: 1.3 millones de empleos IMSS — B#3.
+- IED 3T 2022 = USD 32 mil millones, "nivel no visto desde 2013" — B#2.
+- Comercio exterior 2022 = USD 1.2 billones, "máximo histórico" — B#3.
+- Amortiguadores fiscales = USD 262 mil millones (reservas internacionales, Línea de Crédito Flexible FMI, Línea "Swap" con la Reserva Federal de EE.UU., fondos de estabilización) — B#5.
+
+## Sections a stronger model should reopen
+1. Gross-vs-net debt, FX / domestic / external composition, debt service and interest — absent from extract.
+2. Reconciliation of "73% reducción de presiones de deuda" (B#6) with specific debt-service schedules.
+3. Methodology behind "disminución de presiones inflacionarias" and "sorpresas positivas" (B#2).
+4. +2.5% vs 2021 for total ingresos públicos (B#4) vs +7.8% real anual tributarios sin IEPS (B#4) — bases (nominal vs real, scope) not reconciled in extract; both retained as observed.
+5. Independent audit, statistical office, or treasury system citation — none in extract; only SHCP internal attribution "La legalidad, veracidad y la calidad de la información es estricta responsabilidad de la dependencia…" — B#7 (boilerplate).
+
+## Source role notes
+- Executive_official_report: all numerical claims are SHCP-attributed; no third-party auditor cited in extract. Treat comparative/historical rankings as SHCP's own framing.
+- Disclaimers: standard gob.mx portal disclaimer (B#7); no substantive fiscal-risk caveat in extract.
+
+## REOPEN REQUESTS
+- None required for this draft; all retained affirmative claims above have a precise locator into B#1–B#7.
+
+## VERIFIED ADDITIONS
+- None; no decisive omission identified that is both supported by a precise extract passage and required by a supplied chapter lens beyond what the draft already records.
+
+ORIGINAL EXTRACT:
+extracted HTML block 1
+Comunicado No. 9 Informes sobre la Situación Económica, las Finanzas Públicas y la Deuda Pública al cuarto trimestre de 2022 | Secretaría de Hacienda y Crédito Público | Gobierno | gob.mx Interruptor de Navegación
+Trámites
+Gobierno
+English
+Interruptor de Navegación
+Acciones y programas
+Protección de Datos Personales
+Transparencia
+Inicio
+Secretaría de Hacienda y Crédito Público
+Prensa
+Publicaciones Recientes Nuevo 2024-10-17 10:27:00 -0600 Estas son las 22 instituciones que integran el sector hacendario. #HaciendaTambiénEs Nuevo 2019-10-02 12:32:00 -0600 Cursos programados para octubre 2019 Nuevo 2019-08-28 14:11:00 -0600 Acciones en Apoyo a la Economía Nuevo 2019-04-08 16:58:00 -0600 Cursos para licitantes y proveedores Nuevo 2019-03-28 17:32:00 -0600 Próximas fechas de capacitación sobre el uso de CompraNet Aa+ Aa-
+Comunicado No. 9 Informes sobre la Situación Económica, las Finanzas Públicas y la Deuda Pública al cuarto trimestre de 2022
+Secretaría de Hacienda y Crédito Público | 30 de enero de 2023 | Comunicado
+Al cierre del cuarto año de la administración, las finanzas públicas continúan con un manejo responsable de los recursos públicos, un nivel estable de la deuda y un ejercicio eficiente del gasto orientado al bienestar de las familias mexicanas.
+La deuda pública se ubicó en 49.4% del PIB, un nivel menor respecto a lo presupuestado para 2022 y al observado en 2021, en 1.6 y 1.4 puntos porcentuales del PIB, respectivamente. Este resultado fue posible por el buen desempeño de los ingresos presupuestarios, que aún después del subsidio al IEPS, fueron mayores a lo presupuestado en 1.5% del PIB.
+
+extracted HTML block 2
+La economía mexicana mostró en 2022 un mejor desempeño que el esperado por los analistas al acumular un crecimiento de 2.9% a noviembre, apoyado por el buen desempeño del mercado laboral, el consumo y la inversión privada.
+Al cierre de 2022, se registraron las tasas de desempleo más bajas en 17 años: 2.8% en el total y 2.5% para las mujeres, debido a la creación de 2.4 millones de plazas de trabajo en 2022, en su mayoría formales. La mejora en las condiciones laborales contribuyó a que el consumo privado acumulara hasta octubre de 2022 un crecimiento de 7.1%, tasa superior en más del doble a su promedio histórico.
+La confianza en la economía mexicana por parte de los inversionistas extranjeros logró que, al 3er trimestre de 2022, el flujo de inversión extranjera directa (IED) fuera de 32 mil millones de dólares, nivel no visto desde 2013.
+Resumen ejecutivo
+Al cierre de 2022, las disrupciones en las cadenas de suministro y los costos de transporte disminuyeron, lo cual aminoró las presiones inflacionarias.
+Se observaron sorpresas positivas en indicadores oportunos y adelantados de las principales economías del mundo, las cuales han llevado a los analistas a mejorar sus estimaciones de crecimiento económico global para 2022.
+Para 2023, el crecimiento de la actividad a nivel mundial podría ser mayor al esperado (actualmente de 2.1% anual), ya que estará apoyado de la reapertura económica de China y los menores precios de materias primas.
+Con respecto a la economía mexicana, el consumo privado acumuló un crecimiento de 7.1% a octubre de 2022, superior a su promedio histórico de 2.7%. En su interior, el consumo de servicios ya recuperó sus niveles previos a la pandemia.
+
+extracted HTML block 3
+La inversión fija bruta acumuló un crecimiento anual de 5.5% a octubre, superior al promedio histórico para un mismo periodo (1.6%). En su interior destacó el alza de 12.2% anual para maquinaria y equipo, también superior a su crecimiento histórico promedio de 5.0%.
+En 2022, la población ocupada creció en 2.4 millones respecto a 2021 y la tasa de desempleo promedio del año fue de las más bajas desde que se tiene registro, al ubicarse en 3.3%.
+En el mismo año, se registraron 753 mil nuevas plazas ante el IMSS, principalmente de carácter permanente. Esta cifra es la tercera más alta desde 1997. La población trabajadora se benefició de un incremento al salario promedio real de 2.7% anual.
+En lo que va del sexenio (dic. de 2018 a dic. de 2022), se han creado 1.3 millones de empleos ante el IMSS, de los cuales la mayoría corresponde a empleo permanente. Esta cifra es superior a las registradas en los sexenios de Felipe Calderón y Vicente Fox para el mismo periodo de tiempo.
+El comercio exterior de México en 2022 alcanzó un máximo histórico de 1.2 billones de dólares, en particular por los niveles máximos de exportaciones manufactureras, así como de las importaciones de bienes intermedios y de capital. Dentro de la IED, las nuevas inversiones registraron el segundo mayor monto después de 2013, de 14 mil millones de dólares.
+Tanto mexicanos como extranjeros están regresando a invertir en el país. Con cifras al tercer trimestre de 2022, se observó un mayor apetito para invertir en México con lo cual se observó una menor salida de capitales por 19 mil millones de dólares respecto a 2021.
+
+extracted HTML block 4
+En materia fiscal, los ingresos públicos se mantuvieron fuertes. En 2022, sumaron 6 billones 595 mil millones de pesos, ubicándose 422 mil millones de pesos por encima del programa. Respecto a 2021, estos aumentaron en 2.5% y ligaron dos años de crecimientos consecutivos.
+En 2022, el Gobierno Federal obtuvo ingresos adicionales al programa en 632 mil millones de pesos, de los cuales 397 mil millones de pesos correspondieron a la menor recaudación por el estímulo al IEPS de combustibles.
+Impulsados por los altos precios del petróleo, los ingresos petroleros ascendieron a 1 billón 482 mil millones de pesos, equivalente a 5.2% del PIB, el nivel más alto observado desde 2014. Con respecto a 2021, se registró un incremento real anual de 18.7%.
+El combate a la evasión fiscal continúa reflejándose positivamente en los ingresos tributarios, sin aumentar o crear impuestos nuevos. Los ingresos tributarios sin IEPS de combustibles llegaron a 13.6% del PIB. Este es el mayor nivel desde que se tiene registro. En comparación con 2021, este rubro aumentó en un 7.8% real anual, la mayor tasa desde 2016.
+Adicionalmente, el incremento en los salarios reales tuvo un efecto positivo sobre la recaudación. Así, el ISR alcanzó un máximo histórico al ubicarse en 2 billones 270 mil millones de pesos (8.0% del PIB). Además, registró el mayor crecimiento desde 2016, con una tasa anual de 11%.
+Por su parte, la recaudación por IVA se ubicó en 1 billón 222 mil millones de pesos, en línea con el fortalecimiento del consumo. Como porcentaje del PIB, alcanzó el 4.3%, nivel superior a su promedio histórico de 3.9%.
+
+extracted HTML block 5
+El gasto del sector público hiló tres años de crecimientos consecutivos. En 2022, el gasto público se incrementó en un 4.1% real anual, alcanzando los 7 billones 569 mil millones de pesos (26.5% del PIB).
+Con el objetivo de atender las necesidades de la población en situación de vulnerabilidad, el gasto en protección social se incrementó en 8.7% real. Como porcentaje del PIB, se ubicó en 5.3%, alcanzando así un nuevo máximo histórico.
+Otra de las prioridades de la administración ha sido la inversión productiva en infraestructura. En esta línea, la inversión física registró el crecimiento más alto desde el 2009 con una tasa de 25.2%. Con ello, alcanzó un nivel de 3.3% del PIB, su nivel más alto desde 2016.
+Las participaciones a estados y municipios alcanzaron el monto más grande desde que se tiene registro con un crecimiento real anual de 7.3%.
+Los agregados fiscales mostraron resultados favorables. Como porcentaje del PIB, el balance primario presentó un déficit de 0.5%, mientras que el déficit público se situó en 3.4%. Por su parte, los Requerimientos Financieros del Sector Público se ubicaron en 4.4%.
+Nuestro país cuenta con un blindaje de amortiguadores fiscales para hacer frente a los choques económicos tanto internos como externos, el cual asciende de manera conjunta a 262 mil millones de dólares. Al interior destacan las reservas internacionales, la Línea de Crédito Flexible con el FMI, la Línea “Swap” con la Reserva Federal de los EE.UU. y los fondos de estabilización.
+Como resultado de los esfuerzos por disminuir el costo de financiamiento y por contar con una menor exposición a distorsiones provenientes del tipo de cambio o las tasas de interés, en 2022 la deuda pública se situó en un nivel sostenible y menor al observado en 2021.
+
+extracted HTML block 6
+Respecto a las operaciones emprendidas en el mercado interno de deuda, el 7 de octubre se llevó a cabo una subasta de compra por 68 mil 17 millones de pesos de deuda con vencimientos entre 2023 y 2046, a la par de una subasta de venta de deuda de largo plazo por 48 mil 596 millones de pesos de Bonos y Udibonos.
+A su vez, el 30 de noviembre se realizó la tercera colocación de Bondes G a plazos de un año por 7 mil 90 millones de pesos, dos años por 2 mil 660 millones de pesos y tres años por 250 millones de pesos.
+Posteriormente, el 7 de diciembre se llevó a cabo una subasta de un nuevo Bono M con vencimiento en mayo de 2033, por un monto de 12 mil 500 millones de pesos y una tasa cupón de 7.5%.
+Por último, el 8 de diciembre se llevó a cabo una colocación de Bonos M con vencimientos en 2033 y 2053 por un monto de 50 mil 863 millones de pesos y una recompra de Bonos M con vencimientos entre 2029 y 2047.
+Para 2023, y los subsecuentes dos años, las presiones de deuda se redujeron en promedio 73%, debido a distintas operaciones de recompra. De esta manera se liberaron recursos por 3 mil millones de dólares para la siguiente administración.
+En los cuatro años de la presente administración, México ha recibido 21 reconocimientos internacionales por la estrategia del manejo de deuda. Además, nuestro país mantiene el grado de inversión y una perspectiva estable de parte de las 8 calificadoras que evalúan la deuda.
+Para obtener información más detallada, se pueden consultar las estadísticas de finanzas y deuda pública en el sitio de internet:
+
+extracted HTML block 7
+http://presto.hacienda.gob.mx/EstoporLayout/estadisticas.jsp
+Documentos
+Comunicado_No Contesta nuestra encuesta de satisfacción. ¿Cómo fue tu experiencia en gob.mx? ¿Fue fácil encontrar lo que buscabas? Muy Fácil Fácil Difícil Muy Difícil ¿De qué estado de la República nos visitas? Siguiente ¿Qué buscabas? Máximo 250 caracteres Siguiente ¿Qué te gustó más?
+Puedes seleccionar más de uno.
+La información es clara y precisa El diseño es agradable Está bien organizado Es sencillo navegar El lenguaje es amigable Siguiente ¿Recomendarías nuestro portal a un amigo o familiar? Si No Finalizar ¿Fue fácil encontrar lo que buscabas? Muy Fácil Fácil Difícil Muy Difícil ¿Qué mejorarías?
+Puedes seleccionar más de una opción.
+Diseño Navegación dentro del sitio Claridad y precisión de la información Organización de los contenidos Lenguaje utilizado Finalizar ¿Qué buscabas? Máximo 250 caracteres Siguiente
+Gracias por tu opinión.
+Compartir Imprime la página completa
+La legalidad, veracidad y la calidad de la información es estricta responsabilidad de la dependencia, entidad o empresa productiva del Estado que la proporcionó en virtud de sus atribuciones y/o facultades normativas.
+Enlaces
+Datos
+Transparencia
+PNT
+Transparencia para el Pueblo
+Alerta
+Denuncia
+¿Qué es gob.mx?
+Es el portal único de trámites, información y participación ciudadana. Leer más
+English
+Declaración de Accesibilidad
+Términos y Condiciones
+Denuncia contra servidores públicos
+Síguenos en

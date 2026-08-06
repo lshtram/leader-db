@@ -1,0 +1,66 @@
+**New Accepted Records**
+- `4B-S086` [Results of the candidates’ nomination for the election of senior officials of the constituent entities of the Russian Federation scheduled for September 10, 2023: the haunting spectres](https://golosinfo.org/en/articles/146525) | publisher: Golos | date: 2023-09-04 | canonical URL: `https://golosinfo.org/en/articles/146525` | source type: election monitoring | language: `en` | source confidence: high, because it is a detailed monitoring report on 2023 gubernatorial nominations with explicit competition and pressure findings | final evidence use: managed nomination, low competition, and systemic pressure on opposition candidates | locator/excerpt: `turn4view0` L54-L61, L1482-L1482 | factual claims: 2023 gubernatorial races had the lowest formal competition since at least 2018; on average 5.2 candidates per region were nominated; strong opposition candidates were often absent or only imitation candidates remained; federal authorities were pressuring systemic opposition parties | temporal fit: direct target-period evidence | ruler attribution: federal center, regional administrations, party system management, and election authorities under Putin | inherited/context limits: monitoring analysis, not a court record | contrary considerations: a few regions remained competitive, but the report treats this as exceptional | lenses: `4B.1, 4B.2, 4B.3, 4B.8, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos Sept-2023 nomination report
+
+- `4B-S087` [Results of nomination and registration of candidates for the major elections of deputies to representative bodies scheduled for September 10, 2023: a chronicle of species extinction](https://golosinfo.org/en/articles/146594) | publisher: Golos | date: 2023-09-05 | canonical URL: `https://golosinfo.org/en/articles/146594` | source type: election monitoring | language: `en` | source confidence: high, because it documents candidate attrition and registration losses in the 2023 legislative races | final evidence use: candidate-registration bottlenecks and controlled party competition | locator/excerpt: `turn4view3` L14-L18, L70-L79, L82-L82 | factual claims: willingness of parties and politicians to participate declined sharply; self-nominated candidates dropped from 94 to 21 after registration denials or loss of status; opposition candidates reported pressure and police resistance during signature collection | temporal fit: direct target-period evidence | ruler attribution: election commissions, regional authorities, police pressure, and the federal political environment | inherited/context limits: monitoring analysis with some region-specific detail | contrary considerations: some candidates did survive registration, so the report is about distortion rather than total closure | lenses: `4B.1, 4B.2, 4B.3, 4B.8, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos candidate-registration report
+
+- `4B-S088` [Election campaigning and administrative mobilization of voters for elections on single voting day on September 10, 2023: elections with sticks, not carrots](https://golosinfo.org/en/articles/146597) | publisher: Golos | date: 2023-09-07 | canonical URL: `https://golosinfo.org/en/articles/146597` | source type: election monitoring | language: `en` | source confidence: high, because it directly addresses administrative mobilization, coercion, and party-state fusion in campaigning | final evidence use: administrative pressure and state-party fusion during campaigning | locator/excerpt: `turn3view3` L122-L124 | factual claims: electronic voting was framed as incentivized and coerced participation; most regions relied on direct administrative coercion under threat of disciplinary sanctions; the campaign could not be treated as equal and free | temporal fit: direct target-period evidence | ruler attribution: regional administrators, federal political leadership, and pro-regime campaign structures | inherited/context limits: monitoring analysis, not a legal transcript | contrary considerations: the report includes some campaign mechanics beyond coercion, but the coercive pattern dominates | lenses: `4B.2, 4B.3, 4B.5, 4B.8, 4B.9, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos campaigning report
+
+- `4B-S089` [Express overview of public observation on the first day of voting on September 8, 2023](https://golosinfo.org/en/articles/146601) | publisher: Golos | date: 2023-09-09 | canonical URL: `https://golosinfo.org/en/articles/146601` | source type: election monitoring | language: `en` | source confidence: high, because it provides same-day observation data on coercion, remote electronic voting, and observer restrictions | final evidence use: first-day coercion, remote-voting pressure, and observer interference | locator/excerpt: `turn6view0` L18-L25, L28-L42 | factual claims: voters were coerced to vote, including through digital/geo-based remote voting; electronic terminals froze; paper ballots were withheld; ballot stuffing and carousel voting were reported; observers and journalists were blocked or detained | temporal fit: direct target-period evidence | ruler attribution: election commissions, police, administrators, and state-linked voting systems | inherited/context limits: same-day observation report, so it captures only a slice of the election process | contrary considerations: some voters still used paper ballots and observers continued reporting, but under constraint | lenses: `4B.2, 4B.3, 4B.5, 4B.8, 4B.9, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos first-day observation report
+
+- `4B-S090` [Express overview of public observation on the second day of voting on September 9 and on the morning of September 10, 2023](https://golosinfo.org/articles/146604) | publisher: Golos | date: 2023-09-10 | canonical URL: `https://golosinfo.org/articles/146604` | source type: election monitoring | language: `en` | source confidence: high, because it records same-campaign coercion, electronic-voting malfunctions, fraud, and violence | final evidence use: continued coercion, electronic-voting problems, and direct election fraud | locator/excerpt: `turn1view0` L18-L25, L35-L46, L55-L60, L64-L72 | factual claims: remote voting systems malfunctioned; voters were coaxed to vote electronically; carousel voting and ballot stuffing were reported; home voting was manipulated; violence and detentions targeted voters, observers, media, and candidates | temporal fit: direct target-period evidence | ruler attribution: election commissions, police, administrators, and state-linked coercion structures | inherited/context limits: observation report, not a prosecutor’s case file | contrary considerations: some procedures still operated formally, but the violations were widespread and systematic | lenses: `4B.2, 4B.3, 4B.5, 4B.8, 4B.9, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos second-day observation report
+
+- `4B-S091` [Statement on the election observation results for the single voting day of September 10, 2023](https://golosinfo.org/articles/146608) | publisher: Golos | date: 2023-09-11 | canonical URL: `https://golosinfo.org/articles/146608` | source type: election monitoring | language: `en` | source confidence: high, because it is the movement’s formal end-of-campaign assessment with explicit conclusions on freedom/fairness | final evidence use: consolidated assessment that the 2023 elections were less free and fair than the already weak 2018 baseline | locator/excerpt: `turn3view0` L42-L45; `turn3view1` L87-L93 | factual claims: the 2023 elections were even less free and fair; centralized propaganda, censorship, administrative resources, and coercion were pervasive; election commissions lost independence; state and budgetary bodies campaigned for incumbents | temporal fit: direct target-period evidence | ruler attribution: federal and regional authorities, election commissions, and the United Russia power structure | inherited/context limits: advocacy/monitoring synthesis rather than a primary legal source | contrary considerations: Golos still notes formal constitutional language, but says it was not functioning in practice | lenses: `4B.1, 4B.2, 4B.3, 4B.4, 4B.8, 4B.9, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos end-of-cycle statement
+
+- `4B-S092` [Map of Violations 2023: The findings](https://golosinfo.org/en/articles/146612) | publisher: Golos | date: 2023-09-14 | canonical URL: `https://golosinfo.org/en/articles/146612` | source type: election monitoring | language: `en` | source confidence: high, because it quantifies violations across the campaign and voting period and breaks them into categories | final evidence use: quantified election abuses, administrative coercion, observer suppression, and fraud | locator/excerpt: `turn5view1` L15-L17, L23-L29, L33-L40, L66-L75, L77-L80 | factual claims: 1,097 violation messages were published; administrative resource abuse, pressure from superiors, unlawful refusals to register, coercion to vote, ballot stuffing, coercion in voting, and violations of observer rights were widespread; police and law enforcement were active participants | temporal fit: direct target-period evidence | ruler attribution: election commissions, police, regional and municipal authorities, and the Kremlin-aligned political system | inherited/context limits: crowdsourced monitor, so counts are conservative and reflect reporting intensity | contrary considerations: the report itself warns that report counts vary with observer activity and do not capture all misconduct | lenses: `4B.2, 4B.3, 4B.5, 4B.8, 4B.9, 4B.10` | opened status: `opened_accepted` | duplicate-family note: unique Golos violations map
+
+**Requested-ID Disposition Ledger**
+- `4B-C041`: `opened_accepted`
+- `4B-C042`: `opened_accepted`
+- `4B-C043`: `opened_accepted`
+- `4B-C044`: `opened_accepted`
+- `4B-C045`: `opened_accepted`
+- `4B-C046`: `opened_accepted`
+- `4B-C047`: `opened_accepted`
+- `4B-C048`: `access_blocked`
+- `4B-C049`: `access_blocked`
+- `4B-C050`: `access_blocked`
+- `4B-C051`: `access_blocked`
+- `4B-C052`: `access_blocked`
+- `4B-C053`: `rejected_duplicate`
+- `4B-C054`: `rejected_duplicate`
+- `4B-C055`: `access_blocked`
+- `4B-C056`: `access_blocked`
+- `4B-C057`: `access_blocked`
+- `4B-C058`: `access_blocked`
+- `4B-C059`: `access_blocked`
+- `4B-C060`: `access_blocked`
+
+**Cumulative Counts**
+- This tranche: `opened_accepted` 7
+- This tranche: `access_blocked` 11
+- This tranche: `rejected_duplicate` 2
+- This tranche: `opened_context` 0
+- This tranche: `opened_rejected` 0
+- This tranche: `rejected_irrelevant` 0
+- This tranche: `rejected_weak` 0
+- This tranche: `rejected_temporal` 0
+- This tranche: `deferred_lower_priority` 0
+
+**Per-Lens Counts**
+- `4B.1`: 3
+- `4B.2`: 7
+- `4B.3`: 7
+- `4B.4`: 1
+- `4B.5`: 4
+- `4B.6`: 0
+- `4B.7`: 0
+- `4B.8`: 7
+- `4B.9`: 5
+- `4B.10`: 7
+
+**Remaining Gaps**
+- `4B.1` is still thin on direct evidence of accepting genuinely contestable elections; current material mostly shows managed nomination and registration rather than explicit self-binding.
+- `4B.4` remains weak on affirmative strengthening of independent courts, legislatures, audit bodies, and oversight institutions.
+- `4B.6` has not improved in this tranche because the strongest items here are election-monitoring sources rather than independent media-specific evidence.
+- `4B.7` remains underdeveloped on affirmative political equality; this tranche mostly shows coercion and exclusion rather than protective inclusion.
+- `4B.8` is still sparse on lawful succession, term-limit restraint, and transfer rules beyond the broader election-management record.

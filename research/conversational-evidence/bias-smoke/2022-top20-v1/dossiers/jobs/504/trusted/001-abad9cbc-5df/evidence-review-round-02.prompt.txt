@@ -1,0 +1,693 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "1B.1",
+  "1B.10",
+  "1B.2",
+  "1B.3",
+  "1B.4",
+  "1B.5",
+  "1B.6",
+  "1B.7",
+  "1B.8",
+  "1B.9",
+  "2B.1",
+  "2B.10",
+  "2B.2",
+  "2B.3",
+  "2B.4",
+  "2B.5",
+  "2B.6",
+  "2B.7",
+  "2B.8",
+  "2B.9",
+  "3B.1",
+  "3B.10",
+  "3B.2",
+  "3B.3",
+  "3B.4",
+  "3B.5",
+  "3B.6",
+  "3B.7",
+  "3B.8",
+  "3B.9",
+  "4B.1",
+  "4B.10",
+  "4B.2",
+  "4B.3",
+  "4B.4",
+  "4B.5",
+  "4B.6",
+  "4B.7",
+  "4B.8",
+  "4B.9",
+  "5B.1",
+  "5B.10",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "6B.1",
+  "6B.10",
+  "6B.2",
+  "6B.3",
+  "6B.4",
+  "6B.5",
+  "6B.6",
+  "6B.7",
+  "6B.8",
+  "6B.9",
+  "7B.1",
+  "7B.10",
+  "7B.2",
+  "7B.3",
+  "7B.4",
+  "7B.5",
+  "7B.6",
+  "7B.7",
+  "7B.8",
+  "7B.9",
+  "8B.1",
+  "8B.10",
+  "8B.2",
+  "8B.3",
+  "8B.4",
+  "8B.5",
+  "8B.6",
+  "8B.7",
+  "8B.8",
+  "8B.9"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:2022-bias-aware-top20-v1:2022:VNM:19647",
+  "iso3": "VNM",
+  "country_name": "Vietnam",
+  "ruler_name": "Nguy\u1ec5n Ph\u00fa Tr\u1ecdng",
+  "period_start_year": 2022,
+  "period_end_year": 2022
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "observed_chapter_ids": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "approximate_locator_count": 10,
+  "approximate_source_family_count": 10,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": true,
+  "findings": [
+    {
+      "check_id": "low_locator_yield",
+      "message": "Only 10 unique locators were observed; the soft review threshold is 40."
+    },
+    {
+      "check_id": "low_source_family_yield",
+      "message": "Only 10 approximate source families were observed; the soft review threshold is 24."
+    }
+  ]
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "researcher_receives_complete_selected_guides": true,
+  "local_facts_before_internet": true,
+  "researcher_direct_iterative_search": true,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Research pass completed. Files could not be written because the workspace is read-only; the complete handoff is below for parent persistence.
+
+### Reconnaissance
+
+- Nguyễn Phú Trọng held the dominant party position in 2022; Freedom House records his exceptional third-term reelection and CPV control over executive selection and elections. [Freedom House](https://freedomhouse.org/country/vietnam/freedom-world/2022)
+- The information environment was closed: censorship, activist persecution, controlled elections, and limited independent scrutiny were documented by Freedom House, HRW, Amnesty, and the US State Department. [HRW](https://www.hrw.org/news/2022/02/17/vietnam-activists-movements-blocked), [US State Department report](https://www.ecoi.net/en/document/2089144.html)
+- Authority was formal and practical through the CPV, Politburo, Central Committee, and anti-corruption steering apparatus. In November 2022, Trọng chaired the central anti-corruption body and reviewed hundreds of cases and senior disciplinary actions. [Vietnam Government Portal](https://xaydungchinhsach.chinhphu.vn/toan-van-ket-luan-cua-tong-bi-thu-nguyen-phu-trong-tai-cuoc-hop-phong-chong-tham-nhung-tieu-cuc-119221118204327577.htm)
+
+### Provisional evidence register
+
+- E001 — third-term party authority and institutional control; Freedom House.
+- E002 — 2022 human-rights conditions; US State Department.
+- E003 — CPV-controlled elections and no realistic opposition transfer; Freedom House.
+- E004 — censorship, activist persecution, and information suppression; Freedom House.
+- E005 — more than 170 activists and family members subjected to travel bans, house arrest, or detention; HRW.
+- E006 — alleged beating, solitary confinement, and shackling of Trịnh Bá Tư in September 2022; Amnesty.
+- E007 — Trọng’s November 2022 anti-corruption meeting, directives, investigations, and disciplinary actions; Vietnamese Government Portal.
+- E008 — AP retrospective identifying anti-corruption as Trọng’s hallmark and the general secretary as Vietnam’s most powerful office; AP.
+- E009 — World Bank assessment of Vietnam’s explicit high-income strategy and uneven policy implementation; World Bank.
+- E010 — 2022 economic recovery, growth, inflation, and social-safety-net requirements; World Bank.
+- E011 — IMF description of the 2022–23 recovery package, including health, infrastructure, green investment, and social protection; IMF.
+- E012 — poverty reduction with continuing inequality, informality, and regional vulnerability; World Bank.
+- E013 — UNICEF 2022 results: high COVID vaccination, declining routine immunization, rural/ethnic disparities, child-protection gaps, and increased violence risks; UNICEF.
+- E014 — 2022 child health and education indicators; UNICEF Data.
+- E015 — Vietnam’s NPT safeguards and Additional Protocol status; IAEA.
+- E016 — Vietnam’s declaration that it does not possess or host nuclear weapons; ICAN treaty summary, context only.
+- E017 — June 2022 protest against China’s Paracel military drill and invocation of UNCLOS, DOC, and peaceful settlement; Vietnamese Government Portal.
+- E018 — World Bank poverty/equity assessment and social-protection gaps.
+- E019 — Cambridge academic discussion of political protection in Vietnam’s anti-corruption campaign; context/contrary hypothesis requiring deeper source review.
+
+### Chapter yield
+
+| Chapter | Local baseline and web yield | Main gaps |
+|---|---|---|
+| 1B | No nuclear arsenal facts locally. IAEA safeguards and Vietnam’s non-nuclear declaration establish limited exposure only. | No target-period ruler-specific nuclear, cyber, biological, AI, command-safety, or existential-risk choice. |
+| 2B | Local SIPRI 2022 spending: $7.31bn, 1.72% GDP, 9.43% of government spending. E017 documents diplomatic handling of a South China Sea incident. | No attributable war initiation, civilian-harm, proxy, arms-recipient, Ukraine-diplomacy, or accountability evidence. |
+| 3B | Local 2022 CIRIGHTS/V-Dem/PTS facts show repression and physical-integrity concerns. E002, E005, E006 add detention, movement restrictions, and alleged prison abuse; E013 supplies mitigating child-protection activity and contrary welfare evidence. | Direct orders, incitement, minority violence, independent remedies, security-force oversight, and crisis-response attribution. |
+| 4B | Extensive local evidence: one-party rule, zero multiparty institutions, low electoral-democracy/liberal-democracy values, poor press-freedom position, and low voice/accountability. E001–E004 corroborate institutional and censorship mechanisms. | Specific 2022 decisions involving courts, media, surveillance, appointments, succession, and minority political equality. |
+| 5B | Local 2022 GDP, PPP income, Gini, consumption, and investment facts; E009–E012/E018 document recovery, poverty reduction, institutional weaknesses, inequality, and implementation gaps. | Trọng-specific economic appointments, market rules, corruption/capture nexus, correction of mistakes, inflation response, and household-level attribution. |
+| 6B | Local HDI, life expectancy, schooling, mortality, vaccination, literacy, and enrollment facts. E013–E014 show strong vaccination and education/health outcomes alongside routine-immunization decline, disparities, and protection gaps. | Direct ruler-attributed service decisions, affordability/quality, regional distribution, political conditionality, and durability beyond party institutions. |
+| 7B | Local corruption indicators are country context only. E007 is direct evidence of Trọng’s anti-corruption leadership; E008 supports campaign reach; E019 provides a possible political-protection counterinterpretation. | Personal assets, family/business benefit, truthful statements, corrections, appointments, retaliation, independent scrutiny, and personal enrichment. |
+| 8B | Local governance and outcome trends plus E007 and E009–E014 show explicit development/anti-corruption programs, recovery measures, mobilization, and mixed implementation. | Trọng-specific personnel choices, coordination, adaptation, implementation milestones, portfolio breadth, and durable causal attribution. |
+
+### Local-data audit
+
+Retained as context:
+
+- 2B: LF077–LF080 and related SIPRI boundary signals.
+- 3B: LF277–LF286, LF370–LF373 and related longitudinal signals.
+- 4B: LF570–LF585, LF871–LF885 and related political-freedom signals.
+- 5B: LF1027–LF1033, LF1255–LF1261 and related economic signals.
+- 6B: LF1346–LF1355 and related welfare signals.
+- 7B: LF1439–LF1442.
+- 8B: LF1483–LF1484 plus relevant outcome indicators.
+
+Other supplied rows were unused because they were redundant boundary observations, non-target context, or lacked a direct connection to the researched theme. No client-matrix material was used.
+
+No scores, score ranges, ranking recommendations, or null recommendations were assigned.
+
+--- EVIDENCE REVIEW ROUND 1 ---
+
+{
+  "schema_version": "ruler_evidence_review_v1",
+  "needs_continuation": true,
+  "selected_theme_ids": [
+    "1B"
+  ],
+  "chapter_reviews": [
+    {
+      "chapter_id": "1B",
+      "defensible_evidence_estimate": 1,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The evidence is mostly country-status context, not ruler-period claim units.",
+        "The notebook does not map evidence to the selected 1B lenses or identify precise supporting locators for each claim."
+      ],
+      "missing_themes": [
+        "Target-period ruler-specific nuclear, cyber, biological, AI, command-safety, and existential-risk decisions",
+        "Attribution of authority, knowledge, tolerance, or corrective action"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Not demonstrated. The notebook reports status and safeguards material but no balanced favorable/adverse ruler-specific search.",
+        "closed_system_silence": "High risk: the closed information environment may conceal sensitive capabilities, incidents, or internal deliberation.",
+        "open_system_complaint_volume": "Not materially applicable; the principal risk is hidden conduct rather than inflated complaint volume.",
+        "duplicate_reporting": "No clear duplicate coverage, but E015 and E016 are contextual status claims rather than independent evidence of ruler conduct.",
+        "allegations_vs_findings": "No ruler-specific nuclear, cyber, biological, AI, command-safety, or existential-risk conduct is documented. Vietnam's non-nuclear status is a country fact, not evidence of Trọng's personal integrity or decisions.",
+        "official_claim_independence": "E016 is a treaty-summary/context source and does not independently verify governmental declarations or internal practice.",
+        "population_exposure_authority_baseline_shocks": "Exposure and national baseline are addressed only generally; Trọng's authority, inherited risk, and external shocks are not connected to a target-period decision.",
+        "missing_source_type": "Missing target-period official policy records, specialist security reporting, and independent investigative or expert sources on prohibited-capability and command-safety decisions.",
+        "supporting_evidence_ids": [
+          "E015",
+          "E016"
+        ],
+        "unresolved_risks": [
+          "No attributable target-period conduct evidence.",
+          "Country-level non-possession facts cannot establish personal responsibility or integrity."
+        ]
+      }
+    },
+    {
+      "chapter_id": "2B",
+      "defensible_evidence_estimate": 2,
+      "independent_source_family_estimate": 2,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The 2B handoff contains one official event and contextual spending data, insufficient for fair governing-conduct coverage across the selected lenses.",
+        "The notebook does not establish whether adverse military evidence was searched in local-language or specialist sources."
+      ],
+      "missing_themes": [
+        "War initiation and termination",
+        "Civilian harm and accountability",
+        "Proxy, arms-recipient, Ukraine-diplomacy, and security-policy conduct",
+        "Authority and attribution for military decisions"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Not demonstrated. One favorable diplomatic-management example is present, but adverse and contrary searches for military conduct, harm, and accountability are not shown.",
+        "closed_system_silence": "High risk for military decisions, civilian harm, and internal accountability because independent access and scrutiny are limited.",
+        "open_system_complaint_volume": "Complaint-volume inflation is not the main demonstrated risk; closed access may instead suppress harm reporting.",
+        "duplicate_reporting": "No clear duplicated fact is identified, but local SIPRI observations and E017 are distinct country/context claims and should not be treated as broad evidence of leadership quality.",
+        "allegations_vs_findings": "E017 documents an official diplomatic position and protest, not a finding about Trọng's personal conduct or the consequences of the policy. No attributable war initiation, civilian harm, proxy activity, arms-recipient conduct, or accountability evidence is supplied.",
+        "official_claim_independence": "E017 is a Vietnamese Government Portal account and lacks an independent check of the underlying incident, intent, or effectiveness.",
+        "population_exposure_authority_baseline_shocks": "Spending and a maritime incident are noted, but civilian exposure, Trọng's formal/practical authority, inherited security posture, and external regional shocks are not integrated.",
+        "missing_source_type": "Missing independent conflict-monitoring, military-policy, civilian-harm, arms-transfer, and accountability sources with target-period locators.",
+        "supporting_evidence_ids": [
+          "E017",
+          "LF077",
+          "LF080"
+        ],
+        "unresolved_risks": [
+          "No evidence for most selected 2B lenses.",
+          "Official diplomatic reporting is not independently corroborated.",
+          "The local SIPRI figures are country-level and do not establish ruler attribution."
+        ]
+      }
+    },
+    {
+      "chapter_id": "3B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Several IDs bundle multiple rights claims and may require deterministic splitting before use.",
+        "Country-level CIRIGHTS, V-Dem, and PTS signals cannot by themselves attribute conduct to Trọng.",
+        "The alleged prison abuse is not a finding and must not be treated as one."
+      ],
+      "missing_themes": [
+        "Direct orders, incitement, or knowledge",
+        "Minority and group-specific violence",
+        "Security-force oversight and independent remedies",
+        "Crisis-response attribution",
+        "Contrary evidence beyond child-protection and welfare activity"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Adverse rights reporting is present, and E013 supplies contrary welfare evidence, but favorable and adverse searches for remedies, oversight, and crisis response are not documented as systematic.",
+        "closed_system_silence": "Very high risk: censorship, detention, and limited independent scrutiny can conceal abuses, especially by security services and in minority or rural settings.",
+        "open_system_complaint_volume": "Lower complaint visibility limits inflation concerns, but selected activist cases may overrepresent documented opponents because closed conditions suppress the broader denominator.",
+        "duplicate_reporting": "E002, E004, and E005 may overlap on repression and restrictions; the notebook does not provide locator-level deduplication or show whether repeated reporting reflects one underlying case.",
+        "allegations_vs_findings": "E006 is explicitly an allegation of abuse, not a finding. E002 and E005 report documented conditions or reported restrictions, but the handoff does not consistently distinguish state findings, credible allegations, and ruler-attributed responsibility.",
+        "official_claim_independence": "E002 is an external government report, but official Vietnamese claims and any state explanations are not presented with independent checks. E013 is independent sectoral evidence but not a check on coercive conduct.",
+        "population_exposure_authority_baseline_shocks": "Some population and welfare context appears in E013/E014, but exposure by group, Trọng's authority over institutions, inherited repression, and COVID or other shocks are not consistently separated.",
+        "missing_source_type": "Missing independent court or oversight records, verified incident investigations, local-language reporting, security-force accountability records, and minority-specific evidence.",
+        "supporting_evidence_ids": [
+          "E002",
+          "E005",
+          "E006",
+          "E013",
+          "E014",
+          "LF277",
+          "LF286",
+          "LF370",
+          "LF373"
+        ],
+        "unresolved_risks": [
+          "Ruler attribution for subordinate abuse and detention is not established.",
+          "E006 remains allegation-level.",
+          "Remedy, oversight, minority, and crisis-response evidence is materially incomplete."
+        ]
+      }
+    },
+    {
+      "chapter_id": "4B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "medium",
+      "substantive_issues": [
+        "The chapter has substantial country-level indicators but insufficient ruler-period event evidence.",
+        "E001, E003, and E004 should not be treated as independent corroboration merely because they have separate IDs."
+      ],
+      "missing_themes": [
+        "Specific target-period institutional decisions",
+        "Courts, media, surveillance, appointments, succession, and minority political equality",
+        "Favorable institutional evidence and independent checks"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Structural adverse evidence is present, but favorable evidence concerning institutional performance, legal constraints, or meaningful reforms is not shown, and search breadth is unclear.",
+        "closed_system_silence": "High risk: controlled elections, censorship, and restricted scrutiny can hide opposition, judicial, media, and surveillance abuses.",
+        "open_system_complaint_volume": "Complaint-volume exaggeration is less likely than undercounting because the system is closed, but opposition and rights-source selection could still overrepresent visible dissident cases.",
+        "duplicate_reporting": "E001, E003, and E004 are all from Freedom House and may repeat the same institutional assessment; they should not count as independent source families or separate corroboration without claim-level separation.",
+        "allegations_vs_findings": "E001 and E003 support institutional findings about CPV control and elections; E004 describes censorship and persecution. The handoff generally presents these as documented conditions, but it does not separate institutional findings from individual allegations or establish Trọng's responsibility for each mechanism.",
+        "official_claim_independence": "The notebook does not present official government claims or independent checks of them. Freedom House provides external assessment but is not a substitute for primary records on specific 2022 decisions.",
+        "population_exposure_authority_baseline_shocks": "National political-freedom indicators are present, but exposure across groups, Trọng's appointment and command authority, inherited one-party baseline, and external shocks are not adequately disaggregated.",
+        "missing_source_type": "Missing primary legal and institutional records, independent election observation, court records, media-regulator records, and local-language civil-society or investigative reporting.",
+        "supporting_evidence_ids": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "LF570",
+          "LF585",
+          "LF871",
+          "LF885"
+        ],
+        "unresolved_risks": [
+          "No specific 2022 decision evidence for courts, media, surveillance, appointments, succession, or minority political equality.",
+          "Freedom House claims are repeated within one source family.",
+          "Formal party authority is clear, but responsibility for each outcome is not fully demonstrated."
+        ]
+      }
+    },
+    {
+      "chapter_id": "5B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 4,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The evidence is outcome-heavy and governance-light.",
+        "Overlapping World Bank material may inflate apparent corroboration unless claim units are deduplicated."
+      ],
+      "missing_themes": [
+        "Trọng-specific economic appointments and market-rule decisions",
+        "Corruption or capture nexus",
+        "Inflation response and correction of mistakes",
+        "Household-level attribution and implementation evidence"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Recovery and development achievements are balanced with inequality and implementation gaps, but searches for corruption, market capture, policy mistakes, and corrective action are not demonstrated.",
+        "closed_system_silence": "Medium to high risk for corruption, capture, procurement, and policy failure because restricted scrutiny may conceal informal influence and household harms.",
+        "open_system_complaint_volume": "Household and informal-sector harms may be underreported; conversely, selected poverty or inequality narratives may exaggerate ruler-specific severity if structural and inherited factors are not separated.",
+        "duplicate_reporting": "E012 and E018 appear to overlap on poverty, equity, and social-protection gaps; the notebook does not establish whether they represent distinct underlying claims.",
+        "allegations_vs_findings": "E009-E012 and E018 describe development, recovery, poverty, inequality, and implementation findings at the country or program level. They do not establish that Trọng personally selected, implemented, corrected, or benefited from the relevant policies.",
+        "official_claim_independence": "E009-E012 are multilateral assessments and therefore relatively independent, but official program claims and Trọng-specific responsibility are not independently checked.",
+        "population_exposure_authority_baseline_shocks": "Population and inequality exposure, inherited institutional weakness, and COVID/recovery shocks are partly addressed. Trọng's authority over economic appointments, market rules, and implementation remains unshown.",
+        "missing_source_type": "Missing procurement and appointment records, firm-level or household-level evidence, audit findings, independent economic journalism, and source-specific/local-language reporting on Trọng's economic authority.",
+        "supporting_evidence_ids": [
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E018",
+          "LF1027",
+          "LF1033",
+          "LF1255",
+          "LF1261"
+        ],
+        "unresolved_risks": [
+          "No direct economic appointment or policy-ownership evidence.",
+          "Country outcomes cannot establish personal causation.",
+          "The notebook does not show searches for contrary economic evidence or correction of mistakes."
+        ]
+      }
+    },
+    {
+      "chapter_id": "6B",
+      "defensible_evidence_estimate": 4,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter relies mainly on national indicators and sectoral reporting.",
+        "E013 and E014 require deterministic splitting and deduplication before reliable lens mapping."
+      ],
+      "missing_themes": [
+        "Direct service-policy decisions and appointments",
+        "Affordability, quality, and regional distribution",
+        "Political conditionality and remedies",
+        "Durability beyond party institutions"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. Strong vaccination and education outcomes are balanced against immunization decline, disparities, and protection gaps, but searches for adverse service experiences, remedies, and affordability are not shown.",
+        "closed_system_silence": "Medium risk: access restrictions and weak scrutiny may hide service exclusion, abuse, affordability problems, or failures affecting vulnerable populations.",
+        "open_system_complaint_volume": "Open complaint volume is likely suppressed; visible child-protection cases could also be non-representative. National outcome indicators do not resolve either direction of bias.",
+        "duplicate_reporting": "E013 and E014 may overlap on child health and education indicators; the notebook does not provide claim-level reconciliation. Local indicators may also repeat the same underlying administrative series.",
+        "allegations_vs_findings": "E013-E014 report sectoral outcomes and gaps, including vaccination, immunization decline, disparities, education, and child protection. These are not evidence that Trọng personally directed or tolerated each condition.",
+        "official_claim_independence": "UNICEF evidence is independent sectoral assessment, but it does not independently verify government explanations or Trọng-specific responsibility.",
+        "population_exposure_authority_baseline_shocks": "Population disparities and COVID-related shocks are partly addressed. Authority, inherited service baselines, affordability, quality, and regional distribution are not sufficiently linked to Trọng.",
+        "missing_source_type": "Missing household surveys, independent health and education audits, service-user or local-language reporting, budget and appointment records, and evidence on remedy and political conditionality.",
+        "supporting_evidence_ids": [
+          "E013",
+          "E014",
+          "LF1346",
+          "LF1355"
+        ],
+        "unresolved_risks": [
+          "No direct ruler-attributed service decisions.",
+          "Outcome improvements may reflect durable party institutions rather than Trọng-specific action.",
+          "Protection and access gaps lack independent remedy evidence."
+        ]
+      }
+    },
+    {
+      "chapter_id": "7B",
+      "defensible_evidence_estimate": 3,
+      "independent_source_family_estimate": 3,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "Chapter 7B requires a personal-integrity nexus, which the notebook does not establish.",
+        "E007 and E008 should not be counted as two independent facts about campaign reach without claim-level separation.",
+        "The official account must not be treated as proof of personal integrity."
+      ],
+      "missing_themes": [
+        "Personal assets, family or business benefit, and enrichment",
+        "Truthful statements and corrections",
+        "Appointments, retaliation, and independent scrutiny",
+        "Verified contrary findings about political protection"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. A favorable integrity/governance narrative and one contrary academic hypothesis are present, but searches for personal enrichment, family/business links, retaliation, and independent scrutiny are not demonstrated.",
+        "closed_system_silence": "Very high risk: closed political and media systems can conceal personal, family, or patronage enrichment and retaliation.",
+        "open_system_complaint_volume": "Complaint and corruption reporting are likely suppressed; the visible campaign may also create selection bias toward prosecuted cases and official successes.",
+        "duplicate_reporting": "E007 and E008 overlap on the anti-corruption campaign's reach and importance; they are distinct source families but may describe the same underlying campaign fact.",
+        "allegations_vs_findings": "E007 documents Trọng's formal anti-corruption leadership, directives, investigations, and disciplinary actions. E008 describes the campaign's prominence. E019 is a contrary political-protection hypothesis, not an established finding. Personal assets, family benefit, truthful statements, and personal enrichment are unsupported.",
+        "official_claim_independence": "E007 is an official Vietnamese Government Portal account and requires independent verification of implementation and motive. E008 provides external corroboration of prominence but not personal integrity. E019 supplies a contrary interpretation, not proof.",
+        "population_exposure_authority_baseline_shocks": "Institutional authority is well indicated, but affected populations, inherited corruption baseline, external shocks, and whether actions benefited Trọng or his network are not addressed.",
+        "missing_source_type": "Missing asset declarations, family and business records, procurement/audit findings, independent investigative reporting, court records, and local-language anti-corruption or patronage research.",
+        "supporting_evidence_ids": [
+          "E007",
+          "E008",
+          "E019",
+          "LF1439",
+          "LF1442"
+        ],
+        "unresolved_risks": [
+          "Personal-integrity nexus is largely absent beyond formal leadership.",
+          "Official anti-corruption claims lack independent implementation and motive checks.",
+          "E019 is a hypothesis requiring deeper verification, not a finding."
+        ]
+      }
+    },
+    {
+      "chapter_id": "8B",
+      "defensible_evidence_estimate": 5,
+      "independent_source_family_estimate": 5,
+      "attribution_risk": "high",
+      "substantive_issues": [
+        "The chapter is outcome-rich but attribution-poor.",
+        "Several evidence IDs cover bundled or overlapping program and outcome claims.",
+        "The handoff does not establish whether target-period governing conduct, rather than institutional continuity or external shocks, produced the outcomes."
+      ],
+      "missing_themes": [
+        "Personnel choices and coordination",
+        "Implementation milestones and adaptation",
+        "Portfolio breadth with ruler-specific ownership",
+        "Durable causal attribution",
+        "Independent checks of official program claims"
+      ],
+      "bias_review": {
+        "favorable_and_adverse_search": "Partial. The handoff includes positive recovery, vaccination, education, and anti-corruption evidence alongside implementation gaps and inequality. It does not show systematic searches for failed initiatives, internal dissent, or corrective adaptation.",
+        "closed_system_silence": "High risk for implementation failures, dissent about policy, corruption, and internal coordination because independent scrutiny is constrained.",
+        "open_system_complaint_volume": "Public complaint volume is likely suppressed. Positive official achievement narratives may also be overvisible, while mixed outcome indicators can exaggerate personal responsibility if institutional and shock effects are not separated.",
+        "duplicate_reporting": "E009-E012 and E018 may overlap on development, poverty, equity, and implementation. E013-E014 may overlap on welfare outcomes. The notebook lacks a global claim-to-locator reconciliation.",
+        "allegations_vs_findings": "E007 and E009-E014 describe official programs, multilateral assessments, and mixed outcomes. They support institutional or program-level findings but do not establish Trọng-specific personnel choices, coordination, adaptation, or durable causation.",
+        "official_claim_independence": "E007 is official and not independently verified. Multilateral sources provide independent outcome context but generally do not verify Trọng's personal causal role or claims of program success.",
+        "population_exposure_authority_baseline_shocks": "Population outcomes, external COVID/recovery shocks, and inherited baselines are partly present. Authority and exposure are not sufficiently connected to specific decisions, implementation ownership, or durable effects.",
+        "missing_source_type": "Missing cabinet/party personnel records, implementation milestones, budgets, independent audits, local-language reporting, organizational process evidence, and outcome attribution studies.",
+        "supporting_evidence_ids": [
+          "E007",
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E018",
+          "LF1483",
+          "LF1484"
+        ],
+        "unresolved_risks": [
+          "No evidence for Trọng-specific personnel choices, coordination, or adaptation.",
+          "Mixed outcomes cannot establish personal causal responsibility.",
+          "Official program claims and implementation milestones lack independent checks.",
+          "Cross-chapter duplication may inflate evidence yield."
+        ]
+      }
+    }
+  ],
+  "global_findings": [
+    "All eight selected chapters contain material research-recoverable gaps; no chapter has a credible saturation or access-blocker explanation sufficient to pass.",
+    "The notebook provides only provisional IDs with approximately four locators and four source families, far below the configured review thresholds; this is a signal of incomplete handoff, not negative ruler evidence.",
+    "Freedom House, multilateral reports, official Vietnamese reporting, and rights organizations provide useful context, but repeated IDs do not automatically represent independent claim units.",
+    "Evidence is frequently country-, institution-, or program-level rather than attributable to Nguyễn Phú Trọng during 2022.",
+    "The notebook does not demonstrate systematic favorable and adverse searching, local-language breadth, precise locator recovery, or complete contrary-evidence coverage.",
+    "E006 is allegation-level; E019 is a contrary hypothesis; neither should be converted into a finding without further verification.",
+    "Continuation should remain bounded to the exact selected lens IDs and should prioritize precise locator recovery, claim splitting and deduplication, attribution facts, contrary sources, and missing event themes.",
+    "No score, score range, ranking recommendation, or null recommendation is present."
+  ],
+  "reviewer_summary": "Continuation is required for every selected chapter. The handoff contains credible contextual evidence and several useful source leads, but it is not yet a defensible chapter-level evidence base: many claims are bundled, source independence is overstated by repeated or overlapping material, ruler attribution is weak outside formal party and anti-corruption authority, and important adverse, favorable, contrary, and event-specific themes remain unsearched or unresolved. Missing evidence is recorded as an uncertainty and bias risk, not as negative evidence about the ruler."
+}
+
+--- RESEARCH CONTINUATION ROUND 1 ---
+
+Review round 1 completed for the explicitly selected scope: Chapter 1B only. No score or score recommendation was assigned.
+
+Filesystem writes were unavailable, so the existing ledger and manifest could not be updated. The continuation entries below are the complete handoff for parent persistence.
+
+### New retained evidence
+
+- **E020 — Vietnam nuclear-safety and nonproliferation policy, 7 June 2022.**  
+  Vietnam’s IAEA delegation described commitments to nuclear safety/security, peaceful atomic energy, nonproliferation controls, incident response, and cautious, transparent development of new nuclear technologies. Official government record; strong for formal state policy, indirect for Trọng attribution. Maps **1B.1, 1B.3, 1B.4, 1B.7, 1B.9, 1B.10**.  
+  [Vietnam Government Portal, lines 177–195](https://baochinhphu.vn/viet-nam-da-co-hanh-lang-phap-ly-nham-ngan-chan-viec-pho-bien-vu-khi-hat-nhan-102220607090612355.htm)
+
+- **E021 — National cybersecurity strategy, 11 August 2022.**  
+  The government strategy established targets through 2025/2030, strengthened Party/state cybersecurity leadership, protected critical infrastructure and data, and required incident-response teams across eleven sectors including defense, energy, health, finance, and government. Official policy record; implementation and ruler-specific ownership remain unverified. Maps **1B.7, 1B.9, 1B.10**.  
+  [Vietnam Government Portal, lines 154–195](https://en.baochinhphu.vn/govt-issues-national-strategy-to-combat-new-cyber-security-challenges-111220811103436282.htm)
+
+- **E023 — Vietnam’s NPT position during the August 2022 Review Conference.**  
+  Vietnam’s delegation supported nuclear disarmament, nonproliferation, peaceful nuclear technology, and strengthening the NPT. This is a state-level diplomatic position, not evidence of a personal Trọng statement or internal command decision. Maps **1B.1, 1B.2, 1B.4, 1B.8, 1B.10**.  
+  [VietnamPlus/VNA, 27 August 2022, lines 11–27](https://en.vietnamplus.vn/vietnam-contributes-to-promoting-npts-role-in-global-security-post236386.vnp)
+
+- **E026 — Cybersecurity powers and censorship risk.**  
+  Contemporary reporting described Vietnam’s cyber-law framework, platform data obligations, content removal, and the use of cybersecurity powers against anti-government material. This is adverse dual-use context, not evidence of cyber-catastrophic conduct. Maps **1B.9** only, with low attribution to Trọng.  
+  [TIME, 2022](https://time.com/6322914/vietnam-tiktok-social-media-censorship/)
+
+- **E027 — External reporting on cyber surveillance and controls.**  
+  The 2022 U.S. human-rights report described monitoring, platform cooperation with security authorities, takedown pressure, and intimidation of bloggers. This supports an information-environment and dual-use-risk caveat, not a finding of catastrophic-risk misuse. Maps **1B.9**.  
+  [U.S. State Department report mirrored by ecoi.net](https://www.ecoi.net/en/document/2089144.html)
+
+### Discovery-only or rejected candidates
+
+- **E022:** UN First Committee coverage of an ASEAN/Vietnam nuclear statement, 14 October 2022. Underlying page timed out; retain as `gateway_only`, not defensible evidence: [UN press release](https://press.un.org/en/2022/gadis3690.doc.htm).
+- **E024:** Ha Kim Ngoc’s August 2022 NPT statement. UN PDF returned 403; retain as `gateway_only`: [UN statement PDF](https://estatements.un.org/estatements/14.0447/20220801/rjE1SLghToJ8/59zCQ8QCX2VM_en.pdf).
+- **E025:** WHO/JICA biosafety and laboratory-capacity materials. These describe general or pre-existing institutional capacity, not a Trọng-period decision; retain as `context` or `rejected` for 1B attribution purposes.
+
+### Lens coverage
+
+Evidence now supports only partial, state-level coverage:
+
+- **Partly supported:** 1B.1, 1B.2, 1B.3, 1B.4, 1B.7, 1B.8, 1B.9, 1B.10.
+- **Weak or unresolved:** 1B.5 and 1B.6, concerning catastrophic-risk shielding and proliferation restraint.
+- **No direct Trọng-specific evidence:** nuclear command decisions, biological-security decisions, AI-risk governance, cyber operations, crisis directives, internal safety incidents, or corrective action.
+
+The exact ruler searches—English and Vietnamese combinations of Nguyễn Phú Trọng with nuclear weapons, nuclear safety, biological security, AI, cyber operations, and command authority—produced no traceable 2022 personal statement, order, appointment, or incident record. This is a documented research gap, not evidence of absence.
+
+### Local-data audit
+
+- **Retained as context:** E015 and E016 from the prior handoff; both establish Vietnam’s safeguards/non-nuclear status but do not attribute conduct to Trọng.
+- **Used as context only:** supplied 1B local package, which contained no direct ruler-period nuclear, cyber, biological, AI, or command-safety facts.
+- **Unused for 1B:** country-level military, rights, governance, economic, and welfare facts because they do not directly answer catastrophic-risk governance.
+
+The main unresolved limitation remains attribution: the new sources establish Vietnam’s formal 2022 posture and cybersecurity architecture, while the closed information environment prevents reliable inference about Trọng’s personal knowledge, direction, tolerance, or correction.
+---

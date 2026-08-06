@@ -130,6 +130,7 @@ def research_build_local_prior_cmd(
     from ..db.engine import build_engine
     from ..db.readiness import DatabaseReadinessError, assert_database_ready
     from ..db.session import default_sqlite_url
+    from ..research.local_prior_query import load_leader_accession_year
     from ..research.local_structured_prior import (
         LeaderPriorMetadata,
         LocalPriorPeriod,
@@ -139,6 +140,18 @@ def research_build_local_prior_cmd(
 
     try:
         period = LocalPriorPeriod(year=year, start_year=start_year, end_year=end_year)
+        engine = build_engine(db_url or default_sqlite_url())
+        accession_year = (
+            load_leader_accession_year(
+                engine,
+                leader_id=leader_id,
+                iso3=iso3.upper().strip(),
+                target_year=max(period.years()),
+                leader_name=leader_name,
+            )
+            if leader_id is not None
+            else None
+        )
         request = LocalStructuredPriorRequest(
             methodology_id=methodology_id,
             iso3=iso3,
@@ -147,9 +160,9 @@ def research_build_local_prior_cmd(
                 name=leader_name,
                 leader_id=leader_id,
                 period_label=period_label,
+                accession_year=accession_year,
             ),
         )
-        engine = build_engine(db_url or default_sqlite_url())
         assert_database_ready(
             engine,
             required_tables=("countries", "country_years", "country_year_facts"),

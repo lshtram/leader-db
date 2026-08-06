@@ -1,0 +1,979 @@
+Audit the normalized source map against the original extract. Ignore prose style and all formatting problems in the original reader output. Count only affirmative evidence claims in claim_count; do not count an explicitly labelled limitation, absence-of-evidence warning, or reopen request as an accepted claim requiring an affirmative locator. Count a locator as usable when it identifies the supporting unit, block, page, section, article, table, or record precisely enough to reopen it. Identify material omitted facts and qualifications separately. An omission makes content_usable false only when it removes or distorts evidence decisive to the chapter questions; otherwise record material_omission=true and explain it without failing usability. A formatting repair is never a content failure. Return the required JSON only.
+
+READER SUMMARY:
+## Source map — GOV-017
+
+**Source:** INEGI, *ENOE/ENOEN 2022Q4 technical note*; official statistical release. Extract covers pp. 1–23. Release date is not stated; reference period is October–December 2022. No retroactive numerical revisions are reported, but population estimates and historical tabulations were updated from 2014 onward (p. 21).
+
+### Atomic claims
+
+- **Official assertion / estimate:** The working-age population was 99,515,795; PEA 60,145,456 (60.4%), employed 58,349,353, and unemployed 1,796,103 (3.0% of PEA) in 2022Q4 (pp. 1–3, 12).
+- **Official comparison:** Versus 2021Q4, PEA increased by 1,383,663, employment by 1,738,142, and unemployment declined by 354,479; these are survey estimates, not administrative counts (p. 3, Table 1).
+- **Definition:** Unemployment requires no work during the reference week, willingness to work, and some job-search activity (p. 12). Suboccupation means need and availability to work more hours (p. 10).
+- **Official estimate:** Suboccupation was 4.4 million, or 7.5% of employed people, versus 10.6% in 2021Q4; seasonally adjusted suboccupation declined 0.1 percentage points from the prior quarter (p. 10).
+- **Definition and estimate:** Broad informal employment includes informal-sector work, unprotected agricultural work, unprotected paid domestic work, and workers lacking social security despite formal units; it totaled 32.157 million, 55.1% of employment, up 548,021 year-on-year (pp. 10–11, Table 5).
+- **Contrary/qualification:** Low unemployment coexists with labor-quality concerns: 30.4% were in “critical conditions of employment,” and 55.1% in broad informal employment (pp. 15–16).
+- **Methodological change:** From 2022Q3, the pandemic-era classification of certain temporarily absent or wanting-to-work people as “available” ended; prior criteria resumed (pp. 3, 22–23). This limits direct interpretation of some year-to-year PNEA comparisons.
+- **Survey design:** Probabilistic, two-stage, stratified cluster sample of private dwellings; five-panel rotation, expansion factors, and quarterly national/state/urban domains (pp. 21–22). Interviews were exclusively face-to-face from 2022Q3 (p. 21).
+- **Adjustment/limits:** Seasonal series use X-13ARIMA-SEATS; salary-based indicators require CPI-equivalent wages and are sensitive to minimum-wage changes (pp. 15, 18, 23). The extract reports no confidence intervals or nonresponse rates.
+- **Attribution limit:** The release describes labor-market estimates and methodology; it does not establish causation, policy effectiveness, ruler intent, competence, or ruler-attributable outcomes.
+
+**Unresolved allegations:** None.  
+**Stronger-model reopen:** pp. 3, 15, 21–23 for comparability, revisions, sampling, and seasonal-adjustment details; tables/annexes for uncertainty estimates.
+
+ORIGINAL EXTRACT:
+page 1
+NOTA TÉCNICA
+El Instituto Nacional de Estadística y Geografía (INEGI) da a conocer los resultados de la
+Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN) correspondientes al
+cuarto trimestre de 2022. Estos se construyen a partir de la nueva estimación de población.
+Diagrama 1
+DISTRIBUCIÓN DE LA POBLACIÓN EN EDAD DE TRABAJAR
+CUARTO TRIMESTRE DE 2022
+Ocupada
+58.3 millones
+Población
+97 %
+Económicamente
+Activa (PEA)
+60.1 millones Desocupada
+Población de
+60.4 % 1.8 millones
+15 años y más
+3 %
+99.5 millones
+Disponible
+5.4 millones
+Población No
+13.7 %
+Económicamente
+Activa (PNEA)
+39.4 millones No Disponible
+39.6 % 34 millones
+86.3 %
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 2
+SITUACIÓN DE LA FUERZA DE TRABAJO
+Durante el cuarto trimestre de 2022, la Población Económicamente Activa (PEA) (la
+población de 15 años y más que en la semana de referencia se encontraba ocupada o
+desocupada) fue de 60.1 millones (una tasa de participación de 60.4 %). Un año antes fue
+de 58.8 millones (59.7 %), lo que significó un incremento de 1.4 millones de personas.
+Al distinguir por sexo, la PEA masculina fue de 35.7 millones, 190 mil personas más respecto
+al cuarto trimestre de 2021. La PEA femenina fue de 24.4 millones, 1.2 millones de personas
+más. Así, 76 de cada 100 hombres en edad de trabajar fueron económicamente activos y,
+en el caso de las mujeres, 46 de cada 100. En comparación con el mismo periodo de 2021,
+estas cifras resultaron mayores en 0.1 y 1.6 puntos porcentuales, respectivamente.
+Gráfica 1
+POBLACIÓN ECONÓMICAMENTE ACTIVA SEGÚN RAZÓN DE ACTIVIDAD Y SEXO
+CUARTO TRIMESTRE DE 2022
+(Millones de personas)
+RAZÓN DE ACTIVIDAD SEXO
+Ocupada
+Mujeres
+58.3
+24.4
+Hombres
+Desocupada 35.7
+1.8
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+En el cuadro 1 se muestran las comparaciones de la PEA y su división en población ocupada
+y desocupada entre el cuarto trimestre de 2021 y el de 2022.
+
+page 3
+Cuadro 1
+POBLACIÓN DE 15 AÑOS Y MÁS SEGÚN CONDICIÓN DE ACTIVIDAD ECONÓMICA,
+OCUPACIÓN, DISPONIBILIDAD PARA TRABAJAR Y SEXO
+Cuarto trimestre Cuarto trimestre
+Diferencias Diferencias
+Condición de actividad económica, ocupación, 2022-2021 2022-2021
+2021 2022 2021 2022
+disponibilidad para trabajar y sexo
+Absolutos Relativos
+Población de 15 años y más 98 484 352 99 515 795 1 031 443 100.0 100.0
+Población económicamente activa (PEA) a/ 58 761 793 60 145 456 1 383 663 59.7 60.4 0.8
+Ocupada b/ 56 611 211 58 349 353 1 738 142 96.3 97.0 0.7
+Desocupada b/ 2 150 582 1 796 103 -354 479 3.7 3.0 -0.7
+Población no económicamente activa (PNEA) a/ 39 722 559 39 370 339 -352 220 40.3 39.6 -0.8
+Disponible */ c/ 7 459 867 5 388 751 -2 071 116 18.8 13.7 -5.1
+No disponible c/ 32 262 692 33 981 588 1 718 896 81.2 86.3 5.1
+Hombres 46 539 862 46 754 291 214 429 100.0 100.0
+Población económicamente activa (PEA) a/ 35 555 690 35 745 640 189 950 76.4 76.5 0.1
+Ocupada b/ 34 289 260 34 695 540 406 280 96.4 97.1 0.6
+Desocupada b/ 1 266 430 1 050 100 -216 330 3.6 2.9 -0.6
+Población no económicamente activa (PNEA) a/ 10 984 172 11 008 651 24 479 23.6 23.5 -0.1
+Disponible */ c/ 2 817 970 1 741 127 -1 076 843 25.7 15.8 -9.8
+No disponible c/ 8 166 202 9 267 524 1 101 322 74.3 84.2 9.8
+Mujeres 51 944 490 52 761 504 817 014 100.0 100.0
+Población económicamente activa (PEA) a/ 23 206 103 24 399 816 1 193 713 44.7 46.2 1.6
+Ocupada b/ 22 321 951 23 653 813 1 331 862 96.2 96.9 0.8
+Desocupada b/ 884 152 746 003 -138 149 3.8 3.1 -0.8
+Población no económicamente activa (PNEA) a/ 28 738 387 28 361 688 -376 699 55.3 53.8 -1.6
+Disponible */ c/ 4 641 897 3 647 624 -994 273 16.2 12.9 -3.3
+No disponible c/ 24 096 490 24 714 064 617 574 83.8 87.1 3.3
+*/ Para la Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN) del tercer trimestre de 2020 al segundo trimestre de
+2022, en este rubro se clasificó a las personas ausentes temporales de una actividad u oficio y a las personas con necesidad o
+deseos de trabajar. A partir del tercer trimestre de 2022, dicho criterio adicional dejó de operar y se retomaron los criterios previos a
+la pandemia en la clasificación de la Población No Económicamente Activa (PNEA) disponible y la PNEA no disponible. Ver nota
+metodológica.
+a/ Valor relativo respecto a la población de 15 años y más
+b/ Valor relativo respecto a la Población Económicamente Activa (PEA)
+c/ Valor relativo respecto a la PNEA
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+La Población No Económicamente Activa (PNEA) agrupa a las personas que no participan
+en la actividad económica ni como ocupadas ni como desocupadas. En el cuarto trimestre
+de 2022, la PNEA fue de 39.4 millones de personas (equivalente a 39.6 % del total de la
+población de 15 años y más de edad), 352 mil menos respecto al mismo trimestre de 2021.
+Al distinguir por sexo, la PNEA de los hombres fue de 11 millones (23.5 %), 24 mil más
+respecto al mismo periodo de 2021. Para las mujeres, la cifra fue de 28.4 millones (53.8 %),
+377 mil menos que un año antes.
+
+page 4
+Del total de la PNEA, 5.4 millones se declararon disponibles para trabajar (13.7 % de la
+PNEA), es decir, no buscaron trabajo, pero aceptarían uno si se los ofrecieran. Por esta
+razón, a este grupo se lo considera dentro del sector que eventualmente puede participar
+en el mercado como desocupado u ocupado. La PNEA disponible se redujo 2.1 millones de
+personas entre el cuarto trimestre de 2021 y el mismo periodo de 2022. Por su parte, 34
+millones de personas (86.3 %) declararon no estar disponibles para trabajar porque tenían
+que atender otras obligaciones, o tenían interés, pero su contexto impedía que pudieran
+hacerlo (impedimentos físicos, obligaciones familiares u otras condiciones).
+Gráfica 2
+POBLACIÓN NO ECONÓMICAMENTE ACTIVA SEGÚN RAZÓN DE NO ACTIVIDAD Y SEXO
+CUARTO TRIMESTRE DE 2022
+(Millones de personas)
+RAZÓN DE NO ACTIVIDAD SEXO
+Hombres
+No 11.0
+disponible
+34.0
+Mujeres
+Disponible
+28.4
+5.4
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+POBLACIÓN OCUPADA
+Al interior de la PEA se puede identificar a la población que participó en la generación de
+algún bien económico o en la prestación de un servicio (población ocupada). En el cuarto
+trimestre de 2022 esta fue de 58.3 millones de personas (34.7 millones de hombres y 23.7
+millones de mujeres), 1.7 millones de personas más con respecto al mismo periodo de un
+año antes.
+
+page 5
+Gráfica 3
+POBLACIÓN OCUPADA SEGÚN SEXO
+(Millones de personas)
+60.0
+50.0
+40.0
+30.0 56.6 58.3
+20.0
+34.3 34.7
+10.0 22.3 23.7
+0.0
+2021 - IV 2022 - IV
+Total Hombres Mujeres
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+Casi la mitad de la población ocupada (49.5 %) se concentra en las ciudades más grandes
+del país (de 100 mil y más habitantes o capitales de estado). Siguen las localidades rurales
+(con menos de 2 500 habitantes), donde se agrupa 20.4 % de la población ocupada total.
+Los asentamientos que tienen entre 15 mil y menos de 100 mil habitantes (urbano medio)
+albergan a 15.4 por ciento. El resto de las y los ocupados (14.7 %) reside en localidades de
+2 500 a menos de 15 mil habitantes (urbano bajo).
+Cuadro 2
+DISTRIBUCIÓN DE LA POBLACIÓN OCUPADA POR TAMAÑO DE LOCALIDADES
+CUARTO TRIMESTRE DE 2022
+Áreas menos urbanizadas 2/
+Áreas más
+Total urbanizadas 1/ Total Urbano Urbano Rural 5/
+medio 3/ bajo 4/
+Personas 58 349 353 28 865 671 29 483 682 9 000 113 8 565 876 11 917 693
+Porcentaje 100.0 49.5 50.5 15.4 14.7 20.4
+1/ Localidades de 100 000 y más habitantes o capitales de estado
+2/ Localidades con menos de 100 000 habitantes
+3/ Localidades de 15 000 a 99 999 habitantes
+4/ Localidades de 2 500 a 14 999 habitantes
+5/ Localidades con menos de 2 500 habitantes
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 6
+Por sector de actividad
+Al considerar a la población ocupada con relación al sector económico en el que labora, 6.9
+millones de personas (11.8 % del total) trabajaban en el sector primario, 14.5 millones (24.9
+%) en el secundario o industrial y 36.6 millones (62.7 %) estaban en el terciario o de
+servicios. El restante 0.6 % no especificó su actividad económica. En el periodo
+octubre-diciembre de 2021, estas cifras fueron: 6.8, 14.1 y 35.3 millones de personas, en
+ese orden.
+El comercio agrupó a 19.4 % de la población ocupada y presentó un incremento de 279 mil
+personas. La industria manufacturera, donde se concentró 16.4 %, aumentó en 260 mil
+personas ocupadas. Los servicios diversos —que alcanzaron 10.1 % de la población
+ocupada— mostraron un alza de 201 mil personas. Los restaurantes y servicios de
+alojamiento concentraron 7.9 % de las y los ocupados, lo que significa que el número de
+personas subió en 217 mil. En los servicios profesionales, financieros y corporativos, con
+7.8 % de las personas ocupadas, se presentó un alza de 192 mil personas con respecto al
+cuarto trimestre de 2021.
+Por posición en la ocupación
+Si se observa a la población ocupada en función de la posición que guarda dentro de su
+trabajo, las y los trabajadores subordinados y remunerados agruparon a poco más de dos
+terceras partes del total (68.2 %), esto es, 39.8 millones; 13.2 millones (22.6 %) trabajaron
+por su cuenta y sin emplear personal pagado. Tres millones (5.1 %) fueron propietarias o
+propietarios de los bienes de producción con personal a su cargo y 2.4 millones (4.2 %) no
+recibieron remuneración.
+Entre el cuarto trimestre de 2021 y el mismo de 2022, la población de trabajadoras y
+trabajadores subordinados y remunerados creció en 1.4 millones de personas. El grupo de
+quienes trabajan por cuenta propia aumentó en 151 mil; el de personas empleadoras, en
+105 mil y el de quienes trabajan sin remuneración, en 68 mil.
+Al distinguir por sexo, en el cuarto trimestre de 2022, el porcentaje de hombres trabajadores
+subordinados y remunerados fue de 68.5 % y el de mujeres, de 67.7 por ciento. Lo anterior
+significó un alza anual de 420 mil y de 995 mil personas, respectivamente. Por su parte, los
+hombres trabajadores por cuenta propia constituyeron 22.1 % de los ocupados y las
+mujeres, 23.3 % de las ocupadas. Hubo una caída anual registrada en hombres de 91 mil
+personas y un ascenso de 242 mil en las mujeres.
+Otras condiciones de trabajo
+La población ocupada desempeña una gran variedad de tareas que realiza con distinta
+intensidad. En el cuarto trimestre de 2022, 6.2 % de las personas trabajó menos de 15 horas
+semanales y 27 %, más de 48 horas. Sin embargo, el mayor porcentaje de las y los
+ocupados (47.4 %) trabajó de 35 a 48 horas a la semana. Respecto al cuarto trimestre de
+
+page 7
+2021, destacó el incremento de 1.4 puntos porcentuales de las personas ocupadas que
+laboran entre 35 y 48 horas semanales. Lo anterior, en términos absolutos, significó un alza
+de 1.6 millones de personas. En promedio, en el trimestre octubre-diciembre de 2022, la
+población ocupada trabajó 43 horas por semana.
+En el cuarto trimestre de 2022, los hombres que trabajaron entre 35 y 48 horas semanales
+representaron 48.3 % de los ocupados: un aumento de 697 mil personas con relación al
+mismo trimestre de 2021. Quienes laboraron más de 48 horas semanales fueron 32.4 %; es
+decir, 69 mil hombres más. Por su parte, las mujeres ocupadas entre 35 y 48 horas
+semanales representaron 46.1 % del total de mujeres trabajadoras. Este grupo aumentó en
+927 mil personas frente al cuarto trimestre de 2021. Las ocupadas por más de 48 horas
+semanales representaron 19 %: 160 mil mujeres más que en el mismo periodo de
+comparación.
+La población ocupada también se puede caracterizar según el tamaño de la unidad
+económica3 en la que labora. Si solo se considera el ámbito no agropecuario (que abarca a
+48.7 millones de personas), en el cuarto trimestre de 2022, 23.4 millones (48.2 %) estaban
+ocupadas en micronegocios, 8.9 millones (18.2 %) en pequeños establecimientos, 5.8
+millones (12 %) en medianos, 5.5 millones (11.3 %) en grandes establecimientos y cinco
+millones (10.3 %) se ocuparon en otro tipo de unidades económicas.
+Entre el trimestre octubre-diciembre de 2021 y el mismo lapso de 2022, la población
+ocupada en el ámbito no agropecuario se incrementó en 1.7 millones de personas. En los
+establecimientos medianos se registró el crecimiento más significativo, con 468 mil
+personas. A estos siguieron los establecimientos pequeños, grandes y micronegocios, con
+435, 365 y 198 mil personas más, respectivamente.
+En el ámbito no agropecuario y al distinguir por sexo, el grupo de las mujeres ocupadas
+aumentó en 1.2 millones y el de los hombres, en 484 mil. En el cuarto trimestre de 2022, la
+ocupación de las mujeres en los micronegocios fue la que más subió (359 mil). La siguieron
+los hombres empleados en los establecimientos medianos, que sumaron 296 mil personas
+más respecto al mismo trimestre de 2021.
+3 El tamaño se establece con base en el número de personas ocupadas:
+Micronegocios: de 1 a 15 personas ocupadas en la industria, y de 1 a 5 en el comercio y los servicios
+Establecimientos pequeños: de 16 a 50 en la industria, de 6 a 15 en el comercio y de 6 a 50 en los servicios
+Establecimientos medianos: de 51 a 250 en la industria y en los servicios, y de 16 a 250 en el comercio
+Establecimientos grandes: de 251 y más en cualquier sector de actividad.
+
+page 8
+Cuadro 3
+POBLACIÓN OCUPADA SEGÚN CONDICIÓN DE ACTIVIDAD ECONÓMICA
+Cuarto trimestre Cuarto trimestre
+Diferencias Diferencias
+Características de la ocupación según 2022-2021 2022-2021
+2021 2022 2021 2022
+condición
+Absolutos Relativos a/
+Sector de actividad económica 56 611 211 58 349 353 1 738 142 100.0 100.0
+Primario 6 806 797 6 870 186 63 389 12.0 11.8 -0.2
+Agricultura, ganadería, silvicultura, caza y pesca 6 806 797 6 870 186 63 389 12.0 11.8 -0.2
+Secundario 14 108 042 14 522 575 414 533 24.9 24.9 0.0
+Industria extractiva y de la electricidad 396 500 458 910 62 410 0.7 0.8 0.1
+Industria manufacturera 9 327 585 9 588 075 260 490 16.5 16.4 0.0
+Construcción 4 383 957 4 475 590 91 633 7.7 7.7 -0.1
+Terciario 35 340 467 36 593 226 1 252 759 62.4 62.7 0.3
+Comercio 11 054 847 11 333 626 278 779 19.5 19.4 -0.1
+Restaurantes y servicios de alojamiento 4 418 211 4 635 106 216 895 7.8 7.9 0.1
+Transportes, comunicaciones, correo y
+2 833 575 2 970 703 137 128 5.0 5.1 0.1
+almacenamiento
+Servicios profesionales, financieros y corporativos 4 357 477 4 549 823 192 346 7.7 7.8 0.1
+Servicios sociales 4 760 072 4 867 593 107 521 8.4 8.3 -0.1
+Servicios diversos 5 699 913 5 901 310 201 397 10.1 10.1 0.0
+Gobierno y organismos internacionales 2 216 372 2 335 065 118 693 3.9 4.0 0.1
+No especificado 355 905 363 366 7 461 0.6 0.6 0.0
+Posición en la ocupación 56 611 211 58 349 353 1 738 142 100.0 100.0
+Trabajadores subordinados y remunerados 38 361 123 39 775 332 1 414 209 67.8 68.2 0.4
+Empleadores 2 865 161 2 970 389 105 228 5.1 5.1 0.0
+Trabajadores por cuenta propia 13 009 369 13 160 043 150 674 23.0 22.6 -0.4
+Trabajadores no remunerados 2 375 558 2 443 589 68 031 4.2 4.2 0.0
+Duración de la jornada de trabajo 56 611 211 58 349 353 1 738 142 100.0 100.0
+Ausentes temporales con vínculo laboral 930 557 845 194 -85 363 1.6 1.4 -0.2
+Menos de 15 horas 3 600 167 3 589 469 -10 698 6.4 6.2 -0.2
+De 15 a 34 horas 10 012 044 9 907 082 -104 962 17.7 17.0 -0.7
+De 35 a 48 horas 26 034 091 27 657 271 1 623 180 46.0 47.4 1.4
+Más de 48 horas 15 527 270 15 756 771 229 501 27.4 27.0 -0.4
+No especificado 507 082 593 566 86 484 0.9 1.0 0.1
+Ámbito y tamaño de la unidad económica 56 611 211 58 349 353 1 738 142 100.0 100.0
+Ámbito agropecuario 6 806 797 6 870 186 63 389 12.0 11.8 -0.2
+Ámbito no agropecuario 46 935 125 48 661 784 1 726 659 82.9 83.4 0.5
+Micronegocios b/ 23 238 978 23 437 010 198 032 49.5 48.2 -1.3
+Pequeños establecimientos b/ 8 415 975 8 851 294 435 319 17.9 18.2 0.3
+Medianos establecimientos b/ 5 375 958 5 843 630 467 672 11.5 12.0 0.6
+Grandes establecimientos b/ 5 141 484 5 506 003 364 519 11.0 11.3 0.4
+Gobierno b/ 2 216 372 2 335 065 118 693 4.7 4.8 0.1
+Otros b/ 2 546 358 2 688 782 142 424 5.4 5.5 0.1
+No especificado 2 869 289 2 817 383 -51 906 5.1 4.8 -0.2
+a/ Valor relativo respecto a la población ocupada
+b/ Valor relativo respecto al ámbito no agropecuario
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 9
+Trabajadores subordinados y remunerados
+Del total de las y los trabajadores subordinados y remunerados, 7.6 % se desempeñó en el
+sector primario de la economía, 27.9 % en el secundario y 63.7 % en el terciario. El restante
+0.8 % quedó sin especificar, en el trimestre que se reporta.
+Un total de 22.7 millones de estas y estos trabajadores (que constituyen 56.9 % del total)
+tuvo acceso a instituciones de salud como prestación por su trabajo. Esta cifra fue superior
+en 1.1 millones de personas con relación al cuarto trimestre de 2021. A su vez, 22.9 millones
+(1.5 millones de personas más) tuvieron un contrato por escrito y 16.3 millones no contaron
+con uno.
+Cuadro 4
+TRABAJADORES SUBORDINADOS Y REMUNERADOS SEGÚN CARACTERÍSTICAS DE LA OCUPACIÓN,
+CUARTO TRIMESTRE DE 2022
+Características de la ocupación Personas Características de la ocupación Personas
+Sector de actividad económica 39 775 332 Duración de la jornada de trabajo 39 775 332
+Primario 3 012 048 Ausentes temporales con vínculo laboral 559 253
+Agricultura, ganadería, silvicultura, caza y pesca 3 012 048 Menos de 15 horas 1 206 234
+Secundario 11 095 847 De 15 a 34 horas 5 373 670
+Industria extractiva y de la electricidad 442 859 De 35 a 48 horas 21 560 619
+Industria manufacturera 7 547 079 Más de 48 horas 10 697 830
+Construcción 3 105 909 No especificado 377 726
+Terciario 25 338 195 Condición de acceso a las instituciones de
+39 775 332
+Comercio 6 146 904 salud
+Restaurantes y servicios de alojamiento 2 743 811 Con acceso 22 650 959
+Transportes, comunicaciones, correo y
+2 225 458 Sin acceso 16 719 896
+almacenamiento
+Servicios profesionales, financieros y corporativos 3 439 292 No especificado 404 477
+Servicios sociales 4 350 559 Prestaciones laborales 2/ 39 775 332
+Servicios diversos 4 111 770 Con prestaciones 26 094 978
+Gobierno y organismos internacionales 2 320 401 Sin prestaciones 13 234 238
+No especificado 329 242 No especificado 446 116
+Nivel de ingresos 1/ 39 775 332 Disponibilidad de contrato escrito 39 775 332
+Hasta un salario mínimo 11 094 189 Con contrato escrito 22 863 295
+Más de 1 hasta 2 salarios mínimos 16 002 653 Temporal 3 505 428
+Más de 2 hasta 3 salarios mínimos 4 707 808 De base, planta o por tiempo indefinido 19 158 407
+Más de 3 hasta 5 salarios mínimos 1 876 455 Contrato de tipo no especificado 199 460
+Más de 5 salarios mínimos 594 483 Sin contrato escrito 16 301 660
+No especificado 5 499 744 No especificado 610 377
+1/ Las cifras de la población ocupada por nivel de ingresos se construyen a partir de salarios mínimos nominales. Para efecto de
+comparar en el tiempo indicadores que toman como referencia salarios mínimos, es necesario considerar la evolución del Índice
+Nacional de Precios al Consumidor (INPC) y construir salarios mínimos equivalentes tomando un año base como referencia. El
+Instituto Nacional de Estadística y Geografía (INEGI) pone a disposición de las y los usuarios cifras comparables en el tiempo de la
+población ocupada por nivel de ingresos en la siguiente liga: https://www.inegi.org.mx/programas/enoe/15ymas/#Tabulados
+2/ Sin considerar el acceso a las instituciones de salud.
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 10
+Población subocupada
+Otra forma de caracterizar a la población ocupada es en función de su condición de
+subocupación. Esta se entiende como la necesidad de trabajar más tiempo, lo que se
+traduce en la búsqueda de una ocupación complementaria o de un nuevo trabajo con mayor
+horario. Al respecto, durante el trimestre octubre-diciembre de 2022, la población
+subocupada en el país fue de 4.4 millones de personas (1.7 millones menos que en el mismo
+trimestre de 2021) y representó 7.5 % de las personas ocupadas, tasa inferior a la de un
+año antes (10.6 %).
+Al distinguir por sexo, la población subocupada en los hombres pasó de 3.7 millones en el
+cuarto trimestre de 2021 a 2.6 millones en el mismo periodo de 2022. En las mujeres, pasó
+de 2.3 a 1.7 millones en el lapso referido. De esta manera, la tasa de subocupación
+masculina se redujo a 7.6 % de los hombres ocupados y la femenina alcanzó 7.2 % de las
+mujeres ocupadas.
+Gráfica 4
+SUBOCUPACIÓN SEGÚN SEXO
+POBLACIÓN SUBOCUPADA TASA DE SUBOCUPACIÓN
+(Millones de personas) (Porcentaje respecto a la población ocupada)
+12.0
+6.0
+9.0
+4.0
+6.0
+6.0 10.6 10.7 10.4
+2.0 3.7 4.4 3.0 7.5 7.6 7.2
+2.3 2.6
+1.7
+0.0 0.0
+2021 - IV 2022 - IV 2021 - IV 2022 - IV
+Total Hombres Mujeres Total Hombres Mujeres
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+Por otra parte, al eliminar el factor estacional, la tasa de subocupación como proporción de
+la población ocupada retrocedió 0.1 puntos porcentuales en el cuarto trimestre de 2022
+respecto al trimestre anterior.
+Informalidad laboral
+El empleo informal —o medición ampliada de informalidad— añade las siguientes
+categorías a la definición de empleo en el sector informal: el trabajo no protegido en la
+actividad agropecuaria, el servicio doméstico remunerado no protegido, así como las y los
+trabajadores subordinados quienes, aunque trabajan para unidades económicas formales,
+lo hacen sin seguridad social. Así, la medición de la ocupación en el sector informal se
+considera el punto de partida y un componente del cálculo de una medida más amplia: el
+empleo informal.
+
+page 11
+Los resultados de la ENOEN indican que, en el cuarto trimestre de 2022, la suma de las
+personas en todas las modalidades de empleo informal fue de 32.2 millones. Esto
+representó 55.1 % de la población ocupada (Tasa de Informalidad Laboral 1), un incremento
+de 548 mil personas respecto al mismo lapso de 2021. De manera detallada, 16.4 millones
+conformaron, específicamente, la ocupación en el sector informal,4 que constituyeron 28.1
+% de la población ocupada (Tasa de Ocupación en el Sector Informal 1) y representó un
+crecimiento anual de 81 mil personas. Además, 7.6 millones correspondieron al ámbito de las
+empresas, gobierno e instituciones, 5.9 millones al agropecuario y 2.3 millones al servicio
+doméstico remunerado.
+Cuadro 5
+POBLACIÓN OCUPADA INFORMAL SEGÚN TIPO DE UNIDAD ECONÓMICA EMPLEADORA Y SEXO
+Cuarto trimestre Cuarto trimestre
+Diferencias Diferencias
+Ocupación informal según tipo de unidad 2022-2021 2022-2021
+2021 2022 2021 2022
+económica y sexo
+Absolutos Relativos a/
+Total 31 609 319 32 157 340 548 021 55.8 55.1 -0.7
+Sector informal 16 321 523 16 402 184 80 661 28.8 28.1 -0.7
+Trabajo doméstico remunerado 2 115 588 2 263 000 147 412 3.7 3.9 0.1
+Empresas, gobierno e instituciones 7 228 582 7 605 283 376 701 12.8 13.0 0.3
+Ámbito agropecuario 5 943 626 5 886 873 -56 753 10.5 10.1 -0.4
+Hombres 19 068 276 18 879 871 -188 405 55.6 54.4 -1.2
+Sector informal 9 629 806 9 461 701 -168 105 28.1 27.3 -0.8
+Trabajo doméstico remunerado 168 374 156 157 -12 217 0.5 0.5 0.0
+Empresas, gobierno e instituciones 4 168 407 4 250 695 82 288 12.2 12.3 0.1
+Ámbito agropecuario 5 101 689 5 011 318 -90 371 14.9 14.4 -0.4
+Mujeres 12 541 043 13 277 469 736 426 56.2 56.1 -0.1
+Sector informal 6 691 717 6 940 483 248 766 30.0 29.3 -0.6
+Trabajo doméstico remunerado 1 947 214 2 106 843 159 629 8.7 8.9 0.2
+Empresas, gobierno e instituciones 3 060 175 3 354 588 294 413 13.7 14.2 0.5
+Ámbito agropecuario 841 937 875 555 33 618 3.8 3.7 -0.1
+a/ Valor relativo respecto a la población ocupada
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+La ocupación informal según sexo muestra que, en los hombres, alcanzó 19.1 millones en
+el cuarto trimestre de 2021 y 18.9 millones en el mismo lapso de 2022, lo que representó
+una caída de 188 mil personas. Por su parte, las mujeres pasaron de 12.5 millones a 13.3
+millones en el mismo periodo.
+Al eliminar el factor estacional, la Tasa de Informalidad Laboral 1 disminuyó 0.4 puntos
+porcentuales y la Tasa de Ocupación en el Sector Informal 1, 0.2 puntos porcentuales, en
+el cuarto trimestre de 2022 respecto al trimestre previo.
+4 Se refiere a todas aquellas actividades económicas de mercado que operan a partir de los recursos de los hogares, pero sin constituirse
+como empresas con una situación independiente de esos hogares.
+
+page 12
+POBLACIÓN DESOCUPADA
+La ocupación muestra distintos grados de intensidad según sea la perspectiva. Una de estas
+es la población desocupada, misma que no trabajó ni una hora durante la semana de
+referencia de la encuesta. No obstante, manifestó su disposición para trabajar e hizo alguna
+actividad para hacerlo.
+En el trimestre octubre-diciembre de 2022, la población desocupada en el país fue de 1.8
+millones de personas y la Tasa de Desocupación (TD) de 3 % de la PEA, porcentaje inferior
+al del mismo trimestre de 2021 (3.7 %). Al estar condicionada a la búsqueda de empleo, la
+TD es más alta en las localidades grandes, en donde el mercado de trabajo tiene mayor
+organización. En las zonas más urbanizadas (con 100 mil y más habitantes), la tasa llegó a
+3.6 %; en las que tienen de 15 mil a menos de 100 mil habitantes, 2.9 %; en las de 2 500 a
+menos de 15 mil, 2.7 % y en las rurales (de menos de 2 500 habitantes) fue de 1.7 por
+ciento.
+Cuadro 6
+POBLACIÓN DESOCUPADA POR TAMAÑO DE LOCALIDADES
+Cuarto trimestre Cuarto trimestre
+Diferencias Diferencias
+Tamaño de localidad 2021 2022 2022-2021 2021 2022 2022-2021
+Absolutos Relativos a/
+Total 2 150 582 1 796 103 -354 479 3.7 3.0 -0.7
+Áreas más urbanizadas 1/ 1 317 816 1 079 294 -238 522 4.5 3.6 -0.9
+Áreas menos urbanizadas 2/ 832 766 716 809 -115 957 2.8 2.4 -0.5
+Urbano medio 3/ 307 784 267 874 -39 910 3.4 2.9 -0.5
+Urbano bajo 4/ 254 800 241 881 -12 919 3.0 2.7 -0.2
+Rural 5/ 270 182 207 054 -63 128 2.3 1.7 -0.6
+a/ Valor relativo respecto a la PEA
+1/ Localidades de 100 000 y más habitantes y/ o capitales de estado
+2/ Localidades con menos de 100 000 habitantes
+3/ Localidades de 15 000 a 99 999 habitantes
+4/ Localidades de 2 500 a 14 999 habitantes
+5/ Localidades con menos de 2 500 habitantes
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+En el trimestre de referencia, los hombres desocupados sumaron 1.1 millones, 216 mil
+menos que en el cuarto trimestre de 2021. Por su parte, las mujeres desocupadas fueron
+746 mil, lo que se traduce en 138 mil personas menos. La tasa de desocupación masculina
+y femenina, en el cuarto trimestre de 2022, fue de 2.9 y 3.1 %, respectivamente. Las tasas
+resultaron inferiores en 0.6 y 0.8 puntos porcentuales a las del cuarto trimestre de 2021.
+
+page 13
+Gráfica 5
+DESOCUPACIÓN SEGÚN SEXO
+POBLACIÓN DESOCUPADA TASA DE DESOCUPACIÓN
+(Millones de personas) (Porcentaje respecto a la PEA)
+2.5
+4.0
+2.0
+3.5
+1.5
+3.0
+1.0 2.2 1.8 3.7 3.6 3.8
+0.5 1.3 1.1 2.5 3.0 2.9 3.1
+0.9
+0.7
+0.0 2.0
+2021 - IV 2022 - IV 2021 - IV 2022 - IV
+Total Hombres Mujeres Total Hombres Mujeres
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+En el trimestre octubre-diciembre de 2022, las personas desocupadas de 25 a 44 años
+representaron 45.6 %, 1.6 puntos porcentuales más con respecto al cuarto trimestre de
+2021. Siguió el grupo de 15 a 24 años, con una contribución de 34.2 %, cifra que ascendió
+en un punto porcentual. Entre las y los desocupados, 42.5 % buscó trabajo hasta por un
+mes, 34.7 % registró una duración de desempleo de más de un mes hasta tres meses y
+15.2 % permaneció en esta condición por más de tres meses. En términos absolutos, y en
+comparación con el cuarto trimestre de 2021, la población que buscó empleo durante más
+de un mes y hasta tres se redujo en 93 mil personas. En el rango de duración por más de
+tres meses, hubo un descenso de 198 mil.
+
+page 14
+Cuadro 7
+POBLACIÓN DESOCUPADA SEGÚN GRUPOS DE EDAD Y DURACIÓN DEL DESEMPLEO
+Cuarto trimestre Cuarto trimestre
+Diferencias Diferencias
+Grupos de edad y duración del desempleo 2021 2022 2022-2021 2021 2022 2022-2021
+Absolutos Relativos a/
+Grupos de edad 2 150 582 1 796 103 -354 479 100.0 100.0
+De 15 a 24 años 712 860 613 470 -99 390 33.1 34.2 1.0
+De 25 a 44 años 945 684 819 228 -126 456 44.0 45.6 1.6
+De 45 a 64 años 458 318 340 147 -118 171 21.3 18.9 -2.4
+De 65 años y más 31 230 21 686 -9 544 1.5 1.2 -0.2
+No especificado 2 490 1 572 -918 0.1 0.1 0.0
+Duración del desempleo 2 150 582 1 796 103 -354 479 100.0 100.0
+Hasta 1 mes 838 383 764 148 -74 235 39.0 42.5 3.6
+Más de 1 mes hasta 3 meses 717 025 623 659 -93 366 33.3 34.7 1.4
+Más de 3 meses hasta 6 meses 214 618 147 840 -66 778 10.0 8.2 -1.7
+Más de 6 meses hasta 1 año 166 510 90 380 -76 130 7.7 5.0 -2.7
+Más de 1 año 90 576 35 619 -54 957 4.2 2.0 -2.2
+No especificado 123 470 134 457 10 987 5.7 7.5 1.7
+a/ Valor relativo respecto a la población desocupada
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+Según cifras desestacionalizadas, en el cuarto trimestre de 2022, la TD a nivel nacional fue
+de 3.1 %, 0.1 puntos porcentuales menos con relación al trimestre anterior. La desocupación
+en los hombres se redujo 0.1 y en las mujeres, 0.2 puntos porcentuales.
+TASAS COMPLEMENTARIAS
+Para proporcionar a las y los usuarios más elementos sobre el mercado laboral de nuestro
+país, el INEGI genera indicadores sobre la calidad de inserción en el mercado laboral. Estas
+mediciones consideran distintos aspectos que van más allá de las mediciones tradicionales
+y recogen la heterogeneidad de circunstancias específicas de México. Nótese que el
+resultado de estas tasas no puede sumarse a lo que se desprende de otras: un mismo grupo
+poblacional puede estar presente en más de una de estas. Además, no todos los
+porcentajes que a continuación se mencionan tienen el mismo denominador.
+
+page 15
+Cuadro 8
+TASAS COMPLEMENTARIAS DE OCUPACIÓN Y DESOCUPACIÓN SEGÚN SEXO
+(Porcentajes)
+Total Hombres Mujeres Total Hombres Mujeres
+Tasas complementarias
+Cuarto trimestre de 2021 Cuarto trimestre de 2022
+Tasa de Participación 1/ 59.7 76.4 44.7 60.4 76.5 46.2
+Tasa de Desocupación 2/ 3.7 3.6 3.8 3.0 2.9 3.1
+Tasa de Ocupación Parcial y Desocupación 2/ 9.8 7.2 13.8 9.0 6.5 12.6
+Tasa de Presión General 2/ 7.2 7.4 6.9 5.9 6.1 5.6
+Tasa de Trabajo Asalariado 3/ 64.9 64.4 65.6 65.1 64.5 65.9
+Tasa de Subocupación 3/ 10.6 10.7 10.4 7.5 7.6 7.2
+Tasa de Condiciones Críticas de Ocupación 3/ 30.2 32.3 26.9 30.4 32.6 27.2
+Tasa de Informalidad Laboral 1 3/ 55.8 55.6 56.2 55.1 54.4 56.1
+Tasa de Ocupación en el Sector Informal 1 3/ 28.8 28.1 30.0 28.1 27.3 29.3
+Tasa de Informalidad Laboral 2 3/ 51.5 49.1 54.8 51.0 48.0 54.8
+Tasa de Ocupación en el Sector Informal 2 3/ 32.8 33.8 31.3 31.9 32.8 30.7
+1/ PEA como porcentaje de la población de 15 años y más
+2/ Valor relativo respecto a la PEA
+3/ Valor relativo respecto a la población ocupada
+Tasa de Participación. Representa a la PEA respecto a la de 15 años y más.
+Tasa de Desocupación. Considera a la población que se encuentra sin trabajar, pero que busca trabajo.
+Tasa de Ocupación Parcial y Desocupación. Considera a la población desocupada y a la ocupada que trabajó menos de 15 horas
+a la semana.
+Tasa de Presión General. Incluye, además de a las y los desocupados, a las y los ocupados que buscan empleo.
+Tasa de Trabajo Asalariado. Representa a la población que, por las actividades realizadas, percibe un sueldo, salario o jornal, de
+la unidad económica para la que trabaja.
+Tasa de Subocupación. Porcentaje de la población ocupada que tiene la necesidad y disponibilidad de ofertar más tiempo de
+trabajo de lo que su ocupación actual le permite.
+Tasa de Condiciones Críticas de Ocupación. Incluye a las personas que trabajan menos de 35 horas a la semana por razones
+ajenas a sus decisiones, las que trabajan más de 35 horas semanales con ingresos mensuales inferiores al salario mínimo y las que
+laboran más de 48 horas semanales y ganan hasta dos salarios mínimos. Por construcción, los indicadores de la ENOEN que
+involucran a la población ocupada, u otra variable clasificada en rangos de salarios mínimos, son sensibles a los cambios en dichos
+salarios. Para la comparación en el tiempo de la Tasa de Condiciones Críticas de Ocupación, se presentan resultados a partir de
+salarios mínimos equivalentes base enero 2022. El INEGI pone a disposición de las y los usuarios cifras comparables en la siguiente
+liga: https://www.inegi.org.mx/programas/enoe/15ymas/#Tabulados
+Tasa de Informalidad Laboral 1. Se refiere a la suma, sin duplicar, de las y los ocupados que son laboralmente vulnerables por la
+naturaleza de la unidad económica para la que trabajan, más aquellas personas cuyo vínculo o dependencia laboral no se reconoce
+por su fuente de trabajo. Así, en esta tasa se incluyen —además del componente que labora en micronegocios no registrados o
+sector informal— otras modalidades análogas, como las y los ocupados por cuenta propia en la agricultura de subsistencia, así como
+a quienes laboran sin la protección de la seguridad social y cuyos servicios los utilizan las unidades económicas registradas.
+Tasa de Ocupación en el Sector Informal 1. Representa a la población ocupada que trabaja para una unidad económica que opera
+a partir de los recursos del hogar, pero sin constituirse como empresa, de modo que la actividad no tiene una situación identificable
+e independiente de ese hogar.
+Tasa de Informalidad Laboral 2. Proporción de la población ocupada no agropecuaria que comprende la suma, sin duplicar, de las
+y los ocupados que son laboralmente vulnerables por la naturaleza de la unidad económica para la que trabajan, más otras y otros
+ocupados no agropecuarios cuyo vínculo o dependencia laboral no se reconoce por su fuente de trabajo.
+Tasa de Ocupación en el Sector Informal 2. Proporción de la población ocupada que trabaja para una unidad económica no
+agropecuaria y que opera a partir de los recursos del hogar, pero sin constituirse como empresa. Así, los ingresos, los materiales y
+equipos que se utilizan para el negocio no son independientes o distinguibles de los del propio hogar. Esta tasa se calcula teniendo
+como referente (denominador) a la población ocupada no agropecuaria.
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 16
+Para el trimestre octubre-diciembre de 2022, la Tasa de Condiciones Críticas de Ocupación
+«con referencia en el salario mínimo equivalente, base enero de 2022» representó 30.4 %
+de la población ocupada, porcentaje mayor que el del año anterior (30.2 %).
+Gráfica 6
+TASA DE CONDICIONES CRÍTICAS DE OCUPACIÓN
+CON BASE EN EL SALARIO MÍNIMO EQUIVALENTE, BASE ENERO 2022
+(Porcentaje respecto a la población ocupada)
+Nota: Para la comparación en el tiempo de la Tasa de Condiciones Críticas de Ocupación, se presentan
+resultados a partir de salarios mínimos equivalentes, base enero 2022. El INEGI pone a disposición
+de las y los usuarios cifras comparables en la siguiente liga:
+https://www.inegi.org.mx/programas/enoe/15ymas/#Tabulados.
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo (ENOE), hasta el primer trimestre de 2020
+INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN), a partir del tercer
+trimestre de 2020
+LA OCUPACIÓN EN LAS ENTIDADES FEDERATIVAS
+Además de registrar de manera permanente el comportamiento del empleo a nivel nacional,
+y para los cuatro tamaños de localidades a los que se acaba de hacer referencia, la ENOEN,
+en su versión trimestral, proporciona información para las 32 entidades federativas. De esta
+forma, se puede conocer la complejidad del fenómeno ocupacional a un nivel más detallado
+de desagregación.
+Las entidades federativas que presentaron las mayores tasas de participación en la
+actividad económica (cociente entre la PEA y la población de 15 años y más) fueron: Baja
+California Sur (69.2 %), Yucatán (66.3 %), Nayarit (65.7 %), Colima (65.4 %), Quintana Roo
+(65.2 %), Jalisco (62.7 %), así como Chihuahua y Ciudad de México (62.6 %). La tasa de
+ocupación —que representa a las personas que trabajaron en la semana anterior a la
+entrevista, o que no trabajaron, pero mantenían un vínculo laboral con la unidad económica
+para la que trabajan— mostró que el porcentaje de personas ocupadas fue mayor en
+Guerrero (99.2 %), Oaxaca (98.7 %), Michoacán de Ocampo (98.3 %), Campeche,
+6.33
+9.43
+8.33 1.43
+7.43
+6.23 6.23
+7.33
+9.43
+1.43
+7.43 1.53
+5.13 4.13
+1.23
+5.33
+4.13
+8.23 3.23 5.23
+7.03 5.03 0.03 2.03
+0.23
+5.03 8.03 4.03
+40.0
+35.0
+30.0
+25.0
+20.0
+I II III IV I II III IV I II III IV I II III IV I II III IV I II III IV I II III IV
+2016 2017 2018 2019 2020 2021 2022
+
+page 17
+Chihuahua, Quintana Roo y Yucatán (98 %), Hidalgo (97.8%) y Chiapas (97.7 %). Las tasas
+de ocupación más bajas se presentaron en Ciudad de México y estado de México (95.5 %),
+Tabasco (95.8 %), Aguascalientes (96.2 %), Querétaro y Nuevo León (96.4 %), Coahuila de
+Zaragoza (96.6 %) y Tlaxcala (96.7 %).
+Durante el cuarto trimestre de 2022, las entidades que tuvieron las tasas más altas de
+desocupación fueron: Ciudad de México y estado de México (4.5 %), Tabasco (4.2 %),
+Aguascalientes (3.8 %), Querétaro y Nuevo León (3.6 %), Coahuila de Zaragoza (3.4 %),
+Tlaxcala (3.3 %), así como Durango, Guanajuato y Tamaulipas (3.1 %). Las tasas más bajas
+en este indicador se reportaron en Guerrero (0.8 %), Oaxaca (1.3 %), Michoacán de
+Ocampo (1.7 %), además de Campeche, Chihuahua, Quintana Roo y Yucatán (2 %). Nótese
+que los indicadores de la encuesta muestran los mercados de trabajo estatales en sus
+diferentes dimensiones, desde los segmentos de la fuerza de trabajo que fijan sus
+expectativas en las posibilidades de acceder al mercado laboral, hasta aquellos segmentos
+que se mantienen en ocupaciones precarias y sin protección laboral en mercados de trabajo
+con menor grado de desarrollo. Por lo anterior, se recomienda hacer uso de toda la
+información disponible sobre la participación y condiciones laborales de la fuerza de trabajo.
+Así, se tiene un conocimiento completo de la situación laboral a nivel estatal y de los
+dominios para los que está diseñada la encuesta.
+Chiapas tuvo la tasa de condiciones críticas de ocupación más alta (48.1 %). Después está
+Tlaxcala (41.6 %), estado de México (37.8 %), Puebla (36.5 %), Veracruz de Ignacio de la
+Llave (36.3 %), Campeche (34.3 %), Tamaulipas (33.1 %), Tabasco (33 %) y Guanajuato
+(31.9 %). Por su parte, Jalisco (15.1 %), Sinaloa (16.8 %), Baja California Sur y Nuevo León
+(16.9 %), Aguascalientes (19.4 %) y Colima (20.7 %) mostraron los niveles más bajos de
+ocupación en situación crítica en materia de ingresos y horas trabajadas.
+En niveles de informalidad laboral, Oaxaca (81.2 %), Guerrero (79 %), Chiapas (75.2 %),
+Hidalgo (71.7 %), Puebla (71.3 %), Tlaxcala (69.8 %), Veracruz de Ignacio de la Llave
+(67.3 %) y Michoacán de Ocampo (66.9 %) presentaron los porcentajes más altos. En
+cambio, Coahuila de Zaragoza (34.2 %), Nuevo León (35.8 %), Baja California (36.6 %),
+Chihuahua (36.8 %), Baja California Sur (39.4 %), Aguascalientes (40.5 %), Sonora
+(42.3 %) y Querétaro (42.7 %) registraron los menores niveles de informalidad laboral
+durante el cuarto trimestre de 2022.
+
+page 18
+Cuadro 9
+POBLACIÓN Y TASAS COMPLEMENTARIAS DE OCUPACIÓN Y DESOCUPACIÓN
+SEGÚN ENTIDAD FEDERATIVA, CUARTO TRIMESTRE DE 2022
+Población Tasa de:
+Ocupada Desocu- Partici- Deso- Ocupa- Presión Trabajo Sub- Condicio- Informa- Ocupación
+pada pación1/ cupa- ción Gene- Asala- ocupa- nes Críticas lidad en el
+Entidad Federativa ción2/ Parcial y ral2/ riado3/ ción3/ de Ocupa- Labo- Sector
+Desocu- ción3/ ral 13/ Informal 13/
+pación2/
+(Personas) (Porcentaje)
+Total 58 349 353 1 796 103 60.4 3.0 9.0 5.9 65.1 7.5 29.1 55.1 28.1
+Aguascalientes 638 407 24 994 60.2 3.8 6.7 5.0 76.1 1.8 19.4 40.5 20.3
+Baja California 1 798 153 49 940 61.6 2.7 6.2 4.2 72.5 2.5 25.5 36.6 17.8
+Baja California Sur 431 360 12 658 69.2 2.9 8.4 6.8 72.4 8.1 16.9 39.4 17.5
+Campeche 426 582 8 601 60.7 2.0 10.5 7.7 59.2 12.3 34.3 60.8 26.8
+Coahuila de Zaragoza 1 487 931 52 604 61.9 3.4 8.1 7.0 77.9 5.2 23.8 34.2 20.6
+Colima 376 259 9 085 65.4 2.4 10.0 4.7 66.9 3.9 20.7 46.9 18.4
+Chiapas 2 159 655 51 452 56.7 2.3 8.8 7.9 41.8 9.4 48.1 75.2 25.4
+Chihuahua 1 818 252 36 900 62.6 2.0 6.3 4.5 74.1 4.7 24.2 36.8 16.1
+Ciudad de México 4 698 174 222 957 62.6 4.5 10.0 8.9 68.8 11.1 29.2 45.8 28.5
+Durango 799 362 25 464 59.4 3.1 8.8 6.3 69.1 4.8 29.2 49.5 22.7
+Guanajuato 2 755 351 87 292 59.5 3.1 8.2 5.6 68.2 11.5 31.9 54.6 26.6
+Guerrero 1 586 943 12 901 61.9 0.8 7.7 2.5 39.8 4.5 29.6 79.0 32.3
+Hidalgo 1 450 645 32 645 59.3 2.2 8.8 3.5 61.5 5.7 29.9 71.7 37.9
+Jalisco 4 066 247 98 380 62.7 2.4 5.3 3.3 71.0 4.4 15.1 46.6 23.5
+México 7 850 683 366 608 59.8 4.5 10.3 7.0 67.7 7.4 37.8 56.8 37.3
+Michoacán de Ocampo 2 208 839 37 480 61.5 1.7 9.0 3.5 60.5 7.1 25.9 66.9 32.6
+Morelos 859 002 24 073 56.8 2.7 6.6 3.1 62.8 2.6 22.3 64.2 32.4
+Nayarit 607 893 14 823 65.7 2.4 9.8 4.9 60.0 5.9 24.4 59.7 26.5
+Nuevo León 2 815 031 104 272 61.6 3.6 8.5 6.5 77.8 4.2 16.9 35.8 20.5
+Oaxaca 1 906 143 24 781 61.7 1.3 12.8 6.9 40.4 14.5 30.0 81.2 36.6
+Puebla 2 932 305 84 247 59.6 2.8 7.8 5.2 60.2 7.3 36.5 71.3 33.3
+Querétaro 1 070 812 40 291 57.2 3.6 6.8 4.0 70.9 0.6 23.2 42.7 21.9
+Quintana Roo 967 707 19 466 65.2 2.0 6.7 4.2 68.1 4.3 23.1 46.7 21.7
+San Luis Potosí 1 271 278 35 445 59.9 2.7 10.2 5.1 65.0 5.4 23.5 54.5 24.6
+Sinaloa 1 425 438 40 855 60.6 2.8 10.3 7.1 67.9 9.9 16.8 46.4 21.4
+Sonora 1 408 739 36 831 62.0 2.5 8.3 6.5 70.3 5.3 24.8 42.3 21.7
+Tabasco 1 043 862 45 553 58.8 4.2 12.8 9.7 64.6 12.7 33.0 63.7 32.0
+Tamaulipas 1 620 369 52 196 60.5 3.1 11.1 7.7 68.1 12.1 33.1 44.7 25.1
+Tlaxcala 626 938 21 601 61.2 3.3 10.2 7.9 65.5 13.5 41.6 69.8 41.4
+Veracruz de Ignacio de
+3 348 110 80 682 53.7 2.4 9.2 4.3 59.5 9.1 36.3 67.3 30.0
+la Llave
+Yucatán 1 216 760 24 684 66.3 2.0 12.5 5.6 63.8 6.8 29.9 60.4 32.9
+Zacatecas 676 123 16 342 57.4 2.4 12.7 5.6 63.8 12.2 25.6 62.4 23.7
+1/ PEA como porcentaje de la población de 15 años y más
+2/ Valor relativo respecto a la PEA
+3/ Valor relativo respecto a la población ocupada. Por construcción, los indicadores de la ENOEN, que involucran a la población ocupada u otra
+variable clasificada en rangos de salarios mínimos, son sensibles a los cambios en dichos salarios. Las cifras de la Tasa de Condiciones
+Críticas de Ocupación se construyen a partir de salarios mínimos nominales. Para efecto de comparar en el tiempo indicadores que toman
+como referencia salarios mínimos, es necesario considerar la evolución del INPC y construir salarios mínimos equivalentes y tomar un año
+base como referencia. El INEGI pone a disposición de las y los usuarios cifras comparables en el tiempo de la Tasa de Condiciones Críticas
+de Ocupación en la siguiente liga: https://www.inegi.org.mx/programas/enoe/15ymas/#Tabulados
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 19
+LA OCUPACIÓN EN ÁREAS METROPOLITANAS5
+A un nivel de desagregación por área metropolitana, donde el mercado de trabajo está más
+organizado y se puede conocer con mayor precisión la complejidad del fenómeno
+ocupacional, la ENOEN presenta los indicadores para 39 ciudades o áreas metropolitanas
+con más de 100 mil habitantes.
+En el periodo octubre-diciembre de 2022, la PEA para el agregado urbano de 39 ciudades
+fue de 29 millones de personas y representó una tasa de participación de 61.6 por ciento.
+Asimismo, se reportó una tasa de desocupación de 3.7 %, una tasa de subocupación de
+7.2 %, una tasa de condiciones críticas de ocupación de 26.2 % y una tasa de informalidad
+laboral de 43.5 por ciento.
+Las áreas metropolitanas con una tasa de participación superior a la del agregado fueron:
+Tepic (67.6 %), Ciudad Juárez (67 %), La Paz (66.1 %), León (65.5 %), Mérida (65.1 %),
+Colima (64.3 %), Cancún (63.7 %), Torreón (63.6 %), así como Guadalajara y Mexicali
+(63.5 %), entre otras.
+De la población ocupada, 64 % se concentró en las áreas metropolitanas de Ciudad de
+México, Guadalajara, Monterrey, Puebla, Tijuana, León, Ciudad Juárez y Mérida.
+El mayor porcentaje de población ocupada que declaró tener necesidad y disponibilidad
+para trabajar más horas (tasa de subocupación) se reportó en las áreas metropolitanas de
+Ciudad del Carmen (23.9 %), Coatzacoalcos (14.9 %), Tapachula (13.9 %), Tlaxcala
+(13.4 %), Oaxaca (10.3 %), Ciudad de México (10.2 %) y La Paz (9.3 %). Las áreas urbanas
+con menor desocupación fueron: Acapulco, Reynosa, Ciudad Juárez, Oaxaca, Mérida,
+Chihuahua, Cancún, Colima y La Paz.
+En los niveles más altos de la ocupación en condiciones críticas —se consideran horas
+trabajadas y los ingresos como proporción de la población ocupada— se encuentran:
+Reynosa (44.5 %), Tapachula (43.5 %), Tlaxcala (40.2 %), Tuxtla Gutiérrez (39 %) y
+Acapulco (36.7 %). Las ciudades de Guadalajara (10.4 %), Hermosillo (12 %), Chihuahua
+(12.7 %), Culiacán (13.7 %) y Monterrey (13.8 %) presentaron los menores niveles de
+ocupación crítica.
+Los niveles más altos de ocupación en la informalidad se presentaron en Tlaxcala (66.8 %),
+Acapulco (59.9 %) y Oaxaca (56.9 %). Los porcentajes más bajos, en Saltillo (26.1 %),
+Ciudad Juárez (27.6 %) y Chihuahua (28.5 %).
+5 En cuanto a la comparabilidad de los indicadores laborales de las entidades en donde se incorporaron nuevas ciudades, se confrontaron
+los indicadores estratégicos laborales del estado, incluida la nueva ciudad, contra las estimaciones que no la incluyen. Los periodos de
+estudio fueron el segundo y tercer trimestre de 2019. Para cada uno se construyó el factor de expansión y bases de datos de las
+entidades, tanto con la nueva ciudad como sin esta. Así, se realizaron dos tipos de comparaciones: 1) cobertura de intervalos de
+confianza para cada estimación, y 2) prueba de significancia estadística.
+Con base en el análisis comparativo de las estimaciones por intervalo de confianza de los indicadores estratégicos de cada entidad
+federativa, con y sin nueva ciudad autorrepresentada, se observó que, en general, no se encontró evidencia sobre cambios
+estadísticamente significativos en los indicadores estratégicos estatales.
+Asimismo, las pruebas de hipótesis de 50 réplicas (pruebas de significancia estadística), de dos submuestras independientes, con y
+sin nueva ciudad, en un mismo trimestre, tampoco presentaron cambios estadísticamente significativos entre las estimaciones.
+En resumen, la incorporación de las nuevas ciudades no afecta la comparabilidad de la información en los estados en donde fueron
+incorporadas, por lo que se mantienen los criterios para que la encuesta sea Información de Interés Nacional.
+
+page 20
+Cuadro 10
+POBLACIÓN Y TASAS COMPLEMENTARIAS DE OCUPACIÓN Y DESOCUPACIÓN,
+SEGÚN ÁREA METROPOLITANA, CUARTO TRIMESTRE DE 2022
+Población Tasa de:
+Ocupada Desocu- Partici- Deso- Ocupa- Pre- Trabajo Sub- Condicio-Informa- Ocupación
+Área Metropolitana de la pada pación1/ cupa- ción sión Asala- ocupa- nes Crí- lidad en el
+Ciudad de: ción2/ Parcial y Gene- riado3/ ción3/ ticas de Labo- Sector
+Desocu- ral2/ Ocupa- ral 13/ Informal 13/
+pación2/ ción3/
+(Personas) (Porcentaje)
+Agregado 39 Ciudades 27 919 377 1 087 436 61.6 3.7 8.8 6.8 70.8 7.2 26.2 43.5 26.0
+Aguascalientes (Ags.) 432 227 18 815 60.5 4.2 7.2 5.5 75.7 1.9 16.7 37.0 20.2
+Mexicali (B. C.) 428 147 12 797 63.5 2.9 8.1 6.7 73.6 6.2 20.2 36.6 17.4
+Tijuana (B. C.) 874 541 24 103 61.9 2.7 5.3 3.2 70.9 1.2 27.2 35.4 17.7
+La Paz (B. C. S.) 135 268 3 198 66.1 2.3 9.2 8.3 71.8 9.3 15.6 37.6 20.3
+Campeche (Camp.) 123 913 3 623 60.9 2.8 9.2 7.6 70.9 7.7 32.1 45.9 23.2
+Ciudad del Carmen (Camp.) 91 423 2 982 61.9 3.2 12.4 13.9 68.0 23.9 27.0 47.7 30.2
+Torreón - La Laguna
+569 750 19 413 63.6 3.3 8.9 8.0 75.7 6.9 23.7 38.8 21.0
+(Coah. y Dgo.)
+Saltillo (Coah.) 459 554 18 440 61.8 3.9 7.0 6.4 81.7 3.7 16.0 26.1 17.7
+Colima (Col.) 153 353 3 602 64.3 2.3 10.2 5.0 68.4 4.8 17.4 41.4 19.2
+Tapachula (Chis.) 110 144 3 601 62.8 3.2 9.8 10.5 63.1 13.9 43.5 55.1 32.0
+Tuxtla Gutiérrez (Chis.) 290 311 15 400 60.2 5.0 10.7 8.8 65.6 6.8 39.0 50.3 23.3
+Chihuahua (Chih.) 458 667 10 151 60.7 2.2 4.9 4.2 78.2 3.0 12.7 28.5 15.5
+Ciudad Juárez (Chih.) 767 238 15 408 67.0 2.0 6.4 5.4 77.7 5.4 31.1 27.6 14.3
+Ciudad de México
+9 592 144 487 351 61.2 4.8 10.6 8.5 68.8 10.2 35.1 48.5 32.0
+(CDMX y edo. Méx.)
+Durango (Dgo.) 284 734 9 995 60.6 3.4 7.5 6.7 72.4 3.2 26.1 39.6 21.3
+León (Gto.) 860 385 31 511 65.5 3.5 8.1 6.7 69.8 8.9 25.9 48.2 25.1
+Acapulco (Gro.) 309 640 5 055 60.0 1.6 8.0 2.9 64.8 5.0 36.7 59.9 36.7
+Pachuca (Hgo.) 205 086 6 753 60.3 3.2 8.5 4.8 68.2 6.7 22.9 51.7 27.2
+Guadalajara (Jal.) 2 064 984 58 481 63.5 2.8 5.9 3.9 71.0 5.4 10.4 39.8 22.9
+Toluca (edo. Méx.) 576 290 26 489 57.1 4.4 7.6 6.3 72.5 2.2 22.2 44.0 27.8
+Morelia (Mich.) 388 361 10 734 62.0 2.7 8.6 5.4 68.0 7.2 21.3 47.2 25.9
+Cuernavaca (Mor.) 362 008 12 607 57.3 3.4 7.3 3.7 64.1 2.1 15.5 54.8 29.7
+Tepic (Nay.) 217 621 5 930 67.6 2.7 10.5 6.4 67.1 7.2 21.2 45.7 22.7
+Monterrey (N. L.) 2 046 769 74 424 61.0 3.5 8.2 6.7 77.7 4.3 13.8 33.7 20.0
+Oaxaca (Oax.) 282 767 5 989 62.1 2.1 8.7 6.1 59.1 10.3 30.2 56.9 36.6
+Puebla (Pue.) 1 022 473 44 859 59.4 4.2 9.1 6.3 65.4 8.7 29.2 52.0 28.4
+Querétaro (Qro.) 524 820 19 286 59.3 3.5 6.0 4.0 73.5 0.7 15.9 31.0 14.0
+Cancún (Q. Roo) 469 276 10 624 63.7 2.2 5.5 4.2 73.0 3.5 21.1 37.6 20.0
+San Luis Potosí (S. L. P.) 560 544 25 091 61.9 4.3 8.8 7.2 73.9 5.6 17.9 35.6 20.0
+Culiacán (Sin.) 399 110 12 053 63.0 2.9 8.7 6.9 71.6 7.1 13.7 37.0 20.2
+Hermosillo (Son.) 420 403 13 170 62.8 3.0 8.3 6.8 73.2 4.9 12.0 34.8 19.6
+Villahermosa (Tab.) 185 205 7 878 62.2 4.1 9.4 9.2 69.4 8.0 26.1 47.9 26.6
+Tampico (Tamps. y Ver.) 365 711 18 349 58.3 4.8 12.3 8.3 70.7 5.8 21.7 44.1 23.6
+Reynosa (Tamps.) 336 415 6 266 63.0 1.8 5.6 4.2 75.0 7.6 44.5 36.2 26.1
+Tlaxcala (Tlax.) 367 196 11 667 61.9 3.1 9.7 7.9 64.0 13.4 40.2 66.8 43.5
+Coatzacoalcos (Ver.) 110 945 3 680 57.6 3.2 11.8 8.9 67.2 14.9 29.9 51.4 30.4
+Veracruz (Ver.) 290 089 9 719 52.9 3.2 8.8 5.2 67.9 5.5 29.2 47.2 29.6
+Mérida (Yuc.) 638 445 13 907 65.1 2.1 9.8 6.2 69.9 7.0 25.3 47.9 25.4
+Zacatecas (Zac.) 143 420 4 035 60.7 2.7 8.5 6.0 74.6 6.3 17.7 37.6 17.6
+1/ PEA como porcentaje de la población de 15 años y más
+2/ Valor relativo respecto a la PEA
+3/ Valor relativo respecto a la población ocupada. Por construcción, los indicadores de la ENOEN que involucran a la población ocupada u otra
+variable clasificada en rangos de salarios mínimos son sensibles a los cambios en dichos salarios. Las cifras de la Tasa de Condiciones
+Críticas de Ocupación se construyen a partir de salarios mínimos nominales. Para efecto de comparar en el tiempo indicadores que toman
+como referencia salarios mínimos, es necesario considerar la evolución del INPC y construir salarios mínimos equivalentes tomando un año
+base como referencia. El INEGI pone a disposición de las y los usuarios cifras comparables en el tiempo de la Tasa de Condiciones Críticas
+de Ocupación en la siguiente liga: https://www.inegi.org.mx/programas/enoe/15ymas/#Tabulados
+Fuente: INEGI. Encuesta Nacional de Ocupación y Empleo, Nueva Edición (ENOEN)
+
+page 21
+Nota al usuario
+La Encuesta Nacional de Ocupación y Empleo (ENOE) toma como referencia la estimación
+de población que se genera mediante el marco de muestreo del INEGI. Además, se continúa
+con el plan de actualización gradual respecto a incorporar la estimación de población del
+INEGI en la serie histórica. Para la presente publicación se encuentran actualizados los
+microdatos y tabulados a partir del primer trimestre de 2014.
+A partir de la publicación con mes de referencia a enero de 2023, se reanudará la difusión
+de resultados mensuales y trimestrales de la ENOE como Información de Interés Nacional.
+Este programa estadístico incluye, dentro de su metodología, la captación de información a
+través de entrevistas cara a cara y telefónicas, la actualización de catálogos, clasificadores,
+así como la incorporación de las preguntas de migración y lugar de trabajo. Además,
+iniciarán los trabajos para llevar a cabo la captación de información con herramientas
+digitales. Así, se da por terminado el programa estadístico emergente ENOEN: la difusión
+de sus resultados concluye con el cuarto trimestre de 2022.
+Nota metodológica
+Desde el tercer trimestre de 2020 se inició el levantamiento de la ENOEN con el mismo
+diseño conceptual, estadístico y metodológico de la ENOE tradicional, pero bajo una
+estrategia operativa mixta, de levantamiento de entrevistas telefónicas y cara a cara. A partir
+del tercer trimestre de 2022, la información se levanta exclusivamente bajo la modalidad de
+entrevistas cara a cara. De esta manera se inicia con la estrategia de retorno al
+levantamiento regular.
+La ENOEN respondió a la necesidad de volver paulatinamente al levantamiento regular de
+la ENOE y dar continuidad a la información sobre las características y condiciones de la
+población vinculada al mercado laboral. La ENOEN se aplica a los miembros del hogar de
+una vivienda seleccionada por medio de técnicas de muestreo. El esquema de muestreo es
+probabilístico, bietápico, estratificado y por conglomerados. Además, tiene como unidad
+última de selección las viviendas particulares y como unidad de observación a las personas.
+Una vez que se selecciona una vivienda, se la vuelve a visitar cada tres meses hasta
+completar un total de cinco visitas. Una vez que el grupo de viviendas completa el ciclo, se
+sustituye por otro grupo que inicia el propio. Se denomina «panel de muestra» a estos
+grupos de viviendas según el número de visitas que han tenido. En cada momento en campo
+hay cinco paneles, es decir, cinco grupos de viviendas que están por entrar a su primera,
+segunda, tercera, cuarta o quinta visita. Así, siempre hay una quinta parte de la muestra que
+es totalmente nueva en tanto que las otras cuatro quintas partes ya han sido visitadas tres
+meses atrás. Este esquema permite dar a la muestra una combinación de estabilidad y
+renovación. Asimismo, permite a las y los investigadores especializados rastrear los
+cambios que han tenido los hogares que permanecieron en la muestra a lo largo del tiempo
+(estudios longitudinales).
+
+page 22
+El que cada vivienda tenga una probabilidad de selección se traduce en que todos sus
+residentes son representativos de muchos otros en su área de residencia (dominio de
+muestra), tanto en sus características sociodemográficas como socioeconómicas. Los
+resultados se generalizan para toda la población que representan. Esto se hace mediante
+los factores de expansión, que son el inverso de las probabilidades de selección de las
+viviendas. Cada factor de expansión toma en cuenta el estrato socioeconómico y el ámbito
+geográfico que corresponden a la vivienda seleccionada.
+La encuesta está diseñada para dar resultados a nivel nacional, entidad federativa y áreas
+urbanas para cada trimestre del año. También permite que el nivel nacional pueda
+desagregarse en cuatro dominios: I) localidades de 100 mil y más habitantes, II) de 15 mil a
+99 999 habitantes, III) de 2 500 a 14 999 habitantes y IV) menos de 2 500 habitantes.
+El calendario de difusión del INEGI, disponible en su página de internet, indica la fecha en
+la que se dará a conocer la información trimestral.
+La ENOEN toma en cuenta los criterios que la Organización para la Cooperación y el
+Desarrollo Económicos (OCDE) propone dentro del marco general de la Organización
+Internacional del Trabajo (OIT). Lo anterior permite delimitar con mayor claridad a la
+población ocupada y a la desocupada, además de facilitar la comparabilidad internacional
+de las cifras de ocupación y empleo. La ENOEN asimismo incorpora el marco conceptual de
+la OIT y las recomendaciones del Grupo de Delhi relativas a la medición de la ocupación en
+el sector informal. La encuesta está diseñada para identificar los conceptos de
+desocupación, subocupación e informalidad sin confundirlos. También toma en cuenta y da
+un lugar específico a las personas que no presionan activamente en el mercado laboral
+porque ellas mismas consideran que ya no tienen oportunidad alguna de competir en este
+(mujeres que por dedicarse al hogar no han acumulado experiencia laboral, personas
+maduras y de la tercera edad, etc.).
+El diseño de la ENOEN se enfoca en proporcionar abundantes elementos para caracterizar
+la calidad de la ocupación en México. Este aspecto se considera analíticamente tan
+relevante como el de la desocupación misma o como cualquier otro fenómeno de
+desequilibrio entre oferta y demanda de trabajo. El diseño de la encuesta ha abierto más
+posibilidades para el enfoque de género relativo tanto al ámbito del trabajo como a la
+marginación.
+Para la ENOEN del tercer trimestre de 2020 al segundo trimestre de 2022, dentro de la PNEA
+disponible, se clasificó a las personas ausentes temporales de una actividad u oficio y a las
+personas con necesidad o deseos de trabajar. En la ENOE, estas estaban bajo el rubro
+«otros» de la PNEA no disponible. La razón de este cambio fue que, debido a la pandemia
+y al cierre de las empresas y negocios en actividades no esenciales, técnicamente estas
+personas quedaron fuera de la fuerza de trabajo al perder el vínculo con la unidad
+empleadora, pero muchas regresarían a su trabajo una vez que se reactivaran las
+actividades. Por lo anterior, conceptualmente, fue más pertinente darles un tratamiento de
+«personas disponibles para trabajar sin posibilidades de búsqueda de trabajo», que
+dejarlas
+
+page 23
+en una categoría residual entre las personas no disponibles para trabajar. A partir del tercer
+trimestre de 2022, dicho criterio adicional deja de operar y se regresa a los criterios previos
+a la pandemia en la clasificación de la PNEA disponible y la PNEA no disponible. Ver
+documento de Diseño Conceptual de la ENOEN, Sección 3.6.
+La mayoría de las series económicas se ven afectadas por factores estacionales: efectos
+periódicos que se repiten cada año y cuyas causas son ajenas a la naturaleza económica
+de las series. Estas pueden ser: las festividades, meses más largos que otros, las
+vacaciones escolares, el clima y otras fluctuaciones, como la elevada producción de
+juguetes en los meses previos a la Navidad.
+La desestacionalización o ajuste estacional de series económicas consiste en remover estas
+influencias intra-anuales periódicas: su presencia dificulta diagnosticar y describir el
+comportamiento de una serie económica, pues no permite comparar adecuadamente un
+determinado trimestre con el inmediato anterior. Analizar la serie desestacionalizada ayuda
+a realizar un mejor diagnóstico y pronóstico de su evolución, pues, en el corto plazo,
+identifica la posible dirección de los movimientos que pudiera tener la variable en cuestión.
+Las series originales se ajustan estacionalmente mediante el paquete estadístico
+X-13ARIMA-SEATS. Para conocer la metodología, consúltese la siguiente liga:
+https://www.inegi.org.mx/app/biblioteca/ficha.html?upc=702825099060
+Mediante la ENOEN, el INEGI genera la información contenida en este documento y la da a
+conocer con base en el Calendario de Difusión de Información Estadística y Geográfica y
+de Interés Nacional.
+Las cifras aquí mencionadas pueden consultarse en los centros de información del INEGI
+y en los sitios en internet del propio Instituto (https://www.inegi.org.mx/programas/enoe/15
+ymas/) y de la Secretaría del Trabajo y Previsión Social (www.stps.gob.mx), instituciones
+que se esfuerzan para proporcionar a la sociedad más y mejor información sobre el
+comportamiento del mercado laboral mexicano.

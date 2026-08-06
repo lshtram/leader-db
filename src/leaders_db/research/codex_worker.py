@@ -11,6 +11,7 @@ from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from pydantic import ValidationError
 from sqlalchemy.engine import Engine
@@ -21,12 +22,16 @@ from ._codex_worker_artifacts import (
 from ._codex_worker_artifacts import (
     read_codex_usage as _read_codex_usage,
 )
+from ._codex_worker_artifacts import (
+    read_distinct_codex_usage as _read_distinct_codex_usage,
+)
 from ._codex_worker_setup import WorkerAttempt, initialize_worker_attempt
 from .codex_worker_command import (
     build_codex_exec_command,
     read_codex_thread_id,
     validate_worker_timing,
 )
+from .compact_handoff import build_compact_research_handoff
 from .costing import combine_priced_usage
 from .dossier_models import (
     DossierLocalPrior,
@@ -38,6 +43,9 @@ from .dossier_notebook_prompt import build_research_notebook_prompt
 from .dossier_prompt import build_dossier_prompt
 from .job_ledger import checkpoint_job, heartbeat_job
 from .model_profiles import ResearchModelProfile, load_research_model_profiles
+from .research_checkpoint_recovery import (
+    load_previous_research_checkpoint as _load_previous_research_checkpoint,
+)
 from .research_workflow import ResearchWorkflow
 
 
@@ -96,7 +104,14 @@ def execute_claimed_dossier_job(
             heartbeat_seconds=heartbeat_seconds,
             timeout_seconds=timeout_seconds,
         )
-    research_notebook = research_checkpoint[1] if research_checkpoint else None
+    research_notebook = (
+        build_compact_research_handoff(
+            attempt_dir=attempt.attempt_dir,
+            fallback_notebook=research_checkpoint[1],
+        )
+        if research_checkpoint
+        else None
+    )
     recovered_path = _reuse_existing_notebook_candidate(
         engine,
         candidate=existing_candidate,
@@ -176,6 +191,11 @@ def execute_claimed_dossier_job(
         raise WorkerOutputError("Codex worker produced invalid JSON") from exc
     if not isinstance(candidate, dict):
         raise WorkerOutputError("Codex worker output must be a JSON object")
+    candidate = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=existing_candidate,
+        notebook=research_notebook or "",
+    )
     try:
         dossier = _prepare_dossier(
             candidate,
@@ -230,6 +250,11 @@ def _reuse_existing_notebook_candidate(
 
     if candidate is None or research_checkpoint is None:
         return None
+    candidate = _restore_formatter_ledger_evidence(
+        candidate,
+        existing_candidate=candidate,
+        notebook=research_checkpoint[1],
+    )
     try:
         dossier = _prepare_dossier(
             candidate,
@@ -417,6 +442,7 @@ def _run_research_notebook_pass(
         schema_path=None,
         final_message_path=handoff_path,
         writable_dir=attempt.attempt_dir,
+        isolated_web_research=True,
     )
     checkpoint_job(
         engine,
@@ -509,9 +535,27 @@ def _prepare_execution_passes(
     """Run direct research plus review loop and resolve the formatter profile."""
 
     workflow = ResearchWorkflow.model_validate(job["input"]["research_workflow"])
+    if workflow.source_discovery_stage_enabled:
+        from .chapter_source_discovery import run_chapter_source_discovery
+
+        run_chapter_source_discovery(
+            engine,
+            job=job,
+            worker_id=worker_id,
+            project_root=project_root,
+            profile=researcher_profile,
+            attempt=attempt,
+            workflow=workflow,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
     checkpoint = _load_previous_research_checkpoint(
         attempt.trusted_dir, job=job, profile=researcher_profile
     )
+    if checkpoint is not None:
+        _recover_consumer_materials(checkpoint, attempt=attempt)
     if checkpoint is None:
         checkpoint = _recover_completed_initial_research(
             attempt=attempt,
@@ -531,6 +575,25 @@ def _prepare_execution_passes(
             profile=researcher_profile,
             attempt=attempt,
             local_priors=local_priors,
+            workflow=workflow,
+            lease_token=lease_token,
+            lease_seconds=lease_seconds,
+            heartbeat_seconds=heartbeat_seconds,
+            timeout_seconds=timeout_seconds,
+        )
+    if workflow.chapter_research_turns_enabled and not _checkpoint_covers_chapters(
+        checkpoint, job=job, workflow=workflow
+    ):
+        from .chapter_research_sequence import run_chapter_research_sequence
+
+        checkpoint = run_chapter_research_sequence(
+            engine,
+            checkpoint=checkpoint,
+            job=job,
+            worker_id=worker_id,
+            project_root=project_root,
+            profile=researcher_profile,
+            attempt=attempt,
             workflow=workflow,
             lease_token=lease_token,
             lease_seconds=lease_seconds,
@@ -586,6 +649,55 @@ def _prepare_execution_passes(
     ):
         raise ValueError("formatter profile differs from the persisted job input")
     return formatter, checkpoint
+
+
+def _checkpoint_covers_chapters(
+    checkpoint: tuple[Path, str, Path, str, str],
+    *,
+    job: dict[str, Any],
+    workflow: ResearchWorkflow,
+) -> bool:
+    """Return whether the recovered notebook already contains every selected chapter."""
+
+    selected = {
+        str(item).split(".", maxsplit=1)[0]
+        for item in job["input"]["question_ids"]
+    }
+    return all(
+        f"--- CHAPTER RESEARCH {chapter_id} ---" in checkpoint[1]
+        for chapter_id in workflow.chapter_order
+        if chapter_id in selected
+    )
+
+
+def _recover_consumer_materials(
+    checkpoint: tuple[Path, str, Path, str, str],
+    *,
+    attempt: WorkerAttempt,
+) -> None:
+    """Copy immutable ledger inputs from the checkpoint's prior attempt."""
+
+    manifest = _embedded_ledger_manifest(checkpoint[1])
+    if manifest is None:
+        return
+    (attempt.attempt_dir / "research-ledger-manifest.json").write_text(
+        json.dumps(manifest, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    matches = list(
+        re.finditer(r"(?m)^--- CHAPTER RESEARCH ([1-8]B) ---$", checkpoint[1])
+    )
+    ledger_start = checkpoint[1].rfind("--- RESEARCH LEDGER MANIFEST ---")
+    for index, match in enumerate(matches):
+        end = (
+            matches[index + 1].start()
+            if index + 1 < len(matches)
+            else ledger_start if ledger_start > match.end() else len(checkpoint[1])
+        )
+        (attempt.attempt_dir / f"research-chapter-{match.group(1)}.md").write_text(
+            checkpoint[1][match.end() : end].strip(),
+            encoding="utf-8",
+        )
 
 
 def _recover_completed_initial_research(
@@ -844,7 +956,13 @@ def _load_or_recover_research_ledger_manifest(
             return _load_research_ledger_manifest(path)
         except WorkerOutputError:
             continue
-    entries = _recover_markdown_ledger_entries(handoff)
+    entries = _recover_json_manifest_update_entries(handoff)
+    explicit_ids = {str(entry["provisional_id"]) for entry in entries}
+    entries.extend(
+        entry
+        for entry in _recover_markdown_ledger_entries(handoff)
+        if str(entry["provisional_id"]) not in explicit_ids
+    )
     if entries:
         candidate = {
             "schema_version": "ruler_research_ledger_manifest_v1",
@@ -870,7 +988,12 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     seen_keys: set[str] = set()
     for index, heading in enumerate(headings):
-        end = headings[index + 1].start() if index + 1 < len(headings) else len(handoff)
+        next_item = headings[index + 1].start() if index + 1 < len(headings) else len(handoff)
+        next_heading = re.search(r"(?m)^#{2,4}\s+", handoff[heading.end() :])
+        section_heading = (
+            heading.end() + next_heading.start() if next_heading is not None else len(handoff)
+        )
+        end = min(next_item, section_heading)
         section = handoff[heading.end() : end]
         key_match = re.search(
             r"(?mi)(?:canonical[_ ]fact[_ ]key|canonical key)\*{0,2}:\*{0,2}"
@@ -888,7 +1011,7 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
         if not key or key in seen_keys:
             continue
         use_match = re.search(
-            r"(?mi)(?:final use|disposition|role)\*{0,2}:\*{0,2}\s*([^\n]+)",
+            r"(?mi)(?:final use|disposition|role|status)\*{0,2}:\*{0,2}\s*([^\n]+)",
             section,
         )
         use = use_match.group(1).lower() if use_match else "final_evidence"
@@ -921,7 +1044,718 @@ def _recover_markdown_ledger_entries(handoff: str) -> list[dict[str, Any]]:
             entry["reason"] = use_match.group(1).strip() if use_match else "rejected"
         entries.append(entry)
         seen_keys.add(key)
+    for match in re.finditer(
+        r"(?m)^\|\s*((?=[A-Za-z0-9._-]*\d)[A-Za-z0-9][A-Za-z0-9._-]+)"
+        r"\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*$",
+        handoff,
+    ):
+        provisional_id, claim_cell, _, routing_cell = match.groups()
+        url_match = re.search(r"https?://[^\s)]+", claim_cell)
+        if url_match is None:
+            continue
+        url = url_match.group(0).rstrip(".,")
+        key = f"recovered:{url}|{provisional_id}"
+        if key in seen_keys:
+            continue
+        entries.append(
+            {
+                "provisional_id": provisional_id,
+                "canonical_fact_key": key,
+                "disposition": "final_evidence",
+                "chapter_ids": sorted(set(re.findall(r"\b([1-8]B)\b", routing_cell))),
+            }
+        )
+        seen_keys.add(key)
     return entries
+
+
+def _restore_formatter_ledger_evidence(
+    candidate: dict[str, Any],
+    *,
+    existing_candidate: dict[str, Any] | None,
+    notebook: str,
+) -> dict[str, Any]:
+    """Restore exact reviewed facts preserved by an earlier formatter attempt."""
+
+    manifest = _embedded_ledger_manifest(notebook)
+    if manifest is None:
+        return _restore_explicit_cited_bullets(candidate, notebook=notebook)
+    evidence = candidate.get("evidence")
+    mappings = candidate.get("mappings")
+    coverage = candidate.get("coverage")
+    if not all(isinstance(value, list) for value in (evidence, mappings, coverage)):
+        return candidate
+    prior_candidate = existing_candidate or {}
+    catalog_items = list(prior_candidate.get("evidence", [])) + list(
+        prior_candidate.get("recovery_evidence_catalog", [])
+    )
+    catalog = {
+        str(item.get("canonical_fact_key", "")): item
+        for item in catalog_items
+        if isinstance(item, dict) and item.get("canonical_fact_key")
+    }
+    emitted_by_key = {
+        str(item.get("canonical_fact_key", "")): str(item.get("evidence_id", ""))
+        for item in evidence
+        if isinstance(item, dict)
+    }
+    used_ids = {
+        str(item.get("evidence_id", ""))
+        for item in evidence
+        if isinstance(item, dict)
+    }
+    next_number = max(
+        (int(match.group(1)) for item in used_ids if (match := re.fullmatch(r"E(\d+)", item))),
+        default=0,
+    )
+    coverage_by_methodology = {
+        str(item.get("methodology_id")): item
+        for item in coverage
+        if isinstance(item, dict)
+    }
+    restored_keys: list[str] = []
+    for entry in manifest.get("entries", []):
+        if not isinstance(entry, dict) or entry.get("disposition") != "final_evidence":
+            continue
+        key = str(entry.get("canonical_fact_key", ""))
+        source = catalog.get(key) or _recover_explicit_markdown_evidence(
+            notebook,
+            key,
+            provisional_id=str(entry.get("provisional_id", "")),
+        ) or _evidence_from_manifest_entry(entry)
+        if key in emitted_by_key:
+            _restore_ledger_routing(
+                entry,
+                evidence_id=emitted_by_key[key],
+                mappings=mappings,
+                coverage=coverage,
+                coverage_by_methodology=coverage_by_methodology,
+            )
+            continue
+        if not key or source is None:
+            continue
+        next_number += 1
+        evidence_id = f"E{next_number:03d}"
+        restored = dict(source)
+        restored["evidence_id"] = evidence_id
+        restored["canonical_fact_key"] = key
+        restored["final_evidence_use"] = "final_evidence"
+        evidence.insert(0, restored)
+        emitted_by_key[key] = evidence_id
+        restored_keys.append(key)
+        _restore_ledger_routing(
+            entry,
+            evidence_id=evidence_id,
+            mappings=mappings,
+            coverage=coverage,
+            coverage_by_methodology=coverage_by_methodology,
+        )
+    if restored_keys:
+        warnings = candidate.setdefault("normalization_warnings", [])
+        if isinstance(warnings, list):
+            warnings.append(
+                "Restored manifest-required evidence from prior completed formatter "
+                f"attempts for {len(restored_keys)} canonical fact key(s)."
+            )
+    return candidate
+
+
+def _evidence_from_manifest_entry(entry: dict[str, Any]) -> dict[str, Any] | None:
+    """Convert a complete producer ledger row into formatter evidence."""
+
+    required = ("canonical_fact_key", "claim", "url", "locator")
+    if any(not str(entry.get(field, "")).strip() for field in required):
+        return None
+    contrary = entry.get("contrary_evidence", ())
+    if isinstance(contrary, str):
+        contrary = [contrary] if contrary.strip() else []
+    elif not isinstance(contrary, list):
+        contrary = []
+    claim = str(entry["claim"])
+    url = str(entry["url"])
+    publisher = str(entry.get("publisher") or urlparse(url).netloc).strip()
+    if not publisher:
+        return None
+    return {
+        "claim": claim,
+        "url": url,
+        "title": str(entry.get("title") or f"{publisher} evidence record"),
+        "publisher": publisher,
+        "publication_date": str(
+            entry.get("publication_date")
+            or entry.get("publisher_date")
+            or "unknown_not_exposed_by_source"
+        ),
+        "excerpt": claim,
+        "source_locator": str(entry["locator"]),
+        "canonical_fact_key": str(entry["canonical_fact_key"]),
+        "source_type": str(entry.get("source_type") or "unknown_not_recorded"),
+        "source_confidence": str(
+            entry.get("source_confidence") or "unknown_not_recorded"
+        ),
+        "source_confidence_reason": str(
+            entry.get("source_confidence_reason") or "Producer did not record a reason."
+        ),
+        "final_evidence_use": "final_evidence",
+        "period_fit": str(entry.get("period_fit") or "unknown_not_recorded"),
+        "ruler_attribution": str(
+            entry.get("ruler_attribution")
+            or entry.get("attribution_limits")
+            or "unknown_not_recorded"
+        ),
+        "contrary_evidence": contrary,
+    }
+
+
+def _restore_explicit_cited_bullets(
+    candidate: dict[str, Any], *, notebook: str
+) -> dict[str, Any]:
+    """Retain explicit cited producer bullets as context when no manifest exists."""
+
+    evidence = candidate.get("evidence")
+    mappings = candidate.get("mappings")
+    coverage = candidate.get("coverage")
+    selected = {str(item) for item in candidate.get("methodology_ids", [])}
+    if not all(isinstance(value, list) for value in (evidence, mappings, coverage)):
+        return candidate
+    if evidence or not selected:
+        return candidate
+    restored = 0
+    pattern = re.compile(
+        r"(?ms)^-\s+\*\*(E[V-]?\d{3,})\*\*\s+[—-]\s+"
+        r"(?P<body>.*?)(?=^-\s+\*\*E[V-]?\d{3,}\*\*\s+[—-]\s+|^#{1,4}\s|\Z)"
+    )
+    for match in pattern.finditer(notebook):
+        body = " ".join(match.group("body").split())
+        links = re.findall(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", body)
+        methodology_ids = sorted(
+            set(re.findall(r"\b([1-8]B\.(?:10|[1-9]))\b", body)) & selected
+        )
+        if not links or not methodology_ids:
+            continue
+        label, url = links[-1]
+        claim = re.split(r"\bLens(?:es)?\s*:", body, maxsplit=1)[0].strip()
+        claim = re.sub(r"\s*\[[^\]]+\]\(https?://[^)]+\).*", "", claim).strip()
+        if not claim:
+            continue
+        provisional_id = match.group(1)
+        locator_match = re.search(
+            r"(?:,\s*|;\s*)(lines?\s+\d+(?:[–-]\d+)?(?:,\s*\d+(?:[–-]\d+)?)*)",
+            body,
+            flags=re.IGNORECASE,
+        )
+        locator = (
+            locator_match.group(1)
+            if locator_match is not None
+            else f"producer bullet {provisional_id}"
+        )
+        canonical_key = f"{url}:producer-bullet-{provisional_id.casefold()}"
+        evidence.append(
+            {
+                "evidence_id": provisional_id,
+                "claim": claim,
+                "url": url,
+                "title": label,
+                "publisher": label,
+                "publication_date": "unknown_not_recorded",
+                "excerpt": claim,
+                "source_locator": locator,
+                "canonical_fact_key": canonical_key,
+                "source_type": "producer-authored cited context; type not normalized",
+                "source_confidence": "low",
+                "source_confidence_reason": (
+                    "Recovered conservatively from an explicit cited producer bullet "
+                    "because no machine-readable ledger manifest was supplied."
+                ),
+                "final_evidence_use": "context",
+                "period_fit": "target-period fit not fully normalized",
+                "ruler_attribution": (
+                    "Use only with the attribution limits stated in the recovered claim."
+                ),
+                "contrary_evidence": [],
+            }
+        )
+        for methodology_id in methodology_ids:
+            mappings.append(
+                {
+                    "evidence_id": provisional_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": "Recovered explicit producer routing; contextual only.",
+                }
+            )
+        restored += 1
+    if restored:
+        environment = candidate.get("evidence_environment")
+        if isinstance(environment, dict):
+            recovered_ids = {
+                str(item.get("evidence_id", ""))
+                for item in evidence
+                if isinstance(item, dict)
+            }
+            raw_support = environment.get("supporting_evidence_ids")
+            retained_support = (
+                [
+                    str(item)
+                    for item in raw_support
+                    if str(item) in recovered_ids
+                ]
+                if isinstance(raw_support, list)
+                else []
+            )
+            environment["supporting_evidence_ids"] = (
+                retained_support
+                if retained_support
+                else [str(item["evidence_id"]) for item in evidence[: min(8, restored)]]
+            )
+        warnings = candidate.setdefault("normalization_warnings", [])
+        if isinstance(warnings, list):
+            warnings.append(
+                "Recovered "
+                f"{restored} explicit cited producer bullet(s) as context because "
+                "the producer supplied no machine-readable ledger manifest."
+            )
+    return candidate
+
+
+def _recover_explicit_markdown_evidence(
+    notebook: str,
+    canonical_key: str,
+    *,
+    provisional_id: str = "",
+) -> dict[str, Any] | None:
+    """Recover one complete producer-authored evidence block without inference."""
+
+    numbered_record = _recover_numbered_markdown_evidence(
+        notebook, canonical_key=canonical_key, provisional_id=provisional_id
+    )
+    if numbered_record is not None:
+        return numbered_record
+    return _recover_labeled_markdown_evidence(
+        notebook, canonical_key=canonical_key, provisional_id=provisional_id
+    )
+
+
+def _recover_labeled_markdown_evidence(
+    notebook: str, *, canonical_key: str, provisional_id: str
+) -> dict[str, Any] | None:
+    """Recover a producer block labeled by provisional ID or canonical key."""
+
+    headings = list(re.finditer(r"(?m)^#{2,4}\s+([^\n]+)$", notebook))
+    for index, heading in enumerate(headings):
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(notebook)
+        section = notebook[heading.end() : end]
+        key_match = re.search(
+            r"(?mi)^-\s*(?:\*{0,2})Canonical fact key(?:\*{0,2}):\s*`([^`]+)`",
+            section,
+        )
+        heading_id_matches = bool(
+            provisional_id
+            and re.match(rf"^{re.escape(provisional_id)}(?:\s|—|-)", heading.group(1))
+        )
+        key_matches = key_match is not None and key_match.group(1).strip() == canonical_key
+        if not key_matches and not heading_id_matches:
+            continue
+        fields = {
+            label: _markdown_bullet_value(section, aliases)
+            for label, aliases in {
+                "claim": ("Claim",),
+                "locator": ("Locator",),
+                "profile": ("Source type/confidence", "Profile"),
+                "attribution": ("Attribution",),
+                "role": ("Role", "Final use"),
+            }.items()
+        }
+        if any(not value for value in fields.values()):
+            return None
+        source = _markdown_bullet_value(section, ("Source",))
+        explicit_title = _markdown_bullet_value(section, ("Title",))
+        explicit_publisher = _markdown_bullet_value(section, ("Publisher",))
+        explicit_date = _markdown_bullet_value(section, ("Date",))
+        url = canonical_key.split("|", maxsplit=1)[0]
+        if not url.startswith(("http://", "https://")):
+            return None
+        normalized_profile = fields["profile"].replace("_", "-")
+        confidence_match = re.search(
+            r"\b(high|medium|low)(?:-medium)?\b", normalized_profile, re.IGNORECASE
+        )
+        if confidence_match is None:
+            return None
+        source_parts = [item.strip(" .") for item in source.split(",")] if source else []
+        publisher = explicit_publisher or (source_parts[0] if source_parts else "")
+        publication_date = explicit_date or (
+            source_parts[-1] if len(source_parts) > 1 else ""
+        )
+        if not publication_date:
+            distributed = re.search(
+                r"\bdistributed\s+([^;,.]+(?:\s+\d{4})?)",
+                fields["locator"],
+                re.IGNORECASE,
+            )
+            publication_date = (
+                distributed.group(1).strip()
+                if distributed is not None
+                else "unknown_not_exposed_by_source"
+            )
+        if not publisher:
+            return None
+        return {
+            "evidence_id": "E999999",
+            "claim": fields["claim"],
+            "url": url,
+            "title": explicit_title or heading.group(1).strip(),
+            "publisher": publisher,
+            "publication_date": publication_date,
+            "excerpt": fields["claim"],
+            "source_locator": fields["locator"],
+            "canonical_fact_key": canonical_key,
+            "source_type": fields["profile"],
+            "source_confidence": confidence_match.group(1).lower(),
+            "source_confidence_reason": fields["profile"],
+            "final_evidence_use": "final_evidence",
+            "period_fit": "Producer identified this as target-period evidence.",
+            "ruler_attribution": fields["attribution"],
+            "contrary_evidence": [],
+        }
+    return None
+
+
+def _recover_numbered_markdown_evidence(
+    notebook: str, *, canonical_key: str, provisional_id: str
+) -> dict[str, Any] | None:
+    """Recover a fully labeled reconnaissance record such as ``AMLO23-001``."""
+
+    number_match = re.fullmatch(r"[A-Za-z]+(?:\d+)?-(\d+)", provisional_id)
+    if number_match is None:
+        return None
+    number = int(number_match.group(1))
+    block_match = re.search(
+        rf"(?ms)^### Record {number}\s+[—-].*?\n(?P<body>.*?)(?=^### Record \d+\s+[—-]|^##\s|\Z)",
+        notebook,
+    )
+    if block_match is None:
+        return None
+    body = block_match.group("body")
+    values = {
+        label: _markdown_bullet_value(body, aliases)
+        for label, aliases in {
+            "claim": ("Fact",),
+            "locator": ("Locator",),
+            "period": ("Period",),
+            "attribution": ("Ruler connection",),
+            "contrary": ("Complicating evidence",),
+            "cautions": ("Cautions",),
+            "source": ("Strongest source",),
+        }.items()
+    }
+    if any(not values[field] for field in ("claim", "locator", "source")):
+        return None
+    source_match = re.search(
+        r"\*([^*]+)\*,\s*([^,\[]+)(?:,\s*([^\[]+?))?\.\s*"
+        r"\[[^\]]+\]\((https?://[^)]+)\)",
+        values["source"],
+    )
+    if source_match is None:
+        return None
+    title, publisher, publication_date, url = source_match.groups()
+    if not canonical_key or not url:
+        return None
+    cautions = values["cautions"] or (
+        "The producer supplied no normalized source-confidence profile."
+    )
+    contrary = [values["contrary"]] if values["contrary"] else []
+    return {
+        "evidence_id": "E999999",
+        "claim": values["claim"],
+        "url": url,
+        "title": title.strip(),
+        "publisher": publisher.strip(),
+        "publication_date": (publication_date or "unknown_not_recorded").strip(" ."),
+        "excerpt": values["claim"],
+        "source_locator": values["locator"],
+        "canonical_fact_key": canonical_key,
+        "source_type": "producer-selected strongest source; type not normalized",
+        "source_confidence": "medium",
+        "source_confidence_reason": cautions,
+        "final_evidence_use": "final_evidence",
+        "period_fit": values["period"] or "unknown_not_recorded",
+        "ruler_attribution": values["attribution"] or "unknown_not_recorded",
+        "contrary_evidence": contrary,
+    }
+
+
+def _markdown_bullet_value(section: str, aliases: tuple[str, ...]) -> str:
+    """Read one explicitly labeled single-line Markdown bullet value."""
+
+    labels = "|".join(re.escape(alias) for alias in aliases)
+    match = re.search(
+        rf"(?mi)^-\s*(?:\*{{0,2}})(?:{labels})"
+        rf"(?::\*{{0,2}}|\*{{0,2}}:)\s*([^\n]+)",
+        section,
+    )
+    return match.group(1).strip().strip("`") if match is not None else ""
+
+
+def _embedded_ledger_manifest(notebook: str) -> dict[str, Any] | None:
+    """Read the final inlined ledger manifest from a research notebook."""
+
+    marker = "--- RESEARCH LEDGER MANIFEST ---"
+    if marker not in notebook:
+        return None
+    try:
+        manifest, _ = json.JSONDecoder().raw_decode(
+            notebook.rsplit(marker, maxsplit=1)[1].lstrip()
+        )
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(manifest, dict):
+        return None
+    entries = manifest.get("entries", [])
+    first_entries_by_id = _first_ledger_entries_by_id(notebook)
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        original = first_entries_by_id.get(str(entry.get("provisional_id", "")))
+        if original is not None:
+            entry["canonical_fact_key"] = str(original["canonical_fact_key"])
+            if original.get("disposition") is not None:
+                entry["disposition"] = original["disposition"]
+    first_notebook_part = notebook.split(marker, maxsplit=1)[0]
+    historical_keys_by_id = {
+        str(entry["provisional_id"]): str(entry["canonical_fact_key"])
+        for entry in _recover_markdown_ledger_entries(first_notebook_part)
+    }
+    declared_ids = {
+        str(entry.get("provisional_id", ""))
+        for entry in entries
+        if isinstance(entry, dict)
+    }
+    manifest["entries"] = [
+        entry
+        for entry in entries
+        if not _is_replayed_historical_entry(
+            entry,
+            declared_ids=declared_ids,
+            historical_keys_by_id=historical_keys_by_id,
+        )
+    ]
+    restrictive = {
+        str(entry["canonical_fact_key"]): entry
+        for entry in _recover_markdown_ledger_entries(notebook)
+        if entry.get("disposition") in {"discovery_only", "rejected"}
+    }
+    for entry in manifest["entries"]:
+        correction = restrictive.get(str(entry.get("canonical_fact_key", "")))
+        if correction is not None:
+            entry.update(correction)
+    recovered_routing = {
+        str(entry["canonical_fact_key"]): entry
+        for entry in _recover_json_manifest_update_entries(notebook)
+    }
+    for entry in manifest["entries"]:
+        routing = recovered_routing.get(str(entry.get("canonical_fact_key", "")))
+        if routing is None:
+            continue
+        entry["chapter_ids"] = sorted(
+            set(entry.get("chapter_ids", [])) | set(routing.get("chapter_ids", []))
+        )
+        entry["methodology_ids"] = sorted(
+            set(entry.get("methodology_ids", []))
+            | set(routing.get("methodology_ids", []))
+        )
+    return manifest
+
+
+def _first_ledger_entries_by_id(text: str) -> dict[str, dict[str, Any]]:
+    """Return each provisional ID's first valid producer-manifest appearance."""
+
+    decoder = json.JSONDecoder()
+    marker = '"schema_version"'
+    groups: list[tuple[int, list[dict[str, Any]]]] = []
+    for match in re.finditer(r"(?s)```json\s*(.*?)\s*```", text):
+        try:
+            payload = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        entries = [entry for entry in payload if isinstance(entry, dict)]
+        if entries:
+            groups.append((match.start(), entries))
+    first_entries: dict[str, dict[str, Any]] = {}
+    for marker_index in (
+        index for index in range(len(text)) if text.startswith(marker, index)
+    ):
+        object_start = text.rfind("{", 0, marker_index)
+        if object_start < 0:
+            continue
+        try:
+            candidate, _ = decoder.raw_decode(text[object_start:])
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(candidate, dict) or candidate.get("schema_version") != (
+            "ruler_research_ledger_manifest_v1"
+        ):
+            continue
+        groups.append(
+            (
+                object_start,
+                [entry for entry in candidate.get("entries", []) if isinstance(entry, dict)],
+            )
+        )
+    for _, entries in sorted(groups, key=lambda item: item[0]):
+        for entry in entries:
+            if (
+                entry.get("provisional_id")
+                and entry.get("canonical_fact_key")
+                and entry.get("disposition")
+            ):
+                first_entries.setdefault(str(entry["provisional_id"]), entry)
+    return first_entries
+
+
+def _recover_json_manifest_update_entries(text: str) -> list[dict[str, Any]]:
+    """Recover explicit fenced JSON manifest-update arrays in source order."""
+
+    recovered: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for match in re.finditer(r"(?s)```json\s*(.*?)\s*```", text):
+        try:
+            payload = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        for entry in payload:
+            if not isinstance(entry, dict):
+                continue
+            provisional_id = str(entry.get("provisional_id", ""))
+            if (
+                provisional_id
+                and entry.get("canonical_fact_key")
+                and entry.get("disposition")
+                and provisional_id not in seen_ids
+            ):
+                recovered.append(_normalize_recovered_manifest_entry(entry))
+                seen_ids.add(provisional_id)
+    for match in re.finditer(r"(?m)^SOURCE_CLAIM_JSON:\s*(\{.*\})\s*$", text):
+        try:
+            entry = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        provisional_id = str(entry.get("provisional_id", ""))
+        if not (
+            provisional_id
+            and entry.get("canonical_fact_key")
+            and entry.get("disposition")
+            and provisional_id not in seen_ids
+        ):
+            continue
+        recovered.append(_normalize_recovered_manifest_entry(entry))
+        seen_ids.add(provisional_id)
+    return recovered
+
+
+def _normalize_recovered_manifest_entry(entry: dict[str, Any]) -> dict[str, Any]:
+    """Normalize common producer wording while retaining useful ledger identity."""
+
+    normalized = dict(entry)
+    disposition = str(normalized.get("disposition", "")).strip().casefold()
+    aliases = {
+        "accepted": "final_evidence",
+        "accept": "final_evidence",
+        "retained": "final_evidence",
+        "final": "final_evidence",
+        "contextual": "context",
+        "discovery": "discovery_only",
+    }
+    normalized["disposition"] = aliases.get(disposition, disposition)
+    normalized["chapter_ids"] = sorted(
+        {
+            str(item)
+            for item in normalized.get("chapter_ids", [])
+            if re.fullmatch(r"[1-8]B", str(item))
+        }
+    )
+    raw_methodology_ids = (
+        list(normalized.get("methodology_ids", []))
+        + list(normalized.get("lenses", []))
+    )
+    normalized["methodology_ids"] = sorted(
+        {
+            str(item)
+            for item in raw_methodology_ids
+            if re.fullmatch(r"[1-8]B\.(?:10|[1-9])", str(item))
+        }
+    )
+    return normalized
+
+
+def _is_replayed_historical_entry(
+    entry: object,
+    *,
+    declared_ids: set[str],
+    historical_keys_by_id: dict[str, str],
+) -> bool:
+    """Identify an old heading replayed under an artificial suffixed ID."""
+
+    if not isinstance(entry, dict):
+        return False
+    provisional_id = str(entry.get("provisional_id", ""))
+    match = re.fullmatch(r"(.+)-\d+", provisional_id)
+    if match is None or match.group(1) not in declared_ids:
+        return False
+    return historical_keys_by_id.get(match.group(1)) == str(
+        entry.get("canonical_fact_key", "")
+    )
+
+
+def _restore_ledger_routing(
+    entry: dict[str, Any],
+    *,
+    evidence_id: str,
+    mappings: list[Any],
+    coverage: list[Any],
+    coverage_by_methodology: dict[str, Any],
+) -> None:
+    """Restore exact lens routing with a neutral relation and valid coverage joins."""
+
+    methodology_ids = [str(item) for item in entry.get("methodology_ids", [])]
+    if not methodology_ids:
+        methodology_ids = [
+            f"{chapter_id}.1"
+            for chapter_id in entry.get("chapter_ids", [])
+            if re.fullmatch(r"[1-8]B", str(chapter_id))
+        ]
+    for methodology_id in dict.fromkeys(item for item in methodology_ids if item):
+        mapping_exists = any(
+            isinstance(item, dict)
+            and item.get("evidence_id") == evidence_id
+            and item.get("methodology_id") == methodology_id
+            for item in mappings
+        )
+        if not mapping_exists:
+            mappings.append(
+                {
+                    "evidence_id": evidence_id,
+                    "methodology_id": methodology_id,
+                    "relation": "context",
+                    "relevance": "Restored exact reviewed ledger routing.",
+                }
+            )
+        coverage_item = coverage_by_methodology.get(methodology_id)
+        if coverage_item is None:
+            coverage_item = {
+                "methodology_id": methodology_id,
+                "status": "partially_covered",
+                "evidence_ids": [],
+                "reason": "Contains restored reviewed evidence.",
+            }
+            coverage.append(coverage_item)
+            coverage_by_methodology[methodology_id] = coverage_item
+        ids = list(coverage_item.get("evidence_ids", []))
+        if evidence_id not in ids:
+            ids.append(evidence_id)
+        coverage_item["evidence_ids"] = ids
+        if coverage_item.get("status") in {"research_blocked", "no_evidence_found"}:
+            coverage_item["status"] = "partially_covered"
+            coverage_item["reason"] = "Contains restored reviewed evidence."
 
 
 def _validate_formatter_ledger_accounting(
@@ -929,71 +1763,15 @@ def _validate_formatter_ledger_accounting(
 ) -> None:
     """Prevent formatter collapse while allowing consolidation and source upgrades."""
 
-    marker = "--- RESEARCH LEDGER MANIFEST ---"
-    if marker not in notebook:
+    manifest = _embedded_ledger_manifest(notebook)
+    if manifest is None:
         return
+    from .formatter_ledger_accounting import validate_formatter_ledger_accounting
+
     try:
-        manifest, _ = json.JSONDecoder().raw_decode(
-            notebook.rsplit(marker, maxsplit=1)[1].lstrip()
-        )
-    except json.JSONDecodeError:
-        return
-    expected = {
-        str(entry["canonical_fact_key"]): entry
-        for entry in manifest.get("entries", [])
-        if entry.get("disposition") == "final_evidence"
-    }
-    emitted = {
-        item.canonical_fact_key: item
-        for item in dossier.evidence
-        if item.final_evidence_use == "final_evidence"
-    }
-    missing_keys = sorted(set(expected) - set(emitted))
-    if missing_keys:
-        raise WorkerOutputError(
-            "formatter omitted accepted final evidence: " + ", ".join(missing_keys[:5])
-        )
-    mapped_chapters: dict[str, set[str]] = {}
-    evidence_key_by_id = {
-        item.evidence_id: item.canonical_fact_key for item in dossier.evidence
-    }
-    for mapping in dossier.mappings:
-        key = evidence_key_by_id.get(mapping.evidence_id)
-        if key:
-            mapped_chapters.setdefault(key, set()).add(
-                mapping.methodology_id.split(".", maxsplit=1)[0]
-            )
-    routing_failures = {
-        key: sorted(set(entry.get("chapter_ids", [])) - mapped_chapters.get(key, set()))
-        for key, entry in expected.items()
-        if set(entry.get("chapter_ids", [])) - mapped_chapters.get(key, set())
-    }
-    if routing_failures:
-        summary = ", ".join(
-            f"{key}=>{'/'.join(chapters)}"
-            for key, chapters in list(routing_failures.items())[:5]
-        )
-        raise WorkerOutputError("formatter dropped accepted chapter routing: " + summary)
-    mapped_methodologies: dict[str, set[str]] = {}
-    for mapping in dossier.mappings:
-        key = evidence_key_by_id.get(mapping.evidence_id)
-        if key:
-            mapped_methodologies.setdefault(key, set()).add(mapping.methodology_id)
-    lens_routing_failures = {
-        key: sorted(
-            set(entry.get("methodology_ids", []))
-            - mapped_methodologies.get(key, set())
-        )
-        for key, entry in expected.items()
-        if set(entry.get("methodology_ids", []))
-        - mapped_methodologies.get(key, set())
-    }
-    if lens_routing_failures:
-        summary = ", ".join(
-            f"{key}=>{'/'.join(methodology_ids)}"
-            for key, methodology_ids in list(lens_routing_failures.items())[:5]
-        )
-        raise WorkerOutputError("formatter dropped accepted lens routing: " + summary)
+        validate_formatter_ledger_accounting(dossier, manifest=manifest)
+    except ValueError as exc:
+        raise WorkerOutputError(str(exc)) from exc
 
 
 def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:
@@ -1017,52 +1795,6 @@ def _has_indeterminate_formatter_call(attempt: WorkerAttempt) -> bool:
     return False
 
 
-def _load_previous_research_checkpoint(
-    trusted_dir: Path,
-    *,
-    job: dict[str, Any],
-    profile: ResearchModelProfile,
-) -> tuple[Path, str, Path, str, str] | None:
-    """Recover the newest hashed completed notebook for formatter retry."""
-
-    for directory in sorted(trusted_dir.parent.glob("*"), reverse=True):
-        if directory == trusted_dir:
-            continue
-        marker = directory / "research-complete.marker"
-        checkpoint_path = directory / "research-notebook-checkpoint.json"
-        if not marker.is_file() or not checkpoint_path.is_file():
-            continue
-        try:
-            payload = json.loads(checkpoint_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            continue
-        if not isinstance(payload, dict) or (
-            payload.get("job_key"),
-            payload.get("provider_profile"),
-            payload.get("provider"),
-            payload.get("model"),
-        ) != (job["job_key"], job["provider_profile"], profile.provider, profile.model):
-            continue
-        notebook_path = Path(str(payload.get("notebook_path", "")))
-        events_path = Path(str(payload.get("events_path", "")))
-        notebook_hash = str(payload.get("notebook_sha256", ""))
-        events_hash = str(payload.get("events_sha256", ""))
-        if (
-            notebook_path.is_file()
-            and events_path.is_file()
-            and sha256(notebook_path.read_bytes()).hexdigest() == notebook_hash
-            and sha256(events_path.read_bytes()).hexdigest() == events_hash
-        ):
-            return (
-                events_path,
-                notebook_path.read_text(encoding="utf-8"),
-                notebook_path,
-                notebook_hash,
-                events_hash,
-            )
-    return None
-
-
 def _stamp_two_pass_usage(
     dossier: RulerEvidenceDossier,
     *,
@@ -1081,35 +1813,21 @@ def _stamp_two_pass_usage(
     priced_formatter = []
     formatter_usage_incomplete = False
     trusted_root = attempt_dir.parent.parent / "trusted"
+    primary_research_events = []
+    takeover_events = []
     for directory in sorted(trusted_root.glob("*")):
         research_events = [directory / "research-events.jsonl"]
+        research_events.extend(sorted(directory.glob("source-discovery-*.events.jsonl")))
+        research_events.extend(sorted(directory.glob("research-chapter-*.events.jsonl")))
         research_events.extend(
             sorted(directory.glob("research-continuation-round-*.events.jsonl"))
         )
-        for events_path in research_events:
-            if not events_path.is_file():
-                continue
-            usage = _read_codex_usage(events_path)
-            if usage is not None:
-                priced_research.append(
-                    _price_codex_usage(
-                        usage,
-                        provider=job["provider"],
-                        model=job["model"],
-                    )
-                )
-        for takeover_events in sorted(
+        primary_research_events.extend(
+            path for path in research_events if path.is_file()
+        )
+        takeover_events.extend(
             directory.glob("research-supervisor-takeover-round-*.events.jsonl")
-        ):
-            usage = _read_codex_usage(takeover_events)
-            if usage is not None:
-                priced_research.append(
-                    _price_codex_usage(
-                        usage,
-                        provider=str(job["input"]["reviewer_provider"]),
-                        model=str(job["input"]["reviewer_model"]),
-                    )
-                )
+        )
         for reviewer_events in sorted(
             directory.glob("evidence-review-round-*.events.jsonl")
         ):
@@ -1135,6 +1853,18 @@ def _stamp_two_pass_usage(
                         model=formatter_profile.model,
                     )
                 )
+    priced_research.extend(
+        _price_codex_usage(usage, provider=job["provider"], model=job["model"])
+        for usage in _read_distinct_codex_usage(tuple(primary_research_events))
+    )
+    priced_research.extend(
+        _price_codex_usage(
+            usage,
+            provider=str(job["input"]["reviewer_provider"]),
+            model=str(job["input"]["reviewer_model"]),
+        )
+        for usage in _read_distinct_codex_usage(tuple(takeover_events))
+    )
     combined_research = (
         combine_priced_usage(tuple(priced_research))
         if priced_research
@@ -1167,6 +1897,11 @@ def _stamp_two_pass_usage(
     dossier.run_profile.reviewer_model = str(job["input"]["reviewer_model"])
     dossier.run_profile.research_notebook_path = str(research_checkpoint[2])
     dossier.run_profile.research_notebook_sha256 = research_checkpoint[3]
+    from .llm_usage_profile import write_llm_usage_profile
+
+    dossier.run_profile.llm_usage_profile_path = str(
+        write_llm_usage_profile(attempt_dir)
+    )
     dossier.run_profile.research_usage = combined_research
     dossier.run_profile.reviewer_usage = combined_reviewer
     dossier.run_profile.formatter_usage = combined_formatter
@@ -1296,6 +2031,18 @@ def _run_codex(
                 raise RuntimeError(f"Codex worker exited with status {process.returncode}")
         finally:
             _terminate_process_group(process)
+            from .llm_usage_profile import write_llm_usage_profile
+
+            matching_attempt = (
+                events_path.parent.parent.parent
+                / "attempts"
+                / events_path.parent.name
+            )
+            if matching_attempt.is_dir():
+                try:
+                    write_llm_usage_profile(matching_attempt)
+                except (OSError, ValueError):
+                    pass
 
 
 def _terminate_process_group(process: subprocess.Popen[str]) -> None:

@@ -1,0 +1,38 @@
+schema_version: methodology_freeze_v1
+release_id: methodology-2026-08-v2
+frozen_at: '2026-08-06'
+status: candidate_for_controlled_rejudgment
+question_catalog_version: ruler-quality-questions-v2
+lens_presentation_version: layered_lenses_v2
+scope:
+  chapters: 8
+  questions_per_chapter: 10
+  stable_methodology_ids: true
+  evidence_categories: 6
+aggregate_sha256: 16906eb32d3abdc8c121b05fef43cac79bb13882a81bc9a87fc90dc0b879e9b7
+aggregate_method: >-
+  SHA-256 of the lexicographically sorted sha256sum output for every file listed
+  under file_hashes, including each relative path.
+file_hashes:
+  src/leaders_db/conversational_evidence/data/questions.json: 682407206abba03e6d9ad1f4a9addf9bd6456df4f38f1b75f0e6e20101fbbbd3
+  src/leaders_db/conversational_evidence/data/question_lens_presentation.json: 81e473b0d4023cf6b7e79a47383dde4f6465541fa5a1fa001a19fc19e25f4bb9
+  docs/methodology/ranking-evaluation-criteria.md: 51418212ac8228fb2a7c475cbde3101dedfb6cc006daeff1e235693a313ab51b
+  docs/methodology/pipeline-agent-questions-and-prompts.md: f39594475a89e9ff4addbf30644b2315f50415e941aeef91ae49e639baf30889
+  docs/methodology/question-prompt-versioning.md: 272691063280ab8281ba4dfd3c46afe6dbdcea7450d96927ad7fa25c00f5c277
+  docs/methodology/chapter-guides/readme.md: 47a22328ef1089bd3d26890c333f0fae414ad6e00afcd73e0cb7e6784dcf4c89
+  docs/methodology/chapter-guides/1b-nuclear-existential-risk.md: 909c871676e3ef51d4c17bdefd1489b8f2523cfe370d12bfa57948442f122697
+  docs/methodology/chapter-guides/2b-international-peace.md: a88334b26c4371b0d3f0fb38b8e90a4b1ea0f41d559660277c432edd6b8af846
+  docs/methodology/chapter-guides/3b-domestic-safety.md: 3844a63ff9d0435791e2403ed296a4360d56631e0f97a8f37e5a578a1a0d0b1c
+  docs/methodology/chapter-guides/4b-political-freedom.md: ce05df0de67d77c306e030b4b0e0bbd12c7efffd16dc1669e3fd9bc80e195832
+  docs/methodology/chapter-guides/5b-economic-wellbeing.md: 04b522f8da016c28e111d01c223f531ff47512684700824655296ed0e6c288d8
+  docs/methodology/chapter-guides/6b-social-wellbeing.md: c46d980cd7e23767494651df96a430e58a9c4657f16001ea0b493a2faee0c179
+  docs/methodology/chapter-guides/7b-integrity.md: 2a8b6eeb53aef7257b2b1348fe9efcdabe9226bbef3ea59d911b168f53805797
+  docs/methodology/chapter-guides/8b-effectiveness.md: 5c588524d17750bc5661eee19857e2603a92acdbfe84fbb69aedeacb68a92e99
+  docs/customer-facing/leaders-database-research-and-evaluation-pipeline.docx: f705a578dac03abaec2c078033b71bf21fab092d0d726acc92c01e4cb97b54b5
+change_control:
+  prior_scores: >-
+    Existing scores remain attached to their original question and rubric versions.
+    This release requires controlled rejudgment before cross-version score comparison.
+  implementation_boundary: >-
+    Runtime evidence-processing code is unchanged. Research and judgment use the
+    versioned question catalogue, lens presentation, chapter guides, and prompt guide.

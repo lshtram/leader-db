@@ -1,0 +1,23 @@
+Compared [old pilot outputs](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-pilot-3-v2/outputs/rus-2022), [new stage1 outputs](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-saturation-v3/stage1/outputs/rus-2022), [old judgments](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-top20-v2/judgments-v1), [old 8B judgments](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-top20-v2/judgments-8b-v2), and [new controlled judgments](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-saturation-v3/stage1/judgments-controlled), with curation/review from [old review](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-pilot-3-v2/outputs/rus-2022/review.json), [new curation summary](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-saturation-v3/stage1/outputs/rus-2022/curation-summary.json), and [new review-final](/home/liorshtram/projects/leaders-db/research/conversational-evidence/hybrid-experiment/2022-saturation-v3/stage1/outputs/rus-2022/review-final.json).
+
+- `1B` floor guard holds: no score-1 assignment here. Old and new Putin both stay at `2.0`; the score-1 reserve for realized nuclear use or equivalent catastrophe is not triggered.
+
+- Material flags:
+  - Score changes `>= 1`: `5B +1.5`, `6B +1.5`, `7B -1.0`, `8B +1.0`.
+  - Confidence changes `>= 10`: `6B -10`, `7B +20`.
+  - No other chapter crosses those thresholds.
+
+| Chapter | Old -> New | Key evidence shift | Missing lenses / curation note | Audit call |
+|---|---|---|---|---|
+| `1B` | `2.0 @95 (1.5-2.5)` -> `2.0 @92 (2.0-2.5)` | Old: `E0005/E0007/E0011/E0013/E0008`; New: `E0001/E0002/E0009/E0015/E0178-E0185` | Old `review.json` wanted follow-up on `1B.3` and `1B.7`; new `review-final.json` passes, while `curation-summary.json` still says the set is dominated by nuclear signaling and Zaporizhzhia safety coverage | `accept` |
+| `2B` | `1.0 @97 (1.0-2.0)` -> `1.0 @99 (1.0-2.0)` | Old negatives centered on `E0016/E0020/E0022/E0024/E0026/E0029`; new package consolidates the floor case around `E0207` and keeps the aggression frame intact | Missing lenses still basically `2B.1`, `2B.3`, `2B.8`; no curation defect visible | `accept` |
+| `3B` | `2.0 @90 (1.5-2.5)` -> `2.0 @94 (1.5-2.5)` | New adds `E0208/E0209/E0210` on mass repression and UN findings, replacing some weaker support | Missing lenses tighten from `3B.6` to `3B.4/3B.6`; no sign of overreach | `accept` |
+| `4B` | `1.0 @0.99 (1.0-1.5)` -> `1.0 @0.97 (1.0-1.5)` | Old relied on `E0049-E0055` plus baseline `E0057`; new adds `E0213-E0217` on annexation, sham referenda, martial law, and propaganda | Missing lens narrows to `4B.4`; curator caution is not in tension with judge certainty | `accept` |
+| `5B` | `1.5 @80 (1.0-2.0)` -> `3.0 @87 (2.5-3.5)` | Old was mostly crisis defense and contraction (`E0058/E0061/E0062` vs `E0065/E0066/E0072`); new adds concrete policy and welfare actions `E0218/E0219/E0221/E0225` plus `E0095` | This is a genuine correction enabled by better evidence, not just dossier inflation; remaining weakness is that much of the macro picture is still indirect or self-reported | `accept` |
+| `6B` | `3.0 @82 (2.0-4.0)` -> `4.5 @72 (4.0-5.0)` | Old: `E0073/E0074/E0075` vs `E0082/E0083/E0079`; new: `E0229/E0231/E0234/E0114/E0170` | Confidence drops by exactly 10, but the added direct orders are real. Attribution remains partly indirect, so this is the loosest of the upward moves | `accept` |
+| `7B` | `2.0 @77 (1.0-3.0)` -> `1.0 @97 (1.0-1.5)` | Old positive set was a mixed honesty/concealment picture; new adds direct deception and concealment evidence `E0125/E0128/E0130/E0137-E0145` | No missing lenses remain. This is the strongest supported floor case in the batch, but it is a 7B floor, not a 1B nuclear floor | `accept` |
+| `8B` | `3.0 @84 (2.5-3.5)` -> `4.0 @87 (3.5-4.5)` | Old: `E0016/E0024/E0097/E0101` vs `E0100/E0072/E0070`; new: `E0147/E0161/E0163/E0167/E0169/E0176` | New curation still says broader competence leans partly on indirect or institutional evidence, but the judge’s 4.0 is still inside the evidence envelope | `accept` |
+
+Overall promotion verdict for expanding the flow from one ruler to three: `accept`.
+
+Reason: the new Putin set is better-supported across the board, the largest score moves are explainable by genuinely stronger evidence, and the unchanged cohort does not show obvious calibration drift. The only watch item is `6B`, where attribution is still partly indirect, but it is not a blocker.

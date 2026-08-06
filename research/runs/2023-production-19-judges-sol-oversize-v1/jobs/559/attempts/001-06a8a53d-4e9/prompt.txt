@@ -1,0 +1,521 @@
+You are the ruler-chapter-judge for one comparative batch.
+
+Judge every dossier in the manifest using one common meter. The ten questions are
+overlapping evidence lenses, not ten scores and not an arithmetic checklist.
+Read each compact chapter projection in full and use only its cited web evidence and
+its separately embedded `local_evidence` package. The parent has hash-bound each
+projection to its complete source dossier and local-evidence artifact. Web evidence
+uses E-IDs; structured local facts and signals use LF/LS IDs. Keep those provenance
+families separate. Do not browse, search the web, use the client matrix, add facts from
+memory, or rewrite a local fact as a web citation. Evidence IDs are local to each
+dossier.
+
+The complete scoring inputs are the hash-bound local JSON files listed below. Read every listed file in full using local filesystem tools. Do not browse, search the web, read any unlisted research file, or modify an input. A local-tool failure is not a reason to return null scores; retry
+the local read before producing the complete batch.
+An `available` local package is authoritative structured context. An `unavailable` or
+`invalid` local package lowers confidence when material but does not erase usable web
+evidence or automatically force a null.
+
+First inspect the whole batch and establish low, middle, high, and edge anchors.
+Then score every available dossier exactly once. Missing lenses reduce confidence
+and widen the plausible range; they do not mechanically lower the score. Use a
+null score only when the chapter as a whole is genuinely not defensibly judgeable.
+Treat projection coverage statuses and evidence-to-lens mappings as advisory
+bookkeeping, not binding admissibility decisions. Apply every cited chapter evidence
+item to the ten lenses yourself. A projection mapping does not make an item relevant:
+the active guide's scope, non-goals, exclusions, and attribution limits are mandatory.
+Identify and give zero scoring weight to mapped evidence that fails those gates; do not
+use it as a positive, negative, contrary, or anchor reason. In particular,
+`research_blocked` means that the
+formatter did not record a complete lens disposition; it does not erase relevant
+chapter evidence or require a null score.
+Use half-point score increments. A numeric score must rest on a concrete record of
+relevant governing conduct, not merely country indicators or evidence volume. For
+Chapters 1B-6B and 8B, documented formal responsibility for national policy, programs,
+appointments, command, implementation, tolerance, or remedy can satisfy attribution
+without proof of a personal order. Chapter 7B requires a personal-integrity nexus.
+Shared authority affects weight and confidence rather than automatically erasing the
+evidence. Inherited conditions, generic country
+context, intentions, missing implementation evidence, or missing adverse evidence
+cannot determine the score's direction. If the record remains insufficient, return null with
+the full 1-10 range. Cite the qualifying ruler-attribution evidence by stable E-ID in
+a decisive web-evidence array. Local structured evidence is country-level context and
+cannot support a numeric ruler score by itself. Use `decisive_local_evidence` only
+alongside a decisive E-ID that establishes the ruler's relevant authority or nexus;
+use `contextual_local_evidence` for baselines or signals that frame interpretation
+without independently determining direction. Never
+attach `recoverable_null` to a numeric score. Reserve
+manual review for a concrete issue that could materially change the chapter result;
+do not flag ordinary uncertainty already represented by confidence and range.
+Before scoring each ruler: (1) establish the information environment and evidence
+opportunity; (2) identify the inherited baseline and external shocks; (3) establish
+formal and practical ruler authority; (4) collapse repeated coverage into independent
+underlying facts; (5) compare absolute conditions with change from baseline; and
+(6) compare the ruler with adjacent cases. Then make the holistic judgment. Preserve
+inherited conditions, ruler authority, contrary evidence, source bias, and adjacent-case
+comparisons. Evidence references must use IDs from that ruler's
+own dossier and must not cite `discovery_only` items as decisive evidence. For a
+batch with multiple rulers, `calibrated_against` must name at least one other
+available dossier job key. Put guide-specific additions such as `trajectory` in
+the `chapter_specific` field/value list. Natural language inside semantic fields
+is welcome.
+
+Every evaluation must include a substantive `bias_assessment`. Cite the dossier E-IDs
+that support each material bias finding, state its likely direction and how it changed
+interpretation, and explain the effect on confidence and plausible range. Confirm that
+complaint/report volume was not treated as severity and that no blanket democracy or
+autocracy score correction was applied. Closed-system silence is not favorable evidence;
+open-system disclosure and remedy are not additional misconduct.
+
+Write `chapter_rationale` as a self-contained reader-facing abstract, not as terse
+notes between specialists. Assume the reader knows the ruler's name but does not
+know the events, institutions, controversies, programs, or acronyms in the dossier.
+Keep it concise: normally 120-220 words and never more than 300 words. Keep every
+other prose field to one or two sentences. Spend output tokens on completing and
+validating all evaluations, not on repeating dossier evidence.
+Use this order: (1) state the overall chapter appraisal and score in plain language;
+(2) explain the main favorable and unfavorable findings, identifying what each
+specific case was and why it matters; (3) distinguish proven facts from allegations,
+institutional context, and uncertain ruler attribution; and (4) conclude why the
+evidence supports this score rather than a materially higher or lower one. Define
+unfamiliar cases on first mention. Do not open with an unexplained case name, event,
+acronym, or compressed phrase such as "the X scrutiny." The abstract must answer the
+chapter question for a reader who has not read the dossier.
+
+Retry context: There is no prior candidate for this attempt.
+
+Run-scoped audit corrections (mandatory; they may exclude evidence but may not
+prescribe a score):
+None.
+
+Immutable batch identity:
+{
+  "schema_version": "ruler_chapter_judgment_v1",
+  "job_key": "chapter-judge:2023-production-19-judges-sol-oversize-v1:2023:5B",
+  "run_key": "2023-production-19-judges-sol-oversize-v1",
+  "chapter_id": "5B",
+  "target_year": 2023,
+  "calibration_batch_id": "chapter-judge:2023-production-19-judges-sol-oversize-v1:2023:5B"
+}
+
+Unavailable dossiers (report them, do not invent evaluations):
+[]
+
+Available dossier manifest:
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BGD:17069",
+    "iso3": "BGD",
+    "ruler_id": "2992",
+    "ruler_year_id": 17069,
+    "ruler_name": "Sheikh Hasina",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BRA:16162",
+    "iso3": "BRA",
+    "ruler_id": "2841",
+    "ruler_year_id": 16162,
+    "ruler_name": "Luiz In\u00e1cio Lula da Silva",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:CHN:15833",
+    "iso3": "CHN",
+    "ruler_id": "1432",
+    "ruler_year_id": 15833,
+    "ruler_name": "Xi Jinping",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:COD:16114",
+    "iso3": "COD",
+    "ruler_id": "2830",
+    "ruler_year_id": 16114,
+    "ruler_name": "F\u00e9lix Tshisekedi",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:DEU:16985",
+    "iso3": "DEU",
+    "ruler_id": "2975",
+    "ruler_year_id": 16985,
+    "ruler_name": "Olaf Scholz",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:EGY:16233",
+    "iso3": "EGY",
+    "ruler_id": "2851",
+    "ruler_year_id": 16233,
+    "ruler_name": "Abdel Fattah el-Sisi",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:ETH:16783",
+    "iso3": "ETH",
+    "ruler_id": "2310",
+    "ruler_year_id": 16783,
+    "ruler_name": "Abiy Ahmed",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IDN:16200",
+    "iso3": "IDN",
+    "ruler_id": "2636",
+    "ruler_year_id": 16200,
+    "ruler_name": "Joko Widodo",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IND:19639",
+    "iso3": "IND",
+    "ruler_id": "1517",
+    "ruler_year_id": 19639,
+    "ruler_name": "Narendra Modi",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IRN:19641",
+    "iso3": "IRN",
+    "ruler_id": "3412",
+    "ruler_year_id": 19641,
+    "ruler_name": "Ali Khamenei",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:JPN:16637",
+    "iso3": "JPN",
+    "ruler_id": "2895",
+    "ruler_year_id": 16637,
+    "ruler_name": "Fumio Kishida",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PAK:16683",
+    "iso3": "PAK",
+    "ruler_id": "2911",
+    "ruler_year_id": 16683,
+    "ruler_name": "Shehbaz Sharif",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PHL:16195",
+    "iso3": "PHL",
+    "ruler_id": "2844",
+    "ruler_year_id": 16195,
+    "ruler_name": "Bongbong Marcos",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:RUS:15707",
+    "iso3": "RUS",
+    "ruler_id": "2759",
+    "ruler_year_id": 15707,
+    "ruler_name": "Vladimir Putin",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:THA:17130",
+    "iso3": "THA",
+    "ruler_id": "3006",
+    "ruler_year_id": 17130,
+    "ruler_name": "Prayut Chanocha",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:MEX:15802",
+    "iso3": "MEX",
+    "ruler_id": "2779",
+    "ruler_year_id": 15802,
+    "ruler_name": "Andr\u00e9s Manuel L\u00f3pez Obrador",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:TUR:15973",
+    "iso3": "TUR",
+    "ruler_id": "2813",
+    "ruler_year_id": 15973,
+    "ruler_name": "Recep Tayyip Erdo\u011fan",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:USA:15811",
+    "iso3": "USA",
+    "ruler_id": "2782",
+    "ruler_year_id": 15811,
+    "ruler_name": "Joe Biden",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:VNM:19640",
+    "iso3": "VNM",
+    "ruler_id": "3411",
+    "ruler_year_id": 19640,
+    "ruler_name": "Nguy\u1ec5n Ph\u00fa Tr\u1ecdng",
+    "period_start_year": 2023,
+    "period_end_year": 2023
+  }
+]
+
+Chapter projections (authoritative judge inputs):
+[
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BGD:17069",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/BGD-17069.json",
+    "sha256": "041c42ed9907eee478c64337f56edf8fa6d965bd9ff3c04b76f5280abd149f45"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:BRA:16162",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/BRA-16162.json",
+    "sha256": "34f2673f5d58b0b480da596bce80325ce35f700ffd4543b4173673ce57bc716e"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:CHN:15833",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/CHN-15833.json",
+    "sha256": "4c7ad7f8af706aa90db5b8c19521e17f63337c9585716a47b86f888c459dd3d0"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:COD:16114",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/COD-16114.json",
+    "sha256": "235be8b3ad8ef088b74b8ef140902a86e1cd966c86280d4871bfa7154fa6fd89"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:DEU:16985",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/DEU-16985.json",
+    "sha256": "5bc01d11a1d9cbd55435d3a1edb4f5ee889c6271b79e4b3c03a789dde466db4b"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:EGY:16233",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/EGY-16233.json",
+    "sha256": "78e0d7cc471a3a415476659c7ec9f0570e60892b2f7e75620cc3922f142fc8c4"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:ETH:16783",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/ETH-16783.json",
+    "sha256": "db89a48f004559ee19ce2d24c5c245eb9c30869d408a2255e95ca86e3c4d9f07"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IDN:16200",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/IDN-16200.json",
+    "sha256": "e3d6080b67f3bec8775969aa1479f5046e2f1e5d1c1a5d28a4d89778cc3cfd5b"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IND:19639",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/IND-19639.json",
+    "sha256": "c581acda35ef992e6d5e3ed5f29f56d956ab2840164924e1fd08f640b422ee03"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:IRN:19641",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/IRN-19641.json",
+    "sha256": "b0c446539eaee4a04d3cebdb0f5e59969330c3a71997615d09f36f0c25879d14"
+  },
+  {
+    "dossier_job_key": "dossier:2023-population-top20-production-v2:2023:JPN:16637",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/JPN-16637.json",
+    "sha256": "4efe88c61feb73f343f257834e34f7f7072e96e75cd161a1ee3c9a045e1b4480"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PAK:16683",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/PAK-16683.json",
+    "sha256": "6fe80ede60c9a76aeb0a770c5ba39194bcaf21484bc2f44cbc35e750d23a0941"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:PHL:16195",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/PHL-16195.json",
+    "sha256": "248bd843a78ed78f609430b46bdd6509acc515cd07fa1b15dfc43fb5d5260e48"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:RUS:15707",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/RUS-15707.json",
+    "sha256": "dae0bca70a0628808e38940cec9b0ae8bdf8bec0cd99d44146d4e43d0b858979"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v1:2023:THA:17130",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/THA-17130.json",
+    "sha256": "fa21f85325a1b67fbc09df7ce0ed7cf36d0db88f7c5b26255891ff25355dcb16"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:MEX:15802",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/MEX-15802.json",
+    "sha256": "d38a744fa7562bd3124e5581acd9bca6483de8d4742ad9dafafad4578e1c7fe6"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:TUR:15973",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/TUR-15973.json",
+    "sha256": "645b8010976f53e43d25afdaa54440c8aafc512a659058aaba7aff035ecb6519"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:USA:15811",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/USA-15811.json",
+    "sha256": "40e55cfdc34ff58a971fd5a32b002cbbc7ebf7d83189f6be4a742ad0e5c08fbb"
+  },
+  {
+    "dossier_job_key": "dossier:2023-luna-next4-v2:2023:VNM:19640",
+    "path": "/home/liorshtram/projects/leaders-db/research/runs/2023-production-19-judges-sol-oversize-v1/jobs/559/attempts/001-06a8a53d-4e9/chapter-inputs/VNM-19640.json",
+    "sha256": "ead89771595b5eb3e423b9c1061681642060364952bbd8643dda933d53993495"
+  }
+]
+
+Active chapter guide:
+---
+# 5B Economic Well-Being and Prosperity
+
+Status: draft; v4 objective-evidence questions require controlled rejudgment
+
+## Chapter Identity
+
+- `chapter_id`: `5B`
+- Category: ruler intention and action for economic well-being and prosperity
+- Evidence unit: one ruler and target year or defined ruler-period
+- Final output: one chapter score, not ten question scores
+- Rubric version: `chapter_5b_v4`
+- Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
+
+The ten questions are overlapping lenses on one judgment: whether the ruler used available authority competently and fairly to improve durable economic opportunity.
+
+## Ten Evidence Lenses
+
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **5B.1 — Broad and sustainable prosperity** | Did the ruler pursue lasting prosperity for the public rather than private gain and political loyalty? | Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **5B.2 — Qualified economic leadership** | Did the ruler empower capable economic professionals rather than loyalists? | Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.3 — Macroeconomic stability** | Did the ruler protect stable public finances, money, debt, and investment conditions? | Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.4 — Fair economic rules** | Did businesses and workers operate under fair and predictable economic rules? | Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.5 — Resistance to economic capture** | Did the ruler resist favoritism, monopoly power, and politically connected privilege? | Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.6 — Productive public investment** | Did public resources produce useful foundations for long-term prosperity? | Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.7 — Evidence and correction** | Did the ruler use honest evidence and correct economic policies that failed? | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.8 — Fair distribution** | Were economic gains and burdens shared fairly across people and regions? | Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.9 — Managing economic shocks** | Did the ruler respond competently and fairly to major economic shocks? | During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.10 — Lasting economic trajectory** | Did the ruler leave the economy on a stronger and fairer path? | Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone? | **Outcomes**; **Implementation and operational conduct** |
+
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
+
+## Researcher Evidence Plan
+
+Build one cited evidence dossier without scoring. Follow the local-first researcher guide and source-confidence registry. Start with local WDI, PIP, WGI, V-Dem, CPI, BTI and other available time series. Then use national statistics, budgets and audits; central-bank and fiscal records; IMF, World Bank, ILO, OECD and regional-bank analysis; peer-reviewed work; and credible investigative/local reporting. Treat government claims as context unless independently corroborated.
+
+Collect policy choices and implementation concerning development strategy, appointments and genuine delegated authority, inflation/debt/fiscal/monetary management, market and property rules, corruption/capture, productivity investment, evidence-based correction, distribution, crisis response and inherited-to-left trajectory. Separate announcements, appropriations, implementation and outcomes. Record household/median conditions and inequality alongside averages; identify commodity cycles, sanctions, wars, disasters, global financial conditions and donor programs. Reuse evidence across genuinely related lenses and permit flexible coverage language.
+
+Each evidence item must preserve, in fields or clearly recoverable prose: the factual claim; citation or URL plus source title, publisher and publication date when available; target-year/ruler-period fit; source-confidence assessment and source role; the basis and strength of attribution to the ruler; and material uncertainty or disagreement. Missing bibliographic details may be marked unknown rather than invented. Formatting deviations are normalization work, not grounds to discard otherwise usable evidence.
+
+## Baseline, Attribution, and Sparse Evidence
+
+Judge choices against feasible options at the inherited income, capacity, debt, institutions, geography, resource base and security environment. Do not credit commodity windfalls or global booms automatically, and do not debit unavoidable shocks without assessing preparation and response. Separate central ruler authority from independent central banks, legislatures, predecessor programs, subnational action and external assistance. Outcomes inform the record but do not prove attribution by themselves.
+
+Older or lower-capacity cases may lack modern indicators. Use fiscal archives, price/wage series, historical scholarship, contemporary reports and observable institutional choices. Missing lenses reduce confidence; they never invalidate research or impose a score cap. Where only outcomes survive, state attribution uncertainty rather than inventing intent.
+
+Baseline conditions and outcomes without a ruler-attributed policy or response are
+context only and cannot determine the score's direction. If no discriminating choice,
+implementation, or response is evidenced, return null. Scores outside 4–6 require
+ruler-attributed policy plus independent implementation or outcome evidence; scores
+of 2–3 require demonstrated dominant predation, instability, exclusion, or repeated
+harmful choices, not low national income or closed-system opacity. For annual crisis
+years, distinguish shock preparation and response from the inherited long-run
+trajectory and do not treat one year's outcome as the whole tenure.
+
+## Chapter Judge and Lens Weighting
+
+One judge compares the whole ruler batch. Weight evidence qualitatively by material welfare consequence, breadth, duration, ruler control, baseline-adjusted change, source strength and sustainability. Catastrophic predation or stabilization may dominate several smaller policies. Appointments matter through their consequences and independence, not résumé prestige alone. Distribution, durability and household security prevent headline GDP from dominating. `5B.10` is a synthesis, not an extra arithmetic vote.
+
+Ten lenses provide redundancy: missing appointment evidence may be offset by strong direct evidence of policy and results; abundant macro data cannot erase capture or exclusion. State strong and weak lenses, confidence and unresolved contradictions. Produce one score only.
+
+## One-Chapter 1–10 Rubric
+
+| Score | Chapter anchor |
+|---:|---|
+| 1 | Ruler-driven predation, catastrophic mismanagement or systematic economic exclusion destroys broad and durable prosperity. |
+| 2–3 | Extraction, cronyism, reckless instability or repeated incompetent choices dominate, with little effective correction or broad counterweight. |
+| 4–5 | Material gains and competent choices coexist with serious instability, capture, exclusion, weak implementation or unsustainable policy; trajectory is mixed. |
+| 6–7 | The ruler makes substantially competent, broadly beneficial choices and leaves improvement, but notable distributional, institutional, stability or durability weaknesses remain. |
+| 8–9 | Sustained, independently supported stewardship creates broad opportunity, stability, productive capacity and resilience with limited material failures. |
+| 10 | Exceptional baseline-adjusted transformation combines broad household gains, fair institutions, resilience and durable capacity while resisting strong extractive incentives. |
+
+## Common Chapter-Judge Output Envelope
+
+The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
+
+- `chapter_id`: `5B`
+- `rubric_version`: `chapter_5b_v4`
+- `calibration_batch_id` and `calibrated_against`
+- `score_1_to_10`, or null with `insufficient_evidence_reason`
+- `confidence_score` and `plausible_score_range`
+- `decisive_positive_evidence` and `decisive_negative_evidence`, referencing evidence items
+- `inherited_baseline_and_constraints` and `ruler_attribution`
+- `supported_lenses` and `missing_or_weak_lenses`
+- `contrary_evidence` and unresolved disagreements
+- `source_mix` and `structured_prior_summary`
+- `chapter_rationale`, `lower_anchor_rejected`, and `higher_anchor_rejected`
+- `manual_review_required`, `manual_review_reason_type`, and `manual_review_reason`
+
+Chapter-specific extras: `external_conditions`, `distribution_and_household_effects`,
+and `trajectory`.
+
+`Insufficient_evidence` is a permitted judgment for an exceptionally thin case, not an automatic consequence of missing lenses. Flexible natural language is valid.
+
+## Calibration, Confidence, and Bias Checks
+
+Check income/baseline comparability, commodity and foreign-aid windfalls, crisis and sanctions context, GDP-average versus household/distribution bias, survivorship and data-quality bias, official-statistics manipulation, population/scale, regional heterogeneity, recency, hindsight and ideological bias. Do not prefer state-led or market-led policy as such; judge evidenced effects, rights, resilience and feasible alternatives.
+
+## Smoke-Test Cases
+
+| Ruler | Country | Period | Calibration purpose |
+|---|---|---:|---|
+| Seretse Khama | Botswana | 1966–1980 | resource stewardship and low-baseline institution building |
+| Lee Kuan Yew | Singapore | 1965–1990 | transformation, distribution and authoritarian-context separation |
+| Park Chung-hee | South Korea | 1961–1979 | rapid growth with coercion, chaebol and baseline caveats |
+| Deng Xiaoping | China | 1978–1992 | large reform gains and distribution/institution attribution |
+| Lula da Silva | Brazil | 2003–2010 | inclusion, commodity conditions and durability |
+| Narendra Modi | India | 2014–2023 | investment/formalization versus jobs, distribution and favoritism |
+| Hugo Chávez | Venezuela | 1999–2013 | early welfare gains versus oil dependence and sustainability |
+| Mobutu Sese Seko | Zaire | 1965–1997 | predation and institutional destruction low anchor |
+| Ellen Johnson Sirleaf | Liberia | 2006–2018 | post-conflict constraint and donor-attribution test |
+| Liz Truss | United Kingdom | 2022 | very short tenure and market-shock attribution edge case |
+| Maria da Lourdes Pintasilgo | Portugal | 1979–1980 | less-visible historical, short-tenure and gender calibration case |
+
+## Acceptance Checklist
+
+- A numeric score requires a ruler-attributed economic choice plus evidence of
+  implementation, remedy, or attributable outcome. Plans, rhetoric, inherited
+  macroeconomic conditions, and generic country indicators cannot set its direction.
+
+- The exact ten lenses guide evidence but yield one chapter score.
+- Local priors, citations, confidence profiles, contrary evidence and period distinctions are preserved.
+- Announcements, implementation, outcomes and ruler attribution are separated.
+- Baseline, shocks, distribution, household welfare and sustainability are explicit.
+- Missing lenses reduce confidence and never invalidate or mechanically cap the chapter.
+- One judge compares the complete batch using one meter.
+- Flexible statuses/wording are normalized later rather than treated as research failure.
+- Ideology and national-income level are not score shortcuts.
+- Smoke cases are calibrated together before activation.
+
+---
+
+Return only the requested JSON batch. Include one evaluation per available
+dossier, the unavailable manifest unchanged, substantive calibration notes, and
+the run profile. If token usage is unavailable, use
+`unknown_not_exposed_by_tool`; the parent will stamp observed usage when exposed.
+Before returning, verify that every numeric evaluation cites at least one valid
+same-dossier E-ID in its decisive positive or negative evidence arrays; that every
+LF/LS ID in `decisive_local_evidence` accompanies such a decisive E-ID; that
+`structured_prior_summary` accurately describes the embedded local package; and that
+every confidence score is on the required 0-100 scale.

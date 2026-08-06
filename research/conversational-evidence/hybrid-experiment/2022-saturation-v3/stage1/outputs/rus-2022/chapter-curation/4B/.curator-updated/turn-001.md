@@ -1,0 +1,197 @@
+{
+  "chapter_id": "4B",
+  "records": [
+    {
+      "evidence_id": "E0058",
+      "disposition": "retain",
+      "source_family": "IGO election-monitoring",
+      "duplicate_of": null,
+      "reason": "Direct OSCE baseline on constitutional changes and the incumbent-benefiting electoral framework; strong, in-period background for 2022 political freedom."
+    },
+    {
+      "evidence_id": "E0059",
+      "disposition": "context",
+      "source_family": "IGO election-monitoring",
+      "duplicate_of": null,
+      "reason": "Useful context on the constrained observation environment, but it is a press-release level summary rather than substantive findings."
+    },
+    {
+      "evidence_id": "E0060",
+      "disposition": "drop",
+      "source_family": "wire/media",
+      "duplicate_of": null,
+      "reason": "Older wire recap of the same constitutional term-reset baseline already captured more directly by E0058; adds no material 2022-specific detail."
+    },
+    {
+      "evidence_id": "E0061",
+      "disposition": "context",
+      "source_family": "IGO parliamentary review",
+      "duplicate_of": null,
+      "reason": "Later retrospective synthesis that is useful for interpretation, but it is not contemporaneous with the target year."
+    },
+    {
+      "evidence_id": "E0062",
+      "disposition": "retain",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Direct contemporaneous evidence of censorship and protest suppression through state media controls; strong target-year record."
+    },
+    {
+      "evidence_id": "E0063",
+      "disposition": "retain",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Broader contemporaneous escalation with media blocking and large-scale arrests; distinct enough to keep as one of the best illustrative incidents."
+    },
+    {
+      "evidence_id": "E0064",
+      "disposition": "drop",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Early anti-war detention report that repeats the same protest-repression mechanism already established by stronger retained synthesis records."
+    },
+    {
+      "evidence_id": "E0065",
+      "disposition": "drop",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Another protest-treatment report on the same crackdown; it does not add a materially new mechanism beyond the retained evidence."
+    },
+    {
+      "evidence_id": "E0066",
+      "disposition": "drop",
+      "source_family": "wire/media",
+      "duplicate_of": null,
+      "reason": "Secondary AP account of the same fake-news and protest-charging crackdown; redundant once the stronger direct reports are retained."
+    },
+    {
+      "evidence_id": "E0067",
+      "disposition": "retain",
+      "source_family": "NGO annual monitor",
+      "duplicate_of": null,
+      "reason": "Strong year-end synthesis with counts across arrests, criminal cases, blocking, and treason sentences; high-value independent summary."
+    },
+    {
+      "evidence_id": "E0068",
+      "disposition": "context",
+      "source_family": "NGO annual monitor",
+      "duplicate_of": null,
+      "reason": "Useful corroboration and mechanism detail from the same monitoring family, but largely overlaps the retained year-end synthesis."
+    },
+    {
+      "evidence_id": "E0069",
+      "disposition": "retain",
+      "source_family": "NGO civil-society monitor",
+      "duplicate_of": null,
+      "reason": "Direct closure of Amnesty’s Moscow office and related blocking actions, which is a distinct civil-society suppression example."
+    },
+    {
+      "evidence_id": "E0070",
+      "disposition": "drop",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Another protest and journalist-silencing account that repeats the already retained repression pattern without adding a distinct mechanism."
+    },
+    {
+      "evidence_id": "E0071",
+      "disposition": "retain",
+      "source_family": "UN treaty-body summary",
+      "duplicate_of": null,
+      "reason": "Independent UN-level corroboration of harassment, detentions, and mass arrests tied to journalists and peaceful demonstrators."
+    },
+    {
+      "evidence_id": "E0072",
+      "disposition": "retain",
+      "source_family": "NGO retrospective monitor",
+      "duplicate_of": null,
+      "reason": "Strong retrospective synthesis on repression, censorship, and political prisoners in 2022; high-value annual summary."
+    },
+    {
+      "evidence_id": "E0073",
+      "disposition": "context",
+      "source_family": "NGO retrospective monitor",
+      "duplicate_of": null,
+      "reason": "Corroborative retrospective detail with annual case counts, but it overlaps the retained Memorial synthesis."
+    },
+    {
+      "evidence_id": "E0074",
+      "disposition": "retain",
+      "source_family": "wire/media",
+      "duplicate_of": null,
+      "reason": "Direct in-period law expanding LGBT propaganda restrictions; a separate rights-restriction mechanism from protest and media repression."
+    },
+    {
+      "evidence_id": "E0075",
+      "disposition": "context",
+      "source_family": "NGO country summary",
+      "duplicate_of": null,
+      "reason": "Current RSF summary is useful broad corroboration of the post-2022 media environment, but it is not a 2022-dated primary record."
+    },
+    {
+      "evidence_id": "E0076",
+      "disposition": "retain",
+      "source_family": "NGO annual country report",
+      "duplicate_of": null,
+      "reason": "Annual country chapter summarizing 2022 war-censorship laws and suppression of dissent; strong synthesis evidence."
+    },
+    {
+      "evidence_id": "E0077",
+      "disposition": "context",
+      "source_family": "NGO methodology",
+      "duplicate_of": null,
+      "reason": "Methodology-only page that helps assess the reliability of the OVD-Info family, but it is not direct conduct evidence."
+    },
+    {
+      "evidence_id": "E0078",
+      "disposition": "context",
+      "source_family": "IGO election-monitoring",
+      "duplicate_of": null,
+      "reason": "Background mission index that supports the observation-coverage context, but it is not a substantive findings document."
+    },
+    {
+      "evidence_id": "E0198",
+      "disposition": "retain",
+      "source_family": "IGO rights body",
+      "duplicate_of": null,
+      "reason": "Direct OSCE statement on the illegal annexation and its human-rights implications, squarely in period."
+    },
+    {
+      "evidence_id": "E0199",
+      "disposition": "retain",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Contemporaneous Amnesty report on coercive sham referenda and occupation-control tactics; strong annexation-related evidence."
+    },
+    {
+      "evidence_id": "E0200",
+      "disposition": "retain",
+      "source_family": "official government",
+      "duplicate_of": null,
+      "reason": "Official U.S. reporting on the legal extension of Russian rule, citizenship coercion, martial law, and restrictions in occupied areas."
+    },
+    {
+      "evidence_id": "E0201",
+      "disposition": "retain",
+      "source_family": "NGO country report",
+      "duplicate_of": null,
+      "reason": "Independent Freedom House corroboration on coercive citizenship and deportation practices in occupied Crimea."
+    },
+    {
+      "evidence_id": "E0202",
+      "disposition": "retain",
+      "source_family": "NGO rights monitor",
+      "duplicate_of": null,
+      "reason": "Direct evidence of state propaganda and sanctions for dissent through the Education Ministry, a distinct civic-space mechanism."
+    }
+  ],
+  "summary": {
+    "retained": 14,
+    "context": 7,
+    "dropped": 5,
+    "remaining_concerns": [
+      "The strongest evidence clusters around censorship, protest repression, and occupation-control measures; there is less direct evidence here on broader administrative governance outside those mechanisms.",
+      "Several usable records are retrospective syntheses or methodology/context pages, so the chapter still depends on a mix of direct contemporaneous reports and later summaries.",
+      "A few incident-level protest reports were dropped as repetitive after stronger annual or institutional syntheses were retained."
+    ]
+  }
+}

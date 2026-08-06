@@ -1,0 +1,156 @@
+{
+  "overall_decision": "targeted_follow_up",
+  "chapters": [
+    {
+      "chapter_id": "1B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0010",
+          "reason": "Multilateral G7 statement; use as shared institutional context on Zaporizhzhya, not as a unilateral Scholz nuclear-risk decision."
+        },
+        {
+          "evidence_id": "E0014",
+          "reason": "Pre-2022 NATO nuclear-sharing background; inherited baseline only, not in-period Scholz conduct."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair overall. It separates inherited German/NATO nuclear posture from Scholz's 2022 choices and preserves contrary evidence, but the strongest items are speeches, multilateral signaling, and procurement follow-through rather than direct command-and-control reform."
+    },
+    {
+      "chapter_id": "2B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0022",
+          "reason": "Government spokesperson briefing; treat as federal legal framing and end-use policy, not Scholz's personal statement."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. The package contains direct, in-period Scholz diplomacy plus counterevidence on caution and delay; a few items are government-level rather than personal acts, but that is appropriately labeled."
+    },
+    {
+      "chapter_id": "3B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0026",
+          "reason": "National NGO report on policing patterns and remedy deficits; keep as structural context unless paired with direct federal Scholz action."
+        },
+        {
+          "evidence_id": "E0027",
+          "reason": "Specific ECHR finding on a federal-police investigation failure; institutional accountability evidence, not a Scholz order."
+        },
+        {
+          "evidence_id": "E0030",
+          "reason": "Single state-police shooting; serious adverse event, but not federal chancellery conduct or a nationwide terror pattern."
+        },
+        {
+          "evidence_id": "E0033",
+          "reason": "Country-level summary; useful context, not direct evidence of Scholz's conduct."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Direct federal Scholz-led 2022 reforms of police oversight, complaint handling, and anti-racism safeguards.",
+          "lenses": [
+            "3B.2",
+            "3B.4",
+            "3B.5"
+          ],
+          "best_source_or_query_direction": "BMI/BMJV/Bundestag implementation records, federal police complaint-mechanism documents, and cabinet or parliamentary files on police oversight.",
+          "why_it_matters": "Without this, the adverse evidence stays mostly state-level and the positive evidence stays largely rhetorical."
+        }
+      ],
+      "reason": "Partly fair but attribution is the weak point. The dossier captures a mixed rights environment, yet several adverse items are state-level or national-context evidence rather than direct Scholz conduct, so the personal attribution line still needs tightening."
+    },
+    {
+      "chapter_id": "4B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0035",
+          "reason": "Pre-2022 election result; baseline and mandate context, not in-period Scholz conduct."
+        },
+        {
+          "evidence_id": "E0036",
+          "reason": "Country-level press-freedom summary; context for the environment, not Scholz-specific action."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair. It shows a lawful electoral baseline, mixed press-freedom conditions, and some reform efforts, but baseline and context material should not be mistaken for direct personal democratic self-binding."
+    },
+    {
+      "chapter_id": "5B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "Fair. It balances relief measures, macro outcomes, and contrary inflation/debt evidence; the main limitation is that several inputs are announcement-heavy and household distributional effects remain underdeveloped."
+    },
+    {
+      "chapter_id": "6B",
+      "decision": "pass",
+      "remove_or_contextualize": [],
+      "material_gaps": [],
+      "reason": "Fair. It captures broad social relief and refugee support alongside inflationary pressure and only partial implementation, but the package would be stronger with more realized-outcome and subgroup-distribution evidence."
+    },
+    {
+      "chapter_id": "7B",
+      "decision": "targeted_follow_up",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0082",
+          "reason": "Duplicate of the same Cum-Ex hearing event already represented by the hearing coverage; keep one version, not two near-identical retellings."
+        },
+        {
+          "evidence_id": "E0083",
+          "reason": "Procedural disclosure dispute about the chancellery; useful context, but it is not a finding that Scholz lied or benefited personally."
+        },
+        {
+          "evidence_id": "E0088",
+          "reason": "Anti-corruption announcement; policy posture, not evidence of personal integrity in practice."
+        }
+      ],
+      "material_gaps": [
+        {
+          "gap": "Primary 2022 Hamburg PUA transcript and underlying court/prosecutorial records on Cum-Ex and Warburg.",
+          "lenses": [
+            "7B.1",
+            "7B.2",
+            "7B.6",
+            "7B.7"
+          ],
+          "best_source_or_query_direction": "Official committee transcript, court filings, prosecutor decisions, and declassified records tied to the Cum-Ex testimony dispute.",
+          "why_it_matters": "Needed to distinguish allegation, memory lapse, procedural secrecy, and actual false testimony."
+        },
+        {
+          "gap": "Direct personal-nexus evidence on benefits, gifts, conflicts, or family/business ties.",
+          "lenses": [
+            "7B.3",
+            "7B.4",
+            "7B.9"
+          ],
+          "best_source_or_query_direction": "Asset disclosures, investigative findings, procurement or ethics records, and any independent findings on personal benefit.",
+          "why_it_matters": "Without a personal-benefit link, the chapter remains dominated by scrutiny rather than proven self-dealing."
+        }
+      ],
+      "reason": "Not yet fully fair for a robust integrity narrative. It preserves unresolved Cum-Ex scrutiny, but the evidence is still mostly allegations, procedural disputes, and a policy promise, with no direct personal-benefit finding or conclusive falsity determination."
+    },
+    {
+      "chapter_id": "8B",
+      "decision": "pass",
+      "remove_or_contextualize": [
+        {
+          "evidence_id": "E0094",
+          "reason": "Self-reported operational claim about the gas exit strategy; useful, but it should not be treated as independent proof of execution."
+        },
+        {
+          "evidence_id": "E0100",
+          "reason": "Retrospective criticism of 2022 implementation lag; keep as contrary evidence, but do not read it as total in-year failure."
+        }
+      ],
+      "material_gaps": [],
+      "reason": "Fair overall. It links 2022 plans to procurement, energy-security execution, and macro outcomes, but several outcome indicators are partly shock-driven or retrospective and should remain explicit context rather than direct proof of personal mastery."
+    }
+  ]
+}

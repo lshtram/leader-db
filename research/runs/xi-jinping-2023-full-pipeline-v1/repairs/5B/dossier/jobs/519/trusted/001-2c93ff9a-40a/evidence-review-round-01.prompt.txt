@@ -1,0 +1,220 @@
+You are an evidence-quality reviewer, not a ruler judge.
+
+
+Review the schema-light notebook for the immutable ruler-period below. Do not browse,
+open URLs, add facts from memory, rewrite the notebook, or assign scores. Formatting
+imperfections are not evidence defects. Assess defensible source-claim units, source
+independence, target-period fit, ruler attribution, contrary evidence, local-fact use,
+and exact missing themes. Missing evidence is not negative ruler evidence.
+
+For every chapter, complete `bias_review` from the notebook and cite its stable evidence
+IDs where available. Explicitly assess whether favorable and adverse searches were both
+performed; whether closed-system silence could hide misconduct; whether open-system
+complaint volume could exaggerate apparent severity; whether repeated coverage describes
+one underlying fact; whether allegations are separated from findings; whether official
+claims have independent checks; whether population, exposure, authority, inherited
+baseline, and external shocks are addressed; and whether the source type needed to
+resolve the chapter's principal bias risk is missing. `supporting_evidence_ids` must
+contain only IDs actually present in the notebook. Record credible blockers and residual
+risks rather than inventing completeness. A bias gap requires continuation only when
+another bounded search can materially improve it; otherwise preserve it as unresolved
+for confidence and interpretation downstream.
+
+The immutable selected lens scope is:
+[
+  "5B.1",
+  "5B.2",
+  "5B.3",
+  "5B.4",
+  "5B.5",
+  "5B.6",
+  "5B.7",
+  "5B.8",
+  "5B.9",
+  "5B.10"
+]
+
+Review only those exact lenses. A full chapter job selects all ten chapter lenses; a
+bounded one-lens pilot does not. Do not require, research, or list unselected sibling
+lenses as missing themes, and do not expand continuation beyond the selected lens
+scope. Return the containing selected chapter exactly once, but judge its evidence
+adequacy only for the selected methodology IDs above.
+
+Use proportional attribution. For Chapters 1B-6B and 8B, cited formal responsibility
+for national policy, appointments, command, implementation, tolerance, or remedy can be
+sufficient without proof of a personal order. Chapter 7B requires a personal-integrity
+nexus. Shared authority or constraints reduce attribution strength rather than erasing
+otherwise relevant evidence.
+
+Treat these as substantive evidence defects rather than formatting preferences:
+- a claim whose underlying source cannot be identified or does not support it;
+- a homepage, search result, document index, or labels such as `release page` or
+  `article` used as though they were precise locators;
+- a gateway source used without its underlying source URL;
+- multiple sources or materially distinct claims bundled into one evidence item;
+- the same source-locator-claim fact recreated under chapter-specific IDs instead of
+  one stable global ID with many-to-many lens mappings;
+- country, institutional, election-result, or subordinate conduct attributed directly
+  to the ruler without evidence of direction, ownership, knowledge, benefit, tolerance,
+  obstruction, correction, or authority-based responsibility;
+- post-period outcomes presented as target-period events; or
+- any researcher-written score, score range, anchor, ranking recommendation, or advice
+  that a judge should score or return null.
+
+Exclude gateway-only and duplicated copies from the `defensible_evidence_estimate`.
+Treat an identified credible source with a missing precise locator as a recoverable
+extraction task, not proof that evidence is absent. Select a chapter for continuation
+when opening/fetching can recover the locator or research can recover an attribution
+fact, contrary source, or missing event theme.
+
+Do not use workflow exhaustion, low current evidence count, or a guessed marginal-
+value threshold as a saturation finding. If the notebook names promising unfetched
+sources, contains snippet-only candidates, lacks candidate breadth, or omitted local-
+language/source-specific searches for a well-covered case, require continuation.
+Deduplication, splitting bundled claims, neutral wording, lens dispositions, and count
+reconciliation remain deterministic cleanup rather than web-research tasks.
+
+Return all selected chapters exactly once. Select every chapter with a material,
+research-recoverable attribution, temporal, source-quality, event-coverage, contrary-
+evidence, or evidence-yield gap. Do not limit the review to the three weakest chapters.
+Do not pass a chapter merely because it has several sources or indicators. Pass it only
+when the concrete evidence is sufficient to present the relevant governing conduct,
+important contrary material, and attribution fairly, or when a credible blocker shows
+that another search round is unlikely to improve it.
+If the notebook gives a credible saturation or access-blocker explanation and another
+search round is unlikely to improve it, do not select that chapter. If no continuation
+would materially improve the dossier, return needs_continuation=false and an empty
+selected_theme_ids list.
+
+Immutable job:
+{
+  "job_key": "dossier:xi-jinping-2023-5b-repair-v1:2023:CHN:15833",
+  "iso3": "CHN",
+  "country_name": "China",
+  "ruler_name": "Xi Jinping",
+  "period_start_year": 2023,
+  "period_end_year": 2023
+}
+
+Deterministic QA:
+{
+  "selected_chapter_ids": [
+    "5B"
+  ],
+  "observed_chapter_ids": [
+    "5B"
+  ],
+  "approximate_locator_count": 12,
+  "approximate_source_family_count": 9,
+  "minimum_source_claim_units_per_chapter": 5,
+  "minimum_independent_source_families_per_chapter": 3,
+  "needs_reviewer": false,
+  "findings": []
+}
+
+Configured research workflow:
+{
+  "version": 1,
+  "chapter_order": [
+    "1B",
+    "2B",
+    "3B",
+    "4B",
+    "5B",
+    "6B",
+    "7B",
+    "8B"
+  ],
+  "researcher_session_scope": "one_ruler_period",
+  "chapter_session_mode": "persistent_thread",
+  "researcher_receives_compact_briefing": true,
+  "complete_local_package_stays_parent_owned": true,
+  "researcher_direct_iterative_search": true,
+  "source_discovery_stage_enabled": true,
+  "chapter_research_turns_enabled": true,
+  "overview_candidate_document_target": 50,
+  "chapter_candidate_document_target": 30,
+  "chapter_opened_document_target": 12,
+  "research_stop_condition": "reasonable_saturation_or_blocker",
+  "evidence_reviewer_checks_every_selected_chapter": true,
+  "review_continuation_session": "same_researcher_thread",
+  "max_review_rounds": 3,
+  "formatter_search_enabled": false,
+  "chapter_judge_search_enabled": false,
+  "score_order_audit_required": true,
+  "minimum_source_claim_units_per_chapter": 5,
+  "normal_source_claim_units_per_chapter": 10,
+  "maximum_source_claim_units_per_chapter": 20,
+  "minimum_independent_source_families_per_chapter": 3,
+  "continuation_minimum_expected_new_units_per_selected_chapter": 2,
+  "continuation_marginal_value_policy_enabled": true,
+  "supervisor_takeover_enabled": true,
+  "supervisor_takeover_after_research_attempts": 2
+}
+
+Research notebook:
+---
+Compact research handoff. The parent preserves the complete raw notebook separately; this consumer receives the authoritative evidence ledger and chapter accounting conclusions.
+
+
+--- RESEARCH LEDGER MANIFEST ---
+{"entries":[{"canonical_fact_key":"xi_formal_offices_2023","chapter_ids":["1B","8B"],"claim":"Xi Jinping held the PRC presidency and both the party and state Central Military Commission chairmanships in 2023, while also serving as CCP general secretary, making him the central executive and military authority in the Chinese system.","disposition":"final_evidence","locator":"Opening paragraphs of the Xinhua report and linked official profile pages identifying his current offices.","methodology_ids":[],"provisional_id":"xi2023-001","url":"https://english.news.cn/20230310/934026edf9f64547addbfe5f7888d77d/c.html"},{"canonical_fact_key":"party_supremacy_institutional_limits","chapter_ids":["5B","7B","8B"],"claim":"The 2023 State Council institutional notice shows key state functions being reorganized under party-linked structures, illustrating that Xi’s authority operated through a party-led system rather than independent state checks.","disposition":"final_evidence","locator":"Lines 9-10 and 66-107, which list the reforms and party-linked nameplate arrangements.","methodology_ids":[],"provisional_id":"xi2023-002","url":"https://app.www.gov.cn/govdata/gov/202303/20/498124/article.html"},{"canonical_fact_key":"financial_centralization_2023","chapter_ids":["5B","8B"],"claim":"In late 2023 the party-state reassigned major financial-regulatory responsibilities, including functions from the PBOC financial stability office to new central-party and supervisory bodies, showing continued centralization of economic governance under Xi.","disposition":"final_evidence","locator":"Lines 7-28, especially the responsibility transfers and PBOC staff reductions.","methodology_ids":[],"provisional_id":"xi2023-003","url":"https://app.www.gov.cn/govdata/gov/202310/13/508173/article.html"},{"canonical_fact_key":"saudi_iran_brokered_by_china","chapter_ids":["2B","8B"],"claim":"China brokered the March 2023 Saudi-Iran normalization agreement, one of Xi’s clearest diplomatic successes in 2023.","disposition":"final_evidence","locator":"Reuters report stating the deal was brokered by China and announced after talks in Beijing.","methodology_ids":[],"provisional_id":"xi2023-004","url":"https://www.investing.com/news/commodities-news/iran-and-saudi-arabia-agree-to-resume-ties-3027583"},{"canonical_fact_key":"moscow_visit_limited_ukraine_leverage","chapter_ids":["2B","8B"],"claim":"Xi’s March 2023 Moscow visit sustained strategic alignment with Russia but did not produce a Ukraine settlement or visibly constrain Russian military action.","disposition":"final_evidence","locator":"Reuters analysis stating that nothing emerged from the meeting to tie Putin’s hands militarily.","methodology_ids":[],"provisional_id":"xi2023-005","url":"https://www.investing.com/news/commodities-news/peace-plans-and-pipelines-what-came-out-of-the-putinxi-talks-3036765"},{"canonical_fact_key":"white_paper_crackdown_2023","chapter_ids":["3B","4B","7B"],"claim":"In 2023 Chinese authorities continued detaining, harassing, and censoring participants in the White Paper protests, showing that mass protest did not lead to meaningful political liberalization.","disposition":"final_evidence","locator":"Body text describing the post-protest detentions, harassment of lawyers and friends, and censorship of protest-related information.","methodology_ids":[],"provisional_id":"xi2023-006","url":"https://www.hrw.org/news/2023/01/26/china-free-white-paper-protesters"},{"canonical_fact_key":"china_not_free_2023","chapter_ids":["4B","7B","8B"],"claim":"Freedom House classified China as Not Free in 2023, reflecting the absence of meaningful opposition, constrained civil liberties, and extensive party control over speech and political participation.","disposition":"final_evidence","locator":"Country overview and political-rights/civil-liberties score summary on the China country profile.","methodology_ids":[],"provisional_id":"xi2023-007","url":"https://freedomhouse.org/country/china"},{"canonical_fact_key":"xinjiang_ohchr_assessment","chapter_ids":["3B","7B"],"claim":"The UN OHCHR assessment found serious human-rights concerns in Xinjiang based on documentary material, including government laws, policies, data, and statements, making it a key multilateral record of Xi-era repression.","disposition":"final_evidence","locator":"Summary section on the UN record page describing the assessment’s scope and method.","methodology_ids":[],"provisional_id":"xi2023-008","url":"https://digitallibrary.un.org/record/3985699?v=pdf"},{"canonical_fact_key":"fragile_economic_rebound_2023","chapter_ids":["5B","8B"],"claim":"China’s 2023 economic rebound was real but fragile, with growth supported by reopening and policy easing yet constrained by weak consumer confidence, property weakness, debt, aging, and low productivity.","disposition":"final_evidence","locator":"The World Bank December 2023 press release describing projected 5.2 percent growth and the cited structural constraints.","methodology_ids":[],"provisional_id":"xi2023-009","url":"https://www.worldbank.org/en/news/press-release/2023/12/14/sustained-policy-support-and-deeper-structural-reforms-to-revive-china-s-growth-momentum-world-bank-report"},{"canonical_fact_key":"information_environment_constraints","chapter_ids":["3B","4B","7B","8B"],"claim":"Reliable information about China in 2023 was constrained by censorship, harassment of journalists and lawyers, internet controls, and lack of independent judicial or political accountability, making many estimates conservative and incomplete.","disposition":"final_evidence","locator":"Executive summary listing the major restrictions on expression, media freedom, internet freedom, assembly, association, judiciary independence, and political participation.","methodology_ids":[],"provisional_id":"xi2023-010","url":"https://www.ecoi.net/en/document/2107650.html"},{"canonical_fact_key":"xi_2023_economic_agenda","chapter_ids":["5B"],"claim":"Xi Jinping's early-2023 economic agenda emphasized restoring confidence, expanding domestic demand, and using government investment and policy incentives to mobilize broader investment.","contrary_evidence":"Later assessments show the recovery was fragile and did not resolve structural weakness.","disposition":"final_evidence","final_evidence_use":"final_evidence","lenses":["5B.1","5B.7","5B.9","5B.10"],"locator":"Lines 33-38.","methodology_ids":["5B.1","5B.10","5B.7","5B.9"],"period_fit":"target_period_current","provisional_id":"WEB-5B-001","publication_date":"2023-02-16","publisher":"Xinhua / State Council repost","ruler_attribution":"direct","source_confidence":"high","source_confidence_reason":"Primary official publication of Xi's own economic article; direct evidence of stated intent, though naturally propagandistic.","source_type":"official_statement","title":"Xi's article on economic work published","underlying_fact_key":"xi_2023_economic_agenda","url":"https://english.www.gov.cn/news/topnews/202302/16/content_WS63ede123c6d0a757729e6d2a.html"}],"schema_version":"ruler_research_ledger_manifest_v1"}
+
+--- LOCAL DATA DISPOSITION AUDIT ---
+{"chapters":{"5B":{"fact_instances":675,"lens_count":10,"status_counts":{"evidence_found":8,"no_evidence_found":2},"unique_observation_count":286}},"disposition_counts":{"explicit_local_evidence_gap":2,"retained_as_structured_context":8},"disposition_policy":{"evidence_found":"Retained as structured context for formatter and judge consumers; not directional ruler evidence without supported attribution.","invalid_or_unresolved":"Excluded from use and retained only as an unresolved producer defect.","no_evidence_found":"Retained as an explicit local-evidence gap; absence is not favorable or adverse ruler evidence.","research_handoff":"The complete local package is not replayed in research prompts. This bounded local-data audit records parent routing decisions."},"fact_instances":675,"lens_package_count":10,"schema_version":"compact_local_disposition_v1","source_slugs":["bti","maddison_project","pwt","undp_hdi","world_bank_wdi"],"status_counts":{"evidence_found":8,"no_evidence_found":2},"unique_observation_count":286,"warning_count":0,"year_coverage":{"maximum":2023,"minimum":2002}}
+
+CHAPTER_CONCLUSION research-chapter-5B:
+use China profile.
+- **Why it matters:** These constraints affect the reliability of labor, unemployment, protest, corruption, and local hardship reporting.
+- **Fit:** Target-period current.
+- **Attribution:** Strong as environment/context evidence.
+- **Caution:** Rights-oriented sources are strongest on constraint and weaker on fine-grained macro measurement.
+
+**Lens Disposition**
+
+- **5B.1 Broad and sustainable prosperity:** Supported. Xi’s own economic agenda and year-end policy line emphasized recovery, demand, and investment, but the evidence also shows a heavy reliance on state-led stimulus and risk management rather than deep structural liberalization.
+- **5B.2 Qualified economic leadership:** Partially supported. I found strong evidence of centralized control and repeated meetings chaired by Xi, but not enough in this pass to prove personnel quality, delegation, or merit-based retention/removal.
+- **5B.3 Macroeconomic stability:** Supported with caveats. IMF and World Bank both saw a rebound, but they also identified property, debt, and external-demand risks.
+- **5B.4 Fair economic rules:** Partial. The World Bank explicitly called for a fair and competitive market and predictable regulation, but the evidence here is more diagnostic than proof of fairness.
+- **5B.5 Resistance to economic capture:** Partial / weak. The year’s records show centralization and anti-risk messaging, but not a complete corruption or favoritism audit.
+- **5B.6 Productive public investment:** Partial. Official sources say infrastructure stimulus and public investment supported the rebound, but I do not yet have project-level implementation evidence.
+- **5B.7 Evidence and correction:** Supported in part. Xi and the center repeatedly acknowledged weak demand and risks, and policy was adjusted, but information constraints limit confidence in self-correction claims.
+- **5B.8 Fair distribution:** Weak / gap. I have macro-level evidence, but not enough household-, wage-, regional-, or subgroup-level distribution evidence for 2023.
+- **5B.9 Managing economic shocks:** Supported. The reopening rebound, property slump, and support measures are all visible in the record, along with ongoing concern about debt and consumer confidence.
+- **5B.10 Lasting economic trajectory:** Partial. The year ended with a stabilized but fragile trajectory, not a clear transformation to a stronger long-run path.
+
+**Source Groups**
+
+**Accepted evidence**
+- Xinhua/Qiushi on Xi’s February 2023 economic article.
+- Xinhua / State Council on April 2023 economic work.
+- Xinhua on July 2023 economic symposium.
+- Xinhua / State Council on December 2023 Central Economic Work Conference.
+- IMF Article IV press release, February 2024.
+- World Bank China Economic Update, December 2023.
+- Reuters on property-sector declines, October 2023.
+- NBS 2024 GDP revision bulletin.
+- HRW on White Paper protest crackdown.
+- State Department and Freedom House on information restrictions.
+
+**Corroboration mainly used for context**
+- IMF November 2023 mission release.
+- Reuters analysis of China’s property market and recovery.
+- State Council / Xinhua reposts of official economic messaging.
+
+**Promising leads still needing inspection**
+- NBS 2023 annual communique and quarterly labor data.
+- IMF country report text behind the February 2024 consultation release.
+- World Bank full December 2023 report PDF.
+- Any 2023 central/fiscal budget execution report.
+- Any 2023 local-government debt or audit report.
+- 2023 unemployment, wages, rural income, and inequality series.
+- More direct reporting on private-sector confidence, small-business closures, and household balance-sheet stress.
+
+**Source Counts**
+- Sources actually opened: 12+.
+- Strong evidence records retained: 9.
+- Main gaps remaining: distributive outcomes, personnel/merit evidence, and budget-execution detail.
+
+SOURCE_CLAIM_JSON: {"title":"Xi's article on economic work published","publisher":"Xinhua / State Council repost","publication_date":"2023-02-16","url":"https://english.www.gov.cn/news/topnews/202302/16/content_WS63ede123c6d0a757729e6d2a.html","claim":"Xi Jinping's early-2023 economic agenda emphasized restoring confidence, expanding domestic demand, and using government investment and policy incentives to mobilize broader investment.","locator":"Lines 33-38.","provisional_id":"WEB-5B-001","canonical_fact_key":"xi_2023_economic_agenda","disposition":"final_evidence","chapter_ids":["5B"],"methodology_ids":[],"source_type":"official_statement","source_confidence":"high","source_confidence_reason":"Primary official publication of Xi's own economic article; direct evidence of stated intent, though naturally propagandistic.","final_evidence_use":"final_evidence","period_fit":"target_period_current","ruler_attribution":"direct","contrary_evidence":"Later assessments show the recovery was fragile and did not resolve structural weakness.","underlying_fact_key":"xi_2023_economic_agenda","lenses":["5B.1","5B.7","5B.9","5B.10"]}
+---

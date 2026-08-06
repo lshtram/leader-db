@@ -1,6 +1,6 @@
 # 5B Economic Well-Being and Prosperity
 
-Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
+Status: draft; v5 comparative-trajectory questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,23 +8,33 @@ Status: draft; revised after 2020 v2 acceptance audit; requires v3 rejudgment
 - Category: ruler intention and action for economic well-being and prosperity
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_5b_v3`
+- Rubric version: `chapter_5b_v5`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The ten questions are overlapping lenses on one judgment: whether the ruler used available authority competently and fairly to improve durable economic opportunity.
 
+Before applying the lenses, establish the inherited economy and prior trend;
+beginning-and-end changes in GDP, GDP per capita, income, employment, inflation, debt,
+and distribution where comparable; the principal economic decisions; major external
+shocks; and the ruler’s attributable contribution.
+
 ## Ten Evidence Lenses
 
-1. **5B.1** — Did the ruler intend and act to create broad-based, sustainable prosperity rather than extract rents, buy loyalty, or maximize short-term popularity?
-2. **5B.2** — Did the ruler appoint competent economic professionals and empower them, rather than loyalists, family members, business partners, or ideological yes-men?
-3. **5B.3** — Did the ruler protect macroeconomic stability, fiscal responsibility, monetary credibility, and long-term investment conditions?
-4. **5B.4** — Did the ruler create fair rules for entrepreneurship, competition, property rights, trade, investment, and job creation?
-5. **5B.5** — Did the ruler resist corruption, favoritism, monopolies, oligarchic capture, and politically connected business privileges?
-6. **5B.6** — Did the ruler invest in productivity foundations: infrastructure, education, health, technology, administrative capacity, and predictable regulation?
-7. **5B.7** — Did the ruler make economic policy based on evidence and correction of mistakes, or on slogans, denial, patronage, and scapegoating?
-8. **5B.8** — Did the ruler distribute economic gains fairly across regions, classes, genders, and groups rather than privileging regime supporters?
-9. **5B.9** — Did the ruler manage shocks, inflation, unemployment, debt, sanctions, commodity changes, or crises with competence and honesty?
-10. **5B.10** — Did the ruler leave the economy on a stronger trajectory than they inherited, accounting for external constraints?
+| Lens | Simple question | Detailed research question | Priority evidence |
+|---|---|---|---|
+| **5B.1 — Broad and sustainable prosperity** | Did the ruler pursue lasting prosperity for the public rather than private gain and political loyalty? | Did the ruler's legislative agenda, formal policies, and executed budgets pursue broad-based sustainable prosperity rather than rents, loyalty purchases, or short-term popularity? | **Formal acts and law**; **Resources**; **Implementation and operational conduct** |
+| **5B.2 — Qualified economic leadership** | Did the ruler empower capable economic professionals rather than loyalists? | Did the ruler appoint qualified economic professionals through credible processes, empower their operational independence, and retain or replace them based on performance rather than loyalty? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.3 — Macroeconomic stability** | Did the ruler protect stable public finances, money, debt, and investment conditions? | Did the ruler enact, administer, and comply with credible fiscal, tax, debt, monetary, and financial rules that protected macroeconomic stability and long-term investment? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.4 — Fair economic rules** | Did businesses and workers operate under fair and predictable economic rules? | Did the ruler create and consistently enforce fair laws and regulations for competition, entrepreneurship, property, trade, investment, and job creation? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.5 — Resistance to economic capture** | Did the ruler resist favoritism, monopoly power, and politically connected privilege? | Did the ruler enforce competition, procurement, disclosure, and anti-corruption rules against politically connected actors, cooperate with audits and courts, and remedy proven favoritism or capture? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.6 — Productive public investment** | Did public resources produce useful foundations for long-term prosperity? | Did enacted and executed budgets produce timely, high-quality infrastructure, education, health, technology, administrative capacity, and predictable regulation rather than announcements or patronage projects? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.7 — Evidence and correction** | Did the ruler use honest evidence and correct economic policies that failed? | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.8 — Fair distribution** | Were economic gains and burdens shared fairly across people and regions? | Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.9 — Managing economic shocks** | Did the ruler respond competently and fairly to major economic shocks? | During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **5B.10 — Lasting economic trajectory** | Did the ruler leave the economy on a stronger and fairer path? | Compare beginning-and-end and time-series changes in GDP, GDP per capita, income, employment, inflation, debt, productivity, and distribution such as the Gini coefficient where comparable. Attribute changes cautiously, accounting for inherited trends, implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone. | **Outcomes**; **Implementation and operational conduct** |
+
+Priority evidence categories indicate promising evidence, not required coverage or an
+exclusive source list. Missing categories do not invalidate a lens.
 
 ## Researcher Evidence Plan
 
@@ -71,7 +81,7 @@ Ten lenses provide redundancy: missing appointment evidence may be offset by str
 The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
 
 - `chapter_id`: `5B`
-- `rubric_version`: `chapter_5b_v3`
+- `rubric_version`: `chapter_5b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`

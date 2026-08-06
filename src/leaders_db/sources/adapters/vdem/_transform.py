@@ -228,6 +228,9 @@ def emit_vdem_observations(
                 "unit": spec.unit,
                 "attribution": VDEM_ATTRIBUTION_TEXT,
             }
+            uncertainty = _uncertainty_payload(row, raw_column)
+            if uncertainty:
+                extension["uncertainty"] = uncertainty
             if vdem_country_id_value is not None and not (
                 isinstance(vdem_country_id_value, float)
                 and math.isnan(vdem_country_id_value)
@@ -311,6 +314,19 @@ def emit_vdem_observations(
                 ),
             )
     return iter(observations)
+
+
+def _uncertainty_payload(row: Any, raw_column: str) -> dict[str, float]:
+    payload: dict[str, float] = {}
+    for suffix, key in (
+        ("codelow", "lower_bound"),
+        ("codehigh", "upper_bound"),
+        ("sd", "standard_deviation"),
+    ):
+        value = coerce_float(getattr(row, f"{raw_column}_{suffix}", None))
+        if is_real_number(value):
+            payload[key] = float(value)
+    return payload
 
 
 __all__ = [

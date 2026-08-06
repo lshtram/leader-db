@@ -1,0 +1,46 @@
+Research the named ruler and period without scoring.
+
+This is a short reconnaissance turn. Later turns will start one fresh compact session
+per selected chapter with that chapter's ten questions and a bounded index of relevant
+resources found so far. Do not attempt the complete dossier now.
+
+Job:
+{"country_name":"Russian Federation","iso3":"RUS","period_end_year":2022,"period_start_year":2022,"research_ledger_manifest_path":"/home/liorshtram/projects/leaders-db/research/conversational-evidence/recon-prompt-ac-2022-v1/putin/a/research-ledger-manifest.json","research_materials_path":"/home/liorshtram/projects/leaders-db/research/conversational-evidence/recon-prompt-ac-2022-v1/putin/a/research-materials.md","ruler_name":"Vladimir Putin","selected_chapters":["1B","2B","3B","4B","5B","6B","7B","8B"]}
+
+What the local pipeline already knows:
+{"chapter_briefs":[{"chapter_id":"1B","highlights":[{"fact_id":"LF001","label":"Nuclear military stockpile","sources":["fas"],"unit":"warheads","value":4300.0,"warnings":[],"year":2014},{"fact_id":"LF002","label":"Nuclear warheads total inventory","sources":["fas"],"unit":"warheads","value":8000.0,"warnings":[],"year":2014}],"local_fact_count":5,"status_counts":{"evidence_found":9,"no_evidence_found":1}},{"chapter_id":"2B","highlights":[{"fact_id":"LF126","label":"Internationalized conflict events","sources":["ucdp"],"unit":"events","value":27.0,"warnings":[],"year":2022},{"fact_id":"LF127","label":"Internationalized conflict fatalities","sources":["ucdp"],"unit":"deaths","value":55.0,"warnings":[],"year":2022}],"local_fact_count":241,"status_counts":{"evidence_found":10}},{"chapter_id":"3B","highlights":[{"fact_id":"LF526","label":"CIRIGHTS disappearances","sources":["cirights"],"unit":"cirights_ordinal","value":0.0,"warnings":[],"year":2022},{"fact_id":"LF527","label":"CIRIGHTS killings","sources":["cirights"],"unit":"cirights_ordinal","value":0.0,"warnings":[],"year":2022}],"local_fact_count":474,"status_counts":{"evidence_found":8,"no_evidence_found":2}},{"chapter_id":"4B","highlights":[{"fact_id":"LF1006","label":"Civil liberties","sources":["freedom_house"],"unit":"rating","value":6.0,"warnings":[],"year":2022},{"fact_id":"LF1007","label":"EIU Democracy Index overall score","sources":["eiu_democracy_index"],"unit":"index_score","value":2.28,"warnings":[],"year":2022}],"local_fact_count":699,"status_counts":{"evidence_found":10}},{"chapter_id":"5B","highlights":[{"fact_id":"LF1631","label":"Final consumption expenditure \u2014 current USD","sources":["un_snaama"],"unit":"current_usd","value":1486364703286.96,"warnings":["{'code': 'nominal_current_usd_not_real_growth', 'context': {'prohibited_automatic_inference': True}, 'message': 'Current-price US-dollar changes combine real activity, inflation, and exchange-rate movements; do not interpret them as real growth.', 'severity': 'warning', 'source_slug': None}"],"year":2022},{"fact_id":"LF1632","label":"GDP per capita \u2014 nominal current USD","sources":["world_bank_wdi"],"unit":"USD per capita","value":15619.6142578125,"warnings":[],"year":2022}],"local_fact_count":617,"status_counts":{"evidence_found":8,"no_evidence_found":2}},{"chapter_id":"6B","highlights":[{"fact_id":"LF1635","label":"GNI per capita","sources":["undp_hdi"],"unit":"USD_2017_PPP","value":26991.84961,"warnings":[],"year":2022},{"fact_id":"LF1637","label":"WDI Gini inequality index","sources":["world_bank_wdi"],"unit":"index points (0-100)","value":33.9,"warnings":[],"year":2022}],"local_fact_count":166,"status_counts":{"evidence_found":9,"no_evidence_found":1}},{"chapter_id":"7B","highlights":[{"fact_id":"LF1405","label":"Accountability","sources":["vdem"],"unit":"index","value":-0.61,"warnings":[],"year":2022},{"fact_id":"LF1417","label":"Rule of law","sources":["vdem"],"unit":"index","value":0.171,"warnings":[],"year":2022}],"local_fact_count":208,"status_counts":{"evidence_found":3,"no_evidence_found":7}},{"chapter_id":"8B","highlights":[{"fact_id":"LF1405","label":"Accountability","sources":["vdem"],"unit":"index","value":-0.61,"warnings":[],"year":2022},{"fact_id":"LF1417","label":"Rule of law","sources":["vdem"],"unit":"index","value":0.171,"warnings":[],"year":2022}],"local_fact_count":146,"status_counts":{"evidence_found":8,"no_evidence_found":2}}],"complete_local_package_retained_by_parent":true,"error_methodology_ids":[],"purpose":"orientation only; verify claims independently and do not treat national indicators as ruler attribution","source_family_index":["bti","cirights","eiu_democracy_index","fas","freedom_house","maddison_project","polity_v","pts","pwt","rsf_press_freedom","sipri_milex","ucdp","un_snaama","undp_hdi","vdem","who_gho_api","world_bank_wdi","world_bank_wgi"],"unique_local_fact_count":2327}
+
+The local briefing is orientation, not web evidence and not ruler attribution. The
+parent retains the complete local package; do not request or reconstruct it. Avoid
+re-fetching listed structured datasets unless a specific web source is needed to
+interpret a material gap.
+
+Use web search and open promising underlying sources. Search results and snippets are
+discovery only. Prefer primary records plus independent high-quality analysis, include
+credible contrary material, and use local-language searches where useful. Never use a
+recent-news filter for this historical period.
+
+In this turn:
+1. verify ruler identity, practical authority, and important constraints;
+2. identify major period events and the information environment;
+3. find 8-15 reusable cross-chapter source-claim units when genuinely useful;
+4. give a brief chapter search plan naming unresolved themes and likely source families.
+
+For every accepted unit, preserve one material claim, canonical URL, publisher/date,
+precise locator, period fit, attribution limits, contrary evidence, and applicable
+methodology IDs. Keep stable IDs and append to `research-materials.md`. Maintain one
+cumulative `research-ledger-manifest.json`; later turns must extend, never replace, it.
+If file writing fails, include every accepted unit in the response as one physical
+`SOURCE_CLAIM_JSON:` line. Each line must contain `provisional_id`,
+`canonical_fact_key`, `disposition`, `chapter_ids`, `methodology_ids`, `url`, `claim`,
+and `locator`. A prose summary or Markdown table may accompany these lines but cannot
+replace them. The parent recovers these lines into the cumulative manifest.
+
+Do not pad counts, infer favorable conduct from missing reporting, confuse complaint
+volume with severity, count repeated coverage as independent corroboration, turn
+country context into personal conduct, or treat allegations as findings. Chapter 7B
+requires a personal integrity nexus. Missing evidence lowers confidence later; it does
+not invalidate useful research.
+
+Finish with sources opened and retained, the evidence-environment summary, and the
+chapter-by-chapter gaps. This turn is reconnaissance only.

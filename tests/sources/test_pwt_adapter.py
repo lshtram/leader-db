@@ -368,6 +368,56 @@ def test_pwt_runner_produces_normalized_observations(
     assert by_country == {"USA": 8, "MEX": 6, "SWE": 3}
 
 
+def test_pwt_observations_preserve_exact_source_units() -> None:
+    """PWT scale factors and indexes must not be relabelled as levels."""
+    from leaders_db.sources.adapters.pwt._descriptor import PWT_COLUMN_UNITS
+
+    assert PWT_COLUMN_UNITS == {
+        "rgdpe": "million_2017_usd_at_chained_ppps",
+        "rgdpo": "million_2017_usd_at_chained_ppps",
+        "pop": "million_persons",
+        "emp": "million_persons_engaged",
+        "avh": "annual_hours_per_person_engaged",
+        "hc": "human_capital_index",
+        "ccon": "million_2017_usd_at_chained_ppps",
+        "cda": "million_2017_usd_at_chained_ppps",
+        "ctfp": "index_usa_2017_equals_1",
+        "rkna": "index_2017_equals_1",
+        "rtfpna": "index_2017_equals_1",
+    }
+
+
+def test_pwt_catalog_does_not_mislabel_domestic_absorption() -> None:
+    """The PWT ``cda`` series is absorption, never depreciation."""
+    import csv
+
+    catalog_path = (
+        Path(__file__).resolve().parents[2]
+        / "src"
+        / "leaders_db"
+        / "ingest"
+        / "sources"
+        / "pwt"
+        / "catalog.csv"
+    )
+    lines = [
+        line
+        for line in catalog_path.read_text(encoding="utf-8").splitlines()
+        if line and not line.lstrip().startswith("#")
+    ]
+    rows = list(csv.DictReader(lines))
+    cda = next(row for row in rows if row["raw_column"] == "cda")
+    rkna = next(row for row in rows if row["raw_column"] == "rkna")
+
+    assert cda["variable_name"] == "pwt_real_domestic_absorption"
+    assert "depreciation" not in cda["description"].lower().replace(
+        "not capital depreciation",
+        "",
+    )
+    assert rkna["variable_name"] == "pwt_capital_stock_index"
+    assert rkna["unit"] == "index_2017=1"
+
+
 # ---------------------------------------------------------------------------
 # Dispatch: runner must not consult legacy STAGE2_ADAPTERS
 # ---------------------------------------------------------------------------
