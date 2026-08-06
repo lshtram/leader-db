@@ -1,0 +1,51 @@
+schema_version: evidence_pipeline_pilot_v1
+release_id: netanyahu-2023-pilot-v2
+status: candidate
+target_year: 2023
+batch_manifest: configs/research-batches/2023-netanyahu-pilot.yaml
+methodology_freeze: configs/evidence-funnel/methodology-2026-08-v2.freeze.yaml
+research_workflow: configs/research-workflow.yaml
+model_profiles: configs/research-models.yaml
+pricing: configs/research-pricing.yaml
+roles:
+  discovery: openai-luna-candidate
+  evidence_research: openai-luna-candidate
+  evidence_review: openai-luna-candidate
+  formatting: openai-luna-candidate
+  corpus_reading: openai-luna-candidate
+  chapter_answers: openai-luna-candidate
+  chapter_judgment: openai-sol-supervisor
+  judgment_review: openai-sol-supervisor
+temporal_local_evidence:
+  schema_version: ruler_local_evidence_package_v4
+  pre_accession_years: 10
+  include_known_tenure_years: true
+  label_interregnum_years: true
+  post_target_context_years: 3
+  exclude_post_target_from_target_period_signals: true
+research_scope:
+  chapters: [1B, 2B, 3B, 4B, 5B, 6B, 7B, 8B]
+  questions_per_chapter: 10
+  preserve_complete_candidate_catalogue: true
+  acquire_every_candidate: true
+  inspect_every_unique_readable_document: true
+review_transport:
+  partition_by_chapter: true
+  deterministic_merge: true
+  resume_completed_chapters: true
+quality_gates:
+  - exact_resolved_identity
+  - all_80_local_prior_records
+  - temporal_roles_and_in_office_status_reconcile
+  - post_target_context_excluded_from_target_signals
+  - overview_and_all_8_chapter_discovery_artifacts
+  - every_catalogue_url_has_acquisition_disposition
+  - every_unique_readable_document_is_queued
+  - exact_excerpts_code_bound_and_freshly_verified
+  - all_8_chapter_answers_independently_reviewed
+  - judge_references_resolve
+  - complete_usage_profile
+promotion_policy: >-
+  This pilot may be reused as a ruler dossier in the next cohort only after all
+  gates pass and a manual chapter-by-chapter quality review records no material
+  temporal, attribution, citation, or omission defect.

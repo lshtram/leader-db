@@ -1,0 +1,66 @@
+schema_version: evidence_pipeline_freeze_v1
+release_id: netanyahu-2023-pilot-v2
+frozen_at: '2026-08-06'
+status: frozen_for_pilot
+source_commit: 1992bebb41f333fc0623e159c42780dd0bf18bdf
+target_year: 2023
+scope:
+  rulers: 1
+  chapters: 8
+  questions_per_chapter: 10
+aggregate_hashes:
+  research_and_cli_python: 3328ae973bbd72e538983bfd6aa02b414ebcf2d56821827dcc7f29022f38454b
+  chapter_guides: b266a52d475779128b2392b1d470571aba9ac59f01e8708d039d5e5dc016f699
+critical_file_hashes:
+  pilot_config:
+    path: configs/evidence-funnel/netanyahu-2023-pilot-v2.yaml
+    sha256: 78e17dd06b0d9064b606ca46bb686a0395b861795726e03b6618804ed7df3192
+  batch_manifest:
+    path: configs/research-batches/2023-netanyahu-pilot.yaml
+    sha256: 2c3e87c60ae89684a89b8bcabe385f4bc774cfeb2875cdadee2e8d6160d974e7
+  methodology_freeze:
+    path: configs/evidence-funnel/methodology-2026-08-v2.freeze.yaml
+    sha256: 45a0cba7ceeb131ee1e7a5200aa1427af5b0267c73172d69728df3f663e0039f
+  research_workflow:
+    path: configs/research-workflow.yaml
+    sha256: fda99de7f1a05387226bbd16eba0af15c45c96de550d506f5fd19185abd20a2c
+  model_profiles:
+    path: configs/research-models.yaml
+    sha256: c02eb6ff3a89a2de1ce10edf9f9130ffc9ad6456e72c5ecc12fbf9bd0e6ec4d9
+  pricing:
+    path: configs/research-pricing.yaml
+    sha256: 2fc2c7c22683403356448154c5a388d9dffb684fdd3fc4ceeea5ca6ae60dcc2a
+  requirements:
+    path: docs/requirements/core.md
+    sha256: 3aace5daeea0443e883699beb1ed6e2f1f72e004aa28863d2a036e9e64bb8904
+  local_first_guide:
+    path: docs/methodology/local-first-researcher-guide.md
+    sha256: efddab07fd8042267f7e30478141ba1584e0a76ad9ed7396b8e7040ab4c4d85f
+  researcher_skill:
+    path: .agents/skills/ruler-evidence-researcher/SKILL.md
+    sha256: 52574fea84d16ffdf757e8c972b9672ae1d49d1552a0fde663a4d14020217364
+  judge_skill:
+    path: .agents/skills/ruler-chapter-judge/SKILL.md
+    sha256: 301dfdced748bac8498546735d9e164bd093e182bd43126a3d5f32f381cc86ae
+recovery_equivalence:
+  reusable_v1_stages:
+    - local_evidence
+    - reconnaissance
+    - source_discovery
+    - chapter_research
+  rerun_from: evidence_review
+  rationale: >-
+    Version 2 changes only reviewer transport and deterministic merging. It does not
+    alter ruler identity, local evidence, discovery, research prompts, accepted ledger
+    records, or chapter handoffs. The failed version-1 aggregate review is retained as
+    a diagnostic and is not an accepted input.
+known_nonblocking_baseline_failures:
+  count: 11
+  groups:
+    - stale corpus-reading test fixture missing required ruler-period fields
+    - stale formatter-accounting test doubles missing current dossier fields
+    - wikidata offline fixture staging emits zero observations
+change_control: >-
+  Verify every recorded hash before launch. Do not modify a bound file during the
+  pilot. A necessary correction creates a new attempt or release and records which
+  completed stages remain reusable.
