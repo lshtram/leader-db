@@ -1,5 +1,20 @@
 # Workplan
 
+## 2026-08-06 — Revised eighty-question methodology synchronized
+
+- Promoted the reviewed Word revision to `ruler-quality-questions-v2` and
+  `layered_lenses_v2` while preserving all eighty methodology IDs and the shared six
+  evidence categories.
+- Corrected 1B.1 so capability growth is adverse **unless** modernization has the sole
+  and undisputed motivation of improved safety. Arsenal size remains evidence under
+  the existing categories rather than becoming a separate category.
+- Synchronized the machine-readable catalogues, eight chapter guides, consolidated
+  methodology, pipeline prompt guide, and customer Word document. Runtime pipeline
+  code remains unchanged.
+- Added a hash-bound methodology freeze and tests that compare every Word question
+  against the runtime catalogues and published Markdown tables. Existing scores retain
+  their original rubric versions and require controlled rejudgment under this release.
+
 ## 2026-08-06 — Sol-only judgments and bounded high-reasoning review
 
 - Replaced the remaining Luna chapter judgment (1B) with a complete nineteen-ruler

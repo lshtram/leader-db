@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
@@ -24,6 +25,43 @@ def test_layered_catalog_covers_all_questions_with_known_categories() -> None:
         len(lens.priority_categories) <= catalog.max_priority_categories
         for lens in catalog.lenses
     )
+
+
+def test_methodology_v2_keeps_six_categories_and_corrects_nuclear_exception() -> None:
+    question_catalog = load("questions.json")
+    presentation = load_question_lens_presentation()
+    first_question = question_catalog["chapters"][0]["questions"][0]
+
+    assert question_catalog["schema_version"] == "ruler-quality-questions-v2"
+    assert presentation.version == "layered_lenses_v2"
+    assert len(presentation.evidence_categories) == 6
+    assert "adverse unless modernization" in first_question["text"]
+    assert "accounts of arsenal size" not in render_evidence_category_key().lower()
+
+
+def test_all_eighty_lenses_match_every_published_methodology_table(
+    project_root: Path,
+) -> None:
+    presentation = load_question_lens_presentation()
+    questions_by_id = {item["id"]: item["text"] for item in questions()}
+    published = (
+        project_root / "docs/methodology/ranking-evaluation-criteria.md",
+        project_root / "docs/methodology/pipeline-agent-questions-and-prompts.md",
+    )
+
+    for lens in presentation.lenses:
+        guide = next(
+            (project_root / "docs/methodology/chapter-guides").glob(
+                f"{lens.id.split('.', maxsplit=1)[0].lower()}-*.md"
+            )
+        ).read_text(encoding="utf-8")
+        expected = (
+            f"**{lens.id} — {lens.title}** | {lens.simple_question} | "
+            f"{questions_by_id[lens.id]}"
+        )
+        assert expected in guide
+        for path in published:
+            assert expected in path.read_text(encoding="utf-8")
 
 
 def test_layered_catalog_rejects_duplicate_ids_from_config() -> None:

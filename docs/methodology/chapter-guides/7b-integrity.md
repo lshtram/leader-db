@@ -1,6 +1,6 @@
 # 7B. Ruler Personal Integrity and Honesty
 
-Status: draft; v5 objective-evidence questions require controlled rejudgment; v1 invalid
+Status: draft; v6 office-advantage questions require controlled rejudgment; v1 invalid
 
 ## Chapter Identity
 
@@ -8,12 +8,13 @@ Status: draft; v5 objective-evidence questions require controlled rejudgment; v1
 - Category: `ruler_personal_integrity_and_honesty`
 - Evidence strategy: one ruler-period dossier, researched across ten overlapping lenses
 - Judge strategy: one chapter judge applies one comparative meter across all eligible rulers
-- Rubric version: `chapter_7b_v5`
+- Rubric version: `chapter_7b_v6`
 
 ## Chapter Purpose
 
-Assess whether the ruler uses public office honestly and for public rather than
-personal, family, business, factional, or patronage advantage. The chapter joins
+Assess whether the ruler acts truthfully, avoids using public office for personal,
+family, financial, political, partisan, or favored-group advantage, respects scrutiny,
+and sets an ethical example. The chapter joins
 truthfulness, correction, conflicts of interest, self-enrichment, appointments,
 independent scrutiny, concealment, commitments, favoritism, and ethical example
 into one final 1-10 integrity score.
@@ -22,20 +23,27 @@ The ten questions are evidence lenses, not ten equally weighted sub-scores.
 Evidence may illuminate several lenses, and missing evidence for one lens lowers
 confidence rather than invalidating the dossier or preventing a chapter score.
 
+Before applying the lenses, identify the most significant documented falsehoods,
+manipulation, or concealment; material personal, family, or business interests connected
+to office; major uses of public power benefiting close associates, the party, supporters,
+or favored groups; use of office to entrench power; and credible independent findings
+and the ruler’s response. Formal legality or claims of necessity do not determine
+legitimacy.
+
 ## Ten Evidence Lenses
 
 | Lens | Simple question | Detailed research question | Priority evidence |
 |---|---|---|---|
-| **7B.1 — Truthfulness** | Did the ruler tell the truth when lying could protect their power or reputation? | Does the ruler tell the truth in verifiable public statements, formal records, legislative testimony, courts, and international commitments, especially when deception would protect power, benefit, or reputation? | **Rhetoric and representations**; **Formal acts and law** |
+| **7B.1 — Truthfulness and misleading communication** | Did the ruler tell the truth when lying could protect their power or reputation? | Examine explicit falsehoods, deliberate material omissions, fabricated or distorted evidence, selective presentation of data, coordinated misinformation, and attempts to manipulate public understanding or sentiment through knowingly false or seriously misleading claims, especially when deception would protect power, benefit, or reputation. | **Rhetoric and representations**; **Formal acts and law** |
 | **7B.2 — Correcting falsehoods and errors** | Did the ruler admit and correct false claims and mistakes? | When reliable records, courts, audits, or investigations expose error or falsehood, does the ruler correct the record, comply, and remedy harm rather than retaliate, conceal, or knowingly repeat the claim? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
 | **7B.3 — Conflicts of interest** | Did the ruler keep personal and family interests separate from public decisions? | Does the ruler support and personally comply with conflict-of-interest, disclosure, recusal, divestment, and ethics rules separating personal, family, and business interests from state decisions? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
 | **7B.4 — Personal profit from office** | Did the ruler or close family improperly profit from public office? | Do asset, tax, gift, ownership, contract, foundation, emolument, bribe, insider-access, and legal records show that the ruler or close family profited from office, and did the ruler permit final findings, recovery, and accountability? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.5 — Nepotism and loyalist appointments** | Did the ruler choose officials for competence rather than personal loyalty or connections? | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect personal power or self-dealing? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.5 — Nepotism and loyalist appointments** | Did the ruler choose officials for competence rather than personal loyalty or connections? | Do the ruler's appointments and removals reflect competence and lawful process, or family, friendship, donations, business ties, and loyalty used to protect or entrench personal or political power? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
 | **7B.6 — Independent investigation** | Could independent institutions investigate the ruler and close associates? | Did the ruler preserve the law, jurisdiction, appointments, funding, and access needed for independent investigation of their conduct, assets, campaigns, associates, and concealed decisions? | **Formal acts and law**; **Personnel**; **Implementation and operational conduct** |
-| **7B.7 — Obstruction and concealment** | Did the ruler obey accountability processes rather than obstruct or conceal wrongdoing? | Did the ruler comply with subpoenas, judgments, audits, and disclosure duties, or use vetoes, decrees, pardons, dismissals, secrecy, or retaliation to conceal conduct and obstruct accountability? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **7B.7 — Transparency, concealment, and obstruction** | Did the ruler make material public decisions and information reasonably transparent rather than conceal, distort, or obstruct scrutiny? | Did the ruler disclose material information about public decisions, government performance, public resources, conflicts of interest, and significant risks, and comply with subpoenas, judgments, audits, disclosure duties, and legitimate investigations? Genuine security, diplomatic, investigative, or personal confidentiality may justify proportionate secrecy, but the ruler’s assertion of emergency, public order, national security, or national interest is not sufficient. | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
 | **7B.8 — Promises and good faith** | Did the ruler keep commitments and explain changes honestly? | Do the ruler's documented legislative positions, formal commitments, and implemented decisions show consistent good-faith promises, or opportunistic reversal and concealed tradeoffs for personal advantage? | **Rhetoric and representations**; **Formal acts and law**; **Implementation and operational conduct** |
-| **7B.9 — Favoritism and clientelism** | Did the ruler avoid using public power to reward favored people and networks? | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in procurement, licensing, pardons, enforcement, and privileged access? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **7B.10 — Ethical example and public trust** | Did the ruler's conduct strengthen ethical standards and public trust? | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, self-dealing, conflicts, and cynicism? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.9 — Favoritism and clientelism** | Did the ruler avoid using public power to reward favored people and networks or to entrench personal or political power? | Did the ruler personally direct, benefit from, knowingly tolerate, or correct favoritism and clientelism in appointments, procurement, licensing, pardons, enforcement, public resources, and privileged access that advantaged family, friends, business associates, the ruling party, supporters, or favored socioeconomic, ethnic, or religious groups? A policy is not adverse merely because it benefits a group; look for improper preference, discrimination, reciprocal political support, personal benefit, or entrenchment. | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **7B.10 — Ethical example and public trust** | Did the ruler's conduct strengthen ethical standards and public trust? | Did the ruler's personal conduct and support for durable integrity institutions strengthen public trust, or normalize lying, impunity, personal or family profit from office, conflicts of interest, favoritism, patronage, use of public resources for personal or political advantage, and cynicism? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
 
 Priority evidence categories indicate promising evidence, not required coverage or an
 exclusive source list. Missing categories do not invalidate a lens.
@@ -222,7 +230,7 @@ The judge returns one object per ruler using these exact semantic field names so
 all eight chapter outputs can be normalized by the same inexpensive formatter:
 
 - `chapter_id`: `7B`
-- `rubric_version`: `chapter_7b_v5`
+- `rubric_version`: `chapter_7b_v6`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`
@@ -246,7 +254,7 @@ wording.
 Use the common bias checks in `cited-evaluation-calibration.md`, interpreted at
 chapter level, plus:
 
-- `rubric_version`: `chapter_7b_v5`
+- `rubric_version`: `chapter_7b_v6`
 - `integrity_pattern`: `systemic_abuse`, `recurring_serious_abuse`, `mixed`,
   `generally_high_integrity`, `exceptional_integrity`, or `unclear`
 - `deception_pattern`: `strategic_systematic`, `recurring_material`, `mixed`,

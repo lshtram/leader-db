@@ -4,7 +4,7 @@ The ruler-quality methodology defines eight chapter guides, one for each of
 `1B` through `8B`. Each guide treats its ten questions as overlapping evidence
 lenses and produces one final chapter score per ruler-period.
 
-Active lens presentation: `layered_lenses_v1`. The detailed-only predecessor is
+Active lens presentation: `layered_lenses_v2`. The detailed-only predecessor is
 frozen at commit `143a0757d7a4d5ca2e819f243eb02af09d3e229b` with its file hashes
 in
 [`docs/archive/methodology/question-prompts-detailed-v1/readme.md`](../../archive/methodology/question-prompts-detailed-v1/readme.md).
@@ -104,7 +104,11 @@ midpoint fabrication under absent evidence, cross-chapter contamination, inherit
 baseline overcredit, and non-discriminating manual-review flags. All eight guides
 were later tightened through chapter-specific versions. The 2026 objective-evidence
 revision keeps ten lenses per chapter while making formal acts, resources, personnel,
-implementation, communications and outcomes more explicit. Earlier scores remain
+implementation, communications and outcomes more explicit. The 2026-08 revision
+further emphasizes inherited-to-end change, inventories conduct before accepting
+official justification, broadens domestic safety to serious private and organized
+violence, and restricts effectiveness to principal officially declared governing
+goals. Earlier scores remain
 audit artifacts under their original rubric versions. Activation of the revised
 guides requires a controlled rejudgment and acceptance audit.
 The superseded per-question guides are retained only as design history under

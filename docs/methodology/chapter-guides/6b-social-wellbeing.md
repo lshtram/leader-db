@@ -1,6 +1,6 @@
 # 6B Social Well-Being and Human Development
 
-Status: draft; v4 objective-evidence questions require controlled rejudgment
+Status: draft; v5 baseline-and-trend questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,10 +8,15 @@ Status: draft; v4 objective-evidence questions require controlled rejudgment
 - Category: ruler intention and action for social well-being and human development
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_6b_v4`
+- Rubric version: `chapter_6b_v5`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The questions are ten mutually reinforcing lenses on whether the ruler used feasible authority to improve people's capabilities, security and dignity. They are not ten separately scored requirements.
+
+Before applying the lenses, establish the inherited level and prior trend in essential
+services and life chances; the ruler’s principal social policies and executed resources;
+material changes across affected groups and regions; major crises and external support;
+and the ruler’s attributable contribution.
 
 ## Ten Evidence Lenses
 
@@ -76,7 +81,7 @@ Question redundancy is a feature: several lenses may corroborate the same welfar
 The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
 
 - `chapter_id`: `6B`
-- `rubric_version`: `chapter_6b_v4`
+- `rubric_version`: `chapter_6b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`

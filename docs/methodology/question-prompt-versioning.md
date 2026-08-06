@@ -9,11 +9,12 @@ promoted solely because it looks clearer.
 | Version | State | Immutable reference | Description |
 |---|---|---|---|
 | `detailed_questions_v1` | Frozen comparison baseline | Commit `143a0757d7a4d5ca2e819f243eb02af09d3e229b`; hashes in `docs/archive/methodology/question-prompts-detailed-v1/readme.md` | Ten detailed questions per chapter without a short title, simple question, or priority-category layer |
-| `layered_lenses_v1` | Active candidate | The commit containing this document and `question_lens_presentation.json` | Short title, simple question, unchanged detailed question, and non-exclusive priority evidence categories |
+| `layered_lenses_v1` | Frozen predecessor | Tag `question-prompts-layered-v1`; commit `8d40df0` | Short title, simple question, unchanged detailed question, and non-exclusive priority evidence categories |
+| `layered_lenses_v2` | Active methodology | The commit containing this document, `questions.json`, and `question_lens_presentation.json` | Stable 80 lens IDs with revised trajectory, conduct, attribution, domestic-safety, integrity, and declared-goal wording; the same six non-exclusive evidence categories |
 | `chapter_research_prompt_v1` | Frozen prompt baseline | Tag `question-prompts-layered-v1`; commit `8d40df0` | Prose-led deep chapter research instructions |
 | `chapter_research_prompt_v2` | Active prompt candidate | `chapter_research_prompt.json` | Seven-step research workplan with the same local/web and machine-record contracts |
 
-The v2 static template is 4,518 characters and 568 words, compared with 6,711
+The prompt-v2 static template is 4,518 characters and 568 words, compared with 6,711
 characters and 859 words in v1. The shorter structure is a design improvement, not yet
 proof of better evidence. It requires controlled comparison on preserved cases before
 promotion beyond the candidate path.

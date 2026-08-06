@@ -1,13 +1,13 @@
 # Chapter 2B — International Peace, Restraint, And Lawful Security
 
-Status: **draft; v4 objective-evidence questions require controlled rejudgment**
+Status: **draft; v5 conduct-first questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `2B`
 - Rating: international peace versus aggression and war
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_2b_v4`
+- Rubric version: `chapter_2b_v5`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -20,15 +20,21 @@ or blame a ruler automatically for an inherited war. Domestic repression belongs
 primarily in Chapter 3B; economic opportunity cost is contextual here. The client
 matrix is never evidence.
 
+Before applying the lenses, establish the ruler’s authority and security context;
+inherited wars, deployments, and support; a complete inventory of material overseas
+force; scale and consequences; and ruler attribution based on independent evidence.
+Record conduct before judging justification. Ruler explanations are claims and receive
+no presumption of credibility.
+
 ## Ten Evidence Lenses
 
 | Lens | Simple question | Detailed research question | Priority evidence |
 |---|---|---|---|
 | **2B.1 — Peaceful alternatives** | Did the ruler seriously try peaceful options before using force? | When credible peaceful alternatives existed, did the ruler use formal decisions, diplomatic authority, and available legislative or cabinet processes to pursue them before authorizing or supporting force? | **Formal acts and law**; **Implementation and operational conduct** |
-| **2B.2 — Starting or prolonging war** | Did the ruler start or unnecessarily prolong aggression or war? | Did the ruler initiate, authorize, fund, expand, prolong, or legally entrench wars of choice, annexation, cross-border coercion, covert destabilization, or proxy conflict beyond defensive necessity? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.3 — Honest justification for force** | Did the ruler explain honestly why force was needed? | Did the ruler present decision-makers and the public with accurate, reviewable evidence of defensive need, alternatives, and objectives rather than manufacture threats or exploit prestige, revenge, nationalism, historical grievance, diversionary politics, or regime-survival claims? | **Rhetoric and representations**; **Formal acts and law** |
+| **2B.2 — Actual overseas force, war, and escalation** | Did the ruler initiate, order, authorize, support, knowingly allow, expand, or prolong material military or violent action abroad, and what were its scale and consequences? | First record every material action without excluding conduct described as defensive, lawful, necessary, retaliatory, or humanitarian. Include force outside the state’s broadly internationally recognized territory, destructive cyber operations causing physical harm or material escalation, and material enabling support. Identify the ruler’s role, direct and supported actors, scale, casualties, displacement, destruction, territorial effects, escalation, and whether the ruler inherited, expanded, reduced, or ended the action. ‘Knowingly allowed’ requires knowledge, practical authority or leverage, and failure to take reasonable corrective action. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.3 — Honest justification for force** | Was the ruler’s stated justification for force supported by independent evidence? | Treat the ruler’s explanation only as a claim or evidence of intent. Assess contemporaneous evidence, actual conduct, independent findings, peaceful alternatives, legality, necessity, proportionality, and consequences from outside in, with no presumption that claims of defense, necessity, retaliation, humanitarian purpose, or national interest are true. | **Rhetoric and representations**; **Formal acts and law** |
 | **2B.4 — Civilian and prisoner protection** | Did the ruler protect civilians and prisoners during conflict? | Did the ruler adopt, resource, and enforce lawful rules of engagement, civilian protection, and prisoner safeguards, investigate violations, and provide discipline or remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **2B.5 — Control of proxies and arms** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce arms-transfer, proxy, and allied-force controls, monitor foreseeable abuse, and suspend support or correct policy when harm emerged? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **2B.5 — Control of proxies, arms, and enabling support** | Did the ruler prevent supported forces and arms recipients from causing abuse? | Did the ruler establish and enforce controls over arms, intelligence, targeting, financing, logistics, bases, proxies, and allied forces; monitor foreseeable abuse; and suspend support or correct policy when harm emerged? Enabling support ordinarily receives less weight than direct action, but more where it was indispensable, large, knowing, controlled, or readily stoppable. | **Resources**; **Implementation and operational conduct**; **Outcomes** |
 | **2B.6 — Scrutiny of war claims** | Did the ruler allow independent checks of claims made about conflict? | Did the ruler permit legislative, judicial, media, and independent scrutiny of conflict claims and correct false or misleading official accounts? | **Formal acts and law**; **Implementation and operational conduct**; **Rhetoric and representations** |
 | **2B.7 — Ceasefires and settlements** | Did the ruler seriously pursue and uphold peace agreements? | Did the ruler negotiate, approve, implement, and comply with credible ceasefires, peace agreements, confidence-building measures, and lawful settlements, and help make them durable? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
 | **2B.8 — Responsible military resources** | Were military resources used for real security rather than power, profit, or intimidation? | Did military budgets, mobilization, and procurement address genuine security needs transparently and proportionately rather than enrich networks, entrench security elites, or intimidate neighbors? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
@@ -181,7 +187,7 @@ without credible alternatives and conduct evidence.
 
 ## Chapter-Specific Calibration Fields
 
-- `chapter_rubric_version`: `chapter_2b_v4`
+- `chapter_rubric_version`: `chapter_2b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `conflict_exposure_and_inherited_baseline`
 - `ruler_command_authority_and_attribution`

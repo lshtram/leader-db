@@ -727,8 +727,9 @@ researcher samples consequential and contrary evidence rather than attempting an
 exhaustive census of every observable act in the period.
 
 The researcher-facing lens catalogue is a separate, versioned presentation layer over
-the stable detailed questions. Each lens is rendered in this order: short title,
-plain-language question, unchanged detailed research question, and a compact list of
+the versioned detailed questions. Each lens is rendered in this order: short title,
+plain-language question, detailed research question from the same catalogue version,
+and a compact list of
 priority evidence categories. The priorities are advisory and non-exclusive. The
 validated `question_lens_presentation.json` catalogue must cover the same eighty IDs as
 the detailed question registry, and its version is embedded in every chapter-research
@@ -748,7 +749,7 @@ malformed-input rejection, selection, isolation, serialization, and version/hash
 propagation rather than pinning mutable prose. Legacy Python prompt literals are being
 migrated in the staged order recorded in the workplan and configuration audit.
 `questions.json` owns the chapter registry metadata and required chapter/lens grid as
-well as the text; runtime validation enforces the exact stable question-ID set and
+well as the versioned text; runtime validation enforces the exact stable question-ID set and
 unique derived registry keys before the research registry is built.
 
 The feature-gated segmented research mode works through

@@ -1,13 +1,13 @@
 # Chapter 3B — Domestic Safety, Restraint, And Protection
 
-Status: **draft; v5 objective-evidence questions require controlled rejudgment**
+Status: **draft; v6 violence-and-intimidation questions require controlled rejudgment**
 
 ## Chapter Identity
 
 - Chapter: `3B`
 - Rating: domestic safety versus violence, oppression, and incitement
 - Evidence strategy: local-first structured evidence plus cited manual research
-- Rubric version: `chapter_3b_v5`
+- Rubric version: `chapter_3b_v6`
 - Output: one chapter score (`1`–`10`) and one confidence assessment per ruler-period
 
 ## Purpose And Non-Goals
@@ -20,20 +20,27 @@ freedom wholesale, international battlefield conduct, or government popularity. 
 safety gains do not excuse torture or collective punishment, while isolated misconduct
 with credible remedy is not equivalent to state policy. The client matrix is not evidence.
 
+Before applying the lenses, establish the trend in state violence and political
+imprisonment; intimidation and retaliation; intergroup violence; serious private and
+organized violence; and the ruler’s authority, decisions, and response, using
+independent evidence where available. Record a material rise in crime with governmental
+inaction while distinguishing incapacity, ineffective action, neglect, tolerance, and
+collusion.
+
 ## Ten Evidence Lenses
 
 | Lens | Simple question | Detailed research question | Priority evidence |
 |---|---|---|---|
-| **3B.1 — Protection from state abuse** | Did the ruler protect people from torture, disappearance, political imprisonment, and unlawful killing? | Did the ruler establish and enforce laws, orders, and detention practices that protected residents from torture, disappearance, political imprisonment, extrajudicial killing, and arbitrary punishment, and remedy verified abuse? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.2 — Control of coercive forces** | Did the ruler prevent and punish abuse by security forces and aligned groups? | Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, and aligned actors to prevent abuse rather than tolerate or reward it? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.3 — Incitement and targeted hatred** | Did the ruler avoid encouraging hatred or violence against people or groups? | Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.1 — Actual state violence and political imprisonment** | Did state violence, torture, disappearance, political imprisonment, killing, or other severe punishment increase or decrease during the ruler’s tenure? | Record the conduct regardless of whether domestic law authorized it. Examine frequency, severity, targeted populations, major episodes, change from the inherited position, the ruler’s responsibility, and whether verified abuse was prevented, corrected, and remedied. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.2 — Control of coercive forces** | Did the ruler prevent and punish abuse by security forces and aligned groups? | Did the ruler appoint, resource, direct, and discipline police, military, intelligence, prison, militia, party, and aligned private actors—including during domestic crises—to prevent abuse rather than tolerate or reward it? | **Personnel**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.3 — Incitement, persecution, and targeted hatred** | Did the ruler’s rhetoric, policies, or tolerance contribute to persecution or violence against opponents or identifiable groups? | Did the ruler avoid personally or officially inciting hatred, revenge, dehumanization, scapegoating, or violence against opponents, minorities, migrants, journalists, civil society, or other groups, and act when supporters or officials translated such messages into harm? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
 | **3B.4 — Complaints and independent oversight** | Could abuse be reported, investigated, corrected, and remedied independently? | Did the ruler create, fund, and respect independent courts, complaint systems, civilian oversight, and investigations, comply with findings, and provide victim remedy? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.5 — Emergency and surveillance powers** | Did the ruler use exceptional security powers narrowly and lawfully? | Did the ruler enact, renew, administer, review, and repeal emergency, surveillance, anti-terror, and security powers narrowly and lawfully rather than use them for intimidation, collective punishment, or control? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.6 — Safety without state terror** | Did the ruler reduce violence without creating a broader climate of fear? | Did the ruler reduce exposure-adjusted criminal, communal, and insurgent violence through lawful, proportionate policy without replacing it with state terror or a broader fear climate? | **Implementation and operational conduct**; **Outcomes** |
-| **3B.7 — Protection of vulnerable groups** | Did the ruler protect vulnerable groups from violence, displacement, and neglect? | Did the ruler enact, fund, and enforce effective protection for women, children, minorities, and vulnerable groups against targeted and intergroup violence, displacement, and systematic neglect, with equitable access across regions and populations? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.8 — Safe protest and dissent** | Could people protest, dissent, and organize without unlawful retaliation? | Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, and organization, with accountability and remedy for retaliation or excessive force? | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
-| **3B.9 — Restrained crisis response** | During domestic crises, did the ruler protect people without collective punishment or spectacle? | During domestic crises, did the ruler issue and implement protective, restrained measures, allocate resources according to exposure, and correct failures rather than use incitement, collective punishment, censorship, or militarized spectacle? | **Resources**; **Implementation and operational conduct**; **Rhetoric and representations** |
-| **3B.10 — Lasting domestic safety** | Did the ruler leave people safer from state and non-state violence? | Did the ruler leave people durably safer from state and non-state violence than inherited, accounting for reporting freedom, population exposure, authority, and external shocks? | **Outcomes**; **Implementation and operational conduct** |
+| **3B.5 — Emergency powers, surveillance, and coercive administration** | Did the ruler use emergency, surveillance, security, administrative, or legal powers to protect people or to intimidate, punish, collectively control, or silence them? | Examine enactment, renewal, administration, review, repeal, actual effects, and whether powers were used for protection or for intimidation, collective punishment, retaliation, or control. Domestic legality does not turn oppressive conduct into acceptable conduct. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.6 — Intimidation and climate of fear** | Did people face a credible climate of fear or intimidation even when visible violence was infrequent? | Examine threats, systematic surveillance, exemplary punishment, arbitrary detention, employment or licensing retaliation, withdrawal of benefits, selective taxation, pressure on families, and official or unofficial harassment. Severe exemplary punishment may sustain control with little recurring visible violence. | **Implementation and operational conduct**; **Outcomes** |
+| **3B.7 — Intergroup violence and protection of targeted groups** | Did serious violence between domestic groups increase or decrease, and did the ruler prevent, encourage, tolerate, or punish it? | Include ethnic, religious, political, regional, caste, and socioeconomic violence, as well as violence against vulnerable groups; examine prevention, protection, displacement, enforcement, punishment, and equitable access across regions and populations. | **Resources**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.8 — Safe protest and dissent** | Could people protest, dissent, organize, and oppose the ruler without violence, detention, disappearance, intimidation, or other serious retaliation? | Did laws, permit systems, policing orders, and actual enforcement protect peaceful protest, dissent, organization, and opposition, with accountability and remedy for retaliation or excessive force? Domestic legality does not determine whether retaliation was coercive or abusive. | **Formal acts and law**; **Implementation and operational conduct**; **Outcomes** |
+| **3B.9 — Serious private and organized violence** | Did the ruler make ordinary life safer from serious private, criminal, and organized violence? | Record material trends in homicide, kidnapping, severe sexual violence, extortion, organized crime, and gang or cartel control, together with territorial control and effective protection. A material increase with governmental inaction must be noted, while distinguishing lack of capacity, ineffective action, neglect, deliberate tolerance, and collusion. | **Resources**; **Implementation and operational conduct**; **Rhetoric and representations** |
+| **3B.10 — Lasting domestic safety** | Did the ruler leave people durably safer from state violence, intimidation, intergroup violence, and serious private or organized violence than before? | Synthesize the inherited position and trends in state violence, intimidation, intergroup violence, and serious private or organized violence, accounting for reporting freedom, population exposure, authority, government action or inaction, and external shocks. | **Outcomes**; **Implementation and operational conduct** |
 
 Priority evidence categories indicate promising evidence, not required coverage or an
 exclusive source list. Missing categories do not invalidate a lens.
@@ -228,7 +235,7 @@ oversight bodies as effective without evidence of independence and remedy.
 
 ## Chapter-Specific Calibration Fields
 
-- `chapter_rubric_version`: `chapter_3b_v5`
+- `chapter_rubric_version`: `chapter_3b_v6`
 - `calibration_batch_id` and `calibrated_against`
 - `severity_band`: none/isolated/recurring/widespread/systematic/mass
 - `state_responsibility`: direct/state-aligned/tolerated/failed-to-prevent/non-state/unclear

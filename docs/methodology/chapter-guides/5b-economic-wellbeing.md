@@ -1,6 +1,6 @@
 # 5B Economic Well-Being and Prosperity
 
-Status: draft; v4 objective-evidence questions require controlled rejudgment
+Status: draft; v5 comparative-trajectory questions require controlled rejudgment
 
 ## Chapter Identity
 
@@ -8,10 +8,15 @@ Status: draft; v4 objective-evidence questions require controlled rejudgment
 - Category: ruler intention and action for economic well-being and prosperity
 - Evidence unit: one ruler and target year or defined ruler-period
 - Final output: one chapter score, not ten question scores
-- Rubric version: `chapter_5b_v4`
+- Rubric version: `chapter_5b_v5`
 - Judge topology: one chapter judge applies this guide across all eligible rulers in the same year/period batch.
 
 The ten questions are overlapping lenses on one judgment: whether the ruler used available authority competently and fairly to improve durable economic opportunity.
+
+Before applying the lenses, establish the inherited economy and prior trend;
+beginning-and-end changes in GDP, GDP per capita, income, employment, inflation, debt,
+and distribution where comparable; the principal economic decisions; major external
+shocks; and the ruler’s attributable contribution.
 
 ## Ten Evidence Lenses
 
@@ -26,7 +31,7 @@ The ten questions are overlapping lenses on one judgment: whether the ruler used
 | **5B.7 — Evidence and correction** | Did the ruler use honest evidence and correct economic policies that failed? | Did the ruler publish reliable economic information, permit independent evaluation and audit, and correct laws, programs, or implementers when evidence showed failure rather than rely on slogans, denial, patronage, or scapegoating? | **Rhetoric and representations**; **Implementation and operational conduct**; **Outcomes** |
 | **5B.8 — Fair distribution** | Were economic gains and burdens shared fairly across people and regions? | Did tax, labor, wage, benefit, investment, and regional policies distribute gains and burdens fairly in actual incidence across classes, regions, genders, and groups? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
 | **5B.9 — Managing economic shocks** | Did the ruler respond competently and fairly to major economic shocks? | During inflation, unemployment, debt, sanctions, commodity, or other shocks, did the ruler use timely, funded, and transparently targeted measures, monitor their effects, and correct mistakes? | **Resources**; **Implementation and operational conduct**; **Outcomes** |
-| **5B.10 — Lasting economic trajectory** | Did the ruler leave the economy on a stronger and fairer path? | Did the ruler leave a stronger and more durable economic trajectory than inherited, accounting for implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone? | **Outcomes**; **Implementation and operational conduct** |
+| **5B.10 — Lasting economic trajectory** | Did the ruler leave the economy on a stronger and fairer path? | Compare beginning-and-end and time-series changes in GDP, GDP per capita, income, employment, inflation, debt, productivity, and distribution such as the Gini coefficient where comparable. Attribute changes cautiously, accounting for inherited trends, implementation lags, external conditions, institutional constraints, and distribution rather than GDP alone. | **Outcomes**; **Implementation and operational conduct** |
 
 Priority evidence categories indicate promising evidence, not required coverage or an
 exclusive source list. Missing categories do not invalidate a lens.
@@ -76,7 +81,7 @@ Ten lenses provide redundancy: missing appointment evidence may be offset by str
 The result should use the shared semantic envelope. Exact field spelling may be normalized after handoff.
 
 - `chapter_id`: `5B`
-- `rubric_version`: `chapter_5b_v4`
+- `rubric_version`: `chapter_5b_v5`
 - `calibration_batch_id` and `calibrated_against`
 - `score_1_to_10`, or null with `insufficient_evidence_reason`
 - `confidence_score` and `plausible_score_range`
